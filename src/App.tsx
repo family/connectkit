@@ -21,8 +21,8 @@ const client = createClient({
     new InjectedConnector(),
     new WalletConnectConnector({
       options: {
-        // infuraId,
-        qrcode: true,
+        infuraId,
+        qrcode: false,
       },
     }),
     // new CoinbaseWalletConnector({
@@ -32,7 +32,6 @@ const client = createClient({
     // }),
   ],
   provider: (config) => {
-    console.log(config);
     return new providers.InfuraProvider(config.chainId, infuraId);
   },
 });
