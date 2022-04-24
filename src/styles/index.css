@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'LFE';
+  font-weight: 500;
+  src: url('../fonts/LFESans-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'LFE';
+  font-weight: 600;
+  src: url('../fonts/LFESans-Semibold.woff2') format('woff2');
+}
+
+* {
+  font-family: 'LFE';
+  font-weight: 500;
+  box-sizing: border-box;
+}
