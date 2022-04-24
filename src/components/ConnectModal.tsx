@@ -31,50 +31,6 @@ const CloseIcon = (props: Props) => (
   </motion.svg>
 );
 
-const Spinner = (props: Props) => (
-  <motion.svg
-    width={15}
-    height={15}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <mask
-      id="b"
-      maskUnits="userSpaceOnUse"
-      x={0}
-      y={0}
-      width={15}
-      height={15}
-      fill="#000"
-    >
-      <path fill="#fff" d="M0 0h15v15H0z" />
-      <path d="M12.09 10.484a5.486 5.486 0 0 1-2.967 2.264 5.468 5.468 0 0 1-3.725-.161 5.49 5.49 0 0 1-2.76-2.513 5.515 5.515 0 0 1 1.438-6.883 5.473 5.473 0 0 1 7.01.162 5.505 5.505 0 0 1-.001 0 5.473 5.473 0 0 0-7.009-.161 5.514 5.514 0 0 0-1.438 6.882 5.489 5.489 0 0 0 2.76 2.512 5.467 5.467 0 0 0 3.724.162 5.485 5.485 0 0 0 2.967-2.264Z" />
-    </mask>
-    <path
-      d="M12.09 10.484a5.486 5.486 0 0 1-2.967 2.264 5.468 5.468 0 0 1-3.725-.161 5.49 5.49 0 0 1-2.76-2.513 5.515 5.515 0 0 1 1.438-6.883 5.473 5.473 0 0 1 7.01.162 5.505 5.505 0 0 1-.001 0 5.473 5.473 0 0 0-7.009-.161 5.514 5.514 0 0 0-1.438 6.882 5.489 5.489 0 0 0 2.76 2.512 5.467 5.467 0 0 0 3.724.162 5.485 5.485 0 0 0 2.967-2.264Z"
-      stroke="url(#a)"
-      strokeWidth={3}
-      strokeLinejoin="round"
-      mask="url(#b)"
-    />
-    <defs>
-      <radialGradient
-        id="a"
-        cx={0}
-        cy={0}
-        r={1}
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="matrix(5.77829 1.60996 -1.61415 5.79332 7.483 7.5)"
-      >
-        <stop stopColor="#4786FF" stopOpacity={0} />
-        <stop offset={0.292} stopColor="#4786FF" stopOpacity={0} />
-        <stop offset={1} stopColor="#4786FF" />
-      </radialGradient>
-    </defs>
-  </motion.svg>
-);
-
 const Container = styled(motion.div)`
   padding: 16px;
   position: absolute;
