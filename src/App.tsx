@@ -22,7 +22,7 @@ const client = createClient({
     new WalletConnectConnector({
       options: {
         // infuraId,
-        qrcode: false,
+        qrcode: true,
       },
     }),
     // new CoinbaseWalletConnector({
