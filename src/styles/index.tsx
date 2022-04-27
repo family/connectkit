@@ -46,3 +46,34 @@ export const cssVars = css`
     */
   }
 `;
+
+/*
+ *  Reset stylings to avoid conflicting with the parent websites styling
+ */
+// TODO: Think more about how to reset our components as to not be affected by external stylings
+export const ResetContainer = styled.div`
+  ${cssVars}
+  display: inline-block;
+  text-align: left;
+  text-direction: ltr;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-text-stroke: 0.001px transparent;
+  text-size-adjust: none;
+  font-size: 16px;
+  img,
+  svg {
+    display: inline-block;
+    max-width: 100%;
+  }
+  &,
+  * {
+    font-family: 'LFE';
+    font-weight: 500;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+  }
+`;
