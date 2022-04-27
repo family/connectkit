@@ -5,7 +5,7 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Buffer } from 'buffer';
 
-import { FamilyProvider, FamilyConnectModal } from '.';
+import { FamilyProvider, FamilyConnectModal } from './FamilyKit';
 
 if (!window.Buffer) {
   window.Buffer = Buffer;
