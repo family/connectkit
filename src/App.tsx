@@ -4,11 +4,8 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Buffer } from 'buffer';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
 
-import ConnectModal from './components/ConnectModal';
-import { FamilyProvider } from './components/FamilyKit';
+import { FamilyProvider, FamilyConnectModal } from '.';
 
 if (!window.Buffer) {
   window.Buffer = Buffer;
@@ -36,21 +33,24 @@ const client = createClient({
   },
 });
 
-const TemporaryContainer = styled(motion.div)`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const App = () => {
   return (
     <FamilyProvider>
       <Provider client={client}>
-        <TemporaryContainer>
-          <ConnectModal />
-        </TemporaryContainer>
+        <div
+          style={{
+            width: '100%',
+            height: '90vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <FamilyConnectModal />
+          <h1>Family Connect</h1>
+          <p>This page is intentionally left unstyled</p>
+        </div>
       </Provider>
     </FamilyProvider>
   );
