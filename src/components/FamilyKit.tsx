@@ -1,13 +1,18 @@
 import React, { createContext, createElement, useState } from 'react';
 
+export const routes = {
+  CONNECT: 'connect',
+  KNOWLEDGEBASE: 'knowledgeBase',
+  TESTPAGE: 'testPage',
+};
+
 type State = {
   open?: boolean;
+  route?: string;
 };
 
 type ContextValue = {
-  state: {
-    open?: boolean;
-  };
+  state: State;
   setState: React.Dispatch<React.SetStateAction<State>>;
 };
 
@@ -20,10 +25,12 @@ type Props = {
 export const FamilyProvider: React.FC<Props> = ({ children }) => {
   const [state, setState] = useState<State>({
     open: false,
+    route: routes.CONNECT, //default route
   });
   const value = {
     state: {
       open: state.open,
+      route: state.route,
     },
     setState,
   };
