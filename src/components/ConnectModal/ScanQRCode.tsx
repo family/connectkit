@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useContext, routes } from './../FamilyKit';
+import { useContext, routes } from '../FamilyKit';
 import QRCode from 'react-qr-code';
 
 import styled from 'styled-components';
@@ -72,7 +72,7 @@ const Spinner = styled(motion.div)`
   }
 `;
 
-const WalletConnect: React.FC = () => {
+const ScanQRCode: React.FC = () => {
   const context = useContext();
 
   const { connectors } = useConnect();
@@ -86,7 +86,6 @@ const WalletConnect: React.FC = () => {
 
   const startWalletConnect = async () => {
     const p = await connectors[0].getProvider();
-    console.log(p);
     p.connect();
     p.connector.on('display_uri', handleQRCode);
   };
@@ -106,7 +105,12 @@ const WalletConnect: React.FC = () => {
         <span>or</span>
       </TextWithHr>
       <Button
-        onClick={() => context.setState({ open: true, route: routes.METAMASK })}
+        onClick={() =>
+          context.setState({
+            open: true,
+            route: routes.WALLETCONNECT_CONNECTING,
+          })
+        }
       >
         Open WalletConnect
       </Button>
@@ -114,4 +118,4 @@ const WalletConnect: React.FC = () => {
   );
 };
 
-export default WalletConnect;
+export default ScanQRCode;

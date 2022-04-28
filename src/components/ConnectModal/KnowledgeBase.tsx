@@ -6,8 +6,9 @@ import { motion } from 'framer-motion';
 import { ModalHeading } from '../Modal/styles';
 
 const Container = styled(motion.div)`
-  min-width: 100%;
+  width: 100%;
   width: 574px;
+  max-width: 574px;
 `;
 
 const Tiles = styled(motion.div)`

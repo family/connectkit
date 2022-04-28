@@ -13,9 +13,10 @@ import Modal from '../Modal';
 import ConnectButton from './../ConnectButton';
 
 import KnowledgeBase from './KnowledgeBase';
-import MetaMask from './MetaMask';
+import ConnectUsing from './ConnectUsing';
 import Connectors from './Connectors';
-import WalletConnect from './WalletConnect';
+import ScanQRCode from './ScanQRCode';
+import logos from '../../assets/logos';
 
 {
   /**
@@ -26,8 +27,25 @@ import WalletConnect from './WalletConnect';
 const pages: any = {
   connect: <Connectors />,
   knowledgeBase: <KnowledgeBase />,
-  metaMask: <MetaMask />,
-  walletConnect: <WalletConnect />,
+  metaMask: (
+    <ConnectUsing
+      wallet={{
+        name: 'MetaMask',
+        logo: logos.MetaMask,
+        url: 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      }}
+    />
+  ),
+  walletConnect: <ScanQRCode />,
+  walletConnectConnecting: (
+    <ConnectUsing
+      wallet={{
+        name: 'WalletConnect',
+        logo: logos.WalletConnect,
+        url: '',
+      }}
+    />
+  ),
 };
 
 const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
@@ -72,29 +90,6 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
     if (isConnected) hide();
   }, [isConnected]);
 
-  /**
-   * Modal transform handling
-   */
-  const heightRef = useRef<any>(null);
-  const listRef = useRef<any>(null);
-
-  const useIsomorphicLayoutEffect =
-    typeof window !== 'undefined' ? useLayoutEffect : useEffect;
-
-  const refreshLayout = () => {
-    if (!listRef.current || !heightRef.current) return;
-
-    const height = listRef.current.offsetHeight;
-    const width = listRef.current.offsetWidth;
-    heightRef.current.style.height = `${height - 1}px`;
-    heightRef.current.style.width = `${width}px`;
-  };
-
-  useIsomorphicLayoutEffect(refreshLayout, [
-    context.state.route,
-    context.state.open,
-  ]);
-
   return (
     <>
       <ConnectButton onClick={show} theme={theme} />
@@ -102,7 +97,7 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
       <Modal
         theme={theme}
         open={context.state.open}
-        children={context.state.route && pages[context.state.route]}
+        pages={pages}
         pageId={context.state.route}
         onClose={hide}
         onBack={

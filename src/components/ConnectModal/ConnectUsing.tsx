@@ -8,6 +8,37 @@ import Logos from '../../assets/logos';
 import Button from '../Button';
 import { useContext } from '../FamilyKit';
 
+const ButtonAnchor = styled(motion.a)`
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+  min-width: fit-content;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  height: 48px;
+  margin: 24px 0 0;
+  padding: 0 32px;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 500;
+  color: var(--body-color);
+  background: var(--body-background-secondary);
+  white-space: nowrap;
+  will-change: transform;
+  transition: transform 100ms ease;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+  &:active {
+    transform: scale(0.99);
+  }
+`;
+
 const contentVariants: Variants = {
   hidden: {
     position: 'absolute',
@@ -215,9 +246,6 @@ const RetryButton = styled(motion.button)`
   &:hover {
     --background: var(--body-background-secondary-hover);
   }
-  &:active {
-    transform: scale(0.9);
-  }
 `;
 
 const AlertIcon = ({ ...props }) => {
@@ -266,24 +294,36 @@ const RetryIcon = ({ ...props }) => {
   );
 };
 
-const MetaMask: React.FC = () => {
+const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
   const context = useContext();
   const states = {
     CONNECTING: 'connecting',
     FAILED: 'failed',
     UNAVAILABLE: 'unavailable',
   };
-  const [status, setStatus] = useState(states.UNAVAILABLE);
+  const [status, setStatus] = useState(
+    window.ethereum ? states.CONNECTING : states.UNAVAILABLE
+  );
+
+  let timeout: any;
 
   useEffect(() => {
-    context.refresh();
-    if (status === states.CONNECTING)
-      setTimeout(() => setStatus(states.FAILED), 1000 + Math.random() * 2000);
+    if (status === states.CONNECTING) {
+      console.log('TODO: Call MetaMask extension here');
+      clearTimeout(timeout);
+      timeout = setTimeout(
+        () => setStatus(states.FAILED),
+        1000 + Math.random() * 2000
+      );
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [status]);
 
   return (
     <Container>
-      <ModalHeading>MetaMask</ModalHeading>
+      <ModalHeading>{wallet.name}</ModalHeading>
       <ConnectingContainer>
         <ConnectingAnimation status={status}>
           <AnimatePresence>
@@ -301,7 +341,7 @@ const MetaMask: React.FC = () => {
             )}
           </AnimatePresence>
           <LogoContainer>
-            <Logo>{Logos.MetaMask}</Logo>
+            <Logo>{wallet.logo}</Logo>
             {status === states.CONNECTING && (
               <Spinner initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
             )}
@@ -328,7 +368,7 @@ const MetaMask: React.FC = () => {
       </ConnectingContainer>
 
       <ContentContainer>
-        <AnimatePresence initial={false} onExitComplete={context.refresh}>
+        <AnimatePresence initial={false}>
           {status === states.FAILED && (
             <Content
               key={states.FAILED}
@@ -342,8 +382,11 @@ const MetaMask: React.FC = () => {
                 Connection Failed
               </Heading>
               <Body>
-                Open the MetaMask browser extension to connect your wallet.
+                Open the {wallet.name} browser extension to connect your wallet.
               </Body>
+              <Button onClick={() => setStatus(states.CONNECTING)}>
+                Try Again
+              </Button>
             </Content>
           )}
           {status === states.CONNECTING && (
@@ -356,7 +399,7 @@ const MetaMask: React.FC = () => {
             >
               <Heading>Requesting Connection</Heading>
               <Body>
-                Open the MetaMask browser extension to connect your wallet.
+                Open the {wallet.name} browser extension to connect your wallet.
               </Body>
             </Content>
           )}
@@ -368,17 +411,18 @@ const MetaMask: React.FC = () => {
               exit={'hidden'}
               variants={contentVariants}
             >
-              <Heading>Install MetaMask</Heading>
+              <Heading>Install {wallet.name}</Heading>
               <Body>
-                To connect your MetaMask wallet, install the browser extension
+                To connect your {wallet.name} wallet, install the browser
+                extension
               </Body>
-              <Button
-                onClick={() => {
-                  setStatus(states.CONNECTING);
-                }}
+              <ButtonAnchor
+                href={wallet.url}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Install the Extension
-              </Button>
+              </ButtonAnchor>
             </Content>
           )}
         </AnimatePresence>
@@ -387,4 +431,4 @@ const MetaMask: React.FC = () => {
   );
 };
 
-export default MetaMask;
+export default ConnectUsing;

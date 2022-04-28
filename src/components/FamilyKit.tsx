@@ -5,6 +5,7 @@ export const routes = {
   KNOWLEDGEBASE: 'knowledgeBase',
   METAMASK: 'metaMask',
   WALLETCONNECT: 'walletConnect',
+  WALLETCONNECT_CONNECTING: 'walletConnectConnecting',
 };
 
 type State = {
