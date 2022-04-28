@@ -38,6 +38,10 @@ const shakeKeyframes = keyframes`
   75%{ transform:translateX(${dist}px); }
   100%{ transform:none; }
 `;
+const outlineKeyframes = keyframes`
+  0%{ opacity:1; }
+  100%{ opacity:0; }
+`;
 const Container = styled(motion.div)`
   min-width: 100%;
   width: 310px;
@@ -52,11 +56,20 @@ const ConnectingContainer = styled(motion.div)`
 const ConnectingAnimation = styled(motion.div)<{ status?: string }>`
   position: relative;
   --spinner-error-opacity: 0;
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    opacity: 0;
+    background: var(--body-color-danger);
+  }
   ${(props) =>
     props.status === 'failed' &&
     css`
       animation: ${shakeKeyframes} 220ms ease-out both;
-      --spinner-error-opacity: 1;
+      &:before {
+        animation: ${outlineKeyframes} 220ms ease-out 750ms both;
+      }
     `}
 `;
 
@@ -91,14 +104,6 @@ const Spinner = styled(motion.div)`
       var(--family-brand)
     );
     animation: rotateGradient 1200ms linear infinite;
-  }
-  &:after {
-    content: '';
-    position: absolute;
-    inset: 10%;
-    opacity: var(--spinner-error-opacity);
-    transition: opacity 200ms ease-out;
-    background: var(--body-color-danger);
   }
   @keyframes rotateGradient {
     0% {
@@ -297,15 +302,9 @@ const MetaMask: React.FC = () => {
           </AnimatePresence>
           <LogoContainer>
             <Logo>{Logos.MetaMask}</Logo>
-            <AnimatePresence>
-              {status === states.CONNECTING && (
-                <Spinner
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, transition: { delay: 1 } }}
-                />
-              )}
-            </AnimatePresence>
+            {status === states.CONNECTING && (
+              <Spinner initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
+            )}
             <svg width="102" height="102" viewBox="0 0 102 102" fill="none">
               <rect
                 x="7.57895"
