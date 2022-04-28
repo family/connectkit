@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 export const hexToP3 = (hex: string) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (result == null) return;
+  if (result == null) return hex;
   const values = {
     r: parseInt(result[1], 16),
     g: parseInt(result[2], 16),
