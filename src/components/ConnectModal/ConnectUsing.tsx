@@ -382,7 +382,9 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
                 Connection Failed
               </Heading>
               <Body>
-                Open the {wallet.name} browser extension to connect your wallet.
+                Sorry, something went wrong.
+                <br />
+                Please try connecting again.
               </Body>
               <Button onClick={() => setStatus(states.CONNECTING)}>
                 Try Again
