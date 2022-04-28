@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import { useContext } from './../FamilyKit';
 
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { Props } from 'framer-motion/types/types';
@@ -9,25 +10,51 @@ import Portal from './../Portal';
 import {
   Container,
   ModalContainer,
-  CloseButton,
   PageContainer,
   InnerContainer,
   BackgroundOverlay,
+  CloseButton,
+  BackButton,
 } from './styles';
 
 const CloseIcon = (props: Props) => (
   <motion.svg
-    width={11}
-    height={11}
+    width={14}
+    height={14}
+    viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M10.707 1.707A1 1 0 0 0 9.293.293L5.5 4.086 1.707.293A1 1 0 0 0 .293 1.707L4.086 5.5.293 9.293a1 1 0 1 0 1.414 1.414L5.5 6.914l3.793 3.793a1 1 0 0 0 1.414-1.414L6.914 5.5l3.793-3.793Z"
-      fill="#3A3E51"
+      d="M1 13L13 1"
+      stroke="#999999"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M1 0.999999L13 13"
+      stroke="#999999"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </motion.svg>
+);
+const BackIcon = (props: Props) => (
+  <motion.svg
+    width={9}
+    height={16}
+    viewBox="0 0 9 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M8 1L1 8L8 15"
+      stroke="#999999"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </motion.svg>
 );
@@ -76,10 +103,19 @@ const containerVariants: Variants = {
 type ModalProps = {
   children: React.ReactNode;
   open: boolean | undefined;
-  onClose: (e: any) => void;
   pageId: string | undefined;
+  onClose: (e: any) => void;
+  onBack?: (e: any) => void | undefined;
 };
-const Modal: React.FC<ModalProps> = ({ children, open, onClose, pageId }) => {
+const Modal: React.FC<ModalProps> = ({
+  children,
+  open,
+  pageId,
+  onClose,
+  onBack,
+}) => {
+  const context = useContext();
+
   const heightRef = useRef<any>(null);
   const listRef = useRef<any>(null);
 
@@ -87,12 +123,14 @@ const Modal: React.FC<ModalProps> = ({ children, open, onClose, pageId }) => {
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
   const refreshLayout = () => {
+    console.log(listRef, heightRef);
     if (!listRef.current || !heightRef.current) return;
 
     const height = listRef.current.offsetHeight;
     const width = listRef.current.offsetWidth;
     heightRef.current.style.height = `${height}px`;
     heightRef.current.style.width = `${width}px`;
+    console.log(width, height);
   };
 
   useIsomorphicLayoutEffect(refreshLayout, [open, children]);
@@ -103,8 +141,10 @@ const Modal: React.FC<ModalProps> = ({ children, open, onClose, pageId }) => {
       if (e.key === 'Escape') onClose(e);
     }
     document.addEventListener('keydown', listener);
+    window.addEventListener('resize', refreshLayout);
     return () => {
       document.removeEventListener('keydown', listener);
+      window.removeEventListener('resize', refreshLayout);
     };
   }, []);
 
@@ -113,14 +153,14 @@ const Modal: React.FC<ModalProps> = ({ children, open, onClose, pageId }) => {
       {open && (
         <Portal>
           <ModalContainer>
-            <BackgroundOverlay
-              onClick={onClose}
-              initial={'hidden'}
-              animate={'visible'}
-              exit={'hidden'}
-              variants={overlayVariants}
-            />
             <ResetContainer>
+              <BackgroundOverlay
+                onClick={onClose}
+                initial={'hidden'}
+                animate={'visible'}
+                exit={'hidden'}
+                variants={overlayVariants}
+              />
               <Container
                 initial={'hidden'}
                 animate={'visible'}
@@ -132,6 +172,19 @@ const Modal: React.FC<ModalProps> = ({ children, open, onClose, pageId }) => {
                   <CloseIcon />
                 </CloseButton>
 
+                <AnimatePresence>
+                  {onBack && (
+                    <BackButton
+                      onClick={onBack}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.05 }}
+                    >
+                      <BackIcon />
+                    </BackButton>
+                  )}
+                </AnimatePresence>
                 <InnerContainer ref={heightRef}>
                   <AnimatePresence>
                     <PageContainer

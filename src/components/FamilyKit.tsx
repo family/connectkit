@@ -4,6 +4,7 @@ export const routes = {
   CONNECT: 'connect',
   KNOWLEDGEBASE: 'knowledgeBase',
   TESTPAGE: 'testPage',
+  WALLETCONNECT: 'walletConnect',
 };
 
 type State = {
