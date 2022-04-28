@@ -56,7 +56,6 @@ const App = () => {
           <h1>Family Connect</h1>
           <p>This page is intentionally left unstyled</p>
           <label>Theme</label>
-          {theme}
           <select onChange={(e: any) => setTheme(e.target.value)}>
             <option value={'auto'}>auto</option>
             <option value={'light'}>Light Mode</option>
