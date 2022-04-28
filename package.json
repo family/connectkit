@@ -17,6 +17,7 @@
     "react-dom": "^18.0.0",
     "react-qr-code": "^2.0.7",
     "react-scripts": "5.0.1",
+    "react-use-measure": "^2.1.1",
     "styled-components": "^5.3.5",
     "typescript": "^4.6.3",
     "wagmi": "^0.3.0-next.19",
