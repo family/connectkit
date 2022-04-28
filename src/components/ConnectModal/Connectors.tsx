@@ -60,12 +60,12 @@ const ConnectorButton = styled(motion.button)`
   color: var(--body-color);
   text-align: center;
   will-change: background-color, box-shadow, transform;
-  transition: background-color 200ms ease, box-shadow 80ms ease,
+  transition: background-color 200ms ease, box-shadow 280ms ease,
     transform 100ms ease;
 
   background: var(--background);
-  box-shadow: inset 0 0 0 3px var(--background),
-    inset 0 0 0 6px var(--background);
+  box-shadow: inset 0 0 0 0px var(--background),
+    inset 0 0 0 0px var(--background);
 
   &:disabled {
     cursor: not-allowed;
@@ -131,10 +131,12 @@ const Wallets: React.FC = () => {
           return (
             <ConnectorButton
               key={connector.id}
-              disabled={!connector.ready}
+              //disabled={!connector.ready}
               onClick={() => {
                 if (connector.id === 'walletConnect') {
                   context.setState({ open: true, route: routes.WALLETCONNECT });
+                } else if (connector.id === 'injected') {
+                  context.setState({ open: true, route: routes.METAMASK });
                 } else {
                   connect(connector);
                 }

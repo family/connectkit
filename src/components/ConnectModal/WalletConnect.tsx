@@ -11,8 +11,8 @@ import { Listener } from '@ethersproject/abstract-provider';
 import { ModalHeading } from '../Modal/styles';
 
 const Container = styled(motion.div)`
-  width: 100%;
-  min-width: 310px;
+  min-width: 100%;
+  width: 310px;
 `;
 const QRCodeContainer = styled(motion.div)`
   display: flex;

@@ -1,15 +1,13 @@
 import React from 'react';
-import { useContext, routes } from './../FamilyKit';
 
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-import Button from '../Button';
 import { ModalHeading } from '../Modal/styles';
 
 const Container = styled(motion.div)`
-  width: 100%;
-  min-width: 574px;
+  min-width: 100%;
+  width: 574px;
 `;
 
 const Tiles = styled(motion.div)`

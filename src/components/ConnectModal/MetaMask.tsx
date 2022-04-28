@@ -7,8 +7,8 @@ import { ModalHeading } from '../Modal/styles';
 import Logos from '../../assets/logos';
 
 const Container = styled(motion.div)`
-  width: 100%;
-  min-width: 310px;
+  min-width: 100%;
+  width: 310px;
 `;
 const ConnectingContainer = styled(motion.div)`
   display: flex;
@@ -109,16 +109,18 @@ const Logo = styled(motion.div)`
 `;
 
 const Heading = styled(motion.div)`
-  padding: 0 12px 6px;
+  padding: 0 16px 6px;
   text-align: center;
   font-size: 19px;
+  font-weight: 600;
   line-height: 24px;
   color: var(--body-color);
 `;
 const Body = styled(motion.div)`
-  padding: 0 12px 38px;
+  padding: 0 16px 38px;
   text-align: center;
   font-size: 16px;
+  font-weight: 400;
   line-height: 21px;
   color: var(--body-color-muted);
 `;
