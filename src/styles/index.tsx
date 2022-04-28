@@ -6,14 +6,29 @@ import { hexToP3 } from '../utils/p3';
  */
 const theme = {
   light: {
-    '--family-brand': '#1A88F8',
+    '--overlay-background': 'rgba(0, 0, 0, 0.4)',
     '--body-color': '#2b2f43',
+    '--body-color-muted': '#666666',
+    '--body-color-muted-hover': '#111111',
     '--body-background': '#ffffff',
+    '--body-background-secondary': '#f6f7f9',
+    '--body-background-secondary-hover': '#e0e4eb',
+    '--body-divider': '#f7f6f8',
   },
   dark: {
-    '--family-brand': '#1A88F8',
+    '--overlay-background': 'rgba(0, 0, 0, 0.9)',
     '--body-color': '#ffffff',
+    '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
+    '--body-color-muted-hover': 'rgba(255, 255, 255, 0.8)',
     '--body-background': '#2B2B2B',
+    '--body-background-secondary': '#333333',
+    '--body-background-secondary-hover': '#4D4D4D',
+    '--body-divider': '#383838',
+  },
+  brand: {
+    '--family-brand': '#1A88F8',
+    '--brand-walletconnect': '#5597F6',
+    '--brand-coinbase': '#0C59FE',
   },
 };
 
@@ -39,11 +54,10 @@ const createCssVariables = (scheme: any) => {
  */
 // TODO: Enable when ready
 export const cssVars = css`
+  ${createCssVariables(theme.brand)}
   ${createCssVariables(theme.light)}
   @media (prefers-color-scheme: dark) {
-    /*
     ${createCssVariables(theme.dark)}
-    */
   }
 `;
 
@@ -70,8 +84,6 @@ export const ResetContainer = styled.div`
   }
   &,
   * {
-    font-family: 'LFE';
-    font-weight: 500;
     box-sizing: border-box;
     outline: none;
     border: none;
