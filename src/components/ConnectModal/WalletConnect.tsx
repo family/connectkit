@@ -12,9 +12,64 @@ import { ModalHeading } from '../Modal/styles';
 
 const Container = styled(motion.div)`
   width: 100%;
+  min-width: 310px;
 `;
 const QRCodeContainer = styled(motion.div)`
-  width: 256px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px auto;
+  width: 270px;
+  height: 270px;
+`;
+const TextWithHr = styled(motion.div)`
+  position: relative;
+  display: block;
+  text-align: center;
+  color: var(--body-text-muted);
+  font-size: 16px;
+  line-height: 20px;
+  span {
+    z-index: 2;
+    position: relative;
+    display: inline-block;
+    padding: 0 16px;
+    background: var(--body-background);
+  }
+  &:before {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--body-divider);
+  }
+`;
+
+const Spinner = styled(motion.div)`
+  border-radius: 50%;
+  width: 18em;
+  height: 18em;
+  margin: 60px auto;
+  font-size: 2px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1em solid rgba(255, 255, 255, 0.2);
+  border-right: 1em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1em solid #ffffff;
+  transform: translateZ(0);
+  animation: spinner 1.1s infinite linear;
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
 
 const WalletConnect: React.FC = () => {
@@ -30,7 +85,7 @@ const WalletConnect: React.FC = () => {
   };
 
   const startWalletConnect = async () => {
-    const p = await connectors[1].getProvider();
+    const p = await connectors[0].getProvider();
     console.log(p);
     p.connect();
     p.connector.on('display_uri', handleQRCode);
@@ -44,13 +99,13 @@ const WalletConnect: React.FC = () => {
     <Container>
       <ModalHeading>Scan QR Code</ModalHeading>
       <QRCodeContainer>
-        {walletConnectURI && <QRCode value={walletConnectURI} size={256} />}
+        {walletConnectURI && <QRCode value={walletConnectURI} size={270} />}
+        {!walletConnectURI && <Spinner />}
       </QRCodeContainer>
-      <Button
-        onClick={() => context.setState({ open: true, route: routes.CONNECT })}
-      >
-        Back
-      </Button>
+      <TextWithHr>
+        <span>or</span>
+      </TextWithHr>
+      <Button>Open WalletConnect</Button>
     </Container>
   );
 };
