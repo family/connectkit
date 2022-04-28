@@ -114,8 +114,6 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   onBack,
 }) => {
-  const context = useContext();
-
   const heightRef = useRef<any>(null);
   const listRef = useRef<any>(null);
 
@@ -154,10 +152,22 @@ const Modal: React.FC<ModalProps> = ({
             <ResetContainer>
               <BackgroundOverlay
                 onClick={onClose}
-                initial={'hidden'}
-                animate={'visible'}
-                exit={'hidden'}
-                variants={overlayVariants}
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  transition: {
+                    ease: [0.16, 1, 0.3, 1],
+                    duration: 0.4,
+                  },
+                }}
+                exit={{
+                  opacity: 0,
+                  pointerEvents: 'none',
+                  transition: {
+                    ease: [0.16, 1, 0.3, 1],
+                    duration: 0.6,
+                  },
+                }}
               />
               <Container
                 initial={'hidden'}
