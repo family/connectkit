@@ -14,6 +14,7 @@ const theme = {
     '--body-background-secondary': '#f6f7f9',
     '--body-background-secondary-hover': '#e0e4eb',
     '--body-divider': '#f7f6f8',
+    '--body-color-danger': '#FC6464',
   },
   dark: {
     '--overlay-background': 'rgba(0, 0, 0, 0.9)',
@@ -24,6 +25,7 @@ const theme = {
     '--body-background-secondary': '#333333',
     '--body-background-secondary-hover': '#4D4D4D',
     '--body-divider': '#383838',
+    '--body-color-danger': '#FC6464',
   },
   brand: {
     '--family-brand': '#1A88F8',

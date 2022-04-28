@@ -103,6 +103,7 @@ const Modal: React.FC<ModalProps> = ({
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
   const refreshLayout = () => {
+    console.log(listRef, heightRef);
     if (!listRef.current || !heightRef.current) return;
 
     const height = listRef.current.offsetHeight;
@@ -119,9 +120,11 @@ const Modal: React.FC<ModalProps> = ({
       if (e.key === 'Escape') onClose(e);
     }
     document.addEventListener('keydown', listener);
+    document.addEventListener('familykitrefresh', refreshLayout);
     window.addEventListener('resize', refreshLayout);
     return () => {
       document.removeEventListener('keydown', listener);
+      document.addEventListener('familykitrefresh', refreshLayout);
       window.removeEventListener('resize', refreshLayout);
     };
   }, []);
@@ -177,21 +180,22 @@ const Modal: React.FC<ModalProps> = ({
                 </AnimatePresence>
                 <InnerContainer ref={heightRef}>
                   <AnimatePresence>
-                    <PageContainer
-                      key={pageId}
-                      ref={listRef}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{
-                        opacity: 0,
-                        position: 'absolute',
-                      }}
-                      transition={{
-                        duration: 0.2,
-                      }}
-                    >
-                      {children}
-                    </PageContainer>
+                    <div ref={listRef}>
+                      <PageContainer
+                        key={pageId}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{
+                          opacity: 0,
+                          position: 'absolute',
+                        }}
+                        transition={{
+                          duration: 0.2,
+                        }}
+                      >
+                        {children}
+                      </PageContainer>
+                    </div>
                   </AnimatePresence>
                 </InnerContainer>
               </Container>
