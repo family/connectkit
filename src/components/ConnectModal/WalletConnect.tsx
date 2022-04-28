@@ -56,10 +56,10 @@ const Spinner = styled(motion.div)`
   font-size: 2px;
   position: relative;
   text-indent: -9999em;
-  border-top: 1em solid rgba(255, 255, 255, 0.2);
-  border-right: 1em solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1em solid rgba(255, 255, 255, 0.2);
-  border-left: 1em solid #ffffff;
+  border-top: 1em solid var(--body-background-secondary);
+  border-right: 1em solid var(--body-background-secondary);
+  border-bottom: 1em solid var(--body-background-secondary);
+  border-left: 1em solid var(--body-color-muted);
   transform: translateZ(0);
   animation: spinner 1.1s infinite linear;
   @keyframes spinner {
