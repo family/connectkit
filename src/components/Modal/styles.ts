@@ -9,7 +9,7 @@ export const ModalHeading = styled(motion.div)`
   color: var(--body-color);
   padding: 0 0 20px;
   margin: 0 -16px 0;
-  box-shadow: 0 1px 0 1px var(--body-divider);
+  box-shadow: 0 1px 0 0 var(--body-divider);
 `;
 
 export const BackgroundOverlay = styled(motion.div)`
@@ -45,6 +45,7 @@ export const InnerContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
   transition: height 220ms ease, width 220ms ease;
+  transition-delay: 45ms; // stops weird shifting
   will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
