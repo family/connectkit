@@ -14,12 +14,14 @@ const Button = styled(motion.button)`
   --shadow: 0 2px 12px rgba(0, 0, 0, 0);
   appearance: none;
   user-select: none;
-  padding: 6px 13px 6px 6px;
-  font-size: 14px;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
+  padding: 6px 13px 6px 6px;
+  font-size: 14px;
+  font-family: 'LFE';
+  font-weight: 500;
   border-radius: 12px;
-  cursor: pointer;
 
   will-change: box-shadow, transform;
   transition: box-shadow 100ms ease, transform 100ms ease,
