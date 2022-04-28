@@ -82,7 +82,7 @@ export const CloseButton = styled(motion.button)`
   }
 
   &:hover {
-    background: #f6f7f9;
+    background: var(--body-background-secondary);
   }
   &:active {
     transform: scale(0.9);
@@ -112,7 +112,7 @@ export const BackButton = styled(motion.button)`
   }
 
   &:hover {
-    background: #f6f7f9;
+    background: var(--body-background-secondary);
   }
   &:active {
     transform: scale(0.9);

@@ -15,11 +15,11 @@ const ButtonContainer = styled(motion.button)`
   height: 48px;
   margin: 24px 0 0;
   padding: 0 32px;
-  font-size: 17px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--family-brand);
-  box-shadow: 0px 2px 8px rgba(118, 123, 235, 0.2);
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 500;
+  color: var(--body-color);
+  background: var(--body-background-secondary);
   white-space: nowrap;
   will-change: transform;
   transition: transform 100ms ease;
