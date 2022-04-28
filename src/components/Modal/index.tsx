@@ -123,14 +123,12 @@ const Modal: React.FC<ModalProps> = ({
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
   const refreshLayout = () => {
-    console.log(listRef, heightRef);
     if (!listRef.current || !heightRef.current) return;
 
     const height = listRef.current.offsetHeight;
     const width = listRef.current.offsetWidth;
     heightRef.current.style.height = `${height}px`;
     heightRef.current.style.width = `${width}px`;
-    console.log(width, height);
   };
 
   useIsomorphicLayoutEffect(refreshLayout, [open, children]);
