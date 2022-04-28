@@ -16,6 +16,7 @@ import KnowledgeBase from './KnowledgeBase';
 import TestPage from './TestPage';
 import Connectors from './Connectors';
 import Button from '../Button';
+import WalletConnect from './WalletConnect';
 
 {
   /**
@@ -27,6 +28,7 @@ const pages: any = {
   connect: <Connectors />,
   knowledgeBase: <KnowledgeBase />,
   testPage: <TestPage />,
+  walletConnect: <WalletConnect />,
 };
 
 function ConnectModal() {
@@ -98,9 +100,14 @@ function ConnectModal() {
       {isConnected && <Button onClick={resetAll}>Disconnect Wallet</Button>}
       <Modal
         open={context.state.open}
-        onClose={hide}
-        pageId={context.state.route}
         children={context.state.route && pages[context.state.route]}
+        pageId={context.state.route}
+        onClose={hide}
+        onBack={
+          context.state.route !== routes.CONNECT
+            ? () => context.setState({ open: true, route: routes.CONNECT })
+            : undefined
+        }
       />
     </>
   );
