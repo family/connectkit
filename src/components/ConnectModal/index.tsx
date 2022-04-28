@@ -13,9 +13,8 @@ import Modal from '../Modal';
 import ConnectButton from './../ConnectButton';
 
 import KnowledgeBase from './KnowledgeBase';
-import TestPage from './TestPage';
+import MetaMask from './MetaMask';
 import Connectors from './Connectors';
-import Button from '../Button';
 import WalletConnect from './WalletConnect';
 
 {
@@ -27,7 +26,7 @@ import WalletConnect from './WalletConnect';
 const pages: any = {
   connect: <Connectors />,
   knowledgeBase: <KnowledgeBase />,
-  testPage: <TestPage />,
+  metaMask: <MetaMask />,
   walletConnect: <WalletConnect />,
 };
 

@@ -3,7 +3,7 @@ import React, { createContext, createElement, useState } from 'react';
 export const routes = {
   CONNECT: 'connect',
   KNOWLEDGEBASE: 'knowledgeBase',
-  TESTPAGE: 'testPage',
+  METAMASK: 'metaMask',
   WALLETCONNECT: 'walletConnect',
 };
 
