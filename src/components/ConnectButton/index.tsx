@@ -60,17 +60,17 @@ const FamilyIcon = (props: Props) => (
   </motion.svg>
 );
 type ConnectButtonProps = {
-  /** onClick handler */
+  theme?: string;
   onClick?: (e: any) => void;
 };
 
-const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
+const ConnectButton: React.FC<ConnectButtonProps> = ({ theme, onClick }) => {
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({ address: account?.address });
   const { isConnected } = useConnect();
 
   return (
-    <ResetContainer>
+    <ResetContainer theme={theme}>
       <Button onClick={onClick}>
         <FamilyIcon style={{ marginRight: 6 }} />
         {isConnected ? (

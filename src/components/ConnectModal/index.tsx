@@ -31,7 +31,9 @@ const pages: any = {
   walletConnect: <WalletConnect />,
 };
 
-function ConnectModal() {
+const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
+  theme = 'light',
+}) => {
   const context = useContext();
   const {
     connect,
@@ -96,9 +98,10 @@ function ConnectModal() {
 
   return (
     <>
-      <ConnectButton onClick={show} />
-      {isConnected && <Button onClick={resetAll}>Disconnect Wallet</Button>}
+      <ConnectButton onClick={show} theme={theme} />
+      {isConnected && <button onClick={resetAll}>Disconnect Wallet</button>}
       <Modal
+        theme={theme}
         open={context.state.open}
         children={context.state.route && pages[context.state.route]}
         pageId={context.state.route}
@@ -111,6 +114,6 @@ function ConnectModal() {
       />
     </>
   );
-}
+};
 
 export default ConnectModal;

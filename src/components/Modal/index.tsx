@@ -1,5 +1,4 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
-import { useContext } from './../FamilyKit';
 
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { Props } from 'framer-motion/types/types';
@@ -59,25 +58,6 @@ const BackIcon = (props: Props) => (
   </motion.svg>
 );
 
-const overlayVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    pointerEvents: 'none',
-    transition: {
-      ease: [0.16, 1, 0.3, 1],
-      duration: 0.05,
-    },
-  },
-  visible: {
-    opacity: 1,
-    pointerEvents: 'auto',
-    transition: {
-      ease: [0.16, 1, 0.3, 1],
-      duration: 0.22,
-    },
-  },
-};
-
 const containerVariants: Variants = {
   hidden: {
     opacity: 0,
@@ -101,6 +81,7 @@ const containerVariants: Variants = {
 };
 
 type ModalProps = {
+  theme?: string;
   children: React.ReactNode;
   open: boolean | undefined;
   pageId: string | undefined;
@@ -108,6 +89,7 @@ type ModalProps = {
   onBack?: (e: any) => void | undefined;
 };
 const Modal: React.FC<ModalProps> = ({
+  theme,
   children,
   open,
   pageId,
@@ -148,8 +130,8 @@ const Modal: React.FC<ModalProps> = ({
     <AnimatePresence>
       {open && (
         <Portal>
-          <ModalContainer>
-            <ResetContainer>
+          <ResetContainer theme={theme}>
+            <ModalContainer>
               <BackgroundOverlay
                 onClick={onClose}
                 initial={{ opacity: 0 }}
@@ -213,8 +195,8 @@ const Modal: React.FC<ModalProps> = ({
                   </AnimatePresence>
                 </InnerContainer>
               </Container>
-            </ResetContainer>
-          </ModalContainer>
+            </ModalContainer>
+          </ResetContainer>
         </Portal>
       )}
     </AnimatePresence>

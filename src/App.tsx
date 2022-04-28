@@ -6,6 +6,7 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Buffer } from 'buffer';
 
 import { FamilyProvider, FamilyConnectModal } from './FamilyKit';
+import { useState } from 'react';
 
 if (!window.Buffer) {
   window.Buffer = Buffer;
@@ -36,6 +37,7 @@ const client = createClient({
 });
 
 const App = () => {
+  const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('auto');
   return (
     <FamilyProvider>
       <Provider client={client}>
@@ -49,9 +51,17 @@ const App = () => {
             flexDirection: 'column',
           }}
         >
-          <FamilyConnectModal />
+          <FamilyConnectModal theme={theme} />
+
           <h1>Family Connect</h1>
           <p>This page is intentionally left unstyled</p>
+          <label>Theme</label>
+          {theme}
+          <select onChange={(e: any) => setTheme(e.target.value)}>
+            <option value={'auto'}>auto</option>
+            <option value={'light'}>Light Mode</option>
+            <option value={'dark'}>Dark Mode</option>
+          </select>
         </div>
       </Provider>
     </FamilyProvider>

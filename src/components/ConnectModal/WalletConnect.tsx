@@ -105,7 +105,11 @@ const WalletConnect: React.FC = () => {
       <TextWithHr>
         <span>or</span>
       </TextWithHr>
-      <Button>Open WalletConnect</Button>
+      <Button
+        onClick={() => context.setState({ open: true, route: routes.TESTPAGE })}
+      >
+        Open WalletConnect
+      </Button>
     </Container>
   );
 };

@@ -49,24 +49,29 @@ const createCssVariables = (scheme: any) => {
   `;
 };
 
-/**
- *  Automatically apply theme based on system theme
- */
-// TODO: Enable when ready
-export const cssVars = css`
-  ${createCssVariables(theme.brand)}
-  ${createCssVariables(theme.light)}
-  @media (prefers-color-scheme: dark) {
-    ${createCssVariables(theme.dark)}
-  }
-`;
-
 /*
  *  Reset stylings to avoid conflicting with the parent websites styling
+ * Automatically apply theme based on system theme
  */
 // TODO: Think more about how to reset our components as to not be affected by external stylings
-export const ResetContainer = styled.div`
-  ${cssVars}
+export const ResetContainer = styled.div<{ theme: string }>`
+  ${createCssVariables(theme.brand)}
+
+  ${(props) => {
+    switch (props.theme) {
+      case 'light':
+        return createCssVariables(theme.light);
+      case 'dark':
+        return createCssVariables(theme.dark);
+      default:
+        return css`
+          ${createCssVariables(theme.light)}
+          @media (prefers-color-scheme: dark) {
+            ${createCssVariables(theme.dark)}
+          }
+        `;
+    }
+  }}
   display: inline-block;
   text-align: left;
   text-direction: ltr;
