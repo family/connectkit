@@ -15,9 +15,7 @@ type State = {
 type ContextValue = {
   state: State;
   setState: React.Dispatch<React.SetStateAction<State>>;
-  refresh: any;
 };
-const familykitRefreshEvent = new Event('familykitrefresh');
 
 const Context = createContext<ContextValue | null>(null);
 
@@ -36,8 +34,6 @@ export const FamilyProvider: React.FC<Props> = ({ children }) => {
       route: state.route,
     },
     setState,
-    refresh: () =>
-      setTimeout(() => document.dispatchEvent(familykitRefreshEvent), 80),
   };
   return createElement(Context.Provider, { value }, children);
 };
