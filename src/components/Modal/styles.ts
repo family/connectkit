@@ -1,6 +1,31 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+export const TextWithHr = styled(motion.div)`
+  position: relative;
+  display: block;
+  text-align: center;
+  color: var(--body-text-muted);
+  font-size: 16px;
+  line-height: 20px;
+  span {
+    z-index: 2;
+    position: relative;
+    display: inline-block;
+    padding: 0 16px;
+    background: var(--body-background);
+  }
+  &:before {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--body-divider);
+  }
+`;
 export const ModalHeading = styled(motion.div)`
   text-align: center;
   font-size: 17px;
@@ -8,8 +33,39 @@ export const ModalHeading = styled(motion.div)`
   font-weight: 600;
   color: var(--body-color);
   padding: 0 0 20px;
-  margin: 0 -16px 0;
+  margin: 0 -24px 24px;
   box-shadow: 0 1px 0 0 var(--body-divider);
+`;
+
+export const ModalContentContainer = styled(motion.div)`
+  position: relative;
+  padding: 0;
+`;
+export const ModalContent = styled(motion.div)`
+  left: 0;
+  right: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 0 16px;
+`;
+export const ModalH1 = styled(motion.div)`
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--body-color);
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+`;
+export const ModalBody = styled(motion.div)`
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  color: var(--body-color-muted);
 `;
 
 export const BackgroundOverlay = styled(motion.div)`
@@ -27,7 +83,7 @@ export const Container = styled(motion.div)`
   color: var(--body-color);
   background: var(--body-background);
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
-  border-radius: 18px;
+  border-radius: 24px;
 
   &,
   * {
@@ -50,7 +106,7 @@ export const InnerContainer = styled(motion.div)`
 `;
 export const PageContainer = styled(motion.div)`
   width: fit-content;
-  padding: 24px 16px;
+  padding: 24px 24px;
 `;
 
 export const ModalContainer = styled(motion.div)`
@@ -67,7 +123,7 @@ export const CloseButton = styled(motion.button)`
   cursor: pointer;
   position: absolute;
   top: 18px;
-  right: 22px;
+  right: 16px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -95,7 +151,7 @@ export const BackButton = styled(motion.button)`
   cursor: pointer;
   position: absolute;
   top: 18px;
-  left: 22px;
+  left: 16px;
   width: 32px;
   height: 32px;
   display: flex;
