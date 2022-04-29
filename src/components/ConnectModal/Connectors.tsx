@@ -21,6 +21,7 @@ const LearnMoreContainer = styled(motion.div)`
 `;
 const LearnMoreButton = styled(motion.button)`
   appearance: none;
+  user-select: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;

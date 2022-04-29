@@ -130,7 +130,8 @@ export const CloseButton = styled(motion.button)`
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  cursor: pointer;
+  padding: 0;
+  margin: 0;
   background: var(--body-background);
   will-change: background-color, transform;
   transition: background-color 200ms ease, transform 100ms ease;
@@ -158,7 +159,8 @@ export const BackButton = styled(motion.button)`
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  cursor: pointer;
+  padding: 0;
+  margin: 0;
   background: var(--body-background);
   will-change: background-color, transform;
   transition: background-color 200ms ease, transform 100ms ease;
