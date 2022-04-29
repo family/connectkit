@@ -3,10 +3,18 @@ import React, { useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 
-import { ModalHeading } from '../Modal/styles';
-import Logos from '../../assets/logos';
+import {
+  ModalHeading,
+  ModalBody,
+  ModalH1,
+  ModalContentContainer,
+  ModalContent,
+} from '../Modal/styles';
 import Button from '../Button';
 import { useContext } from '../FamilyKit';
+import Modal, { OrDivider } from '../Modal';
+
+const Content = styled(motion.div)``;
 
 const ButtonAnchor = styled(motion.a)`
   appearance: none;
@@ -19,7 +27,7 @@ const ButtonAnchor = styled(motion.a)`
   justify-content: center;
   border-radius: 18px;
   height: 48px;
-  margin: 24px 0 0;
+  margin: 0;
   padding: 0 32px;
   text-decoration: none;
   font-size: 16px;
@@ -75,7 +83,7 @@ const outlineKeyframes = keyframes`
 `;
 const Container = styled(motion.div)`
   min-width: 100%;
-  width: 310px;
+  width: 295px;
 `;
 const ConnectingContainer = styled(motion.div)`
   display: flex;
@@ -196,34 +204,6 @@ const Logo = styled(motion.div)`
     height: 100%;
   }
 `;
-const ContentContainer = styled(motion.div)`
-  position: relative;
-  padding: 0;
-`;
-const Content = styled(motion.div)`
-  left: 0;
-  right: 0;
-`;
-const Heading = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0 16px 6px;
-  text-align: center;
-  font-size: 19px;
-  font-weight: 600;
-  line-height: 24px;
-  color: var(--body-color);
-`;
-const Body = styled(motion.div)`
-  padding: 0 16px 16px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 21px;
-  color: var(--body-color-muted);
-`;
 
 const RetryButton = styled(motion.button)`
   z-index: 4;
@@ -297,28 +277,47 @@ const RetryIcon = ({ ...props }) => {
 const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
   const context = useContext();
   const states = {
+    CONNECTED: 'connected',
     CONNECTING: 'connecting',
     FAILED: 'failed',
+    REJECTED: 'rejected',
+    NOTCONNECTED: 'notconnected',
     UNAVAILABLE: 'unavailable',
   };
   const [status, setStatus] = useState(
-    window.ethereum ? states.CONNECTING : states.UNAVAILABLE
+    wallet.extensionCheck() ? states.CONNECTING : states.UNAVAILABLE
   );
 
-  let timeout: any;
+  const tryExtension = () => {
+    try {
+      wallet.extensionLaunch().then((res: any) => {
+        switch (res.code) {
+          case -32002:
+            setStatus(states.NOTCONNECTED);
+            break;
+          case 4001:
+            setStatus(states.REJECTED);
+            break;
+          default:
+            setStatus(states.FAILED);
+            break;
+        }
+      });
+    } catch (error) {
+      setStatus(states.FAILED);
+    }
+  };
 
   useEffect(() => {
     if (status === states.CONNECTING) {
-      console.log('TODO: Call MetaMask extension here');
-      clearTimeout(timeout);
-      timeout = setTimeout(
-        () => setStatus(states.FAILED),
-        1000 + Math.random() * 2000
-      );
+      if (!wallet.extensionLaunch) {
+        setStatus(states.UNAVAILABLE);
+        return;
+      }
+
+      // UX: Give user time to understand what is happening
+      setTimeout(tryExtension, 1000);
     }
-    return () => {
-      clearTimeout(timeout);
-    };
   }, [status]);
 
   return (
@@ -367,7 +366,7 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
         </ConnectingAnimation>
       </ConnectingContainer>
 
-      <ContentContainer>
+      <ModalContentContainer>
         <AnimatePresence initial={false}>
           {status === states.FAILED && (
             <Content
@@ -377,15 +376,37 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
               exit={'hidden'}
               variants={contentVariants}
             >
-              <Heading style={{ color: 'var(--body-color-danger)' }}>
-                <AlertIcon />
-                Connection Failed
-              </Heading>
-              <Body>
-                Sorry, something went wrong.
-                <br />
-                Please try connecting again.
-              </Body>
+              <ModalContent>
+                <ModalH1 style={{ color: 'var(--body-color-danger)' }}>
+                  <AlertIcon />
+                  Connection Failed
+                </ModalH1>
+                <ModalBody>
+                  Sorry, something went wrong.
+                  <br />
+                  Please try connecting again.
+                </ModalBody>
+              </ModalContent>
+              <Button onClick={() => setStatus(states.CONNECTING)}>
+                Try Again
+              </Button>
+            </Content>
+          )}
+          {status === states.REJECTED && (
+            <Content
+              key={states.REJECTED}
+              initial={'hidden'}
+              animate={'visible'}
+              exit={'hidden'}
+              variants={contentVariants}
+            >
+              <ModalContent>
+                <ModalH1>Request Cancelled</ModalH1>
+                <ModalBody>
+                  You cancelled the connection request. Click below to try
+                  again.
+                </ModalBody>
+              </ModalContent>
               <Button onClick={() => setStatus(states.CONNECTING)}>
                 Try Again
               </Button>
@@ -399,10 +420,37 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
               exit={'hidden'}
               variants={contentVariants}
             >
-              <Heading>Requesting Connection</Heading>
-              <Body>
-                Open the {wallet.name} browser extension to connect your wallet.
-              </Body>
+              <ModalContent>
+                <ModalH1>Requesting Connection</ModalH1>
+                <ModalBody>
+                  Open the {wallet.name} browser extension to connect your
+                  wallet.
+                </ModalBody>
+              </ModalContent>
+            </Content>
+          )}
+          {status === states.NOTCONNECTED && (
+            <Content
+              key={states.NOTCONNECTED}
+              initial={'hidden'}
+              animate={'visible'}
+              exit={'hidden'}
+              variants={contentVariants}
+            >
+              <ModalContent>
+                <ModalH1>Log into {wallet.name}</ModalH1>
+                <ModalBody>
+                  To continue, log into your {wallet.name} extension, then try
+                  again
+                </ModalBody>
+              </ModalContent>
+              <ButtonAnchor
+                href={wallet.extensionUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Try Again
+              </ButtonAnchor>
             </Content>
           )}
           {status === states.UNAVAILABLE && (
@@ -413,22 +461,27 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
               exit={'hidden'}
               variants={contentVariants}
             >
-              <Heading>Install {wallet.name}</Heading>
-              <Body>
-                To connect your {wallet.name} wallet, install the browser
-                extension
-              </Body>
+              <ModalContent>
+                <ModalH1>Unsupported Browser</ModalH1>
+                <ModalBody>
+                  To connect your {wallet.name} wallet, install the browser
+                  extension on Chrome.
+                </ModalBody>
+                <OrDivider />
+              </ModalContent>
+              <Button>Scan with the mobile app</Button>
+              {/*
               <ButtonAnchor
-                href={wallet.url}
+                href={wallet.extensionUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Install the Extension
-              </ButtonAnchor>
+                Install on Chrome
+              </ButtonAnchor> */}
             </Content>
           )}
         </AnimatePresence>
-      </ContentContainer>
+      </ModalContentContainer>
     </Container>
   );
 };
