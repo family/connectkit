@@ -16,13 +16,32 @@ const WalletConnect = (
 
 const MetaMask = (
   <svg
+    style={{
+      background:
+        'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11)',
+    }}
     width="32"
     height="32"
     viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
+    {/**
+    <defs>
+      <linearGradient
+        id="paint0_linear_967_843"
+        x1="16"
+        y1="0"
+        x2="16"
+        y2="32"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0.130682" stopColor="var(--brand-metamask-11)" />
+        <stop offset="1" stopColor="var(--brand-metamask-12)" />
+      </linearGradient>
+    </defs>
     <rect width="32" height="32" fill="url(#paint0_linear_967_843)" />
+     */}
     <path
       d="M27.2684 4.03027L17.5018 11.2841L19.3079 7.00442L27.2684 4.03027Z"
       fill="var(--brand-metamask-02)"
@@ -255,19 +274,6 @@ const MetaMask = (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <defs>
-      <linearGradient
-        id="paint0_linear_967_843"
-        x1="16"
-        y1="0"
-        x2="16"
-        y2="32"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.130682" stopColor="var(--brand-metamask-11)" />
-        <stop offset="1" stopColor="var(--brand-metamask-12)" />
-      </linearGradient>
-    </defs>
   </svg>
 );
 
