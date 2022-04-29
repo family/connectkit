@@ -13,7 +13,7 @@ const ButtonContainer = styled(motion.button)`
   justify-content: center;
   border-radius: 18px;
   height: 48px;
-  margin: 24px 0 0;
+  margin: 0;
   padding: 0 32px;
   font-size: 16px;
   line-height: 19px;
