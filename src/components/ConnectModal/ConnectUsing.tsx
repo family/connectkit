@@ -57,16 +57,12 @@ const ButtonAnchor = styled(motion.a)`
 `;
 
 const contentVariants: Variants = {
-  hidden: {
-    position: 'absolute',
+  initial: {
+    position: 'relative',
     opacity: 0,
     scale: 0.95,
-    transition: {
-      ease: [0.16, 1, 0.3, 1],
-      duration: 0.3,
-    },
   },
-  visible: {
+  animate: {
     position: 'relative',
     opacity: 1,
     scale: 1,
@@ -74,6 +70,15 @@ const contentVariants: Variants = {
       ease: [0.16, 1, 0.3, 1],
       duration: 0.4,
       delay: 0.05,
+    },
+  },
+  exit: {
+    position: 'absolute',
+    opacity: 0,
+    scale: 0.95,
+    transition: {
+      ease: [0.16, 1, 0.3, 1],
+      duration: 0.3,
     },
   },
 };
@@ -390,9 +395,9 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
           {status === states.FAILED && (
             <Content
               key={states.FAILED}
-              initial={'hidden'}
-              animate={'visible'}
-              exit={'hidden'}
+              initial={'initial'}
+              animate={'animate'}
+              exit={'exit'}
               variants={contentVariants}
             >
               <ModalContent>
@@ -411,9 +416,9 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
           {status === states.REJECTED && (
             <Content
               key={states.REJECTED}
-              initial={'hidden'}
-              animate={'visible'}
-              exit={'hidden'}
+              initial={'initial'}
+              animate={'animate'}
+              exit={'exit'}
               variants={contentVariants}
             >
               <ModalContent>
@@ -428,9 +433,9 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
           {status === states.CONNECTING && (
             <Content
               key={states.CONNECTING}
-              initial={'hidden'}
-              animate={'visible'}
-              exit={'hidden'}
+              initial={'initial'}
+              animate={'animate'}
+              exit={'exit'}
               variants={contentVariants}
             >
               <ModalContent>
@@ -445,9 +450,9 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
           {status === states.NOTCONNECTED && (
             <Content
               key={states.NOTCONNECTED}
-              initial={'hidden'}
-              animate={'visible'}
-              exit={'hidden'}
+              initial={'initial'}
+              animate={'animate'}
+              exit={'exit'}
               variants={contentVariants}
             >
               <ModalContent>
@@ -462,9 +467,9 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
           {status === states.UNAVAILABLE && (
             <Content
               key={states.UNAVAILABLE}
-              initial={'hidden'}
-              animate={'visible'}
-              exit={'hidden'}
+              initial={'initial'}
+              animate={'animate'}
+              exit={'exit'}
               variants={contentVariants}
             >
               <ModalContent>

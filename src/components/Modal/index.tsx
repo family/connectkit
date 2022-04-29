@@ -120,7 +120,7 @@ const Modal: React.FC<ModalProps> = ({
   onBack,
 }) => {
   const heightRef = useRef<any>(null);
-  const [contentRef, bounds] = useMeasure({ debounce: 55, offsetSize: true });
+  const [contentRef, bounds] = useMeasure({ debounce: 0, offsetSize: true });
 
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
