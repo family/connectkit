@@ -120,7 +120,7 @@ const Modal: React.FC<ModalProps> = ({
   onBack,
 }) => {
   const heightRef = useRef<any>(null);
-  const [contentRef, bounds] = useMeasure({ offsetSize: true });
+  const [contentRef, bounds] = useMeasure({ debounce: 55, offsetSize: true });
 
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -130,7 +130,7 @@ const Modal: React.FC<ModalProps> = ({
     heightRef.current.style.height = `${bounds.height}px`;
     heightRef.current.style.width = `${bounds.width}px`;
   };
-  useIsomorphicLayoutEffect(refreshLayout, [contentRef]);
+  useIsomorphicLayoutEffect(refreshLayout, [bounds]);
 
   useEffect(() => {
     function listener(e: KeyboardEvent) {
