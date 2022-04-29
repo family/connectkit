@@ -13,8 +13,12 @@ import {
 import Button from '../Button';
 import { useContext } from '../FamilyKit';
 import { OrDivider } from '../Modal';
+import TestBench from '../TestBench';
 
 const Content = styled(motion.div)`
+  position: relative;
+  left: 0;
+  right: 0;
   ${ModalContent} {
     padding: 0 12px 38px;
     gap: 6px;
@@ -327,6 +331,16 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
 
   return (
     <Container>
+      <TestBench>
+        <label>Test state</label>{' '}
+        <select onChange={(e: any) => setStatus(e.target.value)}>
+          {}
+          {Object.keys(states).map((key: any) => (
+            /* @ts-ignore */
+            <option>{states[key]}</option>
+          ))}
+        </select>
+      </TestBench>
       <ModalHeading>{wallet.name}</ModalHeading>
       <ConnectingContainer>
         <ConnectingAnimation status={status}>
@@ -371,7 +385,6 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
           </LogoContainer>
         </ConnectingAnimation>
       </ConnectingContainer>
-
       <ModalContentContainer>
         <AnimatePresence initial={false}>
           {status === states.FAILED && (
