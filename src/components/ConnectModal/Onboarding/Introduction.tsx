@@ -22,8 +22,8 @@ const Graphic = styled(motion.div)`
   position: relative;
   margin: 22px auto 18px;
   height: 190px;
-  //pointer-events: none;
-  //user-select: none;
+  pointer-events: none;
+  user-select: none;
 `;
 const GraphicBackground = styled(motion.div)`
   z-index: -1;

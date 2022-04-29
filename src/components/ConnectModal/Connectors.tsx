@@ -7,10 +7,12 @@ import { motion } from 'framer-motion';
 import { useConnect } from 'wagmi';
 import Logos from '../../assets/logos';
 import { ModalHeading } from '../Modal/styles';
+import logos from '../../assets/logos';
+import WalletIcon from '../../assets/wallet';
 
 const Container = styled(motion.div)`
   max-width: 100%;
-  width: 350px;
+  width: 334px;
 `;
 
 const LearnMoreContainer = styled(motion.div)`
@@ -21,6 +23,10 @@ const LearnMoreButton = styled(motion.button)`
   appearance: none;
   cursor: pointer;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0;
   background: none;
   color: var(--body-color-muted);
   font-size: 16px;
@@ -28,25 +34,49 @@ const LearnMoreButton = styled(motion.button)`
   font-weight: 500;
   will-change: color, transform;
   transition: color 200ms ease, transform 100ms ease;
-
+  svg {
+    display: block;
+    position: relative;
+    top: 2.5px;
+    path,
+    circle {
+      transition: all 200ms ease-out;
+    }
+    path:last-of-type {
+      transform-origin: 0 0;
+      transform: scaleX(1.3) skewY(-12deg);
+      opacity: 0;
+    }
+    circle {
+      transform: translate(20%, -15%);
+    }
+  }
   &:hover {
     color: var(--body-color-muted-hover);
+    svg {
+      path,
+      circle {
+        opacity: 1;
+        transform: none;
+      }
+    }
   }
   &:active {
-    transform: scale(0.99);
+    transform: scale(0.96);
   }
 `;
 
 const ConnectorsContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 24px 8px;
+  gap: 12px;
+  padding: 0 0 28px;
 `;
 
 const ConnectorButton = styled(motion.button)`
   --background: var(--body-background-secondary);
   cursor: pointer;
+  user-select: none;
   position: relative;
   display: flex;
   align-items: center;
@@ -147,6 +177,14 @@ const Wallets: React.FC = () => {
             </ConnectorButton>
           );
         })}
+        <ConnectorButton
+          onClick={() => {
+            context.setState({ open: true, route: routes.COINBASE });
+          }}
+        >
+          <ConnectorIcon>{logos.Coinbase}</ConnectorIcon>
+          <ConnectorLabel>Coinbase Wallet</ConnectorLabel>
+        </ConnectorButton>
       </ConnectorsContainer>
       {/* <ConnectorContent>
         {tab === 'injected' && isConnecting ? (
@@ -167,10 +205,10 @@ const Wallets: React.FC = () => {
       <LearnMoreContainer>
         <LearnMoreButton
           onClick={() =>
-            context.setState({ open: true, route: routes.KNOWLEDGEBASE })
+            context.setState({ open: true, route: routes.ONBOARDING })
           }
         >
-          I don't have a wallet
+          <WalletIcon /> I don't have a wallet
         </LearnMoreButton>
       </LearnMoreContainer>
     </Container>
