@@ -2,10 +2,12 @@ import React, { createContext, createElement, useState } from 'react';
 
 export const routes = {
   CONNECT: 'connect',
-  KNOWLEDGEBASE: 'knowledgeBase',
+  ONBOARDING: 'onboarding',
+  ONBOARDING_GETWALLET: 'onboardingGetWallet',
   METAMASK: 'metaMask',
   WALLETCONNECT: 'walletConnect',
   WALLETCONNECT_CONNECTING: 'walletConnectConnecting',
+  COINBASE: 'coinbase',
 };
 
 type State = {
