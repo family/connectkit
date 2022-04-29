@@ -1,22 +1,62 @@
-import { useEffect, useLayoutEffect, useState, useRef } from 'react';
-import {
-  useAccount,
-  useConnect,
-  useDisconnect,
-  useEnsName,
-  useProvider,
-} from 'wagmi';
+import { useEffect } from 'react';
+import { useConnect, useDisconnect } from 'wagmi';
 import { routes, useContext } from './../FamilyKit';
+
+import logos from '../../assets/logos';
 
 import Modal from '../Modal';
 
 import ConnectButton from './../ConnectButton';
 
-import KnowledgeBase from './KnowledgeBase';
+import OnboardingIntroduction from './Onboarding/Introduction';
+import OnboardingGetWallet from './Onboarding/GetWallet';
 import ConnectUsing from './ConnectUsing';
 import Connectors from './Connectors';
 import ScanQRCode from './ScanQRCode';
-import logos from '../../assets/logos';
+
+const { ethereum } = window;
+const isMetaMask = () => Boolean(ethereum && ethereum.isMetaMask);
+const isCoinbaseWallet = () => Boolean(ethereum && ethereum.isCoinbaseWallet);
+
+/**
+ * This is more likely not how we will be doing this, just set up for prototyping
+ */
+const supportedWallets = {
+  metaMask: {
+    name: 'MetaMask',
+    logo: logos.MetaMask,
+    extensionUrl:
+      'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+    extensionCheck: () => {
+      return isMetaMask();
+    },
+    extensionLaunch: async () => {
+      if (!ethereum) return false;
+      if (!isMetaMask()) return false;
+      try {
+        return await ethereum.request({ method: 'eth_requestAccounts' });
+      } catch (error) {
+        return error;
+      }
+    },
+  },
+  walletConnect: {
+    name: 'WalletConnect',
+    logo: logos.WalletConnect,
+    extensionUrl: false,
+    extensionCheck: () => {
+      return false;
+    },
+  },
+  coinbase: {
+    name: 'Coinbase',
+    logo: logos.Coinbase,
+    extensionUrl: 'https://api.wallet.coinbase.com/rpc/v2/desktop/chrome',
+    extensionCheck: () => {
+      return isCoinbaseWallet();
+    },
+  },
+};
 
 {
   /**
@@ -26,41 +66,19 @@ import logos from '../../assets/logos';
 }
 const pages: any = {
   connect: <Connectors />,
-  knowledgeBase: <KnowledgeBase />,
-  metaMask: (
-    <ConnectUsing
-      wallet={{
-        name: 'MetaMask',
-        logo: logos.MetaMask,
-        url: 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-      }}
-    />
-  ),
+  onboarding: <OnboardingIntroduction />,
+  onboardingGetWallet: <OnboardingGetWallet />,
+  metaMask: <ConnectUsing wallet={supportedWallets.metaMask} />,
   walletConnect: <ScanQRCode />,
-  walletConnectConnecting: (
-    <ConnectUsing
-      wallet={{
-        name: 'WalletConnect',
-        logo: logos.WalletConnect,
-        url: '',
-      }}
-    />
-  ),
+  walletConnectConnecting: <ScanQRCode />,
+  coinbase: <ConnectUsing wallet={supportedWallets.coinbase} />,
 };
 
 const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
   theme = 'light',
 }) => {
   const context = useContext();
-  const {
-    connect,
-    connectors,
-    error,
-    isConnecting,
-    pendingConnector,
-    reset,
-    isConnected,
-  } = useConnect();
+  const { reset, isConnected } = useConnect();
   const { disconnect } = useDisconnect();
 
   function resetAll() {
