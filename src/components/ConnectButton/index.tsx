@@ -9,14 +9,16 @@ import { ResetContainer } from '../../styles';
 const Button = styled(motion.button)`
   color: var(--body-color);
   background: var(--body-background);
-
-  --outline: inset 0 0 0 1px #f4f4f4;
+  --outline: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
   --shadow: 0 2px 12px rgba(0, 0, 0, 0);
   appearance: none;
   user-select: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  width: 192px;
+  max-width: 192px;
+  min-width: 192px;
   padding: 6px 13px 6px 6px;
   font-size: 14px;
   font-family: 'LFE';
