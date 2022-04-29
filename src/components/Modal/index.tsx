@@ -14,6 +14,7 @@ import {
   BackgroundOverlay,
   CloseButton,
   BackButton,
+  TextWithHr,
 } from './styles';
 
 import useMeasure from 'react-use-measure';
@@ -215,6 +216,14 @@ const Modal: React.FC<ModalProps> = ({
         </Portal>
       )}
     </AnimatePresence>
+  );
+};
+
+export const OrDivider = () => {
+  return (
+    <TextWithHr>
+      <span>or</span>
+    </TextWithHr>
   );
 };
 
