@@ -21,7 +21,7 @@ const QRCodeContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 12px;
+  margin: 2px auto 22px;
   padding: 12px;
   width: 100%;
   aspect-ratio: 1/1;
@@ -40,9 +40,9 @@ const QRCodeSkeleton = styled(motion.div)`
   position: absolute;
   background: #e5e5e5;
   border-radius: 17.5px;
-  width: 20%;
-  height: 20%;
-  box-shadow: inset 0 0 0 6px #e5e5e5, inset 0 0 0 12px white;
+  width: 24%;
+  height: 24%;
+  box-shadow: inset 0 0 0 8px #e5e5e5, inset 0 0 0 14px white;
 `;
 
 const Spinner = styled(motion.div)`

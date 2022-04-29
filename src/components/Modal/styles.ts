@@ -5,7 +5,7 @@ export const TextWithHr = styled(motion.div)`
   position: relative;
   display: block;
   text-align: center;
-  color: var(--body-text-muted);
+  color: var(--body-color-muted);
   font-size: 16px;
   line-height: 20px;
   span {
@@ -47,7 +47,7 @@ export const ModalContent = styled(motion.div)`
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
   padding: 0 0 16px;
 `;
 export const ModalH1 = styled(motion.div)`

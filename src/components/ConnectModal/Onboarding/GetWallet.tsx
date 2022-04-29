@@ -13,18 +13,19 @@ import logos from '../../../assets/logos';
 
 const Container = styled(motion.div)`
   max-width: 100%;
-  width: 320px;
+  width: 295px;
 `;
 
 const WalletList = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 24px 0 0;
 `;
 const WalletItem = styled(motion.div)`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 `;
 const WalletButton = styled(motion.button)`
   appearance: none;

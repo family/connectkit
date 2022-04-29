@@ -12,9 +12,14 @@ import {
 } from '../Modal/styles';
 import Button from '../Button';
 import { useContext } from '../FamilyKit';
-import Modal, { OrDivider } from '../Modal';
+import { OrDivider } from '../Modal';
 
-const Content = styled(motion.div)``;
+const Content = styled(motion.div)`
+  ${ModalContent} {
+    padding: 0 12px 38px;
+    gap: 6px;
+  }
+`;
 
 const ButtonAnchor = styled(motion.a)`
   appearance: none;
@@ -326,18 +331,19 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
       <ConnectingContainer>
         <ConnectingAnimation status={status}>
           <AnimatePresence>
-            {status === states.FAILED && (
-              <RetryButton
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ duration: 0.1 }}
-                onClick={() => setStatus(states.CONNECTING)}
-              >
-                <RetryIcon />
-              </RetryButton>
-            )}
+            {status === states.FAILED ||
+              (status === states.REJECTED && (
+                <RetryButton
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.1 }}
+                  onClick={() => setStatus(states.CONNECTING)}
+                >
+                  <RetryIcon />
+                </RetryButton>
+              ))}
           </AnimatePresence>
           <LogoContainer>
             <Logo>{wallet.logo}</Logo>
@@ -387,9 +393,6 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
                   Please try connecting again.
                 </ModalBody>
               </ModalContent>
-              <Button onClick={() => setStatus(states.CONNECTING)}>
-                Try Again
-              </Button>
             </Content>
           )}
           {status === states.REJECTED && (
@@ -407,9 +410,6 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
                   again.
                 </ModalBody>
               </ModalContent>
-              <Button onClick={() => setStatus(states.CONNECTING)}>
-                Try Again
-              </Button>
             </Content>
           )}
           {status === states.CONNECTING && (
@@ -444,13 +444,6 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
                   again
                 </ModalBody>
               </ModalContent>
-              <ButtonAnchor
-                href={wallet.extensionUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Try Again
-              </ButtonAnchor>
             </Content>
           )}
           {status === states.UNAVAILABLE && (
@@ -462,13 +455,13 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
               variants={contentVariants}
             >
               <ModalContent>
-                <ModalH1>Unsupported Browser</ModalH1>
+                <ModalH1>Install {wallet.name}</ModalH1>
                 <ModalBody>
                   To connect your {wallet.name} wallet, install the browser
-                  extension on Chrome.
+                  extension.
                 </ModalBody>
-                <OrDivider />
               </ModalContent>
+              <OrDivider />
               <Button>Scan with the mobile app</Button>
               {/*
               <ButtonAnchor

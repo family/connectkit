@@ -16,7 +16,7 @@ import { routes, useContext } from '../../FamilyKit';
 
 const Container = styled(motion.div)`
   max-width: 100%;
-  width: 320px;
+  width: 295px;
 `;
 const Graphic = styled(motion.div)`
   position: relative;
