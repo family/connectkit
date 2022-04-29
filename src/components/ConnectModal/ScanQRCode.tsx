@@ -8,58 +8,55 @@ import { motion } from 'framer-motion';
 import Button from '../Button';
 import { useConnect } from 'wagmi';
 import { Listener } from '@ethersproject/abstract-provider';
-import { ModalHeading } from '../Modal/styles';
+import { OrDivider } from '../Modal';
+import { ModalContent, ModalHeading } from '../Modal/styles';
 
 const Container = styled(motion.div)`
-  min-width: 100%;
-  width: 310px;
+  max-width: 100%;
+  width: 295px;
 `;
 const QRCodeContainer = styled(motion.div)`
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 24px auto;
-  width: 270px;
-  height: 270px;
+  margin: 0 auto 12px;
+  padding: 12px;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 24px;
+  background: #fff;
 `;
-const TextWithHr = styled(motion.div)`
-  position: relative;
-  display: block;
-  text-align: center;
-  color: var(--body-text-muted);
-  font-size: 16px;
-  line-height: 20px;
-  span {
-    z-index: 2;
-    position: relative;
-    display: inline-block;
-    padding: 0 16px;
-    background: var(--body-background);
-  }
-  &:before {
-    z-index: 1;
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--body-divider);
-  }
+
+const QRPlaceholder = styled(motion.div)`
+  position: absolute;
+  inset: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const QRCodeSkeleton = styled(motion.div)`
+  position: absolute;
+  background: #e5e5e5;
+  border-radius: 17.5px;
+  width: 20%;
+  height: 20%;
+  box-shadow: inset 0 0 0 6px #e5e5e5, inset 0 0 0 12px white;
 `;
 
 const Spinner = styled(motion.div)`
+  z-index: 2;
   border-radius: 50%;
   width: 18em;
   height: 18em;
-  margin: 60px auto;
   font-size: 2px;
   position: relative;
   text-indent: -9999em;
-  border-top: 1em solid var(--body-background-secondary);
-  border-right: 1em solid var(--body-background-secondary);
-  border-bottom: 1em solid var(--body-background-secondary);
-  border-left: 1em solid var(--body-color-muted);
+  border-top: 1em solid var(--family-brand);
+  border-right: 1em solid var(--family-brand);
+  border-bottom: 1em solid var(--family-brand);
+  border-left: 1em solid #e5e5e5;
   transform: translateZ(0);
   animation: spinner 1.1s infinite linear;
   @keyframes spinner {
@@ -97,13 +94,20 @@ const ScanQRCode: React.FC = () => {
   return (
     <Container>
       <ModalHeading>Scan QR Code</ModalHeading>
-      <QRCodeContainer>
-        {walletConnectURI && <QRCode value={walletConnectURI} size={270} />}
-        {!walletConnectURI && <Spinner />}
-      </QRCodeContainer>
-      <TextWithHr>
-        <span>or</span>
-      </TextWithHr>
+      <ModalContent>
+        <QRCodeContainer>
+          {walletConnectURI && <QRCode value={walletConnectURI} size={270} />}
+          {!walletConnectURI && (
+            <QRPlaceholder>
+              <Spinner />
+              <QRCodeSkeleton style={{ top: 0, right: 0 }} />
+              <QRCodeSkeleton style={{ top: 0, left: 0 }} />
+              <QRCodeSkeleton style={{ bottom: 0, left: 0 }} />
+            </QRPlaceholder>
+          )}
+        </QRCodeContainer>
+        <OrDivider />
+      </ModalContent>
       <Button
         onClick={() =>
           context.setState({
