@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useContext, routes } from '../FamilyKit';
-import QRCode from 'react-qr-code';
+// import QRCode from 'react-qr-code';
+import { QRCode } from 'react-qrcode-logo';
 
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -10,6 +11,8 @@ import { useConnect } from 'wagmi';
 import { Listener } from '@ethersproject/abstract-provider';
 import { OrDivider } from '../Modal';
 import { ModalContent, ModalHeading } from '../Modal/styles';
+import Logos from '../../assets/logos';
+import logos from '../../assets/logos';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -39,9 +42,9 @@ const QRPlaceholder = styled(motion.div)`
 const QRCodeSkeleton = styled(motion.div)`
   position: absolute;
   background: #e5e5e5;
-  border-radius: 17.5px;
-  width: 24%;
-  height: 24%;
+  border-radius: 13px;
+  width: 14%;
+  height: 14%;
   box-shadow: inset 0 0 0 8px #e5e5e5, inset 0 0 0 14px white;
 `;
 
@@ -66,6 +69,20 @@ const Spinner = styled(motion.div)`
     100% {
       transform: rotate(360deg);
     }
+  }
+`;
+
+const LogoIcon = styled(motion.div)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25.7%;
+  height: 25.7%;
+  transform: translate3d(-50%, -50%, 0);
+  & svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 19px;
   }
 `;
 
@@ -96,7 +113,20 @@ const ScanQRCode: React.FC = () => {
       <ModalHeading>Scan QR Code</ModalHeading>
       <ModalContent>
         <QRCodeContainer>
-          {walletConnectURI && <QRCode value={walletConnectURI} size={270} />}
+          <LogoIcon>{logos.WalletConnect}</LogoIcon>
+          {walletConnectURI && (
+            <QRCode
+              logoImage={Logos.PlaceholderB64}
+              removeQrCodeBehindLogo={true}
+              value={walletConnectURI}
+              size={270}
+              qrStyle="dots"
+              eyeRadius={12}
+              ecLevel="L"
+              logoWidth={76}
+              logoHeight={76}
+            />
+          )}
           {!walletConnectURI && (
             <QRPlaceholder>
               <Spinner />
