@@ -122,7 +122,7 @@ const ScanQRCode: React.FC = () => {
               size={270}
               qrStyle="dots"
               eyeRadius={12}
-              ecLevel="L"
+              ecLevel="M"
               logoWidth={76}
               logoHeight={76}
             />
