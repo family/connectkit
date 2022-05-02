@@ -9,10 +9,8 @@ import {
   ModalH1,
   ModalHeading,
 } from '../../Modal/styles';
-import Button from '../../Button';
 import logos from '../../../assets/logos';
 import wave from '../../../assets/wave';
-import { routes, useContext } from '../../FamilyKit';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -126,8 +124,39 @@ const GraphicLogo = styled(motion.div)`
   }
 }`;
 
+const ButtonAnchor = styled(motion.a)`
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+  min-width: fit-content;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  height: 48px;
+  margin: 0;
+  padding: 0 32px;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 500;
+  color: var(--body-color);
+  background: var(--body-background-secondary);
+  white-space: nowrap;
+  will-change: transform;
+  transition: transform 100ms ease;
+  transform: scale(1);
+
+  &:hover {
+    transform: scale(1.01);
+  }
+  &:active {
+    transform: scale(0.99);
+  }
+`;
+
 const Introduction: React.FC = () => {
-  const context = useContext();
   return (
     <Container>
       <ModalHeading>Get a Wallet</ModalHeading>
@@ -176,13 +205,13 @@ const Introduction: React.FC = () => {
           technology that makes it possible to explore web3.
         </ModalBody>
       </ModalContent>
-      <Button
-        onClick={() =>
-          context.setState({ open: true, route: routes.ONBOARDING_GETWALLET })
-        }
+      <ButtonAnchor
+        href="https://ethereum.org/en/wallets/find-wallet/#main-content"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Choose Your First Wallet &rarr;
-      </Button>
+      </ButtonAnchor>
     </Container>
   );
 };
