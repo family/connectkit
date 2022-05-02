@@ -63,6 +63,7 @@ const BackIcon = (props: Props) => (
 
 const containerVariants: Variants = {
   initial: {
+    willChange: 'transform,opacity',
     y: 5,
     opacity: 0,
     scale: 0.92,
@@ -90,6 +91,7 @@ const containerVariants: Variants = {
 
 const contentVariants: Variants = {
   initial: {
+    willChange: 'transform,opacity',
     zIndex: 2,
     opacity: 0,
   },
