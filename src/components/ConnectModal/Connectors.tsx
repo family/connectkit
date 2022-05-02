@@ -130,7 +130,7 @@ const ConnectorIcon = styled(motion.div)`
 `;
 
 function getConnectorInfo(id: string) {
-  console.log(id);
+  //console.log(id);
   switch (id) {
     case 'injected':
       return {
@@ -159,8 +159,6 @@ const Wallets: React.FC = () => {
 
   const { connect, connectors } = useConnect();
 
-  console.log(connectors);
-
   return (
     <Container>
       <ModalHeading>Connect Wallet</ModalHeading>
@@ -173,13 +171,16 @@ const Wallets: React.FC = () => {
               //disabled={!connector.ready}
               onClick={() => {
                 if (connector.id === 'walletConnect') {
-                  context.setState({ open: true, route: routes.WALLETCONNECT });
+                  context.setRoute(routes.WALLETCONNECT);
+                  context.setConnector(connector);
                 } else if (connector.id === 'injected') {
-                  context.setState({ open: true, route: routes.METAMASK });
+                  context.setRoute(routes.METAMASK);
+                  context.setConnector(connector);
                 } else if (connector.id === 'coinbaseWallet') {
-                  context.setState({ open: true, route: routes.COINBASE });
-                  connect(connector);
+                  context.setRoute(routes.COINBASE);
+                  context.setConnector(connector);
                 } else {
+                  console.error('Not a valid route?');
                   connect(connector);
                 }
               }}
@@ -189,14 +190,6 @@ const Wallets: React.FC = () => {
             </ConnectorButton>
           );
         })}
-        {/* <ConnectorButton
-          onClick={() => {
-            context.setState({ open: true, route: routes.COINBASE });
-          }}
-        >
-          <ConnectorIcon>{logos.Coinbase}</ConnectorIcon>
-          <ConnectorLabel>Coinbase Wallet</ConnectorLabel>
-        </ConnectorButton> */}
       </ConnectorsContainer>
       {/* <ConnectorContent>
         {tab === 'injected' && isConnecting ? (
@@ -215,11 +208,7 @@ const Wallets: React.FC = () => {
       {/* <span></span>{error ? error.message : ''} */}
 
       <LearnMoreContainer>
-        <LearnMoreButton
-          onClick={() =>
-            context.setState({ open: true, route: routes.ONBOARDING })
-          }
-        >
+        <LearnMoreButton onClick={() => context.setRoute(routes.ONBOARDING)}>
           <WalletIcon /> I don't have a wallet
         </LearnMoreButton>
       </LearnMoreContainer>

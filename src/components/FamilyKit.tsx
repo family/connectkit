@@ -10,14 +10,15 @@ export const routes = {
   COINBASE: 'coinbase',
 };
 
-type State = {
-  open?: boolean;
-  route?: string;
-};
+type Connector = any;
 
 type ContextValue = {
-  state: State;
-  setState: React.Dispatch<React.SetStateAction<State>>;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  route: string;
+  setRoute: React.Dispatch<React.SetStateAction<string>>;
+  connector?: any; // TODO: Define type
+  setConnector: React.Dispatch<React.SetStateAction<Connector>>;
 };
 
 const Context = createContext<ContextValue | null>(null);
@@ -27,16 +28,16 @@ type Props = {
 };
 
 export const FamilyProvider: React.FC<Props> = ({ children }) => {
-  const [state, setState] = useState<State>({
-    open: false,
-    route: routes.CONNECT, //default route
-  });
+  const [open, setOpen] = useState<boolean>(false);
+  const [connector, setConnector] = useState<any>(null);
+  const [route, setRoute] = useState<string>(routes.CONNECT);
   const value = {
-    state: {
-      open: state.open,
-      route: state.route,
-    },
-    setState,
+    open,
+    setOpen,
+    route,
+    setRoute,
+    connector,
+    setConnector,
   };
   return createElement(Context.Provider, { value }, children);
 };

@@ -87,11 +87,12 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
   }
 
   function show() {
-    context.setState({ open: true, route: routes.CONNECT });
+    context.setOpen(true);
+    context.setRoute(routes.CONNECT);
   }
 
   function hide() {
-    context.setState({ open: false });
+    context.setOpen(false);
   }
 
   useEffect(() => {
@@ -114,13 +115,14 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
       {isConnected && <button onClick={resetAll}>Disconnect Wallet</button>}
       <Modal
         theme={theme}
-        open={context.state.open}
+        open={context.open}
         pages={pages}
-        pageId={context.state.route}
+        pageId={context.route}
         onClose={hide}
         onBack={
-          context.state.route !== routes.CONNECT
-            ? () => context.setState({ open: true, route: routes.CONNECT })
+          // TODO: Track history so back button goes to correct route
+          context.route !== routes.CONNECT
+            ? () => context.setRoute(routes.CONNECT)
             : undefined
         }
       />

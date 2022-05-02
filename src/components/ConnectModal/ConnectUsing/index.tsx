@@ -148,9 +148,9 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
         <label>Test state</label>{' '}
         <select onChange={(e: any) => setStatus(e.target.value)}>
           {}
-          {Object.keys(states).map((key: any) => (
+          {Object.keys(states).map((key: any, i: number) => (
             /* @ts-ignore */
-            <option>{states[key]}</option>
+            <option key={i}>{states[key]}</option>
           ))}
         </select>
       </TestBench>

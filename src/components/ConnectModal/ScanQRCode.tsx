@@ -138,14 +138,7 @@ const ScanQRCode: React.FC = () => {
         </QRCodeContainer>
         <OrDivider />
       </ModalContent>
-      <Button
-        onClick={() =>
-          context.setState({
-            open: true,
-            route: routes.WALLETCONNECT_CONNECTING,
-          })
-        }
-      >
+      <Button onClick={() => context.setRoute(routes.WALLETCONNECT_CONNECTING)}>
         Open WalletConnect
       </Button>
     </Container>
