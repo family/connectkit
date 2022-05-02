@@ -82,7 +82,7 @@ export const Container = styled(motion.div)`
   max-width: 90vw;
   color: var(--body-color);
   background: var(--body-background);
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+  //box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
   border-radius: 24px;
 
   &,
