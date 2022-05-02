@@ -62,21 +62,28 @@ const BackIcon = (props: Props) => (
 );
 
 const containerVariants: Variants = {
-  visible: {
+  initial: {
+    y: 5,
+    opacity: 0,
+    scale: 0.92,
+  },
+  animate: {
+    y: 0,
     opacity: 1,
     scale: 1,
     transition: {
-      ease: [0.16, 1, 0.3, 1],
-      duration: 0.4,
+      duration: 0.22,
+      ease: [0.175, 0.885, 0.32, 0.98],
       delay: 0.05,
     },
   },
-  hidden: {
+  exit: {
+    y: 10,
     opacity: 0,
-    scale: 0.95,
+    scale: 0.96,
     transition: {
-      ease: [0.16, 1, 0.3, 1],
-      duration: 0.3,
+      duration: 0.22,
+      ease: [0.45, 0, 0.55, 1],
     },
   },
 };
@@ -154,23 +161,16 @@ const Modal: React.FC<ModalProps> = ({
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
-                  transition: {
-                    ease: [0.16, 1, 0.3, 1],
-                    duration: 0.4,
-                  },
                 }}
                 exit={{
                   opacity: 0,
-                  transition: {
-                    ease: 'linear',
-                    duration: 0.3,
-                  },
                 }}
+                transition={{ ease: 'easeOut', duration: 0.2 }}
               />
               <Container
-                initial={'hidden'}
-                animate={'visible'}
-                exit={'hidden'}
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
                 variants={containerVariants}
               >
                 <CloseButton onClick={onClose}>
