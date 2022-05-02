@@ -95,6 +95,8 @@ export const ResetContainer = styled.div<{ theme: string }>`
         `;
     }
   }}
+
+  all: initial;
   display: inline-block;
   text-align: left;
   text-direction: ltr;
