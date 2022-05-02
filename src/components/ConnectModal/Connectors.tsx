@@ -41,24 +41,22 @@ const LearnMoreButton = styled(motion.button)`
     top: 2.5px;
     path,
     circle {
+      will-change: opacity, transform;
       transition: all 200ms ease-out;
-    }
-    path:last-of-type {
-      transform-origin: 0 0;
-      transform: scaleX(1.3) skewY(-12deg);
-      opacity: 0;
-    }
-    circle {
-      transform: translate(20%, -15%);
+      opacity: 1;
+      transform: none;
     }
   }
   &:hover {
     color: var(--body-color-muted-hover);
     svg {
-      path,
+      path:last-of-type {
+        transform-origin: 0 0;
+        transform: scaleX(1.3) skewY(-12deg);
+        opacity: 0;
+      }
       circle {
-        opacity: 1;
-        transform: none;
+        transform: translate(20%, -15%);
       }
     }
   }
