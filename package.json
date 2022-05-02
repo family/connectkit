@@ -21,6 +21,7 @@
     "react-use-measure": "^2.1.1",
     "styled-components": "^5.3.5",
     "typescript": "^4.6.3",
+    "util": "^0.12.4",
     "wagmi": "^0.3.0-next.19",
     "web-vitals": "^2.1.4"
   },
