@@ -36,7 +36,9 @@ const client = createClient({
 });
 
 const App = () => {
+  //const [open, setOpen] = useState<boolean>(false);
   const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('auto');
+  const [iframeUrl, setIframeUrl] = useState<string>('');
   return (
     <FamilyProvider>
       <Provider client={client}>
@@ -54,12 +56,92 @@ const App = () => {
 
           <h1>Family Connect</h1>
           <p>This page is intentionally left unstyled</p>
-          <label>Theme</label>
-          <select onChange={(e: any) => setTheme(e.target.value)}>
-            <option value={'auto'}>auto</option>
-            <option value={'light'}>Light Mode</option>
-            <option value={'dark'}>Dark Mode</option>
-          </select>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'white',
+            }}
+          >
+            <fieldset>
+              options
+              <hr />
+              <label>theme</label>{' '}
+              <select onChange={(e: any) => setTheme(e.target.value)}>
+                <option value={'auto'}>system settings</option>
+                <option value={'light'}>light mode</option>
+                <option value={'dark'}>dark mode</option>
+              </select>
+            </fieldset>
+            <fieldset>
+              design context preview
+              <hr />
+              <button
+                name="mirror.xyz"
+                onClick={() => {
+                  setIframeUrl(
+                    iframeUrl !== 'https://mirror.xyz'
+                      ? 'https://mirror.xyz'
+                      : ''
+                  );
+                }}
+              >
+                {iframeUrl === 'https://mirror.xyz' ? 'Disable' : 'Enable'}
+              </button>{' '}
+              <label>mirror.xyz</label>
+              <hr />
+              <button
+                onClick={() => {
+                  setIframeUrl(
+                    iframeUrl !== 'https://opensea.io'
+                      ? 'https://opensea.io'
+                      : ''
+                  );
+                }}
+              >
+                {iframeUrl === 'https://opensea.io' ? 'Disable' : 'Enable'}
+              </button>{' '}
+              <label>opensea</label>
+              <hr />
+              <button
+                onClick={() => {
+                  setIframeUrl(
+                    iframeUrl !== 'https://honk.me' ? 'https://honk.me' : ''
+                  );
+                }}
+              >
+                {iframeUrl === 'https://honk.me' ? 'Disable' : 'Enable'}
+              </button>{' '}
+              <label>honk</label>
+              <hr />
+              <button
+                onClick={() => {
+                  setIframeUrl(
+                    iframeUrl !== 'https://loch.ie' ? 'https://loch.ie' : ''
+                  );
+                }}
+              >
+                {iframeUrl === 'https://loch.ie' ? 'Disable' : 'Enable'}
+              </button>{' '}
+              <label>extreme stress test</label>
+            </fieldset>
+          </div>
+
+          {iframeUrl !== '' && (
+            <iframe
+              src={iframeUrl}
+              style={{
+                width: '100%',
+                height: '100%',
+                inset: 0,
+                position: 'fixed',
+                zIndex: -1,
+                border: 0,
+              }}
+            />
+          )}
         </div>
       </Provider>
     </FamilyProvider>
