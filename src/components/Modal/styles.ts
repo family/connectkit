@@ -110,7 +110,7 @@ export const PageContainer = styled(motion.div)`
 `;
 
 export const ModalContainer = styled(motion.div)`
-  z-index: 2147483647;
+  z-index: 2147483646; // z-index set one below max (2147483647) for if we wish to layer things ontop of the modal in a seperate Portal
   position: fixed;
   inset: 0;
   display: flex;

@@ -1,14 +1,15 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
+import Portal from './Portal';
 
-const Container = styled(motion.button)`
+const Container = styled(motion.div)`
+  z-index: 2147483647;
   position: fixed;
   top: 10px;
   right: 10px;
   padding: 8px 12px;
   background: white;
-  z-index: 9999;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -18,13 +19,15 @@ const Container = styled(motion.button)`
 const TestBench: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <AnimatePresence>
-      <Container
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        {children}
-      </Container>
+      <Portal>
+        <Container
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {children}
+        </Container>
+      </Portal>
     </AnimatePresence>
   );
 };
