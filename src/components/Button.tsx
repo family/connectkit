@@ -32,14 +32,30 @@ const ButtonContainer = styled(motion.button)`
   }
 `;
 
+const IconContainer = styled(motion.div)`
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4.5px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 type ButtonProps = {
   children?: React.ReactNode;
   disabled?: boolean;
+  icon?: React.ReactNode;
   onClick?: (e: any) => void;
 };
 const Button = React.forwardRef(
   (
-    { children, disabled, onClick }: ButtonProps,
+    { children, disabled, icon, onClick }: ButtonProps,
     ref: React.Ref<HTMLElement>
   ) => {
     return (
@@ -49,6 +65,7 @@ const Button = React.forwardRef(
         }}
         disabled={disabled}
       >
+        {icon && <IconContainer>{icon}</IconContainer>}
         {children}
       </ButtonContainer>
     );
