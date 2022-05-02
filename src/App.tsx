@@ -23,13 +23,12 @@ const client = createClient({
       },
     }),
     new InjectedConnector(),
-    /*
     new CoinbaseWalletConnector({
       options: {
-        appName: 'Family App',
+        appName: 'Family',
+        headlessMode: true,
       },
     }),
-    */
   ],
   provider: (config) => {
     return new providers.InfuraProvider(config.chainId, infuraId);

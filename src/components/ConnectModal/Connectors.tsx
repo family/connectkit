@@ -130,6 +130,7 @@ const ConnectorIcon = styled(motion.div)`
 `;
 
 function getConnectorInfo(id: string) {
+  console.log(id);
   switch (id) {
     case 'injected':
       return {
@@ -140,6 +141,11 @@ function getConnectorInfo(id: string) {
       return {
         name: 'WalletConnect',
         logo: Logos.WalletConnect,
+      };
+    case 'coinbaseWallet':
+      return {
+        name: 'Coinbase Wallet',
+        logo: Logos.Coinbase,
       };
     default:
       return {
@@ -152,6 +158,8 @@ const Wallets: React.FC = () => {
   const context = useContext();
 
   const { connect, connectors } = useConnect();
+
+  console.log(connectors);
 
   return (
     <Container>
@@ -168,6 +176,9 @@ const Wallets: React.FC = () => {
                   context.setState({ open: true, route: routes.WALLETCONNECT });
                 } else if (connector.id === 'injected') {
                   context.setState({ open: true, route: routes.METAMASK });
+                } else if (connector.id === 'coinbaseWallet') {
+                  context.setState({ open: true, route: routes.COINBASE });
+                  connect(connector);
                 } else {
                   connect(connector);
                 }
@@ -178,14 +189,14 @@ const Wallets: React.FC = () => {
             </ConnectorButton>
           );
         })}
-        <ConnectorButton
+        {/* <ConnectorButton
           onClick={() => {
             context.setState({ open: true, route: routes.COINBASE });
           }}
         >
           <ConnectorIcon>{logos.Coinbase}</ConnectorIcon>
           <ConnectorLabel>Coinbase Wallet</ConnectorLabel>
-        </ConnectorButton>
+        </ConnectorButton> */}
       </ConnectorsContainer>
       {/* <ConnectorContent>
         {tab === 'injected' && isConnecting ? (
