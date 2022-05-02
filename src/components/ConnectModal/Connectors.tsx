@@ -5,9 +5,8 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 import { useConnect } from 'wagmi';
-import Logos from '../../assets/logos';
-import { ModalHeading } from '../Modal/styles';
 import logos from '../../assets/logos';
+import { ModalHeading } from '../Modal/styles';
 import WalletIcon from '../../assets/wallet';
 
 const Container = styled(motion.div)`
@@ -133,17 +132,17 @@ function getConnectorInfo(id: string) {
     case 'injected':
       return {
         name: 'MetaMask',
-        logo: Logos.MetaMask,
+        logo: logos.MetaMask,
       };
     case 'walletConnect':
       return {
         name: 'WalletConnect',
-        logo: Logos.WalletConnect,
+        logo: logos.WalletConnect,
       };
     case 'coinbaseWallet':
       return {
         name: 'Coinbase Wallet',
-        logo: Logos.Coinbase,
+        logo: logos.Coinbase,
       };
     default:
       return {
