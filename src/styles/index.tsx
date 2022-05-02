@@ -5,6 +5,28 @@ import { hexToP3 } from '../utils/p3';
  * Theme variables for the modal
  */
 const theme = {
+  brand: {
+    '--family-brand': '#1A88F8',
+    '--brand-walletconnect': '#5597F6',
+    '--brand-coinbase': '#0C59FE',
+    '--brand-metamask-01': '#F6851B',
+    '--brand-metamask-02': '#E2761B',
+    '--brand-metamask-03': '#CD6116',
+    '--brand-metamask-04': '#161616',
+    '--brand-metamask-05': '#763D16',
+    '--brand-metamask-06': '#D7C1B3',
+    '--brand-metamask-07': '#C0AD9E',
+    '--brand-metamask-08': '#E4761B',
+    '--brand-metamask-09': '#233447',
+    '--brand-metamask-10': '#E4751F',
+    '--brand-metamask-11': '#FEF5E7',
+    '--brand-metamask-12': '#E3C8AB',
+    '--brand-trust-01': '#3375BB',
+    '--brand-trust-02': '#ffffff',
+    '--brand-argent': '#FF875B',
+    '--brand-imtoken-01': '#11C4D1',
+    '--brand-imtoken-02': '#0062AD',
+  },
   light: {
     '--overlay-background': 'rgba(0, 0, 0, 0.4)',
     '--body-color': '#2b2f43',
@@ -26,27 +48,10 @@ const theme = {
     '--body-background-secondary-hover': '#4D4D4D',
     '--body-divider': '#383838',
     '--body-color-danger': '#FC6464',
-  },
-  brand: {
-    '--family-brand': '#1A88F8',
-    '--brand-walletconnect': '#5597F6',
-    '--brand-coinbase': '#0C59FE',
-    '--brand-metamask-01': '#F6851B',
-    '--brand-metamask-02': '#E2761B',
-    '--brand-metamask-03': '#CD6116',
-    '--brand-metamask-04': '#161616',
-    '--brand-metamask-05': '#763D16',
-    '--brand-metamask-06': '#D7C1B3',
-    '--brand-metamask-07': '#C0AD9E',
-    '--brand-metamask-08': '#E4761B',
-    '--brand-metamask-09': '#233447',
-    '--brand-metamask-10': '#E4751F',
-    '--brand-metamask-11': '#FEF5E7',
-    '--brand-metamask-12': '#E3C8AB',
-    '--brand-trust': '#3375BB',
-    '--brand-argent': '#FF875B',
-    '--brand-imtoken-01': '#11C4D1',
-    '--brand-imtoken-02': '#0062AD',
+
+    // Brand dark themes can also go here
+    '--brand-trust-01': '#ffffff',
+    '--brand-trust-02': '#3375BB',
   },
 };
 
