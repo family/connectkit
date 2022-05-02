@@ -58,6 +58,7 @@ const ButtonAnchor = styled(motion.a)`
 
 const contentVariants: Variants = {
   initial: {
+    willChange: 'transform,opacity',
     position: 'relative',
     opacity: 0,
     scale: 0.95,
