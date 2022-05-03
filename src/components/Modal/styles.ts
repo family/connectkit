@@ -7,7 +7,7 @@ export const TextWithHr = styled(motion.div)`
   text-align: center;
   color: var(--body-color-muted);
   font-size: 16px;
-  font-wieght: 400;
+  font-weight: 400;
   line-height: 20px;
   span {
     z-index: 2;
@@ -24,6 +24,7 @@ export const TextWithHr = styled(motion.div)`
     left: 0;
     right: 0;
     height: 1px;
+    transform: translateY(1px);
     background: var(--body-divider);
   }
 `;
@@ -143,7 +144,7 @@ export const BackButton = styled(motion.button)`
   cursor: pointer;
   position: absolute;
   top: 18px;
-  left: 16px;
+  left: 14px;
   width: 32px;
   height: 32px;
   display: flex;
