@@ -18,7 +18,7 @@ const Container = styled(motion.div)`
 `;
 const Graphic = styled(motion.div)`
   position: relative;
-  margin: 22px auto 18px;
+  margin: -14px auto 30px;
   height: 190px;
   pointer-events: none;
   user-select: none;
@@ -199,7 +199,7 @@ const Introduction: React.FC = () => {
           {wave}
         </GraphicBackground>
       </Graphic>
-      <ModalContent>
+      <ModalContent style={{ paddingBottom: 27 }}>
         <ModalH1>Start Exploring Web3</ModalH1>
         <ModalBody>
           Your wallet is the gateway to all things Ethereum, the magical
