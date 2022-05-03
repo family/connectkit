@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useContext, routes } from '../FamilyKit';
 import { QRCode } from 'react-qrcode-logo';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 
 import Button from '../Button';
@@ -35,13 +35,35 @@ const QRCodeContainer = styled(motion.div)`
   }
 `;
 
+const PlaceholderKeyframes = keyframes`
+  0%{ background-position: 100% 0; }
+  100%{ background-position: -100% 0; }
+`;
 const QRPlaceholder = styled(motion.div)`
   height: 0;
   padding-bottom: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  &:before {
+    z-index: 4;
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: scale(1.5) rotate(45deg);
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 50%,
+      #f5f5f5,
+      #f5f5f5,
+      rgba(255, 255, 255, 0)
+    );
+    opacity: 0.75;
+    background-size: 200% 100%;
+    animation: ${PlaceholderKeyframes} 1800ms linear infinite both;
+  }
 `;
+
 const QRPlaceholderContent = styled(motion.div)`
   position: absolute;
   inset: 12px;
@@ -50,12 +72,11 @@ const QRPlaceholderContent = styled(motion.div)`
   background-image: url("data:image/svg+xml,%3Csvg width='7' height='7' viewBox='0 0 7 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='2' fill='%23F5F5F5'/%3E%3C/svg%3E%0A");
 
   &:before,
-  :after {
+  &:after {
     z-index: 1;
     content: '';
     position: absolute;
     inset: 30.5%;
-    border-radius: 0;
     background: #fff;
   }
   &:after {
