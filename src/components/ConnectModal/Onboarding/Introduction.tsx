@@ -12,6 +12,8 @@ import {
 import logos from '../../../assets/logos';
 import wave from '../../../assets/wave';
 
+import Button from '../../Button';
+
 const Container = styled(motion.div)`
   max-width: 100%;
   width: 295px;
@@ -143,39 +145,6 @@ const GraphicLogo = styled(motion.div)`
   }
 }`;
 
-const ButtonAnchor = styled(motion.a)`
-  --background: var(--body-background-secondary);
-  appearance: none;
-  cursor: pointer;
-  user-select: none;
-  min-width: fit-content;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 18px;
-  height: 48px;
-  margin: 0;
-  padding: 0 32px;
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 19px;
-  font-weight: 500;
-  color: var(--body-color);
-  background: var(--background);
-  white-space: nowrap;
-  transition: box-shadow 100ms ease, background-color 100ms ease;
-  box-shadow: 0 0 0 0 var(--background);
-
-  &:hover {
-    --background: var(--body-background-secondary-hover);
-    box-shadow: 0 0 0 2px var(--background);
-  }
-  &:active {
-    box-shadow: 0 0 0 1px var(--background);
-  }
-`;
-
 const Introduction: React.FC = () => {
   return (
     <Container>
@@ -225,13 +194,12 @@ const Introduction: React.FC = () => {
           technology that makes it possible to explore web3.
         </ModalBody>
       </ModalContent>
-      <ButtonAnchor
+      <Button
         href="https://ethereum.org/en/wallets/find-wallet/#main-content"
-        target="_blank"
-        rel="noopener noreferrer"
+        arrow
       >
         Choose Your First Wallet &rarr;
-      </ButtonAnchor>
+      </Button>
     </Container>
   );
 };
