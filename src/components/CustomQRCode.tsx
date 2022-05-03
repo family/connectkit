@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { QRCode } from 'react-qrcode-logo';
 
 const QRCodeContainer = styled(motion.div)`
+  z-index: 2;
   position: relative;
   overflow: hidden;
   display: flex;
