@@ -171,15 +171,13 @@ const Wallets: React.FC = () => {
               key={connector.id}
               //disabled={!connector.ready}
               onClick={() => {
-                if (connector.id === 'walletConnect') {
-                  context.setRoute(routes.WALLETCONNECT);
-                  context.setConnector(connector);
-                } else if (connector.id === 'injected') {
-                  context.setRoute(routes.METAMASK);
-                  context.setConnector(connector);
-                } else if (connector.id === 'coinbaseWallet') {
-                  context.setRoute(routes.COINBASE);
-                  context.setConnector(connector);
+                context.setRoute(routes.CONNECT);
+                if (
+                  connector.id === 'injected' ||
+                  connector.id === 'walletConnect' ||
+                  connector.id === 'coinbaseWallet'
+                ) {
+                  context.setConnector(connector.id);
                 } else {
                   console.error('Not a valid route?');
                   connect(connector);
