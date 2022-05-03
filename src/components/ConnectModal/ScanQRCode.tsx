@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useContext, routes } from '../FamilyKit';
-// import QRCode from 'react-qr-code';
 import { QRCode } from 'react-qrcode-logo';
 
 import styled from 'styled-components';
@@ -11,7 +10,6 @@ import { useConnect } from 'wagmi';
 import { Listener } from '@ethersproject/abstract-provider';
 import { OrDivider } from '../Modal';
 import { ModalContent, ModalHeading } from '../Modal/styles';
-import Logos from '../../assets/logos';
 import logos from '../../assets/logos';
 
 const Container = styled(motion.div)`
@@ -24,7 +22,7 @@ const QRCodeContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2px auto 0;
+  margin: 2px auto 6px;
   padding: 4px;
   width: 100%;
   border-radius: 24px;
@@ -67,7 +65,7 @@ const LogoIcon = styled(motion.div)`
   & svg {
     width: 100%;
     height: 100%;
-    border-radius: 19px;
+    border-radius: 17px;
   }
 `;
 
@@ -96,7 +94,7 @@ const ScanQRCode: React.FC = () => {
   return (
     <Container>
       <ModalHeading>Scan QR Code</ModalHeading>
-      <ModalContent>
+      <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         <QRCodeContainer>
           <LogoIcon>{logos.WalletConnect}</LogoIcon>
           {walletConnectURI && (
@@ -123,8 +121,8 @@ const ScanQRCode: React.FC = () => {
             </QRPlaceholder>
           )}
         </QRCodeContainer>
+        <OrDivider />
       </ModalContent>
-      <OrDivider />
       <Button
         onClick={() => context.setRoute(routes.WALLETCONNECT_CONNECTING)}
         icon={logos.WalletConnect}
