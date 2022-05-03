@@ -18,7 +18,7 @@ const Container = styled(motion.div)`
 `;
 const Graphic = styled(motion.div)`
   position: relative;
-  margin: -14px auto 30px;
+  margin: 0px auto 16px;
   height: 190px;
   pointer-events: none;
   user-select: none;
@@ -27,8 +27,23 @@ const GraphicBackground = styled(motion.div)`
   z-index: -1;
   position: absolute;
   inset: 0;
+  top: -2px;
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--body-background);
+    background: radial-gradient(
+      closest-side,
+      var(--body-background-transparent) 18.75%,
+      var(--body-background) 100%
+    );
+    background-size: 100%;
+  }
   svg {
     display: block;
+    width: 100%;
+    height: auto;
   }
 `;
 
@@ -89,12 +104,16 @@ const GraphicLogo = styled(motion.div)`
   position:absolute;
   inset:0;
   will-change: transform;
+  
   animation: ${logoIn} 1650ms cubic-bezier(0.19, 1, 0.22, 1) both;
   &:nth-child(1){ z-index:2; animation-delay:0ms;  ${LogoWrapper}{ animation-name:${floatRotateA}; animation-duration:4000ms; } }
   &:nth-child(2){ z-index:1; animation-delay:120ms; ${LogoWrapper}{ animation-name:${floatRotateB}; animation-duration:4300ms; } }
   &:nth-child(3){ z-index:1; animation-delay:60ms; ${LogoWrapper}{ animation-name:${floatRotateC}; animation-duration:4100ms; } }
   &:nth-child(4){ z-index:1; animation-delay:180ms; ${LogoWrapper}{ animation-name:${floatRotateD}; animation-duration:4600ms; } }
   &:nth-child(5){ z-index:1; animation-delay:260ms; ${LogoWrapper}{ animation-name:${floatRotateE}; animation-duration:4800ms; } }
+  @media (prefers-reduced-motion) {
+    animation-name: none;
+  }
   &:nth-child(1) ${LogoGraphic}{
     top: 50%;
     left: 50%;
@@ -103,23 +122,23 @@ const GraphicLogo = styled(motion.div)`
     transform: translate(-50%, -50%) rotate(4.28deg);
   }
   &:nth-child(2) ${LogoGraphic}{
-    top: 22%;
-    left: 23%;
+    top: 21.5%;
+    left: 21%;
     transform: translate(-50%, -50%) rotate(-4.6deg);
   }
   &:nth-child(3) ${LogoGraphic}{
-    top: 15%;
-    right: 6%;
+    top: 14%;
+    right: 2%;
     transform: translate(-50%, -50%) rotate(3.95deg);
   }
   &:nth-child(4) ${LogoGraphic}{
-    top: 82%;
-    left: 24%;
+    top: 76%;
+    left: 22.5%;
     transform: translate(-50%, -50%) rotate(4.82deg);
   }
   &:nth-child(5) ${LogoGraphic}{
-    top: 80%;
-    right: 7%;
+    top: 79%;
+    right: 3%;
     transform: translate(-50%, -50%) rotate(-7.51deg);
   }
 }`;
