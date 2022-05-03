@@ -36,11 +36,14 @@ export const ButtonAnchor = styled(motion.a)`
 `;
 */
 export const Content = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   position: relative;
   left: 0;
   right: 0;
   ${ModalContent} {
-    padding: 0 12px 38px;
+    padding: 0 12px 34px;
     gap: 6px;
   }
 `;

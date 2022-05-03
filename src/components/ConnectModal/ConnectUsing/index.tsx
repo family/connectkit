@@ -22,6 +22,7 @@ import {
 import { OrDivider } from './../../Modal';
 import Button from './../../Button';
 import TestBench from './../../TestBench';
+import { Scan } from '../../../assets/icons';
 
 const contentVariants: Variants = {
   initial: {
@@ -158,19 +159,18 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
       <ConnectingContainer>
         <ConnectingAnimation status={status}>
           <AnimatePresence>
-            {status === states.FAILED ||
-              (status === states.REJECTED && (
-                <RetryButton
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.1 }}
-                  onClick={() => setStatus(states.CONNECTING)}
-                >
-                  <RetryIcon />
-                </RetryButton>
-              ))}
+            {(status === states.FAILED || status === states.REJECTED) && (
+              <RetryButton
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.1 }}
+                onClick={() => setStatus(states.CONNECTING)}
+              >
+                <RetryIcon />
+              </RetryButton>
+            )}
           </AnimatePresence>
           <LogoContainer>
             <Logo>{wallet.logo}</Logo>
@@ -219,6 +219,8 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
                   Please try connecting again.
                 </ModalBody>
               </ModalContent>
+              <OrDivider />
+              <Button icon={Scan}>Scan the QR code</Button>
             </Content>
           )}
           {status === states.REJECTED && (
@@ -236,6 +238,8 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
                   again.
                 </ModalBody>
               </ModalContent>
+              <OrDivider />
+              <Button icon={Scan}>Scan the QR code</Button>
             </Content>
           )}
           {status === states.CONNECTING && (
@@ -288,15 +292,7 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
                 </ModalBody>
               </ModalContent>
               <OrDivider />
-              <Button>Scan with the mobile app</Button>
-              {/*
-              <ButtonAnchor
-                href={wallet.extensionUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Install on Chrome
-              </ButtonAnchor> */}
+              <Button icon={Scan}>Scan the QR code</Button>
             </Content>
           )}
         </AnimatePresence>

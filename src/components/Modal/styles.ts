@@ -58,6 +58,8 @@ export const ModalH1 = styled(motion.div)`
   line-height: 24px;
   color: var(--body-color);
   svg {
+    position: relative;
+    top: -2px;
     display: inline-block;
     vertical-align: middle;
     margin-right: 6px;
