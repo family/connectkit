@@ -10,7 +10,7 @@ const supportedConnectors = [
     id: 'injected',
     name: 'MetaMask',
     logo: logos.MetaMask,
-    scannable: true,
+    scannable: false,
     defaultConnect: async () => {
       //TODO: WAGMI
       console.log('WAGMI connect() would go here for injected');
@@ -23,13 +23,15 @@ const supportedConnectors = [
         'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm?hl=en-US',
     } as IDictionary,
-    extensionIsInstalled: () => Boolean(ethereum && ethereum.isMetaMask),
+    extensionIsInstalled: () => {
+      return Boolean(ethereum && ethereum.isMetaMask);
+    },
   },
   {
     id: 'walletConnect',
     name: 'WalletConnect',
     logo: logos.WalletConnect,
-    scannable: false,
+    scannable: true,
     defaultConnect: async () => {
       //TODO: WAGMI
       console.log('WAGMI connect() could go here for walletConnect');
@@ -47,7 +49,15 @@ const supportedConnectors = [
     extensions: {
       chrome: 'https://api.wallet.coinbase.com/rpc/v2/desktop/chrome',
     } as IDictionary,
-    extensionIsInstalled: () => Boolean(ethereum && ethereum.isCoinbaseWallet),
+    extensionIsInstalled: () => {
+      return Boolean(
+        ethereum &&
+          (ethereum?.isCoinbaseWallet ||
+            (ethereum.providers &&
+              ethereum.providers.find((provider) => provider.isCoinbaseWallet)))
+      );
+    },
   },
 ];
+
 export default supportedConnectors;
