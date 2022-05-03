@@ -35,17 +35,19 @@ const ButtonContainer = styled(motion.button)`
 `;
 
 const IconContainer = styled(motion.div)`
-  display: block;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4.5px;
   width: 20px;
   height: 20px;
   margin-right: 10px;
   svg {
     display: block;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    height: auto;
   }
 `;
 
