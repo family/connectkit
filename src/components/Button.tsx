@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-const ButtonContainer = styled(motion.button)`
+const ButtonContainer = styled.button<{ disabled?: boolean }>`
   --background: var(--body-background-secondary);
   appearance: none;
   cursor: pointer;
@@ -19,6 +19,7 @@ const ButtonContainer = styled(motion.button)`
   font-size: 16px;
   line-height: 19px;
   font-weight: 500;
+  text-decoration: none;
   color: var(--body-color);
   background: var(--background);
   white-space: nowrap;
@@ -56,27 +57,32 @@ type ButtonProps = {
   disabled?: boolean;
   icon?: React.ReactNode;
   arrow?: boolean;
+  href?: string;
   onClick?: (e: any) => void;
 };
-const Button = React.forwardRef(
-  (
-    { children, disabled, icon, arrow, onClick }: ButtonProps,
-    ref: React.Ref<HTMLElement>
-  ) => {
-    return (
-      <ButtonContainer
-        onClick={(event: any) => {
-          if (!disabled && onClick) onClick(event);
-        }}
-        disabled={disabled}
-      >
-        {icon && <IconContainer>{icon}</IconContainer>}
-        {children}
-        {arrow && <></>}
-      </ButtonContainer>
-    );
-  }
-);
-Button.displayName = 'Button';
-
+const Button: React.FC<ButtonProps> = ({
+  children,
+  disabled,
+  icon,
+  arrow,
+  href,
+  onClick,
+}) => {
+  return (
+    <ButtonContainer
+      as={href ? 'a' : undefined}
+      onClick={(event: any) => {
+        if (!disabled && onClick) onClick(event);
+      }}
+      href={href}
+      target={href && '_blank'}
+      rel={href && 'noopener noreferrer'}
+      disabled={disabled}
+    >
+      {icon && <IconContainer>{icon}</IconContainer>}
+      {children}
+      {arrow && <></>}
+    </ButtonContainer>
+  );
+};
 export default Button;
