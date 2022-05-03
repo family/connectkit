@@ -1,12 +1,9 @@
 import React, { createContext, createElement, useState } from 'react';
 
 export const routes = {
+  CONNECTORS: 'connectors',
   CONNECT: 'connect',
   ONBOARDING: 'onboarding',
-  ONBOARDING_GETWALLET: 'onboardingGetWallet',
-  METAMASK: 'metaMask',
-  WALLETCONNECT: 'walletConnect',
-  COINBASE: 'coinbase',
 };
 
 type Connector = any;
@@ -28,8 +25,8 @@ type Props = {
 
 export const FamilyProvider: React.FC<Props> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [connector, setConnector] = useState<any>(null);
-  const [route, setRoute] = useState<string>(routes.CONNECT);
+  const [connector, setConnector] = useState<string | null>(null);
+  const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const value = {
     open,
     setOpen,
