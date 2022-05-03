@@ -5,7 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { QRCode } from 'react-qrcode-logo';
 
 const QRCodeContainer = styled(motion.div)`
-  z-index: 2;
+  z-index: 3;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -13,7 +13,8 @@ const QRCodeContainer = styled(motion.div)`
   justify-content: center;
   margin: 2px auto 6px;
   padding: 4px;
-  width: 100%;
+  width: 99%; // 100% will cause shifting issues
+  height: auto;
   border-radius: 24px;
   background: #fff;
   canvas {
@@ -96,16 +97,18 @@ const LogoIcon = styled(motion.div)`
   left: 50%;
   width: 25.7%;
   height: 25.7%;
-  transform: translate3d(-50%, -50%, 0);
   border-radius: 17px;
   overflow: hidden;
+  transform: translate(-50%, -50%);
   &:before {
     content: '';
     position: absolute;
     inset: 0;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
   }
-  & svg {
+  svg {
+    display: block;
+    position: relative;
     width: 100%;
     height: 100%;
   }
