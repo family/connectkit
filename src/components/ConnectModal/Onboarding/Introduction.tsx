@@ -144,9 +144,10 @@ const ButtonAnchor = styled(motion.a)`
   color: var(--body-color);
   background: var(--body-background-secondary);
   white-space: nowrap;
-  transition: transform 100ms ease;
+  transition: transform 100ms ease, background-color 100ms ease;
 
   &:hover {
+    background: var(--body-background-secondary-hover);
   }
   &:active {
     will-change: transform;
