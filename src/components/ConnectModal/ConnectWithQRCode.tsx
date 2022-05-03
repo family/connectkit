@@ -19,7 +19,10 @@ const Container = styled(motion.div)`
   width: 295px;
 `;
 
-const ScanQRCode: React.FC<{ connectorId: string }> = ({ connectorId }) => {
+const ConnectWithQRCode: React.FC<{
+  connectorId: string;
+  switchConnectMethod?: () => void;
+}> = ({ connectorId, switchConnectMethod }) => {
   const connector = supportedConnectors.filter((c) => c.id === connectorId)[0];
 
   const { connectors } = useConnect();
@@ -35,14 +38,12 @@ const ScanQRCode: React.FC<{ connectorId: string }> = ({ connectorId }) => {
     const c = connectors.filter((c) => c.id === connectorId)[0];
     if (!c) return;
 
+    // TODO: Figure out how to make these sync with WAGMI
     const p = await c.getProvider();
 
     switch (c.id) {
       case 'coinbaseWallet':
-        console.log(p);
-        // TODO: Coinbase Wallet qrUrl
-        // From Lochie: I found this value, not sure if it's usable or not.
-        //setConnectorUri(p.qrUrl);
+        setConnectorUri(p.qrUrl);
         break;
       case 'walletConnect':
         p.connect();
@@ -76,8 +77,8 @@ const ScanQRCode: React.FC<{ connectorId: string }> = ({ connectorId }) => {
         <OrDivider />
       </ModalContent>
       {connector.defaultConnect && (
-        <Button icon={connector.logo} onClick={connector.defaultConnect}>
-          Open {connector.name}
+        <Button onClick={connector.defaultConnect}>
+          Open Default {connector.name}
         </Button>
       )}
       {!hasExtensionInstalled && extensionUrl && (
@@ -86,10 +87,12 @@ const ScanQRCode: React.FC<{ connectorId: string }> = ({ connectorId }) => {
         </Button>
       )}
       {hasExtensionInstalled && (
-        <Button icon={connector.logo}>Launch Extension</Button>
+        <Button icon={connector.logo} onClick={switchConnectMethod}>
+          Open {connector.name}
+        </Button>
       )}
     </Container>
   );
 };
 
-export default ScanQRCode;
+export default ConnectWithQRCode;
