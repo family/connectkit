@@ -18,8 +18,6 @@ const Container = styled(motion.div)`
 `;
 
 const ScanQRCode: React.FC = () => {
-  const context = useContext();
-
   const { connectors } = useConnect();
   const [walletConnectURI, setWalletConnectURI] = useState<string | null>(null);
 
@@ -46,12 +44,7 @@ const ScanQRCode: React.FC = () => {
         <CustomQRCode value={walletConnectURI} image={logos.WalletConnect} />
         <OrDivider />
       </ModalContent>
-      <Button
-        onClick={() => context.setRoute(routes.WALLETCONNECT_CONNECTING)}
-        icon={logos.WalletConnect}
-      >
-        Open WalletConnect
-      </Button>
+      <Button icon={logos.WalletConnect}>Open WalletConnect</Button>
     </Container>
   );
 };

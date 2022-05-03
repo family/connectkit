@@ -70,7 +70,6 @@ const pages: any = {
   onboardingGetWallet: <OnboardingGetWallet />,
   metaMask: <ConnectUsing wallet={supportedWallets.metaMask} />,
   walletConnect: <ScanQRCode />,
-  walletConnectConnecting: <ScanQRCode />,
   coinbase: <ConnectUsing wallet={supportedWallets.coinbase} />,
 };
 

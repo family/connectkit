@@ -6,7 +6,6 @@ export const routes = {
   ONBOARDING_GETWALLET: 'onboardingGetWallet',
   METAMASK: 'metaMask',
   WALLETCONNECT: 'walletConnect',
-  WALLETCONNECT_CONNECTING: 'walletConnectConnecting',
   COINBASE: 'coinbase',
 };
 
