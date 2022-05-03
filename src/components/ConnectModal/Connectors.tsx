@@ -106,7 +106,7 @@ const ConnectorButton = styled(motion.button)`
 
   &:not(:disabled) {
     &:hover {
-      box-shadow: inset 0 0 0 3px var(--family-brand),
+      box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
         inset 0 0 0 6px var(--body-background);
       --background: var(--body-background-secondary-hover);
     }
