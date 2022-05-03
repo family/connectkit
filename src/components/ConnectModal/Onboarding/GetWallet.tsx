@@ -81,6 +81,7 @@ const WalletLogo = styled(motion.div)`
     content: '';
     position: absolute;
     inset: 0;
+    border-radius: inherit;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
   }
   svg {
