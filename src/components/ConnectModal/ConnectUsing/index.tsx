@@ -25,7 +25,7 @@ import TestBench from './../../TestBench';
 
 const contentVariants: Variants = {
   initial: {
-    //willChange: 'transform,opacity',
+    willChange: 'transform,opacity',
     position: 'relative',
     opacity: 0,
     scale: 0.95,
