@@ -24,6 +24,8 @@ import Button from './../../Button';
 import TestBench from './../../TestBench';
 import { Scan } from '../../../assets/icons';
 
+import supportedConnectors from '../../../constants/supportedConnectors';
+
 const contentVariants: Variants = {
   initial: {
     willChange: 'transform,opacity',
@@ -98,7 +100,11 @@ const RetryIcon = ({ ...props }) => {
   );
 };
 
-const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
+const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
+  const connector = supportedConnectors.filter((c) => c.id === connectorId)[0];
+  const hasExtensionInstalled =
+    connector.extensionIsInstalled && connector.extensionIsInstalled();
+
   const states = {
     CONNECTED: 'connected',
     CONNECTING: 'connecting',
@@ -107,41 +113,23 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
     NOTCONNECTED: 'notconnected',
     UNAVAILABLE: 'unavailable',
   };
-  const [status, setStatus] = useState(
-    wallet.extensionCheck() ? states.CONNECTING : states.UNAVAILABLE
-  );
+  const [status, setStatus] = useState(states.CONNECTING);
 
   const tryExtension = () => {
-    try {
-      wallet.extensionLaunch().then((res: any) => {
-        switch (res.code) {
-          case -32002:
-            setStatus(states.NOTCONNECTED);
-            break;
-          case 4001:
-            setStatus(states.REJECTED);
-            break;
-          default:
-            setStatus(states.FAILED);
-            break;
-        }
-      });
-    } catch (error) {
-      setStatus(states.FAILED);
-    }
+    // TODO: WAGMI connect() here to open extension
+    setStatus(states.FAILED);
   };
 
   useEffect(() => {
     if (status === states.CONNECTING) {
-      if (!wallet.extensionLaunch) {
-        setStatus(states.UNAVAILABLE);
-        return;
-      }
+      //setStatus(states.UNAVAILABLE);
 
       // UX: Give user time to understand what is happening
       setTimeout(tryExtension, 1000);
     }
   }, [status]);
+
+  if (!connector) return <>Connector not found</>;
 
   return (
     <Container>
@@ -155,7 +143,7 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
           ))}
         </select>
       </TestBench>
-      <ModalHeading>{wallet.name}</ModalHeading>
+      <ModalHeading>{connector.name}</ModalHeading>
       <ConnectingContainer>
         <ConnectingAnimation status={status}>
           <AnimatePresence>
@@ -173,7 +161,7 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
             )}
           </AnimatePresence>
           <LogoContainer>
-            <Logo>{wallet.logo}</Logo>
+            <Logo>{connector.logo}</Logo>
             {status === states.CONNECTING && (
               <Spinner initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
             )}
@@ -253,7 +241,7 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
               <ModalContent>
                 <ModalH1>Requesting Connection</ModalH1>
                 <ModalBody>
-                  Open the {wallet.name} browser extension to connect your
+                  Open the {connector.name} browser extension to connect your
                   wallet.
                 </ModalBody>
               </ModalContent>
@@ -268,10 +256,10 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
               variants={contentVariants}
             >
               <ModalContent>
-                <ModalH1>Log into {wallet.name}</ModalH1>
+                <ModalH1>Log into {connector.name}</ModalH1>
                 <ModalBody>
-                  To continue, log into your {wallet.name} extension, then try
-                  again
+                  To continue, log into your {connector.name} extension, then
+                  try again
                 </ModalBody>
               </ModalContent>
             </Content>
@@ -285,9 +273,9 @@ const ConnectUsing: React.FC<{ wallet?: any }> = ({ wallet }) => {
               variants={contentVariants}
             >
               <ModalContent>
-                <ModalH1>Install {wallet.name}</ModalH1>
+                <ModalH1>Install {connector.name}</ModalH1>
                 <ModalBody>
-                  To connect your {wallet.name} wallet, install the browser
+                  To connect your {connector.name} wallet, install the browser
                   extension.
                 </ModalBody>
               </ModalContent>
