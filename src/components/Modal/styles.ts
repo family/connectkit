@@ -7,6 +7,7 @@ export const TextWithHr = styled(motion.div)`
   text-align: center;
   color: var(--body-color-muted);
   font-size: 16px;
+  font-wieght: 400;
   line-height: 20px;
   span {
     z-index: 2;
@@ -84,15 +85,6 @@ export const Container = styled(motion.div)`
   background: var(--body-background);
   //box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
   border-radius: 24px;
-
-  &,
-  * {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
-      'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
-      'Segoe UI Symbol';
-    font-weight: 500;
-    box-sizing: border-box;
-  }
 `;
 export const InnerContainer = styled(motion.div)`
   display: flex;

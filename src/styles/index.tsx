@@ -29,8 +29,8 @@ const theme = {
   },
   light: {
     '--overlay-background': 'rgba(0, 0, 0, 0.4)',
-    '--body-color': '#2b2f43',
-    '--body-color-muted': '#666666',
+    '--body-color': '#373737',
+    '--body-color-muted': '#999999',
     '--body-color-muted-hover': '#111111',
     '--body-background': '#ffffff',
     '--body-background-secondary': '#f6f7f9',
@@ -107,6 +107,14 @@ export const ResetContainer = styled.div<{ theme: string }>`
   -webkit-text-stroke: 0.001px transparent;
   text-size-adjust: none;
   font-size: 16px;
+
+  &,
+  * {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+      'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
+      'Segoe UI Symbol';
+    box-sizing: border-box;
+  }
   img,
   svg {
     max-width: 100%;

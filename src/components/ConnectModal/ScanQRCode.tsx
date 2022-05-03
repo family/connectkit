@@ -24,20 +24,29 @@ const QRCodeContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2px auto 22px;
-  padding: 12px;
+  margin: 2px auto 0;
+  padding: 4px;
   width: 100%;
-  aspect-ratio: 1/1;
   border-radius: 24px;
   background: #fff;
+  canvas {
+    display: block;
+    max-width: 100%;
+    width: 100% !important;
+    height: auto !important;
+  }
 `;
 
 const QRPlaceholder = styled(motion.div)`
-  position: absolute;
-  inset: 12px;
+  height: 0;
+  padding-bottom: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+const QRPlaceholderContent = styled(motion.div)`
+  position: absolute;
+  inset: 12px;
 `;
 const QRCodeSkeleton = styled(motion.div)`
   position: absolute;
@@ -46,30 +55,6 @@ const QRCodeSkeleton = styled(motion.div)`
   width: 14%;
   height: 14%;
   box-shadow: inset 0 0 0 8px #e5e5e5, inset 0 0 0 14px white;
-`;
-
-const Spinner = styled(motion.div)`
-  z-index: 2;
-  border-radius: 50%;
-  width: 18em;
-  height: 18em;
-  font-size: 2px;
-  position: relative;
-  text-indent: -9999em;
-  border-top: 1em solid var(--family-brand);
-  border-right: 1em solid var(--family-brand);
-  border-bottom: 1em solid var(--family-brand);
-  border-left: 1em solid #e5e5e5;
-  transform: translateZ(0);
-  animation: spinner 1.1s infinite linear;
-  @keyframes spinner {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
 `;
 
 const LogoIcon = styled(motion.div)`
@@ -116,10 +101,11 @@ const ScanQRCode: React.FC = () => {
           <LogoIcon>{logos.WalletConnect}</LogoIcon>
           {walletConnectURI && (
             <QRCode
-              logoImage={Logos.PlaceholderB64}
+              bgColor="transparent"
+              logoImage={btoa(logos.WalletConnect.toString())}
               removeQrCodeBehindLogo={true}
               value={walletConnectURI}
-              size={270}
+              size={288}
               qrStyle="dots"
               eyeRadius={12}
               ecLevel="M"
@@ -129,16 +115,20 @@ const ScanQRCode: React.FC = () => {
           )}
           {!walletConnectURI && (
             <QRPlaceholder>
-              <Spinner />
-              <QRCodeSkeleton style={{ top: 0, right: 0 }} />
-              <QRCodeSkeleton style={{ top: 0, left: 0 }} />
-              <QRCodeSkeleton style={{ bottom: 0, left: 0 }} />
+              <QRPlaceholderContent>
+                <QRCodeSkeleton style={{ top: 0, right: 0 }} />
+                <QRCodeSkeleton style={{ top: 0, left: 0 }} />
+                <QRCodeSkeleton style={{ bottom: 0, left: 0 }} />
+              </QRPlaceholderContent>
             </QRPlaceholder>
           )}
         </QRCodeContainer>
-        <OrDivider />
       </ModalContent>
-      <Button onClick={() => context.setRoute(routes.WALLETCONNECT_CONNECTING)}>
+      <OrDivider />
+      <Button
+        onClick={() => context.setRoute(routes.WALLETCONNECT_CONNECTING)}
+        icon={logos.WalletConnect}
+      >
         Open WalletConnect
       </Button>
     </Container>
