@@ -28,6 +28,7 @@ const theme = {
     '--brand-imtoken-02': '#0062AD',
   },
   light: {
+    '--focus-color': '#1A88F8',
     '--overlay-background': 'rgba(0, 0, 0, 0.4)',
     '--body-color': '#373737',
     '--body-color-muted': '#999999',
@@ -47,6 +48,7 @@ const theme = {
     '--graphic-wave-stop-05': '#F46D98',
   },
   dark: {
+    '--focus-color': '#1A88F8',
     '--overlay-background': 'rgba(0, 0, 0, 0.9)',
     '--body-color': '#ffffff',
     '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
@@ -124,15 +126,15 @@ export const ResetContainer = styled.div<{ theme: string }>`
       'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
       'Segoe UI Symbol';
     box-sizing: border-box;
+    outline: none;
+    border: none;
   }
   img,
   svg {
     max-width: 100%;
   }
-  &,
-  * {
-    box-sizing: border-box;
-    outline: none;
-    border: none;
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--focus-color) !important;
   }
 `;
