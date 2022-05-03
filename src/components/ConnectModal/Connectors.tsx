@@ -15,7 +15,7 @@ const Container = styled(motion.div)`
 `;
 
 const LearnMoreContainer = styled(motion.div)`
-  padding: 0 0 2px;
+  margin: 0 0 -4px; // offset for button being tall
   text-align: center;
 `;
 const LearnMoreButton = styled(motion.button)`
@@ -26,6 +26,7 @@ const LearnMoreButton = styled(motion.button)`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  height: 42px;
   padding: 0;
   background: none;
   color: var(--body-color-muted);
@@ -71,7 +72,7 @@ const ConnectorsContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 0 0 28px;
+  padding: 0 0 16px;
 `;
 
 const ConnectorButton = styled(motion.button)`
