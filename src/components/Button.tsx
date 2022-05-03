@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 const ButtonContainer = styled(motion.button)`
+  --background: var(--body-background-secondary);
   appearance: none;
   cursor: pointer;
   user-select: none;
@@ -19,16 +20,17 @@ const ButtonContainer = styled(motion.button)`
   line-height: 19px;
   font-weight: 500;
   color: var(--body-color);
-  background: var(--body-background-secondary);
+  background: var(--background);
   white-space: nowrap;
-  transition: transform 100ms ease, background-color 100ms ease;
+  transition: box-shadow 100ms ease, background-color 100ms ease;
+  box-shadow: 0 0 0 0 var(--background);
 
   &:hover {
-    background: var(--body-background-secondary-hover);
+    --background: var(--body-background-secondary-hover);
+    box-shadow: 0 0 0 2px var(--background);
   }
   &:active {
-    will-change: transform;
-    transform: scale(0.99);
+    box-shadow: 0 0 0 1px var(--background);
   }
 `;
 
