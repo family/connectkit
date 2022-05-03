@@ -55,12 +55,11 @@ const QRPlaceholder = styled(motion.div)`
       90deg,
       rgba(255, 255, 255, 0) 50%,
       #ffffff,
-      #ffffff,
       rgba(255, 255, 255, 0)
     );
     opacity: 0.75;
     background-size: 200% 100%;
-    animation: ${PlaceholderKeyframes} 1200ms linear infinite both;
+    animation: ${PlaceholderKeyframes} 1000ms linear infinite both;
   }
 `;
 
