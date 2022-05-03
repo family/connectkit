@@ -45,17 +45,43 @@ const QRPlaceholder = styled(motion.div)`
 const QRPlaceholderContent = styled(motion.div)`
   position: absolute;
   inset: 12px;
+  background: repeat;
+  background-size: 2.4% 2.4%;
+  background-image: url("data:image/svg+xml,%3Csvg width='7' height='7' viewBox='0 0 7 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='2' fill='%23F5F5F5'/%3E%3C/svg%3E%0A");
+
+  &:before,
+  :after {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    inset: 30.5%;
+    border-radius: 0;
+    background: #fff;
+  }
+  &:after {
+    z-index: 3;
+    opacity: 0.8;
+  }
 `;
 const QRCodeSkeleton = styled(motion.div)`
   position: absolute;
-  background: #e5e5e5;
-  border-radius: 13px;
-  width: 14%;
-  height: 14%;
-  box-shadow: inset 0 0 0 8px #e5e5e5, inset 0 0 0 14px white;
+  background: #f5f5f5;
+  border-radius: 9px;
+  width: 13.5%;
+  height: 13.5%;
+  box-shadow: 0 0 0 3px white;
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border-radius: 3px;
+    background: inherit;
+    box-shadow: 0 0 0 3px #fff;
+  }
 `;
 
 const LogoIcon = styled(motion.div)`
+  z-index: 2;
   position: absolute;
   top: 50%;
   left: 50%;
