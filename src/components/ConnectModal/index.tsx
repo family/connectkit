@@ -7,24 +7,10 @@ import Modal from '../Modal';
 import ConnectButton from './../ConnectButton';
 
 import OnboardingIntroduction from './Onboarding/Introduction';
-import OnboardingGetWallet from './Onboarding/GetWallet';
-import ConnectUsing from './ConnectUsing';
 import Connectors from './Connectors';
-
-{
-  /**
-   * TODO:
-   *  Discuss best way to manage pages
-   */
-}
-const pages: any = {
-  connect: <Connectors />,
-  onboarding: <OnboardingIntroduction />,
-  onboardingGetWallet: <OnboardingGetWallet />,
-  metaMask: <ConnectUsing connectorId={'injected'} />,
-  walletConnect: <ConnectUsing connectorId={'walletConnect'} />,
-  coinbase: <ConnectUsing connectorId={'coinbaseWallet'} />,
-};
+import ConnectUsing from './ConnectUsing';
+//import ConnectWithInjector from './ConnectWithInjector';
+//import ConnectWithQRCode from './ConnectWithQRCode';
 
 const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
   theme = 'light',
@@ -33,6 +19,12 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
   const { reset, isConnected } = useConnect();
   const { disconnect } = useDisconnect();
 
+  const pages: any = {
+    connectors: <Connectors />,
+    onboarding: <OnboardingIntroduction />,
+    connect: <ConnectUsing connectorId={context.connector} />,
+  };
+
   function resetAll() {
     disconnect();
     reset();
@@ -40,7 +32,7 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
 
   function show() {
     context.setOpen(true);
-    context.setRoute(routes.CONNECT);
+    context.setRoute(routes.CONNECTORS);
   }
 
   function hide() {
@@ -73,8 +65,8 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
         onClose={hide}
         onBack={
           // TODO: Track history so back button goes to correct route
-          context.route !== routes.CONNECT
-            ? () => context.setRoute(routes.CONNECT)
+          context.route !== routes.CONNECTORS
+            ? () => context.setRoute(routes.CONNECTORS)
             : undefined
         }
       />
