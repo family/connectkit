@@ -25,6 +25,8 @@ import TestBench from './../../TestBench';
 import { Scan } from '../../../assets/icons';
 
 import supportedConnectors from '../../../constants/supportedConnectors';
+import BrowserIcon from '../../BrowserIcon';
+import { detectBrowser } from '../../../utils';
 
 const contentVariants: Variants = {
   initial: {
@@ -100,10 +102,18 @@ const RetryIcon = ({ ...props }) => {
   );
 };
 
-const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
+const ConnectWithInjector: React.FC<{
+  connectorId: string;
+  switchConnectMethod?: () => void;
+}> = ({ connectorId, switchConnectMethod }) => {
   const connector = supportedConnectors.filter((c) => c.id === connectorId)[0];
   const hasExtensionInstalled =
     connector.extensionIsInstalled && connector.extensionIsInstalled();
+
+  const browser = detectBrowser();
+  const extensionUrl = connector.extensions
+    ? connector.extensions[browser]
+    : undefined;
 
   const states = {
     CONNECTED: 'connected',
@@ -115,17 +125,18 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
   };
   const [status, setStatus] = useState(states.CONNECTING);
 
-  const tryExtension = () => {
+  const tryConnect = () => {
     // TODO: WAGMI connect() here to open extension
+    connector.defaultConnect();
     setStatus(states.FAILED);
   };
 
   useEffect(() => {
-    if (status === states.CONNECTING) {
-      //setStatus(states.UNAVAILABLE);
-
-      // UX: Give user time to understand what is happening
-      setTimeout(tryExtension, 1000);
+    if (!hasExtensionInstalled) {
+      setStatus(states.UNAVAILABLE);
+    } else if (status === states.CONNECTING) {
+      // UX: Give user time to see the UI before opening the extension
+      setTimeout(tryConnect, 1000);
     }
   }, [status]);
 
@@ -136,13 +147,13 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
       <TestBench>
         <label>Test state</label>{' '}
         <select onChange={(e: any) => setStatus(e.target.value)}>
-          {}
           {Object.keys(states).map((key: any, i: number) => (
             /* @ts-ignore */
             <option key={i}>{states[key]}</option>
           ))}
         </select>
       </TestBench>
+
       <ModalHeading>{connector.name}</ModalHeading>
       <ConnectingContainer>
         <ConnectingAnimation status={status}>
@@ -207,8 +218,15 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
                   Please try connecting again.
                 </ModalBody>
               </ModalContent>
-              <OrDivider />
-              <Button icon={Scan}>Scan the QR code</Button>
+
+              {connector.scannable && (
+                <>
+                  <OrDivider />
+                  <Button icon={Scan} onClick={switchConnectMethod}>
+                    Scan the QR code
+                  </Button>
+                </>
+              )}
             </Content>
           )}
           {status === states.REJECTED && (
@@ -226,8 +244,15 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
                   again.
                 </ModalBody>
               </ModalContent>
-              <OrDivider />
-              <Button icon={Scan}>Scan the QR code</Button>
+
+              {connector.scannable && (
+                <>
+                  <OrDivider />
+                  <Button icon={Scan} onClick={switchConnectMethod}>
+                    Scan the QR code
+                  </Button>
+                </>
+              )}
             </Content>
           )}
           {status === states.CONNECTING && (
@@ -279,8 +304,21 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
                   extension.
                 </ModalBody>
               </ModalContent>
-              <OrDivider />
-              <Button icon={Scan}>Scan the QR code</Button>
+
+              {(connector.scannable ||
+                (!hasExtensionInstalled && extensionUrl)) && <OrDivider />}
+
+              {connector.scannable && (
+                <Button icon={Scan} onClick={switchConnectMethod}>
+                  Scan the QR code
+                </Button>
+              )}
+
+              {!hasExtensionInstalled && extensionUrl && (
+                <Button href={extensionUrl} icon={<BrowserIcon />}>
+                  Install the Extension
+                </Button>
+              )}
             </Content>
           )}
         </AnimatePresence>
@@ -289,4 +327,4 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
   );
 };
 
-export default ConnectUsing;
+export default ConnectWithInjector;
