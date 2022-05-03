@@ -21,13 +21,12 @@ const ButtonContainer = styled(motion.button)`
   color: var(--body-color);
   background: var(--body-background-secondary);
   white-space: nowrap;
-  will-change: transform;
   transition: transform 100ms ease;
 
   &:hover {
-    transform: scale(1.01);
   }
   &:active {
+    will-change: transform;
     transform: scale(0.99);
   }
 `;
@@ -51,11 +50,12 @@ type ButtonProps = {
   children?: React.ReactNode;
   disabled?: boolean;
   icon?: React.ReactNode;
+  arrow?: boolean;
   onClick?: (e: any) => void;
 };
 const Button = React.forwardRef(
   (
-    { children, disabled, icon, onClick }: ButtonProps,
+    { children, disabled, icon, arrow, onClick }: ButtonProps,
     ref: React.Ref<HTMLElement>
   ) => {
     return (
@@ -67,6 +67,7 @@ const Button = React.forwardRef(
       >
         {icon && <IconContainer>{icon}</IconContainer>}
         {children}
+        {arrow && <></>}
       </ButtonContainer>
     );
   }

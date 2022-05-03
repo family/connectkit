@@ -101,7 +101,7 @@ export const InnerContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
   transition: height 220ms ease, width 220ms ease;
-  will-change: height, width;
+  //will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
   width: fit-content;
