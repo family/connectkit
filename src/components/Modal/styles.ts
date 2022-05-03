@@ -101,7 +101,6 @@ export const InnerContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
   transition: height 220ms ease, width 220ms ease;
-  //transition-delay: 45ms; // stops weird shifting
   will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
