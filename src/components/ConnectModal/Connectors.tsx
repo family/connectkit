@@ -86,7 +86,7 @@ const ConnectorButton = styled(motion.button)`
   width: 100%;
   height: 64px;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 20px;
   border-radius: 18px;
   color: var(--body-color);
