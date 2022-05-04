@@ -8,10 +8,10 @@ const IconContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
-  min-width: 64px;
-  min-height: 64px;
+  width: 47px;
+  height: 52px;
+  min-width: 47px;
+  min-height: 52px;
   svg {
     display: block;
     max-width: 100%;

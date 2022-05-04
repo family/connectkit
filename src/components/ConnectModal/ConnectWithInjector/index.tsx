@@ -156,7 +156,9 @@ const ConnectWithInjector: React.FC<{
     NOTCONNECTED: 'notconnected',
     UNAVAILABLE: 'unavailable',
   };
-  const [status, setStatus] = useState(states.CONNECTING);
+  const [status, setStatus] = useState(
+    !hasExtensionInstalled ? states.UNAVAILABLE : states.CONNECTING
+  );
 
   const tryConnect = () => {
     // TODO: WAGMI connect() here to open extension
@@ -238,7 +240,10 @@ const ConnectWithInjector: React.FC<{
                 transition={{ duration: 0.1 }}
                 onClick={() => setStatus(states.CONNECTING)}
               >
-                <Tooltip message={'Try connecting again'}>
+                <Tooltip
+                  open={status === states.FAILED || status === states.REJECTED}
+                  message={'Try connecting again'}
+                >
                   <RetryIcon />
                 </Tooltip>
               </RetryButton>

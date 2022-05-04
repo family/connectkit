@@ -13,33 +13,39 @@ const TooltipWindow = styled(motion.div)`
 `;
 const TooltipContainer = styled(motion.div)`
   --shadow: 0px 4px 15px rgba(0, 0, 0, 0.14);
-  pointer-events: auto;
   z-index: 2147483647;
   position: absolute;
   top: 0;
   left: 0;
   display: flex;
-  width: auto;
+  gap: 8px;
+  width: fit-content;
+  max-width: 260px;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  padding: 14px 18px;
-  font-size: 16px;
+  padding: 10px 12px;
+  font-size: 14px;
   line-height: 19px;
   font-weight: 500;
   color: var(--tooltip-color);
   background: var(--tooltip-body);
   box-shadow: var(--shadow);
+  > div {
+    margin: -4px 0; // offset for icon
+  }
 `;
 
 const TooltipTail = styled(motion.div)<{ position?: string }>`
   z-index: 2;
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background: inherit;
+  margin: 0;
   border-radius: 3px 0 0 0;
   right: 100%;
+  margin: 0 !important;
   top: 50%;
   transform: translate(50%, -50%) rotate(-45deg);
 `;
@@ -47,10 +53,12 @@ const TooltipTail = styled(motion.div)<{ position?: string }>`
 type TooltipProps = {
   message?: string | React.ReactNode;
   children?: React.ReactNode;
+  open?: boolean;
 };
 
-const Tooltip: React.FC<TooltipProps> = ({ children, message }) => {
-  const [open, setOpen] = useState(false);
+const Tooltip: React.FC<TooltipProps> = ({ children, message, open }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const [ready, setReady] = useState(false);
 
   const targetRef = useRef<any>(null);
@@ -67,21 +75,20 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message }) => {
     targetRef.current.style.left = `${x}px`;
     targetRef.current.style.top = `${y}px`;
   };
-  useIsomorphicLayoutEffect(refreshLayout, [bounds, open]);
-
+  useIsomorphicLayoutEffect(refreshLayout, [bounds, open, isOpen]);
   return (
     <>
       <motion.div
         ref={ref}
-        onHoverStart={() => setOpen(true)}
-        onHoverEnd={() => setOpen(false)}
-        onTap={() => setOpen(false)}
+        onHoverStart={() => setIsOpen(true)}
+        onHoverEnd={() => setIsOpen(false)}
+        onTap={() => setIsOpen(false)}
       >
         {children}
       </motion.div>
       <Portal>
         <AnimatePresence>
-          {open && (
+          {(open !== undefined ? open : isOpen) && (
             <ResetContainer>
               <TooltipWindow>
                 <TooltipContainer
@@ -91,13 +98,13 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message }) => {
                   exit={'collapsed'}
                   variants={{
                     collapsed: {
+                      transformOrigin: '20px 50%',
                       opacity: 0,
                       scale: 0.9,
                       z: 0.01,
                       y: '-50%',
-                      x: 8,
+                      x: 20,
                       transition: {
-                        delay: 0.025,
                         duration: 0.1,
                       },
                     },
@@ -107,10 +114,11 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message }) => {
                       scale: 1,
                       z: 0.01,
                       y: '-50%',
-                      x: 18,
+                      x: 20,
                       transition: {
                         ease: [0.76, 0, 0.24, 1],
-                        duration: 0.1,
+                        duration: 0.15,
+                        delay: 1.25,
                       },
                     },
                   }}

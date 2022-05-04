@@ -20,6 +20,8 @@ import BrowserIcon from '../BrowserIcon';
 import supportedConnectors from '../../constants/supportedConnectors';
 import TestBench from '../TestBench';
 import Tooltip from '../Tooltip';
+import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
+import logos from '../../assets/logos';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -60,9 +62,6 @@ const ConnectWithQRCode: React.FC<{
 
     // TODO: Figure out how to make these sync with WAGMI
     const p = await c.getProvider();
-    console.log(p);
-    console.log(c);
-    p.scanQRCode();
 
     switch (c.id) {
       case 'coinbaseWallet':
@@ -133,7 +132,14 @@ const ConnectWithQRCode: React.FC<{
       {dev}
       <ModalHeading>Scan QR Code</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
-        <Tooltip message={'Open your preferred wallet and scan the QR code'}>
+        <Tooltip
+          message={
+            <>
+              <ScanIconWithLogos />
+              Open your preferred wallet and scan the QR code
+            </>
+          }
+        >
           <CustomQRCode value={connectorUri} image={connector.logo} />
         </Tooltip>
         <OrDivider />
