@@ -38,6 +38,7 @@ export const ConnectingContainer = styled(motion.div)`
   justify-content: center;
   margin: 40px auto 16px;
   height: 120px;
+  transform: scale(1.001); // fixes shifting issue between states
 `;
 export const ConnectingAnimation = styled(motion.div)<{ status?: string }>`
   position: relative;
@@ -69,6 +70,53 @@ export const LogoContainer = styled(motion.div)`
     position: relative;
     display: block;
   }
+`;
+export const Logo = styled(motion.div)`
+  z-index: 2;
+  position: absolute;
+  overflow: hidden;
+  inset: 6px;
+  border-radius: 18px;
+  background: var(--body-background-secondary);
+  svg,
+  img {
+    pointer-events: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export const RetryButton = styled(motion.button)`
+  z-index: 5;
+  appearance: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  cursor: pointer;
+
+  svg {
+    display: block;
+  }
+
+  background: var(--body-background-secondary);
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    --background: var(--body-background-secondary-hover);
+  }
+`;
+export const SpinnerContainer = styled(motion.div)`
+  position: absolute;
+  inset: 1px;
+  overflow: hidden;
 `;
 export const Spinner = styled(motion.div)`
   pointer-events: none;
@@ -135,47 +183,5 @@ export const SpinnerCap = styled(motion.div)`
     87.5% {
       left: -7.5%;
     }
-  }
-`;
-export const Logo = styled(motion.div)`
-  z-index: 2;
-  position: absolute;
-  overflow: hidden;
-  inset: 6px;
-  border-radius: 16px;
-  background: var(--body-background-secondary);
-  svg,
-  img {
-    pointer-events: none;
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-export const RetryButton = styled(motion.button)`
-  z-index: 5;
-  appearance: none;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  cursor: pointer;
-
-  svg {
-    display: block;
-  }
-
-  background: var(--body-background-secondary);
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
-
-  &:hover {
-    --background: var(--body-background-secondary-hover);
   }
 `;

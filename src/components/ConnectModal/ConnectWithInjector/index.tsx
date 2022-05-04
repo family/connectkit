@@ -8,6 +8,7 @@ import {
   LogoContainer,
   Logo,
   Spinner,
+  SpinnerContainer,
   Content,
 } from './styles';
 
@@ -76,6 +77,7 @@ const TickIcon = ({ ...props }) => {
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fillRule="evenodd"
@@ -254,9 +256,11 @@ const ConnectWithInjector: React.FC<{
             transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
           >
             <Logo>{connector.logo}</Logo>
-            {status === states.CONNECTING && (
-              <Spinner initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
-            )}
+            <SpinnerContainer>
+              {status === states.CONNECTING && (
+                <Spinner initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
+              )}
+            </SpinnerContainer>
             <svg width="102" height="102" viewBox="0 0 102 102" fill="none">
               <rect
                 x="7.57895"
