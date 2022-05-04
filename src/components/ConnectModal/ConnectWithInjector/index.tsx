@@ -144,16 +144,6 @@ const ConnectWithInjector: React.FC<{
 
   return (
     <Container>
-      <TestBench>
-        <label>Test state</label>{' '}
-        <select onChange={(e: any) => setStatus(e.target.value)}>
-          {Object.keys(states).map((key: any, i: number) => (
-            /* @ts-ignore */
-            <option key={i}>{states[key]}</option>
-          ))}
-        </select>
-      </TestBench>
-
       <ModalHeading>{connector.name}</ModalHeading>
       <ConnectingContainer>
         <ConnectingAnimation status={status}>
