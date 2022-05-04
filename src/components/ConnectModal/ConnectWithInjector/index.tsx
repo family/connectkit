@@ -171,7 +171,10 @@ const ConnectWithInjector: React.FC<{
               </RetryButton>
             )}
           </AnimatePresence>
-          <LogoContainer>
+          <LogoContainer
+            //layoutId="connectorLogo"
+            transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
+          >
             <Logo>{connector.logo}</Logo>
             {status === states.CONNECTING && (
               <Spinner initial={{ opacity: 0 }} animate={{ opacity: 1 }} />

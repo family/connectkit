@@ -60,6 +60,7 @@ export const ConnectingAnimation = styled(motion.div)<{ status?: string }>`
 `;
 
 export const LogoContainer = styled(motion.div)`
+  z-index: 4;
   position: relative;
   overflow: hidden;
   //background: var(--body-background-secondary);
@@ -153,7 +154,7 @@ export const Logo = styled(motion.div)`
 `;
 
 export const RetryButton = styled(motion.button)`
-  z-index: 4;
+  z-index: 5;
   appearance: none;
   position: absolute;
   right: 0;

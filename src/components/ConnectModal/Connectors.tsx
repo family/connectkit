@@ -184,7 +184,11 @@ const Wallets: React.FC = () => {
                 }
               }}
             >
-              <ConnectorIcon>{info.logo}</ConnectorIcon>
+              <ConnectorIcon
+              //layoutId={info.name}
+              >
+                {info.logo}
+              </ConnectorIcon>
               <ConnectorLabel>{info.name}</ConnectorLabel>
             </ConnectorButton>
           );

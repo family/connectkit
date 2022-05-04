@@ -90,16 +90,19 @@ const QRCodeSkeleton = styled(motion.div)`
   }
 `;
 
-const LogoIcon = styled(motion.div)`
-  z-index: 2;
+const LogoContainer = styled(motion.div)`
+  z-index: 5;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const LogoIcon = styled(motion.div)`
   width: 25.7%;
   height: 25.7%;
   border-radius: 17px;
   overflow: hidden;
-  transform: translate(-50%, -50%);
   &:before {
     content: '';
     position: absolute;
@@ -122,7 +125,14 @@ const CustomQRCode = React.forwardRef(
   ({ value, image }: CustomQRCodeProps, ref: React.Ref<HTMLElement>) => {
     return (
       <QRCodeContainer>
-        <LogoIcon>{image}</LogoIcon>
+        <LogoContainer>
+          <LogoIcon
+            //layoutId="connectorLogo"
+            transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
+          >
+            {image}
+          </LogoIcon>
+        </LogoContainer>
         {value && (
           <QRCode
             bgColor="transparent"
