@@ -40,6 +40,9 @@ const theme = {
     '--body-background-secondary-hover-outline': '#4282FF',
     '--body-divider': '#f7f6f8',
     '--body-color-danger': '#FC6464',
+    '--body-color-valid': '#32D74B',
+
+    '--spinner-color': '#1A88F8',
 
     '--graphic-wave-stop-01': '#E8F17D',
     '--graphic-wave-stop-02': '#A8ECDE',
@@ -60,6 +63,8 @@ const theme = {
     '--body-background-secondary-hover-outline': '#ffffff',
     '--body-divider': '#383838',
     '--body-color-danger': '#FC6464',
+
+    '--spinner-color': '#ffffff',
 
     // Brand dark themes can also go here
     '--brand-trust-01': '#ffffff',

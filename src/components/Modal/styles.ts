@@ -52,11 +52,15 @@ export const ModalContent = styled(motion.div)`
   gap: 12px;
   padding: 0 0 16px;
 `;
-export const ModalH1 = styled(motion.div)`
+export const ModalH1 = styled(motion.h1)<{ error?: boolean; valid?: boolean }>`
   font-size: 19px;
   font-weight: 600;
   line-height: 24px;
-  color: var(--body-color);
+  color: ${(props) => {
+    if (props.error) return 'var(--body-color-danger)';
+    if (props.valid) return 'var(--body-color-valid)';
+    return 'var(--body-color)';
+  }};
   svg {
     position: relative;
     top: -2px;
