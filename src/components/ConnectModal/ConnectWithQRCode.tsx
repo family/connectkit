@@ -161,7 +161,7 @@ const ConnectWithQRCode: React.FC<{
         </Button>
       )}
 
-      {!hasExtensionInstalled && suggestedExtension && (
+      {!hasExtensionInstalled && !extensionUrl && suggestedExtension && (
         <Button
           href={suggestedExtension?.url}
           icon={<BrowserIcon browser={suggestedExtension?.name} />}
