@@ -38,7 +38,7 @@ export const ConnectingContainer = styled(motion.div)`
   justify-content: center;
   margin: 40px auto 16px;
   height: 120px;
-  transform: scale(1.001); // fixes shifting issue between states
+  //transform: scale(1.001); // fixes shifting issue between states
 `;
 export const ConnectingAnimation = styled(motion.div)<{ status?: string }>`
   position: relative;
