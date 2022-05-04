@@ -11,7 +11,7 @@ export const Content = styled(motion.div)`
   left: 0;
   right: 0;
   ${ModalContent} {
-    padding: 0 14px 34px;
+    padding: 0 13px 34px;
     gap: 6px;
   }
 `;

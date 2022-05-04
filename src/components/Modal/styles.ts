@@ -53,6 +53,8 @@ export const ModalContent = styled(motion.div)`
   padding: 0 0 16px;
 `;
 export const ModalH1 = styled(motion.h1)<{ error?: boolean; valid?: boolean }>`
+  margin: 0;
+  padding: 0;
   font-size: 19px;
   font-weight: 600;
   line-height: 24px;
