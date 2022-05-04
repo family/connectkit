@@ -13,7 +13,7 @@ type ContextValue = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   route: string;
   setRoute: React.Dispatch<React.SetStateAction<string>>;
-  connector?: any; // TODO: Define type
+  connector: string;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
 };
 
@@ -25,7 +25,7 @@ type Props = {
 
 export const FamilyProvider: React.FC<Props> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [connector, setConnector] = useState<string | null>(null);
+  const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const value = {
     open,

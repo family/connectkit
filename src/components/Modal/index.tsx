@@ -116,7 +116,7 @@ type ModalProps = {
   theme?: string;
   open: boolean | undefined;
   pages: any;
-  pageId: string | undefined;
+  pageId: string;
   onClose: (e: any) => void;
   onBack?: (e: any) => void | undefined;
 };
