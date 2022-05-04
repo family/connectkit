@@ -8,6 +8,7 @@ import { useConnect } from 'wagmi';
 import logos from '../../assets/logos';
 import { ModalHeading } from '../Modal/styles';
 import WalletIcon from '../../assets/wallet';
+import supportedConnectors from '../../constants/supportedConnectors';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -130,31 +131,6 @@ const ConnectorIcon = styled(motion.div)`
   border-radius: 8px;
 `;
 
-function getConnectorInfo(id: string) {
-  //console.log(id);
-  switch (id) {
-    case 'injected':
-      return {
-        name: 'MetaMask',
-        logo: logos.MetaMask,
-      };
-    case 'walletConnect':
-      return {
-        name: 'WalletConnect',
-        logo: logos.WalletConnect,
-      };
-    case 'coinbaseWallet':
-      return {
-        name: 'Coinbase Wallet',
-        logo: logos.Coinbase,
-      };
-    default:
-      return {
-        name: 'Default',
-        logo: <></>,
-      };
-  }
-}
 const Wallets: React.FC = () => {
   const context = useContext();
 
@@ -165,18 +141,20 @@ const Wallets: React.FC = () => {
       <ModalHeading>Connect Wallet</ModalHeading>
       <ConnectorsContainer>
         {connectors.map((connector) => {
-          const info = getConnectorInfo(connector.id);
+          const info = supportedConnectors.filter(
+            (c) => c.id === connector.id
+          )[0];
           return (
             <ConnectorButton
               key={connector.id}
               //disabled={!connector.ready}
               onClick={() => {
-                context.setRoute(routes.CONNECT);
                 if (
                   connector.id === 'injected' ||
                   connector.id === 'walletConnect' ||
                   connector.id === 'coinbaseWallet'
                 ) {
+                  context.setRoute(routes.CONNECT);
                   context.setConnector(connector.id);
                 } else {
                   console.error('Not a valid route?');
