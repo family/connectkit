@@ -11,10 +11,12 @@ const supportedConnectors = [
     name: 'MetaMask',
     logo: logos.MetaMask,
     scannable: false,
+    /*
     defaultConnect: async () => {
       //TODO: WAGMI
-      console.log('WAGMI connect() would go here for injected');
+      alert('WAGMI connect() would go here for injected');
     },
+    */
     extensions: {
       chrome:
         'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
@@ -34,7 +36,7 @@ const supportedConnectors = [
     scannable: true,
     defaultConnect: async () => {
       //TODO: WAGMI
-      console.log('WAGMI connect() could go here for walletConnect');
+      alert('WAGMI connect() could go here for walletConnect');
     },
   },
   {
@@ -42,10 +44,12 @@ const supportedConnectors = [
     name: 'Coinbase Wallet',
     logo: logos.Coinbase,
     scannable: true,
+    /*
     defaultConnect: async () => {
       //TODO: WAGMI
-      console.log('WAGMI connect() could go here for coinbaseWallet');
+      alert('WAGMI connect() could go here for coinbaseWallet');
     },
+    */
     extensions: {
       chrome: 'https://api.wallet.coinbase.com/rpc/v2/desktop/chrome',
     } as IDictionary,
