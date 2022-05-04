@@ -11,7 +11,7 @@ export const Content = styled(motion.div)`
   left: 0;
   right: 0;
   ${ModalContent} {
-    padding: 0 12px 34px;
+    padding: 0 14px 34px;
     gap: 6px;
   }
 `;
@@ -88,7 +88,7 @@ export const Spinner = styled(motion.div)`
       transparent,
       transparent,
       transparent,
-      var(--family-brand)
+      var(--spinner-color)
     );
     animation: rotateGradient 1200ms linear infinite;
   }
