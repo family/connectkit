@@ -83,7 +83,7 @@ const ScanIconWithLogos: React.FC = () => {
         <path
           d="M36 47V13.7143C36 11.1107 33.8893 9 31.2857 9H12.7143C10.1107 9 8 11.1107 8 13.7143V47"
           stroke="url(#paint0_linear_924_12568)"
-          stroke-width="2"
+          strokeWidth="2"
         />
         <path
           d="M15 10H29C29 11.1046 28.1046 12 27 12H17C15.8954 12 15 11.1046 15 10Z"
@@ -104,7 +104,7 @@ const ScanIconWithLogos: React.FC = () => {
           rx="12"
           fill="var(--graphic-scaniconwithlogos-03)"
           stroke="var(--tooltip-body)"
-          stroke-width="2"
+          strokeWidth="2"
         />
         <rect
           x="34.5"
@@ -134,30 +134,30 @@ const ScanIconWithLogos: React.FC = () => {
         <path
           d="M28.5 10.5V9C28.5 8.17157 29.1716 7.5 30 7.5H31.5"
           stroke="#373737"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M36.5 7.5L38 7.5C38.8284 7.5 39.5 8.17157 39.5 9L39.5 10.5"
           stroke="#373737"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M39.5 15.5L39.5 17C39.5 17.8284 38.8284 18.5 38 18.5L36.5 18.5"
           stroke="#373737"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M31.5 18.5L30 18.5C29.1716 18.5 28.5 17.8284 28.5 17L28.5 15.5"
           stroke="#373737"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <defs>
           <linearGradient
@@ -168,8 +168,8 @@ const ScanIconWithLogos: React.FC = () => {
             y2="47"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="var(--graphic-scaniconwithlogos-01)" />
-            <stop offset="1" stop-color="var(--graphic-scaniconwithlogos-02)" />
+            <stop stopColor="var(--graphic-scaniconwithlogos-01)" />
+            <stop offset="1" stopColor="var(--graphic-scaniconwithlogos-02)" />
           </linearGradient>
           <linearGradient
             id="paint1_linear_924_12568"
@@ -179,12 +179,8 @@ const ScanIconWithLogos: React.FC = () => {
             y2="4"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="var(--tooltip-body)" />
-            <stop
-              offset="1"
-              stop-color="var(--tooltip-body)"
-              stop-opacity="0"
-            />
+            <stop stopColor="var(--tooltip-body)" />
+            <stop offset="1" stopColor="var(--tooltip-body)" stopOpacity="0" />
           </linearGradient>
         </defs>
       </svg>
