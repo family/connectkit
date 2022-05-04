@@ -2,6 +2,24 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+const Arrow = styled.svg`
+  position: relative;
+  top: -0.5px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 9px;
+  margin-right: 1px;
+  transition: all 100ms ease;
+  transform: translateX(-3px);
+`;
+const ArrowChevron = styled.path``;
+const ArrowLine = styled.rect`
+  transition: inherit;
+  transition-property: transform;
+  transform-origin: 90% 50%;
+  transform: scaleX(0.1);
+`;
+
 const ButtonContainer = styled.button<{ disabled?: boolean }>`
   --background: var(--body-background-secondary);
   appearance: none;
@@ -29,6 +47,14 @@ const ButtonContainer = styled.button<{ disabled?: boolean }>`
   &:hover {
     --background: var(--body-background-secondary-hover);
     box-shadow: 0 0 0 2px var(--background);
+    ${Arrow} {
+      transform: translateX(0);
+      ${ArrowLine} {
+        transform: none;
+      }
+      ${ArrowChevron} {
+      }
+    }
   }
   &:active {
     box-shadow: 0 0 0 1px var(--background);
@@ -83,7 +109,25 @@ const Button: React.FC<ButtonProps> = ({
     >
       {icon && <IconContainer>{icon}</IconContainer>}
       {children}
-      {arrow && <></>}
+      {arrow && (
+        <Arrow width="11" height="10" viewBox="0 0 11 10">
+          <ArrowLine
+            y="4.25"
+            width="10.5"
+            height="1.5"
+            rx="0.75"
+            fill="currentColor"
+          />
+          <ArrowChevron
+            d="M5.75 1L9.75 5L5.75 9"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </Arrow>
+      )}
     </ButtonContainer>
   );
 };

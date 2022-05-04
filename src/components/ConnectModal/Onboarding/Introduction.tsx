@@ -197,7 +197,7 @@ const Introduction: React.FC = () => {
         href="https://ethereum.org/en/wallets/find-wallet/#main-content"
         arrow
       >
-        Choose Your First Wallet &rarr;
+        Choose Your First Wallet
       </Button>
     </Container>
   );
