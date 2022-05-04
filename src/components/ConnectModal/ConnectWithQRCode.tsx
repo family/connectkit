@@ -21,7 +21,6 @@ import supportedConnectors from '../../constants/supportedConnectors';
 import TestBench from '../TestBench';
 import Tooltip from '../Tooltip';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
-import logos from '../../assets/logos';
 import Alert from '../Alert';
 
 const Container = styled(motion.div)`

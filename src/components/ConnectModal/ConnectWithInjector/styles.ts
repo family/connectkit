@@ -31,6 +31,9 @@ const outlineKeyframes = keyframes`
 export const Container = styled(motion.div)`
   min-width: 100%;
   width: 295px;
+  background: var(
+    --body-background
+  ); // To stop the overlay issue during transition for the spinner
 `;
 export const ConnectingContainer = styled(motion.div)`
   display: flex;
