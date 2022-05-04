@@ -91,7 +91,7 @@ const LogoGraphic = styled(motion.div)`
   overflow: hidden;
   height: 58px;
   width: 58px;
-  border-radius: 18px;
+  border-radius: 13.84px;
   background: var(--body-background-secondary);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 20px 0 rgba(0, 0, 0, 0.03);
 
@@ -113,10 +113,9 @@ const GraphicLogo = styled(motion.div)`
   &:nth-child(3){ z-index:1; animation-delay:60ms; ${LogoWrapper}{ animation-name:${floatRotateC}; animation-duration:4100ms; } }
   &:nth-child(4){ z-index:1; animation-delay:180ms; ${LogoWrapper}{ animation-name:${floatRotateD}; animation-duration:4600ms; } }
   &:nth-child(5){ z-index:1; animation-delay:260ms; ${LogoWrapper}{ animation-name:${floatRotateE}; animation-duration:4800ms; } }
-  @media (prefers-reduced-motion) {
-    animation-name: none;
-  }
+  
   &:nth-child(1) ${LogoGraphic}{
+    border-radius: 17.2px;
     top: 50%;
     left: 50%;
     width: 72px;
