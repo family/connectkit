@@ -90,7 +90,7 @@ const containerVariants: Variants = {
   },
 };
 
-const contentVariants: Variants = {
+export const contentVariants: Variants = {
   initial: {
     //willChange: 'transform,opacity',
     zIndex: 2,

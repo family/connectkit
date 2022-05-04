@@ -1,4 +1,7 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
+import Alert from '../Alert';
+import { contentVariants } from '../Modal';
 
 import supportedConnectors from './../../constants/supportedConnectors';
 import ConnectWithInjector from './ConnectWithInjector';
@@ -23,28 +26,44 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
     useInjector ? states.INJECTOR : states.QRCODE
   );
 
-  if (!connector) return <>Connector not found</>;
+  if (!connector) return <Alert>Connector not found</Alert>;
   return (
-    <>
+    <AnimatePresence>
       {status === states.QRCODE && (
-        <ConnectWithQRCode
-          connectorId={id}
-          switchConnectMethod={(id?: string) => {
-            if (id) setId(id);
-            setStatus(states.INJECTOR);
-          }}
-        />
+        <motion.div
+          key={states.QRCODE}
+          initial={'initial'}
+          animate={'animate'}
+          exit={'exit'}
+          variants={contentVariants}
+        >
+          <ConnectWithQRCode
+            connectorId={id}
+            switchConnectMethod={(id?: string) => {
+              if (id) setId(id);
+              setStatus(states.INJECTOR);
+            }}
+          />
+        </motion.div>
       )}
       {status === states.INJECTOR && (
-        <ConnectWithInjector
-          connectorId={id}
-          switchConnectMethod={(id?: string) => {
-            if (id) setId(id);
-            setStatus(states.QRCODE);
-          }}
-        />
+        <motion.div
+          key={states.INJECTOR}
+          initial={'initial'}
+          animate={'animate'}
+          exit={'exit'}
+          variants={contentVariants}
+        >
+          <ConnectWithInjector
+            connectorId={id}
+            switchConnectMethod={(id?: string) => {
+              if (id) setId(id);
+              setStatus(states.QRCODE);
+            }}
+          />
+        </motion.div>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 
