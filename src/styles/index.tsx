@@ -42,6 +42,9 @@ const theme = {
     '--body-color-danger': '#FC6464',
     '--body-color-valid': '#32D74B',
 
+    '--tooltip-body': '#ffffff',
+    '--tooltip-color': '#999999',
+
     '--spinner-color': '#1A88F8',
 
     '--graphic-wave-stop-01': '#E8F17D',
@@ -63,6 +66,9 @@ const theme = {
     '--body-background-secondary-hover-outline': '#ffffff',
     '--body-divider': '#383838',
     '--body-color-danger': '#FC6464',
+
+    '--tooltip-body': '#424242',
+    '--tooltip-color': '#B3B3B3',
 
     '--spinner-color': '#ffffff',
 

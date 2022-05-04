@@ -168,6 +168,10 @@ export const RetryButton = styled(motion.button)`
   border-radius: 16px;
   cursor: pointer;
 
+  svg {
+    display: block;
+  }
+
   background: var(--body-background-secondary);
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 

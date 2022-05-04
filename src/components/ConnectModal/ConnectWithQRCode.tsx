@@ -19,6 +19,7 @@ import BrowserIcon from '../BrowserIcon';
 
 import supportedConnectors from '../../constants/supportedConnectors';
 import TestBench from '../TestBench';
+import Tooltip from '../Tooltip';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -132,7 +133,9 @@ const ConnectWithQRCode: React.FC<{
       {dev}
       <ModalHeading>Scan QR Code</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
-        <CustomQRCode value={connectorUri} image={connector.logo} />
+        <Tooltip message={'Open your preferred wallet and scan the QR code'}>
+          <CustomQRCode value={connectorUri} image={connector.logo} />
+        </Tooltip>
         <OrDivider />
       </ModalContent>
 

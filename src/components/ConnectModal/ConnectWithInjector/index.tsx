@@ -27,6 +27,7 @@ import { Scan } from '../../../assets/icons';
 import supportedConnectors from '../../../constants/supportedConnectors';
 import BrowserIcon from '../../BrowserIcon';
 import { detectBrowser } from '../../../utils';
+import Tooltip from '../../Tooltip';
 
 const contentVariants: Variants = {
   initial: {
@@ -237,7 +238,9 @@ const ConnectWithInjector: React.FC<{
                 transition={{ duration: 0.1 }}
                 onClick={() => setStatus(states.CONNECTING)}
               >
-                <RetryIcon />
+                <Tooltip message={'Try connecting again'}>
+                  <RetryIcon />
+                </Tooltip>
               </RetryButton>
             )}
           </AnimatePresence>
