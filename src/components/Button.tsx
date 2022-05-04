@@ -44,10 +44,12 @@ const IconContainer = styled(motion.div)`
   border-radius: 4.5px;
   width: 20px;
   height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   margin-right: 10px;
   svg {
     display: block;
-    max-width: 100%;
+    max-width: 95%;
     height: auto;
   }
 `;
