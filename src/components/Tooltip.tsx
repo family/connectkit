@@ -78,6 +78,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message, open }) => {
     targetRef.current.style.top = `${y}px`;
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, open, isOpen]);
+
   return (
     <>
       <motion.div
@@ -90,7 +91,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message, open }) => {
       </motion.div>
       <Portal>
         <AnimatePresence>
-          {(open !== undefined ? open : isOpen) && (
+          {context.open && (open !== undefined ? open : isOpen) && (
             <ResetContainer theme={context.theme}>
               <TooltipWindow>
                 <TooltipContainer
