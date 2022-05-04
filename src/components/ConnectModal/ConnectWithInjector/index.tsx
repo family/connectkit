@@ -240,7 +240,7 @@ const ConnectWithInjector: React.FC<{
       <ModalHeading>{connector.name}</ModalHeading>
       <ConnectingContainer>
         <ConnectingAnimation
-          shake={status === states.FAILED || status === states.REJECTED}
+          $shake={status === states.FAILED || status === states.REJECTED}
         >
           <AnimatePresence>
             {(status === states.FAILED || status === states.REJECTED) && (

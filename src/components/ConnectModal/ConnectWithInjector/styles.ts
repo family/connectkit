@@ -40,7 +40,9 @@ export const ConnectingContainer = styled(motion.div)`
   height: 120px;
   //transform: scale(1.001); // fixes shifting issue between states
 `;
-export const ConnectingAnimation = styled(motion.div)<{ shake?: boolean }>`
+export const ConnectingAnimation = styled(motion.div)<{
+  $shake: boolean | undefined;
+}>`
   position: relative;
   --spinner-error-opacity: 0;
   &:before {
@@ -51,7 +53,7 @@ export const ConnectingAnimation = styled(motion.div)<{ shake?: boolean }>`
     background: var(--body-color-danger);
   }
   ${(props) =>
-    props.shake &&
+    props.$shake &&
     css`
       animation: ${shakeKeyframes} 220ms ease-out both;
       &:before {
