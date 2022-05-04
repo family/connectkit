@@ -52,6 +52,10 @@ const theme = {
     '--graphic-wave-stop-03': '#7AA1F2',
     '--graphic-wave-stop-04': '#DEA1E8',
     '--graphic-wave-stop-05': '#F46D98',
+
+    '--graphic-scaniconwithlogos-01': '#4E4E4E',
+    '--graphic-scaniconwithlogos-02': '#272727',
+    '--graphic-scaniconwithlogos-03': '#F8D74A',
   },
   dark: {
     '--focus-color': '#1A88F8',
@@ -71,6 +75,10 @@ const theme = {
     '--tooltip-color': '#B3B3B3',
 
     '--spinner-color': '#ffffff',
+
+    '--graphic-scaniconwithlogos-01': '#AFAFAF',
+    '--graphic-scaniconwithlogos-02': '#696969',
+    '--graphic-scaniconwithlogos-03': '#F8D74A',
 
     // Brand dark themes can also go here
     '--brand-trust-01': '#ffffff',
@@ -139,6 +147,9 @@ export const ResetContainer = styled.div<{ theme: string }>`
     box-sizing: border-box;
     outline: none;
     border: none;
+    @media (prefers-reduced-motion) {
+      //animation-name: none !important;
+    }
   }
   img,
   svg {
