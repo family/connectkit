@@ -53,12 +53,13 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
     if (isConnected) hide();
   }, [isConnected]);
 
+  useEffect(() => context.setTheme(theme), [theme]);
+
   return (
     <>
-      <ConnectButton onClick={show} theme={theme} />
+      <ConnectButton onClick={show} />
       {isConnected && <button onClick={resetAll}>Disconnect Wallet</button>}
       <Modal
-        theme={theme}
         open={context.open}
         pages={pages}
         pageId={context.route}

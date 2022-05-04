@@ -6,9 +6,13 @@ export const routes = {
   ONBOARDING: 'onboarding',
 };
 
+type theme = 'light' | 'dark' | 'auto';
+
 type Connector = any;
 
 type ContextValue = {
+  theme: theme;
+  setTheme: React.Dispatch<React.SetStateAction<theme>>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   route: string;
@@ -26,8 +30,11 @@ type Props = {
 export const FamilyProvider: React.FC<Props> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
+  const [theme, setTheme] = useState<theme>('auto');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const value = {
+    theme,
+    setTheme,
     open,
     setOpen,
     route,

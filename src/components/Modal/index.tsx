@@ -18,6 +18,7 @@ import {
 } from './styles';
 
 import useMeasure from 'react-use-measure';
+import { useContext } from '../FamilyKit';
 
 const CloseIcon = (props: Props) => (
   <motion.svg
@@ -113,7 +114,6 @@ const contentVariants: Variants = {
 };
 
 type ModalProps = {
-  theme?: string;
   open: boolean | undefined;
   pages: any;
   pageId: string;
@@ -121,13 +121,13 @@ type ModalProps = {
   onBack?: (e: any) => void | undefined;
 };
 const Modal: React.FC<ModalProps> = ({
-  theme,
   open,
   pages,
   pageId,
   onClose,
   onBack,
 }) => {
+  const context = useContext();
   const heightRef = useRef<any>(null);
   const [contentRef, bounds] = useMeasure({ debounce: 0, offsetSize: true });
 
@@ -156,7 +156,7 @@ const Modal: React.FC<ModalProps> = ({
     <AnimatePresence>
       {open && (
         <Portal>
-          <ResetContainer theme={theme}>
+          <ResetContainer theme={context.theme}>
             <ModalContainer exit={{ pointerEvents: 'auto' }}>
               <BackgroundOverlay
                 onClick={onClose}

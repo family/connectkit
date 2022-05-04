@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Portal from './Portal';
 import useMeasure from 'react-use-measure';
 import { ResetContainer } from '../styles';
+import { useContext } from './FamilyKit';
 
 const TooltipWindow = styled(motion.div)`
   z-index: 2147483647;
@@ -57,6 +58,7 @@ type TooltipProps = {
 };
 
 const Tooltip: React.FC<TooltipProps> = ({ children, message, open }) => {
+  const context = useContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const [ready, setReady] = useState(false);
@@ -89,7 +91,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message, open }) => {
       <Portal>
         <AnimatePresence>
           {(open !== undefined ? open : isOpen) && (
-            <ResetContainer>
+            <ResetContainer theme={context.theme}>
               <TooltipWindow>
                 <TooltipContainer
                   ref={targetRef}

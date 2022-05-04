@@ -6,6 +6,7 @@ import { truncateEthAddress } from './../../utils';
 import { ResetContainer } from '../../styles';
 
 import { Button } from './styles';
+import { useContext } from '../FamilyKit';
 
 const FamilyIcon = (props: Props) => (
   <motion.svg
@@ -24,17 +25,17 @@ const FamilyIcon = (props: Props) => (
 );
 
 type ConnectButtonProps = {
-  theme?: string;
   onClick?: (e: any) => void;
 };
 
-const ConnectButton: React.FC<ConnectButtonProps> = ({ theme, onClick }) => {
+const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
+  const context = useContext();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({ address: account?.address });
   const { isConnected } = useConnect();
 
   return (
-    <ResetContainer theme={theme}>
+    <ResetContainer theme={context.theme}>
       <Button onClick={onClick}>
         <FamilyIcon style={{ marginRight: 6 }} />
         {isConnected ? (
