@@ -13,7 +13,7 @@ const TooltipWindow = styled(motion.div)`
   pointer-events: none;
 `;
 const TooltipContainer = styled(motion.div)`
-  --shadow: 0px 4px 15px rgba(0, 0, 0, 0.14);
+  --shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
   z-index: 2147483647;
   position: absolute;
   top: 0;
