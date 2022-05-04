@@ -30,6 +30,7 @@ import BrowserIcon from '../../BrowserIcon';
 import { detectBrowser } from '../../../utils';
 import Tooltip from '../../Tooltip';
 import Alert from '../../Alert';
+import { useContext } from '../../FamilyKit';
 
 const contentVariants: Variants = {
   initial: {
@@ -130,6 +131,7 @@ const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void;
 }> = ({ connectorId, switchConnectMethod }) => {
   const [id, setId] = useState(connectorId);
+  const context = useContext();
 
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
@@ -165,17 +167,25 @@ const ConnectWithInjector: React.FC<{
 
   const tryConnect = () => {
     // TODO: WAGMI connect() here to open extension
-    connector.defaultConnect && connector.defaultConnect();
-    setStatus(states.FAILED);
+    if (connector.wagmiConnect && connector.wagmiConnect()) {
+      //setStatus(states.CONNECTED);
+      context.setOpen(false);
+    } else {
+      setStatus(states.REJECTED);
+    }
   };
 
+  let connectTimeout: any;
   useEffect(() => {
     if (!hasExtensionInstalled) {
       setStatus(states.UNAVAILABLE);
     } else if (status === states.CONNECTING) {
       // UX: Give user time to see the UI before opening the extension
-      setTimeout(tryConnect, 1000);
+      connectTimeout = setTimeout(tryConnect, 1000);
     }
+    return () => {
+      clearTimeout(connectTimeout);
+    };
   }, [status]);
 
   const dev = (
@@ -229,7 +239,9 @@ const ConnectWithInjector: React.FC<{
       {dev}
       <ModalHeading>{connector.name}</ModalHeading>
       <ConnectingContainer>
-        <ConnectingAnimation status={status}>
+        <ConnectingAnimation
+          shake={status === states.FAILED || status === states.REJECTED}
+        >
           <AnimatePresence>
             {(status === states.FAILED || status === states.REJECTED) && (
               <RetryButton

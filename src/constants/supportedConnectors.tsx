@@ -13,18 +13,18 @@ const { ethereum } = window;
 interface IDictionary {
   [index: string]: string;
 }
+// TODO: Define types
 const supportedConnectors = [
   {
     id: 'injected',
     name: 'MetaMask',
     logo: logos.MetaMask,
     scannable: false,
-    /*
-    defaultConnect: async () => {
-      //TODO: WAGMI
-      alert('WAGMI connect() would go here for injected');
+    // defaultConnect:  () => {},
+    wagmiConnect: () => {
+      // TODO: WAGMI
+      return window.confirm('WAGMI connect() could go here for injected');
     },
-    */
     extensions: {
       chrome:
         'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
@@ -42,9 +42,14 @@ const supportedConnectors = [
     name: 'WalletConnect',
     logo: logos.WalletConnect,
     scannable: true,
-    defaultConnect: async () => {
-      //TODO: WAGMI
-      alert('WAGMI connect() could go here for walletConnect');
+    defaultConnect: () => {
+      return window.confirm(
+        'TODO: Display the default WalletConnect modal here'
+      );
+    },
+    wagmiConnect: () => {
+      // TODO: WAGMI
+      return window.confirm('WAGMI connect() could go here for WalletConnect');
     },
   },
   {
@@ -52,12 +57,13 @@ const supportedConnectors = [
     name: 'Coinbase Wallet',
     logo: logos.Coinbase,
     scannable: true,
-    /*
-    defaultConnect: async () => {
+    //defaultConnect: () => {},
+    wagmiConnect: () => {
       //TODO: WAGMI
-      alert('WAGMI connect() could go here for coinbaseWallet');
+      return window.confirm(
+        'WAGMI connect() could go here for Coinbase Wallet'
+      );
     },
-    */
     extensions: {
       chrome: 'https://api.wallet.coinbase.com/rpc/v2/desktop/chrome',
     } as IDictionary,
