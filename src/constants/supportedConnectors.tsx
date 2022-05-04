@@ -1,3 +1,11 @@
+/**
+ *
+ * TODO:
+ * Move this into a structure to allow usage of WAGMI
+ * or keep this file isolated for the other useful config data
+ *
+ */
+
 import logos from './../assets/logos';
 
 const { ethereum } = window;
