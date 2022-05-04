@@ -99,14 +99,17 @@ const LogoContainer = styled(motion.div)`
   justify-content: center;
 `;
 const LogoIcon = styled(motion.div)`
+  position: relative;
   width: 25.7%;
   height: 25.7%;
   border-radius: 17px;
   overflow: hidden;
   &:before {
+    z-index: 2;
     content: '';
     position: absolute;
     inset: 0;
+    border-radius: inherit;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
   }
   svg {
