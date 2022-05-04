@@ -29,6 +29,7 @@ import supportedConnectors from '../../../constants/supportedConnectors';
 import BrowserIcon from '../../BrowserIcon';
 import { detectBrowser } from '../../../utils';
 import Tooltip from '../../Tooltip';
+import Alert from '../../Alert';
 
 const contentVariants: Variants = {
   initial: {
@@ -199,13 +200,11 @@ const ConnectWithInjector: React.FC<{
     return (
       <Container>
         {dev}
-        <ModalHeading>Error</ModalHeading>
+        <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
-          <ModalH1 error>
-            <AlertIcon />
-            No connectors match the id given
-          </ModalH1>
-          <ModalBody>This state should never happen</ModalBody>
+          <Alert>
+            No connectors match the id given. This state should never happen.
+          </Alert>
         </ModalContent>
       </Container>
     );
@@ -215,13 +214,12 @@ const ConnectWithInjector: React.FC<{
     return (
       <Container>
         {dev}
-        <ModalHeading>Error</ModalHeading>
+        <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
-          <ModalH1 error>
-            <AlertIcon />
-            WalletConnect does not have an injection flow
-          </ModalH1>
-          <ModalBody>This state should never happen</ModalBody>
+          <Alert>
+            WalletConnect does not have an injection flow. This state should
+            never happen.
+          </Alert>
         </ModalContent>
       </Container>
     );

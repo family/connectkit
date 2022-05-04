@@ -22,6 +22,7 @@ import TestBench from '../TestBench';
 import Tooltip from '../Tooltip';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import logos from '../../assets/logos';
+import Alert from '../Alert';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -116,13 +117,12 @@ const ConnectWithQRCode: React.FC<{
     return (
       <Container>
         {dev}
-        <ModalHeading>Error</ModalHeading>
+        <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
-          <ModalH1 error>
-            <AlertIcon />
-            {connector.name} does not have it's own QR Code to scan
-          </ModalH1>
-          <ModalBody>This state should never happen</ModalBody>
+          <Alert>
+            {connector.name} does not have it's own QR Code to scan. This state
+            should never happen
+          </Alert>
         </ModalContent>
       </Container>
     );
