@@ -9,7 +9,9 @@ const states = {
   INJECTOR: 'injector',
 };
 const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
-  const connector = supportedConnectors.filter((c) => c.id === connectorId)[0];
+  const [id, setId] = useState<string>(connectorId);
+
+  const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const hasExtensionInstalled =
     connector.extensionIsInstalled && connector.extensionIsInstalled();
@@ -26,14 +28,20 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
     <>
       {status === states.QRCODE && (
         <ConnectWithQRCode
-          connectorId={connectorId}
-          switchConnectMethod={() => setStatus(states.INJECTOR)}
+          connectorId={id}
+          switchConnectMethod={(id?: string) => {
+            if (id) setId(id);
+            setStatus(states.INJECTOR);
+          }}
         />
       )}
       {status === states.INJECTOR && (
         <ConnectWithInjector
-          connectorId={connectorId}
-          switchConnectMethod={() => setStatus(states.QRCODE)}
+          connectorId={id}
+          switchConnectMethod={(id?: string) => {
+            if (id) setId(id);
+            setStatus(states.QRCODE);
+          }}
         />
       )}
     </>

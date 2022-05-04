@@ -61,7 +61,26 @@ const AlertIcon = ({ ...props }) => {
     <svg width="18" height="17" viewBox="0 0 18 17" fill="none" {...props}>
       <path
         d="M2.20779 17H15.7922C17.1342 17 18 15.9796 18 14.7286C18 14.356 17.9134 13.9744 17.7143 13.6195L10.9091 1.14457C10.4935 0.381524 9.74892 0 9.00433 0C8.25974 0 7.49784 0.381524 7.09091 1.14457L0.294372 13.6284C0.0952381 13.9744 0 14.356 0 14.7286C0 15.9796 0.865801 17 2.20779 17ZM9.00433 10.8601C8.49351 10.8601 8.20779 10.5673 8.19048 10.035L8.06061 5.96242C8.04329 5.42119 8.4329 5.03079 8.99567 5.03079C9.54978 5.03079 9.95671 5.43006 9.93939 5.97129L9.80952 10.0261C9.78355 10.5673 9.49784 10.8601 9.00433 10.8601ZM9.00433 14.1874C8.42424 14.1874 7.94805 13.7704 7.94805 13.1759C7.94805 12.5814 8.42424 12.1644 9.00433 12.1644C9.58442 12.1644 10.0606 12.5725 10.0606 13.1759C10.0606 13.7792 9.57576 14.1874 9.00433 14.1874Z"
-        fill="var(--body-color-danger)"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};
+
+const TickIcon = ({ ...props }) => {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18ZM13.274 7.13324C13.6237 6.70579 13.5607 6.07577 13.1332 5.72604C12.7058 5.37632 12.0758 5.43932 11.726 5.86676L7.92576 10.5115L6.20711 8.79289C5.81658 8.40237 5.18342 8.40237 4.79289 8.79289C4.40237 9.18342 4.40237 9.81658 4.79289 10.2071L7.29289 12.7071C7.49267 12.9069 7.76764 13.0128 8.04981 12.9988C8.33199 12.9847 8.59505 12.8519 8.77396 12.6332L13.274 7.13324Z"
+        fill="currentColor"
       />
     </svg>
   );
@@ -104,15 +123,28 @@ const RetryIcon = ({ ...props }) => {
 
 const ConnectWithInjector: React.FC<{
   connectorId: string;
-  switchConnectMethod?: () => void;
+  switchConnectMethod: (id?: string) => void;
 }> = ({ connectorId, switchConnectMethod }) => {
-  const connector = supportedConnectors.filter((c) => c.id === connectorId)[0];
+  const [id, setId] = useState(connectorId);
+
+  const connector = supportedConnectors.filter((c) => c.id === id)[0];
+
   const hasExtensionInstalled =
     connector.extensionIsInstalled && connector.extensionIsInstalled();
 
   const browser = detectBrowser();
   const extensionUrl = connector.extensions
     ? connector.extensions[browser]
+    : undefined;
+
+  const suggestedExtension = connector.extensions
+    ? {
+        name: Object.keys(connector.extensions)[0],
+        label:
+          Object.keys(connector.extensions)[0].charAt(0).toUpperCase() +
+          Object.keys(connector.extensions)[0].slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+        url: connector.extensions[Object.keys(connector.extensions)[0]],
+      }
     : undefined;
 
   const states = {
@@ -127,7 +159,7 @@ const ConnectWithInjector: React.FC<{
 
   const tryConnect = () => {
     // TODO: WAGMI connect() here to open extension
-    connector.defaultConnect();
+    connector.defaultConnect && connector.defaultConnect();
     setStatus(states.FAILED);
   };
 
@@ -140,10 +172,58 @@ const ConnectWithInjector: React.FC<{
     }
   }, [status]);
 
-  if (!connector) return <>Connector not found</>;
+  const dev = (
+    <TestBench>
+      <select onChange={(e: any) => setId(e.target.value)} value={id}>
+        {Object.keys(supportedConnectors).map((key: any, i: number) => (
+          /* @ts-ignore */
+          <option key={i}>{supportedConnectors[key].id}</option>
+        ))}
+      </select>
+      <button
+        onClick={() => {
+          window.ethereum = undefined;
+        }}
+      >
+        destroy ethereum
+      </button>
+    </TestBench>
+  );
+
+  if (!connector)
+    return (
+      <Container>
+        {dev}
+        <ModalHeading>Error</ModalHeading>
+        <ModalContent>
+          <ModalH1 error>
+            <AlertIcon />
+            No connectors match the id given
+          </ModalH1>
+          <ModalBody>This state should never happen</ModalBody>
+        </ModalContent>
+      </Container>
+    );
+
+  // TODO: Make this more generic
+  if (connector.id === 'walletConnect')
+    return (
+      <Container>
+        {dev}
+        <ModalHeading>Error</ModalHeading>
+        <ModalContent>
+          <ModalH1 error>
+            <AlertIcon />
+            WalletConnect does not have an injection flow
+          </ModalH1>
+          <ModalBody>This state should never happen</ModalBody>
+        </ModalContent>
+      </Container>
+    );
 
   return (
     <Container>
+      {dev}
       <ModalHeading>{connector.name}</ModalHeading>
       <ConnectingContainer>
         <ConnectingAnimation status={status}>
@@ -201,7 +281,7 @@ const ConnectWithInjector: React.FC<{
               variants={contentVariants}
             >
               <ModalContent>
-                <ModalH1 style={{ color: 'var(--body-color-danger)' }}>
+                <ModalH1 error>
                   <AlertIcon />
                   Connection Failed
                 </ModalH1>
@@ -215,7 +295,7 @@ const ConnectWithInjector: React.FC<{
               {connector.scannable && (
                 <>
                   <OrDivider />
-                  <Button icon={Scan} onClick={switchConnectMethod}>
+                  <Button icon={Scan} onClick={() => switchConnectMethod(id)}>
                     Scan the QR code
                   </Button>
                 </>
@@ -241,7 +321,7 @@ const ConnectWithInjector: React.FC<{
               {connector.scannable && (
                 <>
                   <OrDivider />
-                  <Button icon={Scan} onClick={switchConnectMethod}>
+                  <Button icon={Scan} onClick={() => switchConnectMethod(id)}>
                     Scan the QR code
                   </Button>
                 </>
@@ -263,6 +343,25 @@ const ConnectWithInjector: React.FC<{
                   wallet.
                 </ModalBody>
               </ModalContent>
+            </Content>
+          )}
+          {status === states.CONNECTED && (
+            <Content
+              key={states.CONNECTED}
+              initial={'initial'}
+              animate={'animate'}
+              exit={'exit'}
+              variants={contentVariants}
+            >
+              <ModalContent>
+                <ModalH1 valid>
+                  <TickIcon /> Already Connected
+                </ModalH1>
+                <ModalBody>It is now safe to turn off your computer</ModalBody>
+              </ModalContent>
+              <Button onClick={() => alert('TODO: Disconnect')}>
+                Disconnect
+              </Button>
             </Content>
           )}
           {status === states.NOTCONNECTED && (
@@ -290,27 +389,63 @@ const ConnectWithInjector: React.FC<{
               exit={'exit'}
               variants={contentVariants}
             >
-              <ModalContent>
-                <ModalH1>Install {connector.name}</ModalH1>
-                <ModalBody>
-                  To connect your {connector.name} wallet, install the browser
-                  extension.
-                </ModalBody>
-              </ModalContent>
+              {!extensionUrl ? (
+                <>
+                  <ModalContent>
+                    <ModalH1>Unsupported Browser</ModalH1>
+                    <ModalBody>
+                      To connect your {connector.name} wallet, install the
+                      extension on {suggestedExtension?.label}.
+                    </ModalBody>
+                  </ModalContent>
 
-              {(connector.scannable ||
-                (!hasExtensionInstalled && extensionUrl)) && <OrDivider />}
+                  <OrDivider />
 
-              {connector.scannable && (
-                <Button icon={Scan} onClick={switchConnectMethod}>
-                  Scan the QR code
-                </Button>
-              )}
+                  <Button
+                    icon={Scan}
+                    onClick={() =>
+                      switchConnectMethod(
+                        !connector.scannable ? 'walletConnect' : id
+                      )
+                    }
+                  >
+                    Scan the QR code
+                  </Button>
 
-              {!hasExtensionInstalled && extensionUrl && (
-                <Button href={extensionUrl} icon={<BrowserIcon />}>
-                  Install the Extension
-                </Button>
+                  {!hasExtensionInstalled && suggestedExtension && (
+                    <Button
+                      href={suggestedExtension?.url}
+                      icon={<BrowserIcon browser={suggestedExtension?.name} />}
+                    >
+                      Install on {suggestedExtension?.label}
+                    </Button>
+                  )}
+                </>
+              ) : (
+                <>
+                  <ModalContent>
+                    <ModalH1>Install {connector.name}</ModalH1>
+                    <ModalBody>
+                      To connect your {connector.name} wallet, install the
+                      browser extension.
+                    </ModalBody>
+                  </ModalContent>
+
+                  {(connector.scannable ||
+                    (!hasExtensionInstalled && extensionUrl)) && <OrDivider />}
+
+                  {connector.scannable && (
+                    <Button icon={Scan} onClick={switchConnectMethod}>
+                      Scan the QR code
+                    </Button>
+                  )}
+
+                  {!hasExtensionInstalled && extensionUrl && (
+                    <Button href={extensionUrl} icon={<BrowserIcon />}>
+                      Install the Extension
+                    </Button>
+                  )}
+                </>
               )}
             </Content>
           )}
