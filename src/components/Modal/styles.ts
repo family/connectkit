@@ -49,7 +49,7 @@ export const ModalContent = styled(motion.div)`
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
   padding: 0 0 16px;
 `;
 export const ModalH1 = styled(motion.h1)<{ error?: boolean; valid?: boolean }>`
@@ -132,6 +132,7 @@ export const CloseButton = styled(motion.button)`
   border-radius: 14px;
   padding: 0;
   margin: 0;
+  color: var(--body-action-color);
   background: var(--body-background);
   will-change: background-color, transform;
   transition: background-color 200ms ease, transform 100ms ease;
@@ -161,6 +162,39 @@ export const BackButton = styled(motion.button)`
   border-radius: 14px;
   padding: 0;
   margin: 0;
+  color: var(--body-action-color);
+  background: var(--body-background);
+  will-change: background-color, transform;
+  transition: background-color 200ms ease, transform 100ms ease;
+  svg {
+    display: block;
+    position: relative;
+    left: -1px;
+  }
+
+  &:hover {
+    background: var(--body-background-secondary);
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+`;
+
+export const InfoButton = styled(motion.button)`
+  z-index: 3;
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  padding: 0;
+  margin: 0;
+  color: var(--body-action-color);
   background: var(--body-background);
   will-change: background-color, transform;
   transition: background-color 200ms ease, transform 100ms ease;
