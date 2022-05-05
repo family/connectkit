@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import styled, { keyframes } from 'styled-components';
 
 import { QRCode } from 'react-qrcode-logo';
+import Tooltip from './Tooltip';
 
 const QRCodeContainer = styled(motion.div)`
   z-index: 3;
@@ -105,6 +106,7 @@ const LogoIcon = styled(motion.div)`
   border-radius: 17px;
   overflow: hidden;
   &:before {
+    pointer-events: none;
     z-index: 2;
     content: '';
     position: absolute;
@@ -124,9 +126,13 @@ const LogoIcon = styled(motion.div)`
 type CustomQRCodeProps = {
   value: string | null;
   image?: React.ReactNode;
+  tooltipMessage?: React.ReactNode | string;
 };
 const CustomQRCode = React.forwardRef(
-  ({ value, image }: CustomQRCodeProps, ref: React.Ref<HTMLElement>) => {
+  (
+    { value, image, tooltipMessage }: CustomQRCodeProps,
+    ref: React.Ref<HTMLElement>
+  ) => {
     return (
       <QRCodeContainer>
         <LogoContainer>
@@ -134,7 +140,9 @@ const CustomQRCode = React.forwardRef(
             //layoutId="connectorLogo"
             transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
           >
-            {image}
+            <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
+              {image}
+            </Tooltip>
           </LogoIcon>
         </LogoContainer>
         {value && (

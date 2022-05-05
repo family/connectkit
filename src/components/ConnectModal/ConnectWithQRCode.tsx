@@ -19,7 +19,6 @@ import BrowserIcon from '../BrowserIcon';
 
 import supportedConnectors from '../../constants/supportedConnectors';
 import TestBench from '../TestBench';
-import Tooltip from '../Tooltip';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import Alert from '../Alert';
 import { useContext } from '../FamilyKit';
@@ -138,10 +137,10 @@ const ConnectWithQRCode: React.FC<{
       {dev}
       <ModalHeading>{copy.heading}</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
-        <Tooltip
-          xOffset={20}
-          open
-          message={
+        <CustomQRCode
+          value={connectorUri}
+          image={connector.logo}
+          tooltipMessage={
             connectorId === 'walletConnect' ? (
               <>
                 <ScanIconWithLogos />
@@ -154,9 +153,7 @@ const ConnectWithQRCode: React.FC<{
               </>
             )
           }
-        >
-          <CustomQRCode value={connectorUri} image={connector.logo} />
-        </Tooltip>
+        />
         <OrDivider />
       </ModalContent>
 

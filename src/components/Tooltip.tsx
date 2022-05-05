@@ -67,6 +67,7 @@ type TooltipProps = {
   open?: boolean;
   xOffset?: number;
   yOffset?: number;
+  delay?: number;
 };
 
 const Tooltip: React.FC<TooltipProps> = ({
@@ -75,6 +76,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   open,
   xOffset = 0,
   yOffset = 0,
+  delay,
 }) => {
   const context = useContext();
   const [isOpen, setIsOpen] = useState(false);
@@ -103,14 +105,25 @@ const Tooltip: React.FC<TooltipProps> = ({
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
   const refreshLayout = () => {
-    if (!targetRef.current || bounds.height === 0) return;
+    console.log(bounds);
+    if (
+      !targetRef.current ||
+      bounds.top +
+        bounds.bottom +
+        bounds.left +
+        bounds.right +
+        bounds.height +
+        bounds.width ===
+        0
+    )
+      return;
     const x = xOffset + bounds.left + bounds.width;
     const y = yOffset + bounds.top + bounds.height * 0.5;
     if (!ready && x !== 0 && y !== 0) setReady(true);
     targetRef.current.style.left = `${x}px`;
     targetRef.current.style.top = `${y}px`;
     setSize(targetRef.current.offsetHeight <= 40 ? 'small' : 'large');
-
+    console.log(bounds);
     setOutOfBounds(checkBounds());
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, open, isOpen]);
@@ -119,6 +132,13 @@ const Tooltip: React.FC<TooltipProps> = ({
     <>
       <motion.div
         ref={ref}
+        style={
+          open === undefined
+            ? {
+                cursor: 'help',
+              }
+            : {}
+        }
         onHoverStart={() => setIsOpen(true)}
         onHoverEnd={() => setIsOpen(false)}
         onTap={() => setIsOpen(false)}
@@ -160,7 +180,7 @@ const Tooltip: React.FC<TooltipProps> = ({
                         transition: {
                           ease: [0.76, 0, 0.24, 1],
                           duration: 0.15,
-                          delay: 0.5,
+                          delay: delay ? delay : 0.5,
                         },
                       },
                     }}
