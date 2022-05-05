@@ -11,7 +11,7 @@ export const Content = styled(motion.div)`
   left: 0;
   right: 0;
   ${ModalContent} {
-    padding: 0 13px 34px;
+    padding: 0 13px 38px;
     gap: 6px;
   }
 `;
@@ -106,16 +106,40 @@ export const RetryButton = styled(motion.button)`
   height: 32px;
   border-radius: 16px;
   cursor: pointer;
+  overflow: hidden;
+  background: none;
 
-  svg {
-    display: block;
-  }
-
-  background: var(--body-background-secondary);
+  color: var(--body-background-secondary);
+  transition: color 200ms ease;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 
   &:hover {
-    --background: var(--body-background-secondary-hover);
+    color: var(--body-background-secondary-hover);
+  }
+`;
+export const RetryIconContainer = styled(motion.div)`
+  position: absolute;
+  inset: 0;
+
+  &:before {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 16px;
+    background: conic-gradient(
+      from 90deg,
+      currentColor 10%,
+      var(--body-color) 80%
+    );
+  }
+
+  svg {
+    z-index: 2;
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
 `;
 export const SpinnerContainer = styled(motion.div)`
@@ -123,13 +147,60 @@ export const SpinnerContainer = styled(motion.div)`
   inset: 1px;
   overflow: hidden;
 `;
+export const ExpiringSpinner = styled(motion.div)`
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  position: absolute;
+  inset: -25%;
+  background: var(--body-background-secondary);
+  div:first-child {
+    position: absolute;
+    left: 50%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    &:before {
+      position: absolute;
+      content: '';
+      inset: 0;
+      background: var(--spinner-color);
+      transform-origin: 0% 50%;
+      animation: rotateExpiringSpinner 5000ms ease-in both;
+    }
+  }
+  div:last-child {
+    position: absolute;
+    left: 0;
+    right: 50%;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    &:before {
+      position: absolute;
+      content: '';
+      inset: 0;
+      background: var(--spinner-color);
+      transform-origin: 100% 50%;
+      animation: rotateExpiringSpinner 5000ms ease-out 5000ms both;
+    }
+  }
+  @keyframes rotateExpiringSpinner {
+    0% {
+      transform: rotate(-180deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+`;
 export const Spinner = styled(motion.div)`
   pointer-events: none;
   user-select: none;
   z-index: 1;
   position: absolute;
   inset: -25%;
-  //animation: rotateGradient 600ms ease-out; // extra spin on init
   &:before {
     content: '';
     position: absolute;
@@ -143,50 +214,14 @@ export const Spinner = styled(motion.div)`
       transparent,
       var(--spinner-color)
     );
-    animation: rotateGradient 1200ms linear infinite;
+    animation: rotateSpinner 1200ms linear infinite;
   }
-  @keyframes rotateGradient {
+  @keyframes rotateSpinner {
     0% {
       transform: rotate(0deg);
     }
     100% {
       transform: rotate(360deg);
-    }
-  }
-`;
-export const SpinnerCap = styled(motion.div)`
-  z-index: 5;
-  position: absolute;
-  top: 50%;
-  left: 1px;
-  right: 50%;
-  height: 3px;
-  transform-origin: 100% 50%;
-  animation: rotateGradient 1200ms linear infinite,
-    rotateCap 1200ms ease-in-out infinite;
-  &:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 3px;
-    height: 3px;
-    background: var(--family-brand);
-    border-radius: 3px;
-  }
-  @keyframes rotateCap {
-    0%,
-    25%,
-    50%,
-    75%,
-    100% {
-      left: 0%;
-    }
-    12.5%,
-    37.5%,
-    62.5%,
-    87.5% {
-      left: -7.5%;
     }
   }
 `;

@@ -58,6 +58,7 @@ const TooltipTail = styled(motion.div)<{ $size: tooltipSize }>`
   margin: 0 !important;
   top: 50%;
   transform: translate(75%, -50%) rotate(-45deg);
+  //box-shadow: var(--shadow);
 `;
 
 type TooltipProps = {
@@ -159,7 +160,7 @@ const Tooltip: React.FC<TooltipProps> = ({
                         transition: {
                           ease: [0.76, 0, 0.24, 1],
                           duration: 0.15,
-                          delay: 1.25,
+                          delay: 0.5,
                         },
                       },
                     }}

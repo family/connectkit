@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
@@ -190,7 +190,7 @@ const Introduction: React.FC = () => {
           {wave}
         </GraphicBackground>
       </Graphic>
-      <ModalContent style={{ paddingBottom: 27 }}>
+      <ModalContent style={{ paddingBottom: 24 }}>
         <ModalH1>{copy.h1}</ModalH1>
         <ModalBody>{copy.p}</ModalBody>
       </ModalContent>

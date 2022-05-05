@@ -71,6 +71,9 @@ export default {
         h1: `Requesting Connection`,
         p: `Open the ${keys.connectorName} browser extension to connect your wallet.`,
       },
+      expiring: {
+        requestWillExpiryIn: `This request will expire in`,
+      },
       connected: {
         h1: `Already Connected`,
         p: `It is now okay to close this popup`,
@@ -123,6 +126,9 @@ export default {
       connecting: {
         h1: `Demande de connexion`,
         p: `Ouvrez l'extension de navigateur ${keys.connectorName} pour connecter votre portefeuille.`,
+      },
+      expiring: {
+        requestWillExpiryIn: `Cette requête expirera dans`,
       },
       connected: {
         h1: `Déjà connecté`,
