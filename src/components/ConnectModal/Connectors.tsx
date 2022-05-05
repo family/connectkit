@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 import { useConnect } from 'wagmi';
-import logos from '../../assets/logos';
 import { ModalHeading } from '../Modal/styles';
 import WalletIcon from '../../assets/wallet';
 import supportedConnectors from '../../constants/supportedConnectors';
