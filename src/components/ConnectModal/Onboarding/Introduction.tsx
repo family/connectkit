@@ -13,6 +13,8 @@ import logos from '../../../assets/logos';
 import wave from '../../../assets/wave';
 
 import Button from '../../Button';
+import localizations from '../../../constants/localizations';
+import { useContext } from '../../FamilyKit';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -145,9 +147,11 @@ const GraphicLogo = styled(motion.div)`
 }`;
 
 const Introduction: React.FC = () => {
+  const context = useContext();
+  const copy = localizations[context.lang].onboardingScreen;
   return (
     <Container>
-      <ModalHeading>Get a Wallet</ModalHeading>
+      <ModalHeading>{copy.heading}</ModalHeading>
       <Graphic>
         <GraphicLogos>
           <GraphicLogo>
@@ -187,17 +191,11 @@ const Introduction: React.FC = () => {
         </GraphicBackground>
       </Graphic>
       <ModalContent style={{ paddingBottom: 27 }}>
-        <ModalH1>Start Exploring Web3</ModalH1>
-        <ModalBody>
-          Your wallet is the gateway to all things Ethereum, the magical
-          technology that makes it possible to explore web3.
-        </ModalBody>
+        <ModalH1>{copy.h1}</ModalH1>
+        <ModalBody>{copy.p}</ModalBody>
       </ModalContent>
-      <Button
-        href="https://ethereum.org/en/wallets/find-wallet/#main-content"
-        arrow
-      >
-        Choose Your First Wallet
+      <Button href={copy.ctaUrl} arrow>
+        {copy.ctaText}
       </Button>
     </Container>
   );

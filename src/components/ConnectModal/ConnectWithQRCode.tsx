@@ -22,6 +22,8 @@ import TestBench from '../TestBench';
 import Tooltip from '../Tooltip';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import Alert from '../Alert';
+import { useContext } from '../FamilyKit';
+import localizations from '../../constants/localizations';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -32,6 +34,9 @@ const ConnectWithQRCode: React.FC<{
   connectorId: string;
   switchConnectMethod: (id?: string) => void;
 }> = ({ connectorId, switchConnectMethod }) => {
+  const context = useContext();
+  const copy = localizations[context.lang].scanScreen;
+
   const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
   console.log(connector, id);
@@ -118,13 +123,13 @@ const ConnectWithQRCode: React.FC<{
   return (
     <Container>
       {dev}
-      <ModalHeading>Scan QR Code</ModalHeading>
+      <ModalHeading>{copy.heading}</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         <Tooltip
           message={
             <>
               <ScanIconWithLogos />
-              Open your preferred wallet and scan the QR code
+              {copy.tooltip}
             </>
           }
         >

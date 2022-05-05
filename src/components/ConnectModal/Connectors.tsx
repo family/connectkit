@@ -9,6 +9,7 @@ import logos from '../../assets/logos';
 import { ModalHeading } from '../Modal/styles';
 import WalletIcon from '../../assets/wallet';
 import supportedConnectors from '../../constants/supportedConnectors';
+import localizations from '../../constants/localizations';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -133,12 +134,13 @@ const ConnectorIcon = styled(motion.div)`
 
 const Wallets: React.FC = () => {
   const context = useContext();
+  const copy = localizations[context.lang].connectorsScreen;
 
   const { connect, connectors } = useConnect();
 
   return (
     <Container>
-      <ModalHeading>Connect Wallet</ModalHeading>
+      <ModalHeading>{copy.heading}</ModalHeading>
       <ConnectorsContainer>
         {connectors.map((connector) => {
           const info = supportedConnectors.filter(
@@ -190,7 +192,7 @@ const Wallets: React.FC = () => {
 
       <LearnMoreContainer>
         <LearnMoreButton onClick={() => context.setRoute(routes.ONBOARDING)}>
-          <WalletIcon /> I don't have a wallet
+          <WalletIcon /> {copy.newcomer}
         </LearnMoreButton>
       </LearnMoreContainer>
     </Container>

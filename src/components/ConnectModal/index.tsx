@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useConnect, useDisconnect } from 'wagmi';
-import { routes, useContext } from './../FamilyKit';
+import { languages, routes, theme, useContext } from './../FamilyKit';
 
 import Modal from '../Modal';
 
@@ -9,11 +9,10 @@ import ConnectButton from './../ConnectButton';
 import OnboardingIntroduction from './Onboarding/Introduction';
 import Connectors from './Connectors';
 import ConnectUsing from './ConnectUsing';
-//import ConnectWithInjector from './ConnectWithInjector';
-//import ConnectWithQRCode from './ConnectWithQRCode';
 
-const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
+const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
   theme = 'light',
+  lang = 'en',
 }) => {
   const context = useContext();
   const { reset, isConnected } = useConnect();
@@ -54,6 +53,7 @@ const ConnectModal: React.FC<{ theme?: 'light' | 'dark' | 'auto' }> = ({
   }, [isConnected]);
 
   useEffect(() => context.setTheme(theme), [theme]);
+  useEffect(() => context.setLang(lang), [lang]);
 
   return (
     <>
