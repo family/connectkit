@@ -41,6 +41,9 @@ const TooltipContainer = styled(motion.div)<{ $size: tooltipSize }>`
   > div {
     margin: -4px 0; // offset for icon
   }
+  strong {
+    color: var(--spinner-color);
+  }
 `;
 
 const TooltipTail = styled(motion.div)<{ $size: tooltipSize }>`
@@ -74,6 +77,7 @@ const Tooltip: React.FC<TooltipProps> = ({
 }) => {
   const context = useContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [outOfBounds, setOutOfBounds] = useState(false);
   const [size, setSize] = useState<tooltipSize>('small');
 
   const [ready, setReady] = useState(false);
@@ -83,6 +87,16 @@ const Tooltip: React.FC<TooltipProps> = ({
     debounce: !ready ? 220 : 0, // fix alignment initial state
     offsetSize: true,
   });
+
+  const checkBounds = () => {
+    let flag = false;
+    const x = xOffset + bounds.left + bounds.width;
+    const y = yOffset + bounds.top + bounds.height * 0.5;
+    if (x > window.innerWidth || x < 0 || y > window.innerHeight || y < 0) {
+      flag = true;
+    }
+    return flag;
+  };
 
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -95,6 +109,8 @@ const Tooltip: React.FC<TooltipProps> = ({
     targetRef.current.style.left = `${x}px`;
     targetRef.current.style.top = `${y}px`;
     setSize(targetRef.current.offsetHeight <= 40 ? 'small' : 'large');
+
+    setOutOfBounds(checkBounds());
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, open, isOpen]);
 
@@ -110,48 +126,50 @@ const Tooltip: React.FC<TooltipProps> = ({
       </motion.div>
       <Portal>
         <AnimatePresence>
-          {context.open && (open !== undefined ? open : isOpen) && (
-            <ResetContainer theme={context.theme}>
-              <TooltipWindow>
-                <TooltipContainer
-                  $size={size}
-                  ref={targetRef}
-                  initial={'collapsed'}
-                  animate={ready ? 'open' : {}}
-                  exit={'collapsed'}
-                  variants={{
-                    collapsed: {
-                      transformOrigin: '20px 50%',
-                      opacity: 0,
-                      scale: 0.9,
-                      z: 0.01,
-                      y: '-50%',
-                      x: 20,
-                      transition: {
-                        duration: 0.1,
+          {context.open &&
+            !outOfBounds &&
+            (open !== undefined ? open : isOpen) && (
+              <ResetContainer theme={context.theme}>
+                <TooltipWindow>
+                  <TooltipContainer
+                    $size={size}
+                    ref={targetRef}
+                    initial={'collapsed'}
+                    animate={ready ? 'open' : {}}
+                    exit={'collapsed'}
+                    variants={{
+                      collapsed: {
+                        transformOrigin: '20px 50%',
+                        opacity: 0,
+                        scale: 0.9,
+                        z: 0.01,
+                        y: '-50%',
+                        x: 20,
+                        transition: {
+                          duration: 0.1,
+                        },
                       },
-                    },
-                    open: {
-                      willChange: 'opacity,transform',
-                      opacity: 1,
-                      scale: 1,
-                      z: 0.01,
-                      y: '-50%',
-                      x: 20,
-                      transition: {
-                        ease: [0.76, 0, 0.24, 1],
-                        duration: 0.15,
-                        delay: 1.25,
+                      open: {
+                        willChange: 'opacity,transform',
+                        opacity: 1,
+                        scale: 1,
+                        z: 0.01,
+                        y: '-50%',
+                        x: 20,
+                        transition: {
+                          ease: [0.76, 0, 0.24, 1],
+                          duration: 0.15,
+                          delay: 1.25,
+                        },
                       },
-                    },
-                  }}
-                >
-                  {message}
-                  <TooltipTail $size={size} />
-                </TooltipContainer>
-              </TooltipWindow>
-            </ResetContainer>
-          )}
+                    }}
+                  >
+                    {message}
+                    <TooltipTail $size={size} />
+                  </TooltipContainer>
+                </TooltipWindow>
+              </ResetContainer>
+            )}
         </AnimatePresence>
       </Portal>
     </>
