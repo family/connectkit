@@ -445,7 +445,7 @@ const ConnectWithInjector: React.FC<{
                   </ModalContent>
 
                   <OrDivider />
-
+                  {/**
                   <Button
                     icon={Scan}
                     onClick={() =>
@@ -456,7 +456,7 @@ const ConnectWithInjector: React.FC<{
                   >
                     Scan the QR code
                   </Button>
-
+                  */}
                   {!hasExtensionInstalled && suggestedExtension && (
                     <Button
                       href={suggestedExtension?.url}
