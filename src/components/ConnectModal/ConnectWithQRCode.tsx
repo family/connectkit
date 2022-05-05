@@ -40,7 +40,7 @@ const ConnectWithQRCode: React.FC<{
   const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
-  const { connectors } = useConnect();
+  const { connect, connectors } = useConnect();
   const [connectorUri, setConnectorUri] = useState<string | null>(null);
 
   const localizeText = (text: string) => {
@@ -59,16 +59,24 @@ const ConnectWithQRCode: React.FC<{
     const c = connectors.filter((c) => c.id === id)[0];
     if (!c) return;
 
-    // TODO: Figure out how to make these sync with WAGMI
-    const p = await c.getProvider();
-
     switch (c.id) {
       case 'coinbaseWallet':
-        setConnectorUri(p.qrUrl);
+        connect(c);
+        // TODO
+        // setTimeout(async () => {
+        //   const p = await c.getProvider(false);
+        //   console.log(p);
+        //   setConnectorUri(p.qrUrl);
+        // }, 3000);
         break;
       case 'walletConnect':
-        p.connect();
-        p.connector.on('display_uri', handleQRCode);
+        c.on('message', async (e) => {
+          //@ts-ignore
+          const p = await c.getProvider();
+          console.log(p);
+          setConnectorUri(p.connector.uri);
+        });
+        connect(c);
         break;
       case 'injected':
         // Shouldn't get to this flow, injected is not scannable
