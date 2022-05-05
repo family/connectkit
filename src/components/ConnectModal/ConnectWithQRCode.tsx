@@ -126,11 +126,26 @@ const ConnectWithQRCode: React.FC<{
       <ModalHeading>{copy.heading}</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         <Tooltip
+          xOffset={20}
           message={
-            <>
-              <ScanIconWithLogos />
-              {copy.tooltip}
-            </>
+            // TODO: Make this generic/localized
+            connectorId === 'walletConnect' ? (
+              <>
+                <ScanIconWithLogos />
+                {copy.tooltip}
+              </>
+            ) : (
+              <>
+                <ScanIconWithLogos logo={connector.logo} />
+                <span>
+                  Open{' '}
+                  <strong style={{ color: `var(--spinner-color)` }}>
+                    {connector.name}
+                  </strong>{' '}
+                  on your mobile phone and scan
+                </span>
+              </>
+            )
           }
         >
           <CustomQRCode value={connectorUri} image={connector.logo} />

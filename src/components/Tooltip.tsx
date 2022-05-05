@@ -21,7 +21,7 @@ const TooltipContainer = styled(motion.div)`
   display: flex;
   gap: 8px;
   width: fit-content;
-  max-width: 260px;
+  max-width: 268px;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
@@ -55,9 +55,17 @@ type TooltipProps = {
   message?: string | React.ReactNode;
   children?: React.ReactNode;
   open?: boolean;
+  xOffset?: number;
+  yOffset?: number;
 };
 
-const Tooltip: React.FC<TooltipProps> = ({ children, message, open }) => {
+const Tooltip: React.FC<TooltipProps> = ({
+  children,
+  message,
+  open,
+  xOffset = 0,
+  yOffset = 0,
+}) => {
   const context = useContext();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -71,8 +79,8 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message, open }) => {
 
   const refreshLayout = () => {
     if (!targetRef.current || bounds.height === 0) return;
-    const x = bounds.left + bounds.width;
-    const y = bounds.top + bounds.height * 0.5;
+    const x = xOffset + bounds.left + bounds.width;
+    const y = yOffset + bounds.top + bounds.height * 0.5;
     if (!ready && x !== 0 && y !== 0) setReady(true);
     targetRef.current.style.left = `${x}px`;
     targetRef.current.style.top = `${y}px`;
