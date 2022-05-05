@@ -117,6 +117,7 @@ const LogoIcon = styled(motion.div)`
     position: relative;
     width: 100%;
     height: 100%;
+    transform: scale(1.02); // fixes 1px gap in Safari
   }
 `;
 
