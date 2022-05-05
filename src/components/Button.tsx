@@ -75,7 +75,9 @@ const IconContainer = styled(motion.div)`
   margin-right: 10px;
   svg {
     display: block;
-    max-width: 95%;
+    position: absolute;
+    inset: 0;
+    width: 100%;
     height: auto;
   }
 `;
