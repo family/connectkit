@@ -39,7 +39,7 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
       >
         <path
           d="M7 14.5C7 11.4624 9.46243 9 12.5 9H31.5C34.5376 9 37 11.4624 37 14.5V47H7V14.5Z"
-          fill="var(--tooltip-body)"
+          fill="var(--graphic-scaniconwithlogos-04)"
         />
         {logo ? (
           <foreignObject x="13" y="21" width="18" height="18" rx="5">

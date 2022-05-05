@@ -57,6 +57,7 @@ const theme = {
     '--graphic-scaniconwithlogos-01': '#4E4E4E',
     '--graphic-scaniconwithlogos-02': '#272727',
     '--graphic-scaniconwithlogos-03': '#F8D74A',
+    '--graphic-scaniconwithlogos-04': '#F6F7F9',
   },
   dark: {
     '--focus-color': '#1A88F8',
@@ -80,6 +81,7 @@ const theme = {
     '--graphic-scaniconwithlogos-01': '#AFAFAF',
     '--graphic-scaniconwithlogos-02': '#696969',
     '--graphic-scaniconwithlogos-03': '#F8D74A',
+    '--graphic-scaniconwithlogos-04': '#3D3D3D',
 
     // Brand dark themes can also go here
     '--brand-trust-01': '#ffffff',
