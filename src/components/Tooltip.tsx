@@ -6,13 +6,15 @@ import useMeasure from 'react-use-measure';
 import { ResetContainer } from '../styles';
 import { useContext } from './FamilyKit';
 
+type tooltipSize = 'small' | 'large';
+
 const TooltipWindow = styled(motion.div)`
   z-index: 2147483647;
   position: fixed;
   inset: 0;
   pointer-events: none;
 `;
-const TooltipContainer = styled(motion.div)`
+const TooltipContainer = styled(motion.div)<{ $size: tooltipSize }>`
   --shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
   z-index: 2147483647;
   position: absolute;
@@ -24,7 +26,7 @@ const TooltipContainer = styled(motion.div)`
   max-width: 268px;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: ${(props) => (props.$size === 'small' ? 11 : 14)}px;
   padding: 10px 12px;
   font-size: 14px;
   line-height: 19px;
@@ -32,23 +34,27 @@ const TooltipContainer = styled(motion.div)`
   color: var(--tooltip-color);
   background: var(--tooltip-body);
   box-shadow: var(--shadow);
+  > span {
+    z-index: 3;
+    position: relative;
+  }
   > div {
     margin: -4px 0; // offset for icon
   }
 `;
 
-const TooltipTail = styled(motion.div)<{ position?: string }>`
+const TooltipTail = styled(motion.div)<{ $size: tooltipSize }>`
   z-index: 2;
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
+  height: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
   background: inherit;
   margin: 0;
-  border-radius: 3px 0 0 0;
+  border-radius: ${(props) => (props.$size === 'small' ? 2 : 3)}px 0 0 0;
   right: 100%;
   margin: 0 !important;
   top: 50%;
-  transform: translate(50%, -50%) rotate(-45deg);
+  transform: translate(75%, -50%) rotate(-45deg);
 `;
 
 type TooltipProps = {
@@ -68,11 +74,15 @@ const Tooltip: React.FC<TooltipProps> = ({
 }) => {
   const context = useContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [size, setSize] = useState<tooltipSize>('small');
 
   const [ready, setReady] = useState(false);
 
   const targetRef = useRef<any>(null);
-  const [ref, bounds] = useMeasure({ debounce: 220, offsetSize: true });
+  const [ref, bounds] = useMeasure({
+    debounce: !ready ? 220 : 0, // fix alignment initial state
+    offsetSize: true,
+  });
 
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -84,6 +94,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     if (!ready && x !== 0 && y !== 0) setReady(true);
     targetRef.current.style.left = `${x}px`;
     targetRef.current.style.top = `${y}px`;
+    setSize(targetRef.current.offsetHeight <= 40 ? 'small' : 'large');
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, open, isOpen]);
 
@@ -103,6 +114,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             <ResetContainer theme={context.theme}>
               <TooltipWindow>
                 <TooltipContainer
+                  $size={size}
                   ref={targetRef}
                   initial={'collapsed'}
                   animate={ready ? 'open' : {}}
@@ -135,7 +147,7 @@ const Tooltip: React.FC<TooltipProps> = ({
                   }}
                 >
                   {message}
-                  <TooltipTail />
+                  <TooltipTail $size={size} />
                 </TooltipContainer>
               </TooltipWindow>
             </ResetContainer>
