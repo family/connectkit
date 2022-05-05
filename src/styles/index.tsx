@@ -7,8 +7,8 @@ import { hexToP3 } from '../utils/p3';
 const theme = {
   brand: {
     '--family-brand': '#1A88F8',
-    '--brand-walletconnect': '#5597F6',
-    '--brand-coinbase': '#0C59FE',
+    '--brand-walletconnect': '#3B99FC',
+    '--brand-coinbase': '#0052FF',
     '--brand-metamask-01': '#F6851B',
     '--brand-metamask-02': '#E2761B',
     '--brand-metamask-03': '#CD6116',
@@ -23,7 +23,7 @@ const theme = {
     '--brand-metamask-12': '#E3C8AB',
     '--brand-trust-01': '#3375BB',
     '--brand-trust-02': '#ffffff',
-    '--brand-argent': '#FF875B',
+    '--brand-argent': '#f36a3d',
     '--brand-imtoken-01': '#11C4D1',
     '--brand-imtoken-02': '#0062AD',
   },
