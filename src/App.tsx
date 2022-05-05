@@ -7,6 +7,7 @@ import { Buffer } from 'buffer';
 
 import { FamilyProvider, FamilyConnectModal } from './FamilyKit';
 import { useState } from 'react';
+import { languages, theme } from './components/FamilyKit';
 
 if (!window.Buffer) {
   window.Buffer = Buffer;
@@ -37,7 +38,8 @@ const client = createClient({
 
 const App = () => {
   //const [open, setOpen] = useState<boolean>(false);
-  const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('auto');
+  const [theme, setTheme] = useState<theme>('auto');
+  const [lang, setLang] = useState<languages>('en');
   const [iframeUrl, setIframeUrl] = useState<string>('');
   return (
     <FamilyProvider>
@@ -52,7 +54,7 @@ const App = () => {
             flexDirection: 'column',
           }}
         >
-          <FamilyConnectModal theme={theme} />
+          <FamilyConnectModal theme={theme} lang={lang} />
 
           <h1>Family Connect</h1>
           <p>This page is intentionally left unstyled</p>
@@ -73,6 +75,11 @@ const App = () => {
                 <option value={'auto'}>system settings</option>
                 <option value={'light'}>light mode</option>
                 <option value={'dark'}>dark mode</option>
+              </select>
+              <label>language</label>{' '}
+              <select onChange={(e: any) => setLang(e.target.value)}>
+                <option value={'en'}>english</option>
+                <option value={'fr'}>french (google translated)</option>
               </select>
             </fieldset>
             <fieldset>
