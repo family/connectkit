@@ -31,6 +31,7 @@ import { detectBrowser } from '../../../utils';
 import Tooltip from '../../Tooltip';
 import Alert from '../../Alert';
 import { useContext } from '../../FamilyKit';
+import localizations, { localize } from '../../../constants/localizations';
 
 const contentVariants: Variants = {
   initial: {
@@ -150,9 +151,10 @@ const ConnectWithInjector: React.FC<{
   connectorId: string;
   switchConnectMethod: (id?: string) => void;
 }> = ({ connectorId, switchConnectMethod }) => {
-  const [id, setId] = useState(connectorId);
   const context = useContext();
+  const copy = localizations[context.lang].injectionScreen;
 
+  const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const hasExtensionInstalled =
@@ -184,6 +186,13 @@ const ConnectWithInjector: React.FC<{
   const [status, setStatus] = useState(
     !hasExtensionInstalled ? states.UNAVAILABLE : states.CONNECTING
   );
+
+  const localizeText = (text: string) => {
+    return localize(text, {
+      CONNECTORNAME: connector.name,
+      SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label,
+    });
+  };
 
   const tryConnect = () => {
     // TODO: WAGMI connect() here to open extension
@@ -325,13 +334,9 @@ const ConnectWithInjector: React.FC<{
               <ModalContent>
                 <ModalH1 error>
                   <AlertIcon />
-                  Connection Failed
+                  {localizeText(copy.failed.h1)}
                 </ModalH1>
-                <ModalBody>
-                  Sorry, something went wrong.
-                  <br />
-                  Please try connecting again.
-                </ModalBody>
+                <ModalBody>{localizeText(copy.failed.p)}</ModalBody>
               </ModalContent>
 
               {connector.scannable && (
@@ -353,11 +358,8 @@ const ConnectWithInjector: React.FC<{
               variants={contentVariants}
             >
               <ModalContent>
-                <ModalH1>Request Cancelled</ModalH1>
-                <ModalBody>
-                  You cancelled the connection request. Click below to try
-                  again.
-                </ModalBody>
+                <ModalH1>{localizeText(copy.rejected.h1)}</ModalH1>
+                <ModalBody>{localizeText(copy.rejected.p)}</ModalBody>
               </ModalContent>
 
               {connector.scannable && (
@@ -379,11 +381,8 @@ const ConnectWithInjector: React.FC<{
               variants={contentVariants}
             >
               <ModalContent>
-                <ModalH1>Requesting Connection</ModalH1>
-                <ModalBody>
-                  Open the {connector.name} browser extension to connect your
-                  wallet.
-                </ModalBody>
+                <ModalH1>{localizeText(copy.connecting.h1)}</ModalH1>
+                <ModalBody>{localizeText(copy.connecting.p)}</ModalBody>
               </ModalContent>
             </Content>
           )}
@@ -397,9 +396,9 @@ const ConnectWithInjector: React.FC<{
             >
               <ModalContent>
                 <ModalH1 valid>
-                  <TickIcon /> Already Connected
+                  <TickIcon /> {localizeText(copy.connected.h1)}
                 </ModalH1>
-                <ModalBody>It is now safe to turn off your computer</ModalBody>
+                <ModalBody>{localizeText(copy.connected.p)}</ModalBody>
               </ModalContent>
               <Button
                 onClick={() => alert('TODO: Disconnect')}
@@ -418,11 +417,8 @@ const ConnectWithInjector: React.FC<{
               variants={contentVariants}
             >
               <ModalContent>
-                <ModalH1>Log into {connector.name}</ModalH1>
-                <ModalBody>
-                  To continue, log into your {connector.name} extension, then
-                  try again
-                </ModalBody>
+                <ModalH1>{localizeText(copy.notconnected.h1)}</ModalH1>
+                <ModalBody>{localizeText(copy.notconnected.p)}</ModalBody>
               </ModalContent>
             </Content>
           )}
@@ -437,15 +433,12 @@ const ConnectWithInjector: React.FC<{
               {!extensionUrl ? (
                 <>
                   <ModalContent>
-                    <ModalH1>Unsupported Browser</ModalH1>
-                    <ModalBody>
-                      To connect your {connector.name} wallet, install the
-                      extension on {suggestedExtension?.label}.
-                    </ModalBody>
+                    <ModalH1>{localizeText(copy.unavailable.h1)}</ModalH1>
+                    <ModalBody>{localizeText(copy.unavailable.p)}</ModalBody>
                   </ModalContent>
 
-                  <OrDivider />
                   {/**
+                  <OrDivider />
                   <Button
                     icon={Scan}
                     onClick={() =>
@@ -469,11 +462,8 @@ const ConnectWithInjector: React.FC<{
               ) : (
                 <>
                   <ModalContent>
-                    <ModalH1>Install {connector.name}</ModalH1>
-                    <ModalBody>
-                      To connect your {connector.name} wallet, install the
-                      browser extension.
-                    </ModalBody>
+                    <ModalH1>{localizeText(copy.install.h1)}</ModalH1>
+                    <ModalBody>{localizeText(copy.install.p)}</ModalBody>
                   </ModalContent>
 
                   {(connector.scannable ||

@@ -23,7 +23,7 @@ import Tooltip from '../Tooltip';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import Alert from '../Alert';
 import { useContext } from '../FamilyKit';
-import localizations from '../../constants/localizations';
+import localizations, { localize } from '../../constants/localizations';
 
 const Container = styled(motion.div)`
   max-width: 100%;
@@ -39,10 +39,15 @@ const ConnectWithQRCode: React.FC<{
 
   const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
-  console.log(connector, id);
 
   const { connectors } = useConnect();
   const [connectorUri, setConnectorUri] = useState<string | null>(null);
+
+  const localizeText = (text: string) => {
+    return localize(text, {
+      CONNECTORNAME: connector.name,
+    });
+  };
 
   const handleQRCode: Listener = (err, payload) => {
     if (err) console.log(err);
@@ -127,23 +132,17 @@ const ConnectWithQRCode: React.FC<{
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         <Tooltip
           xOffset={20}
+          open
           message={
-            // TODO: Make this generic/localized
             connectorId === 'walletConnect' ? (
               <>
                 <ScanIconWithLogos />
-                {copy.tooltip}
+                <span>{localizeText(copy.tooltip.walletConnect)}</span>
               </>
             ) : (
               <>
                 <ScanIconWithLogos logo={connector.logo} />
-                <span>
-                  Open{' '}
-                  <strong style={{ color: `var(--spinner-color)` }}>
-                    {connector.name}
-                  </strong>{' '}
-                  on your mobile phone and scan
-                </span>
+                <span>{localizeText(copy.tooltip.default)}</span>
               </>
             )
           }
