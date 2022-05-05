@@ -156,6 +156,9 @@ export const ResetContainer = styled.div<{ theme: string }>`
   svg {
     max-width: 100%;
   }
+  strong {
+    font-weight: 600;
+  }
   a:focus-visible,
   button:focus-visible {
     outline: 2px solid var(--focus-color) !important;
