@@ -9,7 +9,6 @@ import {
   useDisconnect,
   useAccount,
   useEnsName,
-  useEnsAvatar,
   useBalance,
 } from 'wagmi';
 import {
@@ -22,10 +21,24 @@ import localizations from '../../constants/localizations';
 import Button from './../Button';
 import { truncateEthAddress } from '../../utils';
 import Avatar from './Avatar';
+import ChainSelector from './ChainSelector';
 
 const Container = styled(motion.div)`
   max-width: 100%;
-  width: 334px;
+  width: 295px;
+`;
+const AvatarContainer = styled(motion.div)`
+  padding: 30px 0 20px;
+`;
+const AvatarInner = styled(motion.div)`
+  position: relative;
+  display: inline-block;
+`;
+const ChainSelectorContainer = styled(motion.div)`
+  z-index: 3;
+  position: absolute;
+  bottom: 0px;
+  right: -16px;
 `;
 
 const DisconnectIcon = ({ ...props }) => {
@@ -73,27 +86,35 @@ const Profile: React.FC = () => {
     <Container>
       <ModalHeading>{copy.heading}</ModalHeading>
       <ModalContent>
-        <Avatar address={account?.address} />
-        <ModalH1>{ensName && ensName}</ModalH1>
-        <ModalBody>{truncateEthAddress(account?.address)}</ModalBody>
+        <AvatarContainer>
+          <AvatarInner>
+            <ChainSelectorContainer>
+              <ChainSelector />
+            </ChainSelectorContainer>
+            <Avatar address={account?.address} />
+          </AvatarInner>
+        </AvatarContainer>
+        <ModalH1>
+          {ensName ? ensName : truncateEthAddress(account?.address)}
+        </ModalH1>
         <ModalBody>
           {Number(balance?.formatted).toPrecision(3)} {balance?.symbol}
         </ModalBody>
-        <Button
-          onClick={disconnectAccount}
-          icon={
-            <DisconnectIcon
-              style={{
-                transform: 'scale(0.75) ',
-                left: 3,
-                top: 0.5,
-              }}
-            />
-          }
-        >
-          Disconnect
-        </Button>
       </ModalContent>
+      <Button
+        onClick={disconnectAccount}
+        icon={
+          <DisconnectIcon
+            style={{
+              transform: 'scale(0.75) ',
+              left: 3,
+              top: 0.5,
+            }}
+          />
+        }
+      >
+        Disconnect
+      </Button>
     </Container>
   );
 };

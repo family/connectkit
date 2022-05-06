@@ -93,8 +93,8 @@ const theme = {
     '--body-divider': '#383838',
     '--body-color-danger': '#FC6464',
 
-    '--tooltip-body': '#424242',
-    '--tooltip-color': '#B3B3B3',
+    '--tooltip-body': '#363636',
+    '--tooltip-color': '#868686',
 
     '--spinner-color': '#ffffff',
 
