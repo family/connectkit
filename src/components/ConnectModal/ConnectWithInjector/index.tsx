@@ -34,7 +34,6 @@ import Tooltip from '../../Tooltip';
 import Alert from '../../Alert';
 import { useContext } from '../../FamilyKit';
 import localizations, { localize } from '../../../constants/localizations';
-import { connect } from 'http2';
 import { useConnect } from 'wagmi';
 
 export const states = {
@@ -135,6 +134,7 @@ const RetryIcon = ({ ...props }) => {
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fillRule="evenodd"

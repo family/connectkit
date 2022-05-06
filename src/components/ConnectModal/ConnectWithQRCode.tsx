@@ -8,13 +8,8 @@ import Button from '../Button';
 import { useConnect } from 'wagmi';
 import { Listener } from '@ethersproject/abstract-provider';
 import { OrDivider } from '../Modal';
-import {
-  ModalBody,
-  ModalContent,
-  ModalH1,
-  ModalHeading,
-} from '../Modal/styles';
-import { detectBrowser, detectOS } from '../../utils';
+import { ModalContent, ModalHeading } from '../Modal/styles';
+import { detectBrowser } from '../../utils';
 import BrowserIcon from '../BrowserIcon';
 
 import supportedConnectors from '../../constants/supportedConnectors';
@@ -46,12 +41,6 @@ const ConnectWithQRCode: React.FC<{
     return localize(text, {
       CONNECTORNAME: connector.name,
     });
-  };
-
-  const handleQRCode: Listener = (err, payload) => {
-    if (err) console.log(err);
-    const uri = payload.params[0];
-    setConnectorUri(uri);
   };
 
   const startConnect = async () => {
