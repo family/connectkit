@@ -92,7 +92,7 @@ export default {
       },
     },
     profileScreen: {
-      heading: 'Your Wallet',
+      heading: 'Connected',
     },
   },
   /**
@@ -151,7 +151,7 @@ export default {
       },
     },
     profileScreen: {
-      heading: 'Ton portefeuille',
+      heading: 'Connecté',
     },
   },
 };
