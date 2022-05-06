@@ -33,6 +33,10 @@ const supportedConnectors = [
         'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm?hl=en-US',
     } as IDictionary,
+    appUrls: {
+      android: 'https://play.google.com/store/apps/details?id=io.metamask',
+      ios: 'https://apps.apple.com/us/app/metamask/id1438144202',
+    } as IDictionary,
     extensionIsInstalled: () => {
       return Boolean(ethereum && ethereum.isMetaMask);
     },
@@ -65,7 +69,12 @@ const supportedConnectors = [
       );
     },
     extensions: {
-      chrome: 'https://api.wallet.coinbase.com/rpc/v2/desktop/chrome',
+      chrome:
+        'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
+    } as IDictionary,
+    appUrls: {
+      android: 'https://play.google.com/store/apps/details?id=org.toshi',
+      ios: 'https://apps.apple.com/us/app/coinbase-wallet-store-crypto/id1278383455',
     } as IDictionary,
     extensionIsInstalled: () => {
       return Boolean(
