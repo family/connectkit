@@ -9,6 +9,7 @@ import ConnectButton from './../ConnectButton';
 import OnboardingIntroduction from './Onboarding/Introduction';
 import Connectors from './Connectors';
 import ConnectUsing from './ConnectUsing';
+import Profile from './Profile';
 
 const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
   theme = 'light',
@@ -22,6 +23,7 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
     connectors: <Connectors />,
     onboarding: <OnboardingIntroduction />,
     connect: <ConnectUsing connectorId={context.connector} />,
+    profile: <Profile />,
   };
 
   function resetAll() {
@@ -31,8 +33,21 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
 
   function show() {
     context.setOpen(true);
-    context.setRoute(routes.CONNECTORS);
+
+    if (isConnected) {
+      context.setRoute(routes.PROFILE);
+    } else {
+      context.setRoute(routes.CONNECTORS);
+    }
   }
+
+  useEffect(() => {
+    if (isConnected) {
+      context.setRoute(routes.PROFILE);
+    } else {
+      context.setRoute(routes.CONNECTORS);
+    }
+  }, [isConnected]);
 
   function hide() {
     context.setOpen(false);
@@ -48,10 +63,6 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
     };
   }, []);
 
-  useEffect(() => {
-    if (isConnected) hide();
-  }, [isConnected]);
-
   useEffect(() => context.setTheme(theme), [theme]);
   useEffect(() => context.setLang(lang), [lang]);
 
@@ -65,8 +76,8 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
         pageId={context.route}
         onClose={hide}
         onBack={
-          // TODO: Track history so back button goes to correct route
-          context.route !== routes.CONNECTORS
+          context.route !== routes.CONNECTORS &&
+          context.route !== routes.PROFILE
             ? () => context.setRoute(routes.CONNECTORS)
             : undefined
         }

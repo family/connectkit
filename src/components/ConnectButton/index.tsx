@@ -1,12 +1,38 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import styled from 'styled-components';
 import { Props } from 'framer-motion/types/types';
-import { useAccount, useEnsName, useConnect } from 'wagmi';
+import { useConnect, useAccount, useEnsName, useEnsAvatar } from 'wagmi';
 import { truncateEthAddress } from './../../utils';
 import { ResetContainer } from '../../styles';
 
 import { Button } from './styles';
 import { useContext } from '../FamilyKit';
+
+const IconContainer = styled(motion.div)`
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin-right: 6px;
+  pointer-events: none;
+  user-select: none;
+  svg {
+    position: absolute;
+    inset: 0;
+  }
+`;
+const EnsAvatar = styled(motion.div)`
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+  background: whiteSmoke;
+  img {
+    position: absolute;
+    inset: 0;
+  }
+`;
 
 const FamilyIcon = (props: Props) => (
   <motion.svg
@@ -32,12 +58,21 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
   const context = useContext();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({ address: account?.address });
+  const { data: ensAvatar } = useEnsAvatar({ addressOrName: account?.address });
   const { isConnected } = useConnect();
 
   return (
     <ResetContainer theme={context.theme}>
       <Button onClick={onClick}>
-        <FamilyIcon style={{ marginRight: 6 }} />
+        <IconContainer>
+          {ensAvatar && ensName ? (
+            <EnsAvatar>
+              <img src={ensAvatar} alt={ensName} />
+            </EnsAvatar>
+          ) : (
+            <FamilyIcon />
+          )}
+        </IconContainer>
         {isConnected ? (
           <span>{ensName ?? truncateEthAddress(account?.address)}</span>
         ) : (

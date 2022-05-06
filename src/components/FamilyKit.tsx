@@ -4,6 +4,7 @@ export const routes = {
   CONNECTORS: 'connectors',
   CONNECT: 'connect',
   ONBOARDING: 'onboarding',
+  PROFILE: 'profile',
 };
 
 export type theme = 'light' | 'dark' | 'auto';

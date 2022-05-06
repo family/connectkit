@@ -91,6 +91,9 @@ export default {
         p: `To continue, log into your ${keys.connectorName} extension, then  try again.`,
       },
     },
+    profileScreen: {
+      heading: 'Your Wallet',
+    },
   },
   /**
    * TODO: These are just Google Translated for testing
@@ -146,6 +149,9 @@ export default {
         h1: `Connectez-vous à ${keys.connectorName}`,
         p: `Pour continuer, connectez-vous à votre extension ${keys.connectorName}, puis réessayez.`,
       },
+    },
+    profileScreen: {
+      heading: 'Ton portefeuille',
     },
   },
 };
