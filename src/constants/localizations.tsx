@@ -84,7 +84,7 @@ export default {
       },
       failed: {
         h1: `Connection Failed`,
-        p: `Sorry, something went wrong. Please try connecting again.`,
+        p: `Sorry, the request expired. Please try connecting again.`,
       },
       notconnected: {
         h1: `Log into ${keys.connectorName}`,
@@ -143,7 +143,7 @@ export default {
       },
       failed: {
         h1: `La connexion a échoué`,
-        p: `Désolé, quelque chose s'est mal passé. Veuillez réessayer de vous connecter.`,
+        p: `Désolé, la demande a expiré. Veuillez réessayer de vous connecter.`,
       },
       notconnected: {
         h1: `Connectez-vous à ${keys.connectorName}`,
