@@ -170,25 +170,27 @@ const ConnectWithQRCode: React.FC<{
         </Button>
       )}
 
-      {!hasExtensionInstalled && !extensionUrl
-        ? hasApps && (
-            <>
-              <Button
-                onClick={() => alert('TODO: Open new QR code')}
-                icon={connector.logo}
-              >
-                Get {connector.name}
-              </Button>
-            </>
-          )
-        : suggestedExtension && (
+      {!hasExtensionInstalled &&
+        !extensionUrl &&
+        (hasApps ? (
+          <>
+            <Button
+              onClick={() => alert('TODO: Open new QR code')}
+              icon={connector.logo}
+            >
+              Get {connector.name}
+            </Button>
+          </>
+        ) : (
+          suggestedExtension && (
             <Button
               href={suggestedExtension?.url}
               icon={<BrowserIcon browser={suggestedExtension?.name} />}
             >
               Install on {suggestedExtension?.label}
             </Button>
-          )}
+          )
+        ))}
     </Container>
   );
 };
