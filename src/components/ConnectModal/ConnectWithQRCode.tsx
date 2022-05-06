@@ -14,7 +14,7 @@ import {
   ModalH1,
   ModalHeading,
 } from '../Modal/styles';
-import { detectBrowser } from '../../utils';
+import { detectBrowser, detectOS } from '../../utils';
 import BrowserIcon from '../BrowserIcon';
 
 import supportedConnectors from '../../constants/supportedConnectors';
@@ -94,6 +94,9 @@ const ConnectWithQRCode: React.FC<{
     ? connector.extensions[browser]
     : undefined;
 
+  const hasApps =
+    connector.appUrls && Object.keys(connector.appUrls).length !== 0;
+
   const suggestedExtension = connector.extensions
     ? {
         name: Object.keys(connector.extensions)[0],
@@ -154,33 +157,50 @@ const ConnectWithQRCode: React.FC<{
             )
           }
         />
-        <OrDivider />
+        {connector.defaultConnect || hasExtensionInstalled || extensionUrl ? (
+          <OrDivider />
+        ) : (
+          hasApps && <OrDivider text="Don't have the app?" />
+        )}
       </ModalContent>
 
       {connector.defaultConnect && ( // Open the default connector modal
         <Button icon={connector.logo} onClick={connector.defaultConnect}>
-          Open {connector.name}
+          Open Default Modal
         </Button>
       )}
+
       {hasExtensionInstalled && ( // Run the extension
         <Button icon={connector.logo} onClick={() => switchConnectMethod(id)}>
           Open {connector.name}
         </Button>
       )}
+
       {!hasExtensionInstalled && extensionUrl && (
         <Button href={extensionUrl} icon={<BrowserIcon />}>
           Install the Extension
         </Button>
       )}
 
-      {!hasExtensionInstalled && !extensionUrl && suggestedExtension && (
-        <Button
-          href={suggestedExtension?.url}
-          icon={<BrowserIcon browser={suggestedExtension?.name} />}
-        >
-          Install on {suggestedExtension?.label}
-        </Button>
-      )}
+      {!hasExtensionInstalled && !extensionUrl
+        ? hasApps && (
+            <>
+              <Button
+                onClick={() => alert('TODO: Open new QR code')}
+                icon={connector.logo}
+              >
+                Get {connector.name}
+              </Button>
+            </>
+          )
+        : suggestedExtension && (
+            <Button
+              href={suggestedExtension?.url}
+              icon={<BrowserIcon browser={suggestedExtension?.name} />}
+            >
+              Install on {suggestedExtension?.label}
+            </Button>
+          )}
     </Container>
   );
 };
