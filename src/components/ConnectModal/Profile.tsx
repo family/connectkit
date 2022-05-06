@@ -21,26 +21,11 @@ import {
 import localizations from '../../constants/localizations';
 import Button from './../Button';
 import { truncateEthAddress } from '../../utils';
+import Avatar from './Avatar';
 
 const Container = styled(motion.div)`
   max-width: 100%;
   width: 334px;
-`;
-
-const EnsAvatar = styled(motion.div)`
-  position: relative;
-  overflow: hidden;
-  margin: 0 auto;
-  border-radius: 48px;
-  width: 96px;
-  height: 96px;
-  background: whiteSmoke;
-  pointer-events: none;
-  user-select: none;
-  img {
-    position: absolute;
-    inset: 0;
-  }
 `;
 
 const DisconnectIcon = ({ ...props }) => {
@@ -73,7 +58,6 @@ const Profile: React.FC = () => {
 
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({ address: account?.address });
-  const { data: ensAvatar } = useEnsAvatar({ addressOrName: account?.address });
   const { data: balance } = useBalance({
     addressOrName: account?.address,
     //watch: true,
@@ -89,9 +73,7 @@ const Profile: React.FC = () => {
     <Container>
       <ModalHeading>{copy.heading}</ModalHeading>
       <ModalContent>
-        <EnsAvatar>
-          {ensAvatar && ensName && <img src={ensAvatar} alt={ensName} />}
-        </EnsAvatar>
+        <Avatar address={account?.address} />
         <ModalH1>{ensName && ensName}</ModalH1>
         <ModalBody>{truncateEthAddress(account?.address)}</ModalBody>
         <ModalBody>
