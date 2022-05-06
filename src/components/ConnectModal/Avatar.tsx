@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 
-import { useEnsName, useEnsAvatar, useEnsResolver } from 'wagmi';
+import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
 
 function addressToNumber(address: string) {
   return (
@@ -19,6 +19,8 @@ function addressToNumber(address: string) {
 const Image = styled(motion.img)<{ $loaded: boolean }>`
   display: block;
   position: relative;
+  width: 100%;
+  height: 100%;
   opacity: ${(props) => (props.$loaded ? 1 : 0)};
   transition: opacity 500ms ease;
 `;
@@ -28,7 +30,7 @@ const EnsAvatar = styled(motion.div)<{ $seed?: string }>`
   user-select: none;
   position: relative;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0;
   border-radius: 50%;
   width: 96px;
   height: 96px;
@@ -46,10 +48,6 @@ const EnsAvatar = styled(motion.div)<{ $seed?: string }>`
       `;
     }
   }}
-  img {
-    position: absolute;
-    inset: 0;
-  }
 `;
 
 const Avatar: React.FC<{
@@ -59,18 +57,15 @@ const Avatar: React.FC<{
   const imageRef = useRef<any>(null);
   const [loaded, setLoaded] = useState(true);
 
-  const { data: ensName } = useEnsName({ address: address, enabled: !name });
-  const { data: ensResolver } = useEnsResolver({
-    name: name,
-    enabled: !address,
-  });
+  const { data: ensName } = useEnsName({ address: address });
+  const { data: ensAddress } = useEnsAddress({ name: name });
   const { data: ensAvatar } = useEnsAvatar({
     addressOrName: address ? address : name,
   });
   const ens = {
-    address: ensResolver?.address ? ensResolver?.address : address,
+    address: ensAddress ? ensAddress : address,
     name: ensName ? ensName : name,
-    avatar: ensAvatar,
+    avatar: ensAvatar ? ensAvatar : undefined,
   };
 
   useEffect(() => {
