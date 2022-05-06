@@ -62,11 +62,8 @@ const ConnectWithQRCode: React.FC<{
       case 'coinbaseWallet':
         connect(c);
         // TODO
-        // setTimeout(async () => {
-        //   const p = await c.getProvider(false);
-        //   console.log(p);
-        //   setConnectorUri(p.qrUrl);
-        // }, 3000);
+        const p = await c.getProvider(false);
+        setConnectorUri(p.qrUrl);
         break;
       case 'walletConnect':
         c.on('message', async (e) => {
@@ -79,6 +76,8 @@ const ConnectWithQRCode: React.FC<{
         break;
       case 'injected':
         // Shouldn't get to this flow, injected is not scannable
+        break;
+      case 'metaMask':
         break;
     }
   };
