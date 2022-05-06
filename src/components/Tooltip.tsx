@@ -105,7 +105,6 @@ const Tooltip: React.FC<TooltipProps> = ({
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
   const refreshLayout = () => {
-    console.log(bounds);
     if (
       !targetRef.current ||
       bounds.top +
@@ -123,7 +122,6 @@ const Tooltip: React.FC<TooltipProps> = ({
     targetRef.current.style.left = `${x}px`;
     targetRef.current.style.top = `${y}px`;
     setSize(targetRef.current.offsetHeight <= 40 ? 'small' : 'large');
-    console.log(bounds);
     setOutOfBounds(checkBounds());
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, open, isOpen]);
