@@ -1,5 +1,5 @@
 import { providers } from 'ethers';
-import { Provider, createClient, chain } from 'wagmi';
+import { Provider, createClient } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
@@ -37,7 +37,6 @@ const client = createClient({
 });
 
 const App = () => {
-  //const [open, setOpen] = useState<boolean>(false);
   const [theme, setTheme] = useState<theme>('auto');
   const [lang, setLang] = useState<languages>('en');
   const [iframeUrl, setIframeUrl] = useState<string>('');

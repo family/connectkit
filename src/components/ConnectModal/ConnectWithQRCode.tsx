@@ -56,20 +56,20 @@ const ConnectWithQRCode: React.FC<{
 
   const startConnect = async () => {
     const c = connectors.filter((c) => c.id === id)[0];
-    if (!c) return;
+    if (!c || connectorUri) return;
 
     switch (c.id) {
       case 'coinbaseWallet':
+        c.on('message', async (e) => {
+          const p = await c.getProvider();
+          setConnectorUri(p.qrUrl);
+        });
         connect(c);
-        // TODO
-        const p = await c.getProvider(false);
-        setConnectorUri(p.qrUrl);
         break;
       case 'walletConnect':
         c.on('message', async (e) => {
           //@ts-ignore
           const p = await c.getProvider();
-          console.log(p);
           setConnectorUri(p.connector.uri);
         });
         connect(c);
