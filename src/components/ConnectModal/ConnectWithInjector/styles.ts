@@ -29,7 +29,7 @@ const outlineKeyframes = keyframes`
   100%{ opacity:0; }
 `;
 export const Container = styled(motion.div)`
-  min-width: 100%;
+  max-width: 100%;
   width: 295px;
   background: var(
     --body-background

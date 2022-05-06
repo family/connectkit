@@ -35,6 +35,16 @@ import Alert from '../../Alert';
 import { useContext } from '../../FamilyKit';
 import localizations, { localize } from '../../../constants/localizations';
 
+export const states = {
+  CONNECTED: 'connected',
+  CONNECTING: 'connecting',
+  EXPIRING: 'expiring',
+  FAILED: 'failed',
+  REJECTED: 'rejected',
+  NOTCONNECTED: 'notconnected',
+  UNAVAILABLE: 'unavailable',
+};
+
 const contentVariants: Variants = {
   initial: {
     willChange: 'transform,opacity',
@@ -82,6 +92,7 @@ const DisconnectIcon = ({ ...props }) => {
       viewBox="0 0 15 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fillRule="evenodd"
@@ -136,7 +147,8 @@ const RetryIcon = ({ ...props }) => {
 const ConnectWithInjector: React.FC<{
   connectorId: string;
   switchConnectMethod: (id?: string) => void;
-}> = ({ connectorId, switchConnectMethod }) => {
+  forceState?: typeof states;
+}> = ({ connectorId, switchConnectMethod, forceState }) => {
   const context = useContext();
   const copy = localizations[context.lang].injectionScreen;
 
@@ -164,17 +176,12 @@ const ConnectWithInjector: React.FC<{
       }
     : undefined;
 
-  const states = {
-    CONNECTED: 'connected',
-    CONNECTING: 'connecting',
-    EXPIRING: 'expiring',
-    FAILED: 'failed',
-    REJECTED: 'rejected',
-    NOTCONNECTED: 'notconnected',
-    UNAVAILABLE: 'unavailable',
-  };
   const [status, setStatus] = useState(
-    !hasExtensionInstalled ? states.UNAVAILABLE : states.CONNECTING
+    forceState
+      ? forceState
+      : !hasExtensionInstalled
+      ? states.UNAVAILABLE
+      : states.CONNECTING
   );
 
   const localizeText = (text: string) => {
@@ -429,7 +436,7 @@ const ConnectWithInjector: React.FC<{
               variants={contentVariants}
             >
               <ModalContent>
-                <ModalH1 error>
+                <ModalH1 $error>
                   <AlertIcon />
                   {localizeText(copy.failed.h1)}
                 </ModalH1>
@@ -493,15 +500,23 @@ const ConnectWithInjector: React.FC<{
               exit={'exit'}
               variants={contentVariants}
             >
-              <ModalContent>
-                <ModalH1 valid>
+              <ModalContent style={{ paddingBottom: 18 }}>
+                <ModalH1 $valid>
                   <TickIcon /> {localizeText(copy.connected.h1)}
                 </ModalH1>
                 <ModalBody>{localizeText(copy.connected.p)}</ModalBody>
               </ModalContent>
               <Button
                 onClick={() => alert('TODO: Disconnect')}
-                icon={<DisconnectIcon />}
+                icon={
+                  <DisconnectIcon
+                    style={{
+                      transform: 'scale(0.75) ',
+                      left: 3,
+                      top: 0.5,
+                    }}
+                  />
+                }
               >
                 Disconnect
               </Button>

@@ -251,10 +251,10 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export const OrDivider = () => {
+export const OrDivider = ({ text = 'or' }) => {
   return (
     <TextWithHr>
-      <span>or</span>
+      <span>{text}</span>
     </TextWithHr>
   );
 };
