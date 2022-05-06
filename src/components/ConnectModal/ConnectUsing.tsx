@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { useConnect } from 'wagmi';
 import Alert from '../Alert';
 import { contentVariants } from '../Modal';
 

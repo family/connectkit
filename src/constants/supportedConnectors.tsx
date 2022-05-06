@@ -16,7 +16,7 @@ interface IDictionary {
 // TODO: Define types
 const supportedConnectors = [
   {
-    id: 'injected',
+    id: 'metaMask',
     name: 'MetaMask',
     logo: logos.MetaMask,
     scannable: false,

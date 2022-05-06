@@ -1,6 +1,6 @@
 import { providers } from 'ethers';
-import { Provider, createClient, chain } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { Provider, createClient } from 'wagmi';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Buffer } from 'buffer';
@@ -25,7 +25,7 @@ const client = createClient({
         qrcode: false,
       },
     }),
-    new InjectedConnector(),
+    new MetaMaskConnector(),
     new CoinbaseWalletConnector({
       options: {
         appName: 'Family',

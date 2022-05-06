@@ -151,7 +151,7 @@ const Wallets: React.FC = () => {
               //disabled={!connector.ready}
               onClick={() => {
                 if (
-                  connector.id === 'injected' ||
+                  connector.id === 'metaMask' ||
                   connector.id === 'walletConnect' ||
                   connector.id === 'coinbaseWallet'
                 ) {

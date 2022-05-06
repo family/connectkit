@@ -34,6 +34,8 @@ import Tooltip from '../../Tooltip';
 import Alert from '../../Alert';
 import { useContext } from '../../FamilyKit';
 import localizations, { localize } from '../../../constants/localizations';
+import { connect } from 'http2';
+import { useConnect } from 'wagmi';
 
 export const states = {
   CONNECTED: 'connected',
@@ -149,6 +151,7 @@ const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void;
   forceState?: typeof states;
 }> = ({ connectorId, switchConnectMethod, forceState }) => {
+  const { connect, connectors } = useConnect();
   const context = useContext();
   const copy = localizations[context.lang].injectionScreen;
 
@@ -212,7 +215,15 @@ const ConnectWithInjector: React.FC<{
   }, [status, expiryTimer]);
 
   const tryConnect = () => {
-    setStatus(states.EXPIRING);
+    const metaMaskConnector = connectors.filter((c) => c.id === 'metaMask')[0];
+    if (metaMaskConnector) {
+      connect(metaMaskConnector);
+      setTimeout(() => {
+        setStatus(states.EXPIRING);
+      }, 5000);
+    } else {
+      setStatus(states.REJECTED);
+    }
     return;
     // TODO: WAGMI connect() here to open extension
     if (connector.wagmiConnect && connector.wagmiConnect()) {
@@ -231,8 +242,7 @@ const ConnectWithInjector: React.FC<{
       setStatus(states.UNAVAILABLE);
     } else if (status === states.CONNECTING) {
       // UX: Give user time to see the UI before opening the extension
-      //connectTimeout = setTimeout(tryConnect, 1000);
-      connectTimeout = setTimeout(tryConnect, 4000);
+      connectTimeout = setTimeout(tryConnect, 600);
     }
     return () => {
       clearTimeout(connectTimeout);
