@@ -5,8 +5,13 @@ import { motion } from 'framer-motion';
 
 import CustomQRCode from '../CustomQRCode';
 import Button from '../Button';
-import { OrDivider } from '../Modal';
-import { ModalContent, ModalHeading } from '../Modal/styles';
+import Modal, { OrDivider } from '../Modal';
+import {
+  ModalBody,
+  ModalContent,
+  ModalH1,
+  ModalHeading,
+} from '../Modal/styles';
 
 import supportedConnectors from '../../constants/supportedConnectors';
 import { useContext } from '../FamilyKit';
@@ -69,6 +74,7 @@ const DownloadApp: React.FC<{
       <ModalHeading>{localizeText(copy.heading)}</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         <CustomQRCode value={'TODO: Download API'} image={connector.logo} />
+        <ModalBody>{localizeText(copy.p)}</ModalBody>
         {connector.defaultConnect && <OrDivider />}
       </ModalContent>
 
