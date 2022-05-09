@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { Props } from 'framer-motion/types/types';
-import { useConnect, useAccount, useEnsName, useEnsAvatar } from 'wagmi';
+import { useConnect, useAccount, useEnsName } from 'wagmi';
 import { truncateEthAddress } from './../../utils';
 import { ResetContainer } from '../../styles';
 

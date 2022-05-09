@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useConnect, useDisconnect } from 'wagmi';
+import { useConnect } from 'wagmi';
 import { languages, routes, theme, useContext } from './../FamilyKit';
 
 import Modal from '../Modal';
@@ -17,8 +17,7 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
   lang = 'en',
 }) => {
   const context = useContext();
-  const { reset, isConnected } = useConnect();
-  const { disconnect } = useDisconnect();
+  const { isConnected } = useConnect();
 
   const pages: any = {
     profile: <Profile />,
@@ -27,11 +26,6 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
     onboarding: <OnboardingIntroduction />,
     connect: <ConnectUsing connectorId={context.connector} />,
   };
-
-  function resetAll() {
-    disconnect();
-    reset();
-  }
 
   function show() {
     context.setOpen(true);
@@ -45,16 +39,6 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
   function hide() {
     context.setOpen(false);
   }
-
-  useEffect(() => {
-    function listener(e: KeyboardEvent) {
-      if (e.key === 'Escape') hide();
-    }
-    document.addEventListener('keydown', listener);
-    return () => {
-      document.removeEventListener('keydown', listener);
-    };
-  }, []);
 
   useEffect(() => context.setTheme(theme), [theme]);
   useEffect(() => context.setLang(lang), [lang]);

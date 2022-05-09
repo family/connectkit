@@ -1,7 +1,7 @@
 export const localize = (text: string, replacements?: any[string]) => {
   let parsedText: string = text;
   if (replacements) {
-    Object.keys(replacements).map((key) => {
+    Object.keys(replacements).forEach((key) => {
       parsedText = parsedText.replaceAll(
         `{{ ${key} }}`,
         replacements[key as keyof typeof replacements]

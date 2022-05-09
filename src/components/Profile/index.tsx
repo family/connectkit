@@ -71,7 +71,7 @@ const Profile: React.FC = () => {
       disconnect();
       reset();
     }, 1000);
-  }, [shouldDisconnect]);
+  }, [shouldDisconnect, disconnect, reset]);
 
   if (!isConnected || shouldDisconnect)
     return (

@@ -160,15 +160,15 @@ const Modal: React.FC<ModalProps> = ({
   useIsomorphicLayoutEffect(refreshLayout, [bounds]);
 
   useEffect(() => {
-    function listener(e: KeyboardEvent) {
-      if (!open) return;
+    if (!open) return;
+    const listener = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose(e);
-    }
+    };
     document.addEventListener('keydown', listener);
     return () => {
       document.removeEventListener('keydown', listener);
     };
-  }, []);
+  }, [open, onClose]);
 
   return (
     <AnimatePresence>
