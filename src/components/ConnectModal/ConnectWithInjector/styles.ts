@@ -46,6 +46,7 @@ export const ConnectingContainer = styled(motion.div)`
 export const ConnectingAnimation = styled(motion.div)<{
   $shake: boolean | undefined;
 }>`
+  user-select: none;
   position: relative;
   --spinner-error-opacity: 0;
   &:before {
