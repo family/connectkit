@@ -6,19 +6,18 @@ import { motion } from 'framer-motion';
 import CustomQRCode from '../CustomQRCode';
 import Button from '../Button';
 import { useConnect } from 'wagmi';
-import { Listener } from '@ethersproject/abstract-provider';
 import { OrDivider } from '../Modal';
 import { ModalContent, ModalHeading } from '../Modal/styles';
 import { detectBrowser } from '../../utils';
 import BrowserIcon from '../BrowserIcon';
 
 import supportedConnectors from '../../constants/supportedConnectors';
-import TestBench from '../TestBench';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import Alert from '../Alert';
-import { useContext } from '../FamilyKit';
+import { routes, useContext } from '../FamilyKit';
 import localizations, { localize } from '../../constants/localizations';
 
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 const Container = styled(motion.div)`
   max-width: 100%;
   width: 295px;
@@ -61,7 +60,15 @@ const ConnectWithQRCode: React.FC<{
   const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
-  const { connect, connectors } = useConnect();
+  const { connectors, connectAsync } = useConnect({
+    onBeforeConnect: (connector: any) => {
+      //console.log('onBeforeConnect', connector);
+    },
+    onSettled(data, error) {
+      //console.log('error', error);
+      //console.log('data', data);
+    },
+  });
   const [connectorUri, setConnectorUri] = useState<string | null>(null);
 
   const localizeText = (text: string) => {
@@ -70,17 +77,31 @@ const ConnectWithQRCode: React.FC<{
     });
   };
 
+  async function connectWallet(connector: any) {
+    const result = await connectAsync(connector);
+
+    if (result) {
+      console.log(result);
+      return result;
+    }
+
+    return false;
+  }
+
   const startConnect = async () => {
     const c = connectors.filter((c) => c.id === id)[0];
     if (!c || connectorUri) return;
 
     switch (c.id) {
+      case 'injected':
+        // Shouldn't get to this flow, injected is not scannable
+        break;
       case 'coinbaseWallet':
         c.on('message', async (e) => {
           const p = await c.getProvider();
           setConnectorUri(p.qrUrl);
         });
-        connect(c);
+        await connectWallet(c);
         break;
       case 'walletConnect':
         c.on('message', async (e) => {
@@ -88,13 +109,22 @@ const ConnectWithQRCode: React.FC<{
           const p = await c.getProvider();
           setConnectorUri(p.connector.uri);
         });
-        connect(c);
-        break;
-      case 'injected':
-        // Shouldn't get to this flow, injected is not scannable
+        await connectWallet(c);
         break;
       case 'metaMask':
         break;
+    }
+  };
+
+  const openDefaultConnect = async () => {
+    const c = connectors.filter((c) => c.id === id)[0];
+    if (c.id === 'walletConnect') {
+      const co = new WalletConnectConnector({
+        options: {
+          qrcode: true,
+        },
+      });
+      await connectWallet(co);
     }
   };
 
@@ -125,21 +155,9 @@ const ConnectWithQRCode: React.FC<{
   const hasExtensionInstalled =
     connector.extensionIsInstalled && connector.extensionIsInstalled();
 
-  const dev = (
-    <TestBench>
-      <select onChange={(e: any) => setId(e.target.value)} value={id}>
-        {Object.keys(supportedConnectors).map((key: any, i: number) => (
-          /* @ts-ignore */
-          <option key={i}>{supportedConnectors[key].id}</option>
-        ))}
-      </select>
-    </TestBench>
-  );
-
   if (!connector.scannable)
     return (
       <Container>
-        {dev}
         <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
           <Alert>
@@ -152,7 +170,6 @@ const ConnectWithQRCode: React.FC<{
 
   return (
     <Container>
-      {dev}
       <ModalHeading>{copy.heading}</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         <CustomQRCode
@@ -190,7 +207,7 @@ const ConnectWithQRCode: React.FC<{
               }}
             />
           }
-          onClick={connector.defaultConnect}
+          onClick={openDefaultConnect}
         >
           Open Default Modal
         </Button>
@@ -213,7 +230,9 @@ const ConnectWithQRCode: React.FC<{
         (hasApps ? (
           <>
             <Button
-              onClick={() => alert('TODO: Open new QR code')}
+              onClick={() => {
+                context.setRoute(routes.DOWNLOAD);
+              }}
               icon={connector.logo}
             >
               Get {connector.name}
