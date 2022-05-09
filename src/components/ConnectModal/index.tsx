@@ -9,6 +9,7 @@ import ConnectButton from './../ConnectButton';
 import OnboardingIntroduction from './Onboarding/Introduction';
 import Connectors from './Connectors';
 import ConnectUsing from './ConnectUsing';
+import DownloadApp from './DownloadApp';
 import Profile from './Profile';
 
 const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
@@ -24,6 +25,7 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
     onboarding: <OnboardingIntroduction />,
     connect: <ConnectUsing connectorId={context.connector} />,
     profile: <Profile />,
+    download: <DownloadApp connectorId={context.connector} />,
   };
 
   function resetAll() {
@@ -75,12 +77,16 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
         pages={pages}
         pageId={context.route}
         onClose={hide}
-        onBack={
-          context.route !== routes.CONNECTORS &&
-          context.route !== routes.PROFILE
-            ? () => context.setRoute(routes.CONNECTORS)
-            : undefined
-        }
+        onBack={() => {
+          if (context.route === routes.DOWNLOAD) {
+            context.setRoute(routes.CONNECT);
+          } else if (
+            context.route !== routes.CONNECTORS &&
+            context.route !== routes.PROFILE
+          ) {
+            context.setRoute(routes.CONNECTORS);
+          }
+        }}
       />
     </>
   );

@@ -4,6 +4,7 @@ export const routes = {
   CONNECTORS: 'connectors',
   CONNECT: 'connect',
   ONBOARDING: 'onboarding',
+  DOWNLOAD: 'download',
   PROFILE: 'profile',
 };
 

@@ -58,6 +58,9 @@ export default {
         default: `Open **${keys.connectorName}** on your mobile phone and scan`,
       },
     },
+    downloadAppScreen: {
+      heading: `Scan with Phone`,
+    },
     injectionScreen: {
       unavailable: {
         h1: `Unsupported Browser`,
@@ -80,11 +83,11 @@ export default {
       },
       rejected: {
         h1: `Request Cancelled`,
-        p: `You cancelled the connection request. Click below to try again.`,
+        p: `You cancelled the connection request.\nClick below to try again.`,
       },
       failed: {
         h1: `Connection Failed`,
-        p: `Sorry, the request expired. Please try connecting again.`,
+        p: `Sorry, the request expired.\nPlease try connecting again.`,
       },
       notconnected: {
         h1: `Log into ${keys.connectorName}`,
@@ -117,6 +120,9 @@ export default {
         default: `Ouvrez **${keys.connectorName}** sur votre téléphone portable et scannez`,
       },
     },
+    downloadAppScreen: {
+      heading: `Numériser avec le téléphone`,
+    },
     injectionScreen: {
       unavailable: {
         h1: `Navigateur non supporté`,
@@ -139,11 +145,11 @@ export default {
       },
       rejected: {
         h1: `Demande annulée`,
-        p: `Vous avez annulé la demande de connexion. Cliquez ci-dessous pour réessayer.`,
+        p: `Vous avez annulé la demande de connexion.\nCliquez ci-dessous pour réessayer.`,
       },
       failed: {
         h1: `La connexion a échoué`,
-        p: `Désolé, la demande a expiré. Veuillez réessayer de vous connecter.`,
+        p: `Désolé, la demande a expiré.\nVeuillez réessayer de vous connecter.`,
       },
       notconnected: {
         h1: `Connectez-vous à ${keys.connectorName}`,
