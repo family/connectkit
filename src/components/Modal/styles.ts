@@ -79,6 +79,10 @@ export const ModalBody = styled(motion.div)`
   font-weight: 400;
   line-height: 21px;
   color: var(--body-color-muted);
+  strong {
+    font-weight: 500;
+    color: var(--body-color);
+  }
 `;
 
 export const BackgroundOverlay = styled(motion.div)`
