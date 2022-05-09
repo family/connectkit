@@ -141,9 +141,13 @@ const CustomQRCode = React.forwardRef(
             //layoutId="connectorLogo"
             transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
           >
-            <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
-              {image}
-            </Tooltip>
+            {tooltipMessage ? (
+              <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
+                {image}
+              </Tooltip>
+            ) : (
+              image
+            )}
           </LogoIcon>
         </LogoContainer>
         {value && (
