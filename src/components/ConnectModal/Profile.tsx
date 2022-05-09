@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from './../FamilyKit';
 
 import styled from 'styled-components';
@@ -69,6 +69,8 @@ const Profile: React.FC = () => {
   const { reset, isConnected } = useConnect();
   const { disconnect } = useDisconnect();
 
+  const [shouldDisconnect, setShouldDisconnect] = useState(false);
+
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({ address: account?.address });
   const { data: balance } = useBalance({
@@ -76,12 +78,23 @@ const Profile: React.FC = () => {
     //watch: true,
   });
 
-  function disconnectAccount() {
-    disconnect();
-    reset();
-  }
+  useEffect(() => {
+    if (!shouldDisconnect) return;
+    setTimeout(() => {
+      disconnect();
+      reset();
+    }, 1000);
+  }, [shouldDisconnect]);
 
-  if (!isConnected) return <>No profile found, this state should not occur</>;
+  if (!isConnected || shouldDisconnect)
+    return (
+      <Container>
+        <ModalHeading>{copy.heading}</ModalHeading>
+        <ModalContent>
+          <ModalH1>Disconnecting...</ModalH1>
+        </ModalContent>
+      </Container>
+    );
   return (
     <Container>
       <ModalHeading>{copy.heading}</ModalHeading>
@@ -102,7 +115,7 @@ const Profile: React.FC = () => {
         </ModalBody>
       </ModalContent>
       <Button
-        onClick={disconnectAccount}
+        onClick={() => setShouldDisconnect(true)}
         icon={
           <DisconnectIcon
             style={{

@@ -151,14 +151,34 @@ const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void;
   forceState?: typeof states;
 }> = ({ connectorId, switchConnectMethod, forceState }) => {
-  const { connect, connectors } = useConnect();
+  const { connect, connectors } = useConnect({
+    onBeforeConnect: (connector: any) => {
+      setStatus(states.CONNECTING);
+      console.log('onBeforeConnect', connector);
+    },
+    onSettled(data, error) {
+      if (error) {
+        // TODO: Proper error handling
+        if (
+          error.message === 'User denied account authorization' || // coinbaseWallet
+          error.message === 'User rejected request' // metaMask
+        ) {
+          setStatus(states.REJECTED);
+        } else {
+          setStatus(states.FAILED);
+        }
+      } else if (data) {
+        console.log('data', data);
+      }
+    },
+  });
   const context = useContext();
   const copy = localizations[context.lang].injectionScreen;
 
   const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
-  const expiryDefault = 9;
+  const expiryDefault = 9; // Starting at 10 causes layout shifting, better to start at 9
   const [expiryTimer, setExpiryTimer] = useState<number>(expiryDefault);
 
   const hasExtensionInstalled =
@@ -194,6 +214,27 @@ const ConnectWithInjector: React.FC<{
     });
   };
 
+  const runConnect = () => {
+    if (!hasExtensionInstalled) return;
+    const con = connectors.filter((c) => c.id === id)[0];
+    if (con) {
+      connect(con);
+    } else {
+      setStatus(states.UNAVAILABLE);
+    }
+  };
+
+  let connectTimeout: any;
+  useEffect(() => {
+    if (status === states.UNAVAILABLE) return;
+    // UX: Give user time to see the UI before opening the extension
+    connectTimeout = setTimeout(runConnect, 600);
+    return () => {
+      clearTimeout(connectTimeout);
+    };
+  }, []);
+
+  /** Timeout functionality if necessary
   let expiryTimeout: any;
   useEffect(() => {
     if (status === states.EXPIRING) {
@@ -213,64 +254,11 @@ const ConnectWithInjector: React.FC<{
       clearTimeout(expiryTimeout);
     };
   }, [status, expiryTimer]);
-
-  const tryConnect = () => {
-    const metaMaskConnector = connectors.filter((c) => c.id === 'metaMask')[0];
-    if (metaMaskConnector) {
-      connect(metaMaskConnector);
-      setTimeout(() => {
-        setStatus(states.EXPIRING);
-      }, 5000);
-    } else {
-      setStatus(states.REJECTED);
-    }
-    return;
-    // TODO: WAGMI connect() here to open extension
-    if (connector.wagmiConnect && connector.wagmiConnect()) {
-      //setStatus(states.CONNECTED);
-      context.setOpen(false);
-    } else {
-      setStatus(states.REJECTED);
-    }
-    //clearTimeout(connectTimeout);
-    //connectTimeout = setTimeout(() => setStatus(states.EXPIRING), 1000);
-  };
-
-  let connectTimeout: any;
-  useEffect(() => {
-    if (!hasExtensionInstalled) {
-      setStatus(states.UNAVAILABLE);
-    } else if (status === states.CONNECTING) {
-      // UX: Give user time to see the UI before opening the extension
-      connectTimeout = setTimeout(tryConnect, 600);
-    }
-    return () => {
-      clearTimeout(connectTimeout);
-    };
-  }, [status]);
-
-  const dev = (
-    <TestBench>
-      <select onChange={(e: any) => setId(e.target.value)} value={id}>
-        {Object.keys(supportedConnectors).map((key: any, i: number) => (
-          /* @ts-ignore */
-          <option key={i}>{supportedConnectors[key].id}</option>
-        ))}
-      </select>
-      <button
-        onClick={() => {
-          window.ethereum = undefined;
-        }}
-      >
-        destroy ethereum
-      </button>
-    </TestBench>
-  );
+  */
 
   if (!connector)
     return (
       <Container>
-        {dev}
         <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
           <Alert>
@@ -284,7 +272,6 @@ const ConnectWithInjector: React.FC<{
   if (connector.id === 'walletConnect')
     return (
       <Container>
-        {dev}
         <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
           <Alert>
@@ -297,7 +284,6 @@ const ConnectWithInjector: React.FC<{
 
   return (
     <Container>
-      {dev}
       <ModalHeading>{connector.name}</ModalHeading>
       <ConnectingContainer>
         <ConnectingAnimation
@@ -311,7 +297,7 @@ const ConnectWithInjector: React.FC<{
                 exit={{ opacity: 0, scale: 0.8 }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ duration: 0.1 }}
-                onClick={() => setStatus(states.CONNECTING)}
+                onClick={runConnect}
               >
                 <RetryIconContainer>
                   <Tooltip
@@ -396,7 +382,12 @@ const ConnectWithInjector: React.FC<{
                       key="Spinner"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      exit={{ opacity: 0, transition: { duration: 1 } }}
+                      exit={{
+                        opacity: 0,
+                        transition: {
+                          duration: status === states.EXPIRING ? 1 : 0,
+                        },
+                      }}
                     />
                   )}
                   {status === states.EXPIRING && (

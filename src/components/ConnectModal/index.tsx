@@ -21,11 +21,11 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
   const { disconnect } = useDisconnect();
 
   const pages: any = {
+    profile: <Profile />,
+    download: <DownloadApp connectorId={context.connector} />,
     connectors: <Connectors />,
     onboarding: <OnboardingIntroduction />,
     connect: <ConnectUsing connectorId={context.connector} />,
-    profile: <Profile />,
-    download: <DownloadApp connectorId={context.connector} />,
   };
 
   function resetAll() {
@@ -35,20 +35,11 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
 
   function show() {
     context.setOpen(true);
-
-    if (isConnected) {
-      context.setRoute(routes.PROFILE);
-    } else {
-      context.setRoute(routes.CONNECTORS);
-    }
+    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
   }
 
   useEffect(() => {
-    if (isConnected) {
-      context.setRoute(routes.PROFILE);
-    } else {
-      context.setRoute(routes.CONNECTORS);
-    }
+    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
   }, [isConnected]);
 
   function hide() {
@@ -71,22 +62,23 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
   return (
     <>
       <ConnectButton onClick={show} />
-      {isConnected && <button onClick={resetAll}>Disconnect Wallet</button>}
       <Modal
         open={context.open}
         pages={pages}
         pageId={context.route}
         onClose={hide}
-        onBack={() => {
-          if (context.route === routes.DOWNLOAD) {
-            context.setRoute(routes.CONNECT);
-          } else if (
-            context.route !== routes.CONNECTORS &&
-            context.route !== routes.PROFILE
-          ) {
-            context.setRoute(routes.CONNECTORS);
-          }
-        }}
+        onBack={
+          context.route !== routes.CONNECTORS &&
+          context.route !== routes.PROFILE
+            ? () => {
+                if (context.route === routes.DOWNLOAD) {
+                  context.setRoute(routes.CONNECT);
+                } else {
+                  context.setRoute(routes.CONNECTORS);
+                }
+              }
+            : undefined
+        }
       />
     </>
   );
