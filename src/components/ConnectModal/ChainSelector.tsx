@@ -8,7 +8,6 @@ import { useNetwork } from 'wagmi';
 import useMeasure from 'react-use-measure';
 import Portal from '../Portal';
 import { ResetContainer } from '../../styles';
-import Button from '../Button';
 
 const Container = styled(motion.div)``;
 

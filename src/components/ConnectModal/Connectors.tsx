@@ -1,14 +1,15 @@
 import React from 'react';
 import { useContext, routes } from './../FamilyKit';
+import supportedConnectors from '../../constants/supportedConnectors';
+import localizations from '../../constants/localizations';
+
+import { useConnect } from 'wagmi';
+
+import { ModalHeading } from '../Modal/styles';
+import WalletIcon from '../../assets/wallet';
 
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-import { useConnect } from 'wagmi';
-import { ModalHeading } from '../Modal/styles';
-import WalletIcon from '../../assets/wallet';
-import supportedConnectors from '../../constants/supportedConnectors';
-import localizations from '../../constants/localizations';
 
 const Container = styled(motion.div)`
   max-width: 100%;

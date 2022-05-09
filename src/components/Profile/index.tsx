@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useContext } from './../FamilyKit';
-
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { useContext } from '../FamilyKit';
+import localizations from '../../constants/localizations';
+import { truncateEthAddress } from '../../utils';
 
 import {
   useConnect,
@@ -11,35 +10,23 @@ import {
   useEnsName,
   useBalance,
 } from 'wagmi';
+
+import {
+  Container,
+  AvatarContainer,
+  AvatarInner,
+  ChainSelectorContainer,
+} from './styles';
+
 import {
   ModalBody,
   ModalContent,
   ModalH1,
   ModalHeading,
 } from '../Modal/styles';
-import localizations from '../../constants/localizations';
-import Button from './../Button';
-import { truncateEthAddress } from '../../utils';
-import Avatar from './Avatar';
-import ChainSelector from './ChainSelector';
-
-const Container = styled(motion.div)`
-  max-width: 100%;
-  width: 295px;
-`;
-const AvatarContainer = styled(motion.div)`
-  padding: 30px 0 20px;
-`;
-const AvatarInner = styled(motion.div)`
-  position: relative;
-  display: inline-block;
-`;
-const ChainSelectorContainer = styled(motion.div)`
-  z-index: 3;
-  position: absolute;
-  bottom: 0px;
-  right: -16px;
-`;
+import Button from '../Button';
+import Avatar from '../Avatar';
+import ChainSelector from '../ConnectModal/ChainSelector';
 
 const DisconnectIcon = ({ ...props }) => {
   return (

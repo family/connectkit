@@ -1,18 +1,18 @@
 import React from 'react';
-import Avatar from './ConnectModal/Avatar';
+import Avatar from '../Avatar';
 
 import styled from 'styled-components';
-import { ResetContainer } from '../styles';
-import ConnectWithQRCode from './ConnectModal/ConnectWithQRCode';
+import { ResetContainer } from './../../styles';
+import ConnectWithQRCode from './../ConnectModal/ConnectWithQRCode';
 import ConnectWithInjector, {
   states,
-} from './ConnectModal/ConnectWithInjector';
+} from './../ConnectModal/ConnectWithInjector';
 
 import {
   Container as ModalContainer,
   InnerContainer,
   PageContainer,
-} from './Modal/styles';
+} from './../Modal/styles';
 
 const Container = styled.div`
   margin: 32px 0;

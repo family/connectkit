@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
+import { useContext } from '../FamilyKit';
+import localizations, { localize } from '../../constants/localizations';
+import supportedConnectors from '../../constants/supportedConnectors';
 
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { ModalBody, ModalContent, ModalHeading } from '../Modal/styles';
+import { OrDivider } from '../Modal';
 
 import CustomQRCode from '../CustomQRCode';
 import Button from '../Button';
-import Modal, { OrDivider } from '../Modal';
-import {
-  ModalBody,
-  ModalContent,
-  ModalH1,
-  ModalHeading,
-} from '../Modal/styles';
 
-import supportedConnectors from '../../constants/supportedConnectors';
-import { useContext } from '../FamilyKit';
-import localizations, { localize } from '../../constants/localizations';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const Container = styled(motion.div)`
   max-width: 100%;

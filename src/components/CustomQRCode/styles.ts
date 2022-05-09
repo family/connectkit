@@ -1,11 +1,7 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import styled, { keyframes } from 'styled-components';
 
-import { QRCode } from 'react-qrcode-logo';
-import Tooltip from './Tooltip';
-
-const QRCodeContainer = styled(motion.div)`
+export const QRCodeContainer = styled(motion.div)`
   z-index: 3;
   position: relative;
   overflow: hidden;
@@ -27,11 +23,11 @@ const QRCodeContainer = styled(motion.div)`
   }
 `;
 
-const PlaceholderKeyframes = keyframes`
+export const PlaceholderKeyframes = keyframes`
   0%{ background-position: 100% 0; }
   100%{ background-position: -100% 0; }
 `;
-const QRPlaceholder = styled(motion.div)`
+export const QRPlaceholder = styled(motion.div)`
   height: 0;
   padding-bottom: 100%;
   display: flex;
@@ -55,7 +51,7 @@ const QRPlaceholder = styled(motion.div)`
   }
 `;
 
-const QRPlaceholderContent = styled(motion.div)`
+export const QRPlaceholderContent = styled(motion.div)`
   position: absolute;
   inset: 12px;
   background: repeat;
@@ -75,7 +71,7 @@ const QRPlaceholderContent = styled(motion.div)`
     opacity: 0.8;
   }
 `;
-const QRCodeSkeleton = styled(motion.div)`
+export const QRCodeSkeleton = styled(motion.div)`
   position: absolute;
   background: #f5f5f5;
   border-radius: 9px;
@@ -92,7 +88,7 @@ const QRCodeSkeleton = styled(motion.div)`
   }
 `;
 
-const LogoContainer = styled(motion.div)`
+export const LogoContainer = styled(motion.div)`
   z-index: 5;
   position: absolute;
   inset: 0;
@@ -100,7 +96,7 @@ const LogoContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
 `;
-const LogoIcon = styled(motion.div)`
+export const LogoIcon = styled(motion.div)`
   position: relative;
   width: 25.7%;
   height: 25.7%;
@@ -123,60 +119,3 @@ const LogoIcon = styled(motion.div)`
     transform: scale(1.02); // fixes 1px gap in Safari
   }
 `;
-
-type CustomQRCodeProps = {
-  value: string | null;
-  image?: React.ReactNode;
-  tooltipMessage?: React.ReactNode | string;
-};
-const CustomQRCode = React.forwardRef(
-  (
-    { value, image, tooltipMessage }: CustomQRCodeProps,
-    ref: React.Ref<HTMLElement>
-  ) => {
-    return (
-      <QRCodeContainer>
-        <LogoContainer>
-          <LogoIcon
-            //layoutId="connectorLogo"
-            transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
-          >
-            {tooltipMessage ? (
-              <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
-                {image}
-              </Tooltip>
-            ) : (
-              image
-            )}
-          </LogoIcon>
-        </LogoContainer>
-        {value && (
-          <QRCode
-            bgColor="transparent"
-            logoImage={image ? btoa(image.toString()) : undefined}
-            removeQrCodeBehindLogo={true}
-            value={value}
-            size={288}
-            qrStyle="dots"
-            eyeRadius={12}
-            ecLevel="M"
-            logoWidth={76}
-            logoHeight={76}
-          />
-        )}
-        {!value && (
-          <QRPlaceholder>
-            <QRPlaceholderContent>
-              <QRCodeSkeleton style={{ top: 0, right: 0 }} />
-              <QRCodeSkeleton style={{ top: 0, left: 0 }} />
-              <QRCodeSkeleton style={{ bottom: 0, left: 0 }} />
-            </QRPlaceholderContent>
-          </QRPlaceholder>
-        )}
-      </QRCodeContainer>
-    );
-  }
-);
-CustomQRCode.displayName = 'CustomQRCode';
-
-export default CustomQRCode;

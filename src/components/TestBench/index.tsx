@@ -1,7 +1,7 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
-import Portal from './Portal';
+import Portal from './../Portal';
 
 const Container = styled(motion.div)`
   z-index: 2147483647;

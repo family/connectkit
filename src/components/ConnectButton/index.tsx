@@ -8,6 +8,7 @@ import { ResetContainer } from '../../styles';
 
 import { Button } from './styles';
 import { useContext } from '../FamilyKit';
+import Avatar from '../Avatar';
 
 const IconContainer = styled(motion.div)`
   position: relative;
@@ -17,18 +18,6 @@ const IconContainer = styled(motion.div)`
   pointer-events: none;
   user-select: none;
   svg {
-    position: absolute;
-    inset: 0;
-  }
-`;
-const EnsAvatar = styled(motion.div)`
-  position: relative;
-  overflow: hidden;
-  border-radius: 15px;
-  width: 100%;
-  height: 100%;
-  background: whiteSmoke;
-  img {
     position: absolute;
     inset: 0;
   }
@@ -58,17 +47,14 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
   const context = useContext();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({ address: account?.address });
-  const { data: ensAvatar } = useEnsAvatar({ addressOrName: account?.address });
   const { isConnected } = useConnect();
 
   return (
     <ResetContainer theme={context.theme}>
       <Button onClick={onClick}>
         <IconContainer>
-          {ensAvatar && ensName ? (
-            <EnsAvatar>
-              <img src={ensAvatar} alt={ensName} />
-            </EnsAvatar>
+          {account?.address ? (
+            <Avatar size={30} address={account?.address} />
           ) : (
             <FamilyIcon />
           )}

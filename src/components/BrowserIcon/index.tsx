@@ -1,25 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-import { detectBrowser } from './../utils';
-import browsers from './../assets/browsers';
 
-const Container = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-`;
+import { BrowserIconProps } from './types';
+import { BrowserIconContainer } from './styles';
 
-type BrowserIconProps = {
-  browser?: string; // empty string will display current browser
-};
+import { detectBrowser } from './../../utils';
+import browsers from './../../assets/browsers';
+
 const BrowserIcon = React.forwardRef(
   ({ browser }: BrowserIconProps, ref: React.Ref<HTMLElement>) => {
     const currentBrowser = browser ?? detectBrowser();
@@ -40,7 +26,7 @@ const BrowserIcon = React.forwardRef(
         break;
     }
     if (!icon) return <></>;
-    return <Container>{icon}</Container>;
+    return <BrowserIconContainer>{icon}</BrowserIconContainer>;
   }
 );
 BrowserIcon.displayName = 'BrowserIcon';

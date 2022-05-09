@@ -6,11 +6,11 @@ import Modal from '../Modal';
 
 import ConnectButton from './../ConnectButton';
 
-import OnboardingIntroduction from './Onboarding/Introduction';
+import OnboardingIntroduction from './Onboarding';
 import Connectors from './Connectors';
 import ConnectUsing from './ConnectUsing';
 import DownloadApp from './DownloadApp';
-import Profile from './Profile';
+import Profile from '../Profile';
 
 const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
   theme = 'light',

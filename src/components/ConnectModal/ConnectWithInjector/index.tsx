@@ -14,6 +14,11 @@ import {
   Content,
 } from './styles';
 
+import { useContext } from '../../FamilyKit';
+import localizations, { localize } from '../../../constants/localizations';
+import { useConnect } from 'wagmi';
+import supportedConnectors from '../../../constants/supportedConnectors';
+
 import {
   ModalHeading,
   ModalBody,
@@ -21,20 +26,14 @@ import {
   ModalContentContainer,
   ModalContent,
 } from './../../Modal/styles';
-
 import { OrDivider } from './../../Modal';
 import Button from './../../Button';
-import TestBench from './../../TestBench';
-import { Scan } from '../../../assets/icons';
-
-import supportedConnectors from '../../../constants/supportedConnectors';
-import BrowserIcon from '../../BrowserIcon';
-import { detectBrowser } from '../../../utils';
 import Tooltip from '../../Tooltip';
 import Alert from '../../Alert';
-import { useContext } from '../../FamilyKit';
-import localizations, { localize } from '../../../constants/localizations';
-import { useConnect } from 'wagmi';
+
+import { Scan } from '../../../assets/icons';
+import BrowserIcon from '../../BrowserIcon';
+import { detectBrowser } from '../../../utils';
 
 export const states = {
   CONNECTED: 'connected',

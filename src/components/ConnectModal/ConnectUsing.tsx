@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
-import Alert from '../Alert';
+import supportedConnectors from './../../constants/supportedConnectors';
+
 import { contentVariants } from '../Modal';
 
-import supportedConnectors from './../../constants/supportedConnectors';
 import ConnectWithInjector from './ConnectWithInjector';
 import ConnectWithQRCode from './ConnectWithQRCode';
+
+import Alert from '../Alert';
 
 const states = {
   QRCODE: 'qrcode',

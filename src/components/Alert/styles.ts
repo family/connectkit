@@ -1,8 +1,7 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-const AlertContainer = styled(motion.div)`
+export const AlertContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
   display: flex;
@@ -27,15 +26,3 @@ const AlertContainer = styled(motion.div)`
     opacity: 0.05;
   }
 `;
-
-type AlertProps = {
-  children?: React.ReactNode;
-};
-const Alert = React.forwardRef(
-  ({ children }: AlertProps, ref: React.Ref<HTMLElement>) => {
-    return <AlertContainer>{children}</AlertContainer>;
-  }
-);
-Alert.displayName = 'Alert';
-
-export default Alert;

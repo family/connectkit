@@ -1,33 +1,18 @@
-import React, { useEffect } from 'react';
-
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 
-import {
-  ModalBody,
-  ModalContent,
-  ModalH1,
-  ModalHeading,
-} from '../../Modal/styles';
-import logos from '../../../assets/logos';
-import wave from '../../../assets/wave';
-
-import Button from '../../Button';
-import localizations from '../../../constants/localizations';
-import { useContext } from '../../FamilyKit';
-
-const Container = styled(motion.div)`
+export const Container = styled(motion.div)`
   max-width: 100%;
   width: 295px;
 `;
-const Graphic = styled(motion.div)`
+export const Graphic = styled(motion.div)`
   position: relative;
   margin: 0px auto 16px;
   height: 190px;
   pointer-events: none;
   user-select: none;
 `;
-const GraphicBackground = styled(motion.div)`
+export const GraphicBackground = styled(motion.div)`
   z-index: -1;
   position: absolute;
   inset: 0;
@@ -81,14 +66,14 @@ const floatRotateE = keyframes`
   0%,100%{ transform:none; }
   50%{ transform:scale(0.96) translateY(6%) rotate(-2deg); }
 `;
-const GraphicLogos = styled(motion.div)``;
-const LogoWrapper = styled(motion.div)`
+export const GraphicLogos = styled(motion.div)``;
+export const LogoWrapper = styled(motion.div)`
   position: absolute;
   inset: 0;
   animation: cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
   animation-delay: inherit;
 `;
-const LogoGraphic = styled(motion.div)`
+export const LogoGraphic = styled(motion.div)`
   position: absolute;
   overflow: hidden;
   height: 58px;
@@ -104,7 +89,7 @@ const LogoGraphic = styled(motion.div)`
   }
 `;
 
-const GraphicLogo = styled(motion.div)`
+export const GraphicLogo = styled(motion.div)`
   position:absolute;
   inset:0;
   will-change: transform;
@@ -145,60 +130,3 @@ const GraphicLogo = styled(motion.div)`
     transform: translate(-50%, -50%) rotate(-7.51deg);
   }
 }`;
-
-const Introduction: React.FC = () => {
-  const context = useContext();
-  const copy = localizations[context.lang].onboardingScreen;
-  return (
-    <Container>
-      <ModalHeading>{copy.heading}</ModalHeading>
-      <Graphic>
-        <GraphicLogos>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.Coinbase}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.MetaMask}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.Trust}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.Argent}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.imToken}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-        </GraphicLogos>
-        <GraphicBackground
-          animate={{
-            opacity: [0, 1],
-            scale: [0.9, 1],
-            transition: { delay: 0.1, duration: 1 },
-          }}
-        >
-          {wave}
-        </GraphicBackground>
-      </Graphic>
-      <ModalContent style={{ paddingBottom: 24 }}>
-        <ModalH1>{copy.h1}</ModalH1>
-        <ModalBody>{copy.p}</ModalBody>
-      </ModalContent>
-      <Button href={copy.ctaUrl} arrow>
-        {copy.ctaText}
-      </Button>
-    </Container>
-  );
-};
-
-export default Introduction;

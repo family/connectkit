@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { routes, useContext } from '../FamilyKit';
+import localizations, { localize } from '../../constants/localizations';
+
+import supportedConnectors from '../../constants/supportedConnectors';
+import { useConnect } from 'wagmi';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+
+import { detectBrowser } from '../../utils';
+
+import { ModalContent, ModalHeading } from '../Modal/styles';
+import { OrDivider } from '../Modal';
+
+import CustomQRCode from '../CustomQRCode';
+import Button from '../Button';
+import Alert from '../Alert';
+import BrowserIcon from '../BrowserIcon';
+import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-import CustomQRCode from '../CustomQRCode';
-import Button from '../Button';
-import { useConnect } from 'wagmi';
-import { OrDivider } from '../Modal';
-import { ModalContent, ModalHeading } from '../Modal/styles';
-import { detectBrowser } from '../../utils';
-import BrowserIcon from '../BrowserIcon';
-
-import supportedConnectors from '../../constants/supportedConnectors';
-import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
-import Alert from '../Alert';
-import { routes, useContext } from '../FamilyKit';
-import localizations, { localize } from '../../constants/localizations';
-
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 const Container = styled(motion.div)`
   max-width: 100%;
   width: 295px;
