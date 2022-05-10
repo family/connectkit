@@ -1,5 +1,5 @@
 import { providers } from 'ethers';
-import { Provider, createClient } from 'wagmi';
+import { Provider, createClient, chain } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
@@ -16,17 +16,26 @@ if (!window.Buffer) {
 }
 
 const infuraId = '34dfd61558944dbbb4a5187b330bed76';
+const chains = [chain.mainnet, chain.optimism]; // 2 chainz
+
 const client = createClient({
   autoConnect: true,
   connectors: [
     new WalletConnectConnector({
+      chains: chains,
       options: {
         infuraId,
         qrcode: false,
       },
     }),
-    new MetaMaskConnector(),
+    new MetaMaskConnector({
+      chains: chains,
+      options: {
+        shimDisconnect: true,
+      },
+    }),
     new CoinbaseWalletConnector({
+      chains: chains,
       options: {
         appName: 'Family',
         headlessMode: true,

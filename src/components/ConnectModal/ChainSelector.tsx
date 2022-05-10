@@ -9,6 +9,7 @@ import useMeasure from 'react-use-measure';
 import Portal from '../Portal';
 import { ResetContainer } from '../../styles';
 import ChainIcons from '../../assets/chains';
+import supportedChains from '../../constants/supportedChains';
 
 const Container = styled(motion.div)``;
 
@@ -74,6 +75,10 @@ const ChainIcon = styled(motion.div)`
   width: 24px;
   height: 24px;
   background: var(--body-background);
+  svg {
+    width: 100%;
+    height: auto;
+  }
 `;
 const ChainButton = styled(motion.button)`
   appearance: none;
@@ -87,7 +92,7 @@ const ChainButton = styled(motion.button)`
   width: 100%;
   border-radius: 11px;
   margin: 6px 0 0;
-  padding: 8px 8px;
+  padding: 8px 0;
   font-size: 15px;
   line-height: 17px;
   font-weight: 500;
@@ -102,7 +107,7 @@ const ChainButton = styled(motion.button)`
     color: var(--body-color-muted);
   }
   &:active {
-    transform: scale(0.9);
+    transform: scale(0.98);
   }
 `;
 const ChainButtonBg = styled(motion.div)`
@@ -218,35 +223,46 @@ const ChainSelector: React.FC = () => {
                     },
                   }}
                 >
-                  Switch Networks (WIP do not review 😡)
-                  {chains.map((x) => (
-                    <ChainButton
-                      disabled={!switchNetwork || x.id === activeChain?.id}
-                      key={x.id}
-                      onHoverStart={() => setHover(x.name)}
-                      onClick={() => switchNetwork?.(x.id)}
-                    >
-                      <span>
-                        <ChainIcon>{ChainIcons.Ethereum}</ChainIcon>
-                        {x.name}
-                      </span>
-                      <span>
-                        {isLoading &&
-                          pendingChainId === x.id &&
-                          ' Approve in Wallet'}
-                        {x.id === activeChain?.id && ' Connected'}
-                      </span>
-                      {hover === x.name && (
-                        <ChainButtonBg
-                          layoutId="hover"
-                          transition={{
-                            duration: 0.15,
-                            type: 'spring',
+                  Switch Networks (WIP)
+                  {chains.map((x) => {
+                    const chain = supportedChains.filter(
+                      (c) => c.id === x.id
+                    )[0];
+                    return (
+                      <ChainButton
+                        disabled={!switchNetwork || x.id === activeChain?.id}
+                        key={x.id}
+                        onHoverStart={() => setHover(x.name)}
+                        onClick={() => switchNetwork?.(x.id)}
+                      >
+                        <span
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
                           }}
-                        />
-                      )}
-                    </ChainButton>
-                  ))}
+                        >
+                          <ChainIcon>{chain.logo}</ChainIcon>
+                          {x.name}
+                        </span>
+                        <span>
+                          {isLoading &&
+                            pendingChainId === x.id &&
+                            ' Approve in Wallet'}
+                          {x.id === activeChain?.id && ' Connected'}
+                        </span>
+                        {hover === x.name && (
+                          <ChainButtonBg
+                            layoutId="hover"
+                            transition={{
+                              duration: 0.15,
+                              type: 'spring',
+                            }}
+                          />
+                        )}
+                      </ChainButton>
+                    );
+                  })}
                   <div>{error && error.message}</div>
                 </DropdownContainer>
               </DropdownWindow>

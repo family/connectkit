@@ -45,7 +45,7 @@ const theme = {
     '--body-color-valid': '#32D74B',
 
     '--qrcode-outline': '#EEEFF2',
-    '--copytoclipboard-stroke': '#C4C4C4',
+    '--copytoclipboard-stroke': '#CCCCCC',
 
     '--tooltip-body': '#ffffff',
     '--tooltip-color': '#999999',
@@ -97,7 +97,7 @@ const theme = {
     '--body-color-danger': '#FC6464',
 
     '--qrcode-outline': 'transparent',
-    '--copytoclipboard-stroke': '#C4C4C4',
+    '--copytoclipboard-stroke': '#555555',
 
     '--tooltip-body': '#363636',
     '--tooltip-color': '#868686',
