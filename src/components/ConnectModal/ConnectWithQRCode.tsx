@@ -194,7 +194,7 @@ const ConnectWithQRCode: React.FC<{
             )
           }
         />
-        {connector.defaultConnect || hasExtensionInstalled || extensionUrl ? (
+        {connector.defaultConnect ? (
           <OrDivider />
         ) : (
           hasApps && <OrDivider text="Don't have the app?" />
@@ -217,6 +217,7 @@ const ConnectWithQRCode: React.FC<{
         </Button>
       )}
 
+      {/*
       {hasExtensionInstalled && ( // Run the extension
         <Button
           icon={connector.logo}
@@ -227,7 +228,6 @@ const ConnectWithQRCode: React.FC<{
         </Button>
       )}
 
-      {/*
       {!hasExtensionInstalled && extensionUrl && (
         <Button href={extensionUrl} icon={<BrowserIcon />}>
           Install the Extension
