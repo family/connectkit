@@ -12,13 +12,12 @@ export const localize = (text: string, replacements?: any[string]) => {
 };
 
 const wrapTags = (text: string) => {
-  // TODO: Regex this
-  const textArray = text.split(' ');
+  const textArray = text.split(/(\*\*[^\*]*\*\*)/g);
   return textArray.map((str, i) => {
     if (/(\*\*.*\*\*)/g.test(str)) {
-      return <strong key={i}>{str.replaceAll('**', '')} </strong>;
+      return <strong key={i}>{str.replaceAll('**', '')}</strong>;
     }
-    return `${str} `;
+    return `${str}`;
   });
 };
 export const replaceMarkdown = (markdownText: string) => {
