@@ -18,12 +18,16 @@ const CustomQRCode = React.forwardRef(
     ref: React.Ref<HTMLElement>
   ) => {
     return (
-      <QRCodeContainer>
+      <QRCodeContainer
+      /*
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.2 }}
+        transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
+        */
+      >
         <LogoContainer>
-          <LogoIcon
-            //layoutId="connectorLogo"
-            transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
-          >
+          <LogoIcon>
             {tooltipMessage ? (
               <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
                 {image}
