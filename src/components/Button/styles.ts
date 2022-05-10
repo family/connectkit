@@ -78,6 +78,5 @@ export const IconContainer = styled(motion.div)`
     inset: 0;
     width: 100%;
     height: auto;
-    transform: scale(1.05);
   }
 `;
