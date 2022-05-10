@@ -11,21 +11,19 @@ export const localize = (text: string, replacements?: any[string]) => {
   return replaceMarkdown(parsedText);
 };
 
-const wrapTags = (text: string, regex: RegExp, tag: string) => {
-  const textArray = text.split(regex);
+const wrapTags = (text: string) => {
+  // TODO: Regex this
+  const textArray = text.split(' ');
   return textArray.map((str, i) => {
-    if (regex.test(str)) {
-      switch (tag) {
-        case 'strong':
-          return <strong key={i}>{str.replaceAll('**', '')}</strong>;
-      }
+    if (/(\*\*.*\*\*)/g.test(str)) {
+      return <strong key={i}>{str.replaceAll('**', '')} </strong>;
     }
-    return str;
+    return `${str} `;
   });
 };
 export const replaceMarkdown = (markdownText: string) => {
   let text: any = markdownText;
-  text = wrapTags(text, /(\*\*.*\*\*)/gim, 'strong');
+  text = wrapTags(text);
   return text;
 };
 
@@ -52,7 +50,7 @@ export default {
       ctaUrl: `https://ethereum.org/en/wallets/find-wallet/#main-content`,
     },
     scanScreen: {
-      heading: `Scan QR Code`,
+      heading: `Scan with Phone`,
       tooltip: {
         walletConnect: `Open your preferred wallet and scan the QR code`,
         default: `Open **${keys.connectorName}** on your mobile phone and scan`,
@@ -84,7 +82,7 @@ export default {
       },
       rejected: {
         h1: `Request Cancelled`,
-        p: `You cancelled the connection request.\nClick below to try again.`,
+        p: `You cancelled the connection request. Click above to try again.`,
       },
       failed: {
         h1: `Connection Failed`,
@@ -115,7 +113,7 @@ export default {
       ctaUrl: `https://ethereum.org/fr/wallets/find-wallet/#main-content`,
     },
     scanScreen: {
-      heading: `Scanner le code QR`,
+      heading: `Numériser avec le téléphone`,
       tooltip: {
         walletConnect: `Ouvrez votre portefeuille préféré et scannez le code QR`,
         default: `Ouvrez **${keys.connectorName}** sur votre téléphone portable et scannez`,
@@ -147,7 +145,7 @@ export default {
       },
       rejected: {
         h1: `Demande annulée`,
-        p: `Vous avez annulé la demande de connexion.\nCliquez ci-dessous pour réessayer.`,
+        p: `Vous avez annulé la demande de connexion. Cliquez ci-dessus pour réessayer.`,
       },
       failed: {
         h1: `La connexion a échoué`,
