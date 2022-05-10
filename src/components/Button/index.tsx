@@ -12,6 +12,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   disabled,
   icon,
+  roundedIcon,
   arrow,
   href,
   onClick,
@@ -27,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
       rel={href && 'noopener noreferrer'}
       disabled={disabled}
     >
-      {icon && <IconContainer>{icon}</IconContainer>}
+      {icon && <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>}
       {children}
       {arrow && (
         <Arrow width="11" height="10" viewBox="0 0 11 10">

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Arrow = styled.svg`
   position: relative;
@@ -60,23 +60,30 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   }
 `;
 
-export const IconContainer = styled(motion.div)`
+export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4.5px;
   width: 20px;
   height: 20px;
   min-width: 20px;
   min-height: 20px;
-  margin-right: 10px;
+  margin-right: 8px;
+  ${(props) => {
+    return (
+      props.$rounded &&
+      css`
+        overflow: hidden;
+        border-radius: 4.5px;
+      `
+    );
+  }}
   svg {
     display: block;
     position: absolute;
     inset: 0;
-    width: 100%;
+    max-width: 100%;
     height: auto;
   }
 `;

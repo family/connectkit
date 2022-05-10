@@ -106,9 +106,8 @@ const Profile: React.FC = () => {
         icon={
           <DisconnectIcon
             style={{
-              transform: 'scale(0.75) ',
-              left: 3,
-              top: 0.5,
+              left: 4,
+              top: 3,
             }}
           />
         }

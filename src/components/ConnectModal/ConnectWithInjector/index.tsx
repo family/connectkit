@@ -507,20 +507,6 @@ const ConnectWithInjector: React.FC<{
                 </ModalH1>
                 <ModalBody>{localizeText(copy.connected.p)}</ModalBody>
               </ModalContent>
-              <Button
-                onClick={() => alert('TODO: Disconnect')}
-                icon={
-                  <DisconnectIcon
-                    style={{
-                      transform: 'scale(0.75) ',
-                      left: 3,
-                      top: 0.5,
-                    }}
-                  />
-                }
-              >
-                Disconnect
-              </Button>
             </Content>
           )}
           {status === states.NOTCONNECTED && (
