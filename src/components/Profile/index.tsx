@@ -29,6 +29,7 @@ import Avatar from '../Avatar';
 import ChainSelector from '../ConnectModal/ChainSelector';
 
 import { DisconnectIcon } from '../../assets/icons';
+import CopyToClipboard from '../CopyToClipboard';
 
 const Profile: React.FC = () => {
   const context = useContext();
@@ -66,7 +67,7 @@ const Profile: React.FC = () => {
   return (
     <Container>
       <ModalHeading>{copy.heading}</ModalHeading>
-      <ModalContent>
+      <ModalContent style={{ paddingBottom: 22 }}>
         <AvatarContainer>
           <AvatarInner>
             <ChainSelectorContainer>
@@ -76,7 +77,9 @@ const Profile: React.FC = () => {
           </AvatarInner>
         </AvatarContainer>
         <ModalH1>
-          {ensName ? ensName : truncateEthAddress(account?.address)}
+          <CopyToClipboard string={account?.address}>
+            {ensName ? ensName : truncateEthAddress(account?.address)}
+          </CopyToClipboard>
         </ModalH1>
         <ModalBody>
           {Number(balance?.formatted).toPrecision(3)} {balance?.symbol}

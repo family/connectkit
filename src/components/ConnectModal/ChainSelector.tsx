@@ -8,6 +8,7 @@ import { useNetwork } from 'wagmi';
 import useMeasure from 'react-use-measure';
 import Portal from '../Portal';
 import { ResetContainer } from '../../styles';
+import ChainIcons from '../../assets/chains';
 
 const Container = styled(motion.div)``;
 
@@ -54,6 +55,9 @@ const SwitchChainButton = styled(motion.button)`
   background: var(--background);
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease;
+  svg {
+    position: relative;
+  }
 
   &:hover {
     --background: var(--body-background-secondary-hover);
@@ -109,13 +113,14 @@ const ChainButtonBg = styled(motion.div)`
   border-radius: 12px;
 `;
 
-const ChevronDown = ({}) => (
+const ChevronDown = ({ ...props }) => (
   <svg
     width="11"
     height="6"
     viewBox="0 0 11 6"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path
       d="M1.5 1L5.5 5L9.5 1"
@@ -172,8 +177,8 @@ const ChainSelector: React.FC = () => {
     <>
       <Container>
         <SwitchChainButton ref={ref} onTap={() => setIsOpen(!isOpen)}>
-          <ChainIcon />
-          <ChevronDown />
+          <ChainIcon>{ChainIcons.Ethereum}</ChainIcon>
+          <ChevronDown style={{ top: 1, left: -1 }} />
         </SwitchChainButton>
       </Container>
       <Portal>
@@ -221,7 +226,10 @@ const ChainSelector: React.FC = () => {
                       onHoverStart={() => setHover(x.name)}
                       onClick={() => switchNetwork?.(x.id)}
                     >
-                      <span>{x.name}</span>
+                      <span>
+                        <ChainIcon>{ChainIcons.Ethereum}</ChainIcon>
+                        {x.name}
+                      </span>
                       <span>
                         {isLoading &&
                           pendingChainId === x.id &&

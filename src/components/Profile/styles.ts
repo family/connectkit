@@ -6,7 +6,7 @@ export const Container = styled(motion.div)`
   width: 295px;
 `;
 export const AvatarContainer = styled(motion.div)`
-  padding: 30px 0 20px;
+  padding: 28px 0 18px;
 `;
 export const AvatarInner = styled(motion.div)`
   position: relative;
@@ -16,5 +16,5 @@ export const ChainSelectorContainer = styled(motion.div)`
   z-index: 3;
   position: absolute;
   bottom: 0px;
-  right: -16px;
+  right: -13px;
 `;
