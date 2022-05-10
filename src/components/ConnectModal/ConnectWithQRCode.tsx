@@ -227,36 +227,37 @@ const ConnectWithQRCode: React.FC<{
         </Button>
       )}
 
+      {/*
       {!hasExtensionInstalled && extensionUrl && (
         <Button href={extensionUrl} icon={<BrowserIcon />}>
           Install the Extension
         </Button>
       )}
+      */}
 
-      {!hasExtensionInstalled &&
-        !extensionUrl &&
-        (hasApps ? (
-          <>
-            <Button
-              onClick={() => {
-                context.setRoute(routes.DOWNLOAD);
-              }}
-              icon={connector.logo}
-              roundedIcon
-            >
-              Get {connector.name}
-            </Button>
-          </>
-        ) : (
-          suggestedExtension && (
-            <Button
-              href={suggestedExtension?.url}
-              icon={<BrowserIcon browser={suggestedExtension?.name} />}
-            >
-              Install on {suggestedExtension?.label}
-            </Button>
-          )
-        ))}
+      {hasApps && (
+        <>
+          <Button
+            onClick={() => {
+              context.setRoute(routes.DOWNLOAD);
+            }}
+            icon={connector.logo}
+            roundedIcon
+          >
+            Get {connector.name}
+          </Button>
+        </>
+      )}
+      {/*
+        {suggestedExtension && (
+          <Button
+            href={suggestedExtension?.url}
+            icon={<BrowserIcon browser={suggestedExtension?.name} />}
+          >
+            Install on {suggestedExtension?.label}
+          </Button>
+        }
+        */}
     </Container>
   );
 };
