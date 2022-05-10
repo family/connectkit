@@ -44,6 +44,8 @@ const theme = {
     '--body-color-danger': '#FC6464',
     '--body-color-valid': '#32D74B',
 
+    '--qrcode-outline': '#EEEFF2',
+
     '--tooltip-body': '#ffffff',
     '--tooltip-color': '#999999',
 
@@ -92,6 +94,8 @@ const theme = {
     '--body-action-color': '#808080',
     '--body-divider': '#383838',
     '--body-color-danger': '#FC6464',
+
+    '--qrcode-outline': 'transparent',
 
     '--tooltip-body': '#363636',
     '--tooltip-color': '#868686',

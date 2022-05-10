@@ -14,7 +14,7 @@ export const QRCodeContainer = styled(motion.div)`
   height: auto;
   border-radius: 24px;
   background: #fff;
-  box-shadow: 0 0 0 1px var(--body-divider);
+  box-shadow: 0 0 0 1px var(--qrcode-outline);
   canvas {
     display: block;
     max-width: 100%;
