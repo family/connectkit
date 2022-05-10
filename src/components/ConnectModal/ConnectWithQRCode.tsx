@@ -172,7 +172,11 @@ const ConnectWithQRCode: React.FC<{
 
   return (
     <Container>
-      <ModalHeading>{copy.heading}</ModalHeading>
+      <ModalHeading>
+        {connectorId === 'walletConnect'
+          ? copy.heading
+          : `Scan with ${connector.name}`}
+      </ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         <CustomQRCode
           value={connectorUri}
