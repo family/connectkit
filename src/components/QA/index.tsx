@@ -35,7 +35,10 @@ const FakeModal: React.FC<{ children?: any }> = ({ children }) => {
 const QA: React.FC = () => {
   return (
     <ResetContainer>
-      <p>This QA page is not ready for QA</p>
+      <p>
+        This page is used to QA components that are difficult to QA in-app,
+        though it may have inconsistencies with the actual app.
+      </p>
       <h1>Avatar</h1>
       <Container>
         <Avatar name="lochie.eth" />
@@ -65,10 +68,10 @@ const QA: React.FC = () => {
           />
         </FakeModal>
       </Container>
+      {/**
       <h1>Injectors</h1>
       <Container>
         {Object.keys(states).map((key) => {
-          /** @ts-ignore */
           const state = states[key];
           return (
             <FakeModal>
@@ -83,7 +86,6 @@ const QA: React.FC = () => {
       </Container>
       <Container>
         {Object.keys(states).map((key) => {
-          /** @ts-ignore */
           const state = states[key];
           return (
             <FakeModal>
@@ -95,7 +97,7 @@ const QA: React.FC = () => {
             </FakeModal>
           );
         })}
-      </Container>
+      </Container> */}
     </ResetContainer>
   );
 };

@@ -65,7 +65,7 @@ const App = () => {
             }}
           >
             <FamilyConnectModal theme={theme} lang={lang} />
-            {/*<button onClick={() => setOpenQA(true)}>Open QA</button>*/}
+            <button onClick={() => setOpenQA(true)}>Open QA</button>
 
             <h1>Family Connect</h1>
             <p>This page is intentionally left unstyled</p>
