@@ -442,8 +442,8 @@ const ConnectWithInjector: React.FC<{
                 </ModalH1>
                 <ModalBody>{localizeText(copy.failed.p)}</ModalBody>
               </ModalContent>
-
-              {connector.scannable && (
+              {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
+              {connector.scannable && connector.id !== 'coinbaseWallet' && (
                 <>
                   <OrDivider />
                   <Button icon={Scan} onClick={() => switchConnectMethod(id)}>
@@ -468,7 +468,8 @@ const ConnectWithInjector: React.FC<{
                 <ModalBody>{localizeText(copy.rejected.p)}</ModalBody>
               </ModalContent>
 
-              {connector.scannable && (
+              {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
+              {connector.scannable && connector.id !== 'coinbaseWallet' && (
                 <>
                   <OrDivider />
                   <Button icon={Scan} onClick={() => switchConnectMethod(id)}>
