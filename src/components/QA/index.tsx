@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '../Avatar';
 
 import styled from 'styled-components';
@@ -6,13 +6,19 @@ import { ResetContainer } from './../../styles';
 import ConnectWithQRCode from './../ConnectModal/ConnectWithQRCode';
 import ConnectWithInjector, {
   states,
-} from './../ConnectModal/ConnectWithInjector';
+} from '../ConnectModal/ConnectWithInjector';
 
 import {
   Container as ModalContainer,
   InnerContainer,
   PageContainer,
 } from './../Modal/styles';
+import Button from '../Button';
+import BrowserIcon from '../BrowserIcon';
+import logos from '../../assets/logos';
+
+import { theme, languages } from '../FamilyKit';
+import { DisconnectIcon, Scan, ExternalLinkIcon } from '../../assets/icons';
 
 const Container = styled.div`
   margin: 32px 0;
@@ -32,46 +38,93 @@ const FakeModal: React.FC<{ children?: any }> = ({ children }) => {
   );
 };
 
-const QA: React.FC = () => {
+const QA: React.FC<{
+  setTheme: (e: any) => void;
+  setLang: (e: any) => void;
+  theme: theme;
+}> = ({ setLang, setTheme, theme }) => {
   return (
-    <ResetContainer>
+    <>
+      <fieldset>
+        options
+        <hr />
+        <label>theme</label>{' '}
+        <select onChange={(e: any) => setTheme(e.target.value)}>
+          <option value={'auto'}>system settings</option>
+          <option value={'light'}>light mode</option>
+          <option value={'dark'}>dark mode</option>
+        </select>
+      </fieldset>
       <p>
         This page is used to QA components that are difficult to QA in-app,
         though it may have inconsistencies with the actual app.
       </p>
-      <h1>Avatar</h1>
-      <Container>
-        <Avatar name="lochie.eth" />
-        <Avatar name="pugson.eth" />
-        <Avatar name="bulktransaction.eth" />
-        <Avatar name="shahruz.eth" />
-        <Avatar name="vitalik.eth" />
-        <Avatar name="benjitaylor.eth" />
-        <Avatar name="alexvanderzon.eth" />
-        <Avatar name="jsngr.eth" />
-        <Avatar name="jsmth.eth" />
-        <Avatar name="christopherlang.eth" />
-        <Avatar name="bijani.eth" />
-      </Container>
-      <h1>QR Code</h1>
-      <Container>
-        <FakeModal>
-          <ConnectWithQRCode
-            connectorId="walletConnect"
-            switchConnectMethod={() => {}}
-          />
-        </FakeModal>
-        <FakeModal>
-          <ConnectWithQRCode
-            connectorId="coinbaseWallet"
-            switchConnectMethod={() => {}}
-          />
-        </FakeModal>
-      </Container>
-      {/**
+      <ResetContainer theme={theme}>
+        <h1>Avatar</h1>
+        <h3>ENS avatars</h3>
+        <Container>
+          <Avatar name="lochie.eth" />
+          <Avatar name="pugson.eth" />
+          <Avatar name="bulktransaction.eth" />
+          <Avatar name="shahruz.eth" />
+          <Avatar name="vitalik.eth" />
+        </Container>
+        <h3>No avatars</h3>
+        <Container>
+          <Avatar name="benjitaylor.eth" />
+          <Avatar name="alexvanderzon.eth" />
+          <Avatar name="jsngr.eth" />
+          <Avatar name="jsmth.eth" />
+          <Avatar name="christopherlang.eth" />
+          <Avatar name="bijani.eth" />
+        </Container>
+        <h1>Buttons</h1>
+        <div style={{ width: 295 }}>
+          <Button onClick={() => {}} arrow>
+            Choose Your First Wallet
+          </Button>
+          <Button onClick={() => {}} icon={<BrowserIcon browser="chrome" />}>
+            Install on Chrome
+          </Button>
+          <Button onClick={() => {}} icon={<BrowserIcon browser="chrome" />}>
+            Install the Extension
+          </Button>
+          <Button onClick={() => {}} icon={<BrowserIcon browser="firefox" />}>
+            Install the Extension
+          </Button>
+          <Button onClick={() => {}} icon={logos.Coinbase} roundedIcon>
+            Get Coinbase Wallet
+          </Button>
+          <Button onClick={() => {}} icon={<DisconnectIcon />}>
+            Disconnect
+          </Button>
+          <Button onClick={() => {}} icon={<Scan />}>
+            Scan the QR code
+          </Button>
+          <Button onClick={() => {}} icon={<ExternalLinkIcon />}>
+            Open Default Modal
+          </Button>
+        </div>
+        <h1>QR Code</h1>
+        <Container>
+          <FakeModal>
+            <ConnectWithQRCode
+              connectorId="walletConnect"
+              switchConnectMethod={() => {}}
+            />
+          </FakeModal>
+          <FakeModal>
+            <ConnectWithQRCode
+              connectorId="coinbaseWallet"
+              switchConnectMethod={() => {}}
+            />
+          </FakeModal>
+        </Container>
+        {/**
       <h1>Injectors</h1>
       <Container>
         {Object.keys(states).map((key) => {
+          // @ts-ignore
           const state = states[key];
           return (
             <FakeModal>
@@ -86,6 +139,7 @@ const QA: React.FC = () => {
       </Container>
       <Container>
         {Object.keys(states).map((key) => {
+          // @ts-ignore
           const state = states[key];
           return (
             <FakeModal>
@@ -97,8 +151,10 @@ const QA: React.FC = () => {
             </FakeModal>
           );
         })}
-      </Container> */}
-    </ResetContainer>
+      </Container>
+      */}
+      </ResetContainer>
+    </>
   );
 };
 

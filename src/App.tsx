@@ -50,7 +50,7 @@ const App = () => {
           <>
             <button onClick={() => setOpenQA(false)}>Close QA</button>
             <div>
-              <QA />
+              <QA setTheme={setTheme} setLang={setLang} theme={theme} />
             </div>
           </>
         ) : (
