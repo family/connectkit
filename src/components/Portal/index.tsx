@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 const Portal = (props: any) => {
   props = {
-    selector: '__FAMILYKIT__',
+    selector: '__CONNECTKIT__',
     ...props,
   };
 
