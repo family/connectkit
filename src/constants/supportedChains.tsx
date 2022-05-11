@@ -15,7 +15,7 @@ const supportedChains = [
   {
     id: 42161,
     name: 'Arbitrum',
-    logo: logos.Optimism,
+    logo: logos.Arbitrum,
   },
   {
     id: 137,
