@@ -82,7 +82,7 @@ const theme = {
   },
 
   dark: {
-    '--focus-color': '#1A88F8',
+    '--focus-color': '#ffffff',
     '--overlay-background': 'rgba(0, 0, 0, 0.9)',
     '--body-color': '#ffffff',
     '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
