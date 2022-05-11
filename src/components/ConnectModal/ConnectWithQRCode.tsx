@@ -37,13 +37,9 @@ const ConnectWithQRCode: React.FC<{
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const { connectors, connectAsync } = useConnect({
-    onBeforeConnect: (connector: any) => {
-      //console.log('onBeforeConnect', connector);
-    },
-    onSettled(data, error) {
-      //console.log('error', error);
-      //console.log('data', data);
-    },
+    onBeforeConnect: (connector: any) => {},
+    onConnect() {},
+    onSettled(data, error) {},
   });
   const [connectorUri, setConnectorUri] = useState<string | null>(null);
 
@@ -57,7 +53,6 @@ const ConnectWithQRCode: React.FC<{
     const result = await connectAsync(connector);
 
     if (result) {
-      console.log(result);
       return result;
     }
 

@@ -33,7 +33,8 @@ const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
   }
 
   useEffect(() => {
-    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    // Hide on connect
+    if (isConnected && context.route !== routes.PROFILE) hide();
   }, [isConnected]);
 
   function hide() {

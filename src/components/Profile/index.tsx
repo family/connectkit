@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
   const context = useContext();
   const copy = localizations[context.lang].profileScreen;
 
-  const { reset, isConnected } = useConnect();
+  const { reset } = useConnect();
   const { disconnect } = useDisconnect();
 
   const [shouldDisconnect, setShouldDisconnect] = useState(false);
@@ -49,21 +49,14 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     if (!shouldDisconnect) return;
-    setTimeout(() => {
+    // Close before disconnecting to avoid layout shifting while modal is still open
+    context.setOpen(false);
+    return () => {
       disconnect();
       reset();
-    }, 1000);
+    };
   }, [shouldDisconnect, disconnect, reset]);
 
-  if (!isConnected || shouldDisconnect)
-    return (
-      <Container>
-        <ModalHeading>{copy.heading}</ModalHeading>
-        <ModalContent>
-          <ModalH1>Disconnecting...</ModalH1>
-        </ModalContent>
-      </Container>
-    );
   return (
     <Container>
       <ModalHeading>{copy.heading}</ModalHeading>

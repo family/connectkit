@@ -87,7 +87,6 @@ const ConnectWithInjector: React.FC<{
   const { connect, connectors } = useConnect({
     onBeforeConnect: (connector: any) => {
       setStatus(states.CONNECTING);
-      console.log('onBeforeConnect', connector);
     },
     onSettled(data, error) {
       if (error) {
@@ -101,7 +100,6 @@ const ConnectWithInjector: React.FC<{
           setStatus(states.FAILED);
         }
       } else if (data) {
-        console.log('data', data);
       }
     },
   });

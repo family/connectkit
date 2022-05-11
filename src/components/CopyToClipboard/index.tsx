@@ -95,10 +95,7 @@ const CopyToClipboard: React.FC<{
         clearTimeout(timeout);
         timeout = setTimeout(() => setClipboard(false), 1000);
         setClipboard(true);
-        navigator.clipboard.writeText(str).then(
-          () => console.log('Copied to clipboard'),
-          (err) => console.log('Error copying to clipboard', err)
-        );
+        navigator.clipboard.writeText(str);
       }}
     >
       <span>
