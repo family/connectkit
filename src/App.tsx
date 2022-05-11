@@ -16,7 +16,7 @@ if (!window.Buffer) {
 }
 
 const infuraId = '34dfd61558944dbbb4a5187b330bed76';
-const chains = [chain.mainnet, chain.optimism]; // 2 chainz
+const chains = [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum];
 
 const client = createClient({
   autoConnect: true,
