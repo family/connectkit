@@ -9,7 +9,7 @@ import {
   GraphicBackground,
 } from './styles';
 
-import localizations from '../../../constants/localizations';
+import localizations, { localize } from '../../../constants/localizations';
 import { useContext } from '../../FamilyKit';
 
 import {
@@ -24,11 +24,16 @@ import wave from '../../../assets/wave';
 import Button from '../../Button';
 
 const Introduction: React.FC = () => {
+  const localizeText = (text: string) => {
+    return localize(text, {
+      //CONNECTORNAME: connector.name,
+    });
+  };
   const context = useContext();
   const copy = localizations[context.lang].onboardingScreen;
   return (
     <Container>
-      <ModalHeading>{copy.heading}</ModalHeading>
+      <ModalHeading>{localizeText(copy.heading)}</ModalHeading>
       <Graphic>
         <GraphicLogos>
           <GraphicLogo>
@@ -68,11 +73,11 @@ const Introduction: React.FC = () => {
         </GraphicBackground>
       </Graphic>
       <ModalContent style={{ paddingBottom: 24 }}>
-        <ModalH1>{copy.h1}</ModalH1>
-        <ModalBody>{copy.p}</ModalBody>
+        <ModalH1>{localizeText(copy.h1)}</ModalH1>
+        <ModalBody>{localizeText(copy.p)}</ModalBody>
       </ModalContent>
       <Button href={copy.ctaUrl} arrow>
-        {copy.ctaText}
+        {localizeText(copy.ctaText)}
       </Button>
     </Container>
   );

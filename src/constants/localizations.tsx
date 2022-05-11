@@ -22,7 +22,15 @@ const wrapTags = (text: string) => {
 };
 export const replaceMarkdown = (markdownText: string) => {
   let text: any = markdownText;
-  text = wrapTags(text);
+  text = text.split('\n');
+  text = text.map((t: string, i: number) => {
+    return (
+      <>
+        {wrapTags(t)}
+        {i < text.length && <br />}
+      </>
+    );
+  });
   return text;
 };
 
@@ -66,7 +74,7 @@ export default {
       },
       install: {
         h1: `Install ${keys.connectorName}`,
-        p: `To connect your ${keys.connectorName} wallet, install the browser extension.`,
+        p: `To connect your ${keys.connectorName} wallet,\ninstall the browser extension.`,
       },
       connecting: {
         h1: `Requesting Connection`,
@@ -81,7 +89,7 @@ export default {
       },
       rejected: {
         h1: `Request Cancelled`,
-        p: `You cancelled the connection request. Click above to try again.`,
+        p: `You cancelled the connection request.\nClick above to try again.`,
       },
       failed: {
         h1: `Connection Failed`,
@@ -89,7 +97,7 @@ export default {
       },
       notconnected: {
         h1: `Log into ${keys.connectorName}`,
-        p: `To continue, log into your ${keys.connectorName} extension, then  try again.`,
+        p: `To continue, log into your ${keys.connectorName} extension, then try again.`,
       },
     },
     profileScreen: {
@@ -144,7 +152,7 @@ export default {
       },
       rejected: {
         h1: `Demande annulée`,
-        p: `Vous avez annulé la demande de connexion. Cliquez ci-dessus pour réessayer.`,
+        p: `Vous avez annulé la demande de connexion.\nCliquez ci-dessus pour réessayer.`,
       },
       failed: {
         h1: `La connexion a échoué`,
