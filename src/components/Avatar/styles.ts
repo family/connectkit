@@ -22,6 +22,14 @@ export const EnsAvatar = styled(motion.div)<{ $seed?: string; $size?: number }>`
   width: ${(props) => (props.$size ? props.$size : 96)}px;
   height: ${(props) => (props.$size ? props.$size : 96)}px;
   background: var(--body-background-secondary);
+  &:before {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
+  }
   ${(props) => {
     if (props.$seed) {
       const ensColor = `0${Math.ceil(addressToNumber(props.$seed) * 8)}`;
