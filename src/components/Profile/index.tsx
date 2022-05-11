@@ -75,7 +75,14 @@ const Profile: React.FC = () => {
           </CopyToClipboard>
         </ModalH1>
         <ModalBody>
-          {Number(balance?.formatted).toPrecision(3)} {balance?.symbol}
+          {balance ? (
+            <>
+              {Number(balance?.formatted).toPrecision(3)}
+              {balance?.symbol}
+            </>
+          ) : (
+            <>&nbsp;</>
+          )}
         </ModalBody>
       </ModalContent>
       <Button

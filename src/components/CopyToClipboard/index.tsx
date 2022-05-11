@@ -74,7 +74,6 @@ export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
           &:hover {
           }
           &:hover:active {
-            transform: scale(0.95);
           }
         `}
 `;

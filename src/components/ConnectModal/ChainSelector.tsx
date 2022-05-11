@@ -151,11 +151,12 @@ const ChainButtonStatus = styled(motion.div)`
   }
 `;
 const ChainButtonBg = styled(motion.div)`
-  opacity: 0.1;
   background: var(--focus-color);
   position: absolute;
+  z-index: -1;
   inset: 0 -12px 0 -8px;
   border-radius: 12px;
+  opacity: 0.1;
 `;
 
 const ChevronDown = ({ ...props }) => (
@@ -222,7 +223,6 @@ const ChainSelector: React.FC = () => {
 
   const targetRef = useRef<any>(null);
   const [ref, bounds] = useMeasure({
-    debounce: 0,
     offsetSize: true,
   });
 
@@ -252,7 +252,14 @@ const ChainSelector: React.FC = () => {
     <>
       <Container>
         <SwitchChainButton ref={ref} onTap={() => setIsOpen(!isOpen)}>
-          <ChainIcon>{ChainIcons.Ethereum}</ChainIcon>
+          <ChainIcon>
+            {chains
+              .filter((x) => x.id === activeChain?.id)
+              .map((x) => {
+                const chain = supportedChains.filter((c) => c.id === x.id)[0];
+                return chain.logo;
+              })}
+          </ChainIcon>
           <ChevronDown style={{ top: 1, left: -3 }} />
         </SwitchChainButton>
       </Container>
