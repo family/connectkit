@@ -66,7 +66,7 @@ export const ModalH1 = styled(motion.h1)<{
     if (props.$valid) return 'var(--body-color-valid)';
     return 'var(--body-color)';
   }};
-  svg {
+  > svg {
     position: relative;
     top: -2px;
     display: inline-block;

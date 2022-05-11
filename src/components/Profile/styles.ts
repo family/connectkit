@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 export const Container = styled(motion.div)`
   max-width: 100%;
   width: 295px;
+  will-change: transform;
 `;
 export const AvatarContainer = styled(motion.div)`
   padding: 28px 0 18px;
