@@ -12,7 +12,11 @@ function addressToNumber(address: string) {
   );
 }
 
-export const EnsAvatar = styled(motion.div)<{ $seed?: string; $size?: number }>`
+export const EnsAvatar = styled(motion.div)<{
+  $seed?: string;
+  $size?: number;
+}>`
+  will-change: transform;
   pointer-events: none;
   user-select: none;
   position: relative;
@@ -51,5 +55,6 @@ export const ImageContainer = styled(motion.img)<{ $loaded: boolean }>`
   width: 100%;
   height: 100%;
   opacity: ${(props) => (props.$loaded ? 1 : 0)};
+  will-change: opacity;
   transition: opacity 500ms ease;
 `;
