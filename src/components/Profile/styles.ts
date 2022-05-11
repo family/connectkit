@@ -16,5 +16,5 @@ export const ChainSelectorContainer = styled(motion.div)`
   z-index: 3;
   position: absolute;
   bottom: 0px;
-  right: -13px;
+  right: -16px;
 `;

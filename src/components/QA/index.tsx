@@ -98,9 +98,6 @@ const QA: React.FC<{
           <Button onClick={() => {}} icon={<DisconnectIcon />}>
             Disconnect
           </Button>
-          <Button onClick={() => {}} icon={<Scan />}>
-            Scan the QR code
-          </Button>
           <Button onClick={() => {}} icon={<ExternalLinkIcon />}>
             Open Default Modal
           </Button>
