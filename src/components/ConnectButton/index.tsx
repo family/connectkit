@@ -59,7 +59,7 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
             <FamilyIcon />
           )}
         </IconContainer>
-        {isConnected ? (
+        {isConnected || account?.address ? (
           <span>{ensName ?? truncateEthAddress(account?.address)}</span>
         ) : (
           <span>
