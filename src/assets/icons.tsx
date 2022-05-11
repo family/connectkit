@@ -24,8 +24,8 @@ export const ExternalLinkIcon = ({ ...props }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      left: 2,
-      top: 2,
+      left: 0,
+      top: 0,
     }}
     {...props}
   >
@@ -66,8 +66,8 @@ export const DisconnectIcon = ({ ...props }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{
-        left: 4,
-        top: 3,
+        left: 0,
+        top: 0,
       }}
       {...props}
     >

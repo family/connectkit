@@ -65,25 +65,22 @@ export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
-  min-height: 20px;
-  margin-right: 8px;
-  ${(props) => {
-    return (
-      props.$rounded &&
-      css`
-        overflow: hidden;
-        border-radius: 4.5px;
-      `
-    );
-  }}
+  max-width: 20px;
+  max-height: 20px;
+  margin-right: 9px;
   svg {
     display: block;
-    position: absolute;
-    inset: 0;
+    position: relative;
     max-width: 100%;
     height: auto;
+    ${(props) => {
+      return (
+        props.$rounded &&
+        css`
+          overflow: hidden;
+          border-radius: 5px;
+        `
+      );
+    }}
   }
 `;
