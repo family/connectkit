@@ -50,7 +50,7 @@ const SwitchChainButton = styled(motion.button)`
   user-select: none;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   border-radius: 15px;
   width: 52px;
   height: 30px;
@@ -78,7 +78,6 @@ const SwitchChainButton = styled(motion.button)`
 const ChainIcon = styled(motion.div)`
   display: block;
   position: relative;
-  margin: 0 12px 0 0;
   border-radius: 12px;
   overflow: hidden;
   width: 24px;
@@ -159,7 +158,7 @@ const ChevronDown = ({ ...props }) => (
 
 const ChainSelector: React.FC = () => {
   const context = useContext();
-  const [isOpen, setIsOpen] = useState(!false);
+  const [isOpen, setIsOpen] = useState(false);
   const [hover, setHover] = useState('');
   const {
     activeChain,
@@ -203,7 +202,7 @@ const ChainSelector: React.FC = () => {
       <Container>
         <SwitchChainButton ref={ref} onTap={() => setIsOpen(!isOpen)}>
           <ChainIcon>{ChainIcons.Ethereum}</ChainIcon>
-          <ChevronDown style={{ top: 1, left: 1 }} />
+          <ChevronDown style={{ top: 1, left: -3 }} />
         </SwitchChainButton>
       </Container>
       <Portal>
@@ -262,6 +261,7 @@ const ChainSelector: React.FC = () => {
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'flex-start',
+                              gap: 12,
                             }}
                           >
                             <ChainIcon>{chain.logo}</ChainIcon>
