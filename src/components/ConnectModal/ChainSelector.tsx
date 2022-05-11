@@ -389,7 +389,7 @@ const ChainSelector: React.FC = () => {
                       );
                     })}
                   </ChainButtons>
-                  <div>{error && error.message}</div>
+                  {/*<div>{error && error.message}</div>*/}
                 </DropdownContainer>
               </DropdownWindow>
             </ResetContainer>
