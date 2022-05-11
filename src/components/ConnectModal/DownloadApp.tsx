@@ -34,16 +34,19 @@ const DownloadApp: React.FC<{
   };
   if (!connector) return <>Connector not found</>;
 
-  const hasApps =
-    connector.appUrls && Object.keys(connector.appUrls).length !== 0;
+  const ios = connector.appUrls?.ios;
+  const android = connector.appUrls?.android;
+  const downloadUri = connector.appUrls?.download;
+  const bodycopy =
+    ios && android ? copy.iosAndroid : ios ? copy.ios : copy.android;
 
-  if (!hasApps) return <>No apps to download</>;
   return (
     <Container>
       <ModalHeading>{localizeText(copy.heading)}</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
-        <CustomQRCode value={'TODO: Download API'} image={connector.logo} />
-        <ModalBody>{localizeText(copy.p)}</ModalBody>
+        {downloadUri && <CustomQRCode value={downloadUri} />}
+        {!downloadUri && <>No download link available</>}
+        <ModalBody>{localizeText(bodycopy)}</ModalBody>
         {connector.defaultConnect && <OrDivider />}
       </ModalContent>
 

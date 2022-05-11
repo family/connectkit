@@ -65,7 +65,9 @@ export default {
     },
     downloadAppScreen: {
       heading: `Get ${keys.connectorName}`,
-      p: `Scan with your phone camera to download on **iOS** or **Android**.`,
+      iosAndroid: `Scan with your phone camera to download on **iOS** or **Android**.`,
+      ios: `Scan with your phone camera to download on **iOS**.`,
+      android: `Scan with your phone camera to download **Android**.`,
     },
     injectionScreen: {
       unavailable: {
@@ -128,7 +130,9 @@ export default {
     },
     downloadAppScreen: {
       heading: `Obtenir ${keys.connectorName}`,
-      p: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur **iOS** ou **Android**.`,
+      iosAndroid: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur **iOS** ou **Android**.`,
+      ios: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur **iOS**.`,
+      android: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur **Android**.`,
     },
     injectionScreen: {
       unavailable: {

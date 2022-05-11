@@ -36,6 +36,7 @@ const supportedConnectors = [
     appUrls: {
       android: 'https://play.google.com/store/apps/details?id=io.metamask',
       ios: 'https://apps.apple.com/us/app/metamask/id1438144202',
+      download: 'https://connect.family.co/download/metamask',
     } as IDictionary,
     extensionIsInstalled: () => {
       return Boolean(ethereum && ethereum.isMetaMask);
@@ -75,6 +76,7 @@ const supportedConnectors = [
     appUrls: {
       android: 'https://play.google.com/store/apps/details?id=org.toshi',
       ios: 'https://apps.apple.com/us/app/coinbase-wallet-store-crypto/id1278383455',
+      download: 'https://connect.family.co/download/coinbasewallet',
     } as IDictionary,
     extensionIsInstalled: () => {
       return Boolean(
