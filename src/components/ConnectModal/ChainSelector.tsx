@@ -259,9 +259,9 @@ const ChainSelector: React.FC = () => {
           <ChainIcon>
             {chains
               .filter((x) => x.id === activeChain?.id)
-              .map((x) => {
+              .map((x, i) => {
                 const chain = supportedChains.filter((c) => c.id === x.id)[0];
-                return chain.logo;
+                return <React.Fragment key={i}>{chain.logo}</React.Fragment>;
               })}
           </ChainIcon>
           <ChevronDown style={{ top: 1, left: -3 }} />
