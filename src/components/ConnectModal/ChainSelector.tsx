@@ -72,7 +72,7 @@ const SwitchChainButton = styled(motion.button)`
     --background: var(--body-background-secondary-hover);
   }
   &:active {
-    transform: scale(0.9) translateZ(0px);
+    transform: scale(0.96) translateZ(0px);
   }
 `;
 const ChainIcon = styled(motion.div)`
@@ -134,6 +134,9 @@ const ChainButton = styled(motion.button)`
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease;
   transform: translateZ(0px);
+  &:hover {
+    opacity: 0.85;
+  }
   &:active {
     transform: scale(0.98) translateZ(0px);
   }
