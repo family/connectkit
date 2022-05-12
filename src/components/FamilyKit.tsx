@@ -8,16 +8,16 @@ export const routes = {
   PROFILE: 'profile',
 };
 
-export type theme = 'light' | 'dark' | 'auto';
-export type languages = 'en' | 'fr';
+export type Theme = 'light' | 'dark' | 'auto';
+export type Languages = 'en' | 'fr';
 
 type Connector = any;
 
 type ContextValue = {
-  theme: theme;
-  setTheme: React.Dispatch<React.SetStateAction<theme>>;
-  lang: languages;
-  setLang: React.Dispatch<React.SetStateAction<languages>>;
+  theme: Theme;
+  setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+  lang: Languages;
+  setLang: React.Dispatch<React.SetStateAction<Languages>>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   route: string;
@@ -33,8 +33,8 @@ type Props = {
 };
 
 export const FamilyProvider: React.FC<Props> = ({ children }) => {
-  const [theme, setTheme] = useState<theme>('auto');
-  const [lang, setLang] = useState<languages>('fr');
+  const [theme, setTheme] = useState<Theme>('auto');
+  const [lang, setLang] = useState<Languages>('fr');
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);

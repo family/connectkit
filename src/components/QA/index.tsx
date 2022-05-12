@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Avatar from '../Avatar';
 
 import styled from 'styled-components';
 import { ResetContainer } from './../../styles';
 import ConnectWithQRCode from './../ConnectModal/ConnectWithQRCode';
-import ConnectWithInjector, {
-  states,
-} from '../ConnectModal/ConnectWithInjector';
 
 import {
   Container as ModalContainer,
@@ -17,8 +14,8 @@ import Button from '../Button';
 import BrowserIcon from '../BrowserIcon';
 import logos from '../../assets/logos';
 
-import { theme, languages } from '../FamilyKit';
-import { DisconnectIcon, Scan, ExternalLinkIcon } from '../../assets/icons';
+import { Theme } from '../FamilyKit';
+import { DisconnectIcon, ExternalLinkIcon } from '../../assets/icons';
 
 const Container = styled.div`
   margin: 32px 0;
@@ -41,7 +38,7 @@ const FakeModal: React.FC<{ children?: any }> = ({ children }) => {
 const QA: React.FC<{
   setTheme: (e: any) => void;
   setLang: (e: any) => void;
-  theme: theme;
+  theme: Theme;
 }> = ({ setLang, setTheme, theme }) => {
   return (
     <>

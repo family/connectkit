@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useConnect } from 'wagmi';
-import { languages, routes, theme, useContext } from './../FamilyKit';
+import { routes, useContext, Theme, Languages } from './../FamilyKit';
 
 import Modal from '../Modal';
 
@@ -12,7 +12,7 @@ import ConnectUsing from './ConnectUsing';
 import DownloadApp from './DownloadApp';
 import Profile from '../Profile';
 
-const ConnectModal: React.FC<{ theme?: theme; lang?: languages }> = ({
+const ConnectModal: React.FC<{ theme?: Theme; lang?: Languages }> = ({
   theme = 'light',
   lang = 'en',
 }) => {

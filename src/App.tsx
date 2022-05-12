@@ -7,7 +7,7 @@ import { Buffer } from 'buffer';
 
 import { FamilyProvider, FamilyConnectModal } from './FamilyKit';
 import { useState } from 'react';
-import { languages, theme } from './components/FamilyKit';
+import { Languages, Theme } from './components/FamilyKit';
 
 import QA from './components/QA';
 
@@ -49,8 +49,8 @@ const client = createClient({
 
 const App = () => {
   const [openQA, setOpenQA] = useState<boolean>(false);
-  const [theme, setTheme] = useState<theme>('auto');
-  const [lang, setLang] = useState<languages>('en');
+  const [theme, setTheme] = useState<Theme>('auto');
+  const [lang, setLang] = useState<Languages>('en');
   const [iframeUrl, setIframeUrl] = useState<string>('');
   return (
     <FamilyProvider>
