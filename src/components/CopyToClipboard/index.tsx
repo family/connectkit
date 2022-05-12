@@ -19,6 +19,10 @@ export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
     transition: inherit;
   }
 
+  &:hover {
+    --color: var(--body-color-muted);
+  }
+
   svg {
     position: absolute;
     left: 100%;
@@ -50,7 +54,7 @@ export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
   ${(props) =>
     props.$clipboard
       ? css`
-          --color: var(--focus-color);
+          --color: var(--focus-color) !important;
           --bg: var(--body-background);
           svg {
             transition-delay: 0ms;
