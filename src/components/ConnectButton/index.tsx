@@ -20,13 +20,13 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
   return (
     <ResetContainer theme={context.theme}>
       <Button onClick={onClick}>
-        {account?.address && (
+        {isConnected && account?.address && (
           <IconContainer>
             <Avatar size={24} address={account?.address} />
           </IconContainer>
         )}
 
-        {isConnected || account?.address ? (
+        {isConnected && account?.address ? (
           <span>{ensName ?? truncateEthAddress(account?.address)}</span>
         ) : (
           <span>Connect Wallet</span>
