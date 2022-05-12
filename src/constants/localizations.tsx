@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const localize = (text: string, replacements?: any[string]) => {
   let parsedText: string = text;
   if (replacements) {
@@ -25,10 +27,10 @@ export const replaceMarkdown = (markdownText: string) => {
   text = text.split('\n');
   text = text.map((t: string, i: number) => {
     return (
-      <>
+      <React.Fragment key={i}>
         {wrapTags(t)}
         {i < text.length && <br />}
-      </>
+      </React.Fragment>
     );
   });
   return text;
@@ -99,7 +101,7 @@ export default {
       },
       notconnected: {
         h1: `Log into ${keys.connectorName}`,
-        p: `To continue, log into your ${keys.connectorName} extension, then try again.`,
+        p: `To continue, please log into your ${keys.connectorName} extension.`,
       },
     },
     profileScreen: {
@@ -164,7 +166,7 @@ export default {
       },
       notconnected: {
         h1: `Connectez-vous à ${keys.connectorName}`,
-        p: `Pour continuer, connectez-vous à votre extension ${keys.connectorName}, puis réessayez.`,
+        p: `Pour continuer, veuillez vous connecter à votre extension ${keys.connectorName}.`,
       },
     },
     profileScreen: {
