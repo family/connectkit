@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
   const context = useContext();
   const copy = localizations[context.lang].profileScreen;
 
-  const { reset } = useConnect();
+  const { reset, isConnected } = useConnect();
   const { disconnect } = useDisconnect();
 
   const [shouldDisconnect, setShouldDisconnect] = useState(false);
@@ -46,6 +46,10 @@ const Profile: React.FC = () => {
     addressOrName: account?.address,
     //watch: true,
   });
+
+  useEffect(() => {
+    if (!isConnected) context.setOpen(false);
+  }, [isConnected]);
 
   useEffect(() => {
     if (!shouldDisconnect) return;
