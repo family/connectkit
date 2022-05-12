@@ -44,8 +44,6 @@ const CustomQRCode = React.forwardRef(
         <AnimatePresence>
           <motion.div
             style={{
-              position: 'absolute',
-              inset: 0,
               zIndex: 5,
               background: 'white',
             }}
