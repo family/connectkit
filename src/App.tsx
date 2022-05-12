@@ -65,11 +65,12 @@ const App = () => {
         ) : (
           <div
             style={{
-              width: '100%',
-              height: '90vh',
+              position: 'relative',
+              padding: 64,
+              height: '200vh',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
               flexDirection: 'column',
               gap: 12,
             }}
@@ -159,12 +160,13 @@ const App = () => {
 
             {iframeUrl !== '' && (
               <iframe
+                scrolling="no"
                 src={iframeUrl}
                 style={{
                   width: '100%',
                   height: '100%',
                   inset: 0,
-                  position: 'fixed',
+                  position: 'absolute',
                   zIndex: -1,
                   border: 0,
                 }}
