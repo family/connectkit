@@ -1,5 +1,6 @@
 export const Scan = ({ ...props }) => (
   <svg
+    aria-hidden="true"
     width="16"
     height="16"
     viewBox="0 0 16 16"
@@ -18,6 +19,7 @@ export const Scan = ({ ...props }) => (
 
 export const ExternalLinkIcon = ({ ...props }) => (
   <svg
+    aria-hidden="true"
     width="16"
     height="16"
     viewBox="0 0 16 16"
@@ -48,7 +50,14 @@ export const ExternalLinkIcon = ({ ...props }) => (
 
 export const AlertIcon = ({ ...props }) => {
   return (
-    <svg width="18" height="17" viewBox="0 0 18 17" fill="none" {...props}>
+    <svg
+      aria-hidden="true"
+      width="18"
+      height="17"
+      viewBox="0 0 18 17"
+      fill="none"
+      {...props}
+    >
       <path
         d="M2.20779 17H15.7922C17.1342 17 18 15.9796 18 14.7286C18 14.356 17.9134 13.9744 17.7143 13.6195L10.9091 1.14457C10.4935 0.381524 9.74892 0 9.00433 0C8.25974 0 7.49784 0.381524 7.09091 1.14457L0.294372 13.6284C0.0952381 13.9744 0 14.356 0 14.7286C0 15.9796 0.865801 17 2.20779 17ZM9.00433 10.8601C8.49351 10.8601 8.20779 10.5673 8.19048 10.035L8.06061 5.96242C8.04329 5.42119 8.4329 5.03079 8.99567 5.03079C9.54978 5.03079 9.95671 5.43006 9.93939 5.97129L9.80952 10.0261C9.78355 10.5673 9.49784 10.8601 9.00433 10.8601ZM9.00433 14.1874C8.42424 14.1874 7.94805 13.7704 7.94805 13.1759C7.94805 12.5814 8.42424 12.1644 9.00433 12.1644C9.58442 12.1644 10.0606 12.5725 10.0606 13.1759C10.0606 13.7792 9.57576 14.1874 9.00433 14.1874Z"
         fill="currentColor"
@@ -60,6 +69,7 @@ export const AlertIcon = ({ ...props }) => {
 export const DisconnectIcon = ({ ...props }) => {
   return (
     <svg
+      aria-hidden="true"
       width="15"
       height="14"
       viewBox="0 0 15 14"
@@ -85,6 +95,7 @@ export const DisconnectIcon = ({ ...props }) => {
 export const TickIcon = ({ ...props }) => {
   return (
     <svg
+      aria-hidden="true"
       width="18"
       height="18"
       viewBox="0 0 18 18"
@@ -105,6 +116,7 @@ export const TickIcon = ({ ...props }) => {
 export const RetryIcon = ({ ...props }) => {
   return (
     <svg
+      aria-hidden="true"
       width="32"
       height="32"
       viewBox="0 0 32 32"
@@ -124,6 +136,7 @@ export const RetryIcon = ({ ...props }) => {
 
 export const CopyToClipboardIcon = ({ ...props }) => (
   <svg
+    aria-hidden="true"
     width="24"
     height="24"
     viewBox="0 0 24 24"

@@ -90,6 +90,7 @@ const Tooltip: React.FC<TooltipProps> = ({
               <ResetContainer theme={context.theme}>
                 <TooltipWindow>
                   <TooltipContainer
+                    role="tooltip"
                     $size={size}
                     ref={targetRef}
                     initial={'collapsed'}

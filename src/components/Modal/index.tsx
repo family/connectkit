@@ -23,6 +23,7 @@ import { useContext } from '../FamilyKit';
 
 const InfoIcon = (props: Props) => (
   <svg
+    aria-hidden="true"
     width="22"
     height="22"
     viewBox="0 0 22 22"
@@ -175,7 +176,7 @@ const Modal: React.FC<ModalProps> = ({
       {open && (
         <Portal>
           <ResetContainer theme={context.theme}>
-            <ModalContainer exit={{ pointerEvents: 'auto' }}>
+            <ModalContainer role="dialog" exit={{ pointerEvents: 'auto' }}>
               <BackgroundOverlay
                 onClick={onClose}
                 initial={{ opacity: 0 }}
@@ -193,12 +194,13 @@ const Modal: React.FC<ModalProps> = ({
                 exit={'exit'}
                 variants={containerVariants}
               >
-                <CloseButton onClick={onClose}>
+                <CloseButton aria-label="Close" onClick={onClose}>
                   <CloseIcon />
                 </CloseButton>
                 <AnimatePresence>
-                  {onBack ? (
+                  {onBack && (
                     <BackButton
+                      aria-label="Back"
                       key="backButton"
                       onClick={onBack}
                       initial={{ opacity: 0 }}
@@ -208,8 +210,9 @@ const Modal: React.FC<ModalProps> = ({
                     >
                       <BackIcon />
                     </BackButton>
-                  ) : (
+                    /* ) : (
                     <InfoButton
+                      aria-label="More information"
                       key="infoButton"
                       //onClick={onInfo}
                       initial={{ opacity: 0 }}
@@ -219,6 +222,7 @@ const Modal: React.FC<ModalProps> = ({
                     >
                       <InfoIcon />
                     </InfoButton>
+                  */
                   )}
                 </AnimatePresence>
                 <InnerContainer ref={heightRef}>

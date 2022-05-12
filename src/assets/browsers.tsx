@@ -4,6 +4,7 @@
 
 const Chrome = (
   <svg
+    aria-hidden="true"
     width={20}
     height={20}
     viewBox="0 0 20 20"
@@ -283,6 +284,7 @@ const Chrome = (
 );
 const FireFox = (
   <svg
+    aria-hidden="true"
     width={20}
     height={20}
     viewBox="0 0 20 20"
@@ -522,6 +524,7 @@ const FireFox = (
 );
 const Brave = (
   <svg
+    aria-hidden="true"
     width={20}
     height={20}
     viewBox="0 0 20 20"
@@ -568,6 +571,7 @@ const Brave = (
 );
 const Edge = (
   <svg
+    aria-hidden="true"
     width={20}
     height={20}
     viewBox="0 0 20 20"

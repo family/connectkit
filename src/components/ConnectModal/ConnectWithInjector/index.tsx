@@ -225,6 +225,7 @@ const ConnectWithInjector: React.FC<{
           <AnimatePresence>
             {(status === states.FAILED || status === states.REJECTED) && (
               <RetryButton
+                aria-label="Retry"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
@@ -337,7 +338,13 @@ const ConnectWithInjector: React.FC<{
                   )}
                 </AnimatePresence>
               </SpinnerContainer>
-              <svg width="102" height="102" viewBox="0 0 102 102" fill="none">
+              <svg
+                aria-hidden="true"
+                width="102"
+                height="102"
+                viewBox="0 0 102 102"
+                fill="none"
+              >
                 <rect
                   x="7.57895"
                   y="7.57895"

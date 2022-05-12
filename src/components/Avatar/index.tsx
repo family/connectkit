@@ -42,7 +42,6 @@ const Avatar: React.FC<{
       <ImageContainer
         ref={imageRef}
         src={ens.avatar}
-        title={ens.address}
         alt={ens.name}
         onLoad={() => setLoaded(true)}
         $loaded={loaded}

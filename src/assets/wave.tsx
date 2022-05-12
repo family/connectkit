@@ -1,5 +1,6 @@
 export default (
   <svg
+    aria-hidden="true"
     width="298"
     height="188"
     viewBox="0 0 298 188"

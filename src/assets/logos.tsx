@@ -1,5 +1,6 @@
 const WalletConnect = (
   <svg
+    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -16,6 +17,7 @@ const WalletConnect = (
 
 const MetaMask = (
   <svg
+    aria-hidden="true"
     style={{
       background:
         'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11)',
@@ -279,6 +281,7 @@ const MetaMask = (
 
 const Coinbase = (
   <svg
+    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -297,6 +300,7 @@ const Coinbase = (
 
 const Trust = (
   <svg
+    aria-hidden="true"
     width="44"
     height="44"
     viewBox="0 0 44 44"
@@ -314,6 +318,7 @@ const Trust = (
 );
 const Argent = (
   <svg
+    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -329,6 +334,7 @@ const Argent = (
 );
 const imToken = (
   <svg
+    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"

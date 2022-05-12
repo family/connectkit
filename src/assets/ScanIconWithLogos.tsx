@@ -31,6 +31,7 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
   return (
     <IconContainer>
       <svg
+        aria-hidden="true"
         width="47"
         height="52"
         viewBox="0 0 47 52"

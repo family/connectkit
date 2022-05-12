@@ -89,6 +89,7 @@ const CopyToClipboard: React.FC<{
   let timeout: any;
   return (
     <CopyButton
+      aria-label="Copy to Clipboard"
       $clipboard={clipboard}
       onClick={() => {
         clearTimeout(timeout);

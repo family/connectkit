@@ -1,5 +1,6 @@
 export const Ethereum = (
   <svg
+    aria-hidden="true"
     width="44"
     height="44"
     viewBox="0 0 44 44"
@@ -47,6 +48,7 @@ export const Ethereum = (
 
 export const Polygon = (
   <svg
+    aria-hidden="true"
     width="44"
     height="44"
     viewBox="0 0 44 44"
@@ -62,6 +64,7 @@ export const Polygon = (
 );
 export const Optimism = (
   <svg
+    aria-hidden="true"
     width="44"
     height="44"
     viewBox="0 0 44 44"
@@ -82,6 +85,7 @@ export const Optimism = (
 
 export const Arbitrum = (
   <svg
+    aria-hidden="true"
     width="44"
     height="44"
     viewBox="0 0 44 44"

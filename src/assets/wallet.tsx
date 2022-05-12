@@ -1,6 +1,7 @@
 export default ({ ...props }) => {
   return (
     <svg
+      aria-hidden="true"
       width="20"
       height="19"
       viewBox="0 0 20 19"

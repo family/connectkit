@@ -165,6 +165,7 @@ const ChainButtonBg = styled(motion.div)`
 
 const ChevronDown = ({ ...props }) => (
   <svg
+    aria-hidden="true"
     width="11"
     height="6"
     viewBox="0 0 11 6"
@@ -184,6 +185,7 @@ const ChevronDown = ({ ...props }) => (
 
 const Spinner = (
   <svg
+    aria-hidden="true"
     width="36"
     height="36"
     viewBox="0 0 36 36"
@@ -255,7 +257,11 @@ const ChainSelector: React.FC = () => {
   return (
     <>
       <Container>
-        <SwitchChainButton ref={ref} onTap={() => setIsOpen(!isOpen)}>
+        <SwitchChainButton
+          ref={ref}
+          aria-label="Change Network"
+          onTap={() => setIsOpen(!isOpen)}
+        >
           <ChainIcon>
             {chains
               .filter((x) => x.id === activeChain?.id)
