@@ -33,12 +33,7 @@ import Alert from '../../Alert';
 
 import { Scan } from '../../../assets/icons';
 import BrowserIcon from '../../BrowserIcon';
-import {
-  AlertIcon,
-  DisconnectIcon,
-  TickIcon,
-  RetryIcon,
-} from '../../../assets/icons';
+import { AlertIcon, TickIcon, RetryIcon } from '../../../assets/icons';
 import { detectBrowser } from '../../../utils';
 
 export const states = {
@@ -88,16 +83,23 @@ const ConnectWithInjector: React.FC<{
     onBeforeConnect: (connector: any) => {
       setStatus(states.CONNECTING);
     },
-    onSettled(data, error) {
+    onSettled(data: any, error: any) {
       if (error) {
-        // TODO: Proper error handling
-        if (
-          error.message === 'User denied account authorization' || // coinbaseWallet
-          error.message === 'User rejected request' // metaMask
-        ) {
-          setStatus(states.REJECTED);
+        if (error.code) {
+          switch (error.code) {
+            case -32002:
+              setStatus(states.NOTCONNECTED);
+              break;
+            default:
+              setStatus(states.FAILED);
+              break;
+          }
         } else {
-          setStatus(states.FAILED);
+          if (error.message === 'User denied account authorization') {
+            setStatus(states.REJECTED);
+          } else {
+            setStatus(states.FAILED);
+          }
         }
       } else if (data) {
       }
@@ -455,7 +457,7 @@ const ConnectWithInjector: React.FC<{
               exit={'exit'}
               variants={contentVariants}
             >
-              <ModalContent>
+              <ModalContent style={{ paddingBottom: 18 }}>
                 <ModalH1>{localizeText(copy.notconnected.h1)}</ModalH1>
                 <ModalBody>{localizeText(copy.notconnected.p)}</ModalBody>
               </ModalContent>
