@@ -103,12 +103,13 @@ export const Container = styled(motion.div)`
   border-radius: 24px;
 `;
 export const InnerContainer = styled(motion.div)`
+  --ease: cubic-bezier(0.25, 0.1, 0.28, 0.9);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  transition: height 220ms ease, width 220ms ease;
+  transition: height 220ms var(--ease), width 220ms var(--ease);
   //will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
