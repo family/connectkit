@@ -11,6 +11,7 @@ import {
 
 import { QRCode } from 'react-qrcode-logo';
 import Tooltip from './../Tooltip';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const CustomQRCode = React.forwardRef(
   (
@@ -26,7 +27,10 @@ const CustomQRCode = React.forwardRef(
         transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
         */
       >
-        <LogoContainer>
+        <LogoContainer
+          initial={{ opacity: 0.3 }}
+          animate={{ opacity: value ? 1 : 0.3 }}
+        >
           <LogoIcon>
             {tooltipMessage ? (
               <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
@@ -37,21 +41,32 @@ const CustomQRCode = React.forwardRef(
             )}
           </LogoIcon>
         </LogoContainer>
-        {value && (
-          <QRCode
-            bgColor="transparent"
-            logoImage={image ? btoa(image.toString()) : undefined}
-            removeQrCodeBehindLogo={true}
-            value={value}
-            size={288}
-            qrStyle="dots"
-            eyeRadius={12}
-            ecLevel="M"
-            logoWidth={76}
-            logoHeight={76}
-          />
-        )}
-        {!value && (
+        <AnimatePresence>
+          <motion.div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 5,
+              background: 'white',
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: value ? 1 : 0 }}
+          >
+            {value && (
+              <QRCode
+                bgColor="transparent"
+                logoImage={image ? btoa(image.toString()) : undefined}
+                removeQrCodeBehindLogo={true}
+                value={value}
+                size={288}
+                qrStyle="dots"
+                eyeRadius={12}
+                ecLevel="M"
+                logoWidth={76}
+                logoHeight={76}
+              />
+            )}
+          </motion.div>
           <QRPlaceholder>
             <QRPlaceholderContent>
               <QRCodeSkeleton style={{ top: 0, right: 0 }} />
@@ -59,7 +74,7 @@ const CustomQRCode = React.forwardRef(
               <QRCodeSkeleton style={{ bottom: 0, left: 0 }} />
             </QRPlaceholderContent>
           </QRPlaceholder>
-        )}
+        </AnimatePresence>
       </QRCodeContainer>
     );
   }
