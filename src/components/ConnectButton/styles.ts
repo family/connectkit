@@ -1,6 +1,18 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+export const TextContainer = styled(motion.div)`
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+`;
+
 export const Button = styled(motion.button)`
   --outline: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
   --shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
@@ -9,10 +21,9 @@ export const Button = styled(motion.button)`
   background: var(--connectbutton-background);
   appearance: none;
   user-select: none;
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   height: 40px;
   padding: 0 15px;
   line-height: 0;
