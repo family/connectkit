@@ -2,41 +2,56 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const Button = styled(motion.button)`
-  color: var(--body-color);
-  background: var(--body-background);
-  --outline: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-  --shadow: 0 2px 12px rgba(0, 0, 0, 0);
+  --outline: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+  color: var(--connectbutton-color);
+  background: var(--connectbutton-background);
   appearance: none;
   user-select: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  width: 192px;
-  max-width: 192px;
-  min-width: 192px;
-  padding: 6px 13px 6px 6px;
-  font-size: 14px;
-  font-family: 'LFE';
+  justify-content: center;
+  height: 40px;
+  padding: 0 15px;
+  line-height: 0;
+  font-size: 15px;
   font-weight: 500;
-  border-radius: 12px;
+  border-radius: 10px;
 
-  will-change: box-shadow, transform;
-  transition: box-shadow 100ms ease, transform 100ms ease,
-    outline 100ms ease 200ms;
+  will-change: background-color, transform;
+  transition: background-color 100ms ease, transform 100ms ease;
 
   box-shadow: var(--outline), var(--shadow);
 
   &:hover {
-    --shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  }
-  &:focus {
-    outline: 2px solid var(--family-brand);
+    background: var(--connectbutton-background-hover);
   }
   &:active {
     transform: scale(0.98);
+    background: var(--connectbutton-background-active);
   }
-  &:hover:focus,
-  &:active:focus {
-    outline: none;
+  &:focus-visible {
+    outline: 2px solid var(--family-brand);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+`;
+
+export const IconContainer = styled(motion.div)`
+  pointer-events: none;
+  user-select: none;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-left: -4px;
+  margin-right: 10px;
+  svg {
+    position: absolute;
+    inset: 0;
   }
 `;

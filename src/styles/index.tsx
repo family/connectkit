@@ -29,6 +29,11 @@ const theme = {
     '--brand-imtoken-02': '#0062AD',
   },
   light: {
+    '--connectbutton-color': '#373737',
+    '--connectbutton-background': '#ffffff',
+    '--connectbutton-background-hover': '#f6f7f9',
+    '--connectbutton-background-active': '#eaecf1',
+
     '--focus-color': '#1A88F8',
     '--overlay-background': 'rgba(0, 0, 0, 0.4)',
     '--body-color': '#373737',
@@ -82,6 +87,11 @@ const theme = {
   },
 
   dark: {
+    '--connectbutton-color': '#ffffff',
+    '--connectbutton-background': '#2B2B2B',
+    '--connectbutton-background-hover': '#333333',
+    '--connectbutton-background-active': '#4D4D4D',
+
     '--focus-color': '#ffffff',
     '--overlay-background': 'rgba(0, 0, 0, 0.9)',
     '--body-color': '#ffffff',

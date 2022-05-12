@@ -71,6 +71,7 @@ const App = () => {
               alignItems: 'center',
               justifyContent: 'center',
               flexDirection: 'column',
+              gap: 12,
             }}
           >
             <FamilyConnectModal theme={theme} lang={lang} />
