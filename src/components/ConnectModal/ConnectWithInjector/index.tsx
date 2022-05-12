@@ -448,7 +448,7 @@ const ConnectWithInjector: React.FC<{
               exit={'exit'}
               variants={contentVariants}
             >
-              <ModalContent style={{ paddingBottom: 18 }}>
+              <ModalContent>
                 <ModalH1 $valid>
                   <TickIcon /> {localizeText(copy.connected.h1)}
                 </ModalH1>
@@ -464,7 +464,7 @@ const ConnectWithInjector: React.FC<{
               exit={'exit'}
               variants={contentVariants}
             >
-              <ModalContent style={{ paddingBottom: 18 }}>
+              <ModalContent>
                 <ModalH1>{localizeText(copy.notconnected.h1)}</ModalH1>
                 <ModalBody>{localizeText(copy.notconnected.p)}</ModalBody>
               </ModalContent>
