@@ -121,7 +121,6 @@ export const contentVariants: Variants = {
     transition: {
       duration: 0.15,
       delay: 0.05,
-      ease: [0.25, 0.1, 0.28, 0.9],
     },
   },
   exit: {
@@ -129,7 +128,7 @@ export const contentVariants: Variants = {
     opacity: 0,
     pointerEvents: 'none',
     position: 'absolute',
-    transition: { duration: 0.2, ease: [0.25, 0.1, 0.28, 0.9] },
+    transition: { duration: 0.2 },
   },
 };
 

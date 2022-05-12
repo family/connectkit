@@ -103,7 +103,7 @@ export const Container = styled(motion.div)`
   border-radius: 24px;
 `;
 export const InnerContainer = styled(motion.div)`
-  --ease: cubic-bezier(0.25, 0.1, 0.28, 0.9);
+  --ease: ease;
   display: flex;
   align-items: flex-start;
   justify-content: center;
