@@ -9,6 +9,7 @@ import {
   useAccount,
   useEnsName,
   useBalance,
+  useNetwork,
 } from 'wagmi';
 
 import {
@@ -41,11 +42,16 @@ const Profile: React.FC = () => {
   const [shouldDisconnect, setShouldDisconnect] = useState(false);
 
   const { data: account } = useAccount();
-  const { data: ensName } = useEnsName({ address: account?.address });
+  const { data: ensName } = useEnsName({
+    chainId: 1,
+    address: account?.address,
+  });
+  const { activeChain } = useNetwork();
   const { data: balance } = useBalance({
     addressOrName: account?.address,
     //watch: true,
   });
+  console.log(balance);
 
   useEffect(() => {
     if (!isConnected) context.setOpen(false);
@@ -82,6 +88,7 @@ const Profile: React.FC = () => {
           {balance ? (
             <>
               {Number(balance?.formatted).toPrecision(3)}
+              {` `}
               {balance?.symbol}
             </>
           ) : (

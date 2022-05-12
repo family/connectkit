@@ -12,9 +12,16 @@ const Avatar: React.FC<{
   const imageRef = useRef<any>(null);
   const [loaded, setLoaded] = useState(true);
 
-  const { data: ensName } = useEnsName({ address: address });
-  const { data: ensAddress } = useEnsAddress({ name: name });
+  const { data: ensName } = useEnsName({
+    chainId: 1,
+    address: address,
+  });
+  const { data: ensAddress } = useEnsAddress({
+    chainId: 1,
+    name: name,
+  });
   const { data: ensAvatar } = useEnsAvatar({
+    chainId: 1,
     addressOrName: address ? address : name,
   });
   const ens = {

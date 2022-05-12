@@ -14,7 +14,10 @@ type ConnectButtonProps = {
 const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
   const context = useContext();
   const { data: account } = useAccount();
-  const { data: ensName } = useEnsName({ address: account?.address });
+  const { data: ensName } = useEnsName({
+    chainId: 1,
+    address: account?.address,
+  });
   const { isConnected } = useConnect();
 
   return (
