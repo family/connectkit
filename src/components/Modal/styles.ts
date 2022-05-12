@@ -98,24 +98,9 @@ export const Container = styled(motion.div)`
   width: auto;
   max-width: 90vw;
   color: var(--body-color);
-  //background: var(--body-background);
+  background: var(--body-background);
   //box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
   border-radius: 24px;
-  &:before {
-    z-index: 1;
-    pointer-events: none;
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: var(--body-background);
-    will-change: transform;
-    transform: translateZ(0);
-  }
-`;
-export const Content = styled(motion.div)`
-  position: relative;
-  z-index: 2;
 `;
 export const InnerContainer = styled(motion.div)`
   display: flex;

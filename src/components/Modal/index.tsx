@@ -8,7 +8,6 @@ import Portal from './../Portal';
 
 import {
   Container,
-  Content,
   ModalContainer,
   PageContainer,
   InnerContainer,
@@ -194,57 +193,55 @@ const Modal: React.FC<ModalProps> = ({
                 exit={'exit'}
                 variants={containerVariants}
               >
-                <Content>
-                  <CloseButton onClick={onClose}>
-                    <CloseIcon />
-                  </CloseButton>
+                <CloseButton onClick={onClose}>
+                  <CloseIcon />
+                </CloseButton>
+                <AnimatePresence>
+                  {onBack ? (
+                    <BackButton
+                      key="backButton"
+                      onClick={onBack}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.1 }}
+                    >
+                      <BackIcon />
+                    </BackButton>
+                  ) : (
+                    <InfoButton
+                      key="infoButton"
+                      //onClick={onInfo}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.1 }}
+                    >
+                      <InfoIcon />
+                    </InfoButton>
+                  )}
+                </AnimatePresence>
+                <InnerContainer ref={heightRef}>
                   <AnimatePresence>
-                    {onBack ? (
-                      <BackButton
-                        key="backButton"
-                        onClick={onBack}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.1 }}
-                      >
-                        <BackIcon />
-                      </BackButton>
-                    ) : (
-                      <InfoButton
-                        key="infoButton"
-                        //onClick={onInfo}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.1 }}
-                      >
-                        <InfoIcon />
-                      </InfoButton>
-                    )}
+                    {Object.keys(pages)
+                      .filter((key) => key === pageId)
+                      .map((key) => {
+                        const page = pages[key];
+                        return (
+                          <PageContainer
+                            ref={contentRef}
+                            key={key}
+                            initial={'initial'}
+                            animate={'animate'}
+                            exit={'exit'}
+                            variants={contentVariants}
+                          >
+                            {page}
+                          </PageContainer>
+                        );
+                      })}
                   </AnimatePresence>
-                  <InnerContainer ref={heightRef}>
-                    <AnimatePresence>
-                      {Object.keys(pages)
-                        .filter((key) => key === pageId)
-                        .map((key) => {
-                          const page = pages[key];
-                          return (
-                            <PageContainer
-                              ref={contentRef}
-                              key={key}
-                              initial={'initial'}
-                              animate={'animate'}
-                              exit={'exit'}
-                              variants={contentVariants}
-                            >
-                              {page}
-                            </PageContainer>
-                          );
-                        })}
-                    </AnimatePresence>
-                  </InnerContainer>
-                </Content>
+                </InnerContainer>
               </Container>
             </ModalContainer>
           </ResetContainer>
