@@ -28,7 +28,7 @@ const CustomQRCode = React.forwardRef(
         */
       >
         <LogoContainer
-          initial={{ opacity: 0.3 }}
+          initial={{ opacity: value ? 1 : 0.3 }}
           animate={{ opacity: value ? 1 : 0.3 }}
         >
           <LogoIcon>
@@ -47,7 +47,7 @@ const CustomQRCode = React.forwardRef(
               zIndex: 5,
               background: 'white',
             }}
-            initial={{ opacity: 0 }}
+            initial={{ opacity: value ? 1 : 0 }}
             animate={{ opacity: value ? 1 : 0 }}
           >
             {value && (
@@ -65,14 +65,14 @@ const CustomQRCode = React.forwardRef(
               />
             )}
           </motion.div>
-          <QRPlaceholder>
-            <QRPlaceholderContent>
-              <QRCodeSkeleton style={{ top: 0, right: 0 }} />
-              <QRCodeSkeleton style={{ top: 0, left: 0 }} />
-              <QRCodeSkeleton style={{ bottom: 0, left: 0 }} />
-            </QRPlaceholderContent>
-          </QRPlaceholder>
         </AnimatePresence>
+        <QRPlaceholder>
+          <QRPlaceholderContent>
+            <QRCodeSkeleton style={{ top: 0, right: 0 }} />
+            <QRCodeSkeleton style={{ top: 0, left: 0 }} />
+            <QRCodeSkeleton style={{ bottom: 0, left: 0 }} />
+          </QRPlaceholderContent>
+        </QRPlaceholder>
       </QRCodeContainer>
     );
   }
