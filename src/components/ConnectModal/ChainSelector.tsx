@@ -8,7 +8,6 @@ import { useNetwork } from 'wagmi';
 import useMeasure from 'react-use-measure';
 import Portal from '../Portal';
 import { ResetContainer } from '../../styles';
-import ChainIcons from '../../assets/chains';
 import supportedChains from '../../constants/supportedChains';
 
 const Container = styled(motion.div)``;
@@ -63,6 +62,7 @@ const SwitchChainButton = styled(motion.button)`
   background: var(--background);
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease;
+  transform: translateZ(0px);
   svg {
     position: relative;
     display: block;
@@ -72,7 +72,7 @@ const SwitchChainButton = styled(motion.button)`
     --background: var(--body-background-secondary-hover);
   }
   &:active {
-    transform: scale(0.9);
+    transform: scale(0.9) translateZ(0px);
   }
 `;
 const ChainIcon = styled(motion.div)`
@@ -133,8 +133,9 @@ const ChainButton = styled(motion.button)`
   background: none;
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease;
+  transform: translateZ(0px);
   &:active {
-    transform: scale(0.98);
+    transform: scale(0.98) translateZ(0px);
   }
   &:disabled {
     pointer-events: none;
