@@ -19,6 +19,7 @@ import {
 } from './styles';
 
 import useMeasure from 'react-use-measure';
+import { RemoveScroll } from 'react-remove-scroll';
 import { useContext } from '../FamilyKit';
 
 const InfoIcon = (props: Props) => (
@@ -175,42 +176,43 @@ const Modal: React.FC<ModalProps> = ({
     <AnimatePresence>
       {open && (
         <Portal>
-          <ResetContainer theme={context.theme}>
-            <ModalContainer role="dialog" exit={{ pointerEvents: 'auto' }}>
-              <BackgroundOverlay
-                onClick={onClose}
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-                transition={{ ease: 'easeOut', duration: 0.2 }}
-              />
-              <Container
-                initial={'initial'}
-                animate={'animate'}
-                exit={'exit'}
-                variants={containerVariants}
-              >
-                <CloseButton aria-label="Close" onClick={onClose}>
-                  <CloseIcon />
-                </CloseButton>
-                <AnimatePresence>
-                  {onBack && (
-                    <BackButton
-                      aria-label="Back"
-                      key="backButton"
-                      onClick={onBack}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.1 }}
-                    >
-                      <BackIcon />
-                    </BackButton>
-                    /* ) : (
+          <RemoveScroll removeScrollBar={false}>
+            <ResetContainer theme={context.theme}>
+              <ModalContainer role="dialog" exit={{ pointerEvents: 'auto' }}>
+                <BackgroundOverlay
+                  onClick={onClose}
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  transition={{ ease: 'easeOut', duration: 0.2 }}
+                />
+                <Container
+                  initial={'initial'}
+                  animate={'animate'}
+                  exit={'exit'}
+                  variants={containerVariants}
+                >
+                  <CloseButton aria-label="Close" onClick={onClose}>
+                    <CloseIcon />
+                  </CloseButton>
+                  <AnimatePresence>
+                    {onBack && (
+                      <BackButton
+                        aria-label="Back"
+                        key="backButton"
+                        onClick={onBack}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.1 }}
+                      >
+                        <BackIcon />
+                      </BackButton>
+                      /* ) : (
                     <InfoButton
                       aria-label="More information"
                       key="infoButton"
@@ -223,32 +225,33 @@ const Modal: React.FC<ModalProps> = ({
                       <InfoIcon />
                     </InfoButton>
                   */
-                  )}
-                </AnimatePresence>
-                <InnerContainer ref={heightRef}>
-                  <AnimatePresence>
-                    {Object.keys(pages)
-                      .filter((key) => key === pageId)
-                      .map((key) => {
-                        const page = pages[key];
-                        return (
-                          <PageContainer
-                            ref={contentRef}
-                            key={key}
-                            initial={'initial'}
-                            animate={'animate'}
-                            exit={'exit'}
-                            variants={contentVariants}
-                          >
-                            {page}
-                          </PageContainer>
-                        );
-                      })}
+                    )}
                   </AnimatePresence>
-                </InnerContainer>
-              </Container>
-            </ModalContainer>
-          </ResetContainer>
+                  <InnerContainer ref={heightRef}>
+                    <AnimatePresence>
+                      {Object.keys(pages)
+                        .filter((key) => key === pageId)
+                        .map((key) => {
+                          const page = pages[key];
+                          return (
+                            <PageContainer
+                              ref={contentRef}
+                              key={key}
+                              initial={'initial'}
+                              animate={'animate'}
+                              exit={'exit'}
+                              variants={contentVariants}
+                            >
+                              {page}
+                            </PageContainer>
+                          );
+                        })}
+                    </AnimatePresence>
+                  </InnerContainer>
+                </Container>
+              </ModalContainer>
+            </ResetContainer>
+          </RemoveScroll>
         </Portal>
       )}
     </AnimatePresence>
