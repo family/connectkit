@@ -24,6 +24,8 @@ const Tooltip: React.FC<TooltipProps> = ({
 
   const [ready, setReady] = useState(false);
 
+  const [currentRoute] = useState(context.route);
+
   const targetRef = useRef<any>(null);
   const [ref, bounds] = useMeasure({
     debounce: !ready ? 220 : 0, // fix alignment initial state
@@ -85,6 +87,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       <Portal>
         <AnimatePresence>
           {context.open &&
+            currentRoute === context.route &&
             !outOfBounds &&
             (open !== undefined ? open : isOpen) && (
               <ResetContainer theme={context.theme}>
