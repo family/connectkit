@@ -85,7 +85,7 @@ const BackIcon = (props: Props) => (
 const containerVariants: Variants = {
   initial: {
     //willChange: 'transform,opacity',
-    // y: 5,
+    y: 5,
     opacity: 0,
     scale: 0.92,
   },
@@ -100,7 +100,7 @@ const containerVariants: Variants = {
     },
   },
   exit: {
-    // y: 10,
+    y: 10,
     opacity: 0,
     scale: 0.96,
     transition: {
@@ -121,8 +121,8 @@ export const contentVariants: Variants = {
     scale: 1,
     transition: {
       ease: [0.25, 1, 0.5, 1],
-      duration: 0.2,
-      delay: 0.05,
+      duration: 0.5,
+      delay: 0.1,
     },
   },
   exit: {
@@ -132,7 +132,7 @@ export const contentVariants: Variants = {
     position: 'absolute',
     transition: {
       ease: [0.25, 1, 0.5, 1],
-      duration: 0,
+      duration: 0.5,
     },
   },
 };

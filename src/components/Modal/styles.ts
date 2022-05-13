@@ -109,9 +109,9 @@ export const InnerContainer = styled(motion.div)`
   justify-content: center;
   position: relative;
   overflow: hidden;
-  /* transition: height 280ms var(--ease), width 280ms var(--ease); */
-  transition: height 280ms cubic-bezier(0.25, 1, 0.5, 1),
-    width 280ms cubic-bezier(0.25, 1, 0.5, 1);
+  transition: height 500ms var(--ease), width 500ms var(--ease);
+  /* transition: height 280ms cubic-bezier(0.25, 1, 0.5, 1), */
+  /* width 280ms cubic-bezier(0.25, 1, 0.5, 1); */
   will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
