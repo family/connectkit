@@ -11,6 +11,7 @@ import { Languages, Theme } from './components/FamilyKit';
 
 import QA from './components/QA';
 import { FpsView } from 'react-fps';
+import { ConnectButton } from './components/ConnectButton';
 
 if (!window.Buffer) {
   window.Buffer = Buffer;
@@ -53,10 +54,11 @@ const App = () => {
   const [theme, setTheme] = useState<Theme>('auto');
   const [lang, setLang] = useState<Languages>('en');
   const [iframeUrl, setIframeUrl] = useState<string>('');
+
   return (
-    <FamilyProvider>
-      <Provider client={client}>
-        <FpsView />
+    <Provider client={client}>
+      <FamilyProvider>
+        {/* <FpsView  /> */}
         {openQA ? (
           <>
             <button onClick={() => setOpenQA(false)}>Close QA</button>
@@ -78,6 +80,8 @@ const App = () => {
             }}
           >
             <FamilyConnectModal theme={theme} lang={lang} />
+            <ConnectButton />
+
             <button onClick={() => setOpenQA(true)}>Open QA</button>
 
             <h1>Family Connect</h1>
@@ -176,8 +180,8 @@ const App = () => {
             )}
           </div>
         )}
-      </Provider>
-    </FamilyProvider>
+      </FamilyProvider>
+    </Provider>
   );
 };
 

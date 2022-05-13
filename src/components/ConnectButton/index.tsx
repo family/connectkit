@@ -4,7 +4,7 @@ import { truncateEthAddress } from './../../utils';
 import { ResetContainer } from '../../styles';
 
 import { Button, IconContainer, TextContainer } from './styles';
-import { useContext } from '../FamilyKit';
+import { routes, useContext } from '../FamilyKit';
 import Avatar from '../Avatar';
 import { AnimatePresence, Variants } from 'framer-motion';
 
@@ -38,7 +38,7 @@ type ConnectButtonProps = {
   onClick?: (e: any) => void;
 };
 
-const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
+export const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
   const context = useContext();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
@@ -47,9 +47,18 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
   });
   const { isConnected } = useConnect();
 
+  function hide() {
+    context.setOpen(false);
+  }
+
+  function show() {
+    context.setOpen(true);
+    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+  }
+
   return (
     <ResetContainer theme={context.theme}>
-      <Button onClick={onClick}>
+      <Button onClick={show}>
         <AnimatePresence initial={false}>
           {isConnected && account?.address ? (
             <TextContainer
@@ -80,5 +89,3 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
     </ResetContainer>
   );
 };
-
-export default ConnectButton;
