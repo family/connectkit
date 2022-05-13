@@ -137,7 +137,7 @@ export const CloseButton = styled(motion.button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 0;
   margin: 0;
   color: var(--body-action-color);
@@ -167,7 +167,7 @@ export const BackButton = styled(motion.button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 0;
   margin: 0;
   color: var(--body-action-color);
@@ -199,7 +199,7 @@ export const InfoButton = styled(motion.button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 0;
   margin: 0;
   color: var(--body-action-color);
