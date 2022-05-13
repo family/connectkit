@@ -13,6 +13,8 @@ import QA from './components/QA';
 import { FpsView } from 'react-fps';
 import { ConnectButton } from './components/ConnectButton';
 
+import { motion } from 'framer-motion';
+
 if (!window.Buffer) {
   window.Buffer = Buffer;
 }
@@ -81,6 +83,29 @@ const App = () => {
           >
             <FamilyConnectModal theme={theme} lang={lang} />
             <ConnectButton />
+
+            <ConnectButton.Custom>
+              {({ isConnected, show, hide, address }) => {
+                return (
+                  <motion.div
+                    onClick={show}
+                    style={{
+                      fontSize: 15,
+                      fontFamily: 'Avenir',
+                      fontWeight: 700,
+                      padding: '8px 16px',
+                      borderRadius: 40,
+                      background: '#fffc00',
+                      cursor: 'pointer',
+                      lineHeight: '24px',
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {isConnected ? address : 'Custom Connect'}
+                  </motion.div>
+                );
+              }}
+            </ConnectButton.Custom>
 
             <button onClick={() => setOpenQA(true)}>Open QA</button>
 

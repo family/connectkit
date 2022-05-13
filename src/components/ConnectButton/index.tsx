@@ -34,11 +34,52 @@ const contentVariants: Variants = {
   },
 };
 
-type ConnectButtonProps = {
-  onClick?: (e: any) => void;
+type ConnectButtonRendererProps = {
+  children?: (renderProps: {
+    show?: () => void;
+    hide?: () => void;
+    isConnected?: boolean;
+    address?: string;
+  }) => React.ReactNode;
 };
 
-export const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
+const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
+  children,
+}) => {
+  const context = useContext();
+  const { data: account } = useAccount();
+  const { data: ensName } = useEnsName({
+    chainId: 1,
+    address: account?.address,
+  });
+  const { isConnected } = useConnect();
+
+  function hide() {
+    context.setOpen(false);
+  }
+
+  function show() {
+    context.setOpen(true);
+    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+  }
+
+  if (!children) return null;
+
+  return (
+    <>
+      {children({
+        isConnected: !!(isConnected && account?.address),
+        show,
+        hide,
+        address: account?.address ?? '',
+      })}
+    </>
+  );
+};
+
+ConnectButtonRenderer.displayName = 'ConnectButton.Custom';
+
+export function ConnectButton() {
   const context = useContext();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
@@ -88,4 +129,6 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
       </Button>
     </ResetContainer>
   );
-};
+}
+
+ConnectButton.Custom = ConnectButtonRenderer;
