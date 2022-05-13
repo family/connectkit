@@ -17,7 +17,7 @@
     "qrcode": "^1.5.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-fps-stats": "^0.2.3",
+    "react-fps": "^1.0.6",
     "react-remove-scroll": "^2.5.3",
     "react-scripts": "5.0.1",
     "react-use-measure": "^2.1.1",
