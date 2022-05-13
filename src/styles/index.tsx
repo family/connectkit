@@ -93,7 +93,7 @@ const theme = {
     '--connectbutton-background-active': '#4D4D4D',
 
     '--focus-color': '#ffffff',
-    '--overlay-background': 'rgba(0, 0, 0, 0.9)',
+    '--overlay-background': 'rgba(0, 0, 0, 0.4)',
     '--body-color': '#ffffff',
     '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
     '--body-color-muted-hover': 'rgba(255, 255, 255, 0.8)',
