@@ -34,7 +34,10 @@ const CustomQRCode = React.forwardRef(
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.05, duration: 0.32 }}
+            transition={{
+              delay: 0.1,
+              duration: 0.2,
+            }}
           >
             <QRCode uri={value} logoSize={image ? 76 : 0} size={280} ecl="M" />
           </motion.div>
