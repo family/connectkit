@@ -5,13 +5,13 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Buffer } from 'buffer';
 
-import { FamilyProvider, FamilyConnectModal } from './FamilyKit';
+import { ConnectKitProvider, ConnectKitModal } from './FamilyKit';
 import { useState } from 'react';
 import { Languages, Theme } from './components/FamilyKit';
 
 import QA from './components/QA';
 import { FpsView } from 'react-fps';
-import { ConnectButton } from './components/ConnectButton';
+import { ConnectKitButton } from './components/ConnectButton';
 
 import { motion } from 'framer-motion';
 
@@ -59,7 +59,7 @@ const App = () => {
 
   return (
     <Provider client={client}>
-      <FamilyProvider>
+      <ConnectKitProvider>
         {/* <FpsView  /> */}
         {openQA ? (
           <>
@@ -81,10 +81,10 @@ const App = () => {
               gap: 12,
             }}
           >
-            <FamilyConnectModal theme={theme} lang={lang} />
-            <ConnectButton />
+            <ConnectKitModal theme={theme} lang={lang} />
+            <ConnectKitButton />
 
-            <ConnectButton.Custom>
+            <ConnectKitButton.Custom>
               {({ isConnected, show, hide, address }) => {
                 return (
                   <motion.div
@@ -105,7 +105,7 @@ const App = () => {
                   </motion.div>
                 );
               }}
-            </ConnectButton.Custom>
+            </ConnectKitButton.Custom>
 
             <button onClick={() => setOpenQA(true)}>Open QA</button>
 
@@ -205,7 +205,7 @@ const App = () => {
             )}
           </div>
         )}
-      </FamilyProvider>
+      </ConnectKitProvider>
     </Provider>
   );
 };

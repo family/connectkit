@@ -77,9 +77,9 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   );
 };
 
-ConnectButtonRenderer.displayName = 'ConnectButton.Custom';
+ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
 
-export function ConnectButton() {
+export function ConnectKitButton() {
   const context = useContext();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
@@ -131,4 +131,4 @@ export function ConnectButton() {
   );
 }
 
-ConnectButton.Custom = ConnectButtonRenderer;
+ConnectKitButton.Custom = ConnectButtonRenderer;

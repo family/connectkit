@@ -32,7 +32,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export const FamilyProvider: React.FC<Props> = ({ children }) => {
+export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('auto');
   const [lang, setLang] = useState<Languages>('fr');
   const [open, setOpen] = useState<boolean>(false);
@@ -55,6 +55,6 @@ export const FamilyProvider: React.FC<Props> = ({ children }) => {
 
 export const useContext = () => {
   const context = React.useContext(Context);
-  if (!context) throw Error('Family Kit must be inside a Provider.');
+  if (!context) throw Error('ConnectKit must be inside a Provider.');
   return context;
 };

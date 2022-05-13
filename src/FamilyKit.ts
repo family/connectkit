@@ -1,4 +1,4 @@
-import { default as FamilyConnectModal } from './components/ConnectModal';
+import { default as ConnectKitModal } from './components/ConnectModal';
 
-export { FamilyConnectModal };
-export { FamilyProvider } from './components/FamilyKit';
+export { ConnectKitModal };
+export { ConnectKitProvider } from './components/FamilyKit';
