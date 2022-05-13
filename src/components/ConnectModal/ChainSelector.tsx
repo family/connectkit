@@ -40,6 +40,7 @@ const DropdownHeading = styled(motion.div)`
   font-size: 15px;
   line-height: 18px;
   font-weight: 400;
+  user-select: none;
 `;
 
 const SwitchChainButton = styled(motion.button)`
@@ -135,10 +136,10 @@ const ChainButton = styled(motion.button)`
   transition: transform 100ms ease, background-color 100ms ease;
   transform: translateZ(0px);
   &:hover {
-    opacity: 0.85;
+    transform: scale(1.01) translateZ(0px);
   }
   &:active {
-    transform: scale(0.98) translateZ(0px);
+    transform: scale(0.99) translateZ(0px);
   }
   &:disabled {
     pointer-events: none;
@@ -356,13 +357,21 @@ const ChainSelector: React.FC = () => {
                             <AnimatePresence exitBeforeEnter>
                               {x.id === activeChain?.id && (
                                 <motion.span
-                                  style={{ color: 'var(--focus-color)' }}
-                                  initial={{ opacity: 0, y: 0, scale: 1 }}
-                                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                                  exit={{ opacity: 0, y: 5, scale: 1 }}
+                                  style={{
+                                    color: 'var(--focus-color)',
+                                    display: 'block',
+                                    position: 'relative',
+                                  }}
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  exit={{
+                                    opacity: 0,
+                                    scale: 0.8,
+                                    transition: { duration: 0.1 },
+                                  }}
                                   transition={{
                                     ease: [0.76, 0, 0.24, 1],
-                                    duration: 0.15,
+                                    duration: 0.3,
                                   }}
                                 >
                                   Connected
@@ -370,13 +379,16 @@ const ChainSelector: React.FC = () => {
                               )}
                               {isLoading && pendingChainId === x.id && (
                                 <motion.span
+                                  style={{
+                                    display: 'block',
+                                    position: 'relative',
+                                  }}
                                   initial={{
                                     opacity: 0,
-                                    y: -5,
-                                    scale: 1,
+                                    scale: 0.8,
                                   }}
-                                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                                  exit={{ opacity: 0, y: 5, scale: 1 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  exit={{ opacity: 0, scale: 0.8 }}
                                   transition={{
                                     ease: [0.76, 0, 0.24, 1],
                                     duration: 0.15,
@@ -391,13 +403,13 @@ const ChainSelector: React.FC = () => {
                             //hover === x.name && (
                             x.id === activeChain?.id && (
                               <ChainButtonBg
-                                //layoutId="hover"
-                                //layout="position"
+                                layoutId="activeChain"
+                                layout="position"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 0.1 }}
                                 transition={{
-                                  duration: 0.15,
-                                  type: 'spring',
+                                  duration: 0.3,
+                                  ease: 'easeOut',
                                 }}
                               />
                             )
