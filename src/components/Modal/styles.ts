@@ -109,7 +109,9 @@ export const InnerContainer = styled(motion.div)`
   justify-content: center;
   position: relative;
   overflow: hidden;
-  transition: height 1000ms var(--ease), width 1000ms var(--ease);
+  /* transition: height 280ms var(--ease), width 280ms var(--ease); */
+  transition: height 280ms cubic-bezier(0.25, 1, 0.5, 1),
+    width 280ms cubic-bezier(0.25, 1, 0.5, 1);
   will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
@@ -142,7 +144,6 @@ export const CloseButton = styled(motion.button)`
   margin: 0;
   color: var(--body-action-color);
   background: var(--body-background);
-  will-change: background-color, transform;
   transition: background-color 200ms ease, transform 100ms ease;
   svg {
     display: block;
@@ -172,7 +173,6 @@ export const BackButton = styled(motion.button)`
   margin: 0;
   color: var(--body-action-color);
   background: var(--body-background);
-  will-change: background-color, transform;
   transition: background-color 200ms ease, transform 100ms ease;
   svg {
     display: block;
@@ -204,7 +204,6 @@ export const InfoButton = styled(motion.button)`
   margin: 0;
   color: var(--body-action-color);
   background: var(--body-background);
-  will-change: background-color, transform;
   transition: background-color 200ms ease, transform 100ms ease;
   svg {
     display: block;

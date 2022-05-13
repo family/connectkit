@@ -31,7 +31,6 @@ export const Button = styled(motion.button)`
   font-weight: 500;
   border-radius: 10px;
 
-  will-change: background-color, transform;
   transition: background-color 100ms ease, transform 100ms ease;
 
   box-shadow: var(--outline), var(--shadow);

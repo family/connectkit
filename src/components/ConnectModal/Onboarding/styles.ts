@@ -92,7 +92,6 @@ export const LogoGraphic = styled(motion.div)`
 export const GraphicLogo = styled(motion.div)`
   position:absolute;
   inset:0;
-  will-change: transform;
   
   animation: ${logoIn} 1650ms cubic-bezier(0.19, 1, 0.22, 1) both;
   &:nth-child(1){ z-index:2; animation-delay:0ms;  ${LogoWrapper}{ animation-name:${floatRotateA}; animation-duration:4000ms; } }

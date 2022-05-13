@@ -10,10 +10,11 @@ export const QRCodeContainer = styled(motion.div)`
   justify-content: center;
   margin: 2px 0 6px;
   padding: 14px;
-  height: auto;
   border-radius: 24px;
   background: #fff;
   box-shadow: 0 0 0 1px var(--qrcode-outline);
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
   svg {
     display: block;
     max-width: 100%;

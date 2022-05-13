@@ -105,7 +105,15 @@ export function QRCode({
   }, [ecl, logoSize, size, uri]);
 
   return (
-    <svg height={size} width={size} viewBox={`0 0 ${size} ${size}`}>
+    <svg
+      height={size}
+      width={size}
+      viewBox={`0 0 ${size} ${size}`}
+      style={{
+        width: size,
+        height: size,
+      }}
+    >
       <rect fill="transparent" height={size} width={size} />
       {dots}
     </svg>

@@ -35,7 +35,6 @@ const LearnMoreButton = styled(motion.button)`
   font-size: 16px;
   line-height: 19px;
   font-weight: 500;
-  will-change: color, transform;
   transition: color 200ms ease, transform 100ms ease;
   svg {
     display: block;
@@ -43,7 +42,6 @@ const LearnMoreButton = styled(motion.button)`
     top: 2.5px;
     path,
     circle {
-      will-change: opacity, transform;
       transition: all 100ms ease-out;
     }
     path:last-of-type {
@@ -93,7 +91,6 @@ const ConnectorButton = styled(motion.button)`
   border-radius: 18px;
   color: var(--body-color);
   text-align: center;
-  will-change: background-color, box-shadow, transform;
   transition: background-color 200ms ease, box-shadow 280ms ease,
     transform 100ms ease;
 
