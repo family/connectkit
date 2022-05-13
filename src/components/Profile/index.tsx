@@ -51,7 +51,6 @@ const Profile: React.FC = () => {
     addressOrName: account?.address,
     //watch: true,
   });
-  console.log(balance);
 
   useEffect(() => {
     if (!isConnected) context.setOpen(false);
