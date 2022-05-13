@@ -50,7 +50,7 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onClick }) => {
   return (
     <ResetContainer theme={context.theme}>
       <Button onClick={onClick}>
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {isConnected && account?.address ? (
             <TextContainer
               key="connected"
