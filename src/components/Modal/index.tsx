@@ -156,6 +156,7 @@ const Modal: React.FC<ModalProps> = ({
 
   const refreshLayout = () => {
     if (!heightRef.current || bounds.height === 0) return;
+    console.log('effect');
     heightRef.current.style.height = `${bounds.height}px`;
     heightRef.current.style.width = `${bounds.width}px`;
   };

@@ -109,8 +109,8 @@ export const InnerContainer = styled(motion.div)`
   justify-content: center;
   position: relative;
   overflow: hidden;
-  transition: height 220ms var(--ease), width 220ms var(--ease);
-  //will-change: height, width;
+  transition: height 0ms var(--ease), width 0ms var(--ease);
+  will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
   width: fit-content;
