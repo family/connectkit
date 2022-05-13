@@ -85,6 +85,8 @@ const ConnectWithInjector: React.FC<{
     },
     onSettled(data: any, error: any) {
       if (error) {
+        setShowTryAgainTooltip(true);
+        setTimeout(() => setShowTryAgainTooltip(false), 3500);
         if (error.code) {
           switch (error.code) {
             case -32002:
@@ -109,6 +111,7 @@ const ConnectWithInjector: React.FC<{
   const copy = localizations[context.lang].injectionScreen;
 
   const [id, setId] = useState(connectorId);
+  const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const expiryDefault = 9; // Starting at 10 causes layout shifting, better to start at 9
@@ -236,7 +239,8 @@ const ConnectWithInjector: React.FC<{
                 <RetryIconContainer>
                   <Tooltip
                     open={
-                      status === states.FAILED || status === states.REJECTED
+                      (showTryAgainTooltip && status === states.FAILED) ||
+                      status === states.REJECTED
                     }
                     message={'Try connecting again'}
                     xOffset={-6}
