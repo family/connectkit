@@ -8,18 +8,17 @@ export const QRCodeContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2px auto 6px;
-  padding: 4px;
-  width: 99%; // 100% will cause shifting issues
+  margin: 2px 0 6px;
+  padding: 14px;
   height: auto;
   border-radius: 24px;
   background: #fff;
   box-shadow: 0 0 0 1px var(--qrcode-outline);
-  canvas {
+  svg {
     display: block;
     max-width: 100%;
-    width: 100% !important;
-    height: auto !important;
+    width: 100%;
+    height: auto;
   }
 `;
 
@@ -116,6 +115,5 @@ export const LogoIcon = styled(motion.div)`
     position: relative;
     width: 100%;
     height: 100%;
-    transform: scale(1.02); // fixes 1px gap in Safari
   }
 `;

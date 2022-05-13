@@ -14,9 +14,9 @@
     "detect-browser": "^5.3.0",
     "ethers": "^5.6.4",
     "framer-motion": "^6.3.1",
+    "qrcode": "^1.5.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-qrcode-logo": "^2.7.0",
     "react-remove-scroll": "^2.5.3",
     "react-scripts": "5.0.1",
     "react-use-measure": "^2.1.1",
@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/qrcode": "^1.4.2",
     "@types/styled-components": "^5.1.25"
   }
 }
