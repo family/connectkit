@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { Languages, Theme } from './components/FamilyKit';
 
 import QA from './components/QA';
+import FPSStats from 'react-fps-stats';
 
 if (!window.Buffer) {
   window.Buffer = Buffer;
@@ -55,6 +56,7 @@ const App = () => {
   return (
     <FamilyProvider>
       <Provider client={client}>
+        <FPSStats />
         {openQA ? (
           <>
             <button onClick={() => setOpenQA(false)}>Close QA</button>
