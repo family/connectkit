@@ -38,8 +38,11 @@ type ConnectButtonRendererProps = {
   children?: (renderProps: {
     show?: () => void;
     hide?: () => void;
-    isConnected?: boolean;
+    isConnected: boolean;
+    isConnecting: boolean;
     address?: string;
+    truncatedAddress?: string;
+    ensName?: string;
   }) => React.ReactNode;
 };
 
@@ -52,7 +55,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
     chainId: 1,
     address: account?.address,
   });
-  const { isConnected } = useConnect();
+  const { isConnected, isConnecting } = useConnect();
 
   function hide() {
     context.setOpen(false);
@@ -68,10 +71,15 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   return (
     <>
       {children({
-        isConnected: !!(isConnected && account?.address),
         show,
         hide,
+        isConnected: !!(isConnected && account?.address),
+        isConnecting: isConnecting,
         address: account?.address ?? '',
+        truncatedAddress: account?.address
+          ? truncateEthAddress(account?.address)
+          : '',
+        ensName: ensName ?? '',
       })}
     </>
   );
