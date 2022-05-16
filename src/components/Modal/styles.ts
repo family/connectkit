@@ -97,6 +97,7 @@ export const Container = styled(motion.div)`
   --transition: height 500ms var(--ease), width 500ms var(--ease);
   z-index: 2;
   display: block;
+  pointer-events: none;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -131,6 +132,7 @@ export const ControllerContainer = styled(motion.div)`
   backface-visibility: hidden;
   width: var(--width);
   transition: var(--transition);
+  pointer-events: auto;
 `;
 export const InnerContainer = styled(motion.div)`
   position: relative;
@@ -143,6 +145,7 @@ export const PageContainer = styled(motion.div)`
   margin: 0 auto;
   padding: 24px 24px;
   backface-visibility: hidden;
+  pointer-events: auto;
 `;
 
 export const ModalContainer = styled(motion.div)`
