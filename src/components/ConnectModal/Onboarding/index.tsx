@@ -66,7 +66,7 @@ const Introduction: React.FC = () => {
           animate={{
             opacity: [0, 1],
             scale: [0.9, 1],
-            transition: { delay: 0.1, duration: 1 },
+            transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
           }}
         >
           {wave}

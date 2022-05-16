@@ -13,7 +13,7 @@ export const Graphic = styled(motion.div)`
   user-select: none;
 `;
 export const GraphicBackground = styled(motion.div)`
-  z-index: -1;
+  z-index: 1;
   position: absolute;
   inset: 0;
   top: -2px;
@@ -66,7 +66,11 @@ const floatRotateE = keyframes`
   0%,100%{ transform:none; }
   50%{ transform:scale(0.96) translateY(6%) rotate(-2deg); }
 `;
-export const GraphicLogos = styled(motion.div)``;
+export const GraphicLogos = styled(motion.div)`
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+`;
 export const LogoWrapper = styled(motion.div)`
   position: absolute;
   inset: 0;
