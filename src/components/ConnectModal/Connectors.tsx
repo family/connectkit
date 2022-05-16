@@ -35,6 +35,7 @@ const LearnMoreButton = styled(motion.button)`
   font-size: 16px;
   line-height: 19px;
   font-weight: 500;
+  will-change: transform;
   transition: color 200ms ease, transform 100ms ease;
   svg {
     display: block;
@@ -109,8 +110,15 @@ const ConnectorButton = styled(motion.button)`
         inset 0 0 0 6px var(--body-background);
       //--background: var(--body-background-secondary-hover);
     }
+    &:focus {
+      transition-duration: 100ms;
+      box-shadow: inset 0 0 0 0px var(--background),
+        inset 0 0 0 0px var(--background);
+    }
     &:active {
       transform: scale(0.99);
+      box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
+        inset 0 0 0 6px var(--body-background);
     }
   }
 `;

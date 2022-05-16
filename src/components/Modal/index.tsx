@@ -11,6 +11,7 @@ import {
   BoxContainer,
   ModalContainer,
   PageContainer,
+  PageContents,
   ControllerContainer,
   InnerContainer,
   BackgroundOverlay,
@@ -238,6 +239,7 @@ const Modal: React.FC<ModalProps> = ({
                         )}
                       </AnimatePresence>
                     </ControllerContainer>
+
                     <InnerContainer>
                       <AnimatePresence>
                         {Object.keys(pages)
@@ -246,14 +248,15 @@ const Modal: React.FC<ModalProps> = ({
                             const page = pages[key];
                             return (
                               <PageContainer
-                                ref={contentRef}
                                 key={key}
                                 initial={'initial'}
                                 animate={'animate'}
                                 exit={'exit'}
                                 variants={contentVariants}
                               >
-                                {page}
+                                <PageContents ref={contentRef}>
+                                  {page}
+                                </PageContents>
                               </PageContainer>
                             );
                           })}
