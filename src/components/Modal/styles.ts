@@ -93,33 +93,56 @@ export const BackgroundOverlay = styled(motion.div)`
 `;
 
 export const Container = styled(motion.div)`
+  --ease: ease;
+  --transition: height 500ms var(--ease), width 500ms var(--ease);
   z-index: 2;
   display: block;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  transform: translate3d(-50%, -50%, 0);
+  backface-visibility: hidden;
 `;
 export const BoxContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
-  max-width: 90vw;
   color: var(--body-color);
-  background: var(--body-background);
-  border-radius: 24px;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    backface-visibility: hidden;
+    width: var(--width);
+    border-radius: 24px;
+    background: var(--body-background);
+    transition: var(--transition);
+  }
+`;
+export const ControllerContainer = styled(motion.div)`
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  backface-visibility: hidden;
+  width: var(--width);
+  transition: var(--transition);
 `;
 export const InnerContainer = styled(motion.div)`
-  --ease: ease;
   position: relative;
   overflow: hidden;
-  transition: height 500ms var(--ease), width 500ms var(--ease);
-  /* transition: height 280ms cubic-bezier(0.25, 1, 0.5, 1), */
-  /* width 280ms cubic-bezier(0.25, 1, 0.5, 1); */
-  will-change: height, width;
+  height: var(--height);
+  transition: var(--transition);
 `;
 export const PageContainer = styled(motion.div)`
   width: fit-content;
+  margin: 0 auto;
   padding: 24px 24px;
+  backface-visibility: hidden;
 `;
 
 export const ModalContainer = styled(motion.div)`

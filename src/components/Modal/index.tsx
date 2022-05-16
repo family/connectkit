@@ -11,6 +11,7 @@ import {
   BoxContainer,
   ModalContainer,
   PageContainer,
+  ControllerContainer,
   InnerContainer,
   BackgroundOverlay,
   CloseButton,
@@ -122,8 +123,8 @@ export const contentVariants: Variants = {
     scale: 1,
     transition: {
       ease: [0.25, 1, 0.5, 1],
-      duration: 0.5,
-      delay: 0.1,
+      duration: 0.2,
+      delay: 0.05,
     },
   },
   exit: {
@@ -131,6 +132,8 @@ export const contentVariants: Variants = {
     opacity: 0,
     pointerEvents: 'none',
     position: 'absolute',
+    left: ['50%', '50%'],
+    x: ['-50%', '-50%'],
     transition: {
       ease: [0.25, 1, 0.5, 1],
       duration: 0.5,
@@ -153,16 +156,16 @@ const Modal: React.FC<ModalProps> = ({
   onBack,
 }) => {
   const context = useContext();
-  const heightRef = useRef<any>(null);
+  const containerRef = useRef<any>(null);
   const [contentRef, bounds] = useMeasure({ debounce: 0, offsetSize: true });
 
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
   const refreshLayout = () => {
-    if (!heightRef.current || bounds.height === 0) return;
-    heightRef.current.style.height = `${bounds.height}px`;
-    heightRef.current.style.width = `${bounds.width}px`;
+    if (!containerRef.current || bounds.height === 0) return;
+    containerRef.current.style.setProperty('--height', `${bounds.height}px`);
+    containerRef.current.style.setProperty('--width', `${bounds.width}px`);
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds]);
 
@@ -195,30 +198,31 @@ const Modal: React.FC<ModalProps> = ({
                   }}
                   transition={{ ease: 'easeOut', duration: 0.2 }}
                 />
-                <Container>
+                <Container ref={containerRef}>
                   <BoxContainer
                     initial={'initial'}
                     animate={'animate'}
                     exit={'exit'}
                     variants={containerVariants}
                   >
-                    <CloseButton aria-label="Close" onClick={onClose}>
-                      <CloseIcon />
-                    </CloseButton>
-                    <AnimatePresence>
-                      {onBack && (
-                        <BackButton
-                          aria-label="Back"
-                          key="backButton"
-                          onClick={onBack}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.1 }}
-                        >
-                          <BackIcon />
-                        </BackButton>
-                        /* ) : (
+                    <ControllerContainer>
+                      <CloseButton aria-label="Close" onClick={onClose}>
+                        <CloseIcon />
+                      </CloseButton>
+                      <AnimatePresence>
+                        {onBack && (
+                          <BackButton
+                            aria-label="Back"
+                            key="backButton"
+                            onClick={onBack}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.1 }}
+                          >
+                            <BackIcon />
+                          </BackButton>
+                          /* ) : (
                     <InfoButton
                       aria-label="More information"
                       key="infoButton"
@@ -231,9 +235,10 @@ const Modal: React.FC<ModalProps> = ({
                       <InfoIcon />
                     </InfoButton>
                   */
-                      )}
-                    </AnimatePresence>
-                    <InnerContainer ref={heightRef}>
+                        )}
+                      </AnimatePresence>
+                    </ControllerContainer>
+                    <InnerContainer>
                       <AnimatePresence>
                         {Object.keys(pages)
                           .filter((key) => key === pageId)
