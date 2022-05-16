@@ -36,7 +36,7 @@ export const ModalHeading = styled(motion.div)`
   color: var(--body-color);
   padding: 0 0 20px;
   margin: 0 -24px 24px;
-  box-shadow: 0 1px 0 0 var(--body-divider);
+  //box-shadow: 0 1px 0 0 var(--body-divider);
 `;
 
 export const ModalContentContainer = styled(motion.div)`
@@ -128,11 +128,13 @@ export const ControllerContainer = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 50%;
+  height: 64px;
   transform: translateX(-50%);
   backface-visibility: hidden;
   width: var(--width);
   transition: var(--transition);
   pointer-events: auto;
+  box-shadow: 0 1px 0 0 var(--body-divider);
 `;
 export const InnerContainer = styled(motion.div)`
   position: relative;
