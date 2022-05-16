@@ -124,7 +124,7 @@ export const contentVariants: Variants = {
     scale: 1,
     transition: {
       ease: [0.25, 1, 0.5, 1],
-      duration: 0.2,
+      duration: 0.22,
       delay: 0.05,
     },
   },
@@ -137,7 +137,7 @@ export const contentVariants: Variants = {
     x: ['-50%', '-50%'],
     transition: {
       ease: [0.25, 1, 0.5, 1],
-      duration: 0.5,
+      duration: 0.22,
     },
   },
 };

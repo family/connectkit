@@ -141,8 +141,10 @@ export const ControllerContainer = styled(motion.div)`
 export const InnerContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
-  height: var(--height);
-  transition: var(--transition);
+  /* transition: height 500ms var(--ease), width 500ms var(--ease); */
+  transition: height 240ms cubic-bezier(0.25, 1, 0.5, 1),
+    width 240ms cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
   width: 100%;
