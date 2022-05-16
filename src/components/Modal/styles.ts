@@ -94,7 +94,7 @@ export const BackgroundOverlay = styled(motion.div)`
 
 export const Container = styled(motion.div)`
   --ease: ease;
-  --duration: 1000ms;
+  --duration: 220ms;
   --transition: height var(--duration) var(--ease),
     width var(--duration) var(--ease);
   z-index: 2;
@@ -141,9 +141,11 @@ export const ControllerContainer = styled(motion.div)`
 export const InnerContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
+  height: var(--height);
+  transition: var(--transition);
   /* transition: height 500ms var(--ease), width 500ms var(--ease); */
-  transition: height 240ms cubic-bezier(0.25, 1, 0.5, 1),
-    width 240ms cubic-bezier(0.25, 1, 0.5, 1);
+  /* transition: height 240ms cubic-bezier(0.25, 1, 0.5, 1),
+    width 240ms cubic-bezier(0.25, 1, 0.5, 1); */
   will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
