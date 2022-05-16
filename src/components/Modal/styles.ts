@@ -94,19 +94,22 @@ export const BackgroundOverlay = styled(motion.div)`
 
 export const Container = styled(motion.div)`
   z-index: 2;
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+export const BoxContainer = styled(motion.div)`
+  z-index: 2;
   position: relative;
-  width: auto;
   max-width: 90vw;
   color: var(--body-color);
   background: var(--body-background);
-  //box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
   border-radius: 24px;
 `;
 export const InnerContainer = styled(motion.div)`
   --ease: ease;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   position: relative;
   overflow: hidden;
   transition: height 500ms var(--ease), width 500ms var(--ease);
@@ -123,9 +126,6 @@ export const ModalContainer = styled(motion.div)`
   z-index: 2147483646; // z-index set one below max (2147483647) for if we wish to layer things ontop of the modal in a seperate Portal
   position: fixed;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const CloseButton = styled(motion.button)`

@@ -8,6 +8,7 @@ import Portal from './../Portal';
 
 import {
   Container,
+  BoxContainer,
   ModalContainer,
   PageContainer,
   InnerContainer,
@@ -194,29 +195,30 @@ const Modal: React.FC<ModalProps> = ({
                   }}
                   transition={{ ease: 'easeOut', duration: 0.2 }}
                 />
-                <Container
-                  initial={'initial'}
-                  animate={'animate'}
-                  exit={'exit'}
-                  variants={containerVariants}
-                >
-                  <CloseButton aria-label="Close" onClick={onClose}>
-                    <CloseIcon />
-                  </CloseButton>
-                  <AnimatePresence>
-                    {onBack && (
-                      <BackButton
-                        aria-label="Back"
-                        key="backButton"
-                        onClick={onBack}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.1 }}
-                      >
-                        <BackIcon />
-                      </BackButton>
-                      /* ) : (
+                <Container>
+                  <BoxContainer
+                    initial={'initial'}
+                    animate={'animate'}
+                    exit={'exit'}
+                    variants={containerVariants}
+                  >
+                    <CloseButton aria-label="Close" onClick={onClose}>
+                      <CloseIcon />
+                    </CloseButton>
+                    <AnimatePresence>
+                      {onBack && (
+                        <BackButton
+                          aria-label="Back"
+                          key="backButton"
+                          onClick={onBack}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.1 }}
+                        >
+                          <BackIcon />
+                        </BackButton>
+                        /* ) : (
                     <InfoButton
                       aria-label="More information"
                       key="infoButton"
@@ -229,29 +231,30 @@ const Modal: React.FC<ModalProps> = ({
                       <InfoIcon />
                     </InfoButton>
                   */
-                    )}
-                  </AnimatePresence>
-                  <InnerContainer ref={heightRef}>
-                    <AnimatePresence>
-                      {Object.keys(pages)
-                        .filter((key) => key === pageId)
-                        .map((key) => {
-                          const page = pages[key];
-                          return (
-                            <PageContainer
-                              ref={contentRef}
-                              key={key}
-                              initial={'initial'}
-                              animate={'animate'}
-                              exit={'exit'}
-                              variants={contentVariants}
-                            >
-                              {page}
-                            </PageContainer>
-                          );
-                        })}
+                      )}
                     </AnimatePresence>
-                  </InnerContainer>
+                    <InnerContainer ref={heightRef}>
+                      <AnimatePresence>
+                        {Object.keys(pages)
+                          .filter((key) => key === pageId)
+                          .map((key) => {
+                            const page = pages[key];
+                            return (
+                              <PageContainer
+                                ref={contentRef}
+                                key={key}
+                                initial={'initial'}
+                                animate={'animate'}
+                                exit={'exit'}
+                                variants={contentVariants}
+                              >
+                                {page}
+                              </PageContainer>
+                            );
+                          })}
+                      </AnimatePresence>
+                    </InnerContainer>
+                  </BoxContainer>
                 </Container>
               </ModalContainer>
             </ResetContainer>
