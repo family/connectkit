@@ -74,7 +74,7 @@ export default {
     injectionScreen: {
       unavailable: {
         h1: `Unsupported Browser`,
-        p: `To connect your ${keys.connectorName} wallet, install the extension on ${keys.suggestedExtensionBrowser}.`,
+        p: `To connect your ${keys.connectorName} wallet,\ninstall the extension on ${keys.suggestedExtensionBrowser}.`,
       },
       install: {
         h1: `Install ${keys.connectorName}`,
@@ -139,11 +139,11 @@ export default {
     injectionScreen: {
       unavailable: {
         h1: `Navigateur non supporté`,
-        p: `Pour connecter votre portefeuille ${keys.connectorName}, installez l'extension sur ${keys.suggestedExtensionBrowser}.`,
+        p: `Pour connecter votre portefeuille ${keys.connectorName},\ninstallez l'extension sur ${keys.suggestedExtensionBrowser}.`,
       },
       install: {
         h1: `Installez ${keys.connectorName}`,
-        p: `Pour connecter votre portefeuille ${keys.connectorName}, installez l'extension de navigateur.`,
+        p: `Pour connecter votre portefeuille ${keys.connectorName},\ninstallez l'extension de navigateur.`,
       },
       connecting: {
         h1: `Demande de connexion`,
