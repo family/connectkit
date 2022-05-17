@@ -112,6 +112,8 @@ const containerVariants: Variants = {
   },
 };
 
+const contentTransitionDuration = 1;
+
 export const contentVariants: Variants = {
   initial: {
     //willChange: 'transform,opacity',
@@ -122,8 +124,8 @@ export const contentVariants: Variants = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.075,
-      delay: 0.025,
+      duration: contentTransitionDuration * 0.75,
+      delay: contentTransitionDuration * 0.25,
       ease: [0.26, 0.08, 0.25, 1],
     },
   },
@@ -135,7 +137,7 @@ export const contentVariants: Variants = {
     left: ['50%', '50%'],
     x: ['-50%', '-50%'],
     transition: {
-      duration: 0.1,
+      duration: contentTransitionDuration,
       ease: [0.26, 0.08, 0.25, 1],
     },
   },
