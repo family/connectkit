@@ -89,19 +89,19 @@ const ConnectWithInjector: React.FC<{
         setTimeout(() => setShowTryAgainTooltip(false), 3500);
         if (error.code) {
           switch (error.code) {
+            // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
             case -32002:
               setStatus(states.NOTCONNECTED);
+              break;
+            case 4001:
+              setStatus(states.REJECTED);
               break;
             default:
               setStatus(states.FAILED);
               break;
           }
         } else {
-          if (error.message === 'User denied account authorization') {
-            setStatus(states.REJECTED);
-          } else {
-            setStatus(states.FAILED);
-          }
+          setStatus(states.FAILED);
         }
       } else if (data) {
       }
