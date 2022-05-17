@@ -36,9 +36,9 @@ const DropdownContainer = styled(motion.div)`
   box-shadow: var(--shadow);
 `;
 const DropdownHeading = styled(motion.div)`
-  padding: 0 0 8px;
-  font-size: 15px;
-  line-height: 18px;
+  padding: 0 0 6px;
+  font-size: 14px;
+  line-height: 20px;
   font-weight: 400;
   user-select: none;
 `;
@@ -73,7 +73,7 @@ const SwitchChainButton = styled(motion.button)`
     --background: var(--body-background-secondary-hover);
   }
   &:active {
-    transform: scale(0.96) translateZ(0px);
+    //transform: scale(0.96) translateZ(0px);
   }
 `;
 const ChainIcon = styled(motion.div)`
@@ -124,7 +124,7 @@ const ChainButton = styled(motion.button)`
   gap: 20px;
   width: 100%;
   border-radius: 11px;
-  margin: 0;
+  margin: 0 0 1px;
   padding: 8px 0;
   font-size: 15px;
   line-height: 18px;
@@ -135,8 +135,21 @@ const ChainButton = styled(motion.button)`
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease;
   transform: translateZ(0px);
+  &:before {
+    content: '';
+    background: currentColor;
+    position: absolute;
+    z-index: -1;
+    inset: 0 -12px 0 -8px;
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
   &:hover {
-    transform: scale(1.01) translateZ(0px);
+    &:before {
+      transition-duration: 80ms;
+      opacity: 0.05;
+    }
   }
   &:active {
     transform: scale(0.99) translateZ(0px);
@@ -320,7 +333,11 @@ const ChainSelector: React.FC = () => {
                       )[0];
                       return (
                         <ChainButton
-                          disabled={!switchNetwork || x.id === activeChain?.id}
+                          disabled={
+                            !switchNetwork ||
+                            x.id === activeChain?.id ||
+                            (isLoading && pendingChainId === x.id)
+                          }
                           key={x.id}
                           onHoverStart={() => setHover(x.name)}
                           onClick={() => switchNetwork?.(x.id)}
@@ -354,7 +371,7 @@ const ChainSelector: React.FC = () => {
                             {x.name}
                           </span>
                           <ChainButtonStatus>
-                            <AnimatePresence exitBeforeEnter>
+                            <AnimatePresence exitBeforeEnter initial={false}>
                               {x.id === activeChain?.id && (
                                 <motion.span
                                   style={{
