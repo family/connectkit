@@ -113,7 +113,7 @@ const containerVariants: Variants = {
   },
 };
 
-const contentTransitionDuration = 0.2;
+const contentTransitionDuration = 0.22;
 
 export const contentVariants: Variants = {
   initial: {

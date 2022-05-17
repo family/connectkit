@@ -94,7 +94,7 @@ export const BackgroundOverlay = styled(motion.div)`
 
 export const Container = styled(motion.div)`
   --ease: ease;
-  --duration: 200ms;
+  --duration: 340ms;
   --transition: height var(--duration) var(--ease),
     width var(--duration) var(--ease);
   z-index: 2;
