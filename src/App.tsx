@@ -10,7 +10,6 @@ import { useState } from 'react';
 import { Languages, Theme } from './components/FamilyKit';
 
 import QA from './components/QA';
-import { FpsView } from 'react-fps';
 import { ConnectKitButton } from './components/ConnectButton';
 
 import { motion } from 'framer-motion';
@@ -60,7 +59,6 @@ const App = () => {
   return (
     <Provider client={client}>
       <ConnectKitProvider>
-        <FpsView />
         {openQA ? (
           <>
             <button onClick={() => setOpenQA(false)}>Close QA</button>
