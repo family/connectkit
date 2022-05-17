@@ -243,7 +243,7 @@ const Modal: React.FC<ModalProps> = ({
                     </ControllerContainer>
 
                     <InnerContainer>
-                      <AnimatePresence>
+                      <AnimatePresence initial={false}>
                         {Object.keys(pages)
                           .filter((key) => key === pageId)
                           .map((key) => {
