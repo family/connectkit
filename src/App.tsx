@@ -60,7 +60,7 @@ const App = () => {
   return (
     <Provider client={client}>
       <ConnectKitProvider>
-        {/* <FpsView  /> */}
+        <FpsView />
         {openQA ? (
           <>
             <button onClick={() => setOpenQA(false)}>Close QA</button>
