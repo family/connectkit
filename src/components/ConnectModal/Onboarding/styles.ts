@@ -97,12 +97,12 @@ export const GraphicLogo = styled(motion.div)`
   position:absolute;
   inset:0;
   
-  animation: ${logoIn} 1650ms cubic-bezier(0.19, 1, 0.22, 1) both;
-  &:nth-child(1){ z-index:2; animation-delay:0ms;  ${LogoWrapper}{ animation-name:${floatRotateA}; animation-duration:4000ms; } }
-  &:nth-child(2){ z-index:1; animation-delay:120ms; ${LogoWrapper}{ animation-name:${floatRotateB}; animation-duration:4300ms; } }
-  &:nth-child(3){ z-index:1; animation-delay:60ms; ${LogoWrapper}{ animation-name:${floatRotateC}; animation-duration:4100ms; } }
-  &:nth-child(4){ z-index:1; animation-delay:180ms; ${LogoWrapper}{ animation-name:${floatRotateD}; animation-duration:4600ms; } }
-  &:nth-child(5){ z-index:1; animation-delay:260ms; ${LogoWrapper}{ animation-name:${floatRotateE}; animation-duration:4800ms; } }
+  animation: ${logoIn} 1250ms cubic-bezier(0.19, 1, 0.22, 1) both;
+  &:nth-child(1){ z-index:2; animation-delay:0ms;  ${LogoWrapper}{ animation-name:${floatRotateA}; animation-duration:3800ms; } }
+  &:nth-child(2){ z-index:1; animation-delay:120ms; ${LogoWrapper}{ animation-name:${floatRotateB}; animation-duration:4100ms; } }
+  &:nth-child(3){ z-index:1; animation-delay:60ms; ${LogoWrapper}{ animation-name:${floatRotateC}; animation-duration:4000ms; } }
+  &:nth-child(4){ z-index:1; animation-delay:180ms; ${LogoWrapper}{ animation-name:${floatRotateD}; animation-duration:4300ms; } }
+  &:nth-child(5){ z-index:1; animation-delay:240ms; ${LogoWrapper}{ animation-name:${floatRotateE}; animation-duration:4400ms; } }
   
   &:nth-child(1) ${LogoGraphic}{
     border-radius: 17.2px;
