@@ -31,7 +31,7 @@ export const Button = styled(motion.button)`
   font-weight: 500;
   border-radius: 10px;
 
-  transition: background-color 100ms ease, transform 100ms ease;
+  transition: background-color 100ms ease;
 
   box-shadow: var(--outline), var(--shadow);
 
@@ -39,7 +39,6 @@ export const Button = styled(motion.button)`
     background: var(--connectbutton-background-hover);
   }
   &:active {
-    transform: scale(0.98);
     background: var(--connectbutton-background-active);
   }
   &:focus-visible {
