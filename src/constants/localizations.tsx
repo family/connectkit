@@ -100,8 +100,8 @@ export default {
         p: `Sorry, the request expired.\nPlease try connecting again.`,
       },
       notconnected: {
-        h1: `Log into ${keys.connectorName}`,
-        p: `To continue, please log into your ${keys.connectorName} extension.`,
+        h1: `Login to ${keys.connectorName}`,
+        p: `To continue, please login to your ${keys.connectorName} extension.`,
       },
     },
     profileScreen: {
