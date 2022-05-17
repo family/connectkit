@@ -97,9 +97,8 @@ const containerVariants: Variants = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.24,
-      ease: [0.175, 0.885, 0.32, 0.98],
-      delay: 0.05,
+      duration: 0.1,
+      ease: [0.26, 0.08, 0.25, 1],
     },
   },
   exit: {
@@ -107,8 +106,8 @@ const containerVariants: Variants = {
     opacity: 0,
     scale: 0.96,
     transition: {
-      duration: 0.15,
-      ease: [0.45, 0, 0.55, 1],
+      duration: 0.1,
+      ease: [0.26, 0.08, 0.25, 1],
     },
   },
 };
@@ -123,8 +122,9 @@ export const contentVariants: Variants = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.15,
-      delay: 0.05,
+      duration: 0.075,
+      delay: 0.025,
+      ease: [0.26, 0.08, 0.25, 1],
     },
   },
   exit: {
@@ -135,7 +135,8 @@ export const contentVariants: Variants = {
     left: ['50%', '50%'],
     x: ['-50%', '-50%'],
     transition: {
-      duration: 0.2,
+      duration: 0.1,
+      ease: [0.26, 0.08, 0.25, 1],
     },
   },
 };
