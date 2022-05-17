@@ -85,7 +85,7 @@ const BackIcon = (props: Props) => (
   </motion.svg>
 );
 
-const containerTransitionDuration = 0.175;
+const containerTransitionDuration = 1;
 const containerVariants: Variants = {
   initial: {
     //willChange: 'transform,opacity',
@@ -113,7 +113,7 @@ const containerVariants: Variants = {
   },
 };
 
-const contentTransitionDuration = 0.175;
+const contentTransitionDuration = 1;
 
 export const contentVariants: Variants = {
   initial: {
