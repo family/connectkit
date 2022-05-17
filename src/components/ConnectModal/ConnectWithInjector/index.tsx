@@ -83,13 +83,16 @@ const ConnectWithInjector: React.FC<{
     onBeforeConnect: (connector: any) => {
       setStatus(states.CONNECTING);
     },
+    onError(err: any) {
+      //console.error(err);
+    },
     onSettled(data: any, error: any) {
       if (error) {
         setShowTryAgainTooltip(true);
         setTimeout(() => setShowTryAgainTooltip(false), 3500);
         if (error.code) {
+          // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
           switch (error.code) {
-            // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
             case -32002:
               setStatus(states.NOTCONNECTED);
               break;
@@ -101,7 +104,17 @@ const ConnectWithInjector: React.FC<{
               break;
           }
         } else {
-          setStatus(states.FAILED);
+          // Sometimes the error doesn't respond with a code
+          if (error.message) {
+            switch (error.message) {
+              case 'User rejected request':
+                setStatus(states.REJECTED);
+                break;
+              default:
+                setStatus(states.FAILED);
+                break;
+            }
+          }
         }
       } else if (data) {
       }
