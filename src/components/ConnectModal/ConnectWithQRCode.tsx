@@ -36,11 +36,7 @@ const ConnectWithQRCode: React.FC<{
   const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
-  const { connectors, connectAsync } = useConnect({
-    onBeforeConnect: (connector: any) => {},
-    onConnect() {},
-    onSettled(data, error) {},
-  });
+  const { connectors, connectAsync } = useConnect();
   const [connectorUri, setConnectorUri] = useState<string | null>(null);
 
   const localizeText = (text: string) => {
@@ -79,6 +75,11 @@ const ConnectWithQRCode: React.FC<{
           //@ts-ignore
           const p = await c.getProvider();
           setConnectorUri(p.connector.uri);
+
+          // User rejected, regenerate QR code
+          p.connector.on('disconnect', () => {
+            connectWallet(c);
+          });
         });
         await connectWallet(c);
         break;
