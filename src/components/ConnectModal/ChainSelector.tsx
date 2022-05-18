@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { useNetwork } from 'wagmi';
 import useMeasure from 'react-use-measure';
-import Portal from '../Common/Portal';
+import Portal from '../common/Portal';
 import { ResetContainer } from '../../styles';
 import supportedChains from '../../constants/supportedChains';
 

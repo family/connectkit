@@ -8,13 +8,13 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { detectBrowser } from '../../utils';
 
-import { ModalContent, ModalHeading } from '../Common/Modal/styles';
-import { OrDivider } from '../Common/Modal';
+import { ModalContent, ModalHeading } from '../common/Modal/styles';
+import { OrDivider } from '../common/Modal';
 
-import CustomQRCode from '../Common/CustomQRCode';
-import Button from '../Common/Button';
-import Alert from '../Common/Alert';
-import BrowserIcon from '../Common/BrowserIcon';
+import CustomQRCode from '../common/CustomQRCode';
+import Button from '../common/Button';
+import Alert from '../common/Alert';
+import BrowserIcon from '../common/BrowserIcon';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import { ExternalLinkIcon } from '../../assets/icons';
 

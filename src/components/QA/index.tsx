@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '../Common/Avatar';
+import Avatar from '../common/Avatar';
 
 import styled from 'styled-components';
 import { ResetContainer } from './../../styles';
@@ -9,9 +9,9 @@ import {
   Container as ModalContainer,
   InnerContainer,
   PageContainer,
-} from '../Common/Modal/styles';
-import Button from '../Common/Button';
-import BrowserIcon from '../Common/BrowserIcon';
+} from '../common/Modal/styles';
+import Button from '../common/Button';
+import BrowserIcon from '../common/BrowserIcon';
 import logos from '../../assets/logos';
 
 import { Theme } from '../FamilyKit';

@@ -5,7 +5,7 @@ import { ResetContainer } from '../../styles';
 
 import { Button, IconContainer, TextContainer } from './styles';
 import { routes, useContext } from '../FamilyKit';
-import Avatar from '../Avatar';
+import Avatar from '../common/Avatar';
 import { AnimatePresence, Variants } from 'framer-motion';
 
 const contentVariants: Variants = {

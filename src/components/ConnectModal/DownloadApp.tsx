@@ -3,11 +3,11 @@ import { useContext } from '../FamilyKit';
 import localizations, { localize } from '../../constants/localizations';
 import supportedConnectors from '../../constants/supportedConnectors';
 
-import { ModalBody, ModalContent, ModalHeading } from '../Common/Modal/styles';
-import { OrDivider } from '../Common/Modal';
+import { ModalBody, ModalContent, ModalHeading } from '../common/Modal/styles';
+import { OrDivider } from '../common/Modal';
 
-import CustomQRCode from '../Common/CustomQRCode';
-import Button from '../Common/Button';
+import CustomQRCode from '../common/CustomQRCode';
+import Button from '../common/Button';
 
 import styled from 'styled-components';
 import { motion } from 'framer-motion';

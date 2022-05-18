@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useConnect } from 'wagmi';
 import { routes, useContext, Theme, Languages } from './../FamilyKit';
 
-import Modal from '../Common/Modal';
+import Modal from '../common/Modal';
 
 import OnboardingIntroduction from './Onboarding';
 import Connectors from './Connectors';
