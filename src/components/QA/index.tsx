@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '../Avatar';
+import Avatar from '../Common/Avatar';
 
 import styled from 'styled-components';
 import { ResetContainer } from './../../styles';

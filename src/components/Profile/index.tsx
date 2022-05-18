@@ -26,7 +26,7 @@ import {
   ModalHeading,
 } from '../Common/Modal/styles';
 import Button from '../Common/Button';
-import Avatar from '../Avatar';
+import Avatar from '../Common/Avatar';
 import ChainSelector from '../ConnectModal/ChainSelector';
 
 import { DisconnectIcon } from '../../assets/icons';
