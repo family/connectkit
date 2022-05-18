@@ -17,7 +17,7 @@ import {
   BackgroundOverlay,
   CloseButton,
   BackButton,
-  InfoButton,
+  //InfoButton,
   TextWithHr,
 } from './styles';
 
@@ -25,6 +25,7 @@ import useMeasure from 'react-use-measure';
 import { RemoveScroll } from 'react-remove-scroll';
 import { useContext } from '../../FamilyKit';
 
+/*
 const InfoIcon = (props: Props) => (
   <svg
     aria-hidden="true"
@@ -42,7 +43,7 @@ const InfoIcon = (props: Props) => (
     />
   </svg>
 );
-
+*/
 const CloseIcon = (props: Props) => (
   <motion.svg
     width={14}
