@@ -4,7 +4,7 @@ import { routes, useContext, Theme, Languages } from './../FamilyKit';
 
 import Modal from '../common/Modal';
 
-import OnboardingIntroduction from './Onboarding';
+import OnboardingIntroduction from '../Pages/Onboarding';
 import Connectors from './Connectors';
 import ConnectUsing from './ConnectUsing';
 import DownloadApp from './DownloadApp';
