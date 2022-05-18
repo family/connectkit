@@ -73,7 +73,7 @@ export const LogoGraphic = styled(motion.div)`
 `;
 const float = keyframes`
   0%,100%{ transform:none; }
-  50%{ transform:scale(1.02) translateY(-10%) }
+  50%{ transform: translateY(-10%) }
 `;
 export const FloatWrapper = styled(motion.div)`
   position: relative;
@@ -123,7 +123,7 @@ export const Logo = styled(motion.div)`
     ${LogoGraphic}{
       width: 72px;
       height: 72px;
-      transform: rotate(4.28deg);
+      //transform: rotate(4.28deg);
     }
   }
   &:nth-child(2) ${LogoPosition}{
@@ -131,7 +131,7 @@ export const Logo = styled(motion.div)`
     left: 21%;
     transform: translate(-50%, -50%) ;
     ${LogoGraphic}{
-      transform: rotate(-4.6deg);
+      //transform: rotate(-4.6deg);
     }
   }
   &:nth-child(3) ${LogoPosition}{
@@ -139,7 +139,7 @@ export const Logo = styled(motion.div)`
     right: 2%;
     transform: translate(-50%, -50%);
     ${LogoGraphic}{
-      transform: rotate(3.9deg);
+      //transform: rotate(3.9deg);
     }
   }
   &:nth-child(4) ${LogoPosition}{
@@ -147,7 +147,7 @@ export const Logo = styled(motion.div)`
     left: 22.5%;
     transform: translate(-50%, -50%);
     ${LogoGraphic}{
-      transform: rotate(4.82deg);
+      //transform: rotate(4.82deg);
     }
   }
   &:nth-child(5) ${LogoPosition}{
@@ -155,7 +155,7 @@ export const Logo = styled(motion.div)`
     right: 3%;
     transform: translate(-50%, -50%);
     ${LogoGraphic}{
-      transform: rotate(-7.51deg);
+      //transform: rotate(-7.51deg);
     }
   }
 }`;
