@@ -79,7 +79,7 @@ export const FloatWrapper = styled(motion.div)`
   position: relative;
   animation: cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
   animation-name: ${float};
-  animation-duration: 2600ms;
+  animation-duration: 3600ms;
 `;
 const rotate = keyframes`
   0%,100%{ transform:rotate(-3deg); }
@@ -89,7 +89,7 @@ export const RotateWrapper = styled(motion.div)`
   position: relative;
   animation: cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
   animation-name: ${rotate};
-  animation-duration: 2200ms;
+  animation-duration: 3200ms;
 `;
 export const Logo = styled(motion.div)`
   position:absolute;
