@@ -177,6 +177,19 @@ const App = () => {
                 <button
                   onClick={() => {
                     setIframeUrl(
+                      iframeUrl !== 'https://context.app'
+                        ? 'https://context.app'
+                        : ''
+                    );
+                  }}
+                >
+                  {iframeUrl === 'https://context.app' ? 'Disable' : 'Enable'}
+                </button>{' '}
+                <label>context</label>
+                <hr />
+                <button
+                  onClick={() => {
+                    setIframeUrl(
                       iframeUrl !== 'https://loch.ie' ? 'https://loch.ie' : ''
                     );
                   }}
