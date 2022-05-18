@@ -4,7 +4,7 @@ import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { Props } from 'framer-motion/types/types';
 
 import { ResetContainer } from './../../styles';
-import Portal from './../Portal';
+import Portal from '../Common/Portal';
 
 import {
   Container,

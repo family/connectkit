@@ -7,7 +7,7 @@ import { TooltipWindow, TooltipContainer, TooltipTail } from './styles';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { ResetContainer } from './../../styles';
-import Portal from './../Portal';
+import Portal from '../Common/Portal';
 
 const Tooltip: React.FC<TooltipProps> = ({
   children,
