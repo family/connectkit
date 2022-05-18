@@ -5,11 +5,12 @@ export const QRCodeContainer = styled(motion.div)`
   z-index: 3;
   position: relative;
   overflow: hidden;
+  height: 0;
+  padding-bottom: 100% !important;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 2px 0 6px;
-  padding: 14px;
   border-radius: 24px;
   background: #fff;
   box-shadow: 0 0 0 1px var(--qrcode-outline);
@@ -22,14 +23,17 @@ export const QRCodeContainer = styled(motion.div)`
     height: auto;
   }
 `;
-
+export const QRCodeContent = styled(motion.div)`
+  position: absolute;
+  inset: 14px;
+`;
 export const PlaceholderKeyframes = keyframes`
   0%{ background-position: 100% 0; }
   100%{ background-position: -100% 0; }
 `;
 export const QRPlaceholder = styled(motion.div)`
-  height: 0;
-  padding-bottom: 100%;
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +46,7 @@ export const QRPlaceholder = styled(motion.div)`
     background-image: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0) 50%,
-      #ffffff,
+      rgba(0, 0, 0, 0.1),
       rgba(255, 255, 255, 0)
     );
     opacity: 0.75;

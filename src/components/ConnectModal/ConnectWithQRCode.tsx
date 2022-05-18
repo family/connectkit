@@ -14,7 +14,6 @@ import { OrDivider } from '../Common/Modal';
 import CustomQRCode from '../Common/CustomQRCode';
 import Button from '../Common/Button';
 import Alert from '../Common/Alert';
-import BrowserIcon from '../Common/BrowserIcon';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import { ExternalLinkIcon } from '../../assets/icons';
 

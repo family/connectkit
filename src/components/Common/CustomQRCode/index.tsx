@@ -5,10 +5,11 @@ import {
   LogoContainer,
   LogoIcon,
   QRPlaceholder,
+  QRCodeContent,
 } from './styles';
 
 import Tooltip from '../Tooltip';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { QRCode } from './QRCode';
 
@@ -19,30 +20,41 @@ const CustomQRCode = React.forwardRef(
   ) => {
     return (
       <QRCodeContainer>
-        <LogoContainer>
-          <LogoIcon>
-            {tooltipMessage ? (
-              <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
-                {image}
-              </Tooltip>
-            ) : (
-              image
-            )}
-          </LogoIcon>
-        </LogoContainer>
-        {value ? (
-          <motion.div
-          // initial={{ opacity: 0 }}
-          // animate={{ opacity: 1 }}
-          // transition={{
-          //   duration: 0.2,
-          // }}
-          >
-            <QRCode uri={value} logoSize={image ? 76 : 0} size={288} ecl="M" />
-          </motion.div>
-        ) : (
-          <QRPlaceholder />
-        )}
+        <QRCodeContent>
+          <LogoContainer>
+            <LogoIcon>
+              {tooltipMessage ? (
+                <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
+                  {image}
+                </Tooltip>
+              ) : (
+                image
+              )}
+            </LogoIcon>
+          </LogoContainer>
+          {value ? (
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={value}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, position: 'absolute' }}
+                transition={{
+                  duration: 0.8,
+                }}
+              >
+                <QRCode
+                  uri={value}
+                  logoSize={image ? 76 : 0}
+                  size={288}
+                  ecl="M"
+                />
+              </motion.div>
+            </AnimatePresence>
+          ) : (
+            <QRPlaceholder />
+          )}
+        </QRCodeContent>
       </QRCodeContainer>
     );
   }
