@@ -30,7 +30,7 @@ import Avatar from '../Avatar';
 import ChainSelector from '../ConnectModal/ChainSelector';
 
 import { DisconnectIcon } from '../../assets/icons';
-import CopyToClipboard from '../CopyToClipboard';
+import CopyToClipboard from '../Common/CopyToClipboard';
 
 const Profile: React.FC = () => {
   const context = useContext();

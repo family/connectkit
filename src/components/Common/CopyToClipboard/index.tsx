@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 
-import { CopyToClipboardIcon } from '../../assets/icons';
+import { CopyToClipboardIcon } from '../../../assets/icons';
 
 export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
   --color: var(--copytoclipboard-stroke);
