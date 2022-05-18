@@ -7,7 +7,7 @@ import Modal from '../common/Modal';
 import OnboardingIntroduction from '../pages/Onboarding';
 import Connectors from '../pages/Connectors';
 import ConnectUsing from './ConnectUsing';
-import DownloadApp from './DownloadApp';
+import DownloadApp from '../pages/DownloadApp';
 import Profile from '../pages/Profile';
 
 const ConnectModal: React.FC<{
