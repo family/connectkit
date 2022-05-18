@@ -3,8 +3,8 @@ import { useContext } from '../FamilyKit';
 import localizations, { localize } from '../../constants/localizations';
 import supportedConnectors from '../../constants/supportedConnectors';
 
-import { ModalBody, ModalContent, ModalHeading } from '../Modal/styles';
-import { OrDivider } from '../Modal';
+import { ModalBody, ModalContent, ModalHeading } from '../Common/Modal/styles';
+import { OrDivider } from '../Common/Modal';
 
 import CustomQRCode from '../Common/CustomQRCode';
 import Button from '../Common/Button';

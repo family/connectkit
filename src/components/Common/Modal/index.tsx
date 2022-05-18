@@ -3,8 +3,8 @@ import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { Props } from 'framer-motion/types/types';
 
-import { ResetContainer } from './../../styles';
-import Portal from '../Common/Portal';
+import { ResetContainer } from '../../../styles';
+import Portal from '../Portal';
 
 import {
   Container,
@@ -23,7 +23,7 @@ import {
 
 import useMeasure from 'react-use-measure';
 import { RemoveScroll } from 'react-remove-scroll';
-import { useContext } from '../FamilyKit';
+import { useContext } from '../../FamilyKit';
 
 const InfoIcon = (props: Props) => (
   <svg

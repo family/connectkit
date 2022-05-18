@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import supportedConnectors from './../../constants/supportedConnectors';
 
-import { contentVariants } from '../Modal';
+import { contentVariants } from '../Common/Modal';
 
 import ConnectWithInjector from './ConnectWithInjector';
 import ConnectWithQRCode from './ConnectWithQRCode';

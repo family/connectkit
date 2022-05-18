@@ -17,7 +17,7 @@ import {
   ModalContent,
   ModalH1,
   ModalHeading,
-} from '../../Modal/styles';
+} from '../../Common/Modal/styles';
 import logos from '../../../assets/logos';
 import wave from '../../../assets/wave';
 

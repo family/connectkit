@@ -8,8 +8,8 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { detectBrowser } from '../../utils';
 
-import { ModalContent, ModalHeading } from '../Modal/styles';
-import { OrDivider } from '../Modal';
+import { ModalContent, ModalHeading } from '../Common/Modal/styles';
+import { OrDivider } from '../Common/Modal';
 
 import CustomQRCode from '../Common/CustomQRCode';
 import Button from '../Common/Button';

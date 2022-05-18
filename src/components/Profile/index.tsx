@@ -24,7 +24,7 @@ import {
   ModalContent,
   ModalH1,
   ModalHeading,
-} from '../Modal/styles';
+} from '../Common/Modal/styles';
 import Button from '../Common/Button';
 import Avatar from '../Avatar';
 import ChainSelector from '../ConnectModal/ChainSelector';

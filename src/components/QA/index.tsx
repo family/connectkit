@@ -9,7 +9,7 @@ import {
   Container as ModalContainer,
   InnerContainer,
   PageContainer,
-} from './../Modal/styles';
+} from '../Common/Modal/styles';
 import Button from '../Common/Button';
 import BrowserIcon from '../Common/BrowserIcon';
 import logos from '../../assets/logos';

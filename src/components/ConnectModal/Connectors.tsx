@@ -5,7 +5,7 @@ import localizations from '../../constants/localizations';
 
 import { useConnect } from 'wagmi';
 
-import { ModalHeading } from '../Modal/styles';
+import { ModalHeading } from '../Common/Modal/styles';
 import WalletIcon from '../../assets/wallet';
 
 import styled from 'styled-components';
