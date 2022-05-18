@@ -53,8 +53,12 @@ const logoIn = keyframes`
 `;
 export const LogoPosition = styled(motion.div)`
   position: absolute;
+  inset: 0;
   animation: cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
   animation-delay: inherit;
+`;
+export const LogoInner = styled(motion.div)`
+  position: absolute;
 `;
 export const LogoGraphic = styled(motion.div)`
   position: relative;
@@ -115,47 +119,28 @@ export const Logo = styled(motion.div)`
   &:nth-child(5){ ${FloatWrapper}{ animation-delay:-3200ms; } }
   
 
-  &:nth-child(1) ${LogoPosition}{
-    border-radius: 17.2px;
-    top: 50%;
-    left: 50%;
+  ${LogoInner}{
     transform: translate(-50%, -50%);
+  }
+
+  &:nth-child(1) ${LogoPosition}{
+    transform: translate(50%, 50%);
     ${LogoGraphic}{
+      border-radius: 17.2px;
       width: 72px;
       height: 72px;
-      //transform: rotate(4.28deg);
     }
   }
   &:nth-child(2) ${LogoPosition}{
-    top: 21.5%;
-    left: 21%;
-    transform: translate(-50%, -50%) ;
-    ${LogoGraphic}{
-      //transform: rotate(-4.6deg);
-    }
+    transform: translate(21%, 21.5%);
   }
   &:nth-child(3) ${LogoPosition}{
-    top: 14%;
-    right: 2%;
-    transform: translate(-50%, -50%);
-    ${LogoGraphic}{
-      //transform: rotate(3.9deg);
-    }
+    transform: translate(78%, 14%);
   }
   &:nth-child(4) ${LogoPosition}{
-    top: 76%;
-    left: 22.5%;
-    transform: translate(-50%, -50%);
-    ${LogoGraphic}{
-      //transform: rotate(4.82deg);
-    }
+    transform: translate(22.5%, 76%);
   }
   &:nth-child(5) ${LogoPosition}{
-    top: 79%;
-    right: 3%;
-    transform: translate(-50%, -50%);
-    ${LogoGraphic}{
-      //transform: rotate(-7.51deg);
-    }
+    transform: translate(76%, 80%);
   }
 }`;

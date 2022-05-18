@@ -6,6 +6,7 @@ import {
   Logo,
   FloatWrapper,
   LogoPosition,
+  LogoInner,
   LogoGraphic,
   GraphicBackground,
   RotateWrapper,
@@ -40,47 +41,57 @@ const Introduction: React.FC = () => {
         <LogoGroup>
           <Logo>
             <LogoPosition>
-              <FloatWrapper>
-                <RotateWrapper>
-                  <LogoGraphic>{logos.Coinbase}</LogoGraphic>
-                </RotateWrapper>
-              </FloatWrapper>
+              <LogoInner>
+                <FloatWrapper>
+                  <RotateWrapper>
+                    <LogoGraphic>{logos.Coinbase}</LogoGraphic>
+                  </RotateWrapper>
+                </FloatWrapper>
+              </LogoInner>
             </LogoPosition>
           </Logo>
           <Logo>
             <LogoPosition>
-              <FloatWrapper>
-                <RotateWrapper>
-                  <LogoGraphic>{logos.MetaMask}</LogoGraphic>
-                </RotateWrapper>
-              </FloatWrapper>
+              <LogoInner>
+                <FloatWrapper>
+                  <RotateWrapper>
+                    <LogoGraphic>{logos.MetaMask}</LogoGraphic>
+                  </RotateWrapper>
+                </FloatWrapper>
+              </LogoInner>
             </LogoPosition>
           </Logo>
           <Logo>
             <LogoPosition>
-              <FloatWrapper>
-                <RotateWrapper>
-                  <LogoGraphic>{logos.Trust}</LogoGraphic>
-                </RotateWrapper>
-              </FloatWrapper>
+              <LogoInner>
+                <FloatWrapper>
+                  <RotateWrapper>
+                    <LogoGraphic>{logos.Trust}</LogoGraphic>
+                  </RotateWrapper>
+                </FloatWrapper>
+              </LogoInner>
             </LogoPosition>
           </Logo>
           <Logo>
             <LogoPosition>
-              <FloatWrapper>
-                <RotateWrapper>
-                  <LogoGraphic>{logos.Argent}</LogoGraphic>
-                </RotateWrapper>
-              </FloatWrapper>
+              <LogoInner>
+                <FloatWrapper>
+                  <RotateWrapper>
+                    <LogoGraphic>{logos.Argent}</LogoGraphic>
+                  </RotateWrapper>
+                </FloatWrapper>
+              </LogoInner>
             </LogoPosition>
           </Logo>
           <Logo>
             <LogoPosition>
-              <FloatWrapper>
-                <RotateWrapper>
-                  <LogoGraphic>{logos.imToken}</LogoGraphic>
-                </RotateWrapper>
-              </FloatWrapper>
+              <LogoInner>
+                <FloatWrapper>
+                  <RotateWrapper>
+                    <LogoGraphic>{logos.imToken}</LogoGraphic>
+                  </RotateWrapper>
+                </FloatWrapper>
+              </LogoInner>
             </LogoPosition>
           </Logo>
         </LogoGroup>
