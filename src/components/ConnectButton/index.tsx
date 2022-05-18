@@ -73,7 +73,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
       {children({
         show,
         hide,
-        isConnected: !!(isConnected && account?.address),
+        isConnected: !!account?.address,
         isConnecting: isConnecting,
         address: account?.address ?? '',
         truncatedAddress: account?.address
@@ -109,7 +109,7 @@ export function ConnectKitButton() {
     <ResetContainer theme={context.theme}>
       <Button onClick={show}>
         <AnimatePresence initial={false}>
-          {isConnected && account?.address ? (
+          {account?.address ? (
             <TextContainer
               key="connected"
               initial={'initial'}
