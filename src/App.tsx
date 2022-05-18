@@ -202,6 +202,7 @@ const App = () => {
 
             {iframeUrl !== '' && (
               <iframe
+                title="preview"
                 scrolling="no"
                 src={iframeUrl}
                 style={{

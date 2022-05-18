@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const TextWithHr = styled(motion.div)`
@@ -92,21 +92,6 @@ export const BackgroundOverlay = styled(motion.div)`
   background: var(--overlay-background);
 `;
 
-export const Container = styled(motion.div)`
-  --ease: ease;
-  --duration: 220ms;
-  --transition: height var(--duration) var(--ease),
-    width var(--duration) var(--ease);
-  z-index: 2;
-  display: block;
-  pointer-events: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  transform: translate3d(-50%, -50%, 0);
-  backface-visibility: hidden;
-`;
 export const BoxContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
@@ -254,4 +239,33 @@ export const InfoButton = styled(motion.button)`
   &:active {
     transform: scale(0.9);
   }
+`;
+
+export const Container = styled(motion.div)<{ $mobile?: boolean }>`
+  --ease: ease;
+  --duration: 220ms;
+  --transition: height var(--duration) var(--ease),
+    width var(--duration) var(--ease);
+  z-index: 2;
+  display: block;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  transform: translate3d(-50%, -50%, 0);
+  backface-visibility: hidden;
+  ${(props) =>
+    props.$mobile &&
+    css`
+      left: 0;
+      top: auto;
+      bottom: -5px;
+      transform: none;
+      ${BoxContainer} {
+        &:before {
+          border-radius: 30px 30px 0 0;
+        }
+      }
+    `}
 `;

@@ -6,6 +6,8 @@ import { Props } from 'framer-motion/types/types';
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
 
+import { isMobile } from '../../../utils';
+
 import {
   Container,
   BoxContainer,
@@ -113,6 +115,29 @@ const containerVariants: Variants = {
     },
   },
 };
+const mobileContainerVariants: Variants = {
+  initial: {
+    //willChange: 'transform,opacity',
+    y: '100%',
+    opacity: 1,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: containerTransitionDuration,
+      ease: [0, 0, 0.2, 1],
+    },
+  },
+  exit: {
+    y: '100%',
+    opacity: 1,
+    transition: {
+      duration: containerTransitionDuration,
+      ease: [0, 0, 0.2, 1],
+    },
+  },
+};
 
 const contentTransitionDuration = 0.22;
 
@@ -163,13 +188,18 @@ const Modal: React.FC<ModalProps> = ({
   const containerRef = useRef<any>(null);
   const [contentRef, bounds] = useMeasure({ debounce: 0, offsetSize: true });
 
+  const mobile = isMobile();
+
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
   const refreshLayout = () => {
     if (!containerRef.current || bounds.height === 0) return;
     containerRef.current.style.setProperty('--height', `${bounds.height}px`);
-    containerRef.current.style.setProperty('--width', `${bounds.width}px`);
+    containerRef.current.style.setProperty(
+      '--width',
+      mobile ? `100%` : `${bounds.width}px`
+    );
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds]);
 
@@ -202,12 +232,14 @@ const Modal: React.FC<ModalProps> = ({
                   }}
                   transition={{ ease: 'easeOut', duration: 0.2 }}
                 />
-                <Container ref={containerRef}>
+                <Container ref={containerRef} $mobile={mobile}>
                   <BoxContainer
                     initial={'initial'}
                     animate={'animate'}
                     exit={'exit'}
-                    variants={containerVariants}
+                    variants={
+                      mobile ? mobileContainerVariants : containerVariants
+                    }
                   >
                     <ControllerContainer>
                       <CloseButton aria-label="Close" onClick={onClose}>
