@@ -37,6 +37,7 @@ export const QRPlaceholder = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
+  /*
   &:before {
     z-index: 4;
     content: '';
@@ -53,43 +54,7 @@ export const QRPlaceholder = styled(motion.div)`
     background-size: 200% 100%;
     animation: ${PlaceholderKeyframes} 1000ms linear infinite both;
   }
-`;
-
-export const QRPlaceholderContent = styled(motion.div)`
-  position: absolute;
-  inset: 12px;
-  background: repeat;
-  background-size: 2.4% 2.4%;
-  background-image: url("data:image/svg+xml,%3Csvg width='7' height='7' viewBox='0 0 7 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='2' fill='%23EBEBEB'/%3E%3C/svg%3E%0A");
-
-  &:before,
-  &:after {
-    z-index: 1;
-    content: '';
-    position: absolute;
-    inset: 30.5%;
-    background: #fff;
-  }
-  &:after {
-    z-index: 3;
-    opacity: 0.8;
-  }
-`;
-export const QRCodeSkeleton = styled(motion.div)`
-  position: absolute;
-  background: #ebebeb;
-  border-radius: 9px;
-  width: 13.5%;
-  height: 13.5%;
-  box-shadow: 0 0 0 3px white;
-  &:before {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border-radius: 3px;
-    background: inherit;
-    box-shadow: 0 0 0 3px #fff;
-  }
+  */
 `;
 
 export const LogoContainer = styled(motion.div)`
