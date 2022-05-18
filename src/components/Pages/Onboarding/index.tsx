@@ -2,11 +2,13 @@ import React from 'react';
 import {
   Container,
   Graphic,
-  GraphicLogos,
-  GraphicLogo,
-  LogoWrapper,
+  LogoGroup,
+  Logo,
+  FloatWrapper,
+  LogoPosition,
   LogoGraphic,
   GraphicBackground,
+  RotateWrapper,
 } from './styles';
 
 import localizations, { localize } from '../../../constants/localizations';
@@ -35,33 +37,53 @@ const Introduction: React.FC = () => {
     <Container>
       <ModalHeading>{localizeText(copy.heading)}</ModalHeading>
       <Graphic>
-        <GraphicLogos>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.Coinbase}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.MetaMask}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.Trust}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.Argent}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-          <GraphicLogo>
-            <LogoWrapper>
-              <LogoGraphic>{logos.imToken}</LogoGraphic>
-            </LogoWrapper>
-          </GraphicLogo>
-        </GraphicLogos>
+        <LogoGroup>
+          <Logo>
+            <LogoPosition>
+              <FloatWrapper>
+                <RotateWrapper>
+                  <LogoGraphic>{logos.Coinbase}</LogoGraphic>
+                </RotateWrapper>
+              </FloatWrapper>
+            </LogoPosition>
+          </Logo>
+          <Logo>
+            <LogoPosition>
+              <FloatWrapper>
+                <RotateWrapper>
+                  <LogoGraphic>{logos.MetaMask}</LogoGraphic>
+                </RotateWrapper>
+              </FloatWrapper>
+            </LogoPosition>
+          </Logo>
+          <Logo>
+            <LogoPosition>
+              <FloatWrapper>
+                <RotateWrapper>
+                  <LogoGraphic>{logos.Trust}</LogoGraphic>
+                </RotateWrapper>
+              </FloatWrapper>
+            </LogoPosition>
+          </Logo>
+          <Logo>
+            <LogoPosition>
+              <FloatWrapper>
+                <RotateWrapper>
+                  <LogoGraphic>{logos.Argent}</LogoGraphic>
+                </RotateWrapper>
+              </FloatWrapper>
+            </LogoPosition>
+          </Logo>
+          <Logo>
+            <LogoPosition>
+              <FloatWrapper>
+                <RotateWrapper>
+                  <LogoGraphic>{logos.imToken}</LogoGraphic>
+                </RotateWrapper>
+              </FloatWrapper>
+            </LogoPosition>
+          </Logo>
+        </LogoGroup>
         <GraphicBackground
           animate={{
             opacity: [0, 1],
