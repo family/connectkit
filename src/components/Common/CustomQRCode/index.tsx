@@ -33,14 +33,14 @@ const CustomQRCode = React.forwardRef(
             </LogoIcon>
           </LogoContainer>
           {value ? (
-            <AnimatePresence initial={false}>
+            <AnimatePresence initial={false} exitBeforeEnter>
               <motion.div
                 key={value}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, position: 'absolute' }}
                 transition={{
-                  duration: 0.8,
+                  duration: 0.4,
                 }}
               >
                 <QRCode
