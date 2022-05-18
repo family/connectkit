@@ -27,7 +27,7 @@ import {
   ModalContent,
 } from './../../Modal/styles';
 import { OrDivider } from './../../Modal';
-import Button from './../../Button';
+import Button from '../../Common/Button';
 import Tooltip from '../../Tooltip';
 import Alert from '../../Alert';
 

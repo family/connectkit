@@ -21,7 +21,7 @@ import {
 import logos from '../../../assets/logos';
 import wave from '../../../assets/wave';
 
-import Button from '../../Button';
+import Button from '../../Common/Button';
 
 const Introduction: React.FC = () => {
   const localizeText = (text: string) => {

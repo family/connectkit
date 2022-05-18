@@ -12,7 +12,7 @@ import { ModalContent, ModalHeading } from '../Modal/styles';
 import { OrDivider } from '../Modal';
 
 import CustomQRCode from '../CustomQRCode';
-import Button from '../Button';
+import Button from '../Common/Button';
 import Alert from '../Alert';
 import BrowserIcon from '../BrowserIcon';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';

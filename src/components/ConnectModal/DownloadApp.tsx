@@ -7,7 +7,7 @@ import { ModalBody, ModalContent, ModalHeading } from '../Modal/styles';
 import { OrDivider } from '../Modal';
 
 import CustomQRCode from '../CustomQRCode';
-import Button from '../Button';
+import Button from '../Common/Button';
 
 import styled from 'styled-components';
 import { motion } from 'framer-motion';

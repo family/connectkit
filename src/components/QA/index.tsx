@@ -10,7 +10,7 @@ import {
   InnerContainer,
   PageContainer,
 } from './../Modal/styles';
-import Button from '../Button';
+import Button from '../Common/Button';
 import BrowserIcon from '../BrowserIcon';
 import logos from '../../assets/logos';
 
