@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { useConnect } from 'wagmi';
 import { routes, useContext, Theme, Languages } from './../FamilyKit';
 
-import Modal from '../common/Modal';
+import Modal from '../Common/Modal';
 
-import OnboardingIntroduction from '../pages/Onboarding';
-import Connectors from '../pages/Connectors';
+import OnboardingIntroduction from '../Pages/Onboarding';
+import Connectors from '../Pages/Connectors';
 import ConnectUsing from './ConnectUsing';
-import DownloadApp from '../pages/DownloadApp';
-import Profile from '../pages/Profile';
+import DownloadApp from '../Pages/DownloadApp';
+import Profile from '../Pages/Profile';
 
 const ConnectModal: React.FC<{
   theme?: Theme;

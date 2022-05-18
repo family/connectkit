@@ -25,14 +25,14 @@ import {
   ModalH1,
   ModalContentContainer,
   ModalContent,
-} from '../../common/Modal/styles';
-import { OrDivider } from '../../common/Modal';
-import Button from '../../common/Button';
-import Tooltip from '../../common/Tooltip';
-import Alert from '../../common/Alert';
+} from '../../Common/Modal/styles';
+import { OrDivider } from '../../Common/Modal';
+import Button from '../../Common/Button';
+import Tooltip from '../../Common/Tooltip';
+import Alert from '../../Common/Alert';
 
 import { Scan } from '../../../assets/icons';
-import BrowserIcon from '../../common/BrowserIcon';
+import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon, RetryIcon } from '../../../assets/icons';
 import { detectBrowser } from '../../../utils';
 

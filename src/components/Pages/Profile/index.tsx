@@ -24,13 +24,13 @@ import {
   ModalContent,
   ModalH1,
   ModalHeading,
-} from '../../common/Modal/styles';
-import Button from '../../common/Button';
-import Avatar from '../../common/Avatar';
+} from '../../Common/Modal/styles';
+import Button from '../../Common/Button';
+import Avatar from '../../Common/Avatar';
 import ChainSelector from '../../ConnectModal/ChainSelector';
 
 import { DisconnectIcon } from '../../../assets/icons';
-import CopyToClipboard from '../../common/CopyToClipboard';
+import CopyToClipboard from '../../Common/CopyToClipboard';
 
 const Profile: React.FC = () => {
   const context = useContext();

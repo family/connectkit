@@ -17,11 +17,11 @@ import {
   ModalContent,
   ModalH1,
   ModalHeading,
-} from '../../common/Modal/styles';
+} from '../../Common/Modal/styles';
 import logos from '../../../assets/logos';
 import wave from '../../../assets/wave';
 
-import Button from '../../common/Button';
+import Button from '../../Common/Button';
 
 const Introduction: React.FC = () => {
   const localizeText = (text: string) => {
