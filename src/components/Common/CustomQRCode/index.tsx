@@ -7,7 +7,7 @@ import {
   QRPlaceholder,
 } from './styles';
 
-import Tooltip from './../Tooltip';
+import Tooltip from '../../Tooltip';
 import { motion } from 'framer-motion';
 
 import { QRCode } from './QRCode';

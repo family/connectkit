@@ -6,7 +6,7 @@ import supportedConnectors from '../../constants/supportedConnectors';
 import { ModalBody, ModalContent, ModalHeading } from '../Modal/styles';
 import { OrDivider } from '../Modal';
 
-import CustomQRCode from '../CustomQRCode';
+import CustomQRCode from '../Common/CustomQRCode';
 import Button from '../Common/Button';
 
 import styled from 'styled-components';
