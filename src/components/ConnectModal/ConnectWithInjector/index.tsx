@@ -28,7 +28,7 @@ import {
 } from './../../Modal/styles';
 import { OrDivider } from './../../Modal';
 import Button from '../../Common/Button';
-import Tooltip from '../../Tooltip';
+import Tooltip from '../../Common/Tooltip';
 import Alert from '../../Common/Alert';
 
 import { Scan } from '../../../assets/icons';

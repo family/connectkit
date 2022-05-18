@@ -1,13 +1,13 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useContext } from './../FamilyKit';
+import { useContext } from '../../FamilyKit';
 import useMeasure from 'react-use-measure';
 
 import { TooltipProps, TooltipSizeProps } from './types';
 import { TooltipWindow, TooltipContainer, TooltipTail } from './styles';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { ResetContainer } from './../../styles';
-import Portal from '../Common/Portal';
+import { ResetContainer } from '../../../styles';
+import Portal from '../Portal';
 
 const Tooltip: React.FC<TooltipProps> = ({
   children,
