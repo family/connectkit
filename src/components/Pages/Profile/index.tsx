@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useContext } from '../FamilyKit';
-import localizations from '../../constants/localizations';
-import { truncateEthAddress } from '../../utils';
+import { useContext } from '../../FamilyKit';
+import localizations from '../../../constants/localizations';
+import { truncateEthAddress } from '../../../utils';
 
 import {
   useConnect,
@@ -24,13 +24,13 @@ import {
   ModalContent,
   ModalH1,
   ModalHeading,
-} from '../common/Modal/styles';
-import Button from '../common/Button';
-import Avatar from '../common/Avatar';
-import ChainSelector from '../ConnectModal/ChainSelector';
+} from '../../common/Modal/styles';
+import Button from '../../common/Button';
+import Avatar from '../../common/Avatar';
+import ChainSelector from '../../ConnectModal/ChainSelector';
 
-import { DisconnectIcon } from '../../assets/icons';
-import CopyToClipboard from '../common/CopyToClipboard';
+import { DisconnectIcon } from '../../../assets/icons';
+import CopyToClipboard from '../../common/CopyToClipboard';
 
 const Profile: React.FC = () => {
   const context = useContext();

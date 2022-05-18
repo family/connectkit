@@ -8,7 +8,7 @@ import OnboardingIntroduction from './Onboarding';
 import Connectors from './Connectors';
 import ConnectUsing from './ConnectUsing';
 import DownloadApp from './DownloadApp';
-import Profile from '../Profile';
+import Profile from '../Pages/Profile';
 
 const ConnectModal: React.FC<{
   theme?: Theme;
