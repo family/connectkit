@@ -11,7 +11,7 @@ import {
   PageContainer,
 } from './../Modal/styles';
 import Button from '../Common/Button';
-import BrowserIcon from '../BrowserIcon';
+import BrowserIcon from '../Common/BrowserIcon';
 import logos from '../../assets/logos';
 
 import { Theme } from '../FamilyKit';

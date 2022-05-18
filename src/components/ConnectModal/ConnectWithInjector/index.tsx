@@ -32,7 +32,7 @@ import Tooltip from '../../Tooltip';
 import Alert from '../../Alert';
 
 import { Scan } from '../../../assets/icons';
-import BrowserIcon from '../../BrowserIcon';
+import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon, RetryIcon } from '../../../assets/icons';
 import { detectBrowser } from '../../../utils';
 
