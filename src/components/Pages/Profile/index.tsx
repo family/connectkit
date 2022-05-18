@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useContext } from '../../FamilyKit';
+import { useContext } from '../../ConnectKit';
 import localizations from '../../../constants/localizations';
 import { truncateEthAddress } from '../../../utils';
 

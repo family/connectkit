@@ -14,7 +14,7 @@ import Button from '../Common/Button';
 import BrowserIcon from '../Common/BrowserIcon';
 import logos from '../../assets/logos';
 
-import { Theme } from '../FamilyKit';
+import { Theme } from '../ConnectKit';
 import { DisconnectIcon, ExternalLinkIcon } from '../../assets/icons';
 
 const Container = styled.div`

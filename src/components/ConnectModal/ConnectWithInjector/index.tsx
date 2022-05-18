@@ -14,7 +14,7 @@ import {
   Content,
 } from './styles';
 
-import { useContext } from '../../FamilyKit';
+import { useContext } from '../../ConnectKit';
 import localizations, { localize } from '../../../constants/localizations';
 import { useConnect } from 'wagmi';
 import supportedConnectors from '../../../constants/supportedConnectors';

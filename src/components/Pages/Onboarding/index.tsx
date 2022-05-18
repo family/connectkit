@@ -10,7 +10,7 @@ import {
 } from './styles';
 
 import localizations, { localize } from '../../../constants/localizations';
-import { useContext } from '../../FamilyKit';
+import { useContext } from '../../ConnectKit';
 
 import {
   ModalBody,

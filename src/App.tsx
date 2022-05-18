@@ -5,9 +5,9 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Buffer } from 'buffer';
 
-import { ConnectKitProvider, ConnectKitModal } from './FamilyKit';
+import { ConnectKitProvider, ConnectKitModal } from './ConnectKit';
 import { useState } from 'react';
-import { Languages, Theme } from './components/FamilyKit';
+import { Languages, Theme } from './components/ConnectKit';
 
 import QA from './components/QA';
 import { ConnectKitButton } from './components/ConnectButton';
@@ -107,7 +107,7 @@ const App = () => {
 
             <button onClick={() => setOpenQA(true)}>Open QA</button>
 
-            <h1>Family Connect</h1>
+            <h1>ConnectKit by Family</h1>
             <p>This page is intentionally left unstyled</p>
 
             <div

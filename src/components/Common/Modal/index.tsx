@@ -23,7 +23,7 @@ import {
 
 import useMeasure from 'react-use-measure';
 import { RemoveScroll } from 'react-remove-scroll';
-import { useContext } from '../../FamilyKit';
+import { useContext } from '../../ConnectKit';
 
 /*
 const InfoIcon = (props: Props) => (

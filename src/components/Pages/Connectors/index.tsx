@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext, routes } from '../../FamilyKit';
+import { useContext, routes } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
 import localizations from '../../../constants/localizations';
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useConnect } from 'wagmi';
-import { routes, useContext, Theme, Languages } from './../FamilyKit';
+import { routes, useContext, Theme, Languages } from '../ConnectKit';
 
 import Modal from '../Common/Modal';
 
