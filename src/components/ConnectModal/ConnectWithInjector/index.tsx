@@ -29,7 +29,7 @@ import {
 import { OrDivider } from './../../Modal';
 import Button from '../../Common/Button';
 import Tooltip from '../../Tooltip';
-import Alert from '../../Alert';
+import Alert from '../../Common/Alert';
 
 import { Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';

@@ -7,7 +7,7 @@ import { contentVariants } from '../Modal';
 import ConnectWithInjector from './ConnectWithInjector';
 import ConnectWithQRCode from './ConnectWithQRCode';
 
-import Alert from '../Alert';
+import Alert from '../Common/Alert';
 
 const states = {
   QRCODE: 'qrcode',
