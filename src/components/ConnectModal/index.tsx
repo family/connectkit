@@ -4,11 +4,11 @@ import { routes, useContext, Theme, Languages } from './../FamilyKit';
 
 import Modal from '../common/Modal';
 
-import OnboardingIntroduction from '../Pages/Onboarding';
-import Connectors from './Connectors';
+import OnboardingIntroduction from '../pages/Onboarding';
+import Connectors from '../pages/Connectors';
 import ConnectUsing from './ConnectUsing';
 import DownloadApp from './DownloadApp';
-import Profile from '../Pages/Profile';
+import Profile from '../pages/Profile';
 
 const ConnectModal: React.FC<{
   theme?: Theme;
