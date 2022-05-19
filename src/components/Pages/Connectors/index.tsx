@@ -33,14 +33,8 @@ const Wallets: React.FC = () => {
   const mobile = isMobile();
 
   const { connect, connectAsync, connectors } = useConnect({
-    onBeforeConnect(e) {
-      //alert('onBeforeConnect');
-    },
     onError(e) {
-      //alert(e);
-    },
-    onSettled() {
-      //alert('onSettled');
+      alert(e);
     },
   });
 
@@ -55,6 +49,7 @@ const Wallets: React.FC = () => {
         });
         break;
       case 'metaMask':
+        //TODO: Fix broken connector
         connector = new MetaMaskConnector({
           chains: c.chains,
           options: c.options,
