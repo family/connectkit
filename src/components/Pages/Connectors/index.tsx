@@ -63,9 +63,7 @@ const Wallets: React.FC = () => {
 
   return (
     <Container>
-      <ModalHeading>
-        {copy.heading} {mobile ? 'mobile' : 'desktop'}
-      </ModalHeading>
+      <ModalHeading>{copy.heading}</ModalHeading>
       {mobile ? (
         <MobileConnectorsContainer>
           {connectors
