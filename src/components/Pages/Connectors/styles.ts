@@ -125,4 +125,63 @@ export const ConnectorIcon = styled(motion.div)`
   height: 32px;
   overflow: hidden;
   border-radius: 8px;
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export const MobileConnectorsContainer = styled(motion.div)`
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 0 0 16px;
+`;
+
+export const MobileConnectorButton = styled(motion.button)`
+  --background: var(--body-background-secondary);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding: 0;
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 13px;
+  border-radius: 18px;
+  color: var(--body-color);
+  text-align: center;
+  transition: transform 100ms ease;
+
+  background: none;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  &:not(:disabled) {
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+`;
+
+export const MobileConnectorLabel = styled(motion.span)`
+  display: block;
+  padding: 10px 0 0;
+`;
+
+export const MobileConnectorIcon = styled(motion.div)`
+  margin: 0 auto;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 16px;
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 `;
