@@ -21,10 +21,6 @@ const supportedConnectors = [
     logo: logos.MetaMask,
     scannable: false,
     // defaultConnect:  () => {},
-    wagmiConnect: () => {
-      // TODO: WAGMI
-      return window.confirm('WAGMI connect() could go here for injected');
-    },
     extensions: {
       chrome:
         'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
@@ -47,15 +43,7 @@ const supportedConnectors = [
     name: 'WalletConnect',
     logo: logos.WalletConnect,
     scannable: true,
-    defaultConnect: () => {
-      return window.confirm(
-        'TODO: Display the default WalletConnect modal here'
-      );
-    },
-    wagmiConnect: () => {
-      // TODO: WAGMI
-      return window.confirm('WAGMI connect() could go here for WalletConnect');
-    },
+    defaultConnect: () => {},
   },
   {
     id: 'coinbaseWallet',
@@ -63,12 +51,6 @@ const supportedConnectors = [
     logo: logos.Coinbase,
     scannable: true,
     //defaultConnect: () => {},
-    wagmiConnect: () => {
-      //TODO: WAGMI
-      return window.confirm(
-        'WAGMI connect() could go here for Coinbase Wallet'
-      );
-    },
     extensions: {
       chrome:
         'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
