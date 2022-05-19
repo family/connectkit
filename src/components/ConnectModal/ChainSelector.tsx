@@ -371,7 +371,7 @@ const ChainSelector: React.FC = () => {
                             {x.name}
                           </span>
                           <ChainButtonStatus>
-                            <AnimatePresence exitBeforeEnter initial={false}>
+                            <AnimatePresence initial={false}>
                               {x.id === activeChain?.id && (
                                 <motion.span
                                   style={{
@@ -379,11 +379,11 @@ const ChainSelector: React.FC = () => {
                                     display: 'block',
                                     position: 'relative',
                                   }}
-                                  initial={{ opacity: 0, scale: 0.8 }}
-                                  animate={{ opacity: 1, scale: 1 }}
+                                  initial={{ opacity: 0, x: -4 }}
+                                  animate={{ opacity: 1, x: 0 }}
                                   exit={{
                                     opacity: 0,
-                                    scale: 0.8,
+                                    x: 4,
                                     transition: { duration: 0.1 },
                                   }}
                                   transition={{
@@ -402,10 +402,10 @@ const ChainSelector: React.FC = () => {
                                   }}
                                   initial={{
                                     opacity: 0,
-                                    scale: 0.8,
+                                    x: -4,
                                   }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  exit={{ opacity: 0, scale: 0.8 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  exit={{ opacity: 0, x: 4 }}
                                   transition={{
                                     ease: [0.76, 0, 0.24, 1],
                                     duration: 0.15,
