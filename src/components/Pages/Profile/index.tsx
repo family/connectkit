@@ -12,14 +12,10 @@ import {
   useNetwork,
 } from 'wagmi';
 
-import {
-  Container,
-  AvatarContainer,
-  AvatarInner,
-  ChainSelectorContainer,
-} from './styles';
+import { AvatarContainer, AvatarInner, ChainSelectorContainer } from './styles';
 
 import {
+  PageContent,
   ModalBody,
   ModalContent,
   ModalH1,
@@ -67,7 +63,7 @@ const Profile: React.FC = () => {
   }, [shouldDisconnect, disconnect, reset]);
 
   return (
-    <Container>
+    <PageContent>
       <ModalHeading>{copy.heading}</ModalHeading>
       <ModalContent style={{ paddingBottom: 22 }}>
         <AvatarContainer>
@@ -101,7 +97,7 @@ const Profile: React.FC = () => {
       >
         Disconnect
       </Button>
-    </Container>
+    </PageContent>
   );
 };
 

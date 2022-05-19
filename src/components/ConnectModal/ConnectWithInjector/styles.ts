@@ -29,8 +29,6 @@ const outlineKeyframes = keyframes`
   100%{ opacity:0; }
 `;
 export const Container = styled(motion.div)`
-  max-width: 100%;
-  width: 295px;
   background: var(
     --body-background
   ); // To stop the overlay issue during transition for the spinner

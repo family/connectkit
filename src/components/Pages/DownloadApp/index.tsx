@@ -4,6 +4,7 @@ import localizations, { localize } from '../../../constants/localizations';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {
+  PageContent,
   ModalBody,
   ModalContent,
   ModalHeading,
@@ -13,14 +14,7 @@ import { OrDivider } from '../../Common/Modal';
 import CustomQRCode from '../../Common/CustomQRCode';
 import Button from '../../Common/Button';
 
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { ExternalLinkIcon } from '../../../assets/icons';
-
-const Container = styled(motion.div)`
-  max-width: 100%;
-  width: 295px;
-`;
 
 const DownloadApp: React.FC<{
   connectorId: string;
@@ -45,7 +39,7 @@ const DownloadApp: React.FC<{
     ios && android ? copy.iosAndroid : ios ? copy.ios : copy.android;
 
   return (
-    <Container>
+    <PageContent>
       <ModalHeading>{localizeText(copy.heading)}</ModalHeading>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         {downloadUri && <CustomQRCode value={downloadUri} />}
@@ -57,7 +51,7 @@ const DownloadApp: React.FC<{
       {connector.defaultConnect && ( // Open the default connector modal
         <Button icon={<ExternalLinkIcon />}>Open Default Modal</Button>
       )}
-    </Container>
+    </PageContent>
   );
 };
 

@@ -107,6 +107,9 @@ export default {
     profileScreen: {
       heading: 'Connected',
     },
+    switchNetworkScreen: {
+      heading: 'Switch Networks',
+    },
   },
   /**
    * TODO: These are just Google Translated for testing
@@ -171,6 +174,9 @@ export default {
     },
     profileScreen: {
       heading: 'Connecté',
+    },
+    switchNetworkScreen: {
+      heading: 'Réseaux de commutation',
     },
   },
 };

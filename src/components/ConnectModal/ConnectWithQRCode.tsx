@@ -8,7 +8,11 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { detectBrowser } from '../../utils';
 
-import { ModalContent, ModalHeading } from '../Common/Modal/styles';
+import {
+  PageContent,
+  ModalContent,
+  ModalHeading,
+} from '../Common/Modal/styles';
 import { OrDivider } from '../Common/Modal';
 
 import CustomQRCode from '../Common/CustomQRCode';
@@ -16,14 +20,6 @@ import Button from '../Common/Button';
 import Alert from '../Common/Alert';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import { ExternalLinkIcon } from '../../assets/icons';
-
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-
-const Container = styled(motion.div)`
-  max-width: 100%;
-  width: 295px;
-`;
 
 const ConnectWithQRCode: React.FC<{
   connectorId: string;
@@ -127,7 +123,7 @@ const ConnectWithQRCode: React.FC<{
 
   if (!connector.scannable)
     return (
-      <Container>
+      <PageContent>
         <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
           <Alert>
@@ -135,11 +131,11 @@ const ConnectWithQRCode: React.FC<{
             should never happen
           </Alert>
         </ModalContent>
-      </Container>
+      </PageContent>
     );
 
   return (
-    <Container>
+    <PageContent>
       <ModalHeading>
         {connectorId === 'walletConnect'
           ? copy.heading
@@ -217,7 +213,7 @@ const ConnectWithQRCode: React.FC<{
           </Button>
         }
         */}
-    </Container>
+    </PageContent>
   );
 };
 

@@ -4,6 +4,11 @@ import { isMobile } from '../../../utils';
 
 const mobile = isMobile();
 
+export const PageContent = styled(motion.div)`
+  max-width: 100%;
+  width: 295px;
+`;
+
 export const TextWithHr = styled(motion.div)`
   position: relative;
   display: block;
@@ -270,10 +275,19 @@ export const Container = styled(motion.div)`
           border-radius: 30px 30px 0 0;
         }
       }
+      ${PageContent} {
+        margin: 0 auto;
+        width: 100% !important;
+      }
       ${ModalHeading} {
         margin: 0 0 20px;
       }
+      ${ModalBody} {
+        margin: 0 auto;
+        max-width: 295px;
+      }
       ${PageContents} {
+        width: 100%;
         padding: 32px 24px;
       }
       ${ControllerContainer} {

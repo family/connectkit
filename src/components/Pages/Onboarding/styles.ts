@@ -1,14 +1,11 @@
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 
-export const Container = styled(motion.div)`
-  max-width: 100%;
-  width: 295px;
-`;
 export const Graphic = styled(motion.div)`
   position: relative;
   margin: 0px auto 16px;
   height: 190px;
+  max-width: 295px;
   pointer-events: none;
   user-select: none;
 `;

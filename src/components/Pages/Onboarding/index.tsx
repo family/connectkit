@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Container,
   Graphic,
   LogoGroup,
   Logo,
@@ -16,6 +15,7 @@ import localizations, { localize } from '../../../constants/localizations';
 import { useContext } from '../../ConnectKit';
 
 import {
+  PageContent,
   ModalBody,
   ModalContent,
   ModalH1,
@@ -35,7 +35,7 @@ const Introduction: React.FC = () => {
   const context = useContext();
   const copy = localizations[context.lang].onboardingScreen;
   return (
-    <Container>
+    <PageContent>
       <ModalHeading>{localizeText(copy.heading)}</ModalHeading>
       <Graphic>
         <LogoGroup>
@@ -112,7 +112,7 @@ const Introduction: React.FC = () => {
       <Button href={copy.ctaUrl} arrow>
         {localizeText(copy.ctaText)}
       </Button>
-    </Container>
+    </PageContent>
   );
 };
 

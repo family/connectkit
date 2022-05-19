@@ -9,6 +9,7 @@ import Connectors from '../Pages/Connectors';
 import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
+import SwitchNetworks from '../Pages/SwitchNetworks';
 
 const ConnectModal: React.FC<{
   theme?: Theme;
@@ -23,6 +24,7 @@ const ConnectModal: React.FC<{
     connectors: <Connectors />,
     onboarding: <OnboardingIntroduction />,
     connect: <ConnectUsing connectorId={context.connector} />,
+    switchnetworks: <SwitchNetworks />,
   };
 
   function hide() {
@@ -53,7 +55,9 @@ const ConnectModal: React.FC<{
           context.route !== routes.CONNECTORS &&
           context.route !== routes.PROFILE
             ? () => {
-                if (context.route === routes.DOWNLOAD) {
+                if (context.route === routes.SWITCHNETWORKS) {
+                  context.setRoute(routes.PROFILE);
+                } else if (context.route === routes.DOWNLOAD) {
                   context.setRoute(routes.CONNECT);
                 } else {
                   context.setRoute(routes.CONNECTORS);

@@ -80,7 +80,7 @@ const Tooltip: React.FC<TooltipProps> = ({
         }
         onHoverStart={() => setIsOpen(true)}
         onHoverEnd={() => setIsOpen(false)}
-        onTap={() => setIsOpen(false)}
+        onClick={() => setIsOpen(false)}
       >
         {children}
       </motion.div>

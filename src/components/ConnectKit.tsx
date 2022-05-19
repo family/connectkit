@@ -6,6 +6,7 @@ export const routes = {
   ONBOARDING: 'onboarding',
   DOWNLOAD: 'download',
   PROFILE: 'profile',
+  SWITCHNETWORKS: 'switchnetworks',
 };
 
 export type Theme = 'light' | 'dark' | 'auto';

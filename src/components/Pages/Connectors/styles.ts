@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-export const Container = styled(motion.div)`
-  max-width: 100%;
-  width: 334px;
-`;
-
 export const LearnMoreContainer = styled(motion.div)`
   margin: 0 0 -4px; // offset for button being tall
   text-align: center;

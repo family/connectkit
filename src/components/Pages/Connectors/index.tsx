@@ -5,11 +5,10 @@ import localizations from '../../../constants/localizations';
 
 import { useConnect } from 'wagmi';
 
-import { ModalHeading } from '../../Common/Modal/styles';
+import { PageContent, ModalHeading } from '../../Common/Modal/styles';
 import WalletIcon from '../../../assets/wallet';
 
 import {
-  Container,
   LearnMoreContainer,
   LearnMoreButton,
   ConnectorsContainer,
@@ -73,7 +72,7 @@ const Wallets: React.FC = () => {
   useEffect(() => {}, [mobile]);
 
   return (
-    <Container>
+    <PageContent style={{ width: 334 }}>
       <ModalHeading>{copy.heading}</ModalHeading>
       {mobile ? (
         <MobileConnectorsContainer>
@@ -142,7 +141,7 @@ const Wallets: React.FC = () => {
           </LearnMoreButton>
         )}
       </LearnMoreContainer>
-    </Container>
+    </PageContent>
   );
 };
 
