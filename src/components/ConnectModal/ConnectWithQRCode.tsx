@@ -91,9 +91,8 @@ const ConnectWithQRCode: React.FC<{
     const c = connectors.filter((c) => c.id === id)[0];
     if (c.id === 'walletConnect') {
       const co = new WalletConnectConnector({
-        options: {
-          qrcode: true,
-        },
+        chains: c.chains,
+        options: { ...c.options, qrcode: true },
       });
       await connectWallet(co);
     }
