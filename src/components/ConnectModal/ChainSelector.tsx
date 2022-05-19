@@ -277,12 +277,28 @@ const ChainSelector: React.FC = () => {
           onTap={() => setIsOpen(!isOpen)}
         >
           <ChainIcon>
-            {chains
-              .filter((x) => x.id === activeChain?.id)
-              .map((x, i) => {
-                const chain = supportedChains.filter((c) => c.id === x.id)[0];
-                return <React.Fragment key={i}>{chain.logo}</React.Fragment>;
-              })}
+            <AnimatePresence initial={false}>
+              {chains
+                .filter((x) => x.id === activeChain?.id)
+                .map((x, i) => {
+                  const chain = supportedChains.filter((c) => c.id === x.id)[0];
+                  return (
+                    <motion.div
+                      key={chain.id}
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {chain.logo}
+                    </motion.div>
+                  );
+                })}
+            </AnimatePresence>
           </ChainIcon>
           <ChevronDown style={{ top: 1, left: -3 }} />
         </SwitchChainButton>
