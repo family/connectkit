@@ -3,7 +3,7 @@ import { useContext, routes } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
 import localizations from '../../../constants/localizations';
 
-import { useClient, useConnect, useNetwork } from 'wagmi';
+import { useConnect } from 'wagmi';
 
 import { ModalHeading } from '../../Common/Modal/styles';
 import WalletIcon from '../../../assets/wallet';
@@ -25,6 +25,7 @@ import { isMobile } from '../../../utils';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import Button from '../../Common/Button';
 
 const Wallets: React.FC = () => {
   const context = useContext();
@@ -32,7 +33,17 @@ const Wallets: React.FC = () => {
 
   const mobile = isMobile();
 
-  const { connect, connectAsync, connectors } = useConnect();
+  const { connect, connectAsync, connectors } = useConnect({
+    onBeforeConnect(e) {
+      alert('onBeforeConnect');
+    },
+    onError(e) {
+      alert(e);
+    },
+    onSettled() {
+      alert('onSettled');
+    },
+  });
 
   const openDefaultConnect = async (id: string) => {
     const c = connectors.filter((c) => c.id === id)[0];
@@ -118,9 +129,18 @@ const Wallets: React.FC = () => {
       )}
 
       <LearnMoreContainer>
-        <LearnMoreButton onClick={() => context.setRoute(routes.ONBOARDING)}>
-          <WalletIcon /> {copy.newcomer}
-        </LearnMoreButton>
+        {mobile ? (
+          <Button
+            icon={<WalletIcon />}
+            onClick={() => context.setRoute(routes.ONBOARDING)}
+          >
+            {copy.newcomer}
+          </Button>
+        ) : (
+          <LearnMoreButton onClick={() => context.setRoute(routes.ONBOARDING)}>
+            <WalletIcon /> {copy.newcomer}
+          </LearnMoreButton>
+        )}
       </LearnMoreContainer>
     </Container>
   );

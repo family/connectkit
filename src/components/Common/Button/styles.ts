@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
+import { isMobile } from '../../../utils';
+
+const mobile = isMobile();
 
 export const Arrow = styled.svg`
   position: relative;
@@ -42,22 +45,26 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   white-space: nowrap;
   transition: box-shadow 100ms ease, background-color 100ms ease;
   box-shadow: 0 0 0 0 var(--background);
-
-  &:hover {
-    --background: var(--body-background-secondary-hover);
-    box-shadow: 0 0 0 2px var(--background);
-    ${Arrow} {
-      transform: translateX(0);
-      ${ArrowLine} {
-        transform: none;
-      }
-      ${ArrowChevron} {
-      }
-    }
-  }
-  &:active {
-    box-shadow: 0 0 0 1px var(--background);
-  }
+  ${(props) => {
+    if (!mobile)
+      return css`
+        &:hover {
+          --background: var(--body-background-secondary-hover);
+          box-shadow: 0 0 0 2px var(--background);
+          ${Arrow} {
+            transform: translateX(0);
+            ${ArrowLine} {
+              transform: none;
+            }
+            ${ArrowChevron} {
+            }
+          }
+        }
+        &:active {
+          box-shadow: 0 0 0 1px var(--background);
+        }
+      `;
+  }}
 `;
 
 export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`

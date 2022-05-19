@@ -19,18 +19,13 @@ const detectOS = () => {
   return browser?.os ?? '';
 };
 
-const isAndroid = () => {
-  return (
-    typeof navigator !== 'undefined' &&
-    /Android\s([0-9.]+)/.test(navigator.userAgent) // https://github.com/DamonOehlman/detect-browser/blob/master/src/index.ts
-  );
-};
-
 const isIOS = () => {
-  return (
-    typeof navigator !== 'undefined' &&
-    /Version\/([0-9._]+).*Mobile.*Safari.*/.test(navigator.userAgent) // https://github.com/DamonOehlman/detect-browser/blob/master/src/index.ts
-  );
+  const os = detectOS();
+  return os.toLowerCase().includes('ios');
+};
+const isAndroid = () => {
+  const os = detectOS();
+  return os.toLowerCase().includes('android');
 };
 
 const isMobile = () => {
@@ -54,9 +49,6 @@ const getMobileAppUri = (connectorId: string) => {
 const getBrowserAppUri = (connectorId: string) => {
   const c = supportedConnectors.filter((c) => c.id === connectorId)[0];
   const browser = detectBrowser();
-  /** WIP */
-  //ios: ['edge-ios', 'ios-webview', 'ios', 'fxios', 'crios'],
-  //android: ['android'],
   switch (browser) {
     case 'firefox':
       return c.appUrls?.firefox ? c.appUrls.firefox : '';

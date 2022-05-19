@@ -19,7 +19,7 @@ import {
   BackgroundOverlay,
   CloseButton,
   BackButton,
-  //InfoButton,
+  InfoButton,
   TextWithHr,
 } from './styles';
 
@@ -27,7 +27,6 @@ import useMeasure from 'react-use-measure';
 import { RemoveScroll } from 'react-remove-scroll';
 import { useContext } from '../../ConnectKit';
 
-/*
 const InfoIcon = (props: Props) => (
   <svg
     aria-hidden="true"
@@ -45,7 +44,6 @@ const InfoIcon = (props: Props) => (
     />
   </svg>
 );
-*/
 const CloseIcon = (props: Props) => (
   <motion.svg
     width={14}
@@ -232,7 +230,7 @@ const Modal: React.FC<ModalProps> = ({
                   }}
                   transition={{ ease: 'easeOut', duration: 0.2 }}
                 />
-                <Container ref={containerRef} $mobile={mobile}>
+                <Container ref={containerRef}>
                   <BoxContainer
                     initial={'initial'}
                     animate={'animate'}
@@ -246,7 +244,7 @@ const Modal: React.FC<ModalProps> = ({
                         <CloseIcon />
                       </CloseButton>
                       <AnimatePresence>
-                        {onBack && (
+                        {onBack ? (
                           <BackButton
                             aria-label="Back"
                             key="backButton"
@@ -258,19 +256,18 @@ const Modal: React.FC<ModalProps> = ({
                           >
                             <BackIcon />
                           </BackButton>
-                          /* ) : (
-                    <InfoButton
-                      aria-label="More information"
-                      key="infoButton"
-                      //onClick={onInfo}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.1 }}
-                    >
-                      <InfoIcon />
-                    </InfoButton>
-                  */
+                        ) : (
+                          <InfoButton
+                            aria-label="More information"
+                            key="infoButton"
+                            //onClick={onInfo}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.1 }}
+                          >
+                            <InfoIcon />
+                          </InfoButton>
                         )}
                       </AnimatePresence>
                     </ControllerContainer>

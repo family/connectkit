@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { isMobile } from '../utils';
 import { hexToP3 } from '../utils/p3';
 
 /**
@@ -48,6 +49,9 @@ const theme = {
     '--body-divider': '#f7f6f8',
     '--body-color-danger': '#FC6464',
     '--body-color-valid': '#32D74B',
+
+    '--mobile-body-background': '#F8F8F8',
+    '--mobile-body-color': '#2B2F43',
 
     '--qrcode-outline': '#EEEFF2',
     '--copytoclipboard-stroke': '#CCCCCC',
@@ -140,6 +144,20 @@ const theme = {
     '--brand-trust-01': '#ffffff',
     '--brand-trust-02': '#3375BB',
   },
+  lightMobile: {
+    '--body-background': '#F8F8F8',
+    '--body-color': '#2B2F43',
+    '--body-background-secondary': '#ffffff',
+    '--body-background-secondary-hover': '#ffffff',
+    '--body-background-secondary-hover-outline': '#ffffff',
+  },
+  darkMobile: {
+    '--body-background': '#282828',
+    '--body-color': '#ffffff',
+    '--body-background-secondary': '#333333',
+    '--body-background-secondary-hover': '#333333',
+    '--body-background-secondary-hover-outline': '#333333',
+  },
 };
 
 /**
@@ -178,6 +196,23 @@ export const ResetContainer = styled.div<{ theme: string }>`
           ${createCssVariables(theme.light)}
           @media (prefers-color-scheme: dark) {
             ${createCssVariables(theme.dark)}
+          }
+        `;
+    }
+  }}
+  ${(props) => {
+    const mobile = isMobile();
+    if (!mobile) return;
+    switch (props.theme) {
+      case 'light':
+        return createCssVariables(theme.lightMobile);
+      case 'dark':
+        return createCssVariables(theme.darkMobile);
+      default:
+        return css`
+          ${createCssVariables(theme.lightMobile)}
+          @media (prefers-color-scheme: dark) {
+            ${createCssVariables(theme.darkMobile)}
           }
         `;
     }

@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
+import { isMobile } from '../../../utils';
+
+const mobile = isMobile();
 
 export const TextWithHr = styled(motion.div)`
   position: relative;
@@ -17,7 +20,7 @@ export const TextWithHr = styled(motion.div)`
     background: var(--body-background);
   }
   &:before {
-    z-index: 1;
+    z-index: 2;
     content: '';
     position: absolute;
     top: 50%;
@@ -36,7 +39,6 @@ export const ModalHeading = styled(motion.div)`
   color: var(--body-color);
   padding: 0 0 20px;
   margin: 0 -24px 24px;
-  //box-shadow: 0 1px 0 0 var(--body-divider);
 `;
 
 export const ModalContentContainer = styled(motion.div)`
@@ -241,12 +243,12 @@ export const InfoButton = styled(motion.button)`
   }
 `;
 
-export const Container = styled(motion.div)<{ $mobile?: boolean }>`
+export const Container = styled(motion.div)`
   --ease: ease;
   --duration: 220ms;
   --transition: height var(--duration) var(--ease),
     width var(--duration) var(--ease);
-  z-index: 2;
+  z-index: 3;
   display: block;
   pointer-events: none;
   position: absolute;
@@ -255,9 +257,10 @@ export const Container = styled(motion.div)<{ $mobile?: boolean }>`
   width: 100%;
   transform: translate3d(-50%, -50%, 0);
   backface-visibility: hidden;
-  ${(props) =>
-    props.$mobile &&
+  ${() =>
+    mobile &&
     css`
+      pointer-events: auto;
       left: 0;
       top: auto;
       bottom: -5px;
@@ -265,6 +268,32 @@ export const Container = styled(motion.div)<{ $mobile?: boolean }>`
       ${BoxContainer} {
         &:before {
           border-radius: 30px 30px 0 0;
+        }
+      }
+      ${ModalHeading} {
+        margin: 0 0 20px;
+      }
+      ${PageContents} {
+        padding: 32px 24px;
+      }
+      ${ControllerContainer} {
+        top: 8px;
+        border-bottom: 0;
+      }
+      ${CloseButton} {
+        right: 22px;
+      }
+      ${BackButton} {
+        left: 17px;
+      }
+      ${InfoButton} {
+        top: 21px;
+        left: 24px;
+        width: 26px;
+        height: 26px;
+        svg {
+          width: 100%;
+          height: auto;
         }
       }
     `}
