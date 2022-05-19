@@ -34,13 +34,13 @@ const Wallets: React.FC = () => {
 
   const { connect, connectAsync, connectors } = useConnect({
     onBeforeConnect(e) {
-      alert('onBeforeConnect');
+      //alert('onBeforeConnect');
     },
     onError(e) {
-      alert(e);
+      //alert(e);
     },
     onSettled() {
-      alert('onSettled');
+      //alert('onSettled');
     },
   });
 
