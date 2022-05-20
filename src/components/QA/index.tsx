@@ -3,7 +3,6 @@ import Avatar from '../Common/Avatar';
 
 import styled from 'styled-components';
 import { ResetContainer } from './../../styles';
-import ConnectWithQRCode from './../ConnectModal/ConnectWithQRCode';
 
 import {
   Container as ModalContainer,
@@ -23,6 +22,8 @@ const Container = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   gap: 12px;
+  padding: 24px;
+  background: var(--body-background);
 `;
 
 const FakeModal: React.FC<{ children?: any }> = ({ children }) => {
@@ -76,77 +77,31 @@ const QA: React.FC<{
           <Avatar name="bijani.eth" />
         </Container>
         <h1>Buttons</h1>
-        <div style={{ width: 295 }}>
-          <Button onClick={() => {}} arrow>
-            Choose Your First Wallet
-          </Button>
-          <Button onClick={() => {}} icon={<BrowserIcon browser="chrome" />}>
-            Install on Chrome
-          </Button>
-          <Button onClick={() => {}} icon={<BrowserIcon browser="chrome" />}>
-            Install the Extension
-          </Button>
-          <Button onClick={() => {}} icon={<BrowserIcon browser="firefox" />}>
-            Install the Extension
-          </Button>
-          <Button onClick={() => {}} icon={logos.Coinbase} roundedIcon>
-            Get Coinbase Wallet
-          </Button>
-          <Button onClick={() => {}} icon={<DisconnectIcon />}>
-            Disconnect
-          </Button>
-          <Button onClick={() => {}} icon={<ExternalLinkIcon />}>
-            Open Default Modal
-          </Button>
-        </div>
-        <h1>QR Code</h1>
         <Container>
-          <FakeModal>
-            <ConnectWithQRCode
-              connectorId="walletConnect"
-              switchConnectMethod={() => {}}
-            />
-          </FakeModal>
-          <FakeModal>
-            <ConnectWithQRCode
-              connectorId="coinbaseWallet"
-              switchConnectMethod={() => {}}
-            />
-          </FakeModal>
+          <div style={{ width: 295 }}>
+            <Button onClick={() => {}} arrow>
+              Choose Your First Wallet
+            </Button>
+            <Button onClick={() => {}} icon={<BrowserIcon browser="chrome" />}>
+              Install on Chrome
+            </Button>
+            <Button onClick={() => {}} icon={<BrowserIcon browser="chrome" />}>
+              Install the Extension
+            </Button>
+            <Button onClick={() => {}} icon={<BrowserIcon browser="firefox" />}>
+              Install the Extension
+            </Button>
+            <Button onClick={() => {}} icon={logos.Coinbase} roundedIcon>
+              Get Coinbase Wallet
+            </Button>
+            <Button onClick={() => {}} icon={<DisconnectIcon />}>
+              Disconnect
+            </Button>
+            <Button onClick={() => {}} icon={<ExternalLinkIcon />}>
+              Open Default Modal
+            </Button>
+          </div>
         </Container>
-        {/**
-      <h1>Injectors</h1>
-      <Container>
-        {Object.keys(states).map((key) => {
-          // @ts-ignore
-          const state = states[key];
-          return (
-            <FakeModal>
-              <ConnectWithInjector
-                connectorId="coinbaseWallet"
-                switchConnectMethod={() => {}}
-                forceState={state}
-              />
-            </FakeModal>
-          );
-        })}
-      </Container>
-      <Container>
-        {Object.keys(states).map((key) => {
-          // @ts-ignore
-          const state = states[key];
-          return (
-            <FakeModal>
-              <ConnectWithInjector
-                connectorId="injected"
-                switchConnectMethod={() => {}}
-                forceState={state}
-              />
-            </FakeModal>
-          );
-        })}
-      </Container>
-      */}
       </ResetContainer>
     </>
   );

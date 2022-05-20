@@ -104,160 +104,173 @@ const TestBench = () => {
         <div
           style={{
             position: 'relative',
-            padding: 64,
-            height: '200vh',
+            gap: 24,
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
             flexDirection: 'column',
-            gap: 12,
           }}
         >
           <ConnectKitModal theme={theme} lang={lang} />
-          <ConnectKitButton />
-
-          <ConnectKitButton.Custom>
-            {({ isConnected, show, hide, address }) => {
-              return (
-                <motion.div
-                  onClick={show}
-                  style={{
-                    fontSize: 15,
-                    fontFamily: 'Avenir',
-                    fontWeight: 700,
-                    padding: '8px 16px',
-                    borderRadius: 40,
-                    background: '#fffc00',
-                    cursor: 'pointer',
-                    lineHeight: '24px',
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {isConnected ? address : 'Custom Connect'}
-                </motion.div>
-              );
-            }}
-          </ConnectKitButton.Custom>
-
-          <button onClick={() => setOpenQA(true)}>Open QA</button>
-
-          <h1>ConnectKit by Family</h1>
-          <p>This page is intentionally left unstyled</p>
-
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'white',
+              justifyContent: 'flex-end',
             }}
           >
-            <fieldset>
-              <h3>options</h3>
-              <div>
-                <label>theme</label>{' '}
-                <select onChange={(e: any) => setTheme(e.target.value)}>
-                  <option value={'auto'}>system settings</option>
-                  <option value={'light'}>light mode</option>
-                  <option value={'dark'}>dark mode</option>
-                </select>
-              </div>
-              <div>
-                <label>language</label>{' '}
-                <select onChange={(e: any) => setLang(e.target.value)}>
-                  <option value={'en'}>english</option>
-                  <option value={'fr'}>french (google translated)</option>
-                </select>
-              </div>
-              <hr />
-              <h3>actions {!isConnected && `(connect to test)`}</h3>
-              <div>
-                <button disabled={!isConnected} onClick={testSignMessage}>
-                  sign message
-                </button>
-                {signMessageIsLoading && 'Loading'}
-                {signMessageIsError && `Error. check console`}
-              </div>
-              <div>
-                <button disabled={!isConnected} onClick={testSignTypedData}>
-                  sign typed data
-                </button>
-                {signTypedDataIsLoading && 'Loading'}
-                {signTypedDataIsError && `Error. check console`}
-              </div>
-              <div>
-                <button disabled={!isConnected} onClick={testSendTransaction}>
-                  send transaction
-                </button>
-                {sendTransactionIsLoading && 'Loading'}
-                {sendTransactionIsError && `Error. check console`}
-              </div>
-            </fieldset>
-            <fieldset>
-              design context preview
-              <hr />
-              <button
-                name="mirror.xyz"
-                onClick={() => {
-                  setIframeUrl(
-                    iframeUrl !== 'https://mirror.xyz'
-                      ? 'https://mirror.xyz'
-                      : ''
-                  );
+            <ConnectKitButton />
+          </div>
+          <div>
+            <ConnectKitButton.Custom>
+              {({ isConnected, show, hide, address }) => {
+                return (
+                  <motion.div
+                    onClick={show}
+                    style={{
+                      display: 'inline-block',
+                      fontSize: 15,
+                      fontFamily: 'Avenir',
+                      fontWeight: 700,
+                      padding: '8px 16px',
+                      borderRadius: 40,
+                      background: '#fffc00',
+                      cursor: 'pointer',
+                      lineHeight: '24px',
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {isConnected ? address : 'Custom Connect'}
+                  </motion.div>
+                );
+              }}
+            </ConnectKitButton.Custom>
+          </div>
+          <div>
+            <button onClick={() => setOpenQA(true)}>Open QA</button>
+          </div>
+          <div>
+            <h1>ConnectKit by Family</h1>
+            <p>This page is intentionally left unstyled</p>
+          </div>
+          <div>
+            <div
+              style={{
+                display: 'flex',
+              }}
+            >
+              <fieldset
+                style={{
+                  background: 'white',
                 }}
               >
-                {iframeUrl === 'https://mirror.xyz' ? 'Disable' : 'Enable'}
-              </button>{' '}
-              <label>mirror.xyz</label>
-              <hr />
-              <button
-                onClick={() => {
-                  setIframeUrl(
-                    iframeUrl !== 'https://opensea.io'
-                      ? 'https://opensea.io'
-                      : ''
-                  );
+                <h3>options</h3>
+                <div>
+                  <label>theme</label>{' '}
+                  <select onChange={(e: any) => setTheme(e.target.value)}>
+                    <option value={'auto'}>system settings</option>
+                    <option value={'light'}>light mode</option>
+                    <option value={'dark'}>dark mode</option>
+                  </select>
+                </div>
+                <div>
+                  <label>language</label>{' '}
+                  <select onChange={(e: any) => setLang(e.target.value)}>
+                    <option value={'en'}>english</option>
+                    <option value={'fr'}>french (google translated)</option>
+                  </select>
+                </div>
+                <hr />
+                <h3>actions {!isConnected && `(connect to test)`}</h3>
+                <div>
+                  <button disabled={!isConnected} onClick={testSignMessage}>
+                    sign message
+                  </button>
+                  {signMessageIsLoading && 'Loading'}
+                  {signMessageIsError && `Error. check console`}
+                </div>
+                <div>
+                  <button disabled={!isConnected} onClick={testSignTypedData}>
+                    sign typed data
+                  </button>
+                  {signTypedDataIsLoading && 'Loading'}
+                  {signTypedDataIsError && `Error. check console`}
+                </div>
+                <div>
+                  <button disabled={!isConnected} onClick={testSendTransaction}>
+                    send transaction
+                  </button>
+                  {sendTransactionIsLoading && 'Loading'}
+                  {sendTransactionIsError && `Error. check console`}
+                </div>
+              </fieldset>
+              <fieldset
+                style={{
+                  background: 'white',
                 }}
               >
-                {iframeUrl === 'https://opensea.io' ? 'Disable' : 'Enable'}
-              </button>{' '}
-              <label>opensea</label>
-              <hr />
-              <button
-                onClick={() => {
-                  setIframeUrl(
-                    iframeUrl !== 'https://honk.me' ? 'https://honk.me' : ''
-                  );
-                }}
-              >
-                {iframeUrl === 'https://honk.me' ? 'Disable' : 'Enable'}
-              </button>{' '}
-              <label>honk</label>
-              <hr />
-              <button
-                onClick={() => {
-                  setIframeUrl(
-                    iframeUrl !== 'https://context.app'
-                      ? 'https://context.app'
-                      : ''
-                  );
-                }}
-              >
-                {iframeUrl === 'https://context.app' ? 'Disable' : 'Enable'}
-              </button>{' '}
-              <label>context</label>
-              <hr />
-              <button
-                onClick={() => {
-                  setIframeUrl(
-                    iframeUrl !== 'https://loch.ie' ? 'https://loch.ie' : ''
-                  );
-                }}
-              >
-                {iframeUrl === 'https://loch.ie' ? 'Disable' : 'Enable'}
-              </button>{' '}
-              <label>extreme stress test</label>
-            </fieldset>
+                design context preview
+                <hr />
+                <button
+                  name="mirror.xyz"
+                  onClick={() => {
+                    setIframeUrl(
+                      iframeUrl !== 'https://mirror.xyz'
+                        ? 'https://mirror.xyz'
+                        : ''
+                    );
+                  }}
+                >
+                  {iframeUrl === 'https://mirror.xyz' ? 'Disable' : 'Enable'}
+                </button>{' '}
+                <label>mirror.xyz</label>
+                <hr />
+                <button
+                  onClick={() => {
+                    setIframeUrl(
+                      iframeUrl !== 'https://opensea.io'
+                        ? 'https://opensea.io'
+                        : ''
+                    );
+                  }}
+                >
+                  {iframeUrl === 'https://opensea.io' ? 'Disable' : 'Enable'}
+                </button>{' '}
+                <label>opensea</label>
+                <hr />
+                <button
+                  onClick={() => {
+                    setIframeUrl(
+                      iframeUrl !== 'https://honk.me' ? 'https://honk.me' : ''
+                    );
+                  }}
+                >
+                  {iframeUrl === 'https://honk.me' ? 'Disable' : 'Enable'}
+                </button>{' '}
+                <label>honk</label>
+                <hr />
+                <button
+                  onClick={() => {
+                    setIframeUrl(
+                      iframeUrl !== 'https://context.app'
+                        ? 'https://context.app'
+                        : ''
+                    );
+                  }}
+                >
+                  {iframeUrl === 'https://context.app' ? 'Disable' : 'Enable'}
+                </button>{' '}
+                <label>context</label>
+                <hr />
+                <button
+                  onClick={() => {
+                    setIframeUrl(
+                      iframeUrl !== 'https://loch.ie' ? 'https://loch.ie' : ''
+                    );
+                  }}
+                >
+                  {iframeUrl === 'https://loch.ie' ? 'Disable' : 'Enable'}
+                </button>{' '}
+                <label>extreme stress test</label>
+              </fieldset>
+            </div>
           </div>
 
           {iframeUrl !== '' && (
@@ -266,10 +279,10 @@ const TestBench = () => {
               scrolling="no"
               src={iframeUrl}
               style={{
-                width: '100%',
-                height: '100%',
+                width: '100vw',
+                height: '100vh',
                 inset: 0,
-                position: 'absolute',
+                position: 'fixed',
                 zIndex: -1,
                 border: 0,
               }}
