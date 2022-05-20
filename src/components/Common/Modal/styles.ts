@@ -135,7 +135,7 @@ export const InnerContainer = styled(motion.div)`
   overflow: hidden;
   height: var(--height);
   transition: var(--transition);
-  transform: perspective(1px); // Stop text shifting
+  //transform: perspective(1px); // Stop text shifting
   /* transition: height 500ms var(--ease), width 500ms var(--ease); */
   /* transition: height 240ms cubic-bezier(0.25, 1, 0.5, 1),
     width 240ms cubic-bezier(0.25, 1, 0.5, 1); */
