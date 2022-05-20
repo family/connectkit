@@ -124,8 +124,9 @@ export function ConnectKitButton() {
       ref={containerRef}
       style={{
         display: 'inline-block',
-        width: '100%',
-        maxWidth: 'calc(var(--width, 107px) + 30px)',
+        width: bounds.width === 0 ? 'fit-content' : '100%',
+        maxWidth:
+          bounds.width === 0 ? 'none' : 'calc(var(--width, 107px) + 30px)',
         transition: 'max-width 100ms ease',
       }}
     >
