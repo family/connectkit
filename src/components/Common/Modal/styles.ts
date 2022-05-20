@@ -271,6 +271,8 @@ export const Container = styled(motion.div)`
       bottom: -5px;
       transform: none;
       ${BoxContainer} {
+        max-width: 448px;
+        margin: 0 auto;
         &:before {
           border-radius: 30px 30px 0 0;
         }
