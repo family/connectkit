@@ -274,19 +274,22 @@ const TestBench = () => {
           </div>
 
           {iframeUrl !== '' && (
-            <iframe
-              title="preview"
-              scrolling="no"
-              src={iframeUrl}
-              style={{
-                width: '100vw',
-                height: '100vh',
-                inset: 0,
-                position: 'fixed',
-                zIndex: -1,
-                border: 0,
-              }}
-            />
+            <>
+              <div style={{ height: '200vh' }} />
+              <iframe
+                title="preview"
+                scrolling="no"
+                src={iframeUrl}
+                style={{
+                  width: '100vw',
+                  height: '100%',
+                  inset: 0,
+                  position: 'fixed',
+                  zIndex: -1,
+                  border: 0,
+                }}
+              />
+            </>
           )}
         </div>
       )}
