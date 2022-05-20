@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useConnect, useAccount, useEnsName } from 'wagmi';
 import { truncateEthAddress } from './../../utils';
 import { ResetContainer } from '../../styles';
@@ -7,27 +7,27 @@ import { Button, IconContainer, TextContainer } from './styles';
 import { routes, useContext } from '../ConnectKit';
 import Avatar from '../Common/Avatar';
 import { AnimatePresence, Variants } from 'framer-motion';
+import useMeasure from 'react-use-measure';
 
 const contentVariants: Variants = {
   initial: {
     //willChange: 'transform,opacity',
     zIndex: 2,
     opacity: 0,
-    y: -10,
+    y: -4,
   },
   animate: {
     opacity: 1,
     scale: 1,
     y: 0,
     transition: {
-      duration: 0.15,
-      delay: 0.1,
+      duration: 0.3,
     },
   },
   exit: {
     zIndex: 1,
     opacity: 0,
-    y: 10,
+    y: 4,
     pointerEvents: 'none',
     position: 'absolute',
     transition: { duration: 0.2 },
@@ -89,6 +89,9 @@ ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
 
 export function ConnectKitButton() {
   const context = useContext();
+  const containerRef = useRef<any>(null);
+  const [contentRef, bounds] = useMeasure({ offsetSize: true });
+
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -105,34 +108,55 @@ export function ConnectKitButton() {
     context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
   }
 
+  const useIsomorphicLayoutEffect =
+    typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+  const refreshLayout = () => {
+    if (!containerRef.current || bounds.width === 0) return;
+    //containerRef.current.style.setProperty('--height', `${bounds.height}px`);
+    containerRef.current.style.setProperty('--width', `${bounds.width}px`);
+  };
+  useIsomorphicLayoutEffect(refreshLayout, [bounds]);
+
   return (
-    <ResetContainer theme={context.theme}>
+    <ResetContainer
+      theme={context.theme}
+      ref={containerRef}
+      style={{
+        display: 'inline-block',
+        width: '100%',
+        maxWidth: 'calc(var(--width) + 30px)',
+        transition: 'max-width 100ms ease',
+      }}
+    >
       <Button onClick={show}>
         <AnimatePresence initial={false}>
-          {account?.address ? (
-            <TextContainer
-              key="connected"
-              initial={'initial'}
-              animate={'animate'}
-              exit={'exit'}
-              variants={contentVariants}
-            >
-              <IconContainer>
-                <Avatar size={24} address={account?.address} />
-              </IconContainer>
-              <span>{ensName ?? truncateEthAddress(account?.address)}</span>
-            </TextContainer>
-          ) : (
-            <TextContainer
-              key="connect"
-              initial={'initial'}
-              animate={'animate'}
-              exit={'exit'}
-              variants={contentVariants}
-            >
-              Connect Wallet
-            </TextContainer>
-          )}
+          <div ref={contentRef} style={{ width: 'fit-content' }}>
+            {account?.address ? (
+              <TextContainer
+                key="connected"
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
+                variants={contentVariants}
+              >
+                <IconContainer>
+                  <Avatar size={24} address={account?.address} />
+                </IconContainer>
+                <span>{ensName ?? truncateEthAddress(account?.address)}</span>
+              </TextContainer>
+            ) : (
+              <TextContainer
+                key="connect"
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
+                variants={contentVariants}
+              >
+                Connect Wallet
+              </TextContainer>
+            )}
+          </div>
         </AnimatePresence>
       </Button>
     </ResetContainer>

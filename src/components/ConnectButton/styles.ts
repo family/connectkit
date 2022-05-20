@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const TextContainer = styled(motion.div)`
+  display: block;
   position: relative;
   top: 0;
   bottom: 0;
@@ -11,12 +12,13 @@ export const TextContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  width: fit-content;
 `;
 
 export const Button = styled(motion.button)`
   --outline: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
   --shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-
+  display: block;
   color: var(--connectbutton-color);
   background: var(--connectbutton-background);
   appearance: none;
@@ -24,6 +26,7 @@ export const Button = styled(motion.button)`
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  width: 100%;
   height: 40px;
   padding: 0 15px;
   line-height: 0;
@@ -31,7 +34,7 @@ export const Button = styled(motion.button)`
   font-weight: 500;
   border-radius: 10px;
 
-  transition: background-color 100ms ease;
+  transition: background-color 100ms ease, max-width 200ms ease;
 
   box-shadow: var(--outline), var(--shadow);
 
