@@ -46,7 +46,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   transition: box-shadow 100ms ease, background-color 100ms ease;
   box-shadow: 0 0 0 0 var(--background);
   ${(props) => {
-    if (!mobile)
+    if (!mobile) {
       return css`
         &:hover {
           --background: var(--body-background-secondary-hover);
@@ -64,6 +64,15 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
           box-shadow: 0 0 0 1px var(--background);
         }
       `;
+    } else {
+      return css`
+        transition: transform 100ms ease;
+        transform: scale(1);
+        &:active {
+          transform: scale(0.97);
+        }
+      `;
+    }
   }}
 `;
 
