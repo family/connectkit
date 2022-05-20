@@ -4,7 +4,10 @@ import { useNetwork } from 'wagmi';
 import supportedChains from '../../constants/supportedChains';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { isMobile } from '../../utils';
+
+const mobile = isMobile();
 const ChainIcon = styled(motion.div)`
   display: block;
   position: relative;
@@ -74,12 +77,16 @@ const ChainButton = styled(motion.button)`
     opacity: 0;
     transition: opacity 180ms ease;
   }
-  &:hover {
-    &:before {
-      transition-duration: 80ms;
-      opacity: 0.05;
-    }
-  }
+  ${(props) =>
+    !mobile &&
+    css`
+      &:hover {
+        &:before {
+          transition-duration: 80ms;
+          opacity: 0.05;
+        }
+      }
+    `}
   &:active {
     transform: scale(0.99) translateZ(0px);
   }
@@ -194,11 +201,12 @@ const SwitchNetworksList: React.FC = () => {
                     exit={{
                       opacity: 0,
                       x: 4,
-                      transition: { duration: 0.1 },
+                      transition: { duration: 0.1, delay: 0 },
                     }}
                     transition={{
                       ease: [0.76, 0, 0.24, 1],
                       duration: 0.3,
+                      delay: 0.2,
                     }}
                   >
                     Connected
@@ -218,7 +226,7 @@ const SwitchNetworksList: React.FC = () => {
                     exit={{ opacity: 0, x: 4 }}
                     transition={{
                       ease: [0.76, 0, 0.24, 1],
-                      duration: 0.15,
+                      duration: 0.3,
                     }}
                   >
                     Approve in Wallet
