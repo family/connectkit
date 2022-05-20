@@ -33,9 +33,10 @@ const DropdownContainer = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 0;
-  min-width: 292px;
+  width: 100%;
+  max-width: 292px;
   border-radius: 12px;
-  padding: 14px 20px 8px 16px;
+  padding: 14px 16px 8px;
   color: var(--tooltip-color);
   background: var(--tooltip-body);
   box-shadow: var(--shadow);

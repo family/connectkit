@@ -6,6 +6,7 @@ import supportedChains from '../../constants/supportedChains';
 import { AnimatePresence, motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 import { isMobile } from '../../utils';
+import Alert from '../Common/Alert';
 
 const mobile = isMobile();
 const ChainIcon = styled(motion.div)`
@@ -110,6 +111,7 @@ const ChainButton = styled(motion.button)`
     transform: scale(0.99) translateZ(0px);
   }
   &:disabled {
+    //opacity: 0.4;
     pointer-events: none;
   }
 `;
@@ -118,6 +120,7 @@ const ChainButtonStatus = styled(motion.div)`
   font-size: 15px;
   line-height: 18px;
   font-weight: 400;
+  padding-right: 4px;
   span {
     display: block;
     position: relative;
@@ -132,7 +135,7 @@ const ChainButtonBg = styled(motion.div)`
   background: var(--focus-color);
   position: absolute;
   z-index: -1;
-  inset: 0 -12px 0 -8px;
+  inset: 0 -8px;
   border-radius: 12px;
   opacity: 0.1;
   ${() =>
@@ -178,110 +181,118 @@ const SwitchNetworksList: React.FC = () => {
     useNetwork();
 
   return (
-    <ChainButtons>
-      {chains.map((x) => {
-        const chain = supportedChains.filter((c) => c.id === x.id)[0];
-        return (
-          <ChainButton
-            disabled={
-              !switchNetwork ||
-              x.id === activeChain?.id ||
-              (isLoading && pendingChainId === x.id)
-            }
-            key={x.id}
-            onClick={() => switchNetwork?.(x.id)}
-          >
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                gap: 12,
-              }}
+    <>
+      {!switchNetwork && (
+        <Alert>
+          Your wallet does not support switching networks from this within dApp.
+          Instead switch networks from within your wallet.
+        </Alert>
+      )}
+      <ChainButtons>
+        {chains.map((x) => {
+          const chain = supportedChains.filter((c) => c.id === x.id)[0];
+          return (
+            <ChainButton
+              disabled={
+                !switchNetwork ||
+                x.id === activeChain?.id ||
+                (isLoading && pendingChainId === x.id)
+              }
+              key={x.id}
+              onClick={() => switchNetwork?.(x.id)}
             >
-              <ChainLogoContainer>
-                <ChainLogoSpinner
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: isLoading && pendingChainId === x.id ? 1 : 0,
-                  }}
-                  transition={{
-                    ease: [0.76, 0, 0.24, 1],
-                    duration: 0.15,
-                  }}
-                >
-                  {Spinner}
-                </ChainLogoSpinner>
-                <ChainIcon>{chain.logo}</ChainIcon>
-              </ChainLogoContainer>
-              {x.name}
-            </span>
-            <ChainButtonStatus>
-              <AnimatePresence initial={false}>
-                {x.id === activeChain?.id && (
-                  <motion.span
-                    style={{
-                      color: 'var(--focus-color)',
-                      display: 'block',
-                      position: 'relative',
-                    }}
-                    initial={{ opacity: 0, x: -4 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{
-                      opacity: 0,
-                      x: 4,
-                      transition: { duration: 0.1, delay: 0 },
+              <span
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  gap: 12,
+                }}
+              >
+                <ChainLogoContainer>
+                  <ChainLogoSpinner
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: isLoading && pendingChainId === x.id ? 1 : 0,
                     }}
                     transition={{
                       ease: [0.76, 0, 0.24, 1],
-                      duration: 0.3,
-                      delay: 0.2,
+                      duration: 0.15,
                     }}
                   >
-                    Connected
-                  </motion.span>
-                )}
-                {isLoading && pendingChainId === x.id && (
-                  <motion.span
-                    style={{
-                      display: 'block',
-                      position: 'relative',
-                    }}
-                    initial={{
-                      opacity: 0,
-                      x: -4,
-                    }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 4 }}
+                    {Spinner}
+                  </ChainLogoSpinner>
+                  <ChainIcon>{chain.logo}</ChainIcon>
+                </ChainLogoContainer>
+                {x.name}
+              </span>
+              <ChainButtonStatus>
+                <AnimatePresence initial={false}>
+                  {x.id === activeChain?.id && (
+                    <motion.span
+                      style={{
+                        color: 'var(--focus-color)',
+                        display: 'block',
+                        position: 'relative',
+                      }}
+                      initial={{ opacity: 0, x: -4 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{
+                        opacity: 0,
+                        x: 4,
+                        transition: { duration: 0.1, delay: 0 },
+                      }}
+                      transition={{
+                        ease: [0.76, 0, 0.24, 1],
+                        duration: 0.3,
+                        delay: 0.2,
+                      }}
+                    >
+                      Connected
+                    </motion.span>
+                  )}
+                  {isLoading && pendingChainId === x.id && (
+                    <motion.span
+                      style={{
+                        display: 'block',
+                        position: 'relative',
+                      }}
+                      initial={{
+                        opacity: 0,
+                        x: -4,
+                      }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 4 }}
+                      transition={{
+                        ease: [0.76, 0, 0.24, 1],
+                        duration: 0.3,
+                      }}
+                    >
+                      Approve in Wallet
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </ChainButtonStatus>
+              {
+                //hover === x.name && (
+                x.id === activeChain?.id && (
+                  <ChainButtonBg
+                    layoutId="activeChain"
+                    layout="position"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.1 }}
                     transition={{
-                      ease: [0.76, 0, 0.24, 1],
                       duration: 0.3,
+                      ease: 'easeOut',
                     }}
-                  >
-                    Approve in Wallet
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </ChainButtonStatus>
-            {
-              //hover === x.name && (
-              x.id === activeChain?.id && (
-                <ChainButtonBg
-                  layoutId="activeChain"
-                  layout="position"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.1 }}
-                  transition={{
-                    duration: 0.3,
-                    ease: 'easeOut',
-                  }}
-                />
-              )
-            }
-          </ChainButton>
-        );
-      })}
-    </ChainButtons>
+                  />
+                )
+              }
+            </ChainButton>
+          );
+        })}
+      </ChainButtons>
+    </>
   );
 };
 
