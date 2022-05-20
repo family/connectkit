@@ -49,11 +49,11 @@ const Wallets: React.FC = () => {
         });
         break;
       case 'metaMask':
-        //TODO: Fix broken connector
-        connector = new MetaMaskConnector({
+        connector = new WalletConnectConnector({
           chains: c.chains,
-          options: c.options,
+          options: { ...c.options, qrcode: false },
         });
+        //TODO: Get uri and await window.location with prefix
         break;
       case 'coinbaseWallet':
         connector = new CoinbaseWalletConnector({
