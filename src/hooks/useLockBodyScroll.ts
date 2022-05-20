@@ -9,11 +9,16 @@ export default function useLockBodyScroll(initialLocked: boolean) {
   useIsomorphicLayoutEffect(() => {
     if (!locked) return;
 
-    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'relative';
+    document.body.style.touchAction = 'none';
+    document.documentElement.style.overflow = 'hidden';
 
     return () => {
-      document.body.style.overflow = originalOverflow;
+      document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('position');
+      document.body.style.removeProperty('touch-action');
+      document.documentElement.style.removeProperty('overflow');
     };
   }, [locked]);
 
