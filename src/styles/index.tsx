@@ -219,7 +219,6 @@ export const ResetContainer = styled.div<{ theme: string }>`
   }}
 
   all: initial;
-  display: inline-block;
   text-align: left;
   text-direction: ltr;
   text-rendering: optimizeLegibility;
@@ -229,6 +228,14 @@ export const ResetContainer = styled.div<{ theme: string }>`
   -webkit-text-stroke: 0.001px transparent;
   text-size-adjust: none;
   font-size: 16px;
+
+  button {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-text-stroke: 0.001px transparent;
+  }
 
   &,
   * {
