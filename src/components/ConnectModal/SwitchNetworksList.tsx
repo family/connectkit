@@ -22,6 +22,13 @@ const ChainIcon = styled(motion.div)`
     width: 100%;
     height: auto;
   }
+  ${(props) =>
+    mobile &&
+    css`
+      border-radius: 16px;
+      width: 32px;
+      height: 32px;
+    `}
 `;
 const ChainLogoContainer = styled(motion.div)`
   position: relative;
@@ -44,7 +51,14 @@ const ChainLogoSpinner = styled(motion.div)`
     }
   }
 `;
-const ChainButtons = styled(motion.div)``;
+const ChainButtons = styled(motion.div)`
+  ${() =>
+    mobile &&
+    css`
+      padding: 0 6px;
+      margin: -12px 0 -24px; ;
+    `}
+`;
 const ChainButton = styled(motion.button)`
   appearance: none;
   cursor: pointer;
@@ -77,16 +91,21 @@ const ChainButton = styled(motion.button)`
     opacity: 0;
     transition: opacity 180ms ease;
   }
-  ${(props) =>
-    !mobile &&
-    css`
-      &:hover {
-        &:before {
-          transition-duration: 80ms;
-          opacity: 0.05;
-        }
-      }
-    `}
+  ${() => {
+    return !mobile
+      ? css`
+          &:hover {
+            &:before {
+              transition-duration: 80ms;
+              opacity: 0.05;
+            }
+          }
+        `
+      : css`
+          font-size: 17px;
+          padding: 8px 0;
+        `;
+  }}
   &:active {
     transform: scale(0.99) translateZ(0px);
   }
@@ -103,6 +122,11 @@ const ChainButtonStatus = styled(motion.div)`
     display: block;
     position: relative;
   }
+  ${() =>
+    mobile &&
+    css`
+      font-size: 17px;
+    `}
 `;
 const ChainButtonBg = styled(motion.div)`
   background: var(--focus-color);
@@ -111,6 +135,11 @@ const ChainButtonBg = styled(motion.div)`
   inset: 0 -12px 0 -8px;
   border-radius: 12px;
   opacity: 0.1;
+  ${() =>
+    mobile &&
+    css`
+      inset: 0 -12px;
+    `}
 `;
 
 const Spinner = (

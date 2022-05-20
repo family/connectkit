@@ -1,5 +1,8 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
+import { isMobile } from '../../../utils';
+
+const mobile = isMobile();
 
 export const Graphic = styled(motion.div)`
   position: relative;
@@ -8,6 +11,11 @@ export const Graphic = styled(motion.div)`
   max-width: 295px;
   pointer-events: none;
   user-select: none;
+  ${(props) =>
+    mobile &&
+    css`
+      height: 214px;
+    `}
 `;
 export const LogoGroup = styled(motion.div)`
   position: absolute;
@@ -34,7 +42,7 @@ export const GraphicBackground = styled(motion.div)`
   svg {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
   }
 `;
 

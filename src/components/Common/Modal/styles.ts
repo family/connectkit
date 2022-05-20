@@ -282,6 +282,9 @@ export const Container = styled(motion.div)`
       ${ModalHeading} {
         margin: 0 0 20px;
       }
+      ${ModalContent} {
+        gap: 12px;
+      }
       ${ModalBody} {
         margin: 0 auto;
         max-width: 295px;
