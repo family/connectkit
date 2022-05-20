@@ -113,9 +113,11 @@ const TestBench = () => {
           <div
             style={{
               display: 'flex',
-              justifyContent: 'flex-end',
+              justifyContent: 'space-between',
             }}
           >
+            <ConnectKitButton />
+            <ConnectKitButton />
             <ConnectKitButton />
           </div>
           <div>
