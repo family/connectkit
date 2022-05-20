@@ -5,7 +5,14 @@ import { hexToP3 } from '../utils/p3';
 /**
  * Theme variables for the modal
  */
-const theme = {
+const themeGlobals = {
+  default: {
+    '--font-family': `-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+    'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
+    'Segoe UI Symbol'`,
+  },
+};
+const themeColors = {
   brand: {
     '--family-brand': '#1A88F8',
     '--brand-walletConnect': '#3B99FC',
@@ -164,7 +171,14 @@ const theme = {
  *  Automatically use p3 if available
  */
 //  TODO: Don't use :any type
-const createCssVariables = (scheme: any) => {
+const createCssVars = (scheme: any) => {
+  return css`
+    ${Object.keys(scheme).map((key) => {
+      return `${key}:${scheme[key]};`;
+    })}
+  `;
+};
+const createCssColors = (scheme: any) => {
   return css`
     ${Object.keys(scheme).map((key) => {
       return `${key}:${scheme[key]};`;
@@ -183,19 +197,20 @@ const createCssVariables = (scheme: any) => {
  */
 // TODO: Think more about how to reset our components as to not be affected by external stylings
 export const ResetContainer = styled.div<{ theme: string }>`
-  ${createCssVariables(theme.brand)}
+  ${createCssColors(themeColors.brand)}
+  ${createCssVars(themeGlobals.default)};
 
   ${(props) => {
     switch (props.theme) {
       case 'light':
-        return createCssVariables(theme.light);
+        return createCssColors(themeColors.light);
       case 'dark':
-        return createCssVariables(theme.dark);
+        return createCssColors(themeColors.dark);
       default:
         return css`
-          ${createCssVariables(theme.light)}
+          ${createCssColors(themeColors.light)}
           @media (prefers-color-scheme: dark) {
-            ${createCssVariables(theme.dark)}
+            ${createCssColors(themeColors.dark)}
           }
         `;
     }
@@ -205,14 +220,14 @@ export const ResetContainer = styled.div<{ theme: string }>`
     if (!mobile) return;
     switch (props.theme) {
       case 'light':
-        return createCssVariables(theme.lightMobile);
+        return createCssColors(themeColors.lightMobile);
       case 'dark':
-        return createCssVariables(theme.darkMobile);
+        return createCssColors(themeColors.darkMobile);
       default:
         return css`
-          ${createCssVariables(theme.lightMobile)}
+          ${createCssColors(themeColors.lightMobile)}
           @media (prefers-color-scheme: dark) {
-            ${createCssVariables(theme.darkMobile)}
+            ${createCssColors(themeColors.darkMobile)}
           }
         `;
     }
@@ -239,9 +254,7 @@ export const ResetContainer = styled.div<{ theme: string }>`
 
   &,
   * {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
-      'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
-      'Segoe UI Symbol';
+    font-family: var(--font-family);
     box-sizing: border-box;
     outline: none;
     border: none;
