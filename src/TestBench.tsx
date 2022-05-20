@@ -120,7 +120,7 @@ const TestBench = () => {
           </div>
           <div>
             <ConnectKitButton.Custom>
-              {({ isConnected, show, hide, address }) => {
+              {({ isConnected, show, hide, truncatedAddress }) => {
                 return (
                   <motion.div
                     onClick={show}
@@ -137,7 +137,7 @@ const TestBench = () => {
                     }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {isConnected ? address : 'Custom Connect'}
+                    {isConnected ? truncatedAddress : 'Custom Connect'}
                   </motion.div>
                 );
               }}
