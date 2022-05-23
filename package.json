@@ -1,6 +1,6 @@
 {
   "name": "@familyco/connectkit",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "main": "build/index.js",
   "module": "build/index.es.js",
