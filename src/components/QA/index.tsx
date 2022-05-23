@@ -1,9 +1,8 @@
 import React from 'react';
 import Avatar from '../Common/Avatar';
-
+import { Theme } from '../../types';
 import styled from 'styled-components';
 import { ResetContainer } from './../../styles';
-
 import {
   Container as ModalContainer,
   InnerContainer,
@@ -12,8 +11,6 @@ import {
 import Button from '../Common/Button';
 import BrowserIcon from '../Common/BrowserIcon';
 import logos from '../../assets/logos';
-
-import { Theme } from '../ConnectKit';
 import { DisconnectIcon, ExternalLinkIcon } from '../../assets/icons';
 
 const Container = styled.div`
