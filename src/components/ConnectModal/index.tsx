@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useConnect } from 'wagmi';
-import { routes, useContext, Theme, Languages } from '../ConnectKit';
-
+import { routes, useContext } from '../ConnectKit';
+import { Languages, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
 import OnboardingIntroduction from '../Pages/Onboarding';
