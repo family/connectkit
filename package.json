@@ -10,8 +10,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "start": "rollup -c -w",
     "dev": "rollup -c -w",
+    "build": "rollup -c",
     "build:publish": "rollup -c && npm publish"
   },
   "dependencies": {
