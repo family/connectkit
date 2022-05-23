@@ -258,10 +258,10 @@ const ConnectWithInjector: React.FC<{
                   <RetryIconContainer>
                     <Tooltip
                       open={
-                        (showTryAgainTooltip && status === states.FAILED) ||
-                        status === states.REJECTED
+                        showTryAgainTooltip &&
+                        (status === states.FAILED || status === states.REJECTED)
                       }
-                      message={'Try connecting again'}
+                      message={`Try connecting again`}
                       xOffset={-6}
                     >
                       <RetryIcon />
