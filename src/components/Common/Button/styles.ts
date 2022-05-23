@@ -68,6 +68,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
       return css`
         transition: transform 100ms ease;
         transform: scale(1);
+        font-size: 17px;
         &:active {
           transform: scale(0.97);
         }
