@@ -87,7 +87,7 @@ const ChainButton = styled(motion.button)`
     background: currentColor;
     position: absolute;
     z-index: -1;
-    inset: 0 -12px 0 -8px;
+    inset: 0 -8px;
     border-radius: 12px;
     opacity: 0;
     transition: opacity 180ms ease;
