@@ -103,6 +103,7 @@ export const BoxContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
   color: var(--body-color);
+  will-change: transform;
   &:before {
     content: '';
     position: absolute;
@@ -115,6 +116,7 @@ export const BoxContainer = styled(motion.div)`
     border-radius: 24px;
     background: var(--body-background);
     transition: var(--transition);
+    will-change: width;
   }
 `;
 export const ControllerContainer = styled(motion.div)`
@@ -175,6 +177,7 @@ export const CloseButton = styled(motion.button)`
   color: var(--body-action-color);
   background: var(--body-background);
   transition: background-color 200ms ease, transform 100ms ease;
+  will-change: transform;
   svg {
     display: block;
   }
@@ -204,6 +207,7 @@ export const BackButton = styled(motion.button)`
   color: var(--body-action-color);
   background: var(--body-background);
   transition: background-color 200ms ease, transform 100ms ease;
+  will-change: transform;
   svg {
     display: block;
     position: relative;
@@ -235,6 +239,7 @@ export const InfoButton = styled(motion.button)`
   color: var(--body-action-color);
   background: var(--body-background);
   transition: background-color 200ms ease, transform 100ms ease;
+  will-change: transform;
   svg {
     display: block;
     position: relative;
@@ -251,7 +256,7 @@ export const InfoButton = styled(motion.button)`
 
 export const Container = styled(motion.div)`
   --ease: ease;
-  --duration: 220ms;
+  --duration: 2200ms;
   --transition: height var(--duration) var(--ease),
     width var(--duration) var(--ease);
   z-index: 3;
