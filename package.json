@@ -1,7 +1,6 @@
 {
   "name": "@familyco/connectkit",
   "version": "0.0.1",
-  "private": true,
   "main": "build/index.js",
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
@@ -13,7 +12,7 @@
     "start": "rollup -c -w",
     "dev": "rollup -c -w",
     "build": "rollup -c",
-    "build:publish": "rollup -c && npm publish"
+    "build:publish": "rollup -c && npm publish --scope=@familyco"
   },
   "dependencies": {
     "ethers": "^5.6.4",
