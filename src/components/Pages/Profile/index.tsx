@@ -12,7 +12,14 @@ import {
   useNetwork,
 } from 'wagmi';
 
-import { AvatarContainer, AvatarInner, ChainSelectorContainer } from './styles';
+import {
+  AvatarContainer,
+  AvatarInner,
+  ChainSelectorContainer,
+  BalanceContainer,
+  LoadingBalance,
+  Balance,
+} from './styles';
 
 import {
   PageContent,
@@ -27,6 +34,7 @@ import ChainSelector from '../../ConnectModal/ChainSelector';
 
 import { DisconnectIcon } from '../../../assets/icons';
 import CopyToClipboard from '../../Common/CopyToClipboard';
+import { AnimatePresence } from 'framer-motion';
 
 const Profile: React.FC = () => {
   const context = useContext();
@@ -80,15 +88,33 @@ const Profile: React.FC = () => {
           </CopyToClipboard>
         </ModalH1>
         <ModalBody>
-          {balance ? (
-            <>
-              {Number(balance?.formatted).toPrecision(3)}
-              {` `}
-              {balance?.symbol}
-            </>
-          ) : (
-            <>&nbsp;</>
-          )}
+          <BalanceContainer>
+            <AnimatePresence exitBeforeEnter initial={false}>
+              {balance && (
+                <Balance
+                  key={`chain-${activeChain?.id}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {Number(balance?.formatted).toPrecision(3)}
+                  {` `}
+                  {balance?.symbol}
+                </Balance>
+              )}
+              {!balance && (
+                <LoadingBalance
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  &nbsp;
+                </LoadingBalance>
+              )}
+            </AnimatePresence>
+          </BalanceContainer>
         </ModalBody>
       </ModalContent>
       <Button
