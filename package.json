@@ -24,8 +24,8 @@
     "util": "^0.12.4"
   },
   "peerDependencies": {
-    "react-dom": "^18.0.0",
     "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "wagmi": "^0.3.2"
   },
   "devDependencies": {
