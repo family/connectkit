@@ -1,4 +1,5 @@
 import React, { createContext, createElement, useState } from 'react';
+import { Languages, Theme } from '../types';
 
 export const routes = {
   CONNECTORS: 'connectors',
@@ -8,9 +9,6 @@ export const routes = {
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchnetworks',
 };
-
-export type Theme = 'light' | 'dark' | 'auto';
-export type Languages = 'en' | 'fr';
 
 type Connector = any;
 
