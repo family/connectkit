@@ -79,6 +79,7 @@ export const ConnectorButton = styled(motion.button)`
   text-align: center;
   transition: background-color 200ms ease, box-shadow 280ms ease,
     transform 100ms ease;
+  will-change: transform, box-shadow, background-color;
 
   background: var(--background);
   box-shadow: inset 0 0 0 0px var(--background),
