@@ -255,8 +255,8 @@ export const InfoButton = styled(motion.button)`
 `;
 
 export const Container = styled(motion.div)`
-  --ease: ease;
-  --duration: 2200ms;
+  --ease: cubic-bezier(0.4, 0.2, 0.6, 1);
+  --duration: 220ms;
   --transition: height var(--duration) var(--ease),
     width var(--duration) var(--ease);
   z-index: 3;
