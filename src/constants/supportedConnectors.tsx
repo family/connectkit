@@ -44,7 +44,7 @@ if (typeof window != 'undefined') {
       } as IDictionary,
       appUrls: {
         download: 'https://connect.family.co/v0/download/metamask',
-        website: 'https://metamask.io/',
+        website: 'https://metamask.io/download/',
         android: 'https://play.google.com/store/apps/details?id=io.metamask',
         ios: 'https://apps.apple.com/us/app/metamask/id1438144202',
       } as IDictionary,
@@ -71,7 +71,7 @@ if (typeof window != 'undefined') {
       } as IDictionary,
       appUrls: {
         download: 'https://connect.family.co/v0/download/coinbasewallet',
-        website: 'https://coinbase.com/',
+        website: 'https://www.coinbase.com/wallet/getting-started-extension',
         android: 'https://play.google.com/store/apps/details?id=org.toshi',
         ios: 'https://apps.apple.com/us/app/coinbase-wallet-store-crypto/id1278383455',
       } as IDictionary,
