@@ -20,6 +20,7 @@ const ChainIcon = styled(motion.div)`
   min-height: 24px;
   background: var(--body-background);
   svg {
+    border-radius: inherit;
     display: block;
     position: relative;
     transform: translate3d(0, 0, 0);
