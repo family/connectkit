@@ -23,7 +23,7 @@
     "react-use-measure": "^2.1.1",
     "styled-components": "^5.3.5",
     "util": "^0.12.4",
-    "wagmi": "^0.3.2"
+    "wagmi": "^0.4.3"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
@@ -43,6 +43,6 @@
   "resolutions": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "wagmi": "^0.3.2"
+    "wagmi": "^0.4.3"
   }
 }
