@@ -20,6 +20,9 @@ const ChainIcon = styled(motion.div)`
   min-height: 24px;
   background: var(--body-background);
   svg {
+    display: block;
+    position: relative;
+    transform: translate3d(0, 0, 0);
     width: 100%;
     height: auto;
   }
@@ -40,6 +43,9 @@ const ChainLogoSpinner = styled(motion.div)`
   animation: rotateSpinner 1200ms linear infinite;
   pointer-events: none;
   svg {
+    display: block;
+    position: relative;
+    transform: translate3d(0, 0, 0);
     width: 100%;
     height: auto;
   }

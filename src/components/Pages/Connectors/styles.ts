@@ -175,7 +175,10 @@ export const MobileConnectorIcon = styled(motion.div)`
   overflow: hidden;
   border-radius: 16px;
   svg {
+    border-radius: inherit;
     display: block;
+    position: relative;
+    transform: translate3d(0, 0, 0);
     width: 100%;
     height: 100%;
   }
