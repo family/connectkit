@@ -86,8 +86,7 @@ export const ConnectorButton = styled(motion.button)`
     inset 0 0 0 0px var(--background);
 
   &:disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
+    transition: 0ms;
   }
 
   &:not(:disabled) {

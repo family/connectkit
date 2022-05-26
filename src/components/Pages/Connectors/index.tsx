@@ -34,7 +34,7 @@ const Wallets: React.FC = () => {
 
   const { connect, connectAsync, connectors } = useConnect({
     onError(e) {
-      alert(e);
+      console.log(e);
     },
   });
 
@@ -62,7 +62,12 @@ const Wallets: React.FC = () => {
         });
         break;
     }
-    if (connector) await connectAsync(connector);
+    if (!connector) return;
+    try {
+      await connectAsync(connector);
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {}, [mobile]);
 
@@ -99,7 +104,7 @@ const Wallets: React.FC = () => {
             return (
               <ConnectorButton
                 key={connector.id}
-                //disabled={!connector.ready}
+                disabled={context.route !== routes.CONNECTORS}
                 onClick={() => {
                   if (
                     connector.id === 'metaMask' ||
