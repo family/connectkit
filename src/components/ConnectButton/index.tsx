@@ -46,9 +46,16 @@ type ConnectButtonRendererProps = {
   }) => React.ReactNode;
 };
 
+export const useIsMounted = () => {
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+  return mounted;
+};
+
 const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   children,
 }) => {
+  const isMounted = useIsMounted();
   const context = useContext();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
@@ -67,6 +74,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   }
 
   if (!children) return null;
+  if (!isMounted) return null;
 
   return (
     <>
@@ -88,6 +96,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
 
 export function ConnectKitButton() {
+  const isMounted = useIsMounted();
   const context = useContext();
   const containerRef = useRef<any>(null);
   const [contentRef, bounds] = useMeasure({ offsetSize: true });
@@ -117,6 +126,8 @@ export function ConnectKitButton() {
     containerRef.current.style.setProperty('--width', `${bounds.width}px`);
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds]);
+
+  if (!isMounted) return null;
 
   return (
     <ResetContainer
