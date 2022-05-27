@@ -91,19 +91,19 @@ export const ConnectorButton = styled(motion.button)`
 
   &:not(:disabled) {
     &:hover {
-      box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
-        inset 0 0 0 6px var(--body-background);
+      /* box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
+        inset 0 0 0 6px var(--body-background); */
       //--background: var(--body-background-secondary-hover);
     }
     &:focus {
       transition-duration: 100ms;
-      box-shadow: inset 0 0 0 0px var(--background),
-        inset 0 0 0 0px var(--background);
+      /* box-shadow: inset 0 0 0 0px var(--background),
+        inset 0 0 0 0px var(--background); */
     }
     &:active {
-      transform: scale(0.99);
-      box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
-        inset 0 0 0 6px var(--body-background);
+      /* transform: scale(0.99); */
+      /* box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
+        inset 0 0 0 6px var(--body-background); */
     }
   }
 `;

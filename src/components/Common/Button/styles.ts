@@ -70,7 +70,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
         transform: scale(1);
         font-size: 17px;
         &:active {
-          transform: scale(0.97);
+          /* transform: scale(0.97); */
         }
       `;
     }
