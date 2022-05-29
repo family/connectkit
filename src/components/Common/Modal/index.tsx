@@ -218,7 +218,10 @@ const Modal: React.FC<ModalProps> = ({
     <AnimatePresence>
       {open && (
         <Portal>
-          <ResetContainer theme={context.theme}>
+          <ResetContainer
+            theme={context.theme}
+            customTheme={context.customTheme}
+          >
             <ModalContainer role="dialog" exit={{ pointerEvents: 'auto' }}>
               <BackgroundOverlay
                 onClick={onClose}

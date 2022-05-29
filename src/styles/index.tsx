@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { CustomTheme } from '../types';
 import { isMobile } from '../utils';
 import { hexToP3 } from '../utils/p3';
 
@@ -196,9 +197,18 @@ const createCssColors = (scheme: any) => {
  * Automatically apply theme based on system theme
  */
 // TODO: Think more about how to reset our components as to not be affected by external stylings
-export const ResetContainer = styled.div<{ theme: string }>`
+export const ResetContainer = styled.div<{
+  theme: string;
+  customTheme?: CustomTheme;
+}>`
   ${createCssColors(themeColors.brand)}
   ${createCssVars(themeGlobals.default)};
+
+  ${(props) => {
+    if (props.customTheme) {
+      return createCssVars(props.customTheme);
+    }
+  }}
 
   ${(props) => {
     switch (props.theme) {

@@ -1,5 +1,5 @@
 import React, { createContext, createElement, useState } from 'react';
-import { Languages, Theme } from '../types';
+import { CustomTheme, Languages, Theme } from '../types';
 
 export const routes = {
   CONNECTORS: 'connectors',
@@ -15,6 +15,8 @@ type Connector = any;
 type ContextValue = {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+  customTheme: CustomTheme;
+  setCustomTheme: React.Dispatch<React.SetStateAction<CustomTheme>>;
   lang: Languages;
   setLang: React.Dispatch<React.SetStateAction<Languages>>;
   open: boolean;
@@ -33,6 +35,7 @@ type Props = {
 
 export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('auto');
+  const [customTheme, setCustomTheme] = useState<CustomTheme>({});
   const [lang, setLang] = useState<Languages>('fr');
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
@@ -40,6 +43,8 @@ export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
   const value = {
     theme,
     setTheme,
+    customTheme,
+    setCustomTheme,
     lang,
     setLang,
     open,

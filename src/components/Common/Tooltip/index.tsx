@@ -90,7 +90,10 @@ const Tooltip: React.FC<TooltipProps> = ({
             currentRoute === context.route &&
             !outOfBounds &&
             (open !== undefined ? open : isOpen) && (
-              <ResetContainer theme={context.theme}>
+              <ResetContainer
+                theme={context.theme}
+                customTheme={context.customTheme}
+              >
                 <TooltipWindow>
                   <TooltipContainer
                     role="tooltip"

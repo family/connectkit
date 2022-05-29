@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useConnect } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
-import { Languages, Theme } from '../../types';
+import { CustomTheme, Languages, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
 import OnboardingIntroduction from '../Pages/Onboarding';
@@ -13,8 +13,9 @@ import SwitchNetworks from '../Pages/SwitchNetworks';
 
 const ConnectModal: React.FC<{
   theme?: Theme;
+  customTheme?: CustomTheme;
   lang?: Languages;
-}> = ({ theme = 'light', lang = 'en' }) => {
+}> = ({ theme = 'light', customTheme = {}, lang = 'en' }) => {
   const context = useContext();
   const { isConnected } = useConnect();
 
@@ -42,6 +43,7 @@ const ConnectModal: React.FC<{
   }, [isConnected]);
 
   useEffect(() => context.setTheme(theme), [theme]);
+  useEffect(() => context.setCustomTheme(customTheme));
   useEffect(() => context.setLang(lang), [lang]);
 
   return (

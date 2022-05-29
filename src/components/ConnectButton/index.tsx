@@ -132,6 +132,7 @@ export function ConnectKitButton() {
   return (
     <ResetContainer
       theme={context.theme}
+      customTheme={context.customTheme}
       ref={containerRef}
       style={{
         display: 'inline-block',
