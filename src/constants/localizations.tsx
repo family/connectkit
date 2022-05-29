@@ -93,7 +93,7 @@ export default {
       },
       rejected: {
         h1: `Request Cancelled`,
-        p: `You cancelled the connection request.\nClick above to try again.`,
+        p: `You cancelled the request.\nClick above to try again.`,
       },
       failed: {
         h1: `Connection Failed`,
@@ -161,7 +161,7 @@ export default {
       },
       rejected: {
         h1: `Demande annulée`,
-        p: `Vous avez annulé la demande de connexion.\nCliquez ci-dessus pour réessayer.`,
+        p: `Vous avez annulé la demande.\nCliquez ci-dessus pour réessayer.`,
       },
       failed: {
         h1: `La connexion a échoué`,
