@@ -1,4 +1,9 @@
-import React, { createContext, createElement, useState } from 'react';
+import React, {
+  createContext,
+  createElement,
+  useEffect,
+  useState,
+} from 'react';
 import { CustomTheme, Languages, Theme } from '../types';
 
 export const routes = {
@@ -43,6 +48,7 @@ export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [demoMode, setDemoMode] = useState<boolean>(false);
+
   const value = {
     theme,
     setTheme,
@@ -53,7 +59,7 @@ export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
     open,
     setOpen,
     route,
-    setRoute: (route: string) => (!demoMode ? setRoute(route) : null),
+    setRoute,
     connector,
     setConnector,
     demoMode,

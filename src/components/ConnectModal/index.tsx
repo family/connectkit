@@ -22,7 +22,7 @@ const ConnectModal: React.FC<{
   theme = 'light',
   customTheme = customThemeDefault,
   lang = 'en',
-  demoMode,
+  demoMode = false,
 }) => {
   const context = useContext();
   const { isConnected } = useConnect();
@@ -60,11 +60,11 @@ const ConnectModal: React.FC<{
       <Modal
         open={context.open}
         pages={pages}
-        pageId={context.route}
-        onClose={demoMode ? null : hide}
+        pageId={demoMode ? routes.CONNECTORS : context.route}
+        onClose={demoMode ? undefined : hide}
         onBack={
           demoMode
-            ? null
+            ? undefined
             : context.route !== routes.CONNECTORS &&
               context.route !== routes.PROFILE
             ? () => {

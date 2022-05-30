@@ -172,8 +172,8 @@ type ModalProps = {
   open: boolean | undefined;
   pages: any;
   pageId: string;
-  onClose: (e: any) => void;
-  onBack?: (e: any) => void | undefined;
+  onClose?: () => void | undefined;
+  onBack?: () => void | undefined;
 };
 const Modal: React.FC<ModalProps> = ({
   open,
@@ -206,7 +206,7 @@ const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     if (!open) return;
     const listener = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose(e);
+      if (e.key === 'Escape' && onClose) onClose();
     };
     document.addEventListener('keydown', listener);
     return () => {
@@ -218,10 +218,14 @@ const Modal: React.FC<ModalProps> = ({
     <ResetContainer theme={context.theme} customTheme={context.customTheme}>
       <ModalContainer
         role="dialog"
-        style={{
-          position: context.demoMode ? 'absolute' : null,
-          pointerEvents: context.demoMode ? 'none' : null,
-        }}
+        style={
+          context.demoMode
+            ? {
+                position: 'absolute',
+                pointerEvents: 'none',
+              }
+            : undefined
+        }
         exit={{
           pointerEvents: 'auto',
         }}
@@ -304,13 +308,11 @@ const Modal: React.FC<ModalProps> = ({
     </ResetContainer>
   );
 
-  return context.demoMode
-    ? Content
-    : open && (
-        <AnimatePresence>
-          <Portal>{Content}</Portal>
-        </AnimatePresence>
-      );
+  return context.demoMode ? (
+    Content
+  ) : (
+    <AnimatePresence>{open && <Portal>{Content}</Portal>}</AnimatePresence>
+  );
 };
 
 export const OrDivider = ({ text = 'or' }) => {
