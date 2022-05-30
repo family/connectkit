@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
-import { useConnect, useAccount, useEnsName } from 'wagmi';
+import { useConnect, useAccount, useEnsName, useNetwork } from 'wagmi';
 import { truncateEthAddress } from './../../utils';
 import { ResetContainer } from '../../styles';
 
@@ -38,6 +38,7 @@ type ConnectButtonRendererProps = {
   children?: (renderProps: {
     show?: () => void;
     hide?: () => void;
+    unsupported: boolean;
     isConnected: boolean;
     isConnecting: boolean;
     address?: string;
@@ -57,6 +58,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 }) => {
   const isMounted = useIsMounted();
   const context = useContext();
+  const { activeChain } = useNetwork();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -81,6 +83,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
       {children({
         show,
         hide,
+        unsupported: !!activeChain?.unsupported,
         isConnected: !!account?.address,
         isConnecting: isConnecting,
         address: account?.address ?? '',
@@ -101,6 +104,7 @@ export function ConnectKitButton() {
   const containerRef = useRef<any>(null);
   const [contentRef, bounds] = useMeasure({ offsetSize: true });
 
+  const { activeChain } = useNetwork();
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -144,32 +148,36 @@ export function ConnectKitButton() {
     >
       <Button onClick={show}>
         <AnimatePresence initial={false}>
-          <div ref={contentRef} style={{ width: 'fit-content' }}>
-            {account?.address ? (
-              <TextContainer
-                key="connected"
-                initial={'initial'}
-                animate={'animate'}
-                exit={'exit'}
-                variants={contentVariants}
-              >
-                <IconContainer>
-                  <Avatar size={24} address={account?.address} />
-                </IconContainer>
-                <span>{ensName ?? truncateEthAddress(account?.address)}</span>
-              </TextContainer>
-            ) : (
-              <TextContainer
-                key="connect"
-                initial={'initial'}
-                animate={'animate'}
-                exit={'exit'}
-                variants={contentVariants}
-              >
-                Connect Wallet
-              </TextContainer>
-            )}
-          </div>
+          {activeChain?.unsupported ? (
+            <>Wrong network</>
+          ) : (
+            <div ref={contentRef} style={{ width: 'fit-content' }}>
+              {account?.address ? (
+                <TextContainer
+                  key="connected"
+                  initial={'initial'}
+                  animate={'animate'}
+                  exit={'exit'}
+                  variants={contentVariants}
+                >
+                  <IconContainer>
+                    <Avatar size={24} address={account?.address} />
+                  </IconContainer>
+                  <span>{ensName ?? truncateEthAddress(account?.address)}</span>
+                </TextContainer>
+              ) : (
+                <TextContainer
+                  key="connect"
+                  initial={'initial'}
+                  animate={'animate'}
+                  exit={'exit'}
+                  variants={contentVariants}
+                >
+                  Connect Wallet
+                </TextContainer>
+              )}
+            </div>
+          )}
         </AnimatePresence>
       </Button>
     </ResetContainer>

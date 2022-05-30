@@ -35,6 +35,7 @@ import ChainSelector from '../../ConnectModal/ChainSelector';
 import { DisconnectIcon } from '../../../assets/icons';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
+import Alert from '../../Common/Alert';
 
 const Profile: React.FC = () => {
   const context = useContext();
@@ -70,6 +71,23 @@ const Profile: React.FC = () => {
     };
   }, [shouldDisconnect, disconnect, reset]);
 
+  if (activeChain?.unsupported) {
+    return (
+      <PageContent>
+        <ModalHeading>Unsupported network</ModalHeading>
+        <Alert>
+          Your wallet does not support switching networks from this app. Try
+          switching networks from within your wallet instead.
+        </Alert>
+        <Button
+          onClick={() => setShouldDisconnect(true)}
+          icon={<DisconnectIcon />}
+        >
+          Disconnect
+        </Button>
+      </PageContent>
+    );
+  }
   return (
     <PageContent>
       <ModalHeading>{copy.heading}</ModalHeading>
