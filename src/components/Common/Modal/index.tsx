@@ -304,11 +304,13 @@ const Modal: React.FC<ModalProps> = ({
     </ResetContainer>
   );
 
-  return (
-    <AnimatePresence>
-      {context.demoMode ? Content : open && <Portal>{Content}</Portal>}
-    </AnimatePresence>
-  );
+  return context.demoMode
+    ? Content
+    : open && (
+        <AnimatePresence>
+          <Portal>{Content}</Portal>
+        </AnimatePresence>
+      );
 };
 
 export const OrDivider = ({ text = 'or' }) => {
