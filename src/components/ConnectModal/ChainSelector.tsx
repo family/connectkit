@@ -38,7 +38,7 @@ const DropdownContainer = styled(motion.div)`
   border-radius: 12px;
   padding: 14px 16px 8px;
   color: var(--tooltip-color);
-  background: var(--tooltip-body);
+  background: var(--tooltip-background);
   box-shadow: var(--shadow);
 `;
 const DropdownHeading = styled(motion.div)`

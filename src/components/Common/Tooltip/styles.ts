@@ -26,7 +26,7 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
   line-height: 19px;
   font-weight: 500;
   color: var(--tooltip-color);
-  background: var(--tooltip-body);
+  background: var(--tooltip-background);
   box-shadow: var(--shadow);
   > span {
     z-index: 3;

@@ -65,7 +65,8 @@ const themeColors = {
     '--qrcode-outline': '#EEEFF2',
     '--copytoclipboard-stroke': '#CCCCCC',
 
-    '--tooltip-body': '#ffffff',
+    '--tooltip-background': '#ffffff',
+    '--tooltip-background-secondary': '#f6f7f9',
     '--tooltip-color': '#999999',
 
     '--spinner-color': 'var(--focus-color)',
@@ -122,7 +123,8 @@ const themeColors = {
     '--qrcode-outline': 'transparent',
     '--copytoclipboard-stroke': '#555555',
 
-    '--tooltip-body': '#363636',
+    '--tooltip-background': '#363636',
+    '--tooltip-background-secondary': '#333333',
     '--tooltip-color': '#868686',
 
     '--graphic-scaniconwithlogos-01': '#AFAFAF',

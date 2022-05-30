@@ -1,22 +1,27 @@
+import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import { isMobile } from '../../../utils';
+
+const mobile = isMobile();
 
 export const AlertContainer = styled(motion.div)`
   position: relative;
-  border-radius: 8px;
-  margin: 6px 0 16px;
-  padding: 16px 16px;
+  border-radius: 9px;
+  margin: 8px 0;
+  padding: 10px 12px;
+  text-align: left;
   font-size: 14px;
-  line-height: 18px;
-  font-weight: 500;
-  color: var(--focus-color);
-
-  &:before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: currentColor;
-    opacity: 0.1;
-    border-radius: 8px;
-  }
+  line-height: 17px;
+  font-weight: 400;
+  color: var(--text-muted);
+  background: var(--tooltip-background-secondary);
+  ${() =>
+    mobile &&
+    css`
+      padding: 16px 20px;
+      font-size: 16px;
+      line-height: 22px;
+      margin: 12px 0;
+      border-radius: 12px;
+    `}
 `;

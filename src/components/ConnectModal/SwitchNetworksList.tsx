@@ -64,7 +64,7 @@ const ChainButtons = styled(motion.div)`
     mobile &&
     css`
       padding: 0 6px;
-      margin: -12px 0 -24px; ;
+      margin: -12px 0;
     `}
 `;
 const ChainButton = styled(motion.button)`
@@ -187,119 +187,153 @@ const SwitchNetworksList: React.FC = () => {
   const { activeChain, chains, isLoading, pendingChainId, switchNetwork } =
     useNetwork();
 
-  return (
+  return !switchNetwork ? (
     <>
-      {!switchNetwork && (
-        <Alert>
-          Your wallet does not support switching networks from this within dApp.
-          Instead switch networks from within your wallet.
-        </Alert>
-      )}
       <ChainButtons>
-        {chains.map((x) => {
-          const chain = supportedChains.filter((c) => c.id === x.id)[0];
-          return (
-            <ChainButton
-              disabled={
-                !switchNetwork ||
-                x.id === activeChain?.id ||
-                (isLoading && pendingChainId === x.id)
-              }
-              key={x.id}
-              onClick={() => switchNetwork?.(x.id)}
+        {chains
+          .filter((x) => x.id === activeChain?.id)
+          .map((x) => {
+            const chain = supportedChains.filter((c) => c.id === x.id)[0];
+            return (
+              <ChainButton disabled key={x.id}>
+                <span
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    gap: 12,
+                  }}
+                >
+                  <ChainLogoContainer>
+                    <ChainIcon>{chain.logo}</ChainIcon>
+                  </ChainLogoContainer>
+                  {x.name}
+                </span>
+                <ChainButtonStatus>
+                  <motion.span
+                    style={{
+                      color: 'var(--focus-color)',
+                      display: 'block',
+                      position: 'relative',
+                      paddingRight: 6,
+                    }}
+                  >
+                    Connected
+                  </motion.span>
+                </ChainButtonStatus>
+              </ChainButton>
+            );
+          })}
+      </ChainButtons>
+      <Alert>
+        {`Your wallet does not support switching networks from this app. Try switching networks from within your wallet instead.`}
+      </Alert>
+    </>
+  ) : (
+    <ChainButtons>
+      {chains.map((x) => {
+        const chain = supportedChains.filter((c) => c.id === x.id)[0];
+        return (
+          <ChainButton
+            disabled={
+              !switchNetwork ||
+              x.id === activeChain?.id ||
+              (isLoading && pendingChainId === x.id)
+            }
+            key={x.id}
+            onClick={() => switchNetwork?.(x.id)}
+          >
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                gap: 12,
+              }}
             >
-              <span
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  gap: 12,
-                }}
-              >
-                <ChainLogoContainer>
-                  <ChainLogoSpinner
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: isLoading && pendingChainId === x.id ? 1 : 0,
+              <ChainLogoContainer>
+                <ChainLogoSpinner
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: isLoading && pendingChainId === x.id ? 1 : 0,
+                  }}
+                  transition={{
+                    ease: [0.76, 0, 0.24, 1],
+                    duration: 0.15,
+                  }}
+                >
+                  {Spinner}
+                </ChainLogoSpinner>
+                <ChainIcon>{chain.logo}</ChainIcon>
+              </ChainLogoContainer>
+              {x.name}
+            </span>
+            <ChainButtonStatus>
+              <AnimatePresence initial={false}>
+                {x.id === activeChain?.id && (
+                  <motion.span
+                    style={{
+                      color: 'var(--focus-color)',
+                      display: 'block',
+                      position: 'relative',
+                    }}
+                    initial={{ opacity: 0, x: -4 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{
+                      opacity: 0,
+                      x: 4,
+                      transition: { duration: 0.1, delay: 0 },
                     }}
                     transition={{
                       ease: [0.76, 0, 0.24, 1],
-                      duration: 0.15,
+                      duration: 0.3,
+                      delay: 0.2,
                     }}
                   >
-                    {Spinner}
-                  </ChainLogoSpinner>
-                  <ChainIcon>{chain.logo}</ChainIcon>
-                </ChainLogoContainer>
-                {x.name}
-              </span>
-              <ChainButtonStatus>
-                <AnimatePresence initial={false}>
-                  {x.id === activeChain?.id && (
-                    <motion.span
-                      style={{
-                        color: 'var(--focus-color)',
-                        display: 'block',
-                        position: 'relative',
-                      }}
-                      initial={{ opacity: 0, x: -4 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{
-                        opacity: 0,
-                        x: 4,
-                        transition: { duration: 0.1, delay: 0 },
-                      }}
-                      transition={{
-                        ease: [0.76, 0, 0.24, 1],
-                        duration: 0.3,
-                        delay: 0.2,
-                      }}
-                    >
-                      Connected
-                    </motion.span>
-                  )}
-                  {isLoading && pendingChainId === x.id && (
-                    <motion.span
-                      style={{
-                        display: 'block',
-                        position: 'relative',
-                      }}
-                      initial={{
-                        opacity: 0,
-                        x: -4,
-                      }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 4 }}
-                      transition={{
-                        ease: [0.76, 0, 0.24, 1],
-                        duration: 0.3,
-                      }}
-                    >
-                      Approve in Wallet
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </ChainButtonStatus>
-              {
-                //hover === x.name && (
-                x.id === activeChain?.id && (
-                  <ChainButtonBg
-                    layoutId="activeChain"
-                    layout="position"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.1 }}
-                    transition={{
-                      duration: 0.3,
-                      ease: 'easeOut',
+                    Connected
+                  </motion.span>
+                )}
+                {isLoading && pendingChainId === x.id && (
+                  <motion.span
+                    style={{
+                      display: 'block',
+                      position: 'relative',
                     }}
-                  />
-                )
-              }
-            </ChainButton>
-          );
-        })}
-      </ChainButtons>
-    </>
+                    initial={{
+                      opacity: 0,
+                      x: -4,
+                    }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 4 }}
+                    transition={{
+                      ease: [0.76, 0, 0.24, 1],
+                      duration: 0.3,
+                    }}
+                  >
+                    Approve in Wallet
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </ChainButtonStatus>
+            {
+              //hover === x.name && (
+              x.id === activeChain?.id && (
+                <ChainButtonBg
+                  layoutId="activeChain"
+                  layout="position"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.1 }}
+                  transition={{
+                    duration: 0.3,
+                    ease: 'easeOut',
+                  }}
+                />
+              )
+            }
+          </ChainButton>
+        );
+      })}
+    </ChainButtons>
   );
 };
 

@@ -91,7 +91,13 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
           d="M15 10H29C29 11.1046 28.1046 12 27 12H17C15.8954 12 15 11.1046 15 10Z"
           fill="var(--graphic-scaniconwithlogos-01)"
         />
-        <rect x="1" y="47" width="43" height="5" fill="var(--tooltip-body)" />
+        <rect
+          x="1"
+          y="47"
+          width="43"
+          height="5"
+          fill="var(--tooltip-background)"
+        />
         <rect
           width="43"
           height="4"
@@ -105,7 +111,7 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
           height="24"
           rx="12"
           fill="var(--graphic-scaniconwithlogos-03)"
-          stroke="var(--tooltip-body)"
+          stroke="var(--tooltip-background)"
           strokeWidth="2"
         />
         <rect
@@ -181,8 +187,12 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
             y2="4"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="var(--tooltip-body)" />
-            <stop offset="1" stopColor="var(--tooltip-body)" stopOpacity="0" />
+            <stop stopColor="var(--tooltip-background)" />
+            <stop
+              offset="1"
+              stopColor="var(--tooltip-background)"
+              stopOpacity="0"
+            />
           </linearGradient>
         </defs>
       </svg>
