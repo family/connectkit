@@ -12,7 +12,7 @@ import SwitchNetworksList from './SwitchNetworksList';
 import Portal from '../Common/Portal';
 import { ResetContainer } from '../../styles';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const Container = styled(motion.div)``;
@@ -82,7 +82,7 @@ const SwitchChainButton = styled(motion.button)`
     //transform: scale(0.96) translateZ(0px);
   }
 `;
-const ChainIcon = styled(motion.div)`
+const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
   display: block;
   position: relative;
   border-radius: 12px;
@@ -92,10 +92,23 @@ const ChainIcon = styled(motion.div)`
   min-width: 24px;
   min-height: 24px;
   background: var(--body-background);
+  color: var(--body-color-muted);
   svg {
     width: 100%;
     height: auto;
   }
+  ${(props) =>
+    props.$empty &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:before {
+        content: '?';
+        font-weight: bold;
+        font-family: var(--font-family);
+      }
+    `}
 `;
 
 const ChevronDown = ({ ...props }) => (
@@ -166,7 +179,9 @@ const ChainSelector: React.FC = () => {
             }
           }}
         >
-          <ChainIcon>
+          <ChainIcon
+            $empty={chains.filter((x) => x.id === activeChain?.id).length === 0}
+          >
             <AnimatePresence initial={false}>
               {chains
                 .filter((x) => x.id === activeChain?.id)

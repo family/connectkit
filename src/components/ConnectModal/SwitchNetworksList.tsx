@@ -9,7 +9,7 @@ import { isMobile } from '../../utils';
 import Alert from '../Common/Alert';
 
 const mobile = isMobile();
-const ChainIcon = styled(motion.div)`
+const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
   display: block;
   position: relative;
   border-radius: 12px;
@@ -27,6 +27,19 @@ const ChainIcon = styled(motion.div)`
     width: 100%;
     height: auto;
   }
+  ${(props) =>
+    props.$empty &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:before {
+        content: '?';
+        color: var(--body-color-muted);
+        font-weight: bold;
+        font-family: var(--font-family);
+      }
+    `}
   ${(props) =>
     mobile &&
     css`
@@ -187,49 +200,71 @@ const SwitchNetworksList: React.FC = () => {
   const { activeChain, chains, isLoading, pendingChainId, switchNetwork } =
     useNetwork();
 
-  return !switchNetwork ? (
-    <>
-      <ChainButtons>
-        {chains
-          .filter((x) => x.id === activeChain?.id)
-          .map((x) => {
-            const chain = supportedChains.filter((c) => c.id === x.id)[0];
-            return (
-              <ChainButton disabled key={x.id}>
-                <span
+  if (!switchNetwork) {
+    const x = supportedChains.filter((x) => x.id === activeChain?.id)[0] || {
+      logo: false,
+    };
+    const chain = { ...activeChain, ...x };
+    return (
+      <>
+        <ChainButtons>
+          <AnimatePresence exitBeforeEnter initial={false}>
+            <ChainButton
+              disabled
+              key={chain.id}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{
+                ease: [0.76, 0, 0.24, 1],
+                duration: 0.25,
+              }}
+            >
+              <span
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  gap: 12,
+                }}
+              >
+                <ChainLogoContainer>
+                  {chain.logo ? (
+                    <ChainIcon>{chain.logo}</ChainIcon>
+                  ) : (
+                    <ChainIcon $empty />
+                  )}
+                </ChainLogoContainer>
+                {chain.name}
+              </span>
+              <ChainButtonStatus>
+                <motion.span
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    gap: 12,
+                    color: chain.unsupported
+                      ? 'var(--body-color-danger)'
+                      : 'var(--focus-color)',
+                    display: 'block',
+                    position: 'relative',
+                    paddingRight: 6,
                   }}
                 >
-                  <ChainLogoContainer>
-                    <ChainIcon>{chain.logo}</ChainIcon>
-                  </ChainLogoContainer>
-                  {x.name}
-                </span>
-                <ChainButtonStatus>
-                  <motion.span
-                    style={{
-                      color: 'var(--focus-color)',
-                      display: 'block',
-                      position: 'relative',
-                      paddingRight: 6,
-                    }}
-                  >
-                    Connected
-                  </motion.span>
-                </ChainButtonStatus>
-              </ChainButton>
+                  {chain.unsupported ? 'Unsupported' : 'Connected'}
+                </motion.span>
+              </ChainButtonStatus>
+            </ChainButton>
             );
-          })}
-      </ChainButtons>
-      <Alert>
-        {`Your wallet does not support switching networks from this app. Try switching networks from within your wallet instead.`}
-      </Alert>
-    </>
-  ) : (
+          </AnimatePresence>
+        </ChainButtons>
+        <Alert>
+          {`Your wallet does not support switching networks from this app. Try switching networks from within your wallet instead.`}
+        </Alert>
+      </>
+    );
+  }
+
+  return (
     <ChainButtons>
       {chains.map((x) => {
         const chain = supportedChains.filter((c) => c.id === x.id)[0];
