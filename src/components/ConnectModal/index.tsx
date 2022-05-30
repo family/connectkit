@@ -11,11 +11,13 @@ import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
 
+const customThemeDefault: object = {};
+
 const ConnectModal: React.FC<{
   theme?: Theme;
   customTheme?: CustomTheme;
   lang?: Languages;
-}> = ({ theme = 'light', customTheme = {}, lang = 'en' }) => {
+}> = ({ theme = 'light', customTheme = customThemeDefault, lang = 'en' }) => {
   const context = useContext();
   const { isConnected } = useConnect();
 
@@ -43,7 +45,7 @@ const ConnectModal: React.FC<{
   }, [isConnected]);
 
   useEffect(() => context.setTheme(theme), [theme]);
-  useEffect(() => context.setCustomTheme(customTheme));
+  useEffect(() => context.setCustomTheme(customTheme), [customTheme]);
   useEffect(() => context.setLang(lang), [lang]);
 
   return (
