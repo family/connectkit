@@ -175,18 +175,21 @@ const themeColors = {
 const createCssVars = (scheme: any) => {
   return css`
     ${Object.keys(scheme).map((key) => {
-      return `${key}:${scheme[key]};`;
+      const value = scheme[key];
+      return value && `${key}:${value};`;
     })}
   `;
 };
 const createCssColors = (scheme: any) => {
   return css`
     ${Object.keys(scheme).map((key) => {
-      return `${key}:${scheme[key]};`;
+      const value = scheme[key];
+      return value && `${key}:${value};`;
     })}
     @supports (color: color(display-p3 1 1 1)) {
       ${Object.keys(scheme).map((key) => {
-        return `${key}:${hexToP3(scheme[key])};`;
+        const value = scheme[key];
+        return `${key}:${hexToP3(value)};`;
       })}
     }
   `;
@@ -197,18 +200,13 @@ const createCssColors = (scheme: any) => {
  * Automatically apply theme based on system theme
  */
 // TODO: Think more about how to reset our components as to not be affected by external stylings
+// TODO: Merge theme objects instead of overriding
 export const ResetContainer = styled.div<{
   theme: string;
   customTheme?: CustomTheme;
 }>`
   ${createCssColors(themeColors.brand)}
   ${createCssVars(themeGlobals.default)};
-
-  ${(props) => {
-    if (props.customTheme) {
-      return createCssVars(props.customTheme);
-    }
-  }}
 
   ${(props) => {
     switch (props.theme) {
@@ -240,6 +238,13 @@ export const ResetContainer = styled.div<{
             ${createCssColors(themeColors.darkMobile)}
           }
         `;
+    }
+  }}
+
+
+  ${(props) => {
+    if (props.customTheme) {
+      return createCssVars(props.customTheme);
     }
   }}
 
