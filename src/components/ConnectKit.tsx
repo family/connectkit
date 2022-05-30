@@ -25,6 +25,8 @@ type ContextValue = {
   setRoute: React.Dispatch<React.SetStateAction<string>>;
   connector: string;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
+  demoMode: boolean;
+  setDemoMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Context = createContext<ContextValue | null>(null);
@@ -40,6 +42,7 @@ export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
+  const [demoMode, setDemoMode] = useState<boolean>(false);
   const value = {
     theme,
     setTheme,
@@ -50,9 +53,11 @@ export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
     open,
     setOpen,
     route,
-    setRoute,
+    setRoute: (route: string) => (!demoMode ? setRoute(route) : null),
     connector,
     setConnector,
+    demoMode,
+    setDemoMode,
   };
   return createElement(Context.Provider, { value }, children);
 };

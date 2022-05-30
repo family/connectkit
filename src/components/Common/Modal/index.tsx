@@ -214,97 +214,99 @@ const Modal: React.FC<ModalProps> = ({
     };
   }, [open, onClose]);
 
+  const Content = (
+    <ResetContainer theme={context.theme} customTheme={context.customTheme}>
+      <ModalContainer
+        role="dialog"
+        style={{
+          position: context.demoMode ? 'absolute' : null,
+          pointerEvents: context.demoMode ? 'none' : null,
+        }}
+        exit={{
+          pointerEvents: 'auto',
+        }}
+      >
+        <BackgroundOverlay
+          onClick={onClose}
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+          }}
+          exit={{
+            opacity: 0,
+          }}
+          transition={{ ease: 'easeOut', duration: 0.2 }}
+        />
+        <Container ref={containerRef}>
+          <BoxContainer
+            style={{ right: 'var(--connectkit-scrollbar-width)' }}
+            initial={'initial'}
+            animate={'animate'}
+            exit={'exit'}
+            variants={mobile ? mobileContainerVariants : containerVariants}
+          >
+            <ControllerContainer>
+              <CloseButton aria-label="Close" onClick={onClose}>
+                <CloseIcon />
+              </CloseButton>
+              <AnimatePresence>
+                {onBack ? (
+                  <BackButton
+                    aria-label="Back"
+                    key="backButton"
+                    onClick={onBack}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.1 }}
+                  >
+                    <BackIcon />
+                  </BackButton>
+                ) : (
+                  <InfoButton
+                    aria-label="More information"
+                    key="infoButton"
+                    //onClick={onInfo}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.1 }}
+                  >
+                    <InfoIcon />
+                  </InfoButton>
+                )}
+              </AnimatePresence>
+            </ControllerContainer>
+
+            <InnerContainer>
+              <AnimatePresence initial={false}>
+                {Object.keys(pages)
+                  .filter((key) => key === pageId)
+                  .map((key) => {
+                    const page = pages[key];
+                    return (
+                      <PageContainer
+                        key={key}
+                        initial={'initial'}
+                        animate={'animate'}
+                        exit={'exit'}
+                        variants={contentVariants}
+                      >
+                        <PageContents ref={contentRef}>{page}</PageContents>
+                      </PageContainer>
+                    );
+                  })}
+              </AnimatePresence>
+            </InnerContainer>
+          </BoxContainer>
+        </Container>
+      </ModalContainer>
+    </ResetContainer>
+  );
+
   return (
     <AnimatePresence>
-      {open && (
-        <Portal>
-          <ResetContainer
-            theme={context.theme}
-            customTheme={context.customTheme}
-          >
-            <ModalContainer role="dialog" exit={{ pointerEvents: 'auto' }}>
-              <BackgroundOverlay
-                onClick={onClose}
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-                transition={{ ease: 'easeOut', duration: 0.2 }}
-              />
-              <Container ref={containerRef}>
-                <BoxContainer
-                  style={{ right: 'var(--connectkit-scrollbar-width)' }}
-                  initial={'initial'}
-                  animate={'animate'}
-                  exit={'exit'}
-                  variants={
-                    mobile ? mobileContainerVariants : containerVariants
-                  }
-                >
-                  <ControllerContainer>
-                    <CloseButton aria-label="Close" onClick={onClose}>
-                      <CloseIcon />
-                    </CloseButton>
-                    <AnimatePresence>
-                      {onBack ? (
-                        <BackButton
-                          aria-label="Back"
-                          key="backButton"
-                          onClick={onBack}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.1 }}
-                        >
-                          <BackIcon />
-                        </BackButton>
-                      ) : (
-                        <InfoButton
-                          aria-label="More information"
-                          key="infoButton"
-                          //onClick={onInfo}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.1 }}
-                        >
-                          <InfoIcon />
-                        </InfoButton>
-                      )}
-                    </AnimatePresence>
-                  </ControllerContainer>
-
-                  <InnerContainer>
-                    <AnimatePresence initial={false}>
-                      {Object.keys(pages)
-                        .filter((key) => key === pageId)
-                        .map((key) => {
-                          const page = pages[key];
-                          return (
-                            <PageContainer
-                              key={key}
-                              initial={'initial'}
-                              animate={'animate'}
-                              exit={'exit'}
-                              variants={contentVariants}
-                            >
-                              <PageContents ref={contentRef}>
-                                {page}
-                              </PageContents>
-                            </PageContainer>
-                          );
-                        })}
-                    </AnimatePresence>
-                  </InnerContainer>
-                </BoxContainer>
-              </Container>
-            </ModalContainer>
-          </ResetContainer>
-        </Portal>
-      )}
+      {context.demoMode ? Content : open && <Portal>{Content}</Portal>}
     </AnimatePresence>
   );
 };

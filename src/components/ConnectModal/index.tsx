@@ -17,7 +17,13 @@ const ConnectModal: React.FC<{
   theme?: Theme;
   customTheme?: CustomTheme;
   lang?: Languages;
-}> = ({ theme = 'light', customTheme = customThemeDefault, lang = 'en' }) => {
+  demoMode?: boolean;
+}> = ({
+  theme = 'light',
+  customTheme = customThemeDefault,
+  lang = 'en',
+  demoMode,
+}) => {
   const context = useContext();
   const { isConnected } = useConnect();
 
@@ -47,6 +53,7 @@ const ConnectModal: React.FC<{
   useEffect(() => context.setTheme(theme), [theme]);
   useEffect(() => context.setCustomTheme(customTheme), [customTheme]);
   useEffect(() => context.setLang(lang), [lang]);
+  useEffect(() => context.setDemoMode(demoMode), [demoMode]);
 
   return (
     <>
@@ -54,10 +61,12 @@ const ConnectModal: React.FC<{
         open={context.open}
         pages={pages}
         pageId={context.route}
-        onClose={hide}
+        onClose={demoMode ? null : hide}
         onBack={
-          context.route !== routes.CONNECTORS &&
-          context.route !== routes.PROFILE
+          demoMode
+            ? null
+            : context.route !== routes.CONNECTORS &&
+              context.route !== routes.PROFILE
             ? () => {
                 if (context.route === routes.SWITCHNETWORKS) {
                   context.setRoute(routes.PROFILE);
