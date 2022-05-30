@@ -113,7 +113,7 @@ export const BoxContainer = styled(motion.div)`
     transform: translateX(-50%);
     backface-visibility: hidden;
     width: var(--width);
-    border-radius: 24px;
+    border-radius: calc(var(--border-radius) * 1px);
     background: var(--body-background);
     transition: var(--transition);
     will-change: width;

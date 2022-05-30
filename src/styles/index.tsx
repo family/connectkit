@@ -11,6 +11,7 @@ const themeGlobals = {
     '--font-family': `-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
     'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
     'Segoe UI Symbol'`,
+    '--border-radius': 24,
   },
 };
 const themeColors = {
@@ -67,7 +68,7 @@ const themeColors = {
     '--tooltip-body': '#ffffff',
     '--tooltip-color': '#999999',
 
-    '--spinner-color': '#1A88F8',
+    '--spinner-color': 'var(--focus-color)',
 
     '--graphic-wave-stop-01': '#E8F17D',
     '--graphic-wave-stop-02': '#A8ECDE',
@@ -123,8 +124,6 @@ const themeColors = {
 
     '--tooltip-body': '#363636',
     '--tooltip-color': '#868686',
-
-    '--spinner-color': '#ffffff',
 
     '--graphic-scaniconwithlogos-01': '#AFAFAF',
     '--graphic-scaniconwithlogos-02': '#696969',
