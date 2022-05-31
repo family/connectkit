@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import logos from './../assets/chains';
 
-// TODO: Define types
-const supportedChains = [
+type Chain = { id: number; name: string; logo: ReactNode };
+const supportedChains: Chain[] = [
   {
     id: 1,
     name: 'Ethereum',
