@@ -53,15 +53,12 @@ const ConnectModal: React.FC<{
   useEffect(() => context.setTheme(theme), [theme]);
   useEffect(() => context.setCustomTheme(customTheme), [customTheme]);
   useEffect(() => context.setLang(lang), [lang]);
-  useEffect(() => {
-    context.setDemoMode(demoMode);
-    show();
-  }, [demoMode]);
+  useEffect(() => context.setDemoMode(demoMode), [demoMode]);
 
   return (
     <>
       <Modal
-        open={context.open}
+        open={context.open || demoMode}
         pages={pages}
         pageId={context.route}
         onClose={demoMode ? undefined : hide}
