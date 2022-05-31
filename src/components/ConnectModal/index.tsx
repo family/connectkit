@@ -53,20 +53,21 @@ const ConnectModal: React.FC<{
   useEffect(() => context.setTheme(theme), [theme]);
   useEffect(() => context.setCustomTheme(customTheme), [customTheme]);
   useEffect(() => context.setLang(lang), [lang]);
-  useEffect(() => context.setDemoMode(demoMode), [demoMode]);
+  useEffect(() => {
+    context.setDemoMode(demoMode);
+    show();
+  }, [demoMode]);
 
   return (
     <>
       <Modal
         open={context.open}
         pages={pages}
-        pageId={demoMode ? routes.CONNECTORS : context.route}
+        pageId={context.route}
         onClose={demoMode ? undefined : hide}
         onBack={
-          demoMode
-            ? undefined
-            : context.route !== routes.CONNECTORS &&
-              context.route !== routes.PROFILE
+          context.route !== routes.CONNECTORS &&
+          context.route !== routes.PROFILE
             ? () => {
                 if (context.route === routes.SWITCHNETWORKS) {
                   context.setRoute(routes.PROFILE);

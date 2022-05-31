@@ -188,7 +188,7 @@ const Modal: React.FC<ModalProps> = ({
 
   const mobile = isMobile();
 
-  useLockBodyScroll(!!open);
+  useLockBodyScroll(!!open && !context.demoMode);
 
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
