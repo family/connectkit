@@ -127,6 +127,8 @@ const themeColors = {
     '--tooltip-background-secondary': '#333333',
     '--tooltip-color': '#868686',
 
+    '--spinner-color': 'var(--focus-color)',
+
     '--graphic-scaniconwithlogos-01': '#AFAFAF',
     '--graphic-scaniconwithlogos-02': '#696969',
     '--graphic-scaniconwithlogos-03': '#F8D74A',
