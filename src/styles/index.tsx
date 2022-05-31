@@ -175,7 +175,7 @@ const themeColors = {
  *  Automatically use p3 if available
  */
 //  TODO: Don't use :any type
-const createCssVars = (scheme: any) => {
+const createCssVars = (scheme: any, important?: boolean) => {
   return css`
     ${Object.keys(scheme).map((key) => {
       const value = scheme[key];
@@ -183,16 +183,17 @@ const createCssVars = (scheme: any) => {
     })}
   `;
 };
-const createCssColors = (scheme: any) => {
+const createCssColors = (scheme: any, override?: boolean) => {
+  const important = override ? ' !important' : '';
   return css`
     ${Object.keys(scheme).map((key) => {
       const value = scheme[key];
-      return value && `${key}:${value};`;
+      return value && `${key}:${value}${important};`;
     })}
     @supports (color: color(display-p3 1 1 1)) {
       ${Object.keys(scheme).map((key) => {
         const value = scheme[key];
-        return `${key}:${hexToP3(value)};`;
+        return `${key}:${hexToP3(value)}${important};`;
       })}
     }
   `;
@@ -247,7 +248,7 @@ export const ResetContainer = styled.div<{
 
   ${(props) => {
     if (props.customTheme) {
-      return createCssVars(props.customTheme);
+      return createCssColors(props.customTheme, true);
     }
   }}
 
