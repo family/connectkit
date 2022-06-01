@@ -20,7 +20,7 @@ export const Ethereum = (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M21.9959 36.9996L21.9959 36.9997V36.9995L31.2091 24.0243L21.9959 29.4642L12.788 24.0243L21.9957 36.9993L21.9958 36.9997L21.9959 36.9996Z"
-      fill="url(#paint0_linear_1269_1562)"
+      fill="url(#ethereum_gradient)"
     />
     <path
       d="M21.996 27.7181L31.2037 22.2753L21.996 18.09V27.7181Z"
@@ -32,7 +32,7 @@ export const Ethereum = (
     />
     <defs>
       <linearGradient
-        id="paint0_linear_1269_1562"
+        id="ethereum_gradient"
         x1="21.9986"
         y1="24.0243"
         x2="21.9986"
@@ -40,7 +40,7 @@ export const Ethereum = (
         gradientUnits="userSpaceOnUse"
       >
         <stop stopColor="white" />
-        <stop offset="1" stopColor="white" stopOpacity="0.85" />
+        <stop offset="1" stopColor="#E0E0E1" />
       </linearGradient>
     </defs>
   </svg>
