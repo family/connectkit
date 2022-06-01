@@ -286,21 +286,23 @@ const SwitchNetworksList: React.FC = () => {
                 gap: 12,
               }}
             >
-              <ChainLogoContainer>
-                <ChainLogoSpinner
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: isLoading && pendingChainId === x.id ? 1 : 0,
-                  }}
-                  transition={{
-                    ease: [0.76, 0, 0.24, 1],
-                    duration: 0.15,
-                  }}
-                >
-                  {Spinner}
-                </ChainLogoSpinner>
-                <ChainIcon>{chain.logo}</ChainIcon>
-              </ChainLogoContainer>
+              {chain?.logo && (
+                <ChainLogoContainer>
+                  <ChainLogoSpinner
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: isLoading && pendingChainId === x.id ? 1 : 0,
+                    }}
+                    transition={{
+                      ease: [0.76, 0, 0.24, 1],
+                      duration: 0.15,
+                    }}
+                  >
+                    {Spinner}
+                  </ChainLogoSpinner>
+                  <ChainIcon>{chain.logo}</ChainIcon>
+                </ChainLogoContainer>
+              )}
               {x.name}
             </span>
             <ChainButtonStatus>
