@@ -9,16 +9,31 @@ export default function useLockBodyScroll(initialLocked: boolean) {
   useIsomorphicLayoutEffect(() => {
     if (!locked) return;
 
+    const original = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      touchAction: document.body.style.touchAction,
+      htmlOverflow: document.documentElement.style.overflow,
+    };
+
+    const scrollBarWidth = window.innerWidth - document.body.offsetWidth;
+    document.documentElement.style.setProperty(
+      '--scrollbar-width',
+      `${scrollBarWidth}px`
+    );
+
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'relative';
     document.body.style.touchAction = 'none';
     document.documentElement.style.overflow = 'hidden';
 
     return () => {
-      document.body.style.removeProperty('overflow');
-      document.body.style.removeProperty('position');
-      document.body.style.removeProperty('touch-action');
-      document.documentElement.style.removeProperty('overflow');
+      document.documentElement.style.removeProperty('--scrollbar-width');
+
+      document.body.style.overflow = original.overflow;
+      document.body.style.position = original.position;
+      document.body.style.touchAction = original.touchAction;
+      document.documentElement.style.overflow = original.htmlOverflow;
     };
   }, [locked]);
 
