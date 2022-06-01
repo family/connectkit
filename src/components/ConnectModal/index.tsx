@@ -56,28 +56,25 @@ const ConnectModal: React.FC<{
   useEffect(() => context.setDemoMode(demoMode), [demoMode]);
 
   return (
-    <>
-      <Modal
-        open={context.open || demoMode}
-        pages={pages}
-        pageId={context.route}
-        onClose={demoMode ? undefined : hide}
-        onBack={
-          context.route !== routes.CONNECTORS &&
-          context.route !== routes.PROFILE
-            ? () => {
-                if (context.route === routes.SWITCHNETWORKS) {
-                  context.setRoute(routes.PROFILE);
-                } else if (context.route === routes.DOWNLOAD) {
-                  context.setRoute(routes.CONNECT);
-                } else {
-                  context.setRoute(routes.CONNECTORS);
-                }
+    <Modal
+      open={demoMode ? true : context.open}
+      pages={pages}
+      pageId={context.route}
+      onClose={demoMode ? undefined : hide}
+      onBack={
+        context.route !== routes.CONNECTORS && context.route !== routes.PROFILE
+          ? () => {
+              if (context.route === routes.SWITCHNETWORKS) {
+                context.setRoute(routes.PROFILE);
+              } else if (context.route === routes.DOWNLOAD) {
+                context.setRoute(routes.CONNECT);
+              } else {
+                context.setRoute(routes.CONNECTORS);
               }
-            : undefined
-        }
-      />
-    </>
+            }
+          : undefined
+      }
+    />
   );
 };
 

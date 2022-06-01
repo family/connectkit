@@ -1,8 +1,17 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { isMobile } from '../../../utils';
 
 const mobile = isMobile();
+
+const FadeIn = keyframes`
+from{ opacity: 0; }
+  to{ opacity: 1; }
+`;
+const FadeOut = keyframes`
+  from{ opacity: 1; }
+  to{ opacity: 0; }
+`;
 
 export const PageContent = styled(motion.div)`
   max-width: 100%;
@@ -92,18 +101,54 @@ export const ModalBody = styled(motion.div)`
   }
 `;
 
-export const BackgroundOverlay = styled(motion.div)`
+export const BackgroundOverlay = styled(motion.div)<{ $active: boolean }>`
   z-index: 1;
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: var(--overlay-background);
+  opacity: 0;
+  animation: ${(props) => (props.$active ? FadeIn : FadeOut)} 150ms ease-out
+    both;
 `;
 
+const BoxIn = keyframes`
+  from{ opacity: 0; transform: scale(0.97); }
+  to{ opacity: 1; transform: scale(1); }
+`;
+const BoxOut = keyframes`
+  from{ opacity: 1; transform: scale(1); }
+  to{ opacity: 0; transform: scale(0.97); }
+`;
+
+const MobileBoxIn = keyframes`
+  from{ opacity: 1; transform: translateY(100%); }
+  to{ opacity: 1; transform: translateY(0%); }
+`;
+const MobileBoxOut = keyframes`
+  from{ opacity: 1; transform: translateY(0%); }
+  to{ opacity: 1; transform: translateY(100%); }
+`;
 export const BoxContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
   color: var(--body-color);
-  will-change: transform;
+
+  animation: 150ms ease-out both;
+  animation-name: ${BoxOut};
+  &.active {
+    animation-name: ${BoxIn};
+  }
+
+  &.mobile {
+    animation-name: ${MobileBoxOut};
+    &.active {
+      animation-name: ${MobileBoxIn};
+    }
+  }
+
   &:before {
     content: '';
     position: absolute;
@@ -137,21 +182,30 @@ export const InnerContainer = styled(motion.div)`
   overflow: hidden;
   height: var(--height);
   transition: var(--transition);
-  //transform: perspective(1px); // Stop text shifting
-  /* transition: height 500ms var(--ease), width 500ms var(--ease); */
-  /* transition: height 240ms cubic-bezier(0.25, 1, 0.5, 1),
-    width 240ms cubic-bezier(0.25, 1, 0.5, 1); */
   will-change: height, width;
 `;
 export const PageContainer = styled(motion.div)`
+  z-index: 2;
+  position: relative;
+  top: 0;
   width: 100%;
+  &.active {
+    animation: ${FadeIn} 165ms ease 55ms both;
+  }
+  &.exit {
+    z-index: 1;
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: ${FadeOut} 165ms ease both;
+  }
 `;
 export const PageContents = styled(motion.div)`
   margin: 0 auto;
   width: fit-content;
   padding: 24px 24px;
   backface-visibility: hidden;
-  pointer-events: auto;
 `;
 
 export const ModalContainer = styled(motion.div)`
@@ -243,7 +297,6 @@ export const InfoButton = styled(motion.button)`
   svg {
     display: block;
     position: relative;
-    left: -1px;
   }
 
   &:hover {

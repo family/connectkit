@@ -1,4 +1,11 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { Props } from 'framer-motion/types/types';
@@ -23,9 +30,10 @@ import {
   TextWithHr,
 } from './styles';
 
-import useMeasure from 'react-use-measure';
 import { useContext } from '../../ConnectKit';
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
+
+import { useTransition } from 'react-transition-state';
 
 const InfoIcon = (props: Props) => (
   <svg
@@ -35,6 +43,7 @@ const InfoIcon = (props: Props) => (
     viewBox="0 0 22 22"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path
       fillRule="evenodd"
@@ -86,57 +95,6 @@ const BackIcon = (props: Props) => (
   </motion.svg>
 );
 
-const containerTransitionDuration = 0.15;
-const containerVariants: Variants = {
-  initial: {
-    //willChange: 'transform,opacity',
-    y: 5,
-    opacity: 0,
-    scale: 0.92,
-  },
-  animate: {
-    y: 0,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: containerTransitionDuration,
-      ease: [0.26, 0.08, 0.25, 1],
-    },
-  },
-  exit: {
-    y: 10,
-    opacity: 0,
-    scale: 0.96,
-    transition: {
-      duration: containerTransitionDuration,
-      ease: [0.26, 0.08, 0.25, 1],
-    },
-  },
-};
-const mobileContainerVariants: Variants = {
-  initial: {
-    //willChange: 'transform,opacity',
-    y: '100%',
-    opacity: 1,
-  },
-  animate: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: containerTransitionDuration,
-      ease: [0, 0, 0.2, 1],
-    },
-  },
-  exit: {
-    y: '100%',
-    opacity: 1,
-    transition: {
-      duration: containerTransitionDuration,
-      ease: [0, 0, 0.2, 1],
-    },
-  },
-};
-
 const contentTransitionDuration = 0.22;
 
 export const contentVariants: Variants = {
@@ -182,29 +140,51 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   onBack,
 }) => {
-  const context = useContext();
-  const containerRef = useRef<any>(null);
-  const [contentRef, bounds] = useMeasure({ debounce: 0, offsetSize: true });
-
-  const mobile = isMobile();
-
-  useLockBodyScroll(!!open && !context.demoMode);
-
-  const useIsomorphicLayoutEffect =
-    typeof window !== 'undefined' ? useLayoutEffect : useEffect;
-
-  const refreshLayout = () => {
-    if (!containerRef.current || bounds.height === 0) return;
-    containerRef.current.style.setProperty('--height', `${bounds.height}px`);
-    containerRef.current.style.setProperty(
-      '--width',
-      mobile ? `100%` : `${bounds.width}px`
-    );
-  };
-  useIsomorphicLayoutEffect(refreshLayout, [bounds]);
+  const [state, setOpen] = useTransition({
+    timeout: 150,
+    preEnter: true,
+    mountOnEnter: true,
+    unmountOnExit: true,
+  });
+  const mounted = !(state === 'exited' || state === 'unmounted');
+  const rendered = state === 'preEnter' || state !== 'exiting';
+  useLockBodyScroll(mounted);
 
   useEffect(() => {
-    if (!open) return;
+    setOpen(open);
+  }, [open]);
+
+  const context = useContext();
+  const mobile = isMobile();
+
+  const [dimensions, setDimensions] = useState<{
+    width: string | undefined;
+    height: string | undefined;
+  }>({
+    width: undefined,
+    height: undefined,
+  });
+  const contentRef = useCallback(
+    (node) => {
+      if (!node) return;
+      const bounds = {
+        width: node?.offsetWidth,
+        height: node?.offsetHeight,
+      };
+      setDimensions({
+        width: mobile ? `100%` : `${bounds?.width}px`,
+        height: `${bounds?.height}px`,
+      });
+    },
+    [open]
+  );
+
+  useEffect(() => {
+    if (!mounted) {
+      setDimensions({ width: undefined, height: undefined });
+      return;
+    }
+
     const listener = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && onClose) onClose();
     };
@@ -212,42 +192,29 @@ const Modal: React.FC<ModalProps> = ({
     return () => {
       document.removeEventListener('keydown', listener);
     };
-  }, [open, onClose]);
+  }, [mounted, onClose]);
+
+  const dimensionsCSS = {
+    '--height': dimensions.height,
+    '--width': dimensions.width,
+  } as React.CSSProperties;
 
   const Content = (
     <ResetContainer theme={context.theme} customTheme={context.customTheme}>
       <ModalContainer
         role="dialog"
-        style={
-          context.demoMode
-            ? {
-                position: 'absolute',
-                pointerEvents: 'none',
-              }
-            : undefined
-        }
-        exit={{
-          pointerEvents: 'auto',
+        style={{
+          pointerEvents: rendered ? 'auto' : 'none',
+          position: context.demoMode ? 'absolute' : undefined,
         }}
       >
-        <BackgroundOverlay
-          onClick={onClose}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: 1,
-          }}
-          exit={{
-            opacity: 0,
-          }}
-          transition={{ ease: 'easeOut', duration: 0.2 }}
-        />
-        <Container ref={containerRef}>
+        <BackgroundOverlay $active={rendered} onClick={onClose} />
+        <Container style={dimensionsCSS}>
           <BoxContainer
-            style={{ right: 'var(--connectkit-scrollbar-width)' }}
-            initial={'initial'}
-            animate={'animate'}
-            exit={'exit'}
-            variants={mobile ? mobileContainerVariants : containerVariants}
+            style={{
+              right: 'var(--scrollbar-width)',
+            }}
+            className={`${mobile ? 'mobile' : ''} ${rendered && 'active'}`}
           >
             <ControllerContainer>
               <CloseButton aria-label="Close" onClick={onClose}>
@@ -283,24 +250,26 @@ const Modal: React.FC<ModalProps> = ({
             </ControllerContainer>
 
             <InnerContainer>
-              <AnimatePresence initial={false}>
-                {Object.keys(pages)
-                  .filter((key) => key === pageId)
-                  .map((key) => {
-                    const page = pages[key];
-                    return (
-                      <PageContainer
-                        key={key}
-                        initial={'initial'}
-                        animate={'animate'}
-                        exit={'exit'}
-                        variants={contentVariants}
-                      >
-                        <PageContents ref={contentRef}>{page}</PageContents>
-                      </PageContainer>
-                    );
-                  })}
-              </AnimatePresence>
+              {Object.keys(pages).map((key) => {
+                const page = pages[key];
+                return (
+                  <Page
+                    key={key}
+                    open={key === pageId}
+                    initial={state !== 'entered'}
+                  >
+                    <PageContents
+                      key={`inner-${key}`}
+                      ref={contentRef}
+                      style={{
+                        pointerEvents: key === pageId ? 'auto' : 'none',
+                      }}
+                    >
+                      {page}
+                    </PageContents>
+                  </Page>
+                );
+              })}
             </InnerContainer>
           </BoxContainer>
         </Container>
@@ -308,10 +277,41 @@ const Modal: React.FC<ModalProps> = ({
     </ResetContainer>
   );
 
-  return context.demoMode ? (
-    Content
-  ) : (
-    <AnimatePresence>{open && <Portal>{Content}</Portal>}</AnimatePresence>
+  return (
+    <>
+      {mounted && (
+        <>{context.demoMode ? Content : <>{<Portal>{Content}</Portal>}</>}</>
+      )}
+    </>
+  );
+};
+
+const Page = ({ children, open, initial }) => {
+  const [state, setOpen] = useTransition({
+    timeout: 220,
+    preEnter: true,
+    initialEntered: open,
+    mountOnEnter: true,
+    unmountOnExit: true,
+  });
+  const mounted = !(state === 'exited' || state === 'unmounted');
+  const rendered = state === 'preEnter' || state !== 'exiting';
+
+  useEffect(() => {
+    setOpen(open);
+  }, [open]);
+
+  if (!mounted) return null;
+  return (
+    <PageContainer
+      className={`${rendered ? 'active' : 'exit'}`}
+      style={{
+        animationDuration: initial ? '0ms' : undefined,
+        animationDelay: initial ? '0ms' : undefined,
+      }}
+    >
+      {children}
+    </PageContainer>
   );
 };
 
