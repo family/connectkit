@@ -1,11 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useReducer,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { Props } from 'framer-motion/types/types';
@@ -165,7 +158,7 @@ const Modal: React.FC<ModalProps> = ({
     height: undefined,
   });
   const contentRef = useCallback(
-    (node) => {
+    (node: any) => {
       if (!node) return;
       const bounds = {
         width: node?.offsetWidth,
@@ -286,7 +279,12 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-const Page = ({ children, open, initial }) => {
+type PageProps = {
+  children?: React.ReactNode;
+  open: boolean | undefined;
+  initial: boolean;
+};
+const Page: React.FC<PageProps> = ({ children, open, initial }) => {
   const [state, setOpen] = useTransition({
     timeout: 220,
     preEnter: true,
