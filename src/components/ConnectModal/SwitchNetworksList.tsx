@@ -306,9 +306,10 @@ const SwitchNetworksList: React.FC = () => {
               {x.name}
             </span>
             <ChainButtonStatus>
-              <AnimatePresence initial={false}>
+              <AnimatePresence initial={false} exitBeforeEnter>
                 {x.id === activeChain?.id && (
                   <motion.span
+                    key={'connectedText'}
                     style={{
                       color: 'var(--focus-color)',
                       display: 'block',
@@ -332,6 +333,7 @@ const SwitchNetworksList: React.FC = () => {
                 )}
                 {isLoading && pendingChainId === x.id && (
                   <motion.span
+                    key={'approveText'}
                     style={{
                       display: 'block',
                       position: 'relative',
