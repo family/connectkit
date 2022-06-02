@@ -133,6 +133,9 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   onBack,
 }) => {
+  const context = useContext();
+  const mobile = isMobile();
+
   const [state, setOpen] = useTransition({
     timeout: 150,
     preEnter: true,
@@ -141,14 +144,11 @@ const Modal: React.FC<ModalProps> = ({
   });
   const mounted = !(state === 'exited' || state === 'unmounted');
   const rendered = state === 'preEnter' || state !== 'exiting';
-  useLockBodyScroll(mounted);
+  useLockBodyScroll(!context.demoMode && mounted);
 
   useEffect(() => {
     setOpen(open);
   }, [open]);
-
-  const context = useContext();
-  const mobile = isMobile();
 
   const [dimensions, setDimensions] = useState<{
     width: string | undefined;
@@ -204,9 +204,6 @@ const Modal: React.FC<ModalProps> = ({
         <BackgroundOverlay $active={rendered} onClick={onClose} />
         <Container style={dimensionsCSS}>
           <BoxContainer
-            style={{
-              right: 'var(--scrollbar-width)',
-            }}
             className={`${mobile ? 'mobile' : ''} ${rendered && 'active'}`}
           >
             <ControllerContainer>
