@@ -63,6 +63,16 @@ const Wallets: React.FC = () => {
         break;
     }
     if (!connector) return;
+    /*
+    connector.on('message', async ({ type }) => {
+      if (type === 'connecting') {
+        try {
+          window.location.href = await getUri(); // expecting a deeplink
+        } catch {}
+      }
+    });
+    const getUri = async () => (await connector.getProvider()).connector.uri;
+    */
     try {
       await connectAsync(connector);
     } catch (err) {
