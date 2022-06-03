@@ -13,7 +13,7 @@ export default function useLockBodyScroll(initialLocked: boolean) {
       overflow: document.body.style.overflow,
       position: document.body.style.position,
       touchAction: document.body.style.touchAction,
-      htmlOverflow: document.documentElement.style.overflow,
+      //htmlOverflow: document.documentElement.style.overflow,
     };
 
     const scrollBarWidth = window.innerWidth - document.body.offsetWidth;
@@ -25,7 +25,7 @@ export default function useLockBodyScroll(initialLocked: boolean) {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'relative';
     document.body.style.touchAction = 'none';
-    document.documentElement.style.overflow = 'hidden';
+    //document.documentElement.style.overflow = 'hidden'; // overflow:hidden; on <html> breaks position:sticky;
 
     return () => {
       document.documentElement.style.removeProperty('--scrollbar-width');
@@ -33,7 +33,7 @@ export default function useLockBodyScroll(initialLocked: boolean) {
       document.body.style.overflow = original.overflow;
       document.body.style.position = original.position;
       document.body.style.touchAction = original.touchAction;
-      document.documentElement.style.overflow = original.htmlOverflow;
+      //document.documentElement.style.overflow = original.htmlOverflow;
     };
   }, [locked]);
 
