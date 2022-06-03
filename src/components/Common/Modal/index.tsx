@@ -125,6 +125,8 @@ type ModalProps = {
   pageId: string;
   onClose?: () => void | undefined;
   onBack?: () => void | undefined;
+  positionInside?: boolean;
+  hideOverlay?: boolean;
 };
 const Modal: React.FC<ModalProps> = ({
   open,
@@ -132,6 +134,8 @@ const Modal: React.FC<ModalProps> = ({
   pageId,
   onClose,
   onBack,
+  positionInside,
+  hideOverlay,
 }) => {
   const context = useContext();
   const mobile = isMobile();
@@ -144,7 +148,7 @@ const Modal: React.FC<ModalProps> = ({
   });
   const mounted = !(state === 'exited' || state === 'unmounted');
   const rendered = state === 'preEnter' || state !== 'exiting';
-  useLockBodyScroll(!context.demoMode && mounted);
+  if (!positionInside) useLockBodyScroll(mounted);
 
   useEffect(() => {
     setOpen(open);
@@ -198,10 +202,12 @@ const Modal: React.FC<ModalProps> = ({
         role="dialog"
         style={{
           pointerEvents: rendered ? 'auto' : 'none',
-          position: context.demoMode ? 'absolute' : undefined,
+          position: positionInside ? 'absolute' : undefined,
         }}
       >
-        <BackgroundOverlay $active={rendered} onClick={onClose} />
+        {!hideOverlay && (
+          <BackgroundOverlay $active={rendered} onClick={onClose} />
+        )}
         <Container style={dimensionsCSS}>
           <BoxContainer
             className={`${mobile ? 'mobile' : ''} ${rendered && 'active'}`}
@@ -270,7 +276,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <>
       {mounted && (
-        <>{context.demoMode ? Content : <>{<Portal>{Content}</Portal>}</>}</>
+        <>{positionInside ? Content : <>{<Portal>{Content}</Portal>}</>}</>
       )}
     </>
   );

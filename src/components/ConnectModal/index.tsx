@@ -10,6 +10,7 @@ import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
+import Portal from '../Common/Portal';
 
 const customThemeDefault: object = {};
 
@@ -17,13 +18,7 @@ const ConnectModal: React.FC<{
   theme?: Theme;
   customTheme?: CustomTheme;
   lang?: Languages;
-  demoMode?: boolean;
-}> = ({
-  theme = 'light',
-  customTheme = customThemeDefault,
-  lang = 'en',
-  demoMode = false,
-}) => {
+}> = ({ theme = 'light', customTheme = customThemeDefault, lang = 'en' }) => {
   const context = useContext();
   const { isConnected } = useConnect();
 
@@ -53,14 +48,13 @@ const ConnectModal: React.FC<{
   useEffect(() => context.setTheme(theme), [theme]);
   useEffect(() => context.setCustomTheme(customTheme), [customTheme]);
   useEffect(() => context.setLang(lang), [lang]);
-  useEffect(() => context.setDemoMode(demoMode), [demoMode]);
 
   return (
     <Modal
-      open={demoMode ? true : context.open}
+      open={context.open}
       pages={pages}
       pageId={context.route}
-      onClose={demoMode ? undefined : hide}
+      onClose={hide}
       onBack={
         context.route !== routes.CONNECTORS && context.route !== routes.PROFILE
           ? () => {

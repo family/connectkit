@@ -6,3 +6,5 @@ export { default as supportedConnectors } from './constants/supportedConnectors'
 export * as Types from './types';
 
 export { default as getDefaultClient } from './defaultClient';
+
+export { default as ConnectKitModalDemo } from './components/ConnectModal/demo';

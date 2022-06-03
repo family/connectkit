@@ -102,7 +102,7 @@ const Profile: React.FC = () => {
         </AvatarContainer>
         <ModalH1>
           <CopyToClipboard string={account?.address}>
-            {ensName ? ensName : truncateEthAddress(account?.address)}
+            {ensName ?? truncateEthAddress(account?.address)}
           </CopyToClipboard>
         </ModalH1>
         <ModalBody>

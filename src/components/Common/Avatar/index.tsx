@@ -22,12 +22,12 @@ const Avatar: React.FC<{
   });
   const { data: ensAvatar } = useEnsAvatar({
     chainId: 1,
-    addressOrName: address ? address : name,
+    addressOrName: address ?? name,
   });
   const ens = {
-    address: ensAddress ? ensAddress : address,
-    name: ensName ? ensName : name,
-    avatar: ensAvatar ? ensAvatar : undefined,
+    address: ensAddress ?? address,
+    name: ensName ?? name,
+    avatar: ensAvatar ?? undefined,
   };
 
   useEffect(() => {

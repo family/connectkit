@@ -6,6 +6,8 @@ import React, {
 } from 'react';
 import { CustomTheme, Languages, Theme } from '../types';
 
+import ConnectKitModal from '../components/ConnectModal';
+
 export const routes = {
   CONNECTORS: 'connectors',
   CONNECT: 'connect',
@@ -30,31 +32,38 @@ type ContextValue = {
   setRoute: React.Dispatch<React.SetStateAction<string>>;
   connector: string;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
-  demoMode: boolean;
-  setDemoMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Context = createContext<ContextValue | null>(null);
 
-type Props = {
+type ConnectKitProviderProps = {
   children?: React.ReactNode;
+  theme?: Theme;
+  language?: Languages;
+  customTheme?: CustomTheme;
 };
-
-export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('auto');
-  const [customTheme, setCustomTheme] = useState<CustomTheme>({});
-  const [lang, setLang] = useState<Languages>('fr');
+export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
+  children,
+  theme = 'auto',
+  language = 'en',
+  customTheme,
+}) => {
+  const [ckTheme, setTheme] = useState<Theme>(theme);
+  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme>({});
+  const [ckLang, setLang] = useState<Languages>(language);
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
-  const [demoMode, setDemoMode] = useState<boolean>(false);
+
+  useEffect(() => setTheme(theme), [theme]);
+  useEffect(() => setLang(language), [language]);
 
   const value = {
-    theme,
+    theme: ckTheme,
     setTheme,
     customTheme,
     setCustomTheme,
-    lang,
+    lang: ckLang,
     setLang,
     open,
     setOpen,
@@ -62,10 +71,15 @@ export const ConnectKitProvider: React.FC<Props> = ({ children }) => {
     setRoute,
     connector,
     setConnector,
-    demoMode,
-    setDemoMode,
   };
-  return createElement(Context.Provider, { value }, children);
+  return createElement(
+    Context.Provider,
+    { value },
+    <>
+      {children}
+      <ConnectKitModal lang={ckLang} theme={ckTheme} />
+    </>
+  );
 };
 
 export const useContext = () => {
