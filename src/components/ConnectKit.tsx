@@ -22,8 +22,8 @@ type Connector = any;
 type ContextValue = {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
-  customTheme: CustomTheme;
-  setCustomTheme: React.Dispatch<React.SetStateAction<CustomTheme>>;
+  customTheme: CustomTheme | undefined;
+  setCustomTheme: React.Dispatch<React.SetStateAction<CustomTheme | undefined>>;
   lang: Languages;
   setLang: React.Dispatch<React.SetStateAction<Languages>>;
   open: boolean;
@@ -40,7 +40,7 @@ type ConnectKitProviderProps = {
   children?: React.ReactNode;
   theme?: Theme;
   language?: Languages;
-  customTheme?: CustomTheme;
+  customTheme?: CustomTheme | undefined;
 };
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   children,
@@ -49,7 +49,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   customTheme,
 }) => {
   const [ckTheme, setTheme] = useState<Theme>(theme);
-  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme>({});
+  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>({});
   const [ckLang, setLang] = useState<Languages>(language);
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
