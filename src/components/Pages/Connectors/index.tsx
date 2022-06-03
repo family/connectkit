@@ -83,6 +83,7 @@ const Wallets: React.FC = () => {
               const info = supportedConnectors.filter(
                 (c) => c.id === connector.id
               )[0];
+              if (!info) return null;
               return (
                 <MobileConnectorButton
                   key={`m-${connector.id}`}
@@ -101,22 +102,14 @@ const Wallets: React.FC = () => {
             const info = supportedConnectors.filter(
               (c) => c.id === connector.id
             )[0];
+            if (!info) return null;
             return (
               <ConnectorButton
                 key={connector.id}
                 disabled={context.route !== routes.CONNECTORS}
                 onClick={() => {
-                  if (
-                    connector.id === 'metaMask' ||
-                    connector.id === 'walletConnect' ||
-                    connector.id === 'coinbaseWallet'
-                  ) {
-                    context.setRoute(routes.CONNECT);
-                    context.setConnector(connector.id);
-                  } else {
-                    console.error('Not a valid route?');
-                    connect(connector);
-                  }
+                  context.setRoute(routes.CONNECT);
+                  context.setConnector(connector.id);
                 }}
               >
                 <ConnectorIcon>{info.logo}</ConnectorIcon>
