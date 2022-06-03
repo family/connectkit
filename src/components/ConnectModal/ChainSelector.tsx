@@ -52,8 +52,8 @@ const DropdownHeading = styled(motion.div)`
 const SwitchChainButton = styled(motion.button)`
   --background: var(--body-background-secondary);
   appearance: none;
-  cursor: pointer;
   user-select: none;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -75,12 +75,23 @@ const SwitchChainButton = styled(motion.button)`
     display: block;
   }
 
-  &:hover {
-    --background: var(--body-background-secondary-hover);
-  }
-  &:active {
-    //transform: scale(0.96) translateZ(0px);
-  }
+  ${(props) =>
+    props.disabled
+      ? css`
+          width: auto;
+          padding: 2px;
+          position: relative;
+          left: -10px;
+        `
+      : css`
+          cursor: pointer;
+          &:hover {
+            --background: var(--body-background-secondary-hover);
+          }
+          &:active {
+            //transform: scale(0.96) translateZ(0px);
+          }
+        `}
 `;
 const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
   display: block;
@@ -165,12 +176,14 @@ const ChainSelector: React.FC = () => {
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, isOpen]);
 
+  const disabled = chains.length <= 1;
   return (
     <>
       <Container>
         <SwitchChainButton
           ref={ref}
           aria-label="Change Network"
+          disabled={disabled}
           onClick={() => {
             if (mobile) {
               context.setRoute(routes.SWITCHNETWORKS);
@@ -205,7 +218,7 @@ const ChainSelector: React.FC = () => {
                 })}
             </AnimatePresence>
           </ChainIcon>
-          <ChevronDown style={{ top: 1, left: -3 }} />
+          {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
         </SwitchChainButton>
       </Container>
       <Portal>
