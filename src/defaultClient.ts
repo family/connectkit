@@ -53,6 +53,7 @@ type DefaultClientProps = {
   alchemyId?: string;
   infuraId?: string;
   connectors?: any;
+  provider?: any;
 };
 const defaultClient: any = ({
   appName = 'ConnectKit',
@@ -60,6 +61,7 @@ const defaultClient: any = ({
   alchemyId,
   infuraId,
   connectors,
+  provider,
 }: DefaultClientProps) => {
   const providers = [];
 
@@ -76,16 +78,14 @@ const defaultClient: any = ({
     })
   );
 
-  const { provider, chains: configuredChains } = configureChains(
-    chains,
-    providers
-  );
+  const { provider: configuredProvider, chains: configuredChains } =
+    configureChains(chains, providers);
 
   const connectKitClient = {
     autoConnect: true,
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
-    provider,
+    provider: provider ?? configuredProvider,
   };
 
   return { ...connectKitClient };
