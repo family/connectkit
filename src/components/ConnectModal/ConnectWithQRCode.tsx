@@ -58,12 +58,19 @@ const ConnectWithQRCode: React.FC<{
       case 'injected':
         // Shouldn't get to this flow, injected is not scannable
         break;
+      case 'metaMask':
+        // Shouldn't get to this flow, injected is not scannable
+        break;
       case 'coinbaseWallet':
         c.on('message', async (e) => {
           const p = await c.getProvider();
           setConnectorUri(p.qrUrl);
         });
-        await connectWallet(c);
+        try {
+          await connectWallet(c);
+        } catch {
+          console.log('could not connect');
+        }
         break;
       case 'walletConnect':
         c.on('message', async (e) => {
@@ -76,9 +83,11 @@ const ConnectWithQRCode: React.FC<{
             connectWallet(c);
           });
         });
-        await connectWallet(c);
-        break;
-      case 'metaMask':
+        try {
+          await connectWallet(c);
+        } catch {
+          console.log('could not connect');
+        }
         break;
     }
   };
@@ -90,7 +99,9 @@ const ConnectWithQRCode: React.FC<{
         chains: c.chains,
         options: { ...c.options, qrcode: true },
       });
-      await connectWallet(co);
+      try {
+        await connectWallet(co);
+      } catch {}
     }
   };
 
