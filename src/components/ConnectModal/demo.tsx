@@ -74,9 +74,23 @@ const ConnectModal: React.FC<{
         onClose={onClose}
         hideOverlay={hideOverlay}
         positionInside
-        open
+        open={true}
         pages={pages}
-        pageId={routes.ONBOARDING}
+        pageId={context.route}
+        onBack={
+          context.route !== routes.CONNECTORS &&
+          context.route !== routes.PROFILE
+            ? () => {
+                if (context.route === routes.SWITCHNETWORKS) {
+                  context.setRoute(routes.PROFILE);
+                } else if (context.route === routes.DOWNLOAD) {
+                  context.setRoute(routes.CONNECT);
+                } else {
+                  context.setRoute(routes.CONNECTORS);
+                }
+              }
+            : undefined
+        }
       />
     </Container>
   );

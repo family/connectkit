@@ -252,7 +252,7 @@ const Modal: React.FC<ModalProps> = ({
                   <Page
                     key={key}
                     open={key === pageId}
-                    initial={state !== 'entered'}
+                    initial={!positionInside && state !== 'entered'}
                   >
                     <PageContents
                       key={`inner-${key}`}
