@@ -74,16 +74,17 @@ export const ConnectorButton = styled(motion.button)`
   font-size: 17px;
   font-weight: 500;
   line-height: 20px;
-  border-radius: 18px;
+  border-radius: var(--body-button-border-radius, '18px');
   color: var(--body-color);
-  text-align: center;
+  text-align: var(--body-button-text-align, center);
   transition: background-color 200ms ease, box-shadow 280ms ease,
     transform 100ms ease;
   will-change: transform, box-shadow, background-color;
+  border: var(--body-connector-button-border);
 
   background: var(--background);
   box-shadow: inset 0 0 0 0px var(--background),
-    inset 0 0 0 0px var(--background);
+    inset 0 0 0 0px var(--background), var(--body-button-box-shadow);
 
   &:disabled {
     transition: 0ms;
@@ -93,7 +94,9 @@ export const ConnectorButton = styled(motion.button)`
     &:hover {
       /* box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
         inset 0 0 0 6px var(--body-background); */
-      //--background: var(--body-background-secondary-hover);
+      border-color: transparent;
+      color: var(--accent-text-color);
+      --background: var(--accent-color, --body-background-secondary-hover);
     }
     &:focus {
       transition-duration: 100ms;
@@ -110,12 +113,13 @@ export const ConnectorButton = styled(motion.button)`
 
 export const ConnectorLabel = styled(motion.span)`
   width: 100%;
-  padding: 0 64px;
+  padding: var(--body-connector-label-padding, '0 64px');
 `;
 
 export const ConnectorIcon = styled(motion.div)`
   position: absolute;
-  left: 16px;
+  left: var(--body-connector-icon-left, '16px');
+  right: var(--body-connector-icon-right, 'auto');
   width: 32px;
   height: 32px;
   overflow: hidden;
@@ -144,10 +148,11 @@ export const MobileConnectorButton = styled(motion.button)`
   font-size: 12px;
   font-weight: 500;
   line-height: 13px;
-  border-radius: 18px;
+  border-radius: var(--body-button-border-radius, '18px');
   color: var(--body-color);
-  text-align: center;
+  text-align: var(--body-button-text-align, center);
   transition: transform 100ms ease;
+  border: var(--body-button-border);
 
   background: none;
 

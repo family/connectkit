@@ -23,7 +23,7 @@ export const ArrowLine = styled.rect`
 `;
 
 export const ButtonContainer = styled.button<{ disabled?: boolean }>`
-  --background: var(--body-background-secondary);
+  --background: var(--accent-color, --body-background-secondary);
   appearance: none;
   cursor: pointer;
   user-select: none;
@@ -32,7 +32,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 18px;
+  border-radius: var(--body-button-border-radius, '18px');
   height: 48px;
   margin: 12px 0 0;
   padding: 0 32px;
@@ -40,17 +40,20 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   line-height: 19px;
   font-weight: 500;
   text-decoration: none;
-  color: var(--body-color);
+  color: var(--accent-text-color, --body-color);
   background: var(--background);
   white-space: nowrap;
   transition: box-shadow 100ms ease, background-color 100ms ease;
   box-shadow: 0 0 0 0 var(--background);
+  border: var(--body-button-border);
   ${(props) => {
     if (!mobile) {
       return css`
         &:hover {
-          --background: var(--body-background-secondary-hover);
-          box-shadow: 0 0 0 2px var(--background);
+          color: var(--accent-text-color);
+          --background: var(--accent-color, --body-background-secondary-hover);
+          border-color: transparent;
+          box-shadow: 0 0 0 2px var(--accent-color, --background);
           ${Arrow} {
             transform: translateX(0);
             ${ArrowLine} {

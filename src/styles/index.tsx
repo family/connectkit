@@ -59,6 +59,8 @@ const themeColors = {
     '--body-color-danger': '#FC6464',
     '--body-color-valid': '#32D74B',
 
+    '--body-button-border-radius': '18px',
+
     '--mobile-body-background': '#F8F8F8',
     '--mobile-body-color': '#2B2F43',
 
@@ -120,6 +122,8 @@ const themeColors = {
     '--body-divider': '#383838',
     '--body-color-danger': '#FC6464',
 
+    '--body-button-border-radius': '18px',
+
     '--qrcode-outline': 'transparent',
     '--copytoclipboard-stroke': '#555555',
 
@@ -154,6 +158,145 @@ const themeColors = {
     // Brand dark themes can also go here
     '--brand-trust-01': '#ffffff',
     '--brand-trust-02': '#3375BB',
+  },
+  testTheme: {
+    '--font-family': 'Avenir Next',
+    '--border-radius': 16,
+    '--connectbutton-color': '#373737',
+    '--connectbutton-background': '#ffffff',
+    '--connectbutton-background-hover': '#f6f7f9',
+    '--connectbutton-background-active': '#eaecf1',
+
+    '--focus-color': '#1A88F8',
+    '--overlay-background': 'rgba(0, 0, 0, 0.4)',
+    '--body-color': '#373737',
+    '--body-color-muted': '#999999',
+    '--body-color-muted-hover': '#111111',
+    '--body-background': '#ffffff',
+    '--body-background-transparent': 'rgba(255,255,255,0)',
+    '--body-background-secondary-hover': '#FAFAFA',
+    '--body-background-secondary-hover-outline': '#4282FF',
+    '--body-action-color': '#999999',
+    '--body-divider': 'transparent',
+    '--body-color-danger': '#FC6464',
+    '--body-color-valid': '#32D74B',
+
+    '--body-background-secondary': '#ffffff',
+    '--body-button-border-radius': '10px',
+    '--body-button-text-align': 'left',
+    '--body-connector-label-padding': '0 8px',
+    '--body-connector-icon-left': 'auto',
+    '--body-connector-icon-right': '20px',
+    '--body-button-border': '1px solid #e6e6e6',
+    '--body-connector-button-border': '1px solid #e6e6e6',
+    '--body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
+
+    '--mobile-body-background': '#F8F8F8',
+    '--mobile-body-color': '#2B2F43',
+
+    '--qrcode-outline': '#EEEFF2',
+    '--copytoclipboard-stroke': '#CCCCCC',
+
+    '--tooltip-background': '#ffffff',
+    '--tooltip-background-secondary': '#f6f7f9',
+    '--tooltip-color': '#999999',
+
+    '--spinner-color': 'var(--focus-color)',
+
+    '--graphic-wave-stop-01': '#E8F17D',
+    '--graphic-wave-stop-02': '#A8ECDE',
+    '--graphic-wave-stop-03': '#7AA1F2',
+    '--graphic-wave-stop-04': '#DEA1E8',
+    '--graphic-wave-stop-05': '#F46D98',
+
+    '--graphic-scaniconwithlogos-01': '#4E4E4E',
+    '--graphic-scaniconwithlogos-02': '#272727',
+    '--graphic-scaniconwithlogos-03': '#F8D74A',
+    '--graphic-scaniconwithlogos-04': '#F6F7F9',
+
+    '--ens-01-start': '#FF3B30',
+    '--ens-01-stop': '#FF9500',
+    '--ens-02-start': '#FF9500',
+    '--ens-02-stop': '#FFCC00',
+    '--ens-03-start': '#FFCC00',
+    '--ens-03-stop': '#34C759',
+    '--ens-04-start': '#5856D6',
+    '--ens-04-stop': '#AF52DE',
+    '--ens-05-start': '#5AC8FA',
+    '--ens-05-stop': '#007AFF',
+    '--ens-06-start': '#007AFF',
+    '--ens-06-stop': '#5856D6',
+    '--ens-07-start': '#5856D6',
+    '--ens-07-stop': '#AF52DE',
+    '--ens-08-start': '#AF52DE',
+    '--ens-08-stop': '#FF2D55',
+  },
+  testThemeAccent: {
+    '--accent-color': '#007AFF',
+    '--accent-text-color': '#ffffff',
+
+    '--connectbutton-color': '#373737',
+    '--connectbutton-background': '#ffffff',
+    '--connectbutton-background-hover': '#f6f7f9',
+    '--connectbutton-background-active': '#eaecf1',
+
+    '--focus-color': '#1A88F8',
+    '--overlay-background': 'rgba(0, 0, 0, 0.4)',
+    '--body-color': '#373737',
+    '--body-color-muted': '#999999',
+    '--body-color-muted-hover': '#111111',
+    '--body-background': '#ffffff',
+    '--body-background-transparent': 'rgba(255,255,255,0)',
+    '--body-background-secondary': '#ffffff',
+    '--body-background-secondary-hover': '#f6f7f9',
+    '--body-background-secondary-hover-outline': '#4282FF',
+    '--body-action-color': '#999999',
+    '--body-divider': '#f7f6f8',
+    '--body-color-danger': '#FC6464',
+    '--body-color-valid': '#32D74B',
+
+    '--body-button-border-radius': '18px',
+    '--body-connector-button-border': '1px solid #e6e6e6',
+
+    '--mobile-body-background': '#F8F8F8',
+    '--mobile-body-color': '#2B2F43',
+
+    '--qrcode-outline': '#EEEFF2',
+    '--copytoclipboard-stroke': '#CCCCCC',
+
+    '--tooltip-background': '#ffffff',
+    '--tooltip-background-secondary': '#f6f7f9',
+    '--tooltip-color': '#999999',
+
+    '--spinner-color': 'var(--focus-color)',
+
+    '--graphic-wave-stop-01': '#E8F17D',
+    '--graphic-wave-stop-02': '#A8ECDE',
+    '--graphic-wave-stop-03': '#7AA1F2',
+    '--graphic-wave-stop-04': '#DEA1E8',
+    '--graphic-wave-stop-05': '#F46D98',
+
+    '--graphic-scaniconwithlogos-01': '#4E4E4E',
+    '--graphic-scaniconwithlogos-02': '#272727',
+    '--graphic-scaniconwithlogos-03': '#F8D74A',
+    '--graphic-scaniconwithlogos-04': '#F6F7F9',
+
+    '--ens-01-start': '#FF3B30',
+    '--ens-01-stop': '#FF9500',
+    '--ens-02-start': '#FF9500',
+    '--ens-02-stop': '#FFCC00',
+    '--ens-03-start': '#FFCC00',
+    '--ens-03-stop': '#34C759',
+    '--ens-04-start': '#5856D6',
+    '--ens-04-stop': '#AF52DE',
+    '--ens-05-start': '#5AC8FA',
+    '--ens-05-stop': '#007AFF',
+    '--ens-06-start': '#007AFF',
+    '--ens-06-stop': '#5856D6',
+    '--ens-07-start': '#5856D6',
+    '--ens-07-stop': '#AF52DE',
+    '--ens-08-start': '#AF52DE',
+    '--ens-08-stop': '#FF2D55',
   },
   lightMobile: {
     '--body-background': '#F8F8F8',
@@ -218,6 +361,10 @@ export const ResetContainer = styled.div<{
         return createCssColors(themeColors.light);
       case 'dark':
         return createCssColors(themeColors.dark);
+      case 'testTheme':
+        return createCssColors(themeColors.testTheme);
+      case 'testThemeAccent':
+        return createCssColors(themeColors.testThemeAccent);
       default:
         return css`
           ${createCssColors(themeColors.light)}
