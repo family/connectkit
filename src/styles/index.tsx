@@ -182,7 +182,7 @@ const themeColors = {
     '--body-color-valid': '#32D74B',
 
     '--body-background-secondary': '#ffffff',
-    '--body-button-border-radius': '10px',
+    '--body-button-border-radius': '100px',
     '--body-button-text-align': 'left',
     '--body-connector-label-padding': '0 8px',
     '--body-connector-icon-left': 'auto',
