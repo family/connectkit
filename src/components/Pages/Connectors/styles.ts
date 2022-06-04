@@ -94,7 +94,6 @@ export const ConnectorButton = styled(motion.button)`
     &:hover {
       /* box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
         inset 0 0 0 6px var(--body-background); */
-      border-color: transparent;
       color: var(--accent-text-color);
       --background: var(--accent-color, --body-background-secondary-hover);
     }
