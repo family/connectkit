@@ -51,7 +51,10 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
       return css`
         &:hover {
           color: var(--accent-text-color);
-          --background: var(--accent-color, --body-background-secondary-hover);
+          --background: var(
+            --accent-color,
+            var(--body-background-secondary-hover)
+          );
           border-color: transparent;
           box-shadow: 0 0 0 2px var(--accent-color, --background);
           ${Arrow} {
