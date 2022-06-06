@@ -27,6 +27,7 @@ import { useContext } from '../../ConnectKit';
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
+import FocusTrap from '../../../hooks/useFocusTrap';
 
 const InfoIcon = (props: Props) => (
   <svg
@@ -272,11 +273,22 @@ const Modal: React.FC<ModalProps> = ({
       </ModalContainer>
     </ResetContainer>
   );
-
   return (
     <>
       {mounted && (
-        <>{positionInside ? Content : <>{<Portal>{Content}</Portal>}</>}</>
+        <>
+          {positionInside ? (
+            Content
+          ) : (
+            <>
+              {
+                <Portal>
+                  <FocusTrap>{Content}</FocusTrap>
+                </Portal>
+              }
+            </>
+          )}
+        </>
       )}
     </>
   );
