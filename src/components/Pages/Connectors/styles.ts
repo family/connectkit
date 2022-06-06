@@ -14,7 +14,8 @@ export const LearnMoreButton = styled(motion.button)`
   justify-content: center;
   gap: 10px;
   height: 42px;
-  padding: 0;
+  padding: 0 16px;
+  border-radius: 6px;
   background: none;
   color: var(--body-color-muted);
   font-size: 16px;
