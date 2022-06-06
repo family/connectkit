@@ -5,9 +5,10 @@ import React, { useRef, useEffect } from 'react';
 const KEYCODE_TAB = 9;
 
 function useFocusTrap() {
-  const elRef = useRef(null);
+  const elRef = useRef<any>(null);
 
-  function handleFocus(e) {
+  function handleFocus(e: any) {
+    if (!elRef.current) return;
     var focusableEls = elRef.current.querySelectorAll(
         'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
       ),
@@ -48,7 +49,7 @@ function useFocusTrap() {
   return elRef;
 }
 
-export default function FocusTrap(props) {
+export default function FocusTrap(props: any) {
   const elRef = useFocusTrap();
 
   useEffect(() => {
