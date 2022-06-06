@@ -23,7 +23,7 @@ export const ArrowLine = styled.rect`
 `;
 
 export const ButtonContainer = styled.button<{ disabled?: boolean }>`
-  --background: var(--accent-color, --body-background-secondary);
+  --background: var(--accent-color, var(--body-background-secondary));
   appearance: none;
   cursor: pointer;
   user-select: none;
@@ -40,7 +40,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   line-height: 19px;
   font-weight: 500;
   text-decoration: none;
-  color: var(--accent-text-color, --body-color);
+  color: var(--accent-text-color, var(--body-color));
   background: var(--background);
   white-space: nowrap;
   transition: box-shadow 100ms ease, background-color 100ms ease;
