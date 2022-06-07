@@ -20,10 +20,10 @@ const defaultChains = [
 
 type DefaultConnectorsProps = {
   chains?: Chain[];
-  appName?: string;
+  appName: string;
 };
 type DefaultClientProps = {
-  appName?: string;
+  appName: string;
   alchemyId?: string;
   infuraId?: string;
   chains?: Chain[];
