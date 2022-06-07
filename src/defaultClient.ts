@@ -1,4 +1,6 @@
-import { Chain, chain, configureChains } from 'wagmi';
+import { Chain, Connector, chain, configureChains } from 'wagmi';
+import { Provider } from '@wagmi/core';
+
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
@@ -15,7 +17,25 @@ const defaultChains = [
   chain.optimism,
   chain.arbitrum,
 ];
-const getDefaultConnectors = ({ chains, appName }: any) => {
+
+type DefaultConnectorsProps = {
+  chains?: Chain[];
+  appName?: string;
+};
+type DefaultClientProps = {
+  appName?: string;
+  alchemyId?: string;
+  infuraId?: string;
+  chains?: Chain[];
+  connectors?: any;
+  provider?: any;
+};
+type ConnectKitClientProps = {
+  autoConnect?: boolean;
+  connectors?: Connector[];
+  provider?: Provider;
+};
+const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
     /*
   new InjectedConnector({
@@ -47,15 +67,7 @@ const getDefaultConnectors = ({ chains, appName }: any) => {
     }),
   ];
 };
-type DefaultClientProps = {
-  appName?: string;
-  chains?: Chain[];
-  alchemyId?: string;
-  infuraId?: string;
-  connectors?: any;
-  provider?: any;
-};
-const defaultClient: any = ({
+const defaultClient = ({
   appName = 'ConnectKit',
   chains = defaultChains,
   alchemyId,
@@ -81,7 +93,7 @@ const defaultClient: any = ({
   const { provider: configuredProvider, chains: configuredChains } =
     configureChains(chains, providers);
 
-  const connectKitClient = {
+  const connectKitClient: ConnectKitClientProps = {
     autoConnect: true,
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
