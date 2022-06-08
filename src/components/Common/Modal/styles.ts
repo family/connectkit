@@ -246,7 +246,6 @@ export const CloseButton = styled(motion.button)`
 
 export const BackButton = styled(motion.button)`
   z-index: 3;
-  cursor: pointer;
   position: absolute;
   top: 18px;
   left: 14px;
@@ -268,17 +267,19 @@ export const BackButton = styled(motion.button)`
     left: -1px;
   }
 
-  &:hover {
-    background: var(--body-background-secondary);
-  }
-  &:active {
-    transform: scale(0.9);
+  &:enabled {
+    cursor: pointer;
+    &:hover {
+      background: var(--body-background-secondary);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
   }
 `;
 
 export const InfoButton = styled(motion.button)`
   z-index: 3;
-  cursor: pointer;
   position: absolute;
   top: 18px;
   left: 18px;
@@ -298,12 +299,14 @@ export const InfoButton = styled(motion.button)`
     display: block;
     position: relative;
   }
-
-  &:hover {
-    background: var(--body-background-secondary);
-  }
-  &:active {
-    transform: scale(0.9);
+  &:enabled {
+    cursor: pointer;
+    &:hover {
+      background: var(--body-background-secondary);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
   }
 `;
 

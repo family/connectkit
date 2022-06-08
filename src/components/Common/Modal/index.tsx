@@ -164,9 +164,19 @@ const Modal: React.FC<ModalProps> = ({
     width: undefined,
     height: undefined,
   });
+  const [inTransition, setInTransition] = useState<boolean>(false);
+
+  let blockTimeout: ReturnType<typeof setTimeout>;
   const contentRef = useCallback(
     (node: any) => {
       if (!node) return;
+
+      // Avoid transition mixups
+      setInTransition(true);
+      clearTimeout(blockTimeout);
+      blockTimeout = setTimeout(() => setInTransition(false), 300);
+
+      // Calculate new content bounds
       const bounds = {
         width: node?.offsetWidth,
         height: node?.offsetHeight,
@@ -222,6 +232,7 @@ const Modal: React.FC<ModalProps> = ({
               <AnimatePresence>
                 {onBack ? (
                   <BackButton
+                    disabled={inTransition}
                     aria-label="Back"
                     key="backButton"
                     onClick={onBack}
@@ -234,6 +245,7 @@ const Modal: React.FC<ModalProps> = ({
                   </BackButton>
                 ) : (
                   <InfoButton
+                    disabled={inTransition}
                     aria-label="More information"
                     key="infoButton"
                     onClick={onInfo}
