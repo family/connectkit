@@ -56,6 +56,11 @@ const ConnectModal: React.FC<{
       pages={pages}
       pageId={context.route}
       onClose={hide}
+      onInfo={
+        context.route !== routes.PROFILE
+          ? () => context.setRoute(routes.ABOUT)
+          : undefined
+      }
       onBack={
         context.route !== routes.CONNECTORS && context.route !== routes.PROFILE
           ? () => {

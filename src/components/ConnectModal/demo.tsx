@@ -4,7 +4,8 @@ import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
-import OnboardingIntroduction from '../Pages/Onboarding';
+import Onboarding from '../Pages/Onboarding';
+import About from '../Pages/About';
 import Connectors from '../Pages/Connectors';
 import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
@@ -60,11 +61,12 @@ const ConnectModal: React.FC<{
   useEffect(() => context.setLang(lang), [lang]);
 
   const pages: any = {
-    profile: <Profile />,
+    onboarding: <Onboarding />,
+    about: <About />,
     download: <DownloadApp connectorId={context.connector} />,
     connectors: <Connectors />,
-    onboarding: <OnboardingIntroduction />,
     connect: <ConnectUsing connectorId={context.connector} />,
+    profile: <Profile />,
     switchnetworks: <SwitchNetworks />,
   };
 
@@ -77,6 +79,11 @@ const ConnectModal: React.FC<{
         open={true}
         pages={pages}
         pageId={context.route}
+        onInfo={
+          context.route !== routes.PROFILE
+            ? () => context.setRoute(routes.ABOUT)
+            : undefined
+        }
         onBack={
           context.route !== routes.CONNECTORS &&
           context.route !== routes.PROFILE

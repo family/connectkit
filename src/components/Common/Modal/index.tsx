@@ -124,19 +124,21 @@ type ModalProps = {
   open: boolean | undefined;
   pages: any;
   pageId: string;
-  onClose?: () => void | undefined;
-  onBack?: () => void | undefined;
   positionInside?: boolean;
   hideOverlay?: boolean;
+  onClose?: () => void | undefined;
+  onBack?: () => void | undefined;
+  onInfo?: () => void | undefined;
 };
 const Modal: React.FC<ModalProps> = ({
   open,
   pages,
   pageId,
-  onClose,
-  onBack,
   positionInside,
   hideOverlay,
+  onClose,
+  onBack,
+  onInfo,
 }) => {
   const context = useContext();
   const mobile = isMobile();
@@ -154,8 +156,6 @@ const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     setOpen(open);
   }, [open]);
-
-  const onInfo = () => context.setRoute(routes.ABOUT);
 
   const [dimensions, setDimensions] = useState<{
     width: string | undefined;
@@ -244,18 +244,20 @@ const Modal: React.FC<ModalProps> = ({
                     <BackIcon />
                   </BackButton>
                 ) : (
-                  <InfoButton
-                    disabled={inTransition}
-                    aria-label="More information"
-                    key="infoButton"
-                    onClick={onInfo}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.1 }}
-                  >
-                    <InfoIcon />
-                  </InfoButton>
+                  onInfo && (
+                    <InfoButton
+                      disabled={inTransition}
+                      aria-label="More information"
+                      key="infoButton"
+                      onClick={onInfo}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.1 }}
+                    >
+                      <InfoIcon />
+                    </InfoButton>
+                  )
                 )}
               </AnimatePresence>
             </ControllerContainer>
