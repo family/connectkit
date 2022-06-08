@@ -23,7 +23,7 @@ import {
   TextWithHr,
 } from './styles';
 
-import { useContext } from '../../ConnectKit';
+import { routes, useContext } from '../../ConnectKit';
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
@@ -155,6 +155,8 @@ const Modal: React.FC<ModalProps> = ({
     setOpen(open);
   }, [open]);
 
+  const onInfo = () => context.setRoute(routes.ABOUT);
+
   const [dimensions, setDimensions] = useState<{
     width: string | undefined;
     height: string | undefined;
@@ -234,7 +236,7 @@ const Modal: React.FC<ModalProps> = ({
                   <InfoButton
                     aria-label="More information"
                     key="infoButton"
-                    //onClick={onInfo}
+                    onClick={onInfo}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}

@@ -9,9 +9,10 @@ import { CustomTheme, Languages, Theme } from '../types';
 import ConnectKitModal from '../components/ConnectModal';
 
 export const routes = {
+  ONBOARDING: 'onboarding',
+  ABOUT: 'about',
   CONNECTORS: 'connectors',
   CONNECT: 'connect',
-  ONBOARDING: 'onboarding',
   DOWNLOAD: 'download',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchnetworks',

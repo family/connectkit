@@ -4,13 +4,13 @@ import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
-import OnboardingIntroduction from '../Pages/Onboarding';
+import Onboarding from '../Pages/Onboarding';
+import About from '../Pages/About';
 import Connectors from '../Pages/Connectors';
 import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
-import Portal from '../Common/Portal';
 
 const customThemeDefault: object = {};
 
@@ -23,11 +23,12 @@ const ConnectModal: React.FC<{
   const { isConnected } = useConnect();
 
   const pages: any = {
-    profile: <Profile />,
+    onboarding: <Onboarding />,
+    about: <About />,
     download: <DownloadApp connectorId={context.connector} />,
     connectors: <Connectors />,
-    onboarding: <OnboardingIntroduction />,
     connect: <ConnectUsing connectorId={context.connector} />,
+    profile: <Profile />,
     switchnetworks: <SwitchNetworks />,
   };
 

@@ -47,16 +47,25 @@ export const keys = {
  */
 export default {
   en: {
-    connectorsScreen: {
-      heading: `Connect Wallet`,
-      newcomer: `I don't have a wallet`,
-    },
     onboardingScreen: {
       heading: `Get a Wallet`,
       h1: `Start Exploring Web3`,
       p: `Your wallet is the gateway to all things Ethereum, the magical technology that makes it possible to explore web3.`,
       ctaText: `Choose Your First Wallet`,
       ctaUrl: `https://ethereum.org/en/wallets/find-wallet/#main-content`,
+    },
+    aboutScreen: {
+      heading: `About Wallets`,
+      a_h1: `Store your digital assets`,
+      a_p: `Wallets let you send, receive, store, and interact with digital assets like Ethereum and NFTs.`,
+      b_h1: `A better way to login`,
+      b_p: `With modern apps, your wallet can be used as a way to login, instead of needing a password.`,
+      ctaText: `Learn More`,
+      ctaUrl: `https://docs.ethhub.io/using-ethereum/wallets/intro-to-ethereum-wallets/`,
+    },
+    connectorsScreen: {
+      heading: `Connect Wallet`,
+      newcomer: `I don't have a wallet`,
     },
     scanScreen: {
       heading: `Scan with Phone`,
@@ -115,16 +124,25 @@ export default {
    * TODO: These are just Google Translated for testing
    */
   fr: {
-    connectorsScreen: {
-      heading: `Connecter le portefeuille`,
-      newcomer: `je n'ai pas de portefeuille`,
-    },
     onboardingScreen: {
       heading: `Obtenez un portefeuille`,
       h1: `Commencez à explorer Web3`,
       p: `Votre portefeuille est la passerelle vers tout ce qui concerne Ethereum, la technologie magique qui permet d'explorer le Web3.`,
       ctaText: `Choisissez votre premier portefeuille`,
       ctaUrl: `https://ethereum.org/fr/wallets/find-wallet/#main-content`,
+    },
+    aboutScreen: {
+      heading: ``,
+      a_h1: ``,
+      a_p: ``,
+      b_h1: ``,
+      b_p: ``,
+      ctaText: ``,
+      ctaUrl: ``,
+    },
+    connectorsScreen: {
+      heading: `Connecter le portefeuille`,
+      newcomer: `je n'ai pas de portefeuille`,
     },
     scanScreen: {
       heading: `Numériser avec le téléphone`,
