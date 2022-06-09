@@ -62,6 +62,7 @@ const getBrowserAppUri = (connectorId: string) => {
 export {
   truncateEthAddress,
   isMobile,
+  isAndroid,
   detectBrowser,
   detectOS,
   getWalletDownloadUri,
