@@ -65,7 +65,7 @@ export default {
     },
     connectorsScreen: {
       heading: `Connect Wallet`,
-      newcomer: `I don't have a wallet`,
+      newcomer: `I don’t have a wallet`,
     },
     scanScreen: {
       heading: `Scan with Phone`,
