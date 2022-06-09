@@ -39,7 +39,7 @@ const Wallets: React.FC = () => {
 
   const openDefaultConnect = async (id: string) => {
     const c = connectors.filter((c) => c.id === id)[0];
-    let connector: WalletConnectConnector | CoinbaseWalletConnector = null;
+    let connector = null;
     switch (c.id) {
       case 'walletConnect':
         connector = new WalletConnectConnector({
