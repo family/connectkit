@@ -9,7 +9,6 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
-import { InjectedConnector } from 'wagmi/connectors/injected';
 
 const defaultChains = [
   chain.mainnet,
@@ -37,15 +36,6 @@ type ConnectKitClientProps = {
 };
 const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
-    /*
-  new InjectedConnector({
-    chains: configuredChains,
-    options: {
-      name: 'LFE Wallet',
-      shimDisconnect: true,
-    },
-  }),
-  */
     new WalletConnectConnector({
       chains,
       options: {
