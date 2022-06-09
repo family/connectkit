@@ -20,7 +20,7 @@ import {
   MobileConnectorLabel,
   MobileConnectorIcon,
 } from './styles';
-import { isMobile } from '../../../utils';
+import { isMobile, isAndroid } from '../../../utils';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
@@ -29,10 +29,9 @@ import Button from '../../Common/Button';
 const Wallets: React.FC = () => {
   const context = useContext();
   const copy = localizations[context.lang].connectorsScreen;
-
   const mobile = isMobile();
 
-  const { connect, connectAsync, connectors } = useConnect({
+  const { connectAsync, connectors } = useConnect({
     onError(e) {
       console.log(e);
     },
@@ -40,7 +39,7 @@ const Wallets: React.FC = () => {
 
   const openDefaultConnect = async (id: string) => {
     const c = connectors.filter((c) => c.id === id)[0];
-    let connector;
+    let connector: WalletConnectConnector | CoinbaseWalletConnector = null;
     switch (c.id) {
       case 'walletConnect':
         connector = new WalletConnectConnector({
@@ -53,7 +52,6 @@ const Wallets: React.FC = () => {
           chains: c.chains,
           options: { ...c.options, qrcode: false },
         });
-        //TODO: Get uri and await window.location with prefix
         break;
       case 'coinbaseWallet':
         connector = new CoinbaseWalletConnector({
@@ -62,17 +60,23 @@ const Wallets: React.FC = () => {
         });
         break;
     }
+
     if (!connector) return;
-    /*
-    connector.on('message', async ({ type }) => {
-      if (type === 'connecting') {
-        try {
-          window.location.href = await getUri(); // expecting a deeplink
-        } catch {}
-      }
-    });
-    const getUri = async () => (await connector.getProvider()).connector.uri;
-    */
+
+    // TODO: Make this neater
+    if (c.id == 'metaMask' && isMobile) {
+      let connnector = connector as WalletConnectConnector;
+      connector.on('message', async ({ type }) => {
+        if (type === 'connecting') {
+          const { uri } = (await connnector.getProvider()).connector;
+          const uriString = isAndroid()
+            ? uri
+            : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
+          window.location.href = uriString;
+        }
+      });
+    }
+
     try {
       await connectAsync(connector);
     } catch (err) {
