@@ -28,6 +28,19 @@ if (typeof window != 'undefined') {
   // TODO: Define types
   supportedConnectors = [
     {
+      id: 'injected',
+      name: 'Injected',
+      logo: logos.Injected,
+      scannable: false,
+    },
+    {
+      id: 'walletConnect',
+      name: 'WalletConnect',
+      logo: logos.WalletConnect,
+      scannable: true,
+      defaultConnect: () => {},
+    },
+    {
       id: 'metaMask',
       name: 'MetaMask',
       logo: logos.MetaMask,
@@ -51,13 +64,6 @@ if (typeof window != 'undefined') {
       extensionIsInstalled: () => {
         return Boolean(ethereum && ethereum.isMetaMask);
       },
-    },
-    {
-      id: 'walletConnect',
-      name: 'WalletConnect',
-      logo: logos.WalletConnect,
-      scannable: true,
-      defaultConnect: () => {},
     },
     {
       id: 'coinbaseWallet',
