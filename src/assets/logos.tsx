@@ -35,6 +35,7 @@ export const WalletConnect = ({ background = false, ...props }) => (
     />
   </svg>
 );
+/*
 export const WalletConnectQRCode = ({ ...props }) => (
   <svg
     {...props}
@@ -56,7 +57,7 @@ export const WalletConnectQRCode = ({ ...props }) => (
     />
   </svg>
 );
-
+*/
 export const MetaMask = ({ background = false, ...props }) => (
   <svg
     {...props}
@@ -702,7 +703,7 @@ export default {
   Injected,
   OtherWallets,
   WalletConnect,
-  WalletConnectQRCode,
+  //WalletConnectQRCode,
   MetaMask,
   Coinbase,
   Trust,

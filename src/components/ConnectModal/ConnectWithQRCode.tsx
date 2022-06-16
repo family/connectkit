@@ -160,9 +160,6 @@ const ConnectWithQRCode: React.FC<{
           value={connectorUri}
           image={connector.logos.qrCode}
           imageBackground={connector.logoBackground}
-          imagePosition={
-            connector.id === 'walletConnect' ? 'bottom right' : 'center'
-          }
           tooltipMessage={
             connectorId === 'walletConnect' ? (
               <>
