@@ -37,12 +37,6 @@ type ConnectKitClientProps = {
 };
 const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
-    new WalletConnectConnector({
-      chains,
-      options: {
-        qrcode: false,
-      },
-    }),
     new MetaMaskConnector({
       chains,
       options: {
@@ -56,6 +50,13 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
         headlessMode: true,
       },
     }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        qrcode: false,
+      },
+    }),
+    /*
     new InjectedConnector({
       chains,
       options: {
@@ -67,6 +68,7 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
           })`,
       },
     }),
+      */
   ];
 };
 const defaultClient = ({
