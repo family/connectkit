@@ -113,7 +113,7 @@ export function QRCode({
               (i < 7 && j > matrix.length - 8)
             )
           ) {
-            if (image && i > matrix.length - 9 && j > matrix.length - 9) return;
+            //if (image && i > matrix.length - 9 && j > matrix.length - 9) return;
             if (
               image ||
               !(

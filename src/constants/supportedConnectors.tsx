@@ -53,7 +53,7 @@ if (typeof window != 'undefined') {
         default: <Logos.WalletConnect />,
         transparent: <Logos.WalletConnect background={false} />,
         connectorButton: <Logos.OtherWallets />,
-        qrCode: <Logos.WalletConnect background={true} />,
+        qrCode: <Logos.WalletConnectQRCode />,
       },
       logoBackground: 'var(--brand-walletConnect)',
       scannable: true,

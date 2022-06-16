@@ -25,11 +25,7 @@ const CustomQRCode = React.forwardRef(
     ref: React.Ref<HTMLElement>
   ) => {
     const Logo = tooltipMessage ? (
-      <Tooltip
-        xOffset={imagePosition === 'bottom right' ? 32 : 142}
-        delay={0.1}
-        message={tooltipMessage}
-      >
+      <Tooltip xOffset={142} delay={0.1} message={tooltipMessage}>
         {image}
       </Tooltip>
     ) : (
@@ -39,13 +35,17 @@ const CustomQRCode = React.forwardRef(
     return (
       <QRCodeContainer>
         <QRCodeContent>
-          {imagePosition === 'center' && (
-            <LogoContainer $position={imagePosition}>
-              <LogoIcon style={{ background: imageBackground }}>
-                {Logo}
-              </LogoIcon>
-            </LogoContainer>
-          )}
+          <LogoContainer>
+            <LogoIcon
+              $wcLogo={imagePosition !== 'center'}
+              style={{
+                background: imagePosition === 'center' && imageBackground,
+              }}
+            >
+              {Logo}
+            </LogoIcon>
+          </LogoContainer>
+
           {value ? (
             <AnimatePresence initial={false} exitBeforeEnter>
               <motion.div
@@ -61,9 +61,7 @@ const CustomQRCode = React.forwardRef(
                   uri={value}
                   size={288}
                   ecl="M"
-                  clearArea={!!image}
-                  image={imagePosition === 'bottom right' && Logo}
-                  imageBackground={imageBackground}
+                  clearArea={imagePosition === 'center'}
                 />
               </motion.div>
             </AnimatePresence>

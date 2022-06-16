@@ -60,45 +60,42 @@ export const QRPlaceholder = styled(motion.div)`
   */
 `;
 
-export const LogoContainer = styled(motion.div)<{
-  $position?: 'center' | 'bottom right';
-}>`
+export const LogoContainer = styled(motion.div)`
   z-index: 6;
   position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  ${(props) =>
-    props.$position === 'bottom right'
-      ? css`
-          right: 0;
-          bottom: 0;
-          width: 24px;
-          height: 24px;
-        `
-      : css`
-          inset: 0;
-        `}
 `;
-export const LogoIcon = styled(motion.div)`
+export const LogoIcon = styled(motion.div)<{ $wcLogo?: boolean }>`
   position: relative;
-  width: 28%;
-  height: 28%;
-  border-radius: 17px;
   overflow: hidden;
-  &:before {
-    pointer-events: none;
-    z-index: 2;
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
-  }
   svg {
     display: block;
     position: relative;
     width: 100%;
     height: 100%;
   }
+
+  ${(props) =>
+    props.$wcLogo
+      ? css`
+          width: 29%;
+          height: 20.5%;
+        `
+      : css`
+          width: 28%;
+          height: 28%;
+          border-radius: 17px;
+          &:before {
+            pointer-events: none;
+            z-index: 2;
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
+          }
+        `}
 `;
