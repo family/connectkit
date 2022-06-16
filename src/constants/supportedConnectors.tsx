@@ -72,11 +72,18 @@ if (typeof window != 'undefined') {
               width: '100%',
             }}
           >
-            <Logos.MetaMask background={false} />
+            <Logos.MetaMask />
           </div>
         ),
-        connectorButton: <Logos.MetaMask background={false} />,
-        appIcon: <Logos.MetaMask />,
+        connectorButton: (
+          <div
+            style={{
+              transform: 'scale(1.1)',
+            }}
+          >
+            <Logos.MetaMask />
+          </div>
+        ),
       },
       logoBackground:
         'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))',

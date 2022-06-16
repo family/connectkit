@@ -131,7 +131,7 @@ const Wallets: React.FC = () => {
                     onClick={() => openDefaultConnect(connector.id)}
                   >
                     <MobileConnectorIcon>
-                      {info.logos.appIcon ?? info.logos.default}
+                      {info.logos.appIcon ?? info.logos.connectorButton}
                     </MobileConnectorIcon>
                     <MobileConnectorLabel>
                       {info.name ?? connector.name}
