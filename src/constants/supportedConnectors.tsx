@@ -19,6 +19,7 @@ let supportedConnectors: {
     connectorButton?: ReactNode;
     qrCode?: ReactNode;
     appIcon?: ReactNode;
+    mobile?: ReactNode;
   };
   logoBackground?: string;
   scannable?: boolean;
@@ -51,6 +52,7 @@ if (typeof window != 'undefined') {
       name: 'Other Wallets',
       logos: {
         default: <Logos.WalletConnect />,
+        mobile: <Logos.OtherWallets />,
         transparent: <Logos.WalletConnect background={false} />,
         connectorButton: <Logos.OtherWallets />,
         qrCode: <Logos.WalletConnect background={true} />,
@@ -64,6 +66,7 @@ if (typeof window != 'undefined') {
       name: 'MetaMask',
       logos: {
         default: <Logos.MetaMask background />,
+        mobile: <Logos.MetaMask background />,
         transparent: (
           <div
             style={{
@@ -114,6 +117,7 @@ if (typeof window != 'undefined') {
       shortName: 'Coinbase',
       logos: {
         default: <Logos.Coinbase />,
+        mobile: <Logos.Coinbase background />,
         transparent: <Logos.Coinbase background={false} />,
         appIcon: <Logos.Coinbase background={false} />,
         connectorButton: <Logos.Coinbase background={true} />,

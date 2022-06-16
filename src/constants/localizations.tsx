@@ -71,6 +71,9 @@ export default {
       h1: `What is a wallet?`,
       p: `Wallets are used to send, receive, and store digital assets. Connecting a wallet lets you interact with apps.`,
     },
+    mobileConnectorsScreen: {
+      heading: `Choose Wallet`,
+    },
     scanScreen: {
       heading: `Scan with Phone`,
       tooltip: {
@@ -152,6 +155,9 @@ export default {
       newcomer: `je n'ai pas de portefeuille`,
       h1: `Qu'est-ce qu'un portefeuille ?`,
       p: `Les portefeuilles sont utilisés pour envoyer, recevoir et stocker des actifs numériques. La connexion d'un portefeuille vous permet d'interagir avec les applications.`,
+    },
+    mobileConnectorsScreen: {
+      heading: `Choose Wallet`,
     },
     scanScreen: {
       heading: `Numériser avec le téléphone`,

@@ -54,11 +54,15 @@ const Wallets: React.FC = () => {
     let connector = null;
     switch (c.id) {
       case 'walletConnect':
+        context.setRoute(routes.MOBILECONNECTORS);
+        break;
+      /*
         connector = new WalletConnectConnector({
           chains: c.chains,
           options: { ...c.options, qrcode: true },
         });
         break;
+        */
       case 'metaMask':
         connector = new WalletConnectConnector({
           chains: c.chains,
@@ -131,7 +135,9 @@ const Wallets: React.FC = () => {
                     onClick={() => openDefaultConnect(connector.id)}
                   >
                     <MobileConnectorIcon>
-                      {info.logos.appIcon ?? info.logos.connectorButton}
+                      {info.logos.mobile ??
+                        info.logos.appIcon ??
+                        info.logos.connectorButton}
                     </MobileConnectorIcon>
                     <MobileConnectorLabel>
                       {info.name ?? connector.name}

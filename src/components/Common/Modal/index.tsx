@@ -257,6 +257,10 @@ const Modal: React.FC<ModalProps> = ({
         }
       case routes.CONNECTORS:
         return localize(localizations[context.lang].connectorsScreen.heading);
+      case routes.MOBILECONNECTORS:
+        return localize(
+          localizations[context.lang].mobileConnectorsScreen.heading
+        );
       case routes.DOWNLOAD:
         return localize(localizations[context.lang].downloadAppScreen.heading, {
           CONNECTORNAME: c.name,

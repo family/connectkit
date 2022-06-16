@@ -12,10 +12,11 @@ export const routes = {
   ONBOARDING: 'onboarding',
   ABOUT: 'about',
   CONNECTORS: 'connectors',
+  MOBILECONNECTORS: 'mobileConnectors',
   CONNECT: 'connect',
   DOWNLOAD: 'download',
   PROFILE: 'profile',
-  SWITCHNETWORKS: 'switchnetworks',
+  SWITCHNETWORKS: 'switchNetworks',
 };
 
 type Connector = any;

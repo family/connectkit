@@ -12,6 +12,7 @@ import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
 import styled, { keyframes } from 'styled-components';
+import MobileConnectors from '../Pages/MobileConnectors';
 
 const dist = 8;
 const shake = keyframes`
@@ -65,9 +66,10 @@ const ConnectModal: React.FC<{
     about: <About />,
     download: <DownloadApp connectorId={context.connector} />,
     connectors: <Connectors />,
+    mobileConnectors: <MobileConnectors />,
     connect: <ConnectUsing connectorId={context.connector} />,
     profile: <Profile />,
-    switchnetworks: <SwitchNetworks />,
+    switchNetworks: <SwitchNetworks />,
   };
 
   return (
