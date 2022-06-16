@@ -3,12 +3,21 @@ import React from 'react';
 import { useNetwork } from 'wagmi';
 import supportedChains from '../../constants/supportedChains';
 
+import Alert from '../Common/Alert';
+import defaultTheme from '../../constants/defaultTheme';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
-import { isMobile } from '../../utils';
-import Alert from '../Common/Alert';
 
-const mobile = isMobile();
+const SwitchNetworksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    flex-direction: column-reverse;
+  }
+`;
+
 const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
   display: block;
   position: relative;
@@ -40,13 +49,11 @@ const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
         font-family: var(--font-family);
       }
     `}
-  ${(props) =>
-    mobile &&
-    css`
-      border-radius: 16px;
-      width: 32px;
-      height: 32px;
-    `}
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    border-radius: 16px;
+    width: 32px;
+    height: 32px;
+  }
 `;
 const ChainLogoContainer = styled(motion.div)`
   position: relative;
@@ -73,12 +80,10 @@ const ChainLogoSpinner = styled(motion.div)`
   }
 `;
 const ChainButtons = styled(motion.div)`
-  ${() =>
-    mobile &&
-    css`
-      padding: 0 6px;
-      margin: -12px 0;
-    `}
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    padding: 0 6px;
+    margin: -12px -2px;
+  }
 `;
 const ChainButton = styled(motion.button)`
   appearance: none;
@@ -112,21 +117,18 @@ const ChainButton = styled(motion.button)`
     opacity: 0;
     transition: opacity 180ms ease;
   }
-  ${() => {
-    return !mobile
-      ? css`
-          &:hover {
-            &:before {
-              transition-duration: 80ms;
-              opacity: 0.05;
-            }
-          }
-        `
-      : css`
-          font-size: 17px;
-          padding: 8px 0;
-        `;
-  }}
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    font-size: 17px;
+    padding: 8px 0;
+  }
+  @media only screen and (min-width: ${defaultTheme.mobileWidth}px) {
+    &:hover {
+      &:before {
+        transition-duration: 80ms;
+        opacity: 0.05;
+      }
+    }
+  }
   &:active {
     transform: scale(0.99) translateZ(0px);
   }
@@ -139,17 +141,16 @@ const ChainButtonStatus = styled(motion.div)`
   color: var(--body-color-muted);
   font-size: 15px;
   line-height: 18px;
-  font-weight: 400;
+  font-weight: 500;
   padding-right: 4px;
   span {
     display: block;
     position: relative;
   }
-  ${() =>
-    mobile &&
-    css`
-      font-size: 17px;
-    `}
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    font-size: 17px;
+    padding: 0;
+  }
 `;
 const ChainButtonBg = styled(motion.div)`
   background: var(--focus-color);
@@ -158,11 +159,9 @@ const ChainButtonBg = styled(motion.div)`
   inset: 0 -8px;
   border-radius: 12px;
   opacity: 0.1;
-  ${() =>
-    mobile &&
-    css`
-      inset: 0 -12px;
-    `}
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    inset: 0 -12px;
+  }
 `;
 
 const Spinner = (
@@ -206,7 +205,7 @@ const SwitchNetworksList: React.FC = () => {
     };
     const chain = { ...activeChain, ...x };
     return (
-      <>
+      <SwitchNetworksContainer>
         <ChainButtons>
           <AnimatePresence exitBeforeEnter initial={false}>
             <ChainButton
@@ -260,7 +259,7 @@ const SwitchNetworksList: React.FC = () => {
         <Alert>
           {`Your wallet does not support switching networks from this app. Try switching networks from within your wallet instead.`}
         </Alert>
-      </>
+      </SwitchNetworksContainer>
     );
   }
 

@@ -6,16 +6,18 @@ const mobile = isMobile();
 
 export const Arrow = styled.svg`
   position: relative;
-  top: -0.5px;
+  top: 0px;
+  left: -0.5px;
   display: inline-block;
   vertical-align: middle;
   margin-left: 9px;
   margin-right: 1px;
   transition: all 100ms ease;
   transform: translateX(-3px);
+  color: var(--body-color-muted);
 `;
 export const ArrowChevron = styled.path``;
-export const ArrowLine = styled.rect`
+export const ArrowLine = styled.line`
   transition: inherit;
   transition-property: transform;
   transform-origin: 90% 50%;
@@ -23,7 +25,14 @@ export const ArrowLine = styled.rect`
 `;
 
 export const ButtonContainer = styled.button<{ disabled?: boolean }>`
-  --background: var(--accent-color, var(--body-background-secondary));
+  --color: var(--button-primary-color, var(--body-color));
+  --background: var(
+    --button-primary-background,
+    var(--body-background-secondary)
+  );
+  --box-shadow: var(--button-primary-box-shadow, none);
+  --border-radius: var(--button-primary-border-radius, 16px);
+
   appearance: none;
   cursor: pointer;
   user-select: none;
@@ -32,7 +41,6 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--body-button-border-radius, '18px');
   height: 48px;
   margin: 12px 0 0;
   padding: 0 32px;
@@ -40,12 +48,16 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   line-height: 19px;
   font-weight: 500;
   text-decoration: none;
-  color: var(--accent-text-color, var(--body-color));
-  background: var(--background);
   white-space: nowrap;
-  transition: box-shadow 100ms ease, background-color 100ms ease;
+  transition: 100ms ease;
+  transition-property: box-shadow, background-color;
+
+  color: var(--color);
+  background: var(--background);
+  border-radius: var(--border-radius);
   box-shadow: 0 0 0 0 var(--background);
-  border: var(--body-button-border);
+
+  /* Don't show hover/active styling on mobile */
   ${(props) => {
     if (!mobile) {
       return css`
@@ -90,20 +102,20 @@ export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
   justify-content: center;
   max-width: 20px;
   max-height: 20px;
-  margin-right: 10px;
+  margin-right: 8px;
+  ${(props) => {
+    return (
+      props.$rounded &&
+      css`
+        overflow: hidden;
+        border-radius: 5px;
+      `
+    );
+  }}
   svg {
     display: block;
     position: relative;
     max-width: 100%;
     height: auto;
-    ${(props) => {
-      return (
-        props.$rounded &&
-        css`
-          overflow: hidden;
-          border-radius: 5px;
-        `
-      );
-    }}
   }
 `;

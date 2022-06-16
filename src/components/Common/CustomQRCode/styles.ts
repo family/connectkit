@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const QRCodeContainer = styled(motion.div)`
   z-index: 3;
@@ -10,10 +10,10 @@ export const QRCodeContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2px 0 6px;
+  margin: 2px 0 2px;
   border-radius: 24px;
-  background: #fff;
-  box-shadow: 0 0 0 1px var(--qrcode-outline);
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--qr-border-color);
   backface-visibility: hidden;
   svg {
     display: block;
@@ -24,7 +24,11 @@ export const QRCodeContainer = styled(motion.div)`
 `;
 export const QRCodeContent = styled(motion.div)`
   position: absolute;
-  inset: 14px;
+  inset: 12px;
+  svg {
+    width: 100% !important;
+    height: auto !important;
+  }
 `;
 export const PlaceholderKeyframes = keyframes`
   0%{ background-position: 100% 0; }
@@ -56,18 +60,30 @@ export const QRPlaceholder = styled(motion.div)`
   */
 `;
 
-export const LogoContainer = styled(motion.div)`
+export const LogoContainer = styled(motion.div)<{
+  $position?: 'center' | 'bottom right';
+}>`
   z-index: 6;
   position: absolute;
-  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  ${(props) =>
+    props.$position === 'bottom right'
+      ? css`
+          right: 0;
+          bottom: 0;
+          width: 24px;
+          height: 24px;
+        `
+      : css`
+          inset: 0;
+        `}
 `;
 export const LogoIcon = styled(motion.div)`
   position: relative;
-  width: 25.7%;
-  height: 25.7%;
+  width: 28%;
+  height: 28%;
   border-radius: 17px;
   overflow: hidden;
   &:before {

@@ -4,6 +4,7 @@ import { Provider } from '@wagmi/core';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { InjectedConnector } from 'wagmi/connectors/injected';
 
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
@@ -36,12 +37,6 @@ type ConnectKitClientProps = {
 };
 const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
-    new WalletConnectConnector({
-      chains,
-      options: {
-        qrcode: false,
-      },
-    }),
     new MetaMaskConnector({
       chains,
       options: {
@@ -55,6 +50,25 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
         headlessMode: true,
       },
     }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        qrcode: false,
+      },
+    }),
+    /*
+    new InjectedConnector({
+      chains,
+      options: {
+        name: (detectedName) =>
+          `Injected (${
+            typeof detectedName === 'string'
+              ? detectedName
+              : detectedName.join(', ')
+          })`,
+      },
+    }),
+    */
   ];
 };
 const defaultClient = ({

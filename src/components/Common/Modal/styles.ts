@@ -1,16 +1,35 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
-import { isMobile } from '../../../utils';
-
-const mobile = isMobile();
+import defaultTheme from '../../../constants/defaultTheme';
 
 const FadeIn = keyframes`
-from{ opacity: 0; }
-  to{ opacity: 1; }
+from { opacity: 0; }
+  to { opacity: 1; }
 `;
+
+const FadeInScaleUp = keyframes`
+from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+`;
+
+const FadeInScaleDown = keyframes`
+from { opacity: 0; transform: scale(1.1); }
+  to { opacity: 1; transform: scale(1); }
+`;
+
 const FadeOut = keyframes`
-  from{ opacity: 1; }
-  to{ opacity: 0; }
+from { opacity: 1; }
+  to { opacity: 0; }
+`;
+
+const FadeOutScaleUp = keyframes`
+from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.1); }
+`;
+
+const FadeOutScaleDown = keyframes`
+from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.85); }
 `;
 
 export const PageContent = styled(motion.div)`
@@ -19,18 +38,19 @@ export const PageContent = styled(motion.div)`
 `;
 
 export const TextWithHr = styled(motion.div)`
+  user-select: none;
   position: relative;
   display: block;
   text-align: center;
   color: var(--body-color-muted);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 21px;
   span {
     z-index: 2;
     position: relative;
     display: inline-block;
-    padding: 0 16px;
+    padding: 0 14px;
     background: var(--body-background);
   }
   &:before {
@@ -52,7 +72,11 @@ export const ModalHeading = styled(motion.div)`
   font-weight: 600;
   color: var(--body-color);
   padding: 0 0 20px;
-  margin: 0 -24px 24px;
+  margin: 0 -24px 8px;
+`;
+
+export const ModalHeadingBlock = styled(motion.div)`
+  height: 52px;
 `;
 
 export const ModalContentContainer = styled(motion.div)`
@@ -65,18 +89,19 @@ export const ModalContent = styled(motion.div)`
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
   padding: 0 0 16px;
 `;
 export const ModalH1 = styled(motion.h1)<{
   $error?: boolean;
   $valid?: boolean;
+  $small?: boolean;
 }>`
   margin: 0;
   padding: 0;
-  font-size: 19px;
+  line-height: ${(props) => (props.$small ? 20 : 22)}px;
+  font-size: ${(props) => (props.$small ? 17 : 19)}px;
   font-weight: 600;
-  line-height: 24px;
   color: ${(props) => {
     if (props.$error) return 'var(--body-color-danger)';
     if (props.$valid) return 'var(--body-color-valid)';
@@ -89,11 +114,27 @@ export const ModalH1 = styled(motion.h1)<{
     vertical-align: middle;
     margin-right: 6px;
   }
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    font-size: 17px;
+  }
 `;
-export const ModalBody = styled(motion.div)`
+
+export const ModalBody = styled.div`
   font-size: 16px;
   font-weight: 400;
   line-height: 21px;
+  color: var(--body-color-muted);
+  strong {
+    font-weight: 500;
+    color: var(--body-color);
+  }
+`;
+
+export const ModalBodySmall = styled.div`
+  padding: 0 12px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
   color: var(--body-color-muted);
   strong {
     font-weight: 500;
@@ -136,17 +177,10 @@ export const BoxContainer = styled(motion.div)`
   position: relative;
   color: var(--body-color);
 
-  animation: 150ms ease-out both;
+  animation: 150ms ease both;
   animation-name: ${BoxOut};
   &.active {
     animation-name: ${BoxIn};
-  }
-
-  &.mobile {
-    animation-name: ${MobileBoxOut};
-    &.active {
-      animation-name: ${MobileBoxIn};
-    }
   }
 
   &:before {
@@ -158,10 +192,22 @@ export const BoxContainer = styled(motion.div)`
     transform: translateX(-50%);
     backface-visibility: hidden;
     width: var(--width);
-    border-radius: calc(var(--border-radius) * 1px);
+    height: var(--height);
+    border-radius: calc(var(--border-radius, 20px) * 1px);
     background: var(--body-background);
-    transition: var(--transition);
-    will-change: width;
+    transition: all 0.2s ease;
+    border-radius: var(--border-radius);
+  }
+
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    animation-duration: 200ms;
+    animation-name: ${MobileBoxOut};
+    &.active {
+      animation-name: ${MobileBoxIn};
+    }
+    &:before {
+      width: 100%;
+    }
   }
 `;
 export const ControllerContainer = styled(motion.div)`
@@ -173,42 +219,61 @@ export const ControllerContainer = styled(motion.div)`
   transform: translateX(-50%);
   backface-visibility: hidden;
   width: var(--width);
-  transition: var(--transition);
+  transition: 0.2s ease width;
   pointer-events: auto;
-  border-bottom: 1px solid var(--body-divider);
+  //border-bottom: 1px solid var(--body-divider);
 `;
+
 export const InnerContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
   height: var(--height);
-  transition: var(--transition);
-  will-change: height, width;
+  transition: 0.2s ease height;
 `;
+
 export const PageContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
   top: 0;
+  left: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
   &.active {
-    animation: ${FadeIn} 165ms ease 55ms both;
+    animation: ${FadeInScaleDown} 200ms ease both;
+  }
+  &.active-scale-up {
+    animation: ${FadeInScaleUp} 200ms ease both;
+  }
+  &.exit-scale-down {
+    z-index: 1;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: ${FadeOutScaleDown} 200ms ease both;
   }
   &.exit {
     z-index: 1;
     pointer-events: none;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: ${FadeOut} 165ms ease both;
+    top: 0;
+    left: 0;
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+    animation: ${FadeOutScaleUp} 200ms ease both;
   }
 `;
 export const PageContents = styled(motion.div)`
   margin: 0 auto;
   width: fit-content;
-  padding: 24px 24px;
+  padding: 29px 24px 24px;
   backface-visibility: hidden;
 `;
 
-export const ModalContainer = styled(motion.div)`
+export const ModalContainer = styled.div`
   z-index: 2147483646; // z-index set one below max (2147483647) for if we wish to layer things ontop of the modal in a seperate Portal
   position: fixed;
   inset: 0;
@@ -218,8 +283,8 @@ export const CloseButton = styled(motion.button)`
   z-index: 3;
   cursor: pointer;
   position: absolute;
-  top: 18px;
-  right: 16px;
+  top: 22px;
+  right: 17px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -247,8 +312,8 @@ export const CloseButton = styled(motion.button)`
 export const BackButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
-  top: 18px;
-  left: 14px;
+  top: 22px;
+  left: 16px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -281,8 +346,8 @@ export const BackButton = styled(motion.button)`
 export const InfoButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
-  top: 18px;
-  left: 18px;
+  top: 23px;
+  left: 21px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -324,58 +389,59 @@ export const Container = styled(motion.div)`
   width: 100%;
   transform: translate3d(-50%, -50%, 0);
   backface-visibility: hidden;
-  ${() =>
-    mobile &&
-    css`
-      pointer-events: auto;
-      left: 0;
-      top: auto;
-      bottom: -5px;
-      transform: none;
-      ${BoxContainer} {
-        max-width: 448px;
-        margin: 0 auto;
-        &:before {
-          border-radius: 30px 30px 0 0;
-        }
-      }
-      ${PageContent} {
-        margin: 0 auto;
-        width: 100% !important;
-      }
-      ${ModalHeading} {
-        margin: 0 0 20px;
-      }
-      ${ModalContent} {
-        gap: 12px;
-      }
-      ${ModalBody} {
-        margin: 0 auto;
-        max-width: 295px;
-      }
-      ${PageContents} {
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    pointer-events: auto;
+    left: 0;
+    top: auto;
+    bottom: -5px;
+    transform: none;
+    ${BoxContainer} {
+      max-width: 448px;
+      margin: 0 auto;
+      &:before {
         width: 100%;
-        padding: 32px 24px;
+        border-radius: 30px 30px 0 0;
       }
-      ${ControllerContainer} {
-        top: 8px;
-        border-bottom: 0;
+    }
+    ${PageContent} {
+      margin: 0 auto;
+      width: 100% !important;
+    }
+    ${ModalHeading} {
+      margin: 0 0 20px;
+    }
+    ${ModalContent} {
+      gap: 12px;
+    }
+    ${ModalBody} {
+      margin: 0 auto;
+      max-width: 295px;
+    }
+    ${PageContents} {
+      width: 100%;
+      padding: 32px 24px;
+    }
+    ${ControllerContainer} {
+      width: 100%;
+      top: 8px;
+      border-bottom: 0;
+    }
+    ${CloseButton} {
+      top: 18px;
+      right: 22px;
+    }
+    ${BackButton} {
+      left: 17px;
+    }
+    ${InfoButton} {
+      top: 21px;
+      left: 24px;
+      width: 26px;
+      height: 26px;
+      svg {
+        width: 100%;
+        height: auto;
       }
-      ${CloseButton} {
-        right: 22px;
-      }
-      ${BackButton} {
-        left: 17px;
-      }
-      ${InfoButton} {
-        top: 21px;
-        left: 24px;
-        width: 26px;
-        height: 26px;
-        svg {
-          width: 100%;
-          height: auto;
-        }
-      }
-    `}
+    }
+  }
 `;

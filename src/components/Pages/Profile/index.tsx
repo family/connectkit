@@ -27,6 +27,7 @@ import {
   ModalContent,
   ModalH1,
   ModalHeading,
+  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import Button from '../../Common/Button';
 import Avatar from '../../Common/Avatar';
@@ -74,10 +75,12 @@ const Profile: React.FC = () => {
   if (activeChain?.unsupported) {
     return (
       <PageContent>
-        <ModalHeading>Unsupported network</ModalHeading>
+        {/* <ModalHeading>Unsupported network</ModalHeading> */}
+        <ModalHeadingBlock />
         <Alert>
-          Your wallet does not support switching networks from this app. Try
-          switching networks from within your wallet instead.
+          Your wallet does not support switching networks from this app.
+          <br />
+          Try switching networks from within your wallet instead.
         </Alert>
         <Button
           onClick={() => setShouldDisconnect(true)}
@@ -90,8 +93,9 @@ const Profile: React.FC = () => {
   }
   return (
     <PageContent>
-      <ModalHeading>{copy.heading}</ModalHeading>
-      <ModalContent style={{ paddingBottom: 22 }}>
+      {/* <ModalHeading>{copy.heading}</ModalHeading> */}
+      <ModalHeadingBlock />
+      <ModalContent style={{ paddingBottom: 22, gap: 8 }}>
         <AvatarContainer>
           <AvatarInner>
             <ChainSelectorContainer>

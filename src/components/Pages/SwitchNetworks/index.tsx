@@ -6,6 +6,7 @@ import {
   PageContent,
   ModalContent,
   ModalHeading,
+  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import SwitchNetworksList from '../../ConnectModal/SwitchNetworksList';
 
@@ -15,7 +16,8 @@ const SwitchNetworks: React.FC = () => {
 
   return (
     <PageContent>
-      <ModalHeading>{copy.heading}</ModalHeading>
+      {/* <ModalHeading>{copy.heading}</ModalHeading> */}
+      <ModalHeadingBlock />
       <ModalContent>
         <SwitchNetworksList />
       </ModalContent>

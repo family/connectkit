@@ -15,48 +15,58 @@ import { QRCode } from './QRCode';
 
 const CustomQRCode = React.forwardRef(
   (
-    { value, image, tooltipMessage }: CustomQRCodeProps,
+    {
+      value,
+      image,
+      imageBackground,
+      imagePosition = 'center',
+      tooltipMessage,
+    }: CustomQRCodeProps,
     ref: React.Ref<HTMLElement>
   ) => {
+    const Logo = tooltipMessage ? (
+      <Tooltip
+        xOffset={imagePosition === 'bottom right' ? 32 : 142}
+        delay={0.1}
+        message={tooltipMessage}
+      >
+        {image}
+      </Tooltip>
+    ) : (
+      image
+    );
+
     return (
       <QRCodeContainer>
         <QRCodeContent>
-          <LogoContainer>
-            <LogoIcon>
-              {tooltipMessage ? (
-                <Tooltip xOffset={128} delay={0.1} message={tooltipMessage}>
-                  {image}
-                </Tooltip>
-              ) : (
-                image
-              )}
-            </LogoIcon>
-          </LogoContainer>
+          {imagePosition === 'center' && (
+            <LogoContainer $position={imagePosition}>
+              <LogoIcon style={{ background: imageBackground }}>
+                {Logo}
+              </LogoIcon>
+            </LogoContainer>
+          )}
           {value ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              <AnimatePresence initial={false} exitBeforeEnter>
-                <motion.div
-                  key={value}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, position: 'absolute' }}
-                  transition={{
-                    duration: 0.4,
-                  }}
-                >
-                  <QRCode
-                    uri={value}
-                    logoSize={image ? 76 : 0}
-                    size={288}
-                    ecl="M"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
+            <AnimatePresence initial={false} exitBeforeEnter>
+              <motion.div
+                key={value}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
+                transition={{
+                  duration: 0.4,
+                }}
+              >
+                <QRCode
+                  uri={value}
+                  size={288}
+                  ecl="M"
+                  clearArea={!!image}
+                  image={imagePosition === 'bottom right' && Logo}
+                  imageBackground={imageBackground}
+                />
+              </motion.div>
+            </AnimatePresence>
           ) : (
             <QRPlaceholder />
           )}

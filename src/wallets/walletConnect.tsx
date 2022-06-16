@@ -8,7 +8,7 @@ export const walletConnect = ({ chains }): WalletProps => {
   return {
     id: 'walletConnect',
     name: 'WalletConnect',
-    logo: Logos.WalletConnect,
+    logo: <Logos.WalletConnect />,
     scannable: true,
     createConnector: () => {
       const connector = new WalletConnectConnector({

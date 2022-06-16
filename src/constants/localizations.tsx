@@ -38,7 +38,9 @@ export const replaceMarkdown = (markdownText: string) => {
 
 export const keys = {
   connectorName: '{{ CONNECTORNAME }}',
+  connectorShortName: '{{ CONNECTORSHORTNAME }}',
   suggestedExtensionBrowser: '{{ SUGGESTEDEXTENSIONBROWSER }}',
+  walletConnectLogo: '{{ WALLETCONNECTLOGO }}',
 };
 
 /**
@@ -56,7 +58,7 @@ export default {
     },
     aboutScreen: {
       heading: `About Wallets`,
-      a_h1: `Store your digital assets`,
+      a_h1: `All your digital assets`,
       a_p: `Wallets let you send, receive, store, and interact with digital assets like Ethereum and NFTs.`,
       b_h1: `A better way to login`,
       b_p: `With modern apps, your wallet can be used as a way to login, instead of needing a password.`,
@@ -66,32 +68,37 @@ export default {
     connectorsScreen: {
       heading: `Connect Wallet`,
       newcomer: `I don’t have a wallet`,
+      h1: `What is a wallet?`,
+      p: `Wallets are used to send, receive, and store digital assets. Connecting a wallet lets you interact with apps.`,
     },
     scanScreen: {
       heading: `Scan with Phone`,
       tooltip: {
-        walletConnect: `Open your preferred wallet and scan the QR code`,
-        default: `Open **${keys.connectorName}** on your mobile phone and scan`,
+        //walletConnect: `Open a ${keys.walletConnectLogo} WalletConnect supported wallet to scan`,
+        walletConnect: `Open a WalletConnect supported wallet to scan`,
+        default: `Open ${keys.connectorName} on your mobile phone to scan`,
       },
     },
     downloadAppScreen: {
       heading: `Get ${keys.connectorName}`,
-      iosAndroid: `Scan with your phone camera to download on **iOS** or **Android**.`,
-      ios: `Scan with your phone camera to download on **iOS**.`,
-      android: `Scan with your phone camera to download **Android**.`,
+      iosAndroid: `Scan with your phone camera to download on iOS or Android.`,
+      ios: `Scan with your phone camera to download on iOS.`,
+      android: `Scan with your phone camera to download Android.`,
     },
     injectionScreen: {
       unavailable: {
         h1: `Unsupported Browser`,
-        p: `To connect your ${keys.connectorName} wallet,\ninstall the extension on ${keys.suggestedExtensionBrowser}.`,
+        p: `To connect your ${keys.connectorShortName} wallet,\ninstall the extension on ${keys.suggestedExtensionBrowser}.`,
       },
       install: {
         h1: `Install ${keys.connectorName}`,
-        p: `To connect your ${keys.connectorName} wallet,\ninstall the browser extension.`,
+        p: `To connect your ${keys.connectorShortName} wallet,\ninstall the browser extension.`,
       },
       connecting: {
         h1: `Requesting Connection`,
         p: `Open the ${keys.connectorName} browser extension to connect your wallet.`,
+        injected_h1: `Requesting Connection`,
+        injected_p: `Accept the request through your wallet to connect to this app.`,
       },
       expiring: {
         requestWillExpiryIn: `This request will expire in`,
@@ -106,7 +113,7 @@ export default {
       },
       failed: {
         h1: `Connection Failed`,
-        p: `Sorry, the request expired.\nPlease try connecting again.`,
+        p: `Sorry, something went wrong.\nPlease try connecting again.`,
       },
       notconnected: {
         h1: `Login to ${keys.connectorName}`,
@@ -143,19 +150,21 @@ export default {
     connectorsScreen: {
       heading: `Connecter le portefeuille`,
       newcomer: `je n'ai pas de portefeuille`,
+      h1: `Qu'est-ce qu'un portefeuille ?`,
+      p: `Les portefeuilles sont utilisés pour envoyer, recevoir et stocker des actifs numériques. La connexion d'un portefeuille vous permet d'interagir avec les applications.`,
     },
     scanScreen: {
       heading: `Numériser avec le téléphone`,
       tooltip: {
         walletConnect: `Ouvrez votre portefeuille préféré et scannez le code QR`,
-        default: `Ouvrez **${keys.connectorName}** sur votre téléphone portable et scannez`,
+        default: `Ouvrez ${keys.connectorName} sur votre téléphone portable et scannez`,
       },
     },
     downloadAppScreen: {
       heading: `Obtenir ${keys.connectorName}`,
-      iosAndroid: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur **iOS** ou **Android**.`,
-      ios: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur **iOS**.`,
-      android: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur **Android**.`,
+      iosAndroid: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur iOS ou Android.`,
+      ios: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur iOS.`,
+      android: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur Android.`,
     },
     injectionScreen: {
       unavailable: {
@@ -169,6 +178,8 @@ export default {
       connecting: {
         h1: `Demande de connexion`,
         p: `Ouvrez l'extension de navigateur ${keys.connectorName} pour connecter votre portefeuille.`,
+        injected_h1: `Demande de connexion`,
+        injected_p: `Acceptez la demande via votre portefeuille pour vous connecter à cette application.`,
       },
       expiring: {
         requestWillExpiryIn: `Cette requête expirera dans`,

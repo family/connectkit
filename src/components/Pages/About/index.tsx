@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Sections,
-  Section,
-  Heading,
-  TokenGraphic,
-  Tokens,
-  Token,
-} from './styles';
+import { Sections, Section, Heading, TokenGraphic } from './styles';
 
 import localizations, { localize } from '../../../constants/localizations';
 import { useContext } from '../../ConnectKit';
@@ -17,10 +10,11 @@ import {
   ModalContent,
   ModalH1,
   ModalHeading,
+  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 
 import Button from '../../Common/Button';
-import chains from '../../../assets/chains';
+import Tokens from '../../../assets/tokens';
 import keychain from '../../../assets/keychain';
 
 const About: React.FC = () => {
@@ -32,20 +26,17 @@ const About: React.FC = () => {
   const context = useContext();
   const copy = localizations[context.lang].aboutScreen;
   return (
-    <PageContent style={{ width: 314 }}>
-      <ModalHeading>{localizeText(copy.heading)}</ModalHeading>
-      <ModalContent style={{ paddingBottom: 24 }}>
+    <PageContent style={{ width: 312 }}>
+      {/* <ModalHeading>{localizeText(copy.heading)}</ModalHeading> */}
+      <ModalHeadingBlock />
+      <ModalContent style={{ paddingBottom: 14 }}>
         <Sections>
           <Section>
             <TokenGraphic>
-              <Tokens>
-                <Token>{chains.Ethereum}</Token>
-                <Token>{chains.Arbitrum}</Token>
-              </Tokens>
-              <Tokens>
-                <Token>{chains.Polygon}</Token>
-                <Token>{chains.Optimism}</Token>
-              </Tokens>
+              <Tokens
+                theme={context.theme}
+                style={{ position: 'relative', top: -6 }}
+              />
             </TokenGraphic>
             <ModalBody>
               <Heading>{localizeText(copy.a_h1)}</Heading>
@@ -61,7 +52,9 @@ const About: React.FC = () => {
           </Section>
         </Sections>
       </ModalContent>
-      <Button href={copy.ctaUrl}>{localizeText(copy.ctaText)}</Button>
+      <Button href={copy.ctaUrl} arrow>
+        {localizeText(copy.ctaText)}
+      </Button>
     </PageContent>
   );
 };

@@ -1,8 +1,14 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+export const InfoBox = styled.div`
+  margin: -9px auto 32px;
+  border-radius: 16px;
+  text-align: center;
+  padding: 20px 28px 16px;
+  box-shadow: 0 0 0 1px var(--body-divider);
+`;
 export const LearnMoreContainer = styled(motion.div)`
-  margin: 0 0 -4px; // offset for button being tall
   text-align: center;
 `;
 export const LearnMoreButton = styled(motion.button)`
@@ -18,8 +24,8 @@ export const LearnMoreButton = styled(motion.button)`
   border-radius: 6px;
   background: none;
   color: var(--body-color-muted);
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 15px;
+  line-height: 18px;
   font-weight: 500;
   will-change: transform;
   transition: color 200ms ease, transform 100ms ease;
@@ -27,6 +33,7 @@ export const LearnMoreButton = styled(motion.button)`
     display: block;
     position: relative;
     top: 2.5px;
+    left: 2px;
     path,
     circle {
       transition: all 100ms ease-out;
@@ -63,29 +70,36 @@ export const ConnectorsContainer = styled(motion.div)`
 `;
 
 export const ConnectorButton = styled(motion.button)`
-  --background: var(--body-background-secondary);
   cursor: pointer;
   user-select: none;
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 22px;
   width: 100%;
   height: 64px;
   font-size: 17px;
   font-weight: 500;
   line-height: 20px;
-  border-radius: var(--body-button-border-radius, '18px');
-  color: var(--body-color);
-  text-align: var(--body-button-text-align, center);
-  transition: background-color 200ms ease, box-shadow 280ms ease,
-    transform 100ms ease;
-  will-change: transform, box-shadow, background-color;
-  border: var(--body-connector-button-border);
+  text-align: var(--body-button-text-align, left);
+  transition: 180ms ease;
+  transition-property: background, color, box-shadow, transform;
+  will-change: transform, box-shadow, background-color, color;
 
-  background: var(--background);
-  box-shadow: inset 0 0 0 0px var(--background),
-    inset 0 0 0 0px var(--background), var(--body-button-box-shadow);
+  --fallback-color: var(--ck-primary-button-color);
+  --fallback-background: var(--ck-primary-button-background);
+  --fallback-box-shadow: var(--ck-primary-button-box-shadow);
+  --fallback-border-radius: var(--ck-primary-button-border-radius);
+
+  --color: var(--ck-primary-button-color);
+  --background: var(--ck-primary-button-background);
+  --box-shadow: var(--ck-primary-button-box-shadow);
+  --border-radius: var(--ck-primary-button-border-radius);
+
+  color: var(--color, var(--fallback-color));
+  background: var(--background, var(--fallback-background));
+  box-shadow: var(--box-shadow, var(--fallback-box-shadow));
+  border-radius: var(--border-radius, var(--fallback-border-radius));
 
   &:disabled {
     transition: 0ms;
@@ -93,20 +107,23 @@ export const ConnectorButton = styled(motion.button)`
 
   &:not(:disabled) {
     &:hover {
-      /* box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
-        inset 0 0 0 6px var(--body-background); */
-      color: var(--accent-text-color);
-      --background: var(--accent-color, var(--body-background-secondary-hover));
+      --color: var(--ck-primary-button-hover-color);
+      --background: var(--ck-primary-button-hover-background);
+      --box-shadow: var(--ck-primary-button-hover-box-shadow);
+      --border-radius: var(--ck-primary-button-hover-border-radius);
     }
     &:focus {
       transition-duration: 100ms;
-      /* box-shadow: inset 0 0 0 0px var(--background),
-        inset 0 0 0 0px var(--background); */
+      --color: var(--ck-primary-button-focus-color);
+      --background: var(--ck-primary-button-focus-background);
+      --box-shadow: var(--ck-primary-button-focus-box-shadow);
+      --border-radius: var(--ck-primary-button-focus-border-radius);
     }
     &:active {
-      /* transform: scale(0.99); */
-      /* box-shadow: inset 0 0 0 3px var(--body-background-secondary-hover-outline),
-        inset 0 0 0 6px var(--body-background); */
+      --color: var(--ck-primary-button-active-color);
+      --background: var(--ck-primary-button-active-background);
+      --box-shadow: var(--ck-primary-button-active-box-shadow);
+      --border-radius: var(--ck-primary-button-active-border-radius);
     }
   }
 `;
@@ -118,24 +135,24 @@ export const ConnectorLabel = styled(motion.span)`
 
 export const ConnectorIcon = styled(motion.div)`
   position: absolute;
-  left: var(--body-connector-icon-left, '16px');
-  right: var(--body-connector-icon-right, 'auto');
+  left: var(--body-connector-icon-left, auto);
+  right: var(--body-connector-icon-right, 16px);
   width: 32px;
   height: 32px;
   overflow: hidden;
-  border-radius: 8px;
   svg {
     display: block;
     width: 100%;
     height: 100%;
   }
 `;
-
 export const MobileConnectorsContainer = styled(motion.div)`
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   gap: 12px;
-  padding: 0 0 16px;
+  padding: 0 24px 16px;
+  margin: 0 -24px;
 `;
 
 export const MobileConnectorButton = styled(motion.button)`
@@ -145,12 +162,13 @@ export const MobileConnectorButton = styled(motion.button)`
   position: relative;
   padding: 0;
   width: 100%;
-  font-size: 12px;
+  min-width: 25%;
+  font-size: 13px;
   font-weight: 500;
   line-height: 13px;
-  border-radius: var(--body-button-border-radius, '18px');
+  border-radius: var(--body-button-border-radius, 18px);
   color: var(--body-color);
-  text-align: var(--body-button-text-align, center);
+  text-align: center;
   transition: transform 100ms ease;
   border: var(--body-button-border);
 

@@ -17,7 +17,7 @@ export const coinbaseWallet = ({ chains, appName }): WalletProps => {
   return {
     id: 'coinbaseWallet',
     name: 'Coinbase Wallet',
-    logo: Logos.Coinbase,
+    logo: <Logos.Coinbase />,
     scannable: true,
     installed: isInstalled,
     downloadUrls: {

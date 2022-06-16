@@ -14,7 +14,7 @@ export const metaMask = ({ chains }): WalletProps => {
   return {
     id: 'metaMask',
     name: 'MetaMask',
-    logo: Logos.MetaMask,
+    logo: <Logos.MetaMask />,
     scannable: false,
     installed: !shouldUseWalletConnect ? isInstalled : undefined,
     downloadUrls: {

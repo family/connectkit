@@ -12,6 +12,7 @@ import {
   PageContent,
   ModalContent,
   ModalHeading,
+  ModalHeadingBlock,
 } from '../Common/Modal/styles';
 import { OrDivider } from '../Common/Modal';
 
@@ -37,6 +38,7 @@ const ConnectWithQRCode: React.FC<{
   const localizeText = (text: string) => {
     return localize(text, {
       CONNECTORNAME: connector.name,
+      WALLETCONNECTLOGO: <></>,
     });
   };
 
@@ -147,15 +149,20 @@ const ConnectWithQRCode: React.FC<{
 
   return (
     <PageContent>
-      <ModalHeading>
+      {/* <ModalHeading>
         {connectorId === 'walletConnect'
           ? copy.heading
           : `Scan with ${connector.name}`}
-      </ModalHeading>
-      <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
+      </ModalHeading> */}
+      <ModalHeadingBlock />
+      <ModalContent style={{ paddingBottom: 8, gap: 14 }}>
         <CustomQRCode
           value={connectorUri}
-          image={connector.logo}
+          image={connector.logos.qrCode}
+          imageBackground={connector.logoBackground}
+          imagePosition={
+            connector.id === 'walletConnect' ? 'bottom right' : 'center'
+          }
           tooltipMessage={
             connectorId === 'walletConnect' ? (
               <>
@@ -164,7 +171,7 @@ const ConnectWithQRCode: React.FC<{
               </>
             ) : (
               <>
-                <ScanIconWithLogos logo={connector.logo} />
+                <ScanIconWithLogos logo={connector.logos.default} />
                 <span>{localizeText(copy.tooltip.default)}</span>
               </>
             )
@@ -186,7 +193,7 @@ const ConnectWithQRCode: React.FC<{
       {/*
       {hasExtensionInstalled && ( // Run the extension
         <Button
-          icon={connector.logo}
+          icon={connector.logos.default}
           roundedIcon
           onClick={() => switchConnectMethod(id)}
         >
@@ -207,7 +214,11 @@ const ConnectWithQRCode: React.FC<{
             onClick={() => {
               context.setRoute(routes.DOWNLOAD);
             }}
-            icon={connector.logo}
+            icon={
+              <div style={{ background: connector.logoBackground }}>
+                {connector.logos.default}
+              </div>
+            }
             roundedIcon
           >
             Get {connector.name}

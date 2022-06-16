@@ -1,5 +1,6 @@
-const Injected = (
+export const Injected = ({ ...props }) => (
   <svg
+    {...props}
     aria-hidden="true"
     width="32"
     height="32"
@@ -8,15 +9,16 @@ const Injected = (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M15.6505 3.64041C15.6501 3.64062 15.6497 3.64083 15.6493 3.64103L6.05165 8.43985L16.2501 13.5391L26.4484 8.43987L16.8508 3.64103C16.8504 3.64083 16.85 3.64063 16.8496 3.64043C16.6632 3.54806 16.458 3.5 16.25 3.5C16.042 3.5 15.8369 3.54806 15.6505 3.64041ZM28 10.4592L17.5001 15.7091L17.5 28.5205L27.248 23.6465L27.2508 23.6452C27.4757 23.5334 27.665 23.3611 27.7973 23.1477C27.9297 22.9342 27.9999 22.6881 28 22.4369V10.4592ZM15 28.527L15.0001 15.7091L4.50006 10.4591V22.4333C4.49831 22.6849 4.56687 22.9319 4.69807 23.1466C4.82896 23.3608 5.01696 23.5342 5.24095 23.6475C5.24148 23.6477 5.242 23.648 5.24253 23.6483L15 28.527ZM14.5207 31.0824L4.12104 25.8826L4.11759 25.8809C3.47681 25.558 2.93902 25.0625 2.56486 24.4502C2.19154 23.8394 1.99597 23.1365 2.00006 22.4207V10.0486C2.00044 9.33234 2.20062 8.62972 2.5781 8.021C2.95529 7.41274 3.49457 6.92167 4.13537 6.60291C4.13585 6.60267 4.13633 6.60243 4.13681 6.60219L14.534 1.40359L14.5368 1.40221C15.0692 1.13767 15.6556 1 16.25 1C16.8445 1 17.4309 1.13767 17.9633 1.40221L17.966 1.40358L28.3633 6.60219C28.3638 6.60245 28.3643 6.6027 28.3648 6.60295C29.0055 6.92171 29.5448 7.41276 29.922 8.021C30.2994 8.62973 30.4996 9.33168 30.5 10.0479V22.4376C30.4996 23.1538 30.2994 23.8565 29.922 24.4652C29.5448 25.0734 29.0056 25.5644 28.365 25.8831C28.3644 25.8834 28.3638 25.8837 28.3633 25.884L17.9664 31.0824C17.9663 31.0825 17.9665 31.0824 17.9664 31.0824C17.4316 31.3499 16.8415 31.4894 16.2435 31.4894C15.6455 31.4894 15.0554 31.3499 14.5207 31.0824C14.5205 31.0824 14.5208 31.0825 14.5207 31.0824Z"
       fill="#CCCCCC"
     />
   </svg>
 );
-const WalletConnect = (
+export const WalletConnect = ({ background = false, ...props }) => (
   <svg
+    {...props}
     aria-hidden="true"
     width="32"
     height="32"
@@ -24,20 +26,24 @@ const WalletConnect = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M32 0H0V32H32V0Z" fill="var(--brand-walletConnect)" />
+    {background && (
+      <path d="M32 0H0V32H32V0Z" fill={'var(--brand-walletConnect)'} />
+    )}
     <path
       d="M9.58818 11.8556C13.1293 8.31442 18.8706 8.31442 22.4117 11.8556L22.8379 12.2818C23.015 12.4588 23.015 12.7459 22.8379 12.9229L21.3801 14.3808C21.2915 14.4693 21.148 14.4693 21.0595 14.3808L20.473 13.7943C18.0026 11.3239 13.9973 11.3239 11.5269 13.7943L10.8989 14.4223C10.8104 14.5109 10.6668 14.5109 10.5783 14.4223L9.12041 12.9645C8.94336 12.7875 8.94336 12.5004 9.12041 12.3234L9.58818 11.8556ZM25.4268 14.8706L26.7243 16.1682C26.9013 16.3452 26.9013 16.6323 26.7243 16.8093L20.8737 22.6599C20.6966 22.8371 20.4096 22.8371 20.2325 22.6599L16.0802 18.5076C16.0359 18.4634 15.9641 18.4634 15.9199 18.5076L11.7675 22.6599C11.5905 22.8371 11.3034 22.8371 11.1264 22.66C11.1264 22.66 11.1264 22.6599 11.1264 22.6599L5.27561 16.8092C5.09856 16.6322 5.09856 16.3451 5.27561 16.168L6.57313 14.8706C6.75019 14.6934 7.03726 14.6934 7.21431 14.8706L11.3668 19.023C11.411 19.0672 11.4828 19.0672 11.5271 19.023L15.6793 14.8706C15.8563 14.6934 16.1434 14.6934 16.3205 14.8706L20.473 19.023C20.5172 19.0672 20.589 19.0672 20.6332 19.023L24.7856 14.8706C24.9627 14.6935 25.2498 14.6935 25.4268 14.8706Z"
-      fill="white"
+      fill={background ? 'white' : 'var(--brand-walletConnect)'}
     />
   </svg>
 );
 
-const MetaMask = (
+export const MetaMask = ({ background = false, ...props }) => (
   <svg
+    {...props}
     aria-hidden="true"
     style={{
-      background:
-        'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))',
+      background: background
+        ? 'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))'
+        : undefined,
     }}
     width="32"
     height="32"
@@ -296,8 +302,9 @@ const MetaMask = (
   </svg>
 );
 
-const Coinbase = (
+export const Coinbase = ({ background = false, ...props }) => (
   <svg
+    {...props}
     aria-hidden="true"
     width="32"
     height="32"
@@ -305,7 +312,13 @@ const Coinbase = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M32 0H0V32H32V0Z" fill="var(--brand-coinbaseWallet)" />
+    <circle cx="16" cy="16" r="16" fill="var(--brand-coinbaseWallet)" />
+    {background && (
+      <path
+        d="M0 12.64C0 8.31047 0 6.1457 0.815779 4.48049C1.59686 2.88611 2.88611 1.59686 4.48049 0.815779C6.1457 0 8.31047 0 12.64 0H19.36C23.6895 0 25.8543 0 27.5195 0.815779C29.1139 1.59686 30.4031 2.88611 31.1842 4.48049C32 6.1457 32 8.31047 32 12.64V19.36C32 23.6895 32 25.8543 31.1842 27.5195C30.4031 29.1139 29.1139 30.4031 27.5195 31.1842C25.8543 32 23.6895 32 19.36 32H12.64C8.31047 32 6.1457 32 4.48049 31.1842C2.88611 30.4031 1.59686 29.1139 0.815779 27.5195C0 25.8543 0 23.6895 0 19.36V12.64Z"
+        fill="var(--brand-coinbaseWallet)"
+      />
+    )}
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -315,8 +328,9 @@ const Coinbase = (
   </svg>
 );
 
-const Trust = (
+export const Trust = ({ ...props }) => (
   <svg
+    {...props}
     aria-hidden="true"
     width="44"
     height="44"
@@ -333,8 +347,10 @@ const Trust = (
     />
   </svg>
 );
-const Argent = (
+
+export const Argent = ({ ...props }) => (
   <svg
+    {...props}
     aria-hidden="true"
     width="32"
     height="32"
@@ -349,43 +365,328 @@ const Argent = (
     />
   </svg>
 );
-const imToken = (
+
+export const ImToken = ({ ...props }) => (
   <svg
+    {...props}
     aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    style={{
+      background: `linear-gradient(
+      180deg,
+      var(--brand-imtoken-01) 0%,
+      var(--brand-imtoken-02) 100%
+    )`,
+    }}
   >
-    <rect width="32" height="32" fill="white" />
-    <rect width="32" height="32" fill="url(#paint0_linear_967_4292)" />
     <path
       d="M26.8543 9.96509C27.5498 19.3857 21.4942 23.8384 16.0655 24.3132C11.0184 24.7546 6.26765 21.6534 5.85087 16.8885C5.50707 12.952 7.94004 11.2761 9.8516 11.109C11.8177 10.9367 13.4698 12.2925 13.6132 13.9342C13.7512 15.5125 12.7664 16.2308 12.0815 16.2906C11.5398 16.3381 10.8584 16.0093 10.7968 15.3032C10.7441 14.6965 10.9744 14.6138 10.9182 13.9693C10.8179 12.8219 9.81731 12.6882 9.26951 12.7357C8.60654 12.7937 7.40368 13.5675 7.5725 15.4949C7.7422 17.439 9.60628 18.9751 12.0498 18.7614C14.6868 18.531 16.5227 16.4779 16.6608 13.5983C16.6595 13.4458 16.6916 13.2948 16.7548 13.156L16.7557 13.1525C16.7841 13.0922 16.8174 13.0342 16.8551 12.9793C16.9113 12.8949 16.9835 12.8016 17.0767 12.6997C17.0775 12.697 17.0775 12.697 17.0793 12.697C17.147 12.6205 17.2288 12.5379 17.3211 12.4491C18.473 11.3623 22.6214 8.79916 26.5448 9.61074C26.6277 9.62851 26.7026 9.67262 26.7584 9.73649C26.8142 9.80035 26.8478 9.88054 26.8543 9.96509"
       fill="white"
     />
+  </svg>
+);
+
+export const Rainbow = ({ ...props }) => (
+  <svg
+    width="120"
+    height="120"
+    viewBox="0 0 120 120"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect width="120" height="120" fill="url(#paint0_linear_62_329)" />
+    <path
+      d="M20 38H26C56.9279 38 82 63.0721 82 94V100H94C97.3137 100 100 97.3137 100 94C100 53.1309 66.8691 20 26 20C22.6863 20 20 22.6863 20 26V38Z"
+      fill="url(#paint1_radial_62_329)"
+    />
+    <path
+      d="M84 94H100C100 97.3137 97.3137 100 94 100H84V94Z"
+      fill="url(#paint2_linear_62_329)"
+    />
+    <path
+      d="M26 20L26 36H20L20 26C20 22.6863 22.6863 20 26 20Z"
+      fill="url(#paint3_linear_62_329)"
+    />
+    <path
+      d="M20 36H26C58.0325 36 84 61.9675 84 94V100H66V94C66 71.9086 48.0914 54 26 54H20V36Z"
+      fill="url(#paint4_radial_62_329)"
+    />
+    <path d="M68 94H84V100H68V94Z" fill="url(#paint5_linear_62_329)" />
+    <path d="M20 52L20 36L26 36L26 52H20Z" fill="url(#paint6_linear_62_329)" />
+    <path
+      d="M20 62C20 65.3137 22.6863 68 26 68C40.3594 68 52 79.6406 52 94C52 97.3137 54.6863 100 58 100H68V94C68 70.804 49.196 52 26 52H20V62Z"
+      fill="url(#paint7_radial_62_329)"
+    />
+    <path
+      d="M52 94H68V100H58C54.6863 100 52 97.3137 52 94Z"
+      fill="url(#paint8_radial_62_329)"
+    />
+    <path
+      d="M26 68C22.6863 68 20 65.3137 20 62L20 52L26 52L26 68Z"
+      fill="url(#paint9_radial_62_329)"
+    />
     <defs>
       <linearGradient
-        id="paint0_linear_967_4292"
-        x1="31.1053"
-        y1="0.89472"
-        x2="0"
-        y2="32"
+        id="paint0_linear_62_329"
+        x1="60"
+        y1="0"
+        x2="60"
+        y2="120"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="var(--brand-imtoken-01)" />
-        <stop offset="1" stopColor="var(--brand-imtoken-02)" />
+        <stop stop-color="#174299" />
+        <stop offset="1" stop-color="#001E59" />
+      </linearGradient>
+      <radialGradient
+        id="paint1_radial_62_329"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(26 94) rotate(-90) scale(74)"
+      >
+        <stop offset="0.770277" stop-color="#FF4000" />
+        <stop offset="1" stop-color="#8754C9" />
+      </radialGradient>
+      <linearGradient
+        id="paint2_linear_62_329"
+        x1="83"
+        y1="97"
+        x2="100"
+        y2="97"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#FF4000" />
+        <stop offset="1" stop-color="#8754C9" />
+      </linearGradient>
+      <linearGradient
+        id="paint3_linear_62_329"
+        x1="23"
+        y1="20"
+        x2="23"
+        y2="37"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#8754C9" />
+        <stop offset="1" stop-color="#FF4000" />
+      </linearGradient>
+      <radialGradient
+        id="paint4_radial_62_329"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(26 94) rotate(-90) scale(58)"
+      >
+        <stop offset="0.723929" stop-color="#FFF700" />
+        <stop offset="1" stop-color="#FF9901" />
+      </radialGradient>
+      <linearGradient
+        id="paint5_linear_62_329"
+        x1="68"
+        y1="97"
+        x2="84"
+        y2="97"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#FFF700" />
+        <stop offset="1" stop-color="#FF9901" />
+      </linearGradient>
+      <linearGradient
+        id="paint6_linear_62_329"
+        x1="23"
+        y1="52"
+        x2="23"
+        y2="36"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#FFF700" />
+        <stop offset="1" stop-color="#FF9901" />
+      </linearGradient>
+      <radialGradient
+        id="paint7_radial_62_329"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(26 94) rotate(-90) scale(42)"
+      >
+        <stop offset="0.59513" stop-color="#00AAFF" />
+        <stop offset="1" stop-color="#01DA40" />
+      </radialGradient>
+      <radialGradient
+        id="paint8_radial_62_329"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(51 97) scale(17 45.3333)"
+      >
+        <stop stop-color="#00AAFF" />
+        <stop offset="1" stop-color="#01DA40" />
+      </radialGradient>
+      <radialGradient
+        id="paint9_radial_62_329"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(23 69) rotate(-90) scale(17 322.37)"
+      >
+        <stop stop-color="#00AAFF" />
+        <stop offset="1" stop-color="#01DA40" />
+      </radialGradient>
+    </defs>
+  </svg>
+);
+
+export const Brave = ({ ...props }) => (
+  <svg
+    {...props}
+    width="2770"
+    height="2770"
+    viewBox="-100 -100 2970 2970"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ background: 'white' }}
+  >
+    <linearGradient id="braveA" y1="51%" y2="51%">
+      <stop offset=".4" stop-color="#f50" />
+      <stop offset=".6" stop-color="#ff2000" />
+    </linearGradient>
+    <linearGradient id="braveB" x1="2%" y1="51%" y2="51%">
+      <stop offset="0" stop-color="#ff452a" />
+      <stop offset="1" stop-color="#ff2000" />
+    </linearGradient>
+    <path
+      fill="url(#braveA)"
+      d="m2395 723 60-147-170-176c-92-92-288-38-288-38l-222-252H992L769 363s-196-53-288 37L311 575l60 147-75 218 250 953c52 204 87 283 234 387l457 310c44 27 98 74 147 74s103-47 147-74l457-310c147-104 182-183 234-387l250-953z"
+    />
+    <path
+      fill="#fff"
+      d="M1935 524s287 347 287 420c0 75-36 94-72 133l-215 230c-20 20-63 54-38 113 25 60 60 134 20 210-40 77-110 128-155 120a820 820 0 0 1-190-90c-38-25-160-126-160-165s126-110 150-124c23-16 130-78 132-102s2-30-30-90-88-140-80-192c10-52 100-80 167-105l207-78c16-8 12-15-36-20-48-4-183-22-244-5s-163 43-173 57c-8 14-16 14-7 62l58 315c4 40 12 67-30 77-44 10-117 27-142 27s-99-17-142-27-35-37-30-77c4-40 48-268 57-315 10-48 1-48-7-62-10-14-113-40-174-57-60-17-196 1-244 6-48 4-52 10-36 20l207 77c66 25 158 53 167 105 10 53-47 132-80 192s-32 66-30 90 110 86 132 102c24 15 150 85 150 124s-119 140-159 165a820 820 0 0 1-190 90c-45 8-115-43-156-120-40-76-4-150 20-210 25-60-17-92-38-113l-215-230c-35-37-71-57-71-131s287-420 287-420l273 44c32 0 103-27 168-50 65-20 110-22 110-22s44 0 110 22 136 50 168 50c33 0 275-47 275-47zm-215 1328c18 10 7 32-10 44l-254 198c-20 20-52 50-73 50s-52-30-73-50a13200 13200 0 0 0-255-198c-16-12-27-33-10-44l150-80a870 870 0 0 1 188-73c15 0 110 34 187 73l150 80z"
+    />
+    <path
+      fill="url(#braveB)"
+      d="m1999 363-224-253H992L769 363s-196-53-288 37c0 0 260-23 350 123l276 47c32 0 103-27 168-50 65-20 110-22 110-22s44 0 110 22 136 50 168 50c33 0 275-47 275-47 90-146 350-123 350-123-92-92-288-38-288-38"
+    />
+  </svg>
+);
+export const Crypto = ({ ...props }) => (
+  <svg
+    {...props}
+    width="88"
+    height="88"
+    viewBox="0 0 88 88"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="88" height="88" fill="white" />
+    <mask
+      id="mask0_2091_4394"
+      style={{ maskType: 'alpha' }}
+      maskUnits="userSpaceOnUse"
+      x="13"
+      y="9"
+      width="62"
+      height="71"
+    >
+      <path
+        d="M44 9L13 26.75V62.25L44 80L75 62.25V26.75L44 9ZM31.7577 24.3492H56.1513L59.0935 36.684H28.9307L31.7577 24.3492ZM41.5613 61.2993L36.2955 66.161H31.8427L20.6924 46.9369L28.8701 40.9079L36.0953 45.4627V53.6578L41.5552 58.8504V61.2993H41.5613ZM37.9759 53.1584L38.7888 45.4326L36.1256 38.5432H51.9229L49.3204 45.4326L50.0787 53.1283L44 53.1584H37.9759ZM56.2059 66.1069H51.8076L46.5419 61.2993V58.8564L52.0018 53.6638V45.4627L59.1421 40.8537L67.2955 46.9369L56.2059 66.1069Z"
+        fill="#002D74"
+      />
+    </mask>
+    <g mask="url(#mask0_2091_4394)">
+      <rect y="8" width="44" height="72" fill="url(#paint0_linear_2091_4394)" />
+      <rect
+        x="88"
+        y="80"
+        width="44"
+        height="72"
+        transform="rotate(-180 88 80)"
+        fill="url(#paint1_linear_2091_4394)"
+      />
+    </g>
+    <defs>
+      <linearGradient
+        id="paint0_linear_2091_4394"
+        x1="22"
+        y1="8"
+        x2="22"
+        y2="80"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#010935" />
+        <stop offset="1" stop-color="#142C70" />
+      </linearGradient>
+      <linearGradient
+        id="paint1_linear_2091_4394"
+        x1="110"
+        y1="80"
+        x2="110"
+        y2="152"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#010935" />
+        <stop offset="1" stop-color="#142C70" />
       </linearGradient>
     </defs>
   </svg>
 );
 
+export const OtherWallets = ({ ...props }) => {
+  const column: React.CSSProperties = {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+  };
+  const row: React.CSSProperties = {
+    position: 'relative',
+    display: 'flex',
+    gap: 2,
+  };
+  const cell: React.CSSProperties = {
+    width: '50%',
+    overflow: 'hidden',
+    borderRadius: 4,
+  };
+  return (
+    <div style={column} {...props}>
+      <div style={row}>
+        <div style={cell}>
+          <WalletConnect background />
+        </div>
+        <div style={cell}>
+          <Trust />
+        </div>
+      </div>
+      <div style={row}>
+        <div style={cell}>
+          <Rainbow />
+        </div>
+        <div style={cell}>
+          <ImToken />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default {
+  OtherWallets,
   Injected,
   WalletConnect,
   MetaMask,
   Coinbase,
   Trust,
   Argent,
-  imToken,
+  ImToken,
+  Rainbow,
+  Crypto,
+  Brave,
 };

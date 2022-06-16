@@ -5,7 +5,14 @@ import localizations from '../../../constants/localizations';
 
 import { useConnect } from 'wagmi';
 
-import { PageContent, ModalHeading } from '../../Common/Modal/styles';
+import {
+  PageContent,
+  ModalHeading,
+  ModalH1,
+  ModalBody,
+  ModalContent,
+  ModalHeadingBlock,
+} from '../../Common/Modal/styles';
 import WalletIcon from '../../../assets/wallet';
 
 import {
@@ -19,11 +26,16 @@ import {
   MobileConnectorButton,
   MobileConnectorLabel,
   MobileConnectorIcon,
+  InfoBox,
 } from './styles';
+
 import { isMobile, isAndroid } from '../../../utils';
+
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+
 import Button from '../../Common/Button';
 
 const Wallets: React.FC = () => {
@@ -59,6 +71,12 @@ const Wallets: React.FC = () => {
           options: c.options,
         });
         break;
+      case 'injected':
+        connector = new InjectedConnector({
+          chains: c.chains,
+          options: c.options,
+        });
+        break;
     }
 
     if (!connector) return;
@@ -86,30 +104,43 @@ const Wallets: React.FC = () => {
   useEffect(() => {}, [mobile]);
 
   return (
-    <PageContent style={{ width: 334 }}>
-      <ModalHeading>{copy.heading}</ModalHeading>
+    <PageContent style={{ width: 320 }}>
+      {/* <ModalHeading>{copy.heading}</ModalHeading> */}
+      <ModalHeadingBlock />
       {mobile ? (
-        <MobileConnectorsContainer>
-          {connectors
-            .slice(0)
-            .reverse()
-            .map((connector) => {
-              const info = supportedConnectors.filter(
-                (c) => c.id === connector.id
-              )[0];
-              if (!info) return null;
-              return (
-                <MobileConnectorButton
-                  key={`m-${connector.id}`}
-                  //disabled={!connector.ready}
-                  onClick={() => openDefaultConnect(connector.id)}
-                >
-                  <MobileConnectorIcon>{info.logo}</MobileConnectorIcon>
-                  <MobileConnectorLabel>{info.name}</MobileConnectorLabel>
-                </MobileConnectorButton>
-              );
-            })}
-        </MobileConnectorsContainer>
+        <>
+          <InfoBox>
+            <ModalContent style={{ padding: 0 }}>
+              <ModalH1 $small>{copy.h1}</ModalH1>
+              <ModalBody>{copy.p}</ModalBody>
+            </ModalContent>
+          </InfoBox>
+          <MobileConnectorsContainer>
+            {connectors
+              .slice(0)
+              .reverse()
+              .map((connector) => {
+                const info = supportedConnectors.filter(
+                  (c) => c.id === connector.id
+                )[0];
+                if (!info) return null;
+                return (
+                  <MobileConnectorButton
+                    key={`m-${connector.id}`}
+                    disabled={!connector.ready}
+                    onClick={() => openDefaultConnect(connector.id)}
+                  >
+                    <MobileConnectorIcon>
+                      {info.logos.appIcon ?? info.logos.default}
+                    </MobileConnectorIcon>
+                    <MobileConnectorLabel>
+                      {info.name ?? connector.name}
+                    </MobileConnectorLabel>
+                  </MobileConnectorButton>
+                );
+              })}
+          </MobileConnectorsContainer>
+        </>
       ) : (
         <ConnectorsContainer>
           {connectors.map((connector) => {
@@ -117,6 +148,12 @@ const Wallets: React.FC = () => {
               (c) => c.id === connector.id
             )[0];
             if (!info) return null;
+            let logo = info.logos.connectorButton ?? info.logos.default;
+            if (info.extensionIsInstalled && info.logos.appIcon) {
+              if (info.extensionIsInstalled()) {
+                logo = info.logos.appIcon;
+              }
+            }
             return (
               <ConnectorButton
                 key={connector.id}
@@ -126,8 +163,8 @@ const Wallets: React.FC = () => {
                   context.setConnector(connector.id);
                 }}
               >
-                <ConnectorIcon>{info.logo}</ConnectorIcon>
-                <ConnectorLabel>{info.name}</ConnectorLabel>
+                <ConnectorIcon>{logo}</ConnectorIcon>
+                <ConnectorLabel>{info.name ?? connector.name}</ConnectorLabel>
               </ConnectorButton>
             );
           })}

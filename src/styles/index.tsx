@@ -11,7 +11,7 @@ const themeGlobals = {
     '--font-family': `-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
     'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
     'Segoe UI Symbol'`,
-    '--border-radius': 24,
+    '--border-radius': '24px',
   },
 };
 const themeColors = {
@@ -32,8 +32,10 @@ const themeColors = {
     '--brand-metamask-10': '#E4751F',
     '--brand-metamask-11': '#FEF5E7',
     '--brand-metamask-12': '#E3C8AB',
-    '--brand-trust-01': '#3375BB',
-    '--brand-trust-02': '#ffffff',
+    //'--brand-trust-01': '#3375BB',
+    //'--brand-trust-02': '#ffffff',
+    '--brand-trust-01': '#ffffff', // dark Theme
+    '--brand-trust-02': '#3375BB', // dark Theme
     '--brand-argent': '#f36a3d',
     '--brand-imtoken-01': '#11C4D1',
     '--brand-imtoken-02': '#0062AD',
@@ -43,6 +45,19 @@ const themeColors = {
     '--connectbutton-background': '#ffffff',
     '--connectbutton-background-hover': '#f6f7f9',
     '--connectbutton-background-active': '#eaecf1',
+
+    '--ck-primary-button-color': '#373737',
+    '--ck-primary-button-background': '#ffffff',
+    '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #F0F0F0',
+    '--ck-primary-button-border-radius': '16px',
+
+    '--ck-primary-button-hover-color': '#373737',
+    '--ck-primary-button-hover-background': '#ffffff',
+    '--ck-primary-button-hover-box-shadow':
+      'inset 0 0 0 2px var(--focus-color)',
+    '--ck-primary-button-hover-border-radius': '16px',
+
+    '--ck-primary-button-active-border-radius': '16px',
 
     '--focus-color': '#1A88F8',
     '--overlay-background': 'rgba(0, 0, 0, 0.4)',
@@ -56,7 +71,7 @@ const themeColors = {
     '--body-background-secondary-hover-outline': '#4282FF',
     '--body-action-color': '#999999',
     '--body-divider': '#f7f6f8',
-    '--body-color-danger': '#FC6464',
+    '--body-color-danger': '#FF4E4E',
     '--body-color-valid': '#32D74B',
 
     '--body-button-border-radius': '18px',
@@ -100,6 +115,9 @@ const themeColors = {
     '--ens-07-stop': '#AF52DE',
     '--ens-08-start': '#AF52DE',
     '--ens-08-stop': '#FF2D55',
+
+    '--qr-dot-color': '#000000',
+    '--qr-border-color': '#f7f6f8',
   },
 
   dark: {
@@ -108,7 +126,20 @@ const themeColors = {
     '--connectbutton-background-hover': '#333333',
     '--connectbutton-background-active': '#4D4D4D',
 
-    '--focus-color': '#ffffff',
+    '--ck-primary-button-color': '#ffffff',
+    '--ck-primary-button-background': 'transparent',
+    '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #3D3D3D',
+    '--ck-primary-button-border-radius': '16px',
+
+    '--ck-primary-button-hover-color': '#ffffff',
+    '--ck-primary-button-hover-background': 'transparent',
+    '--ck-primary-button-hover-box-shadow': 'inset 0 0 0 2px #ffffff',
+    '--ck-primary-button-hover-border-radius': '16px',
+
+    '--ck-primary-button-active-border-radius': '16px',
+
+    '--focus-color': '#1A88F8',
+
     '--overlay-background': 'rgba(0, 0, 0, 0.4)',
     '--body-color': '#ffffff',
     '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
@@ -120,7 +151,7 @@ const themeColors = {
     '--body-background-secondary-hover-outline': '#ffffff',
     '--body-action-color': '#808080',
     '--body-divider': '#383838',
-    '--body-color-danger': '#FC6464',
+    '--body-color-danger': '#FF4E4E',
 
     '--body-button-border-radius': '18px',
 
@@ -132,6 +163,12 @@ const themeColors = {
     '--tooltip-color': '#868686',
 
     '--spinner-color': 'var(--focus-color)',
+
+    '--graphic-wave-stop-01': '#E8F17D',
+    '--graphic-wave-stop-02': '#A8ECDE',
+    '--graphic-wave-stop-03': '#7AA1F2',
+    '--graphic-wave-stop-04': '#DEA1E8',
+    '--graphic-wave-stop-05': '#F46D98',
 
     '--graphic-scaniconwithlogos-01': '#AFAFAF',
     '--graphic-scaniconwithlogos-02': '#696969',
@@ -155,9 +192,8 @@ const themeColors = {
     '--ens-08-start': '#BF5AF2',
     '--ens-08-stop': '#FF2D55',
 
-    // Brand dark themes can also go here
-    '--brand-trust-01': '#ffffff',
-    '--brand-trust-02': '#3375BB',
+    '--qr-dot-color': '#ffffff',
+    '--qr-border-color': '#3d3d3d',
   },
   testTheme: {
     '--font-family': 'Avenir Next',
@@ -299,18 +335,22 @@ const themeColors = {
     '--ens-08-stop': '#FF2D55',
   },
   lightMobile: {
+    /*
     '--body-background': '#F8F8F8',
     '--body-color': '#2B2F43',
     '--body-background-secondary': '#ffffff',
     '--body-background-secondary-hover': '#ffffff',
     '--body-background-secondary-hover-outline': '#ffffff',
+    */
   },
   darkMobile: {
+    /*
     '--body-background': '#282828',
     '--body-color': '#ffffff',
     '--body-background-secondary': '#333333',
     '--body-background-secondary-hover': '#333333',
     '--body-background-secondary-hover-outline': '#333333',
+    */
   },
 };
 

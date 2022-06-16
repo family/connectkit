@@ -20,6 +20,7 @@ import {
   CloseButton,
   BackButton,
   InfoButton,
+  ModalHeading,
   TextWithHr,
 } from './styles';
 
@@ -28,6 +29,9 @@ import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
 import FocusTrap from '../../../hooks/useFocusTrap';
+import localizations, { localize } from '../../../constants/localizations';
+import { useConnect } from 'wagmi';
+import { supportedConnectors } from '../../..';
 
 const InfoIcon = (props: Props) => (
   <svg
@@ -144,7 +148,7 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
 
   const [state, setOpen] = useTransition({
-    timeout: 150,
+    timeout: 200,
     preEnter: true,
     mountOnEnter: true,
     unmountOnExit: true,
@@ -160,9 +164,13 @@ const Modal: React.FC<ModalProps> = ({
   const [dimensions, setDimensions] = useState<{
     width: string | undefined;
     height: string | undefined;
+    rawWidth: number | undefined;
+    rawHeight: number | undefined;
   }>({
     width: undefined,
     height: undefined,
+    rawWidth: undefined,
+    rawHeight: undefined,
   });
   const [inTransition, setInTransition] = useState<boolean>(false);
 
@@ -182,8 +190,10 @@ const Modal: React.FC<ModalProps> = ({
         height: node?.offsetHeight,
       };
       setDimensions({
-        width: mobile ? `100%` : `${bounds?.width}px`,
+        width: `${bounds?.width}px`,
         height: `${bounds?.height}px`,
+        rawWidth: bounds?.width,
+        rawHeight: bounds?.height,
       });
     },
     [open]
@@ -191,7 +201,12 @@ const Modal: React.FC<ModalProps> = ({
 
   useEffect(() => {
     if (!mounted) {
-      setDimensions({ width: undefined, height: undefined });
+      setDimensions({
+        width: undefined,
+        height: undefined,
+        rawWidth: undefined,
+        rawHeight: undefined,
+      });
       return;
     }
 
@@ -204,10 +219,60 @@ const Modal: React.FC<ModalProps> = ({
     };
   }, [mounted, onClose]);
 
+  const { connect, connectAsync, connectors } = useConnect({
+    onError(e) {
+      console.log(e);
+    },
+  });
+
   const dimensionsCSS = {
     '--height': dimensions.height,
     '--width': dimensions.width,
   } as React.CSSProperties;
+
+  function shouldUseQrcode() {
+    const c = supportedConnectors.filter((x) => x.id === context.connector)[0];
+    if (!c) return false; // Fail states are shown in the injector flow
+
+    const hasExtensionInstalled =
+      c.extensionIsInstalled && c.extensionIsInstalled();
+
+    const useInjector = !c.scannable || hasExtensionInstalled;
+    return !useInjector;
+  }
+
+  function getHeading() {
+    const c = supportedConnectors.filter((x) => x.id === context.connector)[0];
+
+    switch (context.route) {
+      case routes.ABOUT:
+        return localize(localizations[context.lang].aboutScreen.heading);
+      case routes.CONNECT:
+        if (shouldUseQrcode()) {
+          return c.id === 'walletConnect'
+            ? localize(localizations[context.lang].scanScreen.heading)
+            : `Scan with ${c.name}`;
+        } else {
+          return c.name;
+        }
+      case routes.CONNECTORS:
+        return localize(localizations[context.lang].connectorsScreen.heading);
+      case routes.DOWNLOAD:
+        return localize(localizations[context.lang].downloadAppScreen.heading, {
+          CONNECTORNAME: c.name,
+        });
+      case routes.ONBOARDING:
+        return localize(localizations[context.lang].onboardingScreen.heading);
+      case routes.PROFILE:
+        return localize(localizations[context.lang].profileScreen.heading);
+      case routes.SWITCHNETWORKS:
+        return localize(
+          localizations[context.lang].switchNetworkScreen.heading
+        );
+      default:
+        return '';
+    }
+  }
 
   const Content = (
     <ResetContainer theme={context.theme} customTheme={context.customTheme}>
@@ -221,10 +286,15 @@ const Modal: React.FC<ModalProps> = ({
         {!hideOverlay && (
           <BackgroundOverlay $active={rendered} onClick={onClose} />
         )}
-        <Container style={dimensionsCSS}>
-          <BoxContainer
-            className={`${mobile ? 'mobile' : ''} ${rendered && 'active'}`}
-          >
+        <Container
+          style={dimensionsCSS}
+          initial={false}
+          transition={{
+            ease: [0.2555, 0.1111, 0.2555, 1.0001],
+            duration: !positionInside && state !== 'entered' ? 0 : 0.24,
+          }}
+        >
+          <BoxContainer className={`${rendered && 'active'}`}>
             <ControllerContainer>
               <CloseButton aria-label="Close" onClick={onClose}>
                 <CloseIcon />
@@ -262,6 +332,39 @@ const Modal: React.FC<ModalProps> = ({
               </AnimatePresence>
             </ControllerContainer>
 
+            <ModalHeading
+              style={{
+                pointerEvents: 'none',
+                position: 'absolute',
+                top: 28,
+                left: '50%',
+                x: '-50%',
+                width: 'var(--width)',
+                margin: 0,
+                zIndex: 3,
+              }}
+            >
+              <AnimatePresence>
+                <motion.div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                  }}
+                  key={context.route}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.18,
+                  }}
+                >
+                  {getHeading()}
+                </motion.div>
+              </AnimatePresence>
+            </ModalHeading>
+
             <InnerContainer>
               {Object.keys(pages).map((key) => {
                 const page = pages[key];
@@ -270,6 +373,7 @@ const Modal: React.FC<ModalProps> = ({
                     key={key}
                     open={key === pageId}
                     initial={!positionInside && state !== 'entered'}
+                    depth={key === routes.CONNECTORS ? 0 : 1}
                   >
                     <PageContents
                       key={`inner-${key}`}
@@ -314,10 +418,11 @@ type PageProps = {
   children?: React.ReactNode;
   open: boolean | undefined;
   initial: boolean;
+  depth?: number;
 };
-const Page: React.FC<PageProps> = ({ children, open, initial }) => {
+const Page: React.FC<PageProps> = ({ children, open, initial, depth }) => {
   const [state, setOpen] = useTransition({
-    timeout: 220,
+    timeout: 310,
     preEnter: true,
     initialEntered: open,
     mountOnEnter: true,
@@ -331,9 +436,19 @@ const Page: React.FC<PageProps> = ({ children, open, initial }) => {
   }, [open]);
 
   if (!mounted) return null;
+
   return (
     <PageContainer
-      className={`${rendered ? 'active' : 'exit'}`}
+      initial={false}
+      className={`${
+        rendered
+          ? depth
+            ? 'active-scale-up'
+            : 'active'
+          : depth
+          ? 'exit-scale-down'
+          : 'exit'
+      }`}
       style={{
         animationDuration: initial ? '0ms' : undefined,
         animationDelay: initial ? '0ms' : undefined,

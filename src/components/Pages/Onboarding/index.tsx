@@ -20,8 +20,9 @@ import {
   ModalContent,
   ModalH1,
   ModalHeading,
+  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
-import logos from '../../../assets/logos';
+import Logos from '../../../assets/logos';
 import wave from '../../../assets/wave';
 
 import Button from '../../Common/Button';
@@ -36,7 +37,8 @@ const Introduction: React.FC = () => {
   const copy = localizations[context.lang].onboardingScreen;
   return (
     <PageContent>
-      <ModalHeading>{localizeText(copy.heading)}</ModalHeading>
+      {/* <ModalHeading>{localizeText(copy.heading)}</ModalHeading> */}
+      <ModalHeadingBlock />
       <Graphic>
         <LogoGroup>
           <Logo>
@@ -44,7 +46,9 @@ const Introduction: React.FC = () => {
               <LogoInner>
                 <FloatWrapper>
                   <RotateWrapper>
-                    <LogoGraphic>{logos.Coinbase}</LogoGraphic>
+                    <LogoGraphic>
+                      <Logos.Coinbase background />
+                    </LogoGraphic>
                   </RotateWrapper>
                 </FloatWrapper>
               </LogoInner>
@@ -55,7 +59,9 @@ const Introduction: React.FC = () => {
               <LogoInner>
                 <FloatWrapper>
                   <RotateWrapper>
-                    <LogoGraphic>{logos.MetaMask}</LogoGraphic>
+                    <LogoGraphic>
+                      <Logos.MetaMask background />
+                    </LogoGraphic>
                   </RotateWrapper>
                 </FloatWrapper>
               </LogoInner>
@@ -66,7 +72,9 @@ const Introduction: React.FC = () => {
               <LogoInner>
                 <FloatWrapper>
                   <RotateWrapper>
-                    <LogoGraphic>{logos.Trust}</LogoGraphic>
+                    <LogoGraphic>
+                      <Logos.Trust />
+                    </LogoGraphic>
                   </RotateWrapper>
                 </FloatWrapper>
               </LogoInner>
@@ -77,7 +85,9 @@ const Introduction: React.FC = () => {
               <LogoInner>
                 <FloatWrapper>
                   <RotateWrapper>
-                    <LogoGraphic>{logos.Argent}</LogoGraphic>
+                    <LogoGraphic>
+                      <Logos.Argent />
+                    </LogoGraphic>
                   </RotateWrapper>
                 </FloatWrapper>
               </LogoInner>
@@ -88,7 +98,9 @@ const Introduction: React.FC = () => {
               <LogoInner>
                 <FloatWrapper>
                   <RotateWrapper>
-                    <LogoGraphic>{logos.imToken}</LogoGraphic>
+                    <LogoGraphic>
+                      <Logos.ImToken />
+                    </LogoGraphic>
                   </RotateWrapper>
                 </FloatWrapper>
               </LogoInner>
@@ -105,8 +117,8 @@ const Introduction: React.FC = () => {
           {wave}
         </GraphicBackground>
       </Graphic>
-      <ModalContent style={{ paddingBottom: 24 }}>
-        <ModalH1>{localizeText(copy.h1)}</ModalH1>
+      <ModalContent style={{ paddingBottom: 10 }}>
+        <ModalH1 $small>{localizeText(copy.h1)}</ModalH1>
         <ModalBody>{localizeText(copy.p)}</ModalBody>
       </ModalContent>
       <Button href={copy.ctaUrl} arrow>

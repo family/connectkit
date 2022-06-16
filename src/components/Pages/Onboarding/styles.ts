@@ -1,21 +1,19 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
-import { isMobile } from '../../../utils';
-
-const mobile = isMobile();
+import defaultTheme from '../../../constants/defaultTheme';
 
 export const Graphic = styled(motion.div)`
   position: relative;
-  margin: 0px auto 16px;
+  margin: 16px auto 30px;
   height: 190px;
   max-width: 295px;
   pointer-events: none;
   user-select: none;
-  ${(props) =>
-    mobile &&
-    css`
-      height: 214px;
-    `}
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    height: 200px;
+    max-width: 100%;
+    margin-bottom: 36px;
+  }
 `;
 export const LogoGroup = styled(motion.div)`
   position: absolute;

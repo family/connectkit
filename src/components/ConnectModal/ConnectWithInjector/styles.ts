@@ -11,8 +11,8 @@ export const Content = styled(motion.div)`
   left: 0;
   right: 0;
   ${ModalContent} {
-    padding: 0 8px 38px;
-    gap: 6px;
+    padding: 0 8px 32px;
+    gap: 12px;
   }
 `;
 
@@ -37,12 +37,13 @@ export const ConnectingContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 40px auto 16px;
+  margin: 18px auto 16px;
   height: 120px;
   //transform: scale(1.001); // fixes shifting issue between states
 `;
 export const ConnectingAnimation = styled(motion.div)<{
   $shake: boolean | undefined;
+  $circle: boolean | undefined;
 }>`
   user-select: none;
   position: relative;
@@ -50,9 +51,16 @@ export const ConnectingAnimation = styled(motion.div)<{
   &:before {
     content: '';
     position: absolute;
-    inset: 1px;
+    inset: -5px;
     opacity: 0;
     background: var(--body-color-danger);
+    ${(props) =>
+      props.$circle &&
+      css`
+        border-radius: 50%;
+        background: none;
+        box-shadow: inset 0 0 0 3.5px var(--body-color-danger);
+      `}
   }
   ${(props) =>
     props.$shake &&
@@ -62,33 +70,6 @@ export const ConnectingAnimation = styled(motion.div)<{
         animation: ${outlineKeyframes} 220ms ease-out 750ms both;
       }
     `}
-`;
-
-export const LogoContainer = styled(motion.div)`
-  z-index: 4;
-  position: relative;
-  overflow: hidden;
-  //background: var(--body-background-secondary);
-  svg {
-    z-index: 3;
-    position: relative;
-    display: block;
-  }
-`;
-export const Logo = styled(motion.div)`
-  z-index: 2;
-  position: absolute;
-  overflow: hidden;
-  inset: 6px;
-  border-radius: 18px;
-  background: var(--body-background-secondary);
-  svg,
-  img {
-    pointer-events: none;
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 export const RetryButton = styled(motion.button)`
@@ -108,12 +89,12 @@ export const RetryButton = styled(motion.button)`
   overflow: hidden;
   background: none;
 
-  color: var(--body-background-secondary);
+  color: var(--body-background);
   transition: color 200ms ease;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 
   &:hover {
-    color: var(--body-background-secondary-hover);
+    color: var(--body-background-secondary);
   }
 `;
 export const RetryIconContainer = styled(motion.div)`
@@ -139,88 +120,5 @@ export const RetryIconContainer = styled(motion.div)`
     position: relative;
     width: 100%;
     height: 100%;
-  }
-`;
-export const SpinnerContainer = styled(motion.div)`
-  position: absolute;
-  inset: 1px;
-  overflow: hidden;
-`;
-export const ExpiringSpinner = styled(motion.div)`
-  pointer-events: none;
-  user-select: none;
-  z-index: 1;
-  position: absolute;
-  inset: -25%;
-  background: var(--body-background-secondary);
-  div:first-child {
-    position: absolute;
-    left: 50%;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    overflow: hidden;
-    &:before {
-      position: absolute;
-      content: '';
-      inset: 0;
-      background: var(--spinner-color);
-      transform-origin: 0% 50%;
-      animation: rotateExpiringSpinner 5000ms ease-in both;
-    }
-  }
-  div:last-child {
-    position: absolute;
-    left: 0;
-    right: 50%;
-    top: 0;
-    bottom: 0;
-    overflow: hidden;
-    &:before {
-      position: absolute;
-      content: '';
-      inset: 0;
-      background: var(--spinner-color);
-      transform-origin: 100% 50%;
-      animation: rotateExpiringSpinner 5000ms ease-out 5000ms both;
-    }
-  }
-  @keyframes rotateExpiringSpinner {
-    0% {
-      transform: rotate(-180deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-`;
-export const Spinner = styled(motion.div)`
-  pointer-events: none;
-  user-select: none;
-  z-index: 1;
-  position: absolute;
-  inset: -25%;
-  &:before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: conic-gradient(
-      from -90deg,
-      transparent,
-      transparent,
-      transparent,
-      transparent,
-      transparent,
-      var(--spinner-color)
-    );
-    animation: rotateSpinner 1200ms linear infinite;
-  }
-  @keyframes rotateSpinner {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
   }
 `;

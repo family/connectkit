@@ -14,6 +14,8 @@ import { ResetContainer } from '../../styles';
 
 import styled, { css } from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
+import Tooltip from '../Common/Tooltip';
+import defaultTheme from '../../constants/defaultTheme';
 
 const Container = styled(motion.div)``;
 
@@ -70,6 +72,7 @@ const SwitchChainButton = styled(motion.button)`
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease;
   transform: translateZ(0px);
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.05);
   svg {
     position: relative;
     display: block;
@@ -79,9 +82,9 @@ const SwitchChainButton = styled(motion.button)`
     props.disabled
       ? css`
           width: auto;
-          padding: 2px;
+          padding: 3px;
           position: relative;
-          left: -10px;
+          left: -22px;
         `
       : css`
           cursor: pointer;
@@ -147,7 +150,7 @@ const ChainSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { activeChain, chains } = useNetwork();
 
-  const mobile = isMobile();
+  const mobile = isMobile() || window?.innerWidth < defaultTheme.mobileWidth;
 
   const targetRef = useRef<any>(null);
   const [ref, bounds] = useMeasure({
@@ -169,14 +172,43 @@ const ChainSelector: React.FC = () => {
         0
     )
       return;
-    const x = -12 + bounds.left;
-    const y = 10 + bounds.top + bounds.height;
+    const x = -11 + bounds.left;
+    const y = 8 + bounds.top + bounds.height;
     targetRef.current.style.left = `${x}px`;
     targetRef.current.style.top = `${y}px`;
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, isOpen]);
 
   const disabled = chains.length <= 1;
+  const ChainSelectorButton = (
+    <ChainIcon
+      $empty={chains.filter((x) => x.id === activeChain?.id).length === 0}
+    >
+      <AnimatePresence initial={false}>
+        {chains
+          .filter((x) => x.id === activeChain?.id)
+          .map((x, i) => {
+            const chain = supportedChains.filter((c) => c.id === x.id)[0];
+            return (
+              <motion.div
+                key={chain.id}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {chain.logo}
+              </motion.div>
+            );
+          })}
+      </AnimatePresence>
+    </ChainIcon>
+  );
+
   return (
     <>
       <Container>
@@ -192,38 +224,19 @@ const ChainSelector: React.FC = () => {
             }
           }}
         >
-          <ChainIcon
-            $empty={chains.filter((x) => x.id === activeChain?.id).length === 0}
-          >
-            <AnimatePresence initial={false}>
-              {chains
-                .filter((x) => x.id === activeChain?.id)
-                .map((x, i) => {
-                  const chain = supportedChains.filter((c) => c.id === x.id)[0];
-                  return (
-                    <motion.div
-                      key={chain.id}
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                      }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {chain.logo}
-                    </motion.div>
-                  );
-                })}
-            </AnimatePresence>
-          </ChainIcon>
+          {disabled ? (
+            <Tooltip message={`${activeChain?.name} Network`} xOffset={-6}>
+              {ChainSelectorButton}
+            </Tooltip>
+          ) : (
+            ChainSelectorButton
+          )}
           {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
         </SwitchChainButton>
       </Container>
       <Portal>
         <AnimatePresence>
-          {context.open && isOpen && (
+          {!mobile && context.open && isOpen && (
             <ResetContainer
               theme={context.theme}
               customTheme={context.customTheme}

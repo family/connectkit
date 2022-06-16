@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const Sections = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 22px;
+  padding-top: 8px;
 `;
 export const Section = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import logos from './logos';
+import Logos from './logos';
 
 const IconContainer = styled(motion.div)`
   position: relative;
@@ -21,12 +21,12 @@ const IconContainer = styled(motion.div)`
 
 const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
   const logoList = [
-    logos.MetaMask,
-    logos.Coinbase,
-    logos.Coinbase,
-    logos.Argent,
-    logos.WalletConnect,
-    logos.imToken,
+    <Logos.MetaMask background />,
+    <Logos.Coinbase background />,
+    <Logos.Crypto background />,
+    <Logos.ImToken />,
+    <Logos.Argent />,
+    <Logos.Trust />,
   ];
   return (
     <IconContainer>

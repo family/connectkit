@@ -52,5 +52,4 @@ export const TooltipTail = styled(motion.div)<{ $size: TooltipSizeProps }>`
   margin: 0 !important;
   top: 50%;
   transform: translate(75%, -50%) rotate(-45deg);
-  //box-shadow: var(--shadow);
 `;

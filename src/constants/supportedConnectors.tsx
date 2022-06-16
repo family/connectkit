@@ -6,12 +6,22 @@
  *
  */
 
-import logos from './../assets/logos';
+import { ReactNode } from 'react';
+import Logos from './../assets/logos';
+
 let supportedConnectors: {
   id: string;
-  name: string;
-  logo: any;
-  scannable: boolean;
+  name?: string;
+  shortName?: string;
+  logos: {
+    default: ReactNode;
+    transparent?: ReactNode;
+    connectorButton?: ReactNode;
+    qrCode?: ReactNode;
+    appIcon?: ReactNode;
+  };
+  logoBackground?: string;
+  scannable?: boolean;
   extensions?: { [key: string]: string };
   appUrls?: { [key: string]: string };
   extensionIsInstalled?: () => any;
@@ -25,25 +35,41 @@ if (typeof window != 'undefined') {
     [index: string]: string;
   }
 
-  // TODO: Define types
   supportedConnectors = [
     {
       id: 'injected',
-      name: 'Injected',
-      logo: logos.Injected,
+      name: 'Browser Wallet',
+      shortName: 'browser',
+      logos: { default: <Logos.Injected /> },
       scannable: false,
+      extensionIsInstalled: () => {
+        return Boolean(ethereum);
+      },
     },
     {
       id: 'walletConnect',
-      name: 'WalletConnect',
-      logo: logos.WalletConnect,
+      name: 'Other Wallets',
+      logos: {
+        default: <Logos.WalletConnect />,
+        transparent: <Logos.WalletConnect background={false} />,
+        connectorButton: <Logos.OtherWallets />,
+        qrCode: <Logos.WalletConnect background={true} />,
+      },
+      logoBackground: 'var(--brand-walletConnect)',
       scannable: true,
       defaultConnect: () => {},
     },
     {
       id: 'metaMask',
       name: 'MetaMask',
-      logo: logos.MetaMask,
+      logos: {
+        default: <Logos.MetaMask background />,
+        transparent: <Logos.MetaMask background={false} />,
+        connectorButton: <Logos.MetaMask background={false} />,
+        appIcon: <Logos.MetaMask />,
+      },
+      logoBackground:
+        'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))',
       scannable: false,
       // defaultConnect:  () => {},
       extensions: {
@@ -68,7 +94,15 @@ if (typeof window != 'undefined') {
     {
       id: 'coinbaseWallet',
       name: 'Coinbase Wallet',
-      logo: logos.Coinbase,
+      shortName: 'Coinbase',
+      logos: {
+        default: <Logos.Coinbase />,
+        transparent: <Logos.Coinbase background={false} />,
+        appIcon: <Logos.Coinbase background={false} />,
+        connectorButton: <Logos.Coinbase background={true} />,
+        qrCode: <Logos.Coinbase background={true} />,
+      },
+      logoBackground: 'var(--brand-coinbaseWallet)',
       scannable: true,
       //defaultConnect: () => {},
       extensions: {
