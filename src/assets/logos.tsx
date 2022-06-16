@@ -461,8 +461,8 @@ export const Rainbow = ({ ...props }) => (
         y2="120"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#174299" />
-        <stop offset="1" stop-color="#001E59" />
+        <stop stopColor="#174299" />
+        <stop offset="1" stopColor="#001E59" />
       </linearGradient>
       <radialGradient
         id="paint1_radial_62_329"
@@ -472,8 +472,8 @@ export const Rainbow = ({ ...props }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(26 94) rotate(-90) scale(74)"
       >
-        <stop offset="0.770277" stop-color="#FF4000" />
-        <stop offset="1" stop-color="#8754C9" />
+        <stop offset="0.770277" stopColor="#FF4000" />
+        <stop offset="1" stopColor="#8754C9" />
       </radialGradient>
       <linearGradient
         id="paint2_linear_62_329"
@@ -483,8 +483,8 @@ export const Rainbow = ({ ...props }) => (
         y2="97"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#FF4000" />
-        <stop offset="1" stop-color="#8754C9" />
+        <stop stopColor="#FF4000" />
+        <stop offset="1" stopColor="#8754C9" />
       </linearGradient>
       <linearGradient
         id="paint3_linear_62_329"
@@ -494,8 +494,8 @@ export const Rainbow = ({ ...props }) => (
         y2="37"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#8754C9" />
-        <stop offset="1" stop-color="#FF4000" />
+        <stop stopColor="#8754C9" />
+        <stop offset="1" stopColor="#FF4000" />
       </linearGradient>
       <radialGradient
         id="paint4_radial_62_329"
@@ -505,8 +505,8 @@ export const Rainbow = ({ ...props }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(26 94) rotate(-90) scale(58)"
       >
-        <stop offset="0.723929" stop-color="#FFF700" />
-        <stop offset="1" stop-color="#FF9901" />
+        <stop offset="0.723929" stopColor="#FFF700" />
+        <stop offset="1" stopColor="#FF9901" />
       </radialGradient>
       <linearGradient
         id="paint5_linear_62_329"
@@ -516,8 +516,8 @@ export const Rainbow = ({ ...props }) => (
         y2="97"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#FFF700" />
-        <stop offset="1" stop-color="#FF9901" />
+        <stop stopColor="#FFF700" />
+        <stop offset="1" stopColor="#FF9901" />
       </linearGradient>
       <linearGradient
         id="paint6_linear_62_329"
@@ -527,8 +527,8 @@ export const Rainbow = ({ ...props }) => (
         y2="36"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#FFF700" />
-        <stop offset="1" stop-color="#FF9901" />
+        <stop stopColor="#FFF700" />
+        <stop offset="1" stopColor="#FF9901" />
       </linearGradient>
       <radialGradient
         id="paint7_radial_62_329"
@@ -538,8 +538,8 @@ export const Rainbow = ({ ...props }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(26 94) rotate(-90) scale(42)"
       >
-        <stop offset="0.59513" stop-color="#00AAFF" />
-        <stop offset="1" stop-color="#01DA40" />
+        <stop offset="0.59513" stopColor="#00AAFF" />
+        <stop offset="1" stopColor="#01DA40" />
       </radialGradient>
       <radialGradient
         id="paint8_radial_62_329"
@@ -549,8 +549,8 @@ export const Rainbow = ({ ...props }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(51 97) scale(17 45.3333)"
       >
-        <stop stop-color="#00AAFF" />
-        <stop offset="1" stop-color="#01DA40" />
+        <stop stopColor="#00AAFF" />
+        <stop offset="1" stopColor="#01DA40" />
       </radialGradient>
       <radialGradient
         id="paint9_radial_62_329"
@@ -560,8 +560,8 @@ export const Rainbow = ({ ...props }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(23 69) rotate(-90) scale(17 322.37)"
       >
-        <stop stop-color="#00AAFF" />
-        <stop offset="1" stop-color="#01DA40" />
+        <stop stopColor="#00AAFF" />
+        <stop offset="1" stopColor="#01DA40" />
       </radialGradient>
     </defs>
   </svg>
@@ -577,12 +577,12 @@ export const Brave = ({ ...props }) => (
     style={{ background: 'white' }}
   >
     <linearGradient id="braveA" y1="51%" y2="51%">
-      <stop offset=".4" stop-color="#f50" />
-      <stop offset=".6" stop-color="#ff2000" />
+      <stop offset=".4" stopColor="#f50" />
+      <stop offset=".6" stopColor="#ff2000" />
     </linearGradient>
     <linearGradient id="braveB" x1="2%" y1="51%" y2="51%">
-      <stop offset="0" stop-color="#ff452a" />
-      <stop offset="1" stop-color="#ff2000" />
+      <stop offset="0" stopColor="#ff452a" />
+      <stop offset="1" stopColor="#ff2000" />
     </linearGradient>
     <path
       fill="url(#braveA)"
@@ -642,8 +642,8 @@ export const Crypto = ({ ...props }) => (
         y2="80"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#010935" />
-        <stop offset="1" stop-color="#142C70" />
+        <stop stopColor="#010935" />
+        <stop offset="1" stopColor="#142C70" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_2091_4394"
@@ -653,8 +653,8 @@ export const Crypto = ({ ...props }) => (
         y2="152"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#010935" />
-        <stop offset="1" stop-color="#142C70" />
+        <stop stopColor="#010935" />
+        <stop offset="1" stopColor="#142C70" />
       </linearGradient>
     </defs>
   </svg>

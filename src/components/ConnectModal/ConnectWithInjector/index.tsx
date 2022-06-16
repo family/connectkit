@@ -329,7 +329,13 @@ const ConnectWithInjector: React.FC<{
               xOffset={-2}
             >
               <CircleSpinner
-                logo={connector.logos.transparent ?? connector.logos.default}
+                logo={
+                  status === states.UNAVAILABLE
+                    ? connector.logos.connectorButton ?? // Design requires a slightly larger logo for a state where no spinner will ever be shown
+                      connector.logos.transparent ??
+                      connector.logos.default
+                    : connector.logos.transparent ?? connector.logos.default
+                }
                 smallLogo={connector.id === 'injected'}
                 connecting={status === states.CONNECTING}
                 countdown={status === states.EXPIRING}
@@ -405,7 +411,7 @@ const ConnectWithInjector: React.FC<{
                 exit={'exit'}
                 variants={contentVariants}
               >
-                <ModalContent>
+                <ModalContent style={{ paddingBottom: 28 }}>
                   <ModalH1>
                     {localizeText(
                       connector.id === 'injected'
@@ -463,7 +469,7 @@ const ConnectWithInjector: React.FC<{
               >
                 {!extensionUrl ? (
                   <>
-                    <ModalContent style={{ paddingBottom: 18 }}>
+                    <ModalContent style={{ paddingBottom: 12 }}>
                       <ModalH1>{localizeText(copy.unavailable.h1)}</ModalH1>
                       <ModalBody>{localizeText(copy.unavailable.p)}</ModalBody>
                     </ModalContent>

@@ -102,7 +102,7 @@ export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
   justify-content: center;
   max-width: 20px;
   max-height: 20px;
-  margin-right: 8px;
+  margin-right: 10px;
   ${(props) => {
     return (
       props.$rounded &&

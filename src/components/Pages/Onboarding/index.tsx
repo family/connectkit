@@ -117,7 +117,7 @@ const Introduction: React.FC = () => {
           {wave}
         </GraphicBackground>
       </Graphic>
-      <ModalContent style={{ paddingBottom: 10 }}>
+      <ModalContent style={{ paddingBottom: 18 }}>
         <ModalH1 $small>{localizeText(copy.h1)}</ModalH1>
         <ModalBody>{localizeText(copy.p)}</ModalBody>
       </ModalContent>

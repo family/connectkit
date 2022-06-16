@@ -17,7 +17,7 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
   display: flex;
   gap: 8px;
   width: fit-content;
-  max-width: 268px;
+  max-width: 258px;
   align-items: center;
   justify-content: center;
   border-radius: ${(props) => (props.$size === 'small' ? 11 : 14)}px;

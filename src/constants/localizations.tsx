@@ -96,7 +96,7 @@ export default {
       },
       connecting: {
         h1: `Requesting Connection`,
-        p: `Open the ${keys.connectorName} browser extension to connect your wallet.`,
+        p: `Open the ${keys.connectorShortName} browser \nextension to connect your wallet.`,
         injected_h1: `Requesting Connection`,
         injected_p: `Accept the request through your wallet to connect to this app.`,
       },

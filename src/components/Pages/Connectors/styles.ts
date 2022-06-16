@@ -10,6 +10,7 @@ export const InfoBox = styled.div`
 `;
 export const LearnMoreContainer = styled(motion.div)`
   text-align: center;
+  margin-bottom: -6px;
 `;
 export const LearnMoreButton = styled(motion.button)`
   appearance: none;
@@ -32,8 +33,8 @@ export const LearnMoreButton = styled(motion.button)`
   svg {
     display: block;
     position: relative;
-    top: 2.5px;
-    left: 2px;
+    top: 1px;
+    left: 1px;
     path,
     circle {
       transition: all 100ms ease-out;
@@ -75,7 +76,7 @@ export const ConnectorButton = styled(motion.button)`
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 22px;
+  padding: 0 24px;
   width: 100%;
   height: 64px;
   font-size: 17px;

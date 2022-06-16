@@ -177,7 +177,7 @@ const ConnectWithQRCode: React.FC<{
         {connector.defaultConnect ? (
           <OrDivider />
         ) : (
-          hasApps && <OrDivider text="Don't have the app?" />
+          hasApps && <OrDivider text="Don’t have the app?" />
         )}
       </ModalContent>
 

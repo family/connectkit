@@ -4,7 +4,7 @@ import defaultTheme from '../../../constants/defaultTheme';
 
 export const Graphic = styled(motion.div)`
   position: relative;
-  margin: 16px auto 30px;
+  margin: 16px auto 20px;
   height: 190px;
   max-width: 295px;
   pointer-events: none;

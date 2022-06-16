@@ -27,7 +27,7 @@ export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
     position: absolute;
     left: 100%;
     display: block;
-    top: 1px;
+    top: -1px;
     margin: 0;
     margin-left: 4px;
   }

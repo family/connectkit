@@ -52,7 +52,8 @@ const DropdownHeading = styled(motion.div)`
 `;
 
 const SwitchChainButton = styled(motion.button)`
-  --background: var(--body-background-secondary);
+  --background: var(--body-background);
+  --shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05);
   appearance: none;
   user-select: none;
   position: relative;
@@ -72,7 +73,7 @@ const SwitchChainButton = styled(motion.button)`
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease;
   transform: translateZ(0px);
-  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
   svg {
     position: relative;
     display: block;
@@ -172,8 +173,8 @@ const ChainSelector: React.FC = () => {
         0
     )
       return;
-    const x = -11 + bounds.left;
-    const y = 8 + bounds.top + bounds.height;
+    const x = -12 + bounds.left;
+    const y = 9 + bounds.top + bounds.height;
     targetRef.current.style.left = `${x}px`;
     targetRef.current.style.top = `${y}px`;
   };

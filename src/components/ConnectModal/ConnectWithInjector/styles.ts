@@ -37,7 +37,7 @@ export const ConnectingContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 18px auto 16px;
+  margin: 10px auto 16px;
   height: 120px;
   //transform: scale(1.001); // fixes shifting issue between states
 `;
@@ -76,8 +76,8 @@ export const RetryButton = styled(motion.button)`
   z-index: 5;
   appearance: none;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 2px;
+  bottom: 2px;
   padding: 0;
   display: flex;
   align-items: center;

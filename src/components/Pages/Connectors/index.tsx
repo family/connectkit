@@ -104,7 +104,7 @@ const Wallets: React.FC = () => {
   useEffect(() => {}, [mobile]);
 
   return (
-    <PageContent style={{ width: 320 }}>
+    <PageContent style={{ width: 312 }}>
       {/* <ModalHeading>{copy.heading}</ModalHeading> */}
       <ModalHeadingBlock />
       {mobile ? (

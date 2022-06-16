@@ -95,7 +95,7 @@ const Profile: React.FC = () => {
     <PageContent>
       {/* <ModalHeading>{copy.heading}</ModalHeading> */}
       <ModalHeadingBlock />
-      <ModalContent style={{ paddingBottom: 22, gap: 8 }}>
+      <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
         <AvatarContainer>
           <AvatarInner>
             <ChainSelectorContainer>

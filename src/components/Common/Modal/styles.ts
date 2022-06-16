@@ -61,7 +61,7 @@ export const TextWithHr = styled(motion.div)`
     left: 0;
     right: 0;
     height: 1px;
-    transform: translateY(1px);
+    transform: translateY(-1px);
     background: var(--body-divider);
   }
 `;
@@ -76,7 +76,7 @@ export const ModalHeading = styled(motion.div)`
 `;
 
 export const ModalHeadingBlock = styled(motion.div)`
-  height: 52px;
+  height: 48px;
 `;
 
 export const ModalContentContainer = styled(motion.div)`
@@ -193,10 +193,9 @@ export const BoxContainer = styled(motion.div)`
     backface-visibility: hidden;
     width: var(--width);
     height: var(--height);
-    border-radius: calc(var(--border-radius, 20px) * 1px);
     background: var(--body-background);
     transition: all 0.2s ease;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius, 20px);
   }
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {

@@ -64,7 +64,17 @@ if (typeof window != 'undefined') {
       name: 'MetaMask',
       logos: {
         default: <Logos.MetaMask background />,
-        transparent: <Logos.MetaMask background={false} />,
+        transparent: (
+          <div
+            style={{
+              transform: 'scale(0.86)',
+              position: 'relative',
+              width: '100%',
+            }}
+          >
+            <Logos.MetaMask background={false} />
+          </div>
+        ),
         connectorButton: <Logos.MetaMask background={false} />,
         appIcon: <Logos.MetaMask />,
       },
