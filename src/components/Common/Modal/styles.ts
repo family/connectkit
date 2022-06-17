@@ -66,13 +66,18 @@ export const TextWithHr = styled(motion.div)`
   }
 `;
 export const ModalHeading = styled(motion.div)`
+  z-index: 3;
+  pointer-events: none;
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--width);
   text-align: center;
   font-size: 17px;
   line-height: 20px;
   font-weight: 600;
   color: var(--body-color);
-  padding: 0 0 20px;
-  margin: 0 -24px 8px;
 `;
 
 export const ModalHeadingBlock = styled(motion.div)`
@@ -407,7 +412,7 @@ export const Container = styled(motion.div)`
       width: 100% !important;
     }
     ${ModalHeading} {
-      margin: 0 0 20px;
+      top: 36px;
     }
     ${ModalContent} {
       gap: 12px;
@@ -426,8 +431,7 @@ export const Container = styled(motion.div)`
       border-bottom: 0;
     }
     ${CloseButton} {
-      top: 18px;
-      right: 22px;
+      right: 19px;
     }
     ${BackButton} {
       left: 17px;

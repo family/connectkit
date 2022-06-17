@@ -82,7 +82,7 @@ const ChainLogoSpinner = styled(motion.div)`
 const ChainButtons = styled(motion.div)`
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     padding: 0 6px;
-    margin: -12px -2px;
+    margin: 2px -2px 0;
   }
 `;
 const ChainButton = styled(motion.button)`

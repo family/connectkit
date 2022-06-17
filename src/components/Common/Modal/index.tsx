@@ -336,18 +336,7 @@ const Modal: React.FC<ModalProps> = ({
               </AnimatePresence>
             </ControllerContainer>
 
-            <ModalHeading
-              style={{
-                pointerEvents: 'none',
-                position: 'absolute',
-                top: 28,
-                left: '50%',
-                x: '-50%',
-                width: 'var(--width)',
-                margin: 0,
-                zIndex: 3,
-              }}
-            >
+            <ModalHeading>
               <AnimatePresence>
                 <motion.div
                   style={{

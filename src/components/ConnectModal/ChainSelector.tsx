@@ -52,7 +52,7 @@ const DropdownHeading = styled(motion.div)`
 `;
 
 const SwitchChainButton = styled(motion.button)`
-  --background: var(--body-background);
+  --background: var(--tooltip-background-secondary);
   --shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05);
   appearance: none;
   user-select: none;

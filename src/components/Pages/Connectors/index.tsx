@@ -27,6 +27,7 @@ import {
   MobileConnectorLabel,
   MobileConnectorIcon,
   InfoBox,
+  InfoBoxButtons,
 } from './styles';
 
 import { isMobile, isAndroid } from '../../../utils';
@@ -113,84 +114,84 @@ const Wallets: React.FC = () => {
       <ModalHeadingBlock />
       {mobile ? (
         <>
+          <MobileConnectorsContainer>
+            {connectors.map((connector) => {
+              const info = supportedConnectors.filter(
+                (c) => c.id === connector.id
+              )[0];
+              if (!info) return null;
+              return (
+                <MobileConnectorButton
+                  key={`m-${connector.id}`}
+                  //disabled={!connector.ready}
+                  onClick={() => openDefaultConnect(connector.id)}
+                >
+                  <MobileConnectorIcon>
+                    {info.logos.mobile ??
+                      info.logos.appIcon ??
+                      info.logos.connectorButton}
+                  </MobileConnectorIcon>
+                  <MobileConnectorLabel>
+                    {info.name ?? connector.name}
+                  </MobileConnectorLabel>
+                </MobileConnectorButton>
+              );
+            })}
+          </MobileConnectorsContainer>
           <InfoBox>
-            <ModalContent style={{ padding: 0 }}>
+            <ModalContent style={{ padding: 0, textAlign: 'left' }}>
               <ModalH1 $small>{copy.h1}</ModalH1>
               <ModalBody>{copy.p}</ModalBody>
             </ModalContent>
+            <InfoBoxButtons>
+              <Button onClick={() => context.setRoute(routes.ONBOARDING)}>
+                Learn More
+              </Button>
+              <Button onClick={() => context.setRoute(routes.ONBOARDING)}>
+                Get a Wallet
+              </Button>
+            </InfoBoxButtons>
           </InfoBox>
-          <MobileConnectorsContainer>
-            {connectors
-              .slice(0)
-              .reverse()
-              .map((connector) => {
-                const info = supportedConnectors.filter(
-                  (c) => c.id === connector.id
-                )[0];
-                if (!info) return null;
-                return (
-                  <MobileConnectorButton
-                    key={`m-${connector.id}`}
-                    disabled={!connector.ready}
-                    onClick={() => openDefaultConnect(connector.id)}
-                  >
-                    <MobileConnectorIcon>
-                      {info.logos.mobile ??
-                        info.logos.appIcon ??
-                        info.logos.connectorButton}
-                    </MobileConnectorIcon>
-                    <MobileConnectorLabel>
-                      {info.name ?? connector.name}
-                    </MobileConnectorLabel>
-                  </MobileConnectorButton>
-                );
-              })}
-          </MobileConnectorsContainer>
         </>
       ) : (
-        <ConnectorsContainer>
-          {connectors.map((connector) => {
-            const info = supportedConnectors.filter(
-              (c) => c.id === connector.id
-            )[0];
-            if (!info) return null;
-            let logo = info.logos.connectorButton ?? info.logos.default;
-            if (info.extensionIsInstalled && info.logos.appIcon) {
-              if (info.extensionIsInstalled()) {
-                logo = info.logos.appIcon;
+        <>
+          <ConnectorsContainer>
+            {connectors.map((connector) => {
+              const info = supportedConnectors.filter(
+                (c) => c.id === connector.id
+              )[0];
+              if (!info) return null;
+              let logo = info.logos.connectorButton ?? info.logos.default;
+              if (info.extensionIsInstalled && info.logos.appIcon) {
+                if (info.extensionIsInstalled()) {
+                  logo = info.logos.appIcon;
+                }
               }
-            }
-            return (
-              <ConnectorButton
-                key={connector.id}
-                disabled={context.route !== routes.CONNECTORS}
-                onClick={() => {
-                  context.setRoute(routes.CONNECT);
-                  context.setConnector(connector.id);
-                }}
-              >
-                <ConnectorIcon>{logo}</ConnectorIcon>
-                <ConnectorLabel>{info.name ?? connector.name}</ConnectorLabel>
-              </ConnectorButton>
-            );
-          })}
-        </ConnectorsContainer>
-      )}
+              return (
+                <ConnectorButton
+                  key={connector.id}
+                  disabled={context.route !== routes.CONNECTORS}
+                  onClick={() => {
+                    context.setRoute(routes.CONNECT);
+                    context.setConnector(connector.id);
+                  }}
+                >
+                  <ConnectorIcon>{logo}</ConnectorIcon>
+                  <ConnectorLabel>{info.name ?? connector.name}</ConnectorLabel>
+                </ConnectorButton>
+              );
+            })}
+          </ConnectorsContainer>
 
-      <LearnMoreContainer>
-        {mobile ? (
-          <Button
-            icon={<WalletIcon />}
-            onClick={() => context.setRoute(routes.ONBOARDING)}
-          >
-            {copy.newcomer}
-          </Button>
-        ) : (
-          <LearnMoreButton onClick={() => context.setRoute(routes.ONBOARDING)}>
-            <WalletIcon /> {copy.newcomer}
-          </LearnMoreButton>
-        )}
-      </LearnMoreContainer>
+          <LearnMoreContainer>
+            <LearnMoreButton
+              onClick={() => context.setRoute(routes.ONBOARDING)}
+            >
+              <WalletIcon /> {copy.newcomer}
+            </LearnMoreButton>
+          </LearnMoreContainer>
+        </>
+      )}
     </PageContent>
   );
 };

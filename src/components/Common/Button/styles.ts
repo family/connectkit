@@ -43,7 +43,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   justify-content: center;
   height: 48px;
   margin: 12px 0 0;
-  padding: 0 32px;
+  padding: 0 4px;
   font-size: 16px;
   line-height: 19px;
   font-weight: 500;

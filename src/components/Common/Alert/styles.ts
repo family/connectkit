@@ -14,13 +14,11 @@ export const AlertContainer = styled(motion.div)`
   color: var(--body-color-muted);
   background: var(--tooltip-background-secondary);
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    padding: 16px 20px;
+    padding: 16px 32px;
     font-size: 16px;
-    line-height: 22px;
-    margin: -16px 0 12px;
-    border-radius: 12px;
+    line-height: 21px;
+    margin: 0 4px -2px;
+    border-radius: 24px;
     text-align: center;
-    background: none;
-    box-shadow: 0 0 0 1px var(--body-divider);
   }
 `;

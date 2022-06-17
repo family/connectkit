@@ -4,9 +4,6 @@ import defaultTheme from '../../../constants/defaultTheme';
 
 export const AvatarContainer = styled(motion.div)`
   padding: 18px 0 20px;
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    padding: 6px 0 14px;
-  }
 `;
 export const AvatarInner = styled(motion.div)`
   position: relative;

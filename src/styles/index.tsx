@@ -83,7 +83,7 @@ const themeColors = {
     '--copytoclipboard-stroke': '#CCCCCC',
 
     '--tooltip-background': '#ffffff',
-    '--tooltip-background-secondary': '#f6f7f9',
+    '--tooltip-background-secondary': '#ffffff',
     '--tooltip-color': '#999999',
 
     '--spinner-color': 'var(--focus-color)',

@@ -1,10 +1,13 @@
 import styled from 'styled-components';
+import defaultTheme from '../../../constants/defaultTheme';
 
 export const Sections = styled.div`
   display: flex;
   flex-direction: column;
   gap: 22px;
   padding-top: 4px;
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    padding:18px 6px 0;
 `;
 export const Section = styled.div`
   display: flex;

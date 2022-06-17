@@ -2,11 +2,17 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const InfoBox = styled.div`
-  margin: -9px auto 32px;
-  border-radius: 16px;
-  text-align: center;
-  padding: 20px 28px 16px;
-  box-shadow: 0 0 0 1px var(--body-divider);
+  border-radius: 24px;
+  padding: 24px 24px;
+  background: var(--body-background-secondary);
+`;
+export const InfoBoxButtons = styled.div`
+  display: flex;
+  gap: 16px;
+  margin: 5px -8px -12px;
+  button {
+    background: var(--body-background);
+  }
 `;
 export const LearnMoreContainer = styled(motion.div)`
   text-align: center;
@@ -152,7 +158,7 @@ export const MobileConnectorsContainer = styled(motion.div)`
   flex-direction: row;
   align-items: flex-start;
   gap: 12px;
-  padding: 0 24px 16px;
+  padding: 14px 24px 28px;
   margin: 0 -24px;
 `;
 
@@ -197,7 +203,6 @@ export const MobileConnectorIcon = styled(motion.div)`
   width: 60px;
   height: 60px;
   overflow: hidden;
-  border-radius: 16px;
   svg {
     border-radius: inherit;
     display: block;
