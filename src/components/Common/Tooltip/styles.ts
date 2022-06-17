@@ -44,7 +44,6 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
     vertical-align: text-bottom;
     height: 1em;
     width: 1.25em;
-    overflow: hidden;
     svg {
       display: block;
       height: 100%;
