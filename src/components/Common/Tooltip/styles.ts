@@ -38,6 +38,19 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
   strong {
     color: var(--spinner-color);
   }
+
+  .ck-tt-logo {
+    display: inline-block;
+    vertical-align: text-bottom;
+    height: 1em;
+    width: 1.25em;
+    overflow: hidden;
+    svg {
+      display: block;
+      height: 100%;
+      transform: translate(0.5px, -1px) scale(1.75);
+    }
+  }
 `;
 
 export const TooltipTail = styled(motion.div)<{ $size: TooltipSizeProps }>`

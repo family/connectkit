@@ -1,4 +1,5 @@
 import React from 'react';
+import Logos from '../assets/logos';
 
 export const localize = (text: string, replacements?: any[string]) => {
   let parsedText: string = text;
@@ -15,11 +16,27 @@ export const localize = (text: string, replacements?: any[string]) => {
 
 const wrapTags = (text: string) => {
   const textArray = text.split(/(\*\*[^\*]*\*\*)/g);
-  return textArray.map((str, i) => {
+  let result = textArray.map((str, i) => {
     if (/(\*\*.*\*\*)/g.test(str)) {
       return <strong key={i}>{str.replaceAll('**', '')}</strong>;
     }
     return `${str}`;
+  });
+
+  return result.map((r) => {
+    if (typeof r === 'string') {
+      return r.split(/(\[WALLETCONNECTLOGO\])/g).map((s) => {
+        if (s === '[WALLETCONNECTLOGO]') {
+          return (
+            <span className="ck-tt-logo">
+              <Logos.WalletConnect />
+            </span>
+          );
+        }
+        return s;
+      });
+    }
+    return r;
   });
 };
 export const replaceMarkdown = (markdownText: string) => {
@@ -77,8 +94,7 @@ export default {
     scanScreen: {
       heading: `Scan with Phone`,
       tooltip: {
-        //walletConnect: `Open a ${keys.walletConnectLogo} WalletConnect supported wallet to scan`,
-        walletConnect: `Open a WalletConnect supported wallet to scan`,
+        walletConnect: `Open a [WALLETCONNECTLOGO] WalletConnect supported wallet to scan`,
         default: `Open ${keys.connectorName} on your mobile phone to scan`,
       },
     },

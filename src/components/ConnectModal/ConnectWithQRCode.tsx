@@ -38,7 +38,6 @@ const ConnectWithQRCode: React.FC<{
   const localizeText = (text: string) => {
     return localize(text, {
       CONNECTORNAME: connector.name,
-      WALLETCONNECTLOGO: <></>,
     });
   };
 
