@@ -464,10 +464,15 @@ export const ResetContainer = styled.div<{
     box-sizing: border-box;
     outline: none;
     border: none;
-    @media (prefers-reduced-motion) {
-      //animation-name: none !important;
+  }
+  /*
+  @media (prefers-reduced-motion) {
+    * {
+      animation-duration: 60ms !important;
+      transition-duration: 60ms !important;
     }
   }
+  */
   img,
   svg {
     max-width: 100%;
