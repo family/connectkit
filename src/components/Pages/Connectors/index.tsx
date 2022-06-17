@@ -132,7 +132,7 @@ const Wallets: React.FC = () => {
                       info.logos.connectorButton}
                   </MobileConnectorIcon>
                   <MobileConnectorLabel>
-                    {info.name ?? connector.name}
+                    {info.shortName ?? info.name ?? connector.name}
                   </MobileConnectorLabel>
                 </MobileConnectorButton>
               );
@@ -144,7 +144,7 @@ const Wallets: React.FC = () => {
               <ModalBody>{copy.p}</ModalBody>
             </ModalContent>
             <InfoBoxButtons>
-              <Button onClick={() => context.setRoute(routes.ONBOARDING)}>
+              <Button onClick={() => context.setRoute(routes.ABOUT)}>
                 Learn More
               </Button>
               <Button onClick={() => context.setRoute(routes.ONBOARDING)}>
