@@ -168,7 +168,7 @@ const ConnectWithQRCode: React.FC<{
               </>
             ) : (
               <>
-                <ScanIconWithLogos logo={connector.logos.default} />
+                <ScanIconWithLogos logo={connector.logos.connectorButton} />
                 <span>{localizeText(copy.tooltip.default)}</span>
               </>
             )
