@@ -241,8 +241,11 @@ export const PageContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  margin-left: calc(var(--width) / -2);
+  width: var(--width);
+  /* left: 0; */
+  /* width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -251,25 +254,25 @@ export const PageContainer = styled(motion.div)`
     animation: ${FadeInScaleDown} 200ms ease both;
   }
   &.active-scale-up {
-    animation: ${FadeInScaleUp} 200ms ease both;
+    animation: ${FadeInScaleUp} 200ms 10ms ease both;
   }
   &.exit-scale-down {
     z-index: 1;
     pointer-events: none;
     position: absolute;
-    top: 0;
-    left: 0;
+    /* top: 0; */
+    /* left: 0; */
     animation: ${FadeOutScaleDown} 200ms ease both;
   }
   &.exit {
     z-index: 1;
     pointer-events: none;
     position: absolute;
-    top: 0;
-    left: 0;
+    /* top: 0; */
+    /* left: 0; */
     /* left: 50%; */
     /* transform: translateX(-50%); */
-    animation: ${FadeOutScaleUp} 200ms ease both;
+    animation: ${FadeOutScaleUp} 200ms 10ms ease both;
   }
 `;
 export const PageContents = styled(motion.div)`
