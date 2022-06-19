@@ -50,7 +50,6 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   margin: 12px 0 0;
   padding: 0 4px;
   font-size: 16px;
-  line-height: 19px;
   font-weight: 500;
   text-decoration: none;
   white-space: nowrap;

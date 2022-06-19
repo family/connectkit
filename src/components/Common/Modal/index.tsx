@@ -32,6 +32,7 @@ import FocusTrap from '../../../hooks/useFocusTrap';
 import localizations, { localize } from '../../../constants/localizations';
 import { useConnect } from 'wagmi';
 import { supportedConnectors } from '../../..';
+import usePrevious from '../../../hooks/usePrevious';
 
 const InfoIcon = (props: Props) => (
   <svg
@@ -155,6 +156,13 @@ const Modal: React.FC<ModalProps> = ({
   });
   const mounted = !(state === 'exited' || state === 'unmounted');
   const rendered = state === 'preEnter' || state !== 'exiting';
+  const currentDepth =
+    context.route === routes.CONNECTORS
+      ? 0
+      : context.route === routes.DOWNLOAD
+      ? 2
+      : 1;
+  const prevDepth = usePrevious(currentDepth, currentDepth);
   if (!positionInside) useLockBodyScroll(mounted);
 
   useEffect(() => {
@@ -350,7 +358,7 @@ const Modal: React.FC<ModalProps> = ({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{
-                    duration: 0.18,
+                    duration: 0.23,
                   }}
                 >
                   {getHeading()}
@@ -366,7 +374,20 @@ const Modal: React.FC<ModalProps> = ({
                     key={key}
                     open={key === pageId}
                     initial={!positionInside && state !== 'entered'}
-                    depth={key === routes.CONNECTORS ? 0 : 1}
+                    enterAnim={
+                      key === pageId
+                        ? currentDepth > prevDepth
+                          ? 'active-scale-up'
+                          : 'active'
+                        : ''
+                    }
+                    exitAnim={
+                      key !== pageId
+                        ? currentDepth < prevDepth
+                          ? 'exit-scale-down'
+                          : 'exit'
+                        : ''
+                    }
                   >
                     <PageContents
                       key={`inner-${key}`}
@@ -411,11 +432,23 @@ type PageProps = {
   children?: React.ReactNode;
   open: boolean | undefined;
   initial: boolean;
-  depth?: number;
+  prevDepth?: number;
+  currentDepth?: number;
+  enterAnim?: string;
+  exitAnim?: string;
 };
-const Page: React.FC<PageProps> = ({ children, open, initial, depth }) => {
+
+const Page: React.FC<PageProps> = ({
+  children,
+  open,
+  initial,
+  prevDepth,
+  currentDepth,
+  enterAnim,
+  exitAnim,
+}) => {
   const [state, setOpen] = useTransition({
-    timeout: 310,
+    timeout: 280,
     preEnter: true,
     initialEntered: open,
     mountOnEnter: true,
@@ -432,16 +465,16 @@ const Page: React.FC<PageProps> = ({ children, open, initial, depth }) => {
 
   return (
     <PageContainer
-      initial={false}
-      className={`${
-        rendered
-          ? depth
-            ? 'active-scale-up'
-            : 'active'
-          : depth
-          ? 'exit-scale-down'
-          : 'exit'
-      }`}
+      className={`${rendered ? enterAnim : exitAnim}`}
+      // className={`${
+      //   rendered
+      //     ? currentDepth > prevDepth
+      //       ? 'active-scale-up'
+      //       : 'active'
+      //     : currentDepth < prevDepth
+      //     ? 'exit-scale-down'
+      //     : 'exit'
+      // }`}
       style={{
         animationDuration: initial ? '0ms' : undefined,
         animationDelay: initial ? '0ms' : undefined,

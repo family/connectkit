@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ButtonProps } from './types';
 import {
   ButtonContainer,
@@ -29,7 +30,14 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
     >
       {icon && <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>}
-      {children}
+      <motion.div
+        style={{
+          x: -0.1,
+          y: -0.1,
+        }}
+      >
+        {children}
+      </motion.div>
       {arrow && (
         <Arrow
           width="13"

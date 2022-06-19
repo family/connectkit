@@ -250,11 +250,12 @@ export const PageContainer = styled(motion.div)`
   justify-content: center;
   align-items: center;
   transform-origin: center center;
+
   &.active {
     animation: ${FadeInScaleDown} 200ms ease both;
   }
   &.active-scale-up {
-    animation: ${FadeInScaleUp} 200ms 10ms ease both;
+    animation: ${FadeInScaleUp} 200ms ease both;
   }
   &.exit-scale-down {
     z-index: 1;
@@ -272,7 +273,7 @@ export const PageContainer = styled(motion.div)`
     /* left: 0; */
     /* left: 50%; */
     /* transform: translateX(-50%); */
-    animation: ${FadeOutScaleUp} 200ms 10ms ease both;
+    animation: ${FadeOutScaleUp} 200ms 16.6667ms ease both;
   }
 `;
 export const PageContents = styled(motion.div)`
