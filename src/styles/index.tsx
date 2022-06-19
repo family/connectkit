@@ -12,6 +12,7 @@ const themeGlobals = {
     'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
     'Segoe UI Symbol'`,
     '--border-radius': '20px',
+    '--ck-secondary-button-border-radius': '16px',
   },
 };
 const themeColors = {
@@ -56,7 +57,6 @@ const themeColors = {
     '--ck-primary-button-hover-box-shadow':
       'inset 0 0 0 2px var(--focus-color)',
     '--ck-primary-button-hover-border-radius': '16px',
-
     '--ck-primary-button-active-border-radius': '16px',
 
     '--focus-color': '#1A88F8',
@@ -79,7 +79,6 @@ const themeColors = {
     '--mobile-body-background': '#F8F8F8',
     '--mobile-body-color': '#2B2F43',
 
-    '--qrcode-outline': '#EEEFF2',
     '--copytoclipboard-stroke': '#CCCCCC',
 
     '--tooltip-background': '#ffffff',
@@ -135,8 +134,9 @@ const themeColors = {
     '--ck-primary-button-hover-background': 'transparent',
     '--ck-primary-button-hover-box-shadow': 'inset 0 0 0 2px #ffffff',
     '--ck-primary-button-hover-border-radius': '16px',
-
     '--ck-primary-button-active-border-radius': '16px',
+
+    '--ck-secondary-button-background': '#333333',
 
     '--focus-color': '#1A88F8',
 
@@ -155,7 +155,6 @@ const themeColors = {
 
     '--body-button-border-radius': '18px',
 
-    '--qrcode-outline': 'transparent',
     '--copytoclipboard-stroke': '#555555',
 
     '--tooltip-background': '#2B2B2B',
@@ -196,31 +195,63 @@ const themeColors = {
     '--qr-border-color': '#3d3d3d',
   },
   testTheme: {
-    '--font-family': 'Avenir Next',
-    '--border-radius': 16,
+    '--font-family': 'Tahoma',
+    '--border-radius': 17,
     '--connectbutton-color': '#373737',
     '--connectbutton-background': '#ffffff',
     '--connectbutton-background-hover': '#f6f7f9',
     '--connectbutton-background-active': '#eaecf1',
 
     '--focus-color': '#1A88F8',
-    '--overlay-background': 'rgba(0, 0, 0, 0.4)',
+    '--overlay-background': '#008282',
     '--body-color': '#373737',
-    '--body-color-muted': '#999999',
+    '--body-color-muted': '#373737',
     '--body-color-muted-hover': '#111111',
-    '--body-background': '#ffffff',
+    '--body-background': '#F0EDE2',
     '--body-background-transparent': 'rgba(255,255,255,0)',
     '--body-background-secondary-hover': '#FAFAFA',
     '--body-background-secondary-hover-outline': '#4282FF',
-    '--body-action-color': '#999999',
-    '--body-divider': 'transparent',
+    '--body-action-color': '#373737',
     '--body-color-danger': '#FC6464',
     '--body-color-valid': '#32D74B',
 
-    '--body-background-secondary': '#ffffff',
+    '--body-divider': '#919B9C',
+    '--body-divider-box-shadow': '0px 1px 0px #FBFBF8',
+
+    // Primary button
+    '--ck-primary-button-background':
+      'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+    '--ck-primary-button-box-shadow':
+      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+    '--ck-primary-button-border': '1px solid #003C74',
+    '--ck-primary-button-border-radius': '4.5px',
+
+    // Primary button hover
+    '--ck-primary-button-hover-box-shadow':
+      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 5px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+
+    // Modal
+    '--ck-modal-heading-font-weight': 400,
+    '--ck-modal-box-shadow':
+      'inset 0px -3px 0px #0F37A9, inset -2px 0px 0px #0F37A9, inset 0px -4px 0px #0D5DDF, inset -4px 0px 0px #0D5DDF, inset 2px 0px 0px #0453DD, inset 0px 2px 0px #044FD1, inset 4px 0px 0px #4283EB, inset 0px 4px 0px #4283EB',
+    '--ck-modal-h1-font-weight': 400,
+
+    // Secondary button
+    '--ck-secondary-button-border-radius': '4.5px',
+    '--ck-secondary-button-box-shadow':
+      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+    '--ck-secondary-button-border': '1px solid #003C74',
+    '--ck-secondary-button-background':
+      'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+
+    // Secondary button hover
+    '--ck-secondary-button-hover-box-shadow':
+      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 5px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+
+    '--body-background-secondary': 'rgba(0, 0, 0, 0.1)',
     '--body-button-border-radius': '100px',
     '--body-button-text-align': 'left',
-    '--body-connector-label-padding': '0 8px',
+    '--body-connector-label-padding': '0 0',
     '--body-connector-icon-left': 'auto',
     '--body-connector-icon-right': '20px',
     '--body-button-border': '1px solid #e6e6e6',
@@ -230,12 +261,15 @@ const themeColors = {
     '--mobile-body-background': '#F8F8F8',
     '--mobile-body-color': '#2B2F43',
 
-    '--qrcode-outline': '#EEEFF2',
+    '--qr-dot-color': '#000000',
+    '--qr-border-color': '#919B9C',
+    '--qr-border-radius': '0',
     '--copytoclipboard-stroke': '#CCCCCC',
 
-    '--tooltip-background': '#ffffff',
+    '--tooltip-background':
+      'linear-gradient(270deg, #F7F3E6 7.69%, #F5F7DA 100%)',
     '--tooltip-background-secondary': '#f6f7f9',
-    '--tooltip-color': '#999999',
+    '--tooltip-color': '#000000',
 
     '--spinner-color': 'var(--focus-color)',
 
@@ -297,7 +331,6 @@ const themeColors = {
     '--mobile-body-background': '#F8F8F8',
     '--mobile-body-color': '#2B2F43',
 
-    '--qrcode-outline': '#EEEFF2',
     '--copytoclipboard-stroke': '#CCCCCC',
 
     '--tooltip-background': '#ffffff',

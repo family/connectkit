@@ -63,6 +63,7 @@ export const TextWithHr = styled(motion.div)`
     height: 1px;
     transform: translateY(-1px);
     background: var(--body-divider);
+    box-shadow: var(--body-divider-box-shadow);
   }
 `;
 export const ModalHeading = styled(motion.div)`
@@ -76,7 +77,7 @@ export const ModalHeading = styled(motion.div)`
   text-align: center;
   font-size: 17px;
   line-height: 20px;
-  font-weight: 600;
+  font-weight: var(--ck-modal-heading-font-weight, 600);
   color: var(--body-color);
 `;
 
@@ -106,7 +107,7 @@ export const ModalH1 = styled(motion.h1)<{
   padding: 0;
   line-height: ${(props) => (props.$small ? 20 : 22)}px;
   font-size: ${(props) => (props.$small ? 17 : 19)}px;
-  font-weight: 600;
+  font-weight: var(--ck-modal-h1-font-weight, 600);
   color: ${(props) => {
     if (props.$error) return 'var(--body-color-danger)';
     if (props.$valid) return 'var(--body-color-valid)';
@@ -201,6 +202,7 @@ export const BoxContainer = styled(motion.div)`
     background: var(--body-background);
     transition: all 0.2s ease;
     border-radius: var(--border-radius, 20px);
+    box-shadow: var(--ck-modal-box-shadow);
   }
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {

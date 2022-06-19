@@ -27,11 +27,16 @@ export const ArrowLine = styled.line`
 export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   --color: var(--button-primary-color, var(--body-color));
   --background: var(
-    --button-primary-background,
+    --ck-secondary-button-background,
     var(--body-background-secondary)
   );
-  --box-shadow: var(--button-primary-box-shadow, none);
-  --border-radius: var(--button-primary-border-radius, 16px);
+  --box-shadow: var(
+    --ck-secondary-button-box-shadow,
+    --button-primary-box-shadow,
+    none
+  );
+  --border: var(--ck-secondary-button-border);
+  --border-radius: var(--ck-secondary-button-border-radius, 16px);
 
   appearance: none;
   cursor: pointer;
@@ -55,7 +60,8 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   color: var(--color);
   background: var(--background);
   border-radius: var(--border-radius);
-  box-shadow: 0 0 0 0 var(--background);
+  box-shadow: var(--box-shadow);
+  border: var(--border);
 
   /* Don't show hover/active styling on mobile */
   ${(props) => {
@@ -67,8 +73,8 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
             --accent-color,
             var(--body-background-secondary-hover)
           );
-          border-color: transparent;
-          box-shadow: 0 0 0 2px var(--accent-color, --background);
+          /* border-color: transparent; */
+          box-shadow: var(--ck-secondary-button-hover-box-shadow);
           ${Arrow} {
             transform: translateX(0);
             ${ArrowLine} {
