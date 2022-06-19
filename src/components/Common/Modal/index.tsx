@@ -358,7 +358,7 @@ const Modal: React.FC<ModalProps> = ({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{
-                    duration: 0.23,
+                    duration: 0.17,
                   }}
                 >
                   {getHeading()}
