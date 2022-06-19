@@ -33,7 +33,7 @@ const Button: React.FC<ButtonProps> = ({
       <motion.div
         style={{
           x: -0.1,
-          y: -0.1,
+          y: -0.5,
         }}
       >
         {children}
