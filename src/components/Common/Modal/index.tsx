@@ -30,7 +30,6 @@ import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 import { useTransition } from 'react-transition-state';
 import FocusTrap from '../../../hooks/useFocusTrap';
 import localizations, { localize } from '../../../constants/localizations';
-import { useConnect } from 'wagmi';
 import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 
@@ -227,12 +226,6 @@ const Modal: React.FC<ModalProps> = ({
     };
   }, [mounted, onClose]);
 
-  const { connect, connectAsync, connectors } = useConnect({
-    onError(e) {
-      console.log(e);
-    },
-  });
-
   const dimensionsCSS = {
     '--height': dimensions.height,
     '--width': dimensions.width,
@@ -326,13 +319,14 @@ const Modal: React.FC<ModalProps> = ({
                     padding: '24px 46px 82px 24px',
                     transition: 'width var(--duration) var(--ease)',
                   }}
-                  initial={{ y: '100%', x: '-50%' }}
+                  initial={{ y: '10%', x: '-50%' }}
                   animate={{ y: '-100%' }}
                   exit={{ y: '100%' }}
+                  transition={{ duration: 0.2, ease: 'easeInOut' }}
                 >
                   <span>{context.errorMessage}</span>
                   <div
-                    onClick={() => context.setErrorMessage('')}
+                    onClick={() => context.debug(null)}
                     style={{
                       position: 'absolute',
                       right: 24,

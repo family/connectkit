@@ -3,7 +3,7 @@ import { useContext, routes } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
 import localizations from '../../../constants/localizations';
 
-import { useConnect } from 'wagmi';
+import { useConnect } from '../../../hooks/useConnect';
 
 import {
   PageContent,
@@ -44,11 +44,7 @@ const Wallets: React.FC = () => {
   const copy = localizations[context.lang].connectorsScreen;
   const mobile = isMobile();
 
-  const { connectAsync, connectors } = useConnect({
-    onError(e) {
-      console.log(e);
-    },
-  });
+  const { connectAsync, connectors } = useConnect();
 
   const openDefaultConnect = async (id: string) => {
     const c = connectors.filter((c) => c.id === id)[0];
@@ -103,7 +99,7 @@ const Wallets: React.FC = () => {
     try {
       await connectAsync(connector);
     } catch (err) {
-      console.log(err);
+      context.debug('Async connect error', err);
     }
   };
   useEffect(() => {}, [mobile]);

@@ -69,8 +69,8 @@ const ConnectWithQRCode: React.FC<{
         });
         try {
           await connectWallet(c);
-        } catch {
-          console.log('could not connect');
+        } catch (err) {
+          context.debug('Could not connec', err);
         }
         break;
       case 'walletConnect':
@@ -86,8 +86,8 @@ const ConnectWithQRCode: React.FC<{
         });
         try {
           await connectWallet(c);
-        } catch {
-          console.log('could not connect');
+        } catch (err) {
+          context.debug('Could not connec', err);
         }
         break;
     }
