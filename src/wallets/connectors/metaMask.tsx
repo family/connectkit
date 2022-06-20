@@ -1,11 +1,11 @@
-import { WalletProps } from './../wallet';
+import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
 import { isMobile, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const metaMask = ({ chains }): WalletProps => {
+export const metaMask = ({ chains }: WalletOptions): WalletProps => {
   const isInstalled =
     typeof window !== 'undefined' && window.ethereum?.isMetaMask;
 
@@ -53,7 +53,7 @@ export const metaMask = ({ chains }): WalletProps => {
         'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm?hl=en-US',
     },
-    installed: () => (!shouldUseWalletConnect ? isInstalled : undefined),
+    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = shouldUseWalletConnect
         ? new WalletConnectConnector({

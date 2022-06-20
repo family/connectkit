@@ -1,10 +1,10 @@
-import { WalletProps } from './../wallet';
+import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { isMobile, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const rainbow = ({ chains }): WalletProps => {
+export const rainbow = ({ chains }: WalletOptions): WalletProps => {
   const isInstalled = false; // Does not have a browser injector
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 
@@ -14,6 +14,7 @@ export const rainbow = ({ chains }): WalletProps => {
     logos: {
       default: <Logos.Rainbow />,
     },
+    logoBackground: '#174299',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/rainbow',
@@ -21,7 +22,7 @@ export const rainbow = ({ chains }): WalletProps => {
       android: 'https://play.google.com/store/apps/details?id=me.rainbow',
       ios: 'https://apps.apple.com/us/app/rainbow-ethereum-wallet/id1457119021',
     },
-    installed: () => (!shouldUseWalletConnect ? isInstalled : undefined),
+    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = new WalletConnectConnector({
         chains,

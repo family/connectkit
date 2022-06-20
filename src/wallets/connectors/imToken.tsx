@@ -1,10 +1,10 @@
-import { WalletProps } from './../wallet';
+import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { isMobile } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const imToken = ({ chains }): WalletProps => {
+export const imToken = ({ chains }: WalletOptions): WalletProps => {
   const isInstalled = false; // Does not have a browser injector
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 
@@ -22,7 +22,7 @@ export const imToken = ({ chains }): WalletProps => {
       android: 'https://play.google.com/store/apps/details?id=im.token.app',
       ios: 'https://itunes.apple.com/us/app/imtoken2/id1384798940',
     },
-    installed: () => (!shouldUseWalletConnect ? isInstalled : undefined),
+    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = new WalletConnectConnector({
         chains,

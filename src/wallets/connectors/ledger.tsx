@@ -1,10 +1,10 @@
-import { WalletProps } from './../wallet';
+import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { isMobile, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const ledger = ({ chains }): WalletProps => {
+export const ledger = ({ chains }: WalletOptions): WalletProps => {
   const isInstalled = false; // Does not have a browser injector
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 
@@ -23,7 +23,7 @@ export const ledger = ({ chains }): WalletProps => {
       android: 'https://play.google.com/store/apps/details?id=com.ledger.live',
       ios: 'https://apps.apple.com/us/app/ledger-live-web3-wallet/id1361671700',
     },
-    installed: () => (!shouldUseWalletConnect ? isInstalled : undefined),
+    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = new WalletConnectConnector({
         chains,

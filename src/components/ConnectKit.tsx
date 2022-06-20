@@ -78,7 +78,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     connector,
     setConnector,
     errorMessage,
-    debug: (message, code) => {
+    debug: (message: string | null, code?: any) => {
       setErrorMessage(message);
 
       console.log('---------CONNECTKIT DEBUG---------');

@@ -1,10 +1,10 @@
-import { WalletProps } from './../wallet';
+import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import Logos from './../../assets/logos';
 import { isMobile } from '../../utils';
 
-export const walletConnect = ({ chains }): WalletProps => {
+export const walletConnect = ({ chains }: WalletOptions): WalletProps => {
   return {
     id: 'walletConnect',
     name: 'Other Wallets',
