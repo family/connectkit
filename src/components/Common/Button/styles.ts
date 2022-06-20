@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
-import { isMobile } from '../../../utils';
-
-const mobile = isMobile();
+import defaultTheme from '../../../constants/defaultTheme';
 
 export const Arrow = styled.svg`
   position: relative;
@@ -64,42 +62,32 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   box-shadow: var(--box-shadow);
   border: var(--border);
 
-  /* Don't show hover/active styling on mobile */
-  ${(props) => {
-    if (!mobile) {
-      return css`
-        &:hover {
-          color: var(--accent-text-color);
-          --background: var(
-            --accent-color,
-            var(--body-background-secondary-hover)
-          );
-          /* border-color: transparent; */
-          box-shadow: var(--ck-secondary-button-hover-box-shadow);
-          ${Arrow} {
-            transform: translateX(0);
-            ${ArrowLine} {
-              transform: none;
-            }
-            ${ArrowChevron} {
-            }
-          }
+  @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
+    &:hover {
+      color: var(--accent-text-color);
+      --background: var(--accent-color, var(--body-background-secondary-hover));
+      /* border-color: transparent; */
+      box-shadow: var(--ck-secondary-button-hover-box-shadow);
+      ${Arrow} {
+        transform: translateX(0);
+        ${ArrowLine} {
+          transform: none;
         }
-        &:active {
-          box-shadow: 0 0 0 1px var(--background);
+        ${ArrowChevron} {
         }
-      `;
-    } else {
-      return css`
-        transition: transform 100ms ease;
-        transform: scale(1);
-        font-size: 17px;
-        &:active {
-          /* transform: scale(0.97); */
-        }
-      `;
+      }
     }
-  }}
+    &:active {
+      box-shadow: 0 0 0 1px var(--background);
+    }
+  }
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    transition: transform 100ms ease;
+    transform: scale(1);
+    font-size: 17px;
+    &:active {
+    }
+  }
 `;
 
 export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
