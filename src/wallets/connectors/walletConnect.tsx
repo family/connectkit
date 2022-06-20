@@ -1,14 +1,21 @@
-import { WalletProps } from './wallet';
+import { WalletProps } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
-import { isMobile } from '../utils';
-import Logos from './../assets/logos';
+import Logos from './../../assets/logos';
+import { isMobile } from '../../utils';
 
 export const walletConnect = ({ chains }): WalletProps => {
   return {
     id: 'walletConnect',
-    name: 'WalletConnect',
-    logo: <Logos.WalletConnect />,
+    name: 'Other Wallets',
+    logos: {
+      default: <Logos.WalletConnect />,
+      mobile: <Logos.OtherWallets />,
+      transparent: <Logos.WalletConnect background={false} />,
+      connectorButton: <Logos.OtherWallets />,
+      qrCode: <Logos.WalletConnect background={true} />,
+    },
+    logoBackground: 'var(--brand-walletConnect)',
     scannable: true,
     createConnector: () => {
       const connector = new WalletConnectConnector({

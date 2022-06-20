@@ -1,6 +1,6 @@
-import { metaMask } from './metaMask';
-import { walletConnect } from './walletConnect';
-import { coinbaseWallet } from './coinbaseWallet';
-import { injected } from './injected';
+import { injected } from './connectors/injected';
+import { walletConnect } from './connectors/walletConnect';
+import { metaMask } from './connectors/metaMask';
+import { coinbaseWallet } from './connectors/coinbaseWallet';
 
-export { injected, metaMask, walletConnect, coinbaseWallet };
+export { injected, walletConnect, metaMask, coinbaseWallet };

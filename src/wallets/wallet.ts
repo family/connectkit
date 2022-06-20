@@ -1,14 +1,21 @@
-import { injected } from './injected';
-import { metaMask } from './metaMask';
-import { walletConnect } from './walletConnect';
-import { coinbaseWallet } from './coinbaseWallet';
+import { ReactNode } from 'react';
+import { walletConnect, metaMask, coinbaseWallet } from './';
 
 export type WalletProps = {
   id: string;
   name: string;
-  logo: React.ReactNode;
+  shortName?: string;
+  logos: {
+    default: ReactNode;
+    transparent?: ReactNode;
+    connectorButton?: ReactNode;
+    qrCode?: ReactNode;
+    appIcon?: ReactNode;
+    mobile?: ReactNode;
+  };
+  logoBackground?: string;
   scannable?: boolean;
-  installed?: boolean;
+  installed?: () => boolean;
   downloadUrls?: { [key: string]: string };
   createConnector?: () => any;
 };
