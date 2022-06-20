@@ -1,6 +1,12 @@
 import { detect } from 'detect-browser';
 import supportedConnectors from '../constants/supportedConnectors';
 
+export const debug = (title, message) => {
+  if (true) {
+    console.log(title, message);
+  }
+};
+
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 
 const truncateEthAddress = (address?: string) => {
