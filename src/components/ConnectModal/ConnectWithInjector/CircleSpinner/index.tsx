@@ -26,7 +26,10 @@ const CircleSpinner = ({
     <LogoContainer
       transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
     >
-      <Logo $small={smallLogo} style={unavailabled && { borderRadius: 0 }}>
+      <Logo
+        $small={smallLogo}
+        style={unavailabled ? { borderRadius: 0 } : undefined}
+      >
         {logo}
       </Logo>
       <SpinnerContainer>
