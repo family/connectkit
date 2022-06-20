@@ -62,11 +62,15 @@ export const MetaMask = ({ background = false, ...props }) => (
   <svg
     {...props}
     aria-hidden="true"
-    style={{
-      background: background
-        ? 'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))'
-        : undefined,
-    }}
+    style={
+      background
+        ? {
+            background:
+              'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))',
+            borderRadius: '27.5%',
+          }
+        : undefined
+    }
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -675,7 +679,7 @@ export const OtherWallets = ({ ...props }) => {
   const cell: React.CSSProperties = {
     width: '50%',
     overflow: 'hidden',
-    borderRadius: 4,
+    borderRadius: '27.5%',
   };
   return (
     <div style={column} {...props}>
