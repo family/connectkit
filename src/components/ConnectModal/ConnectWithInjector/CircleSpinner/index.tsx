@@ -13,18 +13,22 @@ const CircleSpinner = ({
   logo,
   smallLogo,
   connecting = true,
+  unavailabled = false,
   countdown = false,
 }: {
   logo?: React.ReactNode;
   smallLogo?: boolean;
   connecting?: boolean;
+  unavailabled?: boolean;
   countdown?: boolean;
 }) => {
   return (
     <LogoContainer
       transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
     >
-      <Logo $small={smallLogo}>{logo}</Logo>
+      <Logo $small={smallLogo} style={unavailabled && { borderRadius: 0 }}>
+        {logo}
+      </Logo>
       <SpinnerContainer>
         <AnimatePresence>
           {connecting && (

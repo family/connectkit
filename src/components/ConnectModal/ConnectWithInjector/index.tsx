@@ -338,6 +338,7 @@ const ConnectWithInjector: React.FC<{
                 }
                 smallLogo={connector.id === 'injected'}
                 connecting={status === states.CONNECTING}
+                unavailabled={status === states.UNAVAILABLE}
                 countdown={status === states.EXPIRING}
               />
             </Tooltip>
