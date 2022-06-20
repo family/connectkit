@@ -8,16 +8,25 @@ import { trust } from './connectors/trust';
 import { ledger } from './connectors/ledger';
 import { imToken } from './connectors/imToken';
 import { brave } from './connectors/brave';
+import { Chain } from 'wagmi';
 
-export const wallets = {
-  injected: injected,
-  walletConnect: walletConnect,
-  metaMask: metaMask,
-  coinbaseWallet: coinbaseWallet,
-  rainbow: rainbow,
-  argent: argent,
-  trust: trust,
-  ledger: ledger,
-  imToken: imToken,
-  brave: brave,
+export const getWallets = ({
+  chains,
+}: {
+  chains: Chain[];
+  appName?: string;
+  shimDisconnect?: boolean;
+}) => {
+  return [
+    injected({ chains }),
+    walletConnect({ chains }),
+    metaMask({ chains }),
+    coinbaseWallet({ chains }),
+    rainbow({ chains }),
+    argent({ chains }),
+    trust({ chains }),
+    ledger({ chains }),
+    imToken({ chains }),
+    brave({ chains }),
+  ];
 };
