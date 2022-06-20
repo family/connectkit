@@ -9,15 +9,15 @@ import { ledger } from './connectors/ledger';
 import { imToken } from './connectors/imToken';
 import { brave } from './connectors/brave';
 
-export const wallets = [
-  injected,
-  walletConnect,
-  metaMask,
-  coinbaseWallet,
-  rainbow,
-  argent,
-  trust,
-  ledger,
-  imToken,
-  brave,
-];
+export const wallets = {
+  injected: injected,
+  walletConnect: walletConnect,
+  metaMask: metaMask,
+  coinbaseWallet: coinbaseWallet,
+  rainbow: rainbow,
+  argent: argent,
+  trust: trust,
+  ledger: ledger,
+  imToken: imToken,
+  brave: brave,
+};

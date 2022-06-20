@@ -19,14 +19,16 @@ function useDefaultWallets(): WalletProps[] | any {
 }
 
 function useWallet(walletId: string): WalletProps | null {
-  const { chains } = useNetwork();
-  const w = wallets.filter((wallet) => wallet.name === walletId);
+  const w = Object.keys(wallets).filter((key) => key === walletId);
+  const walletName = w[0];
 
-  if (!w.length) {
+  if (!walletName) {
     console.log('Cannot find walletId:', walletId);
     return null;
   }
-  const wallet: WalletProps = w[0]({ chains });
+
+  const { chains } = useNetwork();
+  const wallet: WalletProps = wallets[walletName]({ chains });
   if (wallet) return wallet;
   return null;
 }
