@@ -331,14 +331,12 @@ const ConnectWithInjector: React.FC<{
               <CircleSpinner
                 logo={
                   status === states.UNAVAILABLE
-                    ? connector.logos.connectorButton ?? // Design requires a slightly larger logo for a state where no spinner will ever be shown
-                      connector.logos.transparent ??
-                      connector.logos.default
+                    ? connector.logos.transparent ?? connector.logos.default
                     : connector.logos.transparent ?? connector.logos.default
                 }
                 smallLogo={connector.id === 'injected'}
                 connecting={status === states.CONNECTING}
-                unavailabled={status === states.UNAVAILABLE}
+                unavailable={status === states.UNAVAILABLE}
                 countdown={status === states.EXPIRING}
               />
             </Tooltip>

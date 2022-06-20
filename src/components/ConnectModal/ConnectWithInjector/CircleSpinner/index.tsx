@@ -13,13 +13,13 @@ const CircleSpinner = ({
   logo,
   smallLogo,
   connecting = true,
-  unavailabled = false,
+  unavailable = false,
   countdown = false,
 }: {
   logo?: React.ReactNode;
   smallLogo?: boolean;
   connecting?: boolean;
-  unavailabled?: boolean;
+  unavailable?: boolean;
   countdown?: boolean;
 }) => {
   return (
@@ -27,8 +27,8 @@ const CircleSpinner = ({
       transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
     >
       <Logo
-        $small={!unavailabled && smallLogo}
-        style={unavailabled ? { borderRadius: 0 } : undefined}
+        $small={unavailable && smallLogo}
+        style={unavailable ? { borderRadius: 0 } : undefined}
       >
         {logo}
       </Logo>
