@@ -664,6 +664,25 @@ export const Crypto = ({ ...props }) => (
   </svg>
 );
 
+export const Ledger = ({ ...props }) => (
+  <svg
+    {...props}
+    width="88"
+    height="88"
+    viewBox="0 0 88 88"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M0 0H88V88H0V0Z" fill="black" />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M36.6143 13.8286H13.8286V28.2857H17.2857V17.2857L36.6143 17.16V13.8286ZM36.7714 32.5286V55.3143H51.2286V51.8571H40.2286L40.1029 32.5286H36.7714ZM13.8286 74.1714H36.6143V70.84L17.2857 70.7143V59.7143H13.8286V74.1714ZM51.3857 13.8286H74.1714V28.2857H70.7143V17.2857L51.3857 17.16V13.8286ZM74.1714 74.1714H51.3857V70.84L70.7143 70.7143V59.7143H74.1714V74.1714Z"
+      fill="white"
+    />
+  </svg>
+);
+
 export const OtherWallets = ({ ...props }) => {
   const column: React.CSSProperties = {
     position: 'relative',
@@ -715,5 +734,6 @@ export default {
   ImToken,
   Rainbow,
   Crypto,
+  Ledger,
   Brave,
 };
