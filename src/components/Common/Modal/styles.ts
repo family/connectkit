@@ -427,6 +427,12 @@ export const Container = styled(motion.div)`
         border-radius: 30px 30px 0 0;
       }
     }
+    ${PageContainer} {
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: auto;
+    }
     ${PageContent} {
       margin: 0 auto;
       width: 100% !important;
