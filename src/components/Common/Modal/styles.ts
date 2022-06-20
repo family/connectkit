@@ -275,6 +275,20 @@ export const PageContainer = styled(motion.div)`
     /* transform: translateX(-50%); */
     animation: ${FadeOutScaleUp} 200ms 16.6667ms ease both;
   }
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    &.active {
+      animation-name: ${FadeIn};
+    }
+    &.active-scale-up {
+      animation-name: ${FadeIn};
+    }
+    &.exit-scale-down {
+      animation-name: ${FadeOut};
+    }
+    &.exit {
+      animation-name: ${FadeOut};
+    }
+  }
 `;
 export const PageContents = styled(motion.div)`
   margin: 0 auto;
