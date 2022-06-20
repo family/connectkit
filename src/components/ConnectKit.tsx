@@ -34,6 +34,8 @@ type ContextValue = {
   setRoute: React.Dispatch<React.SetStateAction<string>>;
   connector: string;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
+  errorMessage: string;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const Context = createContext<ContextValue | null>(null);
@@ -56,6 +58,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => setTheme(theme), [theme]);
   useEffect(() => setLang(language), [language]);
@@ -73,6 +76,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     setRoute,
     connector,
     setConnector,
+    errorMessage,
+    setErrorMessage,
   };
   return createElement(
     Context.Provider,
