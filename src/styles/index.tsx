@@ -84,6 +84,7 @@ const themeColors = {
     '--tooltip-background': '#ffffff',
     '--tooltip-background-secondary': '#ffffff',
     '--tooltip-color': '#999999',
+    '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
 
     '--spinner-color': 'var(--focus-color)',
 
@@ -160,6 +161,7 @@ const themeColors = {
     '--tooltip-background': '#2B2B2B',
     '--tooltip-background-secondary': '#333333',
     '--tooltip-color': '#999999',
+    '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
 
     '--spinner-color': 'var(--focus-color)',
 
@@ -246,7 +248,7 @@ const themeColors = {
 
     // Secondary button hover
     '--ck-secondary-button-hover-box-shadow':
-      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 5px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
     '--body-background-secondary': 'rgba(0, 0, 0, 0.1)',
     '--body-button-border-radius': '100px',
@@ -270,6 +272,8 @@ const themeColors = {
       'linear-gradient(270deg, #F7F3E6 7.69%, #F5F7DA 100%)',
     '--tooltip-background-secondary': '#f6f7f9',
     '--tooltip-color': '#000000',
+    '--tooltip-shadow':
+      ' 0 0 0 1.5px #2b2622, 0px 2px 10px rgba(0, 0, 0, 0.08)',
 
     '--spinner-color': 'var(--focus-color)',
 
@@ -336,6 +340,7 @@ const themeColors = {
     '--tooltip-background': '#ffffff',
     '--tooltip-background-secondary': '#f6f7f9',
     '--tooltip-color': '#999999',
+    '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08), 0 0 0 1px #2b2622',
 
     '--spinner-color': 'var(--focus-color)',
 

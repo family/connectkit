@@ -9,7 +9,7 @@ export const TooltipWindow = styled(motion.div)`
   pointer-events: none;
 `;
 export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
-  --shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
+  --shadow: var(--tooltip-shadow);
   z-index: 2147483647;
   position: absolute;
   top: 0;
@@ -55,13 +55,22 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
 export const TooltipTail = styled(motion.div)<{ $size: TooltipSizeProps }>`
   z-index: 2;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
-  height: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
-  background: inherit;
-  margin: 0;
-  border-radius: ${(props) => (props.$size === 'small' ? 2 : 3)}px 0 0 0;
   right: 100%;
-  margin: 0 !important;
-  top: 50%;
-  transform: translate(75%, -50%) rotate(-45deg);
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  &:before {
+    content: '';
+    position: absolute;
+    width: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
+    height: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
+    transform: translate(75%, 0) rotate(-45deg);
+    background: var(--tooltip-background);
+    box-shadow: var(--shadow);
+    border-radius: ${(props) => (props.$size === 'small' ? 2 : 3)}px 0 0 0;
+  }
 `;
