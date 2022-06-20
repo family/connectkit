@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export const InfoBox = styled.div`
   border-radius: 24px;
-  padding: 24px 24px;
+  padding: 24px 24px 28px;
   background: var(--body-background-secondary);
 `;
 export const InfoBoxButtons = styled.div`
@@ -37,10 +37,11 @@ export const LearnMoreButton = styled(motion.button)`
   will-change: transform;
   transition: color 200ms ease, transform 100ms ease;
   svg {
+    transition: all 100ms ease-out;
     display: block;
     position: relative;
-    top: 1px;
-    left: 1px;
+    top: 2px;
+    left: 2px;
     path,
     circle {
       transition: all 100ms ease-out;
@@ -57,6 +58,7 @@ export const LearnMoreButton = styled(motion.button)`
   &:hover {
     color: var(--body-color-muted-hover);
     svg {
+      top: 1px;
       path,
       circle {
         opacity: 1;
