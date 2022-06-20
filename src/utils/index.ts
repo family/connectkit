@@ -1,7 +1,7 @@
 import { detect } from 'detect-browser';
 import supportedConnectors from '../constants/supportedConnectors';
 
-export const debug = (title, message) => {
+export const debug = (title: any, message: any) => {
   if (true) {
     console.log(title, message);
   }

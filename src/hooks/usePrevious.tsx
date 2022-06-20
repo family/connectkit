@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-export default function usePrevious(value, initial?) {
+export default function usePrevious(value: any, initial?: any) {
   const ref = useRef({ target: value, previous: initial });
 
   if (ref.current.target !== value) {
