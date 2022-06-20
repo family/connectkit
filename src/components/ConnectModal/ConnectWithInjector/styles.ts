@@ -93,8 +93,18 @@ export const RetryButton = styled(motion.button)`
   transition: color 200ms ease;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 
-  &:hover {
-    color: var(--body-background-secondary);
+  &:before {
+    z-index: 3;
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    background: var(--body-color);
+  }
+
+  &:hover:before {
+    opacity: 0.1;
   }
 `;
 export const RetryIconContainer = styled(motion.div)`
