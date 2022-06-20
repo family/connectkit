@@ -1,7 +1,7 @@
 import { WalletProps } from './../wallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
-import { debug, isMobile } from '../../utils';
+import { isMobile } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const injected = ({ chains }): WalletProps => {

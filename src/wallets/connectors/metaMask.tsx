@@ -2,7 +2,7 @@ import { WalletProps } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
-import { debug, isMobile, isAndroid } from '../../utils';
+import { isMobile, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const metaMask = ({ chains }): WalletProps => {
@@ -10,9 +10,6 @@ export const metaMask = ({ chains }): WalletProps => {
     typeof window !== 'undefined' && window.ethereum?.isMetaMask;
 
   const shouldUseWalletConnect = isMobile() && !isInstalled;
-
-  debug('isInstalled', isInstalled);
-  debug('shouldUseWalletConnect', shouldUseWalletConnect);
 
   return {
     id: 'metaMask',
@@ -58,7 +55,6 @@ export const metaMask = ({ chains }): WalletProps => {
     },
     installed: () => (!shouldUseWalletConnect ? isInstalled : undefined),
     createConnector: () => {
-      debug('shouldUseWalletConnect', shouldUseWalletConnect);
       const connector = shouldUseWalletConnect
         ? new WalletConnectConnector({
             chains,
@@ -74,14 +70,15 @@ export const metaMask = ({ chains }): WalletProps => {
 
       return {
         connector,
+        getUri: async () => {},
         getMobileConnector: shouldUseWalletConnect
           ? async () => {
               let connnector = connector as WalletConnectConnector;
               connector.on('error', (err) => {
-                debug('onError', err);
+                console.log('onError', err);
               });
               connector.on('message', async ({ type }) => {
-                debug('onMessage: MetaMask', type);
+                console.log('onMessage: MetaMask', type);
                 if (type === 'connecting') {
                   let uriString = '';
                   try {
@@ -94,7 +91,7 @@ export const metaMask = ({ chains }): WalletProps => {
 
                     window.location.href = uriString;
                   } catch {
-                    debug('catch bad URI', uriString);
+                    console.log('catch bad URI', uriString);
                   }
                 }
               });

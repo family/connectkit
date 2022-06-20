@@ -1,7 +1,7 @@
 import { WalletProps } from './../wallet';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 
-import { debug, isMobile, isAndroid } from '../../utils';
+import { isMobile } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const coinbaseWallet = ({ chains, appName }): WalletProps => {
