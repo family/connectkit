@@ -69,6 +69,7 @@ const themeColors = {
     '--body-background-secondary': '#f6f7f9',
     '--body-background-secondary-hover': '#e0e4eb',
     '--body-background-secondary-hover-outline': '#4282FF',
+    '--body-background-tertiary': '#F3F4F7',
     '--body-action-color': '#999999',
     '--body-divider': '#f7f6f8',
     '--body-color-danger': '#FF4E4E',
@@ -150,6 +151,7 @@ const themeColors = {
     '--body-background-secondary': '#333333',
     '--body-background-secondary-hover': '#4D4D4D',
     '--body-background-secondary-hover-outline': '#ffffff',
+    '--body-background-tertiary': '#333333',
     '--body-action-color': '#808080',
     '--body-divider': '#383838',
     '--body-color-danger': '#FF4E4E',
@@ -251,6 +253,7 @@ const themeColors = {
       '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
     '--body-background-secondary': 'rgba(0, 0, 0, 0.1)',
+    '--body-background-tertiary': 'rgba(0, 0, 0, 0.1)',
     '--body-button-border-radius': '100px',
     '--body-button-text-align': 'left',
     '--body-connector-label-padding': '0 0',

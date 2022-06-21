@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { ModalBody } from '../../Common/Modal/styles';
 
 export const InfoBox = styled.div`
   border-radius: 24px;
   padding: 24px 24px 28px;
-  background: var(--body-background-secondary);
+  background: var(--body-background-tertiary);
+  ${ModalBody} {
+    max-width: none;
+  }
 `;
 export const InfoBoxButtons = styled.div`
   display: flex;
