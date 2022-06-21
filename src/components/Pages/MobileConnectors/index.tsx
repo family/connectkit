@@ -15,7 +15,6 @@ import { useConnect } from '../../../hooks/useConnect';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { useNetwork } from 'wagmi';
 import { useContext } from '../../ConnectKit';
-import { OrDivider } from '../../Common/Modal';
 import { WalletProps } from '../../../wallets/wallet';
 
 const MobileConnectors: React.FC = () => {
@@ -86,9 +85,8 @@ const MobileConnectors: React.FC = () => {
           })}
         </WalletList>
       </ModalContent>
-      <OrDivider />
       <Button icon={<ExternalLinkIcon />} onClick={openDefaultWalletConnect}>
-        Use WalletConnect
+        Open Default Modal
       </Button>
     </PageContent>
   );
