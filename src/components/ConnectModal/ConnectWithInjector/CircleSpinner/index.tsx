@@ -27,7 +27,7 @@ const CircleSpinner = ({
       transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
     >
       <Logo
-        $small={unavailable && smallLogo}
+        $small={!unavailable && smallLogo}
         style={unavailable ? { borderRadius: 0 } : undefined}
       >
         {logo}
