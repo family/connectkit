@@ -56,7 +56,6 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
         qrcode: false,
       },
     }),
-    /*
     new InjectedConnector({
       chains,
       options: {
@@ -68,7 +67,6 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
           })`,
       },
     }),
-      */
   ];
 };
 const defaultClient = ({
