@@ -349,8 +349,8 @@ export const CloseButton = styled(motion.button)`
 export const BackButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
-  top: 22px;
-  left: 16px;
+  top: 23px;
+  left: 20px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -473,6 +473,7 @@ export const Container = styled(motion.div)`
       right: 19px;
     }
     ${BackButton} {
+      top: 22px;
       left: 17px;
     }
     ${InfoButton} {
