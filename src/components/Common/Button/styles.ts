@@ -12,7 +12,8 @@ export const Arrow = styled.svg`
   margin-right: 1px;
   transition: all 100ms ease;
   transform: translateX(-3px);
-  color: var(--body-color-muted);
+  color: var(--body-color);
+  opacity: 0.4;
 `;
 export const ArrowChevron = styled.path``;
 export const ArrowLine = styled.line`
