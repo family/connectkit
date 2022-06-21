@@ -63,14 +63,20 @@ export const QRPlaceholder = styled(motion.div)`
 export const LogoContainer = styled(motion.div)`
   z-index: 6;
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(50%) scale(0.9999); // Shifting fix
 `;
 export const LogoIcon = styled(motion.div)<{ $wcLogo?: boolean }>`
-  position: relative;
+  z-index: 6;
+  position: absolute;
+  left: 50%;
   overflow: hidden;
+
+  transform: translate(-50%, -50%) scale(0.9999); // Shifting fix
+
   svg {
     display: block;
     position: relative;
