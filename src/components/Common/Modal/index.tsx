@@ -148,7 +148,7 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
 
   const [state, setOpen] = useTransition({
-    timeout: 200,
+    timeout: 300,
     preEnter: true,
     mountOnEnter: true,
     unmountOnExit: true,
@@ -479,7 +479,7 @@ const Page: React.FC<PageProps> = ({
   exitAnim,
 }) => {
   const [state, setOpen] = useTransition({
-    timeout: 280,
+    timeout: 320,
     preEnter: true,
     initialEntered: open,
     mountOnEnter: true,

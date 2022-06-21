@@ -171,12 +171,12 @@ const BoxOut = keyframes`
 `;
 
 const MobileBoxIn = keyframes`
-  from{ opacity: 1; transform: translateY(100%); }
-  to{ opacity: 1; transform: translateY(0%); }
+  from{ transform: translateY(100%); }
+  to{ transform: translateY(0%); }
 `;
 const MobileBoxOut = keyframes`
-  from{ opacity: 1; transform: translateY(0%); }
-  to{ opacity: 1; transform: translateY(100%); }
+  from{ transform: translateY(0%); }
+  to{ transform: translateY(100%); }
 `;
 export const BoxContainer = styled(motion.div)`
   z-index: 2;
@@ -206,12 +206,17 @@ export const BoxContainer = styled(motion.div)`
   }
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    animation-duration: 200ms;
     animation-name: ${MobileBoxOut};
+    animation-duration: 300ms;
+    animation-timing-function: ease-in;
+
     &.active {
       animation-name: ${MobileBoxIn};
+      animation-duration: 600ms;
+      animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
     }
     &:before {
+      transition-duration: 400ms;
       width: 100%;
     }
   }
@@ -235,6 +240,9 @@ export const InnerContainer = styled(motion.div)`
   overflow: hidden;
   height: var(--height);
   transition: 0.2s ease height;
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    transition-duration: 400ms;
+  }
 `;
 
 export const PageContainer = styled(motion.div)`
@@ -250,12 +258,13 @@ export const PageContainer = styled(motion.div)`
   justify-content: center;
   align-items: center;
   transform-origin: center center;
+  animation: 200ms ease both;
 
   &.active {
-    animation: ${FadeInScaleDown} 200ms ease both;
+    animation-name: ${FadeInScaleDown};
   }
   &.active-scale-up {
-    animation: ${FadeInScaleUp} 200ms ease both;
+    animation-name: ${FadeInScaleUp};
   }
   &.exit-scale-down {
     z-index: 1;
@@ -263,7 +272,7 @@ export const PageContainer = styled(motion.div)`
     position: absolute;
     /* top: 0; */
     /* left: 0; */
-    animation: ${FadeOutScaleDown} 200ms ease both;
+    animation-name: ${FadeOutScaleDown};
   }
   &.exit {
     z-index: 1;
@@ -273,13 +282,17 @@ export const PageContainer = styled(motion.div)`
     /* left: 0; */
     /* left: 50%; */
     /* transform: translateX(-50%); */
-    animation: ${FadeOutScaleUp} 200ms 16.6667ms ease both;
+    animation-name: ${FadeOutScaleUp};
+    animation-delay: 16.6667ms;
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    animation: 300ms ease both;
     &.active {
+      animation-delay: 80ms;
       animation-name: ${FadeIn};
     }
     &.active-scale-up {
+      animation-delay: 80ms;
       animation-name: ${FadeIn};
     }
     &.exit-scale-down {
