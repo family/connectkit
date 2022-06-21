@@ -52,7 +52,18 @@ if (typeof window != 'undefined') {
       name: 'Other Wallets',
       logos: {
         default: <Logos.WalletConnect />,
-        mobile: <Logos.OtherWallets />,
+        mobile: (
+          <div
+            style={{
+              padding: 5,
+              background: 'var(--body-background-tertiary)',
+              borderRadius: '21%',
+              boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.02)',
+            }}
+          >
+            <Logos.OtherWallets />
+          </div>
+        ),
         transparent: <Logos.WalletConnect background={false} />,
         connectorButton: <Logos.OtherWallets />,
         qrCode: <Logos.WalletConnect background={true} />,

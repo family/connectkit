@@ -558,7 +558,7 @@ export const OtherWallets = ({ ...props }) => {
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
-    gap: 2,
+    gap: 2.5,
   };
   const row: React.CSSProperties = {
     position: 'relative',
