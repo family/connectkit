@@ -33,10 +33,10 @@ const themeColors = {
     '--brand-metamask-10': '#E4751F',
     '--brand-metamask-11': '#FEF5E7',
     '--brand-metamask-12': '#E3C8AB',
-    //'--brand-trust-01': '#3375BB',
-    //'--brand-trust-02': '#ffffff',
-    '--brand-trust-01': '#ffffff', // dark Theme
-    '--brand-trust-02': '#3375BB', // dark Theme
+    '--brand-trust-01': '#3375BB',
+    '--brand-trust-02': '#ffffff',
+    '--brand-trust-01b': '#ffffff', // dark Theme
+    '--brand-trust-02b': '#3375BB', // dark Theme
     '--brand-argent': '#f36a3d',
     '--brand-imtoken-01': '#11C4D1',
     '--brand-imtoken-02': '#0062AD',
