@@ -50,7 +50,7 @@ const CustomQRCode = React.forwardRef(
           )}
 
           {value ? (
-            <AnimatePresence initial={false} exitBeforeEnter>
+            <AnimatePresence initial={false}>
               <motion.div
                 key={value}
                 initial={{ opacity: 0 }}
