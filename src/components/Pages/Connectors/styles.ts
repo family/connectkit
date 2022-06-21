@@ -62,7 +62,7 @@ export const LearnMoreButton = styled(motion.button)`
   &:hover {
     color: var(--body-color-muted-hover);
     svg {
-      top: 1px;
+      transform: translateY(-1px);
       path,
       circle {
         opacity: 1;
@@ -166,8 +166,8 @@ export const MobileConnectorsContainer = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 12px;
-  padding: 14px 24px 28px;
+  justify-content: space-between;
+  padding: 14px 18px 28px;
   margin: 0 -24px;
 `;
 
