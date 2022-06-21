@@ -90,11 +90,16 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   }
 `;
 
+export const InnerContainer = styled.span`
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateZ(0);
+`;
+
 export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
+  vertical-align: middle;
   max-width: 20px;
   max-height: 20px;
   margin-right: 10px;
