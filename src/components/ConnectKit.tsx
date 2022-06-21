@@ -6,7 +6,10 @@ import React, {
 } from 'react';
 import { CustomTheme, Languages, Theme } from '../types';
 
+import defaultTheme from '../styles/defaultTheme';
+
 import ConnectKitModal from '../components/ConnectModal';
+import { ThemeProvider } from 'styled-components';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -91,8 +94,10 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     Context.Provider,
     { value },
     <>
-      {children}
-      <ConnectKitModal lang={ckLang} theme={ckTheme} />
+      <ThemeProvider theme={defaultTheme}>
+        {children}
+        <ConnectKitModal lang={ckLang} theme={ckTheme} />
+      </ThemeProvider>
     </>
   );
 };

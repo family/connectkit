@@ -239,8 +239,8 @@ const ChainSelector: React.FC = () => {
         <AnimatePresence>
           {!mobile && context.open && isOpen && (
             <ResetContainer
-              theme={context.theme}
-              customTheme={context.customTheme}
+              $useTheme={context.theme}
+              $customTheme={context.customTheme}
             >
               <DropdownWindow>
                 <DropdownOverlay onClick={() => setIsOpen(false)} />

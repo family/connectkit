@@ -280,7 +280,10 @@ const Modal: React.FC<ModalProps> = ({
   }
 
   const Content = (
-    <ResetContainer theme={context.theme} customTheme={context.customTheme}>
+    <ResetContainer
+      $useTheme={context.theme}
+      $customTheme={context.customTheme}
+    >
       <ModalContainer
         role="dialog"
         style={{

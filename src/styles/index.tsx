@@ -430,14 +430,20 @@ const createCssColors = (scheme: any, override?: boolean) => {
 // TODO: Think more about how to reset our components as to not be affected by external stylings
 // TODO: Merge theme objects instead of overriding
 export const ResetContainer = styled.div<{
-  theme: string;
-  customTheme?: CustomTheme;
+  $useTheme?: string;
+  $customTheme?: CustomTheme;
 }>`
+  ${(props) => {
+    // TODO: Implement the themeProvider
+    console.log(props.theme.connectKit);
+    return css``;
+  }}
+
   ${createCssColors(themeColors.brand)}
   ${createCssVars(themeGlobals.default)};
 
   ${(props) => {
-    switch (props.theme) {
+    switch (props.$useTheme) {
       case 'light':
         return createCssColors(themeColors.light);
       case 'dark':
@@ -458,7 +464,7 @@ export const ResetContainer = styled.div<{
   ${(props) => {
     const mobile = isMobile();
     if (!mobile) return;
-    switch (props.theme) {
+    switch (props.$useTheme) {
       case 'light':
         return createCssColors(themeColors.lightMobile);
       case 'dark':
@@ -475,8 +481,8 @@ export const ResetContainer = styled.div<{
 
 
   ${(props) => {
-    if (props.customTheme) {
-      return createCssColors(props.customTheme, true);
+    if (props.$customTheme) {
+      return createCssColors(props.$customTheme, true);
     }
   }}
 

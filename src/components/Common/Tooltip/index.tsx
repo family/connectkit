@@ -91,8 +91,8 @@ const Tooltip: React.FC<TooltipProps> = ({
             !outOfBounds &&
             (open !== undefined ? open : isOpen) && (
               <ResetContainer
-                theme={context.theme}
-                customTheme={context.customTheme}
+                $useTheme={context.theme}
+                $customTheme={context.customTheme}
               >
                 <TooltipWindow>
                   <TooltipContainer
