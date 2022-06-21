@@ -106,7 +106,10 @@ const Wallets: React.FC = () => {
 
   const isMetaMask = () => {
     if (typeof window === 'undefined') return false;
+
     const { ethereum } = window;
+    if (!ethereum) return false;
+
     const isMetaMask = Boolean(ethereum.isMetaMask);
 
     if (!isMetaMask) {
