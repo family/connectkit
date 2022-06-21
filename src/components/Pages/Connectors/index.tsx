@@ -104,6 +104,45 @@ const Wallets: React.FC = () => {
   };
   useEffect(() => {}, [mobile]);
 
+  const isMetaMask = () => {
+    if (typeof window === 'undefined') return false;
+    const { ethereum } = window;
+    const isMetaMask = Boolean(ethereum.isMetaMask);
+
+    if (!isMetaMask) {
+      return false;
+    }
+    if (ethereum.isBraveWallet && !ethereum._events && !ethereum._state) {
+      return false;
+    }
+
+    if (ethereum.isTokenary) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const isCoinbaseWallet = () => {
+    if (typeof window === 'undefined') return false;
+    const { ethereum } = window;
+    return ethereum?.isCoinbaseWallet;
+  };
+
+  const shouldShowInjectedConnector = () => {
+    // Only display if an injected connector is detected
+    const { ethereum } = window;
+
+    const needsInjectedWalletFallback =
+      typeof window !== 'undefined' &&
+      ethereum &&
+      !isMetaMask() &&
+      !isCoinbaseWallet() &&
+      !ethereum?.isBraveWallet;
+
+    if (needsInjectedWalletFallback) return true;
+  };
+
   return (
     <PageContent style={{ width: 312 }}>
       {/* <ModalHeading>{copy.heading}</ModalHeading> */}
@@ -116,6 +155,11 @@ const Wallets: React.FC = () => {
                 (c) => c.id === connector.id
               )[0];
               if (!info) return null;
+
+              if (info.id === 'injected') {
+                if (!shouldShowInjectedConnector()) return null;
+              }
+
               return (
                 <MobileConnectorButton
                   key={`m-${connector.id}`}
@@ -162,6 +206,10 @@ const Wallets: React.FC = () => {
                 if (info.extensionIsInstalled()) {
                   logo = info.logos.appIcon;
                 }
+              }
+
+              if (info.id === 'injected') {
+                if (!shouldShowInjectedConnector()) return null;
               }
               return (
                 <ConnectorButton
