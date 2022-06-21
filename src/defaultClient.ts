@@ -79,6 +79,8 @@ const defaultClient = ({
 }: DefaultClientProps) => {
   const providers = [];
 
+  //if (!infuraId && !alchemyId) alchemyId = 'ourDefaultAlchemyId';
+
   if (alchemyId) providers.push(alchemyProvider({ alchemyId }));
   if (infuraId) providers.push(infuraProvider({ infuraId }));
   providers.push(publicProvider());
