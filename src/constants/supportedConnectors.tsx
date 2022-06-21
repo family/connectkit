@@ -40,8 +40,41 @@ if (typeof window != 'undefined') {
     {
       id: 'injected',
       name: 'Browser Wallet',
-      shortName: 'browser',
-      logos: { default: <Logos.Injected /> },
+      shortName: 'Browser',
+      logos: {
+        default: <Logos.Injected />,
+        mobile: (
+          <div
+            style={{
+              padding: 5,
+              background: 'var(--body-background-tertiary)',
+              borderRadius: '27%',
+              boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.02)',
+            }}
+          >
+            <div
+              style={{
+                transform: 'scale(0.75)',
+                position: 'relative',
+                width: '100%',
+              }}
+            >
+              <Logos.Injected />
+            </div>
+          </div>
+        ),
+        transparent: (
+          <div
+            style={{
+              transform: 'scale(0.9)',
+              position: 'relative',
+              width: '100%',
+            }}
+          >
+            <Logos.Injected />
+          </div>
+        ),
+      },
       scannable: false,
       extensionIsInstalled: () => {
         return Boolean(ethereum);
@@ -50,6 +83,7 @@ if (typeof window != 'undefined') {
     {
       id: 'walletConnect',
       name: 'Other Wallets',
+      shortName: 'Other',
       logos: {
         default: <Logos.WalletConnect />,
         mobile: (
