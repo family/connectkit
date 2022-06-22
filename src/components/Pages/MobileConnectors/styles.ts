@@ -5,7 +5,7 @@ export const WalletList = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 22px 8px;
   margin: 0 -10px;
-  padding: 4px 0 0;
+  padding: 14px 0 0;
   @media only screen and (max-width: 370px) {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -43,8 +43,9 @@ export const WalletIcon = styled.div`
   }
 `;
 export const WalletLabel = styled.div`
-  color: var(--body-color-muted);
+  color: var(--body-color);
   font-size: 13px;
   line-height: 15px;
   font-weight: 500;
+  opacity: 0.75;
 `;

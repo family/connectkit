@@ -183,7 +183,6 @@ export const MobileConnectorButton = styled(motion.button)`
   font-weight: 500;
   line-height: 13px;
   border-radius: var(--body-button-border-radius, 18px);
-  color: var(--body-color);
   text-align: center;
   transition: transform 100ms ease;
   border: var(--body-button-border);
@@ -205,6 +204,8 @@ export const MobileConnectorButton = styled(motion.button)`
 export const MobileConnectorLabel = styled(motion.span)`
   display: block;
   padding: 10px 0 0;
+  color: var(--body-color);
+  opacity: 0.75;
 `;
 
 export const MobileConnectorIcon = styled(motion.div)`
