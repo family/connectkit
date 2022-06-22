@@ -451,7 +451,7 @@ export const Container = styled(motion.div)`
       width: 100% !important;
     }
     ${ModalHeading} {
-      top: 36px;
+      top: 32px;
     }
     ${ModalContent} {
       gap: 12px;
@@ -462,23 +462,23 @@ export const Container = styled(motion.div)`
     }
     ${PageContents} {
       width: 100%;
-      padding: 32px 24px;
+      padding: 31px 24px;
     }
     ${ControllerContainer} {
       width: 100%;
-      top: 8px;
+      top: 4px;
       border-bottom: 0;
     }
     ${CloseButton} {
-      right: 19px;
+      right: 22px;
     }
     ${BackButton} {
       top: 22px;
       left: 17px;
     }
     ${InfoButton} {
-      top: 21px;
-      left: 24px;
+      top: 25px;
+      left: 23px;
       width: 26px;
       height: 26px;
       svg {

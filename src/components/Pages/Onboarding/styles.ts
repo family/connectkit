@@ -12,7 +12,7 @@ export const Graphic = styled(motion.div)`
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     height: 200px;
     max-width: 100%;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
 `;
 export const LogoGroup = styled(motion.div)`

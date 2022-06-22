@@ -163,6 +163,16 @@ const Wallets: React.FC = () => {
                 if (!shouldShowInjectedConnector()) return null;
               }
 
+              let name = info.shortName ?? info.name ?? connector.name;
+
+              // Specific case for Wallet Connect naming
+              if (
+                info.id === 'walletConnect' &&
+                !shouldShowInjectedConnector()
+              ) {
+                name = info.name ?? connector.name;
+              }
+
               return (
                 <MobileConnectorButton
                   key={`m-${connector.id}`}
@@ -174,9 +184,7 @@ const Wallets: React.FC = () => {
                       info.logos.appIcon ??
                       info.logos.connectorButton}
                   </MobileConnectorIcon>
-                  <MobileConnectorLabel>
-                    {info.shortName ?? info.name ?? connector.name}
-                  </MobileConnectorLabel>
+                  <MobileConnectorLabel>{name}</MobileConnectorLabel>
                 </MobileConnectorButton>
               );
             })}

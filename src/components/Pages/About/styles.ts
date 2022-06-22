@@ -7,7 +7,9 @@ export const Sections = styled.div`
   gap: 22px;
   padding-top: 4px;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    padding:18px 6px 0;
+    padding: 14px 6px 0;
+    gap: 26px;
+  }
 `;
 export const Section = styled.div`
   display: flex;

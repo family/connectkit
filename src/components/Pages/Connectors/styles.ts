@@ -167,8 +167,8 @@ export const MobileConnectorsContainer = styled(motion.div)`
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 14px 18px 28px;
-  margin: 0 -24px;
+  padding: 14px 0 28px;
+  margin: 0 0;
 `;
 
 export const MobileConnectorButton = styled(motion.button)`
