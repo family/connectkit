@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const WalletList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 22px 22px;
-  padding: 8px 0;
+  gap: 22px 8px;
+  margin: 0 -10px;
+  padding: 4px 0 0;
   @media only screen and (max-width: 370px) {
     grid-template-columns: repeat(3, 1fr);
   }
