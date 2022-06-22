@@ -147,7 +147,7 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
 
   const [state, setOpen] = useTransition({
-    timeout: 300,
+    timeout: mobile ? 310 : 160, // different animations, 10ms extra to avoid final-frame drops
     preEnter: true,
     mountOnEnter: true,
     unmountOnExit: true,
@@ -426,7 +426,8 @@ const Modal: React.FC<ModalProps> = ({
                       key={`inner-${key}`}
                       ref={contentRef}
                       style={{
-                        pointerEvents: key === pageId ? 'auto' : 'none',
+                        pointerEvents:
+                          key === pageId && rendered ? 'auto' : 'none',
                       }}
                     >
                       {page}
