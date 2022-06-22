@@ -15,6 +15,7 @@ export const rainbow = ({ chains }: WalletOptions): WalletProps => {
       default: <Logos.Rainbow />,
     },
     logoBackground: '#174299',
+    // gradient: 'linear-gradient(180deg, #174299 0%, #001E59 100%)',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/rainbow',
