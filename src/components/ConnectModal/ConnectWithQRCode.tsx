@@ -21,6 +21,7 @@ import Button from '../Common/Button';
 import Alert from '../Common/Alert';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import { ExternalLinkIcon } from '../../assets/icons';
+import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
 
 const ConnectWithQRCode: React.FC<{
   connectorId: string;
@@ -93,16 +94,12 @@ const ConnectWithQRCode: React.FC<{
     }
   };
 
+  const { openDefaultWalletConnect } = useDefaultWalletConnect();
   const openDefaultConnect = async () => {
     const c = connectors.filter((c) => c.id === id)[0];
     if (c.id === 'walletConnect') {
-      const co = new WalletConnectConnector({
-        chains: c.chains,
-        options: { ...c.options, qrcode: true },
-      });
-      try {
-        await connectWallet(co);
-      } catch {}
+      openDefaultWalletConnect();
+    } else {
     }
   };
 
