@@ -57,4 +57,5 @@ export const ImageContainer = styled(motion.img)<{ $loaded: boolean }>`
   opacity: ${(props) => (props.$loaded ? 1 : 0)};
   will-change: opacity; // Needed for Safari
   transition: opacity 500ms ease;
+  transform: scale(1.01); // fixes background color bleeding
 `;
