@@ -435,7 +435,7 @@ export const ResetContainer = styled.div<{
 }>`
   ${(props) => {
     // TODO: Implement the themeProvider
-    console.log(props.theme.connectKit);
+    //console.log(props.theme.connectKit);
     return css``;
   }}
 
