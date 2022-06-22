@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { AnimatePresence, motion, Variants } from 'framer-motion';
-import { Props } from 'framer-motion/types/types';
 
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
@@ -33,7 +32,7 @@ import localizations, { localize } from '../../../constants/localizations';
 import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 
-const InfoIcon = (props: Props) => (
+const InfoIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
     width="22"
@@ -51,7 +50,7 @@ const InfoIcon = (props: Props) => (
     />
   </svg>
 );
-const CloseIcon = (props: Props) => (
+const CloseIcon = ({ ...props }) => (
   <motion.svg
     width={14}
     height={14}
@@ -74,7 +73,7 @@ const CloseIcon = (props: Props) => (
     />
   </motion.svg>
 );
-const BackIcon = (props: Props) => (
+const BackIcon = ({ ...props }) => (
   <motion.svg
     width={9}
     height={16}
