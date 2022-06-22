@@ -177,7 +177,7 @@ const MobileBoxIn = keyframes`
 `;
 const MobileBoxOut = keyframes`
   from{ transform: translateY(0%); }
-  to{ transform: translateY(100%); }
+  to{ transform: translateY(110%); } // a bit further to avoid dropshadow peaking out
 `;
 export const BoxContainer = styled(motion.div)`
   z-index: 2;
@@ -208,8 +208,8 @@ export const BoxContainer = styled(motion.div)`
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     animation-name: ${MobileBoxOut};
-    animation-duration: 300ms;
-    animation-timing-function: ease-in;
+    animation-duration: 500ms;
+    animation-timing-function: ease;
 
     &.active {
       animation-name: ${MobileBoxIn};
@@ -287,13 +287,10 @@ export const PageContainer = styled(motion.div)`
     animation-delay: 16.6667ms;
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    animation: 300ms ease both;
     &.active {
-      animation-delay: 80ms;
       animation-name: ${FadeIn};
     }
     &.active-scale-up {
-      animation-delay: 80ms;
       animation-name: ${FadeIn};
     }
     &.exit-scale-down {
