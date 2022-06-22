@@ -17,14 +17,14 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
   display: flex;
   gap: 8px;
   width: fit-content;
-  max-width: 258px;
   align-items: center;
   justify-content: center;
   border-radius: ${(props) => (props.$size === 'small' ? 11 : 14)}px;
-  padding: 10px 12px;
+  padding: 10px 16px 10px 12px;
   font-size: 14px;
   line-height: 19px;
   font-weight: 500;
+  letter-spacing: -0.1px;
   color: var(--tooltip-color);
   background: var(--tooltip-background);
   box-shadow: var(--shadow);

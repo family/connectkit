@@ -94,8 +94,8 @@ export default {
     scanScreen: {
       heading: `Scan with Phone`,
       tooltip: {
-        walletConnect: `Open a [WALLETCONNECTLOGO] WalletConnect supported wallet to scan`,
-        default: `Open ${keys.connectorName} on your mobile phone to scan`,
+        walletConnect: `Open a [WALLETCONNECTLOGO] WalletConnect \nsupported wallet to scan`,
+        default: `Open ${keys.connectorName} on \nyour mobile phone to scan`,
       },
     },
     downloadAppScreen: {
@@ -178,7 +178,7 @@ export default {
     scanScreen: {
       heading: `Numériser avec le téléphone`,
       tooltip: {
-        walletConnect: `Ouvrez votre portefeuille préféré et scannez le code QR`,
+        walletConnect: `Ouvrez votre portefeuille \n préféré et scannez le code QR`,
         default: `Ouvrez ${keys.connectorName} sur votre téléphone portable et scannez`,
       },
     },
