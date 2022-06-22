@@ -107,15 +107,7 @@ const Introduction: React.FC = () => {
             </LogoPosition>
           </Logo>
         </LogoGroup>
-        <GraphicBackground
-          animate={{
-            opacity: [0, 1],
-            scale: [0.9, 1],
-            transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
-          }}
-        >
-          {wave}
-        </GraphicBackground>
+        <GraphicBackground>{wave}</GraphicBackground>
       </Graphic>
       <ModalContent style={{ paddingBottom: 18 }}>
         <ModalH1 $small>{localizeText(copy.h1)}</ModalH1>

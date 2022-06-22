@@ -20,11 +20,22 @@ export const LogoGroup = styled(motion.div)`
   inset: 0;
   z-index: 2;
 `;
+const graphicIn = keyframes`
+  0%{
+    opacity:0;
+    transform:scale(0.9);
+  }
+  100%{
+    opacity:1;
+    transform:none;
+  }
+`;
 export const GraphicBackground = styled(motion.div)`
   z-index: 1;
   position: absolute;
   inset: 0;
   top: -2px;
+  overflow: hidden;
   &:before {
     content: '';
     position: absolute;
@@ -40,7 +51,11 @@ export const GraphicBackground = styled(motion.div)`
   svg {
     display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
+  }
+  animation: ${graphicIn} 1000ms 100ms ease both;
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    animation: none;
   }
 `;
 
@@ -120,6 +135,13 @@ export const Logo = styled(motion.div)`
   &:nth-child(3){ ${FloatWrapper}{ animation-delay:-800ms; } }
   &:nth-child(4){ ${FloatWrapper}{ animation-delay:-300ms; } }
   &:nth-child(5){ ${FloatWrapper}{ animation-delay:-3200ms; } }
+
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    animation:none !important;
+    ${RotateWrapper},${FloatWrapper}{
+      animation:none !important;
+    }
+  }
   
 
   ${LogoInner}{
