@@ -69,6 +69,7 @@ export const TextWithHr = styled(motion.div)`
 export const ModalHeading = styled(motion.div)`
   z-index: 3;
   pointer-events: none;
+  user-select: none;
   position: absolute;
   top: 28px;
   left: 50%;
