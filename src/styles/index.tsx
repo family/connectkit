@@ -423,6 +423,17 @@ const createCssColors = (scheme: any, override?: boolean) => {
   `;
 };
 
+const themes = {
+  brand: createCssColors(themeColors.brand),
+  default: createCssVars(themeGlobals.default),
+  light: createCssColors(themeColors.light),
+  dark: createCssColors(themeColors.dark),
+  lightMobile: createCssColors(themeColors.lightMobile),
+  darkMobile: createCssColors(themeColors.darkMobile),
+  testTheme: createCssColors(themeColors.testTheme),
+  testThemeAccent: createCssColors(themeColors.testThemeAccent),
+};
+
 /*
  *  Reset stylings to avoid conflicting with the parent websites styling
  * Automatically apply theme based on system theme
@@ -433,30 +444,24 @@ export const ResetContainer = styled.div<{
   $useTheme?: string;
   $customTheme?: CustomTheme;
 }>`
-  ${(props) => {
-    // TODO: Implement the themeProvider
-    //console.log(props.theme.connectKit);
-    return css``;
-  }}
-
-  ${createCssColors(themeColors.brand)}
-  ${createCssVars(themeGlobals.default)};
+  ${themes.brand}
+  ${themes.default}
 
   ${(props) => {
     switch (props.$useTheme) {
       case 'light':
-        return createCssColors(themeColors.light);
+        return themes.light;
       case 'dark':
-        return createCssColors(themeColors.dark);
+        return themes.dark;
       case 'testTheme':
-        return createCssColors(themeColors.testTheme);
+        return themes.testTheme;
       case 'testThemeAccent':
-        return createCssColors(themeColors.testThemeAccent);
+        return themes.testThemeAccent;
       default:
         return css`
-          ${createCssColors(themeColors.light)}
+          ${themes.light}
           @media (prefers-color-scheme: dark) {
-            ${createCssColors(themeColors.dark)}
+            ${themes.dark}
           }
         `;
     }
@@ -466,14 +471,14 @@ export const ResetContainer = styled.div<{
     if (!mobile) return;
     switch (props.$useTheme) {
       case 'light':
-        return createCssColors(themeColors.lightMobile);
+        return themes.lightMobile;
       case 'dark':
-        return createCssColors(themeColors.darkMobile);
+        return themes.darkMobile;
       default:
         return css`
-          ${createCssColors(themeColors.lightMobile)}
+          ${themes.lightMobile}
           @media (prefers-color-scheme: dark) {
-            ${createCssColors(themeColors.darkMobile)}
+            ${themes.darkMobile}
           }
         `;
     }
