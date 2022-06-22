@@ -240,6 +240,7 @@ const ConnectWithInjector: React.FC<{
       <Container>
         {/* <ModalHeading>{connector.name}</ModalHeading> */}
         <ModalHeadingBlock />
+
         <ConnectingContainer>
           <ConnectingAnimation
             $shake={status === states.FAILED || status === states.REJECTED}
@@ -330,9 +331,21 @@ const ConnectWithInjector: React.FC<{
             >
               <CircleSpinner
                 logo={
-                  status === states.UNAVAILABLE
-                    ? connector.logos.transparent ?? connector.logos.default
-                    : connector.logos.transparent ?? connector.logos.default
+                  status === states.UNAVAILABLE ? (
+                    <div
+                      style={{
+                        transform: 'scale(1.14)',
+                        position: 'relative',
+                        width: '100%',
+                      }}
+                    >
+                      {connector.logos.transparent ?? connector.logos.default}
+                    </div>
+                  ) : (
+                    <>
+                      {connector.logos.transparent ?? connector.logos.default}
+                    </>
+                  )
                 }
                 smallLogo={connector.id === 'injected'}
                 connecting={status === states.CONNECTING}
