@@ -9,7 +9,7 @@ function useDefaultWallets(): WalletProps[] | any {
   // TODO: Find a better way to get configuration chains
   const chains = connectors[0].chains;
 
-  let defaultWallets = [];
+  let defaultWallets: string[] = [];
 
   // If missing metamask or coinbasewallet connector from wagmi config, add them to this list
   if (!connectors.find((c) => c.id === 'metaMask'))

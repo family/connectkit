@@ -17,7 +17,7 @@ export function useDefaultWalletConnect() {
       try {
         await connectAsync(connector);
       } catch (err) {
-        console.log('WalletConnect', err?.message);
+        console.log('WalletConnect', err);
       }
     },
   };

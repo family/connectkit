@@ -26,13 +26,13 @@ const About: React.FC = () => {
 
   const [slider, setSlider] = useState(0);
 
+  let interval: ReturnType<typeof setInterval>;
+
   const gotoSlide = (index: number) => {
     setSlider(index);
-    console.log(interval);
     clearInterval(interval);
   };
 
-  let interval;
   useEffect(() => {
     interval = setInterval(() => {
       //setSlider((prevSlider) => (prevSlider + 1) % slides.length);

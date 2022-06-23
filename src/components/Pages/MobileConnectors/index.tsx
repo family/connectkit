@@ -67,9 +67,11 @@ const MobileConnectors: React.FC = () => {
               <WalletItem key={i} onClick={() => connectWallet(wallet)}>
                 <WalletIcon
                   style={
-                    logoBackground && {
-                      background: logoBackground,
-                    }
+                    logoBackground
+                      ? {
+                          background: logoBackground,
+                        }
+                      : undefined
                   }
                 >
                   {logos.mobile ?? logos.default}
