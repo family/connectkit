@@ -7,11 +7,13 @@ export function useDefaultWalletConnect() {
   const { connectAsync, connectors } = useConnect();
   return {
     openDefaultWalletConnect: async () => {
-      const c: Connector = connectors.find((c) => c.id === 'walletConnect');
+      const c: Connector<any, any> | undefined = connectors.find(
+        (c) => c.id === 'walletConnect'
+      );
       if (c) {
         const connector = new WalletConnectConnector({
           chains: c.chains,
-          options: { qrcode: true },
+          options: { ...c.options, qrcode: true },
         });
 
         try {
