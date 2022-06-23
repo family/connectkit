@@ -2,11 +2,10 @@ import styled, { css } from 'styled-components';
 import defaultTheme from '../../../constants/defaultTheme';
 
 export const ImageContainer = styled.div`
-  height: 176px;
+  height: 196px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0 8px;
   svg {
     display: block;
   }
@@ -17,7 +16,7 @@ export const Slider = styled.div`
   --background-transparent: var(--body-background-transparent);
   position: relative;
   overflow: hidden;
-  margin: -12px 0 3px;
+  margin: 0 0 3px;
   background: var(--background);
   border-radius: 16px;
   &:before,
@@ -62,7 +61,7 @@ export const Slides = styled.div`
 
 export const Slide = styled.div`
   width: 100%;
-  padding: 20px 28px 2px;
+  padding: 0 28px 2px;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     flex-shrink: 0;
     scroll-snap-align: start;
