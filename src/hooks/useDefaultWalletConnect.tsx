@@ -1,20 +1,17 @@
-import { useNetwork } from 'wagmi';
+import { Connector, useNetwork } from 'wagmi';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { useConnect } from './useConnect';
 
 export function useDefaultWalletConnect() {
   const { connectAsync, connectors } = useConnect();
-  const { chains } = useNetwork();
-
   return {
     openDefaultWalletConnect: async () => {
-      const c = connectors.find((c) => c.id === 'walletConnect');
+      const c: Connector = connectors.find((c) => c.id === 'walletConnect');
       if (c) {
-        console.log(c.options);
         const connector = new WalletConnectConnector({
-          chains,
-          options: { ...c.options, qrcode: true },
+          chains: c.chains,
+          options: { qrcode: true },
         });
 
         try {
