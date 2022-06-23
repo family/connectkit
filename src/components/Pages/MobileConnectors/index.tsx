@@ -21,29 +21,18 @@ const MobileConnectors: React.FC = () => {
   const { connectAsync } = useConnect();
 
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
-  /*
-  const colors = [
-    '#007AFF',
-    '#5856D6',
-    '#AF52DE',
-    '#5AC8FA',
-    '#34C759',
-    '#FFCC00',
-    '#FF9500',
-    '#FF3B30',
-  ];
-*/
   const wallets = useDefaultWallets();
 
   const connectWallet = (wallet: WalletProps) => {
     const c = wallet.createConnector();
+
     c.connector.on('message', async ({ type }: any) => {
       if (type === 'connecting') {
         const uri = await c.mobile.getUri();
-        console.log(uri);
         window.location.href = uri;
       }
     });
+
     try {
       connectAsync(c.connector);
     } catch (err) {
