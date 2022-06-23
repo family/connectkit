@@ -16,6 +16,22 @@ import { useContext } from '../../ConnectKit';
 import { WalletProps } from '../../../wallets/wallet';
 import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect';
 
+const MoreIcon = (
+  <svg
+    width="60"
+    height="60"
+    viewBox="0 0 60 60"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M30 42V19M19 30.5H42"
+      stroke="var(--body-color-muted)"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  </svg>
+);
 const MobileConnectors: React.FC = () => {
   const context = useContext();
   const { connectAsync } = useConnect();
@@ -62,6 +78,14 @@ const MobileConnectors: React.FC = () => {
               </WalletItem>
             );
           })}
+          <WalletItem onClick={openDefaultWalletConnect}>
+            <WalletIcon
+              style={{ background: 'var(--body-background-secondary)' }}
+            >
+              {MoreIcon}
+            </WalletIcon>
+            <WalletLabel>More</WalletLabel>
+          </WalletItem>
         </WalletList>
       </ModalContent>
       <Button icon={<ExternalLinkIcon />} onClick={openDefaultWalletConnect}>
