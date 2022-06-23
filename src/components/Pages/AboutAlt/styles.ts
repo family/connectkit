@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import defaultTheme from '../../../constants/defaultTheme';
 
 export const ImageContainer = styled.div`
-  height: 196px;
+  height: 176px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,9 +16,17 @@ export const Slider = styled.div`
   --background-transparent: var(--body-background-transparent);
   position: relative;
   overflow: hidden;
-  margin: 0 0 3px;
-  background: var(--background);
+  padding: 12px 0 6px;
   border-radius: 16px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.3;
+    background: var(--background);
+  }
+  /*
   &:before,
   &:after {
     z-index: 2;
@@ -45,6 +53,7 @@ export const Slider = styled.div`
       var(--background-transparent)
     );
   }
+  */
 `;
 export const Slides = styled.div`
   display: flex;
