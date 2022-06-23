@@ -62,7 +62,6 @@ export const LearnMoreButton = styled(motion.button)`
   &:hover {
     color: var(--body-color-muted-hover);
     svg {
-      transform: translateY(-1px);
       path,
       circle {
         opacity: 1;
