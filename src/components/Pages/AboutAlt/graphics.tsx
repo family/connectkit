@@ -305,9 +305,9 @@ export const SlideOne = () => (
     }}
   >
     <motion.div
-      initial={{ opacity: 0, scale: 0.4, y: '40%' }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.5 }}
+      initial={{ rotate: -40, scale: 0.4, y: '40%' }}
+      animate={{ rotate: 0, opacity: 1, scale: 1, y: 0 }}
+      exit={{ scale: 0.5, x: '70%' }}
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -323,6 +323,7 @@ export const SlideOne = () => (
     </motion.div>
     <MainCircle
       layoutId="circle"
+      initial={{ rotate: 50 }}
       style={{
         position: 'relative',
         zIndex: 2,
@@ -337,7 +338,7 @@ export const SlideOne = () => (
           background: 'var(--body-background)',
           boxShadow: '0px 3px 15px rgba(0, 0, 0, 0.1)',
         }}
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0, rotate: -50 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
@@ -346,9 +347,9 @@ export const SlideOne = () => (
     </MainCircle>
 
     <motion.div
-      initial={{ opacity: 0, scale: 0.4, y: '40%' }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.5 }}
+      initial={{ rotate: 40, scale: 0.4, y: '40%' }}
+      animate={{ rotate: 0, opacity: 1, scale: 1, y: 0 }}
+      exit={{ scale: 0.5, x: '-70%' }}
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -397,9 +398,9 @@ export const SlideTwo = () => (
         </MainCircleInner>
       </MainCircle>
       <motion.div
-        initial={{ opacity: 1, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.4 }}
+        initial={{ opacity: 1, scale: 0.4 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ scale: 0.4 }}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -416,8 +417,8 @@ export const SlideTwo = () => (
       </motion.div>
       <motion.div
         style={{ position: 'absolute', top: -16, right: -28 }}
-        initial={{ opacity: 0, x: -40, scale: 0.8 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
+        initial={{ rotate: 20, opacity: 0, x: -40, scale: 0.8 }}
+        animate={{ rotate: 0, opacity: 1, x: 0, scale: 1 }}
         exit={{ opacity: 0, x: -80, scale: 0.4 }}
       >
         {Key}
@@ -436,7 +437,7 @@ export const SlideThree = () => (
     >
       <MainCircle
         layoutId="circle"
-        initial={{ rotate: 180 }}
+        initial={{ rotate: 80 }}
         style={{
           width: 128,
           height: 128,
@@ -444,7 +445,7 @@ export const SlideThree = () => (
       >
         <MainCircleInner
           key={'SlideThreeInner'}
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 0, rotate: 100 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           style={{
@@ -512,10 +513,9 @@ export const SlideThree = () => (
       </MainCircle>
 
       <motion.div
-        key="threeWallet"
-        initial={{ opacity: 1, scale: 0.4, y: -40, x: -40 }}
-        animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
-        exit={{ opacity: 0, scale: 0.9 }}
+        initial={{ rotate: -20, scale: 0.4, y: -40, x: -40 }}
+        animate={{ rotate: 0, scale: 1, y: 0, x: 0 }}
+        exit={{ scale: 0.2, y: -25, x: 15 }}
         style={{
           zIndex: 3,
           borderRadius: '50%',

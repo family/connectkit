@@ -87,7 +87,6 @@ const About: React.FC = () => {
                       style={{ zIndex: 2, position: 'absolute' }}
                       exit={{
                         zIndex: 1,
-                        opacity: 0,
                       }}
                     >
                       {g}
