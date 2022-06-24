@@ -31,6 +31,7 @@ import FocusTrap from '../../../hooks/useFocusTrap';
 import localizations, { localize } from '../../../constants/localizations';
 import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
+import { CustomTheme } from '../../../types';
 
 const InfoIcon = ({ ...props }) => (
   <svg
@@ -128,17 +129,23 @@ type ModalProps = {
   pages: any;
   pageId: string;
   positionInside?: boolean;
-  hideOverlay?: boolean;
+  inline?: boolean;
   onClose?: () => void | undefined;
   onBack?: () => void | undefined;
   onInfo?: () => void | undefined;
+
+  demo?: {
+    theme: string;
+    customTheme: CustomTheme;
+  };
 };
 const Modal: React.FC<ModalProps> = ({
   open,
   pages,
   pageId,
   positionInside,
-  hideOverlay,
+  inline,
+  demo,
   onClose,
   onBack,
   onInfo,
@@ -280,8 +287,8 @@ const Modal: React.FC<ModalProps> = ({
 
   const Content = (
     <ResetContainer
-      $useTheme={context.theme}
-      $customTheme={context.customTheme}
+      $useTheme={demo?.theme ?? context.theme}
+      $customTheme={demo?.customTheme ?? context.customTheme}
     >
       <ModalContainer
         role="dialog"
@@ -290,9 +297,7 @@ const Modal: React.FC<ModalProps> = ({
           position: positionInside ? 'absolute' : undefined,
         }}
       >
-        {!hideOverlay && (
-          <BackgroundOverlay $active={rendered} onClick={onClose} />
-        )}
+        {!inline && <BackgroundOverlay $active={rendered} onClick={onClose} />}
         <Container
           style={dimensionsCSS}
           initial={false}
@@ -337,6 +342,35 @@ const Modal: React.FC<ModalProps> = ({
                   >
                     <CloseIcon />
                   </div>
+                </motion.div>
+              )}
+              {demo && (
+                <motion.div
+                  style={{
+                    zIndex: -1,
+                    position: 'absolute',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 'var(--width)',
+                    bottom: '100%',
+                    textAlign: 'center',
+                    transition: 'width var(--duration) var(--ease)',
+                  }}
+                >
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      padding: '8px 16px 6px',
+                      color: '#fff',
+                      fontSize: 12,
+                      lineHeight: '20px',
+                      fontWeight: 500,
+                      background: 'gray',
+                      borderRadius: '12px 12px 0 0',
+                    }}
+                  >
+                    Dev Mode
+                  </span>
                 </motion.div>
               )}
             </AnimatePresence>

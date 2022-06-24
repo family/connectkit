@@ -38,7 +38,7 @@ import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
 import Alert from '../../Common/Alert';
 
-const Profile: React.FC = () => {
+const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
   const copy = localizations[context.lang].profileScreen;
 
@@ -64,8 +64,15 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     if (!shouldDisconnect) return;
+
     // Close before disconnecting to avoid layout shifting while modal is still open
-    context.setOpen(false);
+    if (closeModal) {
+      closeModal();
+      disconnect();
+      reset();
+    } else {
+      context.setOpen(false);
+    }
     return () => {
       disconnect();
       reset();

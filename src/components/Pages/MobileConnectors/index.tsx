@@ -1,5 +1,11 @@
 import React from 'react';
-import { WalletList, WalletItem, WalletIcon, WalletLabel } from './styles';
+import {
+  Container,
+  WalletList,
+  WalletItem,
+  WalletIcon,
+  WalletLabel,
+} from './styles';
 
 import {
   PageContent,
@@ -59,41 +65,50 @@ const MobileConnectors: React.FC = () => {
   return (
     <PageContent style={{ width: 312 }}>
       <ModalHeadingBlock />
-      <ModalContent>
-        <WalletList>
-          {wallets.map((wallet: WalletProps, i: number) => {
-            const { name, shortName, logos, logoBackground } = wallet;
-            return (
-              <WalletItem key={i} onClick={() => connectWallet(wallet)}>
+      <Container>
+        <ModalContent>
+          <WalletList>
+            {wallets.map((wallet: WalletProps, i: number) => {
+              const { name, shortName, logos, logoBackground } = wallet;
+              return (
+                <WalletItem key={i} onClick={() => connectWallet(wallet)}>
+                  <WalletIcon
+                    $outline={true}
+                    style={
+                      logoBackground
+                        ? {
+                            background: logoBackground,
+                          }
+                        : undefined
+                    }
+                  >
+                    {logos.mobile ?? logos.default}
+                  </WalletIcon>
+                  <WalletLabel>{shortName ?? name}</WalletLabel>
+                </WalletItem>
+              );
+            })}
+            <div className="mobile-hide">
+              <WalletItem onClick={openDefaultWalletConnect}>
                 <WalletIcon
-                  $outline={true}
-                  style={
-                    logoBackground
-                      ? {
-                          background: logoBackground,
-                        }
-                      : undefined
-                  }
+                  style={{ background: 'var(--body-background-secondary)' }}
                 >
-                  {logos.mobile ?? logos.default}
+                  {MoreIcon}
                 </WalletIcon>
-                <WalletLabel>{shortName ?? name}</WalletLabel>
+                <WalletLabel>More</WalletLabel>
               </WalletItem>
-            );
-          })}
-          <WalletItem onClick={openDefaultWalletConnect}>
-            <WalletIcon
-              style={{ background: 'var(--body-background-secondary)' }}
-            >
-              {MoreIcon}
-            </WalletIcon>
-            <WalletLabel>More</WalletLabel>
-          </WalletItem>
-        </WalletList>
-      </ModalContent>
-      <Button icon={<ExternalLinkIcon />} onClick={openDefaultWalletConnect}>
-        Open Default Modal
-      </Button>
+            </div>
+          </WalletList>
+        </ModalContent>
+        <div className="mobile-show">
+          <Button
+            icon={<ExternalLinkIcon />}
+            onClick={openDefaultWalletConnect}
+          >
+            Open Default Modal
+          </Button>
+        </div>
+      </Container>
     </PageContent>
   );
 };

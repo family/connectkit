@@ -78,7 +78,6 @@ const userPrefersDarkMode = () => {
 let darkMode = userPrefersDarkMode();
 
 if (darkMode) {
-  console.log('darkMode');
 }
 
 const defaultTheme: CustomTheme = {

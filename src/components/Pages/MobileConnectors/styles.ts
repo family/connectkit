@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 
+const breakpoints = [370, 290, 200];
+
 export const WalletList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px 8px;
   margin: 0 -10px;
   padding: 14px 0 0;
-  @media only screen and (max-width: 370px) {
+  @media only screen and (max-width: ${breakpoints[0]}px) {
     grid-template-columns: repeat(3, 1fr);
   }
-  @media only screen and (max-width: 290px) {
+  @media only screen and (max-width: ${breakpoints[1]}px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media only screen and (max-width: 200px) {
+  @media only screen and (max-width: ${breakpoints[2]}px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;
@@ -51,4 +53,18 @@ export const WalletLabel = styled.div`
   line-height: 15px;
   font-weight: 500;
   opacity: 0.75;
+`;
+
+export const Container = styled.div`
+  .mobile-show {
+    display: none;
+  }
+  @media only screen and (max-width: ${breakpoints[0]}px) {
+    .mobile-show {
+      display: block;
+    }
+    .mobile-hide {
+      display: none;
+    }
+  }
 `;
