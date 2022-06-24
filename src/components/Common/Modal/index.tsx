@@ -553,10 +553,10 @@ const Page: React.FC<PageProps> = ({
   );
 };
 
-export const OrDivider = ({ text = 'or' }) => {
+export const OrDivider = ({ children }: { children?: React.ReactNode }) => {
   return (
     <TextWithHr>
-      <span>{text}</span>
+      <span>{children ?? 'or'}</span>
     </TextWithHr>
   );
 };

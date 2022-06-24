@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { ImageContainer, Slider, Slides, Slide, Dots, Dot } from './styles';
+import {
+  ImageContainer,
+  ImageContainerInner,
+  Slider,
+  Slides,
+  Slide,
+  Dots,
+  Dot,
+} from './styles';
 
 import localizations, { localize } from '../../../constants/localizations';
 import { useContext } from '../../ConnectKit';
@@ -16,6 +24,7 @@ import Button from '../../Common/Button';
 import { SlideOne, SlideThree, SlideTwo } from './graphics';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { contentVariants } from '../../ConnectModal/ConnectWithInjector';
+import { OrDivider } from '../../Common/Modal';
 
 const About: React.FC = () => {
   const localizeText = (text: string) => {
@@ -68,20 +77,21 @@ const About: React.FC = () => {
       <ModalHeadingBlock />
       <Slider>
         <ImageContainer>
-          <MotionConfig transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
-            <AnimatePresence>
+          <MotionConfig transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
+            <AnimatePresence initial={false}>
               {graphics.map(
                 (g, i) =>
                   slider === i && (
-                    <div
+                    <ImageContainerInner
                       key={i}
-                      style={{
-                        zIndex: slider === i ? 2 : 1,
-                        position: 'absolute',
+                      style={{ zIndex: 2, position: 'absolute' }}
+                      exit={{
+                        zIndex: 1,
+                        opacity: 0,
                       }}
                     >
                       {g}
-                    </div>
+                    </ImageContainerInner>
                   )
               )}
             </AnimatePresence>
@@ -108,11 +118,13 @@ const About: React.FC = () => {
           </AnimatePresence>
         </Slides>
       </Slider>
-      <Dots>
-        {slides.map((s, i) => (
-          <Dot key={i} $active={slider === i} onClick={() => gotoSlide(i)} />
-        ))}
-      </Dots>
+      <OrDivider>
+        <Dots>
+          {slides.map((s, i) => (
+            <Dot key={i} $active={slider === i} onClick={() => gotoSlide(i)} />
+          ))}
+        </Dots>
+      </OrDivider>
       <Button href={copy.ctaUrl} arrow>
         {localizeText(copy.ctaText)}
       </Button>

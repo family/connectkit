@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
-import defaultTheme from '../../../constants/defaultTheme';
 
 export const ImageContainer = styled.div`
   height: 208px;
@@ -12,12 +11,12 @@ export const ImageContainer = styled.div`
     display: block;
   }
 `;
+export const ImageContainerInner = styled(motion.div)``;
 
 export const Slider = styled.div`
   --background: var(--body-background-secondary);
   --background-transparent: var(--body-background-transparent);
   position: relative;
-  overflow: hidden;
   padding: 0 0 4px;
   border-radius: 16px;
 `;
@@ -31,26 +30,25 @@ export const Slide = styled(motion.div)`
   left: 0;
   right: 0;
   width: 100%;
-  padding: 0 8px 2px;
+  padding: 0 8px 8px;
 `;
 
 export const Dots = styled.div`
   display: flex;
   justify-content: center;
-  padding: 0 0 8px;
 `;
 export const Dot = styled.div<{ $active: boolean }>`
   display: flex;
   align-items: center;
   height: 28px;
-  padding: 2px;
+  padding: 4px;
   &:before {
     content: '';
     display: block;
-    width: 16px;
-    height: 2px;
+    width: 7px;
+    height: 7px;
     opacity: 0.12;
-    border-radius: 2px;
+    border-radius: 7px;
     background: var(--body-color);
     transition: all 200ms ease;
   }
@@ -64,7 +62,7 @@ export const Dot = styled.div<{ $active: boolean }>`
       : css`
           cursor: pointer;
           &:hover:before {
-            transform: scaleY(4);
+            transform: scale(1.8);
           }
           &:active:before {
           }
