@@ -13,7 +13,9 @@ import {
 } from '../../Common/Modal/styles';
 
 import Button from '../../Common/Button';
-import { SlideOne, SlideTwo } from './graphics';
+import { SlideOne, SlideThree, SlideTwo } from './graphics';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
+import { contentVariants } from '../../ConnectModal/ConnectWithInjector';
 
 const About: React.FC = () => {
   const localizeText = (text: string) => {
@@ -40,36 +42,70 @@ const About: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const slides: React.ReactNode[] = [
-    <ModalContent style={{ gap: 8 }}>
-      <ImageContainer>
-        <SlideOne />
-      </ImageContainer>
-      <ModalH1 $small>{localizeText(copy.a_h1)}</ModalH1>
-      <ModalBody>{localizeText(copy.a_p)}</ModalBody>
-    </ModalContent>,
-    <ModalContent style={{ gap: 8 }}>
-      <ImageContainer>
-        <SlideTwo />
-      </ImageContainer>
-      <ModalH1 $small>{localizeText(copy.b_h1)}</ModalH1>
-      <ModalBody>{localizeText(copy.b_p)}</ModalBody>
-    </ModalContent>,
+  const graphics: React.ReactNode[] = [
+    <SlideOne />,
+    <SlideTwo />,
+    <SlideThree />,
   ];
 
-  const positionCSS = {
-    '--width': `${slides.length * 100}%`,
-    '--x': `-${(slider / slides.length) * 100}%`,
-  } as React.CSSProperties;
+  const slides: React.ReactNode[] = [
+    <>
+      <ModalH1 $small>{localizeText(copy.a_h1)}</ModalH1>
+      <ModalBody>{localizeText(copy.a_p)}</ModalBody>
+    </>,
+    <>
+      <ModalH1 $small>{localizeText(copy.b_h1)}</ModalH1>
+      <ModalBody>{localizeText(copy.b_p)}</ModalBody>
+    </>,
+    <>
+      <ModalH1 $small>{localizeText(copy.c_h1)}</ModalH1>
+      <ModalBody>{localizeText(copy.c_p)}</ModalBody>
+    </>,
+  ];
 
   return (
-    <PageContent style={{ width: 336 }}>
+    <PageContent>
       <ModalHeadingBlock />
       <Slider>
-        <Slides style={positionCSS}>
-          {slides.map((s, i) => (
-            <Slide key={i}>{s}</Slide>
-          ))}
+        <ImageContainer>
+          <MotionConfig transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
+            <AnimatePresence>
+              {graphics.map(
+                (g, i) =>
+                  slider === i && (
+                    <div
+                      key={i}
+                      style={{
+                        zIndex: slider === i ? 2 : 1,
+                        position: 'absolute',
+                      }}
+                    >
+                      {g}
+                    </div>
+                  )
+              )}
+            </AnimatePresence>
+          </MotionConfig>
+        </ImageContainer>
+        <Slides>
+          <AnimatePresence>
+            {slides.map(
+              (s, i) =>
+                slider === i && (
+                  <Slide
+                    key={i}
+                    initial={'initial'}
+                    animate={'animate'}
+                    exit={'exit'}
+                    variants={contentVariants}
+                  >
+                    <ModalContent style={{ gap: 8, paddingBottom: 0 }}>
+                      {s}
+                    </ModalContent>
+                  </Slide>
+                )
+            )}
+          </AnimatePresence>
         </Slides>
       </Slider>
       <Dots>

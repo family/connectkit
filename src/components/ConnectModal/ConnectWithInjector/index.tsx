@@ -45,7 +45,7 @@ export const states = {
   UNAVAILABLE: 'unavailable',
 };
 
-const contentVariants: Variants = {
+export const contentVariants: Variants = {
   initial: {
     willChange: 'transform,opacity',
     position: 'relative',

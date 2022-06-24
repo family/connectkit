@@ -1,8 +1,10 @@
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 import defaultTheme from '../../../constants/defaultTheme';
 
 export const ImageContainer = styled.div`
-  height: 176px;
+  height: 208px;
+  padding: 0 0 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,73 +18,26 @@ export const Slider = styled.div`
   --background-transparent: var(--body-background-transparent);
   position: relative;
   overflow: hidden;
-  padding: 12px 0 6px;
+  padding: 0 0 4px;
   border-radius: 16px;
-
-  &:before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0.3;
-    background: var(--background);
-  }
-  /*
-  &:before,
-  &:after {
-    z-index: 2;
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 16px;
-  }
-
-  &:before {
-    left: 0;
-    background: linear-gradient(
-      90deg,
-      var(--background),
-      var(--background-transparent)
-    );
-  }
-  &:after {
-    right: 0;
-    background: linear-gradient(
-      270deg,
-      var(--background),
-      var(--background-transparent)
-    );
-  }
-  */
 `;
 export const Slides = styled.div`
-  display: flex;
-  transition: transform 200ms ease;
-  width: var(--width);
-  transform: translateX(var(--x));
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    transform: none;
-    width: 100%;
-    overflow: auto;
-    scroll-snap-type: x mandatory;
-  }
+  position: relative;
 `;
 
-export const Slide = styled.div`
+export const Slide = styled(motion.div)`
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  padding: 0 28px 2px;
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    flex-shrink: 0;
-    scroll-snap-align: start;
-  }
+  padding: 0 8px 2px;
 `;
 
 export const Dots = styled.div`
   display: flex;
   justify-content: center;
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    display: none;
-  }
+  padding: 0 0 8px;
 `;
 export const Dot = styled.div<{ $active: boolean }>`
   display: flex;
