@@ -66,6 +66,7 @@ const MobileConnectors: React.FC = () => {
             return (
               <WalletItem key={i} onClick={() => connectWallet(wallet)}>
                 <WalletIcon
+                  $outline={true}
                   style={
                     logoBackground
                       ? {
