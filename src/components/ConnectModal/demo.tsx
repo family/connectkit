@@ -90,6 +90,11 @@ const ConnectModal: React.FC<{
   useEffect(() => setIsOpen(open ?? false), [open]);
 
   useEffect(() => {
+    if (isOpen)
+      context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+  }, [isOpen]);
+
+  useEffect(() => {
     if (!isOpen && inline) {
       if (cursorRef.current) {
         cursorRef.current.classList.remove('play');
@@ -97,8 +102,6 @@ const ConnectModal: React.FC<{
         cursorRef.current.classList.add('play');
       }
       setTimeout(() => {
-        console.log('isConnected', isConnected);
-        context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
         setIsOpen(true);
       }, 1500);
     }
