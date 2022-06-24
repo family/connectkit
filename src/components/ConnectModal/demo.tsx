@@ -25,9 +25,9 @@ const shake = keyframes`
 `;
 const cursorIn = keyframes`
   0%{ transform:translate(500%,100%); opacity:0; }
-  70%{ transform:translate(25%,-20%); opacity:1; }
-  80%{ transform:translate(25%,-20%); }
-  90%{ transform:translate(25%,-20%) scale(0.9); }
+  60%{ transform:translate(25%,-20%); opacity:1; }
+  70%{ transform:translate(25%,-20%); }
+  85%{ transform:translate(25%,-20%) scale(0.9); }
   100%{ transform:translate(25%,-20%) scale(1); opacity:1; }
 `;
 
@@ -43,7 +43,7 @@ const Cursor = styled.div`
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4), 0 4px 6px rgba(0, 0, 0, 0.1);
   opacity: 0;
   &.play {
-    animation: ${cursorIn} 1300ms 200ms ease-out both;
+    animation: ${cursorIn} 1300ms 200ms cubic-bezier(0.16, 1, 0.6, 1) both;
   }
 `;
 

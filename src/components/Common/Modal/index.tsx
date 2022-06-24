@@ -369,7 +369,7 @@ const Modal: React.FC<ModalProps> = ({
                       borderRadius: '12px 12px 0 0',
                     }}
                   >
-                    Dev Mode
+                    Demo Mode
                   </span>
                 </motion.div>
               )}
