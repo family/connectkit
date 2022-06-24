@@ -75,10 +75,12 @@ export default {
     },
     aboutScreen: {
       heading: `About Wallets`,
-      a_h1: `All your digital assets`,
-      a_p: `Wallets let you send, receive, store, and interact with digital assets like Ethereum and NFTs.`,
+      a_h1: `For your digital assets`,
+      a_p: `Wallets let you send, receive, store, and interact with digital assets like NFTs and other Ethereum tokens.`,
       b_h1: `A better way to login`,
-      b_p: `With modern apps, your wallet can be used as a way to login, instead of needing a password.`,
+      b_p: `With modern apps, your wallet can be used as an easy way to login, instead of having to remember a password.`,
+      c_h1: `Explore the world of web3`,
+      c_p: `Your wallet is an essential utility that lets you explore and participate in the fast evolving world of web3.`,
       ctaText: `Learn More`,
       ctaUrl: `https://docs.ethhub.io/using-ethereum/wallets/intro-to-ethereum-wallets/`,
     },
@@ -144,90 +146,6 @@ export default {
     },
     switchNetworkScreen: {
       heading: 'Switch Networks',
-    },
-  },
-  /**
-   * TODO: These are just Google Translated for testing
-   */
-  fr: {
-    onboardingScreen: {
-      heading: `Obtenez un portefeuille`,
-      h1: `Commencez à explorer Web3`,
-      p: `Votre portefeuille est la passerelle vers tout ce qui concerne Ethereum, la technologie magique qui permet d'explorer le Web3.`,
-      ctaText: `Choisissez votre premier portefeuille`,
-      ctaUrl: `https://ethereum.org/fr/wallets/find-wallet/#main-content`,
-    },
-    aboutScreen: {
-      heading: ``,
-      a_h1: ``,
-      a_p: ``,
-      b_h1: ``,
-      b_p: ``,
-      ctaText: ``,
-      ctaUrl: ``,
-    },
-    connectorsScreen: {
-      heading: `Connecter le portefeuille`,
-      newcomer: `je n'ai pas de portefeuille`,
-      h1: `Qu'est-ce qu'un portefeuille ?`,
-      p: `Les portefeuilles sont utilisés pour envoyer, recevoir et stocker des actifs numériques. La connexion d'un portefeuille vous permet d'interagir avec les applications.`,
-    },
-    mobileConnectorsScreen: {
-      heading: `Choose Wallet`,
-    },
-    scanScreen: {
-      heading: `Numériser avec le téléphone`,
-      tooltip: {
-        walletConnect: `Ouvrez votre portefeuille \n préféré et scannez le code QR`,
-        default: `Ouvrez ${keys.connectorName} sur votre téléphone portable et scannez`,
-      },
-    },
-    downloadAppScreen: {
-      heading: `Obtenir ${keys.connectorName}`,
-      iosAndroid: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur iOS ou Android.`,
-      ios: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur iOS.`,
-      android: `Numérisez avec l'appareil photo de votre téléphone pour télécharger sur Android.`,
-    },
-    injectionScreen: {
-      unavailable: {
-        h1: `Navigateur non supporté`,
-        p: `Pour connecter votre portefeuille ${keys.connectorName},\ninstallez l'extension sur ${keys.suggestedExtensionBrowser}.`,
-      },
-      install: {
-        h1: `Installez ${keys.connectorName}`,
-        p: `Pour connecter votre portefeuille ${keys.connectorName},\ninstallez l'extension de navigateur.`,
-      },
-      connecting: {
-        h1: `Demande de connexion`,
-        p: `Ouvrez l'extension de navigateur ${keys.connectorName} pour connecter votre portefeuille.`,
-        injected_h1: `Demande de connexion`,
-        injected_p: `Acceptez la demande via votre portefeuille pour vous connecter à cette application.`,
-      },
-      expiring: {
-        requestWillExpiryIn: `Cette requête expirera dans`,
-      },
-      connected: {
-        h1: `Déjà connecté`,
-        p: `Vous pouvez maintenant fermer cette fenêtre contextuelle`,
-      },
-      rejected: {
-        h1: `Demande annulée`,
-        p: `Vous avez annulé la demande.\nCliquez ci-dessus pour réessayer.`,
-      },
-      failed: {
-        h1: `La connexion a échoué`,
-        p: `Désolé, la demande a expiré.\nVeuillez réessayer de vous connecter.`,
-      },
-      notconnected: {
-        h1: `Connectez-vous à ${keys.connectorName}`,
-        p: `Pour continuer, veuillez vous connecter à votre extension ${keys.connectorName}.`,
-      },
-    },
-    profileScreen: {
-      heading: 'Connecté',
-    },
-    switchNetworkScreen: {
-      heading: 'Réseaux de commutation',
     },
   },
 };

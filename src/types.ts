@@ -5,4 +5,4 @@ export type CustomTheme = {
   '--focus-color'?: string;
   '--border-radius'?: string;
 };
-export type Languages = 'en' | 'fr';
+export type Languages = 'en';
