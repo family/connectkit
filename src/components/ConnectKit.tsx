@@ -67,6 +67,25 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   useEffect(() => setLang(language), [language]);
   useEffect(() => setErrorMessage(null), [route, open]);
 
+  /*
+  // Google Font
+  useEffect(() => {
+    const font = // the font name, will need to be parsed to camelCase;
+    console.log(font);
+    if (!font) return;
+
+    const href = `https://fonts.googleapis.com/css2?family=${font}&display=swap`;
+    const link = document.createElement('link');
+    link.href = href;
+    // link.crossOrigin = ""; // TODO: improve performance?
+    link.rel = 'stylesheet';
+
+    document.head.appendChild(link);
+    return () => {
+      document.head.removeChild(link);
+    };
+  });
+*/
   const value = {
     theme: ckTheme,
     setTheme,
