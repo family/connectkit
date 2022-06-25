@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { motion } from 'framer-motion';
 import { CustomTheme } from '../types';
 import { isMobile } from '../utils';
 import { hexToP3 } from '../utils/p3';
@@ -372,7 +373,7 @@ const themes = {
  */
 // TODO: Think more about how to reset our components as to not be affected by external stylings
 // TODO: Merge theme objects instead of overriding
-export const ResetContainer = styled.div<{
+export const ResetContainer = styled(motion.div)<{
   $useTheme?: string;
   $customTheme?: CustomTheme;
 }>`

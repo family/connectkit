@@ -87,8 +87,6 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   useEffect(() => setLang(opts.language), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
 
-  console.log(opts);
-
   /*
   // Google Font
   useEffect(() => {

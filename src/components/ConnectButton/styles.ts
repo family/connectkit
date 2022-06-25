@@ -33,10 +33,9 @@ export const Button = styled(motion.button)`
   font-size: 15px;
   font-weight: 500;
   border-radius: 10px;
-
-  transition: background-color 100ms ease, max-width 200ms ease;
-
+  text-align: center;
   box-shadow: var(--outline), var(--shadow);
+  transition: background-color 100ms ease;
 
   &:hover {
     background: var(--connectbutton-background-hover);
