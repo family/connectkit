@@ -238,7 +238,11 @@ const Wallets: React.FC = () => {
             })}
           </ConnectorsContainer>
 
-          <LearnMoreContainer>
+          <LearnMoreContainer
+            style={{
+              display: context.options.hideNoWalletCTA ? 'none' : 'block',
+            }}
+          >
             <LearnMoreButton
               onClick={() => context.setRoute(routes.ONBOARDING)}
             >

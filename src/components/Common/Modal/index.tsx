@@ -403,6 +403,11 @@ const Modal: React.FC<ModalProps> = ({
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.1 }}
+                      style={{
+                        display: context.options.hideQuestionMarkCTA
+                          ? 'none'
+                          : 'block',
+                      }}
                     >
                       <InfoIcon />
                     </InfoButton>

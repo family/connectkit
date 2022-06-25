@@ -38,34 +38,56 @@ type ContextValue = {
   connector: string;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
+  options?: ConnectKitOptions;
   debug: (message: string | null, code?: any) => void;
 };
 
 const Context = createContext<ContextValue | null>(null);
 
+type ConnectKitOptions = {
+  language?: Languages;
+  hideTooltips?: boolean;
+  hideQuestionMarkCTA?: boolean;
+  hideNoWalletCTA?: boolean;
+};
+
 type ConnectKitProviderProps = {
   children?: React.ReactNode;
   theme?: Theme;
-  language?: Languages;
   customTheme?: CustomTheme | undefined;
+  options?: ConnectKitOptions;
 };
+
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   children,
   theme = 'auto',
-  language = 'en',
   customTheme,
+  options,
 }) => {
+  const defaultOptions: ConnectKitOptions = {
+    language: 'en',
+    hideTooltips: false,
+    hideQuestionMarkCTA: false,
+    hideNoWalletCTA: false,
+  };
+
+  const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
+
   const [ckTheme, setTheme] = useState<Theme>(theme);
   const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>({});
-  const [ckLang, setLang] = useState<Languages>(language);
+  const [ckLang, setLang] = useState<Languages>(opts.language);
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [errorMessage, setErrorMessage] = useState<Error>('');
 
+  // Other Configuration
+
   useEffect(() => setTheme(theme), [theme]);
-  useEffect(() => setLang(language), [language]);
+  useEffect(() => setLang(opts.language), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
+
+  console.log(opts);
 
   /*
   // Google Font
@@ -99,6 +121,9 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     setRoute,
     connector,
     setConnector,
+
+    // Other configuration
+    options: opts,
     errorMessage,
     debug: (message: string | null, code?: any) => {
       setErrorMessage(message);
