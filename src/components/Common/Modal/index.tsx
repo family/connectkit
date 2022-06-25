@@ -406,7 +406,7 @@ const Modal: React.FC<ModalProps> = ({
                       style={{
                         display: context.options?.hideQuestionMarkCTA
                           ? 'none'
-                          : 'block',
+                          : 'flex',
                       }}
                     >
                       <InfoIcon />
