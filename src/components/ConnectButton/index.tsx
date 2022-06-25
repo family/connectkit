@@ -186,7 +186,7 @@ export function ConnectKitButton() {
       }}
       transition={{
         ease: [0.25, 1, 0.5, 1],
-        duration: isInitial ? 0 : 0.15,
+        duration: isInitial ? 0 : 0.22,
       }}
     >
       <Button
