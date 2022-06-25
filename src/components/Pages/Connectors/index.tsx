@@ -240,7 +240,7 @@ const Wallets: React.FC = () => {
 
           <LearnMoreContainer
             style={{
-              display: context.options.hideNoWalletCTA ? 'none' : 'block',
+              display: context.options?.hideNoWalletCTA ? 'none' : 'block',
             }}
           >
             <LearnMoreButton

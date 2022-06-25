@@ -404,7 +404,7 @@ const Modal: React.FC<ModalProps> = ({
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.1 }}
                       style={{
-                        display: context.options.hideQuestionMarkCTA
+                        display: context.options?.hideQuestionMarkCTA
                           ? 'none'
                           : 'block',
                       }}

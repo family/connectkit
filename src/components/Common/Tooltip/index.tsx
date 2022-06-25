@@ -74,7 +74,7 @@ const Tooltip: React.FC<TooltipProps> = ({
         style={
           open === undefined
             ? {
-                cursor: context.options.hideTooltips ? 'auto' : 'help',
+                cursor: context.options?.hideTooltips ? 'auto' : 'help',
               }
             : {}
         }
@@ -103,7 +103,7 @@ const Tooltip: React.FC<TooltipProps> = ({
                     animate={ready ? 'open' : {}}
                     exit={'collapsed'}
                     style={{
-                      display: context.options.hideTooltips ? 'none' : 'flex',
+                      display: context.options?.hideTooltips ? 'none' : 'flex',
                     }}
                     variants={{
                       collapsed: {
