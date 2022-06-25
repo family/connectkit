@@ -1,4 +1,4 @@
-export type Theme = 'light' | 'dark' | 'testTheme' | 'testThemeAccent' | 'auto';
+export type Theme = 'light' | 'dark' | 'web95' | 'auto';
 export type CustomTheme = {
   extends?: Theme;
   '--font-family'?: string;
