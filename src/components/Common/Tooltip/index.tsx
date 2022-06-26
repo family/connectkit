@@ -18,6 +18,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   delay,
 }) => {
   const context = useContext();
+
+  if (context.options?.hideTooltips) return <>{children}</>;
+
   const [isOpen, setIsOpen] = useState(false);
   const [outOfBounds, setOutOfBounds] = useState(false);
   const [size, setSize] = useState<TooltipSizeProps>('small');
@@ -74,7 +77,7 @@ const Tooltip: React.FC<TooltipProps> = ({
         style={
           open === undefined
             ? {
-                cursor: context.options?.hideTooltips ? 'auto' : 'help',
+                cursor: 'help',
               }
             : {}
         }
@@ -102,9 +105,6 @@ const Tooltip: React.FC<TooltipProps> = ({
                     initial={'collapsed'}
                     animate={ready ? 'open' : {}}
                     exit={'collapsed'}
-                    style={{
-                      display: context.options?.hideTooltips ? 'none' : 'flex',
-                    }}
                     variants={{
                       collapsed: {
                         transformOrigin: '20px 50%',
