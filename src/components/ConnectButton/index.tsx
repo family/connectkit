@@ -103,6 +103,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
     chainId: 1,
     address: account?.address,
   });
+
   const { isConnected, isConnecting } = useConnect();
 
   function hide() {
@@ -147,8 +148,9 @@ export function ConnectKitButton() {
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
-    address: account?.address,
+    address: account?.address.toLowerCase(),
   });
+
   const { isConnected } = useConnect();
 
   function hide() {
