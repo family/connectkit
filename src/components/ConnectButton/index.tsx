@@ -148,7 +148,7 @@ export function ConnectKitButton() {
   const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
-    address: account?.address.toLowerCase(),
+    address: account?.address ? account.address.toLowerCase() : '',
   });
 
   const { isConnected } = useConnect();

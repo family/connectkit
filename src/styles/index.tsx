@@ -4,6 +4,34 @@ import { CustomTheme } from '../types';
 import { isMobile } from '../utils';
 import { hexToP3 } from '../utils/p3';
 
+function LightenDarkenColor(col: string, amt: number) {
+  var usePound = false;
+
+  if (col[0] == '#') {
+    col = col.slice(1);
+    usePound = true;
+  }
+
+  var num = parseInt(col, 16);
+
+  var r = (num >> 16) + amt;
+
+  if (r > 255) r = 255;
+  else if (r < 0) r = 0;
+
+  var b = ((num >> 8) & 0x00ff) + amt;
+
+  if (b > 255) b = 255;
+  else if (b < 0) b = 0;
+
+  var g = (num & 0x0000ff) + amt;
+
+  if (g > 255) g = 255;
+  else if (g < 0) g = 0;
+
+  return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16);
+}
+
 /**
  * Theme variables for the modal
  */
@@ -242,6 +270,7 @@ const themeColors = {
     '--ck-modal-h1-font-weight': 400,
 
     // Secondary button
+    '--ck-secondary-button-color': '#373737',
     '--ck-secondary-button-border-radius': '4.5px',
     '--ck-secondary-button-box-shadow':
       '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
@@ -417,6 +446,33 @@ export const ResetContainer = styled(motion.div)<{
 
 
   ${(props) => {
+    console.log(props.$customTheme);
+
+    if (
+      props.$customTheme &&
+      props.$customTheme['--ck-accent-color'] &&
+      ['light', 'dark', 'auto', '', undefined].includes(props.$useTheme)
+    ) {
+      const accentColor = props.$customTheme['--ck-accent-color'];
+      const accentTextColor =
+        props.$customTheme['--ck-accent-text-color'] ?? '#ffffff';
+      return {
+        '--ck-accent-color': accentColor,
+        '--ck-accent-text-color': accentTextColor,
+        // '--connectbutton-color': accentTextColor,
+        // '--connectbutton-background': accentColor,
+        // '--connectbutton-background-hover': accentColor,
+        // '--connectbutton-background-active': LightenDarkenColor(
+        // accentColor,
+        // 20
+        // ),
+        '--ck-secondary-button-background': accentColor,
+        '--ck-secondary-button-hover-background': accentColor,
+        '--ck-secondary-button-color': accentTextColor,
+        '--button-primary-color': accentTextColor,
+        '--focus-color': accentColor,
+      };
+    }
     if (props.$customTheme) {
       return createCssColors(props.$customTheme, true);
     }

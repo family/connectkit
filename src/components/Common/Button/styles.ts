@@ -12,7 +12,7 @@ export const Arrow = styled.svg`
   margin-right: 1px;
   transition: all 100ms ease;
   transform: translateX(-3px);
-  color: var(--body-color);
+  color: var(--ck-secondary-button-color, var(--body-color));
   opacity: 0.4;
 `;
 export const ArrowChevron = styled.path``;
@@ -65,8 +65,11 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
 
   @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
     &:hover {
-      color: var(--accent-text-color);
-      --background: var(--accent-color, var(--body-background-secondary-hover));
+      color: var(--ck-accent-text-color);
+      --background: var(
+        --ck-accent-color,
+        var(--body-background-secondary-hover)
+      );
       /* border-color: transparent; */
       box-shadow: var(--ck-secondary-button-hover-box-shadow);
       ${Arrow} {

@@ -316,7 +316,7 @@ export const SlideOne = () => (
         height: 76,
         background: '#6366F1',
         borderRadius: '50%',
-        boxShadow: '0px 2px 10px rgba(99, 102, 241, 0.3);',
+        boxShadow: '0px 2px 10px rgba(99, 102, 241, 0.3)',
       }}
     >
       {Receive}
