@@ -255,13 +255,14 @@ const themeColors = {
     '--ck-primary-button-background':
       'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
     '--ck-primary-button-box-shadow':
-      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
     '--ck-primary-button-border': '1px solid #003C74',
     '--ck-primary-button-border-radius': '4.5px',
 
     // Primary button hover
     '--ck-primary-button-hover-box-shadow':
-      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 5px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+    '--ck-primary-button-hover-border-radius': '4.5px',
 
     // Modal
     '--ck-modal-heading-font-weight': 400,
