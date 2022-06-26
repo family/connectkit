@@ -16,8 +16,8 @@ export const TextContainer = styled(motion.div)`
 `;
 
 export const Button = styled(motion.button)`
-  --outline: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  /* --outline: inset 0 0 0 1px rgba(0, 0, 0, 0.06); */
+  /* --shadow: 0 2px 4px rgba(0, 0, 0, 0.02); */
   display: block;
   color: var(--connectbutton-color);
   background: var(--connectbutton-background);

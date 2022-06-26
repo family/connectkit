@@ -14,23 +14,62 @@ const contentVariants: Variants = {
     //willChange: 'transform,opacity',
     zIndex: 2,
     opacity: 0,
+    x: '-100%',
     // y: -4,
   },
   animate: {
     opacity: 1,
     scale: 1,
     y: 0,
+    x: 0,
     transition: {
-      duration: 0.3,
+      duration: 0.4,
+      ease: [0.25, 1, 0.5, 1],
     },
   },
   exit: {
     zIndex: 1,
     opacity: 0,
     // y: 4,
+    x: '-100%',
     pointerEvents: 'none',
     position: 'absolute',
-    transition: { duration: 0.2 },
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 1, 0.5, 1],
+    },
+  },
+};
+
+const addressVariants: Variants = {
+  initial: {
+    //willChange: 'transform,opacity',
+    zIndex: 2,
+    opacity: 0,
+    x: '100%',
+    // y: -4,
+  },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    x: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 1, 0.5, 1],
+    },
+  },
+  exit: {
+    zIndex: 1,
+    opacity: 0,
+    // y: 4,
+    x: '100%',
+    pointerEvents: 'none',
+    position: 'absolute',
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 1, 0.5, 1],
+    },
   },
 };
 
@@ -143,22 +182,28 @@ export function ConnectKitButton() {
         width: bounds.width === 0 ? 'fit-content' : '100%',
         maxWidth:
           bounds.width === 0 ? 'none' : 'calc(var(--width, 107px) + 30px)',
-        transition: 'max-width 100ms ease',
+        transition: 'max-width 220ms cubic-bezier(0.25, 1, 0.5, 1)',
       }}
     >
       <Button onClick={show}>
-        <AnimatePresence initial={false}>
-          {activeChain?.unsupported ? (
-            <>Wrong network</>
-          ) : (
-            <div ref={contentRef} style={{ width: 'fit-content' }}>
+        {activeChain?.unsupported ? (
+          <>Wrong network</>
+        ) : (
+          <div
+            ref={contentRef}
+            style={{ width: 'fit-content', position: 'relative' }}
+          >
+            <AnimatePresence initial={false}>
               {account?.address ? (
                 <TextContainer
                   key="connected"
                   initial={'initial'}
                   animate={'animate'}
                   exit={'exit'}
-                  variants={contentVariants}
+                  variants={addressVariants}
+                  style={{
+                    height: 40,
+                  }}
                 >
                   <IconContainer>
                     <Avatar size={24} address={account?.address} />
@@ -172,13 +217,16 @@ export function ConnectKitButton() {
                   animate={'animate'}
                   exit={'exit'}
                   variants={contentVariants}
+                  style={{
+                    height: 40,
+                  }}
                 >
                   Connect Wallet
                 </TextContainer>
               )}
-            </div>
-          )}
-        </AnimatePresence>
+            </AnimatePresence>
+          </div>
+        )}
       </Button>
     </ResetContainer>
   );

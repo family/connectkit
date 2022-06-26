@@ -44,9 +44,9 @@ const themeColors = {
   },
   light: {
     '--connectbutton-color': '#373737',
-    '--connectbutton-background': '#ffffff',
-    '--connectbutton-background-hover': '#f6f7f9',
-    '--connectbutton-background-active': '#eaecf1',
+    '--connectbutton-background': '#F6F7F9',
+    '--connectbutton-background-hover': '#F6F7F9',
+    '--connectbutton-background-active': '#EAECF1',
 
     '--ck-primary-button-color': '#373737',
     '--ck-primary-button-background': '#ffffff',
