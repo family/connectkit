@@ -156,6 +156,7 @@ const ChainSelector: React.FC = () => {
   const targetRef = useRef<any>(null);
   const [ref, bounds] = useMeasure({
     offsetSize: true,
+    scroll: true,
   });
 
   const useIsomorphicLayoutEffect =
@@ -179,6 +180,10 @@ const ChainSelector: React.FC = () => {
     targetRef.current.style.top = `${y}px`;
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, isOpen]);
+
+  useEffect(() => {
+    if (!context.open) setIsOpen(false);
+  }, [context.open]);
 
   const disabled = chains.length <= 1;
   const ChainSelectorButton = (
@@ -237,7 +242,7 @@ const ChainSelector: React.FC = () => {
       </Container>
       <Portal>
         <AnimatePresence>
-          {!mobile && context.open && isOpen && (
+          {!mobile && isOpen && (
             <ResetContainer
               $useTheme={context.theme}
               $customTheme={context.customTheme}
