@@ -272,6 +272,8 @@ const ConnectWithInjector: React.FC<{
                 </RetryButton>
               )}
             </AnimatePresence>
+
+            {/*
             <Tooltip
               open={status === states.EXPIRING}
               message={
@@ -329,30 +331,29 @@ const ConnectWithInjector: React.FC<{
               }
               xOffset={-2}
             >
-              <CircleSpinner
-                logo={
-                  status === states.UNAVAILABLE ? (
-                    <div
-                      style={{
-                        transform: 'scale(1.14)',
-                        position: 'relative',
-                        width: '100%',
-                      }}
-                    >
-                      {connector.logos.transparent ?? connector.logos.default}
-                    </div>
-                  ) : (
-                    <>
-                      {connector.logos.transparent ?? connector.logos.default}
-                    </>
-                  )
-                }
-                smallLogo={connector.id === 'injected'}
-                connecting={status === states.CONNECTING}
-                unavailable={status === states.UNAVAILABLE}
-                countdown={status === states.EXPIRING}
-              />
-            </Tooltip>
+            */}
+            <CircleSpinner
+              logo={
+                status === states.UNAVAILABLE ? (
+                  <div
+                    style={{
+                      transform: 'scale(1.14)',
+                      position: 'relative',
+                      width: '100%',
+                    }}
+                  >
+                    {connector.logos.transparent ?? connector.logos.default}
+                  </div>
+                ) : (
+                  <>{connector.logos.transparent ?? connector.logos.default}</>
+                )
+              }
+              smallLogo={connector.id === 'injected'}
+              connecting={status === states.CONNECTING}
+              unavailable={status === states.UNAVAILABLE}
+              countdown={status === states.EXPIRING}
+            />
+            {/* </Tooltip> */}
           </ConnectingAnimation>
         </ConnectingContainer>
         <ModalContentContainer>
