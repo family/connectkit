@@ -33,6 +33,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [ref, bounds] = useMeasure({
     debounce: !ready ? 220 : 0, // fix alignment initial state
     offsetSize: true,
+    scroll: true,
   });
 
   const checkBounds = () => {
@@ -70,6 +71,14 @@ const Tooltip: React.FC<TooltipProps> = ({
   };
   useIsomorphicLayoutEffect(refreshLayout, [bounds, open, isOpen]);
 
+  useEffect(() => {
+    if (!context.open) setIsOpen(false);
+  }, [context.open]);
+
+  useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
+
   return (
     <>
       <motion.div
@@ -89,55 +98,52 @@ const Tooltip: React.FC<TooltipProps> = ({
       </motion.div>
       <Portal>
         <AnimatePresence>
-          {context.open &&
-            currentRoute === context.route &&
-            !outOfBounds &&
-            (open !== undefined ? open : isOpen) && (
-              <ResetContainer
-                $useTheme={context.theme}
-                $customTheme={context.customTheme}
-              >
-                <TooltipWindow>
-                  <TooltipContainer
-                    role="tooltip"
-                    $size={size}
-                    ref={targetRef}
-                    initial={'collapsed'}
-                    animate={ready ? 'open' : {}}
-                    exit={'collapsed'}
-                    variants={{
-                      collapsed: {
-                        transformOrigin: '20px 50%',
-                        opacity: 0,
-                        scale: 0.9,
-                        z: 0.01,
-                        y: '-50%',
-                        x: 20,
-                        transition: {
-                          duration: 0.1,
-                        },
+          {currentRoute === context.route && !outOfBounds && isOpen && (
+            <ResetContainer
+              $useTheme={context.theme}
+              $customTheme={context.customTheme}
+            >
+              <TooltipWindow>
+                <TooltipContainer
+                  role="tooltip"
+                  $size={size}
+                  ref={targetRef}
+                  initial={'collapsed'}
+                  animate={ready ? 'open' : {}}
+                  exit={'collapsed'}
+                  variants={{
+                    collapsed: {
+                      transformOrigin: '20px 50%',
+                      opacity: 0,
+                      scale: 0.9,
+                      z: 0.01,
+                      y: '-50%',
+                      x: 20,
+                      transition: {
+                        duration: 0.1,
                       },
-                      open: {
-                        willChange: 'opacity,transform',
-                        opacity: 1,
-                        scale: 1,
-                        z: 0.01,
-                        y: '-50%',
-                        x: 20,
-                        transition: {
-                          ease: [0.76, 0, 0.24, 1],
-                          duration: 0.15,
-                          delay: delay ? delay : 0.5,
-                        },
+                    },
+                    open: {
+                      willChange: 'opacity,transform',
+                      opacity: 1,
+                      scale: 1,
+                      z: 0.01,
+                      y: '-50%',
+                      x: 20,
+                      transition: {
+                        ease: [0.76, 0, 0.24, 1],
+                        duration: 0.15,
+                        delay: delay ? delay : 0.5,
                       },
-                    }}
-                  >
-                    {message}
-                    <TooltipTail $size={size} />
-                  </TooltipContainer>
-                </TooltipWindow>
-              </ResetContainer>
-            )}
+                    },
+                  }}
+                >
+                  {message}
+                  <TooltipTail $size={size} />
+                </TooltipContainer>
+              </TooltipWindow>
+            </ResetContainer>
+          )}
         </AnimatePresence>
       </Portal>
     </>
