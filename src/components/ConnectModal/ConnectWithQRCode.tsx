@@ -207,12 +207,15 @@ const ConnectWithQRCode: React.FC<{
             onClick={() => {
               context.setRoute(routes.DOWNLOAD);
             }}
+            /*
             icon={
               <div style={{ background: connector.logoBackground }}>
                 {connector.logos.default}
               </div>
             }
             roundedIcon
+            */
+            download
           >
             Get {connector.name}
           </Button>

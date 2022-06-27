@@ -14,6 +14,7 @@ export const Arrow = styled.svg`
   transform: translateX(-3px);
   color: var(--ck-secondary-button-color, var(--body-color));
   opacity: 0.4;
+  --stroke-width: 2;
 `;
 export const ArrowChevron = styled.path``;
 export const ArrowLine = styled.line`
@@ -21,6 +22,33 @@ export const ArrowLine = styled.line`
   transition-property: transform;
   transform-origin: 90% 50%;
   transform: scaleX(0.1);
+`;
+export const CircleArrow = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  margin-left: 1px;
+  margin-right: 9px;
+  border-radius: 50%;
+  color: var(--ck-secondary-button-color, var(--body-color));
+  box-shadow: inset 0 0 0 2px currentColor;
+  opacity: 0.4;
+  width: 18px;
+  height: 18px;
+`;
+export const CircleArrowInner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  transform: rotate(90deg) scale(0.75);
+  ${Arrow} {
+    left: 0.5px;
+    margin: 0 auto;
+    opacity: 1;
+    --stroke-width: 2.5;
+  }
 `;
 
 export const ButtonContainer = styled.button<{ disabled?: boolean }>`

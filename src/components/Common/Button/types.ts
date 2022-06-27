@@ -6,6 +6,7 @@ export type ButtonProps = {
   icon?: React.ReactNode;
   roundedIcon?: boolean;
   arrow?: boolean;
+  download?: boolean;
   href?: string;
   onClick?: (e: any) => void;
 };

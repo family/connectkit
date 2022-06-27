@@ -17,6 +17,8 @@ export const Scan = ({ ...props }) => (
   </svg>
 );
 
+export const Download = ({ ...props }) => <svg />;
+
 export const ExternalLinkIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
