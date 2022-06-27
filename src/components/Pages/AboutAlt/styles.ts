@@ -1,8 +1,13 @@
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
+import defaultTheme from '../../../constants/defaultTheme';
+
+const imageHeight = 208;
 
 export const ImageContainer = styled.div`
-  height: 208px;
+  point-events: none;
+  user-select: none;
+  height: ${imageHeight}px;
   padding: 0 0 12px;
   display: flex;
   align-items: center;
@@ -13,24 +18,58 @@ export const ImageContainer = styled.div`
 `;
 export const ImageContainerInner = styled(motion.div)``;
 
-export const Slider = styled.div`
-  --background: var(--body-background-secondary);
-  --background-transparent: var(--body-background-transparent);
-  position: relative;
-  padding: 0 0 4px;
-  border-radius: 16px;
-`;
 export const Slides = styled.div`
   position: relative;
 `;
 
-export const Slide = styled(motion.div)`
+export const Slide = styled(motion.div)<{ $active?: boolean }>`
+  scroll-snap-type: x mandatory;
   position: relative;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
   padding: 0 8px 8px;
+  will-change: transform, opacity;
+  transition: 400ms 50ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-property: transform, opacity;
+  ${(props) =>
+    !props.$active &&
+    css`
+      pointer-events: none;
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.95);
+      transition-duration: 300ms;
+      transition-delay: 0ms;
+    `}
+`;
+export const Slider = styled.div`
+  --background: var(--body-background-secondary);
+  --background-transparent: var(--body-background-transparent);
+  position: relative;
+  padding: 0 0 4px;
+  border-radius: 16px;
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    margin: 0 -24px;
+    ${Slides} {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      overflow: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      margin-top: -${imageHeight}px;
+      padding-top: ${imageHeight}px;
+    }
+    ${Slide} {
+      position: relative;
+      opacity: 1;
+      transform: none;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+  }
 `;
 
 export const Dots = styled.div`

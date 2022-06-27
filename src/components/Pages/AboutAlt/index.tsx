@@ -23,7 +23,6 @@ import {
 import Button from '../../Common/Button';
 import { SlideOne, SlideThree, SlideTwo } from './graphics';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
-import { contentVariants } from '../../ConnectModal/ConnectWithInjector';
 import { OrDivider } from '../../Common/Modal';
 
 const About: React.FC = () => {
@@ -40,23 +39,66 @@ const About: React.FC = () => {
   const autoplayDuration = 3500;
 
   let interval: ReturnType<typeof setTimeout>;
+  useEffect(() => {
+    interval = setTimeout(nextSlide, autoplayDuration);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const gotoSlide = (index: number) => {
-    interacted.current = true;
-    setSlider(index);
-    clearInterval(interval);
+    didInteract();
+    if (sliderRef.current) {
+      const { overflow } = getComputedStyle(sliderRef.current);
+      if (overflow === 'visible') setSlider(index);
+    }
+    scrollToSlide(index);
   };
 
   const nextSlide = () => {
     if (interacted.current) return;
-    setSlider((prevSlider) => (prevSlider + 1) % slides.length);
+
+    setSlider((prevSlider) => {
+      const index = (prevSlider + 1) % slides.length;
+      scrollToSlide(index);
+      return index;
+    });
     interval = setTimeout(nextSlide, autoplayDuration);
   };
 
+  const scrollToSlide = (index: number) => {
+    if (sliderRef.current) {
+      const { offsetWidth: width } = sliderRef.current;
+      sliderRef.current.scrollLeft = width * index;
+    }
+  };
+
+  // This event should not fire on mobile
+  const onScroll = (e) => {
+    if (!sliderRef.current) return;
+
+    const { offsetWidth: width, scrollLeft: x } = e.target;
+    const currentSlide = Math.round(x / width);
+    setSlider(currentSlide);
+  };
+  const onTouchMove = (e) => {
+    didInteract();
+  };
+  const didInteract = () => {
+    interacted.current = true;
+    clearTimeout(interval);
+  };
+
+  const sliderRef = useRef<any>(null);
   useEffect(() => {
-    interval = setTimeout(nextSlide, autoplayDuration);
-    return () => clearInterval(interval);
-  }, []);
+    if (!sliderRef.current) return;
+    sliderRef.current.addEventListener('scroll', onScroll);
+    sliderRef.current.addEventListener('touchmove', onTouchMove);
+    return () => {
+      if (!sliderRef.current) return;
+      sliderRef.current.removeEventListener('scroll', onScroll);
+      sliderRef.current.removeEventListener('touchmove', onTouchMove);
+    };
+  }, [sliderRef]);
 
   const graphics: React.ReactNode[] = [
     <SlideOne />,
@@ -103,24 +145,15 @@ const About: React.FC = () => {
             </AnimatePresence>
           </MotionConfig>
         </ImageContainer>
-        <Slides>
+        <Slides ref={sliderRef}>
           <AnimatePresence>
-            {slides.map(
-              (s, i) =>
-                slider === i && (
-                  <Slide
-                    key={i}
-                    initial={'initial'}
-                    animate={'animate'}
-                    exit={'exit'}
-                    variants={contentVariants}
-                  >
-                    <ModalContent style={{ gap: 8, paddingBottom: 0 }}>
-                      {s}
-                    </ModalContent>
-                  </Slide>
-                )
-            )}
+            {slides.map((s, i) => (
+              <Slide key={i} $active={slider === i}>
+                <ModalContent style={{ gap: 8, paddingBottom: 0 }}>
+                  {s}
+                </ModalContent>
+              </Slide>
+            ))}
           </AnimatePresence>
         </Slides>
       </Slider>
