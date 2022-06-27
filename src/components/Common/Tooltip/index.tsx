@@ -76,7 +76,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   }, [context.open]);
 
   useEffect(() => {
-    setIsOpen(open);
+    setIsOpen(!!open);
   }, [open]);
 
   return (
