@@ -61,6 +61,11 @@ export const Slider = styled.div`
       scroll-snap-type: x mandatory;
       margin-top: -${imageHeight}px;
       padding-top: ${imageHeight}px;
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+      scrollbar-width: none; /* Firefox */
+      &::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+      }
     }
     ${Slide} {
       position: relative;

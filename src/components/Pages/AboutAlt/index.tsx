@@ -36,6 +36,8 @@ const About: React.FC = () => {
 
   const [slider, setSlider] = useState(0);
   const interacted = useRef(false);
+  const scrollPos = useRef(0);
+
   const autoplayDuration = 3500;
 
   let interval: ReturnType<typeof setTimeout>;
@@ -45,13 +47,20 @@ const About: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const gotoSlide = (index: number) => {
-    didInteract();
+  const isSwipe = () => {
     if (sliderRef.current) {
       const { overflow } = getComputedStyle(sliderRef.current);
-      if (overflow === 'visible') setSlider(index);
+      return overflow !== 'visible';
     }
-    scrollToSlide(index);
+    return false;
+  };
+
+  const gotoSlide = (index: number) => {
+    if (isSwipe()) {
+      scrollToSlide(index);
+    } else {
+      setSlider(index);
+    }
   };
 
   const nextSlide = () => {
@@ -73,15 +82,28 @@ const About: React.FC = () => {
   };
 
   // This event should not fire on mobile
-  const onScroll = (e: any) => {
+  const onScroll = () => {
     if (!sliderRef.current) return;
 
-    const { offsetWidth: width, scrollLeft: x } = e.target;
-    const currentSlide = Math.round(x / width);
-    setSlider(currentSlide);
+    const { offsetWidth: width, scrollLeft: x } = sliderRef.current;
+
+    const prevScroll = scrollPos.current;
+    scrollPos.current = x;
+
+    // Limit when the slider should be set after swipe
+    const threshold = 4;
+    if (prevScroll - x > -threshold && prevScroll - x < threshold) {
+      const currentSlide = Math.round(x / width);
+      setSlider(currentSlide);
+    }
   };
   const onTouchMove = () => {
     didInteract();
+  };
+  const onTouchEnd = () => {
+    const { offsetWidth: width, scrollLeft: x } = sliderRef.current;
+    const currentSlide = Math.round(x / width);
+    setSlider(currentSlide);
   };
   const didInteract = () => {
     interacted.current = true;
@@ -93,10 +115,12 @@ const About: React.FC = () => {
     if (!sliderRef.current) return;
     sliderRef.current.addEventListener('scroll', onScroll);
     sliderRef.current.addEventListener('touchmove', onTouchMove);
+    sliderRef.current.addEventListener('touchend', onTouchEnd);
     return () => {
       if (!sliderRef.current) return;
       sliderRef.current.removeEventListener('scroll', onScroll);
       sliderRef.current.removeEventListener('touchmove', onTouchMove);
+      sliderRef.current.removeEventListener('touchend', onTouchEnd);
     };
   }, [sliderRef]);
 
@@ -160,7 +184,14 @@ const About: React.FC = () => {
       <OrDivider>
         <Dots>
           {slides.map((s, i) => (
-            <Dot key={i} $active={slider === i} onClick={() => gotoSlide(i)} />
+            <Dot
+              key={i}
+              $active={slider === i}
+              onClick={() => {
+                didInteract();
+                gotoSlide(i);
+              }}
+            />
           ))}
         </Dots>
       </OrDivider>
