@@ -7,7 +7,7 @@ const truncateEthAddress = (address?: string) => {
   if (!address) return '';
   const match = address.match(truncateRegex);
   if (!match) return address;
-  return `${match[1]}••••${match[2]}`;
+  return `${match[1]}•••${match[2]}`;
 };
 
 const detectBrowser = () => {

@@ -437,8 +437,11 @@ export const ResetContainer = styled(motion.div)<{
 
 
   ${(props) => {
+<<<<<<< Updated upstream
     //console.log(props.$customTheme);
 
+=======
+>>>>>>> Stashed changes
     if (
       props.$customTheme &&
       props.$customTheme['--ck-accent-color'] &&
