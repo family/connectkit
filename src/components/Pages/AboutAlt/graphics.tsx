@@ -1,46 +1,52 @@
 import { motion } from 'framer-motion';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const pulseAnim = { scale: [0.9, 1.25, 1.6], opacity: [0, 1, 0] };
 const pulseTransition = { ease: 'linear', duration: 2, repeat: Infinity };
 
+const spin = keyframes`
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
+`;
+const SpinContainer = styled(motion.div)`
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  animation: ${spin} 2s linear infinite;
+`;
+
+const spinInner = keyframes`
+  from{ transform: translateX(var(--x)); }
+  to{ transform: translateX(var(--x-offset)); }
+`;
+const SpinContainerInner = styled(motion.div)`
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px white;
+  transform: translateX(var(--x));
+  animation: ${spinInner} 8s ease-in-out alternate infinite;
+`;
+
 function getNetworkCircle(n: number) {
-  const rotation = n * 360;
-  const x = 50 + Math.random() * 40;
-  const offsetX = Math.random() * 10 - Math.random() * 10;
+  const duration = 12;
+  const x = 60 + n * 40;
+  const offsetX = 20 * n;
+
+  const offsetCSS = {
+    '--x': `${x}px`,
+    '--x-offset': `${x + offsetX}px`,
+  } as React.CSSProperties;
 
   return (
-    <motion.div
+    <SpinContainer
       style={{
-        zIndex: -1,
-        position: 'absolute',
-        inset: 0,
-      }}
-      initial={{}}
-      animate={{
-        rotate: [rotation, rotation + 360],
-      }}
-      transition={{
-        repeat: Infinity,
-        ease: 'linear',
-        duration: 12 + Math.random() * 4,
+        animationDelay: `-${duration * n}s`,
+        animationDuration: `${duration}s`,
       }}
     >
-      <motion.div
-        style={{
-          position: 'absolute',
-          inset: 14,
-          borderRadius: 100,
-          boxShadow: '0 0 0 3px white',
-        }}
-        initial={{
-          originX: 1,
-          originY: 1,
-        }}
-        animate={{ x: [`${x}%`, `${x + offsetX}%`] }}
-        transition={{ duration: 8, ease: 'easeInOut', yoyo: Infinity }}
-      />
-    </motion.div>
+      <SpinContainerInner style={offsetCSS} />
+    </SpinContainer>
   );
 }
 
