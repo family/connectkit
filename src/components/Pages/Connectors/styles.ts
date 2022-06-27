@@ -102,19 +102,16 @@ export const ConnectorButton = styled(motion.button)`
   --fallback-background: var(--ck-primary-button-background);
   --fallback-box-shadow: var(--ck-primary-button-box-shadow);
   --fallback-border-radius: var(--ck-primary-button-border-radius);
-  --fallback-border: var(--ck-primary-button-border);
 
   --color: var(--ck-primary-button-color);
   --background: var(--ck-primary-button-background);
   --box-shadow: var(--ck-primary-button-box-shadow);
   --border-radius: var(--ck-primary-button-border-radius);
-  --border: var(--ck-primary-button-border);
 
   color: var(--color, var(--fallback-color));
   background: var(--background, var(--fallback-background));
   box-shadow: var(--box-shadow, var(--fallback-box-shadow));
   border-radius: var(--border-radius, var(--fallback-border-radius));
-  border: var(--border, var(--ck-primary-button-border));
 
   &:disabled {
     transition: 0ms;
@@ -150,8 +147,7 @@ export const ConnectorLabel = styled(motion.span)`
 
 export const ConnectorIcon = styled(motion.div)`
   position: absolute;
-  left: var(--body-connector-icon-left, auto);
-  right: var(--body-connector-icon-right, 16px);
+  right: 16px;
   width: 32px;
   height: 32px;
   overflow: hidden;
@@ -181,10 +177,8 @@ export const MobileConnectorButton = styled(motion.button)`
   font-size: 13px;
   font-weight: 500;
   line-height: 13px;
-  border-radius: var(--body-button-border-radius, 18px);
   text-align: center;
   transition: transform 100ms ease;
-  border: var(--body-button-border);
 
   background: none;
 
