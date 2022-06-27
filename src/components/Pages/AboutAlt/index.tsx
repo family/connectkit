@@ -73,14 +73,14 @@ const About: React.FC = () => {
   };
 
   // This event should not fire on mobile
-  const onScroll = (e) => {
+  const onScroll = (e: any) => {
     if (!sliderRef.current) return;
 
     const { offsetWidth: width, scrollLeft: x } = e.target;
     const currentSlide = Math.round(x / width);
     setSlider(currentSlide);
   };
-  const onTouchMove = (e) => {
+  const onTouchMove = () => {
     didInteract();
   };
   const didInteract = () => {
