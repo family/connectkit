@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const pulseAnim = { scale: [0.9, 1.25, 1.6], opacity: [0, 1, 0] };
 const pulseTransition = { ease: 'linear', duration: 2, repeat: Infinity };
@@ -12,6 +12,7 @@ function getNetworkCircle(n: number) {
   return (
     <motion.div
       style={{
+        zIndex: -1,
         position: 'absolute',
         inset: 0,
       }}
@@ -42,6 +43,15 @@ function getNetworkCircle(n: number) {
     </motion.div>
   );
 }
+
+const BgLighten = styled(motion.div)`
+  overflow: hidden;
+  border-radius: inherit;
+  z-index: 0;
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+`;
 const MainCircle = styled(motion.div)`
   z-index: 2;
   position: relative;
@@ -70,7 +80,14 @@ const Wallet = (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M57.9332 20.3335V42.1113C57.9332 46.4069 54.451 49.8891 50.1555 49.8891H8.15546C3.85991 49.8891 0.377686 46.4069 0.377686 42.1113V25.0002V7.8891C0.377686 3.59355 3.85991 0.111328 8.15546 0.111328H47.0444C48.7626 0.111328 50.1555 1.50422 50.1555 3.22244C50.1555 4.94066 48.7626 6.33355 47.0443 6.33355H9.71102C7.9928 6.33355 6.59991 7.72644 6.59991 9.44466C6.59991 11.1629 7.9928 12.5558 9.71102 12.5558H50.1555C54.451 12.5558 57.9332 16.038 57.9332 20.3335ZM46.2667 34.3337C48.4145 34.3337 50.1556 32.5926 50.1556 30.4448C50.1556 28.297 48.4145 26.5559 46.2667 26.5559C44.1189 26.5559 42.3778 28.297 42.3778 30.4448C42.3778 32.5926 44.1189 34.3337 46.2667 34.3337Z"
+      fill="var(--body-color)"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M57.9332 20.3335V42.1113C57.9332 46.4069 54.451 49.8891 50.1555 49.8891H8.15546C3.85991 49.8891 0.377686 46.4069 0.377686 42.1113V25.0002V7.8891C0.377686 3.59355 3.85991 0.111328 8.15546 0.111328H47.0444C48.7626 0.111328 50.1555 1.50422 50.1555 3.22244C50.1555 4.94066 48.7626 6.33355 47.0443 6.33355H9.71102C7.9928 6.33355 6.59991 7.72644 6.59991 9.44466C6.59991 11.1629 7.9928 12.5558 9.71102 12.5558H50.1555C54.451 12.5558 57.9332 16.038 57.9332 20.3335ZM46.2667 34.3337C48.4145 34.3337 50.1556 32.5926 50.1556 30.4448C50.1556 28.297 48.4145 26.5559 46.2667 26.5559C44.1189 26.5559 42.3778 28.297 42.3778 30.4448C42.3778 32.5926 44.1189 34.3337 46.2667 34.3337Z"
       fill="url(#paint0_linear_2501_7732)"
+      opacity={0.2}
     />
     <defs>
       <linearGradient
@@ -81,8 +98,8 @@ const Wallet = (
         y2="49.8891"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#333333" />
-        <stop offset="1" stopColor="#606060" />
+        <stop stopColor="var(--body-background-transparent)" />
+        <stop offset="1" stopColor="var(--body-background)" />
       </linearGradient>
     </defs>
   </svg>
@@ -120,6 +137,7 @@ const Receive = (
   </svg>
 );
 
+const EthColor = 'var(--body-background)';
 const EthLogo = (
   <svg
     width="14"
@@ -130,11 +148,11 @@ const EthLogo = (
   >
     <path
       d="M6.99794 0.59082L6.85156 1.08803V15.5145L6.99794 15.6606L13.6944 11.7022L6.99794 0.59082Z"
-      fill="white"
+      fill={EthColor}
     />
     <path
       d="M6.99794 0.59082L0.30127 11.7022L6.99794 15.6606V8.65835V0.59082Z"
-      fill="white"
+      fill={EthColor}
     />
     <path
       fillRule="evenodd"
@@ -144,11 +162,11 @@ const EthLogo = (
     />
     <path
       d="M6.99805 15.6614L13.6945 11.7031L6.99805 8.65918V15.6614Z"
-      fill="white"
+      fill={EthColor}
     />
     <path
       d="M0.30127 11.7031L6.99794 15.6614V8.65918L0.30127 11.7031Z"
-      fill="white"
+      fill={EthColor}
     />
     <defs>
       <linearGradient
@@ -159,8 +177,8 @@ const EthLogo = (
         y2="22.4084"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="1" stopColor="white" stopOpacity="0.85" />
+        <stop stopColor={EthColor} />
+        <stop offset="1" stopColor={EthColor} stopOpacity="0.85" />
       </linearGradient>
     </defs>
   </svg>
@@ -305,8 +323,8 @@ export const SlideOne = () => (
     }}
   >
     <motion.div
-      initial={{ rotate: -40, scale: 0.4, y: '40%' }}
-      animate={{ rotate: 0, opacity: 1, scale: 1, y: 0 }}
+      initial={{ scale: 0.3, x: '70%' }}
+      animate={{ scale: 1, x: 0 }}
       exit={{ scale: 0.5, x: '70%' }}
       style={{
         display: 'flex',
@@ -342,13 +360,16 @@ export const SlideOne = () => (
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <motion.div>{Wallet}</motion.div>
+        <BgLighten />
+        <motion.div style={{ zIndex: 2, position: 'relative' }}>
+          {Wallet}
+        </motion.div>
       </MainCircleInner>
     </MainCircle>
 
     <motion.div
-      initial={{ rotate: 40, scale: 0.4, y: '40%' }}
-      animate={{ rotate: 0, opacity: 1, scale: 1, y: 0 }}
+      initial={{ scale: 0.3, x: '-70%' }}
+      animate={{ scale: 1, x: 0 }}
       exit={{ scale: 0.5, x: '-70%' }}
       style={{
         display: 'flex',
@@ -387,7 +408,7 @@ export const SlideTwo = () => (
         <MainCircleInner
           key={'SlideTwoInner'}
           style={{
-            background: 'black',
+            background: 'var(--body-color)',
             boxShadow: '0px 2px 5px rgba(37, 41, 46, 0.26)',
           }}
           initial={{ opacity: 0 }}
@@ -402,6 +423,7 @@ export const SlideTwo = () => (
         animate={{ opacity: 1, scale: 1 }}
         exit={{ scale: 0.4 }}
         style={{
+          position: 'relative',
           display: 'flex',
           alignItems: 'center',
           padding: '21px 56px',
@@ -411,7 +433,8 @@ export const SlideTwo = () => (
           borderRadius: 16,
         }}
       >
-        <div style={{ position: 'relative', top: 1, left: 1 }}>
+        <BgLighten />
+        <div style={{ position: 'relative', zIndex: 2, top: 1, left: 1 }}>
           {VitalikAddress}
         </div>
       </motion.div>
@@ -485,7 +508,7 @@ export const SlideThree = () => (
             position: 'absolute',
             inset: 0,
             borderRadius: '50%',
-            boxShadow: '0 0 0 2px rgba(80, 4, 241, 0.2)',
+            boxShadow: '0 0 0 2px rgba(126, 112, 243, 0.11)',
           }}
         />
         <motion.div
@@ -496,26 +519,15 @@ export const SlideThree = () => (
             position: 'absolute',
             inset: 0,
             borderRadius: '50%',
-            boxShadow: '0 0 0 2px rgba(80, 4, 241, 0.2)',
-          }}
-        />
-        <motion.div
-          key="pulseB"
-          animate={pulseAnim}
-          transition={{ ...pulseTransition, delay: 1 }}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '50%',
-            boxShadow: '0 0 0 2px rgba(80, 4, 241, 0.2)',
+            boxShadow: '0 0 0 2px rgba(126, 112, 243, 0.11)',
           }}
         />
       </MainCircle>
 
       <motion.div
-        initial={{ rotate: -20, scale: 0.4, y: -40, x: -40 }}
+        initial={{ rotate: 40, scale: 0.4, y: -25, x: 15 }}
         animate={{ rotate: 0, scale: 1, y: 0, x: 0 }}
-        exit={{ scale: 0.2, y: -25, x: 15 }}
+        exit={{ rotate: 20, scale: 0.8, y: -40, x: 35 }}
         style={{
           zIndex: 3,
           borderRadius: '50%',
@@ -532,7 +544,10 @@ export const SlideThree = () => (
           boxShadow: '0px 2px 9px rgba(0, 0, 0, 0.15)',
         }}
       >
-        {Wallet}
+        <BgLighten />
+        <motion.div style={{ zIndex: 2, position: 'relative' }}>
+          {Wallet}
+        </motion.div>
       </motion.div>
     </motion.div>
   </>

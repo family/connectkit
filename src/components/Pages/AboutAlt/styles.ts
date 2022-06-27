@@ -37,11 +37,12 @@ export const Dots = styled.div`
   display: flex;
   justify-content: center;
 `;
-export const Dot = styled.div<{ $active: boolean }>`
+export const Dot = styled.button<{ $active: boolean }>`
   display: flex;
   align-items: center;
   height: 28px;
   padding: 4px;
+  background: none;
   &:before {
     content: '';
     display: block;
@@ -55,11 +56,13 @@ export const Dot = styled.div<{ $active: boolean }>`
   ${(props) =>
     props.$active
       ? css`
+          cursor: default;
           &:before {
             opacity: 1;
           }
         `
-      : css`
+      : !props.disabled &&
+        css`
           cursor: pointer;
           &:hover:before {
             transform: scale(1.8);
