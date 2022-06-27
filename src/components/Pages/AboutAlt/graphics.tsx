@@ -1,8 +1,15 @@
 import { motion } from 'framer-motion';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const pulseAnim = { scale: [0.9, 1.25, 1.6], opacity: [0, 1, 0] };
 const pulseTransition = { ease: 'linear', duration: 2, repeat: Infinity };
+
+const Center = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+`;
 
 const spin = keyframes`
   from{ transform: rotate(0deg); }
@@ -378,9 +385,7 @@ export const SlideOne = () => (
       animate={{ scale: 1, x: 0 }}
       exit={{ scale: 0.5, x: '-70%' }}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        position: 'relative',
         width: 76,
         height: 76,
         background: '#3897FB',
@@ -388,7 +393,9 @@ export const SlideOne = () => (
         boxShadow: '0px 2px 10px rgba(56, 151, 251, 0.3)',
       }}
     >
-      <div style={{ position: 'relative', left: -2, top: 3 }}>{Send}</div>
+      <Center>
+        <div style={{ position: 'relative', left: -2, top: 3 }}>{Send}</div>
+      </Center>
     </motion.div>
   </div>
 );
@@ -421,7 +428,7 @@ export const SlideTwo = () => (
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.div>{EthLogo}</motion.div>
+          <Center>{EthLogo}</Center>
         </MainCircleInner>
       </MainCircle>
       <motion.div
