@@ -437,7 +437,7 @@ export const ResetContainer = styled(motion.div)<{
 
 
   ${(props) => {
-    console.log(props.$customTheme);
+    //console.log(props.$customTheme);
 
     if (
       props.$customTheme &&
