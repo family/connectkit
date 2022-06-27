@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ImageContainer,
   ImageContainerInner,
@@ -36,18 +36,25 @@ const About: React.FC = () => {
   const copy = localizations[context.lang].aboutScreen;
 
   const [slider, setSlider] = useState(0);
+  const interacted = useRef(false);
+  const autoplayDuration = 3500;
 
-  let interval: ReturnType<typeof setInterval>;
+  let interval: ReturnType<typeof setTimeout>;
 
   const gotoSlide = (index: number) => {
+    interacted.current = true;
     setSlider(index);
     clearInterval(interval);
   };
 
+  const nextSlide = () => {
+    if (interacted.current) return;
+    setSlider((prevSlider) => (prevSlider + 1) % slides.length);
+    interval = setTimeout(nextSlide, autoplayDuration);
+  };
+
   useEffect(() => {
-    interval = setInterval(() => {
-      //setSlider((prevSlider) => (prevSlider + 1) % slides.length);
-    }, 3000);
+    interval = setTimeout(nextSlide, autoplayDuration);
     return () => clearInterval(interval);
   }, []);
 
