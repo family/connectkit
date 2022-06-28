@@ -35,18 +35,16 @@ export const Button = styled(motion.button)`
   border-radius: 10px;
   text-align: center;
   box-shadow: var(--outline), var(--shadow);
+  transition: background-color 100ms ease;
 
   &:hover {
     background: var(--connectbutton-background-hover);
-    transition: background-color 100ms ease;
   }
   &:active {
     background: var(--connectbutton-background-active);
-    transition: background-color 100ms ease;
   }
   &:focus-visible {
     outline: 2px solid var(--family-brand);
-    transition: background-color 100ms ease;
   }
 
   &:disabled {

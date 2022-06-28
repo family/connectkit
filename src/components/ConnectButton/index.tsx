@@ -162,7 +162,6 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
   });
   const [contentRef, bounds] = useMeasure();
 
-  console.log(isConnected, isConnecting);
   const connectedSinceBefore = !isConnected && !isConnecting;
 
   // Done = isConnecting = false
@@ -181,7 +180,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
   // }, [account?.address]);
 
   useEffect(() => {
-    let timeout;
+    let timeout: ReturnType<typeof setTimeout>;
     if (bounds.width > 100) {
       timeout = setTimeout(() => {
         setInitialRan(true);
