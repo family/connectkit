@@ -43,8 +43,70 @@ const themeGlobals = {
     '--border-radius': '20px',
     '--ck-secondary-button-border-radius': '16px',
   },
-};
-const themeColors = {
+  graphics: {
+    light: {
+      '--graphic-wave-stop-01': '#E8F17D',
+      '--graphic-wave-stop-02': '#A8ECDE',
+      '--graphic-wave-stop-03': '#7AA1F2',
+      '--graphic-wave-stop-04': '#DEA1E8',
+      '--graphic-wave-stop-05': '#F46D98',
+
+      '--graphic-scaniconwithlogos-01': '#4E4E4E',
+      '--graphic-scaniconwithlogos-02': '#272727',
+      '--graphic-scaniconwithlogos-03': '#F8D74A',
+      '--graphic-scaniconwithlogos-04': '#F6F7F9',
+    },
+    dark: {
+      '--graphic-wave-stop-01': '#E8F17D',
+      '--graphic-wave-stop-02': '#A8ECDE',
+      '--graphic-wave-stop-03': '#7AA1F2',
+      '--graphic-wave-stop-04': '#DEA1E8',
+      '--graphic-wave-stop-05': '#F46D98',
+
+      '--graphic-scaniconwithlogos-01': '#AFAFAF',
+      '--graphic-scaniconwithlogos-02': '#696969',
+      '--graphic-scaniconwithlogos-03': '#F8D74A',
+      '--graphic-scaniconwithlogos-04': '#3D3D3D',
+    },
+  },
+  ens: {
+    light: {
+      '--ens-01-start': '#FF3B30',
+      '--ens-01-stop': '#FF9500',
+      '--ens-02-start': '#FF9500',
+      '--ens-02-stop': '#FFCC00',
+      '--ens-03-start': '#FFCC00',
+      '--ens-03-stop': '#34C759',
+      '--ens-04-start': '#5856D6',
+      '--ens-04-stop': '#AF52DE',
+      '--ens-05-start': '#5AC8FA',
+      '--ens-05-stop': '#007AFF',
+      '--ens-06-start': '#007AFF',
+      '--ens-06-stop': '#5856D6',
+      '--ens-07-start': '#5856D6',
+      '--ens-07-stop': '#AF52DE',
+      '--ens-08-start': '#AF52DE',
+      '--ens-08-stop': '#FF2D55',
+    },
+    dark: {
+      '--ens-01-start': '#FF453A',
+      '--ens-01-stop': '#FF9F0A',
+      '--ens-02-start': '#FF9F0A',
+      '--ens-02-stop': '#FFD60A',
+      '--ens-03-start': '#FFD60A',
+      '--ens-03-stop': '#32D74B',
+      '--ens-04-start': '#32D74B',
+      '--ens-04-stop': '#64D2FF',
+      '--ens-05-start': '#64D2FF',
+      '--ens-05-stop': '#0A84FF',
+      '--ens-06-start': '#0A84FF',
+      '--ens-06-stop': '#5E5CE6',
+      '--ens-07-start': '#5E5CE6',
+      '--ens-07-stop': '#BF5AF2',
+      '--ens-08-start': '#BF5AF2',
+      '--ens-08-stop': '#FF2D55',
+    },
+  },
   brand: {
     '--family-brand': '#1A88F8',
     '--brand-walletConnect': '#3B99FC',
@@ -70,6 +132,8 @@ const themeColors = {
     '--brand-imtoken-01': '#11C4D1',
     '--brand-imtoken-02': '#0062AD',
   },
+};
+const themeColors = {
   light: {
     '--connectbutton-color': '#373737',
     '--connectbutton-background': '#F6F7F9',
@@ -115,34 +179,6 @@ const themeColors = {
     '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
 
     '--spinner-color': 'var(--focus-color)',
-
-    '--graphic-wave-stop-01': '#E8F17D',
-    '--graphic-wave-stop-02': '#A8ECDE',
-    '--graphic-wave-stop-03': '#7AA1F2',
-    '--graphic-wave-stop-04': '#DEA1E8',
-    '--graphic-wave-stop-05': '#F46D98',
-
-    '--graphic-scaniconwithlogos-01': '#4E4E4E',
-    '--graphic-scaniconwithlogos-02': '#272727',
-    '--graphic-scaniconwithlogos-03': '#F8D74A',
-    '--graphic-scaniconwithlogos-04': '#F6F7F9',
-
-    '--ens-01-start': '#FF3B30',
-    '--ens-01-stop': '#FF9500',
-    '--ens-02-start': '#FF9500',
-    '--ens-02-stop': '#FFCC00',
-    '--ens-03-start': '#FFCC00',
-    '--ens-03-stop': '#34C759',
-    '--ens-04-start': '#5856D6',
-    '--ens-04-stop': '#AF52DE',
-    '--ens-05-start': '#5AC8FA',
-    '--ens-05-stop': '#007AFF',
-    '--ens-06-start': '#007AFF',
-    '--ens-06-stop': '#5856D6',
-    '--ens-07-start': '#5856D6',
-    '--ens-07-stop': '#AF52DE',
-    '--ens-08-start': '#AF52DE',
-    '--ens-08-stop': '#FF2D55',
 
     '--qr-dot-color': '#000000',
     '--qr-border-color': '#f7f6f8',
@@ -191,34 +227,6 @@ const themeColors = {
     '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
 
     '--spinner-color': 'var(--focus-color)',
-
-    '--graphic-wave-stop-01': '#E8F17D',
-    '--graphic-wave-stop-02': '#A8ECDE',
-    '--graphic-wave-stop-03': '#7AA1F2',
-    '--graphic-wave-stop-04': '#DEA1E8',
-    '--graphic-wave-stop-05': '#F46D98',
-
-    '--graphic-scaniconwithlogos-01': '#AFAFAF',
-    '--graphic-scaniconwithlogos-02': '#696969',
-    '--graphic-scaniconwithlogos-03': '#F8D74A',
-    '--graphic-scaniconwithlogos-04': '#3D3D3D',
-
-    '--ens-01-start': '#FF453A',
-    '--ens-01-stop': '#FF9F0A',
-    '--ens-02-start': '#FF9F0A',
-    '--ens-02-stop': '#FFD60A',
-    '--ens-03-start': '#FFD60A',
-    '--ens-03-stop': '#32D74B',
-    '--ens-04-start': '#32D74B',
-    '--ens-04-stop': '#64D2FF',
-    '--ens-05-start': '#64D2FF',
-    '--ens-05-stop': '#0A84FF',
-    '--ens-06-start': '#0A84FF',
-    '--ens-06-stop': '#5E5CE6',
-    '--ens-07-start': '#5E5CE6',
-    '--ens-07-stop': '#BF5AF2',
-    '--ens-08-start': '#BF5AF2',
-    '--ens-08-stop': '#FF2D55',
 
     '--qr-dot-color': '#ffffff',
     '--qr-border-color': '#3d3d3d',
@@ -300,34 +308,6 @@ const themeColors = {
       ' 0 0 0 1.5px #2b2622, 0px 2px 10px rgba(0, 0, 0, 0.08)',
 
     '--spinner-color': 'var(--focus-color)',
-
-    '--graphic-wave-stop-01': '#E8F17D',
-    '--graphic-wave-stop-02': '#A8ECDE',
-    '--graphic-wave-stop-03': '#7AA1F2',
-    '--graphic-wave-stop-04': '#DEA1E8',
-    '--graphic-wave-stop-05': '#F46D98',
-
-    '--graphic-scaniconwithlogos-01': '#4E4E4E',
-    '--graphic-scaniconwithlogos-02': '#272727',
-    '--graphic-scaniconwithlogos-03': '#F8D74A',
-    '--graphic-scaniconwithlogos-04': '#F6F7F9',
-
-    '--ens-01-start': '#FF3B30',
-    '--ens-01-stop': '#FF9500',
-    '--ens-02-start': '#FF9500',
-    '--ens-02-stop': '#FFCC00',
-    '--ens-03-start': '#FFCC00',
-    '--ens-03-stop': '#34C759',
-    '--ens-04-start': '#5856D6',
-    '--ens-04-stop': '#AF52DE',
-    '--ens-05-start': '#5AC8FA',
-    '--ens-05-stop': '#007AFF',
-    '--ens-06-start': '#007AFF',
-    '--ens-06-stop': '#5856D6',
-    '--ens-07-start': '#5856D6',
-    '--ens-07-stop': '#AF52DE',
-    '--ens-08-start': '#AF52DE',
-    '--ens-08-stop': '#FF2D55',
   },
   lightMobile: {
     /*
@@ -378,7 +358,6 @@ const createCssColors = (scheme: any, override?: boolean) => {
 };
 
 const themes = {
-  brand: createCssColors(themeColors.brand),
   default: createCssVars(themeGlobals.default),
   light: createCssColors(themeColors.light),
   dark: createCssColors(themeColors.dark),
@@ -386,6 +365,24 @@ const themes = {
   darkMobile: createCssColors(themeColors.darkMobile),
   web95: createCssColors(themeColors.web95),
 };
+const globals = {
+  brand: createCssVars(themeGlobals.brand),
+  ensLight: createCssVars(themeGlobals.ens.light),
+  ensDark: createCssVars(themeGlobals.ens.dark),
+  graphicsLight: createCssVars(themeGlobals.graphics.light),
+  graphicsDark: createCssVars(themeGlobals.graphics.dark),
+};
+
+const globalsLight = css`
+  ${globals.brand}
+  ${globals.ensLight}
+  ${globals.graphicsLight}
+`;
+const globalsDark = css`
+  ${globals.brand}
+  ${globals.ensDark}
+  ${globals.graphicsDark}
+`;
 
 /*
  *  Reset stylings to avoid conflicting with the parent websites styling
@@ -397,7 +394,24 @@ export const ResetContainer = styled(motion.div)<{
   $useTheme?: string;
   $customTheme?: CustomTheme;
 }>`
-  ${themes.brand}
+  ${(props) => {
+    switch (props.$useTheme) {
+      case 'light':
+        return globalsLight;
+      case 'dark':
+        return globalsDark;
+      case 'web95':
+        return globalsDark;
+      default:
+        return css`
+          ${globalsLight}
+          @media (prefers-color-scheme: dark) {
+            ${globalsDark}
+          }
+        `;
+    }
+  }}
+
   ${themes.default}
 
   ${(props) => {
@@ -413,23 +427,6 @@ export const ResetContainer = styled(motion.div)<{
           ${themes.light}
           @media (prefers-color-scheme: dark) {
             ${themes.dark}
-          }
-        `;
-    }
-  }}
-  ${(props) => {
-    const mobile = isMobile();
-    if (!mobile) return;
-    switch (props.$useTheme) {
-      case 'light':
-        return themes.lightMobile;
-      case 'dark':
-        return themes.darkMobile;
-      default:
-        return css`
-          ${themes.lightMobile}
-          @media (prefers-color-scheme: dark) {
-            ${themes.darkMobile}
           }
         `;
     }
