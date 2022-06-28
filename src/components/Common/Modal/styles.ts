@@ -210,12 +210,12 @@ export const BoxContainer = styled(motion.div)`
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     animation-name: ${MobileBoxOut};
-    animation-duration: 240ms;
+    animation-duration: 320ms;
     animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
 
     &.active {
       animation-name: ${MobileBoxIn};
-      animation-duration: 320ms;
+      animation-duration: 400ms;
       animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
     }
 
