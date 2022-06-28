@@ -172,13 +172,15 @@ const BoxOut = keyframes`
 `;
 
 const MobileBoxIn = keyframes`
-  from{ transform: translateY(100%); }
-  to{ transform: translateY(0%); }
+  from { transform: translate3D(0, 100%, 0); }
+  to { transform: translate3D(0, 0%, 0); }
 `;
+
 const MobileBoxOut = keyframes`
-  from{ transform: translateY(0%); }
-  to{ transform: translateY(110%); } // a bit further to avoid dropshadow peaking out
+  from { transform: translate3D(0, 0%, 0); }
+  to { transform: translate3D(0, 110%, 0); } // a bit further to avoid dropshadow peaking out
 `;
+
 export const BoxContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
@@ -208,16 +210,17 @@ export const BoxContainer = styled(motion.div)`
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     animation-name: ${MobileBoxOut};
-    animation-duration: 500ms;
-    animation-timing-function: ease;
+    animation-duration: 240ms;
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
 
     &.active {
       animation-name: ${MobileBoxIn};
-      animation-duration: 600ms;
-      animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+      animation-duration: 320ms;
+      animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
     }
+
     &:before {
-      transition-duration: 400ms;
+      transition-duration: 200ms;
       width: 100%;
     }
   }
@@ -242,7 +245,7 @@ export const InnerContainer = styled(motion.div)`
   height: var(--height);
   transition: 0.2s ease height;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    transition-duration: 400ms;
+    transition-duration: 200ms;
   }
 `;
 
