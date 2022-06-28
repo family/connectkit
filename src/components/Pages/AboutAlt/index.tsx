@@ -21,7 +21,7 @@ import {
 } from '../../Common/Modal/styles';
 
 import Button from '../../Common/Button';
-import { SlideOne, SlideThree, SlideTwo } from './graphics';
+import { Easing, SlideOne, SlideThree, SlideTwo } from './graphics';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { OrDivider } from '../../Common/Modal';
 
@@ -34,15 +34,18 @@ const About: React.FC = () => {
   const context = useContext();
   const copy = localizations[context.lang].aboutScreen;
 
+  const [ready, setReady] = useState(true);
   const [slider, setSlider] = useState(0);
   const interacted = useRef(false);
   const scrollPos = useRef(0);
 
-  const autoplayDuration = 3500;
+  const animationEase: Easing = 'easeInOut'; //[0.16, 1, 0.3, 1];
+  const animationDuration = 1400;
+  const autoplayDelay = 5100;
 
   let interval: ReturnType<typeof setTimeout>;
   useEffect(() => {
-    interval = setTimeout(nextSlide, autoplayDuration);
+    //interval = setTimeout(nextSlide, autoplayDelay);
 
     return () => clearInterval(interval);
   }, []);
@@ -56,6 +59,7 @@ const About: React.FC = () => {
   };
 
   const gotoSlide = (index: number) => {
+    setReady(false);
     if (isSwipe()) {
       scrollToSlide(index);
     } else {
@@ -71,7 +75,7 @@ const About: React.FC = () => {
       scrollToSlide(index);
       return index;
     });
-    interval = setTimeout(nextSlide, autoplayDuration);
+    interval = setTimeout(nextSlide, autoplayDelay);
   };
 
   const scrollToSlide = (index: number) => {
@@ -125,9 +129,9 @@ const About: React.FC = () => {
   }, [sliderRef]);
 
   const graphics: React.ReactNode[] = [
-    <SlideOne />,
-    <SlideTwo />,
-    <SlideThree />,
+    <SlideOne duration={animationDuration} ease={animationEase} />,
+    <SlideTwo duration={animationDuration} ease={animationEase} />,
+    <SlideThree duration={animationDuration} ease={animationEase} />,
   ];
 
   const slides: React.ReactNode[] = [
@@ -150,17 +154,22 @@ const About: React.FC = () => {
       <ModalHeadingBlock />
       <Slider>
         <ImageContainer>
-          <MotionConfig transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
-            <AnimatePresence initial={false}>
+          <MotionConfig
+            transition={{
+              duration: animationDuration / 1000,
+              ease: animationEase,
+            }}
+          >
+            <AnimatePresence
+              initial={false}
+              onExitComplete={() => setReady(true)}
+            >
               {graphics.map(
                 (g, i) =>
                   slider === i && (
                     <ImageContainerInner
                       key={i}
-                      style={{ zIndex: 2, position: 'absolute' }}
-                      exit={{
-                        zIndex: 1,
-                      }}
+                      style={{ position: 'absolute' }}
                     >
                       {g}
                     </ImageContainerInner>
@@ -186,6 +195,7 @@ const About: React.FC = () => {
           {slides.map((s, i) => (
             <Dot
               key={i}
+              disabled={!ready}
               $active={slider === i}
               onClick={() => {
                 didInteract();

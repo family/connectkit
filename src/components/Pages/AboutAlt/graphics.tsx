@@ -1,5 +1,20 @@
-import { motion } from 'framer-motion';
+import { motion, EasingFunction } from 'framer-motion';
 import styled, { keyframes } from 'styled-components';
+
+export type Easing =
+  | [number, number, number, number]
+  | 'linear'
+  | 'easeIn'
+  | 'easeOut'
+  | 'easeInOut'
+  | 'circIn'
+  | 'circOut'
+  | 'circInOut'
+  | 'backIn'
+  | 'backOut'
+  | 'backInOut'
+  | 'anticipate'
+  | EasingFunction;
 
 const pulseAnim = { scale: [0.9, 1.25, 1.6], opacity: [0, 1, 0] };
 const pulseTransition = { ease: 'linear', duration: 2, repeat: Infinity };
@@ -327,7 +342,13 @@ const VitalikAddress = (
   </svg>
 );
 
-export const SlideOne = () => (
+export const SlideOne = ({
+  duration,
+  ease,
+}: {
+  duration: number;
+  ease: Easing;
+}) => (
   <div
     style={{
       display: 'flex',
@@ -336,10 +357,12 @@ export const SlideOne = () => (
     }}
   >
     <motion.div
-      initial={{ scale: 0.3, x: '70%' }}
+      initial={{ scale: 0.2, x: '70%' }}
       animate={{ scale: 1, x: 0 }}
-      exit={{ scale: 0.5, x: '70%' }}
+      exit={{ scale: 0.1, x: '70%' }}
       style={{
+        zIndex: 4,
+        position: 'relative',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -357,7 +380,7 @@ export const SlideOne = () => (
       initial={{ rotate: 50 }}
       style={{
         position: 'relative',
-        zIndex: 2,
+        zIndex: 10,
         margin: '0 -8px',
         width: 112,
         height: 112,
@@ -381,10 +404,11 @@ export const SlideOne = () => (
     </MainCircle>
 
     <motion.div
-      initial={{ scale: 0.3, x: '-70%' }}
+      initial={{ scale: 0.2, x: '-70%' }}
       animate={{ scale: 1, x: 0 }}
-      exit={{ scale: 0.5, x: '-70%' }}
+      exit={{ scale: 0.1, x: '-70%' }}
       style={{
+        zIndex: 4,
         position: 'relative',
         width: 76,
         height: 76,
@@ -400,7 +424,13 @@ export const SlideOne = () => (
   </div>
 );
 
-export const SlideTwo = () => (
+export const SlideTwo = ({
+  duration,
+  ease,
+}: {
+  duration: number;
+  ease: Easing;
+}) => (
   <>
     <div
       style={{
@@ -411,6 +441,7 @@ export const SlideTwo = () => (
       <MainCircle
         layoutId="circle"
         style={{
+          zIndex: 10,
           position: 'absolute',
           left: 15,
           top: 12,
@@ -420,22 +451,23 @@ export const SlideTwo = () => (
       >
         <MainCircleInner
           key={'SlideTwoInner'}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           style={{
             background: 'var(--body-color)',
             boxShadow: '0px 2px 5px rgba(37, 41, 46, 0.26)',
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
         >
           <Center>{EthLogo}</Center>
         </MainCircleInner>
       </MainCircle>
       <motion.div
-        initial={{ opacity: 1, scale: 0.4 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ scale: 0.4 }}
+        initial={{ scale: 0.2 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0.2 }}
         style={{
+          zIndex: 7,
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
@@ -452,10 +484,15 @@ export const SlideTwo = () => (
         </div>
       </motion.div>
       <motion.div
-        style={{ position: 'absolute', top: -16, right: -28 }}
-        initial={{ rotate: 20, opacity: 0, x: -40, scale: 0.8 }}
-        animate={{ rotate: 0, opacity: 1, x: 0, scale: 1 }}
-        exit={{ opacity: 0, x: -80, scale: 0.4 }}
+        style={{
+          zIndex: 8,
+          position: 'absolute',
+          top: -16,
+          right: -28,
+        }}
+        initial={{ rotate: 0, x: -70, scale: 0.4 }}
+        animate={{ rotate: 0, x: 0, scale: 1 }}
+        exit={{ x: -70, scale: 0.4 }}
       >
         {Key}
       </motion.div>
@@ -463,7 +500,13 @@ export const SlideTwo = () => (
   </>
 );
 
-export const SlideThree = () => (
+export const SlideThree = ({
+  duration,
+  ease,
+}: {
+  duration: number;
+  ease: Easing;
+}) => (
   <>
     <motion.div
       key={'SlideThree'}
@@ -475,6 +518,8 @@ export const SlideThree = () => (
         layoutId="circle"
         initial={{ rotate: 80 }}
         style={{
+          zIndex: 10,
+          position: 'relative',
           width: 128,
           height: 128,
         }}
@@ -485,7 +530,6 @@ export const SlideThree = () => (
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           style={{
-            zIndex: 2,
             overflow: 'hidden',
             background: `radial-gradient(
                 82.42% 82.42% at 50% 86.72%,
@@ -513,34 +557,62 @@ export const SlideThree = () => (
           {getNetworkCircle(0.7)}
           {getNetworkCircle(0.85)}
         </MainCircleInner>
-        <motion.div
-          key="pulseA"
-          animate={pulseAnim}
-          transition={{ ...pulseTransition }}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '50%',
-            boxShadow: '0 0 0 2px rgba(126, 112, 243, 0.11)',
-          }}
-        />
-        <motion.div
-          key="pulseB"
-          animate={pulseAnim}
-          transition={{ ...pulseTransition, delay: 0.5 }}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '50%',
-            boxShadow: '0 0 0 2px rgba(126, 112, 243, 0.11)',
-          }}
-        />
+        <motion.div exit={{ opacity: 0 }}>
+          <motion.div
+            key="pulseA"
+            animate={pulseAnim}
+            transition={{ ...pulseTransition }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: '50%',
+              boxShadow: '0 0 0 2px rgba(126, 112, 243, 0.11)',
+            }}
+          />
+          <motion.div
+            key="pulseB"
+            animate={pulseAnim}
+            transition={{ ...pulseTransition, delay: 0.5 }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: '50%',
+              boxShadow: '0 0 0 2px rgba(126, 112, 243, 0.11)',
+            }}
+          />
+        </motion.div>
       </MainCircle>
 
       <motion.div
-        initial={{ rotate: 40, scale: 0.4, y: -25, x: 15 }}
-        animate={{ rotate: 0, scale: 1, y: 0, x: 0 }}
-        exit={{ rotate: 20, scale: 0.8, y: -40, x: 35 }}
+        initial={{ rotate: 40, scale: 0.8, y: -25, x: 15, zIndex: 3 }}
+        animate={{
+          rotate: 0,
+          scale: 1,
+          y: [-40, 25, 0],
+          x: [0, 25, 0],
+          zIndex: 11,
+          transition: {
+            duration: duration / 750,
+            ease: ease,
+            zIndex: {
+              delay: (duration / 1000) * 0.6,
+            },
+          },
+        }}
+        exit={{
+          rotate: 20,
+          scale: 0.8,
+          y: [0, 30, -40],
+          x: [0, 30, 0],
+          zIndex: 3,
+          transition: {
+            duration: duration / 750,
+            ease: ease,
+            zIndex: {
+              delay: (duration / 1000) * 0.3,
+            },
+          },
+        }}
         style={{
           zIndex: 3,
           borderRadius: '50%',
