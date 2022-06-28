@@ -87,7 +87,7 @@ export const ConnectorButton = styled(motion.button)`
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 20px;
   width: 100%;
   height: 64px;
   font-size: 17px;
@@ -147,7 +147,7 @@ export const ConnectorLabel = styled(motion.span)`
 
 export const ConnectorIcon = styled(motion.div)`
   position: absolute;
-  right: 16px;
+  right: 20px;
   width: 32px;
   height: 32px;
   overflow: hidden;
