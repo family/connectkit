@@ -24,7 +24,12 @@ function useDefaultWallets(): WalletProps[] | any {
     'trust',
     'ledger',
     'imToken',
-    'brave'
+    'brave',
+    'steak',
+    'unstoppable',
+    'slope',
+    'onto',
+    'gnosisSafe'
   );
 
   const wallets = getWallets({ chains });

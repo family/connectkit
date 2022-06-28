@@ -8,6 +8,11 @@ import { trust } from './connectors/trust';
 import { ledger } from './connectors/ledger';
 import { imToken } from './connectors/imToken';
 import { brave } from './connectors/brave';
+import { steak } from './connectors/steak';
+import { unstoppable } from './connectors/unstoppable';
+import { slope } from './connectors/slope';
+import { onto } from './connectors/onto';
+import { gnosisSafe } from './connectors/gnosisSafe';
 import { Chain } from 'wagmi';
 
 export const getWallets = ({
@@ -28,5 +33,10 @@ export const getWallets = ({
     ledger({ chains }),
     imToken({ chains }),
     brave({ chains }),
+    steak({ chains }),
+    unstoppable({ chains }),
+    slope({ chains }),
+    onto({ chains }),
+    gnosisSafe({ chains }),
   ];
 };
