@@ -33,10 +33,10 @@ export const getWallets = ({
     ledger({ chains }),
     imToken({ chains }),
     brave({ chains }),
-    steak({ chains }),
+    gnosisSafe({ chains }),
     unstoppable({ chains }),
+    steak({ chains }),
     slope({ chains }),
     onto({ chains }),
-    gnosisSafe({ chains }),
   ];
 };
