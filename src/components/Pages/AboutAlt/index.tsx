@@ -39,8 +39,8 @@ const About: React.FC = () => {
   const interacted = useRef(false);
   const scrollPos = useRef(0);
 
-  const animationEase: Easing = 'easeInOut'; //[0.16, 1, 0.3, 1];
-  const animationDuration = 1400;
+  const animationEase: Easing = [0.25, 1, 0.5, 1];
+  const animationDuration = 600;
   const autoplayDelay = 5100;
 
   let interval: ReturnType<typeof setTimeout>;

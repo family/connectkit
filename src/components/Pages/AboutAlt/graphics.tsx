@@ -593,7 +593,7 @@ export const SlideThree = ({
           zIndex: 11,
           transition: {
             duration: duration / 750,
-            ease: ease,
+            ease: 'easeInOut',
             zIndex: {
               delay: (duration / 1000) * 0.6,
             },
@@ -606,8 +606,8 @@ export const SlideThree = ({
           x: [0, 30, 0],
           zIndex: 3,
           transition: {
-            duration: duration / 750,
-            ease: ease,
+            duration: duration / 1000,
+            ease: 'easeInOut',
             zIndex: {
               delay: (duration / 1000) * 0.3,
             },
