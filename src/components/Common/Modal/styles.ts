@@ -52,6 +52,7 @@ export const TextWithHr = styled(motion.div)`
     display: inline-block;
     padding: 0 14px;
     background: var(--body-background);
+    transition: background-color 200ms ease;
   }
   &:before {
     z-index: 2;
