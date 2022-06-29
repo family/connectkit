@@ -8,6 +8,7 @@
 
 import { ReactNode } from 'react';
 import Logos from './../assets/logos';
+import { isMetaMask } from './../utils';
 
 let supportedConnectors: {
   id: string;
@@ -153,7 +154,7 @@ if (typeof window != 'undefined') {
         ios: 'https://apps.apple.com/us/app/metamask/id1438144202',
       } as IDictionary,
       extensionIsInstalled: () => {
-        return Boolean(ethereum && ethereum.isMetaMask);
+        return isMetaMask();
       },
     },
     {

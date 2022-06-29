@@ -1,13 +1,10 @@
 import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
-import { isMobile, isAndroid } from '../../utils';
+import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const onto = ({ chains }: WalletOptions): WalletProps => {
-  const isInstalled = false; // Does not have a browser injector
-  const shouldUseWalletConnect = isMobile() && !isInstalled;
-
   return {
     id: 'onto',
     name: 'ONTO',
@@ -23,7 +20,6 @@ export const onto = ({ chains }: WalletOptions): WalletProps => {
         'https://play.google.com/store/apps/details?id=com.github.ontio.onto',
       website: 'https://onto.app/en/download/',
     },
-    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = new WalletConnectConnector({
         chains,

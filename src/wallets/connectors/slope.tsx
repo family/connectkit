@@ -1,13 +1,10 @@
 import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
-import { isMobile, isAndroid } from '../../utils';
+import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const slope = ({ chains }: WalletOptions): WalletProps => {
-  const isInstalled = false; // Does not have a browser injector
-  const shouldUseWalletConnect = isMobile() && !isInstalled;
-
   return {
     id: 'slope',
     name: 'Slope',
@@ -24,7 +21,6 @@ export const slope = ({ chains }: WalletOptions): WalletProps => {
         'https://chrome.google.com/webstore/detail/slope-wallet/pocmplpaccanhmnllbbkpgfliimjljgo',
       website: 'https://slope.finance/',
     },
-    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = new WalletConnectConnector({
         chains,

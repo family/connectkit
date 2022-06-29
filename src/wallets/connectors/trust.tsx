@@ -1,13 +1,10 @@
 import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
-import { isMobile, isAndroid } from '../../utils';
+import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const trust = ({ chains }: WalletOptions): WalletProps => {
-  const isInstalled = false; // Does not have a browser injector
-  const shouldUseWalletConnect = isMobile() && !isInstalled;
-
   return {
     id: 'trust',
     name: 'Trust Wallet',
@@ -23,7 +20,6 @@ export const trust = ({ chains }: WalletOptions): WalletProps => {
         'https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp',
       ios: 'https://apps.apple.com/us/app/trust-crypto-bitcoin-wallet/id1288339409',
     },
-    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = new WalletConnectConnector({
         chains,

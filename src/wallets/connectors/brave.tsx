@@ -18,7 +18,7 @@ export const brave = ({ chains }: WalletOptions): WalletProps => {
     logoBackground: '#fff',
     scannable: false,
     downloadUrls: {},
-    installed: () => isInstalled,
+    installed: isInstalled,
     createConnector: () => {
       return {
         connector: new InjectedConnector({

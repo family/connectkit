@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useContext, routes } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
 import localizations from '../../../constants/localizations';
+import { isMetaMask, isCoinbaseWallet } from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
 
 import {
   PageContent,
-  ModalHeading,
   ModalH1,
   ModalBody,
   ModalContent,
@@ -104,33 +104,9 @@ const Wallets: React.FC = () => {
   };
   useEffect(() => {}, [mobile]);
 
-  const isMetaMask = () => {
-    if (typeof window === 'undefined') return false;
-
-    const { ethereum } = window;
-    if (!ethereum) return false;
-
-    const isMetaMask = Boolean(ethereum.isMetaMask);
-
-    if (!isMetaMask) {
-      return false;
-    }
-    if (ethereum.isBraveWallet && !ethereum._events && !ethereum._state) {
-      return false;
-    }
-
-    if (ethereum.isTokenary) {
-      return false;
-    }
-
-    return true;
-  };
-
-  const isCoinbaseWallet = () => {
-    if (typeof window === 'undefined') return false;
-    const { ethereum } = window;
-    return ethereum?.isCoinbaseWallet;
-  };
+  /**
+   * Some injected connectors pretend to be metamask, this helps avoid that issue.
+   */
 
   const shouldShowInjectedConnector = () => {
     // Only display if an injected connector is detected
@@ -140,15 +116,14 @@ const Wallets: React.FC = () => {
       typeof window !== 'undefined' &&
       ethereum &&
       !isMetaMask() &&
-      !isCoinbaseWallet() &&
-      !ethereum?.isBraveWallet;
+      !isCoinbaseWallet();
+    //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
 
-    if (needsInjectedWalletFallback) return true;
+    return needsInjectedWalletFallback;
   };
 
   return (
     <PageContent style={{ width: 312 }}>
-      {/* <ModalHeading>{copy.heading}</ModalHeading> */}
       <ModalHeadingBlock />
       {mobile ? (
         <>

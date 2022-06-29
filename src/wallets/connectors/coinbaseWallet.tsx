@@ -1,23 +1,14 @@
 import { WalletProps, WalletOptions } from './../wallet';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 
-import { isMobile } from '../../utils';
+import { isMobile, isCoinbaseWallet } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const coinbaseWallet = ({
   chains,
   appName,
 }: WalletOptions): WalletProps => {
-  const isInstalled =
-    typeof window !== 'undefined' &&
-    !!(
-      window.ethereum?.isCoinbaseWallet ||
-      (window.ethereum?.providers &&
-        window.ethereum?.providers.find(
-          (provider) => provider.isCoinbaseWallet
-        ))
-    );
-
+  const isInstalled = isCoinbaseWallet();
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 
   return {
@@ -34,7 +25,7 @@ export const coinbaseWallet = ({
     },
     logoBackground: 'var(--brand-coinbaseWallet)',
     scannable: true,
-    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
+    installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/coinbasewallet',
       website: 'https://www.coinbase.com/wallet/getting-started-extension',

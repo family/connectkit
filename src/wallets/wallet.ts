@@ -23,7 +23,7 @@ export type WalletProps = {
   };
   logoBackground?: string;
   scannable?: boolean;
-  installed?: () => boolean;
+  installed?: boolean;
   downloadUrls?: { [key: string]: string };
   createConnector: () => any;
 };

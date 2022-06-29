@@ -1,13 +1,10 @@
 import { WalletProps, WalletOptions } from './../wallet';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
-import { isMobile, isAndroid } from '../../utils';
+import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const steak = ({ chains }: WalletOptions): WalletProps => {
-  const isInstalled = false; // Does not have a browser injector
-  const shouldUseWalletConnect = isMobile() && !isInstalled;
-
   return {
     id: 'steak',
     name: 'Steak',
@@ -23,7 +20,6 @@ export const steak = ({ chains }: WalletOptions): WalletProps => {
       ios: 'https://apps.apple.com/np/app/steakwallet/id1569375204',
       website: 'https://steakwallet.fi/download',
     },
-    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = new WalletConnectConnector({
         chains,

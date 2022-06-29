@@ -15,7 +15,7 @@ export const injected = ({ chains }: WalletOptions): WalletProps => {
     shortName: 'browser',
     scannable: false,
     logos: { default: <Logos.Injected /> },
-    installed: () => Boolean(!shouldUseWalletConnect ? isInstalled : false),
+    installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = new InjectedConnector({
         chains,

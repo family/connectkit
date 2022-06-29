@@ -43,7 +43,9 @@ const MobileConnectors: React.FC = () => {
   const { connectAsync } = useConnect();
 
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
-  const wallets = useDefaultWallets();
+  const wallets = useDefaultWallets().filter(
+    (wallet: WalletProps) => wallet.installed === undefined || wallet.installed
+  );
 
   const connectWallet = (wallet: WalletProps) => {
     const c = wallet.createConnector();

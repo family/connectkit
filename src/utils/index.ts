@@ -59,6 +59,37 @@ const getBrowserAppUri = (connectorId: string) => {
   }
 };
 
+const isMetaMask = () => {
+  if (typeof window === 'undefined') return false;
+
+  const { ethereum } = window;
+  if (!ethereum) return false;
+
+  const isMetaMask = Boolean(ethereum.isMetaMask);
+  if (!isMetaMask) return false;
+
+  const isBrave = Boolean(
+    ethereum.isBraveWallet //&& !ethereum._events && !ethereum._state
+  );
+  if (isBrave) return false;
+
+  const isTokenary = Boolean(ethereum.isTokenary);
+  if (isTokenary) return false;
+
+  return true;
+};
+
+const isCoinbaseWallet = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isCoinbaseWallet ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
+  );
+};
+
 export {
   truncateEthAddress,
   isMobile,
@@ -66,4 +97,6 @@ export {
   detectBrowser,
   detectOS,
   getWalletDownloadUri,
+  isMetaMask,
+  isCoinbaseWallet,
 };
