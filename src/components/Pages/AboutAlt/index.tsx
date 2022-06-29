@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   ImageContainer,
   ImageContainerInner,
+  MobileImageContainer,
   Slider,
   Slides,
   Slide,
@@ -39,7 +40,7 @@ const About: React.FC = () => {
   const interacted = useRef(false);
   const scrollPos = useRef(0);
 
-  const animationEase: Easing = [0.25, 1, 0.5, 1];
+  const animationEase: Easing = [0.16, 1, 0.3, 1];
   const animationDuration = 600;
   const autoplayDelay = 5100;
 
@@ -129,6 +130,24 @@ const About: React.FC = () => {
   }, [sliderRef]);
 
   const graphics: React.ReactNode[] = [
+    <SlideOne
+      layoutId={'graphicCircle'}
+      duration={animationDuration}
+      ease={animationEase}
+    />,
+    <SlideTwo
+      layoutId={'graphicCircle'}
+      duration={animationDuration}
+      ease={animationEase}
+    />,
+    <SlideThree
+      layoutId={'graphicCircle'}
+      duration={animationDuration}
+      ease={animationEase}
+    />,
+  ];
+
+  const mobileGraphics: React.ReactNode[] = [
     <SlideOne duration={animationDuration} ease={animationEase} />,
     <SlideTwo duration={animationDuration} ease={animationEase} />,
     <SlideThree duration={animationDuration} ease={animationEase} />,
@@ -182,6 +201,17 @@ const About: React.FC = () => {
           <AnimatePresence>
             {slides.map((s, i) => (
               <Slide key={i} $active={slider === i}>
+                <MobileImageContainer>
+                  <MotionConfig
+                    transition={{
+                      duration: 0,
+                    }}
+                  >
+                    <ImageContainerInner>
+                      {mobileGraphics[i]}
+                    </ImageContainerInner>
+                  </MotionConfig>
+                </MobileImageContainer>
                 <ModalContent style={{ gap: 8, paddingBottom: 0 }}>
                   {s}
                 </ModalContent>

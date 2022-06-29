@@ -15,9 +15,27 @@ export const ImageContainer = styled.div`
   svg {
     display: block;
   }
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    display: none;
+  }
 `;
 export const ImageContainerInner = styled(motion.div)``;
 
+export const MobileImageContainer = styled.div`
+  point-events: none;
+  user-select: none;
+  height: ${imageHeight}px;
+  padding: 0 0 12px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  svg {
+    display: block;
+  }
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    display: flex;
+  }
+`;
 export const Slides = styled.div`
   position: relative;
 `;

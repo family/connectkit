@@ -186,7 +186,7 @@ const EthLogo = (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M6.99779 22.4082L6.99794 22.4084V22.408L13.6982 12.9717L6.9978 16.9279L0.30127 12.9717L6.99733 22.4075L6.99763 22.4084L6.99779 22.4082Z"
-      fill="url(#paint0_linear_2501_7621)"
+      fill={EthColor}
     />
     <path
       d="M6.99805 15.6614L13.6945 11.7031L6.99805 8.65918V15.6614Z"
@@ -196,84 +196,75 @@ const EthLogo = (
       d="M0.30127 11.7031L6.99794 15.6614V8.65918L0.30127 11.7031Z"
       fill={EthColor}
     />
-    <defs>
-      <linearGradient
-        id="paint0_linear_2501_7621"
-        x1="6.99972"
-        y1="12.9717"
-        x2="6.99972"
-        y2="22.4084"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor={EthColor} />
-        <stop offset="1" stopColor={EthColor} stopOpacity="0.85" />
-      </linearGradient>
-    </defs>
   </svg>
 );
 
-const Key = (
-  <svg
-    width="81"
-    height="81"
-    viewBox="0 0 81 81"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M81 27C81 41.9117 68.9117 54 54 54C51.2722 54 48.6389 53.5955 46.1568 52.8432L36 63H27V72H18V81H4.5C2.01472 81 0 78.9853 0 76.5V64.864C0 63.6705 0.474103 62.5259 1.31802 61.682L28.1568 34.8432C27.4045 32.3611 27 29.7278 27 27C27 12.0883 39.0883 0 54 0C68.9117 0 81 12.0883 81 27ZM60.75 25.875C63.8566 25.875 66.375 23.3566 66.375 20.25C66.375 17.1434 63.8566 14.625 60.75 14.625C57.6434 14.625 55.125 17.1434 55.125 20.25C55.125 23.3566 57.6434 25.875 60.75 25.875Z"
-      fill="url(#paint0_linear_2509_6177)"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M81 27C81 41.9117 68.9117 54 54 54C51.2722 54 48.6389 53.5955 46.1568 52.8432L36 63H27V72H18V81H4.5C2.01472 81 0 78.9853 0 76.5V64.864C0 63.6705 0.474103 62.5259 1.31802 61.682L28.1568 34.8432C27.4045 32.3611 27 29.7278 27 27C27 12.0883 39.0883 0 54 0C68.9117 0 81 12.0883 81 27ZM60.75 25.875C63.8566 25.875 66.375 23.3566 66.375 20.25C66.375 17.1434 63.8566 14.625 60.75 14.625C57.6434 14.625 55.125 17.1434 55.125 20.25C55.125 23.3566 57.6434 25.875 60.75 25.875Z"
-      fill="url(#paint1_radial_2509_6177)"
-      fillOpacity="0.2"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M44.5658 51.2522C45.1527 50.6653 46.0151 50.4492 46.8095 50.6899C49.0823 51.3788 51.4958 51.75 54 51.75C67.6691 51.75 78.75 40.669 78.75 27C78.75 13.331 67.6691 2.25 54 2.25C40.331 2.25 29.25 13.331 29.25 27C29.25 29.5042 29.6212 31.9177 30.3101 34.1905C30.5508 34.9849 30.3347 35.8473 29.7478 36.4342L2.90901 63.273C2.48705 63.6949 2.25 64.2672 2.25 64.864V76.5C2.25 77.7426 3.25736 78.75 4.5 78.75H15.75V72C15.75 70.7574 16.7574 69.75 18 69.75H24.75V63C24.75 61.7574 25.7574 60.75 27 60.75H35.068L44.5658 51.2522ZM36 63H27V72H18V81H4.5C2.01472 81 0 78.9853 0 76.5V64.864C0 63.6705 0.474103 62.5259 1.31802 61.682L28.1568 34.8432C27.4045 32.3611 27 29.7278 27 27C27 12.0883 39.0883 0 54 0C68.9117 0 81 12.0883 81 27C81 41.9117 68.9117 54 54 54C51.2722 54 48.6389 53.5955 46.1568 52.8432L36 63ZM68.625 20.25C68.625 24.5992 65.0992 28.125 60.75 28.125C56.4008 28.125 52.875 24.5992 52.875 20.25C52.875 15.9008 56.4008 12.375 60.75 12.375C65.0992 12.375 68.625 15.9008 68.625 20.25ZM66.375 20.25C66.375 23.3566 63.8566 25.875 60.75 25.875C57.6434 25.875 55.125 23.3566 55.125 20.25C55.125 17.1434 57.6434 14.625 60.75 14.625C63.8566 14.625 66.375 17.1434 66.375 20.25Z"
-      fill="black"
-      fillOpacity="0.1"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M33.4205 47.5795C33.8598 48.0188 33.8598 48.7312 33.4205 49.1705L3.0455 79.5455C2.60616 79.9848 1.89384 79.9848 1.4545 79.5455C1.01517 79.1062 1.01517 78.3938 1.4545 77.9545L31.8295 47.5795C32.2688 47.1402 32.9812 47.1402 33.4205 47.5795Z"
-      fill="#A5A9AD"
-    />
-    <defs>
-      <linearGradient
-        id="paint0_linear_2509_6177"
-        x1="72"
-        y1="5.625"
-        x2="2.25"
-        y2="78.75"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#D4DFE6" />
-        <stop offset="0.0967282" stopColor="#C6CACD" />
-        <stop offset="0.526645" stopColor="#BDBAC4" />
-        <stop offset="1" stopColor="#939CA1" />
-      </linearGradient>
-      <radialGradient
-        id="paint1_radial_2509_6177"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(52.875 12.375) rotate(93.2705) scale(39.4392)"
-      >
-        <stop stopColor="white" />
-        <stop offset="1" stopColor="white" />
-      </radialGradient>
-    </defs>
-  </svg>
-);
+const Key = ({ ...props }) => {
+  const id = props?.id ?? '';
+  return (
+    <svg
+      {...props}
+      width="81"
+      height="81"
+      viewBox="0 0 81 81"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M81 27C81 41.9117 68.9117 54 54 54C51.2722 54 48.6389 53.5955 46.1568 52.8432L36 63H27V72H18V81H4.5C2.01472 81 0 78.9853 0 76.5V64.864C0 63.6705 0.474103 62.5259 1.31802 61.682L28.1568 34.8432C27.4045 32.3611 27 29.7278 27 27C27 12.0883 39.0883 0 54 0C68.9117 0 81 12.0883 81 27ZM60.75 25.875C63.8566 25.875 66.375 23.3566 66.375 20.25C66.375 17.1434 63.8566 14.625 60.75 14.625C57.6434 14.625 55.125 17.1434 55.125 20.25C55.125 23.3566 57.6434 25.875 60.75 25.875Z"
+        fill={`url(#${id}paint0_linear_2509_6177)`}
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M81 27C81 41.9117 68.9117 54 54 54C51.2722 54 48.6389 53.5955 46.1568 52.8432L36 63H27V72H18V81H4.5C2.01472 81 0 78.9853 0 76.5V64.864C0 63.6705 0.474103 62.5259 1.31802 61.682L28.1568 34.8432C27.4045 32.3611 27 29.7278 27 27C27 12.0883 39.0883 0 54 0C68.9117 0 81 12.0883 81 27ZM60.75 25.875C63.8566 25.875 66.375 23.3566 66.375 20.25C66.375 17.1434 63.8566 14.625 60.75 14.625C57.6434 14.625 55.125 17.1434 55.125 20.25C55.125 23.3566 57.6434 25.875 60.75 25.875Z"
+        fill={`url(#${id}paint1_radial_2509_6177)`}
+        fillOpacity="0.2"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M44.5658 51.2522C45.1527 50.6653 46.0151 50.4492 46.8095 50.6899C49.0823 51.3788 51.4958 51.75 54 51.75C67.6691 51.75 78.75 40.669 78.75 27C78.75 13.331 67.6691 2.25 54 2.25C40.331 2.25 29.25 13.331 29.25 27C29.25 29.5042 29.6212 31.9177 30.3101 34.1905C30.5508 34.9849 30.3347 35.8473 29.7478 36.4342L2.90901 63.273C2.48705 63.6949 2.25 64.2672 2.25 64.864V76.5C2.25 77.7426 3.25736 78.75 4.5 78.75H15.75V72C15.75 70.7574 16.7574 69.75 18 69.75H24.75V63C24.75 61.7574 25.7574 60.75 27 60.75H35.068L44.5658 51.2522ZM36 63H27V72H18V81H4.5C2.01472 81 0 78.9853 0 76.5V64.864C0 63.6705 0.474103 62.5259 1.31802 61.682L28.1568 34.8432C27.4045 32.3611 27 29.7278 27 27C27 12.0883 39.0883 0 54 0C68.9117 0 81 12.0883 81 27C81 41.9117 68.9117 54 54 54C51.2722 54 48.6389 53.5955 46.1568 52.8432L36 63ZM68.625 20.25C68.625 24.5992 65.0992 28.125 60.75 28.125C56.4008 28.125 52.875 24.5992 52.875 20.25C52.875 15.9008 56.4008 12.375 60.75 12.375C65.0992 12.375 68.625 15.9008 68.625 20.25ZM66.375 20.25C66.375 23.3566 63.8566 25.875 60.75 25.875C57.6434 25.875 55.125 23.3566 55.125 20.25C55.125 17.1434 57.6434 14.625 60.75 14.625C63.8566 14.625 66.375 17.1434 66.375 20.25Z"
+        fill="black"
+        fillOpacity="0.1"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M33.4205 47.5795C33.8598 48.0188 33.8598 48.7312 33.4205 49.1705L3.0455 79.5455C2.60616 79.9848 1.89384 79.9848 1.4545 79.5455C1.01517 79.1062 1.01517 78.3938 1.4545 77.9545L31.8295 47.5795C32.2688 47.1402 32.9812 47.1402 33.4205 47.5795Z"
+        fill="#A5A9AD"
+      />
+      <defs>
+        <linearGradient
+          id={`${id}paint0_linear_2509_6177`}
+          x1="72"
+          y1="5.625"
+          x2="2.25"
+          y2="78.75"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#D4DFE6" />
+          <stop offset="0.0967282" stopColor="#C6CACD" />
+          <stop offset="0.526645" stopColor="#BDBAC4" />
+          <stop offset="1" stopColor="#939CA1" />
+        </linearGradient>
+        <radialGradient
+          id={`${id}paint1_radial_2509_6177`}
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(52.875 12.375) rotate(93.2705) scale(39.4392)"
+        >
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="white" />
+        </radialGradient>
+      </defs>
+    </svg>
+  );
+};
 
 const VitalikAddress = (
   <svg
@@ -342,13 +333,13 @@ const VitalikAddress = (
   </svg>
 );
 
-export const SlideOne = ({
-  duration,
-  ease,
-}: {
+type Slide = {
+  layoutId?: string;
   duration: number;
   ease: Easing;
-}) => (
+};
+
+export const SlideOne = ({ layoutId, duration, ease }: Slide) => (
   <div
     style={{
       display: 'flex',
@@ -357,9 +348,9 @@ export const SlideOne = ({
     }}
   >
     <motion.div
-      initial={{ scale: 0.2, x: '70%' }}
-      animate={{ scale: 1, x: 0 }}
-      exit={{ scale: 0.1, x: '70%' }}
+      initial={{ rotate: 90, scale: 0.2, x: '100%' }}
+      animate={{ rotate: 0, scale: 1, x: 0 }}
+      exit={{ rotate: 40, scale: 0.1, x: '70%' }}
       style={{
         zIndex: 4,
         position: 'relative',
@@ -376,7 +367,8 @@ export const SlideOne = ({
       {Receive}
     </motion.div>
     <MainCircle
-      layoutId="circle"
+      key={layoutId}
+      layoutId={layoutId}
       initial={{ rotate: 50 }}
       style={{
         position: 'relative',
@@ -404,9 +396,9 @@ export const SlideOne = ({
     </MainCircle>
 
     <motion.div
-      initial={{ scale: 0.2, x: '-70%' }}
-      animate={{ scale: 1, x: 0 }}
-      exit={{ scale: 0.1, x: '-70%' }}
+      initial={{ rotate: -90, scale: 0.2, x: '-100%' }}
+      animate={{ rotate: 0, scale: 1, x: 0 }}
+      exit={{ rotate: -40, scale: 0.1, x: '-70%' }}
       style={{
         zIndex: 4,
         position: 'relative',
@@ -424,13 +416,7 @@ export const SlideOne = ({
   </div>
 );
 
-export const SlideTwo = ({
-  duration,
-  ease,
-}: {
-  duration: number;
-  ease: Easing;
-}) => (
+export const SlideTwo = ({ layoutId, duration, ease }: Slide) => (
   <>
     <div
       style={{
@@ -439,7 +425,8 @@ export const SlideTwo = ({
       }}
     >
       <MainCircle
-        layoutId="circle"
+        key={layoutId}
+        layoutId={layoutId}
         style={{
           zIndex: 10,
           position: 'absolute',
@@ -490,23 +477,17 @@ export const SlideTwo = ({
           top: -16,
           right: -28,
         }}
-        initial={{ rotate: 0, x: -70, scale: 0.4 }}
+        initial={{ rotate: 90, x: -70, scale: 0.4 }}
         animate={{ rotate: 0, x: 0, scale: 1 }}
-        exit={{ x: -70, scale: 0.4 }}
+        exit={{ rotate: 0, x: -70, scale: 0.4 }}
       >
-        {Key}
+        <Key id={layoutId} />
       </motion.div>
     </div>
   </>
 );
 
-export const SlideThree = ({
-  duration,
-  ease,
-}: {
-  duration: number;
-  ease: Easing;
-}) => (
+export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
   <>
     <motion.div
       key={'SlideThree'}
@@ -515,7 +496,8 @@ export const SlideThree = ({
       }}
     >
       <MainCircle
-        layoutId="circle"
+        key={layoutId}
+        layoutId={layoutId}
         initial={{ rotate: 80 }}
         style={{
           zIndex: 10,
