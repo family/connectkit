@@ -195,7 +195,6 @@ const About: React.FC = () => {
           {slides.map((s, i) => (
             <Dot
               key={i}
-              disabled={!ready}
               $active={slider === i}
               onClick={() => {
                 didInteract();

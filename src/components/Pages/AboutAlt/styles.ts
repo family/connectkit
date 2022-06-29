@@ -85,8 +85,14 @@ export const Dot = styled.button<{ $active: boolean }>`
   display: flex;
   align-items: center;
   height: 28px;
-  padding: 4px;
+  padding: 5px;
   background: none;
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    padding: 4px;
+    &:before {
+      transform: none !important;
+    }
+  }
   &:before {
     content: '';
     display: block;
