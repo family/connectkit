@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { CustomTheme, Languages, Theme } from '../types';
+import { CustomTheme, Languages, Mode, Theme } from '../types';
 
 import defaultTheme from '../styles/defaultTheme';
 
@@ -27,6 +27,8 @@ type Error = string | null;
 type ContextValue = {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+  mode: Mode;
+  setMode: React.Dispatch<React.SetStateAction<Mode>>;
   customTheme: CustomTheme | undefined;
   setCustomTheme: React.Dispatch<React.SetStateAction<CustomTheme | undefined>>;
   lang: Languages;
@@ -55,6 +57,7 @@ type ConnectKitOptions = {
 type ConnectKitProviderProps = {
   children?: React.ReactNode;
   theme?: Theme;
+  mode?: Mode;
   customTheme?: CustomTheme | undefined;
   options?: ConnectKitOptions;
 };
@@ -62,6 +65,7 @@ type ConnectKitProviderProps = {
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   children,
   theme = 'auto',
+  mode = 'auto',
   customTheme,
   options,
 }) => {
@@ -76,6 +80,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
 
   const [ckTheme, setTheme] = useState<Theme>(theme);
+  const [ckMode, setMode] = useState<Mode>(mode);
   const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>({});
   const [ckLang, setLang] = useState<Languages>('en');
   const [open, setOpen] = useState<boolean>(false);
@@ -111,6 +116,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const value = {
     theme: ckTheme,
     setTheme,
+    mode: ckMode,
+    setMode,
     customTheme,
     setCustomTheme,
     lang: ckLang,

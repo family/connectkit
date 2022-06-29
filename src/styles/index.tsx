@@ -444,6 +444,7 @@ const globalsDark = css`
 // TODO: Merge theme objects instead of overriding
 export const ResetContainer = styled(motion.div)<{
   $useTheme?: string;
+  $useMode?: string;
   $customTheme?: CustomTheme;
 }>`
   ${(props) => {

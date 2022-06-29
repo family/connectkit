@@ -245,6 +245,7 @@ const ChainSelector: React.FC = () => {
           {!mobile && isOpen && (
             <ResetContainer
               $useTheme={context.theme}
+              $useMode={context.mode}
               $customTheme={context.customTheme}
             >
               <DropdownWindow>

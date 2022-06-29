@@ -8,7 +8,7 @@ import { routes, useContext } from '../ConnectKit';
 import Avatar from '../Common/Avatar';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import useMeasure from 'react-use-measure';
-import { CustomTheme, Theme } from '../../types';
+import { CustomTheme, Mode, Theme } from '../../types';
 
 const contentVariants: Variants = {
   initial: {
@@ -277,10 +277,12 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
 export function ConnectKitButton({
   onClick,
   theme,
+  mode,
   customTheme,
 }: {
   onClick?: (open: () => void) => void;
   theme?: Theme;
+  mode?: Mode;
   customTheme?: CustomTheme;
 }) {
   const { isConnected } = useConnect();
@@ -294,6 +296,7 @@ export function ConnectKitButton({
   return (
     <ResetContainer
       $useTheme={theme ?? context.theme}
+      $useMode={mode ?? context.mode}
       $customTheme={customTheme ?? context.customTheme}
     >
       <ConnectKitButtonInner

@@ -136,6 +136,7 @@ type ModalProps = {
 
   demo?: {
     theme: string;
+    mode?: string;
     customTheme: CustomTheme;
   };
 };
@@ -288,6 +289,7 @@ const Modal: React.FC<ModalProps> = ({
   const Content = (
     <ResetContainer
       $useTheme={demo?.theme ?? context.theme}
+      $useMode={demo?.mode ?? context.mode}
       $customTheme={demo?.customTheme ?? context.customTheme}
     >
       <ModalContainer

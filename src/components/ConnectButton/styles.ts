@@ -32,7 +32,7 @@ export const Button = styled(motion.button)`
   line-height: 0;
   font-size: 15px;
   font-weight: 500;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
   box-shadow: var(--outline), var(--shadow);
   transition: background-color 100ms ease;
