@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components';
 import defaultTheme from '../../../constants/defaultTheme';
 
 export const Arrow = styled.svg`
+  --x: -3px;
+  --stroke-width: 2;
   position: relative;
   top: 0px;
   left: -0.5px;
@@ -11,10 +13,9 @@ export const Arrow = styled.svg`
   margin-left: 9px;
   margin-right: 1px;
   transition: all 100ms ease;
-  transform: translateX(-3px);
+  transform: translateX(var(--x, -3px));
   color: var(--ck-secondary-button-color, var(--body-color));
   opacity: 0.4;
-  --stroke-width: 2;
 `;
 export const ArrowChevron = styled.path``;
 export const ArrowLine = styled.line`
@@ -77,6 +78,18 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   box-shadow: var(--box-shadow);
   border: var(--border);
 
+  ${DownloadArrow} {
+    ${Arrow} {
+      transform: translateX(0);
+      ${ArrowLine} {
+        transform: none;
+      }
+      ${ArrowChevron} {
+      }
+    }
+  }
+}
+
   @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
     &:hover,
     &:focus {
@@ -93,6 +106,16 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
           transform: none;
         }
         ${ArrowChevron} {
+        }
+      }
+      ${DownloadArrow} {
+        ${Arrow} {
+          transform: translateX(var(--x));
+          ${ArrowLine} {
+            transform: scaleX(0.1);
+          }
+          ${ArrowChevron} {
+          }
         }
       }
     }
