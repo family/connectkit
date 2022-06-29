@@ -39,9 +39,7 @@ export const unstoppable = ({ chains }: WalletOptions): WalletProps => {
 
             return isAndroid()
               ? uri
-              : `https://unstoppable.money/wc?uri=wc?uri=${encodeURIComponent(
-                  uri
-                )}`;
+              : `https://unstoppable.money/wc?uri=${encodeURIComponent(uri)}`;
           },
         },
         qrCode: {
