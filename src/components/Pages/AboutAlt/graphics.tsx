@@ -571,6 +571,10 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
       </MainCircle>
 
       <motion.div
+        initial={{ rotate: -20, scale: 0.4, y: -40, x: -40 }}
+        animate={{ rotate: 0, scale: 1, y: 0, x: 0 }}
+        exit={{ zIndex: 3, scale: 0.2, y: -25, x: 15 }}
+        /*
         initial={{ rotate: 40, scale: 0.8, y: -25, x: 15, zIndex: 3 }}
         animate={{
           rotate: 0,
@@ -600,8 +604,9 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
             },
           },
         }}
+        */
         style={{
-          zIndex: 3,
+          zIndex: 12,
           borderRadius: '50%',
           position: 'absolute',
           bottom: -4,
