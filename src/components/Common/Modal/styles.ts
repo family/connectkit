@@ -479,13 +479,21 @@ export const Container = styled(motion.div)`
       left: 17px;
     }
     ${InfoButton} {
-      top: 25px;
-      left: 23px;
-      width: 26px;
-      height: 26px;
+      top: 22px;
+      left: 17px;
       svg {
-        width: 100%;
+        width: 65%;
         height: auto;
+      }
+    }
+    ${CloseButton},
+    ${BackButton},
+    ${InfoButton} {
+      // Quick hack for bigger tappable area on mobile
+      transform: scale(1.4) !important;
+      background: transparent !important;
+      svg {
+        transform: scale(0.8) !important;
       }
     }
   }
