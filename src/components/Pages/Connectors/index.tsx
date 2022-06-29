@@ -7,7 +7,6 @@ import { useConnect } from '../../../hooks/useConnect';
 
 import {
   PageContent,
-  ModalHeading,
   ModalH1,
   ModalBody,
   ModalContent,
@@ -33,7 +32,7 @@ import {
 import { isMobile, isAndroid } from '../../../utils';
 
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+//import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
@@ -97,7 +96,7 @@ const Wallets: React.FC = () => {
     }
 
     try {
-      await connectAsync(connector);
+      await connectAsync({ connector: connector });
     } catch (err) {
       context.debug('Async connect error', err);
     }
@@ -148,7 +147,6 @@ const Wallets: React.FC = () => {
 
   return (
     <PageContent style={{ width: 312 }}>
-      {/* <ModalHeading>{copy.heading}</ModalHeading> */}
       <ModalHeadingBlock />
       {mobile ? (
         <>

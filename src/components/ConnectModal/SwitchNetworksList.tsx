@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useNetwork } from 'wagmi';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 import supportedChains from '../../constants/supportedChains';
 
 import Alert from '../Common/Alert';
@@ -196,21 +196,23 @@ const Spinner = (
 );
 
 const SwitchNetworksList: React.FC = () => {
-  const { activeChain, chains, isLoading, pendingChainId, switchNetwork } =
-    useNetwork();
+  const { chain } = useNetwork();
+  const { chains, isLoading, pendingChainId, switchNetwork } =
+    useSwitchNetwork();
+
+  const x = supportedChains.find((x) => x.id === chain?.id) || {
+    logo: false,
+  };
+  const activeChain = { ...chain, ...x };
 
   if (!switchNetwork) {
-    const x = supportedChains.filter((x) => x.id === activeChain?.id)[0] || {
-      logo: false,
-    };
-    const chain = { ...activeChain, ...x };
     return (
       <SwitchNetworksContainer>
         <ChainButtons>
           <AnimatePresence exitBeforeEnter initial={false}>
             <ChainButton
               disabled
-              key={chain.id}
+              key={activeChain.id}
               initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
@@ -230,18 +232,18 @@ const SwitchNetworksList: React.FC = () => {
                 }}
               >
                 <ChainLogoContainer>
-                  {chain.logo ? (
-                    <ChainIcon>{chain.logo}</ChainIcon>
+                  {activeChain.logo ? (
+                    <ChainIcon>{activeChain.logo}</ChainIcon>
                   ) : (
                     <ChainIcon $empty />
                   )}
                 </ChainLogoContainer>
-                {chain.name}
+                {activeChain.name}
               </span>
               <ChainButtonStatus>
                 <motion.span
                   style={{
-                    color: chain.unsupported
+                    color: activeChain.unsupported
                       ? 'var(--body-color-danger)'
                       : 'var(--focus-color)',
                     display: 'block',
@@ -249,7 +251,7 @@ const SwitchNetworksList: React.FC = () => {
                     paddingRight: 6,
                   }}
                 >
-                  {chain.unsupported ? 'Unsupported' : 'Connected'}
+                  {activeChain.unsupported ? 'Unsupported' : 'Connected'}
                 </motion.span>
               </ChainButtonStatus>
             </ChainButton>
@@ -266,7 +268,8 @@ const SwitchNetworksList: React.FC = () => {
   return (
     <ChainButtons>
       {chains.map((x) => {
-        const chain = supportedChains.filter((c) => c.id === x.id)[0];
+        const chain = supportedChains.find((c) => c.id === x.id);
+        if (!chain) return null;
         return (
           <ChainButton
             disabled={

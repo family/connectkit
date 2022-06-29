@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Theme } from '../../types';
 import Modal from '../Common/Modal';
@@ -14,7 +14,7 @@ import SwitchNetworks from '../Pages/SwitchNetworks';
 import styled, { keyframes } from 'styled-components';
 import MobileConnectors from '../Pages/MobileConnectors';
 import { ConnectKitButton } from '../ConnectButton';
-
+/*
 const dist = 8;
 const shake = keyframes`
   0%{ transform:none; }
@@ -23,6 +23,7 @@ const shake = keyframes`
   75%{ transform:translateX(${dist}px); }
   100%{ transform:none; }
 `;
+*/
 const cursorIn = keyframes`
   0%{ transform:translate(500%,100%); opacity:0; }
   60%{ transform:translate(25%,-20%); opacity:1; }
@@ -81,7 +82,7 @@ const ConnectModal: React.FC<{
   onClose,
 }) => {
   const context = useContext();
-  const { isConnected } = useConnect();
+  const { isConnected } = useAccount();
 
   const ref = useRef<HTMLDivElement | null>(null);
   const cursorRef = useRef<HTMLDivElement | null>(null);

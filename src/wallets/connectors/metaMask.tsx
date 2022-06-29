@@ -60,7 +60,6 @@ export const metaMask = ({ chains }: WalletOptions): WalletProps => {
             chains,
             options: {
               qrcode: false,
-              //rpc,
             },
           })
         : new MetaMaskConnector({

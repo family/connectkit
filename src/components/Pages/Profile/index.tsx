@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from '../../ConnectKit';
-import localizations from '../../../constants/localizations';
+//import localizations from '../../../constants/localizations';
 import { truncateEthAddress } from '../../../utils';
 
 import {
@@ -26,7 +26,6 @@ import {
   ModalBody,
   ModalContent,
   ModalH1,
-  ModalHeading,
   ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import Button from '../../Common/Button';
@@ -40,21 +39,22 @@ import Alert from '../../Common/Alert';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
-  const copy = localizations[context.lang].profileScreen;
+  //const copy = localizations[context.lang].profileScreen;
 
-  const { reset, isConnected } = useConnect();
+  const { reset } = useConnect();
   const { disconnect } = useDisconnect();
 
   const [shouldDisconnect, setShouldDisconnect] = useState(false);
 
-  const { data: account } = useAccount();
+  const { address, isConnected } = useAccount();
+
   const { data: ensName } = useEnsName({
     chainId: 1,
-    address: account?.address,
+    address: address,
   });
-  const { activeChain } = useNetwork();
+  const { chain } = useNetwork();
   const { data: balance } = useBalance({
-    addressOrName: account?.address,
+    addressOrName: address,
     //watch: true,
   });
 
@@ -79,10 +79,9 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     };
   }, [shouldDisconnect, disconnect, reset]);
 
-  if (activeChain?.unsupported) {
+  if (chain?.unsupported) {
     return (
       <PageContent>
-        {/* <ModalHeading>Unsupported network</ModalHeading> */}
         <ModalHeadingBlock />
         <Alert>
           Your wallet does not support switching networks from this app.
@@ -100,7 +99,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   }
   return (
     <PageContent>
-      {/* <ModalHeading>{copy.heading}</ModalHeading> */}
       <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
         <AvatarContainer>
@@ -108,12 +106,12 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
             <ChainSelectorContainer>
               <ChainSelector />
             </ChainSelectorContainer>
-            <Avatar address={account?.address} />
+            <Avatar address={address} />
           </AvatarInner>
         </AvatarContainer>
         <ModalH1>
-          <CopyToClipboard string={account?.address}>
-            {ensName ?? truncateEthAddress(account?.address)}
+          <CopyToClipboard string={address}>
+            {ensName ?? truncateEthAddress(address)}
           </CopyToClipboard>
         </ModalH1>
         <ModalBody>
@@ -121,7 +119,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
             <AnimatePresence exitBeforeEnter initial={false}>
               {balance && (
                 <Balance
-                  key={`chain-${activeChain?.id}`}
+                  key={`chain-${chain?.id}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

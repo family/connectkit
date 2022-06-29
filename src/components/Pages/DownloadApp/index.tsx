@@ -7,7 +7,6 @@ import {
   PageContent,
   ModalBodySmall,
   ModalContent,
-  ModalHeading,
   ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import { OrDivider } from '../../Common/Modal';
@@ -23,7 +22,7 @@ const DownloadApp: React.FC<{
   const context = useContext();
   const copy = localizations[context.lang].downloadAppScreen;
 
-  const [id, setId] = useState(connectorId);
+  const [id] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const localizeText = (text: string) => {
@@ -41,7 +40,6 @@ const DownloadApp: React.FC<{
 
   return (
     <PageContent>
-      {/* <ModalHeading>{localizeText(copy.heading)}</ModalHeading> */}
       <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         {downloadUri && <CustomQRCode value={downloadUri} />}

@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { routes, useContext } from '../ConnectKit';
 
-import { useNetwork } from 'wagmi';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 import supportedChains from '../../constants/supportedChains';
 
 import useMeasure from 'react-use-measure';
@@ -149,7 +149,8 @@ const ChevronDown = ({ ...props }) => (
 const ChainSelector: React.FC = () => {
   const context = useContext();
   const [isOpen, setIsOpen] = useState(false);
-  const { activeChain, chains } = useNetwork();
+  const { chains } = useSwitchNetwork();
+  const { chain } = useNetwork();
 
   const mobile = isMobile() || window?.innerWidth < defaultTheme.mobileWidth;
 
@@ -187,17 +188,16 @@ const ChainSelector: React.FC = () => {
 
   const disabled = chains.length <= 1;
   const ChainSelectorButton = (
-    <ChainIcon
-      $empty={chains.filter((x) => x.id === activeChain?.id).length === 0}
-    >
+    <ChainIcon $empty={chains.filter((x) => x.id === chain?.id).length === 0}>
       <AnimatePresence initial={false}>
         {chains
-          .filter((x) => x.id === activeChain?.id)
+          .filter((x) => x.id === chain?.id)
           .map((x, i) => {
-            const chain = supportedChains.filter((c) => c.id === x.id)[0];
+            const c = supportedChains.find((c) => c.id === x.id);
+            if (!c) return null;
             return (
               <motion.div
-                key={chain.id}
+                key={c.id}
                 style={{
                   position: 'absolute',
                   inset: 0,
@@ -207,7 +207,7 @@ const ChainSelector: React.FC = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                {chain.logo}
+                {c.logo}
               </motion.div>
             );
           })}
@@ -231,7 +231,7 @@ const ChainSelector: React.FC = () => {
           }}
         >
           {disabled ? (
-            <Tooltip message={`${activeChain?.name} Network`} xOffset={-6}>
+            <Tooltip message={`${chain?.name} Network`} xOffset={-6}>
               {ChainSelectorButton}
             </Tooltip>
           ) : (
