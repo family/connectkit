@@ -109,12 +109,14 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 }) => {
   const isMounted = useIsMounted();
   const context = useContext();
-  const { chain } = useNetwork();
-  const { address, isConnected, isConnecting } = useAccount();
+  const { activeChain } = useNetwork();
+  const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
-    address: address,
+    address: account?.address,
   });
+
+  const { isConnected, isConnecting } = useConnect();
 
   function hide() {
     context.setOpen(false);
@@ -133,11 +135,13 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
       {children({
         show,
         hide,
-        unsupported: !!chain?.unsupported,
-        isConnected: !!address,
+        unsupported: !!activeChain?.unsupported,
+        isConnected: !!account?.address,
         isConnecting: isConnecting,
-        address: address ?? '',
-        truncatedAddress: address ? truncateEthAddress(address) : '',
+        address: account?.address ?? '',
+        truncatedAddress: account?.address
+          ? truncateEthAddress(account?.address)
+          : '',
         ensName: ensName ?? '',
       })}
     </>
@@ -148,13 +152,14 @@ ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
 
 function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
   // const [address, setAddress] = useState<string>('');
-  const { address, isConnected, isConnecting } = useAccount();
+  const { isConnected, isConnecting } = useConnect();
 
   const [initialRan, setInitialRan] = useState<boolean>(false);
-  const { chain } = useNetwork();
+  const { activeChain } = useNetwork();
+  const { data: account } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
-    address: address,
+    address: account?.address,
   });
   const [contentRef, bounds] = useMeasure();
 
@@ -167,13 +172,13 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
   // useEffect(() => {
   //   let timeout;
   //   timeout = setTimeout(() => {
-  //     setAddress(address);
+  //     setAddress(account?.address);
   //   }, 1000);
 
   //   return () => {
   //     clearTimeout(timeout);
   //   };
-  // }, [address]);
+  // }, [account?.address]);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -199,7 +204,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
         ease: [0.25, 1, 0.5, 1],
       }}
     >
-      {chain?.unsupported ? (
+      {activeChain?.unsupported ? (
         <>Wrong network</>
       ) : (
         <div
@@ -207,7 +212,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
           style={{ width: 'fit-content', position: 'relative' }}
         >
           <AnimatePresence initial={false}>
-            {address ? (
+            {account?.address ? (
               <TextContainer
                 key="connectedText"
                 initial={'initial'}
@@ -219,7 +224,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
                 }}
               >
                 <IconContainer>
-                  <Avatar size={24} address={address} />
+                  <Avatar size={24} address={account?.address} />
                 </IconContainer>
 
                 <div style={{ position: 'relative' }}>
@@ -242,7 +247,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
                         exit={'exit'}
                         variants={textVariants}
                       >
-                        {truncateEthAddress(address)}
+                        {truncateEthAddress(account?.address)}
                       </motion.span>
                     )}
                   </AnimatePresence>
@@ -278,7 +283,7 @@ export function ConnectKitButton({
   theme?: Theme;
   customTheme?: CustomTheme;
 }) {
-  const { isConnected } = useAccount();
+  const { isConnected } = useConnect();
   const context = useContext();
 
   function show() {
@@ -311,11 +316,11 @@ export function ConnectKitButton({
 //   const containerRef = useRef<any>(null);
 //   const [contentRef, bounds] = useMeasure({ offsetSize: true });
 
-//   const { chain } = useNetwork();
+//   const { activeChain } = useNetwork();
 //   const { data: account } = useAccount();
 //   const { data: ensName } = useEnsName({
 //     chainId: 1,
-//     address: address,
+//     address: account?.address,
 //   });
 
 //   console.log(account, bounds);
@@ -357,11 +362,11 @@ export function ConnectKitButton({
 //       }}
 //       initial={false}
 //       animate={{
-//         width: address ? bounds.width + 30 : 137,
+//         width: account?.address ? bounds.width + 30 : 137,
 //       }}
 //     >
 //       <Button onClick={show}>
-//         {chain?.unsupported ? (
+//         {activeChain?.unsupported ? (
 //           <>Wrong network</>
 //         ) : (
 //           <div
@@ -369,7 +374,7 @@ export function ConnectKitButton({
 //             style={{ width: 'fit-content', position: 'relative' }}
 //           >
 //             <AnimatePresence initial={false}>
-//               {address ? (
+//               {account?.address ? (
 //                 <TextContainer
 //                   key="connectedText"
 //                   initial={'initial'}
@@ -381,9 +386,9 @@ export function ConnectKitButton({
 //                   }}
 //                 >
 //                   <IconContainer>
-//                     <Avatar size={24} address={address} />
+//                     <Avatar size={24} address={account?.address} />
 //                   </IconContainer>
-//                   <span>{ensName ?? truncateEthAddress(address)}</span>
+//                   <span>{ensName ?? truncateEthAddress(account?.address)}</span>
 //                 </TextContainer>
 //               ) : (
 //                 <TextContainer

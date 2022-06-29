@@ -79,10 +79,10 @@ const ConnectWithInjector: React.FC<{
   forceState?: typeof states;
 }> = ({ connectorId, switchConnectMethod, forceState }) => {
   const { connect, connectors } = useConnect({
-    onMutate: (connector: any) => {
+    onBeforeConnect: (connector: any) => {
       setStatus(states.CONNECTING);
     },
-    onError() {
+    onError(err: any) {
       //console.error(err);
     },
     onSettled(data: any, error: any) {
@@ -122,13 +122,13 @@ const ConnectWithInjector: React.FC<{
   const context = useContext();
   const copy = localizations[context.lang].injectionScreen;
 
-  const [id] = useState(connectorId);
+  const [id, setId] = useState(connectorId);
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
-  /*
+
   const expiryDefault = 9; // Starting at 10 causes layout shifting, better to start at 9
   const [expiryTimer, setExpiryTimer] = useState<number>(expiryDefault);
-*/
+
   const hasExtensionInstalled =
     connector.extensionIsInstalled && connector.extensionIsInstalled();
 
@@ -165,9 +165,9 @@ const ConnectWithInjector: React.FC<{
 
   const runConnect = () => {
     if (!hasExtensionInstalled) return;
-    const con = connectors.find((c) => c.id === id);
+    const con = connectors.filter((c) => c.id === id)[0];
     if (con) {
-      connect({ connector: con });
+      connect(con);
     } else {
       setStatus(states.UNAVAILABLE);
     }
@@ -209,6 +209,7 @@ const ConnectWithInjector: React.FC<{
     return (
       <PageContent>
         <Container>
+          <ModalHeading>Invalid State</ModalHeading>
           <ModalContent>
             <Alert>
               No connectors match the id given. This state should never happen.
@@ -223,6 +224,7 @@ const ConnectWithInjector: React.FC<{
     return (
       <PageContent>
         <Container>
+          <ModalHeading>Invalid State</ModalHeading>
           <ModalContent>
             <Alert>
               WalletConnect does not have an injection flow. This state should
@@ -236,6 +238,7 @@ const ConnectWithInjector: React.FC<{
   return (
     <PageContent>
       <Container>
+        {/* <ModalHeading>{connector.name}</ModalHeading> */}
         <ModalHeadingBlock />
 
         <ConnectingContainer>

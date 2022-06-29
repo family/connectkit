@@ -1,4 +1,4 @@
-import { Connector } from 'wagmi';
+import { Connector, useNetwork } from 'wagmi';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { useConnect } from './useConnect';
@@ -17,7 +17,7 @@ export function useDefaultWalletConnect() {
         });
 
         try {
-          await connectAsync({ connector: connector });
+          await connectAsync(connector);
         } catch (err) {
           console.log('WalletConnect', err);
         }

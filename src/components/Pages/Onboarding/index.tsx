@@ -19,6 +19,7 @@ import {
   ModalBody,
   ModalContent,
   ModalH1,
+  ModalHeading,
   ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import Logos from '../../../assets/logos';
@@ -36,6 +37,7 @@ const Introduction: React.FC = () => {
   const copy = localizations[context.lang].onboardingScreen;
   return (
     <PageContent>
+      {/* <ModalHeading>{localizeText(copy.heading)}</ModalHeading> */}
       <ModalHeadingBlock />
       <Graphic>
         <LogoGroup>

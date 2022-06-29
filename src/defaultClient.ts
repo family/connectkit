@@ -1,5 +1,5 @@
 import { Chain, Connector, chain, configureChains } from 'wagmi';
-import { Provider, WebSocketProvider } from '@wagmi/core';
+import { Provider } from '@wagmi/core';
 
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -23,22 +23,18 @@ type DefaultConnectorsProps = {
   appName: string;
 };
 type DefaultClientProps = {
-  autoConnect?: boolean;
   appName: string;
   alchemyId?: string;
   infuraId?: string;
   chains?: Chain[];
-  connectors?: Connector[];
-  provider?: Provider;
+  connectors?: any;
+  provider?: any;
 };
-
 type ConnectKitClientProps = {
   autoConnect?: boolean;
   connectors?: Connector[];
-  provider: any; // TODO: Add missing type
-  webSocketProvider?: any; // TODO: Add missing type
+  provider?: Provider;
 };
-
 const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
     new MetaMaskConnector({
@@ -74,7 +70,6 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   ];
 };
 const defaultClient = ({
-  autoConnect = true,
   appName = 'ConnectKit',
   chains = defaultChains,
   alchemyId,
@@ -99,18 +94,14 @@ const defaultClient = ({
     })
   );
 
-  const {
-    provider: configuredProvider,
-    chains: configuredChains,
-    webSocketProvider,
-  } = configureChains(chains, providers);
+  const { provider: configuredProvider, chains: configuredChains } =
+    configureChains(chains, providers);
 
   const connectKitClient: ConnectKitClientProps = {
-    autoConnect,
+    autoConnect: true,
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
     provider: provider ?? configuredProvider,
-    webSocketProvider,
   };
 
   return { ...connectKitClient };

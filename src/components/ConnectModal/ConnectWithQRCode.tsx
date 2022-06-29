@@ -3,7 +3,7 @@ import { routes, useContext } from '../ConnectKit';
 import localizations, { localize } from '../../constants/localizations';
 
 import supportedConnectors from '../../constants/supportedConnectors';
-import { Connector, useConnect } from 'wagmi';
+import { useConnect } from 'wagmi';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { detectBrowser } from '../../utils';
@@ -26,11 +26,11 @@ import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
 const ConnectWithQRCode: React.FC<{
   connectorId: string;
   switchConnectMethod: (id?: string) => void;
-}> = ({ connectorId }) => {
+}> = ({ connectorId, switchConnectMethod }) => {
   const context = useContext();
   const copy = localizations[context.lang].scanScreen;
 
-  const [id] = useState(connectorId);
+  const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const { connectors, connectAsync } = useConnect();
@@ -42,8 +42,8 @@ const ConnectWithQRCode: React.FC<{
     });
   };
 
-  async function connectWallet(connector: Connector) {
-    const result = await connectAsync({ connector: connector });
+  async function connectWallet(connector: any) {
+    const result = await connectAsync(connector);
 
     if (result) {
       return result;
@@ -64,7 +64,7 @@ const ConnectWithQRCode: React.FC<{
         // Shouldn't get to this flow, injected is not scannable
         break;
       case 'coinbaseWallet':
-        c.on('message', async () => {
+        c.on('message', async (e) => {
           const p = await c.getProvider();
           setConnectorUri(p.qrUrl);
         });
@@ -75,7 +75,7 @@ const ConnectWithQRCode: React.FC<{
         }
         break;
       case 'walletConnect':
-        c.on('message', async () => {
+        c.on('message', async (e) => {
           //@ts-ignore
           const p = await c.getProvider();
           setConnectorUri(p.connector.uri);
@@ -109,13 +109,13 @@ const ConnectWithQRCode: React.FC<{
 
   if (!connector) return <>Connector not found</>;
 
-  const hasApps =
-    connector.appUrls && Object.keys(connector.appUrls).length !== 0;
-  /*
   const browser = detectBrowser();
   const extensionUrl = connector.extensions
     ? connector.extensions[browser]
     : undefined;
+
+  const hasApps =
+    connector.appUrls && Object.keys(connector.appUrls).length !== 0;
 
   const suggestedExtension = connector.extensions
     ? {
@@ -126,12 +126,14 @@ const ConnectWithQRCode: React.FC<{
         url: connector.extensions[Object.keys(connector.extensions)[0]],
       }
     : undefined;
+
   const hasExtensionInstalled =
     connector.extensionIsInstalled && connector.extensionIsInstalled();
-*/
+
   if (!connector.scannable)
     return (
       <PageContent>
+        <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
           <Alert>
             {connector.name} does not have it's own QR Code to scan. This state
@@ -143,6 +145,11 @@ const ConnectWithQRCode: React.FC<{
 
   return (
     <PageContent>
+      {/* <ModalHeading>
+        {connectorId === 'walletConnect'
+          ? copy.heading
+          : `Scan with ${connector.name}`}
+      </ModalHeading> */}
       <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 8, gap: 14 }}>
         <CustomQRCode
