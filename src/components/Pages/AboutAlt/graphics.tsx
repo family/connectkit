@@ -574,7 +574,7 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
           x: [0, 25, 0],
           zIndex: 11,
           transition: {
-            duration: duration / 750,
+            duration: duration / 1000,
             ease: 'easeInOut',
             zIndex: {
               delay: (duration / 1000) * 0.6,
@@ -584,11 +584,11 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
         exit={{
           rotate: 20,
           scale: 0.8,
-          y: [0, 30, -40],
-          x: [0, 30, 0],
+          y: [0, 20, -40],
+          x: [0, 20, 0],
           zIndex: 3,
           transition: {
-            duration: duration / 1000,
+            duration: duration / 1300,
             ease: 'easeInOut',
             zIndex: {
               delay: (duration / 1000) * 0.3,
