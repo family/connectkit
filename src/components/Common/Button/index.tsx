@@ -7,8 +7,8 @@ import {
   Arrow,
   ArrowLine,
   ArrowChevron,
-  CircleArrow,
-  CircleArrowInner,
+  DownloadArrow,
+  DownloadArrowInner,
 } from './styles';
 
 const Button: React.FC<ButtonProps> = ({
@@ -34,8 +34,8 @@ const Button: React.FC<ButtonProps> = ({
     >
       {icon && <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>}
       {download && (
-        <CircleArrow>
-          <CircleArrowInner>
+        <DownloadArrow>
+          <DownloadArrowInner>
             <Arrow
               width="13"
               height="12"
@@ -59,8 +59,8 @@ const Button: React.FC<ButtonProps> = ({
                 strokeLinecap="round"
               />
             </Arrow>
-          </CircleArrowInner>
-        </CircleArrow>
+          </DownloadArrowInner>
+        </DownloadArrow>
       )}
       <InnerContainer>{children}</InnerContainer>
       {arrow && (

@@ -23,31 +23,17 @@ export const ArrowLine = styled.line`
   transform-origin: 90% 50%;
   transform: scaleX(0.1);
 `;
-export const CircleArrow = styled.div`
+export const DownloadArrow = styled.div`
   display: inline-block;
   vertical-align: middle;
   position: relative;
-  margin-left: 1px;
-  margin-right: 9px;
-  border-radius: 50%;
+  margin-right: 6px;
   color: var(--ck-secondary-button-color, var(--body-color));
-  box-shadow: inset 0 0 0 2px currentColor;
-  opacity: 0.4;
-  width: 18px;
-  height: 18px;
 `;
-export const CircleArrowInner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  inset: 0;
-  transform: rotate(90deg) scale(0.75);
+export const DownloadArrowInner = styled.div`
+  transform: rotate(90deg);
   ${Arrow} {
-    left: 0.5px;
     margin: 0 auto;
-    opacity: 1;
-    --stroke-width: 2.5;
   }
 `;
 
@@ -92,7 +78,8 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   border: var(--border);
 
   @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
-    &:hover {
+    &:hover,
+    &:focus {
       color: var(--ck-accent-text-color);
       --background: var(
         --ck-accent-color,
