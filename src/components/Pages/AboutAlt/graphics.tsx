@@ -50,14 +50,14 @@ const SpinContainerInner = styled(motion.div)`
   animation: ${spinInner} 8s ease-in-out alternate infinite;
 `;
 
-function getNetworkCircle(n: number) {
+function getNetworkCircle(n: number, animate: boolean = true) {
   const duration = 12;
   const x = 60 + n * 40;
   const offsetX = 20 * n;
 
   const offsetCSS = {
     '--x': `${x}px`,
-    '--x-offset': `${x + offsetX}px`,
+    '--x-offset': animate ? `${x + offsetX}px` : `${x}px`,
   } as React.CSSProperties;
 
   return (
@@ -65,6 +65,7 @@ function getNetworkCircle(n: number) {
       style={{
         animationDelay: `-${duration * n}s`,
         animationDuration: `${duration}s`,
+        animationPlayState: animate ? 'running' : 'paused',
       }}
     >
       <SpinContainerInner style={offsetCSS} />
@@ -533,16 +534,17 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
               boxShadow: 'inset 0 -8px 24px 6px #5004F1',
             }}
           />
-          {getNetworkCircle(0.1)}
-          {getNetworkCircle(0.25)}
-          {getNetworkCircle(0.4)}
-          {getNetworkCircle(0.7)}
-          {getNetworkCircle(0.85)}
+          {getNetworkCircle(0.1, Boolean(layoutId))}
+          {getNetworkCircle(0.25, Boolean(layoutId))}
+          {getNetworkCircle(0.4, Boolean(layoutId))}
+          {getNetworkCircle(0.7, Boolean(layoutId))}
+          {getNetworkCircle(0.85, Boolean(layoutId))}
         </MainCircleInner>
         <motion.div exit={{ opacity: 0 }}>
           <motion.div
             key="pulseA"
-            animate={pulseAnim}
+            initial={!Boolean(layoutId) ? { scale: 1.1 } : undefined}
+            animate={Boolean(layoutId) ? pulseAnim : undefined}
             transition={{ ...pulseTransition }}
             style={{
               position: 'absolute',
@@ -553,7 +555,10 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
           />
           <motion.div
             key="pulseB"
-            animate={pulseAnim}
+            initial={
+              !Boolean(layoutId) ? { scale: 1.2, opacity: 0.25 } : undefined
+            }
+            animate={Boolean(layoutId) ? pulseAnim : undefined}
             transition={{ ...pulseTransition, delay: 0.5 }}
             style={{
               position: 'absolute',
