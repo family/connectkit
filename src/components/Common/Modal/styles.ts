@@ -172,13 +172,13 @@ const BoxOut = keyframes`
 `;
 
 const MobileBoxIn = keyframes`
-  from { transform: translate3D(0, 100%, 0); }
-  to { transform: translate3D(0, 0%, 0); }
+  from { transform: translate3d(0, 100%, 0); }
+  to { transform: translate3d(0, 0%, 0); }
 `;
 
 const MobileBoxOut = keyframes`
-  from { transform: translate3D(0, 0%, 0); }
-  to { transform: translate3D(0, 110%, 0); } // a bit further to avoid dropshadow peaking out
+  from { transform: translate3d(0, 0%, 0); }
+  to { transform: translate3d(0, 110%, 0); } // a bit further to avoid dropshadow peaking out
 `;
 
 export const BoxContainer = styled(motion.div)`
