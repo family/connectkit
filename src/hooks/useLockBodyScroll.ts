@@ -20,7 +20,17 @@ export default function useLockBodyScroll(initialLocked: boolean) {
       //htmlOverflow: document.documentElement.style.overflow,
     };
 
-    const scrollBarWidth = window.innerWidth - document.body.offsetWidth;
+    const style = getComputedStyle(document.body);
+    const offsetX =
+      parseInt(style.marginRight) +
+      parseInt(style.paddingRight) +
+      parseInt(style.borderRight) +
+      parseInt(style.marginLeft) +
+      parseInt(style.paddingLeft) +
+      parseInt(style.borderLeft);
+
+    const scrollBarWidth =
+      window.innerWidth - document.body.offsetWidth - offsetX;
     document.documentElement.style.setProperty(
       '--ck-scrollbar-width',
       `${scrollBarWidth}px`
@@ -29,9 +39,10 @@ export default function useLockBodyScroll(initialLocked: boolean) {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'relative';
     document.body.style.touchAction = 'none';
-    if (context.options.avoidLayoutShift)
-      document.body.style.paddingRight = `${scrollBarWidth}px`;
     //document.documentElement.style.overflow = 'hidden'; // overflow:hidden; on <html> breaks position:sticky;
+    if (context.options?.avoidLayoutShift) {
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    }
 
     return () => {
       document.documentElement.style.removeProperty('--ck-scrollbar-width');
@@ -39,9 +50,10 @@ export default function useLockBodyScroll(initialLocked: boolean) {
       document.body.style.overflow = original.overflow;
       document.body.style.position = original.position;
       document.body.style.touchAction = original.touchAction;
-      if (context.options.avoidLayoutShift)
-        document.body.style.paddingRight = original.paddingRight;
       //document.documentElement.style.overflow = original.htmlOverflow;
+      if (context.options?.avoidLayoutShift) {
+        document.body.style.paddingRight = original.paddingRight;
+      }
     };
   }, [locked]);
 
