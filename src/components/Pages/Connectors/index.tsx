@@ -152,7 +152,17 @@ const Wallets: React.FC = () => {
                 <MobileConnectorButton
                   key={`m-${connector.id}`}
                   //disabled={!connector.ready}
-                  onClick={() => openDefaultConnect(connector.id)}
+                  onClick={() => {
+                    if (
+                      info.id === 'injected' ||
+                      (info.id === 'metaMask' && isMetaMask())
+                    ) {
+                      context.setRoute(routes.CONNECT);
+                      context.setConnector(connector.id);
+                    } else {
+                      openDefaultConnect(connector.id);
+                    }
+                  }}
                 >
                   <MobileConnectorIcon>
                     {info.logos.mobile ??

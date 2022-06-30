@@ -18,7 +18,7 @@ import Button from '../../Common/Button';
 import { ExternalLinkIcon } from '../../../assets/icons';
 import { useConnect } from '../../../hooks/useConnect';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
-import { useContext } from '../../ConnectKit';
+import { routes, useContext } from '../../ConnectKit';
 import { WalletProps } from '../../../wallets/wallet';
 import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect';
 
@@ -50,17 +50,22 @@ const MobileConnectors: React.FC = () => {
   const connectWallet = (wallet: WalletProps) => {
     const c = wallet.createConnector();
 
-    c.connector.on('message', async ({ type }: any) => {
-      if (type === 'connecting') {
-        const uri = await c.mobile.getUri();
-        window.location.href = uri;
-      }
-    });
+    if (wallet.installed) {
+      context.setRoute(routes.CONNECT);
+      context.setConnector(c.connector.id);
+    } else {
+      c.connector.on('message', async ({ type }: any) => {
+        if (type === 'connecting') {
+          const uri = await c.mobile.getUri();
+          window.location.href = uri;
+        }
+      });
 
-    try {
-      connectAsync(c.connector);
-    } catch (err) {
-      context.debug('Async connect error', err);
+      try {
+        connectAsync(c.connector);
+      } catch (err) {
+        context.debug('Async connect error', err);
+      }
     }
   };
 
