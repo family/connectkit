@@ -142,7 +142,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         truncatedAddress: account?.address
           ? truncateEthAddress(account?.address)
           : '',
-        ensName: ensName ?? '',
+        ensName: ensName,
       })}
     </>
   );
