@@ -48,7 +48,7 @@ export const Slide = styled(motion.div)<{ $active?: boolean }>`
   right: 0;
   width: 100%;
   padding: 0 8px 8px;
-  will-change: transform, opacity;
+  /* will-change: transform, opacity; */
   transition: 400ms 50ms cubic-bezier(0.16, 1, 0.3, 1);
   transition-property: transform, opacity;
   ${(props) =>

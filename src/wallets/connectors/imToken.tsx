@@ -8,7 +8,7 @@ export const imToken = ({ chains }: WalletOptions): WalletProps => {
     id: 'imToken',
     name: 'imToken',
     logos: {
-      default: <Logos.ImToken />,
+      default: <Logos.PlaceHolder />,
     },
     logoBackground: '#098de6',
     scannable: false,

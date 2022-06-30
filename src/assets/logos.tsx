@@ -356,6 +356,12 @@ export const Coinbase = ({ background = false, ...props }) => (
   </svg>
 );
 
+export const CoinbaseImage = ({ background = false, ...props }) => {
+  return (
+    <img src="data:image/png;base64,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" />
+  );
+};
+
 export const Trust = ({ theme = 'light', ...props }) => (
   <svg
     {...props}
@@ -720,6 +726,10 @@ export const GnosisSafe = ({ ...props }) => (
   </svg>
 );
 
+export const PlaceHolder = () => {
+  return <div style={{ width: 80, height: 80, background: '#555' }}></div>;
+};
+
 export const OtherWallets = ({ ...props }) => {
   const column: React.CSSProperties = {
     position: 'relative',
@@ -766,6 +776,7 @@ export default {
   //WalletConnectQRCode,
   MetaMask,
   Coinbase,
+  CoinbaseImage,
   Trust,
   Argent,
   ImToken,
@@ -778,4 +789,5 @@ export default {
   ONTO,
   Slope,
   GnosisSafe,
+  PlaceHolder,
 };

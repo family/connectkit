@@ -211,18 +211,21 @@ export const BoxContainer = styled(motion.div)`
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     animation-name: ${MobileBoxOut};
-    animation-duration: 320ms;
-    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+    animation-duration: 180ms;
+    animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
 
     &.active {
       animation-name: ${MobileBoxIn};
-      animation-duration: 400ms;
+      animation-duration: 300ms;
+      animation-delay: 32ms;
       animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     &:before {
-      transition-duration: 200ms;
+      transition-duration: 320ms;
+      animation-delay: 32ms;
       width: 100%;
+      will-change: height;
     }
   }
 `;
@@ -246,7 +249,8 @@ export const InnerContainer = styled(motion.div)`
   height: var(--height);
   transition: 0.2s ease height;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    transition-duration: 200ms;
+    transition-duration: 320ms;
+    animation-delay: 32ms;
   }
 `;
 
@@ -291,6 +295,8 @@ export const PageContainer = styled(motion.div)`
     animation-delay: 16.6667ms;
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    animation: 300ms ease both;
+
     &.active {
       animation-name: ${FadeIn};
     }
@@ -335,7 +341,7 @@ export const CloseButton = styled(motion.button)`
   color: var(--body-action-color);
   background: var(--body-background);
   transition: background-color 200ms ease, transform 100ms ease;
-  will-change: transform;
+  /* will-change: transform; */
   svg {
     display: block;
   }
@@ -364,7 +370,7 @@ export const BackButton = styled(motion.button)`
   color: var(--body-action-color);
   background: var(--body-background);
   transition: background-color 200ms ease, transform 100ms ease;
-  will-change: transform;
+  /* will-change: transform; */
   svg {
     display: block;
     position: relative;
@@ -398,7 +404,7 @@ export const InfoButton = styled(motion.button)`
   color: var(--body-action-color);
   background: var(--body-background);
   transition: background-color 200ms ease, transform 100ms ease;
-  will-change: transform;
+  /* will-change: transform; */
   svg {
     display: block;
     position: relative;

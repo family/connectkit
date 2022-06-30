@@ -9,7 +9,7 @@ export const steak = ({ chains }: WalletOptions): WalletProps => {
     id: 'steak',
     name: 'Steak',
     logos: {
-      default: <Logos.Steak />,
+      default: <Logos.PlaceHolder />,
     },
     logoBackground: '#000000',
     scannable: false,

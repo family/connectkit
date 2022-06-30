@@ -38,7 +38,7 @@ export const LearnMoreButton = styled(motion.button)`
   font-size: 15px;
   line-height: 18px;
   font-weight: 500;
-  will-change: transform;
+  /* will-change: transform; */
   transition: color 200ms ease, transform 100ms ease;
   svg {
     transition: all 100ms ease-out;
@@ -96,7 +96,7 @@ export const ConnectorButton = styled(motion.button)`
   text-align: var(--body-button-text-align, left);
   transition: 180ms ease;
   transition-property: background, color, box-shadow, transform;
-  will-change: transform, box-shadow, background-color, color;
+  /* will-change: transform, box-shadow, background-color, color; */
 
   --fallback-color: var(--ck-primary-button-color);
   --fallback-background: var(--ck-primary-button-background);

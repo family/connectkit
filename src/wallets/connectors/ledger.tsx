@@ -10,7 +10,7 @@ export const ledger = ({ chains }: WalletOptions): WalletProps => {
     name: 'Ledger Live',
     shortName: 'Ledger',
     logos: {
-      default: <Logos.Ledger />,
+      default: <Logos.PlaceHolder />,
     },
     logoBackground: '#000',
     scannable: false,
