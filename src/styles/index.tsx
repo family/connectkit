@@ -153,7 +153,7 @@ const themeColors = {
     '--ck-primary-button-active-border-radius': '16px',
 
     '--focus-color': '#1A88F8',
-    '--overlay-background': 'rgba(0, 0, 0, 0.4)',
+    '--overlay-background': 'rgba(71, 88, 107, 0.24)',
     '--body-color': '#373737',
     '--body-color-muted': '#999999',
     '--body-color-muted-hover': '#111111',
@@ -205,7 +205,7 @@ const themeColors = {
 
     '--focus-color': '#1A88F8',
 
-    '--overlay-background': 'rgba(0, 0, 0, 0.4)',
+    '--overlay-background': 'rgba(71, 88, 107, 0.24)',
     '--body-color': '#ffffff',
     '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
     '--body-color-muted-hover': 'rgba(255, 255, 255, 0.8)',
