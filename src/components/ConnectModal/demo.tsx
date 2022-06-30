@@ -87,7 +87,9 @@ const ConnectModal: React.FC<{
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(open ?? false);
 
-  useEffect(() => setIsOpen(open ?? false), [open]);
+  useEffect(() => {
+    setIsOpen(open ?? false);
+  }, [open]);
 
   useEffect(() => {
     if (isOpen)
@@ -131,9 +133,7 @@ const ConnectModal: React.FC<{
     switchNetworks: <SwitchNetworks />,
   };
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [isConnected]);
+  useEffect(() => onModalClose, [isConnected]);
 
   return (
     <>
