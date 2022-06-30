@@ -51,6 +51,7 @@ type ConnectKitOptions = {
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
+  avoidLayoutShift?: boolean;
   reducedMotion?: boolean;
 };
 
@@ -74,6 +75,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
+    avoidLayoutShift: true,
     reducedMotion: false,
   };
 
