@@ -64,17 +64,7 @@ if (typeof window != 'undefined') {
             </div>
           </div>
         ),
-        transparent: (
-          <div
-            style={{
-              transform: 'scale(0.9)',
-              position: 'relative',
-              width: '100%',
-            }}
-          >
-            <Logos.Injected />
-          </div>
-        ),
+        transparent: <Logos.Injected />,
       },
       scannable: false,
       extensionIsInstalled: () => {
