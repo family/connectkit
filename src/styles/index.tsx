@@ -168,6 +168,8 @@ const themeColors = {
     '--body-color-danger': '#FF4E4E',
     '--body-color-valid': '#32D74B',
 
+    '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
+
     '--mobile-body-background': '#F8F8F8',
     '--mobile-body-color': '#2B2F43',
 
@@ -218,6 +220,8 @@ const themeColors = {
     '--body-action-color': '#808080',
     '--body-divider': '#383838',
     '--body-color-danger': '#FF4E4E',
+
+    '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
 
     '--copytoclipboard-stroke': '#555555',
 
