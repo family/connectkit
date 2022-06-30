@@ -11,6 +11,9 @@ import { infuraProvider } from 'wagmi/providers/infura';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
+let globalAppName;
+export const getAppName = () => globalAppName;
+
 const defaultChains = [
   chain.mainnet,
   chain.polygon,
@@ -77,6 +80,7 @@ const defaultClient = ({
   connectors,
   provider,
 }: DefaultClientProps) => {
+  globalAppName = appName;
   const providers = [];
 
   //if (!infuraId && !alchemyId) alchemyId = 'ourDefaultAlchemyId';

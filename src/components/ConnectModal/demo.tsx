@@ -14,7 +14,8 @@ import SwitchNetworks from '../Pages/SwitchNetworks';
 import styled, { keyframes } from 'styled-components';
 import MobileConnectors from '../Pages/MobileConnectors';
 import { ConnectKitButton } from '../ConnectButton';
-
+import { getAppName } from '../../defaultClient';
+/*
 const dist = 8;
 const shake = keyframes`
   0%{ transform:none; }
@@ -23,6 +24,7 @@ const shake = keyframes`
   75%{ transform:translateX(${dist}px); }
   100%{ transform:none; }
 `;
+*/
 const cursorIn = keyframes`
   0%{ transform:translate(500%,100%); opacity:0; }
   60%{ transform:translate(25%,-20%); opacity:1; }
@@ -134,6 +136,21 @@ const ConnectModal: React.FC<{
   };
 
   useEffect(() => onModalClose, [isConnected]);
+
+  /* When pulling data into WalletConnect, it prioritises the og:title tag over the title tag */
+  useEffect(() => {
+    const appName = getAppName();
+    if (!appName || !open) return;
+
+    const title = document.createElement('meta');
+    title.setAttribute('property', 'og:title');
+    title.setAttribute('content', appName);
+    document.head.prepend(title);
+
+    return () => {
+      document.head.removeChild(title);
+    };
+  }, [open]);
 
   return (
     <>

@@ -12,6 +12,7 @@ import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
+import { getAppName } from '../../defaultClient';
 
 const customThemeDefault: object = {};
 
@@ -51,6 +52,21 @@ const ConnectModal: React.FC<{
   useEffect(() => context.setTheme(theme), [theme]);
   useEffect(() => context.setCustomTheme(customTheme), [customTheme]);
   useEffect(() => context.setLang(lang), [lang]);
+
+  /* When pulling data into WalletConnect, it prioritises the og:title tag over the title tag */
+  useEffect(() => {
+    const appName = getAppName();
+    if (!appName || !open) return;
+
+    const title = document.createElement('meta');
+    title.setAttribute('property', 'og:title');
+    title.setAttribute('content', appName);
+    document.head.prepend(title);
+
+    return () => {
+      document.head.removeChild(title);
+    };
+  }, [open]);
 
   return (
     <Modal
