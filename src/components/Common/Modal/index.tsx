@@ -346,35 +346,6 @@ const Modal: React.FC<ModalProps> = ({
                   </div>
                 </motion.div>
               )}
-              {demo && (
-                <motion.div
-                  style={{
-                    zIndex: -1,
-                    position: 'absolute',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: 'var(--width)',
-                    bottom: '100%',
-                    textAlign: 'center',
-                    transition: 'width var(--duration) var(--ease)',
-                  }}
-                >
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      padding: '8px 16px 6px',
-                      color: '#fff',
-                      fontSize: 12,
-                      lineHeight: '20px',
-                      fontWeight: 500,
-                      background: 'gray',
-                      borderRadius: '12px 12px 0 0',
-                    }}
-                  >
-                    Demo Mode
-                  </span>
-                </motion.div>
-              )}
             </AnimatePresence>
             <ControllerContainer>
               <CloseButton aria-label="Close" onClick={onClose}>
