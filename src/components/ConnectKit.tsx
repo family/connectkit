@@ -10,6 +10,7 @@ import defaultTheme from '../styles/defaultTheme';
 
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
+import { useGoogleFont, useThemeFont } from '../hooks/useGoogleFont';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -51,7 +52,8 @@ type ConnectKitOptions = {
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
-  avoidLayoutShift?: boolean;
+  avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
+  embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
   reducedMotion?: boolean;
 };
 
@@ -76,6 +78,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
     avoidLayoutShift: true,
+    embedGoogleFonts: true,
     reducedMotion: false,
   };
 
@@ -96,25 +99,9 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   useEffect(() => setLang(opts.language || 'en'), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
 
-  /*
-  // Google Font
-  useEffect(() => {
-    const font = // the font name, will need to be parsed to camelCase;
-    console.log(font);
-    if (!font) return;
+  // Include Google Font that is needed for a themes
+  if (opts.embedGoogleFonts) useThemeFont(ckTheme);
 
-    const href = `https://fonts.googleapis.com/css2?family=${font}&display=swap`;
-    const link = document.createElement('link');
-    link.href = href;
-    // link.crossOrigin = ""; // TODO: improve performance?
-    link.rel = 'stylesheet';
-
-    document.head.appendChild(link);
-    return () => {
-      document.head.removeChild(link);
-    };
-  });
-*/
   const value = {
     theme: ckTheme,
     setTheme,

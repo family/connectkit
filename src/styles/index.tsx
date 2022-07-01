@@ -236,7 +236,7 @@ const themeColors = {
     '--qr-border-color': '#3d3d3d',
   },
   web95: {
-    '--font-family': 'Tahoma',
+    '--font-family': 'Lato',
     '--border-radius': 17,
     '--connectbutton-color': '#373737',
     '--connectbutton-background': '#ffffff',
@@ -315,6 +315,7 @@ const themeColors = {
   },
 
   alien: {
+    '--font-family': '"Geostar Fill", sans-serif',
     '--connectbutton-color': '#ffffff',
     '--connectbutton-background': '#2B2B2B',
     '--connectbutton-background-hover': '#333333',
