@@ -151,6 +151,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
 
 function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
+  const isMounted = useIsMounted();
   // const [address, setAddress] = useState<string>('');
   const { isConnected, isConnecting } = useConnect();
 
@@ -192,6 +193,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
     };
   }, [bounds.width, setInitialRan]);
 
+  if (!isMounted) return null;
   return (
     <Button
       onClick={onClick}
