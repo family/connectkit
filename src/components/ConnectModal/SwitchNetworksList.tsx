@@ -109,7 +109,7 @@ const ChainButtons = styled(motion.div)`
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     padding: 8px 24px;
     margin: 2px -2px 0;
-    max-height: 90vh;
+    max-height: 70vh;
   }
 `;
 const ChainButton = styled(motion.button)`
