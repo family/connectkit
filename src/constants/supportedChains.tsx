@@ -1,27 +1,72 @@
 import { ReactNode } from 'react';
-import logos from './../assets/chains';
+import Logos from './../assets/chains';
 
 type Chain = { id: number; name: string; logo: ReactNode };
 const supportedChains: Chain[] = [
   {
     id: 1,
     name: 'Ethereum',
-    logo: logos.Ethereum,
+    logo: <Logos.Ethereum />,
+  },
+  {
+    id: 3,
+    name: 'Rinkby Testnet',
+    logo: <Logos.Ethereum testnet />,
+  },
+  {
+    id: 4,
+    name: 'Ropsten Testnet',
+    logo: <Logos.Ethereum testnet />,
+  },
+  {
+    id: 5,
+    name: 'Görli Testnet',
+    logo: <Logos.Ethereum testnet />,
+  },
+  {
+    id: 42,
+    name: 'Kovan Testnet',
+    logo: <Logos.Ethereum testnet />,
   },
   {
     id: 10,
     name: 'Optimism',
-    logo: logos.Optimism,
+    logo: <Logos.Optimism />,
   },
   {
-    id: 42161,
-    name: 'Arbitrum',
-    logo: logos.Arbitrum,
+    id: 69, // nice
+    name: 'Optimism Kovan Testnet',
+    logo: <Logos.Optimism testnet />,
   },
   {
     id: 137,
     name: 'Polygon',
-    logo: logos.Polygon,
+    logo: <Logos.Polygon />,
+  },
+  {
+    id: 80001,
+    name: 'Polygon Mumbai Testnet',
+    logo: <Logos.Polygon testnet />,
+  },
+  {
+    id: 31337,
+    name: 'Hardhat Default Network',
+    logo: <Logos.Ethereum testnet />,
+  },
+  {
+    id: 1337,
+    name: 'Localhost Testnet',
+    logo: <Logos.Ethereum testnet />,
+  },
+  {
+    id: 42161,
+    name: 'Arbitrum',
+    logo: <Logos.Arbitrum />,
+  },
+  {
+    id: 421611,
+    name: 'Arbitrum Rinkeby Network',
+    logo: <Logos.Arbitrum testnet />,
   },
 ];
 
