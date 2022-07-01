@@ -35,7 +35,7 @@ export function useGoogleFont(font: string) {
 export function useThemeFont(theme: Theme) {
   if (!theme) return;
 
-  const themeFonts = { web95: 'Lato', alien: 'Geostar Fill' };
-  const font = themeFonts[theme] ?? null;
+  const themeFonts: any = { web95: 'Lato', alien: 'Geostar Fill' };
+  const font: string = themeFonts[theme] ?? null;
   useGoogleFont(font);
 }
