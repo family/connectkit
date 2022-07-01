@@ -119,7 +119,7 @@ export const Dot = styled.button<{ $active: boolean }>`
     opacity: 0.12;
     border-radius: 7px;
     background: var(--body-color);
-    transition: all 200ms ease;
+    transition: transform 200ms ease, color 80ms ease;
   }
   ${(props) =>
     props.$active
@@ -127,6 +127,7 @@ export const Dot = styled.button<{ $active: boolean }>`
           cursor: default;
           &:before {
             opacity: 1;
+            transition-duration: 80ms;
           }
         `
       : !props.disabled &&
@@ -136,6 +137,7 @@ export const Dot = styled.button<{ $active: boolean }>`
             transform: scale(1.8);
           }
           &:active:before {
+            transform: scale(1.2);
           }
         `}
 `;
