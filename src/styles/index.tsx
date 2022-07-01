@@ -144,6 +144,7 @@ const themeColors = {
     '--ck-primary-button-background': '#ffffff',
     '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #F0F0F0',
     '--ck-primary-button-border-radius': '16px',
+    '--ck-primary-button-font-weight': '600',
 
     '--ck-primary-button-hover-color': '#373737',
     '--ck-primary-button-hover-background': '#ffffff',
@@ -196,6 +197,7 @@ const themeColors = {
     '--ck-primary-button-background': 'transparent',
     '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #3D3D3D',
     '--ck-primary-button-border-radius': '16px',
+    '--ck-primary-button-font-weight': '600',
 
     '--ck-primary-button-hover-color': '#ffffff',
     '--ck-primary-button-hover-background': 'transparent',
