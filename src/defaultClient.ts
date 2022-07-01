@@ -27,6 +27,7 @@ type DefaultConnectorsProps = {
 };
 type DefaultClientProps = {
   appName: string;
+  autoConnect?: boolean;
   alchemyId?: string;
   infuraId?: string;
   chains?: Chain[];
@@ -73,6 +74,7 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   ];
 };
 const defaultClient = ({
+  autoConnect = false,
   appName = 'ConnectKit',
   chains = defaultChains,
   alchemyId,
@@ -102,7 +104,7 @@ const defaultClient = ({
     configureChains(chains, providers);
 
   const connectKitClient: ConnectKitClientProps = {
-    autoConnect: true,
+    autoConnect,
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
     provider: provider ?? configuredProvider,
