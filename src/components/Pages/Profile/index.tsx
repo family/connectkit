@@ -68,8 +68,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     // Close before disconnecting to avoid layout shifting while modal is still open
     if (closeModal) {
       closeModal();
-      disconnect();
-      reset();
     } else {
       context.setOpen(false);
     }
