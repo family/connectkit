@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useConnect, useAccount, useEnsName, useNetwork } from 'wagmi';
-import { truncateEthAddress } from './../../utils';
+import { truncateENSAddress, truncateEthAddress } from './../../utils';
 import { ResetContainer } from '../../styles';
 
 import { Button, IconContainer, TextContainer } from './styles';
@@ -154,6 +154,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
   const isMounted = useIsMounted();
   // const [address, setAddress] = useState<string>('');
   const { isConnected, isConnecting } = useConnect();
+  const context = useContext();
 
   const [initialRan, setInitialRan] = useState<boolean>(false);
   const { activeChain } = useNetwork();
@@ -239,7 +240,9 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
                         exit={'exit'}
                         variants={textVariants}
                       >
-                        {ensName}
+                        {context.options?.truncateLongENSAddress
+                          ? truncateENSAddress(ensName, 20)
+                          : ensName}
                       </motion.span>
                     ) : (
                       <motion.span

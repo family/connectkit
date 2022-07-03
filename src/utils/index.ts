@@ -10,6 +10,14 @@ const truncateEthAddress = (address?: string) => {
   return `${match[1]}••••${match[2]}`;
 };
 
+const truncateENSAddress = (ensName: string, maxLength: number) => {
+  if (ensName.length > maxLength) {
+    return ensName.replace('.eth', '').slice(0, maxLength) + '...';
+  } else {
+    return ensName;
+  }
+};
+
 const detectBrowser = () => {
   const browser = detect();
   return browser?.name ?? '';
@@ -92,6 +100,7 @@ const isCoinbaseWallet = () => {
 
 export {
   truncateEthAddress,
+  truncateENSAddress,
   isMobile,
   isAndroid,
   detectBrowser,
