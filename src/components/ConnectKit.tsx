@@ -100,7 +100,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
 
   // Other Configuration
 
-  useThemeFont(theme);
+  if (opts.embedGoogleFonts) useThemeFont(theme);
   useEffect(() => setTheme(theme), [theme]);
   useEffect(() => setLang(opts.language || 'en'), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
