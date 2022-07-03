@@ -141,6 +141,13 @@ const Wallets: React.FC = () => {
 
               let name = info.shortName ?? info.name ?? connector.name;
 
+              if (
+                context.options?.walletConnectName &&
+                info.id === 'walletConnect'
+              ) {
+                name = context.options.walletConnectName;
+              }
+
               // Specific case for Wallet Connect naming
               if (
                 info.id === 'walletConnect' &&
@@ -205,6 +212,14 @@ const Wallets: React.FC = () => {
                 }
               }
 
+              let name = info.name ?? connector.name;
+              if (
+                context.options?.walletConnectName &&
+                info.id === 'walletConnect'
+              ) {
+                name = context.options.walletConnectName;
+              }
+
               if (info.id === 'injected') {
                 // TODO: Is this necessary? (Dennis)
                 // if (!shouldShowInjectedConnector()) return null;
@@ -219,7 +234,7 @@ const Wallets: React.FC = () => {
                   }}
                 >
                   <ConnectorIcon>{logo}</ConnectorIcon>
-                  <ConnectorLabel>{info.name ?? connector.name}</ConnectorLabel>
+                  <ConnectorLabel>{name}</ConnectorLabel>
                 </ConnectorButton>
               );
             })}
