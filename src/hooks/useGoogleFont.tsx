@@ -2,11 +2,10 @@ import { useEffect } from 'react';
 import { Theme } from '../types';
 
 export function useGoogleFont(font: string) {
-  if (!font) return;
-
   font = font.replace(' ', '+');
 
   useEffect(() => {
+    if (!font) return;
     const googleapis = document.createElement('link');
     googleapis.href = `https://fonts.googleapis.com`;
     googleapis.rel = 'preconnect';
@@ -28,14 +27,12 @@ export function useGoogleFont(font: string) {
       document.head.removeChild(gstatic);
       document.head.removeChild(link);
     };
-  });
+  }, [font]);
 }
 
 // TODO: This could be dynamic if theming wasn't set up as css variables
 export function useThemeFont(theme: Theme) {
-  if (!theme) return;
-
   const themeFonts: any = { web95: 'Lato', alien: 'Geostar Fill' };
   const font: string = themeFonts[theme] ?? null;
-  useGoogleFont(font);
+  useGoogleFont(font ?? '');
 }

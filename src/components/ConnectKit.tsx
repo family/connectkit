@@ -100,12 +100,12 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
 
   // Other Configuration
 
+  useThemeFont(theme);
   useEffect(() => setTheme(theme), [theme]);
   useEffect(() => setLang(opts.language || 'en'), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
 
   // Include Google Font that is needed for a themes
-  if (opts.embedGoogleFonts) useThemeFont(ckTheme);
 
   const value = {
     theme: ckTheme,
@@ -135,6 +135,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       console.log('---------/CONNECTKIT DEBUG---------');
     },
   };
+
   return createElement(
     Context.Provider,
     { value },
