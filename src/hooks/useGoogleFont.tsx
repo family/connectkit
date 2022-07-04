@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { Theme } from '../types';
 
 export function useGoogleFont(font: string) {
-  font = font.replace(' ', '+');
-
   useEffect(() => {
     if (!font) return;
+    font = font.replace(/ /g, '+');
+
     const googleapis = document.createElement('link');
     googleapis.href = `https://fonts.googleapis.com`;
     googleapis.rel = 'preconnect';
