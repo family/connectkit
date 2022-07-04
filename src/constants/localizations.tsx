@@ -143,6 +143,7 @@ export default {
     },
     profileScreen: {
       heading: 'Connected',
+      unsupported: `Your wallet does not support switching networks from this app.\nTry switching networks from within your wallet instead.`,
     },
     switchNetworkScreen: {
       heading: 'Switch Networks',
