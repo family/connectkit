@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useNetwork } from 'wagmi';
+import { useConnect, useNetwork } from 'wagmi';
 import supportedChains from '../../constants/supportedChains';
 
 import Alert from '../Common/Alert';
@@ -8,6 +8,7 @@ import defaultTheme from '../../constants/defaultTheme';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
+import { isMobile } from '../../utils';
 
 const SwitchNetworksContainer = styled.div`
   display: flex;
@@ -225,6 +226,9 @@ const Spinner = (
 const SwitchNetworksList: React.FC = () => {
   const { activeChain, chains, isLoading, pendingChainId, switchNetwork } =
     useNetwork();
+  const { activeConnector } = useConnect();
+
+  const mobile = isMobile();
 
   if (!switchNetwork) {
     const x = supportedChains.filter((x) => x.id === activeChain?.id)[0] || {
@@ -327,7 +331,24 @@ const SwitchNetworksList: React.FC = () => {
                         duration: 0.15,
                       }}
                     >
-                      {Spinner}
+                      <motion.div
+                        key={x.id}
+                        animate={
+                          // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
+                          mobile &&
+                          activeConnector.id === 'coinbaseWallet' &&
+                          isLoading &&
+                          pendingChainId === x.id
+                            ? {
+                                opacity: [1, 0],
+
+                                transition: { delay: 4, duration: 3 },
+                              }
+                            : { opacity: 1 }
+                        }
+                      >
+                        {Spinner}
+                      </motion.div>
                     </ChainLogoSpinner>
                     <ChainIcon>{chain.logo}</ChainIcon>
                   </ChainLogoContainer>
@@ -378,7 +399,18 @@ const SwitchNetworksList: React.FC = () => {
                         duration: 0.3,
                       }}
                     >
-                      Approve in Wallet
+                      <motion.span
+                        animate={
+                          // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
+                          mobile &&
+                          activeConnector.id === 'coinbaseWallet' && {
+                            opacity: [1, 0],
+                            transition: { delay: 4, duration: 4 },
+                          }
+                        }
+                      >
+                        Approve in Wallet
+                      </motion.span>
                     </motion.span>
                   )}
                 </AnimatePresence>
