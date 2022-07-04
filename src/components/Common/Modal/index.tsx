@@ -178,13 +178,9 @@ const Modal: React.FC<ModalProps> = ({
   const [dimensions, setDimensions] = useState<{
     width: string | undefined;
     height: string | undefined;
-    rawWidth: number | undefined;
-    rawHeight: number | undefined;
   }>({
     width: undefined,
     height: undefined,
-    rawWidth: undefined,
-    rawHeight: undefined,
   });
   const [inTransition, setInTransition] = useState<boolean>(false);
 
@@ -206,8 +202,6 @@ const Modal: React.FC<ModalProps> = ({
       setDimensions({
         width: `${bounds?.width}px`,
         height: `${bounds?.height}px`,
-        rawWidth: bounds?.width,
-        rawHeight: bounds?.height,
       });
     },
     [open]
@@ -218,8 +212,6 @@ const Modal: React.FC<ModalProps> = ({
       setDimensions({
         width: undefined,
         height: undefined,
-        rawWidth: undefined,
-        rawHeight: undefined,
       });
       return;
     }
