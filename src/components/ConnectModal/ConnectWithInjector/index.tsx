@@ -78,14 +78,21 @@ const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void;
   forceState?: typeof states;
 }> = ({ connectorId, switchConnectMethod, forceState }) => {
+  const context = useContext();
+  const copy = localizations[context.lang].injectionScreen;
+
   const { connect, connectors } = useConnect({
-    onBeforeConnect: (connector: any) => {
-      setStatus(states.CONNECTING);
+    onMutate: (connector?: any) => {
+      if (connector.connector) {
+        setStatus(states.CONNECTING);
+      } else {
+        setStatus(states.UNAVAILABLE);
+      }
     },
-    onError(err: any) {
-      //console.error(err);
+    onError(err?: any) {
+      console.error(err);
     },
-    onSettled(data: any, error: any) {
+    onSettled(data?: any, error?: any) {
       if (error) {
         setShowTryAgainTooltip(true);
         setTimeout(() => setShowTryAgainTooltip(false), 3500);
@@ -119,8 +126,6 @@ const ConnectWithInjector: React.FC<{
       }
     },
   });
-  const context = useContext();
-  const copy = localizations[context.lang].injectionScreen;
 
   const [id, setId] = useState(connectorId);
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
@@ -165,9 +170,9 @@ const ConnectWithInjector: React.FC<{
 
   const runConnect = () => {
     if (!hasExtensionInstalled) return;
-    const con = connectors.filter((c) => c.id === id)[0];
+    const con: any = connectors.find((c) => c.id === id);
     if (con) {
-      connect(con);
+      connect({ connector: con });
     } else {
       setStatus(states.UNAVAILABLE);
     }

@@ -26,7 +26,7 @@ import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
 const ConnectWithQRCode: React.FC<{
   connectorId: string;
   switchConnectMethod: (id?: string) => void;
-}> = ({ connectorId, switchConnectMethod }) => {
+}> = ({ connectorId }) => {
   const context = useContext();
   const copy = localizations[context.lang].scanScreen;
 
@@ -43,7 +43,7 @@ const ConnectWithQRCode: React.FC<{
   };
 
   async function connectWallet(connector: any) {
-    const result = await connectAsync(connector);
+    const result = await connectAsync({ connector: connector });
 
     if (result) {
       return result;

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Theme } from '../../types';
 import Modal from '../Common/Modal';
@@ -83,7 +83,7 @@ const ConnectModal: React.FC<{
   onClose,
 }) => {
   const context = useContext();
-  const { isConnected } = useConnect();
+  const { isConnected } = useAccount();
 
   const ref = useRef<HTMLDivElement | null>(null);
   const cursorRef = useRef<HTMLDivElement | null>(null);

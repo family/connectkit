@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useConnect, useNetwork } from 'wagmi';
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 import supportedChains from '../../constants/supportedChains';
 
 import Alert from '../Common/Alert';
@@ -224,17 +224,17 @@ const Spinner = (
 );
 
 const SwitchNetworksList: React.FC = () => {
-  const { activeChain, chains, isLoading, pendingChainId, switchNetwork } =
-    useNetwork();
-  const { activeConnector } = useConnect();
+  const { connector } = useAccount();
+  const { chain, chains } = useNetwork();
+  const { isLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
 
   const mobile = isMobile();
 
   if (!switchNetwork) {
-    const x = supportedChains.filter((x) => x.id === activeChain?.id)[0] || {
+    const x = supportedChains.filter((x) => x.id === chain?.id)[0] || {
       logo: false,
     };
-    const chain = { ...activeChain, ...x };
+    const c = { ...chain, ...x };
     return (
       <SwitchNetworksContainer>
         <ChainButtonContainer>
@@ -242,7 +242,7 @@ const SwitchNetworksList: React.FC = () => {
             <AnimatePresence exitBeforeEnter initial={false}>
               <ChainButton
                 disabled
-                key={chain.id}
+                key={c.id}
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
@@ -262,18 +262,18 @@ const SwitchNetworksList: React.FC = () => {
                   }}
                 >
                   <ChainLogoContainer>
-                    {chain.logo ? (
-                      <ChainIcon>{chain.logo}</ChainIcon>
+                    {c.logo ? (
+                      <ChainIcon>{c.logo}</ChainIcon>
                     ) : (
                       <ChainIcon $empty />
                     )}
                   </ChainLogoContainer>
-                  {chain.name}
+                  {c.name}
                 </span>
                 <ChainButtonStatus>
                   <motion.span
                     style={{
-                      color: chain.unsupported
+                      color: c.unsupported
                         ? 'var(--body-color-danger)'
                         : 'var(--focus-color)',
                       display: 'block',
@@ -281,7 +281,7 @@ const SwitchNetworksList: React.FC = () => {
                       paddingRight: 6,
                     }}
                   >
-                    {chain.unsupported ? 'Unsupported' : 'Connected'}
+                    {c.unsupported ? 'Unsupported' : 'Connected'}
                   </motion.span>
                 </ChainButtonStatus>
               </ChainButton>
@@ -300,16 +300,17 @@ const SwitchNetworksList: React.FC = () => {
     <ChainButtonContainer>
       <ChainButtons>
         {chains.map((x) => {
-          const chain = supportedChains.filter((c) => c.id === x.id)[0];
+          const c = supportedChains.find((ch) => ch.id === x.id);
+          const ch = { ...c, ...x };
           return (
             <ChainButton
+              key={ch.id}
               disabled={
                 !switchNetwork ||
-                x.id === activeChain?.id ||
-                (isLoading && pendingChainId === x.id)
+                ch.id === chain?.id ||
+                (isLoading && pendingChainId === ch.id)
               }
-              key={x.id}
-              onClick={() => switchNetwork?.(x.id)}
+              onClick={() => switchNetwork?.(ch.id)}
             >
               <span
                 style={{
@@ -319,12 +320,12 @@ const SwitchNetworksList: React.FC = () => {
                   gap: 12,
                 }}
               >
-                {chain?.logo && (
+                {ch?.logo && (
                   <ChainLogoContainer>
                     <ChainLogoSpinner
                       initial={{ opacity: 0 }}
                       animate={{
-                        opacity: isLoading && pendingChainId === x.id ? 1 : 0,
+                        opacity: isLoading && pendingChainId === ch.id ? 1 : 0,
                       }}
                       transition={{
                         ease: [0.76, 0, 0.24, 1],
@@ -332,13 +333,13 @@ const SwitchNetworksList: React.FC = () => {
                       }}
                     >
                       <motion.div
-                        key={x.id}
+                        key={ch.id}
                         animate={
                           // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
                           mobile &&
-                          activeConnector.id === 'coinbaseWallet' &&
+                          connector?.id === 'coinbaseWallet' &&
                           isLoading &&
-                          pendingChainId === x.id
+                          pendingChainId === ch.id
                             ? {
                                 opacity: [1, 0],
 
@@ -350,14 +351,14 @@ const SwitchNetworksList: React.FC = () => {
                         {Spinner}
                       </motion.div>
                     </ChainLogoSpinner>
-                    <ChainIcon>{chain.logo}</ChainIcon>
+                    <ChainIcon>{ch.logo}</ChainIcon>
                   </ChainLogoContainer>
                 )}
-                {x.name}
+                {ch.name}
               </span>
               <ChainButtonStatus>
                 <AnimatePresence initial={false} exitBeforeEnter>
-                  {x.id === activeChain?.id && (
+                  {ch.id === chain?.id && (
                     <motion.span
                       key={'connectedText'}
                       style={{
@@ -381,7 +382,7 @@ const SwitchNetworksList: React.FC = () => {
                       Connected
                     </motion.span>
                   )}
-                  {isLoading && pendingChainId === x.id && (
+                  {isLoading && pendingChainId === ch.id && (
                     <motion.span
                       key={'approveText'}
                       style={{
@@ -403,7 +404,7 @@ const SwitchNetworksList: React.FC = () => {
                         animate={
                           // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
                           mobile &&
-                          activeConnector.id === 'coinbaseWallet' && {
+                          connector?.id === 'coinbaseWallet' && {
                             opacity: [1, 0],
                             transition: { delay: 4, duration: 4 },
                           }
@@ -416,8 +417,8 @@ const SwitchNetworksList: React.FC = () => {
                 </AnimatePresence>
               </ChainButtonStatus>
               {
-                //hover === x.name && (
-                x.id === activeChain?.id && (
+                //hover === ch.name && (
+                ch.id === chain?.id && (
                   <ChainButtonBg
                     layoutId="activeChain"
                     layout="position"

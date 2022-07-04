@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useConnect, useAccount, useEnsName, useNetwork } from 'wagmi';
+import React, { useEffect, useState } from 'react';
+import { useAccount, useEnsName, useNetwork } from 'wagmi';
 import { truncateENSAddress, truncateEthAddress } from './../../utils';
 import { ResetContainer } from '../../styles';
 
@@ -109,14 +109,13 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 }) => {
   const isMounted = useIsMounted();
   const context = useContext();
-  const { activeChain } = useNetwork();
-  const { data: account } = useAccount();
+
+  const { chain } = useNetwork();
+  const { address, isConnected, isConnecting } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
-    address: account?.address,
+    address: address,
   });
-
-  const { isConnected, isConnecting } = useConnect();
 
   function hide() {
     context.setOpen(false);
@@ -135,13 +134,11 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
       {children({
         show,
         hide,
-        unsupported: !!activeChain?.unsupported,
-        isConnected: !!account?.address,
+        unsupported: !!chain?.unsupported,
+        isConnected: !!address,
         isConnecting: isConnecting,
-        address: account?.address ?? '',
-        truncatedAddress: account?.address
-          ? truncateEthAddress(account?.address)
-          : '',
+        address: address ?? '',
+        truncatedAddress: address ? truncateEthAddress(address) : '',
         ensName: ensName ?? undefined,
       })}
     </>
@@ -153,16 +150,17 @@ ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
 function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
   const isMounted = useIsMounted();
   // const [address, setAddress] = useState<string>('');
-  const { isConnected, isConnecting } = useConnect();
   const context = useContext();
 
   const [initialRan, setInitialRan] = useState<boolean>(false);
-  const { activeChain } = useNetwork();
-  const { data: account } = useAccount();
+
+  const { chain } = useNetwork();
+  const { address, isConnected, isConnecting } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
-    address: account?.address,
+    address: address,
   });
+
   const [contentRef, bounds] = useMeasure();
 
   const connectedSinceBefore = !isConnected && !isConnecting;
@@ -174,13 +172,13 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
   // useEffect(() => {
   //   let timeout;
   //   timeout = setTimeout(() => {
-  //     setAddress(account?.address);
+  //     setAddress(address);
   //   }, 1000);
 
   //   return () => {
   //     clearTimeout(timeout);
   //   };
-  // }, [account?.address]);
+  // }, [address]);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -207,7 +205,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
         ease: [0.25, 1, 0.5, 1],
       }}
     >
-      {activeChain?.unsupported ? (
+      {chain?.unsupported ? (
         <>Wrong network</>
       ) : (
         <div
@@ -215,7 +213,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
           style={{ width: 'fit-content', position: 'relative' }}
         >
           <AnimatePresence initial={false}>
-            {account?.address ? (
+            {address ? (
               <TextContainer
                 key="connectedText"
                 initial={'initial'}
@@ -227,7 +225,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
                 }}
               >
                 <IconContainer>
-                  <Avatar size={24} address={account?.address} />
+                  <Avatar size={24} address={address} />
                 </IconContainer>
 
                 <div style={{ position: 'relative' }}>
@@ -252,7 +250,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
                         exit={'exit'}
                         variants={textVariants}
                       >
-                        {truncateEthAddress(account?.address)}
+                        {truncateEthAddress(address)}
                       </motion.span>
                     )}
                   </AnimatePresence>
@@ -290,8 +288,9 @@ export function ConnectKitButton({
   mode?: Mode;
   customTheme?: CustomTheme;
 }) {
-  const { isConnected } = useConnect();
   const context = useContext();
+
+  const { isConnected } = useAccount();
 
   function show() {
     context.setOpen(true);
@@ -316,108 +315,5 @@ export function ConnectKitButton({
     </ResetContainer>
   );
 }
-
-// export function ConnectKitButton() {
-//   // const isMounted = useIsMounted();
-//   const { isConnected } = useConnect();
-//   const context = useContext();
-//   const containerRef = useRef<any>(null);
-//   const [contentRef, bounds] = useMeasure({ offsetSize: true });
-
-//   const { activeChain } = useNetwork();
-//   const { data: account } = useAccount();
-//   const { data: ensName } = useEnsName({
-//     chainId: 1,
-//     address: account?.address,
-//   });
-
-//   console.log(account, bounds);
-
-//   function hide() {
-//     context.setOpen(false);
-//   }
-
-//   function show() {
-//     context.setOpen(true);
-//     context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
-//   }
-
-//   // const useIsomorphicLayoutEffect =
-//   //   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
-
-//   // const refreshLayout = () => {
-//   // if (!containerRef.current || bounds.width === 0) return;
-//   //containerRef.current.style.setProperty('--height', `${bounds.height}px`);
-//   // containerRef.current.style.setProperty('--width', `${bounds.width}px`);
-//   // };
-//   // useIsomorphicLayoutEffect(refreshLayout, [bounds.width]);
-
-//   // if (!isMounted) return null;
-
-//   return (
-//     <ResetContainer
-//       // ref={containerRef}
-//       $useTheme={context.theme}
-//       $customTheme={context.customTheme}
-//       style={{
-//         display: 'inline-block',
-//         // width: bounds.width === 0 ? 'fit-content' : '100%',
-//         // maxWidth:
-//         //   bounds.width === 0 ? 'none' : 'calc(var(--width, 107px) + 30px)',
-//         // transition: bounds.width
-//         //   ? 'width 220ms cubic-bezier(0.25, 1, 0.5, 1)'
-//         //   : '',
-//       }}
-//       initial={false}
-//       animate={{
-//         width: account?.address ? bounds.width + 30 : 137,
-//       }}
-//     >
-//       <Button onClick={show}>
-//         {activeChain?.unsupported ? (
-//           <>Wrong network</>
-//         ) : (
-//           <div
-//             ref={contentRef}
-//             style={{ width: 'fit-content', position: 'relative' }}
-//           >
-//             <AnimatePresence initial={false}>
-//               {account?.address ? (
-//                 <TextContainer
-//                   key="connectedText"
-//                   initial={'initial'}
-//                   animate={'animate'}
-//                   exit={'exit'}
-//                   variants={addressVariants}
-//                   style={{
-//                     height: 40,
-//                   }}
-//                 >
-//                   <IconContainer>
-//                     <Avatar size={24} address={account?.address} />
-//                   </IconContainer>
-//                   <span>{ensName ?? truncateEthAddress(account?.address)}</span>
-//                 </TextContainer>
-//               ) : (
-//                 <TextContainer
-//                   key="connectWalletText"
-//                   initial={'initial'}
-//                   animate={'animate'}
-//                   exit={'exit'}
-//                   variants={contentVariants}
-//                   style={{
-//                     height: 40,
-//                   }}
-//                 >
-//                   Connect Wallet
-//                 </TextContainer>
-//               )}
-//             </AnimatePresence>
-//           </div>
-//         )}
-//       </Button>
-//     </ResetContainer>
-//   );
-// }
 
 ConnectKitButton.Custom = ConnectButtonRenderer;

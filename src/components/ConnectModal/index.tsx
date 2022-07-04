@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Theme } from '../../types';
 import Modal from '../Common/Modal';
@@ -22,7 +22,7 @@ const ConnectModal: React.FC<{
   lang?: Languages;
 }> = ({ theme = 'light', customTheme = customThemeDefault, lang = 'en' }) => {
   const context = useContext();
-  const { isConnected } = useConnect();
+  const { isConnected } = useAccount();
 
   const pages: any = {
     onboarding: <Onboarding />,
