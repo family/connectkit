@@ -10,7 +10,7 @@ import defaultTheme from '../styles/defaultTheme';
 
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
-import { useGoogleFont, useThemeFont } from '../hooks/useGoogleFont';
+import { useThemeFont } from '../hooks/useGoogleFont';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -98,14 +98,13 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [errorMessage, setErrorMessage] = useState<Error>('');
 
-  // Other Configuration
-
+  // Include Google Font that is needed for a themes
   if (opts.embedGoogleFonts) useThemeFont(theme);
+
+  // Other Configuration
   useEffect(() => setTheme(theme), [theme]);
   useEffect(() => setLang(opts.language || 'en'), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
-
-  // Include Google Font that is needed for a themes
 
   const value = {
     theme: ckTheme,
