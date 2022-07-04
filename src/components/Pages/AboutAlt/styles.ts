@@ -36,6 +36,19 @@ export const MobileImageContainer = styled.div`
     display: flex;
   }
 `;
+
+export const ContentContainer = styled.div`
+  /*
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 138px;
+  margin: -48px 0 0;
+  */
+`;
+
 export const Slides = styled.div`
   position: relative;
 `;
@@ -43,11 +56,11 @@ export const Slides = styled.div`
 export const Slide = styled(motion.div)<{ $active?: boolean }>`
   scroll-snap-type: x mandatory;
   position: relative;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
-  padding: 0 8px 8px;
+  padding: 0 4px 8px;
   /* will-change: transform, opacity; */
   transition: 400ms 50ms cubic-bezier(0.16, 1, 0.3, 1);
   transition-property: transform, opacity;
