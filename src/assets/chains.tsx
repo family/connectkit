@@ -1,4 +1,8 @@
-export const Ethereum = ({ ...props }) => (
+type Logo = {
+  testnet?: boolean;
+};
+
+export const Ethereum = ({ testnet, ...props }: Logo) => (
   <svg
     {...props}
     aria-hidden="true"
@@ -8,7 +12,7 @@ export const Ethereum = ({ ...props }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: props.testnet
+      background: testnet
         ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
         : '#25292E',
     }}
@@ -57,7 +61,7 @@ export const Ethereum = ({ ...props }) => (
   </svg>
 );
 
-export const Polygon = ({ ...props }) => (
+export const Polygon = ({ testnet, ...props }: Logo) => (
   <svg
     {...props}
     aria-hidden="true"
@@ -67,7 +71,7 @@ export const Polygon = ({ ...props }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: props.testnet
+      background: testnet
         ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
         : '#6F41D8',
     }}
@@ -78,7 +82,7 @@ export const Polygon = ({ ...props }) => (
     />
   </svg>
 );
-export const Optimism = ({ ...props }) => (
+export const Optimism = ({ testnet, ...props }: Logo) => (
   <svg
     {...props}
     aria-hidden="true"
@@ -88,7 +92,7 @@ export const Optimism = ({ ...props }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: props.testnet
+      background: testnet
         ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
         : '#FF0420',
     }}
@@ -104,9 +108,9 @@ export const Optimism = ({ ...props }) => (
   </svg>
 );
 
-export const Arbitrum = ({ ...props }) => {
-  const fill = props.testnet ? '#ffffff' : '#28A0F0';
-  const outlineFill = props.testnet ? '#ffffff' : '#96BEDC';
+export const Arbitrum = ({ testnet, ...props }: Logo) => {
+  const fill = testnet ? '#ffffff' : '#28A0F0';
+  const outlineFill = testnet ? '#ffffff' : '#96BEDC';
   return (
     <svg
       {...props}
@@ -117,12 +121,12 @@ export const Arbitrum = ({ ...props }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{
-        background: props.testnet
+        background: testnet
           ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
           : '#2C364F',
       }}
     >
-      {!props.testnet && (
+      {!testnet && (
         <path
           d="M25.7948 20.5826L28.2683 16.3854L34.9355 26.7696L34.9386 28.7625L34.9168 15.0491C34.9011 14.7137 34.7231 14.407 34.4391 14.2261L22.4357 7.32182C22.1551 7.1838 21.7989 7.18546 21.5187 7.32618C21.4807 7.34524 21.4453 7.36576 21.4113 7.38835L21.3694 7.41467L9.71816 14.1664L9.67298 14.1871C9.61474 14.2137 9.55609 14.2479 9.50076 14.2872C9.27983 14.4456 9.1331 14.68 9.08564 14.9425C9.07859 14.9823 9.0732 15.023 9.07092 15.064L9.08916 26.239L15.2994 16.6138C16.0811 15.3376 17.7847 14.9262 19.3662 14.9488L21.2221 14.9977L10.2862 32.5356L11.5753 33.2778L22.6422 15.0155L27.5338 14.9977L16.4956 33.7209L21.0955 36.3668L21.6451 36.6827C21.8776 36.7772 22.1516 36.7819 22.386 36.6972L34.5581 29.6433L32.2309 30.9918L25.7948 20.5826ZM26.7384 34.175L22.0925 26.8829L24.9287 22.0702L31.0303 31.6876L26.7384 34.175Z"
           fill={'#2D374B'}
