@@ -9,7 +9,7 @@ export const argent = ({ chains }: WalletOptions): WalletProps => {
     id: 'argent',
     name: 'Argent',
     logos: {
-      default: <Logos.PlaceHolder />,
+      default: <Logos.Argent />,
     },
     logoBackground: '#fff',
     scannable: false,

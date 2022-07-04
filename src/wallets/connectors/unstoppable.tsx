@@ -9,7 +9,7 @@ export const unstoppable = ({ chains }: WalletOptions): WalletProps => {
     id: 'unstoppable',
     name: 'Unstoppable',
     logos: {
-      default: <Logos.PlaceHolder />,
+      default: <Logos.Unstoppable />,
     },
     logoBackground: 'linear-gradient(180deg, #FED812 0%, #FFAF00 100%)',
     scannable: false,

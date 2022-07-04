@@ -9,7 +9,7 @@ export const gnosisSafe = ({ chains }: WalletOptions): WalletProps => {
     id: 'gnosisSafe',
     name: 'Gnosis Safe',
     logos: {
-      default: <Logos.PlaceHolder />,
+      default: <Logos.GnosisSafe />,
     },
     logoBackground: '#ffffff',
     scannable: false,

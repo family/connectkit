@@ -10,7 +10,7 @@ export const trust = ({ chains }: WalletOptions): WalletProps => {
     name: 'Trust Wallet',
     shortName: 'Trust',
     logos: {
-      default: <Logos.PlaceHolder />,
+      default: <Logos.Trust />,
     },
     logoBackground: '#fff',
     scannable: false,

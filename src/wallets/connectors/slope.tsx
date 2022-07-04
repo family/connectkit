@@ -9,7 +9,7 @@ export const slope = ({ chains }: WalletOptions): WalletProps => {
     id: 'slope',
     name: 'Slope',
     logos: {
-      default: <Logos.PlaceHolder />,
+      default: <Logos.Slope />,
     },
     logoBackground: '#6C67F1',
     scannable: false,

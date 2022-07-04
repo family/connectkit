@@ -9,7 +9,7 @@ export const onto = ({ chains }: WalletOptions): WalletProps => {
     id: 'onto',
     name: 'ONTO',
     logos: {
-      default: <Logos.PlaceHolder />,
+      default: <Logos.ONTO />,
     },
     logoBackground: '#ffffff',
     scannable: false,

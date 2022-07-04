@@ -9,7 +9,7 @@ export const rainbow = ({ chains }: WalletOptions): WalletProps => {
     id: 'rainbow',
     name: 'Rainbow',
     logos: {
-      default: <Logos.PlaceHolder />,
+      default: <Logos.Rainbow />,
     },
     logoBackground: '#174299',
     // gradient: 'linear-gradient(180deg, #174299 0%, #001E59 100%)',
