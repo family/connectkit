@@ -142,7 +142,6 @@ export const ConnectorButton = styled(motion.button)`
 
 export const ConnectorLabel = styled(motion.span)`
   width: 100%;
-  padding: var(--body-connector-label-padding, '0 64px');
 `;
 
 export const ConnectorIcon = styled(motion.div)`

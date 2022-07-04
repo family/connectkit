@@ -295,7 +295,6 @@ const themeColors = {
     '--body-background-secondary': 'rgba(0, 0, 0, 0.1)',
     '--body-background-tertiary': 'rgba(0, 0, 0, 0.1)',
     '--body-button-text-align': 'left',
-    '--body-connector-label-padding': '0 0',
     '--body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
 
     '--mobile-body-background': '#F8F8F8',
