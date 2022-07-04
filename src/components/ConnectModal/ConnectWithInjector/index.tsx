@@ -60,6 +60,7 @@ const contentVariants: Variants = {
       ease: [0.16, 1, 0.3, 1],
       duration: 0.4,
       delay: 0.05,
+      position: { delay: 0 },
     },
   },
   exit: {
@@ -170,6 +171,7 @@ const ConnectWithInjector: React.FC<{
 
   const runConnect = () => {
     if (!hasExtensionInstalled) return;
+
     const con: any = connectors.find((c) => c.id === id);
     if (con) {
       connect({ connector: con });
@@ -181,6 +183,7 @@ const ConnectWithInjector: React.FC<{
   let connectTimeout: any;
   useEffect(() => {
     if (status === states.UNAVAILABLE) return;
+
     // UX: Give user time to see the UI before opening the extension
     connectTimeout = setTimeout(runConnect, 600);
     return () => {
@@ -400,9 +403,7 @@ const ConnectWithInjector: React.FC<{
                 exit={'exit'}
                 variants={contentVariants}
               >
-                <ModalContent
-                  style={connector.scannable ? { paddingBottom: 34 } : {}}
-                >
+                <ModalContent style={{ paddingBottom: 28 }}>
                   <ModalH1>{localizeText(copy.rejected.h1)}</ModalH1>
                   <ModalBody>{localizeText(copy.rejected.p)}</ModalBody>
                 </ModalContent>
