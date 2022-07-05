@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
-import { CustomTheme, Languages, Theme } from '../../types';
+import { CustomTheme, Languages, Theme, Mode } from '../../types';
 import Modal from '../Common/Modal';
 
 import Onboarding from '../Pages/Onboarding';
@@ -69,6 +69,7 @@ const customThemeDefault: object = {};
 
 const ConnectModal: React.FC<{
   theme?: Theme;
+  mode?: Mode;
   customTheme?: CustomTheme;
   lang?: Languages;
   inline?: boolean;
@@ -78,6 +79,7 @@ const ConnectModal: React.FC<{
   theme = 'light',
   customTheme = customThemeDefault,
   lang = 'en',
+  mode = 'auto',
   inline = false,
   open,
   onClose,
@@ -159,12 +161,16 @@ const ConnectModal: React.FC<{
           <>
             <Cursor ref={cursorRef} />
             <ButtonContainer>
-              <ConnectKitButton />
+              <ConnectKitButton
+                customTheme={customTheme}
+                theme={theme}
+                mode={mode}
+              />
             </ButtonContainer>
           </>
         )}
         <Modal
-          demo={{ theme: theme, customTheme: customTheme }}
+          demo={{ theme: theme, customTheme: customTheme, mode: mode }}
           onClose={onModalClose}
           positionInside={inline}
           open={isOpen}
