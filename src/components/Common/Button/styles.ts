@@ -49,7 +49,6 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
     --button-primary-box-shadow,
     none
   );
-  --border: var(--ck-secondary-button-border);
   --border-radius: var(--ck-secondary-button-border-radius, 16px);
 
   appearance: none;
@@ -76,7 +75,6 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   background: var(--background);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  border: var(--border);
 
   ${DownloadArrow} {
     ${Arrow} {
