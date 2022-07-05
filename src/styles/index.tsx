@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 import { CustomTheme } from '../types';
-import { isMobile } from '../utils';
 import { hexToP3 } from '../utils/p3';
+
+import predefinedThemes from './themes';
 
 function LightenDarkenColor(col: string, amt: number) {
   var usePound = false;
@@ -134,311 +135,12 @@ const themeGlobals = {
   },
 };
 const themeColors = {
-  light: {
-    '--connectbutton-color': '#373737',
-    '--connectbutton-background': '#F6F7F9',
-    '--connectbutton-background-hover': '#F6F7F9',
-    '--connectbutton-background-active': '#EAECF1',
+  light: predefinedThemes.base.light,
+  dark: predefinedThemes.base.dark,
 
-    '--ck-primary-button-color': '#373737',
-    '--ck-primary-button-background': '#ffffff',
-    '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #F0F0F0',
-    '--ck-primary-button-border-radius': '16px',
-    '--ck-primary-button-font-weight': '600',
-
-    '--ck-primary-button-hover-color': '#373737',
-    '--ck-primary-button-hover-background': '#ffffff',
-    '--ck-primary-button-hover-box-shadow':
-      'inset 0 0 0 2px var(--focus-color)',
-    '--ck-primary-button-hover-border-radius': '16px',
-    '--ck-primary-button-active-border-radius': '16px',
-
-    '--focus-color': '#1A88F8',
-    '--overlay-background': 'rgba(71, 88, 107, 0.24)',
-    '--body-color': '#373737',
-    '--body-color-muted': '#999999',
-    '--body-color-muted-hover': '#111111',
-    '--body-background': '#ffffff',
-    '--body-background-transparent': 'rgba(255,255,255,0)',
-    '--body-background-secondary': '#f6f7f9',
-    '--body-background-secondary-hover': '#e0e4eb',
-    '--body-background-secondary-hover-outline': '#4282FF',
-    '--body-background-tertiary': '#F3F4F7',
-    '--body-action-color': '#999999',
-    '--body-divider': '#f7f6f8',
-    '--body-color-danger': '#FF4E4E',
-    '--body-color-valid': '#32D74B',
-
-    '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
-
-    '--mobile-body-background': '#F8F8F8',
-    '--mobile-body-color': '#2B2F43',
-
-    '--copytoclipboard-stroke': '#CCCCCC',
-
-    '--tooltip-background': '#ffffff',
-    '--tooltip-background-secondary': '#ffffff',
-    '--tooltip-color': '#999999',
-    '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
-
-    '--spinner-color': 'var(--focus-color)',
-
-    '--qr-dot-color': '#000000',
-    '--qr-border-color': '#f7f6f8',
-  },
-
-  dark: {
-    '--connectbutton-color': '#ffffff',
-    '--connectbutton-background': '#2B2B2B',
-    '--connectbutton-background-hover': '#333333',
-    '--connectbutton-background-active': '#4D4D4D',
-
-    '--ck-primary-button-color': '#ffffff',
-    '--ck-primary-button-background': 'transparent',
-    '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #3D3D3D',
-    '--ck-primary-button-border-radius': '16px',
-    '--ck-primary-button-font-weight': '600',
-
-    '--ck-primary-button-hover-color': '#ffffff',
-    '--ck-primary-button-hover-background': 'transparent',
-    '--ck-primary-button-hover-box-shadow': 'inset 0 0 0 2px #ffffff',
-    '--ck-primary-button-hover-border-radius': '16px',
-    '--ck-primary-button-active-border-radius': '16px',
-
-    '--ck-secondary-button-background': '#333333',
-
-    '--focus-color': '#1A88F8',
-
-    '--overlay-background': 'rgba(71, 88, 107, 0.24)',
-    '--body-color': '#ffffff',
-    '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
-    '--body-color-muted-hover': 'rgba(255, 255, 255, 0.8)',
-    '--body-background': '#2B2B2B',
-    '--body-background-transparent': 'rgba(0,0,0,0)',
-    '--body-background-secondary': '#333333',
-    '--body-background-secondary-hover': '#4D4D4D',
-    '--body-background-secondary-hover-outline': '#ffffff',
-    '--body-background-tertiary': '#333333',
-    '--body-action-color': '#808080',
-    '--body-divider': '#383838',
-    '--body-color-danger': '#FF4E4E',
-
-    '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
-
-    '--copytoclipboard-stroke': '#555555',
-
-    '--tooltip-background': '#2B2B2B',
-    '--tooltip-background-secondary': '#333333',
-    '--tooltip-color': '#999999',
-    '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
-
-    '--spinner-color': 'var(--focus-color)',
-
-    '--qr-dot-color': '#ffffff',
-    '--qr-border-color': '#3d3d3d',
-  },
-  web95: {
-    '--font-family': 'Lato',
-    '--border-radius': 17,
-    '--connectbutton-color': '#373737',
-    '--connectbutton-background': '#ffffff',
-    '--connectbutton-background-hover': '#f6f7f9',
-    '--connectbutton-background-active': '#eaecf1',
-
-    '--focus-color': '#1A88F8',
-    '--overlay-background': '#008282',
-    '--body-color': '#373737',
-    '--body-color-muted': '#373737',
-    '--body-color-muted-hover': '#111111',
-    '--body-background': '#F0EDE2',
-    '--body-background-transparent': 'rgba(255,255,255,0)',
-    '--body-background-secondary-hover': '#FAFAFA',
-    '--body-background-secondary-hover-outline': '#4282FF',
-    '--body-action-color': '#373737',
-    '--body-color-danger': '#FC6464',
-    '--body-color-valid': '#32D74B',
-
-    '--body-divider': '#919B9C',
-    '--body-divider-box-shadow': '0px 1px 0px #FBFBF8',
-
-    // Primary button
-    '--ck-primary-button-background':
-      'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
-    '--ck-primary-button-box-shadow':
-      'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-    '--ck-primary-button-border-radius': '4.5px',
-
-    // Primary button hover
-    '--ck-primary-button-hover-box-shadow':
-      'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-    '--ck-primary-button-hover-border-radius': '4.5px',
-
-    // Modal
-    '--ck-modal-heading-font-weight': 400,
-    '--ck-modal-box-shadow':
-      'inset 0px -3px 0px #0F37A9, inset -2px 0px 0px #0F37A9, inset 0px -4px 0px #0D5DDF, inset -4px 0px 0px #0D5DDF, inset 2px 0px 0px #0453DD, inset 0px 2px 0px #044FD1, inset 4px 0px 0px #4283EB, inset 0px 4px 0px #4283EB',
-    '--ck-modal-h1-font-weight': 400,
-
-    // Secondary button
-    '--ck-secondary-button-color': '#373737',
-    '--ck-secondary-button-border-radius': '4.5px',
-    '--ck-secondary-button-box-shadow':
-      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-    '--ck-secondary-button-border': '1px solid #003C74',
-    '--ck-secondary-button-background':
-      'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
-
-    // Secondary button hover
-    '--ck-secondary-button-hover-box-shadow':
-      '1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-
-    '--body-background-secondary': 'rgba(0, 0, 0, 0.1)',
-    '--body-background-tertiary': 'rgba(0, 0, 0, 0.1)',
-    '--body-button-text-align': 'left',
-    '--body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
-
-    '--mobile-body-background': '#F8F8F8',
-    '--mobile-body-color': '#2B2F43',
-
-    '--qr-dot-color': '#000000',
-    '--qr-border-color': '#919B9C',
-    '--qr-border-radius': '0',
-    '--copytoclipboard-stroke': '#CCCCCC',
-
-    '--tooltip-background':
-      'linear-gradient(270deg, #F7F3E6 7.69%, #F5F7DA 100%)',
-    '--tooltip-background-secondary': '#f6f7f9',
-    '--tooltip-color': '#000000',
-    '--tooltip-shadow':
-      ' 0 0 0 1.5px #2b2622, 0px 2px 10px rgba(0, 0, 0, 0.08)',
-
-    '--spinner-color': 'var(--focus-color)',
-  },
-
-  alien: {
-    '--font-family': '"Geostar Fill", sans-serif',
-    '--connectbutton-color': '#ffffff',
-    '--connectbutton-background': '#2B2B2B',
-    '--connectbutton-background-hover': '#333333',
-    '--connectbutton-background-active': '#4D4D4D',
-
-    '--ck-primary-button-color': '#ffffff',
-    '--ck-primary-button-background': 'transparent',
-    '--ck-primary-button-box-shadow':
-      'inset 0 0 0 0 #98D79C, inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0px 2px 8px rgba(0, 0, 0, 0.25)',
-    '--ck-primary-button-border-radius': '8px',
-
-    '--ck-primary-button-hover-color': '#30313C',
-    '--ck-primary-button-hover-background': 'transparent',
-    '--ck-primary-button-hover-box-shadow':
-      'inset 0 0 0 32px #98D79C, inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0px 2px 8px rgba(0, 0, 0, 0.25)',
-    '--ck-primary-button-hover-border-radius': '8px',
-    '--ck-primary-button-active-border-radius': '8px',
-
-    '--ck-secondary-button-background': '#444555',
-    '--ck-secondary-button-hover-background': '#444555',
-
-    '--focus-color': '#98D79C',
-
-    '--overlay-background': 'rgba(0, 0, 0, 0.4)',
-    '--body-color': '#ffffff',
-    '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
-    '--body-color-muted-hover': 'rgba(255, 255, 255, 0.8)',
-    '--body-background': '#30313C',
-    '--body-background-transparent': 'rgba(0,0,0,0)',
-    '--body-background-secondary': '#333333',
-    '--body-background-secondary-hover': '#4D4D4D',
-    '--body-background-secondary-hover-outline': '#ffffff',
-    '--body-background-tertiary': '#333333',
-    '--body-action-color': '#ffffff',
-    '--body-divider': '#383838',
-    '--body-color-danger': '#FF4E4E',
-
-    '--copytoclipboard-stroke': '#555555',
-
-    '--tooltip-background': '#2B2B2B',
-    '--tooltip-background-secondary': '#333333',
-    '--tooltip-color': '#999999',
-    '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
-
-    '--spinner-color': '#98D79C',
-
-    '--qr-dot-color': '#ffffff',
-    '--qr-border-color': '#3d3d3d',
-  },
-
-  retro: {
-    '--border-radius': '8px',
-    '--connectbutton-color': '#ffffff',
-    '--connectbutton-background': '#2B2B2B',
-    '--connectbutton-background-hover': '#333333',
-    '--connectbutton-background-active': '#4D4D4D',
-
-    '--ck-primary-button-color': '#373737',
-    '--ck-primary-button-background': '#ffffff',
-    '--ck-primary-button-box-shadow':
-      '-4px 4px 0px #000000, inset 0 0 0 2px #000000',
-    '--ck-primary-button-border-radius': '8px',
-
-    '--ck-primary-button-hover-color': '#373737',
-    '--ck-primary-button-hover-background': '#F3EDE8',
-    '--ck-primary-button-hover-box-shadow':
-      '0px 0px 0px #000000, inset 0 0 0 2px #000000',
-    '--ck-primary-button-hover-border-radius': '8px',
-    '--ck-primary-button-active-border-radius': '8px',
-
-    '--ck-secondary-button-background': '#444555',
-    '--ck-secondary-button-hover-background': '#444555',
-
-    '--focus-color': '#98D79C',
-
-    '--overlay-background': '#84787A',
-    '--body-color': '#373737',
-    '--body-color-muted': '#373737',
-    '--body-color-muted-hover': '#000000',
-    '--body-background': '#EBE1D8',
-    '--body-background-transparent': 'rgba(0,0,0,0)',
-    '--body-background-secondary': '#333333',
-    '--body-background-secondary-hover': '#4D4D4D',
-    '--body-background-secondary-hover-outline': '#373737',
-    '--body-background-tertiary': '#333333',
-    '--body-action-color': '#373737',
-    '--body-divider': '#373737',
-    '--body-color-danger': '#FF4E4E',
-
-    '--ck-modal-box-shadow': '-10px 10px 0px #000000, inset 0 0 0 2px #000000',
-
-    '--copytoclipboard-stroke': '#555555',
-
-    '--tooltip-background': '#2B2B2B',
-    '--tooltip-background-secondary': '#333333',
-    '--tooltip-color': '#999999',
-    '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
-
-    '--spinner-color': '#98D79C',
-
-    '--qr-dot-color': '#ffffff',
-    '--qr-border-color': '#3d3d3d',
-  },
-
-  lightMobile: {
-    /*
-    '--body-background': '#F8F8F8',
-    '--body-color': '#2B2F43',
-    '--body-background-secondary': '#ffffff',
-    '--body-background-secondary-hover': '#ffffff',
-    '--body-background-secondary-hover-outline': '#ffffff',
-    */
-  },
-  darkMobile: {
-    /*
-    '--body-background': '#282828',
-    '--body-color': '#ffffff',
-    '--body-background-secondary': '#333333',
-    '--body-background-secondary-hover': '#333333',
-    '--body-background-secondary-hover-outline': '#333333',
-    */
-  },
+  web95: predefinedThemes.web95,
+  alien: predefinedThemes.alien,
+  retro: predefinedThemes.retro,
 };
 
 /**
@@ -473,8 +175,6 @@ const themes = {
   default: createCssVars(themeGlobals.default),
   light: createCssColors(themeColors.light),
   dark: createCssColors(themeColors.dark),
-  lightMobile: createCssColors(themeColors.lightMobile),
-  darkMobile: createCssColors(themeColors.darkMobile),
   web95: createCssColors(themeColors.web95),
   alien: createCssColors(themeColors.alien),
   retro: createCssColors(themeColors.retro),
@@ -510,16 +210,10 @@ export const ResetContainer = styled(motion.div)<{
   $customTheme?: CustomTheme;
 }>`
   ${(props) => {
-    switch (props.$useTheme) {
+    switch (props.$useMode) {
       case 'light':
         return globalsLight;
       case 'dark':
-        return globalsDark;
-      case 'web95':
-        return globalsDark;
-      case 'alien':
-        return globalsDark;
-      case 'retro':
         return globalsDark;
       default:
         return css`
@@ -535,10 +229,6 @@ export const ResetContainer = styled(motion.div)<{
 
   ${(props) => {
     switch (props.$useTheme) {
-      case 'light':
-        return themes.light;
-      case 'dark':
-        return themes.dark;
       case 'web95':
         return themes.web95;
       case 'alien':
@@ -546,12 +236,20 @@ export const ResetContainer = styled(motion.div)<{
       case 'retro':
         return themes.retro;
       default:
-        return css`
-          ${themes.light}
-          @media (prefers-color-scheme: dark) {
-            ${themes.dark}
-          }
-        `;
+        if (props.$useMode === 'light') {
+          return themes.light;
+        } else if (props.$useMode === 'dark') {
+          return themes.dark;
+        } else {
+          return css`
+            @media (prefers-color-scheme: light) {
+              ${themes.light}
+            }
+            @media (prefers-color-scheme: dark) {
+              ${themes.dark}
+            }
+          `;
+        }
     }
   }}
 
