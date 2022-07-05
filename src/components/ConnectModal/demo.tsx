@@ -15,7 +15,7 @@ import styled, { keyframes } from 'styled-components';
 import MobileConnectors from '../Pages/MobileConnectors';
 import { ConnectKitButton } from '../ConnectButton';
 import { getAppName } from '../../defaultClient';
-/*
+
 const dist = 8;
 const shake = keyframes`
   0%{ transform:none; }
@@ -24,7 +24,7 @@ const shake = keyframes`
   75%{ transform:translateX(${dist}px); }
   100%{ transform:none; }
 `;
-*/
+
 const cursorIn = keyframes`
   0%{ transform:translate(500%,100%); opacity:0; }
   60%{ transform:translate(25%,-20%); opacity:1; }
@@ -49,7 +49,14 @@ const Cursor = styled.div`
   }
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  &.shake {
+    animation: ${shake} 300ms 100ms cubic-bezier(0.16, 1, 0.6, 1) both;
+  }
+`;
 const ButtonContainer = styled.div`
   z-index: 1;
   position: absolute;
@@ -102,28 +109,36 @@ const ConnectModal: React.FC<{
 
   useEffect(() => {
     if (!isOpen && inline) {
-      if (cursorRef.current) {
-        cursorRef.current.classList.remove('play');
-        void cursorRef.current.offsetWidth;
-        cursorRef.current.classList.add('play');
+      if (onClose) {
+        if (cursorRef.current) {
+          cursorRef.current.classList.remove('play');
+          void cursorRef.current.offsetWidth;
+          cursorRef.current.classList.add('play');
+        }
+        setTimeout(() => {
+          setIsOpen(true);
+        }, 1500);
+      } else {
+        setTimeout(() => {
+          setIsOpen(true);
+        }, 500);
       }
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 1500);
     }
   }, [isOpen]);
+  useEffect(() => setIsOpen(false), [isConnected]);
 
   const onModalClose = () => {
-    setIsOpen(false);
-    if (onClose) onClose();
-    /*
-    if (ref.current) {
-      // reset animation
-      ref.current.classList.remove('shake');
-      void ref.current.offsetWidth;
-      ref.current.classList.add('shake');
+    if (onClose) {
+      setIsOpen(false);
+      onClose();
+    } else {
+      if (ref.current) {
+        // reset animation
+        ref.current.classList.remove('shake');
+        void ref.current.offsetWidth;
+        ref.current.classList.add('shake');
+      }
     }
-    */
   };
 
   const pages: any = {
@@ -157,7 +172,7 @@ const ConnectModal: React.FC<{
   return (
     <>
       <Container ref={ref}>
-        {inline && (
+        {inline && onClose && (
           <>
             <Cursor ref={cursorRef} />
             <ButtonContainer>
