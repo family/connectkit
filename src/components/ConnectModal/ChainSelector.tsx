@@ -52,7 +52,17 @@ const DropdownHeading = styled(motion.div)`
 `;
 
 const SwitchChainButton = styled(motion.button)`
-  --background: var(--tooltip-background-secondary);
+  --color: var(--button-primary-color, var(--body-color));
+  --background: var(
+    --ck-secondary-button-background,
+    var(--body-background-secondary)
+  );
+  --box-shadow: var(
+    --ck-secondary-button-box-shadow,
+    --button-primary-box-shadow,
+    none
+  );
+
   --shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05);
   appearance: none;
   user-select: none;
@@ -71,9 +81,15 @@ const SwitchChainButton = styled(motion.button)`
   color: var(--body-color-muted);
   background: var(--background);
   white-space: nowrap;
-  transition: transform 100ms ease, background-color 100ms ease;
+  transition: transform 100ms ease, background-color 100ms ease,
+    box-shadow 100ms ease;
   transform: translateZ(0px);
   box-shadow: var(--shadow);
+
+  color: var(--color);
+  background: var(--background);
+  box-shadow: var(--box-shadow);
+
   svg {
     position: relative;
     display: block;
@@ -89,11 +105,21 @@ const SwitchChainButton = styled(motion.button)`
         `
       : css`
           cursor: pointer;
-          &:hover {
-            --background: var(--body-background-secondary-hover);
-          }
-          &:active {
-            //transform: scale(0.96) translateZ(0px);
+
+          @media only screen and (min-width: ${defaultTheme.mobileWidth +
+            1}px) {
+            &:hover,
+            &:focus {
+              color: var(--ck-accent-text-color);
+              --background: var(
+                --ck-accent-color,
+                var(--body-background-secondary-hover)
+              );
+              box-shadow: var(--ck-secondary-button-hover-box-shadow);
+            }
+            &:active {
+              box-shadow: 0 0 0 1px var(--background);
+            }
           }
         `}
 `;

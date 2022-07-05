@@ -198,7 +198,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
       onClick={onClick}
       initial={false}
       animate={{
-        width: bounds.width ? bounds.width + 30 : 137,
+        width: bounds.width ? bounds.width + 34 : 137,
       }}
       transition={{
         duration: initialRan ? 0.3 : 0,
