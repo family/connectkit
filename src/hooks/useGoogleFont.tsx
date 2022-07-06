@@ -32,7 +32,13 @@ export function useGoogleFont(font: string) {
 
 // TODO: This could be dynamic if theming wasn't set up as css variables
 export function useThemeFont(theme: Theme) {
-  const themeFonts: any = { web95: 'Lato', alien: 'Geostar Fill' };
+  const themeFonts: any = {
+    web95: 'Lato',
+    retro: 'Nunito',
+    midnight: 'Inter',
+    minimal: 'Inter',
+    rounded: 'Nunito',
+  };
   const font: string = themeFonts[theme] ?? null;
   useGoogleFont(font ?? '');
 }

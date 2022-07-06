@@ -157,7 +157,7 @@ export const BackgroundOverlay = styled(motion.div)<{ $active: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--overlay-background);
+  background: var(--overlay-background, rgba(71, 88, 107, 0.24));
   opacity: 0;
   animation: ${(props) => (props.$active ? FadeIn : FadeOut)} 150ms ease-out
     both;

@@ -23,7 +23,7 @@ export default {
   '--body-color-muted-hover': '#111111',
   '--body-background': '#F0EDE2',
   '--body-background-transparent': 'rgba(255,255,255,0)',
-  '--body-background-secondary-hover': '#FAFAFA',
+  '--body-background-secondary-hover-background': '#FAFAFA',
   '--body-background-secondary-hover-outline': '#4282FF',
   '--body-action-color': '#373737',
   '--body-color-danger': '#FC6464',

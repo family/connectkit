@@ -84,7 +84,6 @@ export const LogoGraphic = styled(motion.div)`
   height: 58px;
   width: 58px;
   border-radius: 13.84px;
-  background: var(--body-background-secondary);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 20px 0 rgba(0, 0, 0, 0.03);
 
   svg {

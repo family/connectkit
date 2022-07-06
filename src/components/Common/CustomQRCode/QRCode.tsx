@@ -57,7 +57,9 @@ export function QRCode({
           <rect
             key={`${i}-${x}-${y}`}
             fill={
-              i % 2 !== 0 ? 'var(--body-background)' : 'var(--qr-dot-color)'
+              i % 2 !== 0
+                ? 'var(--qr-background, var(--body-background))'
+                : 'var(--qr-dot-color)'
             }
             rx={(i - 2) * -5 + (i === 0 ? 2 : 3)}
             ry={(i - 2) * -5 + (i === 0 ? 2 : 3)}

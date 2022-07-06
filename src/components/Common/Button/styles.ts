@@ -94,7 +94,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
       color: var(--ck-accent-text-color);
       --background: var(
         --ck-accent-color,
-        var(--body-background-secondary-hover)
+        var(--ck-secondary-button-hover-background)
       );
       /* border-color: transparent; */
       box-shadow: var(--ck-secondary-button-hover-box-shadow);
@@ -118,7 +118,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
       }
     }
     &:active {
-      box-shadow: 0 0 0 1px var(--background);
+      box-shadow: var(--ck-secondary-button-active-box-shadow);
     }
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {

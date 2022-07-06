@@ -113,7 +113,7 @@ const SwitchChainButton = styled(motion.button)`
               color: var(--ck-accent-text-color);
               --background: var(
                 --ck-accent-color,
-                var(--body-background-secondary-hover)
+                var(--body-background-secondary-hover-background)
               );
               box-shadow: var(--ck-secondary-button-hover-box-shadow);
             }

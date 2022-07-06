@@ -1,4 +1,13 @@
-export type Theme = 'light' | 'dark' | 'web95' | 'alien' | 'retro' | 'auto';
+export type Theme =
+  | 'auto'
+  | 'light'
+  | 'dark'
+  | 'web95'
+  | 'retro'
+  | 'smart'
+  | 'midnight'
+  | 'minimal'
+  | 'rounded';
 export type Mode = 'light' | 'dark' | 'auto';
-export type CustomTheme = any;
+export type CustomTheme = any; // TODO: define type
 export type Languages = 'en';

@@ -27,7 +27,7 @@ export const Button = styled(motion.button)`
   padding: 0 16px;
   line-height: 0;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: var(--ck-connectbutton-font-weight, 500);
   text-align: center;
   transition: all 100ms ease;
 

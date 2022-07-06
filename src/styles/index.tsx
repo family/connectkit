@@ -137,10 +137,12 @@ const themeGlobals = {
 const themeColors = {
   light: predefinedThemes.base.light,
   dark: predefinedThemes.base.dark,
-
   web95: predefinedThemes.web95,
-  alien: predefinedThemes.alien,
   retro: predefinedThemes.retro,
+  smart: predefinedThemes.smart,
+  midnight: predefinedThemes.midnight,
+  minimal: predefinedThemes.minimal,
+  rounded: predefinedThemes.rounded,
 };
 
 /**
@@ -176,8 +178,11 @@ const themes = {
   light: createCssColors(themeColors.light),
   dark: createCssColors(themeColors.dark),
   web95: createCssColors(themeColors.web95),
-  alien: createCssColors(themeColors.alien),
   retro: createCssColors(themeColors.retro),
+  smart: createCssColors(themeColors.smart),
+  midnight: createCssColors(themeColors.midnight),
+  minimal: createCssColors(themeColors.minimal),
+  rounded: createCssColors(themeColors.rounded),
 };
 const globals = {
   brand: createCssVars(themeGlobals.brand),
@@ -231,10 +236,16 @@ export const ResetContainer = styled(motion.div)<{
     switch (props.$useTheme) {
       case 'web95':
         return themes.web95;
-      case 'alien':
-        return themes.alien;
       case 'retro':
         return themes.retro;
+      case 'smart':
+        return themes.smart;
+      case 'midnight':
+        return themes.midnight;
+      case 'minimal':
+        return themes.minimal;
+      case 'rounded':
+        return themes.rounded;
       default:
         if (props.$useMode === 'light') {
           return themes.light;
