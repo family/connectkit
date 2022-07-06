@@ -135,8 +135,7 @@ const Wallets: React.FC = () => {
               if (!info) return null;
 
               if (info.id === 'injected') {
-                // TODO: Is this necessary? (Dennis)
-                // if (!shouldShowInjectedConnector()) return null;
+                if (!shouldShowInjectedConnector()) return null;
               }
 
               let name = info.shortName ?? info.name ?? connector.name;
@@ -221,8 +220,7 @@ const Wallets: React.FC = () => {
               }
 
               if (info.id === 'injected') {
-                // TODO: Is this necessary? (Dennis)
-                // if (!shouldShowInjectedConnector()) return null;
+                if (!shouldShowInjectedConnector()) return null;
               }
               return (
                 <ConnectorButton

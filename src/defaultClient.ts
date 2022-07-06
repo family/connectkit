@@ -60,17 +60,17 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
         qrcode: false,
       },
     }),
-    // new InjectedConnector({
-    //   chains,
-    //   options: {
-    //     name: (detectedName) =>
-    //       `Injected (${
-    //         typeof detectedName === 'string'
-    //           ? detectedName
-    //           : detectedName.join(', ')
-    //       })`,
-    //   },
-    // }),
+    new InjectedConnector({
+      chains,
+      options: {
+        name: (detectedName) =>
+          `Injected (${
+            typeof detectedName === 'string'
+              ? detectedName
+              : detectedName.join(', ')
+          })`,
+      },
+    }),
   ];
 };
 const defaultClient = ({
