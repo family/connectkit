@@ -46,6 +46,7 @@ export const LearnMoreButton = styled(motion.button)`
     position: relative;
     top: 2px;
     left: 2px;
+    transform: translateZ(0px);
     path,
     circle {
       transition: all 100ms ease-out;
