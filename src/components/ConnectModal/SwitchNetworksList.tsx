@@ -382,7 +382,7 @@ const SwitchNetworksList: React.FC = () => {
                       Connected
                     </motion.span>
                   )}
-                  {isLoading && pendingChainId === ch.id && (
+                  {false && isLoading && pendingChainId === ch.id && (
                     <motion.span
                       key={'approveText'}
                       style={{
