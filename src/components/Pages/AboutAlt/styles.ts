@@ -77,7 +77,7 @@ export const Slide = styled(motion.div)<{ $active?: boolean }>`
 `;
 export const Slider = styled.div`
   --background: var(--body-background-secondary);
-  --background-transparent: var(--body-background-transparent);
+  --background-transparent: var(--body-background-transparent, transparent);
   position: relative;
   padding: 0 0 4px;
   border-radius: 16px;
@@ -111,6 +111,7 @@ export const Slider = styled.div`
 export const Dots = styled.div`
   display: flex;
   justify-content: center;
+  pointer-events: auto;
 `;
 export const Dot = styled.button<{ $active: boolean }>`
   display: flex;

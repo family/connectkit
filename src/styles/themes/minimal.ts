@@ -43,9 +43,6 @@ export default {
   '--body-color-danger': '#FF4E4E',
   '--body-color-valid': '#32D74B',
 
-  '--mobile-body-background': '#F8F8F8',
-  '--mobile-body-color': '#2B2F43',
-
   '--copytoclipboard-stroke': '#CCCCCC',
 
   '--tooltip-background': '#ffffff',

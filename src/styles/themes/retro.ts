@@ -12,27 +12,29 @@ export default {
   '--ck-connectbutton-hover-background': '#F3EDE8',
 
   '--ck-connectbutton-active-box-shadow':
-    '0px 0px 0px #000000, inset 0 0 0 2px #000000',
+    '0 0 0 0 #000000, inset 0 0 0 2px #000000',
 
   '--ck-primary-button-color': '#373737',
   '--ck-primary-button-background': '#ffffff',
   '--ck-primary-button-box-shadow':
-    '-4px 4px 0px #000000, inset 0 0 0 2px #000000',
+    '-4px 4px 0 0 #000000, inset 0 0 0 2px #000000',
   '--ck-primary-button-border-radius': '8px',
 
   '--ck-primary-button-hover-background': '#F3EDE8',
-  '--ck-primary-button-hover-box-shadow':
-    '0px 0px 0px #000000, inset 0 0 0 2px #000000',
+
+  '--ck-primary-button-active-box-shadow':
+    '0 0 0 0 #000000, inset 0 0 0 2px #000000',
 
   '--ck-secondary-button-border-radius': '8px',
   '--ck-secondary-button-color': '#373737',
   '--ck-secondary-button-background': '#ffffff',
   '--ck-secondary-button-box-shadow':
-    '-4px 4px 0px #000000, inset 0 0 0 2px #000000',
+    '-4px 4px 0 0 #000000, inset 0 0 0 2px #000000',
 
   '--ck-secondary-button-hover-background': '#F3EDE8',
-  '--ck-secondary-button-hover-box-shadow':
-    '-4px 4px 0px #000000, inset 0 0 0 2px #000000',
+
+  '--ck-secondary-button-active-box-shadow':
+    '0 0 0 0 #000000, inset 0 0 0 2px #000000',
 
   '--focus-color': '#0555FE',
 
@@ -41,8 +43,8 @@ export default {
   '--body-color-muted': '#373737',
   '--body-color-muted-hover': '#000000',
   '--body-background': '#EBE1D8',
-  '--body-background-transparent': 'rgba(0,0,0,0)',
-  '--body-background-secondary': '#333333',
+  '--body-background-transparent': 'rgba(255,255,255,0)',
+  '--body-background-secondary': 'rgba(0,0,0,0.1)',
   '--body-background-secondary-hover-background': '#4D4D4D',
   '--body-background-secondary-hover-outline': '#373737',
   '--body-background-tertiary': '#333333',
@@ -65,4 +67,8 @@ export default {
   '--qr-dot-color': '#000000',
   '--qr-border-color': '#000000',
   '--qr-background': '#ffffff',
+
+  displayOptions: {
+    graphics: 'simple',
+  },
 };

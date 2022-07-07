@@ -123,20 +123,29 @@ export const ConnectorButton = styled(motion.button)`
       --color: var(--ck-primary-button-hover-color);
       --background: var(--ck-primary-button-hover-background);
       --box-shadow: var(--ck-primary-button-hover-box-shadow);
-      --border-radius: var(--ck-primary-button-hover-border-radius);
+      --border-radius: var(
+        --ck-primary-button-hover-border-radius,
+        var(--border-radius)
+      );
     }
     &:focus {
       transition-duration: 100ms;
       --color: var(--ck-primary-button-focus-color);
       --background: var(--ck-primary-button-focus-background);
       --box-shadow: var(--ck-primary-button-focus-box-shadow);
-      --border-radius: var(--ck-primary-button-focus-border-radius);
+      --border-radius: var(
+        --ck-primary-button-focus-border-radius,
+        var(--border-radius)
+      );
     }
     &:active {
       --color: var(--ck-primary-button-active-color);
       --background: var(--ck-primary-button-active-background);
       --box-shadow: var(--ck-primary-button-active-box-shadow);
-      --border-radius: var(--ck-primary-button-active-border-radius);
+      --border-radius: var(
+        --ck-primary-button-active-border-radius,
+        var(--border-radius)
+      );
     }
   }
 `;

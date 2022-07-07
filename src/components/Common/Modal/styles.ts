@@ -50,6 +50,8 @@ export const TextWithHr = styled(motion.div)`
     z-index: 2;
     position: relative;
     display: inline-block;
+    user-select: none;
+    pointer-events: none;
     padding: 0 14px;
     background: var(--body-background);
     transition: background-color 200ms ease;

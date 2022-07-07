@@ -39,17 +39,17 @@ export const DownloadArrowInner = styled.div`
 `;
 
 export const ButtonContainer = styled.button<{ disabled?: boolean }>`
-  --color: var(--button-primary-color, var(--body-color));
-  --background: var(
-    --ck-secondary-button-background,
-    var(--body-background-secondary)
-  );
-  --box-shadow: var(
-    --ck-secondary-button-box-shadow,
-    --button-primary-box-shadow,
-    none
-  );
-  --border-radius: var(--ck-secondary-button-border-radius, 16px);
+--color: var(--button-primary-color, var(--body-color));
+--background: var(--ck-secondary-button-background, var(--body-background-secondary));
+--box-shadow: var(--ck-secondary-button-box-shadow);
+--border-radius: var(--ck-secondary-button-border-radius);
+--font-weight: var(--ck-secondary-button-font-weight, 500);
+
+--hover-color: var(--button-primary-hover-color, var(--color));
+--hover-background: var(--ck-secondary-button-hover-background, var(--background));
+--hover-box-shadow: var(--ck-secondary-button-hover-box-shadow, var(--box-shadow));
+--hover-border-radius: var(--ck-secondary-button-hover-border-radius, var(--border-radius));
+--hover-font-weight: var(--ck-secondary-button-font-weight, var(--font-weight));
 
   appearance: none;
   cursor: pointer;
@@ -65,7 +65,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   line-height: 48px;
   padding: 0 4px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: var(--font-weight,500);
   text-decoration: none;
   white-space: nowrap;
   transition: 100ms ease;
@@ -91,13 +91,11 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
   @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
     &:hover,
     &:focus {
-      color: var(--ck-accent-text-color);
-      --background: var(
-        --ck-accent-color,
-        var(--ck-secondary-button-hover-background)
-      );
-      /* border-color: transparent; */
-      box-shadow: var(--ck-secondary-button-hover-box-shadow);
+      color: var(--ck-accent-text-color, var(--hover-color));
+      background: var(--ck-accent-color, var(--hover-background));
+      border-radius: var(--hover-border-radius);
+      box-shadow: var(--hover-box-shadow);
+
       ${Arrow} {
         transform: translateX(0);
         ${ArrowLine} {
@@ -118,7 +116,7 @@ export const ButtonContainer = styled.button<{ disabled?: boolean }>`
       }
     }
     &:active {
-      box-shadow: var(--ck-secondary-button-active-box-shadow);
+      box-shadow: var(--ck-secondary-button-active-box-shadow, var(--hover-box-shadow));
     }
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {

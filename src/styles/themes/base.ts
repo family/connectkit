@@ -1,5 +1,6 @@
 export default {
   light: {
+    /** Connect Wallet Button */
     '--ck-connectbutton-color': '#373737',
     '--ck-connectbutton-background': '#F6F7F9',
 
@@ -9,20 +10,29 @@ export default {
     '--ck-connectbutton-active-color': '#373737',
     '--ck-connectbutton-active-background': '#EAECF1',
 
+    /** Primary Button */
+    '--ck-primary-button-border-radius': '16px',
     '--ck-primary-button-color': '#373737',
     '--ck-primary-button-background': '#ffffff',
     '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #F0F0F0',
-    '--ck-primary-button-border-radius': '16px',
     '--ck-primary-button-font-weight': '600',
 
     '--ck-primary-button-hover-color': '#373737',
     '--ck-primary-button-hover-background': '#ffffff',
     '--ck-primary-button-hover-box-shadow':
       'inset 0 0 0 2px var(--focus-color)',
-    '--ck-primary-button-hover-border-radius': '16px',
-    '--ck-primary-button-active-border-radius': '16px',
 
-    '--focus-color': '#1A88F8',
+    /** Secondary Button */
+    '--ck-secondary-button-border-radius': '16px',
+    '--ck-secondary-button-color': '#373737',
+    '--ck-secondary-button-background': '#F6F7F9',
+    //'--ck-secondary-button-box-shadow': '',
+    //'--ck-secondary-button-font-weight': '',
+
+    '--ck-secondary-button-hover-background': '#e0e4eb',
+
+    /** Modal */
+    '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
     '--overlay-background': 'rgba(71, 88, 107, 0.24)',
     '--body-color': '#373737',
     '--body-color-muted': '#999999',
@@ -38,22 +48,20 @@ export default {
     '--body-color-danger': '#FF4E4E',
     '--body-color-valid': '#32D74B',
 
-    '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
-
-    '--mobile-body-background': '#F8F8F8',
-    '--mobile-body-color': '#2B2F43',
-
-    '--copytoclipboard-stroke': '#CCCCCC',
-
+    /** Tooltips */
     '--tooltip-background': '#ffffff',
     '--tooltip-background-secondary': '#ffffff',
     '--tooltip-color': '#999999',
     '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
 
-    '--spinner-color': 'var(--focus-color)',
-
+    /** QR Code */
     '--qr-dot-color': '#000000',
     '--qr-border-color': '#f7f6f8',
+
+    /** Misc. */
+    '--focus-color': '#1A88F8',
+    '--spinner-color': 'var(--focus-color)',
+    '--copytoclipboard-stroke': '#CCCCCC',
   },
   dark: {
     '--ck-connectbutton-color': '#ffffff',
@@ -69,11 +77,14 @@ export default {
     '--ck-primary-button-border-radius': '16px',
     '--ck-primary-button-font-weight': '600',
 
-    '--ck-primary-button-hover-color': '#ffffff',
-    '--ck-primary-button-hover-background': 'transparent',
     '--ck-primary-button-hover-box-shadow': 'inset 0 0 0 2px #ffffff',
-    '--ck-primary-button-hover-border-radius': '16px',
+
     '--ck-primary-button-active-border-radius': '16px',
+
+    '--ck-secondary-button-color': '#ffffff',
+    '--ck-secondary-button-background': '#333333',
+
+    '--ck-secondary-button-hover-background': '#4D4D4D',
 
     '--focus-color': '#1A88F8',
 

@@ -43,7 +43,7 @@ export const GraphicBackground = styled(motion.div)`
     background: var(--body-background);
     background: radial-gradient(
       closest-side,
-      var(--body-background-transparent) 18.75%,
+      var(--body-background-transparent, transparent) 18.75%,
       var(--body-background) 100%
     );
     background-size: 100%;

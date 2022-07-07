@@ -75,9 +75,6 @@ export default {
   '--body-button-text-align': 'left',
   '--body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
 
-  '--mobile-body-background': '#F8F8F8',
-  '--mobile-body-color': '#2B2F43',
-
   '--qr-dot-color': '#000000',
   '--qr-border-color': '#919B9C',
   '--qr-border-radius': '0',

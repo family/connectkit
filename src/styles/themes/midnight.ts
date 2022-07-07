@@ -34,7 +34,7 @@ export default {
   '--body-color-muted': '#8B8F97',
   '--body-color-muted-hover': '#ffffff',
   '--body-background': '#1F2023',
-  '--body-background-transparent': 'rgba(255,255,255,0)',
+  '--body-background-transparent': 'rgba(31, 32, 35, 0)',
   '--body-background-secondary': '#313235',
   '--body-background-secondary-hover-background': '#e0e4eb',
   '--body-background-secondary-hover-outline': 'rgba(255, 255, 255, 0.02)',
@@ -43,9 +43,6 @@ export default {
   '--body-divider': 'rgba(255,255,255,0.1)',
   '--body-color-danger': '#FF4E4E',
   '--body-color-valid': '#32D74B',
-
-  '--mobile-body-background': '#F8F8F8',
-  '--mobile-body-color': '#2B2F43',
 
   '--copytoclipboard-stroke': '#CCCCCC',
 

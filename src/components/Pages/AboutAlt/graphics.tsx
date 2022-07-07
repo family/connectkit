@@ -167,7 +167,7 @@ const Wallet = ({ inverted = false }) => (
           stopColor={
             inverted
               ? 'var(--body-color-muted)'
-              : 'var(--body-background-transparent)'
+              : 'var(--body-background-transparent, transparent)'
           }
         />
         <stop
@@ -621,7 +621,7 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
 
       <motion.div
         //initial={{ rotate: -20, scale: 0.4, y: -40, x: -40 }}
-        initial={{ rotate: -20, scale: 0.4, y: 0, x: -5 }}
+        initial={{ rotate: -20, scale: 0.1, y: -10, x: -10 }}
         animate={{ rotate: 0, scale: 1, y: 0, x: 0 }}
         exit={{ zIndex: 3, scale: 0.2, y: -25, x: 15 }}
         /*
@@ -672,7 +672,18 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
         }}
       >
         <BgLighten />
-        <motion.div style={{ zIndex: 2, position: 'absolute' }}>
+        <motion.div
+          style={{ zIndex: 2, position: 'absolute' }}
+          initial={{ rotate: -170 }}
+          animate={{ rotate: 0 }}
+          exit={{ rotate: -170 }}
+          transition={{
+            type: 'spring',
+            stiffness: 6,
+            damping: 0.9,
+            mass: 0.2,
+          }}
+        >
           {Compass}
         </motion.div>
       </motion.div>
