@@ -488,12 +488,14 @@ export const SlideTwo = ({ layoutId, duration, ease }: Slide) => (
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           style={{
-            background: 'var(--body-color)',
-            boxShadow: '0px 2px 5px rgba(37, 41, 46, 0.26)',
+            //background: 'var(--body-color)',
+            //boxShadow: '0px 2px 5px rgba(37, 41, 46, 0.26)',
+            background: 'var(--body-background)',
+            boxShadow: '0px 2px 5px rgba(37, 41, 46, 0.16)',
           }}
         >
           <Center>
-            <Wallet inverted />
+            <Wallet />
           </Center>
         </MainCircleInner>
       </MainCircle>
