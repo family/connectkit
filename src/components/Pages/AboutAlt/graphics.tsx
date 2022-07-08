@@ -415,7 +415,7 @@ export const SlideOne = ({ layoutId, duration, ease }: Slide) => (
     <MainCircle
       key={layoutId}
       layoutId={layoutId}
-      initial={{ rotate: 50 }}
+      //initial={{ rotate: 50 }}
       style={{
         position: 'relative',
         zIndex: 10,
@@ -430,7 +430,10 @@ export const SlideOne = ({ layoutId, duration, ease }: Slide) => (
           background: 'var(--body-background)',
           boxShadow: '0px 3px 15px rgba(0, 0, 0, 0.1)',
         }}
-        initial={{ opacity: 0, rotate: -50 }}
+        initial={{
+          opacity: 0,
+          //rotate: -50
+        }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
