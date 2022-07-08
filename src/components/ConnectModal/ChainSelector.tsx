@@ -16,6 +16,10 @@ import styled, { css } from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import Tooltip from '../Common/Tooltip';
 import defaultTheme from '../../constants/defaultTheme';
+import {
+  ConnectKitThemeProvider,
+  useThemeContext,
+} from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const Container = styled(motion.div)``;
 
@@ -37,11 +41,11 @@ const DropdownContainer = styled(motion.div)`
   left: 0;
   width: 100%;
   max-width: 292px;
-  border-radius: 12px;
+  border-radius: var(--tooltip-border-radius, 12px);
   padding: 14px 16px 8px;
   color: var(--tooltip-color);
   background: var(--tooltip-background);
-  box-shadow: var(--shadow);
+  box-shadow: var(--tooltip-shadow, var(--shadow));
 `;
 const DropdownHeading = styled(motion.div)`
   padding: 0 0 6px;
@@ -49,6 +53,7 @@ const DropdownHeading = styled(motion.div)`
   line-height: 20px;
   font-weight: 400;
   user-select: none;
+  color: var(--body-color-muted);
 `;
 
 const SwitchChainButton = styled(motion.button)`
@@ -59,8 +64,28 @@ const SwitchChainButton = styled(motion.button)`
   );
   --box-shadow: var(
     --ck-secondary-button-box-shadow,
-    --button-primary-box-shadow,
+    var(--button-primary-box-shadow),
     none
+  );
+
+  --hover-color: var(--button-primary-hover-color, var(--color));
+  --hover-background: var(
+    --ck-secondary-button-hover-background,
+    var(--background)
+  );
+  --hover-box-shadow: var(
+    --ck-secondary-button-hover-box-shadow,
+    var(--box-shadow)
+  );
+
+  --active-color: var(--button-primary-active-color, var(--hover-color));
+  --active-background: var(
+    --ck-secondary-button-active-background,
+    var(--hover-background)
+  );
+  --active-box-shadow: var(
+    --ck-secondary-button-active-box-shadow,
+    var(--hover-box-shadow)
   );
 
   --shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05);
@@ -110,15 +135,14 @@ const SwitchChainButton = styled(motion.button)`
             1}px) {
             &:hover,
             &:focus {
-              color: var(--ck-accent-text-color);
-              --background: var(
-                --ck-accent-color,
-                var(--body-background-secondary-hover-background)
-              );
-              box-shadow: var(--ck-secondary-button-hover-box-shadow);
+              color: var(--hover-color);
+              background: var(--hover-background);
+              box-shadow: var(--hover-box-shadow);
             }
             &:active {
-              box-shadow: 0 0 0 1px var(--background);
+              color: var(--active-color);
+              background: var(--active-background);
+              box-shadow: var(--active-box-shadow);
             }
           }
         `}
@@ -175,6 +199,7 @@ const ChevronDown = ({ ...props }) => (
 
 const ChainSelector: React.FC = () => {
   const context = useContext();
+  const themeContext = useThemeContext();
   const [isOpen, setIsOpen] = useState(false);
   const { chain, chains } = useNetwork();
 
@@ -241,7 +266,7 @@ const ChainSelector: React.FC = () => {
   );
 
   return (
-    <>
+    <ConnectKitThemeProvider>
       <Container>
         <SwitchChainButton
           ref={ref}
@@ -269,9 +294,9 @@ const ChainSelector: React.FC = () => {
         <AnimatePresence>
           {!mobile && isOpen && (
             <ResetContainer
-              $useTheme={context.theme}
-              $useMode={context.mode}
-              $customTheme={context.customTheme}
+              $useTheme={themeContext.theme}
+              $useMode={themeContext.mode}
+              $customTheme={themeContext.customTheme}
             >
               <DropdownWindow>
                 <DropdownOverlay onClick={() => setIsOpen(false)} />
@@ -315,7 +340,7 @@ const ChainSelector: React.FC = () => {
           )}
         </AnimatePresence>
       </Portal>
-    </>
+    </ConnectKitThemeProvider>
   );
 };
 

@@ -20,13 +20,13 @@ export default {
 
   '--ck-secondary-button-border-radius': '8px',
   '--ck-secondary-button-color': '#ffffff',
-  '--ck-secondary-button-background': 'rgba(255, 255, 255, 0.08)',
+  '--ck-secondary-button-background': '#363638',
   '--ck-secondary-button-box-shadow':
     'inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
 
-  '--ck-secondary-button-hover-background': 'rgba(255, 255, 255, 0.2)',
+  '--ck-secondary-button-hover-background': '#3c3c3e',
 
-  '--overlay-background': '#090909',
+  '--overlay-background': 'rgba(0,0,0,0.95)',
   '--ck-modal-box-shadow': `inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0px 2px 4px rgba(0, 0, 0, 0.02)`,
 
   '--focus-color': '#0555FE',
@@ -46,10 +46,11 @@ export default {
 
   '--copytoclipboard-stroke': '#CCCCCC',
 
-  '--tooltip-background': '#ffffff',
-  '--tooltip-background-secondary': '#ffffff',
-  '--tooltip-color': '#999999',
-  '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
+  '--tooltip-background': '#1F2023',
+  '--tooltip-background-secondary': '#1F2023',
+  '--tooltip-color': '#ffffff',
+  '--tooltip-shadow':
+    ' 0 0 0 1px rgba(255, 255, 255, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--spinner-color': 'var(--focus-color)',
 

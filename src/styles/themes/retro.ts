@@ -21,22 +21,19 @@ export default {
   '--ck-primary-button-border-radius': '8px',
 
   '--ck-primary-button-hover-background': '#F3EDE8',
-
-  '--ck-primary-button-active-box-shadow':
+  '--ck-primary-button-hover-box-shadow':
     '0 0 0 0 #000000, inset 0 0 0 2px #000000',
 
   '--ck-secondary-button-border-radius': '8px',
   '--ck-secondary-button-color': '#373737',
   '--ck-secondary-button-background': '#ffffff',
-  '--ck-secondary-button-box-shadow':
-    '-4px 4px 0 0 #000000, inset 0 0 0 2px #000000',
+  '--ck-secondary-button-box-shadow': '-6px 6px 0 0 #000000, 0 0 0 2px #000000',
 
   '--ck-secondary-button-hover-background': '#F3EDE8',
+  '--ck-secondary-button-hover-box-shadow':
+    '0 0 0 0 #000000, 0 0 0 2px #000000',
 
-  '--ck-secondary-button-active-box-shadow':
-    '0 0 0 0 #000000, inset 0 0 0 2px #000000',
-
-  '--focus-color': '#0555FE',
+  '--focus-color': '#3B99FC',
 
   '--overlay-background': '#84787A',
   '--body-color': '#373737',
@@ -56,10 +53,11 @@ export default {
 
   '--copytoclipboard-stroke': '#555555',
 
-  '--tooltip-background': '#2B2B2B',
-  '--tooltip-background-secondary': '#333333',
-  '--tooltip-color': '#999999',
-  '--tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
+  '--tooltip-border-radius': '8px',
+  '--tooltip-color': '#373737',
+  '--tooltip-background': '#ffffff',
+  '--tooltip-background-secondary': '#EBE1D8',
+  '--tooltip-shadow': '-6px 6px 0 0 #000000, 0 0 0 2px #000000',
 
   '--spinner-color': '#0555FE',
 

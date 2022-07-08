@@ -8,6 +8,7 @@ import { TooltipWindow, TooltipContainer, TooltipTail } from './styles';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const Tooltip: React.FC<TooltipProps> = ({
   children,
@@ -18,6 +19,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   delay,
 }) => {
   const context = useContext();
+  const themeContext = useThemeContext();
 
   if (context.options?.hideTooltips) return <>{children}</>;
 
@@ -100,9 +102,9 @@ const Tooltip: React.FC<TooltipProps> = ({
         <AnimatePresence>
           {currentRoute === context.route && !outOfBounds && isOpen && (
             <ResetContainer
-              $useTheme={context.theme}
-              $useMode={context.mode}
-              $customTheme={context.customTheme}
+              $useTheme={themeContext.theme}
+              $useMode={themeContext.mode}
+              $customTheme={themeContext.customTheme}
             >
               <TooltipWindow>
                 <TooltipContainer

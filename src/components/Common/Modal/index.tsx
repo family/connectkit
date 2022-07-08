@@ -32,6 +32,7 @@ import localizations, { localize } from '../../../constants/localizations';
 import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const InfoIcon = ({ ...props }) => (
   <svg
@@ -152,6 +153,7 @@ const Modal: React.FC<ModalProps> = ({
   onInfo,
 }) => {
   const context = useContext();
+  const themeContext = useThemeContext();
   const mobile = isMobile();
 
   const [state, setOpen] = useTransition({
@@ -280,9 +282,9 @@ const Modal: React.FC<ModalProps> = ({
 
   const Content = (
     <ResetContainer
-      $useTheme={demo?.theme ?? context.theme}
-      $useMode={demo?.mode ?? context.mode}
-      $customTheme={demo?.customTheme ?? context.customTheme}
+      $useTheme={demo?.theme ?? themeContext.theme}
+      $useMode={demo?.mode ?? themeContext.mode}
+      $customTheme={demo?.customTheme ?? themeContext.customTheme}
     >
       <ModalContainer
         role="dialog"

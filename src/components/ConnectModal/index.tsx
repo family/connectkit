@@ -13,6 +13,7 @@ import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
 import { getAppName } from '../../defaultClient';
+import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const customThemeDefault: object = {};
 
@@ -69,30 +70,37 @@ const ConnectModal: React.FC<{
   }, [context.open]);
 
   return (
-    <Modal
-      open={context.open}
-      pages={pages}
-      pageId={context.route}
-      onClose={hide}
-      onInfo={
-        context.route !== routes.PROFILE
-          ? () => context.setRoute(routes.ABOUT)
-          : undefined
-      }
-      onBack={
-        context.route !== routes.CONNECTORS && context.route !== routes.PROFILE
-          ? () => {
-              if (context.route === routes.SWITCHNETWORKS) {
-                context.setRoute(routes.PROFILE);
-              } else if (context.route === routes.DOWNLOAD) {
-                context.setRoute(routes.CONNECT);
-              } else {
-                context.setRoute(routes.CONNECTORS);
+    <ConnectKitThemeProvider
+      theme={theme}
+      customTheme={customTheme}
+      mode={'auto'}
+    >
+      <Modal
+        open={context.open}
+        pages={pages}
+        pageId={context.route}
+        onClose={hide}
+        onInfo={
+          context.route !== routes.PROFILE
+            ? () => context.setRoute(routes.ABOUT)
+            : undefined
+        }
+        onBack={
+          context.route !== routes.CONNECTORS &&
+          context.route !== routes.PROFILE
+            ? () => {
+                if (context.route === routes.SWITCHNETWORKS) {
+                  context.setRoute(routes.PROFILE);
+                } else if (context.route === routes.DOWNLOAD) {
+                  context.setRoute(routes.CONNECT);
+                } else {
+                  context.setRoute(routes.CONNECTORS);
+                }
               }
-            }
-          : undefined
-      }
-    />
+            : undefined
+        }
+      />
+    </ConnectKitThemeProvider>
   );
 };
 

@@ -15,6 +15,7 @@ import styled, { keyframes } from 'styled-components';
 import MobileConnectors from '../Pages/MobileConnectors';
 import { ConnectKitButton } from '../ConnectButton';
 import { getAppName } from '../../defaultClient';
+import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const dist = 8;
 const shake = keyframes`
@@ -170,7 +171,11 @@ const ConnectModal: React.FC<{
   }, [open]);
 
   return (
-    <>
+    <ConnectKitThemeProvider
+      theme={theme}
+      customTheme={customTheme}
+      mode={mode}
+    >
       <Container ref={ref}>
         {inline && onClose && (
           <>
@@ -212,7 +217,7 @@ const ConnectModal: React.FC<{
           }
         />
       </Container>
-    </>
+    </ConnectKitThemeProvider>
   );
 };
 

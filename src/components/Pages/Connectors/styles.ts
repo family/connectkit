@@ -104,15 +104,46 @@ export const ConnectorButton = styled(motion.button)`
   --fallback-box-shadow: var(--ck-primary-button-box-shadow);
   --fallback-border-radius: var(--ck-primary-button-border-radius);
 
-  --color: var(--ck-primary-button-color);
-  --background: var(--ck-primary-button-background);
-  --box-shadow: var(--ck-primary-button-box-shadow);
-  --border-radius: var(--ck-primary-button-border-radius);
+  --color: var(--ck-primary-button-color, var(--fallback-color));
+  --background: var(--ck-primary-button-background, var(--fallback-background));
+  --box-shadow: var(--ck-primary-button-box-shadow, var(--fallback-box-shadow));
+  --border-radius: var(
+    --ck-primary-button-border-radius,
+    var(--fallback-border-radius)
+  );
 
-  color: var(--color, var(--fallback-color));
-  background: var(--background, var(--fallback-background));
-  box-shadow: var(--box-shadow, var(--fallback-box-shadow));
-  border-radius: var(--border-radius, var(--fallback-border-radius));
+  --hover-color: var(--ck-primary-button-hover-color, var(--color));
+  --hover-background: var(
+    --ck-primary-button-hover-background,
+    var(--background)
+  );
+  --hover-box-shadow: var(
+    --ck-primary-button-hover-box-shadow,
+    var(--box-shadow)
+  );
+  --hover-border-radius: var(
+    --ck-primary-button-hover-border-radius,
+    var(--border-radius)
+  );
+
+  --active-color: var(--ck-primary-button-active-color, var(--hover-color));
+  --active-background: var(
+    --ck-primary-button-active-background,
+    var(--hover-background)
+  );
+  --active-box-shadow: var(
+    --ck-primary-button-active-box-shadow,
+    var(--hover-box-shadow)
+  );
+  --active-border-radius: var(
+    --ck-primary-button-active-border-radius,
+    var(--hover-border-radius)
+  );
+
+  color: var(--color);
+  background: var(--background);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
 
   &:disabled {
     transition: 0ms;
@@ -120,32 +151,23 @@ export const ConnectorButton = styled(motion.button)`
 
   &:not(:disabled) {
     &:hover {
-      --color: var(--ck-primary-button-hover-color);
-      --background: var(--ck-primary-button-hover-background);
-      --box-shadow: var(--ck-primary-button-hover-box-shadow);
-      --border-radius: var(
-        --ck-primary-button-hover-border-radius,
-        var(--border-radius)
-      );
+      color: var(--hover-color);
+      background: var(--hover-background);
+      box-shadow: var(--hover-box-shadow);
+      border-radius: var(--hover-border-radius);
     }
     &:focus {
       transition-duration: 100ms;
-      --color: var(--ck-primary-button-focus-color);
-      --background: var(--ck-primary-button-focus-background);
-      --box-shadow: var(--ck-primary-button-focus-box-shadow);
-      --border-radius: var(
-        --ck-primary-button-focus-border-radius,
-        var(--border-radius)
-      );
+      color: var(--hover-color);
+      background: var(--hover-background);
+      box-shadow: var(--hover-box-shadow);
+      border-radius: var(--hover-border-radius);
     }
     &:active {
-      --color: var(--ck-primary-button-active-color);
-      --background: var(--ck-primary-button-active-background);
-      --box-shadow: var(--ck-primary-button-active-box-shadow);
-      --border-radius: var(
-        --ck-primary-button-active-border-radius,
-        var(--border-radius)
-      );
+      color: var(--active-color);
+      background: var(--active-background);
+      box-shadow: var(--active-box-shadow);
+      border-radius: var(--active-border-radius);
     }
   }
 `;

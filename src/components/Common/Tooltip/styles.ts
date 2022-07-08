@@ -19,7 +19,11 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
   width: fit-content;
   align-items: center;
   justify-content: center;
-  border-radius: ${(props) => (props.$size === 'small' ? 11 : 14)}px;
+  border-radius: var(
+    --tooltip-border-radius,
+    ${(props) => (props.$size === 'small' ? 11 : 14)}px
+  );
+  border-radius: ;
   padding: 10px 16px 10px 12px;
   font-size: 14px;
   line-height: 19px;
@@ -66,11 +70,11 @@ export const TooltipTail = styled(motion.div)<{ $size: TooltipSizeProps }>`
   &:before {
     content: '';
     position: absolute;
+    box-shadow: var(--shadow);
     width: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
     height: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
     transform: translate(75%, 0) rotate(-45deg);
     background: var(--tooltip-background);
-    box-shadow: var(--shadow);
     border-radius: ${(props) => (props.$size === 'small' ? 2 : 3)}px 0 0 0;
   }
 `;

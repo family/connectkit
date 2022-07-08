@@ -45,6 +45,7 @@ export default {
 
   '--copytoclipboard-stroke': '#CCCCCC',
 
+  '--tooltip-border-radius': '0px',
   '--tooltip-background': '#ffffff',
   '--tooltip-background-secondary': '#ffffff',
   '--tooltip-color': '#999999',
