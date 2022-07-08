@@ -173,6 +173,8 @@ const Modal: React.FC<ModalProps> = ({
   const prevDepth = usePrevious(currentDepth, currentDepth);
   if (!positionInside) useLockBodyScroll(mounted);
 
+  const prevPage = usePrevious(pageId, pageId);
+
   useEffect(() => {
     setOpen(open);
   }, [open]);
@@ -405,36 +407,38 @@ const Modal: React.FC<ModalProps> = ({
               {Object.keys(pages).map((key) => {
                 const page = pages[key];
                 return (
-                  <Page
-                    key={key}
-                    open={key === pageId}
-                    initial={!positionInside && state !== 'entered'}
-                    enterAnim={
-                      key === pageId
-                        ? currentDepth > prevDepth
-                          ? 'active-scale-up'
-                          : 'active'
-                        : ''
-                    }
-                    exitAnim={
-                      key !== pageId
-                        ? currentDepth < prevDepth
-                          ? 'exit-scale-down'
-                          : 'exit'
-                        : ''
-                    }
-                  >
-                    <PageContents
-                      key={`inner-${key}`}
-                      ref={contentRef}
-                      style={{
-                        pointerEvents:
-                          key === pageId && rendered ? 'auto' : 'none',
-                      }}
+                  (key === pageId || key === prevPage) && ( // Only render the current and last page to high computations
+                    <Page
+                      key={key}
+                      open={key === pageId}
+                      initial={!positionInside && state !== 'entered'}
+                      enterAnim={
+                        key === pageId
+                          ? currentDepth > prevDepth
+                            ? 'active-scale-up'
+                            : 'active'
+                          : ''
+                      }
+                      exitAnim={
+                        key !== pageId
+                          ? currentDepth < prevDepth
+                            ? 'exit-scale-down'
+                            : 'exit'
+                          : ''
+                      }
                     >
-                      {page}
-                    </PageContents>
-                  </Page>
+                      <PageContents
+                        key={`inner-${key}`}
+                        ref={contentRef}
+                        style={{
+                          pointerEvents:
+                            key === pageId && rendered ? 'auto' : 'none',
+                        }}
+                      >
+                        {page}
+                      </PageContents>
+                    </Page>
+                  )
                 );
               })}
             </InnerContainer>
