@@ -407,7 +407,7 @@ const Modal: React.FC<ModalProps> = ({
               {Object.keys(pages).map((key) => {
                 const page = pages[key];
                 return (
-                  (key === pageId || key === prevPage) && ( // Only render the current and last page to high computations
+                  (key === pageId || key === prevPage) && ( // Only render the current and last page to avoid high computations
                     <Page
                       key={key}
                       open={key === pageId}
