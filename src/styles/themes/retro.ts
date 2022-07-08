@@ -35,7 +35,7 @@ export default {
 
   '--focus-color': '#3B99FC',
 
-  '--overlay-background': '#84787A',
+  '--overlay-background': 'rgba(133, 120, 122, 0.96)',
   '--body-color': '#373737',
   '--body-color-muted': '#373737',
   '--body-color-muted-hover': '#000000',

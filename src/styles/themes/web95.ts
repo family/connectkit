@@ -17,7 +17,7 @@ export default {
   '--ck-connectbutton-hover-border-radius': '6px',
 
   '--focus-color': '#1A88F8',
-  '--overlay-background': '#008282',
+  '--overlay-background': 'rgba(0, 127,  128, 0.96)',
   '--body-color': '#373737',
   '--body-color-muted': '#808080',
   '--body-color-muted-hover': '#111111',
