@@ -299,10 +299,10 @@ const Modal: React.FC<ModalProps> = ({
         <Container
           style={dimensionsCSS}
           initial={false}
-          transition={{
-            ease: [0.2555, 0.1111, 0.2555, 1.0001],
-            duration: !positionInside && state !== 'entered' ? 0 : 0.24,
-          }}
+          // transition={{
+          //   ease: [0.2555, 0.1111, 0.2555, 1.0001],
+          //   duration: !positionInside && state !== 'entered' ? 0 : 0.24,
+          // }}
         >
           <BoxContainer className={`${rendered && 'active'}`}>
             <AnimatePresence>
@@ -408,7 +408,7 @@ const Modal: React.FC<ModalProps> = ({
                 const page = pages[key];
                 return (
                   // TODO: We may need to use the follow check avoid unnecessary computations, but this causes a bug where the content flashes
-                  //(key === pageId || key === prevPage) && (
+                  // (key === pageId || key === prevPage) && (
                   <Page
                     key={key}
                     open={key === pageId}
@@ -488,7 +488,7 @@ const Page: React.FC<PageProps> = ({
   exitAnim,
 }) => {
   const [state, setOpen] = useTransition({
-    timeout: 320,
+    timeout: 400,
     preEnter: true,
     initialEntered: open,
     mountOnEnter: true,

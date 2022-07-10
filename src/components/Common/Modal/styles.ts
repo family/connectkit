@@ -101,6 +101,10 @@ export const ModalContent = styled(motion.div)`
   flex-direction: column;
   gap: 12px;
   padding: 0 0 16px;
+
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    display: block;
+  }
 `;
 export const ModalH1 = styled(motion.h1)<{
   $error?: boolean;
@@ -213,20 +217,21 @@ export const BoxContainer = styled(motion.div)`
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     animation-name: ${MobileBoxOut};
-    animation-duration: 180ms;
-    animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+    animation-duration: 400ms;
+    animation-timing-function: ease;
 
     &.active {
       animation-name: ${MobileBoxIn};
-      animation-duration: 300ms;
+      animation-duration: 400ms;
       animation-delay: 32ms;
       animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     &:before {
-      transition-duration: 320ms;
-      animation-delay: 32ms;
       width: 100%;
+      transition-duration: 400ms;
+      transition-delay: 17ms;
+      box-shadow: none;
       will-change: height;
     }
   }
@@ -251,8 +256,8 @@ export const InnerContainer = styled(motion.div)`
   height: var(--height);
   transition: 0.2s ease height;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    transition-duration: 320ms;
-    animation-delay: 32ms;
+    transition: 0.5s ease height;
+    animation-delay: 34ms;
   }
 `;
 
@@ -297,7 +302,8 @@ export const PageContainer = styled(motion.div)`
     animation-delay: 16.6667ms;
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    animation: 300ms ease both;
+    animation: 380ms ease both;
+    animation-delay: 35ms;
 
     &.active {
       animation-name: ${FadeIn};
