@@ -157,10 +157,10 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
 
   const [state, setOpen] = useTransition({
-    timeout: mobile ? 320 : 160, // different animations, 10ms extra to avoid final-frame drops
-    preEnter: true,
+    timeout: mobile ? 400 : 160, // different animations, 10ms extra to avoid final-frame drops
+    preEnter: false,
     mountOnEnter: true,
-    unmountOnExit: true,
+    unmountOnExit: false,
   });
   const mounted = !(state === 'exited' || state === 'unmounted');
   const rendered = state === 'preEnter' || state !== 'exiting';
@@ -506,15 +506,6 @@ const Page: React.FC<PageProps> = ({
   return (
     <PageContainer
       className={`${rendered ? enterAnim : exitAnim}`}
-      // className={`${
-      //   rendered
-      //     ? currentDepth > prevDepth
-      //       ? 'active-scale-up'
-      //       : 'active'
-      //     : currentDepth < prevDepth
-      //     ? 'exit-scale-down'
-      //     : 'exit'
-      // }`}
       style={{
         animationDuration: initial ? '0ms' : undefined,
         animationDelay: initial ? '0ms' : undefined,

@@ -184,8 +184,8 @@ const MobileBoxIn = keyframes`
 `;
 
 const MobileBoxOut = keyframes`
-  from { transform: translate3d(0, 0%, 0); }
-  to { transform: translate3d(0, 110%, 0); } // a bit further to avoid dropshadow peaking out
+  from { transform: translate3d(0, 0%, 0); opacity: 1; }
+  to { transform: translate3d(0, 0%, 0); opacity: 0; } // a bit further to avoid dropshadow peaking out
 `;
 
 export const BoxContainer = styled(motion.div)`
@@ -217,14 +217,14 @@ export const BoxContainer = styled(motion.div)`
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     animation-name: ${MobileBoxOut};
-    animation-duration: 400ms;
+    animation-duration: 130ms;
     animation-timing-function: ease;
 
     &.active {
       animation-name: ${MobileBoxIn};
-      animation-duration: 400ms;
+      animation-duration: 300ms;
       animation-delay: 32ms;
-      animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+      animation-timing-function: cubic-bezier(0.15, 1.15, 0.6, 1);
     }
 
     &:before {
