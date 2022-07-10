@@ -132,7 +132,7 @@ export const Dot = styled.button<{ $active: boolean }>`
     height: 7px;
     opacity: 0.12;
     border-radius: 7px;
-    background: var(--body-color);
+    background: var(--ck-accent-color, var(--body-color));
     transition: transform 200ms ease, color 80ms ease;
   }
   ${(props) =>
