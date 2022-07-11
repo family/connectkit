@@ -129,6 +129,7 @@ export const ModalH1 = styled(motion.h1)<{
     margin-right: 6px;
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    margin-bottom: 6px;
     font-size: 17px;
   }
 `;
@@ -317,6 +318,7 @@ export const PageContainer = styled(motion.div)`
     }
     &.exit {
       animation-name: ${FadeOut};
+      animation-delay: 0ms;
     }
   }
 `;

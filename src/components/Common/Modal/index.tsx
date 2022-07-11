@@ -357,7 +357,9 @@ const Modal: React.FC<ModalProps> = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.1 }}
+                    transition={{
+                      duration: isMobile() ? 0 : 0.1,
+                    }}
                   >
                     <BackIcon />
                   </BackButton>
@@ -372,7 +374,9 @@ const Modal: React.FC<ModalProps> = ({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.1 }}
+                      transition={{
+                        duration: isMobile() ? 0 : 0.1,
+                      }}
                     >
                       <InfoIcon />
                     </InfoButton>
@@ -395,7 +399,7 @@ const Modal: React.FC<ModalProps> = ({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{
-                    duration: 0.17,
+                    duration: isMobile() ? 0 : 0.17,
                   }}
                 >
                   {getHeading()}
