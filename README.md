@@ -8,11 +8,11 @@ Visit the [Getting Started](https://docs.family.co/connectkit/getting-started) g
 
 ## Documentation
 
-You can find the ConnectKit documentation on the [Family Docs website](https://docs.family.co/connectkit).
+You can find the ConnectKit documentation in the [Family Docs](https://docs.family.co/connectkit).
 
 ## API Reference
 
-You can find the full API Reference on the [Family Docs website](https://docs.family.co/connectkit/api-reference).
+You can find the full API Reference in the [Family Docs](https://docs.family.co/connectkit/api-reference).
 
 ## Twitter
 
