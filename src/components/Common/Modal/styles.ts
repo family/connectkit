@@ -229,8 +229,9 @@ export const BoxContainer = styled(motion.div)`
 
     &:before {
       width: 100%;
-      transition-duration: 400ms;
-      transition-delay: 17ms;
+      /* transition-duration: 400ms; */
+      transition-duration: 0ms;
+      /* transition-delay: 17ms; */
       box-shadow: none;
       will-change: height;
     }
@@ -256,8 +257,8 @@ export const InnerContainer = styled(motion.div)`
   height: var(--height);
   transition: 0.2s ease height;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    transition: 0.5s ease height;
-    animation-delay: 34ms;
+    transition: 0s ease height;
+    /* animation-delay: 34ms; */
   }
 `;
 
@@ -302,8 +303,8 @@ export const PageContainer = styled(motion.div)`
     animation-delay: 16.6667ms;
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    animation: 380ms ease both;
-    animation-delay: 35ms;
+    animation: 0ms ease both;
+    /* animation-delay: 35ms; */
 
     &.active {
       animation-name: ${FadeIn};
