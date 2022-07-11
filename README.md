@@ -4,7 +4,7 @@ ConnectKit is a powerful React component library for connecting a wallet to your
 
 ## Installation
 
-Visit the [Getting Started](https://docs.family.co/connectkit/getting-started) page to learn how to quickly set up ConnectKit.
+Visit the [Getting Started](https://docs.family.co/connectkit/getting-started) guide to learn how to quickly set up ConnectKit.
 
 ## Documentation
 
@@ -16,4 +16,4 @@ You can find the full API Reference on the [Family Docs website](https://docs.fa
 
 ## Twitter
 
-Follow [@family](https://twitter.com/family) on Twitter for the latest ConnectKit updates.
+Follow [@family](https://twitter.com/family) on Twitter for the latest updates on ConnectKit.
