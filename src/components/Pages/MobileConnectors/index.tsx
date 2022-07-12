@@ -70,7 +70,7 @@ const MobileConnectors: React.FC = () => {
   };
 
   return (
-    <PageContent style={{ width: 312 }}>
+    <PageContent style={{ width: 312, height: 367 }}>
       <ModalHeadingBlock />
       <Container>
         <ModalContent>
