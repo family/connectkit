@@ -88,7 +88,7 @@ export default {
       heading: `Connect Wallet`,
       newcomer: `I don’t have a wallet`,
       h1: `What is a wallet?`,
-      p: `Wallets are used to send, receive, and store digital assets. Connecting a wallet lets you interact with apps easily.`,
+      p: `Wallets are used to send, receive, and store digital assets. Connecting a wallet lets you interact with apps.`,
     },
     mobileConnectorsScreen: {
       heading: `Choose Wallet`,
