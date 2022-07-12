@@ -4,7 +4,7 @@ export type Theme =
   | 'dark'
   | 'web95'
   | 'retro'
-  | 'smart'
+  | 'soft'
   | 'midnight'
   | 'minimal'
   | 'rounded';

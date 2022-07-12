@@ -139,7 +139,7 @@ const themeColors = {
   dark: predefinedThemes.base.dark,
   web95: predefinedThemes.web95,
   retro: predefinedThemes.retro,
-  smart: predefinedThemes.smart,
+  soft: predefinedThemes.soft,
   midnight: predefinedThemes.midnight,
   minimal: predefinedThemes.minimal,
   rounded: predefinedThemes.rounded,
@@ -179,7 +179,7 @@ const themes = {
   dark: createCssColors(themeColors.dark),
   web95: createCssColors(themeColors.web95),
   retro: createCssColors(themeColors.retro),
-  smart: createCssColors(themeColors.smart),
+  soft: createCssColors(themeColors.soft),
   midnight: createCssColors(themeColors.midnight),
   minimal: createCssColors(themeColors.minimal),
   rounded: createCssColors(themeColors.rounded),
@@ -238,8 +238,8 @@ export const ResetContainer = styled(motion.div)<{
         return themes.web95;
       case 'retro':
         return themes.retro;
-      case 'smart':
-        return themes.smart;
+      case 'soft':
+        return themes.soft;
       case 'midnight':
         return themes.midnight;
       case 'minimal':
