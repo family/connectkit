@@ -38,18 +38,116 @@ export const DownloadArrowInner = styled.div`
   }
 `;
 
-export const ButtonContainer = styled.button<{ disabled?: boolean }>`
---color: var(--button-primary-color, var(--body-color));
---background: var(--ck-secondary-button-background, var(--body-background-secondary));
---box-shadow: var(--ck-secondary-button-box-shadow);
---border-radius: var(--ck-secondary-button-border-radius);
---font-weight: var(--ck-secondary-button-font-weight, 500);
+export const ButtonContainer = styled.button<{
+  disabled?: boolean;
+  $variant?: 'primary' | 'secondary' | 'tertiary';
+}>`
 
---hover-color: var(--button-primary-hover-color, var(--color));
---hover-background: var(--ck-secondary-button-hover-background, var(--background));
---hover-box-shadow: var(--ck-secondary-button-hover-box-shadow, var(--box-shadow));
---hover-border-radius: var(--ck-secondary-button-hover-border-radius, var(--border-radius));
---hover-font-weight: var(--ck-secondary-button-font-weight, var(--font-weight));
+  ${({ $variant }) => {
+    if ($variant === 'primary') {
+      return css`
+        --color: var(--ck-primary-button-color, var(--body-color));
+        --background: var(
+          --ck-primary-button-background,
+          var(--body-background-primary)
+        );
+        --box-shadow: var(--ck-primary-button-box-shadow);
+        --border-radius: var(--ck-primary-button-border-radius);
+        --font-weight: var(--ck-primary-button-font-weight, 500);
+
+        --hover-color: var(--button-primary-hover-color, var(--color));
+        --hover-background: var(
+          --ck-primary-button-hover-background,
+          var(--background)
+        );
+        --hover-box-shadow: var(
+          --ck-primary-button-hover-box-shadow,
+          var(--box-shadow)
+        );
+        --hover-border-radius: var(
+          --ck-primary-button-hover-border-radius,
+          var(--border-radius)
+        );
+        --hover-font-weight: var(
+          --ck-primary-button-font-weight,
+          var(--font-weight)
+        );
+      `;
+    } else if ($variant === 'secondary') {
+      return css`
+        --color: var(--ck-secondary-button-color, var(--body-color));
+        --background: var(
+          --ck-secondary-button-background,
+          var(--body-background-secondary)
+        );
+        --box-shadow: var(--ck-secondary-button-box-shadow);
+        --border-radius: var(--ck-secondary-button-border-radius);
+        --font-weight: var(--ck-secondary-button-font-weight, 500);
+
+        --hover-color: var(--button-secondary-hover-color, var(--color));
+        --hover-background: var(
+          --ck-secondary-button-hover-background,
+          var(--background)
+        );
+        --hover-box-shadow: var(
+          --ck-secondary-button-hover-box-shadow,
+          var(--box-shadow)
+        );
+        --hover-border-radius: var(
+          --ck-secondary-button-hover-border-radius,
+          var(--border-radius)
+        );
+        --hover-font-weight: var(
+          --ck-secondary-button-font-weight,
+          var(--font-weight)
+        );
+      `;
+    } else if ($variant === 'tertiary') {
+      return css`
+        --color: var(
+          --ck-tertiary-button-color,
+          var(--ck-secondary-button-color)
+        );
+        --background: var(
+          --ck-tertiary-button-background,
+          var(--ck-secondary-button-background)
+        );
+        --box-shadow: var(
+          --ck-tertiary-button-box-shadow,
+          var(--ck-secondary-button-box-shadow)
+        );
+        --border-radius: var(
+          --ck-tertiary-button-border-radius,
+          var(--ck-secondary-button-border-radius)
+        );
+        --font-weight: var(
+          --ck-tertiary-button-font-weight,
+          var(--ck-secondary-button-font-weight)
+        );
+
+        --hover-color: var(
+          --button-tertiary-hover-color,
+          var(--ck-secondary-button-hover-color)
+        );
+        --hover-background: var(
+          --ck-tertiary-button-hover-background,
+          var(--ck-secondary-button-hover-background)
+        );
+        --hover-box-shadow: var(
+          --ck-tertiary-button-hover-box-shadow,
+          var(--ck-secondary-button-hover-box-shadow)
+        );
+        --hover-border-radius: var(
+          --ck-tertiary-button-hover-border-radius,
+          var(--ck-secondary-button-hover-border-radius)
+        );
+        --hover-font-weight: var(
+          --ck-tertiary-button-font-weight,
+          var(--ck-secondary-button-font-weight)
+        );
+      `;
+    }
+  }}
 
   appearance: none;
   cursor: pointer;

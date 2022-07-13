@@ -17,7 +17,7 @@ export default {
   '--ck-connectbutton-hover-border-radius': '6px',
 
   '--focus-color': '#1A88F8',
-  '--overlay-background': 'rgba(0, 127,  128, 0.96)',
+  '--overlay-background': 'rgba(0, 127,  128, 0.8)',
   '--body-color': '#373737',
   '--body-color-muted': '#808080',
   '--body-color-muted-hover': '#111111',
@@ -71,7 +71,11 @@ export default {
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
   '--body-background-secondary': 'rgba(0, 0, 0, 0.1)',
-  '--body-background-tertiary': 'rgba(0, 0, 0, 0.1)',
+  '--body-background-tertiary':
+    'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
+  '--ck-tertiary-border-radius': '0px',
+  '--ck-tertiary-box-shadow':
+    'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF;',
   '--body-button-text-align': 'left',
   '--body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
 

@@ -39,6 +39,9 @@ export default {
   '--body-background-secondary-hover-background': '#e0e4eb',
   '--body-background-secondary-hover-outline': 'rgba(255, 255, 255, 0.02)',
   '--body-background-tertiary': '#313235',
+  '--ck-tertiary-border-radius': '12px',
+  '--ck-tertiary-box-shadow': 'inset 0 0 0 1px rgba(255, 255, 255, 0.02)',
+
   '--body-action-color': '#8B8F97',
   '--body-divider': 'rgba(255,255,255,0.1)',
   '--body-color-danger': '#FF4E4E',

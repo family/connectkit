@@ -187,10 +187,16 @@ const Wallets: React.FC = () => {
               <ModalBody>{copy.p}</ModalBody>
             </ModalContent>
             <InfoBoxButtons>
-              <Button onClick={() => context.setRoute(routes.ABOUT)}>
+              <Button
+                variant={'tertiary'}
+                onClick={() => context.setRoute(routes.ABOUT)}
+              >
                 Learn More
               </Button>
-              <Button onClick={() => context.setRoute(routes.ONBOARDING)}>
+              <Button
+                variant={'tertiary'}
+                onClick={() => context.setRoute(routes.ONBOARDING)}
+              >
                 Get a Wallet
               </Button>
             </InfoBoxButtons>

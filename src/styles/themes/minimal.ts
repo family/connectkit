@@ -37,7 +37,10 @@ export default {
   '--body-background-secondary': '#f6f7f9',
   '--body-background-secondary-hover-background': '#e0e4eb',
   '--body-background-secondary-hover-outline': '#4282FF',
-  '--body-background-tertiary': '#F3F4F7',
+  '--body-background-tertiary': '#ffffff',
+  '--ck-tertiary-border-radius': '0px',
+  '--ck-tertiary-box-shadow': 'inset 0 0 0 1px rgba(0, 0, 0, 0.04)',
+
   '--body-action-color': '#111111',
   '--body-divider': '#EBEBEB',
   '--body-color-danger': '#FF4E4E',

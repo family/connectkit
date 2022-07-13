@@ -29,6 +29,9 @@ export default {
     //'--ck-secondary-button-box-shadow': '',
     //'--ck-secondary-button-font-weight': '',
 
+    /** Tertiary Button */
+    '--ck-tertiary-button-background': '#FFFFFF',
+
     '--ck-secondary-button-hover-background': '#e0e4eb',
 
     /** Modal */
@@ -85,6 +88,9 @@ export default {
     '--ck-secondary-button-background': '#333333',
 
     '--ck-secondary-button-hover-background': '#4D4D4D',
+
+    /** Tertiary Button */
+    '--ck-tertiary-button-background': '#424242',
 
     '--focus-color': '#1A88F8',
 

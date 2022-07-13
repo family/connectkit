@@ -3,8 +3,9 @@ import { motion } from 'framer-motion';
 import { ModalBody } from '../../Common/Modal/styles';
 
 export const InfoBox = styled.div`
-  border-radius: 24px;
   padding: 24px 24px 28px;
+  border-radius: var(--ck-tertiary-border-radius, 24px);
+  box-shadow: var(--ck-tertiary-box-shadow, none);
   background: var(--body-background-tertiary);
   ${ModalBody} {
     max-width: none;
@@ -15,7 +16,6 @@ export const InfoBoxButtons = styled.div`
   gap: 16px;
   margin: 5px -8px -12px;
   button {
-    background: var(--body-background);
   }
 `;
 export const LearnMoreContainer = styled(motion.div)`

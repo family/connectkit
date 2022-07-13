@@ -2,6 +2,7 @@ import React from 'react';
 
 export type ButtonProps = {
   children?: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'tertiary';
   disabled?: boolean;
   icon?: React.ReactNode;
   roundedIcon?: boolean;

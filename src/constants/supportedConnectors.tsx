@@ -81,7 +81,7 @@ if (typeof window != 'undefined') {
           <div
             style={{
               padding: 5,
-              background: 'var(--body-background-tertiary)',
+              background: 'var(--body-background-secondary)',
               borderRadius: '21%',
               boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.02)',
             }}

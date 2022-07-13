@@ -13,6 +13,7 @@ import {
 
 const Button: React.FC<ButtonProps> = ({
   children,
+  variant = 'secondary', // unique aspect to how we're handling buttons
   disabled,
   icon,
   roundedIcon,
@@ -31,6 +32,7 @@ const Button: React.FC<ButtonProps> = ({
       target={href && '_blank'}
       rel={href && 'noopener noreferrer'}
       disabled={disabled}
+      $variant={variant}
     >
       {icon && <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>}
       {download && (
