@@ -679,7 +679,10 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
           style={{ zIndex: 2, position: 'absolute' }}
           initial={{ rotate: -170 }}
           animate={{ rotate: 0 }}
-          exit={{ rotate: -170 }}
+          exit={{
+            rotate: -180,
+            transition: { duration: 0 }, // needed to avoid AnimatePresence taking too long to unmount the animation which causes issues on page close
+          }}
           transition={{
             type: 'spring',
             stiffness: 6,
