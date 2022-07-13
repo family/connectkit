@@ -359,6 +359,7 @@ const Modal: React.FC<ModalProps> = ({
                     exit={{ opacity: 0 }}
                     transition={{
                       duration: isMobile() ? 0 : 0.1,
+                      delay: isMobile() ? 0.01 : 0,
                     }}
                   >
                     <BackIcon />
@@ -376,6 +377,7 @@ const Modal: React.FC<ModalProps> = ({
                       exit={{ opacity: 0 }}
                       transition={{
                         duration: isMobile() ? 0 : 0.1,
+                        delay: isMobile() ? 0.01 : 0,
                       }}
                     >
                       <InfoIcon />
@@ -400,6 +402,7 @@ const Modal: React.FC<ModalProps> = ({
                   exit={{ opacity: 0 }}
                   transition={{
                     duration: isMobile() ? 0 : 0.17,
+                    delay: isMobile() ? 0.01 : 0,
                   }}
                 >
                   {getHeading()}
