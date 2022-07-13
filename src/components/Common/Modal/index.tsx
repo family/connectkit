@@ -196,7 +196,7 @@ const Modal: React.FC<ModalProps> = ({
       // Avoid transition mixups
       setInTransition(true);
       clearTimeout(blockTimeout);
-      blockTimeout = setTimeout(() => setInTransition(false), 300);
+      blockTimeout = setTimeout(() => setInTransition(false), 360);
 
       // Calculate new content bounds
       const bounds = {
