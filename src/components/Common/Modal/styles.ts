@@ -185,8 +185,8 @@ const MobileBoxIn = keyframes`
 `;
 
 const MobileBoxOut = keyframes`
-  from { transform: translate3d(0, 0%, 0); opacity: 1; }
-  to { transform: translate3d(0, 0%, 0); opacity: 0; } // a bit further to avoid dropshadow peaking out
+  from { opacity: 1; }
+  to { opacity: 0; }
 `;
 
 export const BoxContainer = styled(motion.div)`
