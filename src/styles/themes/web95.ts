@@ -4,17 +4,17 @@ export default {
 
   '--ck-connectbutton-color': '#373737',
   '--ck-connectbutton-background':
-    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+    'linear-gradient(180deg, #F0F0EA 0%, #FFFFFF 50%, #F0F0EA 100%) 0 100%/ 200%, #F5F5F1',
   '--ck-connectbutton-box-shadow':
-    'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-  '--ck-connectbutton-border-radius': '6px',
+    ' 0 0 0 1px #003C74, 2px 2px 0px rgba(255, 255, 255, 0.75), -2px -2px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+  '--ck-connectbutton-border-radius': '4.5px',
 
   '--ck-connectbutton-hover-color': '#373737',
   '--ck-connectbutton-hover-background':
-    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
-  '--ck-connectbutton-hover-box-shadow':
-    'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-  '--ck-connectbutton-hover-border-radius': '6px',
+    'linear-gradient(180deg, #F0F0EA 0%, #FFFFFF 50%, #F0F0EA 100%) 0 0% / 200%, #F5F5F1',
+
+  '--ck-connectbutton-active-background':
+    'linear-gradient(180deg, #F0F0EA 0%, #FFFFFF 50%, #F0F0EA 100%) 0 100%/ 200%, #F5F5F1',
 
   '--focus-color': '#1A88F8',
   '--overlay-background': 'rgba(0, 127,  128, 0.8)',

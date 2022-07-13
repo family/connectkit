@@ -23,10 +23,11 @@ export const Button = styled(motion.button)`
   overflow: hidden;
   cursor: pointer;
   width: 100%;
-  height: 42px;
+  height: 40px;
   padding: 0 16px;
   line-height: 0;
-  font-size: 15px;
+  letter-spacing: -0.2px;
+  font-size: var(--ck-connectbutton-font-size, 15px);
   font-weight: var(--ck-connectbutton-font-weight, 500);
   text-align: center;
   transition: color 100ms ease, background 100ms ease, box-shadow 100ms ease;
@@ -34,17 +35,35 @@ export const Button = styled(motion.button)`
   --color: var(--ck-connectbutton-color);
   --background: var(--ck-connectbutton-background);
   --box-shadow: var(--ck-connectbutton-box-shadow);
-  --border-radius: var(--ck-connectbutton-border-radius, 14px);
+  --border-radius: var(--ck-connectbutton-border-radius, 12px);
 
   --hover-color: var(--ck-connectbutton-hover-color, var(--color));
-  --hover-background: var(--ck-connectbutton-hover-background, var(--background));
-  --hover-box-shadow: var(--ck-connectbutton-hover-box-shadow, var(--box-shadow));
-  --hover-border-radius: var(--ck-connectbutton-hover-border-radius, var(--border-radius));
+  --hover-background: var(
+    --ck-connectbutton-hover-background,
+    var(--background)
+  );
+  --hover-box-shadow: var(
+    --ck-connectbutton-hover-box-shadow,
+    var(--box-shadow)
+  );
+  --hover-border-radius: var(
+    --ck-connectbutton-hover-border-radius,
+    var(--border-radius)
+  );
 
   --active-color: var(--ck-connectbutton-active-color, var(--hover-color));
-  --active-background: var(--ck-connectbutton-active-background, var(--hover-background));
-  --active-box-shadow: var(--ck-connectbutton-active-box-shadow, var(--hover-box-shadow));
-  --active-border-radius: var(--ck-connectbutton-active-border-radius, var(--hover-border-radius));
+  --active-background: var(
+    --ck-connectbutton-active-background,
+    var(--hover-background)
+  );
+  --active-box-shadow: var(
+    --ck-connectbutton-active-box-shadow,
+    var(--hover-box-shadow)
+  );
+  --active-border-radius: var(
+    --ck-connectbutton-active-border-radius,
+    var(--hover-border-radius)
+  );
 
   color: var(--color);
   background: var(--background);

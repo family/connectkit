@@ -3,18 +3,19 @@ export default {
     '"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--border-radius': '24px',
 
+  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-font-weight': '700',
   '--ck-connectbutton-border-radius': '14px',
   '--ck-connectbutton-color': '#000000',
   '--ck-connectbutton-background': '#ffffff',
   '--ck-connectbutton-box-shadow':
-    'inset 0 0 0 2px #DFE4EC, inset  0 -4px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+    'inset 0 0 0 2px #DFE4EC, 0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-hover-background': '#F9FAFB',
 
   '--ck-connectbutton-active-background': '#F5F7F9',
   '--ck-connectbutton-active-box-shadow':
-    'inset 0 0 0 2px #CFD7E2, inset  0 -4px 0 0 #CFD7E2, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+    'inset 0 0 0 2px #CFD7E2, 0 0px 0 0 #CFD7E2, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-primary-button-border-radius': '18px',
   '--ck-primary-button-color': '#000000',

@@ -3,15 +3,16 @@ export default {
     '"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--border-radius': '0px',
 
+  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-border-radius': '0px',
   '--ck-connectbutton-color': '#414451',
   '--ck-connectbutton-background': '#ffffff',
   '--ck-connectbutton-box-shadow':
-    '0 0 0 1px #EBEBEB, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+    'inset 0 0 0 1px #EBEBEB, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-hover-color': '#111',
   '--ck-connectbutton-hover-box-shadow':
-    '0 0 0 1px #111, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+    'inset 0 0 0 1px #111, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-primary-button-border-radius': '0px',
   '--ck-primary-button-color': '#111111',

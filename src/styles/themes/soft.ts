@@ -1,15 +1,16 @@
 export default {
   '--border-radius': '12px',
 
+  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-border-radius': '12px',
   '--ck-connectbutton-color': '#414451',
   '--ck-connectbutton-background': '#ffffff',
   '--ck-connectbutton-box-shadow':
-    '0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+    'inset 0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-hover-background': '#F6F7F9',
   '--ck-connectbutton-hover-box-shadow':
-    '0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+    'inset 0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-primary-button-border-radius': '12px',
   '--ck-primary-button-color': '#414451',

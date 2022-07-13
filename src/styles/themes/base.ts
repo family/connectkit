@@ -5,7 +5,7 @@ export default {
     '--ck-connectbutton-background': '#F6F7F9',
 
     '--ck-connectbutton-hover-color': '#373737',
-    '--ck-connectbutton-hover-background': '#F6F7F9',
+    '--ck-connectbutton-hover-background': '#F0F2F5',
 
     '--ck-connectbutton-active-color': '#373737',
     '--ck-connectbutton-active-background': '#EAECF1',

@@ -3,6 +3,7 @@ export default {
     '"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--border-radius': '10px',
 
+  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-border-radius': '8px',
   '--ck-connectbutton-color': '#ffffff',
   '--ck-connectbutton-background': '#313235',
