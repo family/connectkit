@@ -61,8 +61,7 @@ export default {
   '--tooltip-background': '#ffffff',
   '--tooltip-background-secondary': '#ffffff',
   '--tooltip-color': '#999999',
-  '--tooltip-shadow':
-    'inset 0 0 0 2px #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--tooltip-shadow': ' 0 0 0 2px #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--spinner-color': 'var(--focus-color)',
 

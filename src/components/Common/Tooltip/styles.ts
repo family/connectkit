@@ -73,7 +73,7 @@ export const TooltipTail = styled(motion.div)<{ $size: TooltipSizeProps }>`
     box-shadow: var(--shadow);
     width: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
     height: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
-    transform: translate(75%, 0) rotate(-45deg);
+    transform: translate(75%, 0) rotate(45deg);
     background: var(--tooltip-background);
     border-radius: ${(props) => (props.$size === 'small' ? 2 : 3)}px 0 0 0;
   }
