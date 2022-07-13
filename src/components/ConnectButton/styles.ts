@@ -29,7 +29,7 @@ export const Button = styled(motion.button)`
   font-size: 15px;
   font-weight: var(--ck-connectbutton-font-weight, 500);
   text-align: center;
-  transition: all 100ms ease;
+  transition: color 100ms ease, background 100ms ease, box-shadow 100ms ease;
 
   --color: var(--ck-connectbutton-color);
   --background: var(--ck-connectbutton-background);
@@ -61,7 +61,7 @@ export const Button = styled(motion.button)`
     color: var(--active-color);
     background: var(--active-background);
     box-shadow: var(--active-box-shadow);
-    border-radius: var(--active-border-radius));
+    border-radius: var(--active-border-radius);
   }
   &:focus-visible {
     outline: 2px solid var(--family-brand);
