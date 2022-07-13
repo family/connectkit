@@ -183,8 +183,6 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
 
   if (!isMounted) return null;
 
-  console.log(bounds.width);
-
   return (
     <Button
       onClick={onClick}
