@@ -157,10 +157,10 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
 
   const [state, setOpen] = useTransition({
-    timeout: mobile ? 400 : 160, // different animations, 10ms extra to avoid final-frame drops
-    preEnter: false,
+    timeout: mobile ? 0 : 160, // different animations, 10ms extra to avoid final-frame drops
+    preEnter: true,
     mountOnEnter: true,
-    unmountOnExit: false,
+    unmountOnExit: true,
   });
   const mounted = !(state === 'exited' || state === 'unmounted');
   const rendered = state === 'preEnter' || state !== 'exiting';

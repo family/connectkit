@@ -231,9 +231,6 @@ export const BoxContainer = styled(motion.div)`
     &:before {
       width: 100%;
       transition: 0ms height cubic-bezier(0.15, 1.15, 0.6, 1);
-      /* transition-duration: 0ms; */
-      /* transition-delay: 17ms; */
-      box-shadow: none;
       will-change: height;
     }
   }
