@@ -182,23 +182,33 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
-    if (bounds.width > 100) {
+    if (bounds.width > 100 && !initialRan) {
       timeout = setTimeout(() => {
-        setInitialRan(true);
+        if (!address) {
+          setInitialRan(true);
+        }
       }, 1000);
     }
     return () => {
       clearTimeout(timeout);
     };
-  }, [bounds.width, setInitialRan]);
+  }, [bounds.width, setInitialRan, address]);
 
   if (!isMounted) return null;
+
+  console.log(bounds.width);
+
   return (
     <Button
       onClick={onClick}
       initial={false}
       animate={{
-        width: bounds.width ? bounds.width + 34 : 140.75,
+        width:
+          address && !initialRan
+            ? 'auto'
+            : bounds.width
+            ? bounds.width + 32
+            : 138.75,
       }}
       transition={{
         duration: initialRan ? 0.3 : 0,
