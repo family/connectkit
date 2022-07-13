@@ -162,27 +162,14 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
   });
 
   const [contentRef, bounds] = useMeasure();
-
   const connectedSinceBefore = !isConnected && !isConnecting;
-
   // Done = isConnecting = false
   // Has address = isConnected = false, isConnecting = false
   // Default = isConneted = false, isConnecting = true
-
-  // useEffect(() => {
-  //   let timeout;
-  //   timeout = setTimeout(() => {
-  //     setAddress(address);
-  //   }, 1000);
-
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   };
-  // }, [address]);
-
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
-    if (bounds.width > 100 && !initialRan) {
+    // Prevent initial width animation from triggering
+    if (bounds.width > 10 && !initialRan) {
       timeout = setTimeout(() => {
         if (!address) {
           setInitialRan(true);
@@ -203,10 +190,12 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
       onClick={onClick}
       initial={false}
       animate={{
+        // If it's ENS address we set it to auto.
+        // Only use bounds if it's changing
         width:
           address && !initialRan
             ? 'auto'
-            : bounds.width
+            : bounds.width > 10
             ? bounds.width + 32
             : 138.75,
       }}
