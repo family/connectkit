@@ -117,7 +117,7 @@ export const Dot = styled.button<{ $active: boolean }>`
   display: flex;
   align-items: center;
   height: 28px;
-  padding: 5px;
+  padding: 2px;
   background: none;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     padding: 4px;
@@ -128,10 +128,10 @@ export const Dot = styled.button<{ $active: boolean }>`
   &:before {
     content: '';
     display: block;
-    width: 7px;
-    height: 7px;
+    width: 16px;
+    height: 2px;
     opacity: 0.12;
-    border-radius: 7px;
+    border-radius: 4px;
     background: var(--ck-accent-color, var(--body-color));
     transition: transform 200ms ease, color 80ms ease;
   }
@@ -141,17 +141,16 @@ export const Dot = styled.button<{ $active: boolean }>`
           cursor: default;
           &:before {
             opacity: 1;
-            transition-duration: 80ms;
           }
         `
       : !props.disabled &&
         css`
           cursor: pointer;
           &:hover:before {
-            transform: scale(1.8);
+            transform: scaleY(3.5);
           }
           &:active:before {
-            transform: scale(1.2);
+            transform: scaleY(1) scaleX(0.98);
           }
         `}
 `;
