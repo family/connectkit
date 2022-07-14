@@ -75,7 +75,7 @@ export default {
     'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
   '--ck-tertiary-border-radius': '0px',
   '--ck-tertiary-box-shadow':
-    'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF;',
+    'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF',
   '--body-button-text-align': 'left',
   '--body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
 
@@ -93,4 +93,29 @@ export default {
   '--tooltip-shadow': ' 0 0 0 1.5px #2b2622, 0px 2px 10px rgba(0, 0, 0, 0.08)',
 
   '--spinner-color': 'var(--focus-color)',
+
+  /** Graphics options for our themes, not to be exposed to devs */
+
+  '--ck-graphic-primary-color': '#7D7D7D',
+  '--ck-graphic-primary-background':
+    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+  '--ck-graphic-primary-box-shadow':
+    'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+
+  '--ck-graphic-secondary-color': '#7D7D7D',
+  '--ck-graphic-secondary-background':
+    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+  '--ck-graphic-secondary-box-shadow':
+    'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+
+  '--ck-graphic-compass-color': '#7D7D7D',
+  '--ck-graphic-compass-background':
+    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+  '--ck-graphic-compass-box-shadow':
+    'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+
+  '--ck-graphic-globe-background': '#ffffff',
+  '--ck-graphic-globe-lines': '#000000',
+  '--ck-graphic-globe-box-shadow':
+    ' 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 };

@@ -71,7 +71,23 @@ export default {
   '--qr-border-color': '#000000',
   '--qr-background': '#ffffff',
 
-  displayOptions: {
-    graphics: 'simple',
-  },
+  /** Graphics options for our themes, not to be exposed to devs */
+
+  '--ck-graphic-primary-color': '#000000',
+  '--ck-graphic-primary-background': '#ffffff',
+  '--ck-graphic-primary-box-shadow':
+    '-4px 4px 0 2px #000000, 0 0 0 2px #000000',
+
+  '--ck-graphic-secondary-color': '#ffffff',
+  '--ck-graphic-secondary-background': '#808080',
+  '--ck-graphic-secondary-box-shadow':
+    '-4px 4px 0 2px #000000, 0 0 0 2px #000000',
+
+  '--ck-graphic-compass-color': '#ffffff',
+  '--ck-graphic-compass-background': '#808080',
+  '--ck-graphic-compass-box-shadow':
+    '-4px 4px 0 0 #000000, inset 0 0 0 2px #000000',
+  '--ck-graphic-globe-background': '#ffffff',
+  '--ck-graphic-globe-lines': '#000000',
+  '--ck-graphic-globe-box-shadow': '6px -6px 0 2px #000000, 0 0 0 2px #000000',
 };

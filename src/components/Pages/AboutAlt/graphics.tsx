@@ -16,7 +16,7 @@ export type Easing =
   | 'anticipate'
   | EasingFunction;
 
-const pulseAnim = { scale: [0.9, 1.25, 1.6], opacity: [0, 1, 0] };
+const pulseAnim = { scale: [0.9, 1.25, 1.6], opacity: [0, 0.11, 0] };
 const pulseTransition = { ease: 'linear', duration: 2, repeat: Infinity };
 
 const Center = styled.div`
@@ -33,7 +33,9 @@ const spin = keyframes`
 const SpinContainer = styled(motion.div)`
   z-index: -1;
   position: absolute;
-  inset: 0;
+  inset: 0.5px;
+  overflow: hidden;
+  border-radius: 100%;
   animation: ${spin} 2s linear infinite;
 `;
 
@@ -42,10 +44,11 @@ const spinInner = keyframes`
   to{ transform: translateX(var(--x-offset)); }
 `;
 const SpinContainerInner = styled(motion.div)`
+  opacity: 0.8;
   position: absolute;
   inset: 14px;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px white;
+  box-shadow: 0 0 0 3px var(--ck-graphic-globe-lines, white);
   transform: translateX(var(--x));
   animation: ${spinInner} 8s ease-in-out alternate infinite;
 `;
@@ -107,25 +110,23 @@ const Compass = (
   >
     <path
       d="M17 34C26.3 34 34 26.2833 34 17C34 7.7 26.2833 0 16.9833 0C7.7 0 0 7.7 0 17C0 26.2833 7.71667 34 17 34ZM9.83333 25.6833C8.68333 26.2333 7.8 25.3333 8.33333 24.2L13.1667 14.3333C13.45 13.75 13.8167 13.3833 14.35 13.1333L24.1833 8.33333C25.4 7.75 26.25 8.65 25.6833 9.81667L20.8833 19.6667C20.6167 20.2 20.2333 20.6 19.6833 20.85L9.83333 25.6833ZM17.0167 19.1333C18.1833 19.1333 19.1333 18.1833 19.1333 17.0167C19.1333 15.85 18.1833 14.9167 17.0167 14.9167C15.8667 14.9167 14.9167 15.85 14.9167 17.0167C14.9167 18.1833 15.8667 19.1333 17.0167 19.1333Z"
-      fill="var(--body-color)"
+      fill="var(--ck-graphic-compass-color, var(--body-color))"
     />
-    {/*
     <path
       d="M17 34C26.3 34 34 26.2833 34 17C34 7.7 26.2833 0 16.9833 0C7.7 0 0 7.7 0 17C0 26.2833 7.71667 34 17 34ZM9.83333 25.6833C8.68333 26.2333 7.8 25.3333 8.33333 24.2L13.1667 14.3333C13.45 13.75 13.8167 13.3833 14.35 13.1333L24.1833 8.33333C25.4 7.75 26.25 8.65 25.6833 9.81667L20.8833 19.6667C20.6167 20.2 20.2333 20.6 19.6833 20.85L9.83333 25.6833ZM17.0167 19.1333C18.1833 19.1333 19.1333 18.1833 19.1333 17.0167C19.1333 15.85 18.1833 14.9167 17.0167 14.9167C15.8667 14.9167 14.9167 15.85 14.9167 17.0167C14.9167 18.1833 15.8667 19.1333 17.0167 19.1333Z"
-      fill="url(#paint0_linear_2736_10030)"
+      fill="url(#ck-compass-gradient)"
     />
-*/}
     <defs>
       <linearGradient
-        id="paint0_linear_2736_10030"
+        id="ck-compass-gradient"
         x1="17"
         y1="0"
         x2="17"
         y2="34"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="var(--body-color)" />
-        <stop offset="1" stopColor="var(--body-color-muted)" />
+        <stop stopColor="rgba(0,0,0,0)" />
+        <stop offset="1" stopColor="rgba(0,0,0,0.05)" />
       </linearGradient>
     </defs>
   </svg>
@@ -143,7 +144,11 @@ const Wallet = ({ inverted = false }) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M57.9332 20.3335V42.1113C57.9332 46.4069 54.451 49.8891 50.1555 49.8891H8.15546C3.85991 49.8891 0.377686 46.4069 0.377686 42.1113V25.0002V7.8891C0.377686 3.59355 3.85991 0.111328 8.15546 0.111328H47.0444C48.7626 0.111328 50.1555 1.50422 50.1555 3.22244C50.1555 4.94066 48.7626 6.33355 47.0443 6.33355H9.71102C7.9928 6.33355 6.59991 7.72644 6.59991 9.44466C6.59991 11.1629 7.9928 12.5558 9.71102 12.5558H50.1555C54.451 12.5558 57.9332 16.038 57.9332 20.3335ZM46.2667 34.3337C48.4145 34.3337 50.1556 32.5926 50.1556 30.4448C50.1556 28.297 48.4145 26.5559 46.2667 26.5559C44.1189 26.5559 42.3778 28.297 42.3778 30.4448C42.3778 32.5926 44.1189 34.3337 46.2667 34.3337Z"
-      fill={inverted ? 'var(--body-background)' : 'var(--body-color)'}
+      fill={
+        inverted
+          ? 'var(--ck-graphic-primary-color, var(--body-background))'
+          : 'var(--ck-graphic-primary-color, var(--body-color))'
+      }
     />
     {/*
     <path
@@ -189,7 +194,7 @@ const Send = (
   >
     <path
       d="M35.4446 0.839914L2.14484 10.7065C0.0395033 11.3303 -0.632966 13.9786 0.919705 15.5313L7.9624 22.574C9.47585 24.0874 11.8661 24.273 13.5951 23.0114L25.2866 14.4797C25.5558 14.2832 25.9281 14.3121 26.1638 14.5478C26.3998 14.7838 26.4285 15.1567 26.2313 15.426L17.6874 27.0937C16.4213 28.8228 16.6052 31.2168 18.1206 32.7322L25.1811 39.7926C26.7337 41.3453 29.382 40.6728 30.0058 38.5675L39.8724 5.2677C40.6753 2.55794 38.1544 0.037024 35.4446 0.839914Z"
-      fill="white"
+      fill="var(--ck-graphic-secondary-color, white)"
     />
   </svg>
 );
@@ -206,7 +211,7 @@ const Receive = (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M19 0.875C21.4853 0.875 23.5 2.88972 23.5 5.375V27.761L30.068 21.193C31.8254 19.4357 34.6746 19.4357 36.432 21.193C38.1893 22.9504 38.1893 25.7996 36.432 27.557L22.182 41.807C20.4246 43.5643 17.5754 43.5643 15.818 41.807L1.56802 27.557C-0.18934 25.7996 -0.18934 22.9504 1.56802 21.193C3.32538 19.4357 6.17462 19.4357 7.93198 21.193L14.5 27.761V5.375C14.5 2.88972 16.5147 0.875 19 0.875Z"
-      fill="white"
+      fill="var(--ck-graphic-secondary-color, white)"
     />
   </svg>
 );
@@ -405,9 +410,10 @@ export const SlideOne = ({ layoutId, duration, ease }: Slide) => (
         justifyContent: 'center',
         width: 76,
         height: 76,
-        background: '#6366F1',
+        background: 'var(--ck-graphic-secondary-background, #6366F1)',
         borderRadius: '50%',
-        boxShadow: '0px 2px 10px rgba(99, 102, 241, 0.3)',
+        boxShadow:
+          'var(--ck-graphic-secondary-box-shadow, 0px 2px 10px rgba(99, 102, 241, 0.3))',
       }}
     >
       {Receive}
@@ -427,8 +433,10 @@ export const SlideOne = ({ layoutId, duration, ease }: Slide) => (
       <MainCircleInner
         key={'SlideOneInner'}
         style={{
-          background: 'var(--body-background)',
-          boxShadow: '0px 3px 15px rgba(0, 0, 0, 0.1)',
+          background:
+            'var(--ck-graphic-primary-background, var(--body-background))',
+          boxShadow:
+            'var(--ck-graphic-primary-box-shadow, 0px 3px 15px rgba(0, 0, 0, 0.1))',
         }}
         initial={{
           opacity: 0,
@@ -453,9 +461,10 @@ export const SlideOne = ({ layoutId, duration, ease }: Slide) => (
         position: 'relative',
         width: 76,
         height: 76,
-        background: '#3897FB',
+        background: 'var(--ck-graphic-secondary-background, #3897FB)',
         borderRadius: '50%',
-        boxShadow: '0px 2px 10px rgba(56, 151, 251, 0.3)',
+        boxShadow:
+          'var(--ck-graphic-secondary-box-shadow, 0px 2px 10px rgba(56, 151, 251, 0.3))',
       }}
     >
       <Center>
@@ -493,8 +502,10 @@ export const SlideTwo = ({ layoutId, duration, ease }: Slide) => (
           style={{
             //background: 'var(--body-color)',
             //boxShadow: '0px 2px 5px rgba(37, 41, 46, 0.26)',
-            background: 'var(--body-background)',
-            boxShadow: '0px 2px 5px rgba(37, 41, 46, 0.16)',
+            background:
+              'var(--ck-graphic-primary-background, var(--body-background))',
+            boxShadow:
+              'var(--ck-graphic-primary-box-shadow, 0px 2px 5px rgba(37, 41, 46, 0.16))',
           }}
         >
           <Center>
@@ -513,9 +524,11 @@ export const SlideTwo = ({ layoutId, duration, ease }: Slide) => (
           alignItems: 'center',
           padding: '21px 56px',
           paddingRight: 52,
-          background: 'var(--body-background)',
-          boxShadow: '0px 2px 9px rgba(0, 0, 0, 0.07)',
-          borderRadius: 16,
+          background:
+            'var(--ck-graphic-primary-background, var(--body-background))',
+          boxShadow:
+            'var(--ck-graphic-primary-box-shadow, 0px 2px 9px rgba(0, 0, 0, 0.07))',
+          borderRadius: 'var(--border-radius, 16px)',
         }}
       >
         <BgLighten />
@@ -566,24 +579,34 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
           exit={{ opacity: 0 }}
           style={{
             overflow: 'hidden',
-            background: `radial-gradient(
-                82.42% 82.42% at 50% 86.72%,
-                rgba(255, 255, 255, 0.2) 0%,
-                rgba(0, 0, 0, 0) 100%
-              ),
-              linear-gradient(180deg, #3897FB 0%, #5004F1 100%)`,
-            boxShadow: '0px -6px 20px rgba(56, 151, 251, 0.23)',
+            background: `var(--ck-graphic-globe-background, radial-gradient(
+              82.42% 82.42% at 50% 86.72%,
+              rgba(255, 255, 255, 0.2) 0%,
+              rgba(0, 0, 0, 0) 100%
+            ),
+            linear-gradient(180deg, #3897FB 0%, #5004F1 100%))`,
+            boxShadow:
+              'var(--ck-graphic-globe-box-shadow, 0px -6px 20px rgba(56, 151, 251, 0.23))',
           }}
         >
           <div
-            key={'SlideThreeNetworks'}
             style={{
               zIndex: 3,
               position: 'absolute',
               inset: 0,
               borderRadius: 'inherit',
-              opacity: 0.6,
-              boxShadow: 'inset 0 -8px 24px 6px #5004F1',
+              boxShadow:
+                'inset 0 -16px 16px 16px var(--ck-graphic-globe-background, rgba(80,4,241,0.7))',
+            }}
+          />
+          <div
+            style={{
+              zIndex: 4,
+              position: 'absolute',
+              inset: '50% 35%',
+              borderRadius: 'inherit',
+              opacity: 0.35,
+              boxShadow: '0 42px 32px 16px #ffffff',
             }}
           />
           {getNetworkCircle(0.1, Boolean(layoutId))}
@@ -602,7 +625,8 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
               position: 'absolute',
               inset: 0,
               borderRadius: '50%',
-              boxShadow: '0 0 0 2px rgba(126, 112, 243, 0.11)',
+              boxShadow:
+                '0 0 0 2px var(--ck-graphic-globe-lines, rgba(126, 112, 243, 1))',
             }}
           />
           <motion.div
@@ -616,7 +640,8 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
               position: 'absolute',
               inset: 0,
               borderRadius: '50%',
-              boxShadow: '0 0 0 2px rgba(126, 112, 243, 0.11)',
+              boxShadow:
+                '0 0 0 2px var(--ck-graphic-globe-lines, rgba(126, 112, 243, 1))',
             }}
           />
         </motion.div>
@@ -670,8 +695,10 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
           alignItems: 'center',
           justifyContent: 'center',
           padding: 13,
-          background: 'var(--body-background)',
-          boxShadow: '0px 2px 9px rgba(0, 0, 0, 0.15)',
+          background:
+            'var(--ck-graphic-compass-background,var(--body-background))',
+          boxShadow:
+            'var(--ck-graphic-compass-box-shadow,0px 2px 9px rgba(0, 0, 0, 0.15))',
         }}
       >
         <BgLighten />

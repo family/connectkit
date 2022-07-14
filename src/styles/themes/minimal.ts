@@ -64,4 +64,22 @@ export default {
   '--ck-modal-h1-font-weight': '400',
   '--ck-modal-heading-font-weight': '400',
   '--ck-primary-button-font-weight': '400',
+
+  /** Graphics options for our themes, not to be exposed to devs */
+
+  '--ck-graphic-primary-color': '#111111',
+  '--ck-graphic-primary-background': '#ffffff',
+  '--ck-graphic-primary-box-shadow': 'inset 0 0 0 1px #EBEBEB',
+
+  '--ck-graphic-secondary-color': '#DCDDDE',
+  '--ck-graphic-secondary-background': '#ffffff',
+  '--ck-graphic-secondary-box-shadow': 'inset 0 0 0 1px #EBEBEB',
+
+  '--ck-graphic-compass-color': '#111111',
+  '--ck-graphic-compass-background': '#ffffff',
+  '--ck-graphic-compass-box-shadow': 'inset 0 0 0 1px #EBEBEB',
+
+  '--ck-graphic-globe-background': '#EBEBEB',
+  '--ck-graphic-globe-lines': '#ffffff',
+  '--ck-graphic-globe-box-shadow': 'inset 0 0 0 1px #EBEBEB',
 };
