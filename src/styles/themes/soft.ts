@@ -33,7 +33,7 @@ export default {
     '0 0 0 1px #D9DBDD, 0px 0 0 rgba(0, 0, 0, 0.02)',
 
   '--focus-color': '#0555FE',
-  '--ck-modal-box-shadow': `inset 0 0 0 1px rgba(0, 0, 0, 0.03), 0px 3px 16px rgba(0, 0, 0, 0.08)`,
+  '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
   '--body-color': '#414451',
   '--body-color-muted': '#9196A1',
   '--body-color-muted-hover': '#000000',

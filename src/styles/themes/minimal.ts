@@ -29,7 +29,7 @@ export default {
   '--ck-secondary-button-hover-box-shadow': 'inset 0 0 0 1px #111111',
 
   '--focus-color': '#0555FE',
-  '--ck-modal-box-shadow': `inset 0 0 0 1px rgba(17, 17, 17, 0.08)`,
+  '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
   '--body-color': '#111111',
   '--body-color-muted': '#A0A0A0',
   '--body-color-muted-hover': '#000000',

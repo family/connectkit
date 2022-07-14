@@ -38,7 +38,7 @@ export default {
     'inset 0 0 0 2px #DFE4EC, inset  0 -2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--focus-color': '#0555FE',
-  '--ck-modal-box-shadow': `0 0 0 2px #DFE4EC`,
+  '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
   '--body-color': '#000000',
   '--body-color-muted': '#93989F',
   '--body-color-muted-hover': '#000000',
