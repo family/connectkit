@@ -109,6 +109,8 @@ export const Slider = styled.div`
 `;
 
 export const Dots = styled.div`
+  position: relative;
+  top: -1px;
   display: flex;
   justify-content: center;
   pointer-events: auto;
@@ -129,11 +131,11 @@ export const Dot = styled.button<{ $active: boolean }>`
     content: '';
     display: block;
     width: 16px;
-    height: 2px;
+    height: 3px;
     opacity: 0.12;
     border-radius: 4px;
     background: var(--ck-accent-color, var(--body-color));
-    transition: transform 200ms ease, color 80ms ease;
+    transition: transform 200ms ease, opacity 180ms ease;
   }
   ${(props) =>
     props.$active
@@ -150,7 +152,6 @@ export const Dot = styled.button<{ $active: boolean }>`
             transform: scaleY(3.5);
           }
           &:active:before {
-            transform: scaleY(1) scaleX(0.98);
           }
         `}
 `;
