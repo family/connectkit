@@ -4,7 +4,7 @@ export default {
   '--border-radius': '8px',
 
   '--ck-connectbutton-font-size': '17px',
-  '--ck-connectbutton-color': '#373737',
+  '--ck-connectbutton-color': '#000000',
   '--ck-connectbutton-background': '#ffffff',
   '--ck-connectbutton-box-shadow':
     '-4px 4px 0px #000000, inset 0 0 0 2px #000000',
@@ -18,12 +18,12 @@ export default {
   '--ck-primary-button-color': '#373737',
   '--ck-primary-button-background': '#ffffff',
   '--ck-primary-button-box-shadow':
-    '-4px 4px 0 0 #000000, inset 0 0 0 2px #000000',
+    'inset 0 0 0 2px #000000, -4px 4px 0 0 #000000',
   '--ck-primary-button-border-radius': '8px',
 
   '--ck-primary-button-hover-background': '#F3EDE8',
   '--ck-primary-button-hover-box-shadow':
-    '0 0 0 0 #000000, inset 0 0 0 2px #000000',
+    'inset 0 0 0 2px #000000, -0px 0px 0 0 #000000',
 
   '--ck-secondary-button-border-radius': '8px',
   '--ck-secondary-button-color': '#373737',
@@ -33,7 +33,7 @@ export default {
 
   '--ck-secondary-button-hover-background': '#F3EDE8',
   '--ck-secondary-button-hover-box-shadow':
-    '0 0 0 0 #000000, 0 0 0 2px #000000',
+    '0 0 0 0 #000000, inset 0 0 0 2px #000000',
 
   '--focus-color': '#3B99FC',
 
