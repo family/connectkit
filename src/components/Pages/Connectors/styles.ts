@@ -97,7 +97,7 @@ export const ConnectorButton = styled(motion.button)`
   text-align: var(--body-button-text-align, left);
   transition: 180ms ease;
   transition-property: background, color, box-shadow, transform;
-  /* will-change: transform, box-shadow, background-color, color; */
+  will-change: transform, box-shadow, background-color, color;
 
   --fallback-color: var(--ck-primary-button-color);
   --fallback-background: var(--ck-primary-button-background);

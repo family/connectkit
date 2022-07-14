@@ -168,11 +168,11 @@ export const ButtonContainer = styled.button<{
   white-space: nowrap;
   transition: 100ms ease;
   transition-property: box-shadow, background-color;
-
   color: var(--color);
   background: var(--background);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
+  will-change: transform, box-shadow, background-color, color;
 
   ${DownloadArrow} {
     ${Arrow} {
