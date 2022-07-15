@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
-import { CustomTheme, Languages, Theme } from '../../types';
+import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
 import Onboarding from '../Pages/Onboarding';
@@ -18,10 +18,16 @@ import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitTh
 const customThemeDefault: object = {};
 
 const ConnectModal: React.FC<{
+  mode?: Mode;
   theme?: Theme;
   customTheme?: CustomTheme;
   lang?: Languages;
-}> = ({ theme = 'light', customTheme = customThemeDefault, lang = 'en' }) => {
+}> = ({
+  mode = 'auto',
+  theme = 'auto',
+  customTheme = customThemeDefault,
+  lang = 'en',
+}) => {
   const context = useContext();
   const { isConnected } = useAccount();
 
@@ -50,6 +56,7 @@ const ConnectModal: React.FC<{
     if (isConnected && context.route !== routes.PROFILE) hide();
   }, [isConnected]);
 
+  useEffect(() => context.setMode(mode), [mode]);
   useEffect(() => context.setTheme(theme), [theme]);
   useEffect(() => context.setCustomTheme(customTheme), [customTheme]);
   useEffect(() => context.setLang(lang), [lang]);
@@ -73,7 +80,7 @@ const ConnectModal: React.FC<{
     <ConnectKitThemeProvider
       theme={theme}
       customTheme={customTheme}
-      mode={'auto'}
+      mode={mode}
     >
       <Modal
         open={context.open}

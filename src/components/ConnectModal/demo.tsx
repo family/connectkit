@@ -84,7 +84,7 @@ const ConnectModal: React.FC<{
   open?: boolean;
   onClose?: () => void;
 }> = ({
-  theme = 'light',
+  theme = 'auto',
   customTheme = customThemeDefault,
   lang = 'en',
   mode = 'auto',

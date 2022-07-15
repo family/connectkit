@@ -141,7 +141,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     <>
       <ThemeProvider theme={defaultTheme}>
         {children}
-        <ConnectKitModal lang={ckLang} theme={ckTheme} />
+        <ConnectKitModal lang={ckLang} theme={ckTheme} mode={mode} />
       </ThemeProvider>
     </>
   );

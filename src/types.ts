@@ -1,7 +1,5 @@
 export type Theme =
   | 'auto'
-  | 'light'
-  | 'dark'
   | 'web95'
   | 'retro'
   | 'soft'
