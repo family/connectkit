@@ -282,7 +282,7 @@ export const PageContainer = styled(motion.div)`
     animation-name: ${FadeInScaleUp};
   }
   &.exit-scale-down {
-    z-index: 3;
+    z-index: 1;
     pointer-events: none;
     position: absolute;
     /* top: 0; */
@@ -290,7 +290,7 @@ export const PageContainer = styled(motion.div)`
     animation-name: ${FadeOutScaleDown};
   }
   &.exit {
-    z-index: 3;
+    z-index: 1;
     pointer-events: none;
     position: absolute;
     /* top: 0; */
@@ -312,9 +312,11 @@ export const PageContainer = styled(motion.div)`
       animation-name: ${FadeIn};
     }
     &.exit-scale-down {
+      z-index: 3;
       animation-name: ${FadeOut};
     }
     &.exit {
+      z-index: 3;
       animation-name: ${FadeOut};
       animation-delay: 0ms;
     }
