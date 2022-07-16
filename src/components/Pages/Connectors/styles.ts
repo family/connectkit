@@ -146,7 +146,7 @@ export const ConnectorButton = styled(motion.button)`
   border-radius: var(--border-radius);
 
   &:disabled {
-    transition: 0ms;
+    transition: 180ms ease;
   }
 
   &:not(:disabled) {

@@ -80,7 +80,8 @@ export default {
     '--ck-primary-button-border-radius': '16px',
     '--ck-primary-button-font-weight': '600',
 
-    '--ck-primary-button-hover-box-shadow': 'inset 0 0 0 2px #ffffff',
+    '--ck-primary-button-hover-box-shadow':
+      'inset 0 0 0 2px rgba(255, 255, 255, 0.4)',
 
     '--ck-primary-button-active-border-radius': '16px',
 
