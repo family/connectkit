@@ -1,5 +1,6 @@
 export * as Types from './types';
 export { default as getDefaultClient } from './defaultClient';
+export { useModal } from './components/ConnectKit';
 
 export { ConnectKitProvider } from './components/ConnectKit';
 export { ConnectKitButton } from './components/ConnectButton';
