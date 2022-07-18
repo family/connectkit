@@ -149,7 +149,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
 
 export const useContext = () => {
   const context = React.useContext(Context);
-  if (!context) throw Error('ConnectKit hook must be inside a Provider.');
+  if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
   return context;
 };
 
