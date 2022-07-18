@@ -238,7 +238,7 @@ const ChainSelector: React.FC = () => {
           if (document.activeElement === firstFocusableEl) {
             lastFocusableEl.focus();
           } else {
-            let focusItem: any = document.activeElement.previousSibling;
+            let focusItem: any = document?.activeElement?.previousSibling;
             if (!focusItem) focusItem = lastFocusableEl;
             while (focusItem.disabled) focusItem = focusItem.previousSibling;
             focusItem.focus();
@@ -247,7 +247,7 @@ const ChainSelector: React.FC = () => {
           if (document.activeElement === lastFocusableEl) {
             firstFocusableEl.focus();
           } else {
-            let focusItem: any = document.activeElement.nextSibling;
+            let focusItem: any = document?.activeElement?.nextSibling;
             if (!focusItem) focusItem = firstFocusableEl;
             while (focusItem.disabled) focusItem = focusItem.nextSibling;
             focusItem.focus();
