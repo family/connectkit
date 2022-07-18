@@ -209,47 +209,41 @@ const globalsDark = css`
  */
 // TODO: Think more about how to reset our components as to not be affected by external stylings
 // TODO: Merge theme objects instead of overriding
+
+let mode = 'auto';
 export const ResetContainer = styled(motion.div)<{
   $useTheme?: string;
   $useMode?: string;
   $customTheme?: CustomTheme;
 }>`
-  ${(props) => {
-    switch (props.$useMode) {
-      case 'light':
-        return globalsLight;
-      case 'dark':
-        return globalsDark;
-      default:
-        return css`
-          ${globalsLight}
-          @media (prefers-color-scheme: dark) {
-            ${globalsDark}
-          }
-        `;
-    }
-  }}
-
   ${themes.default}
 
   ${(props) => {
     switch (props.$useTheme) {
       case 'web95':
+        mode = 'light';
         return themes.web95;
       case 'retro':
+        mode = 'light';
         return themes.retro;
       case 'soft':
+        mode = 'light';
         return themes.soft;
       case 'midnight':
+        mode = 'dark';
         return themes.midnight;
       case 'minimal':
+        mode = 'light';
         return themes.minimal;
       case 'rounded':
+        mode = 'light';
         return themes.rounded;
       default:
         if (props.$useMode === 'light') {
+          mode = 'light';
           return themes.light;
         } else if (props.$useMode === 'dark') {
+          mode = 'dark';
           return themes.dark;
         } else {
           return css`
@@ -261,6 +255,22 @@ export const ResetContainer = styled(motion.div)<{
             }
           `;
         }
+    }
+  }}
+
+  ${(props) => {
+    switch (mode) {
+      case 'light':
+        return globalsLight;
+      case 'dark':
+        return globalsDark;
+      default:
+        return css`
+          ${globalsLight}
+          @media (prefers-color-scheme: dark) {
+            ${globalsDark}
+          }
+        `;
     }
   }}
 
