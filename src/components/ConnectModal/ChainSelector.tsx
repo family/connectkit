@@ -20,6 +20,7 @@ import {
   ConnectKitThemeProvider,
   useThemeContext,
 } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import FocusTrap from '../../hooks/useFocusTrap';
 
 const Container = styled(motion.div)``;
 
@@ -211,6 +212,55 @@ const ChainSelector: React.FC = () => {
     scroll: true,
   });
 
+  const contentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      if (e.key === 'Escape') setIsOpen(false);
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (!contentRef.current) return;
+        e.preventDefault();
+
+        const focusableEls: any = contentRef.current?.querySelectorAll(`
+            a[href]:not(:disabled),
+            button:not(:disabled),
+            textarea:not(:disabled),
+            input[type="text"]:not(:disabled),
+            input[type="radio"]:not(:disabled),
+            input[type="checkbox"]:not(:disabled),
+            select:not(:disabled)
+          `),
+          firstFocusableEl: any = focusableEls[0],
+          lastFocusableEl: any = focusableEls[focusableEls.length - 1];
+
+        if (e.key === 'ArrowUp') {
+          if (document.activeElement === firstFocusableEl) {
+            lastFocusableEl.focus();
+          } else {
+            let focusItem: any = document.activeElement.previousSibling;
+            if (!focusItem) focusItem = lastFocusableEl;
+            while (focusItem.disabled) focusItem = focusItem.previousSibling;
+            focusItem.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusableEl) {
+            firstFocusableEl.focus();
+          } else {
+            let focusItem: any = document.activeElement.nextSibling;
+            if (!focusItem) focusItem = firstFocusableEl;
+            while (focusItem.disabled) focusItem = focusItem.nextSibling;
+            focusItem.focus();
+          }
+        }
+      }
+    };
+    document.addEventListener('keydown', listener);
+    return () => {
+      document.removeEventListener('keydown', listener);
+    };
+  }, [isOpen]);
+
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
@@ -298,44 +348,46 @@ const ChainSelector: React.FC = () => {
               $useMode={themeContext.mode}
               $customTheme={themeContext.customTheme}
             >
-              <DropdownWindow>
-                <DropdownOverlay onClick={() => setIsOpen(false)} />
-                <DropdownContainer
-                  ref={targetRef}
-                  initial={'collapsed'}
-                  animate={'open'}
-                  exit={'collapsed'}
-                  variants={{
-                    collapsed: {
-                      transformOrigin: '0 0',
-                      opacity: 0,
-                      scale: 0.96,
-                      z: 0.01,
-                      y: -4,
-                      x: 0,
-                      transition: {
-                        duration: 0.1,
+              <FocusTrap>
+                <DropdownWindow ref={contentRef}>
+                  <DropdownOverlay onClick={() => setIsOpen(false)} />
+                  <DropdownContainer
+                    ref={targetRef}
+                    initial={'collapsed'}
+                    animate={'open'}
+                    exit={'collapsed'}
+                    variants={{
+                      collapsed: {
+                        transformOrigin: '0 0',
+                        opacity: 0,
+                        scale: 0.96,
+                        z: 0.01,
+                        y: -4,
+                        x: 0,
+                        transition: {
+                          duration: 0.1,
+                        },
                       },
-                    },
-                    open: {
-                      transformOrigin: '0 0',
-                      willChange: 'opacity,transform',
-                      opacity: 1,
-                      scale: 1,
-                      z: 0.01,
-                      y: 0,
-                      x: 0,
-                      transition: {
-                        ease: [0.76, 0, 0.24, 1],
-                        duration: 0.15,
+                      open: {
+                        transformOrigin: '0 0',
+                        willChange: 'opacity,transform',
+                        opacity: 1,
+                        scale: 1,
+                        z: 0.01,
+                        y: 0,
+                        x: 0,
+                        transition: {
+                          ease: [0.76, 0, 0.24, 1],
+                          duration: 0.15,
+                        },
                       },
-                    },
-                  }}
-                >
-                  <DropdownHeading>Switch Networks</DropdownHeading>
-                  <SwitchNetworksList />
-                </DropdownContainer>
-              </DropdownWindow>
+                    }}
+                  >
+                    <DropdownHeading>Switch Networks</DropdownHeading>
+                    <SwitchNetworksList />
+                  </DropdownContainer>
+                </DropdownWindow>
+              </FocusTrap>
             </ResetContainer>
           )}
         </AnimatePresence>

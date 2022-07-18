@@ -9,9 +9,15 @@ function useFocusTrap() {
 
   function handleFocus(e: any) {
     if (!elRef.current) return;
-    var focusableEls = elRef.current.querySelectorAll(
-        'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
-      ),
+    var focusableEls = elRef.current.querySelectorAll(`
+        a[href]:not(:disabled),
+        button:not(:disabled),
+        textarea:not(:disabled),
+        input[type="text"]:not(:disabled),
+        input[type="radio"]:not(:disabled),
+        input[type="checkbox"]:not(:disabled),
+        select:not(:disabled)
+      `),
       firstFocusableEl = focusableEls[0],
       lastFocusableEl = focusableEls[focusableEls.length - 1];
 
