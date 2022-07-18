@@ -84,6 +84,7 @@ const About: React.FC = () => {
     if (sliderRef.current) {
       const { offsetWidth: width } = sliderRef.current;
       sliderRef.current.scrollLeft = width * index;
+      setTimeout(() => setSlider(index), 100);
     }
   };
 
