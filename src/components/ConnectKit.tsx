@@ -81,9 +81,9 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
     avoidLayoutShift: true,
-    embedGoogleFonts: true,
+    embedGoogleFonts: false,
     truncateLongENSAddress: true,
-    walletConnectName: '',
+    walletConnectName: 'Other Wallets',
     reducedMotion: false,
   };
 
