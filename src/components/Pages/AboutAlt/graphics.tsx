@@ -554,9 +554,11 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
         >
           <SpinContainer
             style={
-              !Boolean(layoutId) && {
-                animationPlayState: 'paused',
-              }
+              !Boolean(layoutId)
+                ? {
+                    animationPlayState: 'paused',
+                  }
+                : undefined
             }
           >
             <svg
