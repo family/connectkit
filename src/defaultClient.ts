@@ -64,6 +64,7 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
     new InjectedConnector({
       chains,
       options: {
+        shimDisconnect: true,
         name: (detectedName) =>
           `Injected (${
             typeof detectedName === 'string'
