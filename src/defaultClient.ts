@@ -38,6 +38,7 @@ type ConnectKitClientProps = {
   autoConnect?: boolean;
   connectors?: Connector[];
   provider: Provider;
+  webSocketProvider?: any;
 };
 const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
@@ -100,14 +101,18 @@ const defaultClient = ({
     })
   );
 
-  const { provider: configuredProvider, chains: configuredChains } =
-    configureChains(chains, providers);
+  const {
+    provider: configuredProvider,
+    chains: configuredChains,
+    webSocketProvider,
+  } = configureChains(chains, providers);
 
   const connectKitClient: ConnectKitClientProps = {
     autoConnect,
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
     provider: provider ?? configuredProvider,
+    webSocketProvider,
   };
 
   return { ...connectKitClient };
