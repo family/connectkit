@@ -1,7 +1,6 @@
 export default {
   '--border-radius': '12px',
 
-  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-border-radius': '12px',
   '--ck-connectbutton-color': '#414451',
   '--ck-connectbutton-background': '#ffffff',

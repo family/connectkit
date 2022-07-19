@@ -3,7 +3,6 @@ export default {
     '"Nunito",ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--border-radius': '24px',
 
-  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-font-weight': '700',
   '--ck-connectbutton-border-radius': '14px',
   '--ck-connectbutton-color': '#000000',
