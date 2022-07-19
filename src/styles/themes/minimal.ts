@@ -79,7 +79,7 @@ export default {
   '--ck-graphic-compass-background': '#ffffff',
   '--ck-graphic-compass-box-shadow': 'inset 0 0 0 1px #EBEBEB',
 
-  '--ck-graphic-globe-background': '#EBEBEB',
+  '--ck-graphic-globe-background': '#D9D9D9',
   '--ck-graphic-globe-lines': '#ffffff',
   '--ck-graphic-globe-box-shadow': 'inset 0 0 0 1px #EBEBEB',
 };

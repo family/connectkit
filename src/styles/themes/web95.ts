@@ -115,7 +115,7 @@ export default {
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
   '--ck-graphic-globe-background': '#ffffff',
-  '--ck-graphic-globe-lines': '#000000',
+  '--ck-graphic-globe-lines': '#808080',
   '--ck-graphic-globe-box-shadow':
-    ' 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
+    ' 0 0 0 1px #999A9E, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC',
 };

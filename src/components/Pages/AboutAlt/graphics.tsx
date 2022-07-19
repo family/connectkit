@@ -33,48 +33,11 @@ const spin = keyframes`
 const SpinContainer = styled(motion.div)`
   z-index: -1;
   position: absolute;
-  inset: 0.5px;
+  inset: 0;
   overflow: hidden;
   border-radius: 100%;
-  animation: ${spin} 2s linear infinite;
+  animation: ${spin} 16s linear infinite;
 `;
-
-const spinInner = keyframes`
-  from{ transform: translateX(var(--x)); }
-  to{ transform: translateX(var(--x-offset)); }
-`;
-const SpinContainerInner = styled(motion.div)`
-  opacity: 0.8;
-  position: absolute;
-  inset: 14px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 3px var(--ck-graphic-globe-lines, white);
-  transform: translateX(var(--x));
-  animation: ${spinInner} 8s ease-in-out alternate infinite;
-`;
-
-function getNetworkCircle(n: number, animate: boolean = true) {
-  const duration = 12;
-  const x = 60 + n * 40;
-  const offsetX = 20 * n;
-
-  const offsetCSS = {
-    '--x': `${x}px`,
-    '--x-offset': animate ? `${x + offsetX}px` : `${x}px`,
-  } as React.CSSProperties;
-
-  return (
-    <SpinContainer
-      style={{
-        animationDelay: `-${duration * n}s`,
-        animationDuration: `${duration}s`,
-        animationPlayState: animate ? 'running' : 'paused',
-      }}
-    >
-      <SpinContainerInner style={offsetCSS} />
-    </SpinContainer>
-  );
-}
 
 const BgLighten = styled(motion.div)`
   overflow: hidden;
@@ -589,31 +552,140 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
               'var(--ck-graphic-globe-box-shadow, 0px -6px 20px rgba(56, 151, 251, 0.23))',
           }}
         >
-          <div
-            style={{
-              zIndex: 3,
-              position: 'absolute',
-              inset: 0,
-              borderRadius: 'inherit',
-              boxShadow:
-                'inset 0 -16px 16px 16px var(--ck-graphic-globe-background, rgba(80,4,241,0.7))',
-            }}
-          />
-          <div
-            style={{
-              zIndex: 4,
-              position: 'absolute',
-              inset: '50% 35%',
-              borderRadius: 'inherit',
-              opacity: 0.35,
-              boxShadow: '0 42px 32px 16px #ffffff',
-            }}
-          />
-          {getNetworkCircle(0.1, Boolean(layoutId))}
-          {getNetworkCircle(0.25, Boolean(layoutId))}
-          {getNetworkCircle(0.4, Boolean(layoutId))}
-          {getNetworkCircle(0.7, Boolean(layoutId))}
-          {getNetworkCircle(0.85, Boolean(layoutId))}
+          <SpinContainer
+            style={
+              !Boolean(layoutId) && {
+                animationPlayState: 'paused',
+              }
+            }
+          >
+            <svg
+              width="128"
+              height="128"
+              viewBox="0 0 128 128"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g>
+                <circle
+                  cx="30"
+                  cy="141"
+                  r="64"
+                  stroke="url(#networkRadialA)"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="78.8515"
+                  cy="131.123"
+                  r="54.1005"
+                  transform="rotate(-37.4016 78.8515 131.123)"
+                  stroke="url(#networkRadialB)"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="63.6053"
+                  cy="2.12794"
+                  r="50.8338"
+                  transform="rotate(134.702 63.6053 2.12794)"
+                  stroke="url(#networkRadialC)"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="126.658"
+                  cy="56.6577"
+                  r="50.3433"
+                  transform="rotate(-105 126.658 56.6577)"
+                  stroke="url(#networkRadialD)"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="13.6619"
+                  cy="18.9603"
+                  r="46.0247"
+                  transform="rotate(107.362 13.6619 18.9603)"
+                  stroke="url(#networkRadialE)"
+                  stroke-width="3"
+                />
+              </g>
+              <defs>
+                <radialGradient
+                  id="networkRadialA"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(60.5 84) rotate(104.668) scale(77.0097)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop
+                    offset="1"
+                    stopColor="var(--ck-graphic-globe-lines, white)"
+                    stopOpacity="0"
+                  />
+                </radialGradient>
+                <radialGradient
+                  id="networkRadialB"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(96.1805 81.6717) rotate(97.125) scale(64.7443)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop
+                    offset="1"
+                    stopColor="var(--ck-graphic-globe-lines, white)"
+                    stopOpacity="0"
+                  />
+                </radialGradient>
+                <radialGradient
+                  id="networkRadialC"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(96.3816 -36.4455) rotate(114.614) scale(57.7177)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop
+                    offset="1"
+                    stopColor="var(--ck-graphic-globe-lines, white)"
+                    stopOpacity="0"
+                  />
+                </radialGradient>
+                <radialGradient
+                  id="networkRadialD"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(137.86 7.73234) rotate(92.3288) scale(62.743)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop
+                    offset="1"
+                    stopColor="var(--ck-graphic-globe-lines, white)"
+                    stopOpacity="0"
+                  />
+                </radialGradient>
+                <radialGradient
+                  id="networkRadialE"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(35.3203 -21.566) rotate(104.513) scale(54.8617)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop
+                    offset="1"
+                    stopColor="var(--ck-graphic-globe-lines, white)"
+                    stopOpacity="0"
+                  />
+                </radialGradient>
+              </defs>
+            </svg>
+          </SpinContainer>
         </MainCircleInner>
         <motion.div exit={{ opacity: 0 }}>
           <motion.div
