@@ -29,7 +29,8 @@ function useDefaultWallets(): WalletProps[] | any {
     'unstoppable',
     'slope',
     'onto',
-    'gnosisSafe'
+    'gnosisSafe',
+    'frontier'
   );
 
   const wallets = getWallets({ chains });

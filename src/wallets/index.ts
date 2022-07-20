@@ -13,6 +13,7 @@ import { unstoppable } from './connectors/unstoppable';
 import { slope } from './connectors/slope';
 import { onto } from './connectors/onto';
 import { gnosisSafe } from './connectors/gnosisSafe';
+import { frontier } from './connectors/frontier';
 import { Chain } from 'wagmi';
 
 export const getWallets = ({
@@ -38,5 +39,6 @@ export const getWallets = ({
     steak({ chains }),
     slope({ chains }),
     onto({ chains }),
+    frontier({ chains }),
   ];
 };
