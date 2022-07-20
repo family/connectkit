@@ -38,6 +38,7 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
 import Button from '../../Common/Button';
+import useDefaultWallets from '../../../wallets/useDefaultWallets';
 
 const Wallets: React.FC = () => {
   const context = useContext();
@@ -122,6 +123,27 @@ const Wallets: React.FC = () => {
     return needsInjectedWalletFallback;
   };
 
+  const wallets = useDefaultWallets();
+
+  const findInjectedConnectorInfo = (name: string) => {
+    let walletList = name.split(/[(),]+/);
+    walletList.shift(); // remove "Injected" from array
+    walletList = walletList.map((x) => x.trim());
+
+    const hasWalletLogo = walletList.filter((x) => {
+      const a = wallets.map((wallet) => wallet.name).includes(x);
+      if (a) return x;
+      return null;
+    });
+    if (hasWalletLogo.length === 0) return null;
+
+    const foundInjector = wallets.filter(
+      (wallet) => wallet.installed && wallet.name === hasWalletLogo[0]
+    )[0];
+
+    return foundInjector;
+  };
+
   return (
     <PageContent style={{ width: 312 }}>
       <ModalHeadingBlock />
@@ -134,11 +156,18 @@ const Wallets: React.FC = () => {
               )[0];
               if (!info) return null;
 
+              let logos = info.logos;
+              let name = info.shortName ?? info.name ?? connector.name;
+
               if (info.id === 'injected') {
                 if (!shouldShowInjectedConnector()) return null;
-              }
 
-              let name = info.shortName ?? info.name ?? connector.name;
+                const foundInjector = findInjectedConnectorInfo(connector.name);
+                if (foundInjector) {
+                  logos = foundInjector.logos;
+                  name = foundInjector.name.replace(' Wallet', '');
+                }
+              }
 
               if (
                 context.options?.walletConnectName &&
@@ -172,9 +201,10 @@ const Wallets: React.FC = () => {
                   }}
                 >
                   <MobileConnectorIcon>
-                    {info.logos.mobile ??
-                      info.logos.appIcon ??
-                      info.logos.connectorButton}
+                    {logos.mobile ??
+                      logos.appIcon ??
+                      logos.connectorButton ??
+                      logos.default}
                   </MobileConnectorIcon>
                   <MobileConnectorLabel>{name}</MobileConnectorLabel>
                 </MobileConnectorButton>
@@ -210,12 +240,8 @@ const Wallets: React.FC = () => {
                 (c) => c.id === connector.id
               )[0];
               if (!info) return null;
-              let logo = info.logos.connectorButton ?? info.logos.default;
-              if (info.extensionIsInstalled && info.logos.appIcon) {
-                if (info.extensionIsInstalled()) {
-                  logo = info.logos.appIcon;
-                }
-              }
+
+              let logos = info.logos;
 
               let name = info.name ?? connector.name;
               if (
@@ -227,6 +253,19 @@ const Wallets: React.FC = () => {
 
               if (info.id === 'injected') {
                 if (!shouldShowInjectedConnector()) return null;
+
+                const foundInjector = findInjectedConnectorInfo(connector.name);
+                if (foundInjector) {
+                  logos = foundInjector.logos;
+                  name = foundInjector.name;
+                }
+              }
+
+              let logo = logos.connectorButton ?? logos.default;
+              if (info.extensionIsInstalled && logos.appIcon) {
+                if (info.extensionIsInstalled()) {
+                  logo = logos.appIcon;
+                }
               }
               return (
                 <ConnectorButton

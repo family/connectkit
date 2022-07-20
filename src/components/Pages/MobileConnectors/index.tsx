@@ -44,7 +44,7 @@ const MobileConnectors: React.FC = () => {
 
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
   const wallets = useDefaultWallets().filter(
-    (wallet: WalletProps) => wallet.installed === undefined || wallet.installed
+    (wallet: WalletProps) => wallet.installed === undefined // Do not show wallets that are injected connectors
   );
 
   const connectWallet = (wallet: WalletProps) => {
