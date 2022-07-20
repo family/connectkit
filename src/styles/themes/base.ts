@@ -1,6 +1,7 @@
 export default {
   light: {
     /** Connect Wallet Button */
+    '--ck-connectbutton-font-size': '15px',
     '--ck-connectbutton-color': '#373737',
     '--ck-connectbutton-background': '#F6F7F9',
 
@@ -67,6 +68,7 @@ export default {
     '--copytoclipboard-stroke': '#CCCCCC',
   },
   dark: {
+    '--ck-connectbutton-font-size': '15px',
     '--ck-connectbutton-color': '#ffffff',
     '--ck-connectbutton-background': '#383838',
 
