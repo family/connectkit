@@ -131,14 +131,14 @@ const Wallets: React.FC = () => {
     walletList = walletList.map((x) => x.trim());
 
     const hasWalletLogo = walletList.filter((x) => {
-      const a = wallets.map((wallet) => wallet.name).includes(x);
+      const a = wallets.map((wallet: any) => wallet.name).includes(x);
       if (a) return x;
       return null;
     });
     if (hasWalletLogo.length === 0) return null;
 
     const foundInjector = wallets.filter(
-      (wallet) => wallet.installed && wallet.name === hasWalletLogo[0]
+      (wallet: any) => wallet.installed && wallet.name === hasWalletLogo[0]
     )[0];
 
     return foundInjector;
