@@ -10,22 +10,22 @@ const supportedChains: Chain[] = [
   },
   {
     id: 3,
-    name: 'Rinkby Testnet',
+    name: 'Rinkeby',
     logo: <Logos.Ethereum testnet />,
   },
   {
     id: 4,
-    name: 'Ropsten Testnet',
+    name: 'Ropsten',
     logo: <Logos.Ethereum testnet />,
   },
   {
     id: 5,
-    name: 'Görli Testnet',
+    name: 'Görli',
     logo: <Logos.Ethereum testnet />,
   },
   {
     id: 42,
-    name: 'Kovan Testnet',
+    name: 'Kovan',
     logo: <Logos.Ethereum testnet />,
   },
   {
@@ -35,7 +35,7 @@ const supportedChains: Chain[] = [
   },
   {
     id: 69, // nice
-    name: 'Optimism Kovan Testnet',
+    name: 'Optimism Kovan',
     logo: <Logos.Optimism testnet />,
   },
   {
@@ -45,17 +45,17 @@ const supportedChains: Chain[] = [
   },
   {
     id: 80001,
-    name: 'Polygon Mumbai Testnet',
+    name: 'Polygon Mumbai',
     logo: <Logos.Polygon testnet />,
   },
   {
     id: 31337,
-    name: 'Hardhat Default Network',
+    name: 'Hardhat',
     logo: <Logos.Ethereum testnet />,
   },
   {
     id: 1337,
-    name: 'Localhost Testnet',
+    name: 'Localhost',
     logo: <Logos.Ethereum testnet />,
   },
   {
@@ -65,7 +65,7 @@ const supportedChains: Chain[] = [
   },
   {
     id: 421611,
-    name: 'Arbitrum Rinkeby Network',
+    name: 'Arbitrum Rinkeby',
     logo: <Logos.Arbitrum testnet />,
   },
 ];
