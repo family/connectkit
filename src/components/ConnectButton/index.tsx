@@ -195,7 +195,7 @@ function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
             ? 'auto'
             : bounds.width > 10
             ? bounds.width + 32
-            : 138.75,
+            : 135.95,
       }}
       transition={{
         duration: initialRan ? 0.3 : 0,
