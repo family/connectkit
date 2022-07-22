@@ -74,7 +74,7 @@ export default {
   '--ck-primary-button-font-weight': '700',
 
   /** Graphics options for our themes, not to be exposed to devs */
-
+  /*
   '--ck-graphic-primary-color': '#6C7381',
   '--ck-graphic-primary-background': '#ffffff',
   '--ck-graphic-primary-box-shadow': 'inset 0 0 0 2px #DFE4EC',
@@ -91,4 +91,5 @@ export default {
     'radial-gradient(84.37% 84.37% at 50% 15.63%, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, #DFE4EC 0%, #DFE4EC 114.06%), #DFE4EC',
   '--ck-graphic-globe-lines': '#ffffff',
   '--ck-graphic-globe-box-shadow': 'inset 0 0 0 2px #DFE4EC',
+  */
 };

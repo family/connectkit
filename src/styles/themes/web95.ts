@@ -96,12 +96,9 @@ export default {
 
   /** Graphics options for our themes, not to be exposed to devs */
 
-  '--ck-graphic-primary-color': '#7D7D7D',
-  '--ck-graphic-primary-background':
-    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
-  '--ck-graphic-primary-box-shadow':
-    'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-
+  '--ck-graphic-primary-color': '#333333',
+  '--ck-graphic-primary-background': '#FFFFFF',
+  /*
   '--ck-graphic-secondary-color': '#7D7D7D',
   '--ck-graphic-secondary-background':
     'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
@@ -109,8 +106,9 @@ export default {
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
   '--ck-graphic-compass-color': '#7D7D7D',
-  '--ck-graphic-compass-background':
-    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+  */
+  '--ck-graphic-compass-background': '#FFFFFF',
+  /*
   '--ck-graphic-compass-box-shadow':
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
@@ -118,4 +116,5 @@ export default {
   '--ck-graphic-globe-lines': '#808080',
   '--ck-graphic-globe-box-shadow':
     ' 0 0 0 1px #999A9E, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC',
+    */
 };
