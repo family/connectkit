@@ -97,7 +97,7 @@ const ConnectWithQRCode: React.FC<{
               <a
                 target="_blank"
                 rel="noreferrer noopener"
-                href="https://docs.family.co/connectkit/getting-started#buffer-polyfill"
+                href="https://docs.family.co/connectkit/getting-started"
               >
                 the Buffer polyfill
               </a>
