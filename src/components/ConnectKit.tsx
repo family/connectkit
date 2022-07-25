@@ -24,7 +24,7 @@ export const routes = {
 };
 
 type Connector = any;
-type Error = string | null;
+type Error = string | React.ReactNode | null;
 type ContextValue = {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
@@ -125,7 +125,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     // Other configuration
     options: opts,
     errorMessage,
-    debug: (message: string | null, code?: any) => {
+    debug: (message: string | React.ReactNode | null, code?: any) => {
       setErrorMessage(message);
 
       console.log('---------CONNECTKIT DEBUG---------');
