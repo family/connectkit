@@ -21,6 +21,7 @@ import {
   InfoButton,
   ModalHeading,
   TextWithHr,
+  ErrorMessage,
 } from './styles';
 
 import { routes, useContext } from '../../ConnectKit';
@@ -307,23 +308,7 @@ const Modal: React.FC<ModalProps> = ({
           <BoxContainer className={`${rendered && 'active'}`}>
             <AnimatePresence>
               {context.errorMessage && (
-                <motion.div
-                  style={{
-                    zIndex: -1,
-                    position: 'absolute',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: 'var(--width)',
-                    top: 64,
-                    color: '#fff',
-                    fontSize: 16,
-                    lineHeight: '20px',
-                    fontWeight: 500,
-                    background: 'var(--body-color-danger)',
-                    borderRadius: 20,
-                    padding: '24px 46px 82px 24px',
-                    transition: 'width var(--duration) var(--ease)',
-                  }}
+                <ErrorMessage
                   initial={{ y: '10%', x: '-50%' }}
                   animate={{ y: '-100%' }}
                   exit={{ y: '100%' }}
@@ -340,7 +325,7 @@ const Modal: React.FC<ModalProps> = ({
                   >
                     <CloseIcon />
                   </div>
-                </motion.div>
+                </ErrorMessage>
               )}
             </AnimatePresence>
             <ControllerContainer>

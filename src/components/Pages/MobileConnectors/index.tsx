@@ -64,7 +64,10 @@ const MobileConnectors: React.FC = () => {
       try {
         connectAsync({ connector: c.connector });
       } catch (err) {
-        context.debug('Async connect error', err);
+        context.debug(
+          'Async connect error. See console for more details.',
+          err
+        );
       }
     }
   };

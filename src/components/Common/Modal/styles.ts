@@ -2,6 +2,28 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import defaultTheme from '../../../constants/defaultTheme';
 
+export const ErrorMessage = styled(motion.div)`
+  z-index: -1;
+  pointer-events: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--width);
+  top: 64px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  background: var(--body-color-danger);
+  border-radius: 20px;
+  padding: 24px 46px 82px 24px;
+  transition: width var(--duration) var(--ease);
+  a {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+`;
+
 const FadeIn = keyframes`
 from { opacity: 0; }
   to { opacity: 1; }

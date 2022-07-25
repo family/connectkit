@@ -42,7 +42,7 @@ type ContextValue = {
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptions;
-  debug: (message: string | null, code?: any) => void;
+  debug: (message: string | React.ReactNode | null, code?: any) => void;
 };
 
 const Context = createContext<ContextValue | null>(null);

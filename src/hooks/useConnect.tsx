@@ -10,7 +10,7 @@ export function useConnect() {
           context.debug(err.message, err);
         }
       } else {
-        context.debug(`Could not connect..`, err);
+        context.debug(`Could not connect. See console for more details.`, err);
       }
     },
   });

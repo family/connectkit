@@ -71,7 +71,10 @@ const ConnectWithQRCode: React.FC<{
         try {
           await connectWallet(c);
         } catch (err) {
-          context.debug('Could not connec', err);
+          context.debug(
+            'Coinbase Wallet cannot connect. See console for more details.',
+            err
+          );
         }
         break;
       case 'walletConnect':
@@ -88,7 +91,20 @@ const ConnectWithQRCode: React.FC<{
         try {
           await connectWallet(c);
         } catch (err) {
-          context.debug('Could not connec', err);
+          context.debug(
+            <>
+              WalletConnect cannot connect. You may be missing{' '}
+              <a
+                target="_blank"
+                rel="noreferrer noopener"
+                href="https://docs.family.co/connectkit/getting-started#buffer-polyfill"
+              >
+                the Buffer polyfill
+              </a>
+              . See console for more details.
+            </>,
+            err
+          );
         }
         break;
     }
