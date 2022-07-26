@@ -26,7 +26,7 @@ export default {
 
   '--ck-secondary-button-hover-background': '#3c3c3e',
 
-  '--overlay-background': 'rgba(0,0,0,0.9)',
+  '--overlay-background': 'rgba(0,0,0,0.4)',
   '--ck-modal-box-shadow': `inset 0 0 0 1px #38393C, 0px 2px 4px rgba(0, 0, 0, 0.02)`,
 
   '--focus-color': '#0555FE',

@@ -97,7 +97,7 @@ export default {
 
     '--focus-color': '#1A88F8',
 
-    '--overlay-background': 'rgba(71, 88, 107, 0.24)',
+    '--overlay-background': 'rgba(0,0,0,0.4)',
     '--body-color': '#ffffff',
     '--body-color-muted': 'rgba(255, 255, 255, 0.4)',
     '--body-color-muted-hover': 'rgba(255, 255, 255, 0.8)',
