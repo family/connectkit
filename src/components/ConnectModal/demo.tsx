@@ -158,7 +158,7 @@ const ConnectModal: React.FC<{
   /* When pulling data into WalletConnect, it prioritises the og:title tag over the title tag */
   useEffect(() => {
     const appName = getAppName();
-    if (!appName || !open) return;
+    if (!appName || (!open && !inline)) return;
 
     const title = document.createElement('meta');
     title.setAttribute('property', 'og:title');
@@ -168,7 +168,7 @@ const ConnectModal: React.FC<{
     return () => {
       document.head.removeChild(title);
     };
-  }, [open]);
+  }, [open, inline]);
 
   return (
     <ConnectKitThemeProvider
