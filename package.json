@@ -15,7 +15,7 @@
     "build:publish": "rollup -c && npm publish --scope=@familyco"
   },
   "dependencies": {
-    "ethers": "^5.6.4",
+    "ethers": "^5.6.5",
     "framer-motion": "^6.3.11",
     "qrcode": "^1.5.0",
     "react": "^18.0.0",
@@ -24,7 +24,7 @@
     "react-use-measure": "^2.1.1",
     "styled-components": "^5.3.5",
     "util": "^0.12.4",
-    "wagmi": "^0.5.6"
+    "wagmi": "^0.6.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
@@ -44,6 +44,6 @@
   "resolutions": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "wagmi": "^0.5.6"
+    "wagmi": "^0.6.0"
   }
 }

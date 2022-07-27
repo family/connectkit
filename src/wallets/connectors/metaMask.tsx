@@ -62,7 +62,11 @@ export const metaMask = ({ chains }: WalletOptions): WalletProps => {
           })
         : new MetaMaskConnector({
             chains,
-            options: { shimDisconnect: true },
+            options: {
+              shimDisconnect: true,
+              shimChainChangedDisconnect: false,
+              UNSTABLE_shimOnConnectSelectAccount: true,
+            },
           });
 
       return {

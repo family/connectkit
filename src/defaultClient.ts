@@ -46,6 +46,8 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
       chains,
       options: {
         shimDisconnect: true,
+        shimChainChangedDisconnect: false,
+        UNSTABLE_shimOnConnectSelectAccount: true,
       },
     }),
     new CoinbaseWalletConnector({
@@ -89,10 +91,8 @@ const defaultClient = ({
 
   //if (!infuraId && !alchemyId) alchemyId = 'ourDefaultAlchemyId';
 
-  if (alchemyId) providers.push(alchemyProvider({ alchemyId }));
-  if (infuraId) providers.push(infuraProvider({ infuraId }));
-  providers.push(publicProvider());
-
+  if (alchemyId) providers.push(alchemyProvider({ apiKey: alchemyId }));
+  if (infuraId) providers.push(infuraProvider({ apiKey: infuraId }));
   providers.push(
     jsonRpcProvider({
       rpc: (c) => {
@@ -101,6 +101,7 @@ const defaultClient = ({
       },
     })
   );
+  providers.push(publicProvider());
 
   const {
     provider: configuredProvider,
@@ -113,7 +114,7 @@ const defaultClient = ({
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
     provider: provider ?? configuredProvider,
-    // webSocketProvider,
+    // webSocketProvider, // TODO: further tests on webSocketProvider
   };
 
   return { ...connectKitClient };
