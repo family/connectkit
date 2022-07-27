@@ -91,7 +91,9 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
 
   const [ckTheme, setTheme] = useState<Theme>(theme);
   const [ckMode, setMode] = useState<Mode>(mode);
-  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>({});
+  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(
+    customTheme ?? {}
+  );
   const [ckLang, setLang] = useState<Languages>('en');
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
@@ -141,7 +143,12 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     <>
       <ThemeProvider theme={defaultTheme}>
         {children}
-        <ConnectKitModal lang={ckLang} theme={ckTheme} mode={mode} />
+        <ConnectKitModal
+          lang={ckLang}
+          theme={ckTheme}
+          mode={mode}
+          customTheme={ckCustomTheme}
+        />
       </ThemeProvider>
     </>
   );
