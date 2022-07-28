@@ -574,7 +574,7 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
                   cy="141"
                   r="64"
                   stroke="url(#networkRadialA)"
-                  stroke-width="3"
+                  strokeWidth="3"
                 />
                 <circle
                   cx="78.8515"
@@ -582,7 +582,7 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
                   r="54.1005"
                   transform="rotate(-37.4016 78.8515 131.123)"
                   stroke="url(#networkRadialB)"
-                  stroke-width="3"
+                  strokeWidth="3"
                 />
                 <circle
                   cx="63.6053"
@@ -590,7 +590,7 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
                   r="50.8338"
                   transform="rotate(134.702 63.6053 2.12794)"
                   stroke="url(#networkRadialC)"
-                  stroke-width="3"
+                  strokeWidth="3"
                 />
                 <circle
                   cx="126.658"
@@ -598,7 +598,7 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
                   r="50.3433"
                   transform="rotate(-105 126.658 56.6577)"
                   stroke="url(#networkRadialD)"
-                  stroke-width="3"
+                  strokeWidth="3"
                 />
                 <circle
                   cx="13.6619"
@@ -606,7 +606,7 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => (
                   r="46.0247"
                   transform="rotate(107.362 13.6619 18.9603)"
                   stroke="url(#networkRadialE)"
-                  stroke-width="3"
+                  strokeWidth="3"
                 />
               </g>
               <defs>
