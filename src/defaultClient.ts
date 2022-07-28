@@ -114,7 +114,7 @@ const defaultClient = ({
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
     provider: provider ?? configuredProvider,
-    // webSocketProvider, // TODO: further tests on webSocketProvider
+    webSocketProvider,
   };
 
   return { ...connectKitClient };
