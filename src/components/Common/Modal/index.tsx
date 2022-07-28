@@ -305,6 +305,16 @@ const Modal: React.FC<ModalProps> = ({
           //   duration: !positionInside && state !== 'entered' ? 0 : 0.24,
           // }}
         >
+          {inTransition && ( // Block interaction while transitioning
+            <div
+              style={{
+                pointerEvents: 'all',
+                position: 'absolute',
+                inset: 0,
+                zIndex: 9,
+              }}
+            />
+          )}
           <BoxContainer className={`${rendered && 'active'}`}>
             <AnimatePresence>
               {context.errorMessage && (
