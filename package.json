@@ -14,6 +14,15 @@
     "build": "rollup -c",
     "build:publish": "rollup -c && npm publish --scope=@familyco"
   },
+  "keywords": [
+    "ens",
+    "react-hook",
+    "blockchain",
+    "hooks",
+    "family",
+    "ethereum",
+    "react"
+  ],
   "dependencies": {
     "ethers": "^5.6.5",
     "framer-motion": "^6.3.11",
