@@ -1,7 +1,7 @@
 export default {
-  '--font-family':
+  '--ck-font-family':
     '"SF Pro Rounded",ui-rounded,"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
-  '--border-radius': '8px',
+  '--ck-border-radius': '8px',
 
   '--ck-connectbutton-color': '#000000',
   '--ck-connectbutton-background': '#ffffff',
@@ -34,41 +34,41 @@ export default {
   '--ck-secondary-button-hover-box-shadow':
     '0 0 0 0 #000000, inset 0 0 0 2px #000000',
 
-  '--focus-color': '#3B99FC',
+  '--ck-focus-color': '#3B99FC',
 
-  '--overlay-background': 'rgba(133, 120, 122, 0.8)',
-  '--body-color': '#373737',
-  '--body-color-muted': 'rgba(0, 0, 0, 0.5)',
-  '--body-color-muted-hover': '#000000',
-  '--body-background': '#EBE1D8',
-  '--body-background-transparent': 'rgba(255,255,255,0)',
-  '--body-background-secondary': 'rgba(0,0,0,0.1)',
-  '--body-background-secondary-hover-background': '#4D4D4D',
-  '--body-background-secondary-hover-outline': '#373737',
-  '--body-background-tertiary': '#ffffff',
+  '--ck-overlay-background': 'rgba(133, 120, 122, 0.8)',
+  '--ck-body-color': '#373737',
+  '--ck-body-color-muted': 'rgba(0, 0, 0, 0.5)',
+  '--ck-body-color-muted-hover': '#000000',
+  '--ck-body-background': '#EBE1D8',
+  '--ck-body-background-transparent': 'rgba(255,255,255,0)',
+  '--ck-body-background-secondary': 'rgba(0,0,0,0.1)',
+  '--ck-body-background-secondary-hover-background': '#4D4D4D',
+  '--ck-body-background-secondary-hover-outline': '#373737',
+  '--ck-body-background-tertiary': '#ffffff',
   '--ck-tertiary-border-radius': '8px',
   '--ck-tertiary-box-shadow': '-4px 4px 0 0 #000000, inset 0 0 0 2px #000000',
 
-  '--body-action-color': '#373737',
-  '--body-divider': '#373737',
-  '--body-color-danger': '#FF4E4E',
+  '--ck-body-action-color': '#373737',
+  '--ck-body-divider': '#373737',
+  '--ck-body-color-danger': '#FF4E4E',
 
   '--ck-modal-box-shadow': '-10px 10px 0px #000000, inset 0 0 0 2px #000000',
 
-  '--copytoclipboard-stroke': '#555555',
+  '--ck-copytoclipboard-stroke': '#555555',
 
-  '--tooltip-border-radius': '8px',
-  '--tooltip-color': '#373737',
-  '--tooltip-background': '#ffffff',
-  '--tooltip-background-secondary': '#EBE1D8',
-  '--tooltip-shadow': '-6px 6px 0 0 #000000, 0 0 0 2px #000000',
+  '--ck-tooltip-border-radius': '8px',
+  '--ck-tooltip-color': '#373737',
+  '--ck-tooltip-background': '#ffffff',
+  '--ck-tooltip-background-secondary': '#EBE1D8',
+  '--ck-tooltip-shadow': '-6px 6px 0 0 #000000, 0 0 0 2px #000000',
 
-  '--spinner-color': '#0555FE',
+  '--ck-spinner-color': '#0555FE',
 
-  '--qr-border-radius': '8px',
-  '--qr-dot-color': '#000000',
-  '--qr-border-color': '#000000',
-  '--qr-background': '#ffffff',
+  '--ck-qr-border-radius': '8px',
+  '--ck-qr-dot-color': '#000000',
+  '--ck-qr-border-color': '#000000',
+  '--ck-qr-background': '#ffffff',
 
   /** Graphics options for our themes, not to be exposed to devs */
 

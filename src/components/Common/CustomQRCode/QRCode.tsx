@@ -58,8 +58,8 @@ export function QRCode({
             key={`${i}-${x}-${y}`}
             fill={
               i % 2 !== 0
-                ? 'var(--qr-background, var(--body-background))'
-                : 'var(--qr-dot-color)'
+                ? 'var(--ck-qr-background, var(--ck-body-background))'
+                : 'var(--ck-qr-dot-color)'
             }
             rx={(i - 2) * -5 + (i === 0 ? 2 : 3)}
             ry={(i - 2) * -5 + (i === 0 ? 2 : 3)}
@@ -130,7 +130,7 @@ export function QRCode({
                   key={`circle-${i}-${j}`}
                   cx={i * cellSize + cellSize / 2}
                   cy={j * cellSize + cellSize / 2}
-                  fill="var(--qr-dot-color)"
+                  fill="var(--ck-qr-dot-color)"
                   r={cellSize / 3}
                 />
               );

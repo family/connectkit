@@ -6,7 +6,7 @@ export const InfoBox = styled.div`
   padding: 24px 24px 28px;
   border-radius: var(--ck-tertiary-border-radius, 24px);
   box-shadow: var(--ck-tertiary-box-shadow, none);
-  background: var(--body-background-tertiary);
+  background: var(--ck-body-background-tertiary);
   ${ModalBody} {
     max-width: none;
   }
@@ -34,7 +34,7 @@ export const LearnMoreButton = styled(motion.button)`
   padding: 0 16px;
   border-radius: 6px;
   background: none;
-  color: var(--body-color-muted);
+  color: var(--ck-body-color-muted);
   font-size: 15px;
   line-height: 18px;
   font-weight: 500;
@@ -61,7 +61,7 @@ export const LearnMoreButton = styled(motion.button)`
     }
   }
   &:hover {
-    color: var(--body-color-muted-hover);
+    color: var(--ck-body-color-muted-hover);
     svg {
       path,
       circle {
@@ -94,7 +94,7 @@ export const ConnectorButton = styled(motion.button)`
   font-size: 17px;
   font-weight: var(--ck-primary-button-font-weight, 500);
   line-height: 20px;
-  text-align: var(--body-button-text-align, left);
+  text-align: var(--ck-body-button-text-align, left);
   transition: 180ms ease;
   transition-property: background, color, box-shadow, transform;
   will-change: transform, box-shadow, background-color, color;
@@ -198,7 +198,7 @@ export const MobileConnectorsContainer = styled(motion.div)`
 `;
 
 export const MobileConnectorButton = styled(motion.button)`
-  --background: var(--body-background-secondary);
+  --background: var(--ck-body-background-secondary);
   cursor: pointer;
   user-select: none;
   position: relative;
@@ -228,7 +228,7 @@ export const MobileConnectorButton = styled(motion.button)`
 export const MobileConnectorLabel = styled(motion.span)`
   display: block;
   padding: 10px 0 0;
-  color: var(--body-color);
+  color: var(--ck-body-color);
   opacity: 0.75;
 `;
 

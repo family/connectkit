@@ -70,10 +70,10 @@ const CircleSpinner = ({
                     y2="100"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stopColor="var(--spinner-color)" />
+                    <stop stopColor="var(--ck-spinner-color)" />
                     <stop
                       offset="1"
-                      stopColor="var(--spinner-color)"
+                      stopColor="var(--ck-spinner-color)"
                       stopOpacity="0"
                     />
                   </linearGradient>

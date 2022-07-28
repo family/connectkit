@@ -18,7 +18,7 @@ export const Logo = styled(motion.div)<{ $small?: boolean }>`
   //overflow: hidden;
   inset: 6px;
   border-radius: 50px;
-  background: var(--body-background);
+  background: var(--ck-body-background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,7 +48,7 @@ export const ExpiringSpinner = styled(motion.div)`
   z-index: 1;
   position: absolute;
   inset: -25%;
-  background: var(--body-background);
+  background: var(--ck-body-background);
   div:first-child {
     position: absolute;
     left: 50%;
@@ -60,7 +60,7 @@ export const ExpiringSpinner = styled(motion.div)`
       position: absolute;
       content: '';
       inset: 0;
-      background: var(--spinner-color);
+      background: var(--ck-spinner-color);
       transform-origin: 0% 50%;
       animation: rotateExpiringSpinner 5000ms ease-in both;
     }
@@ -76,7 +76,7 @@ export const ExpiringSpinner = styled(motion.div)`
       position: absolute;
       content: '';
       inset: 0;
-      background: var(--spinner-color);
+      background: var(--ck-spinner-color);
       transform-origin: 100% 50%;
       animation: rotateExpiringSpinner 5000ms ease-out 5000ms both;
     }

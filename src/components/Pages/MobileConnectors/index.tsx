@@ -32,7 +32,7 @@ const MoreIcon = (
   >
     <path
       d="M30 42V19M19 30.5H42"
-      stroke="var(--body-color-muted)"
+      stroke="var(--ck-body-color-muted)"
       strokeWidth="3"
       strokeLinecap="round"
     />
@@ -101,7 +101,7 @@ const MobileConnectors: React.FC = () => {
             <div className="mobile-hide">
               <WalletItem onClick={openDefaultWalletConnect}>
                 <WalletIcon
-                  style={{ background: 'var(--body-background-secondary)' }}
+                  style={{ background: 'var(--ck-body-background-secondary)' }}
                 >
                   {MoreIcon}
                 </WalletIcon>

@@ -29,7 +29,7 @@ const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
   height: 24px;
   min-width: 24px;
   min-height: 24px;
-  background: var(--body-background);
+  background: var(--ck-body-background);
   svg {
     border-radius: inherit;
     display: block;
@@ -46,9 +46,9 @@ const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
       justify-content: center;
       &:before {
         content: '?';
-        color: var(--body-color-muted);
+        color: var(--ck-body-color-muted);
         font-weight: bold;
-        font-family: var(--font-family);
+        font-family: var(--ck-font-family);
       }
     `}
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
@@ -91,8 +91,8 @@ const ChainButtonContainer = styled.div`
     pointer-events: none;
     position: absolute;
     inset: 0;
-    box-shadow: inset 0 16px 8px -12px var(--tooltip-background),
-      inset 0 -16px 8px -12px var(--tooltip-background);
+    box-shadow: inset 0 16px 8px -12px var(--ck-tooltip-background),
+      inset 0 -16px 8px -12px var(--ck-tooltip-background);
   }
 `;
 const ChainButtons = styled(motion.div)`
@@ -130,7 +130,7 @@ const ChainButton = styled(motion.button)`
   line-height: 18px;
   font-weight: 500;
   text-decoration: none;
-  color: var(--body-color);
+  color: var(--ck-body-color);
   background: none;
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease;
@@ -166,7 +166,7 @@ const ChainButton = styled(motion.button)`
   }
 `;
 const ChainButtonStatus = styled(motion.div)`
-  color: var(--body-color-muted);
+  color: var(--ck-body-color-muted);
   font-size: 15px;
   line-height: 18px;
   font-weight: 500;
@@ -181,7 +181,7 @@ const ChainButtonStatus = styled(motion.div)`
   }
 `;
 const ChainButtonBg = styled(motion.div)`
-  background: var(--focus-color);
+  background: var(--ck-focus-color);
   position: absolute;
   z-index: -1;
   inset: 0 -8px;
@@ -216,8 +216,8 @@ const Spinner = (
         y2="33.7485"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="var(--spinner-color)" />
-        <stop offset="1" stopColor="var(--spinner-color)" stopOpacity="0" />
+        <stop stopColor="var(--ck-spinner-color)" />
+        <stop offset="1" stopColor="var(--ck-spinner-color)" stopOpacity="0" />
       </linearGradient>
     </defs>
   </svg>
@@ -274,8 +274,8 @@ const SwitchNetworksList: React.FC = () => {
                   <motion.span
                     style={{
                       color: c.unsupported
-                        ? 'var(--body-color-danger)'
-                        : 'var(--focus-color)',
+                        ? 'var(--ck-body-color-danger)'
+                        : 'var(--ck-focus-color)',
                       display: 'block',
                       position: 'relative',
                       paddingRight: 6,
@@ -362,7 +362,7 @@ const SwitchNetworksList: React.FC = () => {
                     <motion.span
                       key={'connectedText'}
                       style={{
-                        color: 'var(--focus-color)',
+                        color: 'var(--ck-focus-color)',
                         display: 'block',
                         position: 'relative',
                       }}

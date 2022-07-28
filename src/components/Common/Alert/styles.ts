@@ -11,8 +11,8 @@ export const AlertContainer = styled(motion.div)`
   font-size: 14px;
   line-height: 17px;
   font-weight: 400;
-  color: var(--body-color-muted);
-  background: var(--body-background-secondary);
+  color: var(--ck-body-color-muted);
+  background: var(--ck-body-background-secondary);
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     padding: 16px 32px;
     font-size: 16px;

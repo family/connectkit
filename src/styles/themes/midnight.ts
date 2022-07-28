@@ -1,7 +1,7 @@
 export default {
-  '--font-family':
+  '--ck-font-family':
     '"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
-  '--border-radius': '10px',
+  '--ck-border-radius': '10px',
 
   '--ck-connectbutton-border-radius': '8px',
   '--ck-connectbutton-color': '#ffffff',
@@ -26,38 +26,38 @@ export default {
 
   '--ck-secondary-button-hover-background': '#3c3c3e',
 
-  '--overlay-background': 'rgba(0,0,0,0.4)',
+  '--ck-overlay-background': 'rgba(0,0,0,0.4)',
   '--ck-modal-box-shadow': `inset 0 0 0 1px #38393C, 0px 2px 4px rgba(0, 0, 0, 0.02)`,
 
-  '--focus-color': '#0555FE',
-  '--body-color': '#ffffff',
-  '--body-color-muted': '#8B8F97',
-  '--body-color-muted-hover': '#ffffff',
-  '--body-background': '#1F2023',
-  '--body-background-transparent': 'rgba(31, 32, 35, 0)',
-  '--body-background-secondary': '#313235',
-  '--body-background-secondary-hover-background': '#e0e4eb',
-  '--body-background-secondary-hover-outline': 'rgba(255, 255, 255, 0.02)',
-  '--body-background-tertiary': '#313235',
+  '--ck-focus-color': '#0555FE',
+  '--ck-body-color': '#ffffff',
+  '--ck-body-color-muted': '#8B8F97',
+  '--ck-body-color-muted-hover': '#ffffff',
+  '--ck-body-background': '#1F2023',
+  '--ck-body-background-transparent': 'rgba(31, 32, 35, 0)',
+  '--ck-body-background-secondary': '#313235',
+  '--ck-body-background-secondary-hover-background': '#e0e4eb',
+  '--ck-body-background-secondary-hover-outline': 'rgba(255, 255, 255, 0.02)',
+  '--ck-body-background-tertiary': '#313235',
   '--ck-tertiary-border-radius': '12px',
   '--ck-tertiary-box-shadow': 'inset 0 0 0 1px rgba(255, 255, 255, 0.02)',
 
-  '--body-action-color': '#8B8F97',
-  '--body-divider': 'rgba(255,255,255,0.1)',
-  '--body-color-danger': '#FF4E4E',
-  '--body-color-valid': '#32D74B',
+  '--ck-body-action-color': '#8B8F97',
+  '--ck-body-divider': 'rgba(255,255,255,0.1)',
+  '--ck-body-color-danger': '#FF4E4E',
+  '--ck-body-color-valid': '#32D74B',
 
-  '--copytoclipboard-stroke': '#CCCCCC',
+  '--ck-copytoclipboard-stroke': '#CCCCCC',
 
-  '--tooltip-background': '#1F2023',
-  '--tooltip-background-secondary': '#1F2023',
-  '--tooltip-color': '#ffffff',
-  '--tooltip-shadow':
+  '--ck-tooltip-background': '#1F2023',
+  '--ck-tooltip-background-secondary': '#1F2023',
+  '--ck-tooltip-color': '#ffffff',
+  '--ck-tooltip-shadow':
     ' 0 0 0 1px rgba(255, 255, 255, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
-  '--spinner-color': 'var(--focus-color)',
+  '--ck-spinner-color': 'var(--ck-focus-color)',
 
-  '--qr-border-radius': '12px',
-  '--qr-dot-color': '#ffffff',
-  '--qr-border-color': 'rgba(255,255,255,0.1)',
+  '--ck-qr-border-radius': '12px',
+  '--ck-qr-dot-color': '#ffffff',
+  '--ck-qr-border-color': 'rgba(255,255,255,0.1)',
 };

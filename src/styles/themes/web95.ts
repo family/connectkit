@@ -1,6 +1,6 @@
 export default {
-  '--font-family': 'Lato',
-  '--border-radius': '0px',
+  '--ck-font-family': 'Lato',
+  '--ck-border-radius': '0px',
 
   '--ck-connectbutton-color': '#373737',
   '--ck-connectbutton-background':
@@ -16,21 +16,21 @@ export default {
   '--ck-connectbutton-active-background':
     'linear-gradient(180deg, #F0F0EA 0%, #FFFFFF 50%, #F0F0EA 100%) 0 100%/ 200%, #F5F5F1',
 
-  '--focus-color': '#1A88F8',
-  '--overlay-background': 'rgba(0, 127,  128, 0.8)',
-  '--body-color': '#373737',
-  '--body-color-muted': '#808080',
-  '--body-color-muted-hover': '#111111',
-  '--body-background': '#F0EDE2',
-  '--body-background-transparent': 'rgba(255,255,255,0)',
-  '--body-background-secondary-hover-background': '#FAFAFA',
-  '--body-background-secondary-hover-outline': '#4282FF',
-  '--body-action-color': '#373737',
-  '--body-color-danger': '#FC6464',
-  '--body-color-valid': '#32D74B',
+  '--ck-focus-color': '#1A88F8',
+  '--ck-overlay-background': 'rgba(0, 127,  128, 0.8)',
+  '--ck-body-color': '#373737',
+  '--ck-body-color-muted': '#808080',
+  '--ck-body-color-muted-hover': '#111111',
+  '--ck-body-background': '#F0EDE2',
+  '--ck-body-background-transparent': 'rgba(255,255,255,0)',
+  '--ck-body-background-secondary-hover-background': '#FAFAFA',
+  '--ck-body-background-secondary-hover-outline': '#4282FF',
+  '--ck-body-action-color': '#373737',
+  '--ck-body-color-danger': '#FC6464',
+  '--ck-body-color-valid': '#32D74B',
 
-  '--body-divider': '#919B9C',
-  '--body-divider-box-shadow': '0px 1px 0px #FBFBF8',
+  '--ck-body-divider': '#919B9C',
+  '--ck-body-divider-box-shadow': '0px 1px 0px #FBFBF8',
 
   // Primary button
   '--ck-primary-button-background':
@@ -70,29 +70,30 @@ export default {
   '--ck-secondary-button-hover-box-shadow':
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
-  '--body-background-secondary': 'rgba(0, 0, 0, 0.1)',
-  '--body-background-tertiary':
+  '--ck-body-background-secondary': 'rgba(0, 0, 0, 0.1)',
+  '--ck-body-background-tertiary':
     'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
   '--ck-tertiary-border-radius': '0px',
   '--ck-tertiary-box-shadow':
     'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF',
-  '--body-button-text-align': 'left',
-  '--body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
+  '--ck-body-button-text-align': 'left',
+  '--ck-body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
 
-  '--qr-dot-color': '#000000',
-  '--qr-border-color': '#919B9C',
-  '--qr-border-radius': '0',
-  '--qr-background': '#FFFFFF',
+  '--ck-qr-dot-color': '#000000',
+  '--ck-qr-border-color': '#919B9C',
+  '--ck-qr-border-radius': '0',
+  '--ck-qr-background': '#FFFFFF',
 
-  '--copytoclipboard-stroke': 'rgba(55, 55, 55, 0.4)',
+  '--ck-copytoclipboard-stroke': 'rgba(55, 55, 55, 0.4)',
 
-  '--tooltip-background':
+  '--ck-tooltip-background':
     'linear-gradient(270deg, #F7F3E6 7.69%, #F5F7DA 100%)',
-  '--tooltip-background-secondary': '#f6f7f9',
-  '--tooltip-color': '#000000',
-  '--tooltip-shadow': ' 0 0 0 1.5px #2b2622, 0px 2px 10px rgba(0, 0, 0, 0.08)',
+  '--ck-tooltip-background-secondary': '#f6f7f9',
+  '--ck-tooltip-color': '#000000',
+  '--ck-tooltip-shadow':
+    ' 0 0 0 1.5px #2b2622, 0px 2px 10px rgba(0, 0, 0, 0.08)',
 
-  '--spinner-color': 'var(--focus-color)',
+  '--ck-spinner-color': 'var(--ck-focus-color)',
 
   /** Graphics options for our themes, not to be exposed to devs */
 

@@ -35,7 +35,7 @@ export const LoadingBalance = styled(motion.div)`
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  background: var(--body-background-secondary);
+  background: var(--ck-body-background-secondary);
   inset: 0;
   &:before {
     z-index: 4;
@@ -44,9 +44,9 @@ export const LoadingBalance = styled(motion.div)`
     inset: 0;
     background-image: linear-gradient(
       90deg,
-      var(--body-background-transparent) 50%,
-      var(--body-background),
-      var(--body-background-transparent)
+      var(--ck-body-background-transparent) 50%,
+      var(--ck-body-background),
+      var(--ck-body-background-transparent)
     );
     opacity: 0.75;
     background-size: 200% 100%;

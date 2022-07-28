@@ -11,9 +11,9 @@ export const QRCodeContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   margin: 1px 0 2px;
-  border-radius: var(--qr-border-radius, 24px);
-  background: var(--qr-background, transparent);
-  box-shadow: 0 0 0 1px var(--qr-border-color);
+  border-radius: var(--ck-qr-border-radius, 24px);
+  background: var(--ck-qr-background, transparent);
+  box-shadow: 0 0 0 1px var(--ck-qr-border-color);
   backface-visibility: hidden;
   svg {
     display: block;

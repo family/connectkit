@@ -48,7 +48,7 @@ if (typeof window != 'undefined') {
           <div
             style={{
               padding: 5,
-              background: 'var(--body-background-tertiary)',
+              background: 'var(--ck-body-background-tertiary)',
               borderRadius: '27%',
               boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.02)',
             }}
@@ -81,7 +81,7 @@ if (typeof window != 'undefined') {
           <div
             style={{
               padding: 5,
-              background: 'var(--body-background-secondary)',
+              background: 'var(--ck-body-background-secondary)',
               borderRadius: '21%',
               boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.02)',
             }}
@@ -93,7 +93,7 @@ if (typeof window != 'undefined') {
         connectorButton: <Logos.OtherWallets />,
         qrCode: <Logos.WalletConnect background={true} />,
       },
-      logoBackground: 'var(--brand-walletConnect)',
+      logoBackground: 'var(--ck-brand-walletConnect)',
       scannable: true,
       defaultConnect: () => {},
     },
@@ -125,7 +125,7 @@ if (typeof window != 'undefined') {
         ),
       },
       logoBackground:
-        'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))',
+        'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
       scannable: false,
       // defaultConnect:  () => {},
       extensions: {
@@ -160,7 +160,7 @@ if (typeof window != 'undefined') {
         //connectorButton: <Logos.CoinbaseImage />,
         qrCode: <Logos.Coinbase background={true} />,
       },
-      logoBackground: 'var(--brand-coinbaseWallet)',
+      logoBackground: 'var(--ck-brand-coinbaseWallet)',
       scannable: true,
       //defaultConnect: () => {},
       extensions: {

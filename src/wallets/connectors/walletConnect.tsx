@@ -15,7 +15,7 @@ export const walletConnect = ({ chains }: WalletOptions): WalletProps => {
       connectorButton: <Logos.OtherWallets />,
       qrCode: <Logos.WalletConnect background={true} />,
     },
-    logoBackground: 'var(--brand-walletConnect)',
+    logoBackground: 'var(--ck-brand-walletConnect)',
     scannable: true,
     createConnector: () => {
       const connector = new WalletConnectConnector({

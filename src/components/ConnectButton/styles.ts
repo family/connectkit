@@ -83,7 +83,7 @@ export const Button = styled(motion.button)`
     border-radius: var(--active-border-radius);
   }
   &:focus-visible {
-    outline: 2px solid var(--family-brand);
+    outline: 2px solid var(--ck-family-brand);
   }
 
   &:disabled {

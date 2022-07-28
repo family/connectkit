@@ -14,7 +14,7 @@ export const Arrow = styled.svg`
   margin-right: 1px;
   transition: all 100ms ease;
   transform: translateX(var(--x, -3px));
-  color: var(--ck-secondary-button-color, var(--body-color));
+  color: var(--ck-secondary-button-color, var(--ck-body-color));
   opacity: 0.4;
 `;
 export const ArrowChevron = styled.path``;
@@ -29,7 +29,7 @@ export const DownloadArrow = styled.div`
   vertical-align: middle;
   position: relative;
   margin-right: 6px;
-  color: var(--ck-secondary-button-color, var(--body-color));
+  color: var(--ck-secondary-button-color, var(--ck-body-color));
 `;
 export const DownloadArrowInner = styled.div`
   transform: rotate(90deg);
@@ -46,16 +46,16 @@ export const ButtonContainer = styled.button<{
   ${({ $variant }) => {
     if ($variant === 'primary') {
       return css`
-        --color: var(--ck-primary-button-color, var(--body-color));
+        --color: var(--ck-primary-button-color, var(--ck-body-color));
         --background: var(
           --ck-primary-button-background,
-          var(--body-background-primary)
+          var(--ck-body-background-primary)
         );
         --box-shadow: var(--ck-primary-button-box-shadow);
         --border-radius: var(--ck-primary-button-border-radius);
         --font-weight: var(--ck-primary-button-font-weight, 500);
 
-        --hover-color: var(--button-primary-hover-color, var(--color));
+        --hover-color: var(--ck-button-primary-hover-color, var(--color));
         --hover-background: var(
           --ck-primary-button-hover-background,
           var(--background)
@@ -75,16 +75,16 @@ export const ButtonContainer = styled.button<{
       `;
     } else if ($variant === 'secondary') {
       return css`
-        --color: var(--ck-secondary-button-color, var(--body-color));
+        --color: var(--ck-secondary-button-color, var(--ck-body-color));
         --background: var(
           --ck-secondary-button-background,
-          var(--body-background-secondary)
+          var(--ck-body-background-secondary)
         );
         --box-shadow: var(--ck-secondary-button-box-shadow);
         --border-radius: var(--ck-secondary-button-border-radius);
         --font-weight: var(--ck-secondary-button-font-weight, 500);
 
-        --hover-color: var(--button-secondary-hover-color, var(--color));
+        --hover-color: var(--ck-button-secondary-hover-color, var(--color));
         --hover-background: var(
           --ck-secondary-button-hover-background,
           var(--background)
