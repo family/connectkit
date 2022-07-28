@@ -1,6 +1,6 @@
 {
   "name": "connectkit",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
@@ -46,10 +46,10 @@
     "@types/styled-components": "^5.1.25",
     "rollup": "^2.67.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
     "rollup-plugin-visualizer": "^5.5.4",
-    "typescript": "^4.6.3",
-    "rollup-plugin-terser": "^7.0.2"
+    "typescript": "^4.6.3"
   },
   "resolutions": {
     "react": "^18.0.0",
