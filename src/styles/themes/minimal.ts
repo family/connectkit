@@ -6,12 +6,10 @@ export default {
   '--ck-connectbutton-border-radius': '0px',
   '--ck-connectbutton-color': '#414451',
   '--ck-connectbutton-background': '#ffffff',
-  '--ck-connectbutton-box-shadow':
-    'inset 0 0 0 1px #EBEBEB, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-box-shadow': 'inset 0 0 0 1px #EBEBEB',
 
   '--ck-connectbutton-hover-color': '#111',
-  '--ck-connectbutton-hover-box-shadow':
-    'inset 0 0 0 1px #111, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-hover-box-shadow': 'inset 0 0 0 1px #111',
 
   '--ck-primary-button-border-radius': '0px',
   '--ck-primary-button-color': '#111111',
