@@ -8,6 +8,7 @@ export const WalletList = styled.div`
   gap: 22px 8px;
   margin: 0 -10px -20px;
   padding: 4px 0 0;
+  /*
   @media only screen and (max-width: ${breakpoints[0]}px) {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -17,6 +18,7 @@ export const WalletList = styled.div`
   @media only screen and (max-width: ${breakpoints[2]}px) {
     grid-template-columns: repeat(1, 1fr);
   }
+  */
 `;
 export const WalletItem = styled.div`
   text-align: center;
