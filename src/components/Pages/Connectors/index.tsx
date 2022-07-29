@@ -176,14 +176,6 @@ const Wallets: React.FC = () => {
                 name = context.options.walletConnectName;
               }
 
-              // Specific case for Wallet Connect naming
-              if (
-                info.id === 'walletConnect' &&
-                !shouldShowInjectedConnector()
-              ) {
-                name = info.name ?? connector.name;
-              }
-
               return (
                 <MobileConnectorButton
                   key={`m-${connector.id}`}
@@ -217,18 +209,22 @@ const Wallets: React.FC = () => {
               <ModalBody>{copy.p}</ModalBody>
             </ModalContent>
             <InfoBoxButtons>
-              <Button
-                variant={'tertiary'}
-                onClick={() => context.setRoute(routes.ABOUT)}
-              >
-                Learn More
-              </Button>
-              <Button
-                variant={'tertiary'}
-                onClick={() => context.setRoute(routes.ONBOARDING)}
-              >
-                Get a Wallet
-              </Button>
+              {!context.options?.hideQuestionMarkCTA && (
+                <Button
+                  variant={'tertiary'}
+                  onClick={() => context.setRoute(routes.ABOUT)}
+                >
+                  Learn More
+                </Button>
+              )}
+              {!context.options?.hideNoWalletCTA && (
+                <Button
+                  variant={'tertiary'}
+                  onClick={() => context.setRoute(routes.ONBOARDING)}
+                >
+                  Get a Wallet
+                </Button>
+              )}
             </InfoBoxButtons>
           </InfoBox>
         </>
