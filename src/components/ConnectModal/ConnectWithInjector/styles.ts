@@ -30,7 +30,7 @@ const outlineKeyframes = keyframes`
 `;
 export const Container = styled(motion.div)`
   background: var(
-    --body-background
+    --ck-body-background
   ); // To stop the overlay issue during transition for the spinner
 `;
 export const ConnectingContainer = styled(motion.div)`
@@ -53,13 +53,13 @@ export const ConnectingAnimation = styled(motion.div)<{
     position: absolute;
     inset: -5px;
     opacity: 0;
-    background: var(--body-color-danger);
+    background: var(--ck-body-color-danger);
     ${(props) =>
       props.$circle &&
       css`
         border-radius: 50%;
         background: none;
-        box-shadow: inset 0 0 0 3.5px var(--body-color-danger);
+        box-shadow: inset 0 0 0 3.5px var(--ck-body-color-danger);
       `}
   }
   ${(props) =>
@@ -89,7 +89,7 @@ export const RetryButton = styled(motion.button)`
   overflow: hidden;
   background: none;
 
-  color: var(--body-background);
+  color: var(--ck-body-background);
   transition: color 200ms ease;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 
@@ -100,7 +100,7 @@ export const RetryButton = styled(motion.button)`
     inset: 0;
     opacity: 0;
     transition: opacity 200ms ease;
-    background: var(--body-color);
+    background: var(--ck-body-color);
   }
 
   &:hover:before {
@@ -120,7 +120,7 @@ export const RetryIconContainer = styled(motion.div)`
     background: conic-gradient(
       from 90deg,
       currentColor 10%,
-      var(--body-color) 80%
+      var(--ck-body-color) 80%
     );
   }
 

@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import { CopyToClipboardIcon } from '../../../assets/icons';
 
 export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
-  --color: var(--copytoclipboard-stroke);
-  --bg: var(--body-background);
+  --color: var(--ck-copytoclipboard-stroke);
+  --bg: var(--ck-body-background);
   transition: all 220ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
 
   cursor: pointer;
@@ -20,7 +20,7 @@ export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
   }
 
   &:hover {
-    --color: var(--body-color-muted);
+    --color: var(--ck-body-color-muted);
   }
 
   svg {
@@ -54,8 +54,8 @@ export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
   ${(props) =>
     props.$clipboard
       ? css`
-          --color: var(--focus-color) !important;
-          --bg: var(--body-background);
+          --color: var(--ck-focus-color) !important;
+          --bg: var(--ck-body-background);
           svg {
             transition-delay: 0ms;
             path:first-child {

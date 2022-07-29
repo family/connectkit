@@ -23,11 +23,11 @@ export default (
         y2="79.6111"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="var(--graphic-wave-stop-01)" />
-        <stop stopColor="var(--graphic-wave-stop-02)" offset="0.239583" />
-        <stop stopColor="var(--graphic-wave-stop-03)" offset="0.515625" />
-        <stop stopColor="var(--graphic-wave-stop-04)" offset="0.739583" />
-        <stop stopColor="var(--graphic-wave-stop-05)" offset="1" />
+        <stop stopColor="var(--ck-graphic-wave-stop-01)" />
+        <stop stopColor="var(--ck-graphic-wave-stop-02)" offset="0.239583" />
+        <stop stopColor="var(--ck-graphic-wave-stop-03)" offset="0.515625" />
+        <stop stopColor="var(--ck-graphic-wave-stop-04)" offset="0.739583" />
+        <stop stopColor="var(--ck-graphic-wave-stop-05)" offset="1" />
       </linearGradient>
     </defs>
   </svg>

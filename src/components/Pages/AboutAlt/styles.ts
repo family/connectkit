@@ -76,8 +76,8 @@ export const Slide = styled(motion.div)<{ $active?: boolean }>`
     `}
 `;
 export const Slider = styled.div`
-  --background: var(--body-background-secondary);
-  --background-transparent: var(--body-background-transparent, transparent);
+  --background: var(--ck-body-background-secondary);
+  --background-transparent: var(--ck-body-background-transparent, transparent);
   position: relative;
   padding: 0 0 4px;
   border-radius: 16px;
@@ -134,7 +134,7 @@ export const Dot = styled.button<{ $active: boolean }>`
     height: 3px;
     opacity: 0.12;
     border-radius: 4px;
-    background: var(--ck-accent-color, var(--body-color));
+    background: var(--ck-accent-color, var(--ck-body-color));
     transition: transform 200ms ease, opacity 180ms ease;
   }
   ${(props) =>

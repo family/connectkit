@@ -9,7 +9,7 @@ export const TooltipWindow = styled(motion.div)`
   pointer-events: none;
 `;
 export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
-  --shadow: var(--tooltip-shadow);
+  --shadow: var(--ck-tooltip-shadow);
   z-index: 2147483647;
   position: absolute;
   top: 0;
@@ -20,7 +20,7 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
   align-items: center;
   justify-content: center;
   border-radius: var(
-    --tooltip-border-radius,
+    --ck-tooltip-border-radius,
     ${(props) => (props.$size === 'small' ? 11 : 14)}px
   );
   border-radius: ;
@@ -29,8 +29,8 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
   line-height: 19px;
   font-weight: 500;
   letter-spacing: -0.1px;
-  color: var(--tooltip-color);
-  background: var(--tooltip-background);
+  color: var(--ck-tooltip-color);
+  background: var(--ck-tooltip-background);
   box-shadow: var(--shadow);
   > span {
     z-index: 3;
@@ -40,7 +40,7 @@ export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
     margin: -4px 0; // offset for icon
   }
   strong {
-    color: var(--spinner-color);
+    color: var(--ck-spinner-color);
   }
 
   .ck-tt-logo {
@@ -74,7 +74,7 @@ export const TooltipTail = styled(motion.div)<{ $size: TooltipSizeProps }>`
     width: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
     height: ${(props) => (props.$size === 'small' ? 14 : 18)}px;
     transform: translate(75%, 0) rotate(45deg);
-    background: var(--tooltip-background);
+    background: var(--ck-tooltip-background);
     border-radius: ${(props) => (props.$size === 'small' ? 2 : 3)}px 0 0 0;
   }
 `;

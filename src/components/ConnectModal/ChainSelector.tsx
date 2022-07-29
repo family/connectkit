@@ -42,11 +42,11 @@ const DropdownContainer = styled(motion.div)`
   left: 0;
   width: 100%;
   max-width: 292px;
-  border-radius: var(--tooltip-border-radius, 12px);
+  border-radius: var(--ck-tooltip-border-radius, 12px);
   padding: 14px 16px 8px;
-  color: var(--tooltip-color);
-  background: var(--tooltip-background);
-  box-shadow: var(--tooltip-shadow, var(--shadow));
+  color: var(--ck-tooltip-color);
+  background: var(--ck-tooltip-background);
+  box-shadow: var(--ck-tooltip-shadow, var(--shadow));
 `;
 const DropdownHeading = styled(motion.div)`
   padding: 0 0 6px;
@@ -54,22 +54,22 @@ const DropdownHeading = styled(motion.div)`
   line-height: 20px;
   font-weight: 400;
   user-select: none;
-  color: var(--body-color-muted);
+  color: var(--ck-body-color-muted);
 `;
 
 const SwitchChainButton = styled(motion.button)`
-  --color: var(--button-primary-color, var(--body-color));
+  --color: var(--ck-button-primary-color, var(--ck-body-color));
   --background: var(
     --ck-secondary-button-background,
-    var(--body-background-secondary)
+    var(--ck-body-background-secondary)
   );
   --box-shadow: var(
     --ck-secondary-button-box-shadow,
-    var(--button-primary-box-shadow),
+    var(--ck-button-primary-box-shadow),
     none
   );
 
-  --hover-color: var(--button-primary-hover-color, var(--color));
+  --hover-color: var(--ck-button-primary-hover-color, var(--color));
   --hover-background: var(
     --ck-secondary-button-hover-background,
     var(--background)
@@ -79,7 +79,7 @@ const SwitchChainButton = styled(motion.button)`
     var(--box-shadow)
   );
 
-  --active-color: var(--button-primary-active-color, var(--hover-color));
+  --active-color: var(--ck-button-primary-active-color, var(--hover-color));
   --active-background: var(
     --ck-secondary-button-active-background,
     var(--hover-background)
@@ -104,7 +104,7 @@ const SwitchChainButton = styled(motion.button)`
   line-height: 19px;
   font-weight: 500;
   text-decoration: none;
-  color: var(--body-color-muted);
+  color: var(--ck-body-color-muted);
   background: var(--background);
   white-space: nowrap;
   transition: transform 100ms ease, background-color 100ms ease,
@@ -157,8 +157,8 @@ const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
   height: 24px;
   min-width: 24px;
   min-height: 24px;
-  background: var(--body-background);
-  color: var(--body-color-muted);
+  background: var(--ck-body-background);
+  color: var(--ck-body-color-muted);
   svg {
     width: 100%;
     height: auto;
@@ -169,11 +169,11 @@ const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--body-background-secondary);
+      background: var(--ck-body-background-secondary);
       &:before {
         content: '?';
         font-weight: bold;
-        font-family: var(--font-family);
+        font-family: var(--ck-font-family);
       }
     `}
 `;

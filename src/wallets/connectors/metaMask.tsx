@@ -37,7 +37,7 @@ export const metaMask = ({ chains }: WalletOptions): WalletProps => {
       ),
     },
     logoBackground:
-      'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))',
+      'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/metamask',

@@ -19,7 +19,7 @@ export const Section = styled.div`
   padding: 4px 8px;
 `;
 export const Heading = styled.div`
-  color: var(--body-color);
+  color: var(--ck-body-color);
   font-size: 17px;
   font-weight: var(--ck-modal-heading-font-weight, 600);
   line-height: 20px;

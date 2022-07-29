@@ -26,12 +26,12 @@ export const WalletConnect = ({ background = false, ...props }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={
-      background ? { background: 'var(--brand-walletConnect)' } : undefined
+      background ? { background: 'var(--ck-brand-walletConnect)' } : undefined
     }
   >
     <path
       d="M9.58818 11.8556C13.1293 8.31442 18.8706 8.31442 22.4117 11.8556L22.8379 12.2818C23.015 12.4588 23.015 12.7459 22.8379 12.9229L21.3801 14.3808C21.2915 14.4693 21.148 14.4693 21.0595 14.3808L20.473 13.7943C18.0026 11.3239 13.9973 11.3239 11.5269 13.7943L10.8989 14.4223C10.8104 14.5109 10.6668 14.5109 10.5783 14.4223L9.12041 12.9645C8.94336 12.7875 8.94336 12.5004 9.12041 12.3234L9.58818 11.8556ZM25.4268 14.8706L26.7243 16.1682C26.9013 16.3452 26.9013 16.6323 26.7243 16.8093L20.8737 22.6599C20.6966 22.8371 20.4096 22.8371 20.2325 22.6599L16.0802 18.5076C16.0359 18.4634 15.9641 18.4634 15.9199 18.5076L11.7675 22.6599C11.5905 22.8371 11.3034 22.8371 11.1264 22.66C11.1264 22.66 11.1264 22.6599 11.1264 22.6599L5.27561 16.8092C5.09856 16.6322 5.09856 16.3451 5.27561 16.168L6.57313 14.8706C6.75019 14.6934 7.03726 14.6934 7.21431 14.8706L11.3668 19.023C11.411 19.0672 11.4828 19.0672 11.5271 19.023L15.6793 14.8706C15.8563 14.6934 16.1434 14.6934 16.3205 14.8706L20.473 19.023C20.5172 19.0672 20.589 19.0672 20.6332 19.023L24.7856 14.8706C24.9627 14.6935 25.2498 14.6935 25.4268 14.8706Z"
-      fill={background ? 'white' : 'var(--brand-walletConnect)'}
+      fill={background ? 'white' : 'var(--ck-brand-walletConnect)'}
     />
   </svg>
 );
@@ -49,11 +49,11 @@ export const WalletConnectQRCode = ({ ...props }) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M51 0H21V5H15V9H11V14H5V20H0V39H5V40H11V44H16V49H21V54H27H30H35V49H41V54H46H50H55V50H60V44H65V39H66H70H76V20H70V14H66V9H61V5H55V0H51ZM24 39V40H26V39H24ZM51 38H50V40H51V38Z"
-      fill="var(--body-background)"
+      fill="var(--ck-body-background)"
     />
     <path
       d="M20.5813 16.0338C29.807 6.65539 44.7645 6.65539 53.9901 16.0338L55.1004 17.1625C55.5619 17.6313 55.5619 18.3917 55.1004 18.8605L51.3024 22.7217C51.0716 22.956 50.6977 22.956 50.4672 22.7217L48.9392 21.1684C42.5031 14.6258 32.0684 14.6258 25.6323 21.1684L23.9961 22.8316C23.7654 23.0662 23.3915 23.0662 23.1609 22.8316L19.3627 18.9707C18.9014 18.5018 18.9014 17.7415 19.3627 17.2727L20.5813 16.0338ZM61.8452 24.0187L65.2255 27.4553C65.6867 27.9241 65.6867 28.6844 65.2255 29.1533L49.9831 44.6481C49.5219 45.1172 48.7739 45.1172 48.3127 44.6481L37.4948 33.651C37.3792 33.5339 37.1923 33.5339 37.077 33.651L26.2591 44.6481C25.7979 45.1172 25.05 45.1172 24.5888 44.6484C24.5887 44.6484 24.5887 44.6481 24.5887 44.6481L9.34595 29.153C8.88468 28.6841 8.88468 27.9238 9.34595 27.455L12.7263 24.0187C13.1876 23.5495 13.9355 23.5495 14.3968 24.0187L25.215 35.0161C25.3303 35.1332 25.5174 35.1332 25.6326 35.0161L36.4503 24.0187C36.9115 23.5495 37.6594 23.5495 38.1209 24.0187L48.9392 35.0161C49.0544 35.1332 49.2414 35.1332 49.3566 35.0161L60.1746 24.0187C60.6361 23.5498 61.384 23.5498 61.8452 24.0187Z"
-      fill="var(--brand-walletConnect)"
+      fill="var(--ck-brand-walletConnect)"
     />
   </svg>
 );
@@ -66,7 +66,7 @@ export const MetaMask = ({ background = false, ...props }) => (
       background
         ? {
             background:
-              'linear-gradient(0deg, var(--brand-metamask-12), var(--brand-metamask-11))',
+              'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
             borderRadius: '27.5%',
           }
         : undefined
@@ -87,240 +87,240 @@ export const MetaMask = ({ background = false, ...props }) => (
         y2="32"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.130682" stopColor="var(--brand-metamask-11)" />
-        <stop offset="1" stopColor="var(--brand-metamask-12)" />
+        <stop offset="0.130682" stopColor="var(--ck-brand-metamask-11)" />
+        <stop offset="1" stopColor="var(--ck-brand-metamask-12)" />
       </linearGradient>
     </defs>
     <rect width="32" height="32" fill="url(#paint0_linear_967_843)" />
      */}
     <path
       d="M27.2684 4.03027L17.5018 11.2841L19.3079 7.00442L27.2684 4.03027Z"
-      fill="var(--brand-metamask-02)"
-      stroke="var(--brand-metamask-02)"
+      fill="var(--ck-brand-metamask-02)"
+      stroke="var(--ck-brand-metamask-02)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M4.7218 4.03027L14.4099 11.3528L12.6921 7.00442L4.7218 4.03027Z"
-      fill="var(--brand-metamask-08)"
-      stroke="var(--brand-metamask-08)"
+      fill="var(--ck-brand-metamask-08)"
+      stroke="var(--ck-brand-metamask-08)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M23.7544 20.8438L21.1532 24.8289L26.7187 26.3602L28.3187 20.9321L23.7544 20.8438Z"
-      fill="var(--brand-metamask-08)"
-      stroke="var(--brand-metamask-08)"
+      fill="var(--ck-brand-metamask-08)"
+      stroke="var(--ck-brand-metamask-08)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M3.69104 20.9321L5.28117 26.3602L10.8467 24.8289L8.24551 20.8438L3.69104 20.9321Z"
-      fill="var(--brand-metamask-08)"
-      stroke="var(--brand-metamask-08)"
+      fill="var(--ck-brand-metamask-08)"
+      stroke="var(--ck-brand-metamask-08)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M10.5327 14.1108L8.98181 16.4568L14.5081 16.7022L14.3117 10.7637L10.5327 14.1108Z"
-      fill="var(--brand-metamask-08)"
-      stroke="var(--brand-metamask-08)"
+      fill="var(--ck-brand-metamask-08)"
+      stroke="var(--ck-brand-metamask-08)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M21.4576 14.1111L17.6295 10.6953L17.5018 16.7025L23.0182 16.4571L21.4576 14.1111Z"
-      fill="var(--brand-metamask-08)"
-      stroke="var(--brand-metamask-08)"
+      fill="var(--ck-brand-metamask-08)"
+      stroke="var(--ck-brand-metamask-08)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M10.8469 24.8292L14.1647 23.2096L11.2984 20.9717L10.8469 24.8292Z"
-      fill="var(--brand-metamask-08)"
-      stroke="var(--brand-metamask-08)"
+      fill="var(--ck-brand-metamask-08)"
+      stroke="var(--ck-brand-metamask-08)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M17.8257 23.2096L21.1531 24.8292L20.6918 20.9717L17.8257 23.2096Z"
-      fill="var(--brand-metamask-08)"
-      stroke="var(--brand-metamask-08)"
+      fill="var(--ck-brand-metamask-08)"
+      stroke="var(--ck-brand-metamask-08)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M21.1531 24.8296L17.8257 23.21L18.0906 25.3793L18.0612 26.2921L21.1531 24.8296Z"
-      fill="var(--brand-metamask-06)"
-      stroke="var(--brand-metamask-06)"
+      fill="var(--ck-brand-metamask-06)"
+      stroke="var(--ck-brand-metamask-06)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M10.8469 24.8296L13.9388 26.2921L13.9192 25.3793L14.1647 23.21L10.8469 24.8296Z"
-      fill="var(--brand-metamask-06)"
-      stroke="var(--brand-metamask-06)"
+      fill="var(--ck-brand-metamask-06)"
+      stroke="var(--ck-brand-metamask-06)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M13.9877 19.5389L11.2196 18.7242L13.1729 17.8311L13.9877 19.5389Z"
-      fill="var(--brand-metamask-09)"
-      stroke="var(--brand-metamask-09)"
+      fill="var(--ck-brand-metamask-09)"
+      stroke="var(--ck-brand-metamask-09)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M18.0023 19.5389L18.8171 17.8311L20.7802 18.7242L18.0023 19.5389Z"
-      fill="var(--brand-metamask-09)"
-      stroke="var(--brand-metamask-09)"
+      fill="var(--ck-brand-metamask-09)"
+      stroke="var(--ck-brand-metamask-09)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M10.8468 24.8289L11.3179 20.8438L8.24561 20.9321L10.8468 24.8289Z"
-      fill="var(--brand-metamask-03)"
-      stroke="var(--brand-metamask-03)"
+      fill="var(--ck-brand-metamask-03)"
+      stroke="var(--ck-brand-metamask-03)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M20.6821 20.8438L21.1532 24.8289L23.7544 20.9321L20.6821 20.8438Z"
-      fill="var(--brand-metamask-03)"
-      stroke="var(--brand-metamask-03)"
+      fill="var(--ck-brand-metamask-03)"
+      stroke="var(--ck-brand-metamask-03)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M23.0182 16.4565L17.5018 16.7019L18.0122 19.5387L18.827 17.8308L20.7902 18.7239L23.0182 16.4565Z"
-      fill="var(--brand-metamask-03)"
-      stroke="var(--brand-metamask-03)"
+      fill="var(--ck-brand-metamask-03)"
+      stroke="var(--ck-brand-metamask-03)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M11.2198 18.7239L13.1829 17.8308L13.9878 19.5387L14.5081 16.7019L8.98181 16.4565L11.2198 18.7239Z"
-      fill="var(--brand-metamask-03)"
-      stroke="var(--brand-metamask-03)"
+      fill="var(--ck-brand-metamask-03)"
+      stroke="var(--ck-brand-metamask-03)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M8.98181 16.4565L11.2983 20.9718L11.2198 18.7239L8.98181 16.4565Z"
-      fill="var(--brand-metamask-10)"
-      stroke="var(--brand-metamask-10)"
+      fill="var(--ck-brand-metamask-10)"
+      stroke="var(--ck-brand-metamask-10)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M20.7901 18.7239L20.6919 20.9718L23.0181 16.4565L20.7901 18.7239Z"
-      fill="var(--brand-metamask-10)"
-      stroke="var(--brand-metamask-10)"
+      fill="var(--ck-brand-metamask-10)"
+      stroke="var(--ck-brand-metamask-10)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M14.508 16.7021L13.9878 19.5389L14.6356 22.886L14.7828 18.4788L14.508 16.7021Z"
-      fill="var(--brand-metamask-10)"
-      stroke="var(--brand-metamask-10)"
+      fill="var(--ck-brand-metamask-10)"
+      stroke="var(--ck-brand-metamask-10)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M17.5017 16.7021L17.2367 18.4689L17.3545 22.886L18.0121 19.5389L17.5017 16.7021Z"
-      fill="var(--brand-metamask-10)"
-      stroke="var(--brand-metamask-10)"
+      fill="var(--ck-brand-metamask-10)"
+      stroke="var(--ck-brand-metamask-10)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M18.0121 19.5388L17.3545 22.886L17.8257 23.2099L20.6918 20.972L20.79 18.7241L18.0121 19.5388Z"
-      fill="var(--brand-metamask-01)"
-      stroke="var(--brand-metamask-01)"
+      fill="var(--ck-brand-metamask-01)"
+      stroke="var(--ck-brand-metamask-01)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M11.2196 18.7241L11.2981 20.972L14.1644 23.2099L14.6355 22.886L13.9877 19.5388L11.2196 18.7241Z"
-      fill="var(--brand-metamask-01)"
-      stroke="var(--brand-metamask-01)"
+      fill="var(--ck-brand-metamask-01)"
+      stroke="var(--ck-brand-metamask-01)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M18.0615 26.2917L18.0908 25.3788L17.8455 25.1628H14.145L13.9192 25.3788L13.9388 26.2917L10.8469 24.8291L11.9267 25.7126L14.1155 27.234H17.875L20.0736 25.7126L21.1533 24.8291L18.0615 26.2917Z"
-      fill="var(--brand-metamask-07)"
-      stroke="var(--brand-metamask-07)"
+      fill="var(--ck-brand-metamask-07)"
+      stroke="var(--ck-brand-metamask-07)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M17.8258 23.2096L17.3546 22.8857H14.6357L14.1646 23.2096L13.9191 25.379L14.1449 25.163H17.8454L18.0907 25.379L17.8258 23.2096Z"
-      fill="var(--brand-metamask-04)"
-      stroke="var(--brand-metamask-04)"
+      fill="var(--ck-brand-metamask-04)"
+      stroke="var(--ck-brand-metamask-04)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M27.6806 11.7552L28.5149 7.75041L27.2683 4.03027L17.8257 11.0387L21.4575 14.1109L26.591 15.6128L27.7296 14.2876L27.2389 13.9342L28.0241 13.2178L27.4156 12.7465L28.2007 12.1478L27.6806 11.7552Z"
-      fill="var(--brand-metamask-05)"
-      stroke="var(--brand-metamask-05)"
+      fill="var(--ck-brand-metamask-05)"
+      stroke="var(--ck-brand-metamask-05)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M3.48486 7.75041L4.3192 11.7552L3.78916 12.1478L4.57441 12.7465L3.97566 13.2178L4.7609 13.9342L4.27012 14.2876L5.39892 15.6128L10.5325 14.1109L14.1644 11.0387L4.72164 4.03027L3.48486 7.75041Z"
-      fill="var(--brand-metamask-05)"
-      stroke="var(--brand-metamask-05)"
+      fill="var(--ck-brand-metamask-05)"
+      stroke="var(--ck-brand-metamask-05)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M26.591 15.6122L21.4575 14.1104L23.0181 16.4564L20.6919 20.9716L23.7544 20.9323H28.3186L26.591 15.6122Z"
-      fill="var(--brand-metamask-01)"
-      stroke="var(--brand-metamask-01)"
+      fill="var(--ck-brand-metamask-01)"
+      stroke="var(--ck-brand-metamask-01)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M10.5326 14.1104L5.39897 15.6122L3.69104 20.9323H8.24551L11.2982 20.9716L8.98168 16.4564L10.5326 14.1104Z"
-      fill="var(--brand-metamask-01)"
-      stroke="var(--brand-metamask-01)"
+      fill="var(--ck-brand-metamask-01)"
+      stroke="var(--ck-brand-metamask-01)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M17.5018 16.7018L17.8258 11.0381L19.3177 7.00391H12.6921L14.1645 11.0381L14.5081 16.7018L14.6258 18.4883L14.6356 22.8856H17.3546L17.3742 18.4883L17.5018 16.7018Z"
-      fill="var(--brand-metamask-01)"
-      stroke="var(--brand-metamask-01)"
+      fill="var(--ck-brand-metamask-01)"
+      stroke="var(--ck-brand-metamask-01)"
       strokeWidth="0.269931"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -338,13 +338,13 @@ export const Coinbase = ({ background = false, ...props }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="10" cy="10" r="10" fill="var(--brand-coinbaseWallet)" />
+    <circle cx="10" cy="10" r="10" fill="var(--ck-brand-coinbaseWallet)" />
     {background && (
       <rect
         rx="27%"
         width="20"
         height="20"
-        fill="var(--brand-coinbaseWallet)"
+        fill="var(--ck-brand-coinbaseWallet)"
       />
     )}
     <path
@@ -376,7 +376,9 @@ export const Trust = ({ theme = 'light', ...props }) => (
       width="44"
       height="44"
       fill={
-        theme === 'light' ? 'var(--brand-trust-02)' : 'var(--brand-trust-02b)'
+        theme === 'light'
+          ? 'var(--ck-brand-trust-02)'
+          : 'var(--ck-brand-trust-02b)'
       }
     />
     <path
@@ -384,7 +386,9 @@ export const Trust = ({ theme = 'light', ...props }) => (
       clipRule="evenodd"
       d="M33.0246 11.8662C33.4096 11.8662 33.774 12.0243 34.0421 12.2925C34.3102 12.5675 34.4615 12.9387 34.4546 13.3168C34.3859 17.4143 34.2277 20.5493 33.9321 23.0312C33.6433 25.5131 33.2102 27.3556 32.5571 28.8475C32.1171 29.8443 31.574 30.6693 30.9346 31.3706C30.0752 32.2987 29.0921 32.9725 28.0196 33.6119C27.561 33.8861 27.0843 34.1568 26.5842 34.4408C25.5172 35.0468 24.3441 35.713 23.0146 36.6025C22.5333 36.9256 21.9077 36.9256 21.4265 36.6025C20.0766 35.7026 18.8879 35.0281 17.8112 34.4173C17.5718 34.2815 17.3379 34.1488 17.109 34.0175C15.8509 33.2887 14.7165 32.5943 13.7265 31.5906C13.0665 30.9306 12.4959 30.1262 12.0421 29.1706C11.4234 27.8918 11.004 26.345 10.6946 24.3443C10.2821 21.67 10.0759 18.1706 10.0002 13.3168C9.99336 12.9387 10.1377 12.5675 10.4059 12.2925C10.674 12.0243 11.0452 11.8662 11.4302 11.8662H12.0215C13.8433 11.8731 17.8652 11.6943 21.344 8.98559C21.8596 8.58683 22.5815 8.58683 23.0971 8.98559C26.5759 11.6943 30.5977 11.8731 32.4265 11.8662H33.0246ZM29.8277 27.9331C30.2746 27.0118 30.6459 25.74 30.9277 23.9112C31.2646 21.725 31.4709 18.755 31.5671 14.7125C29.4221 14.6506 25.7371 14.2381 22.224 11.8731C18.7109 14.2312 15.0259 14.6437 12.8877 14.7125C12.9633 18.0537 13.1146 20.6525 13.3552 22.6943C13.6302 25.0181 14.0221 26.5925 14.5102 27.6993C14.8333 28.435 15.1909 28.9643 15.6171 29.4318C16.1877 30.0575 16.9096 30.5731 17.8927 31.1643C18.3005 31.409 18.7502 31.6635 19.2396 31.9406C20.1116 32.4341 21.1099 32.9991 22.224 33.7081C23.3175 33.0107 24.3014 32.4515 25.1633 31.9616C25.4231 31.8139 25.6717 31.6725 25.909 31.5356C27.119 30.8412 28.0127 30.2637 28.6796 29.59C29.1265 29.1293 29.4909 28.6275 29.8277 27.9331Z"
       fill={
-        theme === 'light' ? 'var(--brand-trust-01)' : 'var(--brand-trust-01b)'
+        theme === 'light'
+          ? 'var(--ck-brand-trust-01)'
+          : 'var(--ck-brand-trust-01b)'
       }
     />
   </svg>
@@ -403,7 +407,7 @@ export const Argent = ({ ...props }) => (
     <rect width="32" height="32" fill="white" />
     <path
       d="M18.3242 7.63647H13.6516C13.4955 7.63647 13.3704 7.76611 13.367 7.92726C13.2726 12.4568 10.9768 16.7559 7.02532 19.8009C6.89986 19.8976 6.87128 20.0792 6.963 20.21L9.69685 24.112C9.78986 24.2448 9.97107 24.2747 10.0986 24.1772C12.5694 22.2856 14.5567 20.0038 15.9879 17.4746C17.4191 20.0038 19.4065 22.2856 21.8773 24.1772C22.0047 24.2747 22.186 24.2448 22.2791 24.112L25.013 20.21C25.1045 20.0792 25.0759 19.8976 24.9506 19.8009C20.999 16.7559 18.7033 12.4568 18.609 7.92726C18.6056 7.76611 18.4803 7.63647 18.3242 7.63647Z"
-      fill="var(--brand-argent)"
+      fill="var(--ck-brand-argent)"
     />
   </svg>
 );
@@ -420,8 +424,8 @@ export const ImToken = ({ ...props }) => (
     style={{
       background: `linear-gradient(
       180deg,
-      var(--brand-imtoken-01) 0%,
-      var(--brand-imtoken-02) 100%
+      var(--ck-brand-imtoken-01) 0%,
+      var(--ck-brand-imtoken-02) 100%
     )`,
     }}
   >

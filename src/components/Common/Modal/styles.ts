@@ -14,7 +14,7 @@ export const ErrorMessage = styled(motion.div)`
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
-  background: var(--body-color-danger);
+  background: var(--ck-body-color-danger);
   border-radius: 20px;
   padding: 24px 46px 82px 24px;
   transition: width var(--duration) var(--ease);
@@ -64,7 +64,7 @@ export const TextWithHr = styled(motion.div)`
   position: relative;
   display: block;
   text-align: center;
-  color: var(--body-color-muted);
+  color: var(--ck-body-color-muted);
   font-size: 15px;
   font-weight: 400;
   line-height: 21px;
@@ -75,7 +75,7 @@ export const TextWithHr = styled(motion.div)`
     user-select: none;
     pointer-events: none;
     padding: 0 14px;
-    background: var(--body-background);
+    background: var(--ck-body-background);
     transition: background-color 200ms ease;
   }
   &:before {
@@ -87,8 +87,8 @@ export const TextWithHr = styled(motion.div)`
     right: 0;
     height: 1px;
     transform: translateY(-1px);
-    background: var(--body-divider);
-    box-shadow: var(--body-divider-box-shadow);
+    background: var(--ck-body-divider);
+    box-shadow: var(--ck-body-divider-box-shadow);
   }
 `;
 export const ModalHeading = styled(motion.div)`
@@ -104,7 +104,7 @@ export const ModalHeading = styled(motion.div)`
   font-size: 17px;
   line-height: 20px;
   font-weight: var(--ck-modal-heading-font-weight, 600);
-  color: var(--body-color);
+  color: var(--ck-body-color);
 `;
 
 export const ModalHeadingBlock = styled(motion.div)`
@@ -139,9 +139,9 @@ export const ModalH1 = styled(motion.h1)<{
   font-size: ${(props) => (props.$small ? 17 : 19)}px;
   font-weight: var(--ck-modal-h1-font-weight, 600);
   color: ${(props) => {
-    if (props.$error) return 'var(--body-color-danger)';
-    if (props.$valid) return 'var(--body-color-valid)';
-    return 'var(--body-color)';
+    if (props.$error) return 'var(--ck-body-color-danger)';
+    if (props.$valid) return 'var(--ck-body-color-valid)';
+    return 'var(--ck-body-color)';
   }};
   > svg {
     position: relative;
@@ -160,10 +160,10 @@ export const ModalBody = styled.div`
   font-size: 16px;
   font-weight: 400;
   line-height: 21px;
-  color: var(--body-color-muted);
+  color: var(--ck-body-color-muted);
   strong {
     font-weight: 500;
-    color: var(--body-color);
+    color: var(--ck-body-color);
   }
 `;
 
@@ -172,10 +172,10 @@ export const ModalBodySmall = styled.div`
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
-  color: var(--body-color-muted);
+  color: var(--ck-body-color-muted);
   strong {
     font-weight: 500;
-    color: var(--body-color);
+    color: var(--ck-body-color);
   }
 `;
 
@@ -186,7 +186,7 @@ export const BackgroundOverlay = styled(motion.div)<{ $active: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--overlay-background, rgba(71, 88, 107, 0.24));
+  background: var(--ck-overlay-background, rgba(71, 88, 107, 0.24));
   opacity: 0;
   animation: ${(props) => (props.$active ? FadeIn : FadeOut)} 150ms ease-out
     both;
@@ -214,7 +214,7 @@ const MobileBoxOut = keyframes`
 export const BoxContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
-  color: var(--body-color);
+  color: var(--ck-body-color);
 
   animation: 150ms ease both;
   animation-name: ${BoxOut};
@@ -232,9 +232,9 @@ export const BoxContainer = styled(motion.div)`
     backface-visibility: hidden;
     width: var(--width);
     height: var(--height);
-    background: var(--body-background);
+    background: var(--ck-body-background);
     transition: all 0.2s ease;
-    border-radius: var(--border-radius, 20px);
+    border-radius: var(--ck-border-radius, 20px);
     box-shadow: var(--ck-modal-box-shadow);
   }
 
@@ -268,7 +268,7 @@ export const ControllerContainer = styled(motion.div)`
   width: var(--width);
   transition: 0.2s ease width;
   pointer-events: auto;
-  //border-bottom: 1px solid var(--body-divider);
+  //border-bottom: 1px solid var(--ck-body-divider);
 `;
 
 export const InnerContainer = styled(motion.div)`
@@ -371,8 +371,8 @@ export const CloseButton = styled(motion.button)`
   border-radius: 16px;
   padding: 0;
   margin: 0;
-  color: var(--body-action-color);
-  background: var(--body-background);
+  color: var(--ck-body-action-color);
+  background: var(--ck-body-background);
   transition: background-color 200ms ease, transform 100ms ease;
   /* will-change: transform; */
   svg {
@@ -380,7 +380,7 @@ export const CloseButton = styled(motion.button)`
   }
 
   &:hover {
-    background: var(--body-background-secondary);
+    background: var(--ck-body-background-secondary);
   }
   &:active {
     transform: scale(0.9);
@@ -400,8 +400,8 @@ export const BackButton = styled(motion.button)`
   border-radius: 16px;
   padding: 0;
   margin: 0;
-  color: var(--body-action-color);
-  background: var(--body-background);
+  color: var(--ck-body-action-color);
+  background: var(--ck-body-background);
   transition: background-color 200ms ease, transform 100ms ease;
   /* will-change: transform; */
   svg {
@@ -413,7 +413,7 @@ export const BackButton = styled(motion.button)`
   &:enabled {
     cursor: pointer;
     &:hover {
-      background: var(--body-background-secondary);
+      background: var(--ck-body-background-secondary);
     }
     &:active {
       transform: scale(0.9);
@@ -434,8 +434,8 @@ export const InfoButton = styled(motion.button)`
   border-radius: 16px;
   padding: 0;
   margin: 0;
-  color: var(--body-action-color);
-  background: var(--body-background);
+  color: var(--ck-body-action-color);
+  background: var(--ck-body-background);
   transition: background-color 200ms ease, transform 100ms ease;
   /* will-change: transform; */
   svg {
@@ -445,7 +445,7 @@ export const InfoButton = styled(motion.button)`
   &:enabled {
     cursor: pointer;
     &:hover {
-      background: var(--body-background-secondary);
+      background: var(--ck-body-background-secondary);
     }
     &:active {
       transform: scale(0.9);

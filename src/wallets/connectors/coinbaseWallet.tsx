@@ -23,7 +23,7 @@ export const coinbaseWallet = ({
       connectorButton: <Logos.Coinbase background={true} />,
       qrCode: <Logos.Coinbase background={true} />,
     },
-    logoBackground: 'var(--brand-coinbaseWallet)',
+    logoBackground: 'var(--ck-brand-coinbaseWallet)',
     scannable: true,
     installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
     downloadUrls: {

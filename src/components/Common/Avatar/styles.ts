@@ -25,7 +25,7 @@ export const EnsAvatar = styled(motion.div)<{
   border-radius: 50%;
   width: ${(props) => (props.$size ? props.$size : 96)}px;
   height: ${(props) => (props.$size ? props.$size : 96)}px;
-  background: var(--body-background-secondary);
+  background: var(--ck-body-background-secondary);
   &:before {
     content: '';
     z-index: 1;
@@ -38,11 +38,11 @@ export const EnsAvatar = styled(motion.div)<{
     if (props.$seed) {
       const ensColor = `0${Math.ceil(addressToNumber(props.$seed) * 8)}`;
       return css`
-        background: var(--ens-${ensColor}-start);
+        background: var(--ck-ens-${ensColor}-start);
         background: linear-gradient(
           180deg,
-          var(--ens-${ensColor}-start) 0%,
-          var(--ens-${ensColor}-stop) 100%
+          var(--ck-ens-${ensColor}-start) 0%,
+          var(--ck-ens-${ensColor}-stop) 100%
         );
       `;
     }
