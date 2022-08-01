@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 
@@ -34,6 +34,7 @@ import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import { useNetwork } from 'wagmi';
 
 const InfoIcon = ({ ...props }) => (
   <svg
@@ -189,10 +190,23 @@ const Modal: React.FC<ModalProps> = ({
   });
   const [inTransition, setInTransition] = useState<boolean>(false);
 
+  // Calculate new content bounds
+  const updateBounds = (node: any) => {
+    const bounds = {
+      width: node?.offsetWidth,
+      height: node?.offsetHeight,
+    };
+    setDimensions({
+      width: `${bounds?.width}px`,
+      height: `${bounds?.height}px`,
+    });
+  };
+
   let blockTimeout: ReturnType<typeof setTimeout>;
   const contentRef = useCallback(
     (node: any) => {
       if (!node) return;
+      ref.current = node;
 
       // Avoid transition mixups
       setInTransition(true);
@@ -200,17 +214,17 @@ const Modal: React.FC<ModalProps> = ({
       blockTimeout = setTimeout(() => setInTransition(false), 360);
 
       // Calculate new content bounds
-      const bounds = {
-        width: node?.offsetWidth,
-        height: node?.offsetHeight,
-      };
-      setDimensions({
-        width: `${bounds?.width}px`,
-        height: `${bounds?.height}px`,
-      });
+      updateBounds(node);
     },
     [open]
   );
+
+  // Update layout on chain/network switch to avoid clipping
+  const { chain } = useNetwork();
+  const ref = useRef<any>(null);
+  useEffect(() => {
+    if (ref.current) updateBounds(ref.current);
+  }, [chain]);
 
   useEffect(() => {
     if (!mounted) {
