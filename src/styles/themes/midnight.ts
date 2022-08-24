@@ -3,13 +3,20 @@ export default {
     '"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '10px',
 
+  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-border-radius': '8px',
   '--ck-connectbutton-color': '#ffffff',
-  '--ck-connectbutton-background': '#000000',
+  '--ck-connectbutton-background': '#313235',
   '--ck-connectbutton-box-shadow': 'inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
 
   '--ck-connectbutton-hover-background': '#414144',
   '--ck-connectbutton-active-background': '#4C4D4F',
+
+  '--ck-connectbutton-balance-color': '#ffffff',
+  '--ck-connectbutton-balance-background': '#1F2023',
+  '--ck-connectbutton-balance-box-shadow': 'inset 0 0 0 1px #313235',
+  '--ck-connectbutton-balance-hover-background': '#313235',
+  '--ck-connectbutton-balance-active-background': '#414144',
 
   '--ck-primary-button-border-radius': '8px',
   '--ck-primary-button-color': '#ffffff',
@@ -29,7 +36,7 @@ export default {
   '--ck-overlay-background': 'rgba(0,0,0,0.4)',
   '--ck-modal-box-shadow': `inset 0 0 0 1px #38393C, 0px 2px 4px rgba(0, 0, 0, 0.02)`,
 
-  '--ck-focus-color': '#0555FE',
+  '--ck-focus-color': '#1A88F8',
   '--ck-body-color': '#ffffff',
   '--ck-body-color-muted': '#8B8F97',
   '--ck-body-color-muted-hover': '#ffffff',
@@ -47,6 +54,12 @@ export default {
   '--ck-body-color-danger': '#FF4E4E',
   '--ck-body-color-valid': '#32D74B',
 
+  '--ck-body-disclaimer-background': '#2B2D31',
+  '--ck-body-disclaimer-box-shadow': 'none',
+  '--ck-body-disclaimer-color': '#808183',
+  '--ck-body-disclaimer-link-color': '#AAABAD',
+  '--ck-body-disclaimer-link-hover-color': '#ffffff',
+
   '--ck-copytoclipboard-stroke': '#CCCCCC',
 
   '--ck-tooltip-background': '#1F2023',
@@ -56,6 +69,24 @@ export default {
     ' 0 0 0 1px rgba(255, 255, 255, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-spinner-color': 'var(--ck-focus-color)',
+
+  '--ck-dropdown-button-color': '#6C7381',
+  '--ck-dropdown-button-box-shadow':
+    'inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
+  '--ck-dropdown-button-background': '#313235',
+
+  '--ck-dropdown-pending-color': '#8B8F97',
+  '--ck-dropdown-active-color': '#FFF',
+  '--ck-dropdown-active-static-color': '#FFF',
+  '--ck-dropdown-active-background': 'rgba(255, 255, 255, 0.07)',
+  '--ck-dropdown-color': '#8B8F97',
+  '--ck-dropdown-background': '#313235',
+  '--ck-dropdown-box-shadow': 'inset 0 0 0 1px rgba(255, 255, 255, 0.03)',
+  '--ck-dropdown-border-radius': '8px',
+
+  '--ck-alert-color': '#8B8F97',
+  '--ck-alert-background': '#404145',
+  '--ck-alert-box-shadow': 'inset 0 0 0 1px rgba(255, 255, 255, 0.02)',
 
   '--ck-qr-border-radius': '12px',
   '--ck-qr-dot-color': '#ffffff',

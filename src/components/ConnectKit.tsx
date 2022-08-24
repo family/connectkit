@@ -3,7 +3,9 @@ import React, {
   createElement,
   useEffect,
   useState,
+  ReactNode,
 } from 'react';
+import { Buffer } from 'buffer';
 import { CustomTheme, Languages, Mode, Theme } from '../types';
 
 import defaultTheme from '../styles/defaultTheme';
@@ -11,6 +13,7 @@ import defaultTheme from '../styles/defaultTheme';
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
+import { useAccount } from 'wagmi';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -57,6 +60,8 @@ type ConnectKitOptions = {
   truncateLongENSAddress?: boolean;
   walletConnectName?: string;
   reducedMotion?: boolean;
+  disclaimer?: ReactNode | string;
+  bufferPolyfill?: boolean;
 };
 
 type ConnectKitProviderProps = {
@@ -85,9 +90,23 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     truncateLongENSAddress: true,
     walletConnectName: 'Other Wallets',
     reducedMotion: false,
+    disclaimer: null,
+    bufferPolyfill: true,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
+
+  if (typeof window !== 'undefined') {
+    // Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.)
+    if (opts.bufferPolyfill) window.Buffer = window.Buffer ?? Buffer;
+
+    // Some bundlers may need `global` and `process.env` polyfills as well
+    // Not implemented here to avoid unexpected behaviors, but leaving example here for future reference
+    /*
+     * window.global = window.global ?? window;
+     * window.process = window.process ?? { env: {} };
+     */
+  }
 
   const [ckTheme, setTheme] = useState<Theme>(theme);
   const [ckMode, setMode] = useState<Mode>(mode);
@@ -163,8 +182,14 @@ export const useContext = () => {
 // Experimenal—can change later so only surface in API reference
 export const useModal = () => {
   const context = useContext();
+  const { isConnected } = useAccount();
   return {
     open: context.open,
-    setOpen: context.setOpen,
+    setOpen: (show: boolean) => {
+      if (show) {
+        context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+      }
+      context.setOpen(show);
+    },
   };
 };

@@ -12,6 +12,7 @@ import {
   ModalBody,
   ModalContent,
   ModalHeadingBlock,
+  Disclaimer,
 } from '../../Common/Modal/styles';
 import WalletIcon from '../../../assets/wallet';
 
@@ -33,7 +34,7 @@ import {
 import { isMobile, isAndroid } from '../../../utils';
 
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+//import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
@@ -227,6 +228,11 @@ const Wallets: React.FC = () => {
               )}
             </InfoBoxButtons>
           </InfoBox>
+          {context.options?.disclaimer && (
+            <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
+              <div>{context.options?.disclaimer}</div>
+            </Disclaimer>
+          )}
         </>
       ) : (
         <>
@@ -287,6 +293,11 @@ const Wallets: React.FC = () => {
                 <WalletIcon /> {copy.newcomer}
               </LearnMoreButton>
             </LearnMoreContainer>
+          )}
+          {context.options?.disclaimer && (
+            <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
+              <div>{context.options?.disclaimer}</div>
+            </Disclaimer>
           )}
         </>
       )}

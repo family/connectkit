@@ -17,7 +17,7 @@ export const steak = ({ chains }: WalletOptions): WalletProps => {
       download: 'https://connect.family.co/v0/download/steak',
       android:
         'https://play.google.com/store/apps/details?id=fi.steakwallet.app',
-      ios: 'https://apps.apple.com/np/app/steakwallet/id1569375204',
+      ios: 'https://apps.apple.com/app/steakwallet/id1569375204',
       website: 'https://steakwallet.fi/download',
     },
     createConnector: () => {

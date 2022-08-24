@@ -135,13 +135,13 @@ if (typeof window != 'undefined') {
           'https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/',
         brave:
           'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-        edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm?hl=en-US',
+        edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
       } as IDictionary,
       appUrls: {
         download: 'https://connect.family.co/v0/download/metamask',
         website: 'https://metamask.io/download/',
         android: 'https://play.google.com/store/apps/details?id=io.metamask',
-        ios: 'https://apps.apple.com/us/app/metamask/id1438144202',
+        ios: 'https://apps.apple.com/app/metamask/id1438144202',
       } as IDictionary,
       extensionIsInstalled: () => {
         return isMetaMask();
@@ -171,7 +171,7 @@ if (typeof window != 'undefined') {
         download: 'https://connect.family.co/v0/download/coinbasewallet',
         website: 'https://www.coinbase.com/wallet/getting-started-extension',
         android: 'https://play.google.com/store/apps/details?id=org.toshi',
-        ios: 'https://apps.apple.com/us/app/coinbase-wallet-store-crypto/id1278383455',
+        ios: 'https://apps.apple.com/app/coinbase-wallet-store-crypto/id1278383455',
       } as IDictionary,
       extensionIsInstalled: () => {
         return Boolean(

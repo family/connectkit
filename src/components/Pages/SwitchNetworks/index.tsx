@@ -8,7 +8,7 @@ import {
   ModalHeading,
   ModalHeadingBlock,
 } from '../../Common/Modal/styles';
-import SwitchNetworksList from '../../ConnectModal/SwitchNetworksList';
+import ChainSelectList from '../../Common/ChainSelectList';
 
 const SwitchNetworks: React.FC = () => {
   const context = useContext();
@@ -19,7 +19,7 @@ const SwitchNetworks: React.FC = () => {
       {/* <ModalHeading>{copy.heading}</ModalHeading> */}
       <ModalHeadingBlock />
       <ModalContent>
-        <SwitchNetworksList />
+        <ChainSelectList />
       </ModalContent>
     </PageContent>
   );

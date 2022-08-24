@@ -10,11 +10,12 @@ import { imToken } from './connectors/imToken';
 import { brave } from './connectors/brave';
 import { steak } from './connectors/steak';
 import { unstoppable } from './connectors/unstoppable';
-import { slope } from './connectors/slope';
+//import { slope } from './connectors/slope';
 import { onto } from './connectors/onto';
 import { gnosisSafe } from './connectors/gnosisSafe';
 import { frontier } from './connectors/frontier';
 import { Chain } from 'wagmi';
+import { zerion } from './connectors/zerion';
 
 export const getWallets = ({
   chains,
@@ -37,8 +38,9 @@ export const getWallets = ({
     gnosisSafe({ chains }),
     unstoppable({ chains }),
     steak({ chains }),
-    slope({ chains }),
+    //slope({ chains }),
     onto({ chains }),
     frontier({ chains }),
+    zerion({ chains }),
   ];
 };

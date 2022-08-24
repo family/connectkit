@@ -56,6 +56,10 @@ const themeGlobals = {
       '--ck-graphic-scaniconwithlogos-02': '#272727',
       '--ck-graphic-scaniconwithlogos-03': '#F8D74A',
       '--ck-graphic-scaniconwithlogos-04': '#F6F7F9',
+
+      '--ck-chain-ethereum-01': '#25292E',
+      '--ck-chain-ethereum-02': '#fff',
+      '--ck-chain-ethereum-03': '#DFE0E0',
     },
     dark: {
       '--ck-graphic-wave-stop-01': '#E8F17D',
@@ -68,6 +72,10 @@ const themeGlobals = {
       '--ck-graphic-scaniconwithlogos-02': '#696969',
       '--ck-graphic-scaniconwithlogos-03': '#F8D74A',
       '--ck-graphic-scaniconwithlogos-04': '#3D3D3D',
+
+      //'--ck-chain-ethereum-01': '#fff',
+      //'--ck-chain-ethereum-02': '#000',
+      //'--ck-chain-ethereum-03': '#000',
     },
   },
   ens: {
@@ -351,6 +359,6 @@ export const ResetContainer = styled(motion.div)<{
   }
   a:focus-visible,
   button:focus-visible {
-    outline: 2px solid var(--ck-focus-color) !important;
+    outline: 2px solid var(--ck-focus-color);
   }
 `;

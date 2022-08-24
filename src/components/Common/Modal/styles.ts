@@ -11,7 +11,7 @@ export const ErrorMessage = styled(motion.div)`
   width: var(--width);
   top: 64px;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   font-weight: 500;
   background: var(--ck-body-color-danger);
@@ -21,6 +21,16 @@ export const ErrorMessage = styled(motion.div)`
   a {
     font-weight: 700;
     text-decoration: underline;
+  }
+  code {
+    font-size: 0.9em;
+    display: inline-block;
+    font-family: monospace;
+    margin: 1px;
+    padding: 0 4px;
+    border-radius: 8px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.1);
   }
 `;
 
@@ -228,13 +238,13 @@ export const BoxContainer = styled(motion.div)`
     top: 0;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%);
-    backface-visibility: hidden;
     width: var(--width);
     height: var(--height);
-    background: var(--ck-body-background);
-    transition: all 0.2s ease;
+    transform: translateX(-50%);
+    backface-visibility: hidden;
+    transition: all 200ms ease;
     border-radius: var(--ck-border-radius, 20px);
+    background: var(--ck-body-background);
     box-shadow: var(--ck-modal-box-shadow);
   }
 
@@ -478,7 +488,8 @@ export const Container = styled(motion.div)`
       margin: 0 auto;
       &:before {
         width: 100%;
-        border-radius: 30px 30px 0 0;
+        border-radius: var(--ck-border-radius, 30px)
+          var(--ck-border-radius, 30px) 0 0;
       }
     }
     ${PageContainer} {
@@ -535,5 +546,65 @@ export const Container = styled(motion.div)`
         transform: scale(0.8) !important;
       }
     }
+  }
+`;
+
+export const Disclaimer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px -24px -24px -24px;
+  padding: 15px 40px 18px;
+  font-size: var(--ck-body-disclaimer-font-size, 13px);
+  font-weight: var(--ck-body-disclaimer-font-weight, 400);
+  text-align: center;
+  line-height: 19px;
+  color: var(--ck-body-disclaimer-color, var(--ck-body-color-muted, inherit));
+
+  & a {
+    color: var(--ck-body-disclaimer-link-color, inherit);
+    font-weight: var(--ck-body-disclaimer-font-weight, 400);
+    text-decoration: none;
+    transition: color 200ms ease;
+    &:hover {
+      color: var(--ck-body-disclaimer-link-hover-color, inherit);
+    }
+  }
+
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    margin: 24px -24px -26px -24px;
+    padding: 20px 42px 22px 42px;
+  }
+`;
+
+export const DisclaimerBackground = styled(motion.div)`
+  pointer-events: all;
+  z-index: 9;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: var(--width);
+  backface-visibility: hidden;
+  transform: translateX(-50%);
+  transform-origin: bottom center;
+
+  border-radius: var(--ck-border-radius, 30px);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  transition: width 200ms ease;
+
+  background: var(
+    --ck-body-disclaimer-background,
+    var(--ck-body-background-secondary)
+  );
+  box-shadow: var(--ck-body-disclaimer-box-shadow);
+
+  ${Disclaimer} {
+    margin: 0 !important;
+    /* visibility: hidden; */
+  }
+
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    border-radius: 0;
   }
 `;

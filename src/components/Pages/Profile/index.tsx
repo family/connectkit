@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from '../../ConnectKit';
 import localizations from '../../../constants/localizations';
-import { truncateEthAddress } from '../../../utils';
+import { nFormatter, truncateEthAddress } from '../../../utils';
 
 import {
   useConnect,
@@ -30,15 +30,17 @@ import {
 } from '../../Common/Modal/styles';
 import Button from '../../Common/Button';
 import Avatar from '../../Common/Avatar';
-import ChainSelector from '../../ConnectModal/ChainSelector';
+import ChainSelector from '../../Common/ChainSelect';
 
 import { DisconnectIcon } from '../../../assets/icons';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
 import Alert from '../../Common/Alert';
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
+  const themeContext = useThemeContext();
   const copy = localizations[context.lang].profileScreen;
 
   const { reset } = useConnect();
@@ -90,6 +92,11 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
       </PageContent>
     );
   }
+  const separator = ['web95', 'rounded', 'minimal'].includes(
+    themeContext.theme ?? context.theme ?? ''
+  )
+    ? '....'
+    : undefined;
   return (
     <PageContent>
       {/* <ModalHeading>{copy.heading}</ModalHeading> */}
@@ -105,7 +112,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
         </AvatarContainer>
         <ModalH1>
           <CopyToClipboard string={address}>
-            {ensName ?? truncateEthAddress(address)}
+            {ensName ?? truncateEthAddress(address, separator)}
           </CopyToClipboard>
         </ModalH1>
         <ModalBody>
@@ -119,7 +126,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {Number(balance?.formatted).toPrecision(3)}
+                  {nFormatter(Number(balance?.formatted))}
                   {` `}
                   {balance?.symbol}
                 </Balance>

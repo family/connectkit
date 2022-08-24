@@ -4,21 +4,21 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const onto = ({ chains }: WalletOptions): WalletProps => {
+export const zerion = ({ chains }: WalletOptions): WalletProps => {
   return {
-    id: 'onto',
-    name: 'ONTO',
+    id: 'zerion',
+    name: 'Zerion',
     logos: {
-      default: <Logos.ONTO />,
+      default: <Logos.Zerion />,
     },
-    logoBackground: '#ffffff',
+    logoBackground: '#CC703C',
     scannable: false,
     downloadUrls: {
-      download: 'https://connect.family.co/v0/download/onto',
-      ios: 'https://apps.apple.com/app/onto-an-ontology-dapp/id1436009823',
+      download: 'https://connect.family.co/v0/download/zerion',
+      ios: 'https://apps.apple.com/app/apple-store/id1456732565',
       android:
-        'https://play.google.com/store/apps/details?id=com.github.ontio.onto',
-      website: 'https://onto.app/en/download/',
+        'https://play.google.com/store/apps/details?id=io.zerion.android',
+      website: 'https://zerion.io/',
     },
     createConnector: () => {
       const connector = new WalletConnectConnector({
@@ -36,7 +36,7 @@ export const onto = ({ chains }: WalletOptions): WalletProps => {
 
             return isAndroid()
               ? uri
-              : `https://onto.app/wc?uri=${encodeURIComponent(uri)}`;
+              : `https://app.zerion.io/wc?uri=${encodeURIComponent(uri)}`;
           },
         },
         qrCode: {

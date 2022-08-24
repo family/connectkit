@@ -4,6 +4,7 @@ export default {
     '--ck-connectbutton-font-size': '15px',
     '--ck-connectbutton-color': '#373737',
     '--ck-connectbutton-background': '#F6F7F9',
+    '--ck-connectbutton-background-secondary': '#FFFFFF',
 
     '--ck-connectbutton-hover-color': '#373737',
     '--ck-connectbutton-hover-background': '#F0F2F5',
@@ -11,17 +12,31 @@ export default {
     '--ck-connectbutton-active-color': '#373737',
     '--ck-connectbutton-active-background': '#EAECF1',
 
+    '--ck-connectbutton-balance-color': '#373737',
+    '--ck-connectbutton-balance-background': '#fff',
+    '--ck-connectbutton-balance-box-shadow':
+      'inset 0 0 0 1px var(--ck-connectbutton-background)',
+
+    '--ck-connectbutton-balance-hover-background': '#F6F7F9',
+    '--ck-connectbutton-balance-hover-box-shadow':
+      'inset 0 0 0 1px var(--ck-connectbutton-hover-background)',
+
+    '--ck-connectbutton-balance-active-background': '#F0F2F5',
+    '--ck-connectbutton-balance-active-box-shadow':
+      'inset 0 0 0 1px var(--ck-connectbutton-active-background)',
+
     /** Primary Button */
     '--ck-primary-button-border-radius': '16px',
     '--ck-primary-button-color': '#373737',
-    '--ck-primary-button-background': '#ffffff',
-    '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #F0F0F0',
+    '--ck-primary-button-background': '#F6F7F9',
+    //'--ck-primary-button-box-shadow': 'inset 0 0 0 1px #F0F0F0',
     '--ck-primary-button-font-weight': '600',
 
     '--ck-primary-button-hover-color': '#373737',
-    '--ck-primary-button-hover-background': '#ffffff',
-    '--ck-primary-button-hover-box-shadow':
-      'inset 0 0 0 2px var(--ck-focus-color)',
+    '--ck-primary-button-hover-background': '#F0F2F5',
+    //'--ck-primary-button-hover-box-shadow': 'inset 0 0 0 2px var(--ck-focus-color)',
+
+    //'--ck-primary-button-active-background': '#EAECF1',
 
     /** Secondary Button */
     '--ck-secondary-button-border-radius': '16px',
@@ -52,11 +67,27 @@ export default {
     '--ck-body-color-danger': '#FF4E4E',
     '--ck-body-color-valid': '#32D74B',
 
+    /** Disclaimer */
+    //'--ck-body-disclaimer-background': '#E3D6C9',
+    //'--ck-body-disclaimer-box-shadow': 'none',
+    '--ck-body-disclaimer-color': '#AAAAAB',
+    '--ck-body-disclaimer-link-color': '#838485',
+    '--ck-body-disclaimer-link-hover-color': '#000000',
+
     /** Tooltips */
     '--ck-tooltip-background': '#ffffff',
     '--ck-tooltip-background-secondary': '#ffffff',
     '--ck-tooltip-color': '#999999',
     '--ck-tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
+
+    /** Network dropdown */
+    '--ck-dropdown-button-color': '#999999',
+    '--ck-dropdown-button-box-shadow':
+      '0 0 0 1px rgba(0,0,0,0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
+    '--ck-dropdown-button-background': '#fff',
+
+    '--ck-dropdown-button-hover-color': '#8B8B8B',
+    '--ck-dropdown-button-hover-background': '#F5F7F9',
 
     /** QR Code */
     '--ck-qr-dot-color': '#000000',
@@ -71,19 +102,35 @@ export default {
     '--ck-connectbutton-font-size': '15px',
     '--ck-connectbutton-color': '#ffffff',
     '--ck-connectbutton-background': '#383838',
+    '--ck-connectbutton-background-secondary': '#282828',
 
     '--ck-connectbutton-hover-background': '#404040',
 
     '--ck-connectbutton-active-background': '#4D4D4D',
 
+    '--ck-connectbutton-balance-color': '#fff',
+    '--ck-connectbutton-balance-background': '#282828',
+    '--ck-connectbutton-balance-box-shadow':
+      'inset 0 0 0 1px var(--ck-connectbutton-background)',
+
+    '--ck-connectbutton-balance-hover-background': '#383838',
+    '--ck-connectbutton-balance-hover-box-shadow':
+      'inset 0 0 0 1px var(--ck-connectbutton-hover-background)',
+
+    '--ck-connectbutton-balance-active-background': '#404040',
+    '--ck-connectbutton-balance-active-box-shadow':
+      'inset 0 0 0 1px var(--ck-connectbutton-active-background)',
+
     '--ck-primary-button-color': '#ffffff',
-    '--ck-primary-button-background': 'transparent',
-    '--ck-primary-button-box-shadow': 'inset 0 0 0 1px #3D3D3D',
+    '--ck-primary-button-background': '#383838',
+    //'--ck-primary-button-box-shadow': 'inset 0 0 0 1px #3D3D3D',
     '--ck-primary-button-border-radius': '16px',
     '--ck-primary-button-font-weight': '600',
 
-    '--ck-primary-button-hover-box-shadow':
-      'inset 0 0 0 2px rgba(255, 255, 255, 0.4)',
+    '--ck-primary-button-hover-background': '#404040',
+    //'--ck-primary-button-hover-box-shadow': 'inset 0 0 0 2px rgba(255, 255, 255, 0.4)',
+
+    //'--ck-primary-button-active-background': '#4D4D4D',
 
     '--ck-primary-button-active-border-radius': '16px',
 
@@ -111,6 +158,10 @@ export default {
     '--ck-body-divider': '#383838',
     '--ck-body-color-danger': '#FF4E4E',
 
+    '--ck-body-disclaimer-color': '#858585',
+    '--ck-body-disclaimer-link-color': '#ADADAD',
+    '--ck-body-disclaimer-link-hover-color': '#FFFFFF',
+
     '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
 
     '--ck-copytoclipboard-stroke': '#555555',
@@ -119,6 +170,9 @@ export default {
     '--ck-tooltip-background-secondary': '#333333',
     '--ck-tooltip-color': '#999999',
     '--ck-tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
+
+    /** Network dropdown */
+    '--ck-dropdown-button-color': '#6C7381',
 
     '--ck-spinner-color': 'var(--ck-focus-color)',
 

@@ -18,7 +18,7 @@ export const rainbow = ({ chains }: WalletOptions): WalletProps => {
       download: 'https://connect.family.co/v0/download/rainbow',
       website: 'https://rainbow.me',
       android: 'https://play.google.com/store/apps/details?id=me.rainbow',
-      ios: 'https://apps.apple.com/us/app/rainbow-ethereum-wallet/id1457119021',
+      ios: 'https://apps.apple.com/app/rainbow-ethereum-wallet/id1457119021',
     },
     createConnector: () => {
       const connector = new WalletConnectConnector({

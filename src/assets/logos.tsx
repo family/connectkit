@@ -748,6 +748,29 @@ export const Frontier = ({ ...props }) => (
   </svg>
 );
 
+export const Zerion = ({ ...props }) => (
+  <svg
+    {...props}
+    aria-hidden="true"
+    width="88"
+    height="88"
+    viewBox="0 0 88 88"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{
+      background: 'linear-gradient(120.22deg, #2962EF 0%, #255CE5 100%)',
+    }}
+  >
+    <path
+      d="M19.0864 22C17.5783 22 16.9973 23.8648 18.2628 24.6438L49.9199 43.732C50.709 44.2178 51.7614 44.0258 52.3048 43.2969L66.2236 25.024C67.17 23.7545 66.2138 22 64.5757 22H19.0864Z"
+      fill="white"
+    />
+    <path
+      d="M68.8425 66C70.3503 66 70.9466 64.1252 69.6814 63.3464L38.015 44.2605C37.2259 43.7748 36.1989 43.991 35.6558 44.7198L21.7099 62.9891C20.7639 64.2582 21.7499 66 23.3877 66H68.8425Z"
+      fill="white"
+    />
+  </svg>
+);
 export const PlaceHolder = () => {
   return <div style={{ width: 80, height: 80, background: '#555' }}></div>;
 };
@@ -776,7 +799,7 @@ export const OtherWallets = ({ ...props }) => {
           <WalletConnect background />
         </div>
         <div style={cell}>
-          <Trust theme="dark" />
+          <Zerion />
         </div>
       </div>
       <div style={row}>
@@ -812,5 +835,6 @@ export default {
   Slope,
   GnosisSafe,
   Frontier,
+  Zerion,
   PlaceHolder,
 };

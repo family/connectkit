@@ -17,7 +17,7 @@ export const argent = ({ chains }: WalletOptions): WalletProps => {
       download: 'https://connect.family.co/v0/download/argent',
       android:
         'https://play.google.com/store/apps/details?id=im.argent.contractwalletclient',
-      ios: 'https://apps.apple.com/us/app/argent/id1358741926',
+      ios: 'https://apps.apple.com/app/argent/id1358741926',
     },
     createConnector: () => {
       const connector = new WalletConnectConnector({

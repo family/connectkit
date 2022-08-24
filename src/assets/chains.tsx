@@ -2,64 +2,53 @@ type Logo = {
   testnet?: boolean;
 };
 
-export const Ethereum = ({ testnet, ...props }: Logo) => (
-  <svg
-    {...props}
-    aria-hidden="true"
-    width="44"
-    height="44"
-    viewBox="0 0 44 44"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#25292E',
-    }}
-  >
-    <path
-      d="M21.9967 6.99621L21.7955 7.67987V27.5163L21.9967 27.7171L31.2044 22.2744L21.9967 6.99621Z"
-      fill="white"
-    />
-    <path
-      d="M21.9957 6.99621L12.7878 22.2744L21.9957 27.7171V18.0891V6.99621Z"
-      fill="white"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M21.9959 36.9996L21.9959 36.9997V36.9995L31.2091 24.0243L21.9959 29.4642L12.788 24.0243L21.9957 36.9993L21.9958 36.9997L21.9959 36.9996Z"
-      fill="white"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M21.9959 36.9996L21.9959 36.9997V36.9995L31.2091 24.0243L21.9959 29.4642L12.788 24.0243L21.9957 36.9993L21.9958 36.9997L21.9959 36.9996Z"
-      fill="url(#ethereum_gradient)"
-    />
-    <path
-      d="M21.996 27.7181L31.2037 22.2753L21.996 18.09V27.7181Z"
-      fill="white"
-    />
-    <path
-      d="M12.7878 22.2753L21.9957 27.7181V18.09L12.7878 22.2753Z"
-      fill="white"
-    />
-    <defs>
-      <linearGradient
-        id="ethereum_gradient"
-        x1="21.9986"
-        y1="24.0243"
-        x2="21.9986"
-        y2="36.9997"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="white" />
-        <stop offset="1" stopColor="#DFE0E0" />
-      </linearGradient>
-    </defs>
-  </svg>
-);
+export const Ethereum = ({ testnet, ...props }: Logo) => {
+  let bg = 'var(--ck-chain-ethereum-01, #25292E)';
+  let fill = 'var(--ck-chain-ethereum-02, #ffffff)';
+
+  if (testnet) {
+    bg = 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)';
+    fill = '#fff';
+  }
+
+  return (
+    <svg
+      {...props}
+      aria-hidden="true"
+      width="44"
+      height="44"
+      viewBox="0 0 44 44"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        background: bg,
+      }}
+    >
+      <path
+        d="M21.9967 6.99621L21.7955 7.67987V27.5163L21.9967 27.7171L31.2044 22.2744L21.9967 6.99621Z"
+        fill={fill}
+      />
+      <path
+        d="M21.9957 6.99621L12.7878 22.2744L21.9957 27.7171V18.0891V6.99621Z"
+        fill={fill}
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M21.9959 36.9996L21.9959 36.9997V36.9995L31.2091 24.0243L21.9959 29.4642L12.788 24.0243L21.9957 36.9993L21.9958 36.9997L21.9959 36.9996Z"
+        fill={fill}
+      />
+      <path
+        d="M21.996 27.7181L31.2037 22.2753L21.996 18.09V27.7181Z"
+        fill={fill}
+      />
+      <path
+        d="M12.7878 22.2753L21.9957 27.7181V18.09L12.7878 22.2753Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
 
 export const Polygon = ({ testnet, ...props }: Logo) => (
   <svg
@@ -156,9 +145,63 @@ export const Arbitrum = ({ testnet, ...props }: Logo) => {
   );
 };
 
+const UnknownChain = ({ ...props }) => (
+  <svg
+    {...props}
+    aria-hidden="true"
+    width="44"
+    height="44"
+    viewBox="0 0 44 44"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{
+      background: 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)',
+    }}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M20.5611 8.12948C21.0082 7.90729 21.5007 7.79167 22 7.79167C22.4993 7.79167 22.9919 7.90729 23.439 8.12948L23.4408 8.1304L33.0387 12.9293C33.577 13.197 34.031 13.61 34.3478 14.121C34.6649 14.6323 34.833 15.2218 34.8333 15.8234V27.2595C34.833 27.8611 34.6649 28.4511 34.3478 28.9624C34.031 29.4733 33.578 29.8858 33.0398 30.1535L23.4411 34.9528C22.9919 35.1775 22.4963 35.2947 21.994 35.2947C21.4918 35.2947 20.9964 35.1777 20.5472 34.9529L10.9475 30.1531L10.9452 30.1519C10.4071 29.8808 9.95535 29.4646 9.6411 28.9504C9.32739 28.437 9.16312 27.8464 9.16673 27.2448L9.16675 27.2417L10.0004 27.2475H9.16673V27.2448V15.8239C9.16705 15.2223 9.33518 14.6322 9.65222 14.121C9.96906 13.61 10.4221 13.1976 10.9604 12.9298L20.5592 8.1304L20.5611 8.12948ZM21.3031 9.62267L11.8706 14.3389L22 19.4036L32.1294 14.3389L22.697 9.62267C22.4806 9.51531 22.2416 9.45905 22 9.45905C21.7585 9.45905 21.5194 9.51534 21.3031 9.62267ZM10.8341 15.8241C10.8341 15.7785 10.8362 15.733 10.8401 15.6878L21.1663 20.8509V33.3983L11.6955 28.6629C11.4352 28.5315 11.2159 28.3297 11.0638 28.0809C10.9116 27.8318 10.8321 27.5452 10.8341 27.2533L10.8341 27.2475V15.8241ZM22.8337 33.3923L32.2967 28.6608C32.5576 28.5312 32.7772 28.3313 32.9308 28.0836C33.0844 27.836 33.1658 27.5504 33.166 27.259V15.8243C33.1659 15.7786 33.1639 15.7331 33.1599 15.6878L22.8337 20.8509V33.3923Z"
+      fill="url(#paint0_linear_3546_7073)"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M10.8341 15.8241C10.8341 15.7785 10.8362 15.733 10.8401 15.6878L21.1663 20.8509V33.3983L11.6955 28.6629C11.4352 28.5315 11.2159 28.3297 11.0638 28.0809C10.9116 27.8318 10.8321 27.5452 10.8341 27.2533L10.8341 27.2475V15.8241Z"
+      fill="url(#paint1_linear_3546_7073)"
+      fillOpacity="0.3"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_3546_7073"
+        x1="22"
+        y1="7.79167"
+        x2="22"
+        y2="35.2947"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="white" />
+        <stop offset="1" stopColor="white" stopOpacity="0.7" />
+      </linearGradient>
+      <linearGradient
+        id="paint1_linear_3546_7073"
+        x1="22"
+        y1="7.79167"
+        x2="22"
+        y2="35.2947"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="white" />
+        <stop offset="1" stopColor="white" stopOpacity="0.7" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
 export default {
   Ethereum,
   Polygon,
   Optimism,
   Arbitrum,
+  UnknownChain,
 };

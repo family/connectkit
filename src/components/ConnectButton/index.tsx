@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAccount, useEnsName, useNetwork } from 'wagmi';
 import { truncateENSAddress, truncateEthAddress } from './../../utils';
-import { ResetContainer } from '../../styles';
+import useIsMounted from '../../hooks/useIsMounted';
 
-import { Button, IconContainer, TextContainer } from './styles';
+import { IconContainer, TextContainer } from './styles';
 import { routes, useContext } from '../ConnectKit';
 import Avatar from '../Common/Avatar';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
-import useMeasure from 'react-use-measure';
 import { CustomTheme, Mode, Theme } from '../../types';
+import { Balance } from '../BalanceButton';
+import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
+import { ResetContainer } from '../../styles';
 
 const contentVariants: Variants = {
   initial: {
@@ -20,7 +22,7 @@ const contentVariants: Variants = {
     opacity: 1,
     x: 0.1,
     transition: {
-      duration: 0.3,
+      duration: 0.4,
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -31,7 +33,7 @@ const contentVariants: Variants = {
     pointerEvents: 'none',
     position: 'absolute',
     transition: {
-      duration: 0.3,
+      duration: 0.4,
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -44,10 +46,10 @@ const addressVariants: Variants = {
     x: '100%',
   },
   animate: {
-    x: 0.1,
+    x: 0.2,
     opacity: 1,
     transition: {
-      duration: 0.3,
+      duration: 0.4,
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -58,7 +60,7 @@ const addressVariants: Variants = {
     pointerEvents: 'none',
     position: 'absolute',
     transition: {
-      duration: 0.3,
+      duration: 0.4,
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -96,12 +98,6 @@ type ConnectButtonRendererProps = {
     truncatedAddress?: string;
     ensName?: string;
   }) => React.ReactNode;
-};
-
-export const useIsMounted = () => {
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => setMounted(true), []);
-  return mounted;
 };
 
 const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
@@ -147,152 +143,156 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 
 ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
 
-function ConnectKitButtonInner({ onClick }: { onClick: () => void }) {
-  const isMounted = useIsMounted();
-  // const [address, setAddress] = useState<string>('');
+function ConnectKitButtonInner({
+  label,
+  showAvatar,
+  separator,
+}: {
+  label?: string;
+  showAvatar?: boolean;
+  separator?: string;
+}) {
   const context = useContext();
 
-  const [initialRan, setInitialRan] = useState<boolean>(false);
-
   const { chain } = useNetwork();
-  const { address, isConnected, isConnecting } = useAccount();
+  const { address } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
   });
 
-  const [contentRef, bounds] = useMeasure();
-  const connectedSinceBefore = !isConnected && !isConnecting;
-  // Done = isConnecting = false
-  // Has address = isConnected = false, isConnecting = false
-  // Default = isConneted = false, isConnecting = true
-  useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    // Prevent initial width animation from triggering
-    if (bounds.width > 10 && !initialRan) {
-      timeout = setTimeout(() => {
-        if (!address) {
-          setInitialRan(true);
-        }
-      }, 1000);
-    }
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [bounds.width, setInitialRan, address]);
-
-  if (!isMounted) return null;
-
   return (
-    <Button
-      onClick={onClick}
-      initial={false}
-      animate={{
-        // If it's ENS address we set it to auto.
-        // Only use bounds if it's changing
-        width:
-          address && !initialRan
-            ? 'auto'
-            : bounds.width > 10
-            ? bounds.width + 32
-            : 135.95,
-      }}
-      transition={{
-        duration: initialRan ? 0.3 : 0,
-        ease: [0.25, 1, 0.5, 1],
-      }}
-    >
+    <AnimatePresence initial={false}>
       {chain?.unsupported ? (
-        <>Wrong network</>
-      ) : (
-        <div
-          ref={contentRef}
-          style={{ width: 'fit-content', position: 'relative' }}
+        <TextContainer
+          key="unsupported-chain"
+          initial={'initial'}
+          animate={'animate'}
+          exit={'exit'}
+          variants={textVariants}
+          style={{
+            height: 40,
+            //padding: '0 5px',
+          }}
         >
-          <AnimatePresence initial={false}>
-            {address ? (
-              <TextContainer
-                key="connectedText"
-                initial={'initial'}
-                animate={'animate'}
-                exit={'exit'}
-                variants={addressVariants}
-                style={{
-                  height: 40,
-                }}
-              >
-                <IconContainer>
-                  <Avatar size={24} address={address} />
-                </IconContainer>
+          Wrong network
+        </TextContainer>
+      ) : address ? (
+        <TextContainer
+          key="connectedText"
+          initial={'initial'}
+          animate={'animate'}
+          exit={'exit'}
+          variants={addressVariants}
+          style={{
+            height: 40,
+            //padding: !showAvatar ? '0 5px' : undefined,
+          }}
+        >
+          {showAvatar && (
+            <IconContainer>
+              <Avatar size={24} address={address} />
+            </IconContainer>
+          )}
 
-                <div style={{ position: 'relative' }}>
-                  <AnimatePresence initial={false}>
-                    {ensName ? (
-                      <motion.span
-                        key="ckEnsName"
-                        initial={'initial'}
-                        animate={'animate'}
-                        exit={'exit'}
-                        variants={textVariants}
-                      >
-                        {context.options?.truncateLongENSAddress
-                          ? truncateENSAddress(ensName, 20)
-                          : ensName}
-                      </motion.span>
-                    ) : (
-                      <motion.span
-                        key="ckTruncatedAddress"
-                        initial={'initial'}
-                        animate={'animate'}
-                        exit={'exit'}
-                        variants={textVariants}
-                      >
-                        {truncateEthAddress(address)}
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </TextContainer>
-            ) : (
-              <TextContainer
-                key="connectWalletText"
-                initial={'initial'}
-                animate={'animate'}
-                exit={'exit'}
-                variants={contentVariants}
-                style={{
-                  height: 40,
-                }}
-              >
-                Connect Wallet
-              </TextContainer>
-            )}
-          </AnimatePresence>
-        </div>
+          <div style={{ position: 'relative' }}>
+            <AnimatePresence initial={false}>
+              {ensName ? (
+                <motion.span
+                  key="ckEnsName"
+                  initial={'initial'}
+                  animate={'animate'}
+                  exit={'exit'}
+                  variants={textVariants}
+                >
+                  {context.options?.truncateLongENSAddress
+                    ? truncateENSAddress(ensName, 20)
+                    : ensName}
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="ckTruncatedAddress"
+                  initial={'initial'}
+                  animate={'animate'}
+                  exit={'exit'}
+                  variants={textVariants}
+                >
+                  {truncateEthAddress(address, separator)}{' '}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+        </TextContainer>
+      ) : (
+        <TextContainer
+          key="connectWalletText"
+          initial={'initial'}
+          animate={'animate'}
+          exit={'exit'}
+          variants={contentVariants}
+          style={{
+            height: 40,
+            //padding: '0 5px',
+          }}
+        >
+          {label ? label : <>Connect Wallet</>}
+        </TextContainer>
       )}
-    </Button>
+    </AnimatePresence>
   );
 }
 
-export function ConnectKitButton({
-  onClick,
-  theme,
-  mode,
-  customTheme,
-}: {
-  onClick?: (open: () => void) => void;
+type ConnectKitButtonProps = {
+  // Options
+  label?: string;
+  showBalance?: boolean;
+  showAvatar?: boolean;
+
+  // Theming
   theme?: Theme;
   mode?: Mode;
   customTheme?: CustomTheme;
-}) {
+
+  // Events
+  onClick?: (open: () => void) => void;
+};
+
+export function ConnectKitButton({
+  // Options
+  label,
+  showBalance = false,
+  showAvatar = true,
+
+  // Theming
+  theme,
+  mode,
+  customTheme,
+
+  // Events
+  onClick,
+}: ConnectKitButtonProps) {
+  const isMounted = useIsMounted();
+
   const context = useContext();
 
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
+  const { chain } = useNetwork();
 
   function show() {
     context.setOpen(true);
     context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
   }
+
+  const separator = ['web95', 'rounded', 'minimal'].includes(
+    theme ?? context.theme ?? ''
+  )
+    ? '....'
+    : undefined;
+
+  if (!isMounted) return null;
+
+  const shouldShowBalance = showBalance && !chain?.unsupported;
+  const willShowBalance = address && shouldShowBalance;
 
   return (
     <ResetContainer
@@ -300,7 +300,7 @@ export function ConnectKitButton({
       $useMode={mode ?? context.mode}
       $customTheme={customTheme ?? context.customTheme}
     >
-      <ConnectKitButtonInner
+      <ThemeContainer
         onClick={() => {
           if (onClick) {
             onClick(show);
@@ -308,7 +308,82 @@ export function ConnectKitButton({
             show();
           }
         }}
-      />
+      >
+        {shouldShowBalance && (
+          <AnimatePresence initial={false}>
+            {willShowBalance && (
+              <motion.div
+                key={'balance'}
+                initial={{
+                  opacity: 0,
+                  x: '100%',
+                  width: 0,
+                  marginRight: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                  width: 'auto',
+                  marginRight: -24,
+                  transition: {
+                    duration: 0.4,
+                    ease: [0.25, 1, 0.5, 1],
+                  },
+                }}
+                exit={{
+                  opacity: 0,
+                  x: '100%',
+                  width: 0,
+                  marginRight: 0,
+                  transition: {
+                    duration: 0.4,
+                    ease: [0.25, 1, 0.5, 1],
+                  },
+                }}
+              >
+                <ThemedButton
+                  variant={'secondary'}
+                  theme={theme ?? context.theme}
+                  mode={mode ?? context.mode}
+                  customTheme={customTheme ?? context.customTheme}
+                  style={{ overflow: 'hidden' }}
+                >
+                  <motion.div style={{ paddingRight: 24 }}>
+                    <Balance hideSymbol />
+                  </motion.div>
+                </ThemedButton>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
+        <ThemedButton
+          theme={theme ?? context.theme}
+          mode={mode ?? context.mode}
+          customTheme={customTheme ?? context.customTheme}
+          style={
+            shouldShowBalance &&
+            showBalance &&
+            (theme === 'retro' || context.theme === 'retro')
+              ? {
+                  /** Special fix for the retro theme... not happy about this one */
+                  boxShadow:
+                    'var(--ck-connectbutton-balance-connectbutton-box-shadow)',
+                  borderRadius:
+                    'var(--ck-connectbutton-balance-connectbutton-border-radius)',
+                  overflow: 'hidden',
+                }
+              : {
+                  overflow: 'hidden',
+                }
+          }
+        >
+          <ConnectKitButtonInner
+            separator={separator}
+            showAvatar={showAvatar}
+            label={label}
+          />
+        </ThemedButton>
+      </ThemeContainer>
     </ResetContainer>
   );
 }

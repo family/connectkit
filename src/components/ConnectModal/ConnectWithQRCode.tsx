@@ -3,7 +3,7 @@ import { routes, useContext } from '../ConnectKit';
 import localizations, { localize } from '../../constants/localizations';
 
 import supportedConnectors from '../../constants/supportedConnectors';
-import { useConnect } from 'wagmi';
+import { useConnect } from '../../hooks/useConnect';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { detectBrowser } from '../../utils';
@@ -72,7 +72,19 @@ const ConnectWithQRCode: React.FC<{
           await connectWallet(c);
         } catch (err) {
           context.debug(
-            'Coinbase Wallet cannot connect. See console for more details.',
+            <>
+              This dApp is most likely missing the{' '}
+              <code>headlessMode: true</code> flag in the custom{' '}
+              <code>CoinbaseWalletConnector</code> options. See{' '}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://connect.family.co/v0/docs/cbwHeadlessMode"
+              >
+                documentation
+              </a>{' '}
+              for more details.
+            </>,
             err
           );
         }
@@ -92,17 +104,7 @@ const ConnectWithQRCode: React.FC<{
           await connectWallet(c);
         } catch (err) {
           context.debug(
-            <>
-              WalletConnect cannot connect. You may be missing{' '}
-              <a
-                target="_blank"
-                rel="noreferrer noopener"
-                href="https://docs.family.co/connectkit/getting-started"
-              >
-                the Buffer polyfill
-              </a>
-              . See console for more details.
-            </>,
+            <>WalletConnect cannot connect. See console for more details.</>,
             err
           );
         }

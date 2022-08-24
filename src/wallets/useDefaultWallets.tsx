@@ -27,10 +27,11 @@ function useDefaultWallets(): WalletProps[] | any {
     'brave',
     'steak',
     'unstoppable',
-    'slope',
+    //'slope', // Removed from defaults
     'onto',
     'gnosisSafe',
-    'frontier'
+    'frontier',
+    'zerion'
   );
 
   const wallets = getWallets({ chains });

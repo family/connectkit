@@ -127,19 +127,19 @@ export const ButtonContainer = styled.button<{
 
         --hover-color: var(
           --button-tertiary-hover-color,
-          var(--ck-secondary-button-hover-color)
+          var(--ck-tertiary-button-color)
         );
         --hover-background: var(
           --ck-tertiary-button-hover-background,
-          var(--ck-secondary-button-hover-background)
+          var(--ck-tertiary-button-background)
         );
         --hover-box-shadow: var(
           --ck-tertiary-button-hover-box-shadow,
-          var(--ck-secondary-button-hover-box-shadow)
+          var(--ck-tertiary-button-box-shadow)
         );
         --hover-border-radius: var(
           --ck-tertiary-button-hover-border-radius,
-          var(--ck-secondary-button-hover-border-radius)
+          var(--ck-tertiary-button-border-radius, var(--border-radius))
         );
         --hover-font-weight: var(
           --ck-tertiary-button-font-weight,

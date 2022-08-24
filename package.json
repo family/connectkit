@@ -2,7 +2,7 @@
   "name": "connectkit",
   "version": "0.0.1",
   "main": "build/index.js",
-  "description": "Connecting a wallet, make simple.",
+  "description": "Connecting a wallet, made simple.",
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
   "files": [
@@ -25,12 +25,13 @@
     "react"
   ],
   "dependencies": {
+    "buffer": "^6.0.3",
+    "detect-browser": "^5.3.0",
     "framer-motion": "^6.3.11",
     "qrcode": "^1.5.0",
     "react-transition-state": "^1.1.4",
     "react-use-measure": "^2.1.1",
-    "styled-components": "^5.3.5",
-    "util": "^0.12.4"
+    "styled-components": "^5.3.5"
   },
   "peerDependencies": {
     "ethers": "^5.6.5",

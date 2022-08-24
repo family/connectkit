@@ -11,7 +11,7 @@ import {
 
 import { useContext } from '../../ConnectKit';
 import localizations, { localize } from '../../../constants/localizations';
-import { useConnect } from 'wagmi';
+import { useConnect, useNetwork } from 'wagmi';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {
@@ -82,6 +82,7 @@ const ConnectWithInjector: React.FC<{
   const context = useContext();
   const copy = localizations[context.lang].injectionScreen;
 
+  const { chains } = useNetwork();
   const { connect, connectors } = useConnect({
     onMutate: (connector?: any) => {
       if (connector.connector) {
@@ -174,7 +175,7 @@ const ConnectWithInjector: React.FC<{
 
     const con: any = connectors.find((c) => c.id === id);
     if (con) {
-      connect({ connector: con });
+      connect({ connector: con, chainId: chains[0]?.id });
     } else {
       setStatus(states.UNAVAILABLE);
     }

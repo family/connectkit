@@ -22,6 +22,8 @@ import {
   ModalHeading,
   TextWithHr,
   ErrorMessage,
+  DisclaimerBackground,
+  Disclaimer,
 } from './styles';
 
 import { routes, useContext } from '../../ConnectKit';
@@ -179,6 +181,7 @@ const Modal: React.FC<ModalProps> = ({
 
   useEffect(() => {
     setOpen(open);
+    if (open) setInTransition(undefined);
   }, [open]);
 
   const [dimensions, setDimensions] = useState<{
@@ -188,7 +191,9 @@ const Modal: React.FC<ModalProps> = ({
     width: undefined,
     height: undefined,
   });
-  const [inTransition, setInTransition] = useState<boolean>(false);
+  const [inTransition, setInTransition] = useState<boolean | undefined>(
+    undefined
+  );
 
   // Calculate new content bounds
   const updateBounds = (node: any) => {
@@ -209,14 +214,14 @@ const Modal: React.FC<ModalProps> = ({
       ref.current = node;
 
       // Avoid transition mixups
-      setInTransition(true);
+      setInTransition(inTransition === undefined ? false : true);
       clearTimeout(blockTimeout);
       blockTimeout = setTimeout(() => setInTransition(false), 360);
 
       // Calculate new content bounds
       updateBounds(node);
     },
-    [open]
+    [open, inTransition]
   );
 
   // Update layout on chain/network switch to avoid clipping
@@ -319,18 +324,44 @@ const Modal: React.FC<ModalProps> = ({
           //   duration: !positionInside && state !== 'entered' ? 0 : 0.24,
           // }}
         >
-          {inTransition && ( // Block interaction while transitioning
-            <div
-              style={{
-                pointerEvents: 'all',
-                position: 'absolute',
-                inset: 0,
-                zIndex: 9,
-              }}
-            />
-          )}
+          <div
+            style={{
+              pointerEvents: inTransition ? 'all' : 'none', // Block interaction while transitioning
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: 'var(--width)',
+              zIndex: 9,
+              transition: 'width 200ms ease',
+            }}
+          />
           <BoxContainer className={`${rendered && 'active'}`}>
-            <AnimatePresence>
+            <AnimatePresence initial={false}>
+              {context.options?.disclaimer &&
+                context.route === routes.CONNECTORS && (
+                  <DisclaimerBackground
+                    initial={{
+                      opacity: 0,
+                    }}
+                    animate={{
+                      opacity: 1,
+                    }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      delay: 0,
+                      duration: 0.2,
+                      ease: [0.25, 0.1, 0.25, 1.0],
+                    }}
+                  >
+                    <Disclaimer>
+                      <div>{context.options?.disclaimer}</div>
+                    </Disclaimer>
+                  </DisclaimerBackground>
+                )}
+            </AnimatePresence>
+            <AnimatePresence initial={false}>
               {context.errorMessage && (
                 <ErrorMessage
                   initial={{ y: '10%', x: '-50%' }}
@@ -367,8 +398,8 @@ const Modal: React.FC<ModalProps> = ({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{
-                      duration: isMobile() ? 0 : 0.1,
-                      delay: isMobile() ? 0.01 : 0,
+                      duration: mobile ? 0 : 0.1,
+                      delay: mobile ? 0.01 : 0,
                     }}
                   >
                     <BackIcon />
@@ -385,8 +416,8 @@ const Modal: React.FC<ModalProps> = ({
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{
-                        duration: isMobile() ? 0 : 0.1,
-                        delay: isMobile() ? 0.01 : 0,
+                        duration: mobile ? 0 : 0.1,
+                        delay: mobile ? 0.01 : 0,
                       }}
                     >
                       <InfoIcon />
@@ -410,8 +441,8 @@ const Modal: React.FC<ModalProps> = ({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{
-                    duration: isMobile() ? 0 : 0.17,
-                    delay: isMobile() ? 0.01 : 0,
+                    duration: mobile ? 0 : 0.17,
+                    delay: mobile ? 0.01 : 0,
                   }}
                 >
                   {getHeading()}

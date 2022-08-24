@@ -3,6 +3,7 @@ export default {
     '"Nunito",ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '24px',
 
+  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-font-weight': '700',
   '--ck-connectbutton-border-radius': '14px',
   '--ck-connectbutton-color': '#000000',
@@ -11,6 +12,17 @@ export default {
     'inset 0 0 0 2px #DFE4EC, 0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-hover-background': '#F9FAFB',
+
+  '--ck-connectbutton-balance-color': '#414451',
+  '--ck-connectbutton-balance-background': '#F9FAFB',
+  '--ck-connectbutton-balance-box-shadow':
+    '0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+
+  '--ck-connectbutton-balance-hover-background': '#F5F7F9',
+  '--ck-connectbutton-balance-hover-box-shadow':
+    '0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-balance-active-box-shadow':
+    '0 0 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-active-background': '#F5F7F9',
   '--ck-connectbutton-active-box-shadow':
@@ -36,7 +48,7 @@ export default {
   '--ck-secondary-button-hover-box-shadow':
     'inset 0 0 0 2px #DFE4EC, inset  0 -2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
-  '--ck-focus-color': '#0555FE',
+  '--ck-focus-color': '#1A88F8',
   '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
   '--ck-body-color': '#000000',
   '--ck-body-color-muted': '#93989F',
@@ -56,6 +68,13 @@ export default {
   '--ck-body-color-danger': '#FF4E4E',
   '--ck-body-color-valid': '#32D74B',
 
+  '--ck-body-disclaimer-background': '#F9FAFB',
+  '--ck-body-disclaimer-font-size': '14px',
+  '--ck-body-disclaimer-font-weight': '700',
+  '--ck-body-disclaimer-color': '#959697',
+  '--ck-body-disclaimer-link-color': '#646464',
+  '--ck-body-disclaimer-link-hover-color': '#000000',
+
   '--ck-copytoclipboard-stroke': '#CCCCCC',
 
   '--ck-tooltip-background': '#ffffff',
@@ -65,7 +84,27 @@ export default {
 
   '--ck-spinner-color': 'var(--ck-focus-color)',
 
-  '--ck-qr-border-radius': '16px',
+  '--ck-dropdown-button-color': '#999999',
+  '--ck-dropdown-button-box-shadow':
+    '0 0 0 2px #DFE4EC,  0 2px 0 2px #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-dropdown-button-background': '#fff',
+
+  '--ck-dropdown-button-hover-color': '#8B8B8B',
+  '--ck-dropdown-button-hover-background': '#F5F7F9',
+
+  '--ck-dropdown-pending-color': '#848D9A',
+  '--ck-dropdown-active-color': '#000000',
+  '--ck-dropdown-active-static-color': '#848D9A',
+  '--ck-dropdown-active-background': '#F5F7F9',
+  '--ck-dropdown-color': '#848D9A',
+  '--ck-dropdown-background': '#FFFFFF',
+  '--ck-dropdown-box-shadow': 'inset 0 0 0 2px #DFE4EC',
+  '--ck-dropdown-border-radius': '16px',
+
+  '--ck-alert-color': '#848D9A',
+  '--ck-alert-background': '#F5F7F9',
+
+  '--ck-qr-border-radius': '24px',
   '--ck-qr-dot-color': '#111111',
   '--ck-qr-border-color': '#DFE4EC',
 

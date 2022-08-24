@@ -5,7 +5,7 @@ import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
 import Onboarding from '../Pages/Onboarding';
-import About from '../Pages/AboutAlt';
+import About from '../Pages/About';
 import Connectors from '../Pages/Connectors';
 import MobileConnectors from '../Pages/MobileConnectors';
 import ConnectUsing from './ConnectUsing';

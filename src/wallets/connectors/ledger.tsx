@@ -18,7 +18,7 @@ export const ledger = ({ chains }: WalletOptions): WalletProps => {
       website: 'https://www.ledger.com/ledger-live/download#download-device-2',
       download: 'https://connect.family.co/v0/download/ledger',
       android: 'https://play.google.com/store/apps/details?id=com.ledger.live',
-      ios: 'https://apps.apple.com/us/app/ledger-live-web3-wallet/id1361671700',
+      ios: 'https://apps.apple.com/app/ledger-live-web3-wallet/id1361671700',
     },
     createConnector: () => {
       const connector = new WalletConnectConnector({

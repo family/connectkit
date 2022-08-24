@@ -18,7 +18,7 @@ export const trust = ({ chains }: WalletOptions): WalletProps => {
       download: 'https://connect.family.co/v0/download/trust',
       android:
         'https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp',
-      ios: 'https://apps.apple.com/us/app/trust-crypto-bitcoin-wallet/id1288339409',
+      ios: 'https://apps.apple.com/app/trust-crypto-bitcoin-wallet/id1288339409',
     },
     createConnector: () => {
       const connector = new WalletConnectConnector({

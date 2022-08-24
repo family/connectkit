@@ -3,6 +3,7 @@ export default {
     '"SF Pro Rounded",ui-rounded,"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '8px',
 
+  '--ck-connectbutton-font-size': '17px',
   '--ck-connectbutton-color': '#000000',
   '--ck-connectbutton-background': '#ffffff',
   '--ck-connectbutton-box-shadow':
@@ -13,6 +14,17 @@ export default {
 
   '--ck-connectbutton-active-box-shadow':
     '0 0 0 0 #000000, inset 0 0 0 2px #000000',
+
+  '--ck-connectbutton-balance-color': '#000000',
+  '--ck-connectbutton-balance-background': '#F3EDE8',
+  '--ck-connectbutton-balance-box-shadow':
+    '-4px 4px 0px #000000, inset 0 0 0 2px #000000',
+  '--ck-connectbutton-balance-hover-background': '#eee5dd',
+
+  '--ck-connectbutton-balance-connectbutton-box-shadow':
+    '-4px 8px 0px -4px #000000, inset 0 0 0 2px #000000',
+
+  '--ck-connectbutton-balance-connectbutton-border-radius': '0px 8px 8px 0',
 
   '--ck-primary-button-color': '#373737',
   '--ck-primary-button-background': '#ffffff',
@@ -53,6 +65,14 @@ export default {
   '--ck-body-divider': '#373737',
   '--ck-body-color-danger': '#FF4E4E',
 
+  '--ck-body-disclaimer-background': '#E3D6C9',
+  '--ck-body-disclaimer-box-shadow':
+    '-4px 4px 0 0 #000000, inset 2px 0 0 0 #000000, inset -2px 0 0 0 #000000, inset 0 -2px 0 0 #000000',
+  '--ck-body-disclaimer-font-weight': '500',
+  '--ck-body-disclaimer-color': '#888079',
+  '--ck-body-disclaimer-link-color': '#5B5650',
+  '--ck-body-disclaimer-link-hover-color': '#000000',
+
   '--ck-modal-box-shadow': '-10px 10px 0px #000000, inset 0 0 0 2px #000000',
 
   '--ck-copytoclipboard-stroke': '#555555',
@@ -63,7 +83,31 @@ export default {
   '--ck-tooltip-background-secondary': '#EBE1D8',
   '--ck-tooltip-shadow': '-6px 6px 0 0 #000000, 0 0 0 2px #000000',
 
-  '--ck-spinner-color': '#0555FE',
+  '--ck-spinner-color': '#1A88F8',
+
+  '--ck-dropdown-button-color': '#000',
+  '--ck-dropdown-button-box-shadow':
+    '-2px 2px 0 2px #000000,  0 0 0 2px #000000',
+  '--ck-dropdown-button-background': '#ffffff',
+  '--ck-dropdown-button-hover-background': '#F3EDE8',
+  '--ck-dropdown-button-hover-box-shadow':
+    '-2px 2px 0 0 #000000,  0 0 0 2px #000000',
+
+  '--ck-dropdown-pending-color': 'rgba(0, 0, 0, 0.5)',
+  '--ck-dropdown-active-color': '#FFFFFF',
+  '--ck-dropdown-active-static-color': 'rgba(0, 0, 0, 0.5)',
+  '--ck-dropdown-active-background': '#3B99FC',
+  '--ck-dropdown-active-box-shadow': 'inset 0 0 0 2px #000000',
+  '--ck-dropdown-active-border-radius': '8px',
+
+  '--ck-dropdown-color': 'rgba(0, 0, 0, 0.5)',
+  '--ck-dropdown-background': '#FFFFFF',
+  '--ck-dropdown-box-shadow': '-4px 4px 0 0 #000000, inset 0 0 0 2px #000000',
+  '--ck-dropdown-border-radius': '8px',
+
+  '--ck-alert-color': 'rgba(0, 0, 0, 0.5)',
+  '--ck-alert-background': ' #F5F5F5',
+  '--ck-alert-border-radius': '8px',
 
   '--ck-qr-border-radius': '8px',
   '--ck-qr-dot-color': '#000000',
