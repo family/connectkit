@@ -58,9 +58,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
 
   const currentChain = supportedChains.find((c) => c.id === chain?.id);
   const state = `${
-    !isMounted
-      ? 'unmounted'
-      : balance?.formatted === undefined
+    !isMounted || balance?.formatted === undefined
       ? `balance-loading`
       : `balance-${currentChain?.id}-${balance?.formatted}`
   }`;
@@ -158,7 +156,7 @@ const BalanceButton: React.FC<All & BalanceProps> = ({
 }) => {
   return (
     <ThemedButton
-      duration={3}
+      duration={0.4}
       variant={'secondary'}
       theme={theme}
       mode={mode}

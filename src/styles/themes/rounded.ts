@@ -98,7 +98,7 @@ export default {
   '--ck-dropdown-active-background': '#F5F7F9',
   '--ck-dropdown-color': '#848D9A',
   '--ck-dropdown-background': '#FFFFFF',
-  '--ck-dropdown-box-shadow': 'inset 0 0 0 2px #DFE4EC',
+  '--ck-dropdown-box-shadow': '0px 2px 15px rgba(0, 0, 0, 0.15)',
   '--ck-dropdown-border-radius': '16px',
 
   '--ck-alert-color': '#848D9A',

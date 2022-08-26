@@ -38,7 +38,8 @@ export const EnsAvatar = styled(motion.div)<{
   }
   ${(props) => {
     if (props.$seed) {
-      const ensColor = `0${Math.ceil(addressToNumber(props.$seed) * 8)}`;
+      const id = Math.ceil(addressToNumber(props.$seed) * 8);
+      const ensColor = `0${id === 0 ? 1 : id}`; // No zero ID in ENS color list.. 🤷‍♀️
       return css`
         background: var(--ck-ens-${ensColor}-start);
         background: linear-gradient(

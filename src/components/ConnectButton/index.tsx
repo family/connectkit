@@ -73,7 +73,7 @@ const textVariants: Variants = {
   animate: {
     opacity: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.3,
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -81,7 +81,7 @@ const textVariants: Variants = {
     position: 'absolute',
     opacity: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.3,
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -195,30 +195,40 @@ function ConnectKitButtonInner({
             </IconContainer>
           )}
 
-          <div style={{ position: 'relative' }}>
+          <div
+            style={{
+              position: 'relative',
+            }}
+          >
             <AnimatePresence initial={false}>
               {ensName ? (
-                <motion.span
+                <TextContainer
                   key="ckEnsName"
                   initial={'initial'}
                   animate={'animate'}
                   exit={'exit'}
                   variants={textVariants}
+                  style={{
+                    position: ensName ? 'relative' : 'absolute',
+                  }}
                 >
                   {context.options?.truncateLongENSAddress
                     ? truncateENSAddress(ensName, 20)
                     : ensName}
-                </motion.span>
+                </TextContainer>
               ) : (
-                <motion.span
+                <TextContainer
                   key="ckTruncatedAddress"
                   initial={'initial'}
                   animate={'animate'}
                   exit={'exit'}
                   variants={textVariants}
+                  style={{
+                    position: ensName ? 'absolute' : 'relative',
+                  }}
                 >
                   {truncateEthAddress(address, separator)}{' '}
-                </motion.span>
+                </TextContainer>
               )}
             </AnimatePresence>
           </div>
@@ -363,6 +373,7 @@ export function ConnectKitButton({
           style={
             shouldShowBalance &&
             showBalance &&
+            address &&
             (theme === 'retro' || context.theme === 'retro')
               ? {
                   /** Special fix for the retro theme... not happy about this one */

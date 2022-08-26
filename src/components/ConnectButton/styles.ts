@@ -2,17 +2,13 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const TextContainer = styled(motion.div)`
-  display: block;
-  position: relative;
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  width: fit-content;
 `;
 
 export const ChainContainer = styled(motion.div)`

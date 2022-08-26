@@ -12,7 +12,7 @@ export const ChainContainer = styled.div`
   min-height: 24px;
   border-radius: 12px;
   overflow: hidden;
-  background: var(--ck-body-background, var(--bg));
+  background: transparent;
   color: var(--ck-body-color-muted, var(--color));
   content: '?';
   font-weight: 500;
