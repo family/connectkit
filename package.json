@@ -1,6 +1,6 @@
 {
   "name": "connectkit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "build/index.js",
   "description": "Connecting a wallet, made simple.",
   "module": "build/index.es.js",
