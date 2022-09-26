@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size:12px;
+}
+
+label{
+  display:flex;
+  width:auto;
+}
+label.checkbox{
+  align-items:center;
+  gap:4px;
+}
+
+label.textbox,
+label.select{
+  flex-direction: column;
+  gap:2px;
+}
