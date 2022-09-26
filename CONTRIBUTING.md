@@ -1,4 +1,4 @@
-# Contributing
+# ConnectKit Contributions
 
 > **If you plan on working on a significant feature, please open an issue and ask before you get started.**
 
