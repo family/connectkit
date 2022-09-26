@@ -2,9 +2,12 @@
 
 This is a simple ConnectKit + [Create React App (TypeScript)](https://reactjs.org/docs/create-a-new-react-app.html) template. Get started quickly by simply running:
 
+#### npm
 ```sh
 npx create-react-app my-app --template connectkit
-# or
+```
+#### yarn
+```sh
 yarn create react-app my-app --template connectkit
 ```
 
