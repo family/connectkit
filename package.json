@@ -1,7 +1,7 @@
 {
-  "name": "family-connectkit-mono",
+  "name": "family-connectkit",
   "version": "1.0.0",
-  "description": "Family ConnectKit Monorepo.",
+  "description": "Family ConnectKit.",
   "main": "connectkit/src/index.ts",
   "private": true,
   "workspaces": [
@@ -13,6 +13,8 @@
     "dev:connectkit": "yarn workspace connectkit run dev",
     "dev:cra": "yarn workspace cra run dev",
     "dev:nextjs": "yarn workspace nextjs run dev",
+    "dev:vite": "yarn workspace vite run dev",
+    "dev:testbench": "yarn workspace testbench run dev",
     "build": "yarn workspace connectkit run build"
   },
   "devDependencies": {
@@ -29,5 +31,8 @@
     "tslib": "^1.9.3",
     "wagmi": "^0.6.0"
   },
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.2.0",
+  "dependencies": {
+    "@changesets/cli": "^2.24.4"
+  }
 }
