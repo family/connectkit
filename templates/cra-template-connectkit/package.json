@@ -1,16 +1,17 @@
 {
-  "name": "cra-template-connectkit-typescript",
+  "name": "cra-template-connectkit",
   "version": "0.0.1",
   "keywords": [
     "react",
     "create-react-app",
     "template",
-    "typescript"
+    "typescript",
+    "connectkit"
   ],
-  "description": "ConnectKit Typescript template for Create React App.",
+  "description": "ConnectKit + Typescript template for Create React App.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/create-react-app.git",
+    "url": "https://github.com/family-dev/connectkit.git",
     "directory": "packages/cra-template-typescript"
   },
   "license": "MIT",
@@ -18,7 +19,7 @@
     "node": ">=14"
   },
   "bugs": {
-    "url": "https://github.com/facebook/create-react-app/issues"
+    "url": "https://github.com/family-dev/connectkit/issues"
   },
   "files": [
     "template",
