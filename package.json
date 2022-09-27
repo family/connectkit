@@ -2,11 +2,10 @@
   "name": "family-connectkit",
   "version": "0.0.0",
   "description": "Family ConnectKit.",
-  "main": "connectkit/src/index.ts",
+  "main": "packages/connectkit/src/index.ts",
   "private": true,
   "workspaces": [
-    "connectkit",
-    "libs/*",
+    "packages/*",
     "examples/*"
   ],
   "scripts": {

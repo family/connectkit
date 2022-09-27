@@ -10,7 +10,7 @@
     "@types/node": "^16.11.59",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
-    "connectkit": "workspace:connectkit",
+    "connectkit": "workspace:packages/connectkit",
     "ethers": "^5.6.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
