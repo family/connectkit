@@ -8,7 +8,7 @@
     "typescript",
     "connectkit"
   ],
-  "description": "ConnectKit + Typescript template for Create React App.",
+  "description": "ConnectKit + TypeScript template for Create React App.",
   "repository": {
     "type": "git",
     "url": "https://github.com/family-dev/connectkit.git",
