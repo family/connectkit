@@ -15,7 +15,9 @@
     "dev:nextjs": "yarn workspace nextjs run dev",
     "dev:vite": "yarn workspace vite run dev",
     "dev:testbench": "yarn workspace testbench run dev",
-    "build": "yarn workspace connectkit run build"
+    "build": "yarn workspace connectkit run build",
+    "build:ci": "yarn workspaces foreach -R run build",
+    "lint:ci": "yarn workspaces foreach -R run lint"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",

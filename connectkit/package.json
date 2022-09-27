@@ -12,7 +12,8 @@
   "scripts": {
     "start": "rollup -c -w",
     "dev": "tsc -w",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "lint": "eslint src --ext .ts"
   },
   "keywords": [
     "ens",
