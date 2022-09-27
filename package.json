@@ -1,6 +1,6 @@
 {
   "name": "family-connectkit",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Family ConnectKit.",
   "main": "connectkit/src/index.ts",
   "private": true,
