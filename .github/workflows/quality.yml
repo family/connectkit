@@ -1,6 +1,8 @@
 name: Quality Check
 on: [push, pull_request]
 jobs:
+  env:
+    YARN_ENABLE_IMMUTABLE_INSTALLS: false
   lint:
     name: Quality Check
     runs-on: ubuntu-latest
