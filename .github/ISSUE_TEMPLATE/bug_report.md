@@ -11,7 +11,7 @@ assignees: ''
 
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+**To reproduce**
 
 A CodeSandbox (preferably) or specify which version of ConnectKit you're using along with reproduction steps.
 
