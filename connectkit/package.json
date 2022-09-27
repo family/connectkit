@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "start": "rollup -c -w",
-    "dev": "rollup -c -w",
+    "dev": "tsc -w",
     "build": "rollup -c"
   },
   "keywords": [
@@ -30,6 +30,7 @@
     "qrcode": "^1.5.0",
     "react-transition-state": "^1.1.4",
     "react-use-measure": "^2.1.1",
+    "siwe": "^1.1.6",
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {
