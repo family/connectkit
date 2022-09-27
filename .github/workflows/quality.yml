@@ -1,5 +1,5 @@
 name: Quality Check
-on: [push, pull_request]
+on: [pull_request]
 env:
   YARN_ENABLE_IMMUTABLE_INSTALLS: false
 jobs:
