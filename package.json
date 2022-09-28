@@ -18,6 +18,7 @@
     "build:cra": "yarn build && yarn workspace cra build",
     "build:nextjs": "yarn build && yarn workspace nextjs build",
     "build:vite": "yarn build && yarn workspace vite build",
+    "build:testbench": "yarn build && yarn workspace testbench build",
     "build:ci": "yarn workspaces foreach -R run build",
     "lint:ci": "yarn workspaces foreach -R run lint"
   },
