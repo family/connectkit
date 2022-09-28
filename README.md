@@ -53,6 +53,7 @@ There are various runnable examples included in this repository in the [examples
 
 You can try out some ConnectKit examples directly in your browser through CodeSandbox:
 
+- [Create React App Example (TypeScript)](https://codesandbox.io/s/5rhqm0?file=/README.md)
 - [Next.js (TypeScript)](https://codesandbox.io/s/qnvyqe?file=/README.md)
 - [Vite Example (TypeScript)](https://codesandbox.io/s/4jtssh?file=/README.md)
 
