@@ -18,19 +18,19 @@ Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [ethers.js](https:/
 #### npm
 
 ```sh
-npx create-react-app my-app --template cra-template-connectkit-typescript
+npx create-react-app my-app --template connectkit
 ```
 
 #### yarn
 
 ```sh
-yarn create react-app my-app --template cra-template-connectkit-typescript
+yarn create react-app my-app --template connectkit
 ```
 
 #### pnpm
 
 ```sh
-pnpm dlx create-react-app ./my-app --template cra-template-connectkit-typescript
+pnpm dlx create-react-app ./my-app --template connectkit
 ```
 
 ## Documentation
