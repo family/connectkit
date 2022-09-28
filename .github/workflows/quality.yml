@@ -1,0 +1,31 @@
+name: Quality Check
+on: [pull_request]
+env:
+  YARN_ENABLE_IMMUTABLE_INSTALLS: false
+jobs:
+  lint:
+    name: Quality Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node v16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Use node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install deps
+        run: yarn
+
+      - name: Build the code
+        run: yarn build:ci
+
+      - name: Run ESLint
+        run: yarn lint:ci

@@ -10,9 +10,10 @@
     "README.md"
   ],
   "scripts": {
-    "start": "rollup -c -w",
-    "dev": "rollup -c -w",
-    "build": "rollup -c"
+    "start": "rollup --config rollup.config.dev.js -w",
+    "dev": "rollup --config rollup.config.dev.js -w",
+    "build": "rollup --config rollup.config.prod.js",
+    "lint": "eslint src --ext .ts"
   },
   "keywords": [
     "ens",

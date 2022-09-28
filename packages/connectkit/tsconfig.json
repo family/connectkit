@@ -2,6 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
+    "outDir": "build",
     "declaration": true,
     "declarationDir": "build",
     "module": "esnext",
@@ -12,8 +13,16 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "noImplicitAny": false,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "src/**/*.test.tsx"]
+  "exclude": ["node_modules", "build", "src/**/*.test.tsx"],
+  "watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriority",
+    "synchronousWatchDirectory": true,
+    "excludeDirectories": ["../node_modules", "build"]
+  }
 }

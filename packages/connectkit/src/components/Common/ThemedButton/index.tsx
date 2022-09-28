@@ -11,6 +11,7 @@ type ThemedButtonProps = {
   autoSize?: boolean;
   duration?: number;
   style?: React.CSSProperties;
+  onClick?: () => void;
 };
 
 export const PlaceholderButton = () => {
