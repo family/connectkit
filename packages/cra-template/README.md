@@ -5,13 +5,19 @@ This is a simple ConnectKit + [Create React App (TypeScript)](https://reactjs.or
 #### npm
 
 ```sh
-npx create-react-app my-app --template connectkit
+npx create-react-app my-app --template cra-template-connectkit
 ```
 
 #### yarn
 
 ```sh
-yarn create react-app my-app --template connectkit
+yarn create react-app my-app --template cra-template-connectkit
+```
+
+#### pnpm
+
+```sh
+pnpm dlx create-react-app ./my-app --template cra-template-connectkit
 ```
 
 ---
