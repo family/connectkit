@@ -15,6 +15,9 @@
     "dev:vite": "yarn workspace vite run dev",
     "dev:testbench": "yarn workspace testbench run dev",
     "build": "yarn workspace connectkit run build",
+    "build:cra": "yarn build && yarn workspace cra build",
+    "build:nextjs": "yarn build && yarn workspace nextjs build",
+    "build:vite": "yarn build && yarn workspace vite build",
     "build:ci": "yarn workspaces foreach -R run build",
     "lint:ci": "yarn workspaces foreach -R run lint"
   },
