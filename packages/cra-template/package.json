@@ -12,7 +12,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/family-dev/connectkit.git",
-    "directory": "packages/cra-template-typescript"
+    "directory": "packages/cra-template"
   },
   "license": "MIT",
   "engines": {
