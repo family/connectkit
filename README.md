@@ -49,6 +49,14 @@ There are various runnable examples included in this repository in the [examples
 - [Next.js Example (TypeScript)](https://github.com/family-dev/connectkit/tree/main/examples/nextjs)
 - [Vite Example (TypeScript)](https://github.com/family-dev/connectkit/tree/main/examples/vite)
 
+### Try in CodeSandbox
+
+You can try out some ConnectKit examples directly in your browser through CodeSandbox:
+
+- [Create React App Example (TypeScript)](https://codesandbox.io/s/5rhqm0?file=/README.md)
+- [Next.js (TypeScript)](https://codesandbox.io/s/qnvyqe?file=/README.md)
+- [Vite Example (TypeScript)](https://codesandbox.io/s/4jtssh?file=/README.md)
+
 ### Running Examples Locally
 
 Clone the ConnectKit project and install the necessary dependencies:
