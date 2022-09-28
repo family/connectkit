@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "start": "rollup -c -w",
-    "dev": "tsc -w",
+    "dev": "rollup -c -w",
     "build": "rollup -c",
     "lint": "eslint src --ext .ts"
   },
