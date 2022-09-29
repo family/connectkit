@@ -22,4 +22,4 @@ pnpm dlx create-react-app ./my-app --template cra-template-connectkit
 
 ---
 
-- If you want to run this example locally have a look at the instructions in the [ConnectKit README](https://github.com/family-dev/connectkit#running-examples-locally)
+- If you want to run this example locally have a look at the instructions in the [ConnectKit README](https://github.com/family/connectkit#running-examples-locally)
