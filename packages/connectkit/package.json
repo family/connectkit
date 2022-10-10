@@ -1,8 +1,16 @@
 {
   "name": "connectkit",
   "version": "0.0.2",
+  "author": "Family",
+  "homepage": "https://docs.family.co/connectkit",
+  "license": "BSD-2-Clause license",
   "main": "build/index.js",
   "description": "Connecting a wallet, made simple.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/family/connectkit.git",
+    "directory": "packages/connectkit"
+  },
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
   "files": [
