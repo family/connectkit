@@ -1,4 +1,10 @@
-import { Chain, Connector, chain, configureChains } from 'wagmi';
+import {
+  Chain,
+  Connector,
+  chain,
+  configureChains,
+  ChainProviderFn,
+} from 'wagmi';
 import { Provider } from '@wagmi/core';
 
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
@@ -25,6 +31,7 @@ type DefaultConnectorsProps = {
   chains?: Chain[];
   appName: string;
 };
+
 type DefaultClientProps = {
   appName: string;
   autoConnect?: boolean;
@@ -34,12 +41,14 @@ type DefaultClientProps = {
   connectors?: any;
   provider?: any;
 };
+
 type ConnectKitClientProps = {
   autoConnect?: boolean;
   connectors?: Connector[];
   provider: Provider;
   webSocketProvider?: any;
 };
+
 const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
     new MetaMaskConnector({
@@ -77,6 +86,7 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
     }),
   ];
 };
+
 const defaultClient = ({
   autoConnect = true,
   appName = 'ConnectKit',
@@ -87,12 +97,14 @@ const defaultClient = ({
   provider,
 }: DefaultClientProps) => {
   globalAppName = appName;
-  const providers = [];
 
-  //if (!infuraId && !alchemyId) alchemyId = 'ourDefaultAlchemyId';
-
-  if (alchemyId) providers.push(alchemyProvider({ apiKey: alchemyId }));
-  if (infuraId) providers.push(infuraProvider({ apiKey: infuraId }));
+  const providers: ChainProviderFn[] = [];
+  if (alchemyId) {
+    providers.push(alchemyProvider({ apiKey: alchemyId }));
+  }
+  if (infuraId) {
+    providers.push(infuraProvider({ apiKey: infuraId }));
+  }
   providers.push(
     jsonRpcProvider({
       rpc: (c) => {

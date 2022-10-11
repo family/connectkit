@@ -40,6 +40,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 
 import Button from '../../Common/Button';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
+import { Connector } from 'wagmi';
 
 const Wallets: React.FC = () => {
   const context = useContext();
@@ -50,7 +51,7 @@ const Wallets: React.FC = () => {
 
   const openDefaultConnect = async (id: string) => {
     const c = connectors.filter((c) => c.id === id)[0];
-    let connector = null;
+    let connector: Connector | null = null;
     switch (c.id) {
       case 'walletConnect':
         context.setRoute(routes.MOBILECONNECTORS);
@@ -85,7 +86,7 @@ const Wallets: React.FC = () => {
     if (!connector) return;
 
     // TODO: Make this neater
-    if (c.id == 'metaMask' && isMobile) {
+    if (c.id === 'metaMask' && mobile) {
       let connnector = connector as WalletConnectConnector;
       connector.on('message', async ({ type }) => {
         if (type === 'connecting') {
