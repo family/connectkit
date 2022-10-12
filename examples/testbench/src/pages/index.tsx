@@ -22,6 +22,7 @@ const themes: SelectProps[] = [
   { label: 'Minimal', value: 'minimal' },
   { label: 'Rounded', value: 'rounded' },
   { label: 'Midnight', value: 'midnight' },
+  { label: 'Nouns', value: 'nouns' },
 ];
 const modes: SelectProps[] = [
   { label: 'Auto', value: 'auto' },

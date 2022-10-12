@@ -5,7 +5,8 @@ export type Theme =
   | 'soft'
   | 'midnight'
   | 'minimal'
-  | 'rounded';
+  | 'rounded'
+  | 'nouns';
 export type Mode = 'light' | 'dark' | 'auto';
 export type CustomTheme = any; // TODO: define type
 export type Languages = 'en';

@@ -5,5 +5,6 @@ import soft from './soft';
 import midnight from './midnight';
 import minimal from './minimal';
 import rounded from './rounded';
+import nouns from './nouns';
 
-export default { base, web95, retro, soft, midnight, minimal, rounded };
+export default { base, web95, retro, soft, midnight, minimal, rounded, nouns };

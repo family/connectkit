@@ -151,6 +151,7 @@ const themeColors = {
   midnight: predefinedThemes.midnight,
   minimal: predefinedThemes.minimal,
   rounded: predefinedThemes.rounded,
+  nouns: predefinedThemes.nouns,
 };
 
 /**
@@ -191,6 +192,7 @@ const themes = {
   midnight: createCssColors(themeColors.midnight),
   minimal: createCssColors(themeColors.minimal),
   rounded: createCssColors(themeColors.rounded),
+  nouns: createCssColors(themeColors.nouns),
 };
 const globals = {
   brand: createCssVars(themeGlobals.brand),
@@ -246,6 +248,9 @@ export const ResetContainer = styled(motion.div)<{
       case 'rounded':
         mode = 'light';
         return themes.rounded;
+      case 'nouns':
+        mode = 'light';
+        return themes.nouns;
       default:
         if (props.$useMode === 'light') {
           mode = 'light';
