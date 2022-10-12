@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import Tooltip from '../Tooltip';
 import ChainSelectDropdown from '../ChainSelectDropdown';
+import Chains from '../../../assets/chains';
 
 const Container = styled(motion.div)``;
 
@@ -178,10 +179,11 @@ const ChainSelector: React.FC = () => {
         {chains
           .filter((x) => x.id === chain?.id)
           .map((x, i) => {
-            const c = supportedChains.find((c) => c.id === x.id);
+            const chain = supportedChains.find((c) => c.id === x.id);
+            const c = { ...chain, ...x };
             return (
               <motion.div
-                key={`${chain?.id}-${chain?.name}`}
+                key={`${c?.id}-${c?.name}`}
                 style={{
                   position: 'absolute',
                   inset: 0,
@@ -191,7 +193,7 @@ const ChainSelector: React.FC = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                {c?.logo}
+                {c?.logo ?? <Chains.UnknownChain />}
               </motion.div>
             );
           })}
