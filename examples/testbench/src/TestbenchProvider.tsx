@@ -45,6 +45,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
     reducedMotion: false,
     disclaimer: null,
     bufferPolyfill: true,
+    walletConnectCTA: 'modal',
   },
 }) => {
   const [ckTheme, setTheme] = useState<Types.Theme>(theme);

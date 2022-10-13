@@ -373,6 +373,21 @@ const Home: NextPage = () => {
             })
           }
         />
+        <Select
+          label="walletConnectCTA"
+          value={options.walletConnectCTA}
+          options={[
+            { label: 'modal', value: 'modal' },
+            { label: 'link', value: 'link' },
+            { label: 'both', value: 'both' },
+          ]}
+          onChange={(e) =>
+            setOptions({
+              ...options,
+              walletConnectCTA: e.target.value as any,
+            })
+          }
+        />
       </div>
       <div>
         <ConnectKitButton label={label} />

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type CustomQRCodeProps = {
-  value: string | null;
+  value?: string;
   image?: React.ReactNode;
   imageBackground?: string;
   imagePosition?: 'center' | 'bottom right';

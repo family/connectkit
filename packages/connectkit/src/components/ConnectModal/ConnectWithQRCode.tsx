@@ -4,7 +4,7 @@ import localizations, { localize } from '../../constants/localizations';
 
 import supportedConnectors from '../../constants/supportedConnectors';
 import { useConnect } from '../../hooks/useConnect';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
 
 import { detectBrowser } from '../../utils';
 
@@ -21,7 +21,7 @@ import Button from '../Common/Button';
 import Alert from '../Common/Alert';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import { ExternalLinkIcon } from '../../assets/icons';
-import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
+import CopyToClipboard from '../Common/CopyToClipboard';
 
 const ConnectWithQRCode: React.FC<{
   connectorId: string;
@@ -34,7 +34,9 @@ const ConnectWithQRCode: React.FC<{
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const { connectors, connectAsync } = useConnect();
-  const [connectorUri, setConnectorUri] = useState<string | null>(null);
+  const [connectorUri, setConnectorUri] = useState<string | undefined>(
+    undefined
+  );
 
   const localizeText = (text: string) => {
     return localize(text, {
@@ -161,6 +163,8 @@ const ConnectWithQRCode: React.FC<{
       </PageContent>
     );
 
+  const showAdditionalOptions = connector.defaultConnect;
+
   return (
     <PageContent>
       {/* <ModalHeading>
@@ -188,17 +192,37 @@ const ConnectWithQRCode: React.FC<{
             )
           }
         />
-        {connector.defaultConnect ? (
+        {showAdditionalOptions ? (
           <OrDivider />
         ) : (
           hasApps && <OrDivider>{`Don’t have the app?`}</OrDivider>
         )}
       </ModalContent>
 
-      {connector.defaultConnect && ( // Open the default connector modal
-        <Button icon={<ExternalLinkIcon />} onClick={openDefaultConnect}>
-          Open Default Modal
-        </Button>
+      {showAdditionalOptions && ( // for walletConnect
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 14,
+          }}
+        >
+          {context.options?.walletConnectCTA !== 'modal' && (
+            <CopyToClipboard variant="button" string={connectorUri}>
+              {context.options?.walletConnectCTA === 'link'
+                ? `Copy to Clipboard`
+                : `Copy Code`}
+            </CopyToClipboard>
+          )}
+          {context.options?.walletConnectCTA !== 'link' && (
+            <Button icon={<ExternalLinkIcon />} onClick={openDefaultConnect}>
+              {context.options?.walletConnectCTA === 'modal'
+                ? `View Default Modal`
+                : `Use Modal`}
+            </Button>
+          )}
+        </div>
       )}
 
       {/*
