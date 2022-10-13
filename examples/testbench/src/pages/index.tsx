@@ -178,16 +178,22 @@ const Home: NextPage = () => {
     <div
       style={{
         padding: 32,
+        paddingLeft: 352,
         display: 'flex',
         gap: 64,
       }}
     >
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          gap: 8,
+          zIndex: 2147483647,
+          position: 'fixed',
+          overflow: 'scroll',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          width: 256,
+          padding: 32,
+          background: '#fff',
         }}
       >
         <ConnectKitButton.Custom>
@@ -330,6 +336,7 @@ const Home: NextPage = () => {
           }
         />
         <Checkbox
+          disabled
           label="bufferPolyfill"
           value="bufferPolyfill"
           checked={options.bufferPolyfill}
