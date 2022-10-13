@@ -17,3 +17,5 @@ export type All = {
   customTheme?: CustomTheme;
   lang?: Languages;
 };
+
+export { CustomAvatarProps } from './components/Common/Avatar';

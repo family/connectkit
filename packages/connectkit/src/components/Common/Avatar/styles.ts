@@ -23,10 +23,9 @@ export const EnsAvatar = styled(motion.div)<{
   position: relative;
   overflow: hidden;
   margin: 0;
-  border-radius: ${(props) =>
-    props.$radius !== undefined ? `${props.$radius}px` : '50%'};
-  width: ${(props) => (props.$size ? props.$size : 96)}px;
-  height: ${(props) => (props.$size ? props.$size : 96)}px;
+  border-radius: ${(props) => `${props.$radius}px`};
+  width: ${(props) => `${props.$size}px`};
+  height: ${(props) => `${props.$size}px`};
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   &:before {
     content: '';

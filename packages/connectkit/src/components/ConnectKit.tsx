@@ -6,7 +6,13 @@ import React, {
   ReactNode,
 } from 'react';
 import { Buffer } from 'buffer';
-import { CustomTheme, Languages, Mode, Theme } from '../types';
+import {
+  CustomTheme,
+  Languages,
+  Mode,
+  Theme,
+  CustomAvatarProps,
+} from '../types';
 
 import defaultTheme from '../styles/defaultTheme';
 
@@ -62,6 +68,7 @@ type ConnectKitOptions = {
   reducedMotion?: boolean;
   disclaimer?: ReactNode | string;
   bufferPolyfill?: boolean;
+  customAvatar?: React.FC<CustomAvatarProps>;
 };
 
 type ConnectKitProviderProps = {
@@ -92,6 +99,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     reducedMotion: false,
     disclaimer: null,
     bufferPolyfill: true,
+    customAvatar: undefined,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);

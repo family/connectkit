@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { ConnectKitButton, Types } from 'connectkit';
+import { Avatar, ConnectKitButton, Types } from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 import {
@@ -12,6 +12,8 @@ import {
 } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
+
+import CustomAvatar from '../components/CustomAvatar';
 
 /** TODO: import this data from the connectkit module */
 const themes: SelectProps[] = [
@@ -200,7 +202,20 @@ const Home: NextPage = () => {
           {({ isConnected, show, address, ensName }) => {
             return (
               <button onClick={show}>
-                {isConnected ? ensName ?? address : 'Custom Connect'}
+                {isConnected ? (
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}
+                  >
+                    <Avatar address={address} size={12} />
+                    {ensName ?? address}
+                  </div>
+                ) : (
+                  'Custom Connect'
+                )}
               </button>
             );
           }}
@@ -208,6 +223,17 @@ const Home: NextPage = () => {
 
         <Actions />
         <h2>ConnectKitButton props</h2>
+        <Checkbox
+          label="customAvatar"
+          value="customAvatar"
+          checked={options.customAvatar !== undefined}
+          onChange={() =>
+            setOptions({
+              ...options,
+              customAvatar: options.customAvatar ? undefined : CustomAvatar,
+            })
+          }
+        />
         <Textbox
           label="ConnectKitButton Label"
           value={label}
@@ -350,6 +376,14 @@ const Home: NextPage = () => {
       </div>
       <div>
         <ConnectKitButton label={label} />
+
+        <p>Avatars</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Avatar name="lochie.eth" />
+          <Avatar name="pugson.eth" />
+          <Avatar address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" />
+          <Avatar name="benjitaylor.eth" />
+        </div>
       </div>
       <div>
         <AccountInfo />
