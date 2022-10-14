@@ -84,7 +84,7 @@ export const ButtonContainer = styled.button<{
         --border-radius: var(--ck-secondary-button-border-radius);
         --font-weight: var(--ck-secondary-button-font-weight, 500);
 
-        --hover-color: var(--ck-button-secondary-hover-color, var(--color));
+        --hover-color: var(--ck-secondary-button-hover-color, var(--color));
         --hover-background: var(
           --ck-secondary-button-hover-background,
           var(--background)

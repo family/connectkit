@@ -218,7 +218,7 @@ const ConnectWithQRCode: React.FC<{
           {context.options?.walletConnectCTA !== 'link' && (
             <Button icon={<ExternalLinkIcon />} onClick={openDefaultConnect}>
               {context.options?.walletConnectCTA === 'modal'
-                ? `View Default Modal`
+                ? `Use WalletConnect Modal`
                 : `Use Modal`}
             </Button>
           )}

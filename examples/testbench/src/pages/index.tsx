@@ -223,17 +223,6 @@ const Home: NextPage = () => {
 
         <Actions />
         <h2>ConnectKitButton props</h2>
-        <Checkbox
-          label="customAvatar"
-          value="customAvatar"
-          checked={options.customAvatar !== undefined}
-          onChange={() =>
-            setOptions({
-              ...options,
-              customAvatar: options.customAvatar ? undefined : CustomAvatar,
-            })
-          }
-        />
         <Textbox
           label="ConnectKitButton Label"
           value={label}
@@ -288,6 +277,17 @@ const Home: NextPage = () => {
           onChange={(e: any) => {
             setOptions({ ...options, walletConnectName: e.target.value });
           }}
+        />
+        <Checkbox
+          label="customAvatar"
+          value="customAvatar"
+          checked={options.customAvatar !== undefined}
+          onChange={() =>
+            setOptions({
+              ...options,
+              customAvatar: options.customAvatar ? undefined : CustomAvatar,
+            })
+          }
         />
         <Checkbox
           label="reduceMotion"
@@ -395,9 +395,12 @@ const Home: NextPage = () => {
         <p>Avatars</p>
         <div style={{ display: 'flex', gap: 8 }}>
           <Avatar name="lochie.eth" />
-          <Avatar name="pugson.eth" />
-          <Avatar address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" />
-          <Avatar name="benjitaylor.eth" />
+          <Avatar name="pugson.eth" size={32} />
+          <Avatar
+            address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+            size={12}
+          />
+          <Avatar name="benjitaylor.eth" size={64} />
         </div>
       </div>
       <div>
