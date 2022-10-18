@@ -1,7 +1,6 @@
 import { Types } from 'connectkit';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 
 const CustomAvatar = ({
   address,
@@ -30,7 +29,8 @@ const CustomAvatar = ({
       }}
     >
       {ensImage && (
-        <Image
+        /* eslint-disable @next/next/no-img-element */
+        <img
           src={ensImage}
           alt={ensName ?? address}
           width="100%"
