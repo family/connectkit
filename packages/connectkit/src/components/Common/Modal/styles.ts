@@ -67,6 +67,7 @@ from { opacity: 1; transform: scale(1); }
 export const PageContent = styled(motion.div)`
   max-width: 100%;
   width: 295px;
+  padding-top: 48px;
 `;
 
 export const TextWithHr = styled(motion.div)`
@@ -122,10 +123,6 @@ export const ModalHeading = styled(motion.div)`
   span {
     display: inline-block;
   }
-`;
-
-export const ModalHeadingBlock = styled(motion.div)`
-  height: 48px;
 `;
 
 export const ModalContentContainer = styled(motion.div)`

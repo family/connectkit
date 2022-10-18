@@ -19,7 +19,6 @@ import {
   ModalBody,
   ModalContent,
   ModalH1,
-  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 
 import Button from '../../Common/Button';
@@ -172,7 +171,6 @@ const About: React.FC = () => {
 
   return (
     <PageContent>
-      <ModalHeadingBlock />
       <Slider>
         <ImageContainer>
           <MotionConfig

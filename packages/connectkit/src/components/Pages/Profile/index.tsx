@@ -26,7 +26,6 @@ import {
   ModalBody,
   ModalContent,
   ModalH1,
-  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import Button from '../../Common/Button';
 import Avatar from '../../Common/Avatar';
@@ -81,7 +80,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   if (chain?.unsupported) {
     return (
       <PageContent>
-        <ModalHeadingBlock />
         <Alert>{copy.unsupported}</Alert>
         <Button
           onClick={() => setShouldDisconnect(true)}
@@ -99,8 +97,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     : undefined;
   return (
     <PageContent>
-      {/* <ModalHeading>{copy.heading}</ModalHeading> */}
-      <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
         <AvatarContainer>
           <AvatarInner>

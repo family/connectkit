@@ -80,7 +80,7 @@ type ConnectKitProviderProps = {
   children?: React.ReactNode;
   theme?: Theme;
   mode?: Mode;
-  customTheme?: CustomTheme | undefined;
+  customTheme?: CustomTheme;
   options?: ConnectKitOptions;
 };
 

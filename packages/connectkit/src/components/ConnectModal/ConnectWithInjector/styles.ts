@@ -42,8 +42,8 @@ export const ConnectingContainer = styled(motion.div)`
   //transform: scale(1.001); // fixes shifting issue between states
 `;
 export const ConnectingAnimation = styled(motion.div)<{
-  $shake: boolean | undefined;
-  $circle: boolean | undefined;
+  $shake: boolean;
+  $circle: boolean;
 }>`
   user-select: none;
   position: relative;

@@ -7,11 +7,7 @@ import {
   WalletLabel,
 } from './styles';
 
-import {
-  PageContent,
-  ModalContent,
-  ModalHeadingBlock,
-} from '../../Common/Modal/styles';
+import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
 import Button from '../../Common/Button';
 
@@ -74,7 +70,6 @@ const MobileConnectors: React.FC = () => {
 
   return (
     <PageContent style={{ width: 312, height: 367 }}>
-      <ModalHeadingBlock />
       <Container>
         <ModalContent>
           <WalletList>

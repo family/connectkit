@@ -12,7 +12,6 @@ import {
   PageContent,
   ModalContent,
   ModalHeading,
-  ModalHeadingBlock,
 } from '../Common/Modal/styles';
 import { OrDivider } from '../Common/Modal';
 
@@ -167,12 +166,6 @@ const ConnectWithQRCode: React.FC<{
 
   return (
     <PageContent>
-      {/* <ModalHeading>
-        {connectorId === 'walletConnect'
-          ? copy.heading
-          : `Scan with ${connector.name}`}
-      </ModalHeading> */}
-      <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 8, gap: 14 }}>
         <CustomQRCode
           value={connectorUri}

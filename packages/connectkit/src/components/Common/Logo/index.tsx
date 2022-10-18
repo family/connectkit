@@ -4,9 +4,9 @@ import { LogoContainer, Image, Squircle } from './styles';
 
 const Logo: React.FC<{
   src: React.ReactNode;
-  background?: string | undefined;
-  width?: number | undefined;
-  height?: number | undefined;
+  background?: string;
+  width?: number;
+  height?: number;
 }> = ({ src, background, width, height }) => {
   return (
     <LogoContainer $width={width} $height={height}>

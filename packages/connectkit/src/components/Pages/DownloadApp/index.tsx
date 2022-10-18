@@ -7,9 +7,6 @@ import {
   PageContent,
   ModalBody,
   ModalContent,
-  ModalBodySmall,
-  ModalHeading,
-  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import { OrDivider } from '../../Common/Modal';
 
@@ -42,8 +39,6 @@ const DownloadApp: React.FC<{
 
   return (
     <PageContent>
-      {/* <ModalHeading>{localizeText(copy.heading)}</ModalHeading> */}
-      <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         {downloadUri && <CustomQRCode value={downloadUri} />}
         {!downloadUri && <>No download link available</>}

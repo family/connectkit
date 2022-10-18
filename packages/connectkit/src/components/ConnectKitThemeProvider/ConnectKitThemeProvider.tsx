@@ -2,9 +2,9 @@ import React, { createContext, createElement } from 'react';
 import { CustomTheme, Mode, Theme } from './../../types';
 
 type ContextValue = {
-  theme: Theme;
-  mode: Mode;
-  customTheme: CustomTheme | undefined;
+  theme?: Theme;
+  mode?: Mode;
+  customTheme?: CustomTheme;
 };
 
 const Context = createContext<ContextValue | null>(null);
@@ -13,7 +13,7 @@ type ConnectKitThemeProviderProps = {
   children?: React.ReactNode;
   theme?: Theme;
   mode?: Mode;
-  customTheme?: CustomTheme | undefined;
+  customTheme?: CustomTheme;
 };
 
 export const ConnectKitThemeProvider: React.FC<

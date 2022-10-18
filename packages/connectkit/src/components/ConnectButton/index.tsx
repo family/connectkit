@@ -135,9 +135,9 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         unsupported: !!chain?.unsupported,
         isConnected: !!address,
         isConnecting: isConnecting,
-        address: address ?? '',
-        truncatedAddress: address ? truncateEthAddress(address) : '',
-        ensName: ensName ?? undefined,
+        address: address?.toString(),
+        truncatedAddress: address ? truncateEthAddress(address) : undefined,
+        ensName: ensName?.toString(),
       })}
     </>
   );

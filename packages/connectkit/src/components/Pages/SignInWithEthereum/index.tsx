@@ -7,7 +7,6 @@ import {
   PageContent,
   ModalBody,
   ModalContent,
-  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import {
   StatusGraphic,
@@ -86,7 +85,6 @@ const SignInWithEthereum: React.FC = () => {
 
   return (
     <PageContent style={{ width: 278 }}>
-      <ModalHeadingBlock />
       <ModalContent style={{ padding: 0, marginTop: -10 }}>
         <ContentContainer>
           <AnimatePresence exitBeforeEnter>

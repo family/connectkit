@@ -11,7 +11,6 @@ import {
   ModalH1,
   ModalBody,
   ModalContent,
-  ModalHeadingBlock,
   Disclaimer,
 } from '../../Common/Modal/styles';
 import WalletIcon from '../../../assets/wallet';
@@ -148,7 +147,6 @@ const Wallets: React.FC = () => {
 
   return (
     <PageContent style={{ width: 312 }}>
-      <ModalHeadingBlock />
       {mobile ? (
         <>
           <MobileConnectorsContainer>

@@ -21,7 +21,6 @@ import {
   ModalH1,
   ModalContentContainer,
   ModalContent,
-  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import { OrDivider } from '../../Common/Modal';
 import Button from '../../Common/Button';
@@ -247,9 +246,6 @@ const ConnectWithInjector: React.FC<{
   return (
     <PageContent>
       <Container>
-        {/* <ModalHeading>{connector.name}</ModalHeading> */}
-        <ModalHeadingBlock />
-
         <ConnectingContainer>
           <ConnectingAnimation
             $shake={status === states.FAILED || status === states.REJECTED}

@@ -177,14 +177,14 @@ export const contentVariants: Variants = {
 };
 
 type ModalProps = {
-  open: boolean | undefined;
+  open?: boolean;
   pages: any;
   pageId: string;
   positionInside?: boolean;
   inline?: boolean;
-  onClose?: () => void | undefined;
-  onBack?: () => void | undefined;
-  onInfo?: () => void | undefined;
+  onClose?: () => void;
+  onBack?: () => void;
+  onInfo?: () => void;
 
   demo?: {
     theme: string;
@@ -638,7 +638,7 @@ const Modal: React.FC<ModalProps> = ({
 
 type PageProps = {
   children?: React.ReactNode;
-  open: boolean | undefined;
+  open?: boolean;
   initial: boolean;
   prevDepth?: number;
   currentDepth?: number;
