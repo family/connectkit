@@ -3,6 +3,7 @@ import React from 'react';
 import { ChainContainer, LoadingContainer } from './styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import supportedChains from '../../../constants/supportedChains';
+import Logos from '../../../assets/chains';
 
 const Spinner = (
   <svg
@@ -62,7 +63,7 @@ const Chain: React.FC<{
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {chain?.logo}
+            {chain?.logo || <Logos.UnknownChain />}
           </motion.div>
         ) : (
           <LoadingContainer

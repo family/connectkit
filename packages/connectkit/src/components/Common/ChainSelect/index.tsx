@@ -14,6 +14,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Tooltip from '../Tooltip';
 import ChainSelectDropdown from '../ChainSelectDropdown';
 
+import Logos from '../../../assets/chains';
+
 const Container = styled(motion.div)``;
 
 const SwitchChainButton = styled(motion.button)`
@@ -191,7 +193,7 @@ const ChainSelector: React.FC = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                {c?.logo}
+                {c?.logo || <Logos.UnknownChain />}
               </motion.div>
             );
           })}
