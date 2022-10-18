@@ -111,6 +111,7 @@ const SignInWithEthereum: React.FC = () => {
               <motion.rect
                 x="0"
                 y="0"
+                rx="12"
                 width="262"
                 height="134"
                 strokeDasharray="3 3"
