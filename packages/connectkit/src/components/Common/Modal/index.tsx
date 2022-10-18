@@ -321,9 +321,13 @@ const Modal: React.FC<ModalProps> = ({
         return localize(localizations[context.lang].aboutScreen.heading);
       case routes.CONNECT:
         if (shouldUseQrcode()) {
-          return c.id === 'walletConnect'
-            ? localize(localizations[context.lang].scanScreen.heading)
-            : `Scan with ${c.name}`;
+          return c.id === 'walletConnect' ? (
+            localize(localizations[context.lang].scanScreen.heading)
+          ) : (
+            <>
+              Scan with <span>{c.name}</span>
+            </>
+          );
         } else {
           return c.name;
         }
@@ -546,8 +550,12 @@ const Modal: React.FC<ModalProps> = ({
                   style={{
                     position: 'absolute',
                     top: 0,
-                    left: 0,
-                    right: 0,
+                    bottom: 0,
+                    left: 62,
+                    right: 62,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                   key={`${context.route}-${signedIn ? 'signedIn' : ''}`}
                   initial={{ opacity: 0 }}
@@ -558,7 +566,7 @@ const Modal: React.FC<ModalProps> = ({
                     delay: mobile ? 0.01 : 0,
                   }}
                 >
-                  {getHeading()}
+                  <div>{getHeading()}</div>
                 </motion.div>
               </AnimatePresence>
             </ModalHeading>

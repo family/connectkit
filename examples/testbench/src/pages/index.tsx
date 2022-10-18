@@ -173,6 +173,8 @@ const Home: NextPage = () => {
   const {
     theme,
     setTheme,
+    customTheme,
+    setCustomTheme,
     mode,
     setMode,
     options,
@@ -302,6 +304,18 @@ const Home: NextPage = () => {
               customAvatar: options.customAvatar ? undefined : CustomAvatar,
             })
           }
+        />
+        <Checkbox
+          label="Custom Font"
+          value="customTheme"
+          checked={customTheme['--ck-font-family'] !== undefined}
+          onChange={() => {
+            setCustomTheme(
+              customTheme['--ck-font-family'] !== undefined
+                ? {}
+                : { '--ck-font-family': 'monospace' }
+            );
+          }}
         />
         <Checkbox
           label="reduceMotion"

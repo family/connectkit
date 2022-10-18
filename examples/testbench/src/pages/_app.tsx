@@ -17,14 +17,19 @@ const client = createClient(
 );
 
 function App({ Component, pageProps }: AppProps) {
-  const { theme, mode, options } = useTestBench();
+  const { theme, mode, options, customTheme } = useTestBench();
 
   // SIWE provider needs to be the outer-most provider because the connect kit
   // provider depends on some of the state
 
   return (
     <siwe.Provider>
-      <ConnectKitProvider theme={theme} mode={mode} options={options}>
+      <ConnectKitProvider
+        theme={theme}
+        mode={mode}
+        options={options}
+        customTheme={customTheme}
+      >
         <Component {...pageProps} />
       </ConnectKitProvider>
     </siwe.Provider>
@@ -42,7 +47,9 @@ function MyApp(appProps: AppProps) {
         />
       </Head>
       <WagmiConfig client={client}>
-        <TestBenchProvider>
+        <TestBenchProvider
+        //customTheme={{ '--ck-font-family': 'monospace' }}
+        >
           <App {...appProps} />
         </TestBenchProvider>
       </WagmiConfig>

@@ -9,6 +9,8 @@ import { Types } from 'connectkit';
 type ContextValue = {
   theme: Types.Theme;
   setTheme: React.Dispatch<React.SetStateAction<Types.Theme>>;
+  customTheme: Types.CustomTheme;
+  setCustomTheme: React.Dispatch<React.SetStateAction<Types.CustomTheme>>;
   mode: Types.Mode;
   setMode: React.Dispatch<React.SetStateAction<Types.Mode>>;
   options: any;
@@ -26,6 +28,7 @@ const Context = createContext<ContextValue | null>(null);
 type TestBenchProviderProps = {
   children?: React.ReactNode;
   theme?: Types.Theme;
+  customTheme?: Types.CustomTheme;
   mode?: Types.Mode;
   options?: any;
 };
@@ -33,6 +36,7 @@ type TestBenchProviderProps = {
 export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
   children,
   theme = 'auto',
+  customTheme = {},
   mode = 'light',
   options = {
     language: 'en',
@@ -48,7 +52,8 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
     walletConnectCTA: 'modal',
   },
 }) => {
-  const [ckTheme, setTheme] = useState<Types.Theme>(theme);
+  const [ckCustomTheme, setCustomTheme] = useState<Types.Theme>(customTheme);
+  const [ckTheme, setTheme] = useState<Types.CustomTheme>(theme);
   const [ckMode, setMode] = useState<Types.Mode>(mode);
   const [ckOptions, setOptions] = useState<any>(options);
   const [hideBalance, setHideBalance] = useState<boolean>(false);
@@ -60,6 +65,8 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
   const value: any = {
     theme: ckTheme,
     setTheme,
+    customTheme: ckCustomTheme,
+    setCustomTheme,
     mode: ckMode,
     setMode,
     options: ckOptions,

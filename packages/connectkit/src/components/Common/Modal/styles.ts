@@ -106,8 +106,12 @@ export const ModalHeading = styled(motion.div)`
   pointer-events: none;
   user-select: none;
   position: absolute;
-  top: 28px;
+  top: 0;
   left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 76px;
   transform: translateX(-50%);
   width: var(--width);
   text-align: center;
@@ -115,6 +119,9 @@ export const ModalHeading = styled(motion.div)`
   line-height: 20px;
   font-weight: var(--ck-modal-heading-font-weight, 600);
   color: var(--ck-body-color);
+  span {
+    display: inline-block;
+  }
 `;
 
 export const ModalHeadingBlock = styled(motion.div)`
