@@ -1,5 +1,11 @@
 import type { NextPage } from 'next';
-import { Avatar, ConnectKitButton, Types } from 'connectkit';
+import {
+  ConnectKitButton,
+  Types,
+  Avatar,
+  useSIWE,
+  SIWEButton,
+} from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 import {
@@ -12,6 +18,7 @@ import {
 } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
+import Link from 'next/link';
 
 import CustomAvatar from '../components/CustomAvatar';
 
@@ -39,8 +46,8 @@ const AccountInfo = () => {
     addressOrName: address,
   });
   const { chain } = useNetwork();
+  const siwe = useSIWE();
 
-  if (!isConnected) return null;
   return (
     <ul>
       <li>ChainID: {chain?.id}</li>
@@ -49,6 +56,13 @@ const AccountInfo = () => {
       <li>Address: {address}</li>
       <li>Connector: {connector?.id}</li>
       <li>Balance: {balanceData?.formatted}</li>
+      <li>
+        SIWE session: {siwe.signedIn ? 'yes' : 'no'}
+        {siwe.signedIn && <button onClick={siwe.signOut}>sign out</button>}
+      </li>
+      <li>
+        <Link href="/siwe/token-gated">Token-gated page</Link>
+      </li>
     </ul>
   );
 };
@@ -391,6 +405,8 @@ const Home: NextPage = () => {
       </div>
       <div>
         <ConnectKitButton label={label} />
+        <SIWEButton showSignOutButton />
+        <AccountInfo />
 
         <p>Avatars</p>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -402,9 +418,6 @@ const Home: NextPage = () => {
           />
           <Avatar name="benjitaylor.eth" size={64} />
         </div>
-      </div>
-      <div>
-        <AccountInfo />
       </div>
     </div>
   );

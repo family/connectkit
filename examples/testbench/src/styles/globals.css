@@ -7,7 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 12px;
 }
-
 label {
   display: flex;
   width: auto;

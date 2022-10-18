@@ -28,8 +28,4 @@ export const IconContainer = styled(motion.div)`
   width: 24px;
   height: 24px;
   margin-right: 8px;
-  svg {
-    position: absolute;
-    inset: 0;
-  }
 `;

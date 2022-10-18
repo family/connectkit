@@ -122,7 +122,7 @@ export const TickIcon = ({ ...props }) => {
   );
 };
 
-export const RetryIcon = ({ ...props }) => {
+export const RetryIconCircle = ({ ...props }) => {
   return (
     <svg
       aria-hidden="true"
@@ -142,6 +142,33 @@ export const RetryIcon = ({ ...props }) => {
     </svg>
   );
 };
+
+export const RetryIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="16"
+    height="14"
+    viewBox="0 0 16 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M14.5 2V6H10.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M14 5.66537L10.9899 2.75871C10.0931 1.83853 8.92897 1.24216 7.6729 1.05947C6.41683 0.876774 5.13688 1.11765 4.02592 1.7458C2.91497 2.37395 2.0332 3.35534 1.5135 4.54208C0.993792 5.72883 0.864305 7.05663 1.14455 8.3254C1.42479 9.59418 2.09958 10.7352 3.06724 11.5765C4.03489 12.4178 5.24298 12.9138 6.50946 12.9898C7.77594 13.0657 9.03219 12.7176 10.0889 11.9977C10.4765 11.7337 10.8295 11.4249 11.142 11.0792"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 export const CopyToClipboardIcon = ({ ...props }) => (
   <svg
@@ -175,4 +202,42 @@ export const CopyToClipboardIcon = ({ ...props }) => (
       strokeLinejoin="round"
     />
   </svg>
+);
+
+export const AuthIcon = ({ ...props }) => (
+  <div
+    {...props}
+    style={{
+      zIndex: 2,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      background: '#34C759',
+      borderRadius: 10,
+      boxShadow: '0 0 0 2px var(--ck-body-background)',
+      width: 10,
+      height: 10,
+      ...props?.style,
+    }}
+  >
+    <svg
+      aria-hidden="true"
+      width="6"
+      height="6"
+      viewBox="0 0 6 6"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0.75 3L2.25 4.5L5.25 1.5"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </div>
 );

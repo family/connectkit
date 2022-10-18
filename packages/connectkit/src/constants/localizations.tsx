@@ -54,6 +54,7 @@ export const replaceMarkdown = (markdownText: string) => {
 };
 
 export const keys = {
+  //appName: '{{ APPNAME }}',
   connectorName: '{{ CONNECTORNAME }}',
   connectorShortName: '{{ CONNECTORSHORTNAME }}',
   suggestedExtensionBrowser: '{{ SUGGESTEDEXTENSIONBROWSER }}',
@@ -147,6 +148,20 @@ export default {
     },
     switchNetworkScreen: {
       heading: 'Switch Networks',
+    },
+    signInWithEthereumScreen: {
+      signedOut: {
+        heading: 'Sign In with Ethereum',
+        h1: 'This app would like to verify you \n as the owner of this wallet.',
+        p: `Please sign the message request \n in your wallet to continue.`,
+        button: 'Sign In',
+      },
+      signedIn: {
+        heading: 'Signed In with Ethereum',
+        h1: 'You successfully verified yourself \n as the owner of this wallet.',
+        p: `Signing out will require you to \n authenticate again in the future.`,
+        button: 'Sign Out',
+      },
     },
   },
 };

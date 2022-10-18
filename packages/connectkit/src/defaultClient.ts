@@ -18,7 +18,9 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
 let globalAppName: string;
+let globalAppIcon: string;
 export const getAppName = () => globalAppName;
+export const getAppIcon = () => globalAppIcon;
 
 const defaultChains = [
   chain.mainnet,
@@ -34,6 +36,7 @@ type DefaultConnectorsProps = {
 
 type DefaultClientProps = {
   appName: string;
+  appIcon?: string;
   autoConnect?: boolean;
   alchemyId?: string;
   infuraId?: string;
@@ -90,6 +93,7 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
 const defaultClient = ({
   autoConnect = true,
   appName = 'ConnectKit',
+  appIcon,
   chains = defaultChains,
   alchemyId,
   infuraId,
@@ -97,6 +101,7 @@ const defaultClient = ({
   provider,
 }: DefaultClientProps) => {
   globalAppName = appName;
+  if (appIcon) globalAppIcon = appIcon;
 
   const providers: ChainProviderFn[] = [];
   if (alchemyId) {

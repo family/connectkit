@@ -11,6 +11,8 @@ import { CustomTheme, Mode, Theme } from '../../types';
 import { Balance } from '../BalanceButton';
 import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
 import { ResetContainer } from '../../styles';
+import { AuthIcon } from '../../assets/icons';
+import { useSIWE } from '../Standard/SIWE/useSIWE';
 
 const contentVariants: Variants = {
   initial: {
@@ -153,6 +155,7 @@ function ConnectKitButtonInner({
   separator?: string;
 }) {
   const context = useContext();
+  const { signedIn } = useSIWE();
 
   const { chain } = useNetwork();
   const { address } = useAccount();
@@ -191,6 +194,23 @@ function ConnectKitButtonInner({
         >
           {showAvatar && (
             <IconContainer>
+              <AnimatePresence initial={false}>
+                {signedIn && (
+                  <motion.div
+                    style={{
+                      zIndex: 2,
+                      position: 'absolute',
+                      bottom: 0,
+                      right: 0,
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <AuthIcon />
+                  </motion.div>
+                )}
+              </AnimatePresence>
               <Avatar size={24} address={address} />
             </IconContainer>
           )}

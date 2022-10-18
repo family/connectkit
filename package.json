@@ -10,15 +10,17 @@
   ],
   "scripts": {
     "dev:connectkit": "yarn workspace connectkit run dev",
+    "dev:connectkit-next-siwe": "yarn workspace connectkit-next-siwe run dev",
     "dev:cra": "yarn workspace cra run dev",
     "dev:nextjs": "yarn workspace nextjs run dev",
     "dev:vite": "yarn workspace vite run dev",
     "dev:testbench": "yarn workspace testbench run dev",
     "build": "yarn workspace connectkit run build",
+    "build:connectkit-next-siwe": "yarn workspace connectkit-next-siwe run build",
     "build:cra": "yarn build && yarn workspace cra build",
     "build:nextjs": "yarn build && yarn workspace nextjs build",
     "build:vite": "yarn build && yarn workspace vite build",
-    "build:testbench": "yarn build && yarn workspace testbench build",
+    "build:testbench": "yarn build && yarn build:connectkit-next-siwe && yarn workspace testbench build",
     "build:ci": "yarn workspaces foreach -R run build",
     "lint:ci": "yarn workspaces foreach -R run lint"
   },

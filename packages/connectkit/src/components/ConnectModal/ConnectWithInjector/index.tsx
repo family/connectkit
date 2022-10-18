@@ -30,9 +30,9 @@ import Alert from '../../Common/Alert';
 
 import CircleSpinner from './CircleSpinner';
 
-import { Scan } from '../../../assets/icons';
+import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
-import { AlertIcon, TickIcon, RetryIcon } from '../../../assets/icons';
+import { AlertIcon, TickIcon } from '../../../assets/icons';
 import { detectBrowser } from '../../../utils';
 
 export const states = {
@@ -275,7 +275,7 @@ const ConnectWithInjector: React.FC<{
                       message={`Try again?`}
                       xOffset={-6}
                     >
-                      <RetryIcon />
+                      <RetryIconCircle />
                     </Tooltip>
                   </RetryIconContainer>
                 </RetryButton>

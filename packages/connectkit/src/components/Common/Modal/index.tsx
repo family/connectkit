@@ -24,6 +24,8 @@ import {
   ErrorMessage,
   DisclaimerBackground,
   Disclaimer,
+  SiweButton,
+  SignInTooltip,
 } from './styles';
 
 import { routes, useContext } from '../../ConnectKit';
@@ -37,7 +39,52 @@ import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { useNetwork } from 'wagmi';
+import { AuthIcon } from '../../../assets/icons';
+import { useSIWE } from '../../..';
 
+const ProfileIcon = ({ signedIn }: { signedIn?: boolean }) => (
+  <div style={{ position: 'relative' }}>
+    {signedIn ? (
+      <AuthIcon
+        style={{
+          bottom: -1,
+          right: -1,
+        }}
+      />
+    ) : (
+      <div
+        style={{
+          zIndex: 2,
+          position: 'absolute',
+          top: -2,
+          right: -2,
+          background: '#1A88F8',
+          borderRadius: 8,
+          boxShadow: '0 0 0 2px var(--ck-body-background)',
+          width: 8,
+          height: 8,
+        }}
+      />
+    )}
+    <svg
+      aria-hidden="true"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ overflow: 'visible' }}
+    >
+      <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M16.5 16.775C14.8618 15.0649 12.5552 14 10 14C7.44477 14 5.13825 15.0649 3.5 16.775"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <circle cx="10" cy="8" r="3" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  </div>
+);
 const InfoIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
@@ -159,6 +206,7 @@ const Modal: React.FC<ModalProps> = ({
   const context = useContext();
   const themeContext = useThemeContext();
   const mobile = isMobile();
+  const { signedIn } = useSIWE();
 
   const [state, setOpen] = useTransition({
     timeout: mobile ? 160 : 160, // different animations, 10ms extra to avoid final-frame drops
@@ -297,6 +345,14 @@ const Modal: React.FC<ModalProps> = ({
         return localize(
           localizations[context.lang].switchNetworkScreen.heading
         );
+      case routes.SIGNINWITHETHEREUM:
+        return localize(
+          signedIn
+            ? localizations[context.lang].signInWithEthereumScreen.signedIn
+                .heading
+            : localizations[context.lang].signInWithEthereumScreen.signedOut
+                .heading
+        );
       default:
         return '';
     }
@@ -387,31 +443,22 @@ const Modal: React.FC<ModalProps> = ({
               <CloseButton aria-label="Close" onClick={onClose}>
                 <CloseIcon />
               </CloseButton>
-              <AnimatePresence>
-                {onBack ? (
-                  <BackButton
-                    disabled={inTransition}
-                    aria-label="Back"
-                    key="backButton"
-                    onClick={onBack}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      duration: mobile ? 0 : 0.1,
-                      delay: mobile ? 0.01 : 0,
-                    }}
-                  >
-                    <BackIcon />
-                  </BackButton>
-                ) : (
-                  onInfo &&
-                  !context.options?.hideQuestionMarkCTA && (
-                    <InfoButton
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 23,
+                  left: 20,
+                  width: 32,
+                  height: 32,
+                }}
+              >
+                <AnimatePresence>
+                  {onBack ? (
+                    <BackButton
                       disabled={inTransition}
-                      aria-label="More information"
-                      key="infoButton"
-                      onClick={onInfo}
+                      aria-label="Back"
+                      key="backButton"
+                      onClick={onBack}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -420,11 +467,77 @@ const Modal: React.FC<ModalProps> = ({
                         delay: mobile ? 0.01 : 0,
                       }}
                     >
-                      <InfoIcon />
-                    </InfoButton>
-                  )
-                )}
-              </AnimatePresence>
+                      <BackIcon />
+                    </BackButton>
+                  ) : context.route === routes.PROFILE &&
+                    context.signInWithEthereum ? (
+                    <>
+                      {!signedIn && (
+                        <motion.div
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            pointerEvents: 'none',
+                          }}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{
+                            opacity: 1,
+                            scale: 1,
+                            transition: { delay: 0.5, duration: 0.2 },
+                          }}
+                          exit={{
+                            opacity: 0,
+                            scale: 0.6,
+                            transition: { delay: 0, duration: 0.1 },
+                          }}
+                        >
+                          <SignInTooltip>
+                            You’re not signed in to this app.
+                            <br />
+                            <strong>Sign In with Ethereum</strong> to continue.
+                          </SignInTooltip>
+                        </motion.div>
+                      )}
+                      <SiweButton
+                        disabled={inTransition}
+                        aria-label="Sign In With Ethereum"
+                        key="siweButton"
+                        onClick={() =>
+                          context.setRoute(routes.SIGNINWITHETHEREUM)
+                        }
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                          duration: mobile ? 0 : 0.1,
+                          delay: mobile ? 0.01 : 0,
+                        }}
+                      >
+                        <ProfileIcon signedIn={!!signedIn} />
+                      </SiweButton>
+                    </>
+                  ) : (
+                    onInfo &&
+                    !context.options?.hideQuestionMarkCTA && (
+                      <InfoButton
+                        disabled={inTransition}
+                        aria-label="More information"
+                        key="infoButton"
+                        onClick={onInfo}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                          duration: mobile ? 0 : 0.1,
+                          delay: mobile ? 0.01 : 0,
+                        }}
+                      >
+                        <InfoIcon />
+                      </InfoButton>
+                    )
+                  )}
+                </AnimatePresence>
+              </div>
             </ControllerContainer>
 
             <ModalHeading>
@@ -436,7 +549,7 @@ const Modal: React.FC<ModalProps> = ({
                     left: 0,
                     right: 0,
                   }}
-                  key={context.route}
+                  key={`${context.route}-${signedIn ? 'signedIn' : ''}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

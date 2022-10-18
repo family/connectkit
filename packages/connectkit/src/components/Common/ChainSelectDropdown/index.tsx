@@ -135,6 +135,7 @@ const ChainSelectDropdown: React.FC<{
     [open]
   );
   const [ref, bounds] = useMeasure({
+    debounce: 120, // waits until modal transition has finished before measuring
     offsetSize: true,
     scroll: true,
   });

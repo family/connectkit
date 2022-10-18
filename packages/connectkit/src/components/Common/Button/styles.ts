@@ -1,6 +1,26 @@
 import { motion } from 'framer-motion';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import defaultTheme from '../../../constants/defaultTheme';
+
+const Spin = keyframes`
+  0%{ transform: rotate(0deg); }
+  100%{ transform: rotate(360deg); }
+`;
+export const SpinnerContainer = styled(motion.div)`
+  position: absolute;
+  right: 16px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ${Spin} 1s linear infinite;
+  svg {
+    display: block;
+    position: relative;
+    animation: ${Spin} 1s ease-in-out infinite;
+  }
+`;
 
 export const Arrow = styled.svg`
   --x: -3px;
@@ -42,6 +62,13 @@ export const ButtonContainer = styled.button<{
   disabled?: boolean;
   $variant?: 'primary' | 'secondary' | 'tertiary';
 }>`
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+      pointer-events: none;
+    `}
 
   ${({ $variant }) => {
     if ($variant === 'primary') {
@@ -188,7 +215,7 @@ export const ButtonContainer = styled.button<{
 
   @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
     &:hover,
-    &:focus {
+    &:focus-visible {
       color: var(--ck-accent-text-color, var(--hover-color));
       background: var(--ck-accent-color, var(--hover-background));
       border-radius: var(--hover-border-radius);
@@ -238,7 +265,13 @@ export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
   vertical-align: middle;
   max-width: 20px;
   max-height: 20px;
-  margin-right: 10px;
+  margin: 0 10px;
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
   ${(props) => {
     return (
       props.$rounded &&

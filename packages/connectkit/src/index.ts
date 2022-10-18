@@ -4,6 +4,9 @@ export { useModal } from './components/ConnectKit';
 
 export { ConnectKitProvider } from './components/ConnectKit';
 export { ConnectKitButton } from './components/ConnectButton';
+export { useSIWE } from './components/Standard/SIWE/useSIWE';
+export { SIWEProvider } from './components/Standard/SIWE/SIWEProvider';
+export { default as SIWEButton } from './components/Standard/SIWE';
 
 //export { default as NetworkButton } from './components/NetworkButton';
 //export { default as BalanceButton, Balance } from './components/BalanceButton';

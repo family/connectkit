@@ -98,7 +98,7 @@ const SwitchChainButton = styled(motion.button)`
           @media only screen and (min-width: ${defaultTheme.mobileWidth +
             1}px) {
             &:hover,
-            &:focus {
+            &:focus-visible {
               color: var(--hover-color);
               background: var(--hover-background);
               box-shadow: var(--hover-box-shadow);

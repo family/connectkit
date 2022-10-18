@@ -1,0 +1,1 @@
+export { configureSIWE } from './configureSIWE';

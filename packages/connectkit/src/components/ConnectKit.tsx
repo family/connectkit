@@ -20,6 +20,7 @@ import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount } from 'wagmi';
+import { SIWEContext } from './Standard/SIWE/SIWEContext';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -30,10 +31,12 @@ export const routes = {
   DOWNLOAD: 'download',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
+  SIGNINWITHETHEREUM: 'signInWithEthereum',
 };
 
 type Connector = any;
 type Error = string | React.ReactNode | null;
+
 type ContextValue = {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
@@ -51,10 +54,11 @@ type ContextValue = {
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptions;
+  signInWithEthereum: boolean;
   debug: (message: string | React.ReactNode | null, code?: any) => void;
 };
 
-const Context = createContext<ContextValue | null>(null);
+export const Context = createContext<ContextValue | null>(null);
 
 type ConnectKitOptions = {
   language?: Languages;
@@ -87,6 +91,14 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   customTheme,
   options,
 }) => {
+  // Only allow for mounting ConnectKitProvider once, so we avoid weird global
+  // state collisions.
+  if (React.useContext(Context)) {
+    throw new Error(
+      'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
+    );
+  }
+
   // Default config options
   const defaultOptions: ConnectKitOptions = {
     language: 'en',
@@ -152,6 +164,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     setRoute,
     connector,
     setConnector,
+    signInWithEthereum: React.useContext(SIWEContext)?.enabled ?? false,
 
     // Other configuration
     options: opts,

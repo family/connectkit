@@ -12,7 +12,9 @@ import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
-import { getAppName } from '../../defaultClient';
+import SignInWithEthereum from '../Pages/SignInWithEthereum';
+
+import { getAppIcon, getAppName } from '../../defaultClient';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const customThemeDefault: object = {};
@@ -31,6 +33,21 @@ const ConnectModal: React.FC<{
   const context = useContext();
   const { isConnected } = useAccount();
 
+  const showBackButton =
+    context.route !== routes.CONNECTORS && context.route !== routes.PROFILE;
+
+  const onBack = () => {
+    if (context.route === routes.SIGNINWITHETHEREUM) {
+      context.setRoute(routes.PROFILE);
+    } else if (context.route === routes.SWITCHNETWORKS) {
+      context.setRoute(routes.PROFILE);
+    } else if (context.route === routes.DOWNLOAD) {
+      context.setRoute(routes.CONNECT);
+    } else {
+      context.setRoute(routes.CONNECTORS);
+    }
+  };
+
   const pages: any = {
     onboarding: <Onboarding />,
     about: <About />,
@@ -40,6 +57,7 @@ const ConnectModal: React.FC<{
     connect: <ConnectUsing connectorId={context.connector} />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
+    signInWithEthereum: <SignInWithEthereum />,
   };
 
   function hide() {
@@ -52,8 +70,20 @@ const ConnectModal: React.FC<{
   }
 
   useEffect(() => {
-    // Hide on connect
-    if (isConnected && context.route !== routes.PROFILE) hide();
+    if (isConnected) {
+      if (
+        context.route !== routes.PROFILE ||
+        context.route !== routes.SIGNINWITHETHEREUM
+      ) {
+        if (context.signInWithEthereum) {
+          context.setRoute(routes.SIGNINWITHETHEREUM);
+        } else {
+          hide(); // Hide on connect
+        }
+      }
+    } else {
+      hide(); // Hide on connect
+    }
   }, [isConnected]);
 
   useEffect(() => context.setMode(mode), [mode]);
@@ -71,8 +101,19 @@ const ConnectModal: React.FC<{
     title.setAttribute('content', appName);
     document.head.prepend(title);
 
+    /*
+    // TODO:  When pulling data into WalletConnect, figure out which icon gets used and replace with appIcon if available 
+    const appIcon = getAppIcon();
+    const icon = document.createElement('link');
+    if (appIcon) {
+      icon.setAttribute('rel', 'icon');
+      icon.setAttribute('href', appIcon);
+      document.head.prepend(icon);
+    }*/
+
     return () => {
       document.head.removeChild(title);
+      //if (appIcon) document.head.removeChild(icon);
     };
   }, [context.open]);
 
@@ -92,20 +133,7 @@ const ConnectModal: React.FC<{
             ? () => context.setRoute(routes.ABOUT)
             : undefined
         }
-        onBack={
-          context.route !== routes.CONNECTORS &&
-          context.route !== routes.PROFILE
-            ? () => {
-                if (context.route === routes.SWITCHNETWORKS) {
-                  context.setRoute(routes.PROFILE);
-                } else if (context.route === routes.DOWNLOAD) {
-                  context.setRoute(routes.CONNECT);
-                } else {
-                  context.setRoute(routes.CONNECTORS);
-                }
-              }
-            : undefined
-        }
+        onBack={showBackButton ? onBack : undefined}
       />
     </ConnectKitThemeProvider>
   );
