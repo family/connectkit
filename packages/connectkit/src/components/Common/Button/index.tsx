@@ -94,7 +94,7 @@ const Button: React.FC<ButtonProps> = ({
           initial={{ opacity: 0, y: -10 }}
           animate={{
             opacity: 1,
-            y: 0,
+            y: -1,
           }}
           exit={{
             position: 'absolute',

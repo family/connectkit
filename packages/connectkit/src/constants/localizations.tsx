@@ -46,7 +46,7 @@ export const replaceMarkdown = (markdownText: string) => {
     return (
       <React.Fragment key={i}>
         {wrapTags(t)}
-        {i < text.length && <br />}
+        {i < text.length - 1 && <br />}
       </React.Fragment>
     );
   });
