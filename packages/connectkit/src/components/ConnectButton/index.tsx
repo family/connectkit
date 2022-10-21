@@ -218,6 +218,7 @@ function ConnectKitButtonInner({
           <div
             style={{
               position: 'relative',
+              paddingRight: showAvatar ? 1 : 0,
             }}
           >
             <AnimatePresence initial={false}>
