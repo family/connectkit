@@ -91,4 +91,6 @@ export default {
   '--ck-qr-border-radius': '24px',
   '--ck-qr-dot-color': '#000000',
   '--ck-qr-background': '#ffffff',
+
+  '--ck-siwe-border': '#DFE4EC',
 };
