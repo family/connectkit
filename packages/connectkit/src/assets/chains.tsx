@@ -180,7 +180,7 @@ const UnknownChain = ({ ...props }) => (
         y2="35.2947"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="white" />
+        <stop stopColor="white" />
         <stop offset="1" stopColor="white" stopOpacity="0.7" />
       </linearGradient>
       <linearGradient
