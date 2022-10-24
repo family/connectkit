@@ -492,7 +492,10 @@ const Modal: React.FC<ModalProps> = ({
                           exit={{
                             opacity: 0,
                             scale: 0.6,
-                            transition: { delay: 0, duration: 0.1 },
+                            transition: {
+                              delay: 0,
+                              duration: mobile ? 0 : 0.1,
+                            },
                           }}
                         >
                           <SignInTooltip>

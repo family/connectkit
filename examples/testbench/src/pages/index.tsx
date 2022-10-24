@@ -193,27 +193,24 @@ const Home: NextPage = () => {
   if (!mounted) return null;
 
   return (
-    <div
-      style={{
-        padding: 32,
-        paddingLeft: 352,
-        display: 'flex',
-        gap: 64,
-      }}
-    >
-      <div
-        style={{
-          zIndex: 2147483647,
-          position: 'fixed',
-          overflow: 'scroll',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          width: 256,
-          padding: 32,
-          background: '#fff',
-        }}
-      >
+    <>
+      <main>
+        <ConnectKitButton label={label} />
+        <SIWEButton showSignOutButton />
+        <AccountInfo />
+
+        <p>Avatars</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Avatar name="lochie.eth" />
+          <Avatar name="pugson.eth" size={32} />
+          <Avatar
+            address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+            size={12}
+          />
+          <Avatar name="benjitaylor.eth" size={64} />
+        </div>
+      </main>
+      <aside>
         <ConnectKitButton.Custom>
           {({ isConnected, show, address, ensName }) => {
             return (
@@ -416,24 +413,8 @@ const Home: NextPage = () => {
             })
           }
         />
-      </div>
-      <div>
-        <ConnectKitButton label={label} />
-        <SIWEButton showSignOutButton />
-        <AccountInfo />
-
-        <p>Avatars</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <Avatar name="lochie.eth" />
-          <Avatar name="pugson.eth" size={32} />
-          <Avatar
-            address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
-            size={12}
-          />
-          <Avatar name="benjitaylor.eth" size={64} />
-        </div>
-      </div>
-    </div>
+      </aside>
+    </>
   );
 };
 

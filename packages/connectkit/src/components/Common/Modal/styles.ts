@@ -533,7 +533,7 @@ export const Container = styled(motion.div)`
       width: 100% !important;
     }
     ${ModalHeading} {
-      top: 32px;
+      top: 4px;
     }
     ${ModalContent} {
       gap: 12px;
