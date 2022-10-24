@@ -41,6 +41,13 @@ export const SIWEProvider = ({
 
   const sessionData = session.data;
 
+  const signOutAndRefetch = async () => {
+    if (!(await siweConfig.signOut())) {
+      throw new Error('Failed to sign out.');
+    }
+    await Promise.all([session.refetch(), nonce.refetch()]);
+  };
+
   const { address: connectedAddress } = useAccount({
     onDisconnect: () => {
       if (signOutOnDisconnect) {
@@ -50,13 +57,6 @@ export const SIWEProvider = ({
     },
   });
   const { chain } = useNetwork();
-
-  const signOutAndRefetch = async () => {
-    if (!(await siweConfig.signOut())) {
-      throw new Error('Failed to sign out.');
-    }
-    await Promise.all([session.refetch(), nonce.refetch()]);
-  };
 
   useEffect(() => {
     // Skip if we're still fetching session state from backend
