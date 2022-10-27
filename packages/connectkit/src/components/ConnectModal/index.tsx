@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
@@ -32,9 +32,17 @@ const ConnectModal: React.FC<{
 }) => {
   const context = useContext();
   const { isConnected } = useAccount();
+  const { chain } = useNetwork();
+
+  const closeable = !chain?.unsupported;
 
   const showBackButton =
-    context.route !== routes.CONNECTORS && context.route !== routes.PROFILE;
+    !chain?.unsupported &&
+    context.route !== routes.CONNECTORS &&
+    context.route !== routes.PROFILE;
+
+  const showInfoButton =
+    !chain?.unsupported && context.route !== routes.PROFILE;
 
   const onBack = () => {
     if (context.route === routes.SIGNINWITHETHEREUM) {
@@ -127,11 +135,9 @@ const ConnectModal: React.FC<{
         open={context.open}
         pages={pages}
         pageId={context.route}
-        onClose={hide}
+        onClose={closeable ? hide : undefined}
         onInfo={
-          context.route !== routes.PROFILE
-            ? () => context.setRoute(routes.ABOUT)
-            : undefined
+          showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
         }
         onBack={showBackButton ? onBack : undefined}
       />

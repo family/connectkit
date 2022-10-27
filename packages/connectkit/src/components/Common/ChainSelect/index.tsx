@@ -9,11 +9,11 @@ import { isMobile } from './../../../utils';
 import defaultTheme from './../../../constants/defaultTheme';
 
 import styled, { css } from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import Tooltip from '../Tooltip';
 import ChainSelectDropdown from '../ChainSelectDropdown';
-import Chains from '../../../assets/chains';
+import Chain from '../Chain';
 
 const Container = styled(motion.div)``;
 
@@ -111,35 +111,6 @@ const SwitchChainButton = styled(motion.button)`
           }
         `}
 `;
-const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
-  display: block;
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  min-height: 24px;
-  background: var(--ck-body-background);
-  color: var(--ck-body-color-muted);
-  svg {
-    width: 100%;
-    height: auto;
-  }
-  ${(props) =>
-    props.$empty &&
-    css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--ck-body-background-secondary);
-      &:before {
-        content: '?';
-        font-weight: bold;
-        font-family: var(--ck-font-family);
-      }
-    `}
-`;
 
 const ChevronDown = ({ ...props }) => (
   <svg
@@ -173,33 +144,6 @@ const ChainSelector: React.FC = () => {
   }, [context.open]);
 
   const disabled = chains.length <= 1;
-  const ChainSelectorButton = (
-    <ChainIcon $empty={!chains.find((x) => x.id === chain?.id)}>
-      <AnimatePresence initial={false}>
-        {chains
-          .filter((x) => x.id === chain?.id)
-          .map((x, i) => {
-            const chain = supportedChains.find((c) => c.id === x.id);
-            const c = { ...chain, ...x };
-            return (
-              <motion.div
-                key={`${c?.id}-${c?.name}`}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {c?.logo ?? <Chains.UnknownChain />}
-              </motion.div>
-            );
-          })}
-      </AnimatePresence>
-    </ChainIcon>
-  );
 
   return (
     <>
@@ -226,10 +170,10 @@ const ChainSelector: React.FC = () => {
                 xOffset={-6}
                 delay={0.01}
               >
-                {ChainSelectorButton}
+                <Chain id={chain?.id} unsupported={chain?.unsupported} />
               </Tooltip>
             ) : (
-              ChainSelectorButton
+              <Chain id={chain?.id} unsupported={chain?.unsupported} />
             )}
             {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
           </SwitchChainButton>

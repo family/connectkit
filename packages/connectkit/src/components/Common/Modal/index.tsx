@@ -444,9 +444,11 @@ const Modal: React.FC<ModalProps> = ({
               )}
             </AnimatePresence>
             <ControllerContainer>
-              <CloseButton aria-label="Close" onClick={onClose}>
-                <CloseIcon />
-              </CloseButton>
+              {onClose && (
+                <CloseButton aria-label="Close" onClick={onClose}>
+                  <CloseIcon />
+                </CloseButton>
+              )}
               <div
                 style={{
                   position: 'absolute',

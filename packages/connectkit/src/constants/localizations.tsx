@@ -67,6 +67,12 @@ export const keys = {
  */
 export default {
   en: {
+    warnings: {
+      walletSwitchingUnsupported: `Your wallet does not support switching networks from this app.`,
+      walletSwitchingUnsupportedResolve: `Try switching networks from within your wallet instead.`,
+      chainUnsupported: `This app does not support the current connected network.`,
+      chainUnsupportedResolve: `Switch or disconnect to continue.`,
+    },
     onboardingScreen: {
       heading: `Get a Wallet`,
       h1: `Start Exploring Web3`,
@@ -144,7 +150,6 @@ export default {
     },
     profileScreen: {
       heading: 'Connected',
-      unsupported: `Your wallet does not support switching networks from this app.\nTry switching networks from within your wallet instead.`,
     },
     switchNetworkScreen: {
       heading: 'Switch Networks',

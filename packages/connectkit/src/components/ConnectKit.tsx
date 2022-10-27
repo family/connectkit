@@ -19,7 +19,7 @@ import defaultTheme from '../styles/defaultTheme';
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { SIWEContext } from './Standard/SIWE/SIWEContext';
 
 export const routes = {
@@ -74,6 +74,7 @@ type ConnectKitOptions = {
   disclaimer?: ReactNode | string;
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
+  initialChainId?: number;
 };
 
 type ConnectKitProviderProps = {
@@ -114,6 +115,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     disclaimer: null,
     bufferPolyfill: true,
     customAvatar: undefined,
+    initialChainId: undefined,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
@@ -148,6 +150,15 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   useEffect(() => setTheme(theme), [theme]);
   useEffect(() => setLang(opts.language || 'en'), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
+
+  // Check if chain is supported, elsewise redirect to switches page
+  const { chain } = useNetwork();
+  useEffect(() => {
+    if (chain?.unsupported) {
+      setOpen(true);
+      setRoute(routes.SWITCHNETWORKS);
+    }
+  }, [chain, route, open]);
 
   const value = {
     theme: ckTheme,

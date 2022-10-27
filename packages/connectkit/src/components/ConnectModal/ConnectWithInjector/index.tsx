@@ -174,7 +174,10 @@ const ConnectWithInjector: React.FC<{
 
     const con: any = connectors.find((c) => c.id === id);
     if (con) {
-      connect({ connector: con, chainId: chains[0]?.id });
+      connect({
+        connector: con,
+        chainId: context.options?.initialChainId ?? chains[0]?.id,
+      });
     } else {
       setStatus(states.UNAVAILABLE);
     }

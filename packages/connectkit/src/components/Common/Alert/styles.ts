@@ -3,11 +3,13 @@ import { motion } from 'framer-motion';
 import defaultTheme from '../../../constants/defaultTheme';
 
 export const AlertContainer = styled(motion.div)`
+  display: flex;
+  gap: 8px;
   position: relative;
   border-radius: 9px;
-  margin: -8px 0 8px;
+  margin: 0 auto;
   padding: 10px 12px;
-  text-align: left;
+  text-align: center;
   font-size: 14px;
   line-height: 17px;
   font-weight: 400;
@@ -26,5 +28,18 @@ export const AlertContainer = styled(motion.div)`
     margin: 0 4px -2px;
     border-radius: 24px;
     text-align: center;
+  }
+`;
+
+export const IconContainer = styled(motion.div)`
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 `;

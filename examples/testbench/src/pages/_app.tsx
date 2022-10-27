@@ -2,13 +2,14 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { WagmiConfig, createClient } from 'wagmi';
+import { WagmiConfig, createClient, chain } from 'wagmi';
 import { ConnectKitProvider, getDefaultClient } from 'connectkit';
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siwe } from '../siwe';
 
 const client = createClient(
   getDefaultClient({
+    chains: [chain.mainnet, chain.polygon],
     appName: 'ConnectKit testbench',
     appIcon: '/app.png',
     //infuraId: process.env.NEXT_PUBLIC_INFURA_ID,

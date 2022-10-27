@@ -5,6 +5,7 @@ import {
   Avatar,
   useSIWE,
   SIWEButton,
+  ChainIcon,
 } from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
@@ -190,15 +191,24 @@ const Home: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  const { chain } = useNetwork();
+
   if (!mounted) return null;
 
   return (
     <>
       <main>
+        <p>Connect Button</p>
         <ConnectKitButton label={label} />
+        
+        <hr />
+        <p>Sign In With Ethereum</p>
         <SIWEButton showSignOutButton />
+        
+        <hr />
         <AccountInfo />
 
+        <hr />
         <p>Avatars</p>
         <div style={{ display: 'flex', gap: 8 }}>
           <Avatar name="lochie.eth" />
@@ -208,6 +218,15 @@ const Home: NextPage = () => {
             size={12}
           />
           <Avatar name="benjitaylor.eth" size={64} />
+        </div>
+
+        <hr />
+        <p>Chains</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
+          <ChainIcon id={1} />
+          <ChainIcon id={1337} />
+          <ChainIcon id={2} unsupported />
         </div>
       </main>
       <aside>

@@ -17,7 +17,10 @@ export function useConnect() {
   });
   return {
     connectAsync: ({ ...props }) =>
-      connectAsync({ ...props, chainId: chains[0]?.id }),
+      connectAsync({
+        ...props,
+        chainId: context.options?.initialChainId ?? chains[0]?.id,
+      }),
     connectors,
   };
 }

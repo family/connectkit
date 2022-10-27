@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from '../../ConnectKit';
-import localizations from '../../../constants/localizations';
 import { nFormatter, truncateEthAddress } from '../../../utils';
 
 import {
@@ -34,13 +33,11 @@ import ChainSelector from '../../Common/ChainSelect';
 import { DisconnectIcon } from '../../../assets/icons';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
-import Alert from '../../Common/Alert';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
   const themeContext = useThemeContext();
-  const copy = localizations[context.lang].profileScreen;
 
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
@@ -77,19 +74,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     };
   }, [shouldDisconnect, disconnect, reset]);
 
-  if (chain?.unsupported) {
-    return (
-      <PageContent>
-        <Alert>{copy.unsupported}</Alert>
-        <Button
-          onClick={() => setShouldDisconnect(true)}
-          icon={<DisconnectIcon />}
-        >
-          Disconnect
-        </Button>
-      </PageContent>
-    );
-  }
   const separator = ['web95', 'rounded', 'minimal'].includes(
     themeContext.theme ?? context.theme ?? ''
   )

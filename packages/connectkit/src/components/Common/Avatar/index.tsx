@@ -5,6 +5,7 @@ import { EnsAvatar, ImageContainer } from './styles';
 import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
 import { ResetContainer } from '../../../styles';
 import { useContext } from '../../ConnectKit';
+import useIsMounted from '../../../hooks/useIsMounted';
 
 export type CustomAvatarProps = {
   address?: string;
@@ -20,6 +21,7 @@ const Avatar: React.FC<{
   size?: number;
   radius?: number;
 }> = ({ address, name, size = 96, radius = 96 }) => {
+  const isMounted = useIsMounted();
   const context = useContext();
 
   const imageRef = useRef<any>(null);
@@ -54,6 +56,9 @@ const Avatar: React.FC<{
       setLoaded(false);
     }
   }, [ensAvatar]);
+
+  if (!isMounted)
+    return <div style={{ width: size, height: size, borderRadius: radius }} />;
 
   if (context.options?.customAvatar)
     return (
