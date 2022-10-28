@@ -1,4 +1,4 @@
-import { ReactNode, FunctionComponent, ComponentProps } from 'react';
+import { FunctionComponent, ComponentProps } from 'react';
 import { SIWEProvider } from 'connectkit';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';

@@ -18,4 +18,4 @@ export type All = {
   lang?: Languages;
 };
 
-export { CustomAvatarProps } from './components/Common/Avatar';
+export type { CustomAvatarProps } from './components/Common/Avatar';

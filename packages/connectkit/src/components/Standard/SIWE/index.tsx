@@ -5,6 +5,7 @@ import { DisconnectIcon, RetryIcon } from '../../../assets/icons';
 import { SIWEContext } from './SIWEContext';
 import { ResetContainer } from '../../../styles';
 import { motion } from 'framer-motion';
+import useIsMounted from '../../../hooks/useIsMounted';
 
 enum ButtonState {
   READY = 'ready',
@@ -24,6 +25,8 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   onSignIn,
 }) => {
   const siweContext = useContext(SIWEContext);
+  const isMounted = useIsMounted();
+
   const { address } = useAccount();
   const { chain: activeChain } = useNetwork();
   const { signMessageAsync } = useSignMessage();
@@ -106,6 +109,8 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   if (!siweContext) {
     throw new Error('SIWEButton must be inside a SIWEProvider.');
   }
+
+  if (!isMounted) return <Button disabled waiting />;
 
   if (showSignOutButton && status === ButtonState.SUCCESS) {
     return (
