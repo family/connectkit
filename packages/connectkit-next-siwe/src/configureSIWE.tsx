@@ -34,7 +34,7 @@ type ConfigureSIWEResult<TSessionData extends Object = {}> = {
 
 const getSession = async <TSessionData extends Object = {}>(
   req: IncomingMessage,
-  res: ServerResponse<IncomingMessage>,
+  res: any,
   sessionConfig: IronSessionOptions
 ) => {
   const session = (await getIronSession(

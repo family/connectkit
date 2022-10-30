@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-import { useQuery } from 'wagmi';
 
 export type SIWESession = {
   address: string;
@@ -31,8 +30,8 @@ export type SIWEConfig = {
 
 export type SIWEContextValue = Required<SIWEConfig> & {
   // TODO: switch to exported type once wagmi is updated
-  nonce: ReturnType<typeof useQuery<string | null>>;
-  session: ReturnType<typeof useQuery<SIWESession | null>>;
+  nonce: any;
+  session: any;
   signOutAndRefetch: () => Promise<void>;
 };
 
