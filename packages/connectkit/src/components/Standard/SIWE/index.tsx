@@ -112,19 +112,12 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   }
 
   if (!isMounted)
-    return (
-      <Button
-        style={{ margin: 0 }}
-        disabled
-        arrow={status === ButtonState.READY}
-      >
-        {getButtonLabel(status)}
-      </Button>
-    );
+    return <Button key="loading" style={{ margin: 0 }} disabled />;
 
   if (showSignOutButton && status === ButtonState.SUCCESS) {
     return (
       <Button
+        key="button"
         style={{ margin: 0 }}
         onClick={siweContext.signOutAndRefetch}
         icon={<DisconnectIcon />}
@@ -136,6 +129,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
 
   return (
     <Button
+      key="button"
       style={{ margin: 0 }}
       arrow={address ? status === ButtonState.READY : false}
       onClick={
