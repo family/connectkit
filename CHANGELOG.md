@@ -8,6 +8,7 @@ This update introduces Sign In with Ethereum and other helpful changes and addit
 - Added an `<Avatar />` component for developers to utilize the default ConnectKit avatar.
 - Created a `<CustomAvatar />` component for developers to override the default avatar.
 - Added a `walletConnectCTA` option under `options` to choose whether to display the 'Copy to Clipboard' option under the WalletConnect QR code.
+- Added a `initialChainId` option under `options` to customize the initially connected chain.
 - Added a `--ck-overlay-backdrop-filter` property for custom themes to utilise the `backdrop-filter` property on the modal overlay.
 - Added a new `nouns` theme to the built-in default themes ⌐◨-◨
 
