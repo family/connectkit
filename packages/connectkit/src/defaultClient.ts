@@ -105,10 +105,10 @@ const defaultClient = ({
 
   const providers: ChainProviderFn[] = [];
   if (alchemyId) {
-    providers.push(alchemyProvider({ apiKey: alchemyId }));
+    providers.push(alchemyProvider({ apiKey: alchemyId, stallTimeout: 5000 }));
   }
   if (infuraId) {
-    providers.push(infuraProvider({ apiKey: infuraId }));
+    providers.push(infuraProvider({ apiKey: infuraId, stallTimeout: 5000 }));
   }
   providers.push(
     jsonRpcProvider({
@@ -116,6 +116,7 @@ const defaultClient = ({
         if (c.id !== chain.mainnet.id) return null;
         return { http: c.rpcUrls.default };
       },
+      stallTimeout: 5000,
     })
   );
   providers.push(publicProvider());

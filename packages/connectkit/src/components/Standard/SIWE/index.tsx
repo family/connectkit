@@ -32,6 +32,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   const { signMessageAsync } = useSignMessage();
 
   const [currentStatus, setStatus] = useState<ButtonState>(ButtonState.READY);
+
   // TODO: refactor
   const status = siweContext?.session.data?.address
     ? ButtonState.SUCCESS
@@ -110,11 +111,24 @@ export const SIWEButton: React.FC<ButtonProps> = ({
     throw new Error('SIWEButton must be inside a SIWEProvider.');
   }
 
-  if (!isMounted) return <Button disabled waiting />;
+  if (!isMounted)
+    return (
+      <Button
+        style={{ margin: 0 }}
+        disabled
+        arrow={status === ButtonState.READY}
+      >
+        {getButtonLabel(status)}
+      </Button>
+    );
 
   if (showSignOutButton && status === ButtonState.SUCCESS) {
     return (
-      <Button onClick={siweContext.signOutAndRefetch} icon={<DisconnectIcon />}>
+      <Button
+        style={{ margin: 0 }}
+        onClick={siweContext.signOutAndRefetch}
+        icon={<DisconnectIcon />}
+      >
         Sign Out
       </Button>
     );
@@ -122,6 +136,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
 
   return (
     <Button
+      style={{ margin: 0 }}
       arrow={address ? status === ButtonState.READY : false}
       onClick={
         status !== ButtonState.LOADING && status !== ButtonState.SUCCESS

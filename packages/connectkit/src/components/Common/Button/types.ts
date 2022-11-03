@@ -11,5 +11,6 @@ export type ButtonProps = {
   arrow?: boolean;
   download?: boolean;
   href?: string;
+  style?: React.CSSProperties;
   onClick?: (e: any) => void;
 };

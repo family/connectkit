@@ -38,7 +38,7 @@ import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import { useNetwork } from 'wagmi';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../..';
 
@@ -274,10 +274,12 @@ const Modal: React.FC<ModalProps> = ({
 
   // Update layout on chain/network switch to avoid clipping
   const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
+
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [chain]);
+  }, [chain, switchNetwork, mobile]);
 
   useEffect(() => {
     if (!mounted) {

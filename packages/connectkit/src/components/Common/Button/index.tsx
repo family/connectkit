@@ -74,6 +74,7 @@ const Button: React.FC<ButtonProps> = ({
   arrow,
   download,
   href,
+  style,
   onClick,
 }) => {
   return (
@@ -87,6 +88,7 @@ const Button: React.FC<ButtonProps> = ({
       rel={href && 'noopener noreferrer'}
       disabled={disabled}
       $variant={variant}
+      style={style}
     >
       <AnimatePresence initial={false}>
         <motion.div
