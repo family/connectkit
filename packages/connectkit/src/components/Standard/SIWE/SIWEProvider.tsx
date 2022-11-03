@@ -1,10 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { ReactNode, useContext, useEffect } from 'react';
 import { useAccount, useQuery, useNetwork } from 'wagmi';
 import { Context as ConnectKitContext } from '../../ConnectKit';
 import { SIWEContext, SIWEConfig } from './SIWEContext';
 
 type Props = SIWEConfig & {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export const SIWEProvider = ({
