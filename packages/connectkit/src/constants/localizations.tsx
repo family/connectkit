@@ -156,7 +156,7 @@ export default {
     },
     signInWithEthereumScreen: {
       signedOut: {
-        heading: 'Sign In with Ethereum',
+        heading: 'Sign In With Ethereum',
         h1: 'This app would like to verify you \n as the owner of this wallet.',
         p: `Please sign the message request \n in your wallet to continue.`,
         button: 'Sign In',

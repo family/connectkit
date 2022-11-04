@@ -1,10 +1,10 @@
 # 0.0.3
 
-This update introduces Sign In with Ethereum and other helpful changes and additions to make your app better than ever.
+This update introduces Sign In With Ethereum and other helpful changes and additions to make your app better than ever.
 
 ## New
 
-- Added **Sign In with Ethereum** support with a Next.js package to help with quick setup.
+- Added **Sign In With Ethereum** support with a Next.js package to help with quick setup.
 - Added an `<Avatar />` component for developers to utilize the default ConnectKit avatar.
 - Created a `<CustomAvatar />` component for developers to override the default avatar.
 - Added a `walletConnectCTA` option under `options` to choose whether to display the 'Copy to Clipboard' option under the WalletConnect QR code.

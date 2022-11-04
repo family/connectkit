@@ -137,7 +137,7 @@ const envVar = (name: string) => {
 
 export const configureSIWE = <TSessionData extends Object = {}>({
   apiRoutePrefix,
-  statement = 'Sign in with Ethereum.',
+  statement = 'Sign In With Ethereum.',
   session: { cookieName, password, cookieOptions, ...otherSessionOptions } = {},
 }: NextSIWEConfig): ConfigureSIWEResult<TSessionData> => {
   const sessionConfig: IronSessionOptions = {

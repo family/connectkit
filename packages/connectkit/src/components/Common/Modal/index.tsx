@@ -505,7 +505,7 @@ const Modal: React.FC<ModalProps> = ({
                           <SignInTooltip>
                             You’re not signed in to this app.
                             <br />
-                            <strong>Sign In with Ethereum</strong> to continue.
+                            <strong>Sign In With Ethereum</strong> to continue.
                           </SignInTooltip>
                         </motion.div>
                       )}
