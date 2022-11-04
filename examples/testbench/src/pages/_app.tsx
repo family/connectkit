@@ -9,7 +9,7 @@ import { siwe } from '../siwe';
 
 const client = createClient(
   getDefaultClient({
-    chains: [chain.mainnet, chain.polygon],
+    //chains: [chain.mainnet, chain.polygon],
     appName: 'ConnectKit testbench',
     appIcon: '/app.png',
     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,

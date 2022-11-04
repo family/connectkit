@@ -44,7 +44,7 @@ const DropdownContainer = styled(motion.div)`
   left: 0;
   width: 100%;
   max-width: fit-content;
-  padding: 14px 16px 8px;
+  padding: 14px 16px 16px;
   color: var(--ck-dropdown-color, var(--ck-tooltip-color));
   background: var(--background);
   box-shadow: var(

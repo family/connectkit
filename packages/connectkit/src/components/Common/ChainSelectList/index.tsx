@@ -87,7 +87,7 @@ const ChainLogoSpinner = styled(motion.div)`
 `;
 const ChainButtonContainer = styled.div`
   position: relative;
-  margin: -8px -16px;
+  margin: -8px -8px;
   &:after {
     border-radius: var(--border-radius, 0);
     z-index: 2;
@@ -100,7 +100,7 @@ const ChainButtonContainer = styled.div`
   }
 `;
 const ChainButtons = styled(motion.div)`
-  padding: 8px 16px;
+  padding: 8px 8px 0;
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 242px;
@@ -112,7 +112,7 @@ const ChainButtons = styled(motion.div)`
   }
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    padding: 8px 24px;
+    padding: 8px 14px;
     margin: 2px -2px 0;
     max-height: 70vh;
   }
@@ -412,8 +412,7 @@ const ChainSelectList: React.FC = () => {
       </ChainButtonContainer>
       {!switchNetwork && (
         <Alert>
-          {localize(warnings.walletSwitchingUnsupported)}
-          <br />
+          {localize(warnings.walletSwitchingUnsupported)}{' '}
           {localize(warnings.walletSwitchingUnsupportedResolve)}
         </Alert>
       )}

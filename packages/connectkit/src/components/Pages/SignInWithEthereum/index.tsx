@@ -26,6 +26,7 @@ import Avatar from '../../Common/Avatar';
 import { getAppIcon } from '../../../defaultClient';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import LazyImage from '../../Common/LazyImage';
 
 const transition = { duration: 0.2, ease: [0.26, 0.08, 0.25, 1] };
 const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
@@ -179,7 +180,7 @@ const SignInWithEthereum: React.FC = () => {
           >
             <LogoContainer>
               {favicon ? (
-                <img src={favicon} alt={'app'} />
+                <LazyImage src={favicon} alt={'app'} />
               ) : (
                 <Chains.UnknownChain />
               )}

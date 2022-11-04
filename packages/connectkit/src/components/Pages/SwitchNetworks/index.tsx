@@ -31,8 +31,7 @@ const SwitchNetworks: React.FC = () => {
       <ModalContent style={{ padding: 0, marginTop: -10 }}>
         {chain?.unsupported && (
           <ModalBody>
-            {localize(warnings.chainUnsupported)}
-            <br />
+            {localize(warnings.chainUnsupported)}{' '}
             {localize(warnings.chainUnsupportedResolve)}
           </ModalBody>
         )}
