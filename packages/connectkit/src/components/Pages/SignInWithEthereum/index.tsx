@@ -27,6 +27,7 @@ import { getAppIcon } from '../../../defaultClient';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import LazyImage from '../../Common/LazyImage';
+import { isMobile } from '../../../utils';
 
 const transition = { duration: 0.2, ease: [0.26, 0.08, 0.25, 1] };
 const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
@@ -40,6 +41,7 @@ const SignInWithEthereum: React.FC = () => {
   };
   const context = useContext();
   const { signedIn } = useSIWE();
+  const mobile = isMobile();
 
   const [status, setStatus] = useState<'signedOut' | 'signedIn'>(
     signedIn ? 'signedIn' : 'signedOut'
@@ -91,7 +93,7 @@ const SignInWithEthereum: React.FC = () => {
           <AnimatePresence exitBeforeEnter>
             <motion.div
               key={copy.h1}
-              initial={{ opacity: 0, scale: 0.94 }}
+              initial={mobile ? false : { opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.94 }}
               transition={copyTransition}
@@ -130,11 +132,15 @@ const SignInWithEthereum: React.FC = () => {
 
           <motion.div
             key="avatarImage"
-            initial={{
-              opacity: 0,
-              x: 50,
-              scale: 0.8,
-            }}
+            initial={
+              mobile
+                ? false
+                : {
+                    opacity: 0,
+                    x: 50,
+                    scale: 0.8,
+                  }
+            }
             animate={{
               opacity: 1,
               x: 0,
@@ -148,9 +154,13 @@ const SignInWithEthereum: React.FC = () => {
           </motion.div>
           <motion.div
             key="tickIcon"
-            initial={{
-              scale: 0.6,
-            }}
+            initial={
+              mobile
+                ? false
+                : {
+                    scale: 0.6,
+                  }
+            }
             animate={{
               scale: 1,
             }}
@@ -164,11 +174,15 @@ const SignInWithEthereum: React.FC = () => {
           </motion.div>
           <motion.div
             key="appLogo"
-            initial={{
-              opacity: 0,
-              x: -40,
-              scale: 0.8,
-            }}
+            initial={
+              mobile
+                ? false
+                : {
+                    opacity: 0,
+                    x: -40,
+                    scale: 0.8,
+                  }
+            }
             animate={{
               opacity: 1,
               x: 0,
@@ -190,8 +204,8 @@ const SignInWithEthereum: React.FC = () => {
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={copy.p}
-            style={{ paddingBottom: 12 }}
-            initial={{ opacity: 0, scale: 0.94 }}
+            style={{ paddingBottom: 18 }}
+            initial={mobile ? false : { opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.94 }}
             transition={copyTransition}
