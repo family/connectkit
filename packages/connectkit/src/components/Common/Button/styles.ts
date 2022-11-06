@@ -26,7 +26,7 @@ export const Arrow = styled.svg`
   --x: -3px;
   --stroke-width: 2;
   position: relative;
-  top: 0px;
+  top: 1px;
   left: -0.5px;
   display: inline-block;
   vertical-align: middle;
