@@ -1,7 +1,3 @@
-<a href="https://docs.family.co/connectkit/authentication">
-  <img width="1080" alt="connectkit" src="https://user-images.githubusercontent.com/1930210/197782607-5903aba7-8e7f-4fde-b80a-80465d4ad54e.png">
-</a>
-
 # connectkit-next-siwe
 
 [ConnectKit](https://docs.family.co/connectkit) provides a simple solution for integrating [Sign In With Ethereum](https://login.xyz), a secure [authentication standard](https://docs.login.xyz/general-information/siwe-overview/eip-4361), to your Next.js app.
