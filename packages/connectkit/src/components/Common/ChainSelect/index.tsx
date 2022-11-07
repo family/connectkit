@@ -15,6 +15,8 @@ import Tooltip from '../Tooltip';
 import ChainSelectDropdown from '../ChainSelectDropdown';
 import Chain from '../Chain';
 
+import Logos from '../../../assets/chains';
+
 const Container = styled(motion.div)``;
 
 const SwitchChainButton = styled(motion.button)`
