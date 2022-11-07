@@ -162,7 +162,7 @@ export default {
         button: 'Sign In',
       },
       signedIn: {
-        heading: 'Signed In with Ethereum',
+        heading: 'Signed In With Ethereum',
         h1: 'You successfully verified yourself \n as the owner of this wallet.',
         p: `Signing out will require you to \n authenticate again in the future.`,
         button: 'Sign Out',
