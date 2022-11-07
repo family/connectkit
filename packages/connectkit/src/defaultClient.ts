@@ -43,6 +43,9 @@ type DefaultClientProps = {
   chains?: Chain[];
   connectors?: any;
   provider?: any;
+  webSocketProvider?: any;
+  enableWebSocketProvider?: boolean;
+  stallTimeout?: number;
 };
 
 type ConnectKitClientProps = {
@@ -99,24 +102,26 @@ const defaultClient = ({
   infuraId,
   connectors,
   provider,
+  stallTimeout,
+  webSocketProvider,
+  enableWebSocketProvider,
 }: DefaultClientProps) => {
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
 
   const providers: ChainProviderFn[] = [];
   if (alchemyId) {
-    providers.push(alchemyProvider({ apiKey: alchemyId, stallTimeout: 5000 }));
+    providers.push(alchemyProvider({ apiKey: alchemyId, stallTimeout }));
   }
   if (infuraId) {
-    providers.push(infuraProvider({ apiKey: infuraId, stallTimeout: 5000 }));
+    providers.push(infuraProvider({ apiKey: infuraId, stallTimeout }));
   }
   providers.push(
     jsonRpcProvider({
       rpc: (c) => {
-        if (c.id !== chain.mainnet.id) return null;
         return { http: c.rpcUrls.default };
       },
-      stallTimeout: 5000,
+      stallTimeout,
     })
   );
   providers.push(publicProvider());
@@ -124,7 +129,7 @@ const defaultClient = ({
   const {
     provider: configuredProvider,
     chains: configuredChains,
-    webSocketProvider,
+    webSocketProvider: configuredWebSocketProvider,
   } = configureChains(chains, providers);
 
   const connectKitClient: ConnectKitClientProps = {
@@ -132,7 +137,9 @@ const defaultClient = ({
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
     provider: provider ?? configuredProvider,
-    //webSocketProvider,
+    webSocketProvider: enableWebSocketProvider // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"
+      ? webSocketProvider ?? configuredWebSocketProvider
+      : undefined,
   };
 
   return { ...connectKitClient };
