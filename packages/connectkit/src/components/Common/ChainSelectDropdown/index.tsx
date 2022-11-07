@@ -44,7 +44,7 @@ const DropdownContainer = styled(motion.div)`
   left: 0;
   width: 100%;
   max-width: fit-content;
-  padding: 14px 16px 8px;
+  padding: 14px 16px 16px;
   color: var(--ck-dropdown-color, var(--ck-tooltip-color));
   background: var(--background);
   box-shadow: var(
@@ -135,6 +135,7 @@ const ChainSelectDropdown: React.FC<{
     [open]
   );
   const [ref, bounds] = useMeasure({
+    debounce: 120, // waits until modal transition has finished before measuring
     offsetSize: true,
     scroll: true,
   });

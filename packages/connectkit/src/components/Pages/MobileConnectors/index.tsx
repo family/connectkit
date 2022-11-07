@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   WalletList,
@@ -7,11 +7,7 @@ import {
   WalletLabel,
 } from './styles';
 
-import {
-  PageContent,
-  ModalContent,
-  ModalHeadingBlock,
-} from '../../Common/Modal/styles';
+import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
 import Button from '../../Common/Button';
 
@@ -21,6 +17,9 @@ import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { routes, useContext } from '../../ConnectKit';
 import { WalletProps } from '../../../wallets/wallet';
 import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect';
+import CopyToClipboard from '../../Common/CopyToClipboard';
+import { walletConnect } from '../../../wallets/connectors/walletConnect';
+import { useNetwork } from 'wagmi';
 
 const MoreIcon = (
   <svg
@@ -41,6 +40,7 @@ const MoreIcon = (
 const MobileConnectors: React.FC = () => {
   const context = useContext();
   const { connectAsync } = useConnect();
+  const { chains } = useNetwork();
 
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
   const wallets = useDefaultWallets().filter(
@@ -72,9 +72,43 @@ const MobileConnectors: React.FC = () => {
     }
   };
 
+  async function connectWCWallet(connector: any) {
+    await connectAsync({ connector: connector });
+  }
+
+  const [walletConnectUri, setWalletConnectUri] = useState('');
+  useEffect(() => {
+    const getWalletConnectUri = async () => {
+      const c = await walletConnect({ chains }).createConnector();
+
+      const qrUri = await c.qrCode.getUri();
+      console.log(qrUri);
+
+      c.connector.on('message', async (e) => {
+        //@ts-ignore
+        const p = await c.connector.getProvider();
+        console.log(p);
+        setWalletConnectUri(p.connector.uri);
+
+        // User rejected, regenerate QR code
+        p.connector.on('disconnect', () => {
+          connectWCWallet(c.connector);
+        });
+      });
+      try {
+        await connectWCWallet(c.connector);
+      } catch (err) {
+        context.debug(
+          <>WalletConnect cannot connect. See console for more details.</>,
+          err
+        );
+      }
+    };
+    getWalletConnectUri();
+  }, []);
+
   return (
-    <PageContent style={{ width: 312, height: 367 }}>
-      <ModalHeadingBlock />
+    <PageContent style={{ width: 312 }}>
       <Container>
         <ModalContent>
           <WalletList>
@@ -98,26 +132,31 @@ const MobileConnectors: React.FC = () => {
                 </WalletItem>
               );
             })}
-            <div className="mobile-hide">
-              <WalletItem onClick={openDefaultWalletConnect}>
-                <WalletIcon
-                  style={{ background: 'var(--ck-body-background-secondary)' }}
-                >
-                  {MoreIcon}
-                </WalletIcon>
-                <WalletLabel>More</WalletLabel>
-              </WalletItem>
-            </div>
+            <WalletItem onClick={openDefaultWalletConnect}>
+              <WalletIcon
+                style={{ background: 'var(--ck-body-background-secondary)' }}
+              >
+                {MoreIcon}
+              </WalletIcon>
+              <WalletLabel>More</WalletLabel>
+            </WalletItem>
           </WalletList>
         </ModalContent>
-        <div className="mobile-show">
-          <Button
-            icon={<ExternalLinkIcon />}
-            onClick={openDefaultWalletConnect}
+        {context.options?.walletConnectCTA !== 'modal' && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 14,
+              paddingTop: 16,
+            }}
           >
-            Open Default Modal
-          </Button>
-        </div>
+            <CopyToClipboard variant="button" string={walletConnectUri}>
+              Copy to Clipboard
+            </CopyToClipboard>
+          </div>
+        )}
       </Container>
     </PageContent>
   );

@@ -156,7 +156,7 @@ export const ConnectorButton = styled(motion.button)`
       box-shadow: var(--hover-box-shadow);
       border-radius: var(--hover-border-radius);
     }
-    &:focus {
+    &:focus-visible {
       transition-duration: 100ms;
       color: var(--hover-color);
       background: var(--hover-background);

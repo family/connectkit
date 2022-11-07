@@ -21,7 +21,7 @@ export const walletConnect = ({ chains }: WalletOptions): WalletProps => {
       const connector = new WalletConnectConnector({
         chains,
         options: {
-          qrcode: isMobile(),
+          qrcode: false,
         },
       });
 

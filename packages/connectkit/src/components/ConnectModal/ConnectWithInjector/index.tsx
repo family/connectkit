@@ -21,7 +21,6 @@ import {
   ModalH1,
   ModalContentContainer,
   ModalContent,
-  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import { OrDivider } from '../../Common/Modal';
 import Button from '../../Common/Button';
@@ -30,9 +29,9 @@ import Alert from '../../Common/Alert';
 
 import CircleSpinner from './CircleSpinner';
 
-import { Scan } from '../../../assets/icons';
+import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
-import { AlertIcon, TickIcon, RetryIcon } from '../../../assets/icons';
+import { AlertIcon, TickIcon } from '../../../assets/icons';
 import { detectBrowser } from '../../../utils';
 
 export const states = {
@@ -175,7 +174,10 @@ const ConnectWithInjector: React.FC<{
 
     const con: any = connectors.find((c) => c.id === id);
     if (con) {
-      connect({ connector: con, chainId: chains[0]?.id });
+      connect({
+        connector: con,
+        chainId: context.options?.initialChainId ?? chains[0]?.id,
+      });
     } else {
       setStatus(states.UNAVAILABLE);
     }
@@ -247,9 +249,6 @@ const ConnectWithInjector: React.FC<{
   return (
     <PageContent>
       <Container>
-        {/* <ModalHeading>{connector.name}</ModalHeading> */}
-        <ModalHeadingBlock />
-
         <ConnectingContainer>
           <ConnectingAnimation
             $shake={status === states.FAILED || status === states.REJECTED}
@@ -275,7 +274,7 @@ const ConnectWithInjector: React.FC<{
                       message={`Try again?`}
                       xOffset={-6}
                     >
-                      <RetryIcon />
+                      <RetryIconCircle />
                     </Tooltip>
                   </RetryIconContainer>
                 </RetryButton>

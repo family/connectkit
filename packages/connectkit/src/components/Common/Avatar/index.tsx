@@ -4,13 +4,26 @@ import { EnsAvatar, ImageContainer } from './styles';
 
 import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
 import { ResetContainer } from '../../../styles';
+import { useContext } from '../../ConnectKit';
+import useIsMounted from '../../../hooks/useIsMounted';
+
+export type CustomAvatarProps = {
+  address?: string;
+  ensName?: string;
+  ensImage?: string;
+  size: number;
+  radius: number;
+};
 
 const Avatar: React.FC<{
-  address?: string | undefined;
-  name?: string | undefined;
+  address?: string;
+  name?: string;
   size?: number;
   radius?: number;
-}> = ({ address = undefined, name = undefined, size, radius }) => {
+}> = ({ address, name, size = 96, radius = 96 }) => {
+  const isMounted = useIsMounted();
+  const context = useContext();
+
   const imageRef = useRef<any>(null);
   const [loaded, setLoaded] = useState(true);
 
@@ -43,6 +56,29 @@ const Avatar: React.FC<{
       setLoaded(false);
     }
   }, [ensAvatar]);
+
+  if (!isMounted)
+    return <div style={{ width: size, height: size, borderRadius: radius }} />;
+
+  if (context.options?.customAvatar)
+    return (
+      <div
+        style={{
+          width: size,
+          height: size,
+          borderRadius: radius,
+          overflow: 'hidden',
+        }}
+      >
+        {context.options?.customAvatar({
+          address: address ?? ens?.address,
+          ensName: name ?? ens?.name,
+          ensImage: ens?.avatar,
+          size,
+          radius,
+        })}
+      </div>
+    );
 
   if (!ens.name || !ens.avatar)
     return (

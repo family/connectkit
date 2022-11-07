@@ -12,7 +12,7 @@ export const Textbox = ({
   return (
     <label className="textbox">
       <span>{label}</span>
-      <input type="text" value={value} onChange={onChange} />
+      <input type="text" value={value ?? ''} onChange={onChange} />
     </label>
   );
 };

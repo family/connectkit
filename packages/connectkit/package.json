@@ -1,8 +1,16 @@
 {
   "name": "connectkit",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "author": "Family",
+  "homepage": "https://docs.family.co/connectkit",
+  "license": "BSD-2-Clause license",
   "main": "build/index.js",
   "description": "Connecting a wallet, made simple.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/family/connectkit.git",
+    "directory": "packages/connectkit"
+  },
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
   "files": [
@@ -34,9 +42,9 @@
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {
-    "ethers": "^5.6.5",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "ethers": ">=5.5.0 <6",
+    "react": "17.x || 18.x",
+    "react-dom": "17.x || 18.x",
     "wagmi": "^0.6.0"
   },
   "devDependencies": {

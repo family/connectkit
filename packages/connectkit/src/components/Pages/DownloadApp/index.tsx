@@ -5,10 +5,8 @@ import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {
   PageContent,
-  ModalBodySmall,
+  ModalBody,
   ModalContent,
-  ModalHeading,
-  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import { OrDivider } from '../../Common/Modal';
 
@@ -41,12 +39,14 @@ const DownloadApp: React.FC<{
 
   return (
     <PageContent>
-      {/* <ModalHeading>{localizeText(copy.heading)}</ModalHeading> */}
-      <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
         {downloadUri && <CustomQRCode value={downloadUri} />}
         {!downloadUri && <>No download link available</>}
-        <ModalBodySmall>{localizeText(bodycopy)}</ModalBodySmall>
+        <ModalBody
+          style={{ fontSize: 15, lineHeight: '20px', padding: '0 12px' }}
+        >
+          {localizeText(bodycopy)}
+        </ModalBody>
         {connector.defaultConnect && <OrDivider />}
       </ModalContent>
 

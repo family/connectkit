@@ -67,6 +67,7 @@ from { opacity: 1; transform: scale(1); }
 export const PageContent = styled(motion.div)`
   max-width: 100%;
   width: 295px;
+  padding-top: 48px;
 `;
 
 export const TextWithHr = styled(motion.div)`
@@ -106,8 +107,12 @@ export const ModalHeading = styled(motion.div)`
   pointer-events: none;
   user-select: none;
   position: absolute;
-  top: 28px;
+  top: 0;
   left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 76px;
   transform: translateX(-50%);
   width: var(--width);
   text-align: center;
@@ -115,10 +120,9 @@ export const ModalHeading = styled(motion.div)`
   line-height: 20px;
   font-weight: var(--ck-modal-heading-font-weight, 600);
   color: var(--ck-body-color);
-`;
-
-export const ModalHeadingBlock = styled(motion.div)`
-  height: 48px;
+  span {
+    display: inline-block;
+  }
 `;
 
 export const ModalContentContainer = styled(motion.div)`
@@ -179,9 +183,9 @@ export const ModalBody = styled.div`
 
 export const ModalBodySmall = styled.div`
   padding: 0 12px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 16px;
   color: var(--ck-body-color-muted);
   strong {
     font-weight: 500;
@@ -197,6 +201,7 @@ export const BackgroundOverlay = styled(motion.div)<{ $active: boolean }>`
   right: 0;
   bottom: 0;
   background: var(--ck-overlay-background, rgba(71, 88, 107, 0.24));
+  backdrop-filter: var(--ck-overlay-backdrop-filter, none);
   opacity: 0;
   animation: ${(props) => (props.$active ? FadeIn : FadeOut)} 150ms ease-out
     both;
@@ -397,13 +402,40 @@ export const CloseButton = styled(motion.button)`
   }
 `;
 
+export const SiweButton = styled(motion.button)`
+  z-index: 3;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  padding: 0;
+  margin: 0;
+  color: var(--ck-body-action-color);
+  background: var(--ck-body-background);
+  transition: background-color 200ms ease, transform 100ms ease;
+  /* will-change: transform; */
+  svg {
+    display: block;
+    position: relative;
+  }
+
+  &:enabled {
+    cursor: pointer;
+    &:hover {
+      background: var(--ck-body-background-secondary);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+`;
+
 export const BackButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
-  top: 23px;
-  left: 20px;
-  width: 32px;
-  height: 32px;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -434,10 +466,8 @@ export const BackButton = styled(motion.button)`
 export const InfoButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
-  top: 23px;
-  left: 21px;
-  width: 32px;
-  height: 32px;
+  inset: 0;
+  transform: translateX(-1px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -503,7 +533,7 @@ export const Container = styled(motion.div)`
       width: 100% !important;
     }
     ${ModalHeading} {
-      top: 32px;
+      top: 4px;
     }
     ${ModalContent} {
       gap: 12px;
@@ -525,12 +555,12 @@ export const Container = styled(motion.div)`
       right: 22px;
     }
     ${BackButton} {
-      top: 22px;
-      left: 17px;
+      top: -1px;
+      left: -3px;
     }
     ${InfoButton} {
-      top: 22px;
-      left: 17px;
+      top: -1px;
+      left: -3px;
       svg {
         width: 65%;
         height: auto;
@@ -606,5 +636,37 @@ export const DisclaimerBackground = styled(motion.div)`
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     border-radius: 0;
+  }
+`;
+
+export const SignInTooltip = styled(motion.div)`
+  z-index: 2;
+  position: absolute;
+  top: 100%;
+  white-space: nowrap;
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.5;
+  background: #1a88f8;
+  border-radius: calc(var(--ck-border-radius) * 0.75);
+  transform: translateY(8px) translateX(-48px);
+  box-shadow: var(--ck-modal-box-shadow);
+  &:before {
+    content: '';
+    position: absolute;
+    box-shadow: var(--shadow);
+    width: 18px;
+    height: 18px;
+    transform: translate(215%, -75%) rotate(45deg);
+    background: inherit;
+    border-radius: 3px 0 0 0;
+  }
+
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    transform: translateY(8px) translateX(-16px);
+    &:before {
+      transform: translate(40%, -75%) rotate(45deg);
+    }
   }
 `;

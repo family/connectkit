@@ -1,0 +1,52 @@
+{
+  "name": "connectkit-next-siwe",
+  "version": "0.0.1",
+  "author": "Family",
+  "homepage": "https://docs.family.co/connectkit",
+  "license": "BSD-2-Clause license",
+  "main": "build/index.js",
+  "description": "Connecting a wallet, made simple.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/family/connectkit.git",
+    "directory": "packages/connectkit"
+  },
+  "module": "build/index.es.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "rollup --config rollup.config.dev.js -w",
+    "dev": "rollup --config rollup.config.dev.js -w",
+    "build": "rollup --config rollup.config.prod.js",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": [
+    "ens",
+    "react-hook",
+    "blockchain",
+    "hooks",
+    "family",
+    "ethereum",
+    "react"
+  ],
+  "dependencies": {
+    "iron-session": "^6.2.1",
+    "siwe": "^1.1.6"
+  },
+  "peerDependencies": {
+    "connectkit": "*",
+    "next": "12.x",
+    "react": "17.x || 18.x",
+    "react-dom": "17.x || 18.x",
+    "siwe": ">=1.1.0 <2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.27",
+    "@types/react": "^18.0.6",
+    "@types/react-dom": "^18.0.2",
+    "typescript": "^4.6.3"
+  }
+}

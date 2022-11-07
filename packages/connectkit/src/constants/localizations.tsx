@@ -46,7 +46,7 @@ export const replaceMarkdown = (markdownText: string) => {
     return (
       <React.Fragment key={i}>
         {wrapTags(t)}
-        {i < text.length && <br />}
+        {i < text.length - 1 && <br />}
       </React.Fragment>
     );
   });
@@ -54,6 +54,7 @@ export const replaceMarkdown = (markdownText: string) => {
 };
 
 export const keys = {
+  //appName: '{{ APPNAME }}',
   connectorName: '{{ CONNECTORNAME }}',
   connectorShortName: '{{ CONNECTORSHORTNAME }}',
   suggestedExtensionBrowser: '{{ SUGGESTEDEXTENSIONBROWSER }}',
@@ -66,6 +67,12 @@ export const keys = {
  */
 export default {
   en: {
+    warnings: {
+      walletSwitchingUnsupported: `Your wallet does not support switching networks from this app.`,
+      walletSwitchingUnsupportedResolve: `Try switching networks from within your wallet instead.`,
+      chainUnsupported: `This app does not support the current connected network.`,
+      chainUnsupportedResolve: `Switch or disconnect to continue.`,
+    },
     onboardingScreen: {
       heading: `Get a Wallet`,
       h1: `Start Exploring Web3`,
@@ -143,10 +150,23 @@ export default {
     },
     profileScreen: {
       heading: 'Connected',
-      unsupported: `Your wallet does not support switching networks from this app.\nTry switching networks from within your wallet instead.`,
     },
     switchNetworkScreen: {
       heading: 'Switch Networks',
+    },
+    signInWithEthereumScreen: {
+      signedOut: {
+        heading: 'Sign In With Ethereum',
+        h1: 'This app would like to verify you \n as the owner of this wallet.',
+        p: `Please sign the message request \n in your wallet to continue.`,
+        button: 'Sign In',
+      },
+      signedIn: {
+        heading: 'Signed In With Ethereum',
+        h1: 'You successfully verified yourself \n as the owner of this wallet.',
+        p: `Signing out will require you to \n authenticate again in the future.`,
+        button: 'Sign Out',
+      },
     },
   },
 };

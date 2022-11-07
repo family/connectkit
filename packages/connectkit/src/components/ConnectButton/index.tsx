@@ -3,7 +3,11 @@ import { useAccount, useEnsName, useNetwork } from 'wagmi';
 import { truncateENSAddress, truncateEthAddress } from './../../utils';
 import useIsMounted from '../../hooks/useIsMounted';
 
-import { IconContainer, TextContainer } from './styles';
+import {
+  IconContainer,
+  TextContainer,
+  UnsupportedNetworkContainer,
+} from './styles';
 import { routes, useContext } from '../ConnectKit';
 import Avatar from '../Common/Avatar';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
@@ -11,6 +15,8 @@ import { CustomTheme, Mode, Theme } from '../../types';
 import { Balance } from '../BalanceButton';
 import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
 import { ResetContainer } from '../../styles';
+import { AuthIcon } from '../../assets/icons';
+import { useSIWE } from '../Standard/SIWE/useSIWE';
 
 const contentVariants: Variants = {
   initial: {
@@ -133,9 +139,9 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         unsupported: !!chain?.unsupported,
         isConnected: !!address,
         isConnecting: isConnecting,
-        address: address ?? '',
-        truncatedAddress: address ? truncateEthAddress(address) : '',
-        ensName: ensName ?? undefined,
+        address: address?.toString(),
+        truncatedAddress: address ? truncateEthAddress(address) : undefined,
+        ensName: ensName?.toString(),
       })}
     </>
   );
@@ -153,31 +159,18 @@ function ConnectKitButtonInner({
   separator?: string;
 }) {
   const context = useContext();
+  const { signedIn } = useSIWE();
 
-  const { chain } = useNetwork();
   const { address } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
   });
+  const { chain } = useNetwork();
 
   return (
     <AnimatePresence initial={false}>
-      {chain?.unsupported ? (
-        <TextContainer
-          key="unsupported-chain"
-          initial={'initial'}
-          animate={'animate'}
-          exit={'exit'}
-          variants={textVariants}
-          style={{
-            height: 40,
-            //padding: '0 5px',
-          }}
-        >
-          Wrong network
-        </TextContainer>
-      ) : address ? (
+      {address ? (
         <TextContainer
           key="connectedText"
           initial={'initial'}
@@ -191,6 +184,43 @@ function ConnectKitButtonInner({
         >
           {showAvatar && (
             <IconContainer>
+              <AnimatePresence initial={false}>
+                {signedIn && (
+                  <motion.div
+                    style={{
+                      zIndex: 2,
+                      position: 'absolute',
+                      bottom: 0,
+                      right: 0,
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <AuthIcon />
+                  </motion.div>
+                )}
+                {chain?.unsupported && (
+                  <UnsupportedNetworkContainer
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.68831 13.5H12.0764C13.1026 13.5 13.7647 12.7197 13.7647 11.763C13.7647 11.4781 13.6985 11.1863 13.5462 10.9149L8.34225 1.37526C8.02445 0.791754 7.45505 0.5 6.88566 0.5C6.31627 0.5 5.73364 0.791754 5.42246 1.37526L0.225108 10.9217C0.0728291 11.1863 0 11.4781 0 11.763C0 12.7197 0.662083 13.5 1.68831 13.5ZM6.88566 8.8048C6.49503 8.8048 6.27655 8.5809 6.26331 8.1738L6.16399 5.0595C6.15075 4.64562 6.44869 4.34708 6.87904 4.34708C7.30278 4.34708 7.61396 4.6524 7.60071 5.06628L7.5014 8.16701C7.48154 8.5809 7.26305 8.8048 6.88566 8.8048ZM6.88566 11.3492C6.44207 11.3492 6.07792 11.0303 6.07792 10.5757C6.07792 10.1211 6.44207 9.80219 6.88566 9.80219C7.32926 9.80219 7.69341 10.1143 7.69341 10.5757C7.69341 11.0371 7.32264 11.3492 6.88566 11.3492Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </UnsupportedNetworkContainer>
+                )}
+              </AnimatePresence>
               <Avatar size={24} address={address} />
             </IconContainer>
           )}
@@ -198,6 +228,7 @@ function ConnectKitButtonInner({
           <div
             style={{
               position: 'relative',
+              paddingRight: showAvatar ? 1 : 0,
             }}
           >
             <AnimatePresence initial={false}>

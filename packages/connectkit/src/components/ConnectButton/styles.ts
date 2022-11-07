@@ -28,8 +28,22 @@ export const IconContainer = styled(motion.div)`
   width: 24px;
   height: 24px;
   margin-right: 8px;
+`;
+
+export const UnsupportedNetworkContainer = styled(motion.div)`
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
+  background: var(--ck-body-color-danger, red);
+  color: #fff;
   svg {
-    position: absolute;
-    inset: 0;
+    display: block;
+    position: relative;
+    top: -1px;
   }
 `;

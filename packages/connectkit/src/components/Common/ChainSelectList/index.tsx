@@ -11,6 +11,8 @@ import styled, { css } from 'styled-components';
 import { isMobile } from '../../../utils';
 
 import ChainIcons from '../../../assets/chains';
+import localizations, { localize } from '../../../constants/localizations';
+import { useContext } from '../../ConnectKit';
 
 const SwitchNetworksContainer = styled.div`
   display: flex;
@@ -85,7 +87,7 @@ const ChainLogoSpinner = styled(motion.div)`
 `;
 const ChainButtonContainer = styled.div`
   position: relative;
-  margin: -8px -16px;
+  margin: -8px -8px;
   &:after {
     border-radius: var(--border-radius, 0);
     z-index: 2;
@@ -98,7 +100,7 @@ const ChainButtonContainer = styled.div`
   }
 `;
 const ChainButtons = styled(motion.div)`
-  padding: 8px 16px;
+  padding: 8px 8px 0;
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 242px;
@@ -110,7 +112,7 @@ const ChainButtons = styled(motion.div)`
   }
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    padding: 8px 24px;
+    padding: 8px 14px;
     margin: 2px -2px 0;
     max-height: 70vh;
   }
@@ -254,29 +256,30 @@ const ChainSelectList: React.FC = () => {
   const { chain, chains } = useNetwork();
   const { isLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
 
+  const context = useContext();
+  const warnings = localizations[context.lang].warnings;
+
   const mobile = isMobile();
 
-  if (!switchNetwork) {
-    const x = supportedChains.filter((x) => x.id === chain?.id)[0] || {
-      logo: false,
-    };
-    const c = { ...chain, ...x };
-    return (
-      <SwitchNetworksContainer>
-        <ChainButtonContainer>
-          <ChainButtons>
-            <AnimatePresence exitBeforeEnter initial={false}>
+  return (
+    <SwitchNetworksContainer>
+      <ChainButtonContainer>
+        <ChainButtons>
+          {chains.map((x) => {
+            const c = supportedChains.find((ch) => ch.id === x.id);
+            const ch = { ...c, ...x };
+            return (
               <ChainButton
-                disabled
-                key={`${c?.id}-${c?.name}`}
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  ease: [0.76, 0, 0.24, 1],
-                  duration: 0.25,
+                key={`${ch?.id}-${ch?.name}`}
+                disabled={
+                  !switchNetwork ||
+                  ch.id === chain?.id ||
+                  (isLoading && pendingChainId === ch.id)
+                }
+                onClick={() => switchNetwork?.(ch.id)}
+                style={{
+                  opacity:
+                    !switchNetwork && ch.id !== chain?.id ? 0.4 : undefined,
                 }}
               >
                 <span
@@ -285,189 +288,135 @@ const ChainSelectList: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     gap: 12,
+                    color:
+                      ch.id === chain?.id
+                        ? 'var(--ck-dropdown-active-color, inherit)'
+                        : 'inherit',
                   }}
                 >
                   <ChainLogoContainer>
-                    {c.logo ? (
-                      <ChainIcon>{c.logo}</ChainIcon>
-                    ) : (
-                      <ChainIcon>
-                        <ChainIcons.UnknownChain />
-                      </ChainIcon>
-                    )}
-                  </ChainLogoContainer>
-                  {c.name}
-                </span>
-                <ChainButtonStatus>
-                  <motion.span
-                    style={{
-                      color: c.unsupported
-                        ? 'var(--ck-body-color-danger)'
-                        : 'var(--ck-dropdown-active-static-color, var(--ck-focus-color))',
-                      display: 'block',
-                      position: 'relative',
-                      paddingRight: 6,
-                    }}
-                  >
-                    {c.unsupported ? 'Unsupported' : 'Connected'}
-                  </motion.span>
-                </ChainButtonStatus>
-              </ChainButton>
-              );
-            </AnimatePresence>
-          </ChainButtons>
-        </ChainButtonContainer>
-        <Alert>
-          {`Your wallet does not support switching networks from this app. Try switching networks from within your wallet instead.`}
-        </Alert>
-      </SwitchNetworksContainer>
-    );
-  }
-
-  return (
-    <ChainButtonContainer>
-      <ChainButtons>
-        {chains.map((x) => {
-          const c = supportedChains.find((ch) => ch.id === x.id);
-          const ch = { ...c, ...x };
-          return (
-            <ChainButton
-              key={`${ch?.id}-${ch?.name}`}
-              disabled={
-                !switchNetwork ||
-                ch.id === chain?.id ||
-                (isLoading && pendingChainId === ch.id)
-              }
-              onClick={() => switchNetwork?.(ch.id)}
-            >
-              <span
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  gap: 12,
-                  color:
-                    ch.id === chain?.id
-                      ? 'var(--ck-dropdown-active-color, inherit)'
-                      : 'inherit',
-                }}
-              >
-                <ChainLogoContainer>
-                  <ChainLogoSpinner
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: isLoading && pendingChainId === ch.id ? 1 : 0,
-                    }}
-                    transition={{
-                      ease: [0.76, 0, 0.24, 1],
-                      duration: 0.15,
-                    }}
-                  >
-                    <motion.div
-                      key={`${ch?.id}-${ch?.name}`}
-                      animate={
-                        // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
-                        mobile &&
-                        connector?.id === 'coinbaseWallet' &&
-                        isLoading &&
-                        pendingChainId === ch.id
-                          ? {
-                              opacity: [1, 0],
-
-                              transition: { delay: 4, duration: 3 },
-                            }
-                          : { opacity: 1 }
-                      }
-                    >
-                      {Spinner}
-                    </motion.div>
-                  </ChainLogoSpinner>
-                  <ChainIcon>
-                    {ch.logo ?? <ChainIcons.UnknownChain />}
-                  </ChainIcon>
-                </ChainLogoContainer>
-                {ch.name}
-              </span>
-              <ChainButtonStatus>
-                <AnimatePresence initial={false} exitBeforeEnter>
-                  {ch.id === chain?.id && (
-                    <motion.span
-                      key={'connectedText'}
-                      style={{
-                        color:
-                          'var(--ck-dropdown-active-color, var(--ck-focus-color))',
-                        display: 'block',
-                        position: 'relative',
-                      }}
-                      initial={{ opacity: 0, x: -4 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{
-                        opacity: 0,
-                        x: 4,
-                        transition: { duration: 0.1, delay: 0 },
+                    <ChainLogoSpinner
+                      initial={{ opacity: 0 }}
+                      animate={{
+                        opacity: isLoading && pendingChainId === ch.id ? 1 : 0,
                       }}
                       transition={{
                         ease: [0.76, 0, 0.24, 1],
-                        duration: 0.3,
-                        delay: 0.2,
+                        duration: 0.15,
                       }}
                     >
-                      Connected
-                    </motion.span>
-                  )}
-                  {isLoading && pendingChainId === ch.id && (
-                    <motion.span
-                      key={'approveText'}
-                      style={{
-                        color: 'var(--ck-dropdown-pending-color, inherit)',
-                        display: 'block',
-                        position: 'relative',
-                      }}
-                      initial={{
-                        opacity: 0,
-                        x: -4,
-                      }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 4 }}
-                      transition={{
-                        ease: [0.76, 0, 0.24, 1],
-                        duration: 0.3,
-                      }}
-                    >
-                      <motion.span
+                      <motion.div
+                        key={`${ch?.id}-${ch?.name}`}
                         animate={
                           // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
                           mobile &&
-                          connector?.id === 'coinbaseWallet' && {
-                            opacity: [1, 0],
-                            transition: { delay: 4, duration: 4 },
-                          }
+                          connector?.id === 'coinbaseWallet' &&
+                          isLoading &&
+                          pendingChainId === ch.id
+                            ? {
+                                opacity: [1, 0],
+
+                                transition: { delay: 4, duration: 3 },
+                              }
+                            : { opacity: 1 }
                         }
                       >
-                        Approve in Wallet
+                        {Spinner}
+                      </motion.div>
+                    </ChainLogoSpinner>
+                    <ChainIcon>
+                      {ch.logo ?? <ChainIcons.UnknownChain />}
+                    </ChainIcon>
+                  </ChainLogoContainer>
+                  {ch.name}
+                </span>
+                <ChainButtonStatus>
+                  <AnimatePresence initial={false} exitBeforeEnter>
+                    {ch.id === chain?.id && (
+                      <motion.span
+                        key={'connectedText'}
+                        style={{
+                          color:
+                            'var(--ck-dropdown-active-color, var(--ck-focus-color))',
+                          display: 'block',
+                          position: 'relative',
+                        }}
+                        initial={{ opacity: 0, x: -4 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{
+                          opacity: 0,
+                          x: 4,
+                          transition: { duration: 0.1, delay: 0 },
+                        }}
+                        transition={{
+                          ease: [0.76, 0, 0.24, 1],
+                          duration: 0.3,
+                          delay: 0.2,
+                        }}
+                      >
+                        Connected
                       </motion.span>
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </ChainButtonStatus>
-              {
-                //hover === ch.name && (
-                ch.id === chain?.id && (
-                  <ChainButtonBg
-                    layoutId="activeChain"
-                    layout="position"
-                    transition={{
-                      duration: 0.3,
-                      ease: 'easeOut',
-                    }}
-                  />
-                )
-              }
-            </ChainButton>
-          );
-        })}
-      </ChainButtons>
-    </ChainButtonContainer>
+                    )}
+                    {isLoading && pendingChainId === ch.id && (
+                      <motion.span
+                        key={'approveText'}
+                        style={{
+                          color: 'var(--ck-dropdown-pending-color, inherit)',
+                          display: 'block',
+                          position: 'relative',
+                        }}
+                        initial={{
+                          opacity: 0,
+                          x: -4,
+                        }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 4 }}
+                        transition={{
+                          ease: [0.76, 0, 0.24, 1],
+                          duration: 0.3,
+                        }}
+                      >
+                        <motion.span
+                          animate={
+                            // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
+                            mobile &&
+                            connector?.id === 'coinbaseWallet' && {
+                              opacity: [1, 0],
+                              transition: { delay: 4, duration: 4 },
+                            }
+                          }
+                        >
+                          Approve in Wallet
+                        </motion.span>
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </ChainButtonStatus>
+                {
+                  //hover === ch.name && (
+                  ch.id === chain?.id && (
+                    <ChainButtonBg
+                      layoutId="activeChain"
+                      layout="position"
+                      transition={{
+                        duration: 0.3,
+                        ease: 'easeOut',
+                      }}
+                    />
+                  )
+                }
+              </ChainButton>
+            );
+          })}
+        </ChainButtons>
+      </ChainButtonContainer>
+      {!switchNetwork && (
+        <Alert>
+          {localize(warnings.walletSwitchingUnsupported)}{' '}
+          {localize(warnings.walletSwitchingUnsupportedResolve)}
+        </Alert>
+      )}
+    </SwitchNetworksContainer>
   );
 };
 

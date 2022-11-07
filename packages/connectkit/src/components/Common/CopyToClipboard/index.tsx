@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { motion } from 'framer-motion';
 
-import { CopyToClipboardIcon } from '../../../assets/icons';
+import CopyToClipboardIcon from './CopyToClipboardIcon';
+import Button from '../Button';
 
-export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
+const Container = styled.div<{ $disabled?: boolean }>`
   --color: var(--ck-copytoclipboard-stroke);
   --bg: var(--ck-body-background);
   transition: all 220ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
@@ -13,16 +13,23 @@ export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  span {
-    display: block;
-    position: relative;
-    transition: inherit;
-  }
 
-  &:hover {
-    --color: var(--ck-body-color-muted);
-  }
-
+  ${(props) =>
+    props.$disabled
+      ? css`
+          cursor: not-allowed;
+          opacity: 0.4;
+        `
+      : css`
+          &:hover {
+            --color: var(--ck-body-color-muted);
+          }
+        `}
+`;
+const OffsetContainer = styled.div`
+  display: block;
+  position: relative;
+  transition: inherit;
   svg {
     position: absolute;
     left: 100%;
@@ -31,82 +38,55 @@ export const CopyButton = styled(motion.div)<{ $clipboard?: boolean }>`
     margin: 0;
     margin-left: 4px;
   }
-  svg,
-  svg path,
-  svg rect {
-    transition: inherit;
-  }
-  svg path:first-child {
-    transform-origin: 50% 50%;
-    fill: var(--bg);
-    stroke: var(--color);
-  }
-  svg rect {
-    transform-origin: 53% 63%;
-    fill: var(--bg);
-    stroke: var(--color);
-  }
-  svg path:last-child {
-    opacity: 0;
-    stroke: var(--bg);
-    transform: translate(11.75px, 10px) rotate(90deg) scale(0.6);
-  }
-  ${(props) =>
-    props.$clipboard
-      ? css`
-          --color: var(--ck-focus-color) !important;
-          --bg: var(--ck-body-background);
-          svg {
-            transition-delay: 0ms;
-            path:first-child {
-              opacity: 0;
-              transform: rotate(-90deg) scale(0.2);
-            }
-            rect {
-              rx: 10px;
-              fill: var(--color);
-              transform: rotate(-90deg) scale(1.45);
-            }
-            path:last-child {
-              transition-delay: 100ms;
-              opacity: 1;
-              transform: translate(7.75px, 9.5px);
-            }
-          }
-        `
-      : css`
-          &:hover {
-          }
-          &:hover:active {
-          }
-        `}
 `;
 
 const CopyToClipboard: React.FC<{
-  string: string | undefined;
+  string?: string;
   children?: React.ReactNode;
-}> = ({ string, children }) => {
+  variant?: 'button';
+}> = ({ string, children, variant }) => {
   const [clipboard, setClipboard] = useState(false);
-  if (!string) return <></>;
 
-  const str = string.trim();
   let timeout: any;
-  return (
-    <CopyButton
-      aria-label="Copy to Clipboard"
-      $clipboard={clipboard}
-      onClick={() => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => setClipboard(false), 1000);
-        setClipboard(true);
-        navigator.clipboard.writeText(str);
-      }}
-    >
-      <span>
+  const onCopy = () => {
+    if (!string) return;
+    const str = string.trim();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(str);
+    } else {
+      // Fallback copy to clipboard if necessary
+      /*
+      const el = document.createElement('textarea');
+      el.value = str;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      */
+    }
+    setClipboard(true);
+    clearTimeout(timeout);
+    timeout = setTimeout(() => setClipboard(false), 1000);
+  };
+
+  if (variant === 'button')
+    return (
+      <Button
+        disabled={!string}
+        onClick={onCopy}
+        icon={<CopyToClipboardIcon copied={clipboard} />}
+      >
         {children}
-        <CopyToClipboardIcon />
-      </span>
-    </CopyButton>
+      </Button>
+    );
+
+  return (
+    <Container onClick={onCopy} $disabled={!string}>
+      <OffsetContainer>
+        {children}
+        <CopyToClipboardIcon copied={clipboard} small />
+      </OffsetContainer>
+    </Container>
   );
 };
 
