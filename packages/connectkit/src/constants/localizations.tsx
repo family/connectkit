@@ -67,6 +67,38 @@ export const keys = {
  */
 export default {
   en: {
+    connectWallet: 'Connect Wallet',
+    disconnect: 'Disconnect',
+    connected: 'Connected',
+    wrongNetwork: 'Wrong Network',
+    switchNetworks: 'Switch Networks',
+    chainNetwork: '{{ CHAIN }} Network',
+    copyToClipboard: 'Copy to Clipboard',
+    copyCode: 'Copy Code',
+    moreInformation: 'More Information',
+    back: 'Back',
+    close: 'Close',
+    or: 'or',
+    more: 'More',
+    tryAgain: 'Try Again',
+    tryAgainQuestion: 'Try Again?',
+    dontHaveTheApp: "Don't have the app?",
+    scanTheQRCode: 'Scan the QR code',
+    useWalletConnectModal: 'Use WalletConnect Modal',
+    useModal: 'Use Modal',
+    installTheExtension: 'Install the Extension',
+    getWalletName: 'Get {{ WALLETNAME }}',
+    otherWallets: 'Other Wallets',
+    learnMore: 'Learn More',
+    getWallet: 'Get a Wallet',
+    approveInWallet: 'Approve in Wallet',
+    confirmInWallet: 'Confirm in Wallet',
+    awaitingConfirmation: 'Awaiting Confirmation',
+    signIn: 'Sign In',
+    signOut: 'Sign Out',
+    signedIn: 'Signed In',
+    signedOut: 'Signed Out',
+    walletNotConnected: 'Wallet Not Connected',
     warnings: {
       walletSwitchingUnsupported: `Your wallet does not support switching networks from this app.`,
       walletSwitchingUnsupportedResolve: `Try switching networks from within your wallet instead.`,
@@ -104,11 +136,11 @@ export default {
       heading: `Scan with Phone`,
       tooltip: {
         walletConnect: `Open a [WALLETCONNECTLOGO] WalletConnect \nsupported wallet to scan`,
-        default: `Open ${keys.connectorName} on \nyour mobile phone to scan`,
+        default: `Open {{ CONNECTORNAME }} on \nyour mobile phone to scan`,
       },
     },
     downloadAppScreen: {
-      heading: `Get ${keys.connectorName}`,
+      heading: `Get {{ CONNECTORNAME }}`,
       iosAndroid: `Scan with your phone camera to download on iOS or Android.`,
       ios: `Scan with your phone camera to download on iOS.`,
       android: `Scan with your phone camera to download Android.`,
@@ -117,19 +149,17 @@ export default {
       unavailable: {
         h1: `Unsupported Browser`,
         p: `To connect your ${keys.connectorShortName} wallet,\ninstall the extension on ${keys.suggestedExtensionBrowser}.`,
+        p: `To connect your {{ CONNECTORSHORTNAME }} wallet,\ninstall the extension on {{ SUGGESTEDEXTENSIONBROWSER }}.`,
       },
       install: {
-        h1: `Install ${keys.connectorName}`,
-        p: `To connect your ${keys.connectorShortName} wallet,\ninstall the browser extension.`,
+        h1: `Install {{ CONNECTORNAME }}`,
+        p: `To connect your {{ CONNECTORSHORTNAME }} wallet,\ninstall the browser extension.`,
       },
       connecting: {
         h1: `Requesting Connection`,
-        p: `Open the ${keys.connectorShortName} browser \nextension to connect your wallet.`,
+        p: `Open the {{ CONNECTORSHORTNAME }} browser \nextension to connect your wallet.`,
         injected_h1: `Requesting Connection`,
         injected_p: `Accept the request through your wallet to connect to this app.`,
-      },
-      expiring: {
-        requestWillExpiryIn: `This request will expire in`,
       },
       connected: {
         h1: `Already Connected`,
@@ -144,8 +174,8 @@ export default {
         p: `Sorry, something went wrong.\nPlease try connecting again.`,
       },
       notconnected: {
-        h1: `Login to ${keys.connectorName}`,
-        p: `To continue, please login to your ${keys.connectorName} extension.`,
+        h1: `Login to {{ CONNECTORNAME }}`,
+        p: `To continue, please login to your {{ CONNECTORNAME }} extension.`,
       },
     },
     profileScreen: {
@@ -155,6 +185,8 @@ export default {
       heading: 'Switch Networks',
     },
     signInWithEthereumScreen: {
+      tooltip:
+        'You’re not signed in to this app. **Sign In with Ethereum** to continue.',
       signedOut: {
         heading: 'Sign In With Ethereum',
         h1: 'This app would like to verify you \n as the owner of this wallet.',
