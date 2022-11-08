@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/family/connectkit.git",
-    "directory": "packages/connectkit-next-siwe"
+    "directory": "packages/connectkit"
   },
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
