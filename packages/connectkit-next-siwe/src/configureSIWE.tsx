@@ -142,7 +142,7 @@ export const configureSIWE = <TSessionData extends Object = {}>({
 }: NextSIWEConfig): ConfigureSIWEResult<TSessionData> => {
   const sessionConfig: IronSessionOptions = {
     cookieName: cookieName ?? 'connectkit-next-siwe',
-    password: password ?? envVar('SESSION_SECRET'),
+    password: password ?? envVar('NEXT_PUBLIC_SESSION_SECRET'),
     cookieOptions: {
       secure: process.env.NODE_ENV === 'production',
       ...(cookieOptions ?? {}),
