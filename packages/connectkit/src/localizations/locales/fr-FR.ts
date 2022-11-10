@@ -93,7 +93,7 @@ const frFR: LocaleProps = {
   injectionScreen_failed_p: `Malheureusement, un problème est survenu.\nVeuillez réessayer de vous connecter.`,
 
   injectionScreen_notconnected_h1: `Connectez-vous à {{ CONNECTORNAME }}`,
-  injectionScreen_notconnectedp: `Pour continuer, veuillez vous connecter à votre extension {{ CONNECTORNAME }} .`,
+  injectionScreen_notconnected_p: `Pour continuer, veuillez vous connecter à votre extension {{ CONNECTORNAME }} .`,
 
   profileScreen_heading: 'Connecté',
 
