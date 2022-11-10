@@ -11,9 +11,6 @@ import {
   Dot,
 } from './styles';
 
-import localizations, { localize } from '../../../constants/localizations';
-import { useContext } from '../../ConnectKit';
-
 import {
   PageContent,
   ModalBody,
@@ -25,15 +22,12 @@ import Button from '../../Common/Button';
 import { Easing, SlideOne, SlideThree, SlideTwo } from './graphics';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { OrDivider } from '../../Common/Modal';
+import useLocales from '../../../hooks/useLocales';
 
 const About: React.FC = () => {
-  const localizeText = (text: string) => {
-    return localize(text, {
-      //CONNECTORNAME: connector.name,
-    });
-  };
-  const context = useContext();
-  const copy = localizations[context.lang].aboutScreen;
+  const locales = useLocales({
+    //CONNECTORNAME: connector.name,
+  });
 
   const [ready, setReady] = useState(true);
   const [slider, setSlider] = useState(0);
@@ -156,16 +150,16 @@ const About: React.FC = () => {
 
   const slides: React.ReactNode[] = [
     <>
-      <ModalH1 $small>{localizeText(copy.a_h1)}</ModalH1>
-      <ModalBody>{localizeText(copy.a_p)}</ModalBody>
+      <ModalH1 $small>{locales.aboutScreen_a_h1}</ModalH1>
+      <ModalBody>{locales.aboutScreen_a_p}</ModalBody>
     </>,
     <>
-      <ModalH1 $small>{localizeText(copy.b_h1)}</ModalH1>
-      <ModalBody>{localizeText(copy.b_p)}</ModalBody>
+      <ModalH1 $small>{locales.aboutScreen_b_h1}</ModalH1>
+      <ModalBody>{locales.aboutScreen_b_p}</ModalBody>
     </>,
     <>
-      <ModalH1 $small>{localizeText(copy.c_h1)}</ModalH1>
-      <ModalBody>{localizeText(copy.c_p)}</ModalBody>
+      <ModalH1 $small>{locales.aboutScreen_c_h1}</ModalH1>
+      <ModalBody>{locales.aboutScreen_c_p}</ModalBody>
     </>,
   ];
 
@@ -234,8 +228,8 @@ const About: React.FC = () => {
           ))}
         </Dots>
       </OrDivider>
-      <Button href={copy.ctaUrl} arrow>
-        {localizeText(copy.ctaText)}
+      <Button href={locales.aboutScreen_ctaUrl} arrow>
+        {locales.aboutScreen_ctaText}
       </Button>
     </PageContent>
   );

@@ -20,6 +20,7 @@ import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect'
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { walletConnect } from '../../../wallets/connectors/walletConnect';
 import { useNetwork } from 'wagmi';
+import useLocales from '../../../hooks/useLocales';
 
 const MoreIcon = (
   <svg
@@ -40,6 +41,9 @@ const MoreIcon = (
 const MobileConnectors: React.FC = () => {
   const context = useContext();
   const { connectAsync } = useConnect();
+
+  const locales = useLocales();
+
   const { chains } = useNetwork();
 
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
@@ -138,7 +142,7 @@ const MobileConnectors: React.FC = () => {
               >
                 {MoreIcon}
               </WalletIcon>
-              <WalletLabel>More</WalletLabel>
+              <WalletLabel>{locales.more}</WalletLabel>
             </WalletItem>
           </WalletList>
         </ModalContent>
@@ -153,7 +157,7 @@ const MobileConnectors: React.FC = () => {
             }}
           >
             <CopyToClipboard variant="button" string={walletConnectUri}>
-              Copy to Clipboard
+              {locales.copyToClipboard}
             </CopyToClipboard>
           </div>
         )}

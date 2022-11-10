@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion, Variants } from 'framer-motion';
+import { AnimatePresence, Variants } from 'framer-motion';
 import {
   Container,
   ConnectingContainer,
@@ -10,7 +10,6 @@ import {
 } from './styles';
 
 import { useContext } from '../../ConnectKit';
-import localizations, { localize } from '../../../constants/localizations';
 import { useConnect, useNetwork } from 'wagmi';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
@@ -33,6 +32,7 @@ import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
 import { detectBrowser } from '../../../utils';
+import useLocales from '../../../hooks/useLocales';
 
 export const states = {
   CONNECTED: 'connected',
@@ -79,7 +79,6 @@ const ConnectWithInjector: React.FC<{
   forceState?: typeof states;
 }> = ({ connectorId, switchConnectMethod, forceState }) => {
   const context = useContext();
-  const copy = localizations[context.lang].injectionScreen;
 
   const { chains } = useNetwork();
   const { connect, connectors } = useConnect({
@@ -161,13 +160,11 @@ const ConnectWithInjector: React.FC<{
       : states.CONNECTING
   );
 
-  const localizeText = (text: string) => {
-    return localize(text, {
-      CONNECTORNAME: connector.name,
-      CONNECTORSHORTNAME: connector.shortName ?? connector.name,
-      SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label ?? 'your browser',
-    });
-  };
+  const locales = useLocales({
+    CONNECTORNAME: connector.name,
+    CONNECTORSHORTNAME: connector.shortName ?? connector.name,
+    SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label ?? 'your browser',
+  });
 
   const runConnect = () => {
     if (!hasExtensionInstalled) return;
@@ -271,7 +268,7 @@ const ConnectWithInjector: React.FC<{
                         showTryAgainTooltip &&
                         (status === states.FAILED || status === states.REJECTED)
                       }
-                      message={`Try again?`}
+                      message={locales.tryAgainQuestion}
                       xOffset={-6}
                     >
                       <RetryIconCircle />
@@ -377,9 +374,9 @@ const ConnectWithInjector: React.FC<{
                 <ModalContent>
                   <ModalH1 $error>
                     <AlertIcon />
-                    {localizeText(copy.failed.h1)}
+                    {locales.injectionScreen_failed_h1}
                   </ModalH1>
-                  <ModalBody>{localizeText(copy.failed.p)}</ModalBody>
+                  <ModalBody>{locales.injectionScreen_failed_p}</ModalBody>
                 </ModalContent>
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
                 {connector.scannable && connector.id !== 'coinbaseWallet' && (
@@ -389,7 +386,7 @@ const ConnectWithInjector: React.FC<{
                       icon={<Scan />}
                       onClick={() => switchConnectMethod(id)}
                     >
-                      Scan the QR code
+                      {locales.scanTheQRCode}
                     </Button>
                   </>
                 )}
@@ -404,8 +401,8 @@ const ConnectWithInjector: React.FC<{
                 variants={contentVariants}
               >
                 <ModalContent style={{ paddingBottom: 28 }}>
-                  <ModalH1>{localizeText(copy.rejected.h1)}</ModalH1>
-                  <ModalBody>{localizeText(copy.rejected.p)}</ModalBody>
+                  <ModalH1>{locales.injectionScreen_rejected_h1}</ModalH1>
+                  <ModalBody>{locales.injectionScreen_rejected_p}</ModalBody>
                 </ModalContent>
 
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
@@ -416,7 +413,7 @@ const ConnectWithInjector: React.FC<{
                       icon={<Scan />}
                       onClick={() => switchConnectMethod(id)}
                     >
-                      Scan the QR code
+                      {locales.scanTheQRCode}
                     </Button>
                   </>
                 )}
@@ -432,18 +429,14 @@ const ConnectWithInjector: React.FC<{
               >
                 <ModalContent style={{ paddingBottom: 28 }}>
                   <ModalH1>
-                    {localizeText(
-                      connector.id === 'injected'
-                        ? copy.connecting.injected_h1
-                        : copy.connecting.h1
-                    )}
+                    {connector.id === 'injected'
+                      ? locales.injectionScreen_connecting_injected_h1
+                      : locales.injectionScreen_connecting_h1}
                   </ModalH1>
                   <ModalBody>
-                    {localizeText(
-                      connector.id === 'injected'
-                        ? copy.connecting.injected_p
-                        : copy.connecting.p
-                    )}
+                    {connector.id === 'injected'
+                      ? locales.injectionScreen_connecting_injected_p
+                      : locales.injectionScreen_connecting_p}
                   </ModalBody>
                 </ModalContent>
               </Content>
@@ -458,9 +451,9 @@ const ConnectWithInjector: React.FC<{
               >
                 <ModalContent>
                   <ModalH1 $valid>
-                    <TickIcon /> {localizeText(copy.connected.h1)}
+                    <TickIcon /> {locales.injectionScreen_connected_h1}
                   </ModalH1>
-                  <ModalBody>{localizeText(copy.connected.p)}</ModalBody>
+                  <ModalBody>{locales.injectionScreen_connected_p}</ModalBody>
                 </ModalContent>
               </Content>
             )}
@@ -473,8 +466,10 @@ const ConnectWithInjector: React.FC<{
                 variants={contentVariants}
               >
                 <ModalContent>
-                  <ModalH1>{localizeText(copy.notconnected.h1)}</ModalH1>
-                  <ModalBody>{localizeText(copy.notconnected.p)}</ModalBody>
+                  <ModalH1>{locales.injectionScreen_notconnected_h1}</ModalH1>
+                  <ModalBody>
+                    {locales.injectionScreen_notconnected_p}
+                  </ModalBody>
                 </ModalContent>
               </Content>
             )}
@@ -489,8 +484,12 @@ const ConnectWithInjector: React.FC<{
                 {!extensionUrl ? (
                   <>
                     <ModalContent style={{ paddingBottom: 12 }}>
-                      <ModalH1>{localizeText(copy.unavailable.h1)}</ModalH1>
-                      <ModalBody>{localizeText(copy.unavailable.p)}</ModalBody>
+                      <ModalH1>
+                        {locales.injectionScreen_unavailable_h1}
+                      </ModalH1>
+                      <ModalBody>
+                        {locales.injectionScreen_unavailable_p}
+                      </ModalBody>
                     </ModalContent>
 
                     {/**
@@ -503,7 +502,7 @@ const ConnectWithInjector: React.FC<{
                       )
                     }
                   >
-                    Scan the QR code
+                    {locales.scanTheQRCode}
                   </Button>
                   */}
                     {!hasExtensionInstalled && suggestedExtension && (
@@ -520,8 +519,8 @@ const ConnectWithInjector: React.FC<{
                 ) : (
                   <>
                     <ModalContent style={{ paddingBottom: 18 }}>
-                      <ModalH1>{localizeText(copy.install.h1)}</ModalH1>
-                      <ModalBody>{localizeText(copy.install.p)}</ModalBody>
+                      <ModalH1>{locales.injectionScreen_install_h1}</ModalH1>
+                      <ModalBody>{locales.injectionScreen_install_p}</ModalBody>
                     </ModalContent>
                     {/**
                   {(connector.scannable &&|
@@ -529,13 +528,13 @@ const ConnectWithInjector: React.FC<{
 
                   {connector.scannable && (
                     <Button icon={<Scan />} onClick={switchConnectMethod}>
-                      Scan the QR code
+                      {locales.scanTheQRCode}
                     </Button>
                   )}
                   */}
                     {!hasExtensionInstalled && extensionUrl && (
                       <Button href={extensionUrl} icon={<BrowserIcon />}>
-                        Install the Extension
+                        {locales.installTheExtension}
                       </Button>
                     )}
                   </>

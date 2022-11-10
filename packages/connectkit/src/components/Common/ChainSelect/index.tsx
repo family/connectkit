@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { routes, useContext } from './../../ConnectKit';
 
 import { useNetwork } from 'wagmi';
-import supportedChains from './../../../constants/supportedChains';
 
 import { isMobile } from './../../../utils';
 
@@ -14,6 +13,7 @@ import { motion } from 'framer-motion';
 import Tooltip from '../Tooltip';
 import ChainSelectDropdown from '../ChainSelectDropdown';
 import Chain from '../Chain';
+import useLocales from '../../../hooks/useLocales';
 
 const Container = styled(motion.div)``;
 
@@ -137,6 +137,10 @@ const ChainSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { chain, chains } = useNetwork();
 
+  const locales = useLocales({
+    CHAIN: chain?.name,
+  });
+
   const mobile = isMobile() || window?.innerWidth < defaultTheme.mobileWidth;
 
   useEffect(() => {
@@ -154,7 +158,7 @@ const ChainSelector: React.FC = () => {
           onClose={() => setIsOpen(false)}
         >
           <SwitchChainButton
-            aria-label="Change Network"
+            aria-label={locales.switchNetworks}
             disabled={disabled}
             onClick={() => {
               if (mobile) {
@@ -165,11 +169,7 @@ const ChainSelector: React.FC = () => {
             }}
           >
             {disabled ? (
-              <Tooltip
-                message={`${chain?.name} Network`}
-                xOffset={-6}
-                delay={0.01}
-              >
+              <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
                 <Chain id={chain?.id} unsupported={chain?.unsupported} />
               </Tooltip>
             ) : (

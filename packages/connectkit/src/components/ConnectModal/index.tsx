@@ -28,7 +28,7 @@ const ConnectModal: React.FC<{
   mode = 'auto',
   theme = 'auto',
   customTheme = customThemeDefault,
-  lang = 'en',
+  lang = 'en-US',
 }) => {
   const context = useContext();
   const { isConnected } = useAccount();

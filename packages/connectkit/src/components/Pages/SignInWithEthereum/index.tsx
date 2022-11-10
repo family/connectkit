@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import localizations, { localize } from '../../../constants/localizations';
 import { useContext } from '../../ConnectKit';
 
 import {
@@ -28,17 +27,12 @@ import { getAppIcon } from '../../../defaultClient';
 import { AnimatePresence, motion } from 'framer-motion';
 import LazyImage from '../../Common/LazyImage';
 import { isMobile } from '../../../utils';
+import useLocales from '../../../hooks/useLocales';
 
 const transition = { duration: 0.2, ease: [0.26, 0.08, 0.25, 1] };
 const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
 
 const SignInWithEthereum: React.FC = () => {
-  const localizeText = (text: string) => {
-    return localize(text, {
-      //CONNECTORNAME: connector.name,
-      //APPNAME: getAppName() ?? 'this dApp',
-    });
-  };
   const context = useContext();
   const { signedIn } = useSIWE();
   const mobile = isMobile();
@@ -47,7 +41,21 @@ const SignInWithEthereum: React.FC = () => {
     signedIn ? 'signedIn' : 'signedOut'
   );
 
-  const copy = localizations[context.lang].signInWithEthereumScreen[status];
+  const locales = useLocales({});
+  const copy =
+    status === 'signedIn'
+      ? {
+          heading: locales.signInWithEthereumScreen_signedIn_heading,
+          h1: locales.signInWithEthereumScreen_signedIn_h1,
+          p: locales.signInWithEthereumScreen_signedIn_p,
+          button: locales.signInWithEthereumScreen_signedIn_button,
+        }
+      : {
+          heading: locales.signInWithEthereumScreen_signedOut_heading,
+          h1: locales.signInWithEthereumScreen_signedOut_h1,
+          p: locales.signInWithEthereumScreen_signedOut_p,
+          button: locales.signInWithEthereumScreen_signedOut_button,
+        };
 
   useEffect(() => {
     if (signedIn) setStatus('signedIn');
@@ -98,7 +106,7 @@ const SignInWithEthereum: React.FC = () => {
               exit={{ opacity: 0, scale: 0.94 }}
               transition={copyTransition}
             >
-              <ModalBody>{localizeText(copy.h1)}</ModalBody>
+              <ModalBody>{copy.h1}</ModalBody>
             </motion.div>
           </AnimatePresence>
         </ContentContainer>
@@ -211,7 +219,7 @@ const SignInWithEthereum: React.FC = () => {
             transition={copyTransition}
           >
             <ModalBody style={{ marginTop: -1, marginBottom: -3 }}>
-              {localizeText(copy.p)}
+              {copy.p}
             </ModalBody>
           </motion.div>
         </AnimatePresence>

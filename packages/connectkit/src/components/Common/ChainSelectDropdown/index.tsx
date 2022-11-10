@@ -13,54 +13,18 @@ import ChainSelectList from './../ChainSelectList';
 
 import Portal from './../Portal';
 import { ResetContainer } from './../../../styles';
+import {
+  DropdownWindow,
+  DropdownOverlay,
+  DropdownContainer,
+  DropdownHeading,
+} from './styles';
 
-import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useThemeContext } from './../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import FocusTrap from './../../../hooks/useFocusTrap';
 import useLockBodyScroll from './../../../hooks/useLockBodyScroll';
-
-const DropdownWindow = styled(motion.div)`
-  z-index: 2147483647;
-  position: fixed;
-  inset: 0;
-`;
-const DropdownOverlay = styled(motion.div)`
-  position: absolute;
-  inset: 0;
-`;
-const DropdownContainer = styled(motion.div)`
-  --shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
-  --background: var(--ck-dropdown-background, var(--ck-tooltip-background));
-  --border-radius: var(
-    --ck-dropdown-border-radius,
-    var(--ck-tooltip-border-radius, 12px)
-  );
-
-  pointer-events: auto;
-  z-index: 2147483647;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  max-width: fit-content;
-  padding: 14px 16px 16px;
-  color: var(--ck-dropdown-color, var(--ck-tooltip-color));
-  background: var(--background);
-  box-shadow: var(
-    --ck-dropdown-box-shadow,
-    var(--ck-tooltip-shadow, var(--shadow))
-  );
-  border-radius: var(--border-radius);
-`;
-const DropdownHeading = styled(motion.div)`
-  padding: 0 0 6px;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-  user-select: none;
-  color: var(--ck-dropdown-color, var(--ck-tooltip-color));
-`;
+import useLocales from '../../../hooks/useLocales';
 
 const ChainSelectDropdown: React.FC<{
   children?: React.ReactNode;
@@ -71,6 +35,8 @@ const ChainSelectDropdown: React.FC<{
 }> = ({ children, open, onClose, offsetX = 0, offsetY = 8 }) => {
   const context = useContext();
   const themeContext = useThemeContext();
+
+  const locales = useLocales();
 
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -248,7 +214,7 @@ const ChainSelectDropdown: React.FC<{
                       },
                     }}
                   >
-                    <DropdownHeading>Switch Networks</DropdownHeading>
+                    <DropdownHeading>{locales.switchNetworks}</DropdownHeading>
                     <ChainSelectList />
                   </DropdownContainer>
                 </DropdownWindow>

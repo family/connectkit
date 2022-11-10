@@ -102,7 +102,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
 
   // Default config options
   const defaultOptions: ConnectKitOptions = {
-    language: 'en',
+    language: 'en-US',
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
@@ -110,7 +110,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     avoidLayoutShift: true,
     embedGoogleFonts: false,
     truncateLongENSAddress: true,
-    walletConnectName: 'Other Wallets',
+    walletConnectName: undefined,
     reducedMotion: false,
     disclaimer: null,
     bufferPolyfill: true,
@@ -137,7 +137,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(
     customTheme ?? {}
   );
-  const [ckLang, setLang] = useState<Languages>('en');
+  const [ckLang, setLang] = useState<Languages>('en-US');
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
@@ -148,7 +148,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
 
   // Other Configuration
   useEffect(() => setTheme(theme), [theme]);
-  useEffect(() => setLang(opts.language || 'en'), [opts.language]);
+  useEffect(() => setLang(opts.language || 'en-US'), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
 
   // Check if chain is supported, elsewise redirect to switches page

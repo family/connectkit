@@ -39,7 +39,13 @@ const modes: SelectProps[] = [
   { label: 'Light', value: 'light' },
   { label: 'Dark', value: 'dark' },
 ];
-const languages: SelectProps[] = [{ label: 'English (US)', value: 'en' }];
+const languages: SelectProps[] = [
+  { label: 'English (US)', value: 'en-US' },
+  { label: 'French', value: 'fr-FR' },
+  { label: 'Spanish', value: 'es-ES' },
+  { label: 'Japanese', value: 'ja-JP' },
+  { label: 'Chinese', value: 'zh-CN' },
+];
 
 const AccountInfo = () => {
   const { isConnected, address, connector } = useAccount();
@@ -200,11 +206,11 @@ const Home: NextPage = () => {
       <main>
         <p>Connect Button</p>
         <ConnectKitButton label={label} />
-        
+
         <hr />
         <p>Sign In With Ethereum</p>
         <SIWEButton showSignOutButton />
-        
+
         <hr />
         <AccountInfo />
 
@@ -289,10 +295,13 @@ const Home: NextPage = () => {
         />
         <Select
           label="Language"
-          value={options.lang}
+          value={options.language}
           options={languages}
           onChange={(e) =>
-            setOptions({ ...options, lang: e.target.value as Types.Languages })
+            setOptions({
+              ...options,
+              language: e.target.value as Types.Languages,
+            })
           }
         />
         <h3>options</h3>

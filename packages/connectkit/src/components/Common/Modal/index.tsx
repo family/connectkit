@@ -33,7 +33,6 @@ import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
 import FocusTrap from '../../../hooks/useFocusTrap';
-import localizations, { localize } from '../../../constants/localizations';
 import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
@@ -41,6 +40,7 @@ import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemePr
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../..';
+import useLocales from '../../../hooks/useLocales';
 
 const ProfileIcon = ({ signedIn }: { signedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -208,6 +208,11 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
   const { signedIn } = useSIWE();
 
+  const connector = supportedConnectors.find((x) => x.id === context.connector);
+  const locales = useLocales({
+    CONNECTORNAME: connector?.name,
+  });
+
   const [state, setOpen] = useTransition({
     timeout: mobile ? 160 : 160, // different animations, 10ms extra to avoid final-frame drops
     preEnter: true,
@@ -316,49 +321,33 @@ const Modal: React.FC<ModalProps> = ({
   }
 
   function getHeading() {
-    const c = supportedConnectors.filter((x) => x.id === context.connector)[0];
-
     switch (context.route) {
       case routes.ABOUT:
-        return localize(localizations[context.lang].aboutScreen.heading);
+        return locales.aboutScreen_heading;
       case routes.CONNECT:
         if (shouldUseQrcode()) {
-          return c.id === 'walletConnect' ? (
-            localize(localizations[context.lang].scanScreen.heading)
-          ) : (
-            <>
-              Scan with <span>{c.name}</span>
-            </>
-          );
+          return connector?.id === 'walletConnect'
+            ? locales.scanScreen_heading
+            : locales.scanScreen_heading_withConnector;
         } else {
-          return c.name;
+          return connector?.name;
         }
       case routes.CONNECTORS:
-        return localize(localizations[context.lang].connectorsScreen.heading);
+        return locales.connectorsScreen_heading;
       case routes.MOBILECONNECTORS:
-        return localize(
-          localizations[context.lang].mobileConnectorsScreen.heading
-        );
+        return locales.mobileConnectorsScreen_heading;
       case routes.DOWNLOAD:
-        return localize(localizations[context.lang].downloadAppScreen.heading, {
-          CONNECTORNAME: c.name,
-        });
+        return locales.downloadAppScreen_heading;
       case routes.ONBOARDING:
-        return localize(localizations[context.lang].onboardingScreen.heading);
+        return locales.onboardingScreen_heading;
       case routes.PROFILE:
-        return localize(localizations[context.lang].profileScreen.heading);
+        return locales.profileScreen_heading;
       case routes.SWITCHNETWORKS:
-        return localize(
-          localizations[context.lang].switchNetworkScreen.heading
-        );
+        return locales.switchNetworkScreen_heading;
       case routes.SIGNINWITHETHEREUM:
-        return localize(
-          signedIn
-            ? localizations[context.lang].signInWithEthereumScreen.signedIn
-                .heading
-            : localizations[context.lang].signInWithEthereumScreen.signedOut
-                .heading
-        );
+        return signedIn
+          ? locales.signInWithEthereumScreen_signedIn_heading
+          : locales.signInWithEthereumScreen_signedOut_heading;
       default:
         return '';
     }
@@ -447,7 +436,7 @@ const Modal: React.FC<ModalProps> = ({
             </AnimatePresence>
             <ControllerContainer>
               {onClose && (
-                <CloseButton aria-label="Close" onClick={onClose}>
+                <CloseButton aria-label={locales.close} onClick={onClose}>
                   <CloseIcon />
                 </CloseButton>
               )}
@@ -464,7 +453,7 @@ const Modal: React.FC<ModalProps> = ({
                   {onBack ? (
                     <BackButton
                       disabled={inTransition}
-                      aria-label="Back"
+                      aria-label={locales.back}
                       key="backButton"
                       onClick={onBack}
                       initial={{ opacity: 0 }}
@@ -503,15 +492,15 @@ const Modal: React.FC<ModalProps> = ({
                           }}
                         >
                           <SignInTooltip>
-                            You’re not signed in to this app.
-                            <br />
-                            <strong>Sign In With Ethereum</strong> to continue.
+                            {locales.signInWithEthereumScreen_tooltip}
                           </SignInTooltip>
                         </motion.div>
                       )}
                       <SiweButton
                         disabled={inTransition}
-                        aria-label="Sign In With Ethereum"
+                        aria-label={
+                          locales.signInWithEthereumScreen_signedOut_heading
+                        }
                         key="siweButton"
                         onClick={() =>
                           context.setRoute(routes.SIGNINWITHETHEREUM)
@@ -532,7 +521,7 @@ const Modal: React.FC<ModalProps> = ({
                     !context.options?.hideQuestionMarkCTA && (
                       <InfoButton
                         disabled={inTransition}
-                        aria-label="More information"
+                        aria-label={locales.moreInformation}
                         key="infoButton"
                         onClick={onInfo}
                         initial={{ opacity: 0 }}
@@ -692,9 +681,10 @@ const Page: React.FC<PageProps> = ({
 };
 
 export const OrDivider = ({ children }: { children?: React.ReactNode }) => {
+  const locales = useLocales();
   return (
     <TextWithHr>
-      <span>{children ?? 'or'}</span>
+      <span>{children ?? locales.or}</span>
     </TextWithHr>
   );
 };

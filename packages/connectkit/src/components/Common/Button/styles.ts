@@ -254,9 +254,15 @@ export const ButtonContainer = styled.button<{
 `;
 
 export const InnerContainer = styled.span`
+  transform: translateZ(0); // Shifting fix
+  position: relative;
   display: inline-block;
   vertical-align: middle;
-  transform: translateZ(0);
+  /*
+  max-width: calc(100% - 32px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  */
 `;
 
 export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`

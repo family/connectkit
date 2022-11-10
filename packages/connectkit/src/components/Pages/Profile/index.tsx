@@ -34,10 +34,13 @@ import { DisconnectIcon } from '../../../assets/icons';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import useLocales from '../../../hooks/useLocales';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
   const themeContext = useThemeContext();
+
+  const locales = useLocales();
 
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
@@ -129,7 +132,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
         onClick={() => setShouldDisconnect(true)}
         icon={<DisconnectIcon />}
       >
-        Disconnect
+        {locales.disconnect}
       </Button>
     </PageContent>
   );

@@ -12,6 +12,7 @@ import {
   SpinnerContainer,
 } from './styles';
 import { AnimatePresence, motion } from 'framer-motion';
+import { flattenChildren } from '../../../utils';
 
 const transition = {
   duration: 0.4,
@@ -77,13 +78,21 @@ const Button: React.FC<ButtonProps> = ({
   style,
   onClick,
 }) => {
+  const key =
+    typeof children === 'string'
+      ? children
+      : flattenChildren(children).join(''); // Need to generate a string for the key so we can automatically animate between content
+
+  const hrefUrl =
+    typeof href === 'string' ? href : flattenChildren(href).join(''); // Need to have a flat string for the href
+
   return (
     <ButtonContainer
       as={href ? 'a' : undefined}
       onClick={(event: any) => {
         if (!disabled && onClick) onClick(event);
       }}
-      href={href}
+      href={hrefUrl}
       target={href && '_blank'}
       rel={href && 'noopener noreferrer'}
       disabled={disabled}
@@ -92,7 +101,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       <AnimatePresence initial={false}>
         <motion.div
-          key={typeof children === 'string' ? children : 'content'}
+          key={key}
           initial={{ opacity: 0, y: -10 }}
           animate={{
             opacity: 1,

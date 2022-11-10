@@ -6,6 +6,7 @@ import { SIWEContext } from './SIWEContext';
 import { ResetContainer } from '../../../styles';
 import { motion } from 'framer-motion';
 import useIsMounted from '../../../hooks/useIsMounted';
+import useLocales from '../../../hooks/useLocales';
 
 enum ButtonState {
   READY = 'ready',
@@ -27,6 +28,8 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   const siweContext = useContext(SIWEContext);
   const isMounted = useIsMounted();
 
+  const locales = useLocales();
+
   const { address } = useAccount();
   const { chain: activeChain } = useNetwork();
   const { signMessageAsync } = useSignMessage();
@@ -42,14 +45,14 @@ export const SIWEButton: React.FC<ButtonProps> = ({
 
   function getButtonLabel(state: ButtonState) {
     const labels = {
-      [ButtonState.READY]: 'Sign In',
-      [ButtonState.LOADING]: 'Awaiting Confirmation',
-      [ButtonState.REJECTED]: 'Try Again',
+      [ButtonState.READY]: locales.signIn,
+      [ButtonState.LOADING]: locales.awaitingConfirmation,
+      [ButtonState.REJECTED]: locales.tryAgain,
       [ButtonState.ERROR]: 'Unknown Error',
-      [ButtonState.SUCCESS]: 'Signed In',
+      [ButtonState.SUCCESS]: locales.signedIn,
     };
     // TODO: discuss non-connected wallet developer expectations
-    return !address ? 'Wallet Not Connected' : labels[state];
+    return !address ? locales.walletNotConnected : labels[state];
   }
 
   const onError = (error: any) => {
@@ -122,7 +125,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
         onClick={siweContext.signOutAndRefetch}
         icon={<DisconnectIcon />}
       >
-        Sign Out
+        {locales.signOut}
       </Button>
     );
   }
