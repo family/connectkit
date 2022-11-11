@@ -127,14 +127,6 @@ const verifyRoute = async (
   }
 };
 
-const envVar = (name: string) => {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing environment variable: ${name}`);
-  }
-  return value;
-};
-
 export const configureSIWE = <TSessionData extends Object = {}>({
   apiRoutePrefix,
   statement = 'Sign In With Ethereum.',
@@ -142,7 +134,7 @@ export const configureSIWE = <TSessionData extends Object = {}>({
 }: NextSIWEConfig): ConfigureSIWEResult<TSessionData> => {
   const sessionConfig: IronSessionOptions = {
     cookieName: cookieName ?? 'connectkit-next-siwe',
-    password: password ?? envVar('SESSION_SECRET'),
+    password: password ?? process.env.SESSION_SECRET,
     cookieOptions: {
       secure: process.env.NODE_ENV === 'production',
       ...(cookieOptions ?? {}),
