@@ -89,7 +89,7 @@ export const ChainButtonContainer = styled.div`
   }
 `;
 export const ChainButtons = styled(motion.div)`
-  padding: 8px 8px 0;
+  padding: 8px;
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 242px;
