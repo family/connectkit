@@ -1,4 +1,25 @@
-# 0.0.3
+# 1.1.0
+
+This update introduces localisations and a bump to wagmi `0.8.x`.
+
+{% note %}
+This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#110-breaking-changes).
+{% endnote %}
+
+## New
+
+- Added a `language` option under `options` that allows developers to include localisation support—starting with options for `Spanish`, `French`, `Japanese` and `Chinese (Simplified)`.
+- Update peer dependency wagmi to latest (`0.8.x`)
+
+## Fixed
+
+- Removed layered background on the injected connectors flow to allow for transparent modal background colors ([issue #41](https://github.com/family/connectkit/issues/41)).
+
+## Removed
+
+- Removed CommonJS support to work within wagmi's `0.8.x` requirements.
+
+# 1.0.0
 
 This update introduces Sign In With Ethereum and other helpful changes and additions to make your app better than ever.
 
