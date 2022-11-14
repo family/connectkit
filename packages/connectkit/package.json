@@ -39,6 +39,7 @@
     "qrcode": "^1.5.0",
     "react-transition-state": "^1.1.4",
     "react-use-measure": "^2.1.1",
+    "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {

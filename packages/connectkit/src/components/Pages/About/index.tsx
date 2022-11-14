@@ -23,11 +23,14 @@ import { Easing, SlideOne, SlideThree, SlideTwo } from './graphics';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { OrDivider } from '../../Common/Modal';
 import useLocales from '../../../hooks/useLocales';
+import FitText from '../../Common/FitText';
+import { useContext } from '../../ConnectKit';
 
 const About: React.FC = () => {
   const locales = useLocales({
     //CONNECTORNAME: connector.name,
   });
+  const context = useContext();
 
   const [ready, setReady] = useState(true);
   const [slider, setSlider] = useState(0);
@@ -148,18 +151,41 @@ const About: React.FC = () => {
     <SlideThree duration={animationDuration} ease={animationEase} />,
   ];
 
+  // Adjust height of ModalBody to fit content based on language
+  const slideHeight = (() => {
+    switch (context.options?.language) {
+      case 'en-US':
+      case 'zh-CN':
+        return 64;
+      default:
+        return 84;
+    }
+  })();
+
   const slides: React.ReactNode[] = [
     <>
-      <ModalH1 $small>{locales.aboutScreen_a_h1}</ModalH1>
-      <ModalBody>{locales.aboutScreen_a_p}</ModalBody>
+      <ModalH1 style={{ height: 24 }} $small>
+        <FitText>{locales.aboutScreen_a_h1}</FitText>
+      </ModalH1>
+      <ModalBody style={{ height: slideHeight }}>
+        <FitText>{locales.aboutScreen_a_p}</FitText>
+      </ModalBody>
     </>,
     <>
-      <ModalH1 $small>{locales.aboutScreen_b_h1}</ModalH1>
-      <ModalBody>{locales.aboutScreen_b_p}</ModalBody>
+      <ModalH1 style={{ height: 24 }} $small>
+        <FitText>{locales.aboutScreen_b_h1}</FitText>
+      </ModalH1>
+      <ModalBody style={{ height: slideHeight }}>
+        <FitText>{locales.aboutScreen_b_p}</FitText>
+      </ModalBody>
     </>,
     <>
-      <ModalH1 $small>{locales.aboutScreen_c_h1}</ModalH1>
-      <ModalBody>{locales.aboutScreen_c_p}</ModalBody>
+      <ModalH1 style={{ height: 24 }} $small>
+        <FitText>{locales.aboutScreen_c_h1}</FitText>
+      </ModalH1>
+      <ModalBody style={{ height: slideHeight }}>
+        <FitText>{locales.aboutScreen_c_p}</FitText>
+      </ModalBody>
     </>,
   ];
 

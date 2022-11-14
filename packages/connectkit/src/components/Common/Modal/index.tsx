@@ -41,6 +41,7 @@ import { useNetwork, useSwitchNetwork } from 'wagmi';
 import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../..';
 import useLocales from '../../../hooks/useLocales';
+import FitText from '../FitText';
 
 const ProfileIcon = ({ signedIn }: { signedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -547,10 +548,10 @@ const Modal: React.FC<ModalProps> = ({
                     position: 'absolute',
                     top: 0,
                     bottom: 0,
-                    left: 62,
-                    right: 62,
+                    left: 52,
+                    right: 52,
                     display: 'flex',
-                    alignItems: 'center',
+                    //alignItems: 'center',
                     justifyContent: 'center',
                   }}
                   key={`${context.route}-${signedIn ? 'signedIn' : ''}`}
@@ -562,7 +563,7 @@ const Modal: React.FC<ModalProps> = ({
                     delay: mobile ? 0.01 : 0,
                   }}
                 >
-                  <div>{getHeading()}</div>
+                  <FitText>{getHeading()}</FitText>
                 </motion.div>
               </AnimatePresence>
             </ModalHeading>

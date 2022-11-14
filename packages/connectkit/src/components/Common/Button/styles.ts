@@ -58,6 +58,12 @@ export const DownloadArrowInner = styled.div`
   }
 `;
 
+export const ButtonContainerInner = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+`;
 export const ButtonContainer = styled.button<{
   disabled?: boolean;
   $variant?: 'primary' | 'secondary' | 'tertiary';
@@ -181,9 +187,7 @@ export const ButtonContainer = styled.button<{
   user-select: none;
   min-width: fit-content;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:block;
   text-align: center;
   height: 48px;
   margin: 12px 0 0;
@@ -253,13 +257,13 @@ export const ButtonContainer = styled.button<{
   }
 `;
 
-export const InnerContainer = styled.span`
+export const InnerContainer = styled.div`
   transform: translateZ(0); // Shifting fix
   position: relative;
   display: inline-block;
   vertical-align: middle;
+  max-width: calc(100% - 24px);
   /*
-  max-width: calc(100% - 32px);
   overflow: hidden;
   text-overflow: ellipsis;
   */

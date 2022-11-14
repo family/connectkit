@@ -10,9 +10,11 @@ import {
   DownloadArrow,
   DownloadArrowInner,
   SpinnerContainer,
+  ButtonContainerInner,
 } from './styles';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { flattenChildren } from '../../../utils';
+import FitText from '../FitText';
 
 const transition = {
   duration: 0.4,
@@ -100,7 +102,7 @@ const Button: React.FC<ButtonProps> = ({
       style={style}
     >
       <AnimatePresence initial={false}>
-        <motion.div
+        <ButtonContainerInner
           key={key}
           initial={{ opacity: 0, y: -10 }}
           animate={{
@@ -152,7 +154,9 @@ const Button: React.FC<ButtonProps> = ({
               </DownloadArrowInner>
             </DownloadArrow>
           )}
-          <InnerContainer>{children}</InnerContainer>
+          <InnerContainer>
+            <FitText>{children}</FitText>
+          </InnerContainer>
           {icon && iconPosition === 'right' && (
             <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>
           )}
@@ -181,7 +185,7 @@ const Button: React.FC<ButtonProps> = ({
               />
             </Arrow>
           )}
-        </motion.div>
+        </ButtonContainerInner>
         {waiting && <Spinner />}
       </AnimatePresence>
     </ButtonContainer>
