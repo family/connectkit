@@ -154,7 +154,7 @@ const Button: React.FC<ButtonProps> = ({
               </DownloadArrowInner>
             </DownloadArrow>
           )}
-          <InnerContainer>
+          <InnerContainer style={{ paddingLeft: arrow ? 6 : 0 }}>
             <FitText>{children}</FitText>
           </InnerContainer>
           {icon && iconPosition === 'right' && (
