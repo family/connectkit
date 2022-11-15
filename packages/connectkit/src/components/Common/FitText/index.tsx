@@ -20,7 +20,7 @@ const FitText = React.forwardRef(
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          lineHeight: `${21 * (fontSize / 100)}px`,
+          //lineHeight: `${21 * (fontSize / 100)}px`,
           //background: fontSize !== '100%' ? 'red' : undefined, // debug
         }}
       >
