@@ -228,7 +228,7 @@ const SignInWithEthereum: React.FC = () => {
           onSignIn={() => {
             setTimeout(() => {
               context.setOpen(false);
-            }, 2000);
+            }, 1000);
           }}
         />
       </ModalContent>
