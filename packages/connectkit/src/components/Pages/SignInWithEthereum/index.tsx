@@ -26,8 +26,9 @@ import { getAppIcon } from '../../../defaultClient';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import LazyImage from '../../Common/LazyImage';
-import { isMobile } from '../../../utils';
+import { isMobile, flattenChildren } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
+import FitText from '../../Common/FitText';
 
 const transition = { duration: 0.2, ease: [0.26, 0.08, 0.25, 1] };
 const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
@@ -100,13 +101,15 @@ const SignInWithEthereum: React.FC = () => {
         <ContentContainer>
           <AnimatePresence exitBeforeEnter>
             <motion.div
-              key={copy.h1}
+              key={flattenChildren(copy.h1).toString()}
               initial={mobile ? false : { opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.94 }}
               transition={copyTransition}
             >
-              <ModalBody>{copy.h1}</ModalBody>
+              <ModalBody style={{ height: 42 }}>
+                <FitText>{copy.h1}</FitText>
+              </ModalBody>
             </motion.div>
           </AnimatePresence>
         </ContentContainer>
@@ -211,15 +214,15 @@ const SignInWithEthereum: React.FC = () => {
         </StatusGraphic>
         <AnimatePresence exitBeforeEnter>
           <motion.div
-            key={copy.p}
+            key={flattenChildren(copy.p).toString()}
             style={{ paddingBottom: mobile ? 24 : 12 }}
             initial={mobile ? false : { opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.94 }}
             transition={copyTransition}
           >
-            <ModalBody style={{ marginTop: -1, marginBottom: -3 }}>
-              {copy.p}
+            <ModalBody style={{ height: 42, marginTop: -1, marginBottom: -3 }}>
+              <FitText>{copy.p}</FitText>
             </ModalBody>
           </motion.div>
         </AnimatePresence>
