@@ -35,7 +35,7 @@ const SwitchNetworks: React.FC = () => {
           </ModalBody>
         )}
 
-        <div style={{ padding: '6px 8px', marginBottom: -8 }}>
+        <div style={{ padding: '6px 8px' }}>
           <ChainSelectList />
         </div>
 

@@ -215,9 +215,7 @@ const ChainSelectDropdown: React.FC<{
                     }}
                   >
                     <DropdownHeading>{locales.switchNetworks}</DropdownHeading>
-                    <div style={{ marginBottom: -8 }}>
-                      <ChainSelectList />
-                    </div>
+                    <ChainSelectList />
                   </DropdownContainer>
                 </DropdownWindow>
               </FocusTrap>

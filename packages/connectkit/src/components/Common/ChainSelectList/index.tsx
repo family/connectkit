@@ -63,7 +63,7 @@ const ChainSelectList: React.FC = () => {
   const mobile = isMobile();
 
   return (
-    <SwitchNetworksContainer>
+    <SwitchNetworksContainer style={{ marginBottom: switchNetwork ? -8 : 0 }}>
       <ChainButtonContainer>
         <ChainButtons>
           {chains.map((x) => {
