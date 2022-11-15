@@ -62,8 +62,8 @@ export default {
 
   scanScreen_heading: `電話でスキャンする`,
   scanScreen_heading_withConnector: `{{ CONNECTORNAME }}でスキャンする`,
-  scanScreen_tooltip_walletConnect: `[WALLETCONNECTLOGO] WalletConnect 対応の\nウォレットを開いてスキャンします`,
-  scanScreen_tooltip_default: `携帯電話で {{ CONNECTORNAME }} を\n開いてスキャンします`,
+  scanScreen_tooltip_walletConnect: `[WALLETCONNECTLOGO] WalletConnect 対応の ウォレットを開いてスキャンします`,
+  scanScreen_tooltip_default: `携帯電話で {{ CONNECTORNAME }} を 開いてスキャンします`,
 
   downloadAppScreen_heading: `{{ CONNECTORNAME }} を取得`,
   downloadAppScreen_iosAndroid: `携帯電話のカメラでスキャンして、iOS または Android にダウンロードします。`,
@@ -71,13 +71,13 @@ export default {
   downloadAppScreen_android: `携帯電話のカメラでスキャンして、Android にダウンロードします。`,
 
   injectionScreen_unavailable_h1: `サポートされていないブラウザ`,
-  injectionScreen_unavailable_p: `{{ CONNECTORSHORTNAME }} ウォレットを接続するには、\n{{ SUGGESTEDEXTENSIONBROWSER }} に拡張機能をインストールします。`,
+  injectionScreen_unavailable_p: `{{ CONNECTORSHORTNAME }} ウォレットを接続するには、{{ SUGGESTEDEXTENSIONBROWSER }} に拡張機能をインストールします。`,
 
   injectionScreen_install_h1: `{{ CONNECTORNAME }} をインストール`,
-  injectionScreen_install_p: `{{ CONNECTORSHORTNAME }} ウォレットを接続するには、\nブラウザ拡張機能をインストールします。`,
+  injectionScreen_install_p: `{{ CONNECTORSHORTNAME }} ウォレットを接続するには、ブラウザ拡張機能をインストールします。`,
 
   injectionScreen_connecting_h1: `接続を要求`,
-  injectionScreen_connecting_p: `{{ CONNECTORSHORTNAME }} ブラウザ拡張機能を\n開いて、ウォレットを接続します。`,
+  injectionScreen_connecting_p: `{{ CONNECTORSHORTNAME }} ブラウザ拡張機能を 開いて、ウォレットを接続します。`,
   injectionScreen_connecting_injected_h1: `接続を要求`,
   injectionScreen_connecting_injected_p: `このアプリに接続するには、ウォレットを介して要求を受け入れます。`,
 
@@ -85,10 +85,10 @@ export default {
   injectionScreen_connected_p: `このポップアップを閉じてもかまいません`,
 
   injectionScreen_rejected_h1: `要求がキャンセルされました`,
-  injectionScreen_rejected_p: `要求をキャンセルしました。\n上をクリックしてもう一度お試しください。`,
+  injectionScreen_rejected_p: `要求をキャンセルしました。上をクリックしてもう一度お試しください。`,
 
   injectionScreen_failed_h1: `接続に失敗しました`,
-  injectionScreen_failed_p: `申し訳ありませんが、問題が発生しました。\nもう一度接続してみてください。`,
+  injectionScreen_failed_p: `申し訳ありませんが、問題が発生しました。もう一度接続してみてください。`,
 
   injectionScreen_notconnected_h1: `{{ CONNECTORNAME }} にログイン`,
   injectionScreen_notconnected_p: `続行するには、 {{ CONNECTORNAME }} 拡張機能にログインしてください。`,
@@ -101,13 +101,13 @@ export default {
     'このアプリにサインインしていません。\n続行するには、**イーサリアムでサインイン**してください。',
   signInWithEthereumScreen_signedOut_heading: 'イーサリアムでサインイン',
   signInWithEthereumScreen_signedOut_h1:
-    'このアプリは、あなたがこのウォレットの \n 所有者であることを確認しようとしています。',
-  signInWithEthereumScreen_signedOut_p: `続行するには、ウォレットで\nメッセージ リクエストに署名してください。`,
+    'このアプリは、あなたがこのウォレットの 所有者であることを確認しようとしています。',
+  signInWithEthereumScreen_signedOut_p: `続行するには、ウォレットで メッセージ リクエストに署名してください。`,
   signInWithEthereumScreen_signedOut_button: 'サインイン',
 
   signInWithEthereumScreen_signedIn_heading: 'イーサリアムでサインインしました',
   signInWithEthereumScreen_signedIn_h1:
-    'このウォレットの所有者であることが \n 正常に確認されました。',
-  signInWithEthereumScreen_signedIn_p: `サインアウトすると、今後\n再度認証する必要があります。`,
+    'このウォレットの所有者であることが 正常に確認されました。',
+  signInWithEthereumScreen_signedIn_p: `サインアウトすると、今後 再度認証する必要があります。`,
   signInWithEthereumScreen_signedIn_button: 'サインアウト',
 };

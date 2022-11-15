@@ -64,8 +64,8 @@ const frFR: LocaleProps = {
 
   scanScreen_heading: `Scannez avec le téléphone`,
   scanScreen_heading_withConnector: `Scannez avec {{ CONNECTORNAME }}`,
-  scanScreen_tooltip_walletConnect: `Ouvrez un portefeuille pris en charge par \nWalletConnect [WALLETCONNECTLOGO] pour scanner`,
-  scanScreen_tooltip_default: `Ouvrez {{ CONNECTORNAME }} sur \nvotre téléphone mobile pour scanner`,
+  scanScreen_tooltip_walletConnect: `Ouvrez un portefeuille pris en charge par WalletConnect [WALLETCONNECTLOGO] pour scanner`,
+  scanScreen_tooltip_default: `Ouvrez {{ CONNECTORNAME }} sur votre téléphone mobile pour scanner`,
 
   downloadAppScreen_heading: `Obtenez {{ CONNECTORNAME }}`,
   downloadAppScreen_iosAndroid: `Scannez avec l'appareil photo de votre téléphone pour le télécharger sur iOS ou Android.`,
@@ -73,13 +73,13 @@ const frFR: LocaleProps = {
   downloadAppScreen_android: `Scannez avec l'appareil photo de votre téléphone pour le télécharger sur Android.`,
 
   injectionScreen_unavailable_h1: `Navigateur non pris en charge`,
-  injectionScreen_unavailable_p: `Pour connecter votre portefeuille {{ CONNECTORSHORTNAME }},\ninstallez l’extension sur {{ SUGGESTEDEXTENSIONBROWSER }}.`,
+  injectionScreen_unavailable_p: `Pour connecter votre portefeuille {{ CONNECTORSHORTNAME }}, installez l’extension sur {{ SUGGESTEDEXTENSIONBROWSER }}.`,
 
   injectionScreen_install_h1: `Installez {{ CONNECTORNAME }}`,
-  injectionScreen_install_p: `Pour connecter votre portefeuille {{ CONNECTORSHORTNAME }},\ninstallez l’extension de navigateur.`,
+  injectionScreen_install_p: `Pour connecter votre portefeuille {{ CONNECTORSHORTNAME }}, installez l’extension de navigateur.`,
 
   injectionScreen_connecting_h1: `Demande de connexion`,
-  injectionScreen_connecting_p: `Ouvrez l’extension de navigateur {{ CONNECTORSHORTNAME }}\npour connecter votre portefeuille.`,
+  injectionScreen_connecting_p: `Ouvrez l’extension de navigateur {{ CONNECTORSHORTNAME }} pour connecter votre portefeuille.`,
   injectionScreen_connecting_injected_h1: `Demande de connexion`,
   injectionScreen_connecting_injected_p: `Acceptez la demande via votre portefeuille pour vous connecter à cette application.`,
 
@@ -87,10 +87,10 @@ const frFR: LocaleProps = {
   injectionScreen_connected_p: `Vous pouvez maintenant fermer ce pop-up`,
 
   injectionScreen_rejected_h1: `Demande annulée`,
-  injectionScreen_rejected_p: `Vous avez annulé la demande.\nCliquez ci-dessus pour réessayer.`,
+  injectionScreen_rejected_p: `Vous avez annulé la demande. Cliquez ci-dessus pour réessayer.`,
 
   injectionScreen_failed_h1: `Échec de la connexion`,
-  injectionScreen_failed_p: `Malheureusement, un problème est survenu.\nVeuillez réessayer de vous connecter.`,
+  injectionScreen_failed_p: `Malheureusement, un problème est survenu. Veuillez réessayer de vous connecter.`,
 
   injectionScreen_notconnected_h1: `Connectez-vous à {{ CONNECTORNAME }}`,
   injectionScreen_notconnected_p: `Pour continuer, veuillez vous connecter à votre extension {{ CONNECTORNAME }} .`,
@@ -103,14 +103,14 @@ const frFR: LocaleProps = {
     'Vous n’êtes pas connecté à cette application.\n**Connectez-vous avec Ethereum** pour continuer.',
   signInWithEthereumScreen_signedOut_heading: 'Connectez-vous avec Ethereum',
   signInWithEthereumScreen_signedOut_h1:
-    'Cette application souhaite vérifier que \n vous êtes bien le propriétaire de ce portefeuille.',
-  signInWithEthereumScreen_signedOut_p: `Veuillez signer la demande de message \n dans votre portefeuille pour continuer.`,
+    'Cette application souhaite vérifier que vous êtes bien le propriétaire de ce portefeuille.',
+  signInWithEthereumScreen_signedOut_p: `Veuillez signer la demande de message dans votre portefeuille pour continuer.`,
   signInWithEthereumScreen_signedOut_button: 'Se connecter',
 
   signInWithEthereumScreen_signedIn_heading: 'Connecté avec Ethereum',
   signInWithEthereumScreen_signedIn_h1:
-    'Vous avez réussi à vous identifier \n en tant que propriétaire de ce portefeuille.',
-  signInWithEthereumScreen_signedIn_p: `La déconnexion vous obligera à \n vous authentifier à nouveau à l'avenir.`,
+    'Vous avez réussi à vous identifier en tant que propriétaire de ce portefeuille.',
+  signInWithEthereumScreen_signedIn_p: `La déconnexion vous obligera à vous authentifier à nouveau à l'avenir.`,
   signInWithEthereumScreen_signedIn_button: 'Se déconnecter',
 };
 

@@ -64,8 +64,8 @@ const zhCN: LocaleProps = {
 
   scanScreen_heading: `手机扫描`,
   scanScreen_heading_withConnector: `手机扫描{{ CONNECTORNAME }}`,
-  scanScreen_tooltip_walletConnect: `打开 [WALLETCONNECTLOGO] WalletConnect \n支持的钱包进行扫描`,
-  scanScreen_tooltip_default: `打开您手机上的{{ CONNECTORNAME }}\n进行扫描`,
+  scanScreen_tooltip_walletConnect: `打开 [WALLETCONNECTLOGO] WalletConnect 支持的钱包进行扫描`,
+  scanScreen_tooltip_default: `打开您手机上的{{ CONNECTORNAME }} 进行扫描`,
 
   downloadAppScreen_heading: `获取{{ CONNECTORNAME }}`,
   downloadAppScreen_iosAndroid: `使用手机相机扫描以下载 iOS 或 Android 应用。`,
@@ -73,13 +73,13 @@ const zhCN: LocaleProps = {
   downloadAppScreen_android: `使用手机相机扫描以下载 Android 应用。`,
 
   injectionScreen_unavailable_h1: `不支持的浏览器`,
-  injectionScreen_unavailable_p: `要绑定您的{{ CONNECTORSHORTNAME }}钱包，\n请在{{ SUGGESTEDEXTENSIONBROWSER }}上安装此扩展程序。`,
+  injectionScreen_unavailable_p: `要绑定您的{{ CONNECTORSHORTNAME }}钱包，请在{{ SUGGESTEDEXTENSIONBROWSER }}上安装此扩展程序。`,
 
   injectionScreen_install_h1: `安装{{ CONNECTORNAME }}`,
-  injectionScreen_install_p: `要绑定您的{{ CONNECTORSHORTNAME }}钱包，\n请安装此浏览器扩展程序。`,
+  injectionScreen_install_p: `要绑定您的{{ CONNECTORSHORTNAME }}钱包，请安装此浏览器扩展程序。`,
 
   injectionScreen_connecting_h1: `请求绑定`,
-  injectionScreen_connecting_p: `打开{{ CONNECTORSHORTNAME }}浏览器\n扩展程序以绑定您的钱包。`,
+  injectionScreen_connecting_p: `打开{{ CONNECTORSHORTNAME }}浏览器 扩展程序以绑定您的钱包。`,
   injectionScreen_connecting_injected_h1: `请求绑定`,
   injectionScreen_connecting_injected_p: `通过您的钱包接受请求，以绑定到此应用。`,
 
@@ -87,10 +87,10 @@ const zhCN: LocaleProps = {
   injectionScreen_connected_p: `现在可以关闭此弹窗`,
 
   injectionScreen_rejected_h1: `请求已取消`,
-  injectionScreen_rejected_p: `您已取消请求。\n点击上面可重试。`,
+  injectionScreen_rejected_p: `您已取消请求。n点击上面可重试。`,
 
   injectionScreen_failed_h1: `绑定失败`,
-  injectionScreen_failed_p: `抱歉，发生错误。\n请尝试重新绑定。`,
+  injectionScreen_failed_p: `抱歉，发生错误。请尝试重新绑定。`,
 
   injectionScreen_notconnected_h1: `登录{{ CONNECTORNAME }}`,
   injectionScreen_notconnected_p: `要继续，请登录到您的{{ CONNECTORNAME }}扩展程序。`,
@@ -102,15 +102,13 @@ const zhCN: LocaleProps = {
   signInWithEthereumScreen_tooltip:
     '您尚未登录到此应用。\n请选择**使用以太坊登录**以继续。',
   signInWithEthereumScreen_signedOut_heading: '使用以太坊登录',
-  signInWithEthereumScreen_signedOut_h1:
-    '此应用希望验证您是 \n 此钱包的所有者。',
-  signInWithEthereumScreen_signedOut_p: `请签署钱包中的消息请求\n以继续。`,
+  signInWithEthereumScreen_signedOut_h1: '此应用希望验证您是 此钱包的所有者。',
+  signInWithEthereumScreen_signedOut_p: `请签署钱包中的消息请求 以继续。`,
   signInWithEthereumScreen_signedOut_button: '登录',
 
   signInWithEthereumScreen_signedIn_heading: '已使用以太坊登录',
-  signInWithEthereumScreen_signedIn_h1:
-    '您已成功验证自己 \n 是此钱包的所有者。',
-  signInWithEthereumScreen_signedIn_p: `登出后，将来您还需要\n再次进行身份验证。`,
+  signInWithEthereumScreen_signedIn_h1: '您已成功验证自己 是此钱包的所有者。',
+  signInWithEthereumScreen_signedIn_p: `登出后，将来您还需要 再次进行身份验证。`,
   signInWithEthereumScreen_signedIn_button: '登出',
 };
 

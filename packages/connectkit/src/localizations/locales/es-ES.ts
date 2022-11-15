@@ -64,8 +64,8 @@ const esES: LocaleProps = {
 
   scanScreen_heading: `Escanea con el teléfono`,
   scanScreen_heading_withConnector: `Escanea con {{ CONNECTORNAME }}`,
-  scanScreen_tooltip_walletConnect: `Abre una cartera compatible \ncon WalletConnect [WALLETCONNECTLOGO] para escanear`,
-  scanScreen_tooltip_default: `Abre {{ CONNECTORNAME }} en \ntu teléfono móvil para escanear`,
+  scanScreen_tooltip_walletConnect: `Abre una cartera compatible con WalletConnect [WALLETCONNECTLOGO] para escanear`,
+  scanScreen_tooltip_default: `Abre {{ CONNECTORNAME }} en tu teléfono móvil para escanear`,
 
   downloadAppScreen_heading: `Obtén {{ CONNECTORNAME }}`,
   downloadAppScreen_iosAndroid: `Escanea con la cámara de tu teléfono para descargarla en iOS o Android.`,
@@ -73,13 +73,13 @@ const esES: LocaleProps = {
   downloadAppScreen_android: `Escanea con la cámara de tu teléfono para descargarla en Android.`,
 
   injectionScreen_unavailable_h1: `Navegador no compatible`,
-  injectionScreen_unavailable_p: `Para conectar tu cartera de {{ CONNECTORSHORTNAME }},\ninstala la extensión en {{ SUGGESTEDEXTENSIONBROWSER }}.`,
+  injectionScreen_unavailable_p: `Para conectar tu cartera de {{ CONNECTORSHORTNAME }}, instala la extensión en {{ SUGGESTEDEXTENSIONBROWSER }}.`,
 
   injectionScreen_install_h1: `Instala {{ CONNECTORNAME }}`,
-  injectionScreen_install_p: `Para conectar tu cartera de {{ CONNECTORSHORTNAME }},\ninstala la extensión del navegador.`,
+  injectionScreen_install_p: `Para conectar tu cartera de {{ CONNECTORSHORTNAME }}, instala la extensión del navegador.`,
 
   injectionScreen_connecting_h1: `Solicitud de conexión`,
-  injectionScreen_connecting_p: `Abre la extensión del navegador de {{ CONNECTORSHORTNAME }} \npara conectar tu cartera.`,
+  injectionScreen_connecting_p: `Abre la extensión del navegador de {{ CONNECTORSHORTNAME }}  para conectar tu cartera.`,
   injectionScreen_connecting_injected_h1: `Solicitud de conexión`,
   injectionScreen_connecting_injected_p: `Acepta la solicitud a través de tu cartera para conectarte a esta aplicación.`,
 
@@ -87,10 +87,10 @@ const esES: LocaleProps = {
   injectionScreen_connected_p: `Ya puedes cerrar esta ventana emergente`,
 
   injectionScreen_rejected_h1: `Solicitud cancelada`,
-  injectionScreen_rejected_p: `Has cancelado la solicitud.\nHaz clic arriba para intentarlo de nuevo.`,
+  injectionScreen_rejected_p: `Has cancelado la solicitud. Haz clic arriba para intentarlo de nuevo.`,
 
   injectionScreen_failed_h1: `Error de conexión`,
-  injectionScreen_failed_p: `Lo sentimos, ha habido un problema.\nIntenta conectarte de nuevo.`,
+  injectionScreen_failed_p: `Lo sentimos, ha habido un problema. Intenta conectarte de nuevo.`,
 
   injectionScreen_notconnected_h1: `Inicia sesión en {{ CONNECTORNAME }}`,
   injectionScreen_notconnected_p: `Para continuar, inicia sesión en tu extensión de {{ CONNECTORNAME }}.`,
@@ -103,14 +103,14 @@ const esES: LocaleProps = {
     'No has iniciado sesión en esta aplicación.\n**Inicia sesión con Ethereum** para continuar.',
   signInWithEthereumScreen_signedOut_heading: 'Inicia sesión con Ethereum',
   signInWithEthereumScreen_signedOut_h1:
-    'Esta aplicación desea verificar que \n eres el propietario de esta cartera.',
-  signInWithEthereumScreen_signedOut_p: `Firma la solicitud de mensaje \n en tu cartera para continuar.`,
+    'Esta aplicación desea verificar que eres el propietario de esta cartera.',
+  signInWithEthereumScreen_signedOut_p: `Firma la solicitud de mensaje en tu cartera para continuar.`,
   signInWithEthereumScreen_signedOut_button: 'Iniciar sesión',
 
   signInWithEthereumScreen_signedIn_heading: 'Sesión iniciada con Ethereum',
   signInWithEthereumScreen_signedIn_h1:
-    'Te has verificado correctamente \n como propietario de esta cartera.',
-  signInWithEthereumScreen_signedIn_p: `Si cierras la sesión, tendrás que \n volver a autenticarte más adelante.`,
+    'Te has verificado correctamente como propietario de esta cartera.',
+  signInWithEthereumScreen_signedIn_p: `Si cierras la sesión, tendrás que volver a autenticarte más adelante.`,
   signInWithEthereumScreen_signedIn_button: 'Cerrar sesión',
 };
 
