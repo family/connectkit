@@ -63,6 +63,7 @@ export const ButtonContainerInner = styled(motion.div)`
   align-items: center;
   justify-content: center;
   inset: 0;
+  height: 100%;
 `;
 export const ButtonContainer = styled.button<{
   disabled?: boolean;

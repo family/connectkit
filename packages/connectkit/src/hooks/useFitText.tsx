@@ -182,7 +182,7 @@ const useFitText = ({
     resolution,
   ]);
 
-  return { fontSize: `${fontSize}%`, ref };
+  return { fontSize, ref };
 };
 
 export default useFitText;

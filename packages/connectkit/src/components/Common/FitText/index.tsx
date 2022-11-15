@@ -14,12 +14,13 @@ const FitText = React.forwardRef(
       <div
         ref={textRef}
         style={{
-          fontSize,
+          fontSize: `${fontSize}%`,
           maxHeight: '100%',
           maxWidth: '100%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          lineHeight: `${21 * (fontSize / 100)}px`,
           //background: fontSize !== '100%' ? 'red' : undefined, // debug
         }}
       >
