@@ -93,4 +93,10 @@ export default {
   '--ck-qr-background': '#ffffff',
 
   '--ck-siwe-border': '#DFE4EC',
+
+  '--ck-graphic-primary-background': '#fff',
+  '--ck-graphic-compass-background': '#fff',
+  '--ck-graphic-primary-box-shadow':
+    '0px 2.94737px 14.7368px rgba(0, 0, 0, 0.1)',
+  '--ck-graphic-compass-box-shadow': '0px 2px 9px rgba(0, 0, 0, 0.15)',
 };
