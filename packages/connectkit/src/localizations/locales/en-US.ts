@@ -100,7 +100,7 @@ const enUS: LocaleProps = {
   switchNetworkScreen_heading: 'Switch Networks',
 
   signInWithEthereumScreen_tooltip:
-    'You’re not signed in to this app.\n**Sign In with Ethereum** to continue.',
+    'You’re not signed in to this app.\n**Sign In With Ethereum** to continue.',
 
   signInWithEthereumScreen_signedOut_heading: 'Sign In With Ethereum',
   signInWithEthereumScreen_signedOut_h1:
