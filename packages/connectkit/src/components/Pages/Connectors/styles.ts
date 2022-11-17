@@ -12,7 +12,8 @@ export const InfoBox = styled.div`
   }
 `;
 export const InfoBoxButtons = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin: 5px -8px -12px;
   button {

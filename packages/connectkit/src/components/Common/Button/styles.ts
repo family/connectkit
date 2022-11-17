@@ -263,7 +263,7 @@ export const InnerContainer = styled.div`
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  max-width: calc(100% - 32px);
+  max-width: calc(100% - 42px);
   /*
   overflow: hidden;
   text-overflow: ellipsis;
