@@ -1,4 +1,5 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# running the build command copies the root README.md to the connectkit directory for npm release
+packages/connectkit/README.md
 
 # dependencies
 node_modules

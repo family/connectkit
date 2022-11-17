@@ -15,7 +15,7 @@
     "dev:nextjs": "yarn workspace nextjs run dev",
     "dev:vite": "yarn workspace vite run dev",
     "dev:testbench": "yarn workspace testbench run dev",
-    "build": "yarn workspace connectkit run build",
+    "build": "yarn workspace connectkit run build && cp README.md packages/connectkit/README.md",
     "build:connectkit-next-siwe": "yarn workspace connectkit-next-siwe run build",
     "build:cra": "yarn build && yarn workspace cra build",
     "build:nextjs": "yarn build && yarn workspace nextjs build",
