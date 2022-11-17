@@ -7,17 +7,19 @@ import { ResetContainer } from '../../../styles';
 import { useContext } from '../../ConnectKit';
 import useIsMounted from '../../../hooks/useIsMounted';
 
+type Hash = `0x${string}`;
+
 export type CustomAvatarProps = {
-  address?: string;
-  ensName?: string;
+  address?: Hash | undefined;
+  ensName?: string | undefined;
   ensImage?: string;
   size: number;
   radius: number;
 };
 
 const Avatar: React.FC<{
-  address?: string;
-  name?: string;
+  address?: Hash | undefined;
+  name?: string | undefined;
   size?: number;
   radius?: number;
 }> = ({ address, name, size = 96, radius = 96 }) => {
@@ -27,18 +29,19 @@ const Avatar: React.FC<{
   const imageRef = useRef<any>(null);
   const [loaded, setLoaded] = useState(true);
 
-  const { data: ensName } = useEnsName({
-    chainId: 1,
-    address: address,
-  });
   const { data: ensAddress } = useEnsAddress({
     chainId: 1,
     name: name,
   });
+  const { data: ensName } = useEnsName({
+    chainId: 1,
+    address: address ?? ensAddress ?? undefined,
+  });
   const { data: ensAvatar } = useEnsAvatar({
     chainId: 1,
-    addressOrName: address ?? name,
+    address: address ?? ensAddress ?? undefined,
   });
+
   const ens = {
     address: ensAddress ?? address,
     name: ensName ?? name,

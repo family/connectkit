@@ -1,4 +1,4 @@
-import { getWallets } from '.';
+import { getWallets } from './';
 import { WalletProps } from './wallet';
 
 import { useConnect } from 'wagmi';

@@ -1,4 +1,4 @@
-import { LocaleProps } from '.';
+import { LocaleProps } from './';
 
 const esES: LocaleProps = {
   connectWallet: 'Conecta una cartera',

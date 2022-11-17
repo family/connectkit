@@ -1,3 +1,19 @@
+# 1.1.0
+
+This update moves the peer dependency wagmi up to the latest version (`0.8.x`).
+
+{% note %}
+This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#110-breaking-changes).
+{% endnote %}
+
+## New
+
+- Update peer dependency wagmi to version `0.8.x`.
+
+## Removed
+
+- Removed CommonJS support to work within wagmi's `0.8.x` requirements.
+
 # 1.0.1
 
 This update introduces localisations to ConnectKit.

@@ -7,7 +7,8 @@ import { isMobile } from './../../../utils';
 
 import defaultTheme from './../../../constants/defaultTheme';
 
-import styled, { css } from 'styled-components';
+import styled from './../../../styles/styled';
+import { css } from 'styled-components';
 import { motion } from 'framer-motion';
 
 import Tooltip from '../Tooltip';

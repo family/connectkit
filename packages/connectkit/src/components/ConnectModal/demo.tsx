@@ -18,7 +18,8 @@ import { ConnectKitButton } from '../ConnectButton';
 import { getAppName } from '../../defaultClient';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
-import styled, { keyframes } from 'styled-components';
+import styled from './../../styles/styled';
+import { keyframes } from 'styled-components';
 
 const dist = 8;
 const shake = keyframes`

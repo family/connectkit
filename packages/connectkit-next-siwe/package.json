@@ -4,15 +4,18 @@
   "author": "Family",
   "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
-  "main": "build/index.js",
   "description": "Connecting a wallet, made simple.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/family/connectkit.git",
     "directory": "packages/connectkit-next-siwe"
   },
-  "module": "build/index.es.js",
-  "types": "build/index.d.ts",
+  "type": "module",
+  "exports": "./build/index.es.js",
+  "types": "./build/index.d.ts",
+  "engines": {
+    "node": ">=12.4"
+  },
   "files": [
     "build",
     "README.md"

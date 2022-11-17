@@ -12,10 +12,11 @@ import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 import {
   useAccount,
   useBalance,
-  useDeprecatedSendTransaction,
+  useSendTransaction,
   useNetwork,
   useSignMessage,
   useSignTypedData,
+  usePrepareSendTransaction,
 } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
@@ -48,10 +49,8 @@ const languages: SelectProps[] = [
 ];
 
 const AccountInfo = () => {
-  const { isConnected, address, connector } = useAccount();
-  const { data: balanceData } = useBalance({
-    addressOrName: address,
-  });
+  const { address, connector } = useAccount();
+  const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
   const siwe = useSIWE();
 
@@ -120,16 +119,17 @@ const Actions = () => {
       contents: 'Hello, Bob!',
     },
   });
+  const { config } = usePrepareSendTransaction({
+    request: {
+      to: address?.toString() ?? '',
+      value: BigNumber.from('0'),
+    },
+  });
   const {
     sendTransaction,
     isLoading: sendTransactionIsLoading,
     isError: sendTransactionIsError,
-  } = useDeprecatedSendTransaction({
-    request: {
-      to: address,
-      value: BigNumber.from('0'),
-    },
-  });
+  } = useSendTransaction(config);
 
   const testSignMessage = () => {
     signMessage();
@@ -138,7 +138,7 @@ const Actions = () => {
     signTypedData();
   };
   const testSendTransaction = () => {
-    sendTransaction();
+    sendTransaction?.();
   };
 
   return (

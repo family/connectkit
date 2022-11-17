@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import styled, { keyframes } from 'styled-components';
+import styled from './../../../styles/styled';
+import { keyframes } from 'styled-components';
 
 export const ChainContainer = styled.div`
   --bg: transparent;

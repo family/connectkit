@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from './../../../styles/styled';
+import { css } from 'styled-components';
 
 import CopyToClipboardIcon from './CopyToClipboardIcon';
 import Button from '../Button';

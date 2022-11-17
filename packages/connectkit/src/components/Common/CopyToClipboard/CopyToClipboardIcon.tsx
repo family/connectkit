@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
+import styled from './../../../styles/styled';
 import { motion } from 'framer-motion';
 
 import { CopyToClipboardIcon as Icon } from '../../../assets/icons';
