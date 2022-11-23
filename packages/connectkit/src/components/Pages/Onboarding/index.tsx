@@ -11,9 +11,6 @@ import {
   RotateWrapper,
 } from './styles';
 
-import localizations, { localize } from '../../../constants/localizations';
-import { useContext } from '../../ConnectKit';
-
 import {
   PageContent,
   ModalBody,
@@ -24,15 +21,10 @@ import Logos from '../../../assets/logos';
 import wave from '../../../assets/wave';
 
 import Button from '../../Common/Button';
+import useLocales from '../../../hooks/useLocales';
 
 const Introduction: React.FC = () => {
-  const localizeText = (text: string) => {
-    return localize(text, {
-      //CONNECTORNAME: connector.name,
-    });
-  };
-  const context = useContext();
-  const copy = localizations[context.lang].onboardingScreen;
+  const locales = useLocales({});
   return (
     <PageContent>
       <Graphic>
@@ -106,11 +98,11 @@ const Introduction: React.FC = () => {
         <GraphicBackground>{wave}</GraphicBackground>
       </Graphic>
       <ModalContent style={{ paddingBottom: 18 }}>
-        <ModalH1 $small>{localizeText(copy.h1)}</ModalH1>
-        <ModalBody>{localizeText(copy.p)}</ModalBody>
+        <ModalH1 $small>{locales.onboardingScreen_h1}</ModalH1>
+        <ModalBody>{locales.onboardingScreen_p}</ModalBody>
       </ModalContent>
-      <Button href={copy.ctaUrl} arrow>
-        {localizeText(copy.ctaText)}
+      <Button href={locales.onboardingScreen_ctaUrl} arrow>
+        {locales.onboardingScreen_ctaText}
       </Button>
     </PageContent>
   );

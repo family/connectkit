@@ -7,19 +7,18 @@ import {
 } from '../../Common/Modal/styles';
 import ChainSelectList from '../../Common/ChainSelectList';
 import { useConnect, useDisconnect, useNetwork } from 'wagmi';
-import localizations, { localize } from '../../../constants/localizations';
-import { useContext } from '../../ConnectKit';
+
+import useLocales from '../../../hooks/useLocales';
+
 import Button from '../../Common/Button';
 import { DisconnectIcon } from '../../../assets/icons';
 
 const SwitchNetworks: React.FC = () => {
-  const context = useContext();
-
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
 
-  const warnings = localizations[context.lang].warnings;
+  const locales = useLocales({});
 
   const onDisconnect = () => {
     disconnect();
@@ -31,18 +30,18 @@ const SwitchNetworks: React.FC = () => {
       <ModalContent style={{ padding: 0, marginTop: -10 }}>
         {chain?.unsupported && (
           <ModalBody>
-            {localize(warnings.chainUnsupported)}{' '}
-            {localize(warnings.chainUnsupportedResolve)}
+            {locales.warnings_chainUnsupported}{' '}
+            {locales.warnings_chainUnsupportedResolve}
           </ModalBody>
         )}
 
-        <div style={{ padding: '6px 8px', marginBottom: -8 }}>
+        <div style={{ padding: '6px 8px' }}>
           <ChainSelectList />
         </div>
 
         {chain?.unsupported && (
           <Button icon={<DisconnectIcon />} onClick={onDisconnect}>
-            Disconnect
+            {locales.disconnect}
           </Button>
         )}
       </ModalContent>

@@ -17,6 +17,7 @@ import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
 import { ResetContainer } from '../../styles';
 import { AuthIcon } from '../../assets/icons';
 import { useSIWE } from '../Standard/SIWE/useSIWE';
+import useLocales from '../../hooks/useLocales';
 
 const contentVariants: Variants = {
   initial: {
@@ -158,6 +159,7 @@ function ConnectKitButtonInner({
   showAvatar?: boolean;
   separator?: string;
 }) {
+  const locales = useLocales({});
   const context = useContext();
   const { signedIn } = useSIWE();
 
@@ -167,6 +169,7 @@ function ConnectKitButtonInner({
     address: address,
   });
   const { chain } = useNetwork();
+  const defaultLabel = locales.connectWallet;
 
   return (
     <AnimatePresence initial={false}>
@@ -276,7 +279,7 @@ function ConnectKitButtonInner({
             //padding: '0 5px',
           }}
         >
-          {label ? label : <>Connect Wallet</>}
+          {label ? label : defaultLabel}
         </TextContainer>
       )}
     </AnimatePresence>

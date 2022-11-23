@@ -1,4 +1,16 @@
-# 0.0.3
+# 1.0.1
+
+This update introduces localisations to ConnectKit.
+
+## New
+
+- Added a `language` option under `options` that allows developers to include localisation support—starting with options for `Spanish`, `French`, `Japanese` and `Chinese (Simplified)`.
+
+## Fixed
+
+- Removed layered background on the injected connectors flow to allow for transparent modal background colors ([issue #41](https://github.com/family/connectkit/issues/41)).
+
+# 1.0.0
 
 This update introduces Sign In With Ethereum and other helpful changes and additions to make your app better than ever.
 

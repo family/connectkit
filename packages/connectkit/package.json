@@ -1,6 +1,6 @@
 {
   "name": "connectkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Family",
   "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
@@ -39,6 +39,7 @@
     "qrcode": "^1.5.0",
     "react-transition-state": "^1.1.4",
     "react-use-measure": "^2.1.1",
+    "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {

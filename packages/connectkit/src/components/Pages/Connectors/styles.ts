@@ -12,7 +12,8 @@ export const InfoBox = styled.div`
   }
 `;
 export const InfoBoxButtons = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin: 5px -8px -12px;
   button {
@@ -174,6 +175,10 @@ export const ConnectorButton = styled(motion.button)`
 
 export const ConnectorLabel = styled(motion.span)`
   width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 38px;
 `;
 
 export const ConnectorIcon = styled(motion.div)`
@@ -230,6 +235,9 @@ export const MobileConnectorLabel = styled(motion.span)`
   padding: 10px 0 0;
   color: var(--ck-body-color);
   opacity: 0.75;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 export const MobileConnectorIcon = styled(motion.div)`

@@ -29,9 +29,11 @@ const outlineKeyframes = keyframes`
   100%{ opacity:0; }
 `;
 export const Container = styled(motion.div)`
+  /*
   background: var(
     --ck-body-background
-  ); // To stop the overlay issue during transition for the spinner
+  ); // To stop the overlay issue during transition for the squircle spinner
+  */
 `;
 export const ConnectingContainer = styled(motion.div)`
   display: flex;

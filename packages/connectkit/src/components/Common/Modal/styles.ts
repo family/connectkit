@@ -107,12 +107,12 @@ export const ModalHeading = styled(motion.div)`
   pointer-events: none;
   user-select: none;
   position: absolute;
-  top: 0;
+  top: 25px;
   left: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 76px;
+  height: 26px;
   transform: translateX(-50%);
   width: var(--width);
   text-align: center;
@@ -533,7 +533,7 @@ export const Container = styled(motion.div)`
       width: 100% !important;
     }
     ${ModalHeading} {
-      top: 4px;
+      top: 29px;
     }
     ${ModalContent} {
       gap: 12px;
