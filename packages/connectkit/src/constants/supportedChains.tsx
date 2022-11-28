@@ -68,6 +68,11 @@ const supportedChains: Chain[] = [
     name: 'Arbitrum Rinkeby',
     logo: <Logos.Arbitrum testnet />,
   },
+  {
+    id: 421613,
+    name: 'Arbitrum Goerli',
+    logo: <Logos.Arbitrum testnet />,
+  },
 ];
 
 export default supportedChains;

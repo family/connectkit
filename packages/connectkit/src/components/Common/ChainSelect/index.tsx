@@ -16,6 +16,8 @@ import ChainSelectDropdown from '../ChainSelectDropdown';
 import Chain from '../Chain';
 import useLocales from '../../../hooks/useLocales';
 
+import Logos from '../../../assets/chains';
+
 const Container = styled(motion.div)``;
 
 const SwitchChainButton = styled(motion.button)`
