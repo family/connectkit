@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled from './../styles/styled';
 import Logos from './logos';
 
 const IconContainer = styled(motion.div)`

@@ -94,6 +94,8 @@ const textVariants: Variants = {
   },
 };
 
+type Hash = `0x${string}`;
+
 type ConnectButtonRendererProps = {
   children?: (renderProps: {
     show?: () => void;
@@ -101,7 +103,7 @@ type ConnectButtonRendererProps = {
     unsupported: boolean;
     isConnected: boolean;
     isConnecting: boolean;
-    address?: string;
+    address?: Hash;
     truncatedAddress?: string;
     ensName?: string;
   }) => React.ReactNode;
@@ -140,7 +142,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         unsupported: !!chain?.unsupported,
         isConnected: !!address,
         isConnecting: isConnecting,
-        address: address?.toString(),
+        address: address,
         truncatedAddress: address ? truncateEthAddress(address) : undefined,
         ensName: ensName?.toString(),
       })}

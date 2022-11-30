@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from './../../../styles/styled';
 
 export const WalletList = styled.div`
   display: grid;

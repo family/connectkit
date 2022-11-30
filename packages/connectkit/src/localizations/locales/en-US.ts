@@ -1,4 +1,4 @@
-import { LocaleProps } from '.';
+import { LocaleProps } from './';
 
 const enUS: LocaleProps = {
   connectWallet: 'Connect Wallet',

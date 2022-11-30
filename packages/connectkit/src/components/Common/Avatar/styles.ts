@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from './../../../styles/styled';
+import { css } from 'styled-components';
 import { motion } from 'framer-motion';
 
 function addressToNumber(address: string) {

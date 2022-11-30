@@ -1,4 +1,4 @@
-import { LocaleProps } from '.';
+import { LocaleProps } from './';
 
 const zhCN: LocaleProps = {
   connectWallet: '绑定钱包',

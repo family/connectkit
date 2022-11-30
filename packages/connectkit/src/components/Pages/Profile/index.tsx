@@ -52,7 +52,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     address: address,
   });
   const { data: balance } = useBalance({
-    addressOrName: address,
+    address,
     //watch: true,
   });
 

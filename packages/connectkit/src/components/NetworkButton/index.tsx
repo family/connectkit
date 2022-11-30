@@ -13,7 +13,7 @@ import ThemedButton from '../Common/ThemedButton';
 import ChainSelectDropdown from '../Common/ChainSelectDropdown';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled from './../../styles/styled';
 import { useContext } from '../ConnectKit';
 
 const Container = styled(motion.div)`
