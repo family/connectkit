@@ -1,10 +1,9 @@
 import {
-  Chain,
   Connector,
-  chain,
   configureChains,
   ChainProviderFn,
 } from 'wagmi';
+import { Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
 import { Provider } from '@wagmi/core';
 
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
@@ -23,10 +22,10 @@ export const getAppName = () => globalAppName;
 export const getAppIcon = () => globalAppIcon;
 
 const defaultChains = [
-  chain.mainnet,
-  chain.polygon,
-  chain.optimism,
-  chain.arbitrum,
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
 ];
 
 type DefaultConnectorsProps = {
@@ -119,7 +118,7 @@ const defaultClient = ({
   providers.push(
     jsonRpcProvider({
       rpc: (c) => {
-        return { http: c.rpcUrls.default };
+        return { http: c.rpcUrls.default.http[0] };
       },
       stallTimeout,
     })

@@ -1773,9 +1773,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@coinbase/wallet-sdk@npm:^3.5.3":
-  version: 3.5.4
-  resolution: "@coinbase/wallet-sdk@npm:3.5.4"
+"@coinbase/wallet-sdk@npm:^3.6.0":
+  version: 3.6.2
+  resolution: "@coinbase/wallet-sdk@npm:3.6.2"
   dependencies:
     "@metamask/safe-event-emitter": 2.0.0
     "@solana/web3.js": 1.52.0
@@ -1794,7 +1794,7 @@ __metadata:
     sha.js: ^2.4.11
     stream-browserify: ^3.0.0
     util: ^0.12.4
-  checksum: c10ed956347ed2fc5b75cece0f43754e69d6bcc753ba4fb0d0cbb1cfb3e7e142943113a0b4509c30398a4742258a47eb9a7c4cc56ea13156b2618392111fa36e
+  checksum: 5469873e9f484df224076359b7ced587a3ffc2970239a6ceee38a2292c67c6d3b400b358f349d99f62dccc0a0de13d0d2db342c83399bb3c8f8f3f0b595c39d4
   languageName: node
   linkType: hard
 
@@ -4502,15 +4502,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:0.7.4":
-  version: 0.7.4
-  resolution: "@wagmi/core@npm:0.7.4"
+"@wagmi/chains@npm:0.0.0-20221201004721":
+  version: 0.0.0-20221201004721
+  resolution: "@wagmi/chains@npm:0.0.0-20221201004721"
+  checksum: b94ea52c659defe7751b380155c360c630f4e29026f24834023af269b2e0d52d6021ae87886890cd9e6ad824d36e4456967ea8b603d6baddfa19bbf54e516e05
+  languageName: node
+  linkType: hard
+
+"@wagmi/core@npm:0.0.0-20221205003311":
+  version: 0.0.0-20221205003311
+  resolution: "@wagmi/core@npm:0.0.0-20221205003311"
   dependencies:
+    "@wagmi/chains": 0.0.0-20221201004721
     abitype: ^0.1.8
     eventemitter3: ^4.0.7
     zustand: ^4.1.4
   peerDependencies:
-    "@coinbase/wallet-sdk": ">=3.3.0"
+    "@coinbase/wallet-sdk": ">=3.6.0"
     "@walletconnect/ethereum-provider": ">=1.7.5"
     ethers: ">=5.5.1"
   peerDependenciesMeta:
@@ -4518,7 +4526,7 @@ __metadata:
       optional: true
     "@walletconnect/ethereum-provider":
       optional: true
-  checksum: a71ab7ac6897e4e4ec402ce8b3e85db4a8cad348b0d8104b1cc1170a2abaddf3145124564adbb09093392c7884baa6b0434363d1bf808536c722bd656a537cdd
+  checksum: bea0de47beb901b2f8bfd30dababe9d28ea4b0dad1b254ecc4cfbfc7451091dcb7d564be594e41a925819d0b856c108ca6585a4cdc7208d24b46e75173939ad5
   languageName: node
   linkType: hard
 
@@ -6620,7 +6628,7 @@ __metadata:
     ethers: ">=5.5.0 <6"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    wagmi: 0.8.x
+    wagmi: 0.9.x
   languageName: unknown
   linkType: soft
 
@@ -6758,7 +6766,7 @@ __metadata:
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^4.8.3
-    wagmi: ^0.8.1
+    wagmi: 0.0.0-20221205003311
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -8937,7 +8945,7 @@ __metadata:
     rollup-plugin-typescript2: ^0.34.0
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
-    wagmi: ^0.8.1
+    wagmi: 0.0.0-20221205003311
   languageName: unknown
   linkType: soft
 
@@ -12366,7 +12374,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: 4.8.3
-    wagmi: ^0.8.1
+    wagmi: 0.0.0-20221205003311
   languageName: unknown
   linkType: soft
 
@@ -16199,7 +16207,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: 4.8.3
-    wagmi: ^0.8.1
+    wagmi: 0.0.0-20221205003311
   languageName: unknown
   linkType: soft
 
@@ -16815,7 +16823,7 @@ __metadata:
     react-dom: ^18.2.0
     typescript: ^4.6.4
     vite: ^3.1.0
-    wagmi: ^0.8.1
+    wagmi: 0.0.0-20221205003311
   languageName: unknown
   linkType: soft
 
@@ -16837,22 +16845,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^0.8.1":
-  version: 0.8.4
-  resolution: "wagmi@npm:0.8.4"
+"wagmi@npm:0.0.0-20221205003311":
+  version: 0.0.0-20221205003311
+  resolution: "wagmi@npm:0.0.0-20221205003311"
   dependencies:
-    "@coinbase/wallet-sdk": ^3.5.3
+    "@coinbase/wallet-sdk": ^3.6.0
     "@tanstack/query-sync-storage-persister": ^4.14.5
     "@tanstack/react-query": ^4.14.5
     "@tanstack/react-query-persist-client": ^4.14.5
-    "@wagmi/core": 0.7.4
+    "@wagmi/core": 0.0.0-20221205003311
     "@walletconnect/ethereum-provider": ^1.8.0
     abitype: ^0.1.7
     use-sync-external-store: ^1.2.0
   peerDependencies:
     ethers: ">=5.5.1"
     react: ">=17.0.0"
-  checksum: 038ad744bd5156052887d743ec3223b5f191fba4ce2a393b83fedc0c45b827e86cc937763e680404a69f4f659f2e525e2c92a4d27bd5c544b972cf75eefc6620
+  checksum: 0e5d20c291100e5294ebf829197dae90cadc7990e1268087b92b4e5a5d581d79c28f0e4ac1bb9e801cacce5fb6004ed458f56435de5eeb4f7877ce8c466c9e70
   languageName: node
   linkType: hard
 
