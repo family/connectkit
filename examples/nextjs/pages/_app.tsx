@@ -1,7 +1,8 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 
-import { WagmiConfig, createClient, chain } from 'wagmi';
+import { WagmiConfig, createClient } from 'wagmi';
+import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 import { ConnectKitProvider, getDefaultClient } from 'connectkit';
 
 const client = createClient(
@@ -9,7 +10,7 @@ const client = createClient(
     appName: 'ConnectKit Next.js demo',
     //infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
     //alchemyId:  process.env.NEXT_PUBLIC_ALCHEMY_ID,
-    chains: [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+    chains: [mainnet, polygon, optimism, arbitrum],
   })
 );
 
