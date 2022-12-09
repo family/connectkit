@@ -1,3 +1,11 @@
+# 1.1.1
+
+This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`0.9.x`).
+
+{% note %}
+This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#09x-breaking-changes).
+{% endnote %}
+
 # 1.1.0
 
 This update moves the peer dependency wagmi up to the latest version (`0.8.x`).
