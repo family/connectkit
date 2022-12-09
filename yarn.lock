@@ -4502,18 +4502,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/chains@npm:0.0.0-20221201004721":
-  version: 0.0.0-20221201004721
-  resolution: "@wagmi/chains@npm:0.0.0-20221201004721"
-  checksum: b94ea52c659defe7751b380155c360c630f4e29026f24834023af269b2e0d52d6021ae87886890cd9e6ad824d36e4456967ea8b603d6baddfa19bbf54e516e05
+"@wagmi/chains@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@wagmi/chains@npm:0.1.0"
+  checksum: 6c7e117907e4204cdc124c80e414f5c76f3f197d3e920972452c58b9556c9cdf964e76ef77ea70ff0728a0b3c6cadd15f764ca425ca70e7038af9a881cdc11da
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:0.0.0-20221205003311":
-  version: 0.0.0-20221205003311
-  resolution: "@wagmi/core@npm:0.0.0-20221205003311"
+"@wagmi/core@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@wagmi/core@npm:0.8.0"
   dependencies:
-    "@wagmi/chains": 0.0.0-20221201004721
+    "@wagmi/chains": ^0.1.0
     abitype: ^0.1.8
     eventemitter3: ^4.0.7
     zustand: ^4.1.4
@@ -4526,7 +4526,7 @@ __metadata:
       optional: true
     "@walletconnect/ethereum-provider":
       optional: true
-  checksum: bea0de47beb901b2f8bfd30dababe9d28ea4b0dad1b254ecc4cfbfc7451091dcb7d564be594e41a925819d0b856c108ca6585a4cdc7208d24b46e75173939ad5
+  checksum: e731d12bdcba8969577972e607da6d35a8595a7903e1ac8a94278cf2213e3fec6a210c3131125bf41a3d2b21e768ffefe9b370c803cc4d7b4864f0e92a911b9e
   languageName: node
   linkType: hard
 
@@ -6766,7 +6766,7 @@ __metadata:
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^4.8.3
-    wagmi: 0.0.0-20221205003311
+    wagmi: ^0.9.0
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -8945,7 +8945,7 @@ __metadata:
     rollup-plugin-typescript2: ^0.34.0
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
-    wagmi: 0.0.0-20221205003311
+    wagmi: ^0.9.0
   languageName: unknown
   linkType: soft
 
@@ -12374,7 +12374,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: 4.8.3
-    wagmi: 0.0.0-20221205003311
+    wagmi: ^0.9.0
   languageName: unknown
   linkType: soft
 
@@ -16207,7 +16207,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: 4.8.3
-    wagmi: 0.0.0-20221205003311
+    wagmi: ^0.9.0
   languageName: unknown
   linkType: soft
 
@@ -16823,7 +16823,7 @@ __metadata:
     react-dom: ^18.2.0
     typescript: ^4.6.4
     vite: ^3.1.0
-    wagmi: 0.0.0-20221205003311
+    wagmi: ^0.9.0
   languageName: unknown
   linkType: soft
 
@@ -16845,22 +16845,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:0.0.0-20221205003311":
-  version: 0.0.0-20221205003311
-  resolution: "wagmi@npm:0.0.0-20221205003311"
+"wagmi@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "wagmi@npm:0.9.0"
   dependencies:
     "@coinbase/wallet-sdk": ^3.6.0
     "@tanstack/query-sync-storage-persister": ^4.14.5
     "@tanstack/react-query": ^4.14.5
     "@tanstack/react-query-persist-client": ^4.14.5
-    "@wagmi/core": 0.0.0-20221205003311
+    "@wagmi/core": 0.8.0
     "@walletconnect/ethereum-provider": ^1.8.0
     abitype: ^0.1.7
     use-sync-external-store: ^1.2.0
   peerDependencies:
     ethers: ">=5.5.1"
     react: ">=17.0.0"
-  checksum: 0e5d20c291100e5294ebf829197dae90cadc7990e1268087b92b4e5a5d581d79c28f0e4ac1bb9e801cacce5fb6004ed458f56435de5eeb4f7877ce8c466c9e70
+  checksum: 9cdde06cd3e0f45e7887fbda0f54f7236d0cd97fc4a677cc0d695b677d63cc9c0849263abbc804957808169dbd402ed354dc0e2b3724231d485b61a7c27b2412
   languageName: node
   linkType: hard
 
