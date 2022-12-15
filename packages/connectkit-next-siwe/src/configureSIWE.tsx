@@ -5,10 +5,12 @@ import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { generateNonce, SiweMessage } from 'siwe';
 
-type NextSIWEConfig = {
+type NextServerSIWEConfig = {
+  session?: Partial<IronSessionOptions>;
+};
+type NextClientSIWEConfig = {
   apiRoutePrefix: string;
   statement?: string;
-  session?: Partial<IronSessionOptions>;
 };
 
 type NextSIWESession<TSessionData extends Object = {}> = IronSession &
@@ -23,13 +25,16 @@ type NextSIWEProviderProps = Omit<
   'getNonce' | 'createMessage' | 'verifyMessage' | 'getSession' | 'signOut'
 >;
 
-type ConfigureSIWEResult<TSessionData extends Object = {}> = {
+type ConfigureServerSIWEResult<TSessionData extends Object = {}> = {
   apiRouteHandler: NextApiHandler;
-  Provider: FunctionComponent<NextSIWEProviderProps>;
   getSession: (
     req: IncomingMessage,
     res: ServerResponse
   ) => Promise<NextSIWESession<TSessionData>>;
+};
+
+type ConfigureClientSIWEResult<TSessionData extends Object = {}> = {
+  Provider: FunctionComponent<NextSIWEProviderProps>;
 };
 
 const getSession = async <TSessionData extends Object = {}>(
@@ -128,6 +133,7 @@ const verifyRoute = async (
 };
 
 const envVar = (name: string) => {
+  console.log(process.env.SECRET_S);
   const value = process.env[name];
   if (!value) {
     throw new Error(`Missing environment variable: ${name}`);
@@ -135,11 +141,9 @@ const envVar = (name: string) => {
   return value;
 };
 
-export const configureSIWE = <TSessionData extends Object = {}>({
-  apiRoutePrefix,
-  statement = 'Sign In With Ethereum.',
+export const configuredServerSideSIWE = <TSessionData extends Object = {}>({
   session: { cookieName, password, cookieOptions, ...otherSessionOptions } = {},
-}: NextSIWEConfig): ConfigureSIWEResult<TSessionData> => {
+}: NextServerSIWEConfig): ConfigureServerSIWEResult<TSessionData> => {
   const sessionConfig: IronSessionOptions = {
     cookieName: cookieName ?? 'connectkit-next-siwe',
     password: password ?? envVar('SESSION_SECRET'),
@@ -172,6 +176,17 @@ export const configureSIWE = <TSessionData extends Object = {}>({
     }
   };
 
+  return {
+    apiRouteHandler,
+    getSession: async (req: IncomingMessage, res: ServerResponse) =>
+      await getSession<TSessionData>(req, res, sessionConfig),
+  };
+};
+
+export const configureClientSIWE = <TSessionData extends Object = {}>({
+  apiRoutePrefix,
+  statement = 'Sign In With Ethereum.',
+}: NextClientSIWEConfig): ConfigureClientSIWEResult<TSessionData> => {
   const NextSIWEProvider = (props: NextSIWEProviderProps) => {
     return (
       <SIWEProvider
@@ -218,9 +233,6 @@ export const configureSIWE = <TSessionData extends Object = {}>({
   };
 
   return {
-    apiRouteHandler,
     Provider: NextSIWEProvider,
-    getSession: async (req: IncomingMessage, res: ServerResponse) =>
-      await getSession<TSessionData>(req, res, sessionConfig),
   };
 };
