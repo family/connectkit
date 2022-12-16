@@ -133,7 +133,6 @@ const verifyRoute = async (
 };
 
 const envVar = (name: string) => {
-  console.log(process.env.SECRET_S);
   const value = process.env[name];
   if (!value) {
     throw new Error(`Missing environment variable: ${name}`);
