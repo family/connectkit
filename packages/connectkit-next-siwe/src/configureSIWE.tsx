@@ -140,7 +140,7 @@ const envVar = (name: string) => {
   return value;
 };
 
-export const configuredServerSideSIWE = <TSessionData extends Object = {}>({
+export const configureServerSideSIWE = <TSessionData extends Object = {}>({
   session: { cookieName, password, cookieOptions, ...otherSessionOptions } = {},
 }: NextServerSIWEConfig): ConfigureServerSIWEResult<TSessionData> => {
   const sessionConfig: IronSessionOptions = {

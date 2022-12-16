@@ -1,1 +1,1 @@
-export { configureClientSIWE, configuredServerSideSIWE } from './configureSIWE';
+export { configureClientSIWE, configureServerSideSIWE } from './configureSIWE';
