@@ -1,2 +1,5 @@
-import { siwe } from '../../../siwe';
-export default siwe.apiRouteHandler;
+import { configureServerSideSIWE } from 'connectkit-next-siwe';
+
+const serverSiwe = configureServerSideSIWE({});
+
+export default serverSiwe.apiRouteHandler;
