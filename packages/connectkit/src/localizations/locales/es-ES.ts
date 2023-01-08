@@ -43,7 +43,7 @@ const esES: LocaleProps = {
   onboardingScreen_h1: `Comienza a explorar la Web3`,
   onboardingScreen_p: `Tu cartera es el portal de acceso a todo lo relacionado con Ethereum, la tecnología mágica que permite explorar la Web3.`,
   onboardingScreen_ctaText: `Elige tu primera cartera`,
-  onboardingScreen_ctaUrl: `https://ethereum.org/es/wallets/find-wallet/#main-content`,
+  onboardingScreen_ctaUrl: `https://ethereum.org/es/wallets/find-wallet/`,
 
   aboutScreen_heading: `Acerca de las carteras`,
   aboutScreen_a_h1: `Para tus activos digitales`,
@@ -53,7 +53,7 @@ const esES: LocaleProps = {
   aboutScreen_c_h1: `Explora el mundo de la Web3`,
   aboutScreen_c_p: `Tu cartera es una herramienta esencial que te permite explorar y participar en el mundo en rápida evolución de la Web3.`,
   aboutScreen_ctaText: `Más información`,
-  aboutScreen_ctaUrl: `https://docs.ethhub.io/using-ethereum/wallets/intro-to-ethereum-wallets/`, // TODO: Replace when version is available.
+  aboutScreen_ctaUrl: `https://ethereum.org/es/wallets/`,
 
   connectorsScreen_heading: `Conecta una cartera`,
   connectorsScreen_newcomer: `No tengo una cartera`,
