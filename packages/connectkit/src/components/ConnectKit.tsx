@@ -75,6 +75,8 @@ type ConnectKitOptions = {
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
   initialChainId?: number;
+  ethereumOnboardingUrl?: string;
+  walletOnboardingUrl?: string;
 };
 
 type ConnectKitProviderProps = {
@@ -116,6 +118,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     bufferPolyfill: true,
     customAvatar: undefined,
     initialChainId: undefined,
+    ethereumOnboardingUrl: undefined,
+    walletOnboardingUrl: undefined,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);

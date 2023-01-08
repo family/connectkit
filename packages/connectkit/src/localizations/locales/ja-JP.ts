@@ -41,7 +41,7 @@ export default {
   onboardingScreen_h1: `Web3 の探索を開始`,
   onboardingScreen_p: `ウォレットは、web3 の探索を可能にする魔法のテクノロジーであるイーサリアムのすべてへのゲートウェイです。`,
   onboardingScreen_ctaText: `最初のウォレットを選択してください`,
-  onboardingScreen_ctaUrl: `https://ethereum.org/ja/wallets/find-wallet/#main-content`,
+  onboardingScreen_ctaUrl: `https://ethereum.org/ja/wallets/find-wallet/`,
 
   aboutScreen_heading: `ウォレットについて`,
   aboutScreen_a_h1: `デジタル資産用`,
@@ -51,7 +51,7 @@ export default {
   aboutScreen_c_h1: `web3 の世界を探索`,
   aboutScreen_c_p: `ウォレットは、急速に進化する web3 の世界を探索し、参加するために不可欠なユーティリティです。`,
   aboutScreen_ctaText: `詳細情報`,
-  aboutScreen_ctaUrl: `https://docs.ethhub.io/using-ethereum/wallets/intro-to-ethereum-wallets/`, // TODO: Replace when version is available.
+  aboutScreen_ctaUrl: `https://ethereum.org/ja/wallets/`,
 
   connectorsScreen_heading: `ウォレットの接続`,
   connectorsScreen_newcomer: `ウォレットを持っていません`,

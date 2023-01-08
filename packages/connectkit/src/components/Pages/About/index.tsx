@@ -32,6 +32,9 @@ const About: React.FC = () => {
   });
   const context = useContext();
 
+  const ctaUrl =
+    context.options?.ethereumOnboardingUrl ?? locales.aboutScreen_ctaUrl;
+
   const [ready, setReady] = useState(true);
   const [slider, setSlider] = useState(0);
   const interacted = useRef(false);
@@ -254,7 +257,7 @@ const About: React.FC = () => {
           ))}
         </Dots>
       </OrDivider>
-      <Button href={locales.aboutScreen_ctaUrl} arrow>
+      <Button href={ctaUrl} arrow>
         {locales.aboutScreen_ctaText}
       </Button>
     </PageContent>

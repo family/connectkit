@@ -22,9 +22,14 @@ import wave from '../../../assets/wave';
 
 import Button from '../../Common/Button';
 import useLocales from '../../../hooks/useLocales';
+import { useContext } from '../../ConnectKit';
 
 const Introduction: React.FC = () => {
+  const context = useContext();
   const locales = useLocales({});
+
+  const ctaUrl =
+    context.options?.walletOnboardingUrl ?? locales.onboardingScreen_ctaUrl;
   return (
     <PageContent>
       <Graphic>
@@ -101,7 +106,7 @@ const Introduction: React.FC = () => {
         <ModalH1 $small>{locales.onboardingScreen_h1}</ModalH1>
         <ModalBody>{locales.onboardingScreen_p}</ModalBody>
       </ModalContent>
-      <Button href={locales.onboardingScreen_ctaUrl} arrow>
+      <Button href={ctaUrl} arrow>
         {locales.onboardingScreen_ctaText}
       </Button>
     </PageContent>
