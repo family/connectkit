@@ -34,7 +34,7 @@ const ptBR: LocaleProps = {
   signedOut: 'Deslogado',
   walletNotConnected: 'Carteira não conectada',
 
-  warnings_walletSwitchingUnsupported: `A sua carteira não suporta a troca de rede. Por favor, altere a rede manualmente.`,
+  warnings_walletSwitchingUnsupported: `A sua carteira não suporta a troca de rede.`,
   warnings_walletSwitchingUnsupportedResolve: `Tente trocar de rede manualmente através da sua carteira.`,
   warnings_chainUnsupported: `Essa aplicação não tem suporte à rede conectada.`,
   warnings_chainUnsupportedResolve: `Altere a rede ou desconecte a carteira para continuar.`,
