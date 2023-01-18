@@ -15,6 +15,12 @@ const client = createClient(
     appIcon: '/app.png',
     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
     alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_ID,
+    walletConnectOptions: false
+      ? {
+          version: '2',
+          projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string,
+        }
+      : undefined,
   })
 );
 

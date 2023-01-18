@@ -55,3 +55,8 @@ aside {
     width: auto;
   }
 }
+
+w3m-modal {
+  z-index: 2147483647;
+  position: relative;
+}
