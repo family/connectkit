@@ -111,4 +111,6 @@ export default {
   '--ck-graphic-globe-lines': '#ffffff',
   '--ck-graphic-globe-box-shadow': 'inset 0 0 0 1px #EBEBEB',
   */
+
+  '--ck-siwe-border': '#EBEBEB',
 };

@@ -14,7 +14,7 @@ Before jumping into any code, make sure you have the following installed:
 Then simply clone the repository to your computer like following:
 
 ```sh
-$ git clone git@github.com:family-dev/connectkit.git
+$ git clone git@github.com:family/connectkit.git
 $ cd connectkit
 ```
 
@@ -40,7 +40,7 @@ If the above environments do not fit your needs, feel free to create a new one.
 
 ## Submitting a Pull Request
 
-When you're ready, open a [pull request](https://github.com/family-dev/connectkit/pulls) and we'll gladly jump into reviewing the code.
+When you're ready, open a [pull request](https://github.com/family/connectkit/pulls) and we'll gladly jump into reviewing the code.
 
 Please try and be as detailed as possible in both your commit messages and the changes you introduce to help make the process smoother.
 

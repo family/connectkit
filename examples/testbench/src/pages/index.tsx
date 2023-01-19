@@ -1,17 +1,28 @@
 import type { NextPage } from 'next';
-import { ConnectKitButton, Types } from 'connectkit';
+import {
+  ConnectKitButton,
+  Types,
+  Avatar,
+  useSIWE,
+  SIWEButton,
+  ChainIcon,
+} from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 import {
   useAccount,
   useBalance,
-  useDeprecatedSendTransaction,
+  useSendTransaction,
   useNetwork,
   useSignMessage,
   useSignTypedData,
+  usePrepareSendTransaction,
 } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
+import Link from 'next/link';
+
+import CustomAvatar from '../components/CustomAvatar';
 
 /** TODO: import this data from the connectkit module */
 const themes: SelectProps[] = [
@@ -22,22 +33,27 @@ const themes: SelectProps[] = [
   { label: 'Minimal', value: 'minimal' },
   { label: 'Rounded', value: 'rounded' },
   { label: 'Midnight', value: 'midnight' },
+  { label: 'Nouns', value: 'nouns' },
 ];
 const modes: SelectProps[] = [
   { label: 'Auto', value: 'auto' },
   { label: 'Light', value: 'light' },
   { label: 'Dark', value: 'dark' },
 ];
-const languages: SelectProps[] = [{ label: 'English (US)', value: 'en' }];
+const languages: SelectProps[] = [
+  { label: 'English (US)', value: 'en-US' },
+  { label: 'French', value: 'fr-FR' },
+  { label: 'Spanish', value: 'es-ES' },
+  { label: 'Japanese', value: 'ja-JP' },
+  { label: 'Chinese', value: 'zh-CN' },
+];
 
 const AccountInfo = () => {
-  const { isConnected, address, connector } = useAccount();
-  const { data: balanceData } = useBalance({
-    addressOrName: address,
-  });
+  const { address, connector } = useAccount();
+  const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
+  const siwe = useSIWE();
 
-  if (!isConnected) return null;
   return (
     <ul>
       <li>ChainID: {chain?.id}</li>
@@ -46,6 +62,13 @@ const AccountInfo = () => {
       <li>Address: {address}</li>
       <li>Connector: {connector?.id}</li>
       <li>Balance: {balanceData?.formatted}</li>
+      <li>
+        SIWE session: {siwe.signedIn ? 'yes' : 'no'}
+        {siwe.signedIn && <button onClick={siwe.signOut}>sign out</button>}
+      </li>
+      <li>
+        <Link href="/siwe/token-gated">Token-gated page</Link>
+      </li>
     </ul>
   );
 };
@@ -96,16 +119,17 @@ const Actions = () => {
       contents: 'Hello, Bob!',
     },
   });
+  const { config } = usePrepareSendTransaction({
+    request: {
+      to: address?.toString() ?? '',
+      value: BigNumber.from('0'),
+    },
+  });
   const {
     sendTransaction,
     isLoading: sendTransactionIsLoading,
     isError: sendTransactionIsError,
-  } = useDeprecatedSendTransaction({
-    request: {
-      to: address,
-      value: BigNumber.from('0'),
-    },
-  });
+  } = useSendTransaction(config);
 
   const testSignMessage = () => {
     signMessage();
@@ -114,7 +138,7 @@ const Actions = () => {
     signTypedData();
   };
   const testSendTransaction = () => {
-    sendTransaction();
+    sendTransaction?.();
   };
 
   return (
@@ -156,6 +180,8 @@ const Home: NextPage = () => {
   const {
     theme,
     setTheme,
+    customTheme,
+    setCustomTheme,
     mode,
     setMode,
     options,
@@ -171,29 +197,63 @@ const Home: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  const { chain } = useNetwork();
+
   if (!mounted) return null;
 
   return (
-    <div
-      style={{
-        padding: 32,
-        display: 'flex',
-        gap: 64,
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          gap: 8,
-        }}
-      >
+    <>
+      <main>
+        <p>Connect Button</p>
+        <ConnectKitButton label={label} />
+
+        <hr />
+        <p>Sign In With Ethereum</p>
+        <SIWEButton showSignOutButton />
+
+        <hr />
+        <AccountInfo />
+
+        <hr />
+        <p>Avatars</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Avatar name="lochie.eth" />
+          <Avatar name="pugson.eth" size={32} />
+          <Avatar
+            address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+            size={12}
+          />
+          <Avatar name="benjitaylor.eth" size={64} />
+        </div>
+
+        <hr />
+        <p>Chains</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
+          <ChainIcon id={1} />
+          <ChainIcon id={1337} />
+          <ChainIcon id={2} unsupported />
+        </div>
+      </main>
+      <aside>
         <ConnectKitButton.Custom>
           {({ isConnected, show, address, ensName }) => {
             return (
               <button onClick={show}>
-                {isConnected ? ensName ?? address : 'Custom Connect'}
+                {isConnected ? (
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}
+                  >
+                    <Avatar address={address} size={12} />
+                    {ensName ?? address}
+                  </div>
+                ) : (
+                  'Custom Connect'
+                )}
               </button>
             );
           }}
@@ -235,10 +295,13 @@ const Home: NextPage = () => {
         />
         <Select
           label="Language"
-          value={options.lang}
+          value={options.language}
           options={languages}
           onChange={(e) =>
-            setOptions({ ...options, lang: e.target.value as Types.Languages })
+            setOptions({
+              ...options,
+              language: e.target.value as Types.Languages,
+            })
           }
         />
         <h3>options</h3>
@@ -254,6 +317,29 @@ const Home: NextPage = () => {
           value={options.walletConnectName}
           onChange={(e: any) => {
             setOptions({ ...options, walletConnectName: e.target.value });
+          }}
+        />
+        <Checkbox
+          label="customAvatar"
+          value="customAvatar"
+          checked={options.customAvatar !== undefined}
+          onChange={() =>
+            setOptions({
+              ...options,
+              customAvatar: options.customAvatar ? undefined : CustomAvatar,
+            })
+          }
+        />
+        <Checkbox
+          label="Custom Font"
+          value="customTheme"
+          checked={customTheme['--ck-font-family'] !== undefined}
+          onChange={() => {
+            setCustomTheme(
+              customTheme['--ck-font-family'] !== undefined
+                ? {}
+                : { '--ck-font-family': 'monospace' }
+            );
           }}
         />
         <Checkbox
@@ -329,6 +415,7 @@ const Home: NextPage = () => {
           }
         />
         <Checkbox
+          disabled
           label="bufferPolyfill"
           value="bufferPolyfill"
           checked={options.bufferPolyfill}
@@ -339,14 +426,23 @@ const Home: NextPage = () => {
             })
           }
         />
-      </div>
-      <div>
-        <ConnectKitButton label={label} />
-      </div>
-      <div>
-        <AccountInfo />
-      </div>
-    </div>
+        <Select
+          label="walletConnectCTA"
+          value={options.walletConnectCTA}
+          options={[
+            { label: 'modal', value: 'modal' },
+            { label: 'link', value: 'link' },
+            { label: 'both', value: 'both' },
+          ]}
+          onChange={(e) =>
+            setOptions({
+              ...options,
+              walletConnectCTA: e.target.value as any,
+            })
+          }
+        />
+      </aside>
+    </>
   );
 };
 

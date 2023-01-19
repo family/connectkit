@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { All } from './../../types';
 
-import styled, { keyframes } from 'styled-components';
+import styled from './../../styles/styled';
+import { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { useAccount, useBalance, useNetwork } from 'wagmi';
@@ -51,7 +52,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
   const { chain } = useNetwork();
 
   const { data: balance } = useBalance({
-    addressOrName: address,
+    address,
     chainId: chain?.id,
     watch: true,
   });

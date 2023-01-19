@@ -1,4 +1,5 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled from './../../../styles/styled';
+import { css, keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 
 import { ModalContent } from '../../Common/Modal/styles';
@@ -29,9 +30,11 @@ const outlineKeyframes = keyframes`
   100%{ opacity:0; }
 `;
 export const Container = styled(motion.div)`
+  /*
   background: var(
     --ck-body-background
-  ); // To stop the overlay issue during transition for the spinner
+  ); // To stop the overlay issue during transition for the squircle spinner
+  */
 `;
 export const ConnectingContainer = styled(motion.div)`
   display: flex;
@@ -42,8 +45,8 @@ export const ConnectingContainer = styled(motion.div)`
   //transform: scale(1.001); // fixes shifting issue between states
 `;
 export const ConnectingAnimation = styled(motion.div)<{
-  $shake: boolean | undefined;
-  $circle: boolean | undefined;
+  $shake: boolean;
+  $circle: boolean;
 }>`
   user-select: none;
   position: relative;

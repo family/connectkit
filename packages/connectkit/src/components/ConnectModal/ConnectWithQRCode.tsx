@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { routes, useContext } from '../ConnectKit';
-import localizations, { localize } from '../../constants/localizations';
 
 import supportedConnectors from '../../constants/supportedConnectors';
 import { useConnect } from '../../hooks/useConnect';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
 
 import { detectBrowser } from '../../utils';
 
@@ -12,7 +11,6 @@ import {
   PageContent,
   ModalContent,
   ModalHeading,
-  ModalHeadingBlock,
 } from '../Common/Modal/styles';
 import { OrDivider } from '../Common/Modal';
 
@@ -21,26 +19,26 @@ import Button from '../Common/Button';
 import Alert from '../Common/Alert';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import { ExternalLinkIcon } from '../../assets/icons';
-import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
+import CopyToClipboard from '../Common/CopyToClipboard';
+import useLocales from '../../hooks/useLocales';
 
 const ConnectWithQRCode: React.FC<{
   connectorId: string;
   switchConnectMethod: (id?: string) => void;
 }> = ({ connectorId }) => {
   const context = useContext();
-  const copy = localizations[context.lang].scanScreen;
 
   const [id, setId] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const { connectors, connectAsync } = useConnect();
-  const [connectorUri, setConnectorUri] = useState<string | null>(null);
+  const [connectorUri, setConnectorUri] = useState<string | undefined>(
+    undefined
+  );
 
-  const localizeText = (text: string) => {
-    return localize(text, {
-      CONNECTORNAME: connector.name,
-    });
-  };
+  const locales = useLocales({
+    CONNECTORNAME: connector.name,
+  });
 
   async function connectWallet(connector: any) {
     const result = await connectAsync({ connector: connector });
@@ -161,14 +159,10 @@ const ConnectWithQRCode: React.FC<{
       </PageContent>
     );
 
+  const showAdditionalOptions = connector.defaultConnect;
+
   return (
     <PageContent>
-      {/* <ModalHeading>
-        {connectorId === 'walletConnect'
-          ? copy.heading
-          : `Scan with ${connector.name}`}
-      </ModalHeading> */}
-      <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 8, gap: 14 }}>
         <CustomQRCode
           value={connectorUri}
@@ -178,27 +172,47 @@ const ConnectWithQRCode: React.FC<{
             connectorId === 'walletConnect' ? (
               <>
                 <ScanIconWithLogos />
-                <span>{localizeText(copy.tooltip.walletConnect)}</span>
+                <span>{locales.scanScreen_tooltip_walletConnect}</span>
               </>
             ) : (
               <>
                 <ScanIconWithLogos logo={connector.logos.connectorButton} />
-                <span>{localizeText(copy.tooltip.default)}</span>
+                <span>{locales.scanScreen_tooltip_default}</span>
               </>
             )
           }
         />
-        {connector.defaultConnect ? (
+        {showAdditionalOptions ? (
           <OrDivider />
         ) : (
-          hasApps && <OrDivider>{`Don’t have the app?`}</OrDivider>
+          hasApps && <OrDivider>{locales.dontHaveTheApp}</OrDivider>
         )}
       </ModalContent>
 
-      {connector.defaultConnect && ( // Open the default connector modal
-        <Button icon={<ExternalLinkIcon />} onClick={openDefaultConnect}>
-          Open Default Modal
-        </Button>
+      {showAdditionalOptions && ( // for walletConnect
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 14,
+          }}
+        >
+          {context.options?.walletConnectCTA !== 'modal' && (
+            <CopyToClipboard variant="button" string={connectorUri}>
+              {context.options?.walletConnectCTA === 'link'
+                ? locales.copyToClipboard
+                : locales.copyCode}
+            </CopyToClipboard>
+          )}
+          {context.options?.walletConnectCTA !== 'link' && (
+            <Button icon={<ExternalLinkIcon />} onClick={openDefaultConnect}>
+              {context.options?.walletConnectCTA === 'modal'
+                ? locales.useWalletConnectModal
+                : locales.useModal}
+            </Button>
+          )}
+        </div>
       )}
 
       {/*
@@ -214,7 +228,7 @@ const ConnectWithQRCode: React.FC<{
 
       {!hasExtensionInstalled && extensionUrl && (
         <Button href={extensionUrl} icon={<BrowserIcon />}>
-          Install the Extension
+          {locales.installTheExtension}
         </Button>
       )}
       */}
@@ -235,7 +249,7 @@ const ConnectWithQRCode: React.FC<{
             */
             download
           >
-            Get {connector.name}
+            {locales.getWalletName}
           </Button>
         </>
       )}

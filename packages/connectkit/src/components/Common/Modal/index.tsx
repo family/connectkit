@@ -24,6 +24,8 @@ import {
   ErrorMessage,
   DisclaimerBackground,
   Disclaimer,
+  SiweButton,
+  SignInTooltip,
 } from './styles';
 
 import { routes, useContext } from '../../ConnectKit';
@@ -31,13 +33,59 @@ import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
 import FocusTrap from '../../../hooks/useFocusTrap';
-import localizations, { localize } from '../../../constants/localizations';
 import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import { useNetwork } from 'wagmi';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { AuthIcon } from '../../../assets/icons';
+import { useSIWE } from '../../..';
+import useLocales from '../../../hooks/useLocales';
+import FitText from '../FitText';
 
+const ProfileIcon = ({ signedIn }: { signedIn?: boolean }) => (
+  <div style={{ position: 'relative' }}>
+    {signedIn ? (
+      <AuthIcon
+        style={{
+          bottom: -1,
+          right: -1,
+        }}
+      />
+    ) : (
+      <div
+        style={{
+          zIndex: 2,
+          position: 'absolute',
+          top: -2,
+          right: -2,
+          background: '#1A88F8',
+          borderRadius: 8,
+          boxShadow: '0 0 0 2px var(--ck-body-background)',
+          width: 8,
+          height: 8,
+        }}
+      />
+    )}
+    <svg
+      aria-hidden="true"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ overflow: 'visible' }}
+    >
+      <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M16.5 16.775C14.8618 15.0649 12.5552 14 10 14C7.44477 14 5.13825 15.0649 3.5 16.775"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <circle cx="10" cy="8" r="3" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  </div>
+);
 const InfoIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
@@ -130,14 +178,14 @@ export const contentVariants: Variants = {
 };
 
 type ModalProps = {
-  open: boolean | undefined;
+  open?: boolean;
   pages: any;
   pageId: string;
   positionInside?: boolean;
   inline?: boolean;
-  onClose?: () => void | undefined;
-  onBack?: () => void | undefined;
-  onInfo?: () => void | undefined;
+  onClose?: () => void;
+  onBack?: () => void;
+  onInfo?: () => void;
 
   demo?: {
     theme: string;
@@ -159,6 +207,12 @@ const Modal: React.FC<ModalProps> = ({
   const context = useContext();
   const themeContext = useThemeContext();
   const mobile = isMobile();
+  const { signedIn } = useSIWE();
+
+  const connector = supportedConnectors.find((x) => x.id === context.connector);
+  const locales = useLocales({
+    CONNECTORNAME: connector?.name,
+  });
 
   const [state, setOpen] = useTransition({
     timeout: mobile ? 160 : 160, // different animations, 10ms extra to avoid final-frame drops
@@ -226,10 +280,12 @@ const Modal: React.FC<ModalProps> = ({
 
   // Update layout on chain/network switch to avoid clipping
   const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
+
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [chain]);
+  }, [chain, switchNetwork, mobile, signedIn, context.options]);
 
   useEffect(() => {
     if (!mounted) {
@@ -266,37 +322,33 @@ const Modal: React.FC<ModalProps> = ({
   }
 
   function getHeading() {
-    const c = supportedConnectors.filter((x) => x.id === context.connector)[0];
-
     switch (context.route) {
       case routes.ABOUT:
-        return localize(localizations[context.lang].aboutScreen.heading);
+        return locales.aboutScreen_heading;
       case routes.CONNECT:
         if (shouldUseQrcode()) {
-          return c.id === 'walletConnect'
-            ? localize(localizations[context.lang].scanScreen.heading)
-            : `Scan with ${c.name}`;
+          return connector?.id === 'walletConnect'
+            ? locales.scanScreen_heading
+            : locales.scanScreen_heading_withConnector;
         } else {
-          return c.name;
+          return connector?.name;
         }
       case routes.CONNECTORS:
-        return localize(localizations[context.lang].connectorsScreen.heading);
+        return locales.connectorsScreen_heading;
       case routes.MOBILECONNECTORS:
-        return localize(
-          localizations[context.lang].mobileConnectorsScreen.heading
-        );
+        return locales.mobileConnectorsScreen_heading;
       case routes.DOWNLOAD:
-        return localize(localizations[context.lang].downloadAppScreen.heading, {
-          CONNECTORNAME: c.name,
-        });
+        return locales.downloadAppScreen_heading;
       case routes.ONBOARDING:
-        return localize(localizations[context.lang].onboardingScreen.heading);
+        return locales.onboardingScreen_heading;
       case routes.PROFILE:
-        return localize(localizations[context.lang].profileScreen.heading);
+        return locales.profileScreen_heading;
       case routes.SWITCHNETWORKS:
-        return localize(
-          localizations[context.lang].switchNetworkScreen.heading
-        );
+        return locales.switchNetworkScreen_heading;
+      case routes.SIGNINWITHETHEREUM:
+        return signedIn
+          ? locales.signInWithEthereumScreen_signedIn_heading
+          : locales.signInWithEthereumScreen_signedOut_heading;
       default:
         return '';
     }
@@ -384,34 +436,27 @@ const Modal: React.FC<ModalProps> = ({
               )}
             </AnimatePresence>
             <ControllerContainer>
-              <CloseButton aria-label="Close" onClick={onClose}>
-                <CloseIcon />
-              </CloseButton>
-              <AnimatePresence>
-                {onBack ? (
-                  <BackButton
-                    disabled={inTransition}
-                    aria-label="Back"
-                    key="backButton"
-                    onClick={onBack}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      duration: mobile ? 0 : 0.1,
-                      delay: mobile ? 0.01 : 0,
-                    }}
-                  >
-                    <BackIcon />
-                  </BackButton>
-                ) : (
-                  onInfo &&
-                  !context.options?.hideQuestionMarkCTA && (
-                    <InfoButton
+              {onClose && (
+                <CloseButton aria-label={locales.close} onClick={onClose}>
+                  <CloseIcon />
+                </CloseButton>
+              )}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 23,
+                  left: 20,
+                  width: 32,
+                  height: 32,
+                }}
+              >
+                <AnimatePresence>
+                  {onBack ? (
+                    <BackButton
                       disabled={inTransition}
-                      aria-label="More information"
-                      key="infoButton"
-                      onClick={onInfo}
+                      aria-label={locales.back}
+                      key="backButton"
+                      onClick={onBack}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -420,11 +465,80 @@ const Modal: React.FC<ModalProps> = ({
                         delay: mobile ? 0.01 : 0,
                       }}
                     >
-                      <InfoIcon />
-                    </InfoButton>
-                  )
-                )}
-              </AnimatePresence>
+                      <BackIcon />
+                    </BackButton>
+                  ) : context.route === routes.PROFILE &&
+                    context.signInWithEthereum ? (
+                    <>
+                      {!signedIn && (
+                        <motion.div
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            pointerEvents: 'none',
+                          }}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{
+                            opacity: 1,
+                            scale: 1,
+                            transition: { delay: 0.5, duration: 0.2 },
+                          }}
+                          exit={{
+                            opacity: 0,
+                            scale: 0.6,
+                            transition: {
+                              delay: 0,
+                              duration: mobile ? 0 : 0.1,
+                            },
+                          }}
+                        >
+                          <SignInTooltip>
+                            {locales.signInWithEthereumScreen_tooltip}
+                          </SignInTooltip>
+                        </motion.div>
+                      )}
+                      <SiweButton
+                        disabled={inTransition}
+                        aria-label={
+                          locales.signInWithEthereumScreen_signedOut_heading
+                        }
+                        key="siweButton"
+                        onClick={() =>
+                          context.setRoute(routes.SIGNINWITHETHEREUM)
+                        }
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                          duration: mobile ? 0 : 0.1,
+                          delay: mobile ? 0.01 : 0,
+                        }}
+                      >
+                        <ProfileIcon signedIn={!!signedIn} />
+                      </SiweButton>
+                    </>
+                  ) : (
+                    onInfo &&
+                    !context.options?.hideQuestionMarkCTA && (
+                      <InfoButton
+                        disabled={inTransition}
+                        aria-label={locales.moreInformation}
+                        key="infoButton"
+                        onClick={onInfo}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                          duration: mobile ? 0 : 0.1,
+                          delay: mobile ? 0.01 : 0,
+                        }}
+                      >
+                        <InfoIcon />
+                      </InfoButton>
+                    )
+                  )}
+                </AnimatePresence>
+              </div>
             </ControllerContainer>
 
             <ModalHeading>
@@ -433,10 +547,14 @@ const Modal: React.FC<ModalProps> = ({
                   style={{
                     position: 'absolute',
                     top: 0,
-                    left: 0,
-                    right: 0,
+                    bottom: 0,
+                    left: 52,
+                    right: 52,
+                    display: 'flex',
+                    //alignItems: 'center',
+                    justifyContent: 'center',
                   }}
-                  key={context.route}
+                  key={`${context.route}-${signedIn ? 'signedIn' : ''}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -445,7 +563,7 @@ const Modal: React.FC<ModalProps> = ({
                     delay: mobile ? 0.01 : 0,
                   }}
                 >
-                  {getHeading()}
+                  <FitText>{getHeading()}</FitText>
                 </motion.div>
               </AnimatePresence>
             </ModalHeading>
@@ -517,7 +635,7 @@ const Modal: React.FC<ModalProps> = ({
 
 type PageProps = {
   children?: React.ReactNode;
-  open: boolean | undefined;
+  open?: boolean;
   initial: boolean;
   prevDepth?: number;
   currentDepth?: number;
@@ -564,9 +682,10 @@ const Page: React.FC<PageProps> = ({
 };
 
 export const OrDivider = ({ children }: { children?: React.ReactNode }) => {
+  const locales = useLocales();
   return (
     <TextWithHr>
-      <span>{children ?? 'or'}</span>
+      <span>{children ?? locales.or}</span>
     </TextWithHr>
   );
 };

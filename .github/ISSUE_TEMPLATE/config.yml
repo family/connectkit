@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Ask Question
-    url: https://github.com/family-dev/connectkit/discussions/new?category=q-a
+    url: https://github.com/family/connectkit/discussions/new?category=q-a
     about: Ask questions and discuss with the community
   - name: Feature Request
-    url: https://github.com/family-dev/connectkit/discussions/new?category=ideas
+    url: https://github.com/family/connectkit/discussions/new?category=ideas
     about: Request features or discuss new ideas for ConnectKit

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from '../../ConnectKit';
-import localizations from '../../../constants/localizations';
 import { nFormatter, truncateEthAddress } from '../../../utils';
 
 import {
@@ -26,7 +25,6 @@ import {
   ModalBody,
   ModalContent,
   ModalH1,
-  ModalHeadingBlock,
 } from '../../Common/Modal/styles';
 import Button from '../../Common/Button';
 import Avatar from '../../Common/Avatar';
@@ -35,13 +33,14 @@ import ChainSelector from '../../Common/ChainSelect';
 import { DisconnectIcon } from '../../../assets/icons';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
-import Alert from '../../Common/Alert';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import useLocales from '../../../hooks/useLocales';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
   const themeContext = useThemeContext();
-  const copy = localizations[context.lang].profileScreen;
+
+  const locales = useLocales();
 
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
@@ -53,7 +52,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     address: address,
   });
   const { data: balance } = useBalance({
-    addressOrName: address,
+    address,
     //watch: true,
   });
 
@@ -78,20 +77,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     };
   }, [shouldDisconnect, disconnect, reset]);
 
-  if (chain?.unsupported) {
-    return (
-      <PageContent>
-        <ModalHeadingBlock />
-        <Alert>{copy.unsupported}</Alert>
-        <Button
-          onClick={() => setShouldDisconnect(true)}
-          icon={<DisconnectIcon />}
-        >
-          Disconnect
-        </Button>
-      </PageContent>
-    );
-  }
   const separator = ['web95', 'rounded', 'minimal'].includes(
     themeContext.theme ?? context.theme ?? ''
   )
@@ -99,8 +84,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     : undefined;
   return (
     <PageContent>
-      {/* <ModalHeading>{copy.heading}</ModalHeading> */}
-      <ModalHeadingBlock />
       <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
         <AvatarContainer>
           <AvatarInner>
@@ -149,7 +132,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
         onClick={() => setShouldDisconnect(true)}
         icon={<DisconnectIcon />}
       >
-        Disconnect
+        {locales.disconnect}
       </Button>
     </PageContent>
   );

@@ -1,4 +1,9 @@
-import { Chain, Connector, chain, configureChains } from 'wagmi';
+import {
+  Connector,
+  configureChains,
+  ChainProviderFn,
+} from 'wagmi';
+import { Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
 import { Provider } from '@wagmi/core';
 
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
@@ -12,34 +17,43 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
 let globalAppName: string;
+let globalAppIcon: string;
 export const getAppName = () => globalAppName;
+export const getAppIcon = () => globalAppIcon;
 
 const defaultChains = [
-  chain.mainnet,
-  chain.polygon,
-  chain.optimism,
-  chain.arbitrum,
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
 ];
 
 type DefaultConnectorsProps = {
   chains?: Chain[];
   appName: string;
 };
+
 type DefaultClientProps = {
   appName: string;
+  appIcon?: string;
   autoConnect?: boolean;
   alchemyId?: string;
   infuraId?: string;
   chains?: Chain[];
   connectors?: any;
   provider?: any;
+  webSocketProvider?: any;
+  enableWebSocketProvider?: boolean;
+  stallTimeout?: number;
 };
+
 type ConnectKitClientProps = {
   autoConnect?: boolean;
   connectors?: Connector[];
   provider: Provider;
   webSocketProvider?: any;
 };
+
 const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
     new MetaMaskConnector({
@@ -77,28 +91,36 @@ const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
     }),
   ];
 };
+
 const defaultClient = ({
   autoConnect = true,
   appName = 'ConnectKit',
+  appIcon,
   chains = defaultChains,
   alchemyId,
   infuraId,
   connectors,
   provider,
+  stallTimeout,
+  webSocketProvider,
+  enableWebSocketProvider,
 }: DefaultClientProps) => {
   globalAppName = appName;
-  const providers = [];
+  if (appIcon) globalAppIcon = appIcon;
 
-  //if (!infuraId && !alchemyId) alchemyId = 'ourDefaultAlchemyId';
-
-  if (alchemyId) providers.push(alchemyProvider({ apiKey: alchemyId }));
-  if (infuraId) providers.push(infuraProvider({ apiKey: infuraId }));
+  const providers: ChainProviderFn[] = [];
+  if (alchemyId) {
+    providers.push(alchemyProvider({ apiKey: alchemyId, stallTimeout }));
+  }
+  if (infuraId) {
+    providers.push(infuraProvider({ apiKey: infuraId, stallTimeout }));
+  }
   providers.push(
     jsonRpcProvider({
       rpc: (c) => {
-        if (c.id !== chain.mainnet.id) return null;
-        return { http: c.rpcUrls.default };
+        return { http: c.rpcUrls.default.http[0] };
       },
+      stallTimeout,
     })
   );
   providers.push(publicProvider());
@@ -106,7 +128,7 @@ const defaultClient = ({
   const {
     provider: configuredProvider,
     chains: configuredChains,
-    webSocketProvider,
+    webSocketProvider: configuredWebSocketProvider,
   } = configureChains(chains, providers);
 
   const connectKitClient: ConnectKitClientProps = {
@@ -114,7 +136,9 @@ const defaultClient = ({
     connectors:
       connectors ?? getDefaultConnectors({ chains: configuredChains, appName }),
     provider: provider ?? configuredProvider,
-    //webSocketProvider,
+    webSocketProvider: enableWebSocketProvider // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"
+      ? webSocketProvider ?? configuredWebSocketProvider
+      : undefined,
   };
 
   return { ...connectKitClient };

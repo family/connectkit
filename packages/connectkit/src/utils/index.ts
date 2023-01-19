@@ -1,4 +1,5 @@
 import { detect } from 'detect-browser';
+import React from 'react';
 import supportedConnectors from '../constants/supportedConnectors';
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
@@ -122,6 +123,20 @@ const isCoinbaseWallet = () => {
   );
 };
 
+type ReactChildArray = ReturnType<typeof React.Children.toArray>;
+function flattenChildren(children: React.ReactNode): ReactChildArray {
+  const childrenArray = React.Children.toArray(children);
+  return childrenArray.reduce((flatChildren: ReactChildArray, child) => {
+    if ((child as React.ReactElement<any>).type === React.Fragment) {
+      return flatChildren.concat(
+        flattenChildren((child as React.ReactElement<any>).props.children)
+      );
+    }
+    flatChildren.push(child);
+    return flatChildren;
+  }, []);
+}
+
 export {
   nFormatter,
   truncateEthAddress,
@@ -133,4 +148,5 @@ export {
   getWalletDownloadUri,
   isMetaMask,
   isCoinbaseWallet,
+  flattenChildren,
 };

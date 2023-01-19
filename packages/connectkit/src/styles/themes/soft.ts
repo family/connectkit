@@ -90,4 +90,6 @@ export default {
   '--ck-qr-border-radius': '12px',
   '--ck-qr-dot-color': '#2E3138',
   '--ck-qr-border-color': '#E9EAEC',
+
+  '--ck-siwe-border': '#EAEBED',
 };

@@ -1,3 +1,7 @@
+<a href="https://docs.family.co/connectkit">
+  <img width="1080" alt="connectkit" src="https://user-images.githubusercontent.com/1930210/197782607-5903aba7-8e7f-4fde-b80a-80465d4ad54e.png">
+</a>
+
 # ConnectKit
 
 ConnectKit is a powerful [React](https://reactjs.org/) component library for connecting a wallet to your dApp. It supports the most popular connectors and chains out of the box and provides a beautiful, seamless experience.
@@ -18,19 +22,19 @@ Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [ethers.js](https:/
 #### npm
 
 ```sh
-npx create-react-app my-app --template cra-template-connectkit-typescript
+npx create-react-app my-app --template cra-template-connectkit
 ```
 
 #### yarn
 
 ```sh
-yarn create react-app my-app --template cra-template-connectkit-typescript
+yarn create react-app my-app --template cra-template-connectkit
 ```
 
 #### pnpm
 
 ```sh
-pnpm dlx create-react-app ./my-app --template cra-template-connectkit-typescript
+pnpm dlx create-react-app ./my-app --template cra-template-connectkit
 ```
 
 ## Documentation
@@ -43,11 +47,11 @@ You can find the full API Reference in the Family docs [here](https://docs.famil
 
 ## Examples
 
-There are various runnable examples included in this repository in the [examples folder](https://github.com/family-dev/connectkit/tree/main/examples):
+There are various runnable examples included in this repository in the [examples folder](https://github.com/family/connectkit/tree/main/examples):
 
-- [Create React App Example (TypeScript)](https://github.com/family-dev/connectkit/tree/main/examples/cra)
-- [Next.js Example (TypeScript)](https://github.com/family-dev/connectkit/tree/main/examples/nextjs)
-- [Vite Example (TypeScript)](https://github.com/family-dev/connectkit/tree/main/examples/vite)
+- [Create React App Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/cra)
+- [Next.js Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/nextjs)
+- [Vite Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/vite)
 
 ### Try in CodeSandbox
 
@@ -62,7 +66,7 @@ You can try out some ConnectKit examples directly in your browser through CodeSa
 Clone the ConnectKit project and install the necessary dependencies:
 
 ```sh
-$ git clone git@github.com:family-dev/connectkit.git
+$ git clone git@github.com:family/connectkit.git
 $ cd connectkit
 $ yarn install
 ```
@@ -83,7 +87,7 @@ $ yarn dev:cra # Create React App
 
 ## Contribute
 
-Before starting on anything, please have a read through our [Contribution Guidelines](https://github.com/family-dev/connectkit/blob/main/CONTRIBUTING.md).
+Before starting on anything, please have a read through our [Contribution Guidelines](https://github.com/family/connectkit/blob/main/CONTRIBUTING.md).
 
 ## Twitter
 
@@ -91,4 +95,4 @@ Follow [@family](https://twitter.com/family) on Twitter for the latest updates o
 
 ## License
 
-See [LICENSE](https://github.com/family-dev/connectkit/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/family/connectkit/blob/main/LICENSE) for more information.

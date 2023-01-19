@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useContext, routes } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
-import localizations from '../../../constants/localizations';
 import { isMetaMask, isCoinbaseWallet } from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
@@ -11,7 +10,6 @@ import {
   ModalH1,
   ModalBody,
   ModalContent,
-  ModalHeadingBlock,
   Disclaimer,
 } from '../../Common/Modal/styles';
 import WalletIcon from '../../../assets/wallet';
@@ -40,17 +38,21 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 
 import Button from '../../Common/Button';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
+import { Connector } from 'wagmi';
+import useLocales from '../../../hooks/useLocales';
 
 const Wallets: React.FC = () => {
   const context = useContext();
-  const copy = localizations[context.lang].connectorsScreen;
+
+  const locales = useLocales({});
+
   const mobile = isMobile();
 
   const { connectAsync, connectors } = useConnect();
 
   const openDefaultConnect = async (id: string) => {
     const c = connectors.filter((c) => c.id === id)[0];
-    let connector = null;
+    let connector: Connector | null = null;
     switch (c.id) {
       case 'walletConnect':
         context.setRoute(routes.MOBILECONNECTORS);
@@ -85,7 +87,7 @@ const Wallets: React.FC = () => {
     if (!connector) return;
 
     // TODO: Make this neater
-    if (c.id == 'metaMask' && isMobile) {
+    if (c.id === 'metaMask' && mobile) {
       let connnector = connector as WalletConnectConnector;
       connector.on('message', async ({ type }) => {
         if (type === 'connecting') {
@@ -147,7 +149,6 @@ const Wallets: React.FC = () => {
 
   return (
     <PageContent style={{ width: 312 }}>
-      <ModalHeadingBlock />
       {mobile ? (
         <>
           <MobileConnectorsContainer>
@@ -170,11 +171,9 @@ const Wallets: React.FC = () => {
                 }
               }
 
-              if (
-                context.options?.walletConnectName &&
-                info.id === 'walletConnect'
-              ) {
-                name = context.options.walletConnectName;
+              if (info.id === 'walletConnect') {
+                name =
+                  context.options?.walletConnectName ?? locales.otherWallets;
               }
 
               return (
@@ -206,8 +205,8 @@ const Wallets: React.FC = () => {
           </MobileConnectorsContainer>
           <InfoBox>
             <ModalContent style={{ padding: 0, textAlign: 'left' }}>
-              <ModalH1 $small>{copy.h1}</ModalH1>
-              <ModalBody>{copy.p}</ModalBody>
+              <ModalH1 $small>{locales.connectorsScreen_h1}</ModalH1>
+              <ModalBody>{locales.connectorsScreen_p}</ModalBody>
             </ModalContent>
             <InfoBoxButtons>
               {!context.options?.hideQuestionMarkCTA && (
@@ -215,7 +214,7 @@ const Wallets: React.FC = () => {
                   variant={'tertiary'}
                   onClick={() => context.setRoute(routes.ABOUT)}
                 >
-                  Learn More
+                  {locales.learnMore}
                 </Button>
               )}
               {!context.options?.hideNoWalletCTA && (
@@ -223,7 +222,7 @@ const Wallets: React.FC = () => {
                   variant={'tertiary'}
                   onClick={() => context.setRoute(routes.ONBOARDING)}
                 >
-                  Get a Wallet
+                  {locales.getWallet}
                 </Button>
               )}
             </InfoBoxButtons>
@@ -246,11 +245,9 @@ const Wallets: React.FC = () => {
               let logos = info.logos;
 
               let name = info.name ?? connector.name;
-              if (
-                context.options?.walletConnectName &&
-                info.id === 'walletConnect'
-              ) {
-                name = context.options.walletConnectName;
+              if (info.id === 'walletConnect') {
+                name =
+                  context.options?.walletConnectName ?? locales.otherWallets;
               }
 
               if (info.id === 'injected') {
@@ -290,7 +287,7 @@ const Wallets: React.FC = () => {
               <LearnMoreButton
                 onClick={() => context.setRoute(routes.ONBOARDING)}
               >
-                <WalletIcon /> {copy.newcomer}
+                <WalletIcon /> {locales.connectorsScreen_newcomer}
               </LearnMoreButton>
             </LearnMoreContainer>
           )}

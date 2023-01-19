@@ -2,17 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { routes, useContext } from './../../ConnectKit';
 
 import { useNetwork } from 'wagmi';
-import supportedChains from './../../../constants/supportedChains';
 
 import { isMobile } from './../../../utils';
 
 import defaultTheme from './../../../constants/defaultTheme';
 
-import styled, { css } from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
+import styled from './../../../styles/styled';
+import { css } from 'styled-components';
+import { motion } from 'framer-motion';
 
 import Tooltip from '../Tooltip';
 import ChainSelectDropdown from '../ChainSelectDropdown';
+import Chain from '../Chain';
+import useLocales from '../../../hooks/useLocales';
+
+import Logos from '../../../assets/chains';
 
 const Container = styled(motion.div)``;
 
@@ -97,7 +101,7 @@ const SwitchChainButton = styled(motion.button)`
           @media only screen and (min-width: ${defaultTheme.mobileWidth +
             1}px) {
             &:hover,
-            &:focus {
+            &:focus-visible {
               color: var(--hover-color);
               background: var(--hover-background);
               box-shadow: var(--hover-box-shadow);
@@ -109,35 +113,6 @@ const SwitchChainButton = styled(motion.button)`
             }
           }
         `}
-`;
-const ChainIcon = styled(motion.div)<{ $empty?: boolean }>`
-  display: block;
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  min-height: 24px;
-  background: var(--ck-body-background);
-  color: var(--ck-body-color-muted);
-  svg {
-    width: 100%;
-    height: auto;
-  }
-  ${(props) =>
-    props.$empty &&
-    css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--ck-body-background-secondary);
-      &:before {
-        content: '?';
-        font-weight: bold;
-        font-family: var(--ck-font-family);
-      }
-    `}
 `;
 
 const ChevronDown = ({ ...props }) => (
@@ -165,6 +140,10 @@ const ChainSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { chain, chains } = useNetwork();
 
+  const locales = useLocales({
+    CHAIN: chain?.name,
+  });
+
   const mobile = isMobile() || window?.innerWidth < defaultTheme.mobileWidth;
 
   useEffect(() => {
@@ -172,32 +151,6 @@ const ChainSelector: React.FC = () => {
   }, [context.open]);
 
   const disabled = chains.length <= 1;
-  const ChainSelectorButton = (
-    <ChainIcon $empty={!chains.find((x) => x.id === chain?.id)}>
-      <AnimatePresence initial={false}>
-        {chains
-          .filter((x) => x.id === chain?.id)
-          .map((x, i) => {
-            const c = supportedChains.find((c) => c.id === x.id);
-            return (
-              <motion.div
-                key={`${chain?.id}-${chain?.name}`}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {c?.logo}
-              </motion.div>
-            );
-          })}
-      </AnimatePresence>
-    </ChainIcon>
-  );
 
   return (
     <>
@@ -208,7 +161,7 @@ const ChainSelector: React.FC = () => {
           onClose={() => setIsOpen(false)}
         >
           <SwitchChainButton
-            aria-label="Change Network"
+            aria-label={locales.switchNetworks}
             disabled={disabled}
             onClick={() => {
               if (mobile) {
@@ -219,15 +172,11 @@ const ChainSelector: React.FC = () => {
             }}
           >
             {disabled ? (
-              <Tooltip
-                message={`${chain?.name} Network`}
-                xOffset={-6}
-                delay={0.01}
-              >
-                {ChainSelectorButton}
+              <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
+                <Chain id={chain?.id} unsupported={chain?.unsupported} />
               </Tooltip>
             ) : (
-              ChainSelectorButton
+              <Chain id={chain?.id} unsupported={chain?.unsupported} />
             )}
             {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
           </SwitchChainButton>

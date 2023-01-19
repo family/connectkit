@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Theme, Mode } from '../../types';
 import Modal from '../Common/Modal';
@@ -11,11 +11,15 @@ import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
-import styled, { keyframes } from 'styled-components';
 import MobileConnectors from '../Pages/MobileConnectors';
+import SignInWithEthereum from '../Pages/SignInWithEthereum';
+
 import { ConnectKitButton } from '../ConnectButton';
 import { getAppName } from '../../defaultClient';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
+
+import styled from './../../styles/styled';
+import { keyframes } from 'styled-components';
 
 const dist = 8;
 const shake = keyframes`
@@ -86,7 +90,7 @@ const ConnectModal: React.FC<{
 }> = ({
   theme = 'auto',
   customTheme = customThemeDefault,
-  lang = 'en',
+  lang = 'en-US',
   mode = 'auto',
   inline = false,
   open,
@@ -94,12 +98,49 @@ const ConnectModal: React.FC<{
 }) => {
   const context = useContext();
   const { isConnected } = useAccount();
+  const { chain } = useNetwork();
+
+  const closeable = !chain?.unsupported;
+
+  const showBackButton =
+    !chain?.unsupported &&
+    context.route !== routes.CONNECTORS &&
+    context.route !== routes.PROFILE;
+
+  const showInfoButton =
+    !chain?.unsupported && context.route !== routes.PROFILE;
+
+  const onBack = () => {
+    if (context.route === routes.SIGNINWITHETHEREUM) {
+      context.setRoute(routes.PROFILE);
+    } else if (context.route === routes.SWITCHNETWORKS) {
+      context.setRoute(routes.PROFILE);
+    } else if (context.route === routes.DOWNLOAD) {
+      context.setRoute(routes.CONNECT);
+    } else {
+      context.setRoute(routes.CONNECTORS);
+    }
+  };
+
+  const pages: any = {
+    onboarding: <Onboarding />,
+    about: <About />,
+    download: <DownloadApp connectorId={context.connector} />,
+    connectors: <Connectors />,
+    mobileConnectors: <MobileConnectors />,
+    connect: <ConnectUsing connectorId={context.connector} />,
+    profile: <Profile closeModal={() => setIsOpen(false)} />,
+    switchNetworks: <SwitchNetworks />,
+    signInWithEthereum: <SignInWithEthereum />,
+  };
 
   const ref = useRef<HTMLDivElement | null>(null);
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(open ?? false);
 
   useEffect(() => {
+    if (open)
+      context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
     setIsOpen(open ?? false);
   }, [open]);
 
@@ -126,7 +167,7 @@ const ConnectModal: React.FC<{
       }
     }
   }, [isOpen]);
-  useEffect(() => setIsOpen(false), [isConnected]);
+  //useEffect(() => setIsOpen(false), [isConnected]);
 
   const onModalClose = () => {
     if (onClose) {
@@ -142,18 +183,22 @@ const ConnectModal: React.FC<{
     }
   };
 
-  const pages: any = {
-    onboarding: <Onboarding />,
-    about: <About />,
-    download: <DownloadApp connectorId={context.connector} />,
-    connectors: <Connectors />,
-    mobileConnectors: <MobileConnectors />,
-    connect: <ConnectUsing connectorId={context.connector} />,
-    profile: <Profile closeModal={() => setIsOpen(false)} />,
-    switchNetworks: <SwitchNetworks />,
-  };
-
-  useEffect(() => onModalClose, [isConnected]);
+  useEffect(() => {
+    if (isConnected) {
+      if (
+        context.route !== routes.PROFILE ||
+        context.route !== routes.SIGNINWITHETHEREUM
+      ) {
+        if (context.signInWithEthereum) {
+          context.setRoute(routes.SIGNINWITHETHEREUM);
+        } else {
+          onModalClose(); // Hide on connect
+        }
+      }
+    } else {
+      onModalClose(); // Hide on connect
+    }
+  }, [isConnected]);
 
   /* When pulling data into WalletConnect, it prioritises the og:title tag over the title tag */
   useEffect(() => {
@@ -191,30 +236,15 @@ const ConnectModal: React.FC<{
         )}
         <Modal
           demo={{ theme: theme, customTheme: customTheme, mode: mode }}
-          onClose={onModalClose}
+          onClose={closeable ? onModalClose : undefined}
           positionInside={inline}
           open={isOpen}
           pages={pages}
           pageId={context.route}
           onInfo={
-            context.route !== routes.PROFILE
-              ? () => context.setRoute(routes.ABOUT)
-              : undefined
+            showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
           }
-          onBack={
-            context.route !== routes.CONNECTORS &&
-            context.route !== routes.PROFILE
-              ? () => {
-                  if (context.route === routes.SWITCHNETWORKS) {
-                    context.setRoute(routes.PROFILE);
-                  } else if (context.route === routes.DOWNLOAD) {
-                    context.setRoute(routes.CONNECT);
-                  } else {
-                    context.setRoute(routes.CONNECTORS);
-                  }
-                }
-              : undefined
-          }
+          onBack={showBackButton ? onBack : undefined}
         />
       </Container>
     </ConnectKitThemeProvider>

@@ -1,37 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled from './styled';
+import { css } from 'styled-components';
 import { motion } from 'framer-motion';
 import { CustomTheme } from '../types';
 import { hexToP3 } from '../utils/p3';
 
 import predefinedThemes from './themes';
-
-function LightenDarkenColor(col: string, amt: number) {
-  var usePound = false;
-
-  if (col[0] == '#') {
-    col = col.slice(1);
-    usePound = true;
-  }
-
-  var num = parseInt(col, 16);
-
-  var r = (num >> 16) + amt;
-
-  if (r > 255) r = 255;
-  else if (r < 0) r = 0;
-
-  var b = ((num >> 8) & 0x00ff) + amt;
-
-  if (b > 255) b = 255;
-  else if (b < 0) b = 0;
-
-  var g = (num & 0x0000ff) + amt;
-
-  if (g > 255) g = 255;
-  else if (g < 0) g = 0;
-
-  return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16);
-}
 
 /**
  * Theme variables for the modal
@@ -151,6 +124,7 @@ const themeColors = {
   midnight: predefinedThemes.midnight,
   minimal: predefinedThemes.minimal,
   rounded: predefinedThemes.rounded,
+  nouns: predefinedThemes.nouns,
 };
 
 /**
@@ -191,6 +165,7 @@ const themes = {
   midnight: createCssColors(themeColors.midnight),
   minimal: createCssColors(themeColors.minimal),
   rounded: createCssColors(themeColors.rounded),
+  nouns: createCssColors(themeColors.nouns),
 };
 const globals = {
   brand: createCssVars(themeGlobals.brand),
@@ -246,6 +221,9 @@ export const ResetContainer = styled(motion.div)<{
       case 'rounded':
         mode = 'light';
         return themes.rounded;
+      case 'nouns':
+        mode = 'light';
+        return themes.nouns;
       default:
         if (props.$useMode === 'light') {
           mode = 'light';

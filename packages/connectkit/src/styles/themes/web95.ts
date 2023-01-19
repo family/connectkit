@@ -165,4 +165,6 @@ export default {
   '--ck-graphic-globe-box-shadow':
     ' 0 0 0 1px #999A9E, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC',
     */
+
+  '--ck-siwe-border': '#919B9C',
 };

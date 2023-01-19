@@ -6,14 +6,21 @@ import React, {
   ReactNode,
 } from 'react';
 import { Buffer } from 'buffer';
-import { CustomTheme, Languages, Mode, Theme } from '../types';
+import {
+  CustomTheme,
+  Languages,
+  Mode,
+  Theme,
+  CustomAvatarProps,
+} from '../types';
 
 import defaultTheme from '../styles/defaultTheme';
 
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
+import { SIWEContext } from './Standard/SIWE/SIWEContext';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -24,10 +31,12 @@ export const routes = {
   DOWNLOAD: 'download',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
+  SIGNINWITHETHEREUM: 'signInWithEthereum',
 };
 
 type Connector = any;
 type Error = string | React.ReactNode | null;
+
 type ContextValue = {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
@@ -45,16 +54,18 @@ type ContextValue = {
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptions;
+  signInWithEthereum: boolean;
   debug: (message: string | React.ReactNode | null, code?: any) => void;
 };
 
-const Context = createContext<ContextValue | null>(null);
+export const Context = createContext<ContextValue | null>(null);
 
 type ConnectKitOptions = {
   language?: Languages;
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
+  walletConnectCTA?: 'modal' | 'link' | 'both';
   avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
   embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
   truncateLongENSAddress?: boolean;
@@ -62,13 +73,15 @@ type ConnectKitOptions = {
   reducedMotion?: boolean;
   disclaimer?: ReactNode | string;
   bufferPolyfill?: boolean;
+  customAvatar?: React.FC<CustomAvatarProps>;
+  initialChainId?: number;
 };
 
 type ConnectKitProviderProps = {
   children?: React.ReactNode;
   theme?: Theme;
   mode?: Mode;
-  customTheme?: CustomTheme | undefined;
+  customTheme?: CustomTheme;
   options?: ConnectKitOptions;
 };
 
@@ -79,19 +92,30 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   customTheme,
   options,
 }) => {
+  // Only allow for mounting ConnectKitProvider once, so we avoid weird global
+  // state collisions.
+  if (React.useContext(Context)) {
+    throw new Error(
+      'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
+    );
+  }
+
   // Default config options
   const defaultOptions: ConnectKitOptions = {
-    language: 'en',
+    language: 'en-US',
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
+    walletConnectCTA: 'modal',
     avoidLayoutShift: true,
     embedGoogleFonts: false,
     truncateLongENSAddress: true,
-    walletConnectName: 'Other Wallets',
+    walletConnectName: undefined,
     reducedMotion: false,
     disclaimer: null,
     bufferPolyfill: true,
+    customAvatar: undefined,
+    initialChainId: undefined,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
@@ -113,7 +137,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(
     customTheme ?? {}
   );
-  const [ckLang, setLang] = useState<Languages>('en');
+  const [ckLang, setLang] = useState<Languages>('en-US');
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
@@ -124,8 +148,17 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
 
   // Other Configuration
   useEffect(() => setTheme(theme), [theme]);
-  useEffect(() => setLang(opts.language || 'en'), [opts.language]);
+  useEffect(() => setLang(opts.language || 'en-US'), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
+
+  // Check if chain is supported, elsewise redirect to switches page
+  const { chain } = useNetwork();
+  useEffect(() => {
+    if (chain?.unsupported) {
+      setOpen(true);
+      setRoute(routes.SWITCHNETWORKS);
+    }
+  }, [chain, route, open]);
 
   const value = {
     theme: ckTheme,
@@ -142,6 +175,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     setRoute,
     connector,
     setConnector,
+    signInWithEthereum: React.useContext(SIWEContext)?.enabled ?? false,
 
     // Other configuration
     options: opts,

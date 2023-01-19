@@ -1,10 +1,21 @@
 {
   "name": "connectkit",
-  "version": "0.0.2",
-  "main": "build/index.js",
+  "version": "1.1.1",
+  "author": "Family",
+  "homepage": "https://docs.family.co/connectkit",
+  "license": "BSD-2-Clause license",
   "description": "Connecting a wallet, made simple.",
-  "module": "build/index.es.js",
-  "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/family/connectkit.git",
+    "directory": "packages/connectkit"
+  },
+  "type": "module",
+  "exports": "./build/index.es.js",
+  "types": "./build/index.d.ts",
+  "engines": {
+    "node": ">=12.4"
+  },
   "files": [
     "build",
     "README.md"
@@ -31,13 +42,14 @@
     "qrcode": "^1.5.0",
     "react-transition-state": "^1.1.4",
     "react-use-measure": "^2.1.1",
+    "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {
-    "ethers": "^5.6.5",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "wagmi": "^0.6.0"
+    "ethers": ">=5.5.0 <6",
+    "react": "17.x || 18.x",
+    "react-dom": "17.x || 18.x",
+    "wagmi": "0.9.x"
   },
   "devDependencies": {
     "@types/node": "^16.11.27",
@@ -50,6 +62,6 @@
   "resolutions": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "wagmi": "^0.6.0"
+    "wagmi": "^0.9.0"
   }
 }

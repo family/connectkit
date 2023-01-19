@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { WagmiConfig, createClient, chain } from 'wagmi';
+import { WagmiConfig, createClient } from 'wagmi';
+import { mainnet, polygon } from 'wagmi/chains';
 import { ConnectKitProvider, getDefaultClient } from 'connectkit';
 
 const client = createClient(
@@ -11,7 +12,7 @@ const client = createClient(
     appName: 'My App Name',
     //infuraId: process.env.REACT_APP_INFURA_ID,
     //alchemyId:  process.env.REACT_APP_ALCHEMY_ID,
-    chains: [chain.mainnet, chain.polygon],
+    chains: [mainnet, polygon],
   })
 );
 

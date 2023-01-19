@@ -66,6 +66,7 @@ export default {
     '--ck-body-divider': '#f7f6f8',
     '--ck-body-color-danger': '#FF4E4E',
     '--ck-body-color-valid': '#32D74B',
+    '--ck-siwe-border': '#F0F0F0',
 
     /** Disclaimer */
     //'--ck-body-disclaimer-background': '#E3D6C9',
