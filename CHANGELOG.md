@@ -1,3 +1,6 @@
+- Separate the SIWE helper functions into more friendlier client and server configurations.
+- Export `SIWEContent` and `SIWEConfig` to allow for better dev access to SIWE functionality
+
 # 1.1.1
 
 This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`0.9.x`).
