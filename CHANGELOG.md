@@ -1,3 +1,15 @@
+#
+
+## New
+
+- Update to allow turning off the default targeted `chainId` to let wallets connect using their currently active chain.
+- - This can be done by setting `initialChainId` to `0` within the `getDefaultClient` helper function.
+- Update to chain handling to allow devs access to the configured chains using `getGlobalChains`.
+
+## Removed
+
+- Removed CommonJS support to work within wagmi's `0.8.x` requirements.
+
 # 1.1.1
 
 This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`0.9.x`).
