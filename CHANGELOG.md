@@ -1,3 +1,6 @@
+- Remove sunset ethhub.io links and replace with ethereum.org links.
+- New options for `ethereumOnboardingUrl` and `walletOnboardingUrl` to custom change the _Learn More_ and _About Wallets_ call to actions.
+
 # 1.1.1
 
 This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`0.9.x`).
