@@ -62,6 +62,8 @@ const getDefaultConnectors = ({
   appName,
   walletConnectOptions,
 }: DefaultConnectorsProps) => {
+  const wcOpts: WalletConnectOptionsProps = { version: '1' };
+  /*
   const wcOpts: WalletConnectOptionsProps =
     walletConnectOptions?.version === '2' && walletConnectOptions?.projectId
       ? {
@@ -71,6 +73,7 @@ const getDefaultConnectors = ({
       : {
           version: '1',
         };
+   */
 
   return [
     new MetaMaskConnector({
