@@ -1,3 +1,5 @@
+This update moves the peer dependency wagmi up to the latest version (`0.10.x`). This does not yet include support for WalletConnect 2.0.
+
 # 1.1.1
 
 This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`0.9.x`).
