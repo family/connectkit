@@ -1,5 +1,9 @@
-import { WalletProps, WalletOptions } from './../wallet';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import {
+  WalletProps,
+  WalletOptions,
+  getProviderUri,
+  getDefaultWalletConnectConnector,
+} from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
@@ -21,18 +25,13 @@ export const steak = ({ chains }: WalletOptions): WalletProps => {
       website: 'https://steakwallet.fi/download',
     },
     createConnector: () => {
-      const connector = new WalletConnectConnector({
-        chains,
-        options: {
-          qrcode: false,
-        },
-      });
+      const connector = getDefaultWalletConnectConnector(chains);
 
       return {
         connector,
         mobile: {
           getUri: async () => {
-            const { uri } = (await connector.getProvider()).connector;
+            const uri = await getProviderUri(connector);
 
             return isAndroid()
               ? uri
@@ -42,7 +41,7 @@ export const steak = ({ chains }: WalletOptions): WalletProps => {
           },
         },
         qrCode: {
-          getUri: async () => (await connector.getProvider()).connector.uri,
+          getUri: async () => await getProviderUri(connector),
         },
       };
     },

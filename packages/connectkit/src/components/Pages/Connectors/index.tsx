@@ -40,6 +40,7 @@ import Button from '../../Common/Button';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { Connector } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
+import { getProviderUri } from '../../../wallets/wallet';
 
 const Wallets: React.FC = () => {
   const context = useContext();
@@ -57,17 +58,10 @@ const Wallets: React.FC = () => {
       case 'walletConnect':
         context.setRoute(routes.MOBILECONNECTORS);
         break;
-      /*
-        connector = new WalletConnectConnector({
-          chains: c.chains,
-          options: { ...c.options, qrcode: true },
-        });
-        break;
-        */
       case 'metaMask':
         connector = new WalletConnectConnector({
           chains: c.chains,
-          options: { ...c.options, qrcode: false },
+          options: { ...c.options, qrcode: false, version: '1' },
         });
         break;
       case 'coinbaseWallet':
@@ -86,12 +80,12 @@ const Wallets: React.FC = () => {
 
     if (!connector) return;
 
-    // TODO: Make this neater
+    // TODO: Make this neater and use the MetaMask config
     if (c.id === 'metaMask' && mobile) {
       let connnector = connector as WalletConnectConnector;
       connector.on('message', async ({ type }) => {
         if (type === 'connecting') {
-          const { uri } = (await connnector.getProvider()).connector;
+          const uri = await getProviderUri(connnector);
           const uriString = isAndroid()
             ? uri
             : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
