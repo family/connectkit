@@ -43,7 +43,7 @@ const enUS: LocaleProps = {
   onboardingScreen_h1: `Start Exploring Web3`,
   onboardingScreen_p: `Your wallet is the gateway to all things Ethereum, the magical technology that makes it possible to explore web3.`,
   onboardingScreen_ctaText: `Choose Your First Wallet`,
-  onboardingScreen_ctaUrl: `https://ethereum.org/en/wallets/find-wallet/#main-content`,
+  onboardingScreen_ctaUrl: `https://ethereum.org/en/wallets/find-wallet/`,
 
   aboutScreen_heading: `About Wallets`,
   aboutScreen_a_h1: `For your digital assets`,
@@ -53,7 +53,7 @@ const enUS: LocaleProps = {
   aboutScreen_c_h1: `Explore the world of web3`,
   aboutScreen_c_p: `Your wallet is an essential utility that lets you explore and participate in the fast evolving world of web3.`,
   aboutScreen_ctaText: `Learn More`,
-  aboutScreen_ctaUrl: `https://docs.ethhub.io/using-ethereum/wallets/intro-to-ethereum-wallets/`,
+  aboutScreen_ctaUrl: `https://ethereum.org/en/wallets/`,
 
   connectorsScreen_heading: `Connect Wallet`,
   connectorsScreen_newcomer: `I don’t have a wallet`,
