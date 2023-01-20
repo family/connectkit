@@ -21,6 +21,7 @@ import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
 import { SIWEContext } from './Standard/SIWE/SIWEContext';
+import { getGlobalChains } from '../defaultClient';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -75,6 +76,8 @@ type ConnectKitOptions = {
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
   initialChainId?: number;
+  ethereumOnboardingUrl?: string;
+  walletOnboardingUrl?: string;
 };
 
 type ConnectKitProviderProps = {
@@ -115,7 +118,9 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     disclaimer: null,
     bufferPolyfill: true,
     customAvatar: undefined,
-    initialChainId: undefined,
+    initialChainId: getGlobalChains()[0]?.id,
+    ethereumOnboardingUrl: undefined,
+    walletOnboardingUrl: undefined,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
