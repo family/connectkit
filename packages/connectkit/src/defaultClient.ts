@@ -1,9 +1,5 @@
-import {
-  Connector,
-  configureChains,
-  ChainProviderFn,
-} from 'wagmi';
-import { Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
+import { Connector, configureChains, ChainProviderFn } from 'wagmi';
+import { Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 import { Provider } from '@wagmi/core';
 
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
@@ -16,17 +12,15 @@ import { infuraProvider } from 'wagmi/providers/infura';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
+let globalChains: Chain[];
 let globalAppName: string;
 let globalAppIcon: string;
+
 export const getAppName = () => globalAppName;
 export const getAppIcon = () => globalAppIcon;
+export const getGlobalChains = () => globalChains;
 
-const defaultChains = [
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-];
+const defaultChains = [mainnet, polygon, optimism, arbitrum];
 
 type DefaultConnectorsProps = {
   chains?: Chain[];
@@ -130,6 +124,8 @@ const defaultClient = ({
     chains: configuredChains,
     webSocketProvider: configuredWebSocketProvider,
   } = configureChains(chains, providers);
+
+  globalChains = configuredChains;
 
   const connectKitClient: ConnectKitClientProps = {
     autoConnect,

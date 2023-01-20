@@ -1,3 +1,10 @@
+# 1.1.2
+
+## New
+
+- Update to allow turning off the default targeted `chainId` to let wallets connect using their currently active chain.
+- - This can be done by setting `initialChainId` to `0` within the `getDefaultClient` helper function.
+- Update to chain handling to allow devs access to the configured chains using `getGlobalChains`.
 - Remove sunset ethhub.io links and replace with ethereum.org links.
 - New options for `ethereumOnboardingUrl` and `walletOnboardingUrl` to custom change the _Learn More_ and _About Wallets_ call to actions.
 

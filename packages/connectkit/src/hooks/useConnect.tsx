@@ -1,9 +1,9 @@
-import { useConnect as wagmiUseConnect, useNetwork } from 'wagmi';
+import { useConnect as wagmiUseConnect } from 'wagmi';
 import { useContext } from '../components/ConnectKit';
 
 export function useConnect() {
   const context = useContext();
-  const { chains } = useNetwork();
+
   const { connectAsync, connectors } = wagmiUseConnect({
     onError(err) {
       if (err.message) {
@@ -15,12 +15,14 @@ export function useConnect() {
       }
     },
   });
+
   return {
-    connectAsync: ({ ...props }) =>
-      connectAsync({
+    connectAsync: async ({ ...props }) => {
+      return await connectAsync({
         ...props,
-        chainId: context.options?.initialChainId ?? chains[0]?.id,
-      }),
+        chainId: context.options?.initialChainId,
+      });
+    },
     connectors,
   };
 }
