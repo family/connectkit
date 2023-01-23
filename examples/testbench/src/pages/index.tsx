@@ -23,6 +23,7 @@ import { BigNumber } from 'ethers';
 import Link from 'next/link';
 
 import CustomAvatar from '../components/CustomAvatar';
+import CustomSIWEButton from '../components/CustomSIWEButton';
 
 /** TODO: import this data from the connectkit module */
 const themes: SelectProps[] = [
@@ -210,6 +211,7 @@ const Home: NextPage = () => {
         <hr />
         <p>Sign In With Ethereum</p>
         <SIWEButton showSignOutButton />
+        <CustomSIWEButton />
 
         <hr />
         <AccountInfo />

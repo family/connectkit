@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SIWEContext } from './SIWEContext';
+import { SIWEContext, StatusState } from './SIWEContext';
 
 // Consumer-facing hook
 
@@ -13,15 +13,36 @@ export const useSIWE = () => {
     };
   }
 
-  const { session, nonce, signOutAndRefetch: signOut } = siweContextValue;
+  const {
+    session,
+    nonce,
+    signOutAndRefetch: signOut,
+    signIn,
+    status,
+  } = siweContextValue;
   const { address, chainId } = session.data || {};
+
+  const currentStatus = address
+    ? StatusState.SUCCESS
+    : session.isLoading || nonce.isLoading
+    ? StatusState.LOADING
+    : status;
+
+  const isLoading = currentStatus === StatusState.LOADING;
+  const isSuccess = currentStatus === StatusState.SUCCESS;
+  const isRejected = currentStatus === StatusState.REJECTED;
+  const isError = currentStatus === StatusState.ERROR;
+
+  const disabled = !address || nonce.isFetching || isLoading || isSuccess;
 
   return {
     address,
     chainId,
     signedIn: !!address,
+    signIn,
     signOut,
     session,
     nonce,
+    status: currentStatus,
   };
 };
