@@ -25,9 +25,9 @@ const CustomSIWEButton = () => {
         <button onClick={signIn} disabled={isLoading}>
           {isRejected
             ? 'Try Again'
-            : isReady
-            ? 'Sign In'
-            : 'Awaiting request...'}
+            : isLoading
+            ? 'Awaiting request...'
+            : 'Sign In'}
         </button>
       </>
     );

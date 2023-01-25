@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Button from '../../Common/Button';
 import { DisconnectIcon, RetryIcon } from '../../../assets/icons';
 import { ResetContainer } from '../../../styles';
@@ -23,7 +22,6 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   const {
     status,
     isSignedIn,
-    isReady,
     isLoading,
     isRejected,
     isSuccess,
@@ -44,9 +42,12 @@ export const SIWEButton: React.FC<ButtonProps> = ({
     return !connectedAddress ? locales.walletNotConnected : labels[state];
   }
 
-  useEffect(() => {
-    if (isSignedIn && onSignIn) onSignIn();
-  }, [isSignedIn, onSignIn]);
+  const handleSignIn = () => {
+    signIn().then((signedIn: any) => {
+      console.log('signedIn', signedIn);
+      if (signedIn && onSignIn) onSignIn();
+    });
+  };
 
   if (!isMounted) {
     return <Button key="loading" style={{ margin: 0 }} disabled />;
@@ -69,8 +70,8 @@ export const SIWEButton: React.FC<ButtonProps> = ({
     <Button
       key="button"
       style={{ margin: 0 }}
-      arrow={isSignedIn ? isReady : false}
-      onClick={!isLoading && !isSuccess ? signIn : undefined}
+      arrow={!isSignedIn ? !isLoading && !isRejected : false}
+      onClick={!isLoading && !isSuccess ? handleSignIn : undefined}
       disabled={isLoading}
       waiting={isLoading}
       icon={

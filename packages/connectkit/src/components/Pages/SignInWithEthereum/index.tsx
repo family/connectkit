@@ -35,7 +35,7 @@ const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
 
 const SignInWithEthereum: React.FC = () => {
   const context = useContext();
-  const { isSignedIn, reset, isRejected } = useSIWE();
+  const { isSignedIn, reset } = useSIWE();
   const mobile = isMobile();
 
   const [status, setStatus] = useState<'signedOut' | 'signedIn'>(
@@ -59,20 +59,16 @@ const SignInWithEthereum: React.FC = () => {
         };
 
   useEffect(() => {
-    if (isSignedIn) setStatus('signedIn');
+    if (isSignedIn) {
+      setStatus('signedIn');
+    } else {
+      reset();
+    }
   }, []);
 
   useEffect(() => {
     if (!isSignedIn) setStatus('signedOut');
   }, [isSignedIn]);
-
-  useEffect(() => {
-    if (isRejected) {
-      setTimeout(() => {
-        reset();
-      }, 2000);
-    }
-  }, [isRejected, reset]);
 
   const { address } = useAccount();
 
