@@ -1,5 +1,5 @@
 - Separate the SIWE helper functions into more friendlier client and server configurations.
-- Export `SIWEContent` and `SIWEConfig` to allow for better dev access to SIWE functionality
+- Improved the `useSIWE` hook to allow for better dev access to SIWE functionality.
 
 # 1.1.1
 
