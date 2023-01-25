@@ -22,7 +22,15 @@ type NextSIWESession<TSessionData extends Object = {}> = IronSession &
 
 type NextSIWEProviderProps = Omit<
   ComponentProps<typeof SIWEProvider>,
-  'getNonce' | 'createMessage' | 'verifyMessage' | 'getSession' | 'signOut'
+  | 'getNonce'
+  | 'createMessage'
+  | 'verifyMessage'
+  | 'getSession'
+  | 'signOut'
+  | 'data'
+  | 'signIn'
+  | 'status'
+  | 'resetStatus'
 >;
 
 type ConfigureServerSIWEResult<TSessionData extends Object = {}> = {
