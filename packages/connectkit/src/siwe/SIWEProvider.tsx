@@ -5,10 +5,6 @@ import { SIWEContext, SIWEConfig, StatusState } from './SIWEContext';
 
 type Props = SIWEConfig & {
   children: ReactNode;
-  signIn: any;
-  status: any;
-  resetStatus: any;
-  data: any;
 };
 
 export const SIWEProvider = ({
@@ -55,6 +51,7 @@ export const SIWEProvider = ({
     }
     await Promise.all([session.refetch(), nonce.refetch()]);
     setStatus(StatusState.READY);
+    return true;
   };
 
   const { address: connectedAddress } = useAccount({
@@ -117,9 +114,10 @@ export const SIWEProvider = ({
 
       await session.refetch();
       setStatus(StatusState.READY);
-      //onSignIn?.();
+      return true;
     } catch (error) {
       onError(error);
+      return false;
     }
   };
 
@@ -156,7 +154,7 @@ export const SIWEProvider = ({
         ...siweConfig,
         nonce,
         session,
-        signOutAndRefetch,
+        signOut: signOutAndRefetch,
         signIn,
         status,
         resetStatus,

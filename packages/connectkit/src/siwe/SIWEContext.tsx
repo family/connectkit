@@ -1,10 +1,6 @@
 import { createContext } from 'react';
-import { useQuery } from 'wagmi';
+//import { useQuery } from 'wagmi';
 
-export type SIWESession = {
-  address: string;
-  chainId: number;
-};
 export enum StatusState {
   READY = 'ready',
   LOADING = 'loading',
@@ -13,22 +9,10 @@ export enum StatusState {
   ERROR = 'error',
 }
 
-type SIWEProps = {
-  isSignedIn: boolean;
-  data?: SIWESession;
-  status: StatusState;
-  isReady: boolean;
-  isSuccess: boolean;
-  isLoading: boolean;
-  isRejected: boolean;
-  isError: boolean;
-  error?: any;
-  resetStatus: () => void;
+export type SIWESession = {
+  address: string;
+  chainId: number;
 };
-/*
-  signIn: () => Promise<void>;
-} & SIWEProps & {
-*/
 
 export type SIWEConfig = {
   // Required
@@ -58,9 +42,8 @@ export type SIWEContextValue = Required<SIWEConfig> & {
   // TODO: switch to exported type once wagmi is updated
   nonce: any; //ReturnType<typeof useQuery<string | null>>;
   session: any; //ReturnType<typeof useQuery<SIWESession | null>>;
-  signOutAndRefetch: () => Promise<void>;
-  signIn: () => Promise<void>;
   status: StatusState;
+  signIn: () => Promise<boolean>;
   resetStatus: () => void;
 };
 
