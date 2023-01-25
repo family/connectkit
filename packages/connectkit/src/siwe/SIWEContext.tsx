@@ -13,21 +13,22 @@ export enum StatusState {
   ERROR = 'error',
 }
 
-type SIWEProps =
-  | {
-      isSignedIn: boolean;
-      data?: SIWESession;
-      status: StatusState;
-      isReady: boolean;
-      isSuccess: boolean;
-      isLoading: boolean;
-      isRejected: boolean;
-      isError: boolean;
-      error?: any;
-      signOut: () => Promise<void>;
-      signIn: () => Promise<void>;
-    }
-  | { isSignedIn: false };
+type SIWEProps = {
+  isSignedIn: boolean;
+  data?: SIWESession;
+  status: StatusState;
+  isReady: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  isRejected: boolean;
+  isError: boolean;
+  error?: any;
+  resetStatus: () => void;
+};
+/*
+  signIn: () => Promise<void>;
+} & SIWEProps & {
+*/
 
 export type SIWEConfig = {
   // Required
@@ -43,11 +44,6 @@ export type SIWEConfig = {
   }) => Promise<boolean>;
   getSession: () => Promise<SIWESession | null>;
   signOut: () => Promise<boolean>;
-  signIn: () => Promise<void>;
-
-  status: StatusState;
-  resetStatus: () => void;
-  data: SIWESession | null;
 
   // Optional, we have default values but they can be overridden
   enabled?: boolean;
@@ -60,9 +56,12 @@ export type SIWEConfig = {
 
 export type SIWEContextValue = Required<SIWEConfig> & {
   // TODO: switch to exported type once wagmi is updated
-  nonce: ReturnType<typeof useQuery<string | null>>;
-  session: ReturnType<typeof useQuery<SIWESession | null>>;
+  nonce: any; //ReturnType<typeof useQuery<string | null>>;
+  session: any; //ReturnType<typeof useQuery<SIWESession | null>>;
   signOutAndRefetch: () => Promise<void>;
+  signIn: () => Promise<void>;
+  status: StatusState;
+  resetStatus: () => void;
 };
 
 export const SIWEContext = createContext<SIWEContextValue | null>(null);

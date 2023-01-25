@@ -5,6 +5,10 @@ import { SIWEContext, SIWEConfig, StatusState } from './SIWEContext';
 
 type Props = SIWEConfig & {
   children: ReactNode;
+  signIn: any;
+  status: any;
+  resetStatus: any;
+  data: any;
 };
 
 export const SIWEProvider = ({
