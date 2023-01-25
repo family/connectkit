@@ -39,7 +39,7 @@ import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 import { AuthIcon } from '../../../assets/icons';
-import { useSIWE } from '../../..';
+import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
 

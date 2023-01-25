@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 import Button from '../../Common/Button';
 import { DisconnectIcon, RetryIcon } from '../../../assets/icons';
-import { SIWEContext } from './SIWEContext';
 import { ResetContainer } from '../../../styles';
 import { motion } from 'framer-motion';
 import useIsMounted from '../../../hooks/useIsMounted';
 import useLocales from '../../../hooks/useLocales';
-import { useSIWE } from './useSIWE';
+import { useSIWE, SIWEContext } from './../../../siwe';
 import { useAccount } from 'wagmi';
 
 type ButtonProps = {
@@ -24,7 +23,13 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   const locales = useLocales();
 
   const { address: connectedAddress } = useAccount();
-  const { signedIn, address, signOut, signIn, status } = useSIWE();
+  const { data, status, signOut, signIn } = useSIWE();
+
+  const isSignedIn = data?.address;
+  const isLoading = status === 'loading';
+  const isRejected = status === 'rejected';
+  const isSuccess = status === 'success';
+  const isReady = status === 'ready';
 
   function getButtonLabel(state) {
     const labels = {
@@ -45,7 +50,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   if (!isMounted)
     return <Button key="loading" style={{ margin: 0 }} disabled />;
 
-  if (showSignOutButton && signedIn) {
+  if (showSignOutButton && isSignedIn) {
     return (
       <Button
         key="button"
@@ -58,17 +63,12 @@ export const SIWEButton: React.FC<ButtonProps> = ({
     );
   }
 
-  const isLoading = status === 'loading';
-  const isRejected = status === 'rejected';
-  const isSuccess = status === 'success';
-  const isReady = status === 'ready';
-
   return (
     <Button
       key="button"
       style={{ margin: 0 }}
-      arrow={address ? status === 'ready' : false}
-      onClick={status !== 'loading' && 'success' ? signIn : undefined}
+      arrow={isSignedIn ? isReady : false}
+      onClick={!isLoading && !isSuccess ? signIn : undefined}
       disabled={isLoading}
       waiting={isLoading}
       icon={

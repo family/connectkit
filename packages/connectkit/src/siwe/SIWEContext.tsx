@@ -13,6 +13,22 @@ export enum StatusState {
   ERROR = 'error',
 }
 
+type SIWEProps =
+  | {
+      signedIn: boolean;
+      data?: SIWESession;
+      status: StatusState;
+      isReady: boolean;
+      isSuccess: boolean;
+      isLoading: boolean;
+      isRejected: boolean;
+      isError: boolean;
+      error?: any;
+      signOut: () => Promise<void>;
+      signIn: () => Promise<void>;
+    }
+  | { signedIn: false };
+
 export type SIWEConfig = {
   // Required
   getNonce: () => Promise<string>;
@@ -28,6 +44,11 @@ export type SIWEConfig = {
   getSession: () => Promise<SIWESession | null>;
   signOut: () => Promise<boolean>;
   signIn: () => Promise<void>;
+
+  status: StatusState;
+  resetStatus: () => void;
+  data: SIWESession | null;
+
   // Optional, we have default values but they can be overridden
   enabled?: boolean;
   nonceRefetchInterval?: number;
@@ -35,7 +56,6 @@ export type SIWEConfig = {
   signOutOnDisconnect?: boolean;
   signOutOnAccountChange?: boolean;
   signOutOnNetworkChange?: boolean;
-  status: StatusState;
 };
 
 export type SIWEContextValue = Required<SIWEConfig> & {
@@ -43,7 +63,6 @@ export type SIWEContextValue = Required<SIWEConfig> & {
   nonce: ReturnType<typeof useQuery<string | null>>;
   session: ReturnType<typeof useQuery<SIWESession | null>>;
   signOutAndRefetch: () => Promise<void>;
-  signIn: () => Promise<void>;
 };
 
 export const SIWEContext = createContext<SIWEContextValue | null>(null);

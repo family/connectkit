@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { SIWEContext, StatusState } from './SIWEContext';
 
 // Consumer-facing hook
-
 export const useSIWE = () => {
   const siweContextValue = useContext(SIWEContext);
   if (!siweContextValue) {
@@ -19,6 +18,7 @@ export const useSIWE = () => {
     signOutAndRefetch: signOut,
     signIn,
     status,
+    resetStatus,
   } = siweContextValue;
   const { address, chainId } = session.data || {};
 
@@ -32,17 +32,27 @@ export const useSIWE = () => {
   const isSuccess = currentStatus === StatusState.SUCCESS;
   const isRejected = currentStatus === StatusState.REJECTED;
   const isError = currentStatus === StatusState.ERROR;
+  const isReady = !address || nonce.isFetching || isLoading || isSuccess;
 
-  const disabled = !address || nonce.isFetching || isLoading || isSuccess;
+  const reset = () => resetStatus();
 
   return {
-    address,
-    chainId,
     signedIn: !!address,
+    data: !!address
+      ? {
+          address: address as string,
+          chainId: chainId as number,
+        }
+      : undefined,
+    status: currentStatus,
+    error: session.error || nonce.error,
+    isRejected,
+    isError,
+    isLoading,
+    isSuccess,
+    isReady,
     signIn,
     signOut,
-    session,
-    nonce,
-    status: currentStatus,
+    reset,
   };
 };

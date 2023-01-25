@@ -16,7 +16,7 @@ import { Balance } from '../BalanceButton';
 import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
 import { ResetContainer } from '../../styles';
 import { AuthIcon } from '../../assets/icons';
-import { useSIWE } from '../Standard/SIWE/useSIWE';
+import { useSIWE } from '../../siwe';
 import useLocales from '../../hooks/useLocales';
 
 const contentVariants: Variants = {

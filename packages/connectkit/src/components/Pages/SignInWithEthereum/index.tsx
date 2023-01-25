@@ -17,7 +17,7 @@ import {
 
 import { useAccount } from 'wagmi';
 import { SIWEButton } from '../../Standard/SIWE';
-import { useSIWE } from '../../Standard/SIWE/useSIWE';
+import { useSIWE } from '../../../siwe';
 
 import { TickIcon } from '../../../assets/icons';
 import Chains from '../../../assets/chains';
@@ -35,7 +35,7 @@ const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
 
 const SignInWithEthereum: React.FC = () => {
   const context = useContext();
-  const { signedIn } = useSIWE();
+  const { signedIn, reset, isRejected } = useSIWE();
   const mobile = isMobile();
 
   const [status, setStatus] = useState<'signedOut' | 'signedIn'>(
@@ -65,6 +65,14 @@ const SignInWithEthereum: React.FC = () => {
   useEffect(() => {
     if (!signedIn) setStatus('signedOut');
   }, [signedIn]);
+
+  useEffect(() => {
+    if (isRejected) {
+      setTimeout(() => {
+        reset();
+      }, 2000);
+    }
+  }, [isRejected, reset]);
 
   const { address } = useAccount();
 

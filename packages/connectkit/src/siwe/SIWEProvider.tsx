@@ -1,6 +1,6 @@
 import { ReactNode, useContext, useEffect, useState } from 'react';
 import { useAccount, useQuery, useNetwork, useSignMessage } from 'wagmi';
-import { Context as ConnectKitContext } from '../../ConnectKit';
+import { Context as ConnectKitContext } from './../components/ConnectKit';
 import { SIWEContext, SIWEConfig, StatusState } from './SIWEContext';
 
 type Props = SIWEConfig & {
@@ -18,6 +18,7 @@ export const SIWEProvider = ({
   ...siweConfig
 }: Props) => {
   const [status, setStatus] = useState<StatusState>(StatusState.READY);
+  const resetStatus = () => setStatus(StatusState.READY);
 
   // Only allow for mounting SIWEProvider once, so we avoid weird global state
   // collisions.
@@ -79,7 +80,6 @@ export const SIWEProvider = ({
   };
 
   const signIn = async () => {
-    setStatus(StatusState.LOADING);
     try {
       if (!siweConfig) {
         throw new Error('SIWE not configured');
@@ -117,7 +117,6 @@ export const SIWEProvider = ({
     } catch (error) {
       onError(error);
     }
-    setStatus(StatusState.READY);
   };
 
   useEffect(() => {
@@ -156,6 +155,7 @@ export const SIWEProvider = ({
         signOutAndRefetch,
         signIn,
         status,
+        resetStatus,
       }}
     >
       {children}

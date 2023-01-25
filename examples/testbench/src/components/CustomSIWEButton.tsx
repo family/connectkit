@@ -3,28 +3,38 @@ import { useAccount } from 'wagmi';
 
 const CustomSIWEButton = () => {
   const { setOpen } = useModal();
-  const { signedIn, address, chainId, signOut, signIn, status } = useSIWE();
+  const { data, isReady, isRejected, isLoading, signOut, signIn } = useSIWE();
   const { isConnected } = useAccount();
 
+  const signedIn = data?.address;
+
+  /** Wallet is connected and signed in */
   if (signedIn) {
     return (
       <>
-        <div>Address: {address}</div>
-        <div>ChainId: {chainId}</div>
+        <div>Address: {data?.address}</div>
+        <div>ChainId: {data?.chainId}</div>
         <button onClick={signOut}>Sign Out</button>
       </>
     );
   }
 
+  /** Wallet is connected, but not signed in */
   if (isConnected) {
     return (
       <>
-        <button onClick={signIn} disabled={status !== 'ready'}>
-          {status === 'ready' ? 'Sign In' : 'Awaiting request...'}
+        <button onClick={signIn} disabled={isLoading}>
+          {isRejected
+            ? 'Try Again'
+            : isReady
+            ? 'Sign In'
+            : 'Awaiting request...'}
         </button>
       </>
     );
   }
+
+  /** A wallet needs to be connected first */
   return (
     <>
       <button onClick={() => setOpen(true)}>Connect Wallet</button>
