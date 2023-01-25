@@ -1,12 +1,9 @@
 import { useContext } from 'react';
-import { SIWEContext, StatusState } from './SIWEContext';
+import { SIWEContext, StatusState, SIWESession } from './SIWEContext';
 
-type Props = {
+type HookProps = {
   isSignedIn: boolean;
-  data?: {
-    address: string;
-    chainId: number;
-  };
+  data?: SIWESession;
   status: StatusState;
   error?: Error | any;
   isRejected: boolean;
@@ -15,13 +12,13 @@ type Props = {
   isSuccess: boolean;
   isReady: boolean;
 
-  signIn: () => Promise<void>;
-  signOut: () => Promise<void>;
+  signIn: () => Promise<boolean>;
+  signOut: () => Promise<boolean>;
   reset: () => void;
 };
 
 // Consumer-facing hook
-export const useSIWE = (): Props => {
+export const useSIWE = (): HookProps | any => {
   const siweContextValue = useContext(SIWEContext);
   if (!siweContextValue) {
     // If we throw an error here then this will break non-SIWE apps, so best to just respond with not signed in.
@@ -42,14 +39,8 @@ export const useSIWE = (): Props => {
     };
   }
 
-  const {
-    session,
-    nonce,
-    signOutAndRefetch: signOut,
-    signIn,
-    status,
-    resetStatus,
-  } = siweContextValue;
+  const { session, nonce, signOut, signIn, status, resetStatus } =
+    siweContextValue;
   const { address, chainId } = session.data || {};
 
   const currentStatus = address
