@@ -1,5 +1,9 @@
-import { WalletProps, WalletOptions } from './../wallet';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import {
+  WalletProps,
+  WalletOptions,
+  getDefaultWalletConnectConnector,
+  getProviderUri,
+} from './../wallet';
 
 import Logos from './../../assets/logos';
 
@@ -19,23 +23,18 @@ export const imToken = ({ chains }: WalletOptions): WalletProps => {
       ios: 'https://itunes.apple.com/us/app/imtoken2/id1384798940',
     },
     createConnector: () => {
-      const connector = new WalletConnectConnector({
-        chains,
-        options: {
-          qrcode: false,
-        },
-      });
+      const connector = getDefaultWalletConnectConnector(chains);
 
       return {
         connector,
         mobile: {
           getUri: async () => {
-            const { uri } = (await connector.getProvider()).connector;
+            const uri = await getProviderUri(connector);
             return `imtokenv2://wc?uri=${encodeURIComponent(uri)}`;
           },
         },
         qrCode: {
-          getUri: async () => (await connector.getProvider()).connector.uri,
+          getUri: async () => await getProviderUri(connector),
         },
       };
     },

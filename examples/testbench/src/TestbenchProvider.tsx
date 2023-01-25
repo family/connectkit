@@ -50,6 +50,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
     disclaimer: null,
     bufferPolyfill: true,
     walletConnectCTA: 'modal',
+    //initialChainId: 0,
   },
 }) => {
   const [ckCustomTheme, setCustomTheme] = useState<Types.Theme>(customTheme);

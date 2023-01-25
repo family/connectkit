@@ -50,17 +50,70 @@ const ConnectWithQRCode: React.FC<{
     return false;
   }
 
+  async function connectWalletConnect(connector: any) {
+    if (connector.options?.version === '1') {
+      connector.on('message', async (e) => {
+        //@ts-ignore
+        const p = await connector.getProvider();
+        setConnectorUri(p.connector.uri);
+
+        // User rejected, regenerate QR code
+        p.connector.on('disconnect', () => {
+          connectWallet(connector);
+        });
+      });
+      try {
+        await connectWallet(connector);
+      } catch (err) {
+        context.debug(
+          <>WalletConnect cannot connect. See console for more details.</>,
+          err
+        );
+      }
+    } else {
+      connector.on('message', async (e) => {
+        const p = await connector.getProvider();
+        setConnectorUri(p.uri);
+        console.log(p.uri);
+
+        // User rejected, regenerate QR code
+        connector.on('disconnect', () => {
+          console.log('disconnect');
+        });
+        connector.on('error', () => {
+          console.log('disconnect');
+        });
+      });
+
+      try {
+        await connectWallet(connector);
+      } catch (error: any) {
+        if (error.code) {
+          switch (error.code) {
+            case 4001:
+              console.error('User rejected');
+              connectWalletConnect(connector); // Regenerate QR code
+              break;
+            default:
+              console.error('Unknown error');
+              break;
+          }
+        } else {
+          // Sometimes the error doesn't respond with a code
+          context.debug(
+            <>WalletConnect cannot connect. See console for more details.</>,
+            error
+          );
+        }
+      }
+    }
+  }
+
   const startConnect = async () => {
     const c = connectors.filter((c) => c.id === id)[0];
     if (!c || connectorUri) return;
 
     switch (c.id) {
-      case 'injected':
-        // Shouldn't get to this flow, injected is not scannable
-        break;
-      case 'metaMask':
-        // Shouldn't get to this flow, injected is not scannable
-        break;
       case 'coinbaseWallet':
         c.on('message', async (e) => {
           const p = await c.getProvider();
@@ -88,33 +141,19 @@ const ConnectWithQRCode: React.FC<{
         }
         break;
       case 'walletConnect':
-        c.on('message', async (e) => {
-          //@ts-ignore
-          const p = await c.getProvider();
-          setConnectorUri(p.connector.uri);
-
-          // User rejected, regenerate QR code
-          p.connector.on('disconnect', () => {
-            connectWallet(c);
-          });
-        });
-        try {
-          await connectWallet(c);
-        } catch (err) {
-          context.debug(
-            <>WalletConnect cannot connect. See console for more details.</>,
-            err
-          );
-        }
+        connectWalletConnect(c);
         break;
     }
   };
 
+  const [defaultModalOpen, setDefaultModalOpen] = useState(false);
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
   const openDefaultConnect = async () => {
     const c = connectors.filter((c) => c.id === id)[0];
     if (c.id === 'walletConnect') {
-      openDefaultWalletConnect();
+      setDefaultModalOpen(true);
+      await openDefaultWalletConnect();
+      setDefaultModalOpen(false);
     } else {
     }
   };
@@ -206,7 +245,11 @@ const ConnectWithQRCode: React.FC<{
             </CopyToClipboard>
           )}
           {context.options?.walletConnectCTA !== 'link' && (
-            <Button icon={<ExternalLinkIcon />} onClick={openDefaultConnect}>
+            <Button
+              icon={<ExternalLinkIcon />}
+              onClick={openDefaultConnect}
+              waiting={defaultModalOpen}
+            >
               {context.options?.walletConnectCTA === 'modal'
                 ? locales.useWalletConnectModal
                 : locales.useModal}

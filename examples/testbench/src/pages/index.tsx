@@ -6,6 +6,7 @@ import {
   useSIWE,
   SIWEButton,
   ChainIcon,
+  getGlobalChains,
 } from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
@@ -199,6 +200,7 @@ const Home: NextPage = () => {
   useEffect(() => setMounted(true), []);
 
   const { chain } = useNetwork();
+  const chains = getGlobalChains();
 
   if (!mounted) return null;
 
@@ -235,6 +237,12 @@ const Home: NextPage = () => {
           <ChainIcon id={1} />
           <ChainIcon id={1337} />
           <ChainIcon id={2} unsupported />
+        </div>
+        <p>Supported Chains</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {chains.map((chain) => (
+            <ChainIcon key={chain.id} id={chain.id} />
+          ))}
         </div>
       </main>
       <aside>

@@ -1,5 +1,9 @@
-import { WalletProps, WalletOptions } from './../wallet';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import {
+  WalletProps,
+  WalletOptions,
+  getDefaultWalletConnectConnector,
+  getProviderUri,
+} from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
@@ -22,18 +26,13 @@ export const slope = ({ chains }: WalletOptions): WalletProps => {
       website: 'https://slope.finance/',
     },
     createConnector: () => {
-      const connector = new WalletConnectConnector({
-        chains,
-        options: {
-          qrcode: false,
-        },
-      });
+      const connector = getDefaultWalletConnectConnector(chains);
 
       return {
         connector,
         mobile: {
           getUri: async () => {
-            const { uri } = (await connector.getProvider()).connector;
+            const uri = await getProviderUri(connector);
 
             return isAndroid()
               ? uri
@@ -41,7 +40,7 @@ export const slope = ({ chains }: WalletOptions): WalletProps => {
           },
         },
         qrCode: {
-          getUri: async () => (await connector.getProvider()).connector.uri,
+          getUri: async () => await getProviderUri(connector),
         },
       };
     },

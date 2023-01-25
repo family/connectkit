@@ -1,5 +1,6 @@
 export * as Types from './types';
-export { default as getDefaultClient } from './defaultClient';
+export { default as getDefaultClient, getGlobalChains } from './defaultClient';
+
 export { useModal } from './components/ConnectKit';
 export { SIWEProvider, useSIWE, SIWEConfig } from './siwe';
 

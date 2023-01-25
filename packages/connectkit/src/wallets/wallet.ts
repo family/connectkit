@@ -3,6 +3,7 @@ import { Chain } from 'wagmi';
 import { walletConnect } from './connectors/walletConnect';
 import { metaMask } from './connectors/metaMask';
 import { coinbaseWallet } from './connectors/coinbaseWallet';
+import { WalletConnectConnector } from '@wagmi/core/connectors/walletConnect';
 
 export type WalletOptions = {
   chains: Chain[];
@@ -42,4 +43,19 @@ export const getDefaultConnectors = (chains: Chain[], appName: string) => {
   return connectors.map((c: any) => {
     return { ...c.createConnector(), ...c };
   });
+};
+
+export const getDefaultWalletConnectConnector = (chains: Chain[]) => {
+  return new WalletConnectConnector({
+    chains,
+    options: {
+      qrcode: false,
+      version: '1',
+    },
+  });
+};
+
+export const getProviderUri = async (connector: any) => {
+  const provider: any = await connector.getProvider();
+  return provider.connector.uri;
 };
