@@ -64,8 +64,8 @@ const AccountInfo = () => {
       <li>Connector: {connector?.id}</li>
       <li>Balance: {balanceData?.formatted}</li>
       <li>
-        SIWE session: {siwe.signedIn ? 'yes' : 'no'}
-        {siwe.signedIn && <button onClick={siwe.signOut}>sign out</button>}
+        SIWE session: {siwe.isSignedIn ? 'yes' : 'no'}
+        {siwe.isSignedIn && <button onClick={siwe.signOut}>sign out</button>}
       </li>
       <li>
         <Link href="/siwe/token-gated">Token-gated page</Link>

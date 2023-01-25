@@ -35,11 +35,11 @@ const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
 
 const SignInWithEthereum: React.FC = () => {
   const context = useContext();
-  const { signedIn, reset, isRejected } = useSIWE();
+  const { isSignedIn, reset, isRejected } = useSIWE();
   const mobile = isMobile();
 
   const [status, setStatus] = useState<'signedOut' | 'signedIn'>(
-    signedIn ? 'signedIn' : 'signedOut'
+    isSignedIn ? 'signedIn' : 'signedOut'
   );
 
   const locales = useLocales({});
@@ -59,12 +59,12 @@ const SignInWithEthereum: React.FC = () => {
         };
 
   useEffect(() => {
-    if (signedIn) setStatus('signedIn');
+    if (isSignedIn) setStatus('signedIn');
   }, []);
 
   useEffect(() => {
-    if (!signedIn) setStatus('signedOut');
-  }, [signedIn]);
+    if (!isSignedIn) setStatus('signedOut');
+  }, [isSignedIn]);
 
   useEffect(() => {
     if (isRejected) {
@@ -121,7 +121,7 @@ const SignInWithEthereum: React.FC = () => {
             </motion.div>
           </AnimatePresence>
         </ContentContainer>
-        <StatusGraphic $connected={signedIn} key="status">
+        <StatusGraphic $connected={isSignedIn} key="status">
           <div style={{ position: 'absolute', inset: 0 }}>
             <StatusGraphicBgSvg
               width="262"

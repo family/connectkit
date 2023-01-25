@@ -23,13 +23,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   const locales = useLocales();
 
   const { address: connectedAddress } = useAccount();
-  const { data, status, signOut, signIn } = useSIWE();
-
-  const isSignedIn = data?.address;
-  const isLoading = status === 'loading';
-  const isRejected = status === 'rejected';
-  const isSuccess = status === 'success';
-  const isReady = status === 'ready';
+  const siwe = useSIWE();
 
   function getButtonLabel(state) {
     const labels = {
@@ -50,12 +44,12 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   if (!isMounted)
     return <Button key="loading" style={{ margin: 0 }} disabled />;
 
-  if (showSignOutButton && isSignedIn) {
+  if (showSignOutButton && siwe.isSignedIn) {
     return (
       <Button
         key="button"
         style={{ margin: 0 }}
-        onClick={signOut}
+        onClick={siwe.signOut}
         icon={<DisconnectIcon />}
       >
         {locales.signOut}
@@ -67,12 +61,12 @@ export const SIWEButton: React.FC<ButtonProps> = ({
     <Button
       key="button"
       style={{ margin: 0 }}
-      arrow={isSignedIn ? isReady : false}
-      onClick={!isLoading && !isSuccess ? signIn : undefined}
-      disabled={isLoading}
-      waiting={isLoading}
+      arrow={siwe.isSignedIn ? siwe.isReady : false}
+      onClick={!siwe.isLoading && !siwe.isSuccess ? siwe.signIn : undefined}
+      disabled={siwe.isLoading}
+      waiting={siwe.isLoading}
       icon={
-        isRejected && (
+        siwe.isRejected && (
           <motion.div
             initial={{
               rotate: -270,
@@ -90,7 +84,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
         )
       }
     >
-      {getButtonLabel(status)}
+      {getButtonLabel(siwe.status)}
     </Button>
   );
 };

@@ -163,7 +163,7 @@ function ConnectKitButtonInner({
 }) {
   const locales = useLocales({});
   const context = useContext();
-  const { signedIn } = useSIWE();
+  const { isSignedIn } = useSIWE();
 
   const { address } = useAccount();
   const { data: ensName } = useEnsName({
@@ -190,7 +190,7 @@ function ConnectKitButtonInner({
           {showAvatar && (
             <IconContainer>
               <AnimatePresence initial={false}>
-                {signedIn && (
+                {isSignedIn && (
                   <motion.div
                     style={{
                       zIndex: 2,

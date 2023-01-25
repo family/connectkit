@@ -207,7 +207,7 @@ const Modal: React.FC<ModalProps> = ({
   const context = useContext();
   const themeContext = useThemeContext();
   const mobile = isMobile();
-  const { signedIn } = useSIWE();
+  const { isSignedIn } = useSIWE();
 
   const connector = supportedConnectors.find((x) => x.id === context.connector);
   const locales = useLocales({
@@ -285,7 +285,7 @@ const Modal: React.FC<ModalProps> = ({
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [chain, switchNetwork, mobile, signedIn, context.options]);
+  }, [chain, switchNetwork, mobile, isSignedIn, context.options]);
 
   useEffect(() => {
     if (!mounted) {
@@ -346,7 +346,7 @@ const Modal: React.FC<ModalProps> = ({
       case routes.SWITCHNETWORKS:
         return locales.switchNetworkScreen_heading;
       case routes.SIGNINWITHETHEREUM:
-        return signedIn
+        return isSignedIn
           ? locales.signInWithEthereumScreen_signedIn_heading
           : locales.signInWithEthereumScreen_signedOut_heading;
       default:
@@ -470,7 +470,7 @@ const Modal: React.FC<ModalProps> = ({
                   ) : context.route === routes.PROFILE &&
                     context.signInWithEthereum ? (
                     <>
-                      {!signedIn && (
+                      {!isSignedIn && (
                         <motion.div
                           style={{
                             position: 'absolute',
@@ -514,7 +514,7 @@ const Modal: React.FC<ModalProps> = ({
                           delay: mobile ? 0.01 : 0,
                         }}
                       >
-                        <ProfileIcon signedIn={!!signedIn} />
+                        <ProfileIcon signedIn={!!isSignedIn} />
                       </SiweButton>
                     </>
                   ) : (
@@ -554,7 +554,7 @@ const Modal: React.FC<ModalProps> = ({
                     //alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  key={`${context.route}-${signedIn ? 'signedIn' : ''}`}
+                  key={`${context.route}-${isSignedIn ? 'signedIn' : ''}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

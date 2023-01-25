@@ -15,7 +15,7 @@ export enum StatusState {
 
 type SIWEProps =
   | {
-      signedIn: boolean;
+      isSignedIn: boolean;
       data?: SIWESession;
       status: StatusState;
       isReady: boolean;
@@ -27,7 +27,7 @@ type SIWEProps =
       signOut: () => Promise<void>;
       signIn: () => Promise<void>;
     }
-  | { signedIn: false };
+  | { isSignedIn: false };
 
 export type SIWEConfig = {
   // Required

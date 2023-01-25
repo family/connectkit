@@ -1,14 +1,44 @@
 import { useContext } from 'react';
 import { SIWEContext, StatusState } from './SIWEContext';
 
+type Props = {
+  isSignedIn: boolean;
+  data?: {
+    address: string;
+    chainId: number;
+  };
+  status: StatusState;
+  error?: Error | any;
+  isRejected: boolean;
+  isError: boolean;
+  isLoading: boolean;
+  isSuccess: boolean;
+  isReady: boolean;
+
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
+  reset: () => void;
+};
+
 // Consumer-facing hook
-export const useSIWE = () => {
+export const useSIWE = (): Props => {
   const siweContextValue = useContext(SIWEContext);
   if (!siweContextValue) {
     // If we throw an error here then this will break non-SIWE apps, so best to just respond with not signed in.
     //throw new Error('useSIWE hook must be inside a SIWEProvider.');
     return {
-      signedIn: false,
+      isSignedIn: false,
+      data: undefined,
+      status: StatusState.ERROR,
+      error: new Error('useSIWE hook must be inside a SIWEProvider.'),
+      isRejected: false,
+      isError: true,
+      isLoading: false,
+      isSuccess: false,
+      isReady: false,
+      signIn: () => Promise.reject(),
+      signOut: () => Promise.reject(),
+      reset: () => {},
     };
   }
 
@@ -37,7 +67,7 @@ export const useSIWE = () => {
   const reset = () => resetStatus();
 
   return {
-    signedIn: !!address,
+    isSignedIn: !!address,
     data: !!address
       ? {
           address: address as string,

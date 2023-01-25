@@ -3,13 +3,12 @@ import { useAccount } from 'wagmi';
 
 const CustomSIWEButton = () => {
   const { setOpen } = useModal();
-  const { data, isReady, isRejected, isLoading, signOut, signIn } = useSIWE();
+  const { data, isReady, isRejected, isLoading, isSignedIn, signOut, signIn } =
+    useSIWE();
   const { isConnected } = useAccount();
 
-  const signedIn = data?.address;
-
   /** Wallet is connected and signed in */
-  if (signedIn) {
+  if (isSignedIn) {
     return (
       <>
         <div>Address: {data?.address}</div>
