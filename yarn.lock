@@ -1773,6 +1773,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cloudnouns/kit@npm:^1.1.6":
+  version: 1.1.6
+  resolution: "@cloudnouns/kit@npm:1.1.6"
+  dependencies:
+    "@ethersproject/bignumber": ^5.7.0
+    "@ethersproject/solidity": ^5.7.0
+    jshashes: ^1.0.8
+  checksum: 2d5f2906c415886fba7975d119168fb4adf1fd069497c3deb48fc41cab2d7f67974bee17392ac7f318743a747b4e6b183b28ef8822a414bc2a33cc8c431f9e1f
+  languageName: node
+  linkType: hard
+
 "@coinbase/wallet-sdk@npm:^3.5.4":
   version: 3.6.3
   resolution: "@coinbase/wallet-sdk@npm:3.6.3"
@@ -2374,7 +2385,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/solidity@npm:5.7.0":
+"@ethersproject/solidity@npm:5.7.0, @ethersproject/solidity@npm:^5.7.0":
   version: 5.7.0
   resolution: "@ethersproject/solidity@npm:5.7.0"
   dependencies:
@@ -9665,6 +9676,7 @@ __metadata:
   resolution: "family-connectkit@workspace:."
   dependencies:
     "@changesets/cli": ^2.24.4
+    "@cloudnouns/kit": ^1.1.6
     "@rollup/plugin-node-resolve": ^13.1.3
     ethers: ^5.6.5
     react: ^18.0.0
@@ -12110,6 +12122,15 @@ __metadata:
   bin:
     jsesc: bin/jsesc
   checksum: b8b44cbfc92f198ad972fba706ee6a1dfa7485321ee8c0b25f5cedd538dcb20cde3197de16a7265430fce8277a12db066219369e3d51055038946039f6e20e17
+  languageName: node
+  linkType: hard
+
+"jshashes@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "jshashes@npm:1.0.8"
+  bin:
+    hashes: ./bin/hashes
+  checksum: 2fed89dc082a545d9dcdd38afb58aa7c74830cfdabcc836c9b4c52445d70f0217c4d2a4d42e6bbdb06f31bac3d1df385daff6beabbcc297a8ff5cca8f11c0bd1
   languageName: node
   linkType: hard
 

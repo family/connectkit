@@ -22,6 +22,7 @@ import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
 import { SIWEContext } from './Standard/SIWE/SIWEContext';
 import { getGlobalChains } from '../defaultClient';
+import { FallbackAvatar } from './Common/Avatar';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -75,6 +76,7 @@ type ConnectKitOptions = {
   disclaimer?: ReactNode | string;
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
+  fallbackAvatar?: FallbackAvatar;
   initialChainId?: number;
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;

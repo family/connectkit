@@ -1,6 +1,8 @@
 import styled from './../../../styles/styled';
 import { css } from 'styled-components';
 import { motion } from 'framer-motion';
+import { FallbackAvatar } from '.';
+import { NounFactory } from '@cloudnouns/kit';
 
 function addressToNumber(address: string) {
   return (
@@ -17,6 +19,7 @@ export const EnsAvatar = styled(motion.div)<{
   $seed?: string;
   $size?: number;
   $radius?: number;
+  $fallback?: FallbackAvatar;
 }>`
   will-change: transform; // Needed for Safari
   pointer-events: none;
@@ -37,6 +40,19 @@ export const EnsAvatar = styled(motion.div)<{
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
   }
   ${(props) => {
+    if (props.$fallback === 'noun') {
+      const noun = NounFactory.createFromString(props.$seed, {
+        size: 256,
+      });
+
+      return css`
+        background-image: url(${noun.url});
+        background-color: ${noun.background};
+        background-position: center;
+        background-size: cover;
+      `;
+    }
+
     if (props.$seed) {
       const id = Math.ceil(addressToNumber(props.$seed) * 8);
       const ensColor = `0${id === 0 ? 1 : id}`; // No zero ID in ENS color list.. 🤷‍♀️

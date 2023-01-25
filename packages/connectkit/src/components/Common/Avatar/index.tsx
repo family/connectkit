@@ -9,6 +9,8 @@ import useIsMounted from '../../../hooks/useIsMounted';
 
 type Hash = `0x${string}`;
 
+export type FallbackAvatar = 'gradient' | 'noun';
+
 export type CustomAvatarProps = {
   address?: Hash | undefined;
   ensName?: string | undefined;
@@ -48,6 +50,8 @@ const Avatar: React.FC<{
     avatar: ensAvatar ?? undefined,
   };
 
+  const fallbackAvatar = context.options?.fallbackAvatar;
+
   useEffect(() => {
     if (
       !(
@@ -86,12 +90,23 @@ const Avatar: React.FC<{
   if (!ens.name || !ens.avatar)
     return (
       <ResetContainer style={{ pointerEvents: 'none' }}>
-        <EnsAvatar $size={size} $seed={ens.address} $radius={radius} />
+        <EnsAvatar
+          $size={size}
+          $seed={ens.address}
+          $radius={radius}
+          $fallback={fallbackAvatar}
+        />
       </ResetContainer>
     );
+
   return (
     <ResetContainer style={{ pointerEvents: 'none' }}>
-      <EnsAvatar $size={size} $seed={ens.address} $radius={radius}>
+      <EnsAvatar
+        $size={size}
+        $seed={ens.address}
+        $radius={radius}
+        $fallback={fallbackAvatar}
+      >
         <ImageContainer
           ref={imageRef}
           src={ens.avatar}
