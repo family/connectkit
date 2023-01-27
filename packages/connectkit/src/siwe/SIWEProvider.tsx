@@ -70,8 +70,7 @@ export const SIWEProvider = ({
     console.error('signIn error', error.code, error.message);
     switch (error.code) {
       case -32000: // WalletConnect: user rejected
-        setStatus(StatusState.REJECTED);
-        break;
+      case 4001: // MetaMask: user rejected
       case 'ACTION_REJECTED': // MetaMask: user rejected
         setStatus(StatusState.REJECTED);
         break;
