@@ -6,7 +6,7 @@ import { WagmiConfig, createClient } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
 import { ConnectKitProvider, getDefaultClient } from 'connectkit';
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
-import { siwe } from '../siwe';
+import { siweClient } from '../utils/siweClient';
 
 const client = createClient(
   getDefaultClient({
@@ -32,7 +32,7 @@ function App({ Component, pageProps }: AppProps) {
   // provider depends on some of the state
 
   return (
-    <siwe.Provider>
+    <siweClient.Provider>
       <ConnectKitProvider
         theme={theme}
         mode={mode}
@@ -41,7 +41,7 @@ function App({ Component, pageProps }: AppProps) {
       >
         <Component {...pageProps} />
       </ConnectKitProvider>
-    </siwe.Provider>
+    </siweClient.Provider>
   );
 }
 function MyApp(appProps: AppProps) {

@@ -1,5 +1,5 @@
-import { configureServerSideSIWE } from 'connectkit-next-siwe';
 import type { GetServerSideProps, NextPage } from 'next';
+import { siweServer } from '../../utils/siweServer';
 
 type Props =
   | { isCollector: false }
@@ -12,8 +12,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   req,
   res,
 }) => {
-  const serverSiwe = configureServerSideSIWE({});
-  const { address } = await serverSiwe.getSession(req, res);
+  const { address } = await siweServer.getSession(req, res);
 
   if (!address) {
     return {
