@@ -6,6 +6,7 @@ import useIsMounted from '../../../hooks/useIsMounted';
 import useLocales from '../../../hooks/useLocales';
 import { useSIWE } from './../../../siwe';
 import { useAccount } from 'wagmi';
+import { useModal } from '../../ConnectKit';
 
 type ButtonProps = {
   showSignOutButton?: boolean;
@@ -18,28 +19,29 @@ export const SIWEButton: React.FC<ButtonProps> = ({
 }) => {
   const isMounted = useIsMounted();
   const locales = useLocales();
+  const { setOpen } = useModal();
 
   const {
     status,
     isSignedIn,
+    isReady,
     isLoading,
     isRejected,
     isSuccess,
+    isError,
     signIn,
     signOut,
+    error,
   } = useSIWE();
   const { address: connectedAddress } = useAccount();
 
-  function getButtonLabel(state) {
-    const labels = {
-      ready: locales.signIn,
-      loading: locales.awaitingConfirmation,
-      rejected: locales.tryAgain,
-      error: 'Unknown Error',
-      success: locales.signedIn,
-    };
-    // TODO: discuss non-connected wallet developer expectations
-    return !connectedAddress ? locales.walletNotConnected : labels[state];
+  function getButtonLabel() {
+    if (isSuccess) return locales.signedIn;
+    if (isRejected) return locales.tryAgain;
+    if (isLoading) return locales.awaitingConfirmation;
+    if (isError) return error ?? 'Unknown Error';
+    if (isReady) return locales.signIn;
+    return locales.signIn;
   }
 
   const handleSignIn = () => {
@@ -62,6 +64,20 @@ export const SIWEButton: React.FC<ButtonProps> = ({
         icon={<DisconnectIcon />}
       >
         {locales.signOut}
+      </Button>
+    );
+  }
+
+  if (!connectedAddress) {
+    // TODO: discuss non-connected wallet developer expectations
+    return (
+      <Button
+        key="button"
+        style={{ margin: 0 }}
+        onClick={() => setOpen(true)}
+        arrow
+      >
+        {locales.walletNotConnected}
       </Button>
     );
   }
@@ -93,7 +109,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
         )
       }
     >
-      {getButtonLabel(status)}
+      {getButtonLabel()}
     </Button>
   );
 };
