@@ -100,7 +100,9 @@ type ConnectButtonRendererProps = {
   children?: (renderProps: {
     show?: () => void;
     hide?: () => void;
-    chain?: Chain;
+    chain?: Chain & {
+      unsupported?: boolean;
+    };
     unsupported: boolean;
     isConnected: boolean;
     isConnecting: boolean;

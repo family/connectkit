@@ -256,10 +256,13 @@ const Home: NextPage = () => {
                       gap: 8,
                     }}
                   >
+                    {chain?.name}
+                    <ChainIcon
+                      id={chain?.id}
+                      unsupported={chain?.unsupported}
+                    />
                     <Avatar address={address} size={12} />
                     {ensName ?? address}
-                    {chain.name}
-                    <ChainIcon id={chain.id} unsupported={chain?.unsupported} />
                   </div>
                 ) : (
                   'Custom Connect'
