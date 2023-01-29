@@ -1,3 +1,5 @@
+Add `chain` to `ConnectKitButton.Custom` exports.
+
 # 1.1.2
 
 This update moves the peer dependency wagmi up to the latest version (`0.10.x`).
@@ -17,7 +19,6 @@ This does not yet include support for WalletConnect 2.0.
 - Update to chain handling to allow devs access to the configured chains using `getGlobalChains`.
 - Update to allow turning off the default targeted `chainId` to let wallets connect using their currently active chain.
 - - This can be done by setting `initialChainId` to `0` within the `getDefaultClient` helper function.
-
 
 # 1.1.1
 
