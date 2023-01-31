@@ -43,9 +43,9 @@ import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
 
-const ProfileIcon = ({ signedIn }: { signedIn?: boolean }) => (
+const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
-    {signedIn ? (
+    {isSignedIn ? (
       <AuthIcon
         style={{
           bottom: -1,
@@ -514,7 +514,7 @@ const Modal: React.FC<ModalProps> = ({
                           delay: mobile ? 0.01 : 0,
                         }}
                       >
-                        <ProfileIcon signedIn={!!isSignedIn} />
+                        <ProfileIcon isSignedIn={isSignedIn} />
                       </SiweButton>
                     </>
                   ) : (
