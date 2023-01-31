@@ -1,3 +1,16 @@
+# 1.1.3
+
+This update fixes compatibility issues that were found with Next 13's default configuration. If you would like to use previous versions of ConnectKit you will need to make sure your application [supports Terser compression](https://nextjs.org/docs/advanced-features/compiler#minification).
+
+## Removed
+
+- Terser build compression.
+
+## Improved
+
+- Synced dev and prod rollup configs to avoid environment mismatching.
+- Next.js 13 config no longer requires Terser support ([`swcMinify: false`](https://nextjs.org/docs/advanced-features/compiler#minification)).
+
 # 1.1.2
 
 This update moves the peer dependency wagmi up to the latest version (`0.10.x`).
@@ -17,7 +30,6 @@ This does not yet include support for WalletConnect 2.0.
 - Update to chain handling to allow devs access to the configured chains using `getGlobalChains`.
 - Update to allow turning off the default targeted `chainId` to let wallets connect using their currently active chain.
 - - This can be done by setting `initialChainId` to `0` within the `getDefaultClient` helper function.
-
 
 # 1.1.1
 
