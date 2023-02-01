@@ -49,7 +49,7 @@
     "ethers": ">=5.5.0 <6",
     "react": "17.x || 18.x",
     "react-dom": "17.x || 18.x",
-    "wagmi": "0.10.x"
+    "wagmi": "0.11.x"
   },
   "devDependencies": {
     "@types/node": "^16.11.27",
@@ -57,11 +57,11 @@
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
-    "typescript": "^4.6.3"
+    "typescript": "^4.9.5"
   },
   "resolutions": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "wagmi": "^0.10.11"
+    "wagmi": "^0.11.2"
   }
 }
