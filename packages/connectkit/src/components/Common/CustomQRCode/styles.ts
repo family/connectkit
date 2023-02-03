@@ -41,7 +41,6 @@ export const QRPlaceholder = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  /*
   &:before {
     z-index: 4;
     content: '';
@@ -58,7 +57,6 @@ export const QRPlaceholder = styled(motion.div)`
     background-size: 200% 100%;
     animation: ${PlaceholderKeyframes} 1000ms linear infinite both;
   }
-  */
 `;
 
 export const LogoContainer = styled(motion.div)`
