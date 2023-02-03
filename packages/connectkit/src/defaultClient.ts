@@ -12,7 +12,7 @@ import { infuraProvider } from 'wagmi/providers/infura';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
-let globalChains: Chain[];
+let globalChains: Chain[] = [];
 let globalAppName: string;
 let globalAppIcon: string;
 

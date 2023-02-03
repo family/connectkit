@@ -118,7 +118,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     disclaimer: null,
     bufferPolyfill: true,
     customAvatar: undefined,
-    initialChainId: getGlobalChains()[0]?.id,
+    initialChainId: getGlobalChains()?.[0]?.id,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
   };
