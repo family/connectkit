@@ -52,10 +52,6 @@ function MyApp(appProps: AppProps) {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <link
-          href="https://fonts.cdnfonts.com/css/pt-root-ui"
-          rel="stylesheet"
-        />
       </Head>
       <WagmiConfig client={client}>
         <TestBenchProvider
