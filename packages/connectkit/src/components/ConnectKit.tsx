@@ -109,7 +109,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
-    walletConnectCTA: 'modal',
+    walletConnectCTA: 'link',
     avoidLayoutShift: true,
     embedGoogleFonts: false,
     truncateLongENSAddress: true,
