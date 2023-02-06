@@ -39,8 +39,6 @@ const ConnectWithQRCode: React.FC<{
   const [id] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
-  const { connectors } = useConnect();
-
   const locales = useLocales({
     CONNECTORNAME: connector.name,
   });
