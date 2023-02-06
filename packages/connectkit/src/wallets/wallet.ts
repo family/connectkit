@@ -1,15 +1,5 @@
 import { ReactNode } from 'react';
-import { Chain } from 'wagmi';
-import { walletConnect } from './connectors/walletConnect';
-import { metaMask } from './connectors/metaMask';
-import { coinbaseWallet } from './connectors/coinbaseWallet';
-import { WalletConnectLegacyConnector } from '@wagmi/core/connectors/walletConnectLegacy';
 
-export type WalletOptions = {
-  chains: Chain[];
-  appName?: string;
-  shimDisconnect?: boolean;
-};
 export type WalletProps = {
   id: string;
   name: string;
@@ -26,35 +16,5 @@ export type WalletProps = {
   scannable?: boolean;
   installed?: boolean;
   downloadUrls?: { [key: string]: string };
-  createConnector: () => any;
-};
-
-export const getDefaultConnectors = (chains: Chain[], appName: string) => {
-  const connectors: any = [
-    walletConnect({ chains }),
-    metaMask({ chains }),
-    coinbaseWallet({
-      chains,
-      appName,
-    }),
-    //injected({ chains }),
-  ];
-
-  return connectors.map((c: any) => {
-    return { ...c.createConnector(), ...c };
-  });
-};
-
-export const getDefaultWalletConnectConnector = (chains: Chain[]) => {
-  return new WalletConnectLegacyConnector({
-    chains,
-    options: {
-      qrcode: false,
-    },
-  });
-};
-
-export const getProviderUri = async (connector: any) => {
-  const provider: any = await connector.getProvider();
-  return provider.connector.uri;
+  createUri?: (uri: string) => string;
 };

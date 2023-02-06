@@ -1,14 +1,9 @@
-import {
-  WalletProps,
-  WalletOptions,
-  getDefaultWalletConnectConnector,
-  getProviderUri,
-} from './../wallet';
+import { WalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const trust = ({ chains }: WalletOptions): WalletProps => {
+export const trust = (): WalletProps => {
   return {
     id: 'trust',
     name: 'Trust Wallet',
@@ -24,26 +19,10 @@ export const trust = ({ chains }: WalletOptions): WalletProps => {
         'https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp',
       ios: 'https://apps.apple.com/app/trust-crypto-bitcoin-wallet/id1288339409',
     },
-    createConnector: () => {
-      const connector = getDefaultWalletConnectConnector(chains);
-
-      return {
-        connector,
-        mobile: {
-          getUri: async () => {
-            const uri = await getProviderUri(connector);
-
-            return isAndroid()
-              ? uri
-              : `https://link.trustwallet.com/wc?uri=${encodeURIComponent(
-                  uri
-                )}`;
-          },
-        },
-        qrCode: {
-          getUri: async () => await getProviderUri(connector),
-        },
-      };
+    createUri: (uri: string) => {
+      return isAndroid()
+        ? uri
+        : `https://link.trustwallet.com/wc?uri=${encodeURIComponent(uri)}`;
     },
   };
 };
