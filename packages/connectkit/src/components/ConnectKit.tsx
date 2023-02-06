@@ -21,7 +21,7 @@ import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
 import { SIWEContext } from './Standard/SIWE/SIWEContext';
-import { getGlobalChains } from '../defaultClient';
+import { useChains } from '../hooks/useChains';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -102,6 +102,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
     );
   }
+  const chains = useChains();
 
   // Default config options
   const defaultOptions: ConnectKitOptions = {
@@ -118,7 +119,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     disclaimer: null,
     bufferPolyfill: true,
     customAvatar: undefined,
-    initialChainId: getGlobalChains()?.[0]?.id,
+    initialChainId: chains?.[0]?.id,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
   };
