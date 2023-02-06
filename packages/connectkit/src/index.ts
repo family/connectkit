@@ -15,6 +15,7 @@ export { default as Avatar } from './components/Common/Avatar';
 export { default as ChainIcon } from './components/Common/Chain';
 
 // Hooks
+export { default as useIsMounted } from './hooks/useIsMounted'; // Useful for apps that use SSR
 export { useChains } from './hooks/useChains';
 
 // TODO: Make this private
