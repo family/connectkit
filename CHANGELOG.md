@@ -1,3 +1,20 @@
+# 1.2.0
+
+This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`>=0.11.4`) to support WalletConnect v2.
+
+{% note %}
+This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide (TODO: Get link to migration guide)](https://docs.family.co/connectkit/migration-guides).
+{% endnote %}
+
+## Improved
+
+- WalletConnect v2 support.
+- Refactored wallet connectors to be more extensible.
+- Replaced `getGlobalChains` with `useChains` hook that syncs better with configured connectors.
+- Added `useConnectors` hook to access the above connectors if necessary.
+- Export `useIsMounted` for developers to not have to provide their own solution.
+-
+
 # 1.1.3
 
 This update fixes compatibility issues that were found with Next 13's default configuration. If you would like to use previous versions of ConnectKit you will need to make sure your application [supports Terser compression](https://nextjs.org/docs/advanced-features/compiler#minification).
