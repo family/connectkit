@@ -60,21 +60,53 @@ const AccountInfo = () => {
   const siwe = useSIWE();
 
   return (
-    <ul>
-      <li>ChainID: {chain?.id}</li>
-      <li>Chain name: {chain?.name}</li>
-      <li>Chain Supported: {chain?.unsupported ? 'No' : 'Yes'}</li>
-      <li>Address: {address}</li>
-      <li>Connector: {connector?.id}</li>
-      <li>Balance: {balanceData?.formatted}</li>
-      <li>
-        SIWE session: {siwe.signedIn ? 'yes' : 'no'}
-        {siwe.signedIn && <button onClick={siwe.signOut}>sign out</button>}
-      </li>
-      <li>
-        <Link href="/siwe/token-gated">Token-gated page</Link>
-      </li>
-    </ul>
+    <>
+      <table>
+        <tbody>
+          <tr>
+            <td>Chain ID</td>
+            <td>{chain?.id}</td>
+          </tr>
+          <tr>
+            <td>Chain Name</td>
+            <td>{chain?.name}</td>
+          </tr>
+          <tr>
+            <td>Chain Supported</td>
+            <td>{!chain || chain?.unsupported ? 'No' : 'Yes'}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>{address}</td>
+          </tr>
+          <tr>
+            <td>Balance</td>
+            <td>{balanceData?.formatted}</td>
+          </tr>
+          <tr>
+            <td>Connector</td>
+            <td>{connector?.id}</td>
+          </tr>
+          <tr>
+            <td>Connector Version</td>
+            <td>{connector?.options?.version}</td>
+          </tr>
+          <tr>
+            <td>WalletConnect Project ID</td>
+            <td>{connector?.options?.projectId}</td>
+          </tr>
+          <tr>
+            <td>SIWE session</td>
+            <td>
+              {siwe.signedIn ? 'yes' : 'no'}{' '}
+              {siwe.signedIn && (
+                <button onClick={siwe.signOut}>sign out</button>
+              )}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </>
   );
 };
 
@@ -216,6 +248,8 @@ const Home: NextPage = () => {
         <hr />
         <p>Sign In With Ethereum</p>
         <SIWEButton showSignOutButton />
+
+        <Link href="/siwe/token-gated">Token-gated page &rarr;</Link>
 
         <hr />
         <AccountInfo />
