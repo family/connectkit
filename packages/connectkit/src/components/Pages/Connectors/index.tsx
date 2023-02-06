@@ -3,8 +3,6 @@ import { useContext, routes } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
 import { isMetaMask, isCoinbaseWallet } from './../../../utils';
 
-import { useConnect } from '../../../hooks/useConnect';
-
 import {
   PageContent,
   ModalH1,
@@ -29,75 +27,71 @@ import {
   InfoBoxButtons,
 } from './styles';
 
-import { isMobile, isAndroid } from '../../../utils';
-
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-//import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { isMobile } from '../../../utils';
 
 import Button from '../../Common/Button';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { Connector } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
-import { getProviderUri } from '../../../wallets/wallet';
+
+import { useWalletConnectConnector } from '../../../hooks/connectors/useWalletConnectConnector';
+//import { useMetaMaskConnector } from '../../../hooks/connectors/useMetaMaskConnector';
+import { useCoinbaseWalletConnector } from '../../../hooks/connectors/useCoinbaseWalletConnector';
+import { useInjectedConnector } from '../../../hooks/connectors/useInjectedConnector';
+import { useWalletConnectUri } from '../../../hooks/useWalletConnectUri';
+import { metaMask } from '../../../wallets/connectors/metaMask';
+import { useConnectors } from '../../../hooks/useConnectors';
+import { useConnect } from '../../../hooks/useConnect';
 
 const Wallets: React.FC = () => {
   const context = useContext();
 
   const locales = useLocales({});
-
   const mobile = isMobile();
 
-  const { connectAsync, connectors } = useConnect();
+  const { uri } = useWalletConnectUri();
+  //const { connector: mmConnector } = useMetaMaskConnector();
+  const { connector: wcConnector } = useWalletConnectConnector({});
+  const { connector: cbwConnector } = useCoinbaseWalletConnector();
+  const { connector: injectedConnector } = useInjectedConnector();
+
+  const connectors = useConnectors();
+  const { connectAsync } = useConnect();
 
   const openDefaultConnect = async (id: string) => {
-    const c = connectors.filter((c) => c.id === id)[0];
-    let connector: Connector | null = null;
-    switch (c.id) {
+    let connector: Connector | undefined;
+    switch (id) {
       case 'walletConnect':
         context.setRoute(routes.MOBILECONNECTORS);
         break;
       case 'metaMask':
-        connector = new WalletConnectConnector({
-          chains: c.chains,
-          options: { ...c.options, qrcode: false, version: '1' },
-        });
+        connector = wcConnector;
         break;
       case 'coinbaseWallet':
-        connector = new CoinbaseWalletConnector({
-          chains: c.chains,
-          options: c.options,
-        });
+        connector = cbwConnector;
         break;
       case 'injected':
-        connector = new InjectedConnector({
-          chains: c.chains,
-          options: c.options,
-        });
+        connector = injectedConnector;
         break;
     }
 
     if (!connector) return;
 
-    // TODO: Make this neater and use the MetaMask config
-    if (c.id === 'metaMask' && mobile) {
-      let connnector = connector as WalletConnectConnector;
-      connector.on('message', async ({ type }) => {
-        if (type === 'connecting') {
-          const uri = await getProviderUri(connnector);
-          const uriString = isAndroid()
-            ? uri
-            : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
-          window.location.href = uriString;
-        }
-      });
-    }
-
-    try {
-      await connectAsync({ connector: connector });
-    } catch (err) {
-      context.debug('Async connect error. See console for more details.', err);
+    if (id === 'metaMask' && mobile) {
+      const deeplink = metaMask().createUri?.(uri as string);
+      window.location.href = deeplink as string;
+      //} else if (id === 'coinbaseWallet' && mobile) {
+      //  const deeplink = coinbaseWallet().createUri?.(uri as string);
+      //  window.location.href = deeplink as string;
+    } else {
+      try {
+        await connectAsync({ connector });
+      } catch (err) {
+        context.debug(
+          'Async connect error. See console for more details.',
+          err
+        );
+      }
     }
   };
   useEffect(() => {}, [mobile]);
@@ -177,7 +171,8 @@ const Wallets: React.FC = () => {
                   onClick={() => {
                     if (
                       info.id === 'injected' ||
-                      (info.id === 'metaMask' && isMetaMask())
+                      (info.id === 'metaMask' && isMetaMask()) ||
+                      (info.id === 'coinbaseWallet' && isCoinbaseWallet())
                     ) {
                       context.setRoute(routes.CONNECT);
                       context.setConnector(connector.id);

@@ -18,6 +18,7 @@ import CopyToClipboard from '../../Common/CopyToClipboard';
 import { walletConnect } from '../../../wallets/connectors/walletConnect';
 import useLocales from '../../../hooks/useLocales';
 import { useChains } from '../../../hooks/useChains';
+import { useWalletConnectUri } from '../../../hooks/useWalletConnectUri';
 
 const MoreIcon = (
   <svg
@@ -39,74 +40,31 @@ const MobileConnectors: React.FC = () => {
   const context = useContext();
   const { connectAsync } = useConnect();
 
+  const { uri } = useWalletConnectUri();
+
   const locales = useLocales();
 
-  const chains = useChains();
-
+  const [defaultModalOpen, setDefaultModalOpen] = useState(false);
   const { open: openW3M } = useWalletConnectModal();
+  const openDefaultConnect = async () => {
+    setDefaultModalOpen(true);
+    await openW3M();
+    setDefaultModalOpen(false);
+  };
+
   const wallets = useDefaultWallets().filter(
     (wallet: WalletProps) => wallet.installed === undefined // Do not show wallets that are injected connectors
   );
 
   const connectWallet = (wallet: WalletProps) => {
-    const c = wallet.createConnector();
-
     if (wallet.installed) {
       context.setRoute(routes.CONNECT);
-      context.setConnector(c.connector.id);
-    } else {
-      c.connector.on('message', async ({ type }: any) => {
-        if (type === 'connecting') {
-          const uri = await c.mobile.getUri();
-          window.location.href = uri;
-        }
-      });
-
-      try {
-        connectAsync({ connector: c.connector });
-      } catch (err) {
-        context.debug(
-          'Async connect error. See console for more details.',
-          err
-        );
-      }
+      context.setConnector(wallet.id);
+    } else if (uri) {
+      const deeplink = wallet.createUri?.(uri as string);
+      window.location.href = deeplink as string;
     }
   };
-
-  async function connectWCWallet(connector: any) {
-    await connectAsync({ connector: connector });
-  }
-
-  const [walletConnectUri, setWalletConnectUri] = useState('');
-  useEffect(() => {
-    const getWalletConnectUri = async () => {
-      const c = await walletConnect({ chains }).createConnector();
-
-      const qrUri = await c.qrCode.getUri();
-      console.log(qrUri);
-
-      c.connector.on('message', async (e) => {
-        //@ts-ignore
-        const p = await c.connector.getProvider();
-        console.log(p);
-        setWalletConnectUri(p.connector.uri);
-
-        // User rejected, regenerate QR code
-        p.connector.on('disconnect', () => {
-          connectWCWallet(c.connector);
-        });
-      });
-      try {
-        await connectWCWallet(c.connector);
-      } catch (err) {
-        context.debug(
-          <>WalletConnect cannot connect. See console for more details.</>,
-          err
-        );
-      }
-    };
-    getWalletConnectUri();
-  }, []);
 
   return (
     <PageContent style={{ width: 312 }}>
@@ -116,7 +74,11 @@ const MobileConnectors: React.FC = () => {
             {wallets.map((wallet: WalletProps, i: number) => {
               const { name, shortName, logos, logoBackground } = wallet;
               return (
-                <WalletItem key={i} onClick={() => connectWallet(wallet)}>
+                <WalletItem
+                  key={i}
+                  onClick={() => connectWallet(wallet)}
+                  $waiting={!uri}
+                >
                   <WalletIcon
                     $outline={true}
                     style={
@@ -133,7 +95,10 @@ const MobileConnectors: React.FC = () => {
                 </WalletItem>
               );
             })}
-            <WalletItem onClick={openW3M}>
+            <WalletItem
+              onClick={openDefaultConnect}
+              $waiting={defaultModalOpen}
+            >
               <WalletIcon
                 style={{ background: 'var(--ck-body-background-secondary)' }}
               >
@@ -153,7 +118,7 @@ const MobileConnectors: React.FC = () => {
               paddingTop: 16,
             }}
           >
-            <CopyToClipboard variant="button" string={walletConnectUri}>
+            <CopyToClipboard variant="button" string={uri}>
               {locales.copyToClipboard}
             </CopyToClipboard>
           </div>
