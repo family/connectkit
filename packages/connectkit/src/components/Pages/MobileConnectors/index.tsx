@@ -44,13 +44,7 @@ const MobileConnectors: React.FC = () => {
 
   const locales = useLocales();
 
-  const [defaultModalOpen, setDefaultModalOpen] = useState(false);
-  const { open: openW3M } = useWalletConnectModal();
-  const openDefaultConnect = async () => {
-    setDefaultModalOpen(true);
-    await openW3M();
-    setDefaultModalOpen(false);
-  };
+  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
 
   const wallets = useDefaultWallets().filter(
     (wallet: WalletProps) => wallet.installed === undefined // Do not show wallets that are injected connectors
@@ -95,10 +89,7 @@ const MobileConnectors: React.FC = () => {
                 </WalletItem>
               );
             })}
-            <WalletItem
-              onClick={openDefaultConnect}
-              $waiting={defaultModalOpen}
-            >
+            <WalletItem onClick={openW3M} $waiting={isOpenW3M}>
               <WalletIcon
                 style={{ background: 'var(--ck-body-background-secondary)' }}
               >

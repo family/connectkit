@@ -46,7 +46,7 @@ const ConnectWithQRCode: React.FC<{
   });
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
-  const { open: openW3M } = useWalletConnectModal();
+  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
   const openDefaultConnect = async () => {
     const c = connectors.filter((c) => c.id === id)[0];
     if (c.id === 'walletConnect') {
