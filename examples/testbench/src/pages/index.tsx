@@ -22,6 +22,8 @@ import {
   useSignMessage,
   useSignTypedData,
   usePrepareSendTransaction,
+  useConnect,
+  useDisconnect,
 } from 'wagmi';
 import { Chain } from 'wagmi/chains';
 
@@ -236,6 +238,21 @@ const Home: NextPage = () => {
 
   const { chain } = useNetwork();
   const chains = useChains();
+  const { connectors, reset } = useConnect();
+  const { isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  const WCV2 =
+    connectors.find((c) => c.id === 'walletConnect')?.options?.version === '2';
+
+  const handleDisconnect = () => {
+    disconnect();
+    reset();
+  };
+
+  useEffect(() => {
+    if (WCV2) handleDisconnect();
+  }, [WCV2]);
 
   if (!mounted) return null;
 
@@ -244,6 +261,8 @@ const Home: NextPage = () => {
       <main>
         <p>Connect Button</p>
         <ConnectKitButton label={label} />
+
+        {isConnected && <button onClick={handleDisconnect}>Disconnect</button>}
 
         <hr />
         <p>Sign In With Ethereum</p>
@@ -305,7 +324,7 @@ const Home: NextPage = () => {
           }}
         </ConnectKitButton.Custom>
 
-        <Actions />
+        {!WCV2 && <Actions />}
         <h2>ConnectKitButton props</h2>
         <Textbox
           label="ConnectKitButton Label"
