@@ -13,7 +13,7 @@ import { useConnect } from '../../../hooks/useConnect';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { routes, useContext } from '../../ConnectKit';
 import { WalletProps } from '../../../wallets/wallet';
-import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect';
+import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { walletConnect } from '../../../wallets/connectors/walletConnect';
 import useLocales from '../../../hooks/useLocales';
@@ -43,7 +43,7 @@ const MobileConnectors: React.FC = () => {
 
   const chains = useChains();
 
-  const { openDefaultWalletConnect } = useDefaultWalletConnect();
+  const { open: openW3M } = useWalletConnectModal();
   const wallets = useDefaultWallets().filter(
     (wallet: WalletProps) => wallet.installed === undefined // Do not show wallets that are injected connectors
   );
@@ -133,7 +133,7 @@ const MobileConnectors: React.FC = () => {
                 </WalletItem>
               );
             })}
-            <WalletItem onClick={openDefaultWalletConnect}>
+            <WalletItem onClick={openW3M}>
               <WalletIcon
                 style={{ background: 'var(--ck-body-background-secondary)' }}
               >
