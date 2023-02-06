@@ -50,7 +50,7 @@ export const QRPlaceholder = styled(motion.div)`
     background-image: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0) 50%,
-      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.05),
       rgba(255, 255, 255, 0)
     );
     opacity: 0.75;

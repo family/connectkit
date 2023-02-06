@@ -76,6 +76,9 @@ export const ButtonContainer = styled.button<{
     css`
       cursor: not-allowed;
       pointer-events: none;
+      ${InnerContainer} {
+        opacity: 0.4;
+      }
     `}
 
   ${({ $variant }) => {
@@ -265,6 +268,7 @@ export const InnerContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
   max-width: calc(100% - 42px);
+  transition: opacity 300ms ease;
   /*
   overflow: hidden;
   text-overflow: ellipsis;
