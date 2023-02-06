@@ -3,10 +3,10 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import { useConnect } from './useConnect';
 
-export function useDefaultWalletConnect() {
+export function useWalletConnectModal() {
   const { connectAsync, connectors } = useConnect();
   return {
-    openDefaultWalletConnect: async () => {
+    open: async () => {
       //add modal styling because wagmi does not let you add styling to the modal
       const w3mcss = document.createElement('style');
       w3mcss.innerHTML = `w3m-modal{ --w3m-modal-z-index:2147483647; }`;

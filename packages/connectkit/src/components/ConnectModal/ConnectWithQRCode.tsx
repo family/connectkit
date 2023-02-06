@@ -3,7 +3,7 @@ import { routes, useContext } from '../ConnectKit';
 
 import supportedConnectors from '../../constants/supportedConnectors';
 import { useConnect } from '../../hooks/useConnect';
-import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
+import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
 import { detectBrowser } from '../../utils';
 
@@ -147,12 +147,12 @@ const ConnectWithQRCode: React.FC<{
   };
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
-  const { openDefaultWalletConnect } = useDefaultWalletConnect();
+  const { open: openW3M } = useWalletConnectModal();
   const openDefaultConnect = async () => {
     const c = connectors.filter((c) => c.id === id)[0];
     if (c.id === 'walletConnect') {
       setDefaultModalOpen(true);
-      await openDefaultWalletConnect();
+      await openW3M();
       setDefaultModalOpen(false);
     } else {
     }
