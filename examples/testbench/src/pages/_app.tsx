@@ -29,7 +29,7 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 function MyApp(appProps: AppProps) {
-  const [version, setVersion] = useState('1');
+  const [version, setVersion] = useState('2');
 
   const client = createClient(
     getDefaultClient({
