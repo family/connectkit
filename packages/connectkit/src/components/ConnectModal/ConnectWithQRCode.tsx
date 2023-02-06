@@ -45,17 +45,7 @@ const ConnectWithQRCode: React.FC<{
     CONNECTORNAME: connector.name,
   });
 
-  const [defaultModalOpen, setDefaultModalOpen] = useState(false);
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
-  const openDefaultConnect = async () => {
-    const c = connectors.filter((c) => c.id === id)[0];
-    if (c.id === 'walletConnect') {
-      setDefaultModalOpen(true);
-      await openW3M();
-      setDefaultModalOpen(false);
-    } else {
-    }
-  };
 
   if (!connector) return <>Connector not found</>;
 
@@ -124,8 +114,8 @@ const ConnectWithQRCode: React.FC<{
           {context.options?.walletConnectCTA !== 'link' && (
             <Button
               icon={<ExternalLinkIcon />}
-              onClick={openDefaultConnect}
-              waiting={defaultModalOpen}
+              onClick={openW3M}
+              waiting={isOpenW3M}
             >
               {context.options?.walletConnectCTA === 'modal'
                 ? locales.useWalletConnectModal
