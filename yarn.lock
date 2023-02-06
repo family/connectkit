@@ -2313,6 +2313,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ethersproject/providers@npm:5.7.2":
+  version: 5.7.2
+  resolution: "@ethersproject/providers@npm:5.7.2"
+  dependencies:
+    "@ethersproject/abstract-provider": ^5.7.0
+    "@ethersproject/abstract-signer": ^5.7.0
+    "@ethersproject/address": ^5.7.0
+    "@ethersproject/base64": ^5.7.0
+    "@ethersproject/basex": ^5.7.0
+    "@ethersproject/bignumber": ^5.7.0
+    "@ethersproject/bytes": ^5.7.0
+    "@ethersproject/constants": ^5.7.0
+    "@ethersproject/hash": ^5.7.0
+    "@ethersproject/logger": ^5.7.0
+    "@ethersproject/networks": ^5.7.0
+    "@ethersproject/properties": ^5.7.0
+    "@ethersproject/random": ^5.7.0
+    "@ethersproject/rlp": ^5.7.0
+    "@ethersproject/sha2": ^5.7.0
+    "@ethersproject/strings": ^5.7.0
+    "@ethersproject/transactions": ^5.7.0
+    "@ethersproject/web": ^5.7.0
+    bech32: 1.1.4
+    ws: 7.4.6
+  checksum: 1754c731a5ca6782ae9677f4a9cd8b6246c4ef21a966c9a01b133750f3c578431ec43ec254e699969c4a0f87e84463ded50f96b415600aabd37d2056aee58c19
+  languageName: node
+  linkType: hard
+
 "@ethersproject/random@npm:5.7.0, @ethersproject/random@npm:^5.7.0":
   version: 5.7.0
   resolution: "@ethersproject/random@npm:5.7.0"
@@ -3569,6 +3597,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@safe-global/safe-apps-provider@npm:^0.15.2":
+  version: 0.15.2
+  resolution: "@safe-global/safe-apps-provider@npm:0.15.2"
+  dependencies:
+    "@safe-global/safe-apps-sdk": 7.9.0
+    events: ^3.3.0
+  checksum: 5d647d105c935f1cb2b349b2dd3f8b590be5b16f5c1e65e4fd3fb8c72e46bfe8e2bb8e4876642511c41c0b3d75ae2f572e55a35066740c04d80c1def02e93e3b
+  languageName: node
+  linkType: hard
+
+"@safe-global/safe-apps-sdk@npm:7.9.0, @safe-global/safe-apps-sdk@npm:^7.9.0":
+  version: 7.9.0
+  resolution: "@safe-global/safe-apps-sdk@npm:7.9.0"
+  dependencies:
+    "@safe-global/safe-gateway-typescript-sdk": ^3.5.3
+    ethers: ^5.7.2
+  checksum: 439cea5e486e85619c78c876bdbb81544d54c47af24e9633b7e0bd49cb0b25d260f02de573e734cd5bf767c8188bc60729880e30c86785c7e7dd22f0dbd5d0dd
+  languageName: node
+  linkType: hard
+
+"@safe-global/safe-gateway-typescript-sdk@npm:^3.5.3":
+  version: 3.7.0
+  resolution: "@safe-global/safe-gateway-typescript-sdk@npm:3.7.0"
+  dependencies:
+    cross-fetch: ^3.1.5
+  checksum: 648bac448935913890fc9b42cb27bec0deac62dce49146f6fd24ca15509987299143c00cffc5f300b8bd85bfa464230751bd1e8cda80f4ef19f67c7485c09534
+  languageName: node
+  linkType: hard
+
 "@sinclair/typebox@npm:^0.24.1":
   version: 0.24.44
   resolution: "@sinclair/typebox@npm:0.24.44"
@@ -4814,24 +4871,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/chains@npm:0.2.5":
-  version: 0.2.5
-  resolution: "@wagmi/chains@npm:0.2.5"
+"@wagmi/chains@npm:0.2.6":
+  version: 0.2.6
+  resolution: "@wagmi/chains@npm:0.2.6"
   peerDependencies:
     typescript: ">=4.9.4"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 9fe23d3f973dc0c07c284051aedb37308a95790af0df88eb5ec44323dc2cbbffaa0a297d3f7a0bfe2ad3e8d6631e0096df56863dccf5e91bba5eb2d5554e68cd
+  checksum: 2c52e7725757ad7b58df522a6db9b6b628ee45d43f75842fe3f7e13eab953cea32808d90a1be37f15874958309fcb78d9d65d564516cccb719099ccb68651002
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:0.2.3":
-  version: 0.2.3
-  resolution: "@wagmi/connectors@npm:0.2.3"
+"@wagmi/connectors@npm:0.2.4":
+  version: 0.2.4
+  resolution: "@wagmi/connectors@npm:0.2.4"
   dependencies:
     "@coinbase/wallet-sdk": ^3.5.4
     "@ledgerhq/connect-kit-loader": ^1.0.1
+    "@safe-global/safe-apps-provider": ^0.15.2
+    "@safe-global/safe-apps-sdk": ^7.9.0
     "@walletconnect/ethereum-provider": ^1.8.0
     "@walletconnect/universal-provider": ^2.3.3
     "@web3modal/standalone": ^2.0.0
@@ -4839,33 +4898,33 @@ __metadata:
     eventemitter3: ^4.0.7
   peerDependencies:
     "@wagmi/core": ">=0.9.x"
-    ethers: ">=5.5.1"
+    ethers: ">=5.5.1 <6"
     typescript: ">=4.9.4"
   peerDependenciesMeta:
     "@wagmi/core":
       optional: true
     typescript:
       optional: true
-  checksum: 92d57b26b1c8e9cf0ffb77707a13aa5d6037722815743dd5ea44e51f593ba9185dbdd3344e7ea21fca4350796ca00142b5e202791128c99cdae9c04cc928fd1f
+  checksum: 086a02a3e085ac65845c6aac3e3dc1aeea4fdd0fb96cd26a2cbaf194e703818d03631dd02887160a8c7c3dfa7b25bb393b9b689e7133779203a753ec4d64748d
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:0.9.3":
-  version: 0.9.3
-  resolution: "@wagmi/core@npm:0.9.3"
+"@wagmi/core@npm:0.9.4":
+  version: 0.9.4
+  resolution: "@wagmi/core@npm:0.9.4"
   dependencies:
-    "@wagmi/chains": 0.2.5
-    "@wagmi/connectors": 0.2.3
+    "@wagmi/chains": 0.2.6
+    "@wagmi/connectors": 0.2.4
     abitype: ^0.3.0
     eventemitter3: ^4.0.7
     zustand: ^4.3.1
   peerDependencies:
-    ethers: ">=5.5.1"
+    ethers: ">=5.5.1 <6"
     typescript: ">=4.9.4"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: da7c11cdd20401e1f9f60b373a7f1c8932267a78b31700ea71f2404792d1381acd6c6589a1cf0acab94de0f612e2a8477e7098a4069f4d539de71b2fe49c1073
+  checksum: cbae5337ebcdeeb1a2bd669452e4816d7f05535556001447a7568aa83e7f0f6322f72237ed5d62c14de3f4eee50fbc72a9c6bd016628f11bace59b2380d5a72b
   languageName: node
   linkType: hard
 
@@ -7399,7 +7458,7 @@ __metadata:
     ethers: ">=5.5.0 <6"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    wagmi: ">=0.11.3"
+    wagmi: ">=0.11.4"
   languageName: unknown
   linkType: soft
 
@@ -7537,7 +7596,7 @@ __metadata:
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^4.9.5
-    wagmi: ^0.11.3
+    wagmi: ^0.11.4
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -7576,7 +7635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:^3.1.4":
+"cross-fetch@npm:^3.1.4, cross-fetch@npm:^3.1.5":
   version: 3.1.5
   resolution: "cross-fetch@npm:3.1.5"
   dependencies:
@@ -9611,6 +9670,44 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ethers@npm:^5.7.2":
+  version: 5.7.2
+  resolution: "ethers@npm:5.7.2"
+  dependencies:
+    "@ethersproject/abi": 5.7.0
+    "@ethersproject/abstract-provider": 5.7.0
+    "@ethersproject/abstract-signer": 5.7.0
+    "@ethersproject/address": 5.7.0
+    "@ethersproject/base64": 5.7.0
+    "@ethersproject/basex": 5.7.0
+    "@ethersproject/bignumber": 5.7.0
+    "@ethersproject/bytes": 5.7.0
+    "@ethersproject/constants": 5.7.0
+    "@ethersproject/contracts": 5.7.0
+    "@ethersproject/hash": 5.7.0
+    "@ethersproject/hdnode": 5.7.0
+    "@ethersproject/json-wallets": 5.7.0
+    "@ethersproject/keccak256": 5.7.0
+    "@ethersproject/logger": 5.7.0
+    "@ethersproject/networks": 5.7.1
+    "@ethersproject/pbkdf2": 5.7.0
+    "@ethersproject/properties": 5.7.0
+    "@ethersproject/providers": 5.7.2
+    "@ethersproject/random": 5.7.0
+    "@ethersproject/rlp": 5.7.0
+    "@ethersproject/sha2": 5.7.0
+    "@ethersproject/signing-key": 5.7.0
+    "@ethersproject/solidity": 5.7.0
+    "@ethersproject/strings": 5.7.0
+    "@ethersproject/transactions": 5.7.0
+    "@ethersproject/units": 5.7.0
+    "@ethersproject/wallet": 5.7.0
+    "@ethersproject/web": 5.7.1
+    "@ethersproject/wordlists": 5.7.0
+  checksum: b7c08cf3e257185a7946117dbbf764433b7ba0e77c27298dec6088b3bc871aff711462b0621930c56880ff0a7ceb8b1d3a361ffa259f93377b48e34107f62553
+  languageName: node
+  linkType: hard
+
 "ethjs-util@npm:0.1.6, ethjs-util@npm:^0.1.3":
   version: 0.1.6
   resolution: "ethjs-util@npm:0.1.6"
@@ -9774,7 +9871,7 @@ __metadata:
     rollup-plugin-typescript2: ^0.34.0
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
-    wagmi: ^0.11.3
+    wagmi: ^0.11.4
   languageName: unknown
   linkType: soft
 
@@ -13424,7 +13521,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^4.9.5
-    wagmi: ^0.11.3
+    wagmi: ^0.11.4
   languageName: unknown
   linkType: soft
 
@@ -17404,7 +17501,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^4.9.5
-    wagmi: ^0.11.3
+    wagmi: ^0.11.4
   languageName: unknown
   linkType: soft
 
@@ -18087,7 +18184,7 @@ __metadata:
     react-dom: ^18.2.0
     typescript: ^4.9.5
     vite: ^3.1.0
-    wagmi: ^0.11.3
+    wagmi: ^0.11.4
   languageName: unknown
   linkType: soft
 
@@ -18109,24 +18206,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^0.11.3":
-  version: 0.11.3
-  resolution: "wagmi@npm:0.11.3"
+"wagmi@npm:^0.11.4":
+  version: 0.11.4
+  resolution: "wagmi@npm:0.11.4"
   dependencies:
     "@tanstack/query-sync-storage-persister": ^4.14.5
     "@tanstack/react-query": ^4.14.5
     "@tanstack/react-query-persist-client": ^4.14.5
-    "@wagmi/core": 0.9.3
+    "@wagmi/core": 0.9.4
     abitype: ^0.3.0
     use-sync-external-store: ^1.2.0
   peerDependencies:
-    ethers: ">=5.5.1"
+    ethers: ">=5.5.1 <6"
     react: ">=17.0.0"
     typescript: ">=4.9.4"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: add3a260d715102cf4bc10262ac9b2257bd86f65c39ec168bebddc73d64f81613a8de74972f667bd7b05fccb1a08f1bfdcd921a38123bc7c4ded7a1db0cd0a53
+  checksum: 23980fd7ced8570712015493d2bc976c22e98378c645e1fc40568a43b5056f48501ffcf824a4ceeefce2fbc2cefae60e7b3245e06b270d36e2cca88feed5e989
   languageName: node
   linkType: hard
 
