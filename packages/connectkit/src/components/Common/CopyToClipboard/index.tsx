@@ -74,6 +74,7 @@ const CopyToClipboard: React.FC<{
     return (
       <Button
         disabled={!string}
+        waiting={!string}
         onClick={onCopy}
         icon={<CopyToClipboardIcon copied={clipboard} />}
       >
