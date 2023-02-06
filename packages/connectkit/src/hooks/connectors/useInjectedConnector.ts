@@ -1,19 +1,36 @@
-import { useConnectors } from './../useConnectors';
+import { useEffect, useState } from 'react';
+import { Connector, useConnectors } from './../useConnectors';
+
+import { InjectedConnector } from 'wagmi/connectors/injected';
 
 export const useInjectedConnector = () => {
+  const [connector, setConnector] = useState<Connector | undefined>(undefined);
+
   const connectors = useConnectors();
+  const injected = connectors.find((c) => c.id === 'injected');
 
-  const connector = connectors.find((c) => c.id === 'injected');
-  if (!connector) return null;
+  useEffect(() => {
+    if (injected) {
+      const config = {
+        ...injected,
+        options: {
+          ...injected.options,
+          shimDisconnect: true,
+          name: (
+            detectedName: string | string[] // Detects the name of the injected wallet
+          ) =>
+            `Injected (${
+              typeof detectedName === 'string'
+                ? detectedName
+                : detectedName.join(', ')
+            })`,
+        },
+      };
+      setConnector(new InjectedConnector(config));
+    }
+  }, []);
 
-  // Opinionated decisions
-  connector.options.shimDisconnect = true;
-  connector.options.name = (
-    detectedName: string | string[] // Detects the name of the injected wallet
-  ) =>
-    `Injected (${
-      typeof detectedName === 'string' ? detectedName : detectedName.join(', ')
-    })`;
-
-  return connector;
+  return {
+    connector,
+  };
 };

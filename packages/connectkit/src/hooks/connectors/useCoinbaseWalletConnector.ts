@@ -1,13 +1,28 @@
-import { useConnectors } from './../useConnectors';
+import { useEffect, useState } from 'react';
+import { Connector, useConnectors } from './../useConnectors';
+
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 
 export const useCoinbaseWalletConnector = () => {
+  const [connector, setConnector] = useState<Connector | undefined>(undefined);
+
   const connectors = useConnectors();
+  const coinbaseWallet = connectors.find((c) => c.id === 'coinbaseWallet');
 
-  const connector = connectors.find((c) => c.id === 'coinbaseWallet');
-  if (!connector) return null;
+  useEffect(() => {
+    if (coinbaseWallet) {
+      const config = {
+        ...coinbaseWallet,
+        options: {
+          ...coinbaseWallet.options,
+          headlessMode: true, // avoid default modal
+        },
+      };
+      setConnector(new CoinbaseWalletConnector(config));
+    }
+  }, []);
 
-  // Opinionated decisions
-  connector.options.headlessMode = true; // avoid default modal
-
-  return connector;
+  return {
+    connector,
+  };
 };

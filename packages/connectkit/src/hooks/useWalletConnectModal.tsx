@@ -1,10 +1,12 @@
-import { Connector } from 'wagmi';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-
 import { useConnect } from './useConnect';
+import { useWalletConnectConnector } from './connectors/useWalletConnectConnector';
 
 export function useWalletConnectModal() {
-  const { connectAsync, connectors } = useConnect();
+  const { connectAsync } = useConnect();
+  const { connector } = useWalletConnectConnector({
+    qrcode: true,
+  });
+
   return {
     open: async () => {
       //add modal styling because wagmi does not let you add styling to the modal
@@ -12,17 +14,9 @@ export function useWalletConnectModal() {
       w3mcss.innerHTML = `w3m-modal{ --w3m-modal-z-index:2147483647; }`;
       document.head.appendChild(w3mcss);
 
-      const c: Connector<any, any> | undefined = connectors.find(
-        (c) => c.id === 'walletConnect'
-      );
-      if (c) {
-        const connector = new WalletConnectConnector({
-          chains: c.chains,
-          options: { ...c.options, qrcode: true },
-        });
-
+      if (connector) {
         try {
-          await connectAsync({ connector: connector });
+          await connectAsync({ connector });
         } catch (err) {
           console.log('WalletConnect', err);
         }
