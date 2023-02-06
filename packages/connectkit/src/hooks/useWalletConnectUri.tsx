@@ -25,7 +25,6 @@ export function useWalletConnectUri() {
   async function connectWalletConnect(connector: any) {
     if (connector.options?.version === '1') {
       connector.on('message', async (e) => {
-        //@ts-ignore
         const p = await connector.getProvider();
         setUri(p.connector.uri);
 
@@ -46,7 +45,6 @@ export function useWalletConnectUri() {
       connector.on('message', async (e) => {
         const p = await connector.getProvider();
         setUri(p.uri);
-        console.log(p.uri);
 
         // User rejected, regenerate QR code
         connector.on('disconnect', () => {
