@@ -44,7 +44,7 @@ function CustomQRCode({
           </LogoContainer>
         )}
 
-        <AnimatePresence initial={false}>
+        <AnimatePresence initial={!value}>
           {value ? (
             <motion.div
               key={value}
@@ -64,12 +64,12 @@ function CustomQRCode({
             </motion.div>
           ) : (
             <QRPlaceholder
-              initial={{ opacity: 0 }}
+              initial={{ opacity: 0.1 }}
               animate={{ opacity: 0.1 }}
               exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
               transition={{
-                delay: !value ? 0.4 : 0,
-                duration: 0.4,
+                delay: !value ? 0.2 : 0,
+                duration: 0.2,
               }}
             >
               <span />
@@ -83,7 +83,6 @@ function CustomQRCode({
     </QRCodeContainer>
   );
 }
-
 CustomQRCode.displayName = 'CustomQRCode';
 
 export default CustomQRCode;

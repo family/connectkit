@@ -38,6 +38,7 @@ export const PlaceholderKeyframes = keyframes`
 export const QRPlaceholder = styled(motion.div)`
   --color: var(--ck-qr-dot-color);
   --bg: var(--ck-qr-background, var(--ck-body-background));
+
   position: absolute;
   inset: 0;
   display: flex;
@@ -56,17 +57,16 @@ export const QRPlaceholder = styled(motion.div)`
     z-index: 4;
     position: absolute;
     background: var(--color);
-    border-radius: 9px;
-    width: 13.5%;
-    height: 13.5%;
-    box-shadow: 0 0 0 3px var(--bg), 0 0 0 7px var(--bg);
+    border-radius: 12px;
+    width: 13.25%;
+    height: 13.25%;
+    box-shadow: 0 0 0 4px var(--bg);
     &:before {
       content: '';
       position: absolute;
-      inset: 8px;
+      inset: 9px;
       border-radius: 3px;
-      background: inherit;
-      box-shadow: 0 0 0 5px var(--bg);
+      box-shadow: 0 0 0 4px var(--bg);
     }
     &:nth-child(1) {
       top: 0;
@@ -87,7 +87,7 @@ export const QRPlaceholder = styled(motion.div)`
     position: absolute;
     inset: 0;
     background: repeat;
-    background-size: 2% 2%;
+    background-size: 1.888% 1.888%;
     background-image: radial-gradient(var(--color) 40%, transparent 40%);
   }
   &:after {
