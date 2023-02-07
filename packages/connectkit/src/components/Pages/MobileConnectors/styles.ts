@@ -1,4 +1,5 @@
 import styled from './../../../styles/styled';
+import { motion } from 'framer-motion';
 
 export const WalletList = styled.div`
   display: grid;
@@ -7,9 +8,9 @@ export const WalletList = styled.div`
   margin: 0 -10px -20px;
   padding: 4px 0 0;
 `;
-export const WalletItem = styled.div<{ $waiting?: boolean }>`
+export const WalletItem = styled(motion.div)<{ $waiting?: boolean }>`
   text-align: center;
-  transition: opacity 100ms ease;
+  transition: opacity 300ms ease;
   opacity: ${(props) => (props.$waiting ? 0.4 : 1)};
 `;
 export const WalletIcon = styled.div<{ $outline?: boolean }>`

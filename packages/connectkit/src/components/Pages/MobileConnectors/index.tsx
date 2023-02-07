@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Container,
   WalletList,
@@ -9,15 +9,12 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import { useConnect } from '../../../hooks/useConnect';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { routes, useContext } from '../../ConnectKit';
 import { WalletProps } from '../../../wallets/wallet';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
-import { walletConnect } from '../../../wallets/connectors/walletConnect';
 import useLocales from '../../../hooks/useLocales';
-import { useChains } from '../../../hooks/useChains';
 import { useWalletConnectUri } from '../../../hooks/useWalletConnectUri';
 
 const MoreIcon = (
@@ -38,7 +35,6 @@ const MoreIcon = (
 );
 const MobileConnectors: React.FC = () => {
   const context = useContext();
-  const { connectAsync } = useConnect();
 
   const { uri } = useWalletConnectUri();
 
@@ -71,7 +67,28 @@ const MobileConnectors: React.FC = () => {
                 <WalletItem
                   key={i}
                   onClick={() => connectWallet(wallet)}
-                  $waiting={!uri}
+                  initial={{
+                    opacity: 0.2,
+                  }}
+                  animate={
+                    uri
+                      ? {
+                          opacity: 1,
+                          transition: {
+                            duration: 0.1,
+                            ease: 'easeOut',
+                          },
+                        }
+                      : {
+                          opacity: [0.1, 0.8, 0.1],
+                          transition: {
+                            repeat: Infinity,
+                            duration: 1,
+                            ease: 'easeInOut',
+                            delay: i * 0.02,
+                          },
+                        }
+                  }
                 >
                   <WalletIcon
                     $outline={true}
