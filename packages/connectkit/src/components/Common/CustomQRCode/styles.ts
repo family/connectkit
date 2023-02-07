@@ -36,12 +36,50 @@ export const PlaceholderKeyframes = keyframes`
   100%{ background-position: -100% 0; }
 `;
 export const QRPlaceholder = styled(motion.div)`
+  --color: var(--ck-qr-dot-color);
+  --bg: var(--ck-qr-background, var(--ck-body-background));
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  opacity: 0.3;
+  span {
+    z-index: 5;
+    position: absolute;
+    background: var(--color);
+    border-radius: 9px;
+    width: 13.5%;
+    height: 13.5%;
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 7px var(--bg);
+    &:before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border-radius: 3px;
+      background: inherit;
+      box-shadow: 0 0 0 5px var(--bg);
+    }
+    &:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+    &:nth-child(2) {
+      top: 0;
+      right: 0;
+    }
+    &:nth-child(3) {
+      bottom: 0;
+      left: 0;
+    }
+  }
   &:before {
+    z-index: 3;
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeat;
+    background-size: 2% 2%;
+    background-image: radial-gradient(var(--color) 40%, transparent 40%);
+  }
+  &:after {
     z-index: 4;
     content: '';
     position: absolute;
@@ -50,10 +88,9 @@ export const QRPlaceholder = styled(motion.div)`
     background-image: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0) 50%,
-      rgba(0, 0, 0, 0.05),
+      rgba(255, 255, 255, 1),
       rgba(255, 255, 255, 0)
     );
-    opacity: 0.75;
     background-size: 200% 100%;
     animation: ${PlaceholderKeyframes} 1000ms linear infinite both;
   }
