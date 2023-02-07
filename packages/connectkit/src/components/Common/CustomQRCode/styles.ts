@@ -40,9 +40,8 @@ export const QRPlaceholder = styled(motion.div)`
   --bg: var(--ck-qr-background, var(--ck-body-background));
   position: absolute;
   inset: 0;
-  opacity: 0.3;
   span {
-    z-index: 5;
+    z-index: 4;
     position: absolute;
     background: var(--color);
     border-radius: 9px;
@@ -80,7 +79,7 @@ export const QRPlaceholder = styled(motion.div)`
     background-image: radial-gradient(var(--color) 40%, transparent 40%);
   }
   &:after {
-    z-index: 4;
+    z-index: 5;
     content: '';
     position: absolute;
     inset: 0;
