@@ -75,6 +75,7 @@ function CustomQRCode({
               <span />
               <span />
               <span />
+              <div />
             </QRPlaceholder>
           )}
         </AnimatePresence>
@@ -82,6 +83,7 @@ function CustomQRCode({
     </QRCodeContainer>
   );
 }
+
 CustomQRCode.displayName = 'CustomQRCode';
 
 export default CustomQRCode;

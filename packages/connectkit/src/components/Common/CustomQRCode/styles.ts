@@ -40,7 +40,19 @@ export const QRPlaceholder = styled(motion.div)`
   --bg: var(--ck-qr-background, var(--ck-body-background));
   position: absolute;
   inset: 0;
-  span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > div {
+    z-index: 4;
+    position: relative;
+    width: 28%;
+    height: 28%;
+    border-radius: 20px;
+    background: var(--bg);
+    box-shadow: 0 0 0 7px var(--bg);
+  }
+  > span {
     z-index: 4;
     position: absolute;
     background: var(--color);
