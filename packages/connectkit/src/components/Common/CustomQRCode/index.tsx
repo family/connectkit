@@ -80,6 +80,7 @@ const CustomQRCode = React.forwardRef(
                 <span />
                 <span />
                 <span />
+                <div />
               </QRPlaceholder>
             )}
           </AnimatePresence>
