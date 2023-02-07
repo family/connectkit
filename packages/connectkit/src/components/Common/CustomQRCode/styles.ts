@@ -88,7 +88,7 @@ export const QRPlaceholder = styled(motion.div)`
     inset: 0;
     background: repeat;
     background-size: 1.888% 1.888%;
-    background-image: radial-gradient(var(--color) 40%, transparent 40%);
+    background-image: radial-gradient(var(--color) 41%, transparent 41%);
   }
   &:after {
     z-index: 5;

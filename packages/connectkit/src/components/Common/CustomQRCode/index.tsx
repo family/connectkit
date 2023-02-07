@@ -58,6 +58,7 @@ const CustomQRCode = React.forwardRef(
                 exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
                 transition={{
                   duration: 0.4,
+                  delay: 0.1,
                 }}
               >
                 <QRCode
@@ -73,8 +74,7 @@ const CustomQRCode = React.forwardRef(
                 animate={{ opacity: 0.1 }}
                 exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
                 transition={{
-                  delay: !value ? 0.2 : 0,
-                  duration: 0.2,
+                  duration: 0.15,
                 }}
               >
                 <span />
