@@ -13,18 +13,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 12px;
 }
-main label {
+aside label {
   display: flex;
   width: auto;
   padding: 0 0 8px;
 }
-main label.checkbox {
+aside label.checkbox {
   align-items: center;
   gap: 4px;
 }
 
-main label.textbox,
-main label.select {
+aside label.textbox,
+aside label.select {
   flex-direction: column;
   gap: 2px;
 }
