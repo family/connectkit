@@ -13,7 +13,24 @@ export function useCoinbaseWalletUri() {
   const { connectAsync } = useConnect();
 
   useEffect(() => {
-    if (connector) connectCoinbaseWallet(connector);
+    async function handleMessage(e: any) {
+      console.log('CBW Message', e);
+      if (connector) {
+        if (e.type === 'connecting') {
+          const p = await connector.getProvider();
+          setUri(p.qrUrl);
+        }
+      }
+    }
+    if (connector) {
+      console.log('add cbw listeners');
+      connectCoinbaseWallet(connector);
+      connector.on('message', handleMessage);
+      return () => {
+        console.log('remove cbw listeners');
+        connector.off('message', handleMessage);
+      };
+    }
   }, [connector]);
 
   async function connectWallet(connector: any) {
@@ -23,10 +40,6 @@ export function useCoinbaseWalletUri() {
   }
 
   async function connectCoinbaseWallet(connector: any) {
-    connector.on('message', async (e) => {
-      const p = await connector.getProvider();
-      setUri(p.qrUrl);
-    });
     try {
       await connectWallet(connector);
     } catch (err) {
