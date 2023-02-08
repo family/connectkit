@@ -56,59 +56,72 @@ const languages: SelectProps[] = [
 ];
 
 const AccountInfo = () => {
-  const { address, connector } = useAccount();
+  const {
+    address,
+    connector,
+    isConnected,
+    isConnecting,
+    isDisconnected,
+    isReconnecting,
+  } = useAccount();
   const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
   const siwe = useSIWE();
 
   return (
-    <>
-      <table>
-        <tbody>
-          <tr>
-            <td>Chain ID</td>
-            <td>{chain?.id}</td>
-          </tr>
-          <tr>
-            <td>Chain Name</td>
-            <td>{chain?.name}</td>
-          </tr>
-          <tr>
-            <td>Chain Supported</td>
-            <td>{!chain || chain?.unsupported ? 'No' : 'Yes'}</td>
-          </tr>
-          <tr>
-            <td>Address</td>
-            <td>{address}</td>
-          </tr>
-          <tr>
-            <td>Balance</td>
-            <td>{balanceData?.formatted}</td>
-          </tr>
-          <tr>
-            <td>Connector</td>
-            <td>{connector?.id}</td>
-          </tr>
-          <tr>
-            <td>Connector Version</td>
-            <td>{connector?.options?.version}</td>
-          </tr>
-          <tr>
-            <td>WalletConnect Project ID</td>
-            <td>{connector?.options?.projectId}</td>
-          </tr>
-          <tr>
-            <td>SIWE session</td>
-            <td>
-              {siwe.signedIn ? 'yes' : 'no'}{' '}
-              {siwe.signedIn && (
-                <button onClick={siwe.signOut}>sign out</button>
-              )}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </>
+    <div className="panel">
+      <h2>Wallet Info</h2>
+      {isConnecting && <p>Connecting...</p>}
+      {isReconnecting && <p>Reconnecting...</p>}
+      {isDisconnected && <p>Disconnected</p>}
+      {isConnected && (
+        <table>
+          <tbody>
+            <tr>
+              <td>Chain ID</td>
+              <td>{chain?.id}</td>
+            </tr>
+            <tr>
+              <td>Chain Name</td>
+              <td>{chain?.name}</td>
+            </tr>
+            <tr>
+              <td>Chain Supported</td>
+              <td>{!chain || chain?.unsupported ? 'No' : 'Yes'}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{address}</td>
+            </tr>
+            <tr>
+              <td>Balance</td>
+              <td>{balanceData?.formatted}</td>
+            </tr>
+            <tr>
+              <td>Connector</td>
+              <td>{connector?.id}</td>
+            </tr>
+            <tr>
+              <td>Connector Version</td>
+              <td>{connector?.options?.version}</td>
+            </tr>
+            <tr>
+              <td>WalletConnect Project ID</td>
+              <td>{connector?.options?.projectId}</td>
+            </tr>
+            <tr>
+              <td>SIWE session</td>
+              <td>
+                {siwe.signedIn ? 'yes' : 'no'}{' '}
+                {siwe.signedIn && (
+                  <button onClick={siwe.signOut}>sign out</button>
+                )}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 };
 
@@ -250,54 +263,54 @@ const Home: NextPage = () => {
     reset();
   };
 
-  useEffect(() => {
-    if (WCV2) handleDisconnect();
-  }, [WCV2]);
-
   if (!mounted) return null;
 
   return (
     <>
       <main>
-        <p>Connect Button</p>
-        <ConnectKitButton label={label} />
+        <div className="panel">
+          <h2>Connect Button</h2>
+          <ConnectKitButton label={label} />
+          {isConnected && (
+            <button onClick={handleDisconnect}>Disconnect</button>
+          )}
+        </div>
 
-        {isConnected && <button onClick={handleDisconnect}>Disconnect</button>}
+        <div className="panel">
+          <h2>Sign In With Ethereum</h2>
+          <SIWEButton showSignOutButton />
+          <Link href="/siwe/token-gated">Token-gated page &rarr;</Link>
+        </div>
 
-        <hr />
-        <p>Sign In With Ethereum</p>
-        <SIWEButton showSignOutButton />
-
-        <Link href="/siwe/token-gated">Token-gated page &rarr;</Link>
-
-        <hr />
         <AccountInfo />
 
-        <hr />
-        <p>Avatars</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <Avatar name="lochie.eth" />
-          <Avatar name="pugson.eth" size={32} />
-          <Avatar
-            address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
-            size={12}
-          />
-          <Avatar name="benjitaylor.eth" size={64} />
+        <div className="panel">
+          <h2>Chains</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
+            <ChainIcon id={1} />
+            <ChainIcon id={1337} />
+            <ChainIcon id={2} unsupported />
+          </div>
+          <h2>dApps configured chains</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {chains.map((chain: Chain) => (
+              <ChainIcon key={chain.id} id={chain.id} />
+            ))}
+          </div>
         </div>
 
-        <hr />
-        <p>Chains</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
-          <ChainIcon id={1} />
-          <ChainIcon id={1337} />
-          <ChainIcon id={2} unsupported />
-        </div>
-        <p>Supported Chains</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          {chains.map((chain: Chain) => (
-            <ChainIcon key={chain.id} id={chain.id} />
-          ))}
+        <div className="panel">
+          <h2>Avatars</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Avatar name="lochie.eth" />
+            <Avatar name="pugson.eth" size={32} radius={6} />
+            <Avatar
+              address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+              size={12}
+            />
+            <Avatar name="benjitaylor.eth" size={64} />
+          </div>
         </div>
       </main>
       <aside>
