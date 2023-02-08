@@ -38,7 +38,6 @@ import { useWalletConnectConnector } from '../../../hooks/connectors/useWalletCo
 //import { useMetaMaskConnector } from '../../../hooks/connectors/useMetaMaskConnector';
 import { useCoinbaseWalletConnector } from '../../../hooks/connectors/useCoinbaseWalletConnector';
 import { useInjectedConnector } from '../../../hooks/connectors/useInjectedConnector';
-import { useWalletConnectUri } from '../../../hooks/useWalletConnectUri';
 import { metaMask } from '../../../wallets/connectors/metaMask';
 import { useConnectors } from '../../../hooks/useConnectors';
 import { useConnect } from '../../../hooks/useConnect';
@@ -49,7 +48,8 @@ const Wallets: React.FC = () => {
   const locales = useLocales({});
   const mobile = isMobile();
 
-  const { uri } = useWalletConnectUri();
+  const uri = context.walletConnectUri;
+
   //const { connector: mmConnector } = useMetaMaskConnector();
   const { connector: wcConnector } = useWalletConnectConnector({});
   const { connector: cbwConnector } = useCoinbaseWalletConnector();

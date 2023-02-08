@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { routes, useContext } from '../ConnectKit';
 
 import supportedConnectors from '../../constants/supportedConnectors';
-import { useConnect } from '../../hooks/useConnect';
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
-import { useWalletConnectUri } from '../../hooks/useWalletConnectUri';
 import { useCoinbaseWalletUri } from '../../hooks/useCoinbaseWalletUri';
 
 import {
@@ -29,12 +27,14 @@ const ConnectWithQRCode: React.FC<{
 }> = ({ connectorId }) => {
   const context = useContext();
 
-  const { uri } =
+  const uri =
     connectorId === 'walletConnect'
-      ? useWalletConnectUri()
+      ? context.walletConnectUri
       : connectorId === 'coinbaseWallet'
-      ? useCoinbaseWalletUri()
-      : { uri: '' };
+      ? useCoinbaseWalletUri().uri
+      : '';
+
+  if (uri) console.log('uri', uri);
 
   const [id] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];

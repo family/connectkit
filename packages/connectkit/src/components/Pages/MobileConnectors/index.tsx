@@ -15,7 +15,6 @@ import { WalletProps } from '../../../wallets/wallet';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import useLocales from '../../../hooks/useLocales';
-import { useWalletConnectUri } from '../../../hooks/useWalletConnectUri';
 
 const MoreIcon = (
   <svg
@@ -36,7 +35,7 @@ const MoreIcon = (
 const MobileConnectors: React.FC = () => {
   const context = useContext();
 
-  const { uri } = useWalletConnectUri();
+  const uri = context.walletConnectUri;
 
   const locales = useLocales();
 

@@ -22,6 +22,7 @@ import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
 import { SIWEContext } from './Standard/SIWE/SIWEContext';
 import { useChains } from '../hooks/useChains';
+import { useWalletConnectUri } from '../hooks/useWalletConnectUri';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -56,6 +57,7 @@ type ContextValue = {
   errorMessage: Error;
   options?: ConnectKitOptions;
   signInWithEthereum: boolean;
+  walletConnectUri?: string;
   debug: (message: string | React.ReactNode | null, code?: any) => void;
 };
 
@@ -166,6 +168,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     }
   }, [chain, route, open]);
 
+  const { uri: walletConnectUri } = useWalletConnectUri();
+
   const value = {
     theme: ckTheme,
     setTheme,
@@ -181,6 +185,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     setRoute,
     connector,
     setConnector,
+    walletConnectUri,
     signInWithEthereum: React.useContext(SIWEContext)?.enabled ?? false,
 
     // Other configuration
