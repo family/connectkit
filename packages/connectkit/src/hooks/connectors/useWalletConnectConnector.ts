@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 import { Connector, useConnectors } from './../useConnectors';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 export const useWalletConnectConnector = ({
   qrcode = false, // avoids default modal
@@ -8,22 +8,13 @@ export const useWalletConnectConnector = ({
   qrcode?: boolean;
 }) => {
   const [connector, setConnector] = useState<Connector | undefined>(undefined);
-
   const connectors = useConnectors();
-  const walletConnect = connectors.find((c) => c.id === 'walletConnect');
+  const { isConnected } = useAccount();
 
   useEffect(() => {
-    if (walletConnect) {
-      const config = {
-        ...walletConnect,
-        options: {
-          ...walletConnect.options,
-          qrcode,
-        },
-      };
-      setConnector(new WalletConnectConnector(config));
-    }
-  }, []);
+    const walletConnect = connectors.find((c) => c.id === 'walletConnect');
+    if (walletConnect) setConnector(walletConnect);
+  }, [connectors, isConnected]);
 
   return {
     connector,

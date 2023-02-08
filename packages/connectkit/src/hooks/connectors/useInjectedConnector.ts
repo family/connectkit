@@ -5,11 +5,10 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 
 export const useInjectedConnector = () => {
   const [connector, setConnector] = useState<Connector | undefined>(undefined);
-
   const connectors = useConnectors();
-  const injected = connectors.find((c) => c.id === 'injected');
 
   useEffect(() => {
+    const injected = connectors.find((c) => c.id === 'injected');
     if (injected) {
       const config = {
         ...injected,
@@ -28,7 +27,7 @@ export const useInjectedConnector = () => {
       };
       setConnector(new InjectedConnector(config));
     }
-  }, []);
+  }, [connectors]);
 
   return {
     connector,

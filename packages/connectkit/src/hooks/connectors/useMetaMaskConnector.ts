@@ -5,11 +5,10 @@ import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
 export const useMetaMaskConnector = () => {
   const [connector, setConnector] = useState<Connector | undefined>(undefined);
-
   const connectors = useConnectors();
-  const metaMask = connectors.find((c) => c.id === 'metaMask');
 
   useEffect(() => {
+    const metaMask = connectors.find((c) => c.id === 'metaMask');
     if (metaMask) {
       const config = {
         ...metaMask,
@@ -22,7 +21,7 @@ export const useMetaMaskConnector = () => {
       };
       setConnector(new MetaMaskConnector(config));
     }
-  }, []);
+  }, [connectors]);
 
   return {
     connector,
