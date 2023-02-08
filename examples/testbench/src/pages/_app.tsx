@@ -67,10 +67,10 @@ function MyApp(appProps: AppProps) {
         >
           <div style={{ position: 'absolute', top: 0, right: 0 }}>
             <button onClick={() => setVersion('1')} disabled={version === '1'}>
-              Use WalletConnect V1
+              Use WalletConnect V1 {version === '1' && '(active)'}
             </button>
             <button onClick={() => setVersion('2')} disabled={version === '2'}>
-              Use WalletConnect V2
+              Use WalletConnect V2 {version === '2' && '(active)'}
             </button>
           </div>
           <App {...appProps} />
