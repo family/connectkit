@@ -2285,34 +2285,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/providers@npm:5.7.1":
-  version: 5.7.1
-  resolution: "@ethersproject/providers@npm:5.7.1"
-  dependencies:
-    "@ethersproject/abstract-provider": ^5.7.0
-    "@ethersproject/abstract-signer": ^5.7.0
-    "@ethersproject/address": ^5.7.0
-    "@ethersproject/base64": ^5.7.0
-    "@ethersproject/basex": ^5.7.0
-    "@ethersproject/bignumber": ^5.7.0
-    "@ethersproject/bytes": ^5.7.0
-    "@ethersproject/constants": ^5.7.0
-    "@ethersproject/hash": ^5.7.0
-    "@ethersproject/logger": ^5.7.0
-    "@ethersproject/networks": ^5.7.0
-    "@ethersproject/properties": ^5.7.0
-    "@ethersproject/random": ^5.7.0
-    "@ethersproject/rlp": ^5.7.0
-    "@ethersproject/sha2": ^5.7.0
-    "@ethersproject/strings": ^5.7.0
-    "@ethersproject/transactions": ^5.7.0
-    "@ethersproject/web": ^5.7.0
-    bech32: 1.1.4
-    ws: 7.4.6
-  checksum: 673745e967e7215b46b7d3024f5ee02be975d6cf66b605f87a0e5beaa349d6d30c987165f98eceddaf7996f64a1ec414f0715f25fc3458aead6eea4c4820c399
-  languageName: node
-  linkType: hard
-
 "@ethersproject/providers@npm:5.7.2":
   version: 5.7.2
   resolution: "@ethersproject/providers@npm:5.7.2"
@@ -7458,7 +7430,7 @@ __metadata:
     ethers: ">=5.5.0 <6"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    wagmi: ">=0.11.4"
+    wagmi: ">=0.11.5"
   languageName: unknown
   linkType: soft
 
@@ -7591,12 +7563,12 @@ __metadata:
     "@types/react": ^18.0.20
     "@types/react-dom": ^18.0.6
     connectkit: "workspace:packages/connectkit"
-    ethers: ^5.6.5
+    ethers: ^5.7.1
     react: ^18.0.0
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^4.9.5
-    wagmi: ^0.11.4
+    wagmi: ^0.11.5
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -9632,45 +9604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^5.6.5":
-  version: 5.7.1
-  resolution: "ethers@npm:5.7.1"
-  dependencies:
-    "@ethersproject/abi": 5.7.0
-    "@ethersproject/abstract-provider": 5.7.0
-    "@ethersproject/abstract-signer": 5.7.0
-    "@ethersproject/address": 5.7.0
-    "@ethersproject/base64": 5.7.0
-    "@ethersproject/basex": 5.7.0
-    "@ethersproject/bignumber": 5.7.0
-    "@ethersproject/bytes": 5.7.0
-    "@ethersproject/constants": 5.7.0
-    "@ethersproject/contracts": 5.7.0
-    "@ethersproject/hash": 5.7.0
-    "@ethersproject/hdnode": 5.7.0
-    "@ethersproject/json-wallets": 5.7.0
-    "@ethersproject/keccak256": 5.7.0
-    "@ethersproject/logger": 5.7.0
-    "@ethersproject/networks": 5.7.1
-    "@ethersproject/pbkdf2": 5.7.0
-    "@ethersproject/properties": 5.7.0
-    "@ethersproject/providers": 5.7.1
-    "@ethersproject/random": 5.7.0
-    "@ethersproject/rlp": 5.7.0
-    "@ethersproject/sha2": 5.7.0
-    "@ethersproject/signing-key": 5.7.0
-    "@ethersproject/solidity": 5.7.0
-    "@ethersproject/strings": 5.7.0
-    "@ethersproject/transactions": 5.7.0
-    "@ethersproject/units": 5.7.0
-    "@ethersproject/wallet": 5.7.0
-    "@ethersproject/web": 5.7.1
-    "@ethersproject/wordlists": 5.7.0
-  checksum: 7a61b7a105c41f9fec327887414f1950dc27bfa2d12fe29a068419eaaa3d415e6a12275685c87f700abd88c3b639ae79c09a2f90edea1e69edc8126cb0dce708
-  languageName: node
-  linkType: hard
-
-"ethers@npm:^5.7.2":
+"ethers@npm:^5.7.1, ethers@npm:^5.7.2":
   version: 5.7.2
   resolution: "ethers@npm:5.7.2"
   dependencies:
@@ -9862,7 +9796,7 @@ __metadata:
   dependencies:
     "@changesets/cli": ^2.24.4
     "@rollup/plugin-node-resolve": ^13.1.3
-    ethers: ^5.6.5
+    ethers: ^5.7.1
     react: ^18.0.0
     react-dom: ^18.0.0
     rollup: ^2.67.1
@@ -9871,7 +9805,7 @@ __metadata:
     rollup-plugin-typescript2: ^0.34.0
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
-    wagmi: ^0.11.4
+    wagmi: ^0.11.5
   languageName: unknown
   linkType: soft
 
@@ -13516,12 +13450,12 @@ __metadata:
     connectkit: "workspace:packages/connectkit"
     eslint: 8.23.1
     eslint-config-next: 12.3.0
-    ethers: ^5.6.5
+    ethers: ^5.7.1
     next: 12.3.0
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^4.9.5
-    wagmi: ^0.11.4
+    wagmi: ^0.11.5
   languageName: unknown
   linkType: soft
 
@@ -17495,13 +17429,13 @@ __metadata:
     connectkit-next-siwe: "workspace:packages/connectkit-next-siwe"
     eslint: 8.23.1
     eslint-config-next: 12.3.0
-    ethers: ^5.6.5
+    ethers: ^5.7.1
     local-ssl-proxy: ^1.3.0
     next: 13.0.0
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^4.9.5
-    wagmi: ^0.11.4
+    wagmi: ^0.11.5
   languageName: unknown
   linkType: soft
 
@@ -18179,12 +18113,12 @@ __metadata:
     "@types/react-dom": ^18.0.6
     "@vitejs/plugin-react": ^2.1.0
     connectkit: "workspace:packages/connectkit"
-    ethers: ^5.6.5
+    ethers: ^5.7.1
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^4.9.5
     vite: ^3.1.0
-    wagmi: ^0.11.4
+    wagmi: ^0.11.5
   languageName: unknown
   linkType: soft
 
@@ -18206,7 +18140,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^0.11.4":
+"wagmi@npm:^0.11.5":
   version: 0.11.4
   resolution: "wagmi@npm:0.11.4"
   dependencies:

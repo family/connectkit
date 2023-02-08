@@ -1,6 +1,6 @@
 # 1.2.0
 
-This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`>=0.11.4`) to support WalletConnect v2.
+This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`>=0.11.5) to support WalletConnect v2.
 
 {% note %}
 This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide (TODO: Get link to migration guide)](https://docs.family.co/connectkit/migration-guides).
