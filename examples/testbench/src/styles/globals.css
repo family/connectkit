@@ -13,25 +13,59 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 12px;
 }
-label {
+main label {
   display: flex;
   width: auto;
   padding: 0 0 8px;
 }
-label.checkbox {
+main label.checkbox {
   align-items: center;
   gap: 4px;
 }
 
-label.textbox,
-label.select {
+main label.textbox,
+main label.select {
   flex-direction: column;
   gap: 2px;
+}
+
+main button {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+main .panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 4%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 24px;
+}
+main table tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.05);
+}
+main table td {
+  padding: 4px 8px;
+}
+main table td:first-child {
+  font-weight: bold;
 }
 
 main {
   padding: 32px;
   padding-left: 352px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(512px, 1fr));
+  grid-gap: 32px;
 }
 aside {
   z-index: 2147483647;
