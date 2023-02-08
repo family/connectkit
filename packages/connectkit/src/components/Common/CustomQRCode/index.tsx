@@ -12,6 +12,7 @@ import Tooltip from '../Tooltip';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { QRCode } from './QRCode';
+import useWindowSize from '../../../hooks/useWindowSize';
 
 const CustomQRCode = React.forwardRef(
   (
@@ -24,13 +25,15 @@ const CustomQRCode = React.forwardRef(
     }: CustomQRCodeProps,
     ref: React.Ref<HTMLElement>
   ) => {
-    const Logo = tooltipMessage ? (
-      <Tooltip xOffset={139} yOffset={5} delay={0.1} message={tooltipMessage}>
-        {image}
-      </Tooltip>
-    ) : (
-      image
-    );
+    const windowSize = useWindowSize();
+    const Logo =
+      windowSize.width > 920 && tooltipMessage ? (
+        <Tooltip xOffset={139} yOffset={5} delay={0.1} message={tooltipMessage}>
+          {image}
+        </Tooltip>
+      ) : (
+        image
+      );
 
     return (
       <QRCodeContainer>
