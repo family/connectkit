@@ -428,6 +428,7 @@ const Modal: React.FC<ModalProps> = ({
                       position: 'absolute',
                       right: 24,
                       top: 24,
+                      cursor: 'pointer',
                     }}
                   >
                     <CloseIcon />
