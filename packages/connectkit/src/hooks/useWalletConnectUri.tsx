@@ -113,6 +113,10 @@ export function useWalletConnectUri() {
                   console.log('User rejected', error.code, error);
                   connectWalletConnect(connector); // Regenerate QR code
                   break;
+                case -32000:
+                  console.log('Failed to process request', error.code, error);
+                  connectWalletConnect(connector); // Regenerate QR code
+                  break;
                 default:
                   console.log(
                     'Unknown error. User will probably need to reload app...',
