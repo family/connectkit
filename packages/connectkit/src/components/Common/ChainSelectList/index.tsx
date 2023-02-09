@@ -104,6 +104,7 @@ const ChainSelectList: React.FC = () => {
                       transition={{
                         ease: [0.76, 0, 0.24, 1],
                         duration: 0.15,
+                        delay: 0.1,
                       }}
                     >
                       <motion.div
@@ -175,6 +176,7 @@ const ChainSelectList: React.FC = () => {
                         transition={{
                           ease: [0.76, 0, 0.24, 1],
                           duration: 0.3,
+                          delay: 0.1,
                         }}
                       >
                         <motion.span
