@@ -2,13 +2,15 @@ import { motion } from 'framer-motion';
 import styled from './../../../styles/styled';
 import { keyframes } from 'styled-components';
 
-export const ChainContainer = styled.div`
+type ChainContainerProps = { size?: number };
+
+export const ChainContainer = styled.div<ChainContainerProps>`
   --bg: transparent;
   --color: #333;
   display: block;
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: ${(props) => (props.size > 0 ? `${props.size}px` : '24px')};
+  height: ${(props) => (props.size > 0 ? `${props.size}px` : '24px')};
   min-width: 24px;
   min-height: 24px;
   border-radius: 24px;

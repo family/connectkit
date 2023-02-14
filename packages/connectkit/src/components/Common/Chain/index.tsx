@@ -52,10 +52,11 @@ const Spinner = (
 const Chain: React.FC<{
   id?: number;
   unsupported?: boolean;
-}> = ({ id, unsupported }) => {
+  size?: number;
+}> = ({ id, unsupported, size = 24 }) => {
   const chain = supportedChains.find((c) => c.id === id);
   return (
-    <ChainContainer>
+    <ChainContainer size={size}>
       <AnimatePresence initial={false}>
         {unsupported && (
           <Unsupported
