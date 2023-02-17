@@ -73,6 +73,16 @@ const supportedChains: Chain[] = [
     name: 'Arbitrum Goerli',
     logo: <Logos.Arbitrum testnet />,
   },
+  {
+    id: 42220,
+    name: 'Celo',
+    logo: <Logos.UnknownChain />,
+  },
+  {
+    id: 44787,
+    name: 'Celo Alfajores',
+    logo: <Logos.UnknownChain testnet />,
+  },
 ];
 
 export default supportedChains;
