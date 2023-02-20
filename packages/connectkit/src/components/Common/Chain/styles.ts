@@ -1,21 +1,40 @@
 import { motion } from 'framer-motion';
 import styled from './../../../styles/styled';
-import { keyframes } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 
-type ChainContainerProps = { size?: number };
+type ChainContainerProps = {
+  size?: number | string;
+  radius?: number | string
+};
 
 export const ChainContainer = styled.div<ChainContainerProps>`
   --bg: transparent;
   --color: #333;
-  --width: ${(props) => (props.size > 0 ? `${props.size}px` : '24px')};
-  --height: ${(props) => (props.size > 0 ? `${props.size}px` : '24px')};
+  ${(props) =>
+    typeof props.size === 'string'
+      ? css`
+          --width: ${props.size};
+          --height: ${props.size};
+        `
+      : css`
+          --width: ${props.size > 0 ? `${props.size}px` : '24px'};
+          --height: ${props.size > 0 ? `${props.size}px` : '24px'};
+        `};
+  ${(props) =>
+    typeof props.radius === 'string'
+      ? css`
+          --radius: ${props.radius};
+        `
+      : css`
+          --radius: ${props.radius > 0 ? `${props.radius}px` : '24px'};
+        `};
   display: block;
   position: relative;
   width: var(--width);
   height: var(--height);
   min-width: var(--width);
   min-height: var(--height);
-  border-radius: 24px;
+  border-radius: var(--radius);
   background: var(--ck-body-background-secondary);
   pointer-events: none;
   user-select: none;
@@ -68,13 +87,13 @@ export const Unsupported = styled(motion.div)`
   position: absolute;
   top: 0;
   right: 0;
-  width: 13px;
-  height: 13px;
+  width: 40%;
+  height: 40%;
   color: var(--ck-body-color-danger, red);
   svg {
     display: block;
     position: relative;
-    top: -2px;
-    right: -2px;
+    top: -30%;
+    right: -30%;
   }
 `;
