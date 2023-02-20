@@ -7,12 +7,14 @@ type ChainContainerProps = { size?: number };
 export const ChainContainer = styled.div<ChainContainerProps>`
   --bg: transparent;
   --color: #333;
+  --width: ${(props) => (props.size > 0 ? `${props.size}px` : '24px')};
+  --height: ${(props) => (props.size > 0 ? `${props.size}px` : '24px')};
   display: block;
   position: relative;
-  width: ${(props) => (props.size > 0 ? `${props.size}px` : '24px')};
-  height: ${(props) => (props.size > 0 ? `${props.size}px` : '24px')};
-  min-width: 24px;
-  min-height: 24px;
+  width: var(--width);
+  height: var(--height);
+  min-width: var(--width);
+  min-height: var(--height);
   border-radius: 24px;
   background: var(--ck-body-background-secondary);
   pointer-events: none;
