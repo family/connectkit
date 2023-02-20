@@ -310,7 +310,7 @@ const Home: NextPage = () => {
         />
         <Select
           label="Mode"
-          value={mode ?? mode[0].value}
+          value={mode ?? modes[0].value}
           options={modes}
           onChange={(e) => setMode(e.target.value as Types.Mode)}
         />
