@@ -233,12 +233,13 @@ const Home: NextPage = () => {
         <div style={{ display: 'flex', gap: 8 }}>
           <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
           <ChainIcon id={1} />
-          <ChainIcon id={1337} size={16} />
-          <ChainIcon id={1337} size={32} />
+          <ChainIcon id={10} size={16} />
+          <ChainIcon id={137} size={32} />
           <ChainIcon id={1337} size={64} />
-          <ChainIcon id={2} size={16} unsupported />
-          <ChainIcon id={2} size={32} unsupported />
-          <ChainIcon id={2} size={64} unsupported />
+          <ChainIcon id={1} unsupported />
+          <ChainIcon id={10} size={16} unsupported />
+          <ChainIcon id={137} size={32} unsupported />
+          <ChainIcon id={1337} size={64} unsupported />
         </div>
         <p>Supported Chains</p>
         <div style={{ display: 'flex', gap: 8 }}>
