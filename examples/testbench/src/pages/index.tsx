@@ -258,7 +258,7 @@ const Home: NextPage = () => {
       </main>
       <aside>
         <ConnectKitButton.Custom>
-          {({ isConnected, show, address, ensName }) => {
+          {({ isConnected, show, address, ensName, chain }) => {
             return (
               <button onClick={show}>
                 {isConnected ? (
@@ -269,6 +269,11 @@ const Home: NextPage = () => {
                       gap: 8,
                     }}
                   >
+                    {chain?.name}
+                    <ChainIcon
+                      id={chain?.id}
+                      unsupported={chain?.unsupported}
+                    />
                     <Avatar address={address} size={12} />
                     {ensName ?? address}
                   </div>
