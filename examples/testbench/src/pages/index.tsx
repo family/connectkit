@@ -233,8 +233,21 @@ const Home: NextPage = () => {
         <div style={{ display: 'flex', gap: 8 }}>
           <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
           <ChainIcon id={1} />
-          <ChainIcon id={1337} />
-          <ChainIcon id={2} unsupported />
+          <ChainIcon id={10} size={16} />
+          <ChainIcon id={137} size={32} />
+          <ChainIcon id={1337} size={64} />
+          <ChainIcon id={1} unsupported />
+          <ChainIcon id={10} size={16} unsupported />
+          <ChainIcon id={137} size={32} unsupported />
+          <ChainIcon id={1337} size={64} unsupported />
+          <ChainIcon id={1} radius={0} unsupported />
+          <ChainIcon id={10} radius={0} size={16} unsupported />
+          <ChainIcon id={137} radius={0} size={32} unsupported />
+          <ChainIcon id={1337} radius={0} size={64} unsupported />
+          <ChainIcon id={1} radius={8} unsupported />
+          <ChainIcon id={10} radius={8} size={16} unsupported />
+          <ChainIcon id={137} radius={8} size={32} unsupported />
+          <ChainIcon id={1337} radius={8} size={64} unsupported />
         </div>
         <p>Supported Chains</p>
         <div style={{ display: 'flex', gap: 8 }}>
