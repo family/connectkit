@@ -14,6 +14,12 @@ export default [
         sourcemap: false,
       },
     ],
-    plugins: [peerDepsExternal(), typescript()],
+    plugins: [
+      peerDepsExternal(),
+      typescript({
+        useTsconfigDeclarationDir: true,
+        exclude: 'node_modules/**',
+      }),
+    ],
   },
 ];

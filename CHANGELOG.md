@@ -1,4 +1,20 @@
+# Working
+
 Add `chain` to `ConnectKitButton.Custom` exports.
+
+
+# 1.1.3
+
+This update fixes compatibility issues that were found with Next 13's default configuration. If you would like to use previous versions of ConnectKit you will need to make sure your application [supports Terser compression](https://nextjs.org/docs/advanced-features/compiler#minification).
+
+## Removed
+
+- Terser build compression.
+
+## Improved
+
+- Synced dev and prod rollup configs to avoid environment mismatching.
+- Next.js 13 config no longer requires Terser support ([`swcMinify: false`](https://nextjs.org/docs/advanced-features/compiler#minification)).
 
 # 1.1.2
 
