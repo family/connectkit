@@ -304,19 +304,19 @@ const Home: NextPage = () => {
         <h2>ConnectKitProvider props</h2>
         <Select
           label="Theme"
-          value={theme}
+          value={theme ?? themes[0].value}
           options={themes}
           onChange={(e) => setTheme(e.target.value as Types.Theme)}
         />
         <Select
           label="Mode"
-          value={mode}
+          value={mode ?? mode[0].value}
           options={modes}
           onChange={(e) => setMode(e.target.value as Types.Mode)}
         />
         <Select
           label="Language"
-          value={options.language}
+          value={options.language ?? languages[0].value}
           options={languages}
           onChange={(e) =>
             setOptions({
