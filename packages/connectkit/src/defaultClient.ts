@@ -83,7 +83,7 @@ const getDefaultConnectors = ({
       chains,
       options: {
         shimDisconnect: true,
-        shimChainChangedDisconnect: false,
+        shimChainChangedDisconnect: true,
         UNSTABLE_shimOnConnectSelectAccount: true,
       },
     }),

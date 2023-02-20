@@ -1,7 +1,22 @@
-# 1.1.3
+# Working
 
 - Separate the SIWE helper functions into more friendlier client and server configurations.
 - Improved the `useSIWE` hook to allow for better dev access to SIWE functionality.
+- Add `onSignIn` and `onSignOut` handlers for `useSIWE` and the SIWE provider.
+
+
+# 1.1.3
+
+This update fixes compatibility issues that were found with Next 13's default configuration. If you would like to use previous versions of ConnectKit you will need to make sure your application [supports Terser compression](https://nextjs.org/docs/advanced-features/compiler#minification).
+
+## Removed
+
+- Terser build compression.
+
+## Improved
+
+- Synced dev and prod rollup configs to avoid environment mismatching.
+- Next.js 13 config no longer requires Terser support ([`swcMinify: false`](https://nextjs.org/docs/advanced-features/compiler#minification)).
 
 # 1.1.2
 
