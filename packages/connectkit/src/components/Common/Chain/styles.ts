@@ -89,6 +89,8 @@ export const Unsupported = styled(motion.div)`
   right: 0;
   width: 40%;
   height: 40%;
+  min-width: 13px;
+  min-height: 13px;
   color: var(--ck-body-color-danger, red);
   svg {
     display: block;
