@@ -30,7 +30,7 @@ type TestBenchProviderProps = {
   theme?: Types.Theme;
   customTheme?: Types.CustomTheme;
   mode?: Types.Mode;
-  options?: any;
+  options?: Types.ConnectKitOptions;
 };
 
 export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
