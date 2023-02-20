@@ -4,18 +4,20 @@ import { ResetContainer } from '../../../styles';
 import { motion } from 'framer-motion';
 import useIsMounted from '../../../hooks/useIsMounted';
 import useLocales from '../../../hooks/useLocales';
-import { useSIWE } from './../../../siwe';
+import { SIWESession, useSIWE } from './../../../siwe';
 import { useAccount } from 'wagmi';
 import { useModal } from '../../ConnectKit';
 
 type ButtonProps = {
   showSignOutButton?: boolean;
-  onSignIn?: () => void;
+  onSignIn?: (data?: SIWESession) => void;
+  onSignOut?: () => void;
 };
 
 export const SIWEButton: React.FC<ButtonProps> = ({
   showSignOutButton,
   onSignIn,
+  onSignOut,
 }) => {
   const isMounted = useIsMounted();
   const locales = useLocales();
@@ -32,7 +34,10 @@ export const SIWEButton: React.FC<ButtonProps> = ({
     signIn,
     signOut,
     error,
-  } = useSIWE();
+  } = useSIWE({
+    onSignIn: (data) => onSignIn?.(data),
+    onSignOut: () => onSignOut?.(),
+  });
   const { address: connectedAddress } = useAccount();
 
   function getButtonLabel() {
@@ -43,13 +48,6 @@ export const SIWEButton: React.FC<ButtonProps> = ({
     if (isReady) return locales.signIn;
     return locales.signIn;
   }
-
-  const handleSignIn = () => {
-    signIn().then((signedIn: any) => {
-      console.log('signedIn', signedIn);
-      if (signedIn && onSignIn) onSignIn();
-    });
-  };
 
   if (!isMounted) {
     return <Button key="loading" style={{ margin: 0 }} disabled />;
@@ -87,7 +85,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
       key="button"
       style={{ margin: 0 }}
       arrow={!isSignedIn ? !isLoading && !isRejected : false}
-      onClick={!isLoading && !isSuccess ? handleSignIn : undefined}
+      onClick={!isLoading && !isSuccess ? signIn : undefined}
       disabled={isLoading}
       waiting={isLoading}
       icon={

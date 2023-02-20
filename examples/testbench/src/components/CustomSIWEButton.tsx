@@ -1,10 +1,15 @@
 import { useSIWE, useModal } from 'connectkit';
+import { SIWESession } from 'connectkit/build/siwe/SIWEContext';
 import { useAccount } from 'wagmi';
 
 const CustomSIWEButton = () => {
   const { setOpen } = useModal();
   const { data, isReady, isRejected, isLoading, isSignedIn, signOut, signIn } =
-    useSIWE();
+    useSIWE({
+      onSignIn: (sessionData?: SIWESession) =>
+        console.log('onSignIn CustomSIWEButton', sessionData),
+      onSignOut: () => console.log('onSignOut CustomSIWEButton'),
+    });
   const { isConnected } = useAccount();
 
   /** Wallet is connected and signed in */

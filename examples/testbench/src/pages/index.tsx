@@ -7,6 +7,7 @@ import {
   SIWEButton,
   ChainIcon,
   getGlobalChains,
+  SIWESession,
 } from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
@@ -212,7 +213,15 @@ const Home: NextPage = () => {
 
         <hr />
         <p>Sign In With Ethereum</p>
-        <SIWEButton showSignOutButton />
+        <SIWEButton
+          showSignOutButton
+          onSignIn={(data?: SIWESession) => {
+            console.log('onSignIn SIWEButton', data);
+          }}
+          onSignOut={() => {
+            console.log('onSignOut SIWEButton');
+          }}
+        />
         <CustomSIWEButton />
 
         <hr />

@@ -12,13 +12,20 @@ type HookProps = {
   isSuccess: boolean;
   isReady: boolean;
 
+  reset: () => void;
   signIn: () => Promise<boolean>;
   signOut: () => Promise<boolean>;
-  reset: () => void;
+};
+
+type UseSIWEConfig = {
+  onSignIn?: (data?: SIWESession) => void;
+  onSignOut?: () => void;
 };
 
 // Consumer-facing hook
-export const useSIWE = (): HookProps | any => {
+export const useSIWE = ({ onSignIn, onSignOut }: UseSIWEConfig = {}):
+  | HookProps
+  | any => {
   const siweContextValue = useContext(SIWEContext);
   if (!siweContextValue) {
     // If we throw an error here then this will break non-SIWE apps, so best to just respond with not signed in.
@@ -33,13 +40,13 @@ export const useSIWE = (): HookProps | any => {
       isLoading: false,
       isSuccess: false,
       isReady: false,
+      reset: () => {},
       signIn: () => Promise.reject(),
       signOut: () => Promise.reject(),
-      reset: () => {},
     };
   }
 
-  const { session, nonce, signOut, signIn, status, resetStatus } =
+  const { session, nonce, status, signOut, signIn, resetStatus } =
     siweContextValue;
   const { address, chainId } = session.data || {};
 
@@ -72,8 +79,14 @@ export const useSIWE = (): HookProps | any => {
     isLoading,
     isSuccess,
     isReady,
-    signIn,
-    signOut,
+    signIn: async () => {
+      const data = await signIn();
+      if (data) onSignIn?.(data);
+    },
+    signOut: async () => {
+      await signOut();
+      onSignOut?.();
+    },
     reset,
   };
 };

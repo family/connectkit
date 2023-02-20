@@ -43,7 +43,7 @@ export type SIWEContextValue = Required<SIWEConfig> & {
   nonce: any; //ReturnType<typeof useQuery<string | null>>;
   session: any; //ReturnType<typeof useQuery<SIWESession | null>>;
   status: StatusState;
-  signIn: () => Promise<boolean>;
+  signIn: () => Promise<SIWESession | false>;
   resetStatus: () => void;
 };
 

@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 import { WagmiConfig, createClient } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
-import { ConnectKitProvider, getDefaultClient } from 'connectkit';
+import { ConnectKitProvider, getDefaultClient, SIWESession } from 'connectkit';
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siweClient } from '../utils/siweClient';
 
@@ -32,7 +32,14 @@ function App({ Component, pageProps }: AppProps) {
   // provider depends on some of the state
 
   return (
-    <siweClient.Provider>
+    <siweClient.Provider
+      onSignIn={(data?: SIWESession) => {
+        console.log('onSignIn Provider', data);
+      }}
+      onSignOut={() => {
+        console.log('onSignOut Provider');
+      }}
+    >
       <ConnectKitProvider
         theme={theme}
         mode={mode}

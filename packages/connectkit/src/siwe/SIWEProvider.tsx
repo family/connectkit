@@ -1,10 +1,17 @@
 import { ReactNode, useContext, useEffect, useState } from 'react';
 import { useAccount, useQuery, useNetwork, useSignMessage } from 'wagmi';
 import { Context as ConnectKitContext } from './../components/ConnectKit';
-import { SIWEContext, SIWEConfig, StatusState } from './SIWEContext';
+import {
+  SIWEContext,
+  SIWEConfig,
+  StatusState,
+  SIWESession,
+} from './SIWEContext';
 
 type Props = SIWEConfig & {
   children: ReactNode;
+  onSignIn?: (data?: SIWESession) => void;
+  onSignOut?: () => void;
 };
 
 export const SIWEProvider = ({
@@ -15,6 +22,8 @@ export const SIWEProvider = ({
   signOutOnDisconnect = true,
   signOutOnAccountChange = true,
   signOutOnNetworkChange = true,
+  onSignIn,
+  onSignOut,
   ...siweConfig
 }: Props) => {
   const [status, setStatus] = useState<StatusState>(StatusState.READY);
@@ -51,6 +60,7 @@ export const SIWEProvider = ({
     }
     await Promise.all([session.refetch(), nonce.refetch()]);
     setStatus(StatusState.READY);
+    onSignOut?.();
     return true;
   };
 
@@ -111,9 +121,13 @@ export const SIWEProvider = ({
         throw new Error('Error verifying SIWE signature');
       }
 
-      await session.refetch();
+      const data = await session.refetch().then((res) => {
+        onSignIn?.(res?.data ?? undefined);
+        return res?.data;
+      });
+
       setStatus(StatusState.READY);
-      return true;
+      return data as SIWESession;
     } catch (error) {
       onError(error);
       return false;
@@ -153,8 +167,8 @@ export const SIWEProvider = ({
         ...siweConfig,
         nonce,
         session,
-        signOut: signOutAndRefetch,
         signIn,
+        signOut: signOutAndRefetch,
         status,
         resetStatus,
       }}
