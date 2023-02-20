@@ -13,8 +13,8 @@ type ContextValue = {
   setCustomTheme: React.Dispatch<React.SetStateAction<Types.CustomTheme>>;
   mode: Types.Mode;
   setMode: React.Dispatch<React.SetStateAction<Types.Mode>>;
-  options: any;
-  setOptions: React.Dispatch<React.SetStateAction<any>>;
+  options: Types.ConnectKitOptions;
+  setOptions: React.Dispatch<React.SetStateAction<Types.ConnectKitOptions>>;
   hideBalance: boolean;
   setHideBalance: React.Dispatch<React.SetStateAction<boolean>>;
   hideAvatar: boolean;
@@ -56,7 +56,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
   const [ckCustomTheme, setCustomTheme] = useState<Types.Theme>(customTheme);
   const [ckTheme, setTheme] = useState<Types.CustomTheme>(theme);
   const [ckMode, setMode] = useState<Types.Mode>(mode);
-  const [ckOptions, setOptions] = useState<any>(options);
+  const [ckOptions, setOptions] = useState<Types.ConnectKitOptions>(options);
   const [hideBalance, setHideBalance] = useState<boolean>(false);
   const [hideAvatar, setHideAvatar] = useState<boolean>(false);
   const [label, setLabel] = useState<string | undefined>();
