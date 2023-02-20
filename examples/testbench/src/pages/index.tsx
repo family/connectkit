@@ -304,19 +304,19 @@ const Home: NextPage = () => {
         <h2>ConnectKitProvider props</h2>
         <Select
           label="Theme"
-          value={theme}
+          value={theme ?? themes[0].value}
           options={themes}
           onChange={(e) => setTheme(e.target.value as Types.Theme)}
         />
         <Select
           label="Mode"
-          value={mode}
+          value={mode ?? modes[0].value}
           options={modes}
           onChange={(e) => setMode(e.target.value as Types.Mode)}
         />
         <Select
           label="Language"
-          value={options.language}
+          value={options.language ?? languages[0].value}
           options={languages}
           onChange={(e) =>
             setOptions({
@@ -328,14 +328,14 @@ const Home: NextPage = () => {
         <h3>options</h3>
         <Textbox
           label="disclaimer"
-          value={options.disclaimer}
+          value={options.disclaimer as string}
           onChange={(e: any) => {
             setOptions({ ...options, disclaimer: e.target.value });
           }}
         />
         <Textbox
           label="walletConnectName"
-          value={options.walletConnectName}
+          value={options.walletConnectName as string}
           onChange={(e: any) => {
             setOptions({ ...options, walletConnectName: e.target.value });
           }}
@@ -366,15 +366,15 @@ const Home: NextPage = () => {
         <Checkbox
           label="reduceMotion"
           value="reduceMotion"
-          checked={options.reduceMotion}
+          checked={options.reducedMotion as boolean}
           onChange={() =>
-            setOptions({ ...options, reducedMotion: !options.reduceMotion })
+            setOptions({ ...options, reducedMotion: !options.reducedMotion })
           }
         />
         <Checkbox
           label="truncateLongENSAddress"
           value="truncateLongENSAddress"
-          checked={options.truncateLongENSAddress}
+          checked={options.truncateLongENSAddress as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -385,7 +385,7 @@ const Home: NextPage = () => {
         <Checkbox
           label="hideTooltips"
           value="hideTooltips"
-          checked={options.hideTooltips}
+          checked={options.hideTooltips as boolean}
           onChange={() =>
             setOptions({ ...options, hideTooltips: !options.hideTooltips })
           }
@@ -393,7 +393,7 @@ const Home: NextPage = () => {
         <Checkbox
           label="hideQuestionMarkCTA"
           value="hideQuestionMarkCTA"
-          checked={options.hideQuestionMarkCTA}
+          checked={options.hideQuestionMarkCTA as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -404,7 +404,7 @@ const Home: NextPage = () => {
         <Checkbox
           label="hideNoWalletCTA"
           value="hideNoWalletCTA"
-          checked={options.hideNoWalletCTA}
+          checked={options.hideNoWalletCTA as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -415,7 +415,7 @@ const Home: NextPage = () => {
         <Checkbox
           label="avoidLayoutShift"
           value="avoidLayoutShift"
-          checked={options.avoidLayoutShift}
+          checked={options.avoidLayoutShift as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -427,7 +427,7 @@ const Home: NextPage = () => {
           disabled
           label="embedGoogleFonts"
           value="embedGoogleFonts"
-          checked={options.embedGoogleFonts}
+          checked={options.embedGoogleFonts as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -439,7 +439,7 @@ const Home: NextPage = () => {
           disabled
           label="bufferPolyfill"
           value="bufferPolyfill"
-          checked={options.bufferPolyfill}
+          checked={options.bufferPolyfill as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -449,7 +449,7 @@ const Home: NextPage = () => {
         />
         <Select
           label="walletConnectCTA"
-          value={options.walletConnectCTA}
+          value={options.walletConnectCTA as string}
           options={[
             { label: 'modal', value: 'modal' },
             { label: 'link', value: 'link' },

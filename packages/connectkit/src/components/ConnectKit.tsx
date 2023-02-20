@@ -61,7 +61,7 @@ type ContextValue = {
 
 export const Context = createContext<ContextValue | null>(null);
 
-type ConnectKitOptions = {
+export type ConnectKitOptions = {
   language?: Languages;
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
