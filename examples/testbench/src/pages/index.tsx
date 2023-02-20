@@ -328,7 +328,7 @@ const Home: NextPage = () => {
         <h3>options</h3>
         <Textbox
           label="disclaimer"
-          value={options.disclaimer}
+          value={options.disclaimer as string}
           onChange={(e: any) => {
             setOptions({ ...options, disclaimer: e.target.value });
           }}
