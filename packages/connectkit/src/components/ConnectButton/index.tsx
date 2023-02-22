@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAccount, useEnsName, useNetwork } from 'wagmi';
+import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
 import { truncateENSAddress, truncateEthAddress } from './../../utils';
 import useIsMounted from '../../hooks/useIsMounted';
 
@@ -100,6 +100,9 @@ type ConnectButtonRendererProps = {
   children?: (renderProps: {
     show?: () => void;
     hide?: () => void;
+    chain?: Chain & {
+      unsupported?: boolean;
+    };
     unsupported: boolean;
     isConnected: boolean;
     isConnecting: boolean;
@@ -139,6 +142,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
       {children({
         show,
         hide,
+        chain: chain,
         unsupported: !!chain?.unsupported,
         isConnected: !!address,
         isConnecting: isConnecting,

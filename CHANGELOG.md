@@ -1,9 +1,23 @@
-# Working
+# 1.2.0
+
+This update improves the functionality and developer experience of using ConnectKit with Sign In With Ethereum.
+
+## Improved
 
 - Separate the SIWE helper functions into more friendlier client and server configurations.
 - Improved the `useSIWE` hook to allow for better dev access to SIWE functionality.
 - Add `onSignIn` and `onSignOut` handlers for `useSIWE` and the SIWE provider.
 
+# 1.1.4
+
+This update adds some minor quality of life features to ConnectKit.
+
+## Improved
+
+- Included `shimChainChangedDisconnect` option to `MetaMaskConnector` to automatically disconnect the wallet when the chain changes in particular version of MetaMask (thanks [Songkeys](https://github.com/Songkeys)).
+- Added `size` prop to `ChainIcon` component to allow for custom sizing (thanks [JamieLottering](https://github.com/JamieLottering)).
+- Exported type `ConnectKitOptions` for better TypeScript support when creating a wagmi client (thanks [ryanberckmans](https://github.com/ryanberckmans)).
+- Included `chain` to `ConnectKitButton.custom` to allow for chains to be passed to custom buttons.
 
 # 1.1.3
 
