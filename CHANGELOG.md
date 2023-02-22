@@ -1,7 +1,13 @@
-# Working
+# 1.1.4
 
-Add `chain` to `ConnectKitButton.Custom` exports.
+This update adds some minor quality of life features to ConnectKit.
 
+## Improved
+
+- Included `shimChainChangedDisconnect` option to `MetaMaskConnector` to automatically disconnect the wallet when the chain changes in particular version of MetaMask (thanks [Songkeys](https://github.com/Songkeys)).
+- Added `size` prop to `ChainIcon` component to allow for custom sizing (thanks [JamieLottering](https://github.com/JamieLottering)).
+- Exported type `ConnectKitOptions` for better TypeScript support when creating a wagmi client (thanks [ryanberckmans](https://github.com/ryanberckmans)).
+- Included `chain` to `ConnectKitButton.custom` to allow for chains to be passed to custom buttons.
 
 # 1.1.3
 
