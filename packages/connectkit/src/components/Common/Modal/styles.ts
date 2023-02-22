@@ -256,19 +256,13 @@ export const BoxContainer = styled(motion.div)`
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     animation-name: ${MobileBoxOut};
-    animation-duration: 130ms;
-    animation-timing-function: ease;
 
     &.active {
       animation-name: ${MobileBoxIn};
-      animation-duration: 300ms;
-      animation-delay: 32ms;
-      animation-timing-function: cubic-bezier(0.15, 1.15, 0.6, 1);
     }
 
     &:before {
       width: 100%;
-      transition: 0ms height cubic-bezier(0.15, 1.15, 0.6, 1);
       will-change: height;
     }
   }
@@ -292,10 +286,6 @@ export const InnerContainer = styled(motion.div)`
   overflow: hidden;
   height: var(--height);
   transition: 0.2s ease height;
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    transition: 0ms height cubic-bezier(0.15, 1.15, 0.6, 1);
-    /* animation-delay: 34ms; */
-  }
 `;
 
 export const PageContainer = styled(motion.div)`
@@ -339,10 +329,9 @@ export const PageContainer = styled(motion.div)`
     animation-delay: 16.6667ms;
   }
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    /* animation: 0ms ease both; */
-    /* animation-delay: 35ms; */
-    animation: 0ms cubic-bezier(0.15, 1.15, 0.6, 1) both;
-
+    /**
+     * Remove scale animation on mobile 
+     **/
     &.active {
       animation-name: ${FadeIn};
     }
@@ -356,7 +345,6 @@ export const PageContainer = styled(motion.div)`
     &.exit {
       z-index: 3;
       animation-name: ${FadeOut};
-      animation-delay: 0ms;
     }
   }
 `;
