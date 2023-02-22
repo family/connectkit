@@ -2,11 +2,14 @@
 
 This update improves the functionality and developer experience of using ConnectKit with Sign In With Ethereum.
 
+## New
+
+- Add `onSignIn` and `onSignOut` handlers for `useSIWE` and the SIWE provider.
+
 ## Improved
 
 - Separate the SIWE helper functions into more friendlier client and server configurations.
 - Improved the `useSIWE` hook to allow for better dev access to SIWE functionality.
-- Add `onSignIn` and `onSignOut` handlers for `useSIWE` and the SIWE provider.
 
 # 1.1.4
 
