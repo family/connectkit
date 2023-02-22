@@ -63,6 +63,7 @@ export const Context = createContext<ContextValue | null>(null);
 
 export type ConnectKitOptions = {
   language?: Languages;
+  hideBalance?: boolean;
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
@@ -106,6 +107,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   // Default config options
   const defaultOptions: ConnectKitOptions = {
     language: 'en-US',
+    hideBalance: false,
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
