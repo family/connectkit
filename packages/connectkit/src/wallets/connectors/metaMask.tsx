@@ -1,8 +1,12 @@
-import { WalletProps, WalletOptions } from './../wallet';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import {
+  WalletProps,
+  WalletOptions,
+  getDefaultWalletConnectConnector,
+  getProviderUri,
+} from './../wallet';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
-import { isMobile, isAndroid, isMetaMask } from '../../utils';
+import { isMobile, isMetaMask, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const metaMask = ({ chains }: WalletOptions): WalletProps => {
@@ -54,17 +58,12 @@ export const metaMask = ({ chains }: WalletOptions): WalletProps => {
     installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
     createConnector: () => {
       const connector = shouldUseWalletConnect
-        ? new WalletConnectConnector({
-            chains,
-            options: {
-              qrcode: false,
-            },
-          })
+        ? getDefaultWalletConnectConnector(chains)
         : new MetaMaskConnector({
             chains,
             options: {
               shimDisconnect: true,
-              shimChainChangedDisconnect: false,
+              shimChainChangedDisconnect: true,
               UNSTABLE_shimOnConnectSelectAccount: true,
             },
           });
@@ -74,7 +73,6 @@ export const metaMask = ({ chains }: WalletOptions): WalletProps => {
         getUri: async () => {},
         getMobileConnector: shouldUseWalletConnect
           ? async () => {
-              let connnector = connector as WalletConnectConnector;
               connector.on('error', (err) => {
                 console.log('onError', err);
               });
@@ -83,7 +81,7 @@ export const metaMask = ({ chains }: WalletOptions): WalletProps => {
                 if (type === 'connecting') {
                   let uriString = '';
                   try {
-                    const { uri } = (await connnector.getProvider()).connector;
+                    const uri = await getProviderUri(connector);
                     uriString = isAndroid()
                       ? uri
                       : `https://metamask.app.link/wc?uri=${encodeURIComponent(

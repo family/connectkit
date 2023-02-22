@@ -9,9 +9,6 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import Button from '../../Common/Button';
-
-import { ExternalLinkIcon } from '../../../assets/icons';
 import { useConnect } from '../../../hooks/useConnect';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { routes, useContext } from '../../ConnectKit';
@@ -19,8 +16,8 @@ import { WalletProps } from '../../../wallets/wallet';
 import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { walletConnect } from '../../../wallets/connectors/walletConnect';
-import { useNetwork } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
+import { getGlobalChains } from '../../../defaultClient';
 
 const MoreIcon = (
   <svg
@@ -44,7 +41,7 @@ const MobileConnectors: React.FC = () => {
 
   const locales = useLocales();
 
-  const { chains } = useNetwork();
+  const chains = getGlobalChains();
 
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
   const wallets = useDefaultWallets().filter(

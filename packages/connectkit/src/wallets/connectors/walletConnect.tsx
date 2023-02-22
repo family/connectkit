@@ -1,8 +1,11 @@
-import { WalletProps, WalletOptions } from './../wallet';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import {
+  WalletProps,
+  WalletOptions,
+  getProviderUri,
+  getDefaultWalletConnectConnector,
+} from './../wallet';
 
 import Logos from './../../assets/logos';
-import { isMobile } from '../../utils';
 
 export const walletConnect = ({ chains }: WalletOptions): WalletProps => {
   return {
@@ -18,18 +21,13 @@ export const walletConnect = ({ chains }: WalletOptions): WalletProps => {
     logoBackground: 'var(--ck-brand-walletConnect)',
     scannable: true,
     createConnector: () => {
-      const connector = new WalletConnectConnector({
-        chains,
-        options: {
-          qrcode: false,
-        },
-      });
-
-      const getUri = async () => (await connector.getProvider()).connector.uri;
+      const connector = getDefaultWalletConnectConnector(chains);
 
       return {
         connector,
-        qrCode: { getUri },
+        qrCode: {
+          getUri: async () => await getProviderUri(connector),
+        },
       };
     },
   };

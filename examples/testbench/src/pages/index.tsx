@@ -6,6 +6,7 @@ import {
   useSIWE,
   SIWEButton,
   ChainIcon,
+  getGlobalChains,
 } from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
@@ -199,6 +200,7 @@ const Home: NextPage = () => {
   useEffect(() => setMounted(true), []);
 
   const { chain } = useNetwork();
+  const chains = getGlobalChains();
 
   if (!mounted) return null;
 
@@ -232,13 +234,32 @@ const Home: NextPage = () => {
         <div style={{ display: 'flex', gap: 8 }}>
           <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
           <ChainIcon id={1} />
-          <ChainIcon id={1337} />
-          <ChainIcon id={2} unsupported />
+          <ChainIcon id={10} size={16} />
+          <ChainIcon id={137} size={32} />
+          <ChainIcon id={1337} size={64} />
+          <ChainIcon id={1} unsupported />
+          <ChainIcon id={10} size={16} unsupported />
+          <ChainIcon id={137} size={32} unsupported />
+          <ChainIcon id={1337} size={64} unsupported />
+          <ChainIcon id={1} radius={0} unsupported />
+          <ChainIcon id={10} radius={0} size={16} unsupported />
+          <ChainIcon id={137} radius={0} size={32} unsupported />
+          <ChainIcon id={1337} radius={0} size={64} unsupported />
+          <ChainIcon id={1} radius={8} unsupported />
+          <ChainIcon id={10} radius={8} size={16} unsupported />
+          <ChainIcon id={137} radius={8} size={32} unsupported />
+          <ChainIcon id={1337} radius={8} size={64} unsupported />
+        </div>
+        <p>Supported Chains</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {chains.map((chain) => (
+            <ChainIcon key={chain.id} id={chain.id} />
+          ))}
         </div>
       </main>
       <aside>
         <ConnectKitButton.Custom>
-          {({ isConnected, show, address, ensName }) => {
+          {({ isConnected, show, address, ensName, chain }) => {
             return (
               <button onClick={show}>
                 {isConnected ? (
@@ -249,6 +270,11 @@ const Home: NextPage = () => {
                       gap: 8,
                     }}
                   >
+                    {chain?.name}
+                    <ChainIcon
+                      id={chain?.id}
+                      unsupported={chain?.unsupported}
+                    />
                     <Avatar address={address} size={12} />
                     {ensName ?? address}
                   </div>
@@ -284,19 +310,19 @@ const Home: NextPage = () => {
         <h2>ConnectKitProvider props</h2>
         <Select
           label="Theme"
-          value={theme}
+          value={theme ?? themes[0].value}
           options={themes}
           onChange={(e) => setTheme(e.target.value as Types.Theme)}
         />
         <Select
           label="Mode"
-          value={mode}
+          value={mode ?? modes[0].value}
           options={modes}
           onChange={(e) => setMode(e.target.value as Types.Mode)}
         />
         <Select
           label="Language"
-          value={options.language}
+          value={options.language ?? languages[0].value}
           options={languages}
           onChange={(e) =>
             setOptions({
@@ -308,14 +334,14 @@ const Home: NextPage = () => {
         <h3>options</h3>
         <Textbox
           label="disclaimer"
-          value={options.disclaimer}
+          value={options.disclaimer as string}
           onChange={(e: any) => {
             setOptions({ ...options, disclaimer: e.target.value });
           }}
         />
         <Textbox
           label="walletConnectName"
-          value={options.walletConnectName}
+          value={options.walletConnectName as string}
           onChange={(e: any) => {
             setOptions({ ...options, walletConnectName: e.target.value });
           }}
@@ -346,15 +372,15 @@ const Home: NextPage = () => {
         <Checkbox
           label="reduceMotion"
           value="reduceMotion"
-          checked={options.reduceMotion}
+          checked={options.reducedMotion as boolean}
           onChange={() =>
-            setOptions({ ...options, reducedMotion: !options.reduceMotion })
+            setOptions({ ...options, reducedMotion: !options.reducedMotion })
           }
         />
         <Checkbox
           label="truncateLongENSAddress"
           value="truncateLongENSAddress"
-          checked={options.truncateLongENSAddress}
+          checked={options.truncateLongENSAddress as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -365,7 +391,7 @@ const Home: NextPage = () => {
         <Checkbox
           label="hideTooltips"
           value="hideTooltips"
-          checked={options.hideTooltips}
+          checked={options.hideTooltips as boolean}
           onChange={() =>
             setOptions({ ...options, hideTooltips: !options.hideTooltips })
           }
@@ -373,7 +399,7 @@ const Home: NextPage = () => {
         <Checkbox
           label="hideQuestionMarkCTA"
           value="hideQuestionMarkCTA"
-          checked={options.hideQuestionMarkCTA}
+          checked={options.hideQuestionMarkCTA as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -384,7 +410,7 @@ const Home: NextPage = () => {
         <Checkbox
           label="hideNoWalletCTA"
           value="hideNoWalletCTA"
-          checked={options.hideNoWalletCTA}
+          checked={options.hideNoWalletCTA as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -395,7 +421,7 @@ const Home: NextPage = () => {
         <Checkbox
           label="avoidLayoutShift"
           value="avoidLayoutShift"
-          checked={options.avoidLayoutShift}
+          checked={options.avoidLayoutShift as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -407,7 +433,7 @@ const Home: NextPage = () => {
           disabled
           label="embedGoogleFonts"
           value="embedGoogleFonts"
-          checked={options.embedGoogleFonts}
+          checked={options.embedGoogleFonts as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -419,7 +445,7 @@ const Home: NextPage = () => {
           disabled
           label="bufferPolyfill"
           value="bufferPolyfill"
-          checked={options.bufferPolyfill}
+          checked={options.bufferPolyfill as boolean}
           onChange={() =>
             setOptions({
               ...options,
@@ -429,7 +455,7 @@ const Home: NextPage = () => {
         />
         <Select
           label="walletConnectCTA"
-          value={options.walletConnectCTA}
+          value={options.walletConnectCTA as string}
           options={[
             { label: 'modal', value: 'modal' },
             { label: 'link', value: 'link' },

@@ -43,7 +43,7 @@ const zhCN: LocaleProps = {
   onboardingScreen_h1: `开始探索 Web3`,
   onboardingScreen_p: `您的钱包是通往以太坊的一扇大门，而以太坊是探索 Web3 的一项神奇技术。`,
   onboardingScreen_ctaText: `选择您的第一钱包`,
-  onboardingScreen_ctaUrl: `https://ethereum.org/zh/wallets/find-wallet/#main-content`,
+  onboardingScreen_ctaUrl: `https://ethereum.org/zh/wallets/find-wallet/`,
 
   aboutScreen_heading: `关于钱包`,
   aboutScreen_a_h1: `对于您的数字资产`,
@@ -53,7 +53,7 @@ const zhCN: LocaleProps = {
   aboutScreen_c_h1: `探索 Web3 世界`,
   aboutScreen_c_p: `您的钱包是一个重要的工具，可以让您探索并参与到快速发展的 Web3 世界。`,
   aboutScreen_ctaText: `了解更多`,
-  aboutScreen_ctaUrl: `https://docs.ethhub.io/using-ethereum/wallets/intro-to-ethereum-wallets/`, // TODO: Replace when version is available. There is https://zh.docs.ethhub.io/ but there is currently no intro-to-ethereum-wallets page
+  aboutScreen_ctaUrl: `https://ethereum.org/zh/wallets/`,
 
   connectorsScreen_heading: `绑定钱包`,
   connectorsScreen_newcomer: `我没有钱包`,
