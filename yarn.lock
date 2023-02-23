@@ -7307,8 +7307,8 @@ __metadata:
     siwe: ^1.1.6
     typescript: ^4.6.3
   peerDependencies:
-    connectkit: "*"
-    next: 12.x
+    connectkit: ">=1.2.0"
+    next: ">=12.x"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
     siwe: ">=1.1.0 <2"
