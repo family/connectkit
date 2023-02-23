@@ -24,6 +24,11 @@ import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
 import Link from 'next/link';
 
+import * as wagmiChains from 'wagmi/chains';
+const allChains = Object.keys(wagmiChains).map(
+  (key) => wagmiChains[key as keyof typeof wagmiChains]
+);
+
 import CustomAvatar from '../components/CustomAvatar';
 import CustomSIWEButton from '../components/CustomSIWEButton';
 
@@ -240,30 +245,61 @@ const Home: NextPage = () => {
         </div>
 
         <hr />
-        <p>Chains</p>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <p>Chains</p>
           <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
-          <ChainIcon id={1} />
-          <ChainIcon id={10} size={16} />
-          <ChainIcon id={137} size={32} />
-          <ChainIcon id={1337} size={64} />
-          <ChainIcon id={1} unsupported />
-          <ChainIcon id={10} size={16} unsupported />
-          <ChainIcon id={137} size={32} unsupported />
-          <ChainIcon id={1337} size={64} unsupported />
-          <ChainIcon id={1} radius={0} unsupported />
-          <ChainIcon id={10} radius={0} size={16} unsupported />
-          <ChainIcon id={137} radius={0} size={32} unsupported />
-          <ChainIcon id={1337} radius={0} size={64} unsupported />
-          <ChainIcon id={1} radius={8} unsupported />
-          <ChainIcon id={10} radius={8} size={16} unsupported />
-          <ChainIcon id={137} radius={8} size={32} unsupported />
-          <ChainIcon id={1337} radius={8} size={64} unsupported />
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ChainIcon id={10} size={16} />
+            <ChainIcon id={10} size={16} unsupported />
+            <ChainIcon id={10} radius={8} size={16} unsupported />
+            <ChainIcon id={10} radius={'0'} size={16} unsupported />
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ChainIcon id={42161} />
+            <ChainIcon id={42161} unsupported />
+            <ChainIcon id={42161} radius={8} unsupported />
+            <ChainIcon id={42161} radius={'0'} unsupported />
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ChainIcon id={137} size={32} />
+            <ChainIcon id={137} size={32} unsupported />
+            <ChainIcon id={137} radius={8} size={32} unsupported />
+            <ChainIcon id={137} radius={'0'} size={32} unsupported />
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ChainIcon id={43113} size={64} />
+            <ChainIcon id={43113} size={64} unsupported />
+            <ChainIcon id={43113} radius={8} size={64} unsupported />
+            <ChainIcon id={43113} radius={'0'} size={64} unsupported />
+          </div>
         </div>
         <p>Supported Chains</p>
         <div style={{ display: 'flex', gap: 8 }}>
           {chains.map((chain) => (
             <ChainIcon key={chain.id} id={chain.id} />
+          ))}
+        </div>
+        <p>All Chains</p>
+        <div
+          style={{
+            boxShadow: '0 0 0 1px #eee',
+            padding: 8,
+            borderRadius: 8,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+            gap: 8,
+          }}
+        >
+          {allChains.map((chain) => (
+            <div
+              key={chain.id}
+              style={{ display: 'flex', gap: 8, alignItems: 'center' }}
+            >
+              <ChainIcon id={chain.id} />
+              <span>
+                {chain.name} <code>{chain.id}</code>
+              </span>
+            </div>
           ))}
         </div>
       </main>
