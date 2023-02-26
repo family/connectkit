@@ -1,6 +1,5 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import typescript from 'rollup-plugin-typescript2';
-import { terser } from 'rollup-plugin-terser';
 
 import packageJson from './package.json';
 
@@ -19,7 +18,6 @@ export default [
         useTsconfigDeclarationDir: true,
         exclude: 'node_modules/**',
       }),
-      terser(),
     ],
   },
 ];

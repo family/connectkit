@@ -20,7 +20,7 @@ import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
-import { SIWEContext } from './Standard/SIWE/SIWEContext';
+import { SIWEContext } from './../siwe';
 import { getGlobalChains } from '../defaultClient';
 
 export const routes = {
