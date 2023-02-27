@@ -453,6 +453,17 @@ const Home: NextPage = () => {
           }
         />
         <Checkbox
+          label="disableSiweRedirect"
+          value="disableSiweRedirect"
+          checked={options.disableSiweRedirect as boolean}
+          onChange={() =>
+            setOptions({
+              ...options,
+              disableSiweRedirect: !options.disableSiweRedirect,
+            })
+          }
+        />
+        <Checkbox
           disabled
           label="embedGoogleFonts"
           value="embedGoogleFonts"

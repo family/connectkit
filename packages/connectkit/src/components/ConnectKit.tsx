@@ -79,6 +79,7 @@ export type ConnectKitOptions = {
   initialChainId?: number;
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;
+  disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
 };
 
 type ConnectKitProviderProps = {
@@ -123,6 +124,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     initialChainId: getGlobalChains()[0]?.id,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
+    disableSiweRedirect: false,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
