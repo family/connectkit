@@ -24,7 +24,6 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   const { setOpen } = useModal();
 
   const {
-    status,
     isSignedIn,
     isReady,
     isLoading,

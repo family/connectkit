@@ -127,7 +127,6 @@ const Tooltip: React.FC<TooltipProps> = ({
                       },
                     },
                     open: {
-                      willChange: 'opacity,transform',
                       opacity: 1,
                       scale: 1,
                       z: 0.01,
