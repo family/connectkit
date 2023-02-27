@@ -399,6 +399,17 @@ const Home: NextPage = () => {
           }
         />
         <Checkbox
+          label="hideBalance"
+          value="hideBalance"
+          checked={options.hideBalance as boolean}
+          onChange={() =>
+            setOptions({
+              ...options,
+              hideBalance: !options.hideBalance,
+            })
+          }
+        />
+        <Checkbox
           label="hideTooltips"
           value="hideTooltips"
           checked={options.hideTooltips as boolean}
