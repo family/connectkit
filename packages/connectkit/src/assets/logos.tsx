@@ -580,7 +580,7 @@ export const Ledger = ({ ...props }) => (
     viewBox="0 0 88 88"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{ background: 'black' }}
+    style={{ background: 'var(--ck-brand-ledger)' }}
   >
     <path
       fillRule="evenodd"

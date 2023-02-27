@@ -98,6 +98,15 @@ if (typeof window != 'undefined') {
       defaultConnect: () => {},
     },
     {
+      id: 'ledger',
+      name: 'Ledger',
+      logos: {
+        default: <Logos.Ledger />,
+      },
+      logoBackground: 'var(--ck-brand-ledger)',
+      scannable: false,
+    },
+    {
       id: 'metaMask',
       name: 'MetaMask',
       logos: {
