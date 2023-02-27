@@ -20,7 +20,7 @@ import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
-import { SIWEContext } from './Standard/SIWE/SIWEContext';
+import { SIWEContext } from './../siwe';
 import { getGlobalChains } from '../defaultClient';
 
 export const routes = {
@@ -63,6 +63,7 @@ export const Context = createContext<ContextValue | null>(null);
 
 export type ConnectKitOptions = {
   language?: Languages;
+  hideBalance?: boolean;
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
@@ -79,6 +80,7 @@ export type ConnectKitOptions = {
   enforceSupportedChains?: boolean;
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;
+  disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
 };
 
 type ConnectKitProviderProps = {
@@ -107,6 +109,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   // Default config options
   const defaultOptions: ConnectKitOptions = {
     language: 'en-US',
+    hideBalance: false,
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
@@ -123,6 +126,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
+    disableSiweRedirect: false,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);

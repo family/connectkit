@@ -1,131 +1,81 @@
-import { useAccount, useNetwork, useSignMessage } from 'wagmi';
-import { useContext, useState } from 'react';
 import Button from '../../Common/Button';
 import { DisconnectIcon, RetryIcon } from '../../../assets/icons';
-import { SIWEContext } from './SIWEContext';
 import { ResetContainer } from '../../../styles';
 import { motion } from 'framer-motion';
 import useIsMounted from '../../../hooks/useIsMounted';
 import useLocales from '../../../hooks/useLocales';
-
-enum ButtonState {
-  READY = 'ready',
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  REJECTED = 'rejected',
-  ERROR = 'error',
-}
+import { SIWESession, useSIWE } from './../../../siwe';
+import { useAccount } from 'wagmi';
+import { useModal } from '../../ConnectKit';
 
 type ButtonProps = {
   showSignOutButton?: boolean;
-  onSignIn?: () => void;
+  onSignIn?: (data?: SIWESession) => void;
+  onSignOut?: () => void;
 };
 
 export const SIWEButton: React.FC<ButtonProps> = ({
   showSignOutButton,
   onSignIn,
+  onSignOut,
 }) => {
-  const siweContext = useContext(SIWEContext);
   const isMounted = useIsMounted();
-
   const locales = useLocales();
+  const { setOpen } = useModal();
 
-  const { address } = useAccount();
-  const { chain: activeChain } = useNetwork();
-  const { signMessageAsync } = useSignMessage();
+  const {
+    status,
+    isSignedIn,
+    isReady,
+    isLoading,
+    isRejected,
+    isSuccess,
+    isError,
+    signIn,
+    signOut,
+    error,
+  } = useSIWE({
+    onSignIn: (data) => onSignIn?.(data),
+    onSignOut: () => onSignOut?.(),
+  });
+  const { address: connectedAddress } = useAccount();
 
-  const [currentStatus, setStatus] = useState<ButtonState>(ButtonState.READY);
-
-  // TODO: refactor
-  const status = siweContext?.session.data?.address
-    ? ButtonState.SUCCESS
-    : siweContext?.session.isLoading || siweContext?.nonce.isLoading
-    ? ButtonState.LOADING
-    : currentStatus;
-
-  function getButtonLabel(state: ButtonState) {
-    const labels = {
-      [ButtonState.READY]: locales.signIn,
-      [ButtonState.LOADING]: locales.awaitingConfirmation,
-      [ButtonState.REJECTED]: locales.tryAgain,
-      [ButtonState.ERROR]: 'Unknown Error',
-      [ButtonState.SUCCESS]: locales.signedIn,
-    };
-    // TODO: discuss non-connected wallet developer expectations
-    return !address ? locales.walletNotConnected : labels[state];
+  function getButtonLabel() {
+    if (isSuccess) return locales.signedIn;
+    if (isRejected) return locales.tryAgain;
+    if (isLoading) return locales.awaitingConfirmation;
+    if (isError) return error ?? 'Unknown Error';
+    if (isReady) return locales.signIn;
+    return locales.signIn;
   }
 
-  const onError = (error: any) => {
-    console.error('signIn error', error.code, error.message);
-    switch (error.code) {
-      case -32000: // WalletConnect: user rejected
-        setStatus(ButtonState.REJECTED);
-        break;
-      case 'ACTION_REJECTED': // MetaMask: user rejected
-        setStatus(ButtonState.REJECTED);
-        break;
-      default:
-        setStatus(ButtonState.ERROR);
-    }
-  };
-
-  const signIn = async () => {
-    try {
-      if (!siweContext) {
-        throw new Error('SIWE not configured');
-      }
-
-      const chainId = activeChain?.id;
-      if (!address) throw new Error('No address found');
-      if (!chainId) throw new Error('No chainId found');
-
-      const nonce = siweContext.nonce.data;
-      if (!nonce) {
-        throw new Error('Could not fetch nonce');
-      }
-
-      setStatus(ButtonState.LOADING);
-
-      const message = siweContext.createMessage({
-        address,
-        chainId,
-        nonce,
-      });
-
-      // Ask user to sign message with their wallet
-      const signature = await signMessageAsync({
-        message,
-      });
-
-      // Verify signature
-      if (!(await siweContext.verifyMessage({ message, signature }))) {
-        throw new Error('Error verifying SIWE signature');
-      }
-
-      await siweContext.session.refetch();
-      setStatus(ButtonState.READY);
-      onSignIn?.();
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  if (!siweContext) {
-    throw new Error('SIWEButton must be inside a SIWEProvider.');
-  }
-
-  if (!isMounted)
+  if (!isMounted) {
     return <Button key="loading" style={{ margin: 0 }} disabled />;
+  }
 
-  if (showSignOutButton && status === ButtonState.SUCCESS) {
+  if (showSignOutButton && isSignedIn) {
     return (
       <Button
         key="button"
         style={{ margin: 0 }}
-        onClick={siweContext.signOutAndRefetch}
+        onClick={signOut}
         icon={<DisconnectIcon />}
       >
         {locales.signOut}
+      </Button>
+    );
+  }
+
+  if (!connectedAddress) {
+    // TODO: discuss non-connected wallet developer expectations
+    return (
+      <Button
+        key="button"
+        style={{ margin: 0 }}
+        onClick={() => setOpen(true)}
+        arrow
+      >
+        {locales.walletNotConnected}
       </Button>
     );
   }
@@ -134,21 +84,12 @@ export const SIWEButton: React.FC<ButtonProps> = ({
     <Button
       key="button"
       style={{ margin: 0 }}
-      arrow={address ? status === ButtonState.READY : false}
-      onClick={
-        status !== ButtonState.LOADING && status !== ButtonState.SUCCESS
-          ? signIn
-          : undefined
-      }
-      disabled={
-        !address ||
-        siweContext.nonce.isFetching ||
-        status === ButtonState.LOADING ||
-        status === ButtonState.SUCCESS
-      }
-      waiting={status === ButtonState.LOADING}
+      arrow={!isSignedIn ? !isLoading && !isRejected : false}
+      onClick={!isLoading && !isSuccess ? signIn : undefined}
+      disabled={isLoading}
+      waiting={isLoading}
       icon={
-        status === ButtonState.REJECTED && (
+        isRejected && (
           <motion.div
             initial={{
               rotate: -270,
@@ -166,7 +107,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
         )
       }
     >
-      {getButtonLabel(status)}
+      {getButtonLabel()}
     </Button>
   );
 };

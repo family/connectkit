@@ -83,7 +83,10 @@ const ConnectModal: React.FC<{
         context.route !== routes.PROFILE ||
         context.route !== routes.SIGNINWITHETHEREUM
       ) {
-        if (context.signInWithEthereum) {
+        if (
+          context.signInWithEthereum &&
+          !context.options?.disableSiweRedirect
+        ) {
           context.setRoute(routes.SIGNINWITHETHEREUM);
         } else {
           hide(); // Hide on connect
