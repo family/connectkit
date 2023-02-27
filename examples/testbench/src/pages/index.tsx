@@ -269,7 +269,7 @@ const Home: NextPage = () => {
       </main>
       <aside>
         <ConnectKitButton.Custom>
-          {({ isConnected, show, address, ensName, chain }) => {
+          {({ isConnected, isConnecting, show, address, ensName, chain }) => {
             return (
               <button onClick={show}>
                 {isConnected ? (
@@ -289,7 +289,9 @@ const Home: NextPage = () => {
                     {ensName ?? address}
                   </div>
                 ) : (
-                  'Custom Connect'
+                  <div>
+                    Custom Connect {isConnecting ? 'connecting...' : ''}
+                  </div>
                 )}
               </button>
             );

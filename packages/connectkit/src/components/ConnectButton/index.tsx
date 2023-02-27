@@ -8,7 +8,7 @@ import {
   TextContainer,
   UnsupportedNetworkContainer,
 } from './styles';
-import { routes, useContext } from '../ConnectKit';
+import { routes, useContext, useModal } from '../ConnectKit';
 import Avatar from '../Common/Avatar';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { CustomTheme, Mode, Theme } from '../../types';
@@ -117,20 +117,21 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 }) => {
   const isMounted = useIsMounted();
   const context = useContext();
+  const { open, setOpen } = useModal();
 
   const { chain } = useNetwork();
-  const { address, isConnected, isConnecting } = useAccount();
+  const { address, isConnected } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
   });
 
   function hide() {
-    context.setOpen(false);
+    setOpen(false);
   }
 
   function show() {
-    context.setOpen(true);
+    setOpen(true);
     context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
   }
 
@@ -145,7 +146,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         chain: chain,
         unsupported: !!chain?.unsupported,
         isConnected: !!address,
-        isConnecting: isConnecting,
+        isConnecting: open, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
         address: address,
         truncatedAddress: address ? truncateEthAddress(address) : undefined,
         ensName: ensName?.toString(),
