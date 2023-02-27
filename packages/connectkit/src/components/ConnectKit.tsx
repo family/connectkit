@@ -120,9 +120,9 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     bufferPolyfill: true,
     customAvatar: undefined,
     initialChainId: getGlobalChains()[0]?.id,
+    enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
-    enforceSupportedChains: false,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
