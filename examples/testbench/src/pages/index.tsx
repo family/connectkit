@@ -7,6 +7,7 @@ import {
   SIWEButton,
   ChainIcon,
   getGlobalChains,
+  SIWESession,
 } from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
@@ -24,6 +25,7 @@ import { BigNumber } from 'ethers';
 import Link from 'next/link';
 
 import CustomAvatar from '../components/CustomAvatar';
+import CustomSIWEButton from '../components/CustomSIWEButton';
 
 /** TODO: import this data from the connectkit module */
 const themes: SelectProps[] = [
@@ -64,8 +66,8 @@ const AccountInfo = () => {
       <li>Connector: {connector?.id}</li>
       <li>Balance: {balanceData?.formatted}</li>
       <li>
-        SIWE session: {siwe.signedIn ? 'yes' : 'no'}
-        {siwe.signedIn && <button onClick={siwe.signOut}>sign out</button>}
+        SIWE session: {siwe.isSignedIn ? 'yes' : 'no'}
+        {siwe.isSignedIn && <button onClick={siwe.signOut}>sign out</button>}
       </li>
       <li>
         <Link href="/siwe/token-gated">Token-gated page</Link>
@@ -211,7 +213,16 @@ const Home: NextPage = () => {
 
         <hr />
         <p>Sign In With Ethereum</p>
-        <SIWEButton showSignOutButton />
+        <SIWEButton
+          showSignOutButton
+          onSignIn={(data?: SIWESession) => {
+            console.log('onSignIn SIWEButton', data);
+          }}
+          onSignOut={() => {
+            console.log('onSignOut SIWEButton');
+          }}
+        />
+        <CustomSIWEButton />
 
         <hr />
         <AccountInfo />

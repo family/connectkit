@@ -16,7 +16,7 @@ import { Balance } from '../BalanceButton';
 import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
 import { ResetContainer } from '../../styles';
 import { AuthIcon } from '../../assets/icons';
-import { useSIWE } from '../Standard/SIWE/useSIWE';
+import { useSIWE } from '../../siwe';
 import useLocales from '../../hooks/useLocales';
 
 const contentVariants: Variants = {
@@ -167,7 +167,7 @@ function ConnectKitButtonInner({
 }) {
   const locales = useLocales({});
   const context = useContext();
-  const { signedIn } = useSIWE();
+  const { isSignedIn } = useSIWE();
 
   const { address } = useAccount();
   const { data: ensName } = useEnsName({
@@ -194,7 +194,7 @@ function ConnectKitButtonInner({
           {showAvatar && (
             <IconContainer>
               <AnimatePresence initial={false}>
-                {signedIn && (
+                {isSignedIn && (
                   <motion.div
                     style={{
                       zIndex: 2,

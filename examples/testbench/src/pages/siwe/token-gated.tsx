@@ -1,5 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next';
-import { siwe } from '../../siwe';
+import { siweServer } from '../../utils/siweServer';
 
 type Props =
   | { isCollector: false }
@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   req,
   res,
 }) => {
-  const { address } = await siwe.getSession(req, res);
+  const { address } = await siweServer.getSession(req, res);
 
   if (!address) {
     return {
