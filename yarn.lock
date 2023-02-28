@@ -9774,6 +9774,7 @@ __metadata:
     rollup-plugin-typescript2: ^0.34.0
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
+    typescript-plugin-styled-components: ^2.0.0
     wagmi: ^0.11.2
   languageName: unknown
   linkType: soft
@@ -17724,6 +17725,15 @@ __metadata:
   dependencies:
     is-typedarray: ^1.0.0
   checksum: 99c11aaa8f45189fcfba6b8a4825fd684a321caa9bd7a76a27cf0c7732c174d198b99f449c52c3818107430b5f41c0ccbbfb75cb2ee3ca4a9451710986d61a60
+  languageName: node
+  linkType: hard
+
+"typescript-plugin-styled-components@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "typescript-plugin-styled-components@npm:2.0.0"
+  peerDependencies:
+    typescript: ^4.0
+  checksum: b4048b45e576ef01e0439f2f7fd6bddd96d83eb6fd91956b0952f56cfcbe952ab2a1330f1c46851b78f5bdf71821f43123145c0be1db6bb578257913a70ddd0b
   languageName: node
   linkType: hard
 
