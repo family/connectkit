@@ -294,6 +294,12 @@ export const InnerContainer = styled(motion.div)`
     background: var(--ck-body-background);
     box-shadow: var(--ck-modal-box-shadow);
   }
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    &:before {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
 `;
 
 export const PageContainer = styled(motion.div)`

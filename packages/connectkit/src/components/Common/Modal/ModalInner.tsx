@@ -35,8 +35,6 @@ const ModalInner: React.FC<ModalContentProps> = ({ pages, children }) => {
     };
   }, [pageId]);
 
-  console.log('Render');
-
   return (
     <InnerContainer
       animate={{
@@ -44,8 +42,8 @@ const ModalInner: React.FC<ModalContentProps> = ({ pages, children }) => {
         height: dimensions.value.height,
       }}
       transition={{
-        ease: [0.16, 1, 0.3, 1],
-        duration: 0.25,
+        ease: [0.15, 1.15, 0.6, 1],
+        duration: 0.5,
       }}
     >
       {children}

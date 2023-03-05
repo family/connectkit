@@ -544,7 +544,8 @@ const Modal: React.FC<ModalProps> = ({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{
-                      duration: mobile ? 0 : 0.17,
+                      // duration: mobile ? 0 : 0.17,
+                      duration: 0,
                       delay: mobile ? 0.01 : 0,
                     }}
                   >
