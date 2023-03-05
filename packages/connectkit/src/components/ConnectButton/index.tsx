@@ -8,7 +8,7 @@ import {
   TextContainer,
   UnsupportedNetworkContainer,
 } from './styles';
-import { routes, useContext, useModal } from '../ConnectKit';
+import { router, routes, useContext, useModal } from '../ConnectKit';
 import Avatar from '../Common/Avatar';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { CustomTheme, Mode, Theme } from '../../types';
@@ -132,7 +132,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 
   function show() {
     setOpen(true);
-    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    router.value = isConnected ? routes.PROFILE : routes.CONNECTORS;
   }
 
   if (!children) return null;
@@ -331,7 +331,7 @@ export function ConnectKitButton({
 
   function show() {
     context.setOpen(true);
-    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    router.value = isConnected ? routes.PROFILE : routes.CONNECTORS;
   }
 
   const separator = ['web95', 'rounded', 'minimal'].includes(

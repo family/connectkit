@@ -22,6 +22,7 @@ import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
 import { getGlobalChains } from '../defaultClient';
+import { signal } from '@preact/signals-react';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -218,6 +219,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   );
 };
 
+export const router = signal(routes.CONNECTORS);
+
 export const useContext = () => {
   const context = React.useContext(Context);
   if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
@@ -232,7 +235,7 @@ export const useModal = () => {
     open: context.open,
     setOpen: (show: boolean) => {
       if (show) {
-        context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+        router.value = isConnected ? routes.PROFILE : routes.CONNECTORS;
       }
       context.setOpen(show);
     },

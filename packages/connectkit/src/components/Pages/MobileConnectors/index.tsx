@@ -11,7 +11,7 @@ import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
 import { useConnect } from '../../../hooks/useConnect';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
-import { routes, useContext } from '../../ConnectKit';
+import { router, routes, useContext } from '../../ConnectKit';
 import { WalletProps } from '../../../wallets/wallet';
 import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect';
 import CopyToClipboard from '../../Common/CopyToClipboard';
@@ -52,7 +52,7 @@ const MobileConnectors: React.FC = () => {
     const c = wallet.createConnector();
 
     if (wallet.installed) {
-      context.setRoute(routes.CONNECT);
+      router.value = routes.CONNECT;
       context.setConnector(c.connector.id);
     } else {
       c.connector.on('message', async ({ type }: any) => {

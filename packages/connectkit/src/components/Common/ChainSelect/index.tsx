@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { routes, useContext } from './../../ConnectKit';
+import { router, routes, useContext } from './../../ConnectKit';
 
 import { useNetwork } from 'wagmi';
 
@@ -165,7 +165,7 @@ const ChainSelector: React.FC = () => {
             disabled={disabled}
             onClick={() => {
               if (mobile) {
-                context.setRoute(routes.SWITCHNETWORKS);
+                router.value = routes.SWITCHNETWORKS;
               } else {
                 setIsOpen(!isOpen);
               }

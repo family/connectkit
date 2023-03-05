@@ -39,6 +39,7 @@
   },
   "packageManager": "yarn@3.2.0",
   "dependencies": {
-    "@changesets/cli": "^2.24.4"
+    "@changesets/cli": "^2.24.4",
+    "@preact/signals-react": "^1.2.2"
   }
 }

@@ -3478,6 +3478,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@preact/signals-core@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@preact/signals-core@npm:1.2.3"
+  checksum: 21f42dfbdbc49be8da361e8adbfc93647dbbd18f952a1ef4dec7821ee9c3c6e9f095386c795878188781fb2102b9feb1a8243f739946e992965414877406185d
+  languageName: node
+  linkType: hard
+
+"@preact/signals-react@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@preact/signals-react@npm:1.2.2"
+  dependencies:
+    "@preact/signals-core": ^1.2.3
+    use-sync-external-store: ^1.2.0
+  peerDependencies:
+    react: 17.x || 18.x
+  checksum: 46184a68ab7d2e93abccd7aa43c7f72af9fb98099b7ec7ca9eb266d08d7937b055a58f18c03ef70fa25019016b042b9534216ad38a388c24321d4e947b8e0636
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-babel@npm:^5.2.0":
   version: 5.3.1
   resolution: "@rollup/plugin-babel@npm:5.3.1"
@@ -9764,6 +9783,7 @@ __metadata:
   resolution: "family-connectkit@workspace:."
   dependencies:
     "@changesets/cli": ^2.24.4
+    "@preact/signals-react": ^1.2.2
     "@rollup/plugin-node-resolve": ^13.1.3
     ethers: ^5.6.5
     react: ^18.0.0
