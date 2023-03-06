@@ -31,7 +31,7 @@ import {
 
 import { isMobile, isAndroid } from '../../../utils';
 
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 //import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -59,9 +59,9 @@ const Wallets: React.FC = () => {
         context.setRoute(routes.MOBILECONNECTORS);
         break;
       case 'metaMask':
-        connector = new WalletConnectConnector({
+        connector = new WalletConnectLegacyConnector({
           chains: c.chains,
-          options: { ...c.options, qrcode: false, version: '1' },
+          options: { ...c.options, qrcode: false },
         });
         break;
       case 'coinbaseWallet':
@@ -82,7 +82,7 @@ const Wallets: React.FC = () => {
 
     // TODO: Make this neater and use the MetaMask config
     if (c.id === 'metaMask' && mobile) {
-      let connnector = connector as WalletConnectConnector;
+      let connnector = connector as WalletConnectLegacyConnector;
       connector.on('message', async ({ type }) => {
         if (type === 'connecting') {
           const uri = await getProviderUri(connnector);

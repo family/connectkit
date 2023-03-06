@@ -3,7 +3,7 @@ import { Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 import { Provider } from '@wagmi/core';
 
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
@@ -22,20 +22,9 @@ export const getGlobalChains = () => globalChains;
 
 const defaultChains = [mainnet, polygon, optimism, arbitrum];
 
-type WalletConnectOptionsProps =
-  | {
-      version: '2';
-      projectId: string;
-    }
-  | {
-      version: '1';
-    }
-  | undefined;
-
 type DefaultConnectorsProps = {
   chains?: Chain[];
   appName: string;
-  walletConnectOptions?: WalletConnectOptionsProps;
 };
 
 type DefaultClientProps = {
@@ -50,7 +39,6 @@ type DefaultClientProps = {
   webSocketProvider?: any;
   enableWebSocketProvider?: boolean;
   stallTimeout?: number;
-  walletConnectOptions?: WalletConnectOptionsProps;
 };
 
 type ConnectKitClientProps = {
@@ -60,24 +48,7 @@ type ConnectKitClientProps = {
   webSocketProvider?: any;
 };
 
-const getDefaultConnectors = ({
-  chains,
-  appName,
-  walletConnectOptions,
-}: DefaultConnectorsProps) => {
-  const wcOpts: WalletConnectOptionsProps = { version: '1' };
-  /*
-  const wcOpts: WalletConnectOptionsProps =
-    walletConnectOptions?.version === '2' && walletConnectOptions?.projectId
-      ? {
-          version: '2',
-          projectId: walletConnectOptions.projectId, // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
-        }
-      : {
-          version: '1',
-        };
-   */
-
+const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
   return [
     new MetaMaskConnector({
       chains,
@@ -94,11 +65,10 @@ const getDefaultConnectors = ({
         headlessMode: true,
       },
     }),
-    new WalletConnectConnector({
+    new WalletConnectLegacyConnector({
       chains,
       options: {
         qrcode: false,
-        ...wcOpts,
       },
     }),
     new InjectedConnector({

@@ -1,5 +1,5 @@
 import { Connector } from 'wagmi';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 
 import { useConnect } from './useConnect';
 
@@ -11,7 +11,7 @@ export function useDefaultWalletConnect() {
         (c) => c.id === 'walletConnect'
       );
       if (c) {
-        const connector = new WalletConnectConnector({
+        const connector = new WalletConnectLegacyConnector({
           chains: c.chains,
           options: { ...c.options, qrcode: true },
         });
