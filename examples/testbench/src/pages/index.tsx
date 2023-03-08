@@ -1,13 +1,14 @@
 import type { NextPage } from 'next';
 import {
-  ConnectKitButton,
   Types,
+  ConnectKitButton,
   Avatar,
-  useSIWE,
   SIWEButton,
   ChainIcon,
   getGlobalChains,
   SIWESession,
+  useModal,
+  useSIWE,
 } from 'connectkit';
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
@@ -203,6 +204,8 @@ const Home: NextPage = () => {
   const { chain } = useNetwork();
   const chains = getGlobalChains();
 
+  const { open, setOpen, openSignInWithEthereum, openAbout } = useModal();
+
   if (!mounted) return null;
 
   return (
@@ -223,6 +226,12 @@ const Home: NextPage = () => {
           }}
         />
         <CustomSIWEButton />
+
+        <hr />
+        <p>useModal. open: {open.toString()}</p>
+        <button onClick={() => setOpen(true)}>Open modal</button>
+        <button onClick={() => openAbout()}>Open to About</button>
+        <button onClick={() => openSignInWithEthereum()}>Open to SIWE</button>
 
         <hr />
         <AccountInfo />

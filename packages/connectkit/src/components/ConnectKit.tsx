@@ -223,18 +223,3 @@ export const useContext = () => {
   if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
   return context;
 };
-
-// Experimenal—can change later so only surface in API reference
-export const useModal = () => {
-  const context = useContext();
-  const { isConnected } = useAccount();
-  return {
-    open: context.open,
-    setOpen: (show: boolean) => {
-      if (show) {
-        context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
-      }
-      context.setOpen(show);
-    },
-  };
-};
