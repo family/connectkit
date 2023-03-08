@@ -32,6 +32,9 @@ label.select {
 main {
   padding: 32px;
   padding-left: 352px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 aside {
   z-index: 2147483647;
