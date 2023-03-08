@@ -48,6 +48,17 @@ aside {
   padding: 32px;
   background: #fff;
 }
+
+code {
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: gray;
+  background: #f5f5f5;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+}
+
 @media screen and (max-width: 768px) {
   main {
     padding: 32px;
