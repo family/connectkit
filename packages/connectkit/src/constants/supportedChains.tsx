@@ -129,6 +129,11 @@ const supportedChains: Chain[] = [
     logo: <Logos.Evmos testnet />,
   },
   {
+    id: 56,
+    name: 'BNB Smart Chain',
+    logo: <Logos.BinanceSmartChain />,
+  },
+  {
     id: 97,
     name: 'Binance Smart Chain Testnet',
     logo: <Logos.BinanceSmartChain testnet />,
@@ -157,6 +162,81 @@ const supportedChains: Chain[] = [
     id: 280,
     name: 'zkSync Testnet',
     logo: <Logos.zkSync testnet />,
+  },
+  {
+    id: 42_220,
+    name: 'Celo',
+    logo: <Logos.Celo />,
+  },
+  {
+    id: 44_787,
+    name: 'Celo Alfajores',
+    logo: <Logos.Celo testnet />,
+  },
+  {
+    id: 7_700,
+    name: 'Canto',
+    logo: <Logos.Canto />,
+  },
+  {
+    id: 250,
+    name: 'Fantom',
+    logo: <Logos.Fantom />,
+  },
+  {
+    id: 4_002,
+    name: 'Fantom Testnet',
+    logo: <Logos.Fantom testnet />,
+  },
+  {
+    id: 314,
+    name: 'Filecoin',
+    logo: <Logos.Filecoin testnet />,
+  },
+  {
+    id: 14,
+    name: 'Flare',
+    logo: <Logos.Flare />,
+  },
+  {
+    id: 114,
+    name: 'Coston2',
+    logo: <Logos.Flare />,
+  },
+  {
+    id: 314,
+    name: 'Filecoin',
+    logo: <Logos.Filecoin />,
+  },
+  {
+    id: 314_1,
+    name: 'Filecoin Hyperspace',
+    logo: <Logos.Filecoin testnet />,
+  },
+  {
+    id: 314_159,
+    name: 'Filecoin Calibration',
+    logo: <Logos.Filecoin testnet />,
+  },
+  {
+    id: 1_088,
+    name: 'Metis',
+    logo: <Logos.Metis />,
+  },
+  {
+    id: 599,
+    name: 'Metis Goerli',
+    logo: <Logos.Metis testnet />,
+  },
+  {
+    id: 4_689,
+    name: 'IoTeX',
+    logo: <Logos.IoTeX />,
+  },
+  {
+    id: 4_690,
+    name: 'IoTeX Testnet',
+    logo: <Logos.IoTeX testnet />,
   },
 ];
 
