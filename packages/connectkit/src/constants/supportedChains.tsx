@@ -189,11 +189,6 @@ const supportedChains: Chain[] = [
     logo: <Logos.Fantom testnet />,
   },
   {
-    id: 314,
-    name: 'Filecoin',
-    logo: <Logos.Filecoin testnet />,
-  },
-  {
     id: 14,
     name: 'Flare',
     logo: <Logos.Flare />,
