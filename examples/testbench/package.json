@@ -16,7 +16,7 @@
     "next": "13.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "wagmi": "^0.10.11"
+    "wagmi": "^0.11.2"
   },
   "devDependencies": {
     "@types/node": "18.7.18",
@@ -24,6 +24,6 @@
     "@types/react-dom": "^18.0.2",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0",
-    "typescript": "4.8.3"
+    "typescript": "^4.9.5"
   }
 }

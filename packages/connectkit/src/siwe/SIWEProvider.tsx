@@ -1,11 +1,18 @@
-import { ReactNode, useContext, useEffect } from 'react';
-import { useAccount, useQuery, useNetwork } from 'wagmi';
-import { Context as ConnectKitContext } from '../../ConnectKit';
-import { SIWEContext, SIWEConfig } from './SIWEContext';
+import { ReactNode, useContext, useEffect, useState } from 'react';
+import { useAccount, useQuery, useNetwork, useSignMessage } from 'wagmi';
+import { Context as ConnectKitContext } from './../components/ConnectKit';
+import {
+  SIWEContext,
+  SIWEConfig,
+  StatusState,
+  SIWESession,
+} from './SIWEContext';
 import { utils } from 'ethers';
 
 type Props = SIWEConfig & {
   children: ReactNode;
+  onSignIn?: (data?: SIWESession) => void;
+  onSignOut?: () => void;
 };
 
 export const SIWEProvider = ({
@@ -16,8 +23,13 @@ export const SIWEProvider = ({
   signOutOnDisconnect = true,
   signOutOnAccountChange = true,
   signOutOnNetworkChange = true,
+  onSignIn,
+  onSignOut,
   ...siweConfig
 }: Props) => {
+  const [status, setStatus] = useState<StatusState>(StatusState.READY);
+  const resetStatus = () => setStatus(StatusState.READY);
+
   // Only allow for mounting SIWEProvider once, so we avoid weird global state
   // collisions.
   if (useContext(SIWEContext)) {
@@ -43,10 +55,14 @@ export const SIWEProvider = ({
   const sessionData = session.data;
 
   const signOutAndRefetch = async () => {
+    setStatus(StatusState.LOADING);
     if (!(await siweConfig.signOut())) {
       throw new Error('Failed to sign out.');
     }
     await Promise.all([session.refetch(), nonce.refetch()]);
+    setStatus(StatusState.READY);
+    onSignOut?.();
+    return true;
   };
 
   const { address: connectedAddress } = useAccount({
@@ -57,7 +73,67 @@ export const SIWEProvider = ({
       }
     },
   });
+  const { address } = useAccount();
   const { chain } = useNetwork();
+  const { signMessageAsync } = useSignMessage();
+
+  const onError = (error: any) => {
+    console.error('signIn error', error.code, error.message);
+    switch (error.code) {
+      case -32000: // WalletConnect: user rejected
+      case 4001: // MetaMask: user rejected
+      case 'ACTION_REJECTED': // MetaMask: user rejected
+        setStatus(StatusState.REJECTED);
+        break;
+      default:
+        setStatus(StatusState.ERROR);
+    }
+  };
+
+  const signIn = async () => {
+    try {
+      if (!siweConfig) {
+        throw new Error('SIWE not configured');
+      }
+
+      const chainId = chain?.id;
+      if (!address) throw new Error('No address found');
+      if (!chainId) throw new Error('No chainId found');
+
+      if (!nonce.data) {
+        throw new Error('Could not fetch nonce');
+      }
+
+      setStatus(StatusState.LOADING);
+
+      const message = siweConfig.createMessage({
+        address,
+        chainId,
+        nonce: nonce?.data,
+      });
+
+      // Ask user to sign message with their wallet
+      const signature = await signMessageAsync({
+        message,
+      });
+
+      // Verify signature
+      if (!(await siweConfig.verifyMessage({ message, signature }))) {
+        throw new Error('Error verifying SIWE signature');
+      }
+
+      const data = await session.refetch().then((res) => {
+        onSignIn?.(res?.data ?? undefined);
+        return res?.data;
+      });
+
+      setStatus(StatusState.READY);
+      return data as SIWESession;
+    } catch (error) {
+      onError(error);
+      return false;
+    }
+  };
 
   useEffect(() => {
     // Skip if we're still fetching session state from backend
@@ -96,7 +172,10 @@ export const SIWEProvider = ({
         ...siweConfig,
         nonce,
         session,
-        signOutAndRefetch,
+        signIn,
+        signOut: signOutAndRefetch,
+        status,
+        resetStatus,
       }}
     >
       {children}

@@ -20,7 +20,7 @@ import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
-import { SIWEContext } from './Standard/SIWE/SIWEContext';
+import { SIWEContext } from './../siwe';
 import { getGlobalChains } from '../defaultClient';
 
 export const routes = {
@@ -63,6 +63,7 @@ export const Context = createContext<ContextValue | null>(null);
 
 export type ConnectKitOptions = {
   language?: Languages;
+  hideBalance?: boolean;
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
@@ -76,8 +77,10 @@ export type ConnectKitOptions = {
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
   initialChainId?: number;
+  enforceSupportedChains?: boolean;
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;
+  disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
 };
 
 type ConnectKitProviderProps = {
@@ -106,6 +109,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   // Default config options
   const defaultOptions: ConnectKitOptions = {
     language: 'en-US',
+    hideBalance: false,
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
@@ -119,8 +123,10 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     bufferPolyfill: true,
     customAvatar: undefined,
     initialChainId: getGlobalChains()[0]?.id,
+    enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
+    disableSiweRedirect: false,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
@@ -159,7 +165,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   // Check if chain is supported, elsewise redirect to switches page
   const { chain } = useNetwork();
   useEffect(() => {
-    if (chain?.unsupported) {
+    if (!opts.enforceSupportedChains && chain?.unsupported) {
       setOpen(true);
       setRoute(routes.SWITCHNETWORKS);
     }
