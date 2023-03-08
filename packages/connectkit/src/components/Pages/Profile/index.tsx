@@ -35,6 +35,7 @@ import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import useLocales from '../../../hooks/useLocales';
+import { ChainIds } from '../../../constants/supportedChains';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
@@ -51,8 +52,15 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     chainId: 1,
     address: address,
   });
+
+  const customTokenAddress =
+    context?.options?.customTokenAddress && chain
+      ? context.options.customTokenAddress[chain.id as ChainIds]
+      : undefined;
+
   const { data: balance } = useBalance({
     address,
+    ...(customTokenAddress && { token: customTokenAddress }),
     //watch: true,
   });
 

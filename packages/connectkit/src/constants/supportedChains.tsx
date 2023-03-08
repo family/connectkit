@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 import Logos from './../assets/chains';
 
-type Chain = { id: number; name: string; logo: ReactNode };
-const supportedChains: Chain[] = [
+const supportedChains = [
   {
     id: 1,
     name: 'Ethereum',
@@ -73,6 +72,8 @@ const supportedChains: Chain[] = [
     name: 'Arbitrum Goerli',
     logo: <Logos.Arbitrum testnet />,
   },
-];
+] as const;
+
+export type ChainIds = typeof supportedChains[number]['id'];
 
 export default supportedChains;
