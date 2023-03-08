@@ -22,9 +22,20 @@ export const getGlobalChains = () => globalChains;
 
 const defaultChains = [mainnet, polygon, optimism, arbitrum];
 
+type WalletConnectOptionsProps =
+  | {
+      version: '2';
+      projectId: string;
+    }
+  | {
+      version: '1';
+    }
+  | undefined;
+
 type DefaultConnectorsProps = {
   chains?: Chain[];
   appName: string;
+  walletConnectOptions?: WalletConnectOptionsProps;
 };
 
 type DefaultClientProps = {
@@ -39,6 +50,7 @@ type DefaultClientProps = {
   webSocketProvider?: any;
   enableWebSocketProvider?: boolean;
   stallTimeout?: number;
+  walletConnectOptions?: WalletConnectOptionsProps;
 };
 
 type ConnectKitClientProps = {
@@ -48,7 +60,14 @@ type ConnectKitClientProps = {
   webSocketProvider?: any;
 };
 
-const getDefaultConnectors = ({ chains, appName }: DefaultConnectorsProps) => {
+const getDefaultConnectors = ({
+  chains,
+  appName,
+  walletConnectOptions,
+}: DefaultConnectorsProps) => {
+  const wcOpts: WalletConnectOptionsProps = { version: '1' };
+  // TODO: Add support for WalletConnect v2
+
   return [
     new MetaMaskConnector({
       chains,
