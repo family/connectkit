@@ -19,6 +19,9 @@ import {
   useSignMessage,
   useSignTypedData,
   usePrepareSendTransaction,
+  useConnect,
+  useDisconnect,
+  Chain,
 } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
@@ -62,7 +65,7 @@ const AccountInfo = () => {
   } = useAccount();
   const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
-  const siwe = useSIWE();
+  const { isSignedIn, signOut } = useSIWE();
 
   return (
     <div className="panel">
@@ -98,20 +101,10 @@ const AccountInfo = () => {
               <td>{connector?.id}</td>
             </tr>
             <tr>
-              <td>Connector Version</td>
-              <td>{connector?.options?.version}</td>
-            </tr>
-            <tr>
-              <td>WalletConnect Project ID</td>
-              <td>{connector?.options?.projectId}</td>
-            </tr>
-            <tr>
               <td>SIWE session</td>
               <td>
-                {siwe.signedIn ? 'yes' : 'no'}{' '}
-                {siwe.signedIn && (
-                  <button onClick={siwe.signOut}>sign out</button>
-                )}
+                {isSignedIn ? 'yes' : 'no'}{' '}
+                {isSignedIn && <button onClick={signOut}>sign out</button>}
               </td>
             </tr>
           </tbody>
@@ -249,7 +242,7 @@ const Home: NextPage = () => {
 
   const chains = getGlobalChains();
 
-  const { connectors, reset } = useConnect();
+  const { reset } = useConnect();
   const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
@@ -292,8 +285,8 @@ const Home: NextPage = () => {
           <h2>Chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
             <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
-            <ChainIcon id={1} />
-            <ChainIcon id={1337} />
+            <ChainIcon id={1} size={64} radius={6} />
+            <ChainIcon id={1337} size={32} radius={0} />
             <ChainIcon id={2} unsupported />
           </div>
           <h2>dApps configured chains</h2>
@@ -308,41 +301,12 @@ const Home: NextPage = () => {
           <h2>Avatars</h2>
           <div style={{ display: 'flex', gap: 8 }}>
             <Avatar name="lochie.eth" />
-            <Avatar name="pugson.eth" size={32} radius={6} />
+            <Avatar name="pugson.eth" size={64} radius={6} />
+            <Avatar name="benjitaylor.eth" size={32} radius={0} />
             <Avatar
               address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
               size={12}
             />
-            <Avatar name="benjitaylor.eth" size={64} />
-          </div>
-        </div>
-
-        <div className="panel">
-          <h2>Chains</h2>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
-            <ChainIcon id={1} />
-            <ChainIcon id={10} size={16} />
-            <ChainIcon id={137} size={32} />
-            <ChainIcon id={1337} size={64} />
-            <ChainIcon id={1} unsupported />
-            <ChainIcon id={10} size={16} unsupported />
-            <ChainIcon id={137} size={32} unsupported />
-            <ChainIcon id={1337} size={64} unsupported />
-            <ChainIcon id={1} radius={0} unsupported />
-            <ChainIcon id={10} radius={0} size={16} unsupported />
-            <ChainIcon id={137} radius={0} size={32} unsupported />
-            <ChainIcon id={1337} radius={0} size={64} unsupported />
-            <ChainIcon id={1} radius={8} unsupported />
-            <ChainIcon id={10} radius={8} size={16} unsupported />
-            <ChainIcon id={137} radius={8} size={32} unsupported />
-            <ChainIcon id={1337} radius={8} size={64} unsupported />
-          </div>
-          <p>Supported Chains</p>
-          <div style={{ display: 'flex', gap: 8 }}>
-            {chains.map((chain) => (
-              <ChainIcon key={chain.id} id={chain.id} />
-            ))}
           </div>
         </div>
       </main>
