@@ -201,6 +201,7 @@ const ChainSelectDropdown: React.FC<{
                       },
                       open: {
                         transformOrigin: '0 0',
+                        willChange: 'opacity,transform',
                         opacity: 1,
                         scale: 1,
                         z: 0.01,
