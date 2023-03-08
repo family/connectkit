@@ -150,7 +150,7 @@ const contentTransitionDuration = 0.22;
 
 export const contentVariants: Variants = {
   initial: {
-    willChange: 'transform,opacity',
+    //willChange: 'transform,opacity',
     zIndex: 2,
     opacity: 0,
   },
