@@ -204,7 +204,7 @@ const Home: NextPage = () => {
   const { chain } = useNetwork();
   const chains = getGlobalChains();
 
-  const { open, setOpen, openSignInWithEthereum, openAbout } = useModal();
+  const { open, setOpen, openSIWE, openAbout } = useModal();
 
   if (!mounted) return null;
 
@@ -231,7 +231,7 @@ const Home: NextPage = () => {
         <p>useModal. open: {open.toString()}</p>
         <button onClick={() => setOpen(true)}>Open modal</button>
         <button onClick={() => openAbout()}>Open to About</button>
-        <button onClick={() => openSignInWithEthereum()}>Open to SIWE</button>
+        <button onClick={() => openSIWE(true)}>Open to SIWE</button>
 
         <hr />
         <AccountInfo />

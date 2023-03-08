@@ -1,5 +1,6 @@
 import { useAccount } from 'wagmi';
 import { routes, useContext } from '../components/ConnectKit';
+import { useSIWE } from '../siwe';
 
 type ModalRoutes = typeof routes[keyof typeof routes];
 
@@ -26,6 +27,7 @@ type ValidRoutes = ModalRoutes;
 export const useModal = () => {
   const context = useContext();
   const { isConnected } = useAccount();
+  const { signIn } = useSIWE();
 
   const close = () => {
     context.setOpen(false);
@@ -79,6 +81,9 @@ export const useModal = () => {
     // Connected Routes
     openProfile: () => gotoAndOpen(routes.PROFILE),
     openSwitchNetworks: () => gotoAndOpen(routes.SWITCHNETWORKS),
-    openSignInWithEthereum: () => gotoAndOpen(routes.SIGNINWITHETHEREUM),
+    openSIWE: (triggerSIWE?: boolean) => {
+      gotoAndOpen(routes.SIGNINWITHETHEREUM);
+      if (triggerSIWE) signIn();
+    },
   };
 };
