@@ -1,10 +1,10 @@
 export * as Types from './types';
 export { default as getDefaultClient } from './defaultClient';
 
-export { useModal } from './components/ConnectKit';
+export { useModal } from './hooks/useModal';
 export { SIWEProvider, useSIWE, SIWEConfig, SIWESession } from './siwe';
 
-export { ConnectKitProvider } from './components/ConnectKit';
+export { ConnectKitProvider, Context } from './components/ConnectKit';
 export { ConnectKitButton } from './components/ConnectButton';
 export { default as SIWEButton } from './components/Standard/SIWE';
 

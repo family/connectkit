@@ -8,7 +8,9 @@ import {
   TextContainer,
   UnsupportedNetworkContainer,
 } from './styles';
-import { routes, useContext, useModal } from '../ConnectKit';
+import { routes, useContext } from '../ConnectKit';
+import { useModal } from '../../hooks/useModal';
+
 import Avatar from '../Common/Avatar';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { CustomTheme, Mode, Theme } from '../../types';

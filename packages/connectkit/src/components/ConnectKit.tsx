@@ -124,7 +124,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     bufferPolyfill: true,
     customAvatar: undefined,
     initialChainId: chains?.[0]?.id,
-    enforceSupportedChains: false,
+    enforceSupportedChains: true,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
     disableSiweRedirect: false,
@@ -166,7 +166,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   // Check if chain is supported, elsewise redirect to switches page
   const { chain } = useNetwork();
   useEffect(() => {
-    if (!opts.enforceSupportedChains && chain?.unsupported) {
+    if (opts.enforceSupportedChains && chain?.unsupported) {
       setOpen(true);
       setRoute(routes.SWITCHNETWORKS);
     }
@@ -223,19 +223,4 @@ export const useContext = () => {
   const context = React.useContext(Context);
   if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
   return context;
-};
-
-// Experimenal—can change later so only surface in API reference
-export const useModal = () => {
-  const context = useContext();
-  const { isConnected } = useAccount();
-  return {
-    open: context.open,
-    setOpen: (show: boolean) => {
-      if (show) {
-        context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
-      }
-      context.setOpen(show);
-    },
-  };
 };

@@ -5,14 +5,15 @@ import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
 
 import {
-  ConnectKitButton,
   Types,
+  ConnectKitButton,
   Avatar,
-  useSIWE,
   SIWEButton,
   ChainIcon,
   SIWESession,
   useChains,
+  useModal,
+  useSIWE,
 } from 'connectkit';
 
 import {
@@ -207,6 +208,8 @@ const Home: NextPage = () => {
   const { chain } = useNetwork();
   const chains = useChains();
 
+  const { open, setOpen, openSIWE, openAbout } = useModal();
+
   if (!mounted) return null;
 
   return (
@@ -227,6 +230,12 @@ const Home: NextPage = () => {
           }}
         />
         <CustomSIWEButton />
+
+        <hr />
+        <p>useModal. open: {open.toString()}</p>
+        <button onClick={() => setOpen(true)}>Open modal</button>
+        <button onClick={() => openAbout()}>Open to About</button>
+        <button onClick={() => openSIWE(true)}>Open to SIWE</button>
 
         <hr />
         <AccountInfo />

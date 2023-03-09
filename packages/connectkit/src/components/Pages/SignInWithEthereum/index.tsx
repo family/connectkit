@@ -59,11 +59,7 @@ const SignInWithEthereum: React.FC = () => {
         };
 
   useEffect(() => {
-    if (isSignedIn) {
-      setStatus('signedIn');
-    } else {
-      reset();
-    }
+    if (isSignedIn) setStatus('signedIn');
   }, []);
 
   useEffect(() => {
