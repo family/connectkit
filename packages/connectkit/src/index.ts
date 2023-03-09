@@ -4,7 +4,7 @@ export { default as getDefaultClient, getGlobalChains } from './defaultClient';
 export { useModal } from './hooks/useModal';
 export { SIWEProvider, useSIWE, SIWEConfig, SIWESession } from './siwe';
 
-export { ConnectKitProvider } from './components/ConnectKit';
+export { ConnectKitProvider, Context } from './components/ConnectKit';
 export { ConnectKitButton } from './components/ConnectButton';
 export { default as SIWEButton } from './components/Standard/SIWE';
 
