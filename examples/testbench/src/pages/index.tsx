@@ -27,12 +27,17 @@ import {
   useConnect,
   useDisconnect,
 } from 'wagmi';
-import { Chain } from 'wagmi/chains';
+import * as wagmiChains from 'wagmi/chains';
 
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
+
 import CustomAvatar from '../components/CustomAvatar';
 import CustomSIWEButton from '../components/CustomSIWEButton';
+
+const allChains = Object.keys(wagmiChains).map(
+  (key) => wagmiChains[key as keyof typeof wagmiChains]
+);
 
 /** TODO: import this data from the connectkit module */
 const themes: SelectProps[] = [
@@ -305,10 +310,11 @@ const Home: NextPage = () => {
           </div>
           <h2>dApps configured chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
-            {chains.map((chain: Chain) => (
+            {chains.map((chain: wagmiChains.Chain) => (
               <ChainIcon key={chain.id} id={chain.id} />
             ))}
           </div>
+          <Link href="/chains">Chains Testbench &rarr;</Link>
         </div>
 
         <div className="panel">
