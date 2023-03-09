@@ -123,7 +123,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     bufferPolyfill: true,
     customAvatar: undefined,
     initialChainId: getGlobalChains()[0]?.id,
-    enforceSupportedChains: false,
+    enforceSupportedChains: true,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
     disableSiweRedirect: false,
@@ -165,7 +165,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   // Check if chain is supported, elsewise redirect to switches page
   const { chain } = useNetwork();
   useEffect(() => {
-    if (!opts.enforceSupportedChains && chain?.unsupported) {
+    if (opts.enforceSupportedChains && chain?.unsupported) {
       setOpen(true);
       setRoute(routes.SWITCHNETWORKS);
     }
