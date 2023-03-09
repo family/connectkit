@@ -114,15 +114,6 @@ const Wallet = ({ inverted = false }) => (
           : 'var(--ck-graphic-primary-color, var(--ck-body-color))'
       }
     />
-    {/*
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M57.9332 20.3335V42.1113C57.9332 46.4069 54.451 49.8891 50.1555 49.8891H8.15546C3.85991 49.8891 0.377686 46.4069 0.377686 42.1113V25.0002V7.8891C0.377686 3.59355 3.85991 0.111328 8.15546 0.111328H47.0444C48.7626 0.111328 50.1555 1.50422 50.1555 3.22244C50.1555 4.94066 48.7626 6.33355 47.0443 6.33355H9.71102C7.9928 6.33355 6.59991 7.72644 6.59991 9.44466C6.59991 11.1629 7.9928 12.5558 9.71102 12.5558H50.1555C54.451 12.5558 57.9332 16.038 57.9332 20.3335ZM46.2667 34.3337C48.4145 34.3337 50.1556 32.5926 50.1556 30.4448C50.1556 28.297 48.4145 26.5559 46.2667 26.5559C44.1189 26.5559 42.3778 28.297 42.3778 30.4448C42.3778 32.5926 44.1189 34.3337 46.2667 34.3337Z"
-      fill="url(#paint0_linear_2501_7732)"
-      opacity={0.2}
-    />
-  */}
     <defs>
       <linearGradient
         id="paint0_linear_2501_7732"
@@ -178,40 +169,6 @@ const Receive = (
       clipRule="evenodd"
       d="M19 0.875C21.4853 0.875 23.5 2.88972 23.5 5.375V27.761L30.068 21.193C31.8254 19.4357 34.6746 19.4357 36.432 21.193C38.1893 22.9504 38.1893 25.7996 36.432 27.557L22.182 41.807C20.4246 43.5643 17.5754 43.5643 15.818 41.807L1.56802 27.557C-0.18934 25.7996 -0.18934 22.9504 1.56802 21.193C3.32538 19.4357 6.17462 19.4357 7.93198 21.193L14.5 27.761V5.375C14.5 2.88972 16.5147 0.875 19 0.875Z"
       fill="var(--ck-graphic-secondary-color, white)"
-    />
-  </svg>
-);
-
-const EthColor = 'var(--ck-body-background)';
-const EthLogo = (
-  <svg
-    width="14"
-    height="23"
-    viewBox="0 0 14 23"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M6.99794 0.59082L6.85156 1.08803V15.5145L6.99794 15.6606L13.6944 11.7022L6.99794 0.59082Z"
-      fill={EthColor}
-    />
-    <path
-      d="M6.99794 0.59082L0.30127 11.7022L6.99794 15.6606V8.65835V0.59082Z"
-      fill={EthColor}
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M6.99779 22.4082L6.99794 22.4084V22.408L13.6982 12.9717L6.9978 16.9279L0.30127 12.9717L6.99733 22.4075L6.99763 22.4084L6.99779 22.4082Z"
-      fill={EthColor}
-    />
-    <path
-      d="M6.99805 15.6614L13.6945 11.7031L6.99805 8.65918V15.6614Z"
-      fill={EthColor}
-    />
-    <path
-      d="M0.30127 11.7031L6.99794 15.6614V8.65918L0.30127 11.7031Z"
-      fill={EthColor}
     />
   </svg>
 );
@@ -356,8 +313,7 @@ type Slide = {
   ease: Easing;
 };
 
-export const SlideOne = ({ layoutId, duration, ease }: Slide) => {
-  const id = Math.random(); // TODO: Better unique ID handling
+export const SlideOne = ({ layoutId }: Slide) => {
   return (
     <div
       style={{
@@ -389,7 +345,6 @@ export const SlideOne = ({ layoutId, duration, ease }: Slide) => {
       <MainCircle
         key={layoutId}
         layoutId={layoutId}
-        //initial={{ rotate: 50 }}
         style={{
           position: 'relative',
           zIndex: 10,
@@ -408,7 +363,6 @@ export const SlideOne = ({ layoutId, duration, ease }: Slide) => {
           }}
           initial={{
             opacity: 0,
-            //rotate: -50
           }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -443,8 +397,7 @@ export const SlideOne = ({ layoutId, duration, ease }: Slide) => {
   );
 };
 
-export const SlideTwo = ({ layoutId, duration, ease }: Slide) => {
-  const id = Math.random(); // TODO: Better unique ID handling
+export const SlideTwo = ({ layoutId }: Slide) => {
   return (
     <>
       <div
@@ -471,8 +424,6 @@ export const SlideTwo = ({ layoutId, duration, ease }: Slide) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             style={{
-              //background: 'var(--ck-body-color)',
-              //boxShadow: '0px 2px 5px rgba(37, 41, 46, 0.26)',
               background:
                 'var(--ck-graphic-primary-background, var(--ck-body-background))',
               boxShadow:
@@ -525,7 +476,7 @@ export const SlideTwo = ({ layoutId, duration, ease }: Slide) => {
   );
 };
 
-export const SlideThree = ({ layoutId, duration, ease }: Slide) => {
+export const SlideThree = ({ layoutId }: Slide) => {
   const id = Math.random(); // TODO: Better unique ID handling
   return (
     <>
@@ -733,41 +684,9 @@ export const SlideThree = ({ layoutId, duration, ease }: Slide) => {
         </MainCircle>
 
         <motion.div
-          //initial={{ rotate: -20, scale: 0.4, y: -40, x: -40 }}
           initial={{ rotate: -20, scale: 0.1, y: -10, x: -10 }}
           animate={{ rotate: 0, scale: 1, y: 0, x: 0 }}
           exit={{ zIndex: 3, scale: 0.2, y: -25, x: 15 }}
-          /*
-        initial={{ rotate: 40, scale: 0.8, y: -25, x: 15, zIndex: 3 }}
-        animate={{
-          rotate: 0,
-          scale: 1,
-          y: [-40, 25, 0],
-          x: [0, 25, 0],
-          zIndex: 11,
-          transition: {
-            duration: duration / 1000,
-            ease: 'easeInOut',
-            zIndex: {
-              delay: (duration / 1000) * 0.6,
-            },
-          },
-        }}
-        exit={{
-          rotate: 20,
-          scale: 0.8,
-          y: [0, 20, -40],
-          x: [0, 20, 0],
-          zIndex: 3,
-          transition: {
-            duration: duration / 1300,
-            ease: 'easeInOut',
-            zIndex: {
-              delay: (duration / 1000) * 0.3,
-            },
-          },
-        }}
-        */
           style={{
             zIndex: 12,
             borderRadius: '50%',

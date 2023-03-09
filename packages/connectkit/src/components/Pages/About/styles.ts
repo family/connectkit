@@ -6,7 +6,7 @@ import defaultTheme from '../../../constants/defaultTheme';
 const imageHeight = 208;
 
 export const ImageContainer = styled.div`
-  point-events: none;
+  pointer-events: none;
   user-select: none;
   height: ${imageHeight}px;
   padding: 0 0 12px;
@@ -23,7 +23,7 @@ export const ImageContainer = styled.div`
 export const ImageContainerInner = styled(motion.div)``;
 
 export const MobileImageContainer = styled.div`
-  point-events: none;
+  pointer-events: none;
   user-select: none;
   height: ${imageHeight}px;
   padding: 0 0 12px;
@@ -36,18 +36,6 @@ export const MobileImageContainer = styled.div`
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     display: flex;
   }
-`;
-
-export const ContentContainer = styled.div`
-  /*
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 138px;
-  margin: -48px 0 0;
-  */
 `;
 
 export const Slides = styled.div`
