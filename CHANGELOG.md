@@ -3,9 +3,8 @@
 This update improves the functionality and developer experience of using ConnectKit and moves the peer dependency wagmi up a version to `0.11.x`.
 This update does not yet include support for WalletConnect 2.0 (wagmi `0.12.x`)
 
-{% note %}
-This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#011x-breaking-changes).
-{% endnote %}
+> **Note**
+> This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#011x-breaking-changes).
 
 ## New
 
@@ -105,17 +104,15 @@ This does not yet include support for WalletConnect 2.0.
 
 This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`0.9.x`).
 
-{% note %}
-This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#09x-breaking-changes).
-{% endnote %}
+> **Note**
+> This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#09x-breaking-changes).
 
 # 1.1.0
 
 This update moves the peer dependency wagmi up to the latest version (`0.8.x`).
 
-{% note %}
-This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#110-breaking-changes).
-{% endnote %}
+> **Note**
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#110-breaking-changes).
 
 ## New
 
