@@ -98,35 +98,37 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
             {ensName ?? truncateEthAddress(address, separator)}
           </CopyToClipboard>
         </ModalH1>
-        <ModalBody>
-          <BalanceContainer>
-            <AnimatePresence exitBeforeEnter initial={false}>
-              {balance && (
-                <Balance
-                  key={`chain-${chain?.id}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {nFormatter(Number(balance?.formatted))}
-                  {` `}
-                  {balance?.symbol}
-                </Balance>
-              )}
-              {!balance && (
-                <LoadingBalance
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  &nbsp;
-                </LoadingBalance>
-              )}
-            </AnimatePresence>
-          </BalanceContainer>
-        </ModalBody>
+        {context?.options?.hideBalance ? null : (
+          <ModalBody>
+            <BalanceContainer>
+              <AnimatePresence exitBeforeEnter initial={false}>
+                {balance && (
+                  <Balance
+                    key={`chain-${chain?.id}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {nFormatter(Number(balance?.formatted))}
+                    {` `}
+                    {balance?.symbol}
+                  </Balance>
+                )}
+                {!balance && (
+                  <LoadingBalance
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    &nbsp;
+                  </LoadingBalance>
+                )}
+              </AnimatePresence>
+            </BalanceContainer>
+          </ModalBody>
+        )}
       </ModalContent>
       <Button
         onClick={() => setShouldDisconnect(true)}

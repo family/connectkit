@@ -100,15 +100,17 @@ const ConnectModal: React.FC<{
   const { isConnected } = useAccount();
   const { chain } = useNetwork();
 
-  const closeable = !chain?.unsupported;
+  //if chain is unsupported we enforce a "switch chain" prompt
+  const closeable = !(
+    context.options?.enforceSupportedChains && chain?.unsupported
+  );
 
   const showBackButton =
-    !chain?.unsupported &&
+    closeable &&
     context.route !== routes.CONNECTORS &&
     context.route !== routes.PROFILE;
 
-  const showInfoButton =
-    !chain?.unsupported && context.route !== routes.PROFILE;
+  const showInfoButton = closeable && context.route !== routes.PROFILE;
 
   const onBack = () => {
     if (context.route === routes.SIGNINWITHETHEREUM) {
@@ -189,7 +191,10 @@ const ConnectModal: React.FC<{
         context.route !== routes.PROFILE ||
         context.route !== routes.SIGNINWITHETHEREUM
       ) {
-        if (context.signInWithEthereum) {
+        if (
+          context.signInWithEthereum &&
+          !context.options?.disableSiweRedirect
+        ) {
           context.setRoute(routes.SIGNINWITHETHEREUM);
         } else {
           onModalClose(); // Hide on connect

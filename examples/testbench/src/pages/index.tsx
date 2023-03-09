@@ -1,16 +1,21 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+import { BigNumber } from 'ethers';
+
 import {
-  ConnectKitButton,
   Types,
+  ConnectKitButton,
   Avatar,
-  useSIWE,
   SIWEButton,
   ChainIcon,
-  getGlobalChains,
   SIWESession,
+  useChains,
+  useModal,
+  useSIWE,
 } from 'connectkit';
-import { useTestBench } from '../TestbenchProvider';
-import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
+
 import {
   useAccount,
   useBalance,
@@ -19,18 +24,21 @@ import {
   useSignMessage,
   useSignTypedData,
   usePrepareSendTransaction,
+  useConnect,
+  useDisconnect,
 } from 'wagmi';
-import { useEffect, useState } from 'react';
-import { BigNumber } from 'ethers';
-import Link from 'next/link';
+import * as wagmiChains, { Chain } from 'wagmi/chains';
 
-import * as wagmiChains from 'wagmi/chains';
-const allChains = Object.keys(wagmiChains).map(
-  (key) => wagmiChains[key as keyof typeof wagmiChains]
-);
+import { useTestBench } from '../TestbenchProvider';
+import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 
 import CustomAvatar from '../components/CustomAvatar';
 import CustomSIWEButton from '../components/CustomSIWEButton';
+
+
+const allChains = Object.keys(wagmiChains).map(
+  (key) => wagmiChains[key as keyof typeof wagmiChains]
+);
 
 /** TODO: import this data from the connectkit module */
 const themes: SelectProps[] = [
@@ -53,31 +61,67 @@ const languages: SelectProps[] = [
   { label: 'French', value: 'fr-FR' },
   { label: 'Spanish', value: 'es-ES' },
   { label: 'Japanese', value: 'ja-JP' },
+  { label: 'Portuguese', value: 'pt-BR' },
   { label: 'Chinese', value: 'zh-CN' },
 ];
 
 const AccountInfo = () => {
-  const { address, connector } = useAccount();
+  const {
+    address,
+    connector,
+    isConnected,
+    isConnecting,
+    isDisconnected,
+    isReconnecting,
+  } = useAccount();
   const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
-  const siwe = useSIWE();
+  const { isSignedIn, signOut } = useSIWE();
 
   return (
-    <ul>
-      <li>ChainID: {chain?.id}</li>
-      <li>Chain name: {chain?.name}</li>
-      <li>Chain Supported: {chain?.unsupported ? 'No' : 'Yes'}</li>
-      <li>Address: {address}</li>
-      <li>Connector: {connector?.id}</li>
-      <li>Balance: {balanceData?.formatted}</li>
-      <li>
-        SIWE session: {siwe.isSignedIn ? 'yes' : 'no'}
-        {siwe.isSignedIn && <button onClick={siwe.signOut}>sign out</button>}
-      </li>
-      <li>
-        <Link href="/siwe/token-gated">Token-gated page</Link>
-      </li>
-    </ul>
+    <div className="panel">
+      <h2>Wallet Info</h2>
+      {isConnecting && <p>Connecting...</p>}
+      {isReconnecting && <p>Reconnecting...</p>}
+      {isDisconnected && <p>Disconnected</p>}
+      {isConnected && (
+        <table>
+          <tbody>
+            <tr>
+              <td>Chain ID</td>
+              <td>{chain?.id}</td>
+            </tr>
+            <tr>
+              <td>Chain Name</td>
+              <td>{chain?.name}</td>
+            </tr>
+            <tr>
+              <td>Chain Supported</td>
+              <td>{!chain || chain?.unsupported ? 'No' : 'Yes'}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{address}</td>
+            </tr>
+            <tr>
+              <td>Balance</td>
+              <td>{balanceData?.formatted}</td>
+            </tr>
+            <tr>
+              <td>Connector</td>
+              <td>{connector?.id}</td>
+            </tr>
+            <tr>
+              <td>SIWE session</td>
+              <td>
+                {isSignedIn ? 'yes' : 'no'}{' '}
+                {isSignedIn && <button onClick={signOut}>sign out</button>}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 };
 
@@ -206,78 +250,85 @@ const Home: NextPage = () => {
   useEffect(() => setMounted(true), []);
 
   const { chain } = useNetwork();
-  const chains = getGlobalChains();
+  const chains = useChains();
+
+  const { open, setOpen, openSIWE, openAbout } = useModal();
+
+  const { reset } = useConnect();
+  const { isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  const handleDisconnect = () => {
+    disconnect();
+    reset();
+  };
 
   if (!mounted) return null;
 
   return (
     <>
       <main>
-        <p>Connect Button</p>
-        <ConnectKitButton label={label} />
+        <div className="panel">
+          <h2>Connect Button</h2>
+          <ConnectKitButton label={label} />
+          {isConnected && (
+            <button onClick={handleDisconnect}>Disconnect</button>
+          )}
+        </div>
 
-        <hr />
-        <p>Sign In With Ethereum</p>
-        <SIWEButton
-          showSignOutButton
-          onSignIn={(data?: SIWESession) => {
-            console.log('onSignIn SIWEButton', data);
-          }}
-          onSignOut={() => {
-            console.log('onSignOut SIWEButton');
-          }}
-        />
-        <CustomSIWEButton />
+        <div className="panel">
+          <h2>Sign In With Ethereum</h2>
+          <SIWEButton
+            showSignOutButton
+            onSignIn={(data?: SIWESession) => {
+              console.log('onSignIn SIWEButton', data);
+            }}
+            onSignOut={() => {
+              console.log('onSignOut SIWEButton');
+            }}
+          />
+          <CustomSIWEButton />
+          <Link href="/siwe/token-gated">Token-gated page &rarr;</Link>
+        </div>
 
-        <hr />
+        <div className="panel">
+          <h2>useModal Hook</h2>
+          <p>open: {open.toString()}</p>
+          <button onClick={() => setOpen(true)}>Open modal</button>
+          <button onClick={() => openAbout()}>Open to About</button>
+          <button onClick={() => openSIWE(true)}>Open to SIWE</button>
+        </div>
+
         <AccountInfo />
 
-        <hr />
-        <p>Avatars</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <Avatar name="lochie.eth" />
-          <Avatar name="pugson.eth" size={32} />
-          <Avatar
-            address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
-            size={12}
-          />
-          <Avatar name="benjitaylor.eth" size={64} />
+        <div className="panel">
+          <h2>Chains</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
+            <ChainIcon id={1} size={64} radius={6} />
+            <ChainIcon id={1337} size={32} radius={0} />
+            <ChainIcon id={2} unsupported />
+          </div>
+          <h2>dApps configured chains</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {chains.map((chain: Chain) => (
+              <ChainIcon key={chain.id} id={chain.id} />
+            ))}
+          </div>
         </div>
+        
+        <div className="panel">
+          <h2>Avatars</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Avatar name="lochie.eth" />
+            <Avatar name="pugson.eth" size={64} radius={6} />
+            <Avatar name="benjitaylor.eth" size={32} radius={0} />
+            <Avatar
+              address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+              size={12}
+            />
+          </div>
 
-        <hr />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <p>Chains</p>
-          <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
-          <div style={{ display: 'flex', gap: 8 }}>
-            <ChainIcon id={10} size={16} />
-            <ChainIcon id={10} size={16} unsupported />
-            <ChainIcon id={10} radius={8} size={16} unsupported />
-            <ChainIcon id={10} radius={'0'} size={16} unsupported />
-          </div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <ChainIcon id={42161} />
-            <ChainIcon id={42161} unsupported />
-            <ChainIcon id={42161} radius={8} unsupported />
-            <ChainIcon id={42161} radius={'0'} unsupported />
-          </div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <ChainIcon id={137} size={32} />
-            <ChainIcon id={137} size={32} unsupported />
-            <ChainIcon id={137} radius={8} size={32} unsupported />
-            <ChainIcon id={137} radius={'0'} size={32} unsupported />
-          </div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <ChainIcon id={43113} size={64} />
-            <ChainIcon id={43113} size={64} unsupported />
-            <ChainIcon id={43113} radius={8} size={64} unsupported />
-            <ChainIcon id={43113} radius={'0'} size={64} unsupported />
-          </div>
-        </div>
-        <p>Supported Chains</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          {chains.map((chain) => (
-            <ChainIcon key={chain.id} id={chain.id} />
-          ))}
         </div>
         <p>All Chains</p>
         <div
@@ -305,7 +356,7 @@ const Home: NextPage = () => {
       </main>
       <aside>
         <ConnectKitButton.Custom>
-          {({ isConnected, show, address, ensName, chain }) => {
+          {({ isConnected, isConnecting, show, address, ensName, chain }) => {
             return (
               <button onClick={show}>
                 {isConnected ? (
@@ -325,7 +376,9 @@ const Home: NextPage = () => {
                     {ensName ?? address}
                   </div>
                 ) : (
-                  'Custom Connect'
+                  <div>
+                    Custom Connect {isConnecting ? 'connecting...' : ''}
+                  </div>
                 )}
               </button>
             );
@@ -435,6 +488,17 @@ const Home: NextPage = () => {
           }
         />
         <Checkbox
+          label="hideBalance"
+          value="hideBalance"
+          checked={options.hideBalance as boolean}
+          onChange={() =>
+            setOptions({
+              ...options,
+              hideBalance: !options.hideBalance,
+            })
+          }
+        />
+        <Checkbox
           label="hideTooltips"
           value="hideTooltips"
           checked={options.hideTooltips as boolean}
@@ -472,6 +536,17 @@ const Home: NextPage = () => {
             setOptions({
               ...options,
               avoidLayoutShift: !options.avoidLayoutShift,
+            })
+          }
+        />
+        <Checkbox
+          label="disableSiweRedirect"
+          value="disableSiweRedirect"
+          checked={options.disableSiweRedirect as boolean}
+          onChange={() =>
+            setOptions({
+              ...options,
+              disableSiweRedirect: !options.disableSiweRedirect,
             })
           }
         />

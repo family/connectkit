@@ -17,7 +17,7 @@ import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect'
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import { walletConnect } from '../../../wallets/connectors/walletConnect';
 import useLocales from '../../../hooks/useLocales';
-import { getGlobalChains } from '../../../defaultClient';
+import { useChains } from '../../../hooks/useChains';
 
 const MoreIcon = (
   <svg
@@ -41,7 +41,7 @@ const MobileConnectors: React.FC = () => {
 
   const locales = useLocales();
 
-  const chains = getGlobalChains();
+  const chains = useChains();
 
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
   const wallets = useDefaultWallets().filter(

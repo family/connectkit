@@ -21,7 +21,7 @@ import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
-import { getGlobalChains } from '../defaultClient';
+import { useChains } from '../hooks/useChains';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -63,6 +63,7 @@ export const Context = createContext<ContextValue | null>(null);
 
 export type ConnectKitOptions = {
   language?: Languages;
+  hideBalance?: boolean;
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
@@ -76,8 +77,10 @@ export type ConnectKitOptions = {
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
   initialChainId?: number;
+  enforceSupportedChains?: boolean;
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;
+  disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
 };
 
 type ConnectKitProviderProps = {
@@ -102,10 +105,12 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
     );
   }
+  const chains = useChains();
 
   // Default config options
   const defaultOptions: ConnectKitOptions = {
     language: 'en-US',
+    hideBalance: false,
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
@@ -118,9 +123,11 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     disclaimer: null,
     bufferPolyfill: true,
     customAvatar: undefined,
-    initialChainId: getGlobalChains()[0]?.id,
+    initialChainId: chains?.[0]?.id,
+    enforceSupportedChains: true,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
+    disableSiweRedirect: false,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
@@ -159,7 +166,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   // Check if chain is supported, elsewise redirect to switches page
   const { chain } = useNetwork();
   useEffect(() => {
-    if (chain?.unsupported) {
+    if (opts.enforceSupportedChains && chain?.unsupported) {
       setOpen(true);
       setRoute(routes.SWITCHNETWORKS);
     }
@@ -216,19 +223,4 @@ export const useContext = () => {
   const context = React.useContext(Context);
   if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
   return context;
-};
-
-// Experimenal—can change later so only surface in API reference
-export const useModal = () => {
-  const context = useContext();
-  const { isConnected } = useAccount();
-  return {
-    open: context.open,
-    setOpen: (show: boolean) => {
-      if (show) {
-        context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
-      }
-      context.setOpen(show);
-    },
-  };
 };

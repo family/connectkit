@@ -12,13 +12,11 @@ import { infuraProvider } from 'wagmi/providers/infura';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
-let globalChains: Chain[];
 let globalAppName: string;
 let globalAppIcon: string;
 
 export const getAppName = () => globalAppName;
 export const getAppIcon = () => globalAppIcon;
-export const getGlobalChains = () => globalChains;
 
 const defaultChains = [mainnet, polygon, optimism, arbitrum];
 
@@ -155,8 +153,6 @@ const defaultClient = ({
     chains: configuredChains,
     webSocketProvider: configuredWebSocketProvider,
   } = configureChains(chains, providers);
-
-  globalChains = configuredChains;
 
   const connectKitClient: ConnectKitClientProps = {
     autoConnect,
