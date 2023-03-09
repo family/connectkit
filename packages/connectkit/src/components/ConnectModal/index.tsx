@@ -74,11 +74,6 @@ const ConnectModal: React.FC<{
     context.setOpen(false);
   }
 
-  function show() {
-    context.setOpen(true);
-    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
-  }
-
   useEffect(() => {
     if (isConnected) {
       if (

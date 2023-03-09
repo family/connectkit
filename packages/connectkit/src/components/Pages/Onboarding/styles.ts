@@ -114,8 +114,8 @@ export const RotateWrapper = styled(motion.div)`
   animation-duration: 3200ms;
 `;
 export const Logo = styled(motion.div)`
-  position:absolute;
-  inset:0;
+  position: absolute;
+  inset: 0;
 
   animation: ${logoIn} 750ms cubic-bezier(0.19, 1, 0.22, 1) both;
   &:nth-child(1){ z-index:2; animation-delay:0ms;  }
@@ -137,35 +137,34 @@ export const Logo = styled(motion.div)`
   &:nth-child(5){ ${FloatWrapper}{ animation-delay:-3200ms; } }
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    animation:none !important;
-    ${RotateWrapper},${FloatWrapper}{
-      animation:none !important;
+    animation: none !important;
+    ${RotateWrapper},${FloatWrapper} {
+      animation: none !important;
     }
   }
-  
 
-  ${LogoInner}{
+  ${LogoInner} {
     transform: translate(-50%, -50%);
   }
 
-  &:nth-child(1) ${LogoPosition}{
+  &:nth-child(1) ${LogoPosition} {
     transform: translate(50%, 50%);
-    ${LogoGraphic}{
+    ${LogoGraphic} {
       border-radius: 17.2px;
       width: 72px;
       height: 72px;
     }
   }
-  &:nth-child(2) ${LogoPosition}{
+  &:nth-child(2) ${LogoPosition} {
     transform: translate(21%, 21.5%);
   }
-  &:nth-child(3) ${LogoPosition}{
+  &:nth-child(3) ${LogoPosition} {
     transform: translate(78%, 14%);
   }
-  &:nth-child(4) ${LogoPosition}{
+  &:nth-child(4) ${LogoPosition} {
     transform: translate(22.5%, 76%);
   }
-  &:nth-child(5) ${LogoPosition}{
+  &:nth-child(5) ${LogoPosition} {
     transform: translate(76%, 80%);
   }
-}`;
+`;
