@@ -6,7 +6,7 @@ import useIsMounted from '../../../hooks/useIsMounted';
 import useLocales from '../../../hooks/useLocales';
 import { SIWESession, useSIWE } from './../../../siwe';
 import { useAccount } from 'wagmi';
-import { useModal } from '../../ConnectKit';
+import { useModal } from '../../../hooks/useModal';
 
 type ButtonProps = {
   showSignOutButton?: boolean;
@@ -24,7 +24,6 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   const { setOpen } = useModal();
 
   const {
-    status,
     isSignedIn,
     isReady,
     isLoading,

@@ -4,7 +4,7 @@ import { css, keyframes } from 'styled-components';
 
 type ChainContainerProps = {
   size?: number | string;
-  radius?: number | string
+  radius?: number | string;
 };
 
 export const ChainContainer = styled.div<ChainContainerProps>`
@@ -17,8 +17,8 @@ export const ChainContainer = styled.div<ChainContainerProps>`
           --height: ${props.size};
         `
       : css`
-          --width: ${props.size > 0 ? `${props.size}px` : '24px'};
-          --height: ${props.size > 0 ? `${props.size}px` : '24px'};
+          --width: ${props.size >= 0 ? `${props.size}px` : '24px'};
+          --height: ${props.size >= 0 ? `${props.size}px` : '24px'};
         `};
   ${(props) =>
     typeof props.radius === 'string'
@@ -26,7 +26,7 @@ export const ChainContainer = styled.div<ChainContainerProps>`
           --radius: ${props.radius};
         `
       : css`
-          --radius: ${props.radius > 0 ? `${props.radius}px` : '24px'};
+          --radius: ${props.radius >= 0 ? `${props.radius}px` : '24px'};
         `};
   display: block;
   position: relative;

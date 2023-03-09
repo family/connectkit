@@ -34,6 +34,10 @@ export default class CustomDocument extends Document {
       <Html>
         <Head>
           <link rel="icon" href="https://family.co/favicon.png" />
+          <link
+            href="https://fonts.cdnfonts.com/css/pt-root-ui"
+            rel="stylesheet"
+          />
         </Head>
         <body>
           <Main />

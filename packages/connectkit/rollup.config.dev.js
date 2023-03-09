@@ -1,7 +1,11 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import typescript from 'rollup-plugin-typescript2';
-
+import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
 import packageJson from './package.json';
+
+const styledComponentsTransformer = createStyledComponentsTransformer({
+  displayName: true,
+});
 
 export default [
   {
@@ -19,6 +23,11 @@ export default [
       typescript({
         useTsconfigDeclarationDir: true,
         exclude: 'node_modules/**',
+        transformers: [
+          () => ({
+            before: [styledComponentsTransformer],
+          }),
+        ],
       }),
     ],
   },

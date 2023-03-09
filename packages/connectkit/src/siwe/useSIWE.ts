@@ -64,9 +64,11 @@ export const useSIWE = ({ onSignIn, onSignOut }: UseSIWEConfig = {}):
 
   const reset = () => resetStatus();
 
+  const isSignedIn = !!address;
+
   return {
-    isSignedIn: !!address,
-    data: !!address
+    isSignedIn,
+    data: isSignedIn
       ? {
           address: address as string,
           chainId: chainId as number,
@@ -80,12 +82,16 @@ export const useSIWE = ({ onSignIn, onSignOut }: UseSIWEConfig = {}):
     isSuccess,
     isReady,
     signIn: async () => {
-      const data = await signIn();
-      if (data) onSignIn?.(data);
+      if (!isSignedIn) {
+        const data = await signIn();
+        if (data) onSignIn?.(data);
+      }
     },
     signOut: async () => {
-      await signOut();
-      onSignOut?.();
+      if (isSignedIn) {
+        await signOut();
+        onSignOut?.();
+      }
     },
     reset,
   };
