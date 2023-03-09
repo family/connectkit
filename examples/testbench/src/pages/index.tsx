@@ -26,7 +26,6 @@ import {
   usePrepareSendTransaction,
   useConnect,
   useDisconnect,
-  Chain,
 } from 'wagmi';
 import { Chain } from 'wagmi/chains';
 
@@ -284,7 +283,6 @@ const Home: NextPage = () => {
           <CustomSIWEButton />
           <Link href="/siwe/token-gated">Token-gated page &rarr;</Link>
         </div>
-
 
         <div className="panel">
           <h2>useModal Hook</h2>
