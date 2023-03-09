@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { ConnectKitButton, ChainIcon, getGlobalChains } from 'connectkit';
+import { ConnectKitButton, ChainIcon, useChains } from 'connectkit';
 import { useNetwork } from 'wagmi';
 import { useEffect, useState } from 'react';
 
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   useEffect(() => setMounted(true), []);
 
   const { chain } = useNetwork();
-  const chains = getGlobalChains();
+  const chains = useChains();
 
   if (!mounted) return null;
 
