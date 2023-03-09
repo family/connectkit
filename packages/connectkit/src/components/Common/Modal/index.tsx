@@ -207,7 +207,7 @@ const Modal: React.FC<ModalProps> = ({
   const context = useContext();
   const themeContext = useThemeContext();
   const mobile = isMobile();
-  const { isSignedIn } = useSIWE();
+  const { isSignedIn, reset } = useSIWE();
 
   const connector = supportedConnectors.find((x) => x.id === context.connector);
   const locales = useLocales({
@@ -503,9 +503,10 @@ const Modal: React.FC<ModalProps> = ({
                           locales.signInWithEthereumScreen_signedOut_heading
                         }
                         key="siweButton"
-                        onClick={() =>
-                          context.setRoute(routes.SIGNINWITHETHEREUM)
-                        }
+                        onClick={() => {
+                          reset();
+                          context.setRoute(routes.SIGNINWITHETHEREUM);
+                        }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

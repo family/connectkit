@@ -70,7 +70,7 @@ const wrapTags = (text: string) => {
       return r.split(/(\[WALLETCONNECTLOGO\])/g).map((s) => {
         if (s === '[WALLETCONNECTLOGO]') {
           return (
-            <span className="ck-tt-logo">
+            <span key={s} className="ck-tt-logo">
               <Logos.WalletConnect />
             </span>
           );
