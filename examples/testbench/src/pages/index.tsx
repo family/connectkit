@@ -329,29 +329,6 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
-        <p>All Chains</p>
-        <div
-          style={{
-            boxShadow: '0 0 0 1px #eee',
-            padding: 8,
-            borderRadius: 8,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-            gap: 8,
-          }}
-        >
-          {allChains.map((chain) => (
-            <div
-              key={chain.id}
-              style={{ display: 'flex', gap: 8, alignItems: 'center' }}
-            >
-              <ChainIcon id={chain.id} />
-              <span>
-                {chain.name} <code>{chain.id}</code>
-              </span>
-            </div>
-          ))}
-        </div>
       </main>
       <aside>
         <ConnectKitButton.Custom>
