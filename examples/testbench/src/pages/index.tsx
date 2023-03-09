@@ -1,16 +1,21 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+import { BigNumber } from 'ethers';
+
 import {
-  ConnectKitButton,
   Types,
+  ConnectKitButton,
   Avatar,
-  useSIWE,
   SIWEButton,
   ChainIcon,
-  getGlobalChains,
   SIWESession,
+  useChains,
+  useModal,
+  useSIWE,
 } from 'connectkit';
-import { useTestBench } from '../TestbenchProvider';
-import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
+
 import {
   useAccount,
   useBalance,
@@ -20,10 +25,10 @@ import {
   useSignTypedData,
   usePrepareSendTransaction,
 } from 'wagmi';
-import { useEffect, useState } from 'react';
-import { BigNumber } from 'ethers';
-import Link from 'next/link';
+import { Chain } from 'wagmi/chains';
 
+import { useTestBench } from '../TestbenchProvider';
+import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 import CustomAvatar from '../components/CustomAvatar';
 import CustomSIWEButton from '../components/CustomSIWEButton';
 
@@ -201,7 +206,9 @@ const Home: NextPage = () => {
   useEffect(() => setMounted(true), []);
 
   const { chain } = useNetwork();
-  const chains = getGlobalChains();
+  const chains = useChains();
+
+  const { open, setOpen, openSIWE, openAbout } = useModal();
 
   if (!mounted) return null;
 
@@ -223,6 +230,12 @@ const Home: NextPage = () => {
           }}
         />
         <CustomSIWEButton />
+
+        <hr />
+        <p>useModal. open: {open.toString()}</p>
+        <button onClick={() => setOpen(true)}>Open modal</button>
+        <button onClick={() => openAbout()}>Open to About</button>
+        <button onClick={() => openSIWE(true)}>Open to SIWE</button>
 
         <hr />
         <AccountInfo />
@@ -262,7 +275,7 @@ const Home: NextPage = () => {
         </div>
         <p>Supported Chains</p>
         <div style={{ display: 'flex', gap: 8 }}>
-          {chains.map((chain) => (
+          {chains.map((chain: Chain) => (
             <ChainIcon key={chain.id} id={chain.id} />
           ))}
         </div>
