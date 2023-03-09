@@ -1,7 +1,7 @@
 export * as Types from './types';
 export { default as getDefaultClient, getGlobalChains } from './defaultClient';
 
-export { useModal } from './components/ConnectKit';
+export { useModal } from './hooks/useModal';
 export { SIWEProvider, useSIWE, SIWEConfig, SIWESession } from './siwe';
 
 export { ConnectKitProvider, Context } from './components/ConnectKit';
