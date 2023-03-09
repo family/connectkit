@@ -1,3 +1,49 @@
+# 1.2.1
+
+This update improves the functionality and developer experience of using ConnectKit and moves the peer dependency wagmi up a version to `0.11.x`.
+This update does not yet include support for WalletConnect 2.0 (wagmi `0.12.x`)
+
+{% note %}
+This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#011x-breaking-changes).
+{% endnote %}
+
+## New
+
+- Update peer dependency wagmi to version `0.11.x` (thanks [Songkeys](https://github.com/Songkeys)).
+- Add new `pt-BR` translations (thanks [LuwkasLima](https://github.com/luwkaslima)).
+- Include new `hideBalance` option to hide the wallet balance from the profile view.
+- Include new `enforceSupportedChains` option to disable the forced network switching UX when connected to an unsupported chain.
+- Include new `disableSiweRedirect` option to disable the redirect to the SIWE page when a wallet connects.
+- Include new functions from the `useModal` Hook to choose a page to navigate to on open.
+  - The `openSIWE()` function accepts a boolean, if `true` it will initiate the wallet SIWE signing request at the same time as opening the modal.
+- Add logos for the following chains:
+  - Optimism Goerli
+  - Telos + Testnet
+  - Aurora + Testnet
+  - Avalanche + Fuji Testnet
+  - Foundry
+  - Gnosis
+  - Evmos + Testnet
+  - BNB Smart Chain + Testnet
+  - Sepolia
+  - Taraxa + Testnet
+  - zkSync + Testnet
+  - Celo + Alfajores Testnet
+  - Canto
+  - Fantom + Testnet
+  - Filecoin + Hyperspace + Calibration Testnets
+  - Flare + Coston2 testnet
+  - Metis + Testnet
+  - IoTeX + Testnet
+
+## Improved
+
+- Update testbench for better developer experience.
+- Improve logic for `isConnecting` within the Custom `ConnectKitButton`.
+- Replace `getGlobalChains` with `useChains` Hook
+- Tidy up some internal component structure and include a few useful dev updates (thanks [pugson](https://github.com/pugson)).
+- Export `useIsMounted` and `Context` (thanks [shahruz](https://github.com/shahruz)).
+
 # 1.2.0
 
 This update improves the functionality and developer experience of using ConnectKit with Sign In With Ethereum.
