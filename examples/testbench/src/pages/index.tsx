@@ -314,6 +314,7 @@ const Home: NextPage = () => {
               <ChainIcon key={chain.id} id={chain.id} />
             ))}
           </div>
+          <Link href="/chains">Chains Testbench &rarr;</Link>
         </div>
 
         <div className="panel">

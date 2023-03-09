@@ -1,8 +1,11 @@
 import type { NextPage } from 'next';
-import { ConnectKitButton, ChainIcon, useChains } from 'connectkit';
-import { useNetwork } from 'wagmi';
+import Link from 'next/link';
+
 import { useEffect, useState } from 'react';
 
+import { ConnectKitButton, ChainIcon, useChains } from 'connectkit';
+
+import { useNetwork } from 'wagmi';
 import * as wagmiChains from 'wagmi/chains';
 const allChains = Object.keys(wagmiChains).map(
   (key) => wagmiChains[key as keyof typeof wagmiChains]
@@ -100,6 +103,7 @@ const Home: NextPage = () => {
         </div>
       </main>
       <aside>
+        <Link href="/">&larr; Testbench</Link>
         <ConnectKitButton />
       </aside>
     </>
