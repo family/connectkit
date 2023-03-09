@@ -27,14 +27,13 @@ import {
   useConnect,
   useDisconnect,
 } from 'wagmi';
-import * as wagmiChains, { Chain } from 'wagmi/chains';
+import * as wagmiChains from 'wagmi/chains';
 
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 
 import CustomAvatar from '../components/CustomAvatar';
 import CustomSIWEButton from '../components/CustomSIWEButton';
-
 
 const allChains = Object.keys(wagmiChains).map(
   (key) => wagmiChains[key as keyof typeof wagmiChains]
@@ -311,12 +310,12 @@ const Home: NextPage = () => {
           </div>
           <h2>dApps configured chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
-            {chains.map((chain: Chain) => (
+            {chains.map((chain: wagmiChains.Chain) => (
               <ChainIcon key={chain.id} id={chain.id} />
             ))}
           </div>
         </div>
-        
+
         <div className="panel">
           <h2>Avatars</h2>
           <div style={{ display: 'flex', gap: 8 }}>
@@ -328,7 +327,6 @@ const Home: NextPage = () => {
               size={12}
             />
           </div>
-
         </div>
         <p>All Chains</p>
         <div
