@@ -5,7 +5,7 @@ import supportedConnectors from '../../constants/supportedConnectors';
 import { useConnect } from '../../hooks/useConnect';
 import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
 
-import { detectBrowser } from '../../utils';
+import { detectBrowser, isWalletConnectConnector } from '../../utils';
 
 import {
   PageContent,
@@ -51,7 +51,8 @@ const ConnectWithQRCode: React.FC<{
   }
 
   async function connectWalletConnect(connector: any) {
-    if (connector.options?.version === '1') {
+    const isLegacy = connector.id === 'walletConnectLegacy';
+    if (isLegacy) {
       connector.on('message', async (e) => {
         //@ts-ignore
         const p = await connector.getProvider();
@@ -141,6 +142,7 @@ const ConnectWithQRCode: React.FC<{
         }
         break;
       case 'walletConnect':
+      case 'walletConnectLegacy':
         connectWalletConnect(c);
         break;
     }
@@ -149,8 +151,8 @@ const ConnectWithQRCode: React.FC<{
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
   const { openDefaultWalletConnect } = useDefaultWalletConnect();
   const openDefaultConnect = async () => {
-    const c = connectors.filter((c) => c.id === id)[0];
-    if (c.id === 'walletConnect') {
+    const c = connectors.find((c) => c.id === id);
+    if (isWalletConnectConnector(c?.id)) {
       setDefaultModalOpen(true);
       await openDefaultWalletConnect();
       setDefaultModalOpen(false);
@@ -208,7 +210,7 @@ const ConnectWithQRCode: React.FC<{
           image={connector.logos.qrCode}
           imageBackground={connector.logoBackground}
           tooltipMessage={
-            connectorId === 'walletConnect' ? (
+            isWalletConnectConnector(connectorId) ? (
               <>
                 <ScanIconWithLogos />
                 <span>{locales.scanScreen_tooltip_walletConnect}</span>

@@ -4,6 +4,7 @@ import { Provider } from '@wagmi/core';
 
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
@@ -20,20 +21,10 @@ export const getAppIcon = () => globalAppIcon;
 
 const defaultChains = [mainnet, polygon, optimism, arbitrum];
 
-type WalletConnectOptionsProps =
-  | {
-      version: '2';
-      projectId: string;
-    }
-  | {
-      version: '1';
-    }
-  | undefined;
-
 type DefaultConnectorsProps = {
   chains?: Chain[];
   appName: string;
-  walletConnectOptions?: WalletConnectOptionsProps;
+  walletConnectProjectId?: string;
 };
 
 type DefaultClientProps = {
@@ -48,7 +39,8 @@ type DefaultClientProps = {
   webSocketProvider?: any;
   enableWebSocketProvider?: boolean;
   stallTimeout?: number;
-  walletConnectOptions?: WalletConnectOptionsProps;
+  // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
+  walletConnectProjectId?: string;
 };
 
 type ConnectKitClientProps = {
@@ -61,21 +53,8 @@ type ConnectKitClientProps = {
 const getDefaultConnectors = ({
   chains,
   appName,
-  walletConnectOptions,
+  walletConnectProjectId,
 }: DefaultConnectorsProps) => {
-  const wcOpts: WalletConnectOptionsProps = { version: '1' };
-  /*
-  const wcOpts: WalletConnectOptionsProps =
-    walletConnectOptions?.version === '2' && walletConnectOptions?.projectId
-      ? {
-          version: '2',
-          projectId: walletConnectOptions.projectId, // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
-        }
-      : {
-          version: '1',
-        };
-   */
-
   return [
     new MetaMaskConnector({
       chains,
@@ -92,13 +71,20 @@ const getDefaultConnectors = ({
         headlessMode: true,
       },
     }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        qrcode: false,
-        ...wcOpts,
-      },
-    }),
+    walletConnectProjectId
+      ? new WalletConnectConnector({
+          chains,
+          options: {
+            showQrModal: false,
+            projectId: walletConnectProjectId,
+          },
+        })
+      : new WalletConnectLegacyConnector({
+          chains,
+          options: {
+            qrcode: false,
+          },
+        }),
     new InjectedConnector({
       chains,
       options: {
@@ -126,7 +112,7 @@ const defaultClient = ({
   stallTimeout,
   webSocketProvider,
   enableWebSocketProvider,
-  walletConnectOptions,
+  walletConnectProjectId,
 }: DefaultClientProps) => {
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
@@ -161,7 +147,7 @@ const defaultClient = ({
       getDefaultConnectors({
         chains: configuredChains,
         appName,
-        walletConnectOptions,
+        walletConnectProjectId,
       }),
     provider: provider ?? configuredProvider,
     webSocketProvider: enableWebSocketProvider // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"

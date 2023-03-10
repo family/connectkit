@@ -5,7 +5,7 @@ import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
 
-import { isMobile } from '../../../utils';
+import { isWalletConnectConnector, isMobile } from '../../../utils';
 
 import {
   Container,
@@ -327,7 +327,7 @@ const Modal: React.FC<ModalProps> = ({
         return locales.aboutScreen_heading;
       case routes.CONNECT:
         if (shouldUseQrcode()) {
-          return connector?.id === 'walletConnect'
+          return isWalletConnectConnector(connector?.id)
             ? locales.scanScreen_heading
             : locales.scanScreen_heading_withConnector;
         } else {

@@ -1,5 +1,6 @@
 import { Connector } from 'wagmi';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
+import { isWalletConnectConnector } from '../utils';
 
 import { useConnect } from './useConnect';
 
@@ -7,11 +8,11 @@ export function useDefaultWalletConnect() {
   const { connectAsync, connectors } = useConnect();
   return {
     openDefaultWalletConnect: async () => {
-      const c: Connector<any, any> | undefined = connectors.find(
-        (c) => c.id === 'walletConnect'
+      const c: Connector<any, any> | undefined = connectors.find((c) =>
+        isWalletConnectConnector(c.id)
       );
       if (c) {
-        const connector = new WalletConnectConnector({
+        const connector = new WalletConnectLegacyConnector({
           chains: c.chains,
           options: { ...c.options, qrcode: true },
         });

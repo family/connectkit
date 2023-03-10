@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react';
 import { useContext, routes } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
-import { isMetaMask, isCoinbaseWallet } from './../../../utils';
+import {
+  isMetaMask,
+  isCoinbaseWallet,
+  isWalletConnectConnector,
+  isInjectedConnector,
+  isMetaMaskConnector,
+} from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
 
@@ -31,7 +37,7 @@ import {
 
 import { isMobile, isAndroid } from '../../../utils';
 
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 //import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -56,10 +62,11 @@ const Wallets: React.FC = () => {
     let connector: Connector | null = null;
     switch (c.id) {
       case 'walletConnect':
+      case 'walletConnectLegacy':
         context.setRoute(routes.MOBILECONNECTORS);
         break;
       case 'metaMask':
-        connector = new WalletConnectConnector({
+        connector = new WalletConnectLegacyConnector({
           chains: c.chains,
           options: { ...c.options, qrcode: false, version: '1' },
         });
@@ -82,7 +89,7 @@ const Wallets: React.FC = () => {
 
     // TODO: Make this neater and use the MetaMask config
     if (c.id === 'metaMask' && mobile) {
-      let connnector = connector as WalletConnectConnector;
+      let connnector = connector as WalletConnectLegacyConnector;
       connector.on('message', async ({ type }) => {
         if (type === 'connecting') {
           const uri = await getProviderUri(connnector);
@@ -155,7 +162,7 @@ const Wallets: React.FC = () => {
               let logos = info.logos;
               let name = info.shortName ?? info.name ?? connector.name;
 
-              if (info.id === 'injected') {
+              if (isInjectedConnector(info.id)) {
                 if (!shouldShowInjectedConnector()) return null;
 
                 const foundInjector = findInjectedConnectorInfo(connector.name);
@@ -165,7 +172,7 @@ const Wallets: React.FC = () => {
                 }
               }
 
-              if (info.id === 'walletConnect') {
+              if (isWalletConnectConnector(info.id)) {
                 name =
                   context.options?.walletConnectName ?? locales.otherWallets;
               }
@@ -176,8 +183,8 @@ const Wallets: React.FC = () => {
                   //disabled={!connector.ready}
                   onClick={() => {
                     if (
-                      info.id === 'injected' ||
-                      (info.id === 'metaMask' && isMetaMask())
+                      isInjectedConnector(info.id) ||
+                      (isMetaMaskConnector(info.id) && isMetaMask())
                     ) {
                       context.setRoute(routes.CONNECT);
                       context.setConnector(connector.id);
@@ -239,12 +246,12 @@ const Wallets: React.FC = () => {
               let logos = info.logos;
 
               let name = info.name ?? connector.name;
-              if (info.id === 'walletConnect') {
+              if (isWalletConnectConnector(info.id)) {
                 name =
                   context.options?.walletConnectName ?? locales.otherWallets;
               }
 
-              if (info.id === 'injected') {
+              if (isInjectedConnector(info.id)) {
                 if (!shouldShowInjectedConnector()) return null;
 
                 const foundInjector = findInjectedConnectorInfo(connector.name);
