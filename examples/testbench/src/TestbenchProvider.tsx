@@ -50,6 +50,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
     disclaimer: null,
     bufferPolyfill: true,
     walletConnectCTA: 'modal',
+    //enforceSupportedChains: false,
     //initialChainId: 0,
   },
 }) => {
