@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useContext } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {
@@ -18,9 +17,7 @@ import useLocales from '../../../hooks/useLocales';
 const DownloadApp: React.FC<{
   connectorId: string;
 }> = ({ connectorId }) => {
-  const context = useContext();
-
-  const [id, setId] = useState(connectorId);
+  const [id] = useState(connectorId);
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
   const locales = useLocales({

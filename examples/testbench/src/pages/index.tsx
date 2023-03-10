@@ -24,13 +24,20 @@ import {
   useSignMessage,
   useSignTypedData,
   usePrepareSendTransaction,
+  useConnect,
+  useDisconnect,
 } from 'wagmi';
-import { arbitrum, Chain, mainnet, optimism, polygon } from 'wagmi/chains';
+import * as wagmiChains from 'wagmi/chains';
 
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
+
 import CustomAvatar from '../components/CustomAvatar';
 import CustomSIWEButton from '../components/CustomSIWEButton';
+
+const allChains = Object.keys(wagmiChains).map(
+  (key) => wagmiChains[key as keyof typeof wagmiChains]
+);
 
 /** TODO: import this data from the connectkit module */
 const themes: SelectProps[] = [
@@ -53,39 +60,75 @@ const languages: SelectProps[] = [
   { label: 'French', value: 'fr-FR' },
   { label: 'Spanish', value: 'es-ES' },
   { label: 'Japanese', value: 'ja-JP' },
+  { label: 'Portuguese', value: 'pt-BR' },
   { label: 'Chinese', value: 'zh-CN' },
 ];
 
 // USDC addresses for each chain
 const customTokenAddresses = {
-  [mainnet.id]: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-  [polygon.id]: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
-  [optimism.id]: '0x7f5c764cbc14f9669b88837ca1490cca17c31607',
-  [arbitrum.id]: '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8',
+  [wagmiChains.mainnet.id]: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  [wagmiChains.polygon.id]: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
+  [wagmiChains.optimism.id]: '0x7f5c764cbc14f9669b88837ca1490cca17c31607',
+  [wagmiChains.arbitrum.id]: '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8',
 } as const;
 
 const AccountInfo = () => {
-  const { address, connector } = useAccount();
+  const {
+    address,
+    connector,
+    isConnected,
+    isConnecting,
+    isDisconnected,
+    isReconnecting,
+  } = useAccount();
   const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
-  const siwe = useSIWE();
+  const { isSignedIn, signOut } = useSIWE();
 
   return (
-    <ul>
-      <li>ChainID: {chain?.id}</li>
-      <li>Chain name: {chain?.name}</li>
-      <li>Chain Supported: {chain?.unsupported ? 'No' : 'Yes'}</li>
-      <li>Address: {address}</li>
-      <li>Connector: {connector?.id}</li>
-      <li>Balance: {balanceData?.formatted}</li>
-      <li>
-        SIWE session: {siwe.isSignedIn ? 'yes' : 'no'}
-        {siwe.isSignedIn && <button onClick={siwe.signOut}>sign out</button>}
-      </li>
-      <li>
-        <Link href="/siwe/token-gated">Token-gated page</Link>
-      </li>
-    </ul>
+    <div className="panel">
+      <h2>Wallet Info</h2>
+      {isConnecting && <p>Connecting...</p>}
+      {isReconnecting && <p>Reconnecting...</p>}
+      {isDisconnected && <p>Disconnected</p>}
+      {isConnected && (
+        <table>
+          <tbody>
+            <tr>
+              <td>Chain ID</td>
+              <td>{chain?.id}</td>
+            </tr>
+            <tr>
+              <td>Chain Name</td>
+              <td>{chain?.name}</td>
+            </tr>
+            <tr>
+              <td>Chain Supported</td>
+              <td>{!chain || chain?.unsupported ? 'No' : 'Yes'}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{address}</td>
+            </tr>
+            <tr>
+              <td>Balance</td>
+              <td>{balanceData?.formatted}</td>
+            </tr>
+            <tr>
+              <td>Connector</td>
+              <td>{connector?.id}</td>
+            </tr>
+            <tr>
+              <td>SIWE session</td>
+              <td>
+                {isSignedIn ? 'yes' : 'no'}{' '}
+                {isSignedIn && <button onClick={signOut}>sign out</button>}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 };
 
@@ -218,74 +261,81 @@ const Home: NextPage = () => {
 
   const { open, setOpen, openSIWE, openAbout } = useModal();
 
+  const { reset } = useConnect();
+  const { isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  const handleDisconnect = () => {
+    disconnect();
+    reset();
+  };
+
   if (!mounted) return null;
 
   return (
     <>
       <main>
-        <p>Connect Button</p>
-        <ConnectKitButton showBalance={!hideBalance} label={label} />
+        <div className="panel">
+          <h2>Connect Button</h2>
+          <ConnectKitButton showBalance={!hideBalance} label={label} />
+          {isConnected && (
+            <button onClick={handleDisconnect}>Disconnect</button>
+          )}
+        </div>
 
-        <hr />
-        <p>Sign In With Ethereum</p>
-        <SIWEButton
-          showSignOutButton
-          onSignIn={(data?: SIWESession) => {
-            console.log('onSignIn SIWEButton', data);
-          }}
-          onSignOut={() => {
-            console.log('onSignOut SIWEButton');
-          }}
-        />
-        <CustomSIWEButton />
+        <div className="panel">
+          <h2>Sign In With Ethereum</h2>
+          <SIWEButton
+            showSignOutButton
+            onSignIn={(data?: SIWESession) => {
+              console.log('onSignIn SIWEButton', data);
+            }}
+            onSignOut={() => {
+              console.log('onSignOut SIWEButton');
+            }}
+          />
+          <CustomSIWEButton />
+          <Link href="/siwe/token-gated">Token-gated page &rarr;</Link>
+        </div>
 
-        <hr />
-        <p>useModal. open: {open.toString()}</p>
-        <button onClick={() => setOpen(true)}>Open modal</button>
-        <button onClick={() => openAbout()}>Open to About</button>
-        <button onClick={() => openSIWE(true)}>Open to SIWE</button>
+        <div className="panel">
+          <h2>useModal Hook</h2>
+          <p>open: {open.toString()}</p>
+          <button onClick={() => setOpen(true)}>Open modal</button>
+          <button onClick={() => openAbout()}>Open to About</button>
+          <button onClick={() => openSIWE(true)}>Open to SIWE</button>
+        </div>
 
-        <hr />
         <AccountInfo />
 
-        <hr />
-        <p>Avatars</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <Avatar name="lochie.eth" />
-          <Avatar name="pugson.eth" size={32} />
-          <Avatar
-            address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
-            size={12}
-          />
-          <Avatar name="benjitaylor.eth" size={64} />
+        <div className="panel">
+          <h2>Chains</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
+            <ChainIcon id={1} size={64} radius={6} />
+            <ChainIcon id={1337} size={32} radius={0} />
+            <ChainIcon id={2} unsupported />
+          </div>
+          <h2>dApps configured chains</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {chains.map((chain: wagmiChains.Chain) => (
+              <ChainIcon key={chain.id} id={chain.id} />
+            ))}
+          </div>
+          <Link href="/chains">Chains Testbench &rarr;</Link>
         </div>
 
-        <hr />
-        <p>Chains</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
-          <ChainIcon id={1} />
-          <ChainIcon id={10} size={16} />
-          <ChainIcon id={137} size={32} />
-          <ChainIcon id={1337} size={64} />
-          <ChainIcon id={1} unsupported />
-          <ChainIcon id={10} size={16} unsupported />
-          <ChainIcon id={137} size={32} unsupported />
-          <ChainIcon id={1337} size={64} unsupported />
-          <ChainIcon id={1} radius={0} unsupported />
-          <ChainIcon id={10} radius={0} size={16} unsupported />
-          <ChainIcon id={137} radius={0} size={32} unsupported />
-          <ChainIcon id={1337} radius={0} size={64} unsupported />
-          <ChainIcon id={1} radius={8} unsupported />
-          <ChainIcon id={10} radius={8} size={16} unsupported />
-          <ChainIcon id={137} radius={8} size={32} unsupported />
-          <ChainIcon id={1337} radius={8} size={64} unsupported />
-        </div>
-        <p>Supported Chains</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          {chains.map((chain: Chain) => (
-            <ChainIcon key={chain.id} id={chain.id} />
-          ))}
+        <div className="panel">
+          <h2>Avatars</h2>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Avatar name="lochie.eth" />
+            <Avatar name="pugson.eth" size={64} radius={6} />
+            <Avatar name="benjitaylor.eth" size={32} radius={0} />
+            <Avatar
+              address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+              size={12}
+            />
+          </div>
         </div>
       </main>
       <aside>
