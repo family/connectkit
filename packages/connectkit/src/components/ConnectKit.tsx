@@ -21,7 +21,6 @@ import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useAccount, useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
-import { getGlobalChains } from '../defaultClient';
 import { ChainIds } from '../constants/supportedChains';
 import { useChains } from '../hooks/useChains';
 
