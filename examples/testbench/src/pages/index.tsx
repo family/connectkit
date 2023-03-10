@@ -25,7 +25,7 @@ import {
   useSignTypedData,
   usePrepareSendTransaction,
 } from 'wagmi';
-import { Chain } from 'wagmi/chains';
+import { arbitrum, Chain, mainnet, optimism, polygon } from 'wagmi/chains';
 
 import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
@@ -55,6 +55,14 @@ const languages: SelectProps[] = [
   { label: 'Japanese', value: 'ja-JP' },
   { label: 'Chinese', value: 'zh-CN' },
 ];
+
+// USDC addresses for each chain
+const customTokenAddresses = {
+  [mainnet.id]: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  [polygon.id]: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
+  [optimism.id]: '0x7f5c764cbc14f9669b88837ca1490cca17c31607',
+  [arbitrum.id]: '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8',
+} as const;
 
 const AccountInfo = () => {
   const { address, connector } = useAccount();
@@ -216,7 +224,7 @@ const Home: NextPage = () => {
     <>
       <main>
         <p>Connect Button</p>
-        <ConnectKitButton label={label} />
+        <ConnectKitButton showBalance={!hideBalance} label={label} />
 
         <hr />
         <p>Sign In With Ethereum</p>
@@ -497,6 +505,19 @@ const Home: NextPage = () => {
             setOptions({
               ...options,
               bufferPolyfill: !options.bufferPolyfill,
+            })
+          }
+        />
+        <Checkbox
+          label="customTokenAddress"
+          value="customTokenAddress"
+          checked={options.customTokenAddress !== undefined}
+          onChange={() =>
+            setOptions({
+              ...options,
+              customTokenAddress: options.customTokenAddress
+                ? undefined
+                : customTokenAddresses,
             })
           }
         />
