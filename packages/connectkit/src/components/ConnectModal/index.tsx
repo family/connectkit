@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAccount, useNetwork } from 'wagmi';
 import { router, routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
@@ -59,26 +59,29 @@ const ConnectModal: React.FC<{
     }
   };
 
-  const pages: any = {
-    onboarding: <Onboarding />,
-    about: <About />,
-    download: <DownloadApp connectorId={context.connector} />,
-    connectors: <Connectors />,
-    mobileConnectors: <MobileConnectors />,
-    connect: <ConnectUsing connectorId={context.connector} />,
-    profile: <Profile />,
-    switchNetworks: <SwitchNetworks />,
-    signInWithEthereum: <SignInWithEthereum />,
-  };
+  const pages: any = useMemo(
+    () => ({
+      onboarding: <Onboarding />,
+      about: <About />,
+      download: <DownloadApp connectorId={context.connector} />,
+      connectors: <Connectors />,
+      mobileConnectors: <MobileConnectors />,
+      connect: <ConnectUsing connectorId={context.connector} />,
+      profile: <Profile />,
+      switchNetworks: <SwitchNetworks />,
+      signInWithEthereum: <SignInWithEthereum />,
+    }),
+    [context.connector]
+  );
 
   function hide() {
     context.setOpen(false);
   }
 
-  function show() {
-    context.setOpen(true);
-    router.value = isConnected ? routes.PROFILE : routes.CONNECTORS;
-  }
+  // function show() {
+  //   context.setOpen(true);
+  //   router.value = isConnected ? routes.PROFILE : routes.CONNECTORS;
+  // }
 
   useEffect(() => {
     if (isConnected) {

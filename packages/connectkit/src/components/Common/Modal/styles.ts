@@ -289,7 +289,6 @@ export const InnerContainer = styled(motion.div)`
     height: 100%;
     transform: translateX(-50%);
     backface-visibility: hidden;
-    transition: all 100ms ease;
     border-radius: var(--ck-border-radius, 20px);
     background: var(--ck-body-background);
     box-shadow: var(--ck-modal-box-shadow);

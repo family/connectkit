@@ -11,8 +11,19 @@ type PageProps = {
 };
 
 const Page: React.FC<PageProps> = ({ children, open }) => {
-  if (!open) return null;
-  return <PageContainer>{children}</PageContainer>;
+  return (
+    <PageContainer
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: open ? 1 : 0,
+      }}
+      transition={{
+        duration: 0.3,
+      }}
+    >
+      {open && children}
+    </PageContainer>
+  );
 };
 
 type ModalContentProps = {
@@ -20,30 +31,37 @@ type ModalContentProps = {
   children: React.ReactNode;
 };
 
-const dimensions = signal({ width: 0, height: 0 });
+const dimensions = signal({ width: 360, height: 369 });
 
-const PagesContainer = styled(motion.div)``;
+const PagesContainer = styled(motion.div)`
+  width: fit-content;
+  justify-content: center;
+`;
 
 const ModalInner: React.FC<ModalContentProps> = ({ pages, children }) => {
   const pageId = router.value;
   const contentRef = useRef<any>(null);
+
   useEffect(() => {
-    const bounds = contentRef.current?.getBoundingClientRect();
+    if (!contentRef.current) return;
     dimensions.value = {
-      width: bounds?.width || 0,
-      height: bounds?.height || 0,
+      width: contentRef.current?.offsetWidth,
+      height: contentRef.current?.offsetHeight,
     };
   }, [pageId]);
 
   return (
     <InnerContainer
+      initial={false}
       animate={{
         width: dimensions.value.width,
         height: dimensions.value.height,
       }}
       transition={{
-        ease: [0.15, 1.15, 0.6, 1],
-        duration: 0.5,
+        type: 'spring',
+        mass: 0.3,
+        damping: 20,
+        stiffness: 220,
       }}
     >
       {children}

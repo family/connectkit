@@ -241,10 +241,10 @@ const Modal: React.FC<ModalProps> = ({
       width: node?.offsetWidth,
       height: node?.offsetHeight,
     };
-    setDimensions({
-      width: `${bounds?.width}px`,
-      height: `${bounds?.height}px`,
-    });
+    // setDimensions({
+    //   width: `${bounds?.width}px`,
+    //   height: `${bounds?.height}px`,
+    // });
   };
 
   let blockTimeout: ReturnType<typeof setTimeout>;
@@ -274,13 +274,13 @@ const Modal: React.FC<ModalProps> = ({
   }, [chain, switchNetwork, mobile, isSignedIn, context.options]);
 
   useEffect(() => {
-    if (!mounted) {
-      setDimensions({
-        width: undefined,
-        height: undefined,
-      });
-      return;
-    }
+    // if (!mounted) {
+    //   setDimensions({
+    //     width: undefined,
+    //     height: undefined,
+    //   });
+    //   return;
+    // }
 
     const listener = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && onClose) onClose();
