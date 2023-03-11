@@ -142,7 +142,7 @@ const Wallets: React.FC = () => {
   };
 
   return (
-    <PageContent style={{ width: 500 }}>
+    <PageContent style={{ width: 312 }}>
       {mobile ? (
         <>
           <MobileConnectorsContainer>

@@ -51,7 +51,7 @@ type ModalContentProps = {
   children: React.ReactNode;
 };
 
-const dimensions = signal({ width: 548, height: 413 });
+const dimensions = signal({ width: 360, height: 413 });
 
 const PagesContainer = styled(motion.div)`
   /* margin: 0 auto; */
