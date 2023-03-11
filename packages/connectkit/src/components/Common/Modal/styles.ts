@@ -9,7 +9,7 @@ export const ErrorMessage = styled(motion.div)`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: var(--width);
+  width: 100%;
   top: 64px;
   color: #fff;
   font-size: 14px;
@@ -115,7 +115,7 @@ export const ModalHeading = styled(motion.div)`
   justify-content: center;
   height: 26px;
   transform: translateX(-50%);
-  width: var(--width);
+  width: 100%;
   text-align: center;
   font-size: 17px;
   line-height: 20px;
@@ -266,7 +266,7 @@ export const ControllerContainer = styled(motion.div)`
   height: 64px;
   transform: translateX(-50%);
   backface-visibility: hidden;
-  width: var(--width);
+  width: 100%;
   transition: 0.2s ease width;
   pointer-events: auto;
   //border-bottom: 1px solid var(--ck-body-divider);
@@ -276,7 +276,6 @@ export const InnerContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
   pointer-events: all;
-  width: fit-content;
 
   &:before {
     content: '';
@@ -304,12 +303,10 @@ export const InnerContainer = styled(motion.div)`
 
 export const PageContainer = styled(motion.div)`
   z-index: 2;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: fit-content;
   transform-origin: center center;
-  /* animation: 120ms cubic-bezier(0.16, 1, 0.3, 1) both; */
+  animation: 300ms cubic-bezier(0.16, 1, 0.3, 1) transform,
+    300ms cubic-bezier(0.16, 1, 0.3, 1) left;
 `;
 
 export const PageContents = styled(motion.div)`
@@ -566,7 +563,7 @@ export const DisclaimerBackground = styled(motion.div)`
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: var(--width);
+  width: 100%;
   backface-visibility: hidden;
   transform: translateX(-50%);
   transform-origin: bottom center;

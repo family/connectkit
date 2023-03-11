@@ -4,6 +4,7 @@ import { signal } from '@preact/signals-react';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
+import defaultTheme from '../../../constants/defaultTheme';
 
 type PageProps = {
   open: boolean;
@@ -15,10 +16,14 @@ const Page: React.FC<PageProps> = ({ children, open }) => {
     <AnimatePresence>
       {open && (
         <PageContainer
-          style={{
-            width: '100%',
+          initial={{
+            opacity: 0,
+            zIndex: 1,
+            position: 'relative',
+            top: 0,
+            // left: '50%',
+            // x: '-50%',
           }}
-          initial={{ opacity: 0, zIndex: 1, position: 'relative' }}
           animate={{
             opacity: 1,
           }}
@@ -29,7 +34,9 @@ const Page: React.FC<PageProps> = ({ children, open }) => {
             position: 'absolute',
           }}
           transition={{
-            duration: 0.24,
+            default: { duration: 0.24 },
+            left: { duration: 0 },
+            x: { duration: 0 },
           }}
         >
           {children}
@@ -44,12 +51,16 @@ type ModalContentProps = {
   children: React.ReactNode;
 };
 
-const dimensions = signal({ width: 360, height: 369 });
+const dimensions = signal({ width: 548, height: 413 });
 
 const PagesContainer = styled(motion.div)`
+  /* margin: 0 auto; */
   position: relative;
-  /* width: fit-content; */
-  /* justify-content: center; */
+  width: fit-content;
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    max-width: 100%;
+    min-width: 100%;
+  }
 `;
 
 const ModalInner: React.FC<ModalContentProps> = ({ pages, children }) => {
@@ -63,7 +74,7 @@ const ModalInner: React.FC<ModalContentProps> = ({ pages, children }) => {
         width: contentRef.current?.offsetWidth,
         height: contentRef.current?.offsetHeight,
       };
-    }, 10);
+    }, 16.66);
   }, [pageId]);
 
   return (
