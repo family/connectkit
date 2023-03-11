@@ -39,7 +39,7 @@ const DownloadApp: React.FC<{
   return (
     <PageContent>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
-        {downloadUri && <CustomQRCode value={downloadUri} />}
+        <CustomQRCode value={downloadUri ? downloadUri : 'no-uri'} />
         {!downloadUri && <>No download link available</>}
         <ModalBody
           style={{ fontSize: 15, lineHeight: '20px', padding: '0 12px' }}

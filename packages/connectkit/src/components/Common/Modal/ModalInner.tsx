@@ -3,7 +3,7 @@ import { router } from '../../ConnectKit';
 import { signal } from '@preact/signals-react';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type PageProps = {
   open: boolean;
@@ -12,17 +12,30 @@ type PageProps = {
 
 const Page: React.FC<PageProps> = ({ children, open }) => {
   return (
-    <PageContainer
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: open ? 1 : 0,
-      }}
-      transition={{
-        duration: 0.3,
-      }}
-    >
-      {open && children}
-    </PageContainer>
+    <AnimatePresence>
+      {open && (
+        <PageContainer
+          style={{
+            width: '100%',
+          }}
+          initial={{ opacity: 0, zIndex: 1, position: 'relative' }}
+          animate={{
+            opacity: 1,
+          }}
+          exit={{
+            opacity: 0,
+            zIndex: 0,
+            top: 0,
+            position: 'absolute',
+          }}
+          transition={{
+            duration: 0.24,
+          }}
+        >
+          {children}
+        </PageContainer>
+      )}
+    </AnimatePresence>
   );
 };
 
@@ -34,8 +47,9 @@ type ModalContentProps = {
 const dimensions = signal({ width: 360, height: 369 });
 
 const PagesContainer = styled(motion.div)`
-  width: fit-content;
-  justify-content: center;
+  position: relative;
+  /* width: fit-content; */
+  /* justify-content: center; */
 `;
 
 const ModalInner: React.FC<ModalContentProps> = ({ pages, children }) => {
@@ -44,10 +58,12 @@ const ModalInner: React.FC<ModalContentProps> = ({ pages, children }) => {
 
   useEffect(() => {
     if (!contentRef.current) return;
-    dimensions.value = {
-      width: contentRef.current?.offsetWidth,
-      height: contentRef.current?.offsetHeight,
-    };
+    setTimeout(() => {
+      dimensions.value = {
+        width: contentRef.current?.offsetWidth,
+        height: contentRef.current?.offsetHeight,
+      };
+    }, 10);
   }, [pageId]);
 
   return (
