@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useContext, routes } from '../../ConnectKit';
+import { useContext, routes, router } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
 import { isMetaMask, isCoinbaseWallet } from './../../../utils';
 
@@ -56,7 +56,7 @@ const Wallets: React.FC = () => {
     let connector: Connector | null = null;
     switch (c.id) {
       case 'walletConnect':
-        context.setRoute(routes.MOBILECONNECTORS);
+        router.value = routes.MOBILECONNECTORS;
         break;
       case 'metaMask':
         connector = new WalletConnectConnector({
@@ -179,7 +179,7 @@ const Wallets: React.FC = () => {
                       info.id === 'injected' ||
                       (info.id === 'metaMask' && isMetaMask())
                     ) {
-                      context.setRoute(routes.CONNECT);
+                      router.value = routes.CONNECT;
                       context.setConnector(connector.id);
                     } else {
                       openDefaultConnect(connector.id);
@@ -206,7 +206,7 @@ const Wallets: React.FC = () => {
               {!context.options?.hideQuestionMarkCTA && (
                 <Button
                   variant={'tertiary'}
-                  onClick={() => context.setRoute(routes.ABOUT)}
+                  onClick={() => (router.value = routes.ABOUT)}
                 >
                   {locales.learnMore}
                 </Button>
@@ -214,7 +214,7 @@ const Wallets: React.FC = () => {
               {!context.options?.hideNoWalletCTA && (
                 <Button
                   variant={'tertiary'}
-                  onClick={() => context.setRoute(routes.ONBOARDING)}
+                  onClick={() => (router.value = routes.ONBOARDING)}
                 >
                   {locales.getWallet}
                 </Button>
@@ -263,9 +263,9 @@ const Wallets: React.FC = () => {
               return (
                 <ConnectorButton
                   key={connector.id}
-                  disabled={context.route !== routes.CONNECTORS}
+                  disabled={router.value !== routes.CONNECTORS}
                   onClick={() => {
-                    context.setRoute(routes.CONNECT);
+                    router.value = routes.CONNECT;
                     context.setConnector(connector.id);
                   }}
                 >
@@ -279,7 +279,7 @@ const Wallets: React.FC = () => {
           {!context.options?.hideNoWalletCTA && (
             <LearnMoreContainer>
               <LearnMoreButton
-                onClick={() => context.setRoute(routes.ONBOARDING)}
+                onClick={() => (router.value = routes.ONBOARDING)}
               >
                 <WalletIcon /> {locales.connectorsScreen_newcomer}
               </LearnMoreButton>

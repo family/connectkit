@@ -24,7 +24,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <WagmiConfig client={client}>
-      <ConnectKitProvider theme="auto">
+      <ConnectKitProvider
+        theme="auto"
+        options={{ disclaimer: 'This is a demo disclaimer.' }}
+      >
         <App />
       </ConnectKitProvider>
     </WagmiConfig>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAccount, useNetwork } from 'wagmi';
-import { routes, useContext } from '../ConnectKit';
+import { router, routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
@@ -40,21 +40,22 @@ const ConnectModal: React.FC<{
   );
 
   const showBackButton =
-    closeable &&
-    context.route !== routes.CONNECTORS &&
-    context.route !== routes.PROFILE;
+    !chain?.unsupported &&
+    router.value !== routes.CONNECTORS &&
+    router.value !== routes.PROFILE;
 
-  const showInfoButton = closeable && context.route !== routes.PROFILE;
+  const showInfoButton =
+    !chain?.unsupported && context.route !== routes.PROFILE;
 
   const onBack = () => {
-    if (context.route === routes.SIGNINWITHETHEREUM) {
-      context.setRoute(routes.PROFILE);
-    } else if (context.route === routes.SWITCHNETWORKS) {
-      context.setRoute(routes.PROFILE);
-    } else if (context.route === routes.DOWNLOAD) {
-      context.setRoute(routes.CONNECT);
+    if (router.value === routes.SIGNINWITHETHEREUM) {
+      router.value = routes.PROFILE;
+    } else if (router.value === routes.SWITCHNETWORKS) {
+      router.value = routes.PROFILE;
+    } else if (router.value === routes.DOWNLOAD) {
+      router.value = routes.CONNECT;
     } else {
-      context.setRoute(routes.CONNECTORS);
+      router.value = routes.CONNECTORS;
     }
   };
 
@@ -74,17 +75,22 @@ const ConnectModal: React.FC<{
     context.setOpen(false);
   }
 
+  function show() {
+    context.setOpen(true);
+    router.value = isConnected ? routes.PROFILE : routes.CONNECTORS;
+  }
+
   useEffect(() => {
     if (isConnected) {
       if (
-        context.route !== routes.PROFILE ||
-        context.route !== routes.SIGNINWITHETHEREUM
+        router.value !== routes.PROFILE ||
+        router.value !== routes.SIGNINWITHETHEREUM
       ) {
         if (
           context.signInWithEthereum &&
           !context.options?.disableSiweRedirect
         ) {
-          context.setRoute(routes.SIGNINWITHETHEREUM);
+          router.value = routes.SIGNINWITHETHEREUM;
         } else {
           hide(); // Hide on connect
         }
@@ -134,10 +140,9 @@ const ConnectModal: React.FC<{
       <Modal
         open={context.open}
         pages={pages}
-        pageId={context.route}
         onClose={closeable ? hide : undefined}
         onInfo={
-          showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
+          showInfoButton ? () => (router.value = routes.ABOUT) : undefined
         }
         onBack={showBackButton ? onBack : undefined}
       />

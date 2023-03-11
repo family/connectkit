@@ -41,12 +41,12 @@ from { opacity: 0; }
 `;
 
 const FadeInScaleUp = keyframes`
-from { opacity: 0; transform: scale(0.85); }
+from { opacity: 0; transform: scale(1); }
   to { opacity: 1; transform: scale(1); }
 `;
 
 const FadeInScaleDown = keyframes`
-from { opacity: 0; transform: scale(1.1); }
+from { opacity: 0; transform: scale(1); }
   to { opacity: 1; transform: scale(1); }
 `;
 
@@ -57,12 +57,12 @@ from { opacity: 1; }
 
 const FadeOutScaleUp = keyframes`
 from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(1.1); }
+  to { opacity: 0; transform: scale(1); }
 `;
 
 const FadeOutScaleDown = keyframes`
 from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(0.85); }
+  to { opacity: 0; transform: scale(1); }
 `;
 
 export const PageContent = styled(motion.div)`
@@ -231,27 +231,13 @@ export const BoxContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
   color: var(--ck-body-color);
-
-  animation: 150ms ease both;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-name: ${BoxOut};
   &.active {
     animation-name: ${BoxIn};
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: var(--width);
-    height: var(--height);
-    transform: translateX(-50%);
-    backface-visibility: hidden;
-    transition: all 200ms ease;
-    border-radius: var(--ck-border-radius, 20px);
-    background: var(--ck-body-background);
-    box-shadow: var(--ck-modal-box-shadow);
   }
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
@@ -290,76 +276,36 @@ export const ControllerContainer = styled(motion.div)`
 export const InnerContainer = styled(motion.div)`
   position: relative;
   overflow: hidden;
-  height: var(--height);
-  transition: 0.2s ease height;
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    transition: 0ms height cubic-bezier(0.15, 1.15, 0.6, 1);
-    /* animation-delay: 34ms; */
+  pointer-events: all;
+  width: fit-content;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-50%);
+    backface-visibility: hidden;
+    transition: all 100ms ease;
+    border-radius: var(--ck-border-radius, 20px);
+    background: var(--ck-body-background);
+    box-shadow: var(--ck-modal-box-shadow);
   }
 `;
 
 export const PageContainer = styled(motion.div)`
   z-index: 2;
   position: relative;
-  top: 0;
-  left: 50%;
-  margin-left: calc(var(--width) / -2);
-  width: var(--width);
-  /* left: 0; */
-  /* width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
   transform-origin: center center;
-  animation: 200ms ease both;
-
-  &.active {
-    animation-name: ${FadeInScaleDown};
-  }
-  &.active-scale-up {
-    animation-name: ${FadeInScaleUp};
-  }
-  &.exit-scale-down {
-    z-index: 1;
-    pointer-events: none;
-    position: absolute;
-    /* top: 0; */
-    /* left: 0; */
-    animation-name: ${FadeOutScaleDown};
-  }
-  &.exit {
-    z-index: 1;
-    pointer-events: none;
-    position: absolute;
-    /* top: 0; */
-    /* left: 0; */
-    /* left: 50%; */
-    /* transform: translateX(-50%); */
-    animation-name: ${FadeOutScaleUp};
-    animation-delay: 16.6667ms;
-  }
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    /* animation: 0ms ease both; */
-    /* animation-delay: 35ms; */
-    animation: 0ms cubic-bezier(0.15, 1.15, 0.6, 1) both;
-
-    &.active {
-      animation-name: ${FadeIn};
-    }
-    &.active-scale-up {
-      animation-name: ${FadeIn};
-    }
-    &.exit-scale-down {
-      z-index: 3;
-      animation-name: ${FadeOut};
-    }
-    &.exit {
-      z-index: 3;
-      animation-name: ${FadeOut};
-      animation-delay: 0ms;
-    }
-  }
+  animation: 120ms cubic-bezier(0.16, 1, 0.3, 1) both;
 `;
+
 export const PageContents = styled(motion.div)`
   margin: 0 auto;
   width: fit-content;
@@ -509,7 +455,7 @@ export const Container = styled(motion.div)`
   transform: translate3d(-50%, -50%, 0);
   backface-visibility: hidden;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    pointer-events: auto;
+    /* pointer-events: auto; */
     left: 0;
     top: auto;
     bottom: -5px;

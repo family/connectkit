@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useContext } from '../../ConnectKit';
+import { router, useContext } from '../../ConnectKit';
 import useMeasure from 'react-use-measure';
 
 import { TooltipProps, TooltipSizeProps } from './types';
@@ -29,7 +29,7 @@ const Tooltip: React.FC<TooltipProps> = ({
 
   const [ready, setReady] = useState(false);
 
-  const [currentRoute] = useState(context.route);
+  const [currentRoute] = useState(router.value);
 
   const targetRef = useRef<any>(null);
   const [ref, bounds] = useMeasure({
@@ -100,7 +100,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       </motion.div>
       <Portal>
         <AnimatePresence>
-          {currentRoute === context.route && !outOfBounds && isOpen && (
+          {currentRoute === router.value && !outOfBounds && isOpen && (
             <ResetContainer
               $useTheme={themeContext.theme}
               $useMode={themeContext.mode}

@@ -11,10 +11,7 @@ import {
   Container,
   BoxContainer,
   ModalContainer,
-  PageContainer,
-  PageContents,
   ControllerContainer,
-  InnerContainer,
   BackgroundOverlay,
   CloseButton,
   BackButton,
@@ -28,13 +25,14 @@ import {
   SignInTooltip,
 } from './styles';
 
-import { routes, useContext } from '../../ConnectKit';
+import ModalInner from './ModalInner';
+
+import { router, routes, useContext } from '../../ConnectKit';
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
 import FocusTrap from '../../../hooks/useFocusTrap';
 import { supportedConnectors } from '../../..';
-import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
@@ -179,7 +177,6 @@ export const contentVariants: Variants = {
 type ModalProps = {
   open?: boolean;
   pages: any;
-  pageId: string;
   positionInside?: boolean;
   inline?: boolean;
   onClose?: () => void;
@@ -195,7 +192,6 @@ type ModalProps = {
 const Modal: React.FC<ModalProps> = ({
   open,
   pages,
-  pageId,
   positionInside,
   inline,
   demo,
@@ -221,16 +217,7 @@ const Modal: React.FC<ModalProps> = ({
   });
   const mounted = !(state === 'exited' || state === 'unmounted');
   const rendered = state === 'preEnter' || state !== 'exiting';
-  const currentDepth =
-    context.route === routes.CONNECTORS
-      ? 0
-      : context.route === routes.DOWNLOAD
-      ? 2
-      : 1;
-  const prevDepth = usePrevious(currentDepth, currentDepth);
   if (!positionInside) useLockBodyScroll(mounted);
-
-  const prevPage = usePrevious(pageId, pageId);
 
   useEffect(() => {
     setOpen(open);
@@ -321,7 +308,7 @@ const Modal: React.FC<ModalProps> = ({
   }
 
   function getHeading() {
-    switch (context.route) {
+    switch (router.value) {
       case routes.ABOUT:
         return locales.aboutScreen_heading;
       case routes.CONNECT:
@@ -367,14 +354,7 @@ const Modal: React.FC<ModalProps> = ({
         }}
       >
         {!inline && <BackgroundOverlay $active={rendered} onClick={onClose} />}
-        <Container
-          style={dimensionsCSS}
-          initial={false}
-          // transition={{
-          //   ease: [0.2555, 0.1111, 0.2555, 1.0001],
-          //   duration: !positionInside && state !== 'entered' ? 0 : 0.24,
-          // }}
-        >
+        <Container style={dimensionsCSS} initial={false}>
           <div
             style={{
               pointerEvents: inTransition ? 'all' : 'none', // Block interaction while transitioning
@@ -389,224 +369,189 @@ const Modal: React.FC<ModalProps> = ({
             }}
           />
           <BoxContainer className={`${rendered && 'active'}`}>
-            <AnimatePresence initial={false}>
-              {context.options?.disclaimer &&
-                context.route === routes.CONNECTORS && (
-                  <DisclaimerBackground
-                    initial={{
-                      opacity: 0,
-                    }}
-                    animate={{
-                      opacity: 1,
-                    }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      delay: 0,
-                      duration: 0.2,
-                      ease: [0.25, 0.1, 0.25, 1.0],
-                    }}
+            <ModalInner pages={pages}>
+              <AnimatePresence initial={false}>
+                {context.options?.disclaimer &&
+                  router.value === routes.CONNECTORS && (
+                    <DisclaimerBackground
+                      initial={{
+                        opacity: 0,
+                      }}
+                      animate={{
+                        opacity: 1,
+                      }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        delay: 0,
+                        duration: 0.2,
+                        ease: [0.25, 0.1, 0.25, 1.0],
+                      }}
+                    >
+                      <Disclaimer>
+                        <div>{context.options?.disclaimer}</div>
+                      </Disclaimer>
+                    </DisclaimerBackground>
+                  )}
+              </AnimatePresence>
+              <AnimatePresence initial={false}>
+                {context.errorMessage && (
+                  <ErrorMessage
+                    initial={{ y: '10%', x: '-50%' }}
+                    animate={{ y: '-100%' }}
+                    exit={{ y: '100%' }}
+                    transition={{ duration: 0.2, ease: 'easeInOut' }}
                   >
-                    <Disclaimer>
-                      <div>{context.options?.disclaimer}</div>
-                    </Disclaimer>
-                  </DisclaimerBackground>
+                    <span>{context.errorMessage}</span>
+                    <div
+                      onClick={() => context.debug(null)}
+                      style={{
+                        position: 'absolute',
+                        right: 24,
+                        top: 24,
+                      }}
+                    >
+                      <CloseIcon />
+                    </div>
+                  </ErrorMessage>
                 )}
-            </AnimatePresence>
-            <AnimatePresence initial={false}>
-              {context.errorMessage && (
-                <ErrorMessage
-                  initial={{ y: '10%', x: '-50%' }}
-                  animate={{ y: '-100%' }}
-                  exit={{ y: '100%' }}
-                  transition={{ duration: 0.2, ease: 'easeInOut' }}
-                >
-                  <span>{context.errorMessage}</span>
-                  <div
-                    onClick={() => context.debug(null)}
-                    style={{
-                      position: 'absolute',
-                      right: 24,
-                      top: 24,
-                    }}
-                  >
+              </AnimatePresence>
+              <ControllerContainer style={{ width: '100%' }}>
+                {onClose && (
+                  <CloseButton aria-label={locales.close} onClick={onClose}>
                     <CloseIcon />
-                  </div>
-                </ErrorMessage>
-              )}
-            </AnimatePresence>
-            <ControllerContainer>
-              {onClose && (
-                <CloseButton aria-label={locales.close} onClick={onClose}>
-                  <CloseIcon />
-                </CloseButton>
-              )}
-              <div
+                  </CloseButton>
+                )}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 23,
+                    left: 20,
+                    width: 32,
+                    height: 32,
+                  }}
+                >
+                  <AnimatePresence>
+                    {onBack ? (
+                      <BackButton
+                        disabled={inTransition}
+                        aria-label={locales.back}
+                        key="backButton"
+                        onClick={onBack}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                          duration: mobile ? 0 : 0.1,
+                          delay: mobile ? 0.01 : 0,
+                        }}
+                      >
+                        <BackIcon />
+                      </BackButton>
+                    ) : router.value === routes.PROFILE &&
+                      context.signInWithEthereum ? (
+                      <>
+                        {!isSignedIn && (
+                          <motion.div
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              pointerEvents: 'none',
+                            }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{
+                              opacity: 1,
+                              scale: 1,
+                              transition: { delay: 0.5, duration: 0.2 },
+                            }}
+                            exit={{
+                              opacity: 0,
+                              scale: 0.6,
+                              transition: {
+                                delay: 0,
+                                duration: mobile ? 0 : 0.1,
+                              },
+                            }}
+                          >
+                            <SignInTooltip>
+                              {locales.signInWithEthereumScreen_tooltip}
+                            </SignInTooltip>
+                          </motion.div>
+                        )}
+                        <SiweButton
+                          disabled={inTransition}
+                          aria-label={
+                            locales.signInWithEthereumScreen_signedOut_heading
+                          }
+                          key="siweButton"
+                          onClick={() =>
+                            (router.value = routes.SIGNINWITHETHEREUM)
+                          }
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{
+                            duration: mobile ? 0 : 0.1,
+                            delay: mobile ? 0.01 : 0,
+                          }}
+                        >
+                          <ProfileIcon isSignedIn={isSignedIn} />
+                        </SiweButton>
+                      </>
+                    ) : (
+                      onInfo &&
+                      !context.options?.hideQuestionMarkCTA && (
+                        <InfoButton
+                          disabled={inTransition}
+                          aria-label={locales.moreInformation}
+                          key="infoButton"
+                          onClick={onInfo}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{
+                            duration: mobile ? 0 : 0.1,
+                            delay: mobile ? 0.01 : 0,
+                          }}
+                        >
+                          <InfoIcon />
+                        </InfoButton>
+                      )
+                    )}
+                  </AnimatePresence>
+                </div>
+              </ControllerContainer>
+
+              <ModalHeading
                 style={{
-                  position: 'absolute',
-                  top: 23,
-                  left: 20,
-                  width: 32,
-                  height: 32,
+                  width: '100%',
                 }}
               >
                 <AnimatePresence>
-                  {onBack ? (
-                    <BackButton
-                      disabled={inTransition}
-                      aria-label={locales.back}
-                      key="backButton"
-                      onClick={onBack}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{
-                        duration: mobile ? 0 : 0.1,
-                        delay: mobile ? 0.01 : 0,
-                      }}
-                    >
-                      <BackIcon />
-                    </BackButton>
-                  ) : context.route === routes.PROFILE &&
-                    context.signInWithEthereum ? (
-                    <>
-                      {!isSignedIn && (
-                        <motion.div
-                          style={{
-                            position: 'absolute',
-                            inset: 0,
-                            pointerEvents: 'none',
-                          }}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{
-                            opacity: 1,
-                            scale: 1,
-                            transition: { delay: 0.5, duration: 0.2 },
-                          }}
-                          exit={{
-                            opacity: 0,
-                            scale: 0.6,
-                            transition: {
-                              delay: 0,
-                              duration: mobile ? 0 : 0.1,
-                            },
-                          }}
-                        >
-                          <SignInTooltip>
-                            {locales.signInWithEthereumScreen_tooltip}
-                          </SignInTooltip>
-                        </motion.div>
-                      )}
-                      <SiweButton
-                        disabled={inTransition}
-                        aria-label={
-                          locales.signInWithEthereumScreen_signedOut_heading
-                        }
-                        key="siweButton"
-                        onClick={() => {
-                          reset();
-                          context.setRoute(routes.SIGNINWITHETHEREUM);
-                        }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{
-                          duration: mobile ? 0 : 0.1,
-                          delay: mobile ? 0.01 : 0,
-                        }}
-                      >
-                        <ProfileIcon isSignedIn={isSignedIn} />
-                      </SiweButton>
-                    </>
-                  ) : (
-                    onInfo &&
-                    !context.options?.hideQuestionMarkCTA && (
-                      <InfoButton
-                        disabled={inTransition}
-                        aria-label={locales.moreInformation}
-                        key="infoButton"
-                        onClick={onInfo}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{
-                          duration: mobile ? 0 : 0.1,
-                          delay: mobile ? 0.01 : 0,
-                        }}
-                      >
-                        <InfoIcon />
-                      </InfoButton>
-                    )
-                  )}
-                </AnimatePresence>
-              </div>
-            </ControllerContainer>
-
-            <ModalHeading>
-              <AnimatePresence>
-                <motion.div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    bottom: 0,
-                    left: 52,
-                    right: 52,
-                    display: 'flex',
-                    //alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  key={`${context.route}-${isSignedIn ? 'signedIn' : ''}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: mobile ? 0 : 0.17,
-                    delay: mobile ? 0.01 : 0,
-                  }}
-                >
-                  <FitText>{getHeading()}</FitText>
-                </motion.div>
-              </AnimatePresence>
-            </ModalHeading>
-
-            <InnerContainer>
-              {Object.keys(pages).map((key) => {
-                const page = pages[key];
-                return (
-                  // TODO: We may need to use the follow check avoid unnecessary computations, but this causes a bug where the content flashes
-                  // (key === pageId || key === prevPage) && (
-                  <Page
-                    key={key}
-                    open={key === pageId}
-                    initial={!positionInside && state !== 'entered'}
-                    enterAnim={
-                      key === pageId
-                        ? currentDepth > prevDepth
-                          ? 'active-scale-up'
-                          : 'active'
-                        : ''
-                    }
-                    exitAnim={
-                      key !== pageId
-                        ? currentDepth < prevDepth
-                          ? 'exit-scale-down'
-                          : 'exit'
-                        : ''
-                    }
+                  <motion.div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      bottom: 0,
+                      left: 52,
+                      right: 52,
+                      display: 'flex',
+                      //alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    key={`${router.value}-${isSignedIn ? 'signedIn' : ''}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      duration: mobile ? 0 : 0.17,
+                      delay: mobile ? 0.01 : 0,
+                    }}
                   >
-                    <PageContents
-                      key={`inner-${key}`}
-                      ref={contentRef}
-                      style={{
-                        pointerEvents:
-                          key === pageId && rendered ? 'auto' : 'none',
-                      }}
-                    >
-                      {page}
-                    </PageContents>
-                  </Page>
-                );
-              })}
-            </InnerContainer>
+                    <FitText>{getHeading()}</FitText>
+                  </motion.div>
+                </AnimatePresence>
+              </ModalHeading>
+            </ModalInner>
           </BoxContainer>
         </Container>
       </ModalContainer>
@@ -630,54 +575,6 @@ const Modal: React.FC<ModalProps> = ({
         </>
       )}
     </>
-  );
-};
-
-type PageProps = {
-  children?: React.ReactNode;
-  open?: boolean;
-  initial: boolean;
-  prevDepth?: number;
-  currentDepth?: number;
-  enterAnim?: string;
-  exitAnim?: string;
-};
-
-const Page: React.FC<PageProps> = ({
-  children,
-  open,
-  initial,
-  prevDepth,
-  currentDepth,
-  enterAnim,
-  exitAnim,
-}) => {
-  const [state, setOpen] = useTransition({
-    timeout: 400,
-    preEnter: true,
-    initialEntered: open,
-    mountOnEnter: true,
-    unmountOnExit: true,
-  });
-  const mounted = !(state === 'exited' || state === 'unmounted');
-  const rendered = state === 'preEnter' || state !== 'exiting';
-
-  useEffect(() => {
-    setOpen(open);
-  }, [open]);
-
-  if (!mounted) return null;
-
-  return (
-    <PageContainer
-      className={`${rendered ? enterAnim : exitAnim}`}
-      style={{
-        animationDuration: initial ? '0ms' : undefined,
-        animationDelay: initial ? '0ms' : undefined,
-      }}
-    >
-      {children}
-    </PageContainer>
   );
 };
 

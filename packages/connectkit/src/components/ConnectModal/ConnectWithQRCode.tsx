@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { routes, useContext } from '../ConnectKit';
+import { router, routes, useContext } from '../ConnectKit';
 
 import supportedConnectors from '../../constants/supportedConnectors';
 import { useConnect } from '../../hooks/useConnect';
@@ -280,7 +280,7 @@ const ConnectWithQRCode: React.FC<{
         <>
           <Button
             onClick={() => {
-              context.setRoute(routes.DOWNLOAD);
+              router.value = routes.DOWNLOAD;
             }}
             /*
             icon={
