@@ -254,6 +254,7 @@ const ConnectWithQRCode: React.FC<{
               icon={<ExternalLinkIcon />}
               onClick={openW3M}
               disabled={isOpenW3M}
+              waiting={isOpenW3M}
             >
               {context.options?.walletConnectCTA === 'modal'
                 ? locales.useWalletConnectModal
