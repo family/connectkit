@@ -1,4 +1,5 @@
 import { Connector } from 'wagmi';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 import { isWalletConnectConnector } from '../utils';
 
@@ -13,14 +14,29 @@ export function useDefaultWalletConnect() {
       w3mcss.innerHTML = `w3m-modal{ --w3m-modal-z-index:2147483647; }`;
       document.head.appendChild(w3mcss);
 
-      const c: Connector<any, any> | undefined = connectors.find((c) =>
-        isWalletConnectConnector(c.id)
+      const clientConnector: Connector<any, any> | undefined = connectors.find(
+        (c) => isWalletConnectConnector(c.id)
       );
-      if (c) {
-        const connector = new WalletConnectLegacyConnector({
-          chains: c.chains,
-          options: { ...c.options, qrcode: true },
-        });
+      if (clientConnector) {
+        let connector: WalletConnectConnector | WalletConnectLegacyConnector;
+
+        if (clientConnector.id === 'walletConnectLegacy') {
+          connector = new WalletConnectLegacyConnector({
+            ...clientConnector,
+            options: {
+              ...clientConnector.options,
+              qrcode: true,
+            },
+          });
+        } else {
+          connector = new WalletConnectConnector({
+            ...clientConnector,
+            options: {
+              ...clientConnector.options,
+              showQrModal: true,
+            },
+          });
+        }
 
         try {
           await connectAsync({ connector: connector });

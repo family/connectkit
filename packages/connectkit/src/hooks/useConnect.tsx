@@ -5,6 +5,7 @@ export function useConnect() {
   const context = useContext();
 
   const { connectAsync, connectors, ...wagmiConnect } = wagmiUseConnect({
+    /*
     onError(err) {
       if (err.message) {
         if (err.message !== 'User rejected request') {
@@ -14,6 +15,7 @@ export function useConnect() {
         context.debug(`Could not connect. See console for more details.`, err);
       }
     },
+    */
   });
 
   return {
