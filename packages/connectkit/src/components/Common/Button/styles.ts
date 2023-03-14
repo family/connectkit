@@ -76,7 +76,9 @@ export const ButtonContainer = styled.button<{
     css`
       cursor: not-allowed;
       pointer-events: none;
-      opacity: 0.4;
+      ${InnerContainer} {
+        opacity: 0.4;
+      }
     `}
 
   ${({ $variant }) => {
@@ -201,12 +203,12 @@ export const ButtonContainer = styled.button<{
   text-decoration: none;
   white-space: nowrap;
   transition: 100ms ease;
-  transition-property: box-shadow, background-color, opacity;
+  transition-property: box-shadow, background-color;
   color: var(--color);
   background: var(--background);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  will-change: transform, box-shadow, background-color, color, opacity;
+  will-change: transform, box-shadow, background-color, color;
 
   ${DownloadArrow} {
     ${Arrow} {
@@ -266,6 +268,7 @@ export const InnerContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
   max-width: calc(100% - 42px);
+  transition: opacity 300ms ease;
   /*
   overflow: hidden;
   text-overflow: ellipsis;
