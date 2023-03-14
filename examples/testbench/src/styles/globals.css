@@ -67,6 +67,12 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(512px, 1fr));
   grid-gap: 32px;
 }
+@media screen and (max-width: 768px) {
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+}
 aside {
   z-index: 2147483647;
   position: fixed;
