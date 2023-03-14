@@ -28,8 +28,8 @@ const ConnectWithQRCode: React.FC<{
 }> = ({ connectorId }) => {
   const context = useContext();
 
-  const [id, setId] = useState(connectorId);
-  const connector = supportedConnectors.filter((c) => c.id === id)[0];
+  const [id] = useState(connectorId);
+  const connector = supportedConnectors.find((c) => c.id === id);
 
   const { connectors, connectAsync } = useConnect();
   const [connectorUri, setConnectorUri] = useState<string | undefined>(
@@ -37,7 +37,7 @@ const ConnectWithQRCode: React.FC<{
   );
 
   const locales = useLocales({
-    CONNECTORNAME: connector.name,
+    CONNECTORNAME: connector?.name,
   });
 
   async function connectWallet(connector: any) {
@@ -52,60 +52,53 @@ const ConnectWithQRCode: React.FC<{
 
   async function connectWalletConnect(connector: any) {
     const isLegacy = connector.id === 'walletConnectLegacy';
-    if (isLegacy) {
-      connector.on('message', async (e) => {
-        //@ts-ignore
-        const p = await connector.getProvider();
-        setConnectorUri(p.connector.uri);
 
-        // User rejected, regenerate QR code
-        p.connector.on('disconnect', () => {
-          connectWallet(connector);
-        });
-      });
-      try {
-        await connectWallet(connector);
-      } catch (err) {
+    connector.on('message', async ({ type, data }) => {
+      console.log(type, data);
+      if (type === 'connecting') {
+        const p = await connector.getProvider();
+        const uri = isLegacy ? p.connector.uri : p.signer.uri;
+        setConnectorUri(uri);
+
+        if (isLegacy) {
+          p.connector.on('disconnect', () => {
+            console.log('User rejected, regenerate QR code');
+            // User rejected, regenerate QR code
+            connectWallet(connector);
+          });
+        } else {
+          p.on('disconnect', () => {
+            console.log('User rejected, regenerate QR code');
+            // User rejected, regenerate QR code
+            connectWallet(connector);
+          });
+        }
+      }
+      if (type === 'display_uri' && !isLegacy) {
+        setConnectorUri(data);
+      }
+    });
+
+    try {
+      await connectWallet(connector);
+    } catch (error: any) {
+      console.log('err', error);
+      if (error.code) {
+        switch (error.code) {
+          case 4001:
+            console.log('User rejected');
+            connectWallet(connector); // Regenerate QR code
+            break;
+          default:
+            console.log('Unknown error');
+            break;
+        }
+      } else {
+        // Sometimes the error doesn't respond with a code
         context.debug(
           <>WalletConnect cannot connect. See console for more details.</>,
-          err
+          error
         );
-      }
-    } else {
-      connector.on('message', async (e) => {
-        const p = await connector.getProvider();
-        setConnectorUri(p.uri);
-        console.log(p.uri);
-
-        // User rejected, regenerate QR code
-        connector.on('disconnect', () => {
-          console.log('disconnect');
-        });
-        connector.on('error', () => {
-          console.log('disconnect');
-        });
-      });
-
-      try {
-        await connectWallet(connector);
-      } catch (error: any) {
-        if (error.code) {
-          switch (error.code) {
-            case 4001:
-              console.error('User rejected');
-              connectWalletConnect(connector); // Regenerate QR code
-              break;
-            default:
-              console.error('Unknown error');
-              break;
-          }
-        } else {
-          // Sometimes the error doesn't respond with a code
-          context.debug(
-            <>WalletConnect cannot connect. See console for more details.</>,
-            error
-          );
-        }
       }
     }
   }
