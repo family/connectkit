@@ -44,45 +44,44 @@ function CustomQRCode({
           </LogoContainer>
         )}
 
-          <AnimatePresence initial={false}>
-            {value ? (
-              <motion.div
-                key={value}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
-                transition={{
-                  duration: 0.4,
-                }}
-              >
-                <QRCode
-                  uri={value}
-                  size={288}
-                  ecl="M"
-                  clearArea={!!(imagePosition === 'center' && image)}
-                />
-              </motion.div>
-            ) : (
-              <QRPlaceholder
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.1 }}
-                exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
-                transition={{
-                  delay: !value ? 0.4 : 0,
-                  duration: 0.4,
-                }}
-              >
-                <span />
-                <span />
-                <span />
-              </QRPlaceholder>
-            )}
-          </AnimatePresence>
-        </QRCodeContent>
-      </QRCodeContainer>
-    );
-  }
-);
+        <AnimatePresence initial={false}>
+          {value ? (
+            <motion.div
+              key={value}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
+              transition={{
+                duration: 0.4,
+              }}
+            >
+              <QRCode
+                uri={value}
+                size={288}
+                ecl="M"
+                clearArea={!!(imagePosition === 'center' && image)}
+              />
+            </motion.div>
+          ) : (
+            <QRPlaceholder
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.1 }}
+              exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
+              transition={{
+                delay: !value ? 0.4 : 0,
+                duration: 0.4,
+              }}
+            >
+              <span />
+              <span />
+              <span />
+            </QRPlaceholder>
+          )}
+        </AnimatePresence>
+      </QRCodeContent>
+    </QRCodeContainer>
+  );
+}
 CustomQRCode.displayName = 'CustomQRCode';
 
 export default CustomQRCode;
