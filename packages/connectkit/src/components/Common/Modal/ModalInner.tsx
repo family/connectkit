@@ -2,7 +2,7 @@ import { InnerContainer, PageContainer, PageContents } from './styles';
 import { router } from '../../ConnectKit';
 import { signal } from '@preact/signals-react';
 import { useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import styled from '../../../styles/styled';
 import { AnimatePresence, motion } from 'framer-motion';
 import defaultTheme from '../../../constants/defaultTheme';
 
