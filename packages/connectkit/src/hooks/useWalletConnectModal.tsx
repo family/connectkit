@@ -1,13 +1,17 @@
+import { useState } from 'react';
 import { Connector } from 'wagmi';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
-import { isWalletConnectConnector } from '../utils';
 
+import { isWalletConnectConnector } from '../utils';
 import { useConnect } from './useConnect';
 
 export function useWalletConnectModal() {
   const { connectAsync, connectors } = useConnect();
+  const [isOpen, setIsOpen] = useState(false);
+
   return {
+    isOpen,
     open: async () => {
       //add modal styling because wagmi does not let you add styling to the modal
       const w3mcss = document.createElement('style');
@@ -38,11 +42,13 @@ export function useWalletConnectModal() {
           });
         }
 
+        setIsOpen(true);
         try {
           await connectAsync({ connector: connector });
         } catch (err) {
           console.log('WalletConnect', err);
         }
+        setIsOpen(false);
 
         // remove modal styling
         document.head.removeChild(w3mcss);
