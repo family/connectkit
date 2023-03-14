@@ -784,6 +784,25 @@ export const PlaceHolder = () => {
   return <div style={{ width: 80, height: 80, background: '#555' }}></div>;
 };
 
+export const Dawn = ({ ...props}) => {
+  return (
+      <svg 
+      {...props}
+      width="440"
+      height="440"
+      viewBox="0 0 440 440"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M428.962 289C436.124 267.298 440 244.102 440 220C440 98.4974 341.503 0 220 0C98.4974 0 0 98.4974 0 220C0 244.102 3.87566 267.298 11.0378 289H428.962ZM16.6054 304C20.0228 312.266 23.9294 320.278 28.2891 328H411.711C416.071 320.278 419.977 312.266 423.395 304H16.6054ZM60.9523 372C53.7713 364.488 47.1171 356.468 41.0491 348H398.951C392.883 356.468 386.229 364.488 379.048 372H60.9523ZM112.514 412C144.298 429.832 180.962 440 220 440C259.038 440 295.702 429.832 327.486 412H112.514Z"
+        fill="#D4AF37"/>
+    </svg>
+  )
+};
+
 export const OtherWallets = ({ ...props }) => {
   const column: React.CSSProperties = {
     position: 'relative',
@@ -846,4 +865,5 @@ export default {
   Frontier,
   Zerion,
   PlaceHolder,
+  Dawn,
 };

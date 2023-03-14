@@ -112,6 +112,27 @@ const isMetaMask = () => {
   return true;
 };
 
+const isDawn = () => {
+  if (typeof window === 'undefined') return false;
+
+  type EthereumWithDawn = typeof window.ethereum & {isDawn: boolean}
+  const { ethereum } = window;
+  if (!ethereum) return false;
+
+  const isDawn = Boolean((ethereum as EthereumWithDawn).isDawn);
+  if (!isDawn) return false;
+
+  const isBrave = Boolean(
+    ethereum.isBraveWallet //&& !ethereum._events && !ethereum._state
+  );
+  if (isBrave) return false;
+
+  const isTokenary = Boolean(ethereum.isTokenary);
+  if (isTokenary) return false;
+
+  return true;
+}
+
 const isCoinbaseWallet = () => {
   if (typeof window === 'undefined') return false;
   const { ethereum } = window;
@@ -147,6 +168,7 @@ export {
   detectOS,
   getWalletDownloadUri,
   isMetaMask,
+  isDawn,
   isCoinbaseWallet,
   flattenChildren,
 };
