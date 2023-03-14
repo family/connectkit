@@ -4,7 +4,7 @@ import { useContext } from '../components/ConnectKit';
 export function useConnect() {
   const context = useContext();
 
-  const { connectAsync, connectors } = wagmiUseConnect({
+  const { connectAsync, connectors, ...wagmiConnect } = wagmiUseConnect({
     onError(err) {
       if (err.message) {
         if (err.message !== 'User rejected request') {
@@ -24,5 +24,6 @@ export function useConnect() {
       });
     },
     connectors,
+    ...wagmiConnect,
   };
 }
