@@ -37,11 +37,6 @@ import {
 
 import { isMobile, isAndroid } from '../../../utils';
 
-import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
-//import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-
 import Button from '../../Common/Button';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { Connector } from 'wagmi';
@@ -50,46 +45,15 @@ import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectU
 
 const Wallets: React.FC = () => {
   const context = useContext();
-
   const locales = useLocales({});
-
   const mobile = isMobile();
 
   const { uri: wcUri } = useWalletConnectUri();
   const { connectAsync, connectors } = useConnect();
 
-  const openDefaultConnect = async (id: string) => {
-    const c = connectors.filter((c) => c.id === id)[0];
-    let connector: Connector | null = null;
-    switch (c.id) {
-      case 'walletConnect':
-      case 'walletConnectLegacy':
-        context.setRoute(routes.MOBILECONNECTORS);
-        break;
-      case 'metaMask':
-        connector = new WalletConnectLegacyConnector({
-          chains: c.chains,
-          options: { ...c.options, qrcode: false, version: '1' },
-        });
-        break;
-      case 'coinbaseWallet':
-        connector = new CoinbaseWalletConnector({
-          chains: c.chains,
-          options: c.options,
-        });
-        break;
-      case 'injected':
-        connector = new InjectedConnector({
-          chains: c.chains,
-          options: c.options,
-        });
-        break;
-    }
-
-    if (!connector) return;
-
-    // TODO: Make this neater and use the MetaMask config
-    if (c.id === 'metaMask' && mobile) {
+  const openDefaultConnect = async (connector: Connector) => {
+    // @TODO: use the MetaMask config
+    if (isMetaMaskConnector(connector.id) && mobile) {
       const uri = isAndroid()
         ? wcUri!
         : `https://metamask.app.link/wc?uri=${encodeURIComponent(wcUri!)}`;
@@ -186,8 +150,10 @@ const Wallets: React.FC = () => {
                     ) {
                       context.setRoute(routes.CONNECT);
                       context.setConnector(connector.id);
+                    } else if (isWalletConnectConnector(connector.id)) {
+                      context.setRoute(routes.MOBILECONNECTORS);
                     } else {
-                      openDefaultConnect(connector.id);
+                      openDefaultConnect(connector);
                     }
                   }}
                 >
