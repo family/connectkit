@@ -16,6 +16,7 @@ import { gnosisSafe } from './connectors/gnosisSafe';
 import { frontier } from './connectors/frontier';
 import { Chain } from 'wagmi';
 import { zerion } from './connectors/zerion';
+import { dawn } from './connectors/dawn';
 
 export const getWallets = ({
   chains,
@@ -42,5 +43,6 @@ export const getWallets = ({
     onto({ chains }),
     frontier({ chains }),
     zerion({ chains }),
+    dawn({ chains })
   ];
 };

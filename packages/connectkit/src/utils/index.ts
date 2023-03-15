@@ -120,17 +120,7 @@ const isDawn = () => {
   if (!ethereum) return false;
 
   const isDawn = Boolean((ethereum as EthereumWithDawn).isDawn);
-  if (!isDawn) return false;
-
-  const isBrave = Boolean(
-    ethereum.isBraveWallet //&& !ethereum._events && !ethereum._state
-  );
-  if (isBrave) return false;
-
-  const isTokenary = Boolean(ethereum.isTokenary);
-  if (isTokenary) return false;
-
-  return true;
+  if (isDawn) return true;
 }
 
 const isCoinbaseWallet = () => {
