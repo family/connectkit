@@ -46,6 +46,7 @@ import Button from '../../Common/Button';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { Connector } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
+import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 
 const Wallets: React.FC = () => {
   const context = useContext();
@@ -54,6 +55,7 @@ const Wallets: React.FC = () => {
 
   const mobile = isMobile();
 
+  const { uri: wcUri } = useWalletConnectUri();
   const { connectAsync, connectors } = useConnect();
 
   const openDefaultConnect = async (id: string) => {
@@ -88,23 +90,19 @@ const Wallets: React.FC = () => {
 
     // TODO: Make this neater and use the MetaMask config
     if (c.id === 'metaMask' && mobile) {
-      let connnector = connector as WalletConnectLegacyConnector;
-      connector.on('message', async ({ type }) => {
-        if (type === 'connecting') {
-          const p = await connnector.getProvider();
-          const uri = p.connector.uri;
-          const uriString = isAndroid()
-            ? uri
-            : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
-          window.location.href = uriString;
-        }
-      });
-    }
-
-    try {
-      await connectAsync({ connector: connector });
-    } catch (err) {
-      context.debug('Async connect error. See console for more details.', err);
+      const uri = isAndroid()
+        ? wcUri
+        : `https://metamask.app.link/wc?uri=${encodeURIComponent(wcUri)}`;
+      if (uri) window.location.href = uri;
+    } else {
+      try {
+        await connectAsync({ connector: connector });
+      } catch (err) {
+        context.debug(
+          'Async connect error. See console for more details.',
+          err
+        );
+      }
     }
   };
   useEffect(() => {}, [mobile]);
