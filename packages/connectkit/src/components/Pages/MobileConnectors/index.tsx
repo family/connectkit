@@ -55,6 +55,7 @@ const MobileConnectors: React.FC = () => {
     } else {
       const uri = wallet.createUri?.(wcUri!);
       if (uri) window.location.href = uri;
+      //if (uri) window.open(uri, '_blank');
     }
   };
 
@@ -62,7 +63,20 @@ const MobileConnectors: React.FC = () => {
     <PageContent style={{ width: 312 }}>
       <Container>
         <ModalContent>
-          <WalletList>
+          <WalletList $disabled={!wcUri}>
+            {!wcUri && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Spinner />
+              </div>
+            )}
             {wallets.map((wallet: WalletProps, i: number) => {
               const { name, shortName, logos, logoBackground } = wallet;
               return (
