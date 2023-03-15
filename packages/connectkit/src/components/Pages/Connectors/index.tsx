@@ -62,7 +62,7 @@ const Wallets: React.FC = () => {
       try {
         await connectAsync({ connector: connector });
       } catch (err) {
-        context.debug(
+        context.displayError(
           'Async connect error. See console for more details.',
           err
         );

@@ -39,6 +39,7 @@ function App({ Component, pageProps }: AppProps) {
         mode={mode}
         options={options}
         customTheme={customTheme}
+        debugMode
       >
         <Component {...pageProps} />
       </ConnectKitProvider>

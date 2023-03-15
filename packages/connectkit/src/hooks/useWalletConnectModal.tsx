@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Connector } from 'wagmi';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
+import { useContext } from '../components/ConnectKit';
 
 import { isWalletConnectConnector } from '../utils';
 import { useConnect } from './useConnect';
 
 export function useWalletConnectModal() {
+  const { log } = useContext();
   const { connectAsync, connectors } = useConnect();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,14 +48,14 @@ export function useWalletConnectModal() {
         try {
           await connectAsync({ connector: connector });
         } catch (err) {
-          console.log('WalletConnect', err);
+          log('WalletConnect', err);
         }
         setIsOpen(false);
 
         // remove modal styling
         document.head.removeChild(w3mcss);
       } else {
-        console.log('No WalletConnect connector available');
+        log('No WalletConnect connector available');
       }
     },
   };

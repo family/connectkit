@@ -423,7 +423,7 @@ const Modal: React.FC<ModalProps> = ({
                 >
                   <span>{context.errorMessage}</span>
                   <div
-                    onClick={() => context.debug(null)}
+                    onClick={() => context.displayError(null)}
                     style={{
                       position: 'absolute',
                       right: 24,

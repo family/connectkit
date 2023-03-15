@@ -50,9 +50,9 @@ const ConnectWithQRCode: React.FC<{
   useEffect(() => {
     if (isWalletConnectConnector(connector?.id)) {
       connector?.on('message', async ({ type, data }: any) => {
-        console.log(type, data);
+        context.log(type, data);
         if (isWalletConnectLegacy) {
-          console.log('isWalletConnectLegacy');
+          context.log('isWalletConnectLegacy');
           if (type === 'connecting') {
             const p = await connector.getProvider();
             const uri = p.connector.uri;
@@ -60,7 +60,7 @@ const ConnectWithQRCode: React.FC<{
 
             // User rejected, regenerate QR code
             p.connector.on('disconnect', () => {
-              console.log('User rejected, regenerate QR code');
+              context.log('User rejected, regenerate QR code');
               connectWalletConnect(connector);
             });
           }
@@ -101,21 +101,21 @@ const ConnectWithQRCode: React.FC<{
     try {
       await connectWallet(connector);
     } catch (error: any) {
-      console.log('catch error');
-      console.log(error);
+      context.log('catch error');
+      context.log(error);
       if (error.code) {
         switch (error.code) {
           case 4001:
-            console.log('error.code – User rejected');
+            context.log('error.code – User rejected');
             connectWalletConnect(connector); // Regenerate QR code
             break;
           default:
-            console.log('error.code – Unknown Error');
+            context.log('error.code – Unknown Error');
             break;
         }
       } else {
         // Sometimes the error doesn't respond with a code
-        context.debug(
+        context.displayError(
           <>WalletConnect cannot connect. See console for more details.</>,
           error
         );
@@ -131,7 +131,7 @@ const ConnectWithQRCode: React.FC<{
         try {
           await connectWallet(connector);
         } catch (err) {
-          context.debug(
+          context.displayError(
             <>
               This dApp is most likely missing the{' '}
               <code>headlessMode: true</code> flag in the custom{' '}

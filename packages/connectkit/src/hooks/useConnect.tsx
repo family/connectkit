@@ -8,10 +8,10 @@ export function useConnect(...props) {
     onError(err) {
       if (err.message) {
         if (err.message !== 'User rejected request') {
-          console.log(err.message, err);
+          context.log(err.message, err);
         }
       } else {
-        console.log(`Could not connect.`, err);
+        context.log(`Could not connect.`, err);
       }
     },
     ...props,
