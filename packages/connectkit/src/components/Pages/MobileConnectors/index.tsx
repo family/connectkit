@@ -15,7 +15,9 @@ import { WalletProps } from '../../../wallets/wallet';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import useLocales from '../../../hooks/useLocales';
-import { useWalletConnectUri } from '../../../hooks/useWalletConnectUri';
+import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
+import { Spinner } from '../../Common/Spinner';
+import { isWalletConnectConnector } from '../../../utils';
 
 const MoreIcon = (
   <svg
@@ -38,11 +40,12 @@ const MobileConnectors: React.FC = () => {
   const context = useContext();
   const locales = useLocales();
 
-  const { uri: walletConnectUri } = useWalletConnectUri();
-
-  const { open: openW3M } = useWalletConnectModal();
+  const { uri: wcUri } = useWalletConnectUri();
+  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
   const wallets = useDefaultWallets().filter(
-    (wallet: WalletProps) => wallet.installed === undefined // Do not show wallets that are injected connectors
+    (wallet: WalletProps) =>
+      wallet.installed === undefined && // Do not show wallets that are injected connectors
+      !isWalletConnectConnector(wallet.id) // Do not show WalletConnect
   );
 
   const connectWallet = (wallet: WalletProps) => {
@@ -50,7 +53,7 @@ const MobileConnectors: React.FC = () => {
       context.setRoute(routes.CONNECT);
       context.setConnector(wallet.id);
     } else {
-      const uri = wallet.createUri?.(walletConnectUri!);
+      const uri = wallet.createUri?.(wcUri!);
       if (uri) window.location.href = uri;
     }
   };
@@ -80,11 +83,31 @@ const MobileConnectors: React.FC = () => {
                 </WalletItem>
               );
             })}
-            <WalletItem onClick={openW3M}>
+            <WalletItem onClick={openW3M} $waiting={isOpenW3M}>
               <WalletIcon
                 style={{ background: 'var(--ck-body-background-secondary)' }}
               >
-                {MoreIcon}
+                {isOpenW3M ? (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '50%',
+                      }}
+                    >
+                      <Spinner />
+                    </div>
+                  </div>
+                ) : (
+                  MoreIcon
+                )}
               </WalletIcon>
               <WalletLabel>{locales.more}</WalletLabel>
             </WalletItem>
@@ -100,7 +123,7 @@ const MobileConnectors: React.FC = () => {
               paddingTop: 16,
             }}
           >
-            <CopyToClipboard variant="button" string={walletConnectUri}>
+            <CopyToClipboard variant="button" string={wcUri}>
               {locales.copyToClipboard}
             </CopyToClipboard>
           </div>
