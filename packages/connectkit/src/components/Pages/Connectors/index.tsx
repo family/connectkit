@@ -91,8 +91,8 @@ const Wallets: React.FC = () => {
     // TODO: Make this neater and use the MetaMask config
     if (c.id === 'metaMask' && mobile) {
       const uri = isAndroid()
-        ? wcUri
-        : `https://metamask.app.link/wc?uri=${encodeURIComponent(wcUri)}`;
+        ? wcUri!
+        : `https://metamask.app.link/wc?uri=${encodeURIComponent(wcUri!)}`;
       if (uri) window.location.href = uri;
     } else {
       try {
