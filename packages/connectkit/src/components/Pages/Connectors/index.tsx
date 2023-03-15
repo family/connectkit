@@ -46,7 +46,6 @@ import Button from '../../Common/Button';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { Connector } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
-import { getProviderUri } from '../../../wallets/wallet';
 
 const Wallets: React.FC = () => {
   const context = useContext();
@@ -92,7 +91,8 @@ const Wallets: React.FC = () => {
       let connnector = connector as WalletConnectLegacyConnector;
       connector.on('message', async ({ type }) => {
         if (type === 'connecting') {
-          const uri = await getProviderUri(connnector);
+          const p = await connnector.getProvider();
+          const uri = p.connector.uri;
           const uriString = isAndroid()
             ? uri
             : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
