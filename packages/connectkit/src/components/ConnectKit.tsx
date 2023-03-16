@@ -39,8 +39,7 @@ type Connector = any;
 type Error = string | React.ReactNode | null;
 
 type onConnectProps = {
-  address: string;
-  chainId: number;
+  address?: string;
   connectorId?: string;
 };
 
@@ -62,7 +61,7 @@ type ContextValue = {
   errorMessage: Error;
   options?: ConnectKitOptions;
   signInWithEthereum: boolean;
-  onConnect?: ({ address, chainId, connectorId }: onConnectProps) => void;
+  onConnect?: ({ address, connectorId }: onConnectProps) => void;
   debug: (message: string | React.ReactNode | null, code?: any) => void;
 };
 
@@ -96,7 +95,7 @@ type ConnectKitProviderProps = {
   mode?: Mode;
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
-  onConnect?: ({ address, chainId, connectorId }: onConnectProps) => void;
+  onConnect?: ({ address, connectorId }: onConnectProps) => void;
   onDisconnect?: () => void;
 };
 
@@ -120,6 +119,14 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
 
   // onDisconnect Callback
   useAccount({
+    onConnect: ({ address, connector, isReconnected }) => {
+      if (!isReconnected) {
+        onConnect?.({
+          address: address,
+          connectorId: connector?.id,
+        });
+      }
+    },
     onDisconnect: () => onDisconnect?.(),
   });
 
