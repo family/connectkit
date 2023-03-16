@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { routes, useContext } from '../ConnectKit';
 
 import supportedConnectors from '../../constants/supportedConnectors';
@@ -26,6 +26,9 @@ import { ExternalLinkIcon } from '../../assets/icons';
 import CopyToClipboard from '../Common/CopyToClipboard';
 import useLocales from '../../hooks/useLocales';
 
+import { useWalletConnectUri } from '../../hooks/connectors/useWalletConnectUri';
+import { useCoinbaseWalletUri } from '../../hooks/connectors/useCoinbaseWalletUri';
+
 const ConnectWithQRCode: React.FC<{
   connectorId: string;
   switchConnectMethod: (id?: string) => void;
@@ -34,133 +37,22 @@ const ConnectWithQRCode: React.FC<{
 
   const [id] = useState(connectorId);
 
-  const { connectors, connectAsync } = useConnect();
-  const [connectorUri, setConnectorUri] = useState<string | undefined>(
-    undefined
-  );
+  const { connectors } = useConnect();
+
+  const { uri } = isWalletConnectConnector(id)
+    ? useWalletConnectUri()
+    : isCoinbaseWalletConnector(id)
+    ? useCoinbaseWalletUri()
+    : { uri: undefined };
 
   const connector = connectors.find((c) => c.id === id);
   const connectorInfo = supportedConnectors.find((c) => c.id === id);
-  const isWalletConnectLegacy = connector?.id === 'walletConnectLegacy';
 
   const locales = useLocales({
     CONNECTORNAME: connector?.name,
   });
 
-  useEffect(() => {
-    if (isWalletConnectConnector(connector?.id)) {
-      connector?.on('message', async ({ type, data }: any) => {
-        context.log(type, data);
-        if (isWalletConnectLegacy) {
-          context.log('isWalletConnectLegacy');
-          if (type === 'connecting') {
-            const p = await connector.getProvider();
-            const uri = p.connector.uri;
-            setConnectorUri(uri);
-
-            // User rejected, regenerate QR code
-            p.connector.on('disconnect', () => {
-              context.log('User rejected, regenerate QR code');
-              connectWalletConnect(connector);
-            });
-          }
-        } else {
-          if (type === 'display_uri') {
-            setConnectorUri(data);
-          }
-          /*
-          // This has the URI as well, but we're probably better off using the one in the display_uri event
-          if (type === 'connecting') {
-            const p = await connector.getProvider();
-            const uri = p.signer.uri; 
-            setConnectorUri(uri);
-          }
-          */
-        }
-      });
-    }
-    if (isCoinbaseWalletConnector(connector?.id)) {
-      connector?.on('message', async () => {
-        const p = await connector.getProvider();
-        setConnectorUri(p.qrUrl);
-      });
-    }
-    return () => {
-      if (isWalletConnectConnector(connector?.id)) connector?.off('message');
-      if (isCoinbaseWalletConnector(connector?.id)) connector?.off('message');
-    };
-  }, [connector]);
-
-  async function connectWallet(connector: any) {
-    const result = await connectAsync({ connector: connector });
-    if (result) return result;
-    return false;
-  }
-
-  async function connectWalletConnect(connector: any) {
-    try {
-      await connectWallet(connector);
-    } catch (error: any) {
-      context.log('catch error');
-      context.log(error);
-      if (error.code) {
-        switch (error.code) {
-          case 4001:
-            context.log('error.code – User rejected');
-            connectWalletConnect(connector); // Regenerate QR code
-            break;
-          default:
-            context.log('error.code – Unknown Error');
-            break;
-        }
-      } else {
-        // Sometimes the error doesn't respond with a code
-        context.displayError(
-          <>WalletConnect cannot connect. See console for more details.</>,
-          error
-        );
-      }
-    }
-  }
-
-  const startConnect = async () => {
-    if (!connector || connectorUri) return;
-
-    switch (connector.id) {
-      case 'coinbaseWallet':
-        try {
-          await connectWallet(connector);
-        } catch (err) {
-          context.displayError(
-            <>
-              This dApp is most likely missing the{' '}
-              <code>headlessMode: true</code> flag in the custom{' '}
-              <code>CoinbaseWalletConnector</code> options. See{' '}
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://connect.family.co/v0/docs/cbwHeadlessMode"
-              >
-                documentation
-              </a>{' '}
-              for more details.
-            </>,
-            err
-          );
-        }
-        break;
-      case 'walletConnect':
-      case 'walletConnectLegacy':
-        connectWalletConnect(connector);
-        break;
-    }
-  };
-
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
-
-  useEffect(() => {
-    if (!connectorUri) startConnect();
-  }, []);
 
   if (!connector) return <>Connector not found</>;
 
@@ -201,13 +93,13 @@ const ConnectWithQRCode: React.FC<{
       </PageContent>
     );
 
-  const showAdditionalOptions = connectorInfo?.defaultConnect;
+  const showAdditionalOptions = isWalletConnectConnector(connectorId);
 
   return (
     <PageContent>
       <ModalContent style={{ paddingBottom: 8, gap: 14 }}>
         <CustomQRCode
-          value={connectorUri}
+          value={uri}
           image={connectorInfo?.logos.qrCode}
           imageBackground={connectorInfo?.logoBackground}
           tooltipMessage={
@@ -243,7 +135,7 @@ const ConnectWithQRCode: React.FC<{
           }}
         >
           {context.options?.walletConnectCTA !== 'modal' && (
-            <CopyToClipboard variant="button" string={connectorUri}>
+            <CopyToClipboard variant="button" string={uri}>
               {context.options?.walletConnectCTA === 'link'
                 ? locales.copyToClipboard
                 : locales.copyCode}
