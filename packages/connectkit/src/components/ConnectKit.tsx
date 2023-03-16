@@ -38,6 +38,12 @@ export const routes = {
 type Connector = any;
 type Error = string | React.ReactNode | null;
 
+type onConnectProps = {
+  address: string;
+  chainId: number;
+  connectorId?: string;
+};
+
 type ContextValue = {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
@@ -56,6 +62,7 @@ type ContextValue = {
   errorMessage: Error;
   options?: ConnectKitOptions;
   signInWithEthereum: boolean;
+  onConnect?: ({ address, chainId, connectorId }: onConnectProps) => void;
   debug: (message: string | React.ReactNode | null, code?: any) => void;
 };
 
@@ -89,6 +96,8 @@ type ConnectKitProviderProps = {
   mode?: Mode;
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
+  onConnect?: ({ address, chainId, connectorId }: onConnectProps) => void;
+  onDisconnect?: () => void;
 };
 
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
@@ -97,6 +106,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   mode = 'auto',
   customTheme,
   options,
+  onConnect,
+  onDisconnect,
 }) => {
   // Only allow for mounting ConnectKitProvider once, so we avoid weird global
   // state collisions.
@@ -106,6 +117,11 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     );
   }
   const chains = useChains();
+
+  // onDisconnect Callback
+  useAccount({
+    onDisconnect: () => onDisconnect?.(),
+  });
 
   // Default config options
   const defaultOptions: ConnectKitOptions = {
@@ -188,7 +204,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     connector,
     setConnector,
     signInWithEthereum: React.useContext(SIWEContext)?.enabled ?? false,
-
+    onConnect,
     // Other configuration
     options: opts,
     errorMessage,

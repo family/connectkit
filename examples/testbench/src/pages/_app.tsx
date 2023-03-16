@@ -45,6 +45,12 @@ function App({ Component, pageProps }: AppProps) {
         mode={mode}
         options={options}
         customTheme={customTheme}
+        onConnect={(data) => {
+          console.log('onConnect Provider', data);
+        }}
+        onDisconnect={() => {
+          console.log('onDisconnect Provider');
+        }}
       >
         <Component {...pageProps} />
       </ConnectKitProvider>
