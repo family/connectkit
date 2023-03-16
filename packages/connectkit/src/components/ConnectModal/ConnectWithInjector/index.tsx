@@ -10,7 +10,7 @@ import {
 } from './styles';
 
 import { useContext } from '../../ConnectKit';
-import { useConnect } from 'wagmi';
+import { useConnect } from '../../../hooks/useConnect';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {

@@ -1,10 +1,10 @@
 import { useConnect as wagmiUseConnect } from 'wagmi';
 import { useContext } from '../components/ConnectKit';
 
-export function useConnect() {
+export function useConnect(...props) {
   const context = useContext();
 
-  const { connectAsync, connectors } = wagmiUseConnect({
+  const { connectAsync, connectors, ...rest } = wagmiUseConnect({
     onError(err) {
       if (err.message) {
         if (err.message !== 'User rejected request') {
@@ -14,9 +14,11 @@ export function useConnect() {
         context.debug(`Could not connect. See console for more details.`, err);
       }
     },
+    ...props,
   });
 
   return {
+    ...rest,
     connectAsync: async ({ ...props }) => {
       return await connectAsync({
         ...props,
