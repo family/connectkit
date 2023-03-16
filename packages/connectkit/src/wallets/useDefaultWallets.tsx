@@ -2,12 +2,11 @@ import { getWallets } from './';
 import { WalletProps } from './wallet';
 
 import { useConnect } from 'wagmi';
+import { useChains } from '../hooks/useChains';
 
 function useDefaultWallets(): WalletProps[] | any {
   const { connectors } = useConnect();
-
-  // TODO: Find a better way to get configuration chains
-  const chains = connectors[0].chains;
+  const chains = useChains();
 
   let defaultWallets: string[] = [];
 
