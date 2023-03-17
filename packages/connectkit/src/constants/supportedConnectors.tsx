@@ -8,7 +8,7 @@
 
 import { ReactNode } from 'react';
 import Logos from './../assets/logos';
-import { isMetaMask, isDawn } from './../utils';
+import { isMetaMask } from './../utils';
 
 let supportedConnectors: {
   id: string;
@@ -145,47 +145,6 @@ if (typeof window != 'undefined') {
       } as IDictionary,
       extensionIsInstalled: () => {
         return isMetaMask();
-      },
-    },
-    {
-      id: 'dawn',
-      name: 'Dawn',
-      logos: {
-        default: <Logos.Dawn background />,
-        mobile: <Logos.Dawn background />,
-        transparent: (
-          <div
-            style={{
-              transform: 'scale(0.86)',
-              position: 'relative',
-              width: '100%',
-            }}
-          >
-            <Logos.Dawn />
-          </div>
-        ),
-        connectorButton: (
-          <div
-            style={{
-              transform: 'scale(1.1)',
-            }}
-          >
-            <Logos.Dawn />
-          </div>
-        ),
-      },
-      logoBackground:
-        'var(--ck-brand-dawn)',
-      scannable: false,
-      // defaultConnect:  () => {},
-      extensions: {} as IDictionary,
-      appUrls: {
-        download: 'https://testflight.apple.com/join/UHmOJnNy',
-        website: 'https://www.dawnwallet.xyz/',
-        ios: 'https://testflight.apple.com/join/UHmOJnNy',
-      } as IDictionary,
-      extensionIsInstalled: () => {
-        return isDawn();
       },
     },
     {
