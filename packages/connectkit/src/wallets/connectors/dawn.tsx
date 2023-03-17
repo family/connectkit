@@ -23,7 +23,7 @@ export const dawn = ({
     },
     logoBackground: 'var(--ck-brand-dawn)',
     scannable: true,
-    installed: undefined,
+    installed: Boolean(isInstalled),
     downloadUrls: {
       download: 'https://testflight.apple.com/join/UHmOJnNy',
       website: 'https://www.dawnwallet.xyz/',
