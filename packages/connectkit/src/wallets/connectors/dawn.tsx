@@ -11,7 +11,7 @@ export const dawn = ({
 
   return {
     id: 'dawn',
-    name: 'Dawn Wallet',
+    name: 'Dawn',
     shortName: 'Dawn',
     logos: {
       default: <Logos.Dawn />,
