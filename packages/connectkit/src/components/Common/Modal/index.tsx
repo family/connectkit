@@ -217,6 +217,7 @@ const Modal: React.FC<ModalProps> = ({
   });
   const mounted = !(state === 'exited' || state === 'unmounted');
   const rendered = state === 'preEnter' || state !== 'exiting';
+
   if (!positionInside) useLockBodyScroll(mounted);
 
   useEffect(() => {
@@ -369,7 +370,7 @@ const Modal: React.FC<ModalProps> = ({
             }}
           />
           <BoxContainer className={`${rendered && 'active'}`}>
-            <ModalInner pages={pages}>
+            <ModalInner pages={pages} open={open}>
               <AnimatePresence initial={false}>
                 {context.options?.disclaimer &&
                   router.value === routes.CONNECTORS && (
@@ -520,7 +521,6 @@ const Modal: React.FC<ModalProps> = ({
                   </AnimatePresence>
                 </div>
               </ControllerContainer>
-
               <ModalHeading
                 style={{
                   width: '100%',

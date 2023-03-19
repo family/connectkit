@@ -109,12 +109,12 @@ export const ModalHeading = styled(motion.div)`
   user-select: none;
   position: absolute;
   top: 25px;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* left: 50%; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
   height: 26px;
-  transform: translateX(-50%);
+  /* transform: translateX(-50%); */
   width: 100%;
   text-align: center;
   font-size: 17px;
@@ -209,11 +209,11 @@ export const BackgroundOverlay = styled(motion.div)<{ $active: boolean }>`
 `;
 
 const BoxIn = keyframes`
-  from{ opacity: 0; transform: scale(0.96); }
+  from { opacity: 0; transform: scale(0.96); }
   to{ opacity: 1; transform: scale(1); }
 `;
 const BoxOut = keyframes`
-  from{ opacity: 1; transform: scale(1); }
+  from { opacity: 1; transform: scale(1); }
   to{ opacity: 0; transform: scale(0.96); }
 `;
 
@@ -235,8 +235,10 @@ export const BoxContainer = styled(motion.div)`
   align-items: center;
   animation: 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-name: ${BoxOut};
+
   &.active {
     animation-name: ${BoxIn};
+    animation-delay: 32ms;
   }
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
@@ -305,8 +307,8 @@ export const PageContainer = styled(motion.div)`
   z-index: 2;
   width: fit-content;
   transform-origin: center center;
-  animation: 300ms cubic-bezier(0.16, 1, 0.3, 1) transform,
-    300ms cubic-bezier(0.16, 1, 0.3, 1) left;
+  /* animation: 300ms cubic-bezier(0.16, 1, 0.3, 1) transform,
+    300ms cubic-bezier(0.16, 1, 0.3, 1) left; */
 `;
 
 export const PageContents = styled(motion.div)`
