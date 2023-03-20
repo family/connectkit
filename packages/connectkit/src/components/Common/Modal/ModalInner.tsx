@@ -83,6 +83,7 @@ const PagesContainer = styled(motion.div)`
   justify-content: center;
   align-items: flex-start;
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    display: block;
     max-width: 100%;
     min-width: 100%;
   }
