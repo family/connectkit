@@ -23,13 +23,17 @@ import wave from '../../../assets/wave';
 import Button from '../../Common/Button';
 import useLocales from '../../../hooks/useLocales';
 import { useContext } from '../../ConnectKit';
+import { useAppIcon } from '../../../hooks/useAppIcon';
 
 const Introduction: React.FC = () => {
   const context = useContext();
   const locales = useLocales({});
 
+  const { component: AppIcon, src: appIconSrc } = useAppIcon();
+
   const ctaUrl =
     context.options?.walletOnboardingUrl ?? locales.onboardingScreen_ctaUrl;
+
   return (
     <PageContent>
       <Graphic>
@@ -40,7 +44,7 @@ const Introduction: React.FC = () => {
                 <FloatWrapper>
                   <RotateWrapper>
                     <LogoGraphic>
-                      <Logos.Coinbase background />
+                      {appIconSrc ? AppIcon : <Logos.Coinbase background />}
                     </LogoGraphic>
                   </RotateWrapper>
                 </FloatWrapper>
