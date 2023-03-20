@@ -3,9 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 const LazyImage: React.FC<{
   src: string;
   alt?: string;
-  width?: number;
-  height?: number;
-}> = ({ src, alt, width, height }) => {
+  width?: number | string;
+  height?: number | string;
+}> = ({ src, alt, width = '100%', height = '100%' }) => {
   const imageRef = useRef<any>(null);
   const [loaded, setLoaded] = useState(true);
 

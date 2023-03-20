@@ -20,15 +20,13 @@ import { SIWEButton } from '../../Standard/SIWE';
 import { useSIWE } from '../../../siwe';
 
 import { TickIcon } from '../../../assets/icons';
-import Chains from '../../../assets/chains';
 import Avatar from '../../Common/Avatar';
-import { getAppIcon } from '../../../defaultClient';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import LazyImage from '../../Common/LazyImage';
 import { isMobile, flattenChildren } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../../Common/FitText';
+import { useAppIcon } from '../../../hooks/useAppIcon';
 
 const transition = { duration: 0.2, ease: [0.26, 0.08, 0.25, 1] };
 const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
@@ -68,32 +66,7 @@ const SignInWithEthereum: React.FC = () => {
 
   const { address } = useAccount();
 
-  // We use the favicon for the dApp logo because that's how the connectors do it
-  // TODO: Allow for dev customisation
-  const getFavicons = () => {
-    const favicons: { svg: string | null; default: string | null } = {
-      svg: null,
-      default: null,
-    };
-    const nodeList: HTMLCollectionOf<HTMLLinkElement> =
-      document.getElementsByTagName('link');
-    Array.from(nodeList).forEach((node) => {
-      if (
-        (node.getAttribute('rel') === 'icon' ||
-          node.getAttribute('rel') === 'shortcut icon') &&
-        node.getAttribute('href')
-      ) {
-        if (node.getAttribute('type') === 'image/svg+xml') {
-          favicons.svg = node.getAttribute('href');
-        } else {
-          favicons.default = node.getAttribute('href');
-        }
-      }
-    });
-    return favicons;
-  };
-  const favicons = getFavicons();
-  const favicon = getAppIcon() ?? favicons.svg ?? favicons.default;
+  const { component: AppIcon } = useAppIcon();
 
   return (
     <PageContent style={{ width: 278 }}>
@@ -203,13 +176,7 @@ const SignInWithEthereum: React.FC = () => {
               ...transition,
             }}
           >
-            <LogoContainer>
-              {favicon ? (
-                <LazyImage src={favicon} alt={'app'} />
-              ) : (
-                <Chains.UnknownChain />
-              )}
-            </LogoContainer>
+            <LogoContainer>{AppIcon}</LogoContainer>
           </motion.div>
         </StatusGraphic>
         <AnimatePresence exitBeforeEnter>
