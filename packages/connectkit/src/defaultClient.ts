@@ -23,13 +23,20 @@ const defaultChains = [mainnet, polygon, optimism, arbitrum];
 
 type DefaultConnectorsProps = {
   chains?: Chain[];
-  appName: string;
+  app: {
+    name: string;
+    icon?: string;
+    description?: string;
+    url?: string;
+  };
   walletConnectProjectId?: string;
 };
 
 type DefaultClientProps = {
   appName: string;
   appIcon?: string;
+  appDescription?: string;
+  appUrl?: string;
   autoConnect?: boolean;
   alchemyId?: string;
   infuraId?: string;
@@ -52,9 +59,10 @@ type ConnectKitClientProps = {
 
 const getDefaultConnectors = ({
   chains,
-  appName,
+  app,
   walletConnectProjectId,
 }: DefaultConnectorsProps) => {
+  const hasAllAppData = app.name && app.icon && app.description && app.url;
   return [
     new MetaMaskConnector({
       chains,
@@ -67,7 +75,7 @@ const getDefaultConnectors = ({
     new CoinbaseWalletConnector({
       chains,
       options: {
-        appName,
+        appName: app.name,
         headlessMode: true,
       },
     }),
@@ -77,6 +85,14 @@ const getDefaultConnectors = ({
           options: {
             showQrModal: false,
             projectId: walletConnectProjectId,
+            metadata: hasAllAppData
+              ? {
+                  name: app.name,
+                  description: app.description!,
+                  url: app.url!,
+                  icons: [app.icon!],
+                }
+              : undefined,
           },
         })
       : new WalletConnectLegacyConnector({
@@ -104,6 +120,8 @@ const defaultClient = ({
   autoConnect = true,
   appName = 'ConnectKit',
   appIcon,
+  appDescription,
+  appUrl,
   chains = defaultChains,
   alchemyId,
   infuraId,
@@ -146,7 +164,12 @@ const defaultClient = ({
       connectors ??
       getDefaultConnectors({
         chains: configuredChains,
-        appName,
+        app: {
+          name: appName,
+          icon: appIcon,
+          description: appDescription,
+          url: appUrl,
+        },
         walletConnectProjectId,
       }),
     provider: provider ?? configuredProvider,
