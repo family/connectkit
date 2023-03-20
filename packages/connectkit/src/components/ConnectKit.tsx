@@ -19,9 +19,13 @@ import defaultTheme from '../styles/defaultTheme';
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
-import { useAccount, useNetwork } from 'wagmi';
+import { useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
 import { useChains } from '../hooks/useChains';
+import {
+  useConnectCallback,
+  useConnectCallbackProps,
+} from '../hooks/useConnectCallback';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -37,11 +41,6 @@ export const routes = {
 
 type Connector = any;
 type Error = string | React.ReactNode | null;
-
-type onConnectProps = {
-  address?: string;
-  connectorId?: string;
-};
 
 type ContextValue = {
   theme: Theme;
@@ -61,9 +60,8 @@ type ContextValue = {
   errorMessage: Error;
   options?: ConnectKitOptions;
   signInWithEthereum: boolean;
-  onConnect?: ({ address, connectorId }: onConnectProps) => void;
   debug: (message: string | React.ReactNode | null, code?: any) => void;
-};
+} & useConnectCallbackProps;
 
 export const Context = createContext<ContextValue | null>(null);
 
@@ -95,9 +93,7 @@ type ConnectKitProviderProps = {
   mode?: Mode;
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
-  onConnect?: ({ address, connectorId }: onConnectProps) => void;
-  onDisconnect?: () => void;
-};
+} & useConnectCallbackProps;
 
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   children,
@@ -115,20 +111,13 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
     );
   }
-  const chains = useChains();
 
-  // onDisconnect Callback
-  useAccount({
-    onConnect: ({ address, connector, isReconnected }) => {
-      if (!isReconnected) {
-        onConnect?.({
-          address: address,
-          connectorId: connector?.id,
-        });
-      }
-    },
-    onDisconnect: () => onDisconnect?.(),
+  useConnectCallback({
+    onConnect,
+    onDisconnect,
   });
+
+  const chains = useChains();
 
   // Default config options
   const defaultOptions: ConnectKitOptions = {
