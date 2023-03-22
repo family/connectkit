@@ -106,7 +106,7 @@ const isMetaMask = () => {
   );
   if (isBrave) return false;
 
-  const isDawn = Boolean((ethereum as any).isDawn);
+  const isDawn = Boolean(ethereum.isDawn);
   if (isDawn) return false;
 
   const isTokenary = Boolean(ethereum.isTokenary);
@@ -121,7 +121,7 @@ const isDawn = () => {
   const { ethereum } = window;
   if (!ethereum) return false;
 
-  const isDawn = Boolean((ethereum as any).isDawn);
+  const isDawn = Boolean(ethereum.isDawn);
   if (isDawn) return true;
 }
 
