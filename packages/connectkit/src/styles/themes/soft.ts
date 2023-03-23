@@ -39,6 +39,7 @@ export default {
     '0 0 0 1px #D9DBDD, 0px 0 0 rgba(0, 0, 0, 0.02)',
 
   '--ck-focus-color': '#1A88F8',
+  '--ck-overlay-backdrop-filter': 'blur(10px)',
   '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
   '--ck-body-color': '#414451',
   '--ck-body-color-muted': '#9196A1',

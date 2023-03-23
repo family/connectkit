@@ -53,6 +53,7 @@ export default {
     /** Modal */
     '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
     '--ck-overlay-background': 'rgba(71, 88, 107, 0.24)',
+    '--ck-overlay-backdrop-filter': 'blur(10px)',
     '--ck-body-color': '#373737',
     '--ck-body-color-muted': '#999999',
     '--ck-body-color-muted-hover': '#111111',

@@ -42,6 +42,7 @@ export default {
   '--ck-dropdown-button-hover-background': '#E7E7E7',
 
   '--ck-focus-color': '#1A88F8',
+  '--ck-overlay-backdrop-filter': 'blur(10px)',
   '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
   '--ck-body-color': '#111111',
   '--ck-body-color-muted': '#A0A0A0',
