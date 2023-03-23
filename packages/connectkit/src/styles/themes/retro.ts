@@ -49,7 +49,6 @@ export default {
   '--ck-focus-color': '#3B99FC',
 
   '--ck-overlay-background': 'rgba(133, 120, 122, 0.8)',
-  '--ck-overlay-backdrop-filter': 'blur(10px)',
   '--ck-body-color': '#373737',
   '--ck-body-color-muted': 'rgba(0, 0, 0, 0.5)',
   '--ck-body-color-muted-hover': '#000000',
