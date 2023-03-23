@@ -5,6 +5,7 @@ import { Provider } from '@wagmi/core';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { SafeConnector } from 'wagmi/connectors/safe';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
 import { alchemyProvider } from 'wagmi/providers/alchemy';
@@ -97,6 +98,13 @@ const getDefaultConnectors = ({
       options: {
         qrcode: false,
         ...wcOpts,
+      },
+    }),
+    new SafeConnector({
+      chains,
+      options: {
+        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+        debug: false,
       },
     }),
     new InjectedConnector({

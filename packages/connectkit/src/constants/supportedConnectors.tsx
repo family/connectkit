@@ -8,7 +8,7 @@
 
 import { ReactNode } from 'react';
 import Logos from './../assets/logos';
-import { isMetaMask } from './../utils';
+import { isCoinbaseWallet, isMetaMask } from './../utils';
 
 let supportedConnectors: {
   id: string;
@@ -157,7 +157,6 @@ if (typeof window != 'undefined') {
         transparent: <Logos.Coinbase background={false} />,
         appIcon: <Logos.Coinbase background={false} />,
         connectorButton: <Logos.Coinbase background={true} />,
-        //connectorButton: <Logos.CoinbaseImage />,
         qrCode: <Logos.Coinbase background={true} />,
       },
       logoBackground: 'var(--ck-brand-coinbaseWallet)',
@@ -174,14 +173,32 @@ if (typeof window != 'undefined') {
         ios: 'https://apps.apple.com/app/coinbase-wallet-store-crypto/id1278383455',
       } as IDictionary,
       extensionIsInstalled: () => {
-        return Boolean(
-          ethereum &&
-            (ethereum?.isCoinbaseWallet ||
-              (ethereum.providers &&
-                ethereum.providers.find(
-                  (provider) => provider.isCoinbaseWallet
-                )))
-        );
+        return isCoinbaseWallet();
+      },
+    },
+    {
+      id: 'safe',
+      name: 'Safe',
+      shortName: 'Safe',
+      logos: {
+        default: <Logos.GnosisSafe />,
+        mobile: <Logos.GnosisSafe background />,
+        transparent: <Logos.GnosisSafe background={false} />,
+        appIcon: <Logos.GnosisSafe background={false} />,
+        connectorButton: <Logos.GnosisSafe background={true} />,
+        qrCode: <Logos.GnosisSafe background={true} />,
+      },
+      logoBackground: 'var(--ck-brand-gnosisSafe)',
+      scannable: false,
+      //defaultConnect: () => {},
+      appUrls: {
+        download: 'https://connect.family.co/v0/download/safe',
+        website: 'hhttps://safe.global/wallet',
+        android: 'https://play.google.com/store/apps/details?id=io.gnosis.safe',
+        ios: 'https://apps.apple.com/app/id1515759131',
+      } as IDictionary,
+      extensionIsInstalled: () => {
+        return false;
       },
     },
   ];
