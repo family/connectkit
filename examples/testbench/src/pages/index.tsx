@@ -75,7 +75,14 @@ const AccountInfo = () => {
   } = useAccount();
   const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
-  const { isSignedIn, signOut } = useSIWE();
+  const { isSignedIn, signOut } = useSIWE({
+    onSignIn: (data?: SIWESession) => {
+      console.log('onSignIn', data);
+    },
+    onSignOut: () => {
+      console.log('onSignOut');
+    },
+  });
 
   return (
     <div className="panel">
