@@ -31,6 +31,7 @@ const localize = (text: string, replacements?: any[string]) => {
   let parsedText: string = text;
   if (replacements) {
     Object.keys(replacements).forEach((key) => {
+      // use `replace` instead of `replaceAll` to support Node 14
       parsedText = parsedText.replace(
         new RegExp(`({{ ${key} }})`, 'g'),
         replacements[key as keyof typeof replacements]
@@ -59,6 +60,7 @@ const wrapTags = (text: string) => {
   const textArray = text.split(/(\*\*[^\*]*\*\*)/g);
   let result = textArray.map((str, i) => {
     if (/(\*\*.*\*\*)/g.test(str)) {
+      // use `replace` instead of `replaceAll` to support Node 14
       return <strong key={i}>{str.replace(/\*\*/g, '')}</strong>;
     }
     return `${str}`;
