@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect, useState, useCallback } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import { useAccount, useQuery, useNetwork, useSignMessage } from 'wagmi';
 import { Context as ConnectKitContext } from './../components/ConnectKit';
 import {
@@ -54,7 +54,8 @@ export const SIWEProvider = ({
 
   const sessionData = session.data;
 
-  const signOutAndRefetch = useCallback(async () => {
+  const signOutAndRefetch = async () => {
+    if (!sessionData) return false; // No session to sign out of
     setStatus(StatusState.LOADING);
     if (!(await siweConfig.signOut())) {
       throw new Error('Failed to sign out.');
@@ -63,7 +64,7 @@ export const SIWEProvider = ({
     setStatus(StatusState.READY);
     onSignOut?.();
     return true;
-  }, [nonce, onSignOut, session, siweConfig]);
+  };
 
   const { address: connectedAddress } = useAccount({
     onDisconnect: () => {
@@ -90,7 +91,7 @@ export const SIWEProvider = ({
     }
   };
 
-  const signIn = useCallback(async () => {
+  const signIn = async () => {
     try {
       if (!siweConfig) {
         throw new Error('SIWE not configured');
@@ -133,15 +134,7 @@ export const SIWEProvider = ({
       onError(error);
       return false;
     }
-  }, [
-    address,
-    chain?.id,
-    nonce.data,
-    onSignIn,
-    session,
-    signMessageAsync,
-    siweConfig,
-  ]);
+  };
 
   useEffect(() => {
     // Skip if we're still fetching session state from backend
