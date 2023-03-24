@@ -371,13 +371,7 @@ const Modal: React.FC<ModalProps> = ({
           <BackgroundOverlay
             $active={rendered}
             onClick={onClose}
-            style={
-              context.options?.overlayBlur
-                ? {
-                    backdropFilter: `blur(${context.options?.overlayBlur}px)`,
-                  }
-                : undefined
-            }
+            $blur={context.options?.overlayBlur}
           />
         )}
         <Container
