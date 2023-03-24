@@ -47,7 +47,8 @@ type DefaultClientProps = {
   enableWebSocketProvider?: boolean;
   stallTimeout?: number;
   // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
-  walletConnectProjectId?: string;
+  // @TODO: Enable this feature – Using WC 1.0 for now (2.0 is not supported by all wallets)
+  //walletConnectProjectId?: string;
 };
 
 type ConnectKitClientProps = {
@@ -129,8 +130,10 @@ const defaultClient = ({
   stallTimeout,
   webSocketProvider,
   enableWebSocketProvider,
-  walletConnectProjectId,
-}: DefaultClientProps) => {
+}: //walletConnectProjectId, // prettier formatting weird here, but this for WC 2.0
+DefaultClientProps) => {
+  const walletConnectProjectId = undefined; // @TODO: Enable for WC 2.0
+
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
 
