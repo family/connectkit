@@ -3,7 +3,17 @@
  * e.g recently connected wallets, transactions, etc.
  */
 
-import { randomUUID } from 'crypto';
+//import { randomUUID as randomID } from 'crypto';
+const randomID = () => {
+  // TODO: use randomUUID when it's supported in all browsers
+  // https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
+  // Until then, use this fallback
+  return (
+    Date.now().toString(36) +
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+};
 
 export const save = (storageKey: string, data: any[]) => {
   localStorage.setItem(storageKey, JSON.stringify(data));
@@ -27,7 +37,7 @@ export const add = (storageKey: string, item: any) => {
   const newData = [
     {
       ...item,
-      ckStoreKey: randomUUID(), // unique key to identify the item so we can remove it later
+      ckStoreKey: randomID(), // unique key to identify the item so we can remove it later
       timestamp: new Date(),
     },
     ...data,
