@@ -407,6 +407,7 @@ export const SiweButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
   inset: 0;
+  width: 100%; // FireFox fix
   display: flex;
   align-items: center;
   justify-content: center;
@@ -437,6 +438,7 @@ export const BackButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
   inset: 0;
+  width: 100%; // FireFox fix
   display: flex;
   align-items: center;
   justify-content: center;
@@ -468,6 +470,7 @@ export const InfoButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
   inset: 0;
+  width: 100%; // FireFox fix
   transform: translateX(-1px);
   display: flex;
   align-items: center;

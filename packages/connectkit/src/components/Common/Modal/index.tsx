@@ -5,7 +5,7 @@ import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
 
-import { isMobile } from '../../../utils';
+import { flattenChildren, isMobile } from '../../../utils';
 
 import {
   Container,
@@ -437,7 +437,10 @@ const Modal: React.FC<ModalProps> = ({
             </AnimatePresence>
             <ControllerContainer>
               {onClose && (
-                <CloseButton aria-label={locales.close} onClick={onClose}>
+                <CloseButton
+                  aria-label={flattenChildren(locales.close).toString()}
+                  onClick={onClose}
+                >
                   <CloseIcon />
                 </CloseButton>
               )}
@@ -454,7 +457,7 @@ const Modal: React.FC<ModalProps> = ({
                   {onBack ? (
                     <BackButton
                       disabled={inTransition}
-                      aria-label={locales.back}
+                      aria-label={flattenChildren(locales.back).toString()}
                       key="backButton"
                       onClick={onBack}
                       initial={{ opacity: 0 }}
@@ -523,7 +526,9 @@ const Modal: React.FC<ModalProps> = ({
                     !context.options?.hideQuestionMarkCTA && (
                       <InfoButton
                         disabled={inTransition}
-                        aria-label={locales.moreInformation}
+                        aria-label={flattenChildren(
+                          locales.moreInformation
+                        ).toString()}
                         key="infoButton"
                         onClick={onInfo}
                         initial={{ opacity: 0 }}
