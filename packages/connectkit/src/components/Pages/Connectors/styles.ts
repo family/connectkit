@@ -172,6 +172,20 @@ export const ConnectorButton = styled(motion.button)`
     }
   }
 `;
+export const ConnectorRecentlyUsed = styled(motion.div)`
+  z-index: 2;
+  position: absolute;
+  top: 6px;
+  left: 16px;
+  padding: 2px 4px;
+  line-height: 1;
+  font-size: 10px;
+  color: var(--ck-primary-button-hover-color);
+  background: var(--ck-primary-button-hover-background);
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0.6;
+`;
 
 export const ConnectorLabel = styled(motion.span)`
   width: 100%;

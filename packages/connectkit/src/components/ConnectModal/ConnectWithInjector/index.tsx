@@ -9,8 +9,6 @@ import {
   Content,
 } from './styles';
 
-import { useContext } from '../../ConnectKit';
-import { useConnect } from 'wagmi';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {
@@ -33,6 +31,7 @@ import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
 import { detectBrowser } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
+import { useConnect } from '../../../hooks/useConnect';
 
 export const states = {
   CONNECTED: 'connected',
@@ -78,8 +77,6 @@ const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void;
   forceState?: typeof states;
 }> = ({ connectorId, switchConnectMethod, forceState }) => {
-  const context = useContext();
-
   const { connect, connectors } = useConnect({
     onMutate: (connector?: any) => {
       if (connector.connector) {
@@ -170,10 +167,7 @@ const ConnectWithInjector: React.FC<{
 
     const con: any = connectors.find((c) => c.id === id);
     if (con) {
-      connect({
-        connector: con,
-        chainId: context.options?.initialChainId,
-      });
+      connect({ connector: con });
     } else {
       setStatus(states.UNAVAILABLE);
     }

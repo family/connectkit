@@ -12,8 +12,14 @@ export const save = (storageKey: string, data: any[]) => {
 
 export const get = (storageKey: string) => {
   const data = localStorage.getItem(storageKey);
-  if (data) return JSON.parse(data);
-  return [];
+  try {
+    if (data) return JSON.parse(data);
+    return [];
+  } catch (e) {
+    // error parsing data, reset
+    save(storageKey, []);
+    return [];
+  }
 };
 
 export const add = (storageKey: string, item: any) => {
