@@ -1,6 +1,13 @@
 import styled from './../../../styles/styled';
+import { keyframes } from 'styled-components';
+
 import { motion } from 'framer-motion';
 import { ModalBody } from '../../Common/Modal/styles';
+
+const Spin = keyframes`
+  0%{ transform: rotate(0deg); }
+  100%{ transform: rotate(360deg); }
+`;
 
 export const InfoBox = styled.div`
   padding: 24px 24px 28px;
@@ -150,12 +157,14 @@ export const ConnectorButton = styled(motion.button)`
     transition: 180ms ease;
   }
 
+  --bg: var(--background);
   &:not(:disabled) {
     &:hover {
       color: var(--hover-color);
       background: var(--hover-background);
       box-shadow: var(--hover-box-shadow);
       border-radius: var(--hover-border-radius);
+      --bg: var(--hover-background, var(--background));
     }
     &:focus-visible {
       transition-duration: 100ms;
@@ -163,31 +172,55 @@ export const ConnectorButton = styled(motion.button)`
       background: var(--hover-background);
       box-shadow: var(--hover-box-shadow);
       border-radius: var(--hover-border-radius);
+      --bg: var(--hover-background, var(--background));
     }
     &:active {
       color: var(--active-color);
       background: var(--active-background);
       box-shadow: var(--active-box-shadow);
       border-radius: var(--active-border-radius);
+      --bg: var(--active-background, var(--background));
     }
   }
 `;
-export const ConnectorRecentlyUsed = styled(motion.div)`
-  z-index: 2;
-  position: absolute;
-  top: 6px;
-  left: 16px;
-  padding: 2px 4px;
+export const ConnectorRecentlyUsed = styled(motion.span)`
+  position: relative;
+  display: inline-block;
+  padding: 3px 7px;
   line-height: 1;
-  font-size: 10px;
-  color: var(--ck-primary-button-hover-color);
-  background: var(--ck-primary-button-hover-background);
-  border-radius: 2px;
-  pointer-events: none;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: var(--border-radius);
+  box-shadow: inset 0 0 0 1px currentColor;
+  overflow: hidden;
   opacity: 0.6;
+  span {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    color: inherit;
+  }
+  &:before {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    inset: -10%;
+    top: -110%;
+    aspect-ratio: 1/1;
+    background: linear-gradient(
+      170deg,
+      transparent 10%,
+      var(--bg) 50%,
+      transparent 90%
+    );
+    animation: ${Spin} 3s linear infinite;
+  }
 `;
 
 export const ConnectorLabel = styled(motion.span)`
+  display: flex;
+  align-items: center;
+  gap: 9px;
   width: 100%;
   overflow: hidden;
   white-space: nowrap;

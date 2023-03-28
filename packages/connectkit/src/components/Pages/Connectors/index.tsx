@@ -272,11 +272,15 @@ const Wallets: React.FC = () => {
                     context.setConnector(connector.id);
                   }}
                 >
-                  {lastConnectorId === connector.id && (
-                    <ConnectorRecentlyUsed>Recent</ConnectorRecentlyUsed>
-                  )}
                   <ConnectorIcon>{logo}</ConnectorIcon>
-                  <ConnectorLabel>{name}</ConnectorLabel>
+                  <ConnectorLabel>
+                    {name}
+                    {lastConnectorId === connector.id && (
+                      <ConnectorRecentlyUsed>
+                        <span>Recent</span>
+                      </ConnectorRecentlyUsed>
+                    )}
+                  </ConnectorLabel>
                 </ConnectorButton>
               );
             })}
