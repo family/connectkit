@@ -17,7 +17,7 @@ const client = createClient(
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={client}>
-      <ConnectKitProvider>
+      <ConnectKitProvider debugMode>
         <Component {...pageProps} />
       </ConnectKitProvider>
     </WagmiConfig>

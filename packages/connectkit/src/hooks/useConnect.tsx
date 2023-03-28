@@ -11,14 +11,14 @@ export function useConnect(...props) {
 
   const { updateLastConnectorId } = useLastConnector();
 
-  const { connect, connectAsync, connectors } = wagmiUseConnect({
-    onError: (err) => {
+  const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
+    onError(err) {
       if (err.message) {
         if (err.message !== 'User rejected request') {
-          context.debug(err.message, err);
+          context.log(err.message, err);
         }
       } else {
-        context.debug(`Could not connect. See console for more details.`, err);
+        context.log(`Could not connect.`, err);
       }
     },
     onSuccess(data: any) {
@@ -28,7 +28,7 @@ export function useConnect(...props) {
   });
 
   return {
-    connect: async ({ ...props }) => {
+    connect: ({ props }) => {
       return connect({
         ...props,
         ...connectProps,
@@ -41,5 +41,6 @@ export function useConnect(...props) {
       });
     },
     connectors,
+    ...rest,
   };
 }
