@@ -1,10 +1,8 @@
-import { WalletProps, WalletOptions } from './../wallet';
-
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { WalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
-export const brave = ({ chains }: WalletOptions): WalletProps => {
+export const brave = (): WalletProps => {
   const isInstalled =
     typeof window !== 'undefined' && window.ethereum?.isBraveWallet === true;
 
@@ -19,13 +17,6 @@ export const brave = ({ chains }: WalletOptions): WalletProps => {
     scannable: false,
     downloadUrls: {},
     installed: isInstalled,
-    createConnector: () => {
-      return {
-        connector: new InjectedConnector({
-          chains,
-          options: { shimDisconnect: true },
-        }),
-      };
-    },
+    createUri: (uri: string) => uri,
   };
 };

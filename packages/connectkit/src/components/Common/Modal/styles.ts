@@ -194,7 +194,10 @@ export const ModalBodySmall = styled.div`
   }
 `;
 
-export const BackgroundOverlay = styled(motion.div)<{ $active: boolean }>`
+export const BackgroundOverlay = styled(motion.div)<{
+  $active: boolean;
+  $blur?: number;
+}>`
   z-index: 1;
   position: absolute;
   top: 0;
@@ -202,7 +205,10 @@ export const BackgroundOverlay = styled(motion.div)<{ $active: boolean }>`
   right: 0;
   bottom: 0;
   background: var(--ck-overlay-background, rgba(71, 88, 107, 0.24));
-  backdrop-filter: var(--ck-overlay-backdrop-filter, none);
+  backdrop-filter: ${(props) =>
+    props.$blur
+      ? `blur(${props.$blur}px)`
+      : 'var(--ck-overlay-backdrop-filter, none)'};
   opacity: 0;
   animation: ${(props) => (props.$active ? FadeIn : FadeOut)} 150ms ease-out
     both;
@@ -407,6 +413,7 @@ export const SiweButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
   inset: 0;
+  width: 100%; // FireFox fix
   display: flex;
   align-items: center;
   justify-content: center;
@@ -437,6 +444,7 @@ export const BackButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
   inset: 0;
+  width: 100%; // FireFox fix
   display: flex;
   align-items: center;
   justify-content: center;
@@ -468,6 +476,7 @@ export const InfoButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
   inset: 0;
+  width: 100%; // FireFox fix
   transform: translateX(-1px);
   display: flex;
   align-items: center;

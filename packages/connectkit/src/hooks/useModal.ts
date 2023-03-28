@@ -53,21 +53,21 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
 
     if (!allRoutes.includes(route)) {
       validRoute = isConnected ? routes.PROFILE : routes.CONNECTORS;
-      console.log(
+      context.log(
         `Route ${route} is not a valid route, navigating to ${validRoute} instead.`
       );
     } else {
       if (isConnected) {
         if (!safeRoutes.connected.includes(route)) {
           validRoute = routes.PROFILE;
-          console.log(
+          context.log(
             `Route ${route} is not a valid route when connected, navigating to ${validRoute} instead.`
           );
         }
       } else {
         if (!safeRoutes.disconnected.includes(route)) {
           validRoute = routes.CONNECTORS;
-          console.log(
+          context.log(
             `Route ${route} is not a valid route when disconnected, navigating to ${validRoute} instead.`
           );
         }

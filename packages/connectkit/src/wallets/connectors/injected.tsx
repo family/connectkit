@@ -1,12 +1,10 @@
-import { WalletProps, WalletOptions } from './../wallet';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { WalletProps } from './../wallet';
 
 import { isMobile } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const injected = ({ chains }: WalletOptions): WalletProps => {
+export const injected = (): WalletProps => {
   const isInstalled = typeof window !== 'undefined' && Boolean(window.ethereum);
-
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 
   return {
@@ -16,15 +14,5 @@ export const injected = ({ chains }: WalletOptions): WalletProps => {
     scannable: false,
     logos: { default: <Logos.Injected /> },
     installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
-    createConnector: () => {
-      const connector = new InjectedConnector({
-        chains,
-        options: { shimDisconnect: true },
-      });
-
-      return {
-        connector,
-      };
-    },
   };
 };

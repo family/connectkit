@@ -1,13 +1,8 @@
-import {
-  WalletProps,
-  WalletOptions,
-  getProviderUri,
-  getDefaultWalletConnectConnector,
-} from './../wallet';
+import { WalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
-export const walletConnect = ({ chains }: WalletOptions): WalletProps => {
+export const walletConnect = (): WalletProps => {
   return {
     id: 'walletConnect',
     name: 'Other Wallets',
@@ -20,15 +15,6 @@ export const walletConnect = ({ chains }: WalletOptions): WalletProps => {
     },
     logoBackground: 'var(--ck-brand-walletConnect)',
     scannable: true,
-    createConnector: () => {
-      const connector = getDefaultWalletConnectConnector(chains);
-
-      return {
-        connector,
-        qrCode: {
-          getUri: async () => await getProviderUri(connector),
-        },
-      };
-    },
+    createUri: (uri: string) => uri,
   };
 };
