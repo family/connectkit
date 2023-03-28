@@ -367,7 +367,13 @@ const Modal: React.FC<ModalProps> = ({
           position: positionInside ? 'absolute' : undefined,
         }}
       >
-        {!inline && <BackgroundOverlay $active={rendered} onClick={onClose} />}
+        {!inline && (
+          <BackgroundOverlay
+            $active={rendered}
+            onClick={onClose}
+            $blur={context.options?.overlayBlur}
+          />
+        )}
         <Container
           style={dimensionsCSS}
           initial={false}

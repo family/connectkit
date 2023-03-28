@@ -81,6 +81,7 @@ export type ConnectKitOptions = {
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;
   disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
+  overlayBlur?: number; // Blur the background when the modal is open
 };
 
 type ConnectKitProviderProps = {

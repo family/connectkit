@@ -572,6 +572,22 @@ const Home: NextPage = () => {
             })
           }
         />
+        <label htmlFor="overlayBlur">
+          overlayBlur <code>{options.overlayBlur}</code>
+        </label>
+        <input
+          id="overlayBlur"
+          type="range"
+          min="0"
+          max="50"
+          value={options.overlayBlur}
+          onChange={(e) => {
+            setOptions({
+              ...options,
+              overlayBlur: parseInt(e.target.value),
+            });
+          }}
+        />
       </aside>
     </>
   );
