@@ -10,7 +10,7 @@ import {
 } from './styles';
 
 import { useContext } from '../../ConnectKit';
-import { useConnect } from 'wagmi';
+import { useConnect } from '../../../hooks/useConnect';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {
@@ -172,7 +172,6 @@ const ConnectWithInjector: React.FC<{
     if (con) {
       connect({
         connector: con,
-        chainId: context.options?.initialChainId,
       });
     } else {
       setStatus(states.UNAVAILABLE);
