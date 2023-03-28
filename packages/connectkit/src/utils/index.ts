@@ -1,5 +1,6 @@
 import { detect } from 'detect-browser';
 import React from 'react';
+import { Connector } from 'wagmi';
 import supportedConnectors from '../constants/supportedConnectors';
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
@@ -136,6 +137,21 @@ function flattenChildren(children: React.ReactNode): ReactChildArray {
     return flatChildren;
   }, []);
 }
+
+export const isWalletConnectConnector = (connectorId?: string) =>
+  connectorId === 'walletConnect' || connectorId === 'walletConnectLegacy';
+
+export const isMetaMaskConnector = (connectorId?: string) =>
+  connectorId === 'metaMask';
+
+export const isCoinbaseWalletConnector = (connectorId?: string) =>
+  connectorId === 'coinbaseWallet';
+
+export const isLedgerConnector = (connectorId?: string) =>
+  connectorId === 'ledger';
+
+export const isInjectedConnector = (connectorId?: string) =>
+  connectorId === 'injected';
 
 export {
   nFormatter,

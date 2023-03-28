@@ -1,12 +1,8 @@
 import { motion } from 'framer-motion';
 import styled from './../../../styles/styled';
-import { css, keyframes } from 'styled-components';
+import { css } from 'styled-components';
 import defaultTheme from '../../../constants/defaultTheme';
 
-const Spin = keyframes`
-  0%{ transform: rotate(0deg); }
-  100%{ transform: rotate(360deg); }
-`;
 export const SpinnerContainer = styled(motion.div)`
   position: absolute;
   right: 16px;
@@ -15,12 +11,6 @@ export const SpinnerContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: ${Spin} 1s linear infinite;
-  svg {
-    display: block;
-    position: relative;
-    animation: ${Spin} 1s ease-in-out infinite;
-  }
 `;
 
 export const Arrow = styled.svg`
@@ -76,6 +66,9 @@ export const ButtonContainer = styled.button<{
     css`
       cursor: not-allowed;
       pointer-events: none;
+      ${InnerContainer} {
+        opacity: 0.4;
+      }
     `}
 
   ${({ $variant }) => {
@@ -265,6 +258,7 @@ export const InnerContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
   max-width: calc(100% - 42px);
+  transition: opacity 300ms ease;
   /*
   overflow: hidden;
   text-overflow: ellipsis;

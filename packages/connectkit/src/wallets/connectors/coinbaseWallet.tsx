@@ -1,13 +1,9 @@
-import { WalletProps, WalletOptions } from './../wallet';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { WalletProps } from './../wallet';
 
 import { isMobile, isCoinbaseWallet } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const coinbaseWallet = ({
-  chains,
-  appName,
-}: WalletOptions): WalletProps => {
+export const coinbaseWallet = (): WalletProps => {
   const isInstalled = isCoinbaseWallet();
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 
@@ -34,21 +30,8 @@ export const coinbaseWallet = ({
       chrome:
         'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
     },
-    createConnector: () => {
-      const connector = new CoinbaseWalletConnector({
-        chains,
-        options: {
-          appName: appName ?? '',
-          headlessMode: true,
-        },
-      });
-
-      const getUri = async () => (await connector.getProvider()).qrUrl;
-
-      return {
-        connector,
-        qrCode: { getUri },
-      };
+    createUri: (uri: string) => {
+      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
     },
   };
 };

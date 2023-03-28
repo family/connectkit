@@ -2,11 +2,9 @@ import { getWallets } from './';
 import { WalletProps } from './wallet';
 
 import { useConnect } from 'wagmi';
-import { useChains } from '../hooks/useChains';
 
 function useDefaultWallets(): WalletProps[] | any {
   const { connectors } = useConnect();
-  const chains = useChains();
 
   let defaultWallets: string[] = [];
 
@@ -16,7 +14,7 @@ function useDefaultWallets(): WalletProps[] | any {
   if (!connectors.find((c) => c.id === 'coinbaseWallet'))
     defaultWallets.push('coinbaseWallet');
 
-  // Add default wallets
+  // define the order of the wallets
   defaultWallets.push(
     'rainbow',
     'argent',
@@ -26,14 +24,14 @@ function useDefaultWallets(): WalletProps[] | any {
     'brave',
     'steak',
     'unstoppable',
-    //'slope', // Removed from defaults
+    //'slope',
     'onto',
     'gnosisSafe',
     'frontier',
     'zerion'
   );
 
-  const wallets = getWallets({ chains });
+  const wallets = getWallets();
   return wallets.filter((wallet) => defaultWallets.includes(wallet.id));
 }
 

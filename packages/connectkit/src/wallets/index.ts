@@ -14,33 +14,26 @@ import { unstoppable } from './connectors/unstoppable';
 import { onto } from './connectors/onto';
 import { gnosisSafe } from './connectors/gnosisSafe';
 import { frontier } from './connectors/frontier';
-import { Chain } from 'wagmi';
 import { zerion } from './connectors/zerion';
 
-export const getWallets = ({
-  chains,
-}: {
-  chains: Chain[];
-  appName?: string;
-  shimDisconnect?: boolean;
-}) => {
+export const getWallets = () => {
   return [
-    injected({ chains }),
-    walletConnect({ chains }),
-    metaMask({ chains }),
-    coinbaseWallet({ chains }),
-    rainbow({ chains }),
-    argent({ chains }),
-    trust({ chains }),
-    ledger({ chains }),
-    imToken({ chains }),
-    brave({ chains }),
-    gnosisSafe({ chains }),
-    unstoppable({ chains }),
-    steak({ chains }),
-    //slope({ chains }),
-    onto({ chains }),
-    frontier({ chains }),
-    zerion({ chains }),
+    injected(),
+    walletConnect(),
+    metaMask(),
+    coinbaseWallet(),
+    rainbow(),
+    argent(),
+    trust(),
+    ledger(),
+    imToken(),
+    brave(),
+    gnosisSafe(),
+    unstoppable(),
+    steak(),
+    //slope(),
+    onto(),
+    frontier(),
+    zerion(),
   ];
 };
