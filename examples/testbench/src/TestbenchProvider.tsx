@@ -39,6 +39,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
   customTheme = {},
   mode = 'light',
   options = {
+    overlayBlur: 0,
     language: 'en-US',
     hideTooltips: false,
     hideQuestionMarkCTA: false,
