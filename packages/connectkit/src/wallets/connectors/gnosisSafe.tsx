@@ -1,14 +1,9 @@
-import {
-  WalletProps,
-  WalletOptions,
-  getDefaultWalletConnectConnector,
-  getProviderUri,
-} from './../wallet';
+import { WalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const gnosisSafe = ({ chains }: WalletOptions): WalletProps => {
+export const gnosisSafe = (): WalletProps => {
   return {
     id: 'gnosisSafe',
     name: 'Gnosis Safe',
@@ -24,24 +19,10 @@ export const gnosisSafe = ({ chains }: WalletOptions): WalletProps => {
       android: 'https://play.google.com/store/apps/details?id=io.gnosis.safe',
       website: 'https://gnosis-safe.io/',
     },
-    createConnector: () => {
-      const connector = getDefaultWalletConnectConnector(chains);
-
-      return {
-        connector,
-        mobile: {
-          getUri: async () => {
-            const uri = await getProviderUri(connector);
-
-            return isAndroid()
-              ? uri
-              : `https://gnosis-safe.io/wc?uri=${encodeURIComponent(uri)}`;
-          },
-        },
-        qrCode: {
-          getUri: async () => await getProviderUri(connector),
-        },
-      };
+    createUri: (uri: string) => {
+      return isAndroid()
+        ? uri
+        : `https://gnosis-safe.io/wc?uri=${encodeURIComponent(uri)}`;
     },
   };
 };

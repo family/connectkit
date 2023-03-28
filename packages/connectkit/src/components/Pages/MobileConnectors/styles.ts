@@ -1,14 +1,24 @@
+import { css } from 'styled-components';
 import styled from './../../../styles/styled';
 
-export const WalletList = styled.div`
+export const WalletList = styled.div<{ $disabled?: boolean }>`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px 8px;
   margin: 0 -10px -20px;
   padding: 4px 0 0;
+  transition: opacity 300ms ease;
+  ${(props) =>
+    props.$disabled &&
+    css`
+      pointer-events: none;
+      opacity: 0.4;
+    `}
 `;
-export const WalletItem = styled.div`
+export const WalletItem = styled.div<{ $waiting?: boolean }>`
   text-align: center;
+  transition: opacity 100ms ease;
+  opacity: ${(props) => (props.$waiting ? 0.4 : 1)};
 `;
 export const WalletIcon = styled.div<{ $outline?: boolean }>`
   z-index: 9;

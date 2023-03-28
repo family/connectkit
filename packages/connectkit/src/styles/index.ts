@@ -263,8 +263,6 @@ export const ResetContainer = styled(motion.div)<{
 
 
   ${(props) => {
-    //console.log(props.$customTheme);
-
     if (
       props.$customTheme &&
       props.$customTheme['--ck-accent-color'] &&

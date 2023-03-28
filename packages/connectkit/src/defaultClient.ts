@@ -4,6 +4,7 @@ import { Provider } from '@wagmi/core';
 
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { SafeConnector } from 'wagmi/connectors/safe';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -21,25 +22,22 @@ export const getAppIcon = () => globalAppIcon;
 
 const defaultChains = [mainnet, polygon, optimism, arbitrum];
 
-type WalletConnectOptionsProps =
-  | {
-      version: '2';
-      projectId: string;
-    }
-  | {
-      version: '1';
-    }
-  | undefined;
-
 type DefaultConnectorsProps = {
   chains?: Chain[];
-  appName: string;
-  walletConnectOptions?: WalletConnectOptionsProps;
+  app: {
+    name: string;
+    icon?: string;
+    description?: string;
+    url?: string;
+  };
+  walletConnectProjectId?: string;
 };
 
 type DefaultClientProps = {
   appName: string;
   appIcon?: string;
+  appDescription?: string;
+  appUrl?: string;
   autoConnect?: boolean;
   alchemyId?: string;
   infuraId?: string;
@@ -49,7 +47,9 @@ type DefaultClientProps = {
   webSocketProvider?: any;
   enableWebSocketProvider?: boolean;
   stallTimeout?: number;
-  walletConnectOptions?: WalletConnectOptionsProps;
+  // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
+  // @TODO: Enable this feature – Using WC 1.0 for now (2.0 is not supported by all wallets)
+  //walletConnectProjectId?: string;
 };
 
 type ConnectKitClientProps = {
@@ -61,43 +61,23 @@ type ConnectKitClientProps = {
 
 const getDefaultConnectors = ({
   chains,
-  appName,
-  walletConnectOptions,
+  app,
+  walletConnectProjectId,
 }: DefaultConnectorsProps) => {
-  const wcOpts: WalletConnectOptionsProps = { version: '1' };
-  /*
-  const wcOpts: WalletConnectOptionsProps =
-    walletConnectOptions?.version === '2' && walletConnectOptions?.projectId
-      ? {
-          version: '2',
-          projectId: walletConnectOptions.projectId, // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
-        }
-      : {
-          version: '1',
-        };
-   */
-
+  const hasAllAppData = app.name && app.icon && app.description && app.url;
   return [
     new MetaMaskConnector({
       chains,
       options: {
         shimDisconnect: true,
-        shimChainChangedDisconnect: true,
         UNSTABLE_shimOnConnectSelectAccount: true,
       },
     }),
     new CoinbaseWalletConnector({
       chains,
       options: {
-        appName,
+        appName: app.name,
         headlessMode: true,
-      },
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        qrcode: false,
-        ...wcOpts,
       },
     }),
     new SafeConnector({
@@ -107,6 +87,28 @@ const getDefaultConnectors = ({
         debug: false,
       },
     }),
+    walletConnectProjectId
+      ? new WalletConnectConnector({
+          chains,
+          options: {
+            showQrModal: false,
+            projectId: walletConnectProjectId,
+            metadata: hasAllAppData
+              ? {
+                  name: app.name,
+                  description: app.description!,
+                  url: app.url!,
+                  icons: [app.icon!],
+                }
+              : undefined,
+          },
+        })
+      : new WalletConnectLegacyConnector({
+          chains,
+          options: {
+            qrcode: false,
+          },
+        }),
     new InjectedConnector({
       chains,
       options: {
@@ -126,6 +128,8 @@ const defaultClient = ({
   autoConnect = true,
   appName = 'ConnectKit',
   appIcon,
+  appDescription,
+  appUrl,
   chains = defaultChains,
   alchemyId,
   infuraId,
@@ -134,8 +138,10 @@ const defaultClient = ({
   stallTimeout,
   webSocketProvider,
   enableWebSocketProvider,
-  walletConnectOptions,
-}: DefaultClientProps) => {
+}: //walletConnectProjectId, // prettier formatting weird here, but this for WC 2.0
+DefaultClientProps) => {
+  const walletConnectProjectId = undefined; // @TODO: Enable for WC 2.0
+
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
 
@@ -168,8 +174,13 @@ const defaultClient = ({
       connectors ??
       getDefaultConnectors({
         chains: configuredChains,
-        appName,
-        walletConnectOptions,
+        app: {
+          name: appName,
+          icon: appIcon,
+          description: appDescription,
+          url: appUrl,
+        },
+        walletConnectProjectId,
       }),
     provider: provider ?? configuredProvider,
     webSocketProvider: enableWebSocketProvider // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"

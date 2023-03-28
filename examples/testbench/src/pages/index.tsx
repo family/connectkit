@@ -75,7 +75,14 @@ const AccountInfo = () => {
   } = useAccount();
   const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
-  const { isSignedIn, signOut } = useSIWE();
+  const { isSignedIn, signOut } = useSIWE({
+    onSignIn: (data?: SIWESession) => {
+      console.log('onSignIn', data);
+    },
+    onSignOut: () => {
+      console.log('onSignOut');
+    },
+  });
 
   return (
     <div className="panel">
@@ -564,6 +571,22 @@ const Home: NextPage = () => {
               walletConnectCTA: e.target.value as any,
             })
           }
+        />
+        <label htmlFor="overlayBlur">
+          overlayBlur <code>{options.overlayBlur}</code>
+        </label>
+        <input
+          id="overlayBlur"
+          type="range"
+          min="0"
+          max="50"
+          value={options.overlayBlur}
+          onChange={(e) => {
+            setOptions({
+              ...options,
+              overlayBlur: parseInt(e.target.value),
+            });
+          }}
         />
       </aside>
     </>

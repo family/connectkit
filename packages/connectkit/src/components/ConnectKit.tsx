@@ -56,7 +56,9 @@ type ContextValue = {
   errorMessage: Error;
   options?: ConnectKitOptions;
   signInWithEthereum: boolean;
-  debug: (message: string | React.ReactNode | null, code?: any) => void;
+  debugMode?: boolean;
+  log: (...props: any) => void;
+  displayError: (message: string | React.ReactNode | null, code?: any) => void;
 };
 
 export const Context = createContext<ContextValue | null>(null);
@@ -67,7 +69,7 @@ export type ConnectKitOptions = {
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
-  walletConnectCTA?: 'modal' | 'link' | 'both';
+  walletConnectCTA?: 'link' | 'modal' | 'both';
   avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
   embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
   truncateLongENSAddress?: boolean;
@@ -81,6 +83,7 @@ export type ConnectKitOptions = {
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;
   disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
+  overlayBlur?: number; // Blur the background when the modal is open
 };
 
 type ConnectKitProviderProps = {
@@ -89,6 +92,7 @@ type ConnectKitProviderProps = {
   mode?: Mode;
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
+  debugMode?: boolean;
 };
 
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
@@ -97,6 +101,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   mode = 'auto',
   customTheme,
   options,
+  debugMode = false,
 }) => {
   // Only allow for mounting ConnectKitProvider once, so we avoid weird global
   // state collisions.
@@ -114,7 +119,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
-    walletConnectCTA: 'modal',
+    walletConnectCTA: 'link',
     avoidLayoutShift: true,
     embedGoogleFonts: false,
     truncateLongENSAddress: true,
@@ -172,6 +177,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     }
   }, [chain, route, open]);
 
+  const log = debugMode ? console.log : () => {};
+
   const value = {
     theme: ckTheme,
     setTheme,
@@ -192,9 +199,10 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     // Other configuration
     options: opts,
     errorMessage,
-    debug: (message: string | React.ReactNode | null, code?: any) => {
+    debugMode,
+    log,
+    displayError: (message: string | React.ReactNode | null, code?: any) => {
       setErrorMessage(message);
-
       console.log('---------CONNECTKIT DEBUG---------');
       console.log(message);
       if (code) console.table(code);
