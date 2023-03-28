@@ -172,7 +172,6 @@ const ConnectWithInjector: React.FC<{
     if (con) {
       connect({
         connector: con,
-        chainId: context.options?.initialChainId,
       });
     } else {
       setStatus(states.UNAVAILABLE);
