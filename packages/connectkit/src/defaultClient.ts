@@ -65,7 +65,28 @@ const getDefaultConnectors = ({
   walletConnectProjectId,
 }: DefaultConnectorsProps) => {
   const hasAllAppData = app.name && app.icon && app.description && app.url;
-  return [
+  const shouldUseSafeConnector =
+    !(typeof window === 'undefined') && window?.parent !== window;
+
+  let connectors: Connector[] = [];
+
+  // If we're in an iframe, use the SafeConnector
+  if (shouldUseSafeConnector) {
+    connectors = [
+      ...connectors,
+      new SafeConnector({
+        chains,
+        options: {
+          allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+          debug: false,
+        },
+      }),
+    ];
+  }
+
+  // Add the rest of the connectors
+  connectors = [
+    ...connectors,
     new MetaMaskConnector({
       chains,
       options: {
@@ -78,13 +99,6 @@ const getDefaultConnectors = ({
       options: {
         appName: app.name,
         headlessMode: true,
-      },
-    }),
-    new SafeConnector({
-      chains,
-      options: {
-        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-        debug: false,
       },
     }),
     walletConnectProjectId
@@ -122,6 +136,8 @@ const getDefaultConnectors = ({
       },
     }),
   ];
+
+  return connectors;
 };
 
 const defaultClient = ({
