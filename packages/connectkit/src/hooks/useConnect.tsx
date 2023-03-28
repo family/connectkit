@@ -27,7 +27,7 @@ export function useConnect(...props) {
   });
 
   return {
-    connect: ({ props }) => {
+    connect: ({ ...props }) => {
       return connect({
         ...props,
         chainId: context.options?.initialChainId,
