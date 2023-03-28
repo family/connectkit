@@ -1,17 +1,11 @@
-import {
-  WalletProps,
-  WalletOptions,
-  getDefaultWalletConnectConnector,
-  getProviderUri,
-} from './../wallet';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { WalletProps } from './../wallet';
 
 import { isMobile, isMetaMask, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const metaMask = ({ chains }: WalletOptions): WalletProps => {
+export const metaMask = (): WalletProps => {
   const isInstalled = isMetaMask();
-  const shouldUseWalletConnect = isMobile() && !isInstalled;
+  const shouldUseWalletConnect = isMobile() && !isInstalled; // use walletconnect on mobile if not using metamask in-app browser
 
   return {
     id: 'metaMask',
@@ -56,49 +50,10 @@ export const metaMask = ({ chains }: WalletOptions): WalletProps => {
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
     },
     installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
-    createConnector: () => {
-      const connector = shouldUseWalletConnect
-        ? getDefaultWalletConnectConnector(chains)
-        : new MetaMaskConnector({
-            chains,
-            options: {
-              shimDisconnect: true,
-              shimChainChangedDisconnect: true,
-              UNSTABLE_shimOnConnectSelectAccount: true,
-            },
-          });
-
-      return {
-        connector,
-        getUri: async () => {},
-        getMobileConnector: shouldUseWalletConnect
-          ? async () => {
-              connector.on('error', (err) => {
-                console.log('onError', err);
-              });
-              connector.on('message', async ({ type }) => {
-                console.log('onMessage: MetaMask', type);
-                if (type === 'connecting') {
-                  let uriString = '';
-                  try {
-                    const uri = await getProviderUri(connector);
-                    uriString = isAndroid()
-                      ? uri
-                      : `https://metamask.app.link/wc?uri=${encodeURIComponent(
-                          uri
-                        )}`;
-
-                    window.location.href = uriString;
-                  } catch {
-                    console.log('catch bad URI', uriString);
-                  }
-                }
-              });
-
-              return connector;
-            }
-          : undefined,
-      };
+    createUri: (uri: string) => {
+      return isAndroid()
+        ? uri
+        : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
     },
   };
 };

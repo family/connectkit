@@ -17,7 +17,7 @@ import {
 import Alert from '../Alert';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { isMobile } from '../../../utils';
+import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
@@ -104,6 +104,7 @@ const ChainSelectList: React.FC = () => {
                       transition={{
                         ease: [0.76, 0, 0.24, 1],
                         duration: 0.15,
+                        delay: 0.1,
                       }}
                     >
                       <motion.div
@@ -111,7 +112,7 @@ const ChainSelectList: React.FC = () => {
                         animate={
                           // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
                           mobile &&
-                          connector?.id === 'coinbaseWallet' &&
+                          isCoinbaseWalletConnector(connector?.id) &&
                           isLoading &&
                           pendingChainId === ch.id
                             ? {
@@ -175,13 +176,14 @@ const ChainSelectList: React.FC = () => {
                         transition={{
                           ease: [0.76, 0, 0.24, 1],
                           duration: 0.3,
+                          delay: 0.1,
                         }}
                       >
                         <motion.span
                           animate={
                             // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
                             mobile &&
-                            connector?.id === 'coinbaseWallet' && {
+                            isCoinbaseWalletConnector(connector?.id) && {
                               opacity: [1, 0],
                               transition: { delay: 4, duration: 4 },
                             }

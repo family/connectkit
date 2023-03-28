@@ -35,29 +35,10 @@ export const WalletConnect = ({ background = false, ...props }) => (
     />
   </svg>
 );
-/*
-export const WalletConnectQRCode = ({ ...props }) => (
-  <svg
-    {...props}
-    width="76"
-    height="54"
-    viewBox="0 0 76 54"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M51 0H21V5H15V9H11V14H5V20H0V39H5V40H11V44H16V49H21V54H27H30H35V49H41V54H46H50H55V50H60V44H65V39H66H70H76V20H70V14H66V9H61V5H55V0H51ZM24 39V40H26V39H24ZM51 38H50V40H51V38Z"
-      fill="var(--ck-body-background)"
-    />
-    <path
-      d="M20.5813 16.0338C29.807 6.65539 44.7645 6.65539 53.9901 16.0338L55.1004 17.1625C55.5619 17.6313 55.5619 18.3917 55.1004 18.8605L51.3024 22.7217C51.0716 22.956 50.6977 22.956 50.4672 22.7217L48.9392 21.1684C42.5031 14.6258 32.0684 14.6258 25.6323 21.1684L23.9961 22.8316C23.7654 23.0662 23.3915 23.0662 23.1609 22.8316L19.3627 18.9707C18.9014 18.5018 18.9014 17.7415 19.3627 17.2727L20.5813 16.0338ZM61.8452 24.0187L65.2255 27.4553C65.6867 27.9241 65.6867 28.6844 65.2255 29.1533L49.9831 44.6481C49.5219 45.1172 48.7739 45.1172 48.3127 44.6481L37.4948 33.651C37.3792 33.5339 37.1923 33.5339 37.077 33.651L26.2591 44.6481C25.7979 45.1172 25.05 45.1172 24.5888 44.6484C24.5887 44.6484 24.5887 44.6481 24.5887 44.6481L9.34595 29.153C8.88468 28.6841 8.88468 27.9238 9.34595 27.455L12.7263 24.0187C13.1876 23.5495 13.9355 23.5495 14.3968 24.0187L25.215 35.0161C25.3303 35.1332 25.5174 35.1332 25.6326 35.0161L36.4503 24.0187C36.9115 23.5495 37.6594 23.5495 38.1209 24.0187L48.9392 35.0161C49.0544 35.1332 49.2414 35.1332 49.3566 35.0161L60.1746 24.0187C60.6361 23.5498 61.384 23.5498 61.8452 24.0187Z"
-      fill="var(--ck-brand-walletConnect)"
-    />
-  </svg>
-);
-*/
+
+export const WalletConnectLegacy = ({ background = false, ...props }) =>
+  WalletConnect({ background, ...props });
+
 export const MetaMask = ({ background = false, ...props }) => (
   <svg
     {...props}
@@ -827,7 +808,7 @@ export default {
   Injected,
   OtherWallets,
   WalletConnect,
-  //WalletConnectQRCode,
+  WalletConnectLegacy,
   MetaMask,
   Coinbase,
   CoinbaseImage,

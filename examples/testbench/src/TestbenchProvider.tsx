@@ -39,6 +39,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
   customTheme = {},
   mode = 'light',
   options = {
+    overlayBlur: 0,
     language: 'en-US',
     hideTooltips: false,
     hideQuestionMarkCTA: false,
@@ -49,7 +50,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
     reducedMotion: false,
     disclaimer: null,
     bufferPolyfill: true,
-    walletConnectCTA: 'modal',
+    walletConnectCTA: 'link',
     //enforceSupportedChains: false,
     //initialChainId: 0,
   },
