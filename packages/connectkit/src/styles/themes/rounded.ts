@@ -112,6 +112,8 @@ export default {
   '--ck-modal-heading-font-weight': '700',
   '--ck-primary-button-font-weight': '700',
 
+  '--ck-recent-badge-box-shadow': 'inset 0 0 0 2px currentColor',
+
   /** Graphics options for our themes, not to be exposed to devs */
   /*
   '--ck-graphic-primary-color': '#6C7381',
