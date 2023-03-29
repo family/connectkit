@@ -768,7 +768,7 @@ export const Dawn = ({ ...props}) => (
             <stop stop-color="#151515" offset="0%"></stop>
             <stop stop-color="#232323" offset="100%"></stop>
         </linearGradient>
-        <rect id="path-2" x="0" y="0" width="192" height="192"></rect>
+        <rect rx="27%" id="path-2" x="0" y="0" width="192" height="192"></rect>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="99.7051532%" id="linearGradient-3">
             <stop stop-color="#F3DC83" offset="0%"></stop>
             <stop stop-color="#F9EEC8" offset="100%"></stop>
