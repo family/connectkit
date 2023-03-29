@@ -15,10 +15,19 @@ export function useConnect(...props) {
       }
     },
     ...props,
+    /*
+    onSuccess: (data) => {
+      context.onConnect?.({
+        address: data.account,
+        //chainId: data.chain.id,
+        connectorId: data.connector?.id,
+      });
+    },
+    */
   });
 
   return {
-    connect: ({ props }) => {
+    connect: ({ ...props }) => {
       return connect({
         ...props,
         chainId: context.options?.initialChainId,

@@ -258,7 +258,14 @@ const Home: NextPage = () => {
   const { chain } = useNetwork();
   const chains = useChains();
 
-  const { open, setOpen, openSIWE, openAbout } = useModal();
+  const { open, setOpen, openSIWE, openAbout } = useModal({
+    onConnect: () => {
+      console.log('onConnect Hook');
+    },
+    onDisconnect: () => {
+      console.log('onDisconnect Hook');
+    },
+  });
 
   const { reset } = useConnect();
   const { isConnected } = useAccount();
