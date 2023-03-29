@@ -4,9 +4,9 @@ import { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { ModalBody } from '../../Common/Modal/styles';
 
-const Spin = keyframes`
-  0%{ transform: rotate(0deg); }
-  100%{ transform: rotate(360deg); }
+const Shimmer = keyframes`
+  0%{ transform: translate(-100%) rotate(-45deg); }
+  100%{ transform: translate(100%) rotate(-80deg); }
 `;
 
 export const InfoBox = styled.div`
@@ -194,12 +194,6 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
   box-shadow: inset 0 0 0 1px currentColor;
   overflow: hidden;
   opacity: 0.6;
-  span {
-    display: inline-block;
-    position: relative;
-    z-index: 2;
-    color: inherit;
-  }
   &:before {
     z-index: 1;
     content: '';
@@ -207,13 +201,14 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
     inset: -10%;
     top: -110%;
     aspect-ratio: 1/1;
+    opacity: 0.6;
     background: linear-gradient(
       170deg,
       transparent 10%,
       var(--bg) 50%,
       transparent 90%
     );
-    animation: ${Spin} 3s linear infinite;
+    animation: ${Shimmer} 2s linear infinite;
   }
 `;
 
