@@ -192,16 +192,18 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
   font-size: 13px;
   font-weight: var(--ck-primary-button-font-weight, 500);
   border-radius: var(--ck-recent-badge-border-radius, var(--border-radius));
-  color: var(--ck-recent-badge-color, var(--ck-accent-color, currentColor));
+  color: var(
+    --ck-recent-badge-color,
+    var(--ck-accent-color, var(--ck-body-color-muted, currentColor))
+  );
   background: var(--ck-recent-badge-background, transparent);
   overflow: hidden;
-  opacity: 0.8;
   &:before {
     z-index: 1;
     content: '';
     position: absolute;
     inset: 0;
-    opacity: 0.2;
+    opacity: 0.3;
     box-shadow: var(--ck-recent-badge-box-shadow, inset 0 0 0 1px currentColor);
     border-radius: inherit;
   }
@@ -212,7 +214,7 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
     inset: -10%;
     top: -110%;
     aspect-ratio: 1/1;
-    opacity: 0.4;
+    opacity: 0.6;
     background: linear-gradient(
       170deg,
       transparent 10%,
