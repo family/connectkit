@@ -185,6 +185,7 @@ export const ConnectorButton = styled(motion.button)`
 `;
 export const ConnectorRecentlyUsed = styled(motion.span)`
   position: relative;
+  top: 0.5px;
   display: inline-block;
   padding: 3px 7px;
   line-height: 1;
@@ -194,7 +195,7 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
   color: var(--ck-accent-color, currentColor);
   box-shadow: inset 0 0 0 1px currentColor;
   overflow: hidden;
-  opacity: 0.6;
+  opacity: 0.5;
   &:before {
     z-index: 1;
     content: '';
