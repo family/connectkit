@@ -191,6 +191,7 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
   font-size: 13px;
   font-weight: 400;
   border-radius: var(--border-radius);
+  color: var(--ck-accent-color, currentColor);
   box-shadow: inset 0 0 0 1px currentColor;
   overflow: hidden;
   opacity: 0.6;

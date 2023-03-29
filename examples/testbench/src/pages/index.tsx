@@ -441,15 +441,40 @@ const Home: NextPage = () => {
         />
         <Checkbox
           label="Custom Font"
-          value="customTheme"
+          value="customFont"
           checked={customTheme['--ck-font-family'] !== undefined}
           onChange={() => {
-            setCustomTheme(
-              customTheme['--ck-font-family'] !== undefined
-                ? {}
-                : { '--ck-font-family': 'monospace' }
-            );
+            const name = '--ck-font-family';
+            if (customTheme[name] !== undefined) {
+              const { [name]: _, ...rest } = customTheme;
+              setCustomTheme(rest);
+            } else {
+              setCustomTheme({
+                ...customTheme,
+                [name]: 'monospace',
+              });
+            }
           }}
+        />
+        <Select
+          label={'Custom Accent'}
+          value={customTheme['--ck-accent-color'] ?? ''}
+          onChange={(e) => {
+            const name = '--ck-accent-color';
+            setCustomTheme({
+              ...customTheme,
+              [name]: e.target.value,
+            });
+          }}
+          options={[
+            { label: 'none', value: '' },
+            { label: 'red', value: 'red' },
+            { label: 'blue', value: 'blue' },
+            { label: 'green', value: 'green' },
+            { label: 'yellow', value: 'yellow' },
+            { label: 'purple', value: 'purple' },
+            { label: 'orange', value: 'orange' },
+          ]}
         />
         <Checkbox
           label="reduceMotion"
