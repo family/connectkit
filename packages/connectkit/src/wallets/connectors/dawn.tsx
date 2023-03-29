@@ -16,9 +16,9 @@ export const dawn = (): WalletProps => {
     scannable: false,
     installed: Boolean(isInstalled),
     downloadUrls: {
-      download: 'https://testflight.apple.com/join/UHmOJnNy',
+      download: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
       website: 'https://www.dawnwallet.xyz/',
-      ios: 'https://testflight.apple.com/join/UHmOJnNy',
+      ios: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
     },
   };
 };
