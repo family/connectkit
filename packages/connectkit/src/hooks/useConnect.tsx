@@ -30,6 +30,15 @@ export function useConnect({ ...props } = {}) {
       updateLastConnectorId(data?.connector?.id ?? '');
     },
     ...props,
+    /*
+    onSuccess: (data) => {
+      context.onConnect?.({
+        address: data.account,
+        //chainId: data.chain.id,
+        connectorId: data.connector?.id,
+      });
+    },
+    */
   });
 
   return {

@@ -13,6 +13,7 @@ export const gnosisSafe = (): WalletProps => {
     },
     logoBackground: '#ffffff',
     scannable: false,
+    installed: !(typeof window === 'undefined') && window?.parent !== window,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/gnosisSafe',
       ios: 'https://apps.apple.com/app/id1515759131',

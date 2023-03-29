@@ -150,6 +150,8 @@ export const isCoinbaseWalletConnector = (connectorId?: string) =>
 export const isLedgerConnector = (connectorId?: string) =>
   connectorId === 'ledger';
 
+export const isSafeConnector = (connectorId?: string) => connectorId === 'safe';
+
 export const isInjectedConnector = (connectorId?: string) =>
   connectorId === 'injected';
 

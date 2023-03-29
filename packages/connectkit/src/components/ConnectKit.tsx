@@ -19,9 +19,13 @@ import defaultTheme from '../styles/defaultTheme';
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
-import { useAccount, useNetwork } from 'wagmi';
+import { useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
 import { useChains } from '../hooks/useChains';
+import {
+  useConnectCallback,
+  useConnectCallbackProps,
+} from '../hooks/useConnectCallback';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -59,7 +63,7 @@ type ContextValue = {
   debugMode?: boolean;
   log: (...props: any) => void;
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
-};
+} & useConnectCallbackProps;
 
 export const Context = createContext<ContextValue | null>(null);
 
@@ -94,7 +98,7 @@ type ConnectKitProviderProps = {
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
   debugMode?: boolean;
-};
+} & useConnectCallbackProps;
 
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   children,
@@ -102,6 +106,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   mode = 'auto',
   customTheme,
   options,
+  onConnect,
+  onDisconnect,
   debugMode = false,
 }) => {
   // Only allow for mounting ConnectKitProvider once, so we avoid weird global
@@ -111,6 +117,12 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
     );
   }
+
+  useConnectCallback({
+    onConnect,
+    onDisconnect,
+  });
+
   const chains = useChains();
 
   // Default config options
@@ -197,7 +209,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     connector,
     setConnector,
     signInWithEthereum: React.useContext(SIWEContext)?.enabled ?? false,
-
+    onConnect,
     // Other configuration
     options: opts,
     errorMessage,

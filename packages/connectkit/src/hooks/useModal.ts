@@ -1,6 +1,10 @@
 import { useAccount } from 'wagmi';
 import { routes, useContext } from '../components/ConnectKit';
 import { useSIWE } from '../siwe';
+import {
+  useConnectCallback,
+  useConnectCallbackProps,
+} from './useConnectCallback';
 
 type ModalRoutes = typeof routes[keyof typeof routes];
 
@@ -24,8 +28,16 @@ const allRoutes: ModalRoutes[] = [
 
 type ValidRoutes = ModalRoutes;
 
-export const useModal = () => {
+type UseModalProps = {} & useConnectCallbackProps;
+
+export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
   const context = useContext();
+
+  useConnectCallback({
+    onConnect,
+    onDisconnect,
+  });
+
   const { isConnected } = useAccount();
   const { signIn } = useSIWE();
 

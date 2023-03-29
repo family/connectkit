@@ -159,7 +159,7 @@ export const SIWEProvider = ({
       console.warn('Wallet network changed, signing out of SIWE session');
       signOutAndRefetch();
     }
-  }, [session, connectedAddress, chain]);
+  }, [sessionData, connectedAddress, chain]);
 
   return (
     <SIWEContext.Provider
