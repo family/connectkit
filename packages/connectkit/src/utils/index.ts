@@ -1,6 +1,5 @@
 import { detect } from 'detect-browser';
 import React from 'react';
-import { Connector } from 'wagmi';
 import supportedConnectors from '../constants/supportedConnectors';
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;

@@ -1,12 +1,8 @@
-import { WalletProps, WalletOptions } from './../wallet';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-
+import { WalletProps } from './../wallet';
 import { isDawn } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const dawn = ({
-  chains,
-}: WalletOptions): WalletProps => {
+export const dawn = (): WalletProps => {
   const isInstalled = isDawn();
 
   return {
@@ -23,14 +19,6 @@ export const dawn = ({
       download: 'https://testflight.apple.com/join/UHmOJnNy',
       website: 'https://www.dawnwallet.xyz/',
       ios: 'https://testflight.apple.com/join/UHmOJnNy',
-    },
-    createConnector: () => {
-      return {
-        connector: new InjectedConnector({
-          chains,
-          options: { shimDisconnect: true },
-        }),
-      };
     },
   };
 };
