@@ -69,6 +69,7 @@ export type ConnectKitOptions = {
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
+  hideRecentBadge?: boolean;
   walletConnectCTA?: 'link' | 'modal' | 'both';
   avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
   embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
@@ -120,6 +121,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
     walletConnectCTA: 'link',
+    hideRecentBadge: false,
     avoidLayoutShift: true,
     embedGoogleFonts: false,
     truncateLongENSAddress: true,
