@@ -7,7 +7,7 @@ export const dawn = (): WalletProps => {
 
   return {
     id: 'dawn',
-    name: 'Dawn',
+    name: 'Dawn Wallet',
     shortName: 'Dawn',
     logos: {
       default: <Logos.Dawn />,
