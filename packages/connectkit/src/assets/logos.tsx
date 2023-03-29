@@ -35,29 +35,10 @@ export const WalletConnect = ({ background = false, ...props }) => (
     />
   </svg>
 );
-/*
-export const WalletConnectQRCode = ({ ...props }) => (
-  <svg
-    {...props}
-    width="76"
-    height="54"
-    viewBox="0 0 76 54"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M51 0H21V5H15V9H11V14H5V20H0V39H5V40H11V44H16V49H21V54H27H30H35V49H41V54H46H50H55V50H60V44H65V39H66H70H76V20H70V14H66V9H61V5H55V0H51ZM24 39V40H26V39H24ZM51 38H50V40H51V38Z"
-      fill="var(--ck-body-background)"
-    />
-    <path
-      d="M20.5813 16.0338C29.807 6.65539 44.7645 6.65539 53.9901 16.0338L55.1004 17.1625C55.5619 17.6313 55.5619 18.3917 55.1004 18.8605L51.3024 22.7217C51.0716 22.956 50.6977 22.956 50.4672 22.7217L48.9392 21.1684C42.5031 14.6258 32.0684 14.6258 25.6323 21.1684L23.9961 22.8316C23.7654 23.0662 23.3915 23.0662 23.1609 22.8316L19.3627 18.9707C18.9014 18.5018 18.9014 17.7415 19.3627 17.2727L20.5813 16.0338ZM61.8452 24.0187L65.2255 27.4553C65.6867 27.9241 65.6867 28.6844 65.2255 29.1533L49.9831 44.6481C49.5219 45.1172 48.7739 45.1172 48.3127 44.6481L37.4948 33.651C37.3792 33.5339 37.1923 33.5339 37.077 33.651L26.2591 44.6481C25.7979 45.1172 25.05 45.1172 24.5888 44.6484C24.5887 44.6484 24.5887 44.6481 24.5887 44.6481L9.34595 29.153C8.88468 28.6841 8.88468 27.9238 9.34595 27.455L12.7263 24.0187C13.1876 23.5495 13.9355 23.5495 14.3968 24.0187L25.215 35.0161C25.3303 35.1332 25.5174 35.1332 25.6326 35.0161L36.4503 24.0187C36.9115 23.5495 37.6594 23.5495 38.1209 24.0187L48.9392 35.0161C49.0544 35.1332 49.2414 35.1332 49.3566 35.0161L60.1746 24.0187C60.6361 23.5498 61.384 23.5498 61.8452 24.0187Z"
-      fill="var(--ck-brand-walletConnect)"
-    />
-  </svg>
-);
-*/
+
+export const WalletConnectLegacy = ({ background = false, ...props }) =>
+  WalletConnect({ background, ...props });
+
 export const MetaMask = ({ background = false, ...props }) => (
   <svg
     {...props}
@@ -355,12 +336,6 @@ export const Coinbase = ({ background = false, ...props }) => (
     />
   </svg>
 );
-
-export const CoinbaseImage = ({ background = false, ...props }) => {
-  return (
-    <img src="data:image/png;base64,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" />
-  );
-};
 
 export const Trust = ({ theme = 'light', ...props }) => (
   <svg
@@ -713,7 +688,7 @@ export const Slope = ({ ...props }) => (
     </defs>
   </svg>
 );
-export const GnosisSafe = ({ ...props }) => (
+export const GnosisSafe = ({ background = false, ...props }) => (
   <svg
     {...props}
     aria-hidden="true"
@@ -722,7 +697,9 @@ export const GnosisSafe = ({ ...props }) => (
     viewBox="0 0 88 88"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{ background: '#12FF80' }}
+    style={
+      background ? { background: 'var(--ck-brand-gnosisSafe)' } : undefined
+    }
   >
     <path
       d="M68.7186 44H62.6472C60.8339 44 59.3646 45.4686 59.3646 47.281V56.0888C59.3646 57.9012 57.8952 59.3697 56.0819 59.3697H31.9278C30.1145 59.3697 28.6452 60.8383 28.6452 62.6507V68.719C28.6452 70.5314 30.1145 72 31.9278 72H57.48C59.2933 72 60.7417 70.5314 60.7417 68.719V63.8504C60.7417 62.038 62.2111 60.7524 64.0244 60.7524H68.7174C70.5307 60.7524 72 59.2838 72 57.4714V47.2429C72 45.4305 70.5307 44 68.7174 44H68.7186Z"
@@ -853,10 +830,9 @@ export default {
   Injected,
   OtherWallets,
   WalletConnect,
-  //WalletConnectQRCode,
+  WalletConnectLegacy,
   MetaMask,
   Coinbase,
-  CoinbaseImage,
   Trust,
   Argent,
   ImToken,

@@ -55,6 +55,7 @@ export const SIWEProvider = ({
   const sessionData = session.data;
 
   const signOutAndRefetch = async () => {
+    if (!sessionData) return false; // No session to sign out of
     setStatus(StatusState.LOADING);
     if (!(await siweConfig.signOut())) {
       throw new Error('Failed to sign out.');
@@ -158,7 +159,7 @@ export const SIWEProvider = ({
       console.warn('Wallet network changed, signing out of SIWE session');
       signOutAndRefetch();
     }
-  }, [session, connectedAddress, chain]);
+  }, [sessionData, connectedAddress, chain]);
 
   return (
     <SIWEContext.Provider

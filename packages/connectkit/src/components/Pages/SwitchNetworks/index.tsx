@@ -6,17 +6,19 @@ import {
   ModalBody,
 } from '../../Common/Modal/styles';
 import ChainSelectList from '../../Common/ChainSelectList';
-import { useConnect, useDisconnect, useNetwork } from 'wagmi';
+import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi';
 
 import useLocales from '../../../hooks/useLocales';
 
 import Button from '../../Common/Button';
 import { DisconnectIcon } from '../../../assets/icons';
+import { isSafeConnector } from '../../../utils';
 
 const SwitchNetworks: React.FC = () => {
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
+  const { connector } = useAccount();
 
   const locales = useLocales({});
 
@@ -39,10 +41,14 @@ const SwitchNetworks: React.FC = () => {
           <ChainSelectList />
         </div>
 
-        {chain?.unsupported && (
-          <Button icon={<DisconnectIcon />} onClick={onDisconnect}>
-            {locales.disconnect}
-          </Button>
+        {!isSafeConnector(connector?.id) && (
+          <>
+            {chain?.unsupported && (
+              <Button icon={<DisconnectIcon />} onClick={onDisconnect}>
+                {locales.disconnect}
+              </Button>
+            )}
+          </>
         )}
       </ModalContent>
     </PageContent>

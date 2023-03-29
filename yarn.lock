@@ -3618,12 +3618,12 @@ __metadata:
   linkType: hard
 
 "@safe-global/safe-apps-sdk@npm:^7.9.0":
-  version: 7.10.1
-  resolution: "@safe-global/safe-apps-sdk@npm:7.10.1"
+  version: 7.10.0
+  resolution: "@safe-global/safe-apps-sdk@npm:7.10.0"
   dependencies:
     "@safe-global/safe-gateway-typescript-sdk": ^3.5.3
     ethers: ^5.7.2
-  checksum: e1133c8ba29c4fb18b44d93cd73f696fa0bd50f371b68d3bc87ad2c769bab1d97733703a6db7c4a8197b657065a2828ff79e4f2a1a422ffca8951fdc200a295c
+  checksum: 77ef8769bbb52ad72c63836928514c096ceee42b0e7d1a46f3fc54b291e909f8471a7492295af605d1c8fc1a27ae100d01f705550f0b40375e8f53fd448de83c
   languageName: node
   linkType: hard
 
@@ -4881,29 +4881,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/chains@npm:0.2.14":
-  version: 0.2.14
-  resolution: "@wagmi/chains@npm:0.2.14"
+"@wagmi/chains@npm:0.2.11":
+  version: 0.2.11
+  resolution: "@wagmi/chains@npm:0.2.11"
   peerDependencies:
     typescript: ">=4.9.4"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: c2fbb6b886bec5715354dcca536579f9e416b8330ab2bae615148f9780d4da0b8e4ff12e1faee2e9a5f06c5c7803318c21e6f09667124e766071e871f1b86bd2
+  checksum: 240d810fa254f15619a669be52cbb1839075cb2b77c89fb08d3409ccbbb0903fe817fec8ca0739bb1015335b608664ac8038026571b7bc3a43e70ea39dccc3a9
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:0.3.8":
-  version: 0.3.8
-  resolution: "@wagmi/connectors@npm:0.3.8"
+"@wagmi/connectors@npm:0.3.2":
+  version: 0.3.2
+  resolution: "@wagmi/connectors@npm:0.3.2"
   dependencies:
     "@coinbase/wallet-sdk": ^3.5.4
     "@ledgerhq/connect-kit-loader": ^1.0.1
     "@safe-global/safe-apps-provider": ^0.15.2
     "@safe-global/safe-apps-sdk": ^7.9.0
-    "@walletconnect/ethereum-provider": ^2.5.1
+    "@walletconnect/ethereum-provider": ^2.4.7
     "@walletconnect/legacy-provider": ^2.0.0
-    "@web3modal/standalone": ^2.2.1
     abitype: ^0.3.0
     eventemitter3: ^4.0.7
   peerDependencies:
@@ -4915,16 +4914,16 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: dcb5bbbbed55b66ac736c679905b9bce6bfff3300efe1bdc1571c39e8d154f7c1393d75df3cd0f426a6d35363ec1ccbe71932fe05dada2e222c1d3a744524f77
+  checksum: 2d7b42cf8e8e8c90968bac3682666b8a318834287e6d632d39f6e9da91ca9018d9e6c853aade9be14b3a2951e168644df32e3cd2a270ba8c4e6d0d5333f0b0ae
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:0.10.6":
-  version: 0.10.6
-  resolution: "@wagmi/core@npm:0.10.6"
+"@wagmi/core@npm:0.10.1":
+  version: 0.10.1
+  resolution: "@wagmi/core@npm:0.10.1"
   dependencies:
-    "@wagmi/chains": 0.2.14
-    "@wagmi/connectors": 0.3.8
+    "@wagmi/chains": 0.2.11
+    "@wagmi/connectors": 0.3.2
     abitype: ^0.3.0
     eventemitter3: ^4.0.7
     zustand: ^4.3.1
@@ -4934,31 +4933,31 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 9b52a213b29c75916539232ae41b09e438ba41f1f948a4d69b25193bc16d0114a5005f38b8a0d777e0ecc8a6e6e69689c3ae46a22b42f377fedf581076aa6a9f
+  checksum: 26373cfccf02482b2ae4ddc8bab292f295eee3109a7edbc27359284ff1970d4c154350dcd5dce75f795d7485df5fdf6e93d0e2026794731d84b27b034af32c8f
   languageName: node
   linkType: hard
 
-"@walletconnect/core@npm:2.5.1":
-  version: 2.5.1
-  resolution: "@walletconnect/core@npm:2.5.1"
+"@walletconnect/core@npm:2.4.7":
+  version: 2.4.7
+  resolution: "@walletconnect/core@npm:2.4.7"
   dependencies:
     "@walletconnect/heartbeat": 1.2.0
     "@walletconnect/jsonrpc-provider": 1.0.9
     "@walletconnect/jsonrpc-utils": ^1.0.4
-    "@walletconnect/jsonrpc-ws-connection": 1.0.10
+    "@walletconnect/jsonrpc-ws-connection": ^1.0.7
     "@walletconnect/keyvaluestorage": ^1.0.2
     "@walletconnect/logger": ^2.0.1
     "@walletconnect/relay-api": ^1.0.9
     "@walletconnect/relay-auth": ^1.0.4
     "@walletconnect/safe-json": ^1.0.1
     "@walletconnect/time": ^1.0.2
-    "@walletconnect/types": 2.5.1
-    "@walletconnect/utils": 2.5.1
+    "@walletconnect/types": 2.4.7
+    "@walletconnect/utils": 2.4.7
     events: ^3.3.0
     lodash.isequal: 4.5.0
     pino: 7.11.0
     uint8arrays: ^3.1.0
-  checksum: 05d00f5bb0449ce44e07432c4030e779eede1c3c97edaa442002abc360c318cf25c27926a31bdf5a5f5e8b5b3facb11cc3dcb562be99096928cbe01b1e0df848
+  checksum: fed216ae187ab6e3dae3f940b4e7cab270c81ac5c54b67eba0ec01262f3a793a62b0ff7f60af8e317c56b456cb2968ec3d1935e614ad7061d2d1fa1f5d242a0e
   languageName: node
   linkType: hard
 
@@ -4996,25 +4995,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@walletconnect/ethereum-provider@npm:^2.5.1":
-  version: 2.5.1
-  resolution: "@walletconnect/ethereum-provider@npm:2.5.1"
+"@walletconnect/ethereum-provider@npm:^2.4.7":
+  version: 2.4.7
+  resolution: "@walletconnect/ethereum-provider@npm:2.4.7"
   dependencies:
     "@walletconnect/jsonrpc-http-connection": ^1.0.4
     "@walletconnect/jsonrpc-provider": ^1.0.6
     "@walletconnect/jsonrpc-types": ^1.0.2
     "@walletconnect/jsonrpc-utils": ^1.0.4
-    "@walletconnect/sign-client": 2.5.1
-    "@walletconnect/types": 2.5.1
-    "@walletconnect/universal-provider": 2.5.1
-    "@walletconnect/utils": 2.5.1
+    "@walletconnect/sign-client": 2.4.7
+    "@walletconnect/types": 2.4.7
+    "@walletconnect/universal-provider": 2.4.7
+    "@walletconnect/utils": 2.4.7
+    "@web3modal/standalone": 2.1.1
     events: ^3.3.0
-  peerDependencies:
-    "@web3modal/standalone": ">=2"
-  peerDependenciesMeta:
-    "@web3modal/standalone":
-      optional: true
-  checksum: 442d8613c4834c83b5d6fddd1cd061107aa74e9ad142cd74ab5e882ad2cd4c73bc4cc1a27166f879be2dd669613b61bb7320790b0fe6303395bdca487135b189
+  checksum: e6f3a6fa2514da9ba9bb30080200bb1325b2b97aec9d44fbf3d4dcba09235f70ae0ca0621342836787df53d25ed37acaaf205d91853f25ab6baea764319d0f1e
   languageName: node
   linkType: hard
 
@@ -5051,17 +5046,6 @@ __metadata:
     cross-fetch: ^3.1.4
     tslib: 1.14.1
   checksum: 195835deb7e4b26e48f11b0096d9dcff7bbed7fc4577b7528fbfe56e68f60574789efcc2caf354dc9ef09abd7ada6f64a9d1c6d5949a49e80557d114b667f090
-  languageName: node
-  linkType: hard
-
-"@walletconnect/jsonrpc-provider@npm:1.0.9":
-  version: 1.0.9
-  resolution: "@walletconnect/jsonrpc-provider@npm:1.0.9"
-  dependencies:
-    "@walletconnect/jsonrpc-utils": ^1.0.6
-    "@walletconnect/safe-json": ^1.0.1
-    tslib: 1.14.1
-  checksum: 50e8a67606632a66b6b596d1f1304524d9f461a6741263dc67329986a93306c093da54724c30a88f1af2468e2d62d51821e5053765c68ad201a8c16176ca56da
   languageName: node
   linkType: hard
 
@@ -5108,16 +5092,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@walletconnect/jsonrpc-ws-connection@npm:1.0.10":
-  version: 1.0.10
-  resolution: "@walletconnect/jsonrpc-ws-connection@npm:1.0.10"
+"@walletconnect/jsonrpc-ws-connection@npm:^1.0.7":
+  version: 1.0.9
+  resolution: "@walletconnect/jsonrpc-ws-connection@npm:1.0.9"
   dependencies:
     "@walletconnect/jsonrpc-utils": ^1.0.6
     "@walletconnect/safe-json": ^1.0.1
     events: ^3.3.0
     tslib: 1.14.1
     ws: ^7.5.1
-  checksum: 15d8d513596fcdb5a93445f1dd80937edc7f44634baf77a7d60e06fae0ea22cda1a65350f5f3e25bf18826b0d8c8cd821ac83ac545913436e577e6c2c61e1e22
+  checksum: 1ead9fa221373e88726fee177794f30b790d78c32c961e15bfabef8a24bbfb78dfd428169427e52c39e9a6bf2281ffa9382c830d4303ddbc264d5f9fc3cadc9f
   languageName: node
   linkType: hard
 
@@ -5264,21 +5248,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@walletconnect/sign-client@npm:2.5.1":
-  version: 2.5.1
-  resolution: "@walletconnect/sign-client@npm:2.5.1"
+"@walletconnect/sign-client@npm:2.4.7":
+  version: 2.4.7
+  resolution: "@walletconnect/sign-client@npm:2.4.7"
   dependencies:
-    "@walletconnect/core": 2.5.1
+    "@walletconnect/core": 2.4.7
     "@walletconnect/events": ^1.0.1
     "@walletconnect/heartbeat": 1.2.0
     "@walletconnect/jsonrpc-utils": ^1.0.4
     "@walletconnect/logger": ^2.0.1
     "@walletconnect/time": ^1.0.2
-    "@walletconnect/types": 2.5.1
-    "@walletconnect/utils": 2.5.1
+    "@walletconnect/types": 2.4.7
+    "@walletconnect/utils": 2.4.7
     events: ^3.3.0
     pino: 7.11.0
-  checksum: 4b9a38d9ede16cce592b0c145e3c7487a2e664ddaa9c330e8a8221fc06cc05e8171677ce832a31cf7f7fa78ba2457351e0e154e996000f962200a69039055ffb
+  checksum: 940ce68aea4a3cb4c5c7d837bd6a42a7951d734d631887200da79b5cc4e14c1e07432308f1da6fbbe5ac0f678a658faab32039f62bcdfe0344621828fe3479ad
   languageName: node
   linkType: hard
 
@@ -5291,9 +5275,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@walletconnect/types@npm:2.5.1":
-  version: 2.5.1
-  resolution: "@walletconnect/types@npm:2.5.1"
+"@walletconnect/types@npm:2.4.7":
+  version: 2.4.7
+  resolution: "@walletconnect/types@npm:2.4.7"
   dependencies:
     "@walletconnect/events": ^1.0.1
     "@walletconnect/heartbeat": 1.2.0
@@ -5301,32 +5285,32 @@ __metadata:
     "@walletconnect/keyvaluestorage": ^1.0.2
     "@walletconnect/logger": ^2.0.1
     events: ^3.3.0
-  checksum: 4e995d7ca12a19e9fde64b1c70226b299fb79eddbda5b32a21a4e1eafcd89ca08f8d0dcce7035bc8cee9afbd3aa071b498518be7038b3d74a1e62f697921308b
+  checksum: 61e743b70c85edacde40018ed9201da8494cfa3b23fd9526cab68a6701f8ae30b51b3f0c92c45fe0f002be639cd408188e5bbd43a67566d3ba6fd699484a0606
   languageName: node
   linkType: hard
 
-"@walletconnect/universal-provider@npm:2.5.1":
-  version: 2.5.1
-  resolution: "@walletconnect/universal-provider@npm:2.5.1"
+"@walletconnect/universal-provider@npm:2.4.7":
+  version: 2.4.7
+  resolution: "@walletconnect/universal-provider@npm:2.4.7"
   dependencies:
     "@walletconnect/jsonrpc-http-connection": ^1.0.4
     "@walletconnect/jsonrpc-provider": ^1.0.6
     "@walletconnect/jsonrpc-types": ^1.0.2
     "@walletconnect/jsonrpc-utils": ^1.0.4
     "@walletconnect/logger": ^2.0.1
-    "@walletconnect/sign-client": 2.5.1
-    "@walletconnect/types": 2.5.1
-    "@walletconnect/utils": 2.5.1
+    "@walletconnect/sign-client": 2.4.7
+    "@walletconnect/types": 2.4.7
+    "@walletconnect/utils": 2.4.7
     eip1193-provider: 1.0.1
     events: ^3.3.0
     pino: 7.11.0
-  checksum: 449d72f4b83240da368cffe4edbe1edea04c03b8a102ee16aac092e26316186a4eb70c8042ac6ba13f7ef9601a30dd83e753fa3130df8fceb3f7c3e3606e4976
+  checksum: a5a5d18554e55896cec198fa2981e0a5c78891a3f9174374e27e71c711d0f0c4d9dc16fd2048c9ba5be489267c5668818e92a261a7ac14f0c8eb66cc45878f53
   languageName: node
   linkType: hard
 
-"@walletconnect/utils@npm:2.5.1":
-  version: 2.5.1
-  resolution: "@walletconnect/utils@npm:2.5.1"
+"@walletconnect/utils@npm:2.4.7":
+  version: 2.4.7
+  resolution: "@walletconnect/utils@npm:2.4.7"
   dependencies:
     "@stablelib/chacha20poly1305": 1.0.1
     "@stablelib/hkdf": 1.0.1
@@ -5337,13 +5321,13 @@ __metadata:
     "@walletconnect/relay-api": ^1.0.9
     "@walletconnect/safe-json": ^1.0.1
     "@walletconnect/time": ^1.0.2
-    "@walletconnect/types": 2.5.1
+    "@walletconnect/types": 2.4.7
     "@walletconnect/window-getters": ^1.0.1
     "@walletconnect/window-metadata": ^1.0.1
     detect-browser: 5.3.0
     query-string: 7.1.1
     uint8arrays: ^3.1.0
-  checksum: ddd4d902e2c0ddae4e0e042d810043ce5f845f749321bcd70eb019a372ab55a5a941c582c76be9127e353514b05b5dad8ef003716dcf05cf6a4bba7cc21a3ce9
+  checksum: dd335bd80c04d467a7dbf062aa4a55c6f0e54314d3999be11ed43662c579549cbfb1b1f2c04f1e24a9a7ce85721f6583f508c0eccf8b96f3fd730e3999e98655
   languageName: node
   linkType: hard
 
@@ -5366,35 +5350,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3modal/core@npm:2.2.2":
-  version: 2.2.2
-  resolution: "@web3modal/core@npm:2.2.2"
+"@web3modal/core@npm:2.1.1":
+  version: 2.1.1
+  resolution: "@web3modal/core@npm:2.1.1"
   dependencies:
     buffer: 6.0.3
-    valtio: 1.10.3
-  checksum: 550d0b9b2cb100f595b31b56f07e7269569095fc80e884a8080477ff55892a083905cf331382864ae9d0c163053e72fce0bf906a2d42ccadb8ce730e763b4d9f
+    valtio: 1.9.0
+  checksum: a46502e6dc17771928462dcc64e17ac3179b219cb2ef5cd2d2ca9ed1806eb7cc0895437962884222e604c6421af8f537435e610e4dfcb21b53159eca5ac32410
   languageName: node
   linkType: hard
 
-"@web3modal/standalone@npm:^2.2.1":
-  version: 2.2.2
-  resolution: "@web3modal/standalone@npm:2.2.2"
+"@web3modal/standalone@npm:2.1.1":
+  version: 2.1.1
+  resolution: "@web3modal/standalone@npm:2.1.1"
   dependencies:
-    "@web3modal/core": 2.2.2
-    "@web3modal/ui": 2.2.2
-  checksum: e1b040606c0915c837662a3d458ea4cc396c67c58d298f50054f7185c20a84874948056d0bc6bbc54b7f3508cc9e915fb3f5ecc619bcd96ae07ede22787c64fd
+    "@web3modal/core": 2.1.1
+    "@web3modal/ui": 2.1.1
+  checksum: 2b5d2623baacb31ea1a897e89a9b4faccdb53ca11687789ca78b79062e3f133090d731ea63a68a7ab0c8b3951b5c7c3c203678ba158ccf4c463860e946bcde16
   languageName: node
   linkType: hard
 
-"@web3modal/ui@npm:2.2.2":
-  version: 2.2.2
-  resolution: "@web3modal/ui@npm:2.2.2"
+"@web3modal/ui@npm:2.1.1":
+  version: 2.1.1
+  resolution: "@web3modal/ui@npm:2.1.1"
   dependencies:
-    "@web3modal/core": 2.2.2
+    "@web3modal/core": 2.1.1
     lit: 2.6.1
     motion: 10.15.5
     qrcode: 1.5.1
-  checksum: 1dc36a9f8d43aaa3b69e720ef12399566e892a114395cd6fd8a0d0c82723cf3f56c042e714cb7de18ed0affe36ce662e3248194a35b864f6f402e1b058c1afb5
+  checksum: e32491dbaea598c8b7ec86af4aaf1adb0a4ecfd7d6726dbe859c128cf256d47cbfd06b615001f9d109e3c30ae63ecb644f6956a38c9cebac137c9a5bcd6d97dd
   languageName: node
   linkType: hard
 
@@ -7324,7 +7308,7 @@ __metadata:
     ethers: ">=5.5.0 <6"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    wagmi: 0.11.x
+    wagmi: 0.12.x
   languageName: unknown
   linkType: soft
 
@@ -18003,13 +17987,13 @@ __metadata:
   linkType: hard
 
 "wagmi@npm:^0.12.0":
-  version: 0.12.6
-  resolution: "wagmi@npm:0.12.6"
+  version: 0.12.1
+  resolution: "wagmi@npm:0.12.1"
   dependencies:
     "@tanstack/query-sync-storage-persister": ^4.14.5
     "@tanstack/react-query": ^4.14.5
     "@tanstack/react-query-persist-client": ^4.14.5
-    "@wagmi/core": 0.10.6
+    "@wagmi/core": 0.10.1
     abitype: ^0.3.0
     use-sync-external-store: ^1.2.0
   peerDependencies:
@@ -18019,7 +18003,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 4e12fbdc2b56e80de2a98bb0ab296e8ad3a857c58565b9d580c993b774051766402fd34a26b751bc823308d485ac8c178eaff052b1befafce3d27157198d1339
+  checksum: 102d5f57a6eab5fe4df7338268facbbc03328b956446298511e73307e52b373b1b66176dc0909002f49874d9c9c4975b1a26fec1f5d26f4a8c3b0494ad48b221
   languageName: node
   linkType: hard
 

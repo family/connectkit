@@ -113,6 +113,7 @@ const themeGlobals = {
     '--ck-brand-argent': '#f36a3d',
     '--ck-brand-imtoken-01': '#11C4D1',
     '--ck-brand-imtoken-02': '#0062AD',
+    '--ck-brand-gnosisSafe': '#12FF80',
     '--ck-brand-dawn': '#000000',
   },
 };
@@ -263,8 +264,6 @@ export const ResetContainer = styled(motion.div)<{
 
 
   ${(props) => {
-    //console.log(props.$customTheme);
-
     if (
       props.$customTheme &&
       props.$customTheme['--ck-accent-color'] &&

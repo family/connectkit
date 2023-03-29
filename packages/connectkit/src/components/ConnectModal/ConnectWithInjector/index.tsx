@@ -10,7 +10,7 @@ import {
 } from './styles';
 
 import { useContext } from '../../ConnectKit';
-import { useConnect } from 'wagmi';
+import { useConnect } from '../../../hooks/useConnect';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {
@@ -31,7 +31,7 @@ import CircleSpinner from './CircleSpinner';
 import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
-import { detectBrowser } from '../../../utils';
+import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 
 export const states = {
@@ -172,7 +172,6 @@ const ConnectWithInjector: React.FC<{
     if (con) {
       connect({
         connector: con,
-        chainId: context.options?.initialChainId,
       });
     } else {
       setStatus(states.UNAVAILABLE);
@@ -212,7 +211,7 @@ const ConnectWithInjector: React.FC<{
   }, [status, expiryTimer]);
   */
 
-  if (!connector)
+  if (!connector) {
     return (
       <PageContent>
         <Container>
@@ -225,9 +224,10 @@ const ConnectWithInjector: React.FC<{
         </Container>
       </PageContent>
     );
+  }
 
   // TODO: Make this more generic
-  if (connector.id === 'walletConnect')
+  if (isWalletConnectConnector(connector?.id)) {
     return (
       <PageContent>
         <Container>
@@ -241,6 +241,7 @@ const ConnectWithInjector: React.FC<{
         </Container>
       </PageContent>
     );
+  }
 
   return (
     <PageContent>
@@ -491,19 +492,6 @@ const ConnectWithInjector: React.FC<{
                       </ModalBody>
                     </ModalContent>
 
-                    {/**
-                  <OrDivider />
-                  <Button
-                    icon={<Scan />}
-                    onClick={() =>
-                      switchConnectMethod(
-                        !connector.scannable ? 'walletConnect' : id
-                      )
-                    }
-                  >
-                    {locales.scanTheQRCode}
-                  </Button>
-                  */}
                     {!hasExtensionInstalled && suggestedExtension && (
                       <Button
                         href={suggestedExtension?.url}
