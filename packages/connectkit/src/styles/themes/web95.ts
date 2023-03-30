@@ -142,6 +142,9 @@ export default {
     'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF',
   '--ck-alert-border-radius': '0',
 
+  '--ck-recent-badge-border-radius': '32px',
+  '--ck-recent-badge-top-offset': '0px',
+
   /** Graphics options for our themes, not to be exposed to devs */
 
   '--ck-graphic-primary-color': '#333333',
