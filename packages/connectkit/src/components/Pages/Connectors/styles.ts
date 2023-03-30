@@ -185,12 +185,12 @@ export const ConnectorButton = styled(motion.button)`
 `;
 export const ConnectorRecentlyUsed = styled(motion.span)`
   position: relative;
-  top: 0.5px;
+  top: 1px;
   display: inline-block;
   padding: 3px 7px;
   line-height: 1;
   font-size: 13px;
-  font-weight: var(--ck-primary-button-font-weight, 500);
+  font-weight: 400;
   border-radius: var(--ck-recent-badge-border-radius, var(--border-radius));
   color: var(
     --ck-recent-badge-color,
@@ -198,12 +198,17 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
   );
   background: var(--ck-recent-badge-background, transparent);
   overflow: hidden;
+  span {
+    display: inline-block;
+    position: relative;
+    top: -0.5px;
+  }
   &:before {
     z-index: 1;
     content: '';
     position: absolute;
     inset: 0;
-    opacity: 0.3;
+    opacity: 0.4;
     box-shadow: var(--ck-recent-badge-box-shadow, inset 0 0 0 1px currentColor);
     border-radius: inherit;
   }
