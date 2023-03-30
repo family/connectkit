@@ -1,8 +1,20 @@
+/**
+ * This is a wrapper around wagmi's useConnect hook that adds some
+ * additional functionality.
+ */
+
 import { useConnect as wagmiUseConnect } from 'wagmi';
 import { useContext } from '../components/ConnectKit';
+import { useLastConnector } from './useLastConnector';
 
-export function useConnect(...props) {
+export function useConnect({ ...props } = {}) {
   const context = useContext();
+
+  const connectProps = {
+    chainId: context.options?.initialChainId,
+  };
+
+  const { updateLastConnectorId } = useLastConnector();
 
   const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
     onError(err) {
@@ -13,6 +25,9 @@ export function useConnect(...props) {
       } else {
         context.log(`Could not connect.`, err);
       }
+    },
+    onSuccess(data: any) {
+      updateLastConnectorId(data?.connector?.id ?? '');
     },
     ...props,
     /*
@@ -27,16 +42,16 @@ export function useConnect(...props) {
   });
 
   return {
-    connect: ({ ...props }) => {
+    connect: ({ ...opts }) => {
       return connect({
-        ...props,
-        chainId: context.options?.initialChainId,
+        ...opts,
+        ...connectProps,
       });
     },
-    connectAsync: async ({ ...props }) => {
+    connectAsync: async ({ ...opts }) => {
       return await connectAsync({
-        ...props,
-        chainId: context.options?.initialChainId,
+        ...opts,
+        ...connectProps,
       });
     },
     connectors,
