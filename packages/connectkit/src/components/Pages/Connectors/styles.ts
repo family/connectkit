@@ -219,7 +219,7 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
     inset: -10%;
     top: -110%;
     aspect-ratio: 1/1;
-    opacity: 0.6;
+    opacity: 0.7;
     background: linear-gradient(
       170deg,
       transparent 10%,
