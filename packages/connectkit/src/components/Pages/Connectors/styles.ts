@@ -201,7 +201,6 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
   span {
     display: inline-block;
     position: relative;
-    top: -0.5px;
   }
   &:before {
     z-index: 1;
@@ -238,6 +237,7 @@ export const ConnectorLabel = styled(motion.span)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding: 2px 0;
   padding-right: 38px;
 `;
 
