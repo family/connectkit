@@ -185,7 +185,7 @@ export const ConnectorButton = styled(motion.button)`
 `;
 export const ConnectorRecentlyUsed = styled(motion.span)`
   position: relative;
-  top: 0.5px;
+  top: var(--ck-recent-badge-top-offset, 0.5px);
   display: inline-block;
   padding: 10px 7px;
   line-height: 0;
@@ -201,7 +201,6 @@ export const ConnectorRecentlyUsed = styled(motion.span)`
   span {
     display: inline-block;
     position: relative;
-    top: var(--ck-recent-badge-text-top-offset, -0.5px);
   }
   &:before {
     z-index: 1;

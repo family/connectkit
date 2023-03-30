@@ -93,7 +93,7 @@ export default {
   '--ck-modal-heading-font-weight': '400',
   '--ck-primary-button-font-weight': '400',
 
-  '--ck-recent-badge-text-top-offset': '0px',
+  '--ck-recent-badge-top-offset': '0px',
 
   /** Graphics options for our themes, not to be exposed to devs */
   /**
