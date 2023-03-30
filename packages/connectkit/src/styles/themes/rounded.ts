@@ -113,6 +113,7 @@ export default {
   '--ck-primary-button-font-weight': '700',
 
   '--ck-recent-badge-box-shadow': 'inset 0 0 0 2px currentColor',
+  '--ck-recent-badge-text-top-offset': '0px',
 
   /** Graphics options for our themes, not to be exposed to devs */
   /*

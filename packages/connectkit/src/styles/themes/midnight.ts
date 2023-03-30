@@ -91,4 +91,6 @@ export default {
   '--ck-qr-border-radius': '12px',
   '--ck-qr-dot-color': '#ffffff',
   '--ck-qr-border-color': 'rgba(255,255,255,0.1)',
+
+  '--ck-recent-badge-border-radius': '32px',
 };
