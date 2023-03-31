@@ -761,7 +761,15 @@ export const PlaceHolder = () => {
   return <div style={{ width: 80, height: 80, background: '#555' }}></div>;
 };
 
-export const OtherWallets = ({ ...props }) => {
+export const OtherWallets = ({
+  wallets = [
+    <WalletConnect background />,
+    <Zerion />,
+    <Rainbow />,
+    <ImToken />,
+  ],
+  ...props
+}) => {
   const column: React.CSSProperties = {
     position: 'relative',
     display: 'flex',
@@ -781,20 +789,18 @@ export const OtherWallets = ({ ...props }) => {
   return (
     <div style={column} {...props}>
       <div style={row}>
-        <div style={cell}>
-          <WalletConnect background />
-        </div>
-        <div style={cell}>
-          <Zerion />
-        </div>
+        {wallets.slice(0, 2).map((wallet, i) => (
+          <div style={cell} key={i}>
+            {wallet}
+          </div>
+        ))}
       </div>
       <div style={row}>
-        <div style={cell}>
-          <Rainbow />
-        </div>
-        <div style={cell}>
-          <ImToken />
-        </div>
+        {wallets.slice(2, 4).map((wallet, i) => (
+          <div style={cell} key={i}>
+            {wallet}
+          </div>
+        ))}
       </div>
     </div>
   );
