@@ -1,39 +1,23 @@
-import { injected } from './connectors/injected';
-import { walletConnect } from './connectors/walletConnect';
-import { metaMask } from './connectors/metaMask';
-import { coinbaseWallet } from './connectors/coinbaseWallet';
-import { rainbow } from './connectors/rainbow';
-import { argent } from './connectors/argent';
-import { trust } from './connectors/trust';
-import { ledger } from './connectors/ledger';
-import { imToken } from './connectors/imToken';
-import { brave } from './connectors/brave';
-import { steak } from './connectors/steak';
-import { unstoppable } from './connectors/unstoppable';
-//import { slope } from './connectors/slope';
-import { onto } from './connectors/onto';
-import { gnosisSafe } from './connectors/gnosisSafe';
-import { frontier } from './connectors/frontier';
-import { zerion } from './connectors/zerion';
+import * as wallets from './exports';
 
 export const getWallets = () => {
   return [
-    injected(),
-    walletConnect(),
-    metaMask(),
-    coinbaseWallet(),
-    rainbow(),
-    argent(),
-    trust(),
-    ledger(),
-    imToken(),
-    brave(),
-    gnosisSafe(),
-    unstoppable(),
-    steak(),
-    //slope(),
-    onto(),
-    frontier(),
-    zerion(),
+    wallets.metaMask(),
+    wallets.coinbaseWallet(),
+    wallets.walletConnect(),
+    wallets.injected(),
+    wallets.rainbow(),
+    wallets.argent(),
+    wallets.trust(),
+    wallets.ledger(),
+    wallets.imToken(),
+    wallets.brave(),
+    wallets.gnosisSafe(),
+    wallets.unstoppable(),
+    wallets.steak(),
+    //wallets.slope(),
+    wallets.onto(),
+    wallets.frontier(),
+    wallets.zerion(),
   ];
 };

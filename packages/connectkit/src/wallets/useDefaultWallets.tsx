@@ -1,38 +1,20 @@
 import { getWallets } from './';
+
+import { useContext } from '../components/ConnectKit';
 import { WalletProps } from './wallet';
 
-import { useConnect } from 'wagmi';
+export const useWallets = () => {
+  const { wallets } = useContext();
+  if (wallets) return wallets;
 
-function useDefaultWallets(): WalletProps[] | any {
-  const { connectors } = useConnect();
+  return getWallets();
+};
 
-  let defaultWallets: string[] = [];
-
-  // If missing metamask or coinbasewallet connector from wagmi config, add them to this list
-  if (!connectors.find((c) => c.id === 'metaMask'))
-    defaultWallets.push('metaMask');
-  if (!connectors.find((c) => c.id === 'coinbaseWallet'))
-    defaultWallets.push('coinbaseWallet');
-
-  // define the order of the wallets
-  defaultWallets.push(
-    'rainbow',
-    'argent',
-    'trust',
-    'ledger',
-    'imToken',
-    'brave',
-    'steak',
-    'unstoppable',
-    //'slope',
-    'onto',
-    'gnosisSafe',
-    'frontier',
-    'zerion'
-  );
-
-  const wallets = getWallets();
-  return wallets.filter((wallet) => defaultWallets.includes(wallet.id));
-}
-
-export default useDefaultWallets;
+export const useWallet = (
+  id: string
+): {
+  wallet?: WalletProps;
+} => {
+  const wallet = useWallets().find((wallet) => wallet.id === id);
+  return { wallet };
+};
