@@ -15,6 +15,7 @@ import { onto } from './connectors/onto';
 import { gnosisSafe } from './connectors/gnosisSafe';
 import { frontier } from './connectors/frontier';
 import { zerion } from './connectors/zerion';
+import { phantom } from './connectors/phantom';
 
 export const getWallets = () => {
   return [
@@ -35,5 +36,6 @@ export const getWallets = () => {
     onto(),
     frontier(),
     zerion(),
+    phantom(),
   ];
 };

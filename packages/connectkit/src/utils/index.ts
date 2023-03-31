@@ -124,6 +124,14 @@ const isCoinbaseWallet = () => {
   );
 };
 
+const isPhantom = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+  const isPhantom = Boolean(ethereum?.isPhantom);
+  if (isPhantom) return true;
+  return false;
+};
+
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
   const childrenArray = React.Children.toArray(children);
@@ -166,5 +174,6 @@ export {
   getWalletDownloadUri,
   isMetaMask,
   isCoinbaseWallet,
+  isPhantom,
   flattenChildren,
 };
