@@ -4,7 +4,12 @@ import Head from 'next/head';
 
 import { WagmiConfig, createClient } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
-import { ConnectKitProvider, getDefaultClient, SIWESession } from 'connectkit';
+import {
+  ConnectKitProvider,
+  getDefaultClient,
+  SIWESession,
+  wallets,
+} from 'connectkit';
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siweClient } from '../utils/siweClient';
 import { useEffect } from 'react';
@@ -53,6 +58,14 @@ function App({ Component, pageProps }: AppProps) {
         onDisconnect={() => {
           console.log('onDisconnect Provider');
         }}
+        wallets={[
+          wallets.metaMask(),
+          wallets.walletConnect(),
+          wallets.coinbaseWallet(),
+          wallets.brave(),
+          wallets.gnosisSafe(),
+          wallets.rainbow(),
+        ]}
         debugMode
       >
         <Component {...pageProps} />

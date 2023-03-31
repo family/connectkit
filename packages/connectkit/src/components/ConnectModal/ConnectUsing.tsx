@@ -8,27 +8,26 @@ import ConnectWithInjector from './ConnectWithInjector';
 import ConnectWithQRCode from './ConnectWithQRCode';
 
 import Alert from '../Common/Alert';
+import { useWallet } from '../../wallets/useDefaultWallets';
 
 const states = {
   QRCODE: 'qrcode',
   INJECTOR: 'injector',
 };
-const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
-  const [id, setId] = useState<string>(connectorId);
+const ConnectUsing: React.FC<{ walletId: string }> = ({ walletId }) => {
+  const [id, setId] = useState<string>(walletId);
 
-  const connector = supportedConnectors.filter((c) => c.id === id)[0];
+  const { wallet } = useWallet(id);
 
-  const hasExtensionInstalled =
-    connector.extensionIsInstalled && connector.extensionIsInstalled();
+  if (!wallet) return <Alert>Wallet {id} not found</Alert>;
 
   // If cannot be scanned, display injector flow, which if extension is not installed will show CTA to install it
-  const useInjector = !connector.scannable || hasExtensionInstalled;
+  const useInjector = !wallet.scannable || wallet.installed;
 
   const [status, setStatus] = useState(
     useInjector ? states.INJECTOR : states.QRCODE
   );
 
-  if (!connector) return <Alert>Connector not found</Alert>;
   return (
     <AnimatePresence>
       {status === states.QRCODE && (
@@ -40,7 +39,7 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
           variants={contentVariants}
         >
           <ConnectWithQRCode
-            connectorId={id}
+            walletId={id}
             switchConnectMethod={(id?: string) => {
               if (id) setId(id);
               setStatus(states.INJECTOR);
@@ -57,7 +56,7 @@ const ConnectUsing: React.FC<{ connectorId: string }> = ({ connectorId }) => {
           variants={contentVariants}
         >
           <ConnectWithInjector
-            connectorId={id}
+            walletId={id}
             switchConnectMethod={(id?: string) => {
               if (id) setId(id);
               setStatus(states.QRCODE);

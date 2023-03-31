@@ -9,7 +9,7 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import useDefaultWallets from '../../../wallets/useDefaultWallets';
+import { useWallets } from '../../../wallets/useDefaultWallets';
 import { routes, useContext } from '../../ConnectKit';
 import { WalletProps } from '../../../wallets/wallet';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
@@ -42,9 +42,9 @@ const MobileConnectors: React.FC = () => {
 
   const { uri: wcUri } = useWalletConnectUri();
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
-  const wallets = useDefaultWallets().filter(
+  const wallets = useWallets().filter(
     (wallet: WalletProps) =>
-      wallet.installed === undefined && // Do not show wallets that are injected connectors
+      !wallet.installed && // Do not show wallets that are injected connectors
       !isWalletConnectConnector(wallet.id) // Do not show WalletConnect
   );
 

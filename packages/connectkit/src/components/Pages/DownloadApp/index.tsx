@@ -1,34 +1,30 @@
-import React, { useState } from 'react';
-import supportedConnectors from '../../../constants/supportedConnectors';
+import React from 'react';
 
 import {
   PageContent,
   ModalBody,
   ModalContent,
 } from '../../Common/Modal/styles';
-import { OrDivider } from '../../Common/Modal';
 
 import CustomQRCode from '../../Common/CustomQRCode';
-import Button from '../../Common/Button';
 
-import { ExternalLinkIcon } from '../../../assets/icons';
 import useLocales from '../../../hooks/useLocales';
+import { useWallet } from '../../../wallets/useDefaultWallets';
 
 const DownloadApp: React.FC<{
-  connectorId: string;
-}> = ({ connectorId }) => {
-  const [id] = useState(connectorId);
-  const connector = supportedConnectors.filter((c) => c.id === id)[0];
+  walletId: string;
+}> = ({ walletId }) => {
+  const { wallet } = useWallet(walletId);
 
   const locales = useLocales({
-    CONNECTORNAME: connector.name,
+    CONNECTORNAME: wallet?.name,
   });
 
-  if (!connector) return <>Connector not found</>;
+  if (!wallet) return <>Wallet {walletId} not found</>;
 
-  const ios = connector.appUrls?.ios;
-  const android = connector.appUrls?.android;
-  const downloadUri = connector.appUrls?.download;
+  const ios = wallet.downloadUrls?.ios;
+  const android = wallet.downloadUrls?.android;
+  const downloadUri = wallet.downloadUrls?.download;
   const bodycopy =
     ios && android
       ? locales.downloadAppScreen_iosAndroid
@@ -46,12 +42,7 @@ const DownloadApp: React.FC<{
         >
           {bodycopy}
         </ModalBody>
-        {connector.defaultConnect && <OrDivider />}
       </ModalContent>
-
-      {connector.defaultConnect && ( // Open the default connector modal
-        <Button icon={<ExternalLinkIcon />}>Open Default Modal</Button>
-      )}
     </PageContent>
   );
 };

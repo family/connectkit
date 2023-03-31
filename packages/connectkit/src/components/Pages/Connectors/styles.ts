@@ -84,10 +84,45 @@ export const LearnMoreButton = styled(motion.button)`
 `;
 
 export const ConnectorsContainer = styled(motion.div)`
+  --fade-height: 18px;
+  position: relative;
+  max-height: 340px;
+  overflow-y: auto;
+  margin: calc(var(--fade-height) * -1) 0 0;
+  &:before,
+  &:after {
+    pointer-events: none;
+    z-index: 2;
+    content: '';
+    display: block;
+    position: sticky;
+    left: 0;
+    right: 0;
+    height: var(--fade-height);
+  }
+  &:before {
+    top: -1px;
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  }
+  &:after {
+    bottom: -1px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  }
+`;
+export const ConnectorsContainerInner = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 0 0 16px;
+  height: fit-content;
 `;
 
 export const ConnectorButton = styled(motion.button)`
@@ -247,6 +282,7 @@ export const ConnectorIcon = styled(motion.div)`
   width: 32px;
   height: 32px;
   overflow: hidden;
+  border-radius: 6px;
   svg {
     display: block;
     width: 100%;

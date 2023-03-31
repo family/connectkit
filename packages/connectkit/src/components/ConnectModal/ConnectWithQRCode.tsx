@@ -28,91 +28,74 @@ import useLocales from '../../hooks/useLocales';
 
 import { useWalletConnectUri } from '../../hooks/connectors/useWalletConnectUri';
 import { useCoinbaseWalletUri } from '../../hooks/connectors/useCoinbaseWalletUri';
+import { useWallet } from '../../wallets/useDefaultWallets';
 
 const ConnectWithQRCode: React.FC<{
-  connectorId: string;
+  walletId: string;
   switchConnectMethod: (id?: string) => void;
-}> = ({ connectorId }) => {
+}> = ({ walletId }) => {
   const context = useContext();
 
-  const [id] = useState(connectorId);
+  const { wallet } = useWallet(walletId);
 
-  const { connectors } = useConnect();
-
-  const { uri } = isWalletConnectConnector(id)
+  const { uri } = isWalletConnectConnector(wallet?.id)
     ? useWalletConnectUri()
-    : isCoinbaseWalletConnector(id)
+    : isCoinbaseWalletConnector(wallet?.id)
     ? useCoinbaseWalletUri()
-    : { uri: undefined };
-
-  const connector = connectors.find((c) => c.id === id);
-  const connectorInfo = supportedConnectors.find((c) => c.id === id);
-
+    : //: { uri: undefined };
+      useWalletConnectUri();
   const locales = useLocales({
-    CONNECTORNAME: connector?.name,
+    CONNECTORNAME: wallet?.name,
   });
 
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
 
-  if (!connector) return <>Connector not found</>;
+  if (!wallet) return <>Wallet {walletId} not found</>;
 
   const browser = detectBrowser();
-  const extensionUrl = connectorInfo?.extensions
-    ? connectorInfo.extensions[browser]
-    : undefined;
+  const extensionUrl = wallet?.downloadUrls?.[browser];
 
   const hasApps =
-    connectorInfo?.appUrls && Object.keys(connectorInfo?.appUrls).length !== 0;
+    wallet?.downloadUrls && Object.keys(wallet?.downloadUrls).length !== 0;
 
-  const suggestedExtension = connectorInfo?.extensions
+  const suggestedExtension = wallet?.downloadUrls
     ? {
-        name: Object.keys(connectorInfo?.extensions)[0],
+        name: Object.keys(wallet?.downloadUrls)[0],
         label:
-          Object.keys(connectorInfo?.extensions)[0].charAt(0).toUpperCase() +
-          Object.keys(connectorInfo?.extensions)[0].slice(1), // Capitalise first letter, but this might be better suited as a lookup table
-        url: connectorInfo?.extensions[
-          Object.keys(connectorInfo?.extensions)[0]
-        ],
+          Object.keys(wallet?.downloadUrls)[0].charAt(0).toUpperCase() +
+          Object.keys(wallet?.downloadUrls)[0].slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+        url: wallet?.downloadUrls[Object.keys(wallet?.downloadUrls)[0]],
       }
     : undefined;
 
-  const hasExtensionInstalled =
-    connectorInfo?.extensionIsInstalled &&
-    connectorInfo?.extensionIsInstalled();
-
-  if (!connectorInfo?.scannable)
+  if (!wallet?.scannable)
     return (
       <PageContent>
         <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
-          <Alert>
-            {connectorInfo?.name} does not have it's own QR Code to scan. This
-            state should never happen
-          </Alert>
+          <Alert>{wallet?.name} does not have it's own QR Code to scan.</Alert>
         </ModalContent>
       </PageContent>
     );
 
-  const showAdditionalOptions = isWalletConnectConnector(connectorId);
+  const showAdditionalOptions = isWalletConnectConnector(walletId);
 
   return (
     <PageContent>
       <ModalContent style={{ paddingBottom: 8, gap: 14 }}>
         <CustomQRCode
           value={uri}
-          image={connectorInfo?.logos.qrCode}
-          imageBackground={connectorInfo?.logoBackground}
+          image={wallet?.logos.qrCode ?? wallet?.logos.default}
+          imageBackground={wallet?.logoBackground}
           tooltipMessage={
-            isWalletConnectConnector(connectorId) ? (
+            isWalletConnectConnector(walletId) ? (
               <>
                 <ScanIconWithLogos />
                 <span>{locales.scanScreen_tooltip_walletConnect}</span>
               </>
             ) : (
               <>
-                <ScanIconWithLogos
-                  logo={connectorInfo?.logos.connectorButton}
-                />
+                <ScanIconWithLogos logo={wallet?.logos.connectorButton} />
                 <span>{locales.scanScreen_tooltip_default}</span>
               </>
             )
@@ -159,11 +142,11 @@ const ConnectWithQRCode: React.FC<{
       {/*
       {hasExtensionInstalled && ( // Run the extension
         <Button
-          icon={connectorInfo?.logos.default}
+          icon={wallet?.logos.default}
           roundedIcon
           onClick={() => switchConnectMethod(id)}
         >
-          Open {connectorInfo?.name}
+          Open {wallet?.name}
         </Button>
       )}
 
@@ -182,8 +165,8 @@ const ConnectWithQRCode: React.FC<{
             }}
             /*
             icon={
-              <div style={{ background: connectorInfo?.logoBackground }}>
-                {connectorInfo?.logos.default}
+              <div style={{ background: wallet?.logoBackground }}>
+                {wallet?.logos.default}
               </div>
             }
             roundedIcon

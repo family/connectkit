@@ -6,6 +6,7 @@ import React, {
   ReactNode,
 } from 'react';
 import { Buffer } from 'buffer';
+
 import {
   CustomTheme,
   Languages,
@@ -13,6 +14,9 @@ import {
   Theme,
   CustomAvatarProps,
 } from '../types';
+
+import type { WalletProps } from '../wallets/wallet';
+import { getWallets } from '../wallets';
 
 import defaultTheme from '../styles/defaultTheme';
 
@@ -22,6 +26,7 @@ import { useThemeFont } from '../hooks/useGoogleFont';
 import { useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
 import { useChains } from '../hooks/useChains';
+
 import {
   useConnectCallback,
   useConnectCallbackProps,
@@ -61,6 +66,7 @@ type ContextValue = {
   options?: ConnectKitOptions;
   signInWithEthereum: boolean;
   debugMode?: boolean;
+  wallets?: WalletProps[];
   log: (...props: any) => void;
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
 } & useConnectCallbackProps;
@@ -98,6 +104,7 @@ type ConnectKitProviderProps = {
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
   debugMode?: boolean;
+  wallets?: WalletProps[];
 } & useConnectCallbackProps;
 
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
@@ -106,6 +113,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   mode = 'auto',
   customTheme,
   options,
+  wallets = getWallets(),
   onConnect,
   onDisconnect,
   debugMode = false,
@@ -209,6 +217,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     connector,
     setConnector,
     signInWithEthereum: React.useContext(SIWEContext)?.enabled ?? false,
+    wallets,
     onConnect,
     // Other configuration
     options: opts,

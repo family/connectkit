@@ -5,7 +5,11 @@ import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
 
-import { flattenChildren, isWalletConnectConnector, isMobile } from '../../../utils';
+import {
+  flattenChildren,
+  isWalletConnectConnector,
+  isMobile,
+} from '../../../utils';
 
 import {
   Container,
@@ -42,6 +46,7 @@ import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
+import { useWallet } from '../../../wallets/useDefaultWallets';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -209,9 +214,9 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();
 
-  const connector = supportedConnectors.find((x) => x.id === context.connector);
+  const { wallet } = useWallet(context.connector);
   const locales = useLocales({
-    CONNECTORNAME: connector?.name,
+    CONNECTORNAME: wallet?.name,
   });
 
   const [state, setOpen] = useTransition({
@@ -311,13 +316,7 @@ const Modal: React.FC<ModalProps> = ({
   } as React.CSSProperties;
 
   function shouldUseQrcode() {
-    const c = supportedConnectors.filter((x) => x.id === context.connector)[0];
-    if (!c) return false; // Fail states are shown in the injector flow
-
-    const hasExtensionInstalled =
-      c.extensionIsInstalled && c.extensionIsInstalled();
-
-    const useInjector = !c.scannable || hasExtensionInstalled;
+    const useInjector = !wallet?.scannable || wallet?.installed;
     return !useInjector;
   }
 
@@ -327,11 +326,11 @@ const Modal: React.FC<ModalProps> = ({
         return locales.aboutScreen_heading;
       case routes.CONNECT:
         if (shouldUseQrcode()) {
-          return isWalletConnectConnector(connector?.id)
+          return isWalletConnectConnector(wallet?.id)
             ? locales.scanScreen_heading
             : locales.scanScreen_heading_withConnector;
         } else {
-          return connector?.name;
+          return wallet?.name;
         }
       case routes.CONNECTORS:
         return locales.connectorsScreen_heading;
