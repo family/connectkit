@@ -89,6 +89,25 @@ export const ConnectorsContainer = styled(motion.div)`
   max-height: 340px;
   overflow-y: auto;
   margin: calc(var(--fade-height) * -1) 0 0;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 100px;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+  }
+
   &:before,
   &:after {
     pointer-events: none;
