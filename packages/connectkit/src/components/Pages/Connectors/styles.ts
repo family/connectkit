@@ -104,16 +104,16 @@ export const ConnectorsContainer = styled(motion.div)`
     top: -1px;
     background: linear-gradient(
       0deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 100%
+      transparent 0%,
+      var(--ck-body-background) 100%
     );
   }
   &:after {
     bottom: -1px;
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 100%
+      transparent 0%,
+      var(--ck-body-background) 100%
     );
   }
 `;

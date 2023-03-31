@@ -131,7 +131,9 @@ const ConnectWithInjector: React.FC<{
   const browser = detectBrowser();
   const extensionUrl = wallet?.downloadUrls?.[browser];
 
-  const download = Object.keys(wallet?.downloadUrls!)?.[0];
+  const download = wallet?.downloadUrls
+    ? Object.keys(wallet?.downloadUrls!)?.[0]
+    : undefined;
 
   const suggestedExtension = download
     ? {
