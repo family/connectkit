@@ -45,7 +45,7 @@ const MobileConnectors: React.FC = () => {
   const wallets = useWallets().filter(
     (wallet: WalletProps) =>
       !wallet.installed && // Do not show wallets that are injected connectors
-      !isWalletConnectConnector(wallet.id) // Do not show WalletConnect
+      !isWalletConnectConnector(wallet.id) // Do not show WalletConnect connector
   );
 
   const connectWallet = (wallet: WalletProps) => {

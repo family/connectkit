@@ -769,6 +769,8 @@ export const OtherWallets = ({
     <ImToken />,
   ],
   ...props
+}: {
+  wallets?: React.ReactNode[];
 }) => {
   const column: React.CSSProperties = {
     position: 'relative',

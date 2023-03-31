@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useContext, routes } from '../../ConnectKit';
-import { isMetaMaskConnector } from './../../../utils';
-
-import { useConnect } from '../../../hooks/useConnect';
 
 import {
   PageContent,
@@ -23,17 +20,20 @@ import {
   InfoBox,
   InfoBoxButtons,
   ConnectorRecentlyUsed,
-  ConnectorsContainerInner,
+  MobileConnectorsContainer,
+  MobileConnectorButton,
+  MobileConnectorIcon,
+  MobileConnectorLabel,
 } from './styles';
 
-import { isMobile, isAndroid } from '../../../utils';
+import { isMobile, isWalletConnectConnector } from '../../../utils';
+import { OtherWallets } from '../../../assets/logos';
 
 import Button from '../../Common/Button';
 import { useWallets } from '../../../wallets/useDefaultWallets';
-import { Connector } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
 import { useLastConnector } from '../../../hooks/useLastConnector';
-import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
+import { ScrollArea } from '../../Common/ScrollArea';
 
 const Wallets: React.FC = () => {
   const context = useContext();
@@ -42,34 +42,84 @@ const Wallets: React.FC = () => {
 
   const wallets = useWallets();
 
-  const { uri: wcUri } = useWalletConnectUri();
-  const { connectAsync, connectors } = useConnect();
   const { lastConnectorId } = useLastConnector();
-
-  const openDefaultConnect = async (connector: Connector) => {
-    // @TODO: use the MetaMask config
-    if (isMetaMaskConnector(connector.id) && mobile) {
-      const uri = isAndroid()
-        ? wcUri!
-        : `https://metamask.app.link/wc?uri=${encodeURIComponent(wcUri!)}`;
-      if (uri) window.location.href = uri;
-    } else {
-      try {
-        await connectAsync({ connector: connector });
-      } catch (err) {
-        context.displayError(
-          'Async connect error. See console for more details.',
-          err
-        );
-      }
-    }
-  };
-  useEffect(() => {}, [mobile]);
 
   return (
     <PageContent style={{ width: 312 }}>
       {mobile ? (
         <>
+          <MobileConnectorsContainer>
+            {wallets
+              .filter((w) => w.installed)
+              .map((wallet) => {
+                const logos = wallet.logos;
+
+                let logo =
+                  logos.mobile ?? logos.connectorButton ?? logos.default;
+                if (wallet.installed && logos.appIcon) {
+                  logo = logos.appIcon;
+                }
+
+                //if (!wallet.installed && !wallet.scannable) return null;
+                return (
+                  <MobileConnectorButton
+                    key={wallet.id}
+                    disabled={context.route !== routes.CONNECTORS}
+                    onClick={() => {
+                      context.setRoute(routes.CONNECT);
+                      context.setConnector(wallet.id);
+                    }}
+                    /*
+                  onClick={() => {
+                    if (
+                      isInjectedConnector(info.id) ||
+                      (isMetaMaskConnector(info.id) && isMetaMask())
+                    ) {
+                      context.setRoute(routes.CONNECT);
+                      context.setConnector(connector.id);
+                    } else if (isWalletConnectConnector(connector.id)) {
+                      context.setRoute(routes.MOBILECONNECTORS);
+                    } else {
+                      openDefaultConnect(connector);
+                    }
+                  }}*/
+                  >
+                    <MobileConnectorIcon>{logo}</MobileConnectorIcon>
+                    <MobileConnectorLabel>
+                      {wallet.name}
+                      {!context.options?.hideRecentBadge &&
+                        lastConnectorId === wallet.id && (
+                          <ConnectorRecentlyUsed>
+                            <span>Recent</span>
+                          </ConnectorRecentlyUsed>
+                        )}
+                    </MobileConnectorLabel>
+                  </MobileConnectorButton>
+                );
+              })}
+            {wallets.filter((w) => !w.installed).length && (
+              <MobileConnectorButton
+                disabled={context.route !== routes.CONNECTORS}
+                onClick={() => {
+                  context.setRoute(routes.MOBILECONNECTORS);
+                }}
+              >
+                <MobileConnectorIcon>
+                  <OtherWallets
+                    wallets={wallets
+                      .filter(
+                        (w) => !w.installed && !isWalletConnectConnector(w.id)
+                      )
+                      .map((w) => {
+                        const logos = w.logos;
+                        return logos.connectorButton ?? logos.default;
+                      })}
+                  />
+                </MobileConnectorIcon>
+                <MobileConnectorLabel>More</MobileConnectorLabel>
+              </MobileConnectorButton>
+            )}
+          </MobileConnectorsContainer>
           <InfoBox>
             <ModalContent style={{ padding: 0, textAlign: 'left' }}>
               <ModalH1 $small>{locales.connectorsScreen_h1}</ModalH1>
@@ -102,41 +152,64 @@ const Wallets: React.FC = () => {
         </>
       ) : (
         <>
-          <ConnectorsContainer>
-            <ConnectorsContainerInner>
-              {wallets.map((wallet) => {
-                const logos = wallet.logos;
+          <ScrollArea>
+            <ConnectorsContainer>
+              {wallets
+                .filter((w) => w.installed)
+                .map((wallet) => {
+                  const logos = wallet.logos;
 
-                let logo = logos.connectorButton ?? logos.default;
-                if (wallet.installed && logos.appIcon) {
-                  logo = logos.appIcon;
-                }
+                  let logo = logos.connectorButton ?? logos.default;
+                  if (wallet.installed && logos.appIcon) {
+                    logo = logos.appIcon;
+                  }
 
-                //if (!wallet.installed && !wallet.scannable) return null;
-                return (
-                  <ConnectorButton
-                    key={wallet.id}
-                    disabled={context.route !== routes.CONNECTORS}
-                    onClick={() => {
-                      context.setRoute(routes.CONNECT);
-                      context.setConnector(wallet.id);
-                    }}
-                  >
-                    <ConnectorIcon>{logo}</ConnectorIcon>
-                    <ConnectorLabel>
-                      {wallet.name}
-                      {!context.options?.hideRecentBadge &&
-                        lastConnectorId === wallet.id && (
-                          <ConnectorRecentlyUsed>
-                            <span>Recent</span>
-                          </ConnectorRecentlyUsed>
-                        )}
-                    </ConnectorLabel>
-                  </ConnectorButton>
-                );
-              })}
-            </ConnectorsContainerInner>
-          </ConnectorsContainer>
+                  return (
+                    <ConnectorButton
+                      key={wallet.id}
+                      disabled={context.route !== routes.CONNECTORS}
+                      onClick={() => {
+                        context.setRoute(routes.CONNECT);
+                        context.setConnector(wallet.id);
+                      }}
+                    >
+                      <ConnectorIcon>{logo}</ConnectorIcon>
+                      <ConnectorLabel>
+                        {wallet.name}
+                        {!context.options?.hideRecentBadge &&
+                          lastConnectorId === wallet.id && (
+                            <ConnectorRecentlyUsed>
+                              <span>Recent</span>
+                            </ConnectorRecentlyUsed>
+                          )}
+                      </ConnectorLabel>
+                    </ConnectorButton>
+                  );
+                })}
+              {wallets.filter((w) => !w.installed && w.scannable).length && (
+                <ConnectorButton
+                  disabled={context.route !== routes.CONNECTORS}
+                  onClick={() => {
+                    context.setRoute(routes.CONNECT);
+                    context.setConnector('walletConnect');
+                  }}
+                >
+                  <ConnectorIcon>
+                    <OtherWallets />
+                  </ConnectorIcon>
+                  <ConnectorLabel>
+                    Other Wallets
+                    {!context.options?.hideRecentBadge &&
+                      lastConnectorId === 'walletConnect' && (
+                        <ConnectorRecentlyUsed>
+                          <span>Recent</span>
+                        </ConnectorRecentlyUsed>
+                      )}
+                  </ConnectorLabel>
+                </ConnectorButton>
+              )}
+            </ConnectorsContainer>
+          </ScrollArea>
 
           {!context.options?.hideNoWalletCTA && (
             <LearnMoreContainer>

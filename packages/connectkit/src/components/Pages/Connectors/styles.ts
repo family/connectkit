@@ -84,64 +84,9 @@ export const LearnMoreButton = styled(motion.button)`
 `;
 
 export const ConnectorsContainer = styled(motion.div)`
-  --fade-height: 18px;
-  position: relative;
-  max-height: 340px;
-  overflow-y: auto;
-  margin: calc(var(--fade-height) * -1) 0 0;
-
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0);
-    border-radius: 100px;
-  }
-  &:hover::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.15);
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.25);
-  }
-
-  &:before,
-  &:after {
-    pointer-events: none;
-    z-index: 2;
-    content: '';
-    display: block;
-    position: sticky;
-    left: 0;
-    right: 0;
-    height: var(--fade-height);
-  }
-  &:before {
-    top: -1px;
-    background: linear-gradient(
-      0deg,
-      transparent 0%,
-      var(--ck-body-background) 100%
-    );
-  }
-  &:after {
-    bottom: -1px;
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      var(--ck-body-background) 100%
-    );
-  }
-`;
-export const ConnectorsContainerInner = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 0 0 16px;
-  height: fit-content;
 `;
 
 export const ConnectorButton = styled(motion.button)`
