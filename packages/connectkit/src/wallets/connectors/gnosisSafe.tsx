@@ -9,10 +9,10 @@ export const gnosisSafe = (): WalletProps => {
     name: 'Gnosis Safe',
     shortName: 'Safe',
     logos: {
-      default: <Logos.GnosisSafe />,
+      default: <Logos.GnosisSafe background />,
     },
-    logoBackground: '#ffffff',
-    scannable: false,
+    logoBackground: '#12FF80',
+    scannable: true,
     installed: !(typeof window === 'undefined') && window?.parent !== window,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/gnosisSafe',

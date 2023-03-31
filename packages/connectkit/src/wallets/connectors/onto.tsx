@@ -11,7 +11,7 @@ export const onto = (): WalletProps => {
       default: <Logos.ONTO />,
     },
     logoBackground: '#ffffff',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/onto',
       ios: 'https://apps.apple.com/app/onto-an-ontology-dapp/id1436009823',

@@ -11,7 +11,7 @@ export const argent = (): WalletProps => {
       default: <Logos.Argent />,
     },
     logoBackground: '#fff',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/argent',
       android:

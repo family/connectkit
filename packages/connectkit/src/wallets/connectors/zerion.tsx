@@ -11,7 +11,7 @@ export const zerion = (): WalletProps => {
       default: <Logos.Zerion />,
     },
     logoBackground: '#CC703C',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/zerion',
       ios: 'https://apps.apple.com/app/apple-store/id1456732565',

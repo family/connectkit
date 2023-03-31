@@ -11,7 +11,7 @@ export const unstoppable = (): WalletProps => {
       default: <Logos.Unstoppable />,
     },
     logoBackground: 'linear-gradient(180deg, #FED812 0%, #FFAF00 100%)',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/unstoppable',
       ios: 'https://apps.apple.com/app/bank-bitcoin-wallet/id1447619907',

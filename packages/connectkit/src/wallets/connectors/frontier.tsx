@@ -11,7 +11,7 @@ export const frontier = (): WalletProps => {
       default: <Logos.Frontier />,
     },
     logoBackground: '#CC703C',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/frontier',
       ios: 'https://apps.apple.com/app/frontier-crypto-defi-wallet/id1482380988',

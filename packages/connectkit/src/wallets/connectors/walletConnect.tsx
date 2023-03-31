@@ -1,11 +1,18 @@
 import { WalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
+import { useContext } from '../../components/ConnectKit';
+import useLocales from '../../hooks/useLocales';
 
 export const walletConnect = (): WalletProps => {
+  /*
+  const context = useContext();
+  const locales = useLocales();
+  const name = context.options?.walletConnectName ?? locales.otherWallets;
+  */
   return {
     id: 'walletConnect',
-    name: 'Other Wallets',
+    name: `name`,
     logos: {
       default: <Logos.WalletConnect />,
       mobile: <Logos.OtherWallets />,

@@ -10,7 +10,7 @@ export const imToken = (): WalletProps => {
       default: <Logos.ImToken />,
     },
     logoBackground: '#098de6',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       //website: 'https://support.token.im/hc/en-us/categories/360000925393',
       download: 'https://connect.family.co/v0/download/imToken',

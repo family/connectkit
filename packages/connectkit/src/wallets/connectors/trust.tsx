@@ -12,7 +12,7 @@ export const trust = (): WalletProps => {
       default: <Logos.Trust />,
     },
     logoBackground: '#fff',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/trust',
       android:

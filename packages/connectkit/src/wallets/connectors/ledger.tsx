@@ -12,7 +12,7 @@ export const ledger = (): WalletProps => {
       default: <Logos.Ledger />,
     },
     logoBackground: '#000',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       website: 'https://www.ledger.com/ledger-live/download#download-device-2',
       download: 'https://connect.family.co/v0/download/ledger',

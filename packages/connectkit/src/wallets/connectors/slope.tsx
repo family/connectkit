@@ -11,7 +11,7 @@ export const slope = (): WalletProps => {
       default: <Logos.Slope />,
     },
     logoBackground: '#6C67F1',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/slope',
       ios: 'https://apps.apple.com/app/slope-wallet/id1574624530',

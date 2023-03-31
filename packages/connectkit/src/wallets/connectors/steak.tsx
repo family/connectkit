@@ -11,7 +11,7 @@ export const steak = (): WalletProps => {
       default: <Logos.Steak />,
     },
     logoBackground: '#000000',
-    scannable: false,
+    scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/steak',
       android:
