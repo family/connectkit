@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import { Connector, useAccount, useConnect } from 'wagmi';
+import { Connector, useAccount } from 'wagmi';
 import { useContext } from '../../components/ConnectKit';
+import { useConnect } from '../useConnect';
 import { useWalletConnectConnector } from './../useConnectors';
 
 export function useWalletConnectUri() {
@@ -13,12 +14,7 @@ export function useWalletConnectUri() {
   const isWalletConnectLegacy = connector?.id === 'walletConnectLegacy';
 
   const { isConnected } = useAccount();
-  const { connectAsync } = useConnect({
-    onError: (error: any) => log('error', error),
-    onSuccess: (result: any) => log('success', result),
-    onMutate: () => log('mutate'),
-    onSettled: () => log('settled'),
-  });
+  const { connectAsync } = useConnect();
 
   useEffect(() => {
     async function handleMessage({ type, data }: any) {

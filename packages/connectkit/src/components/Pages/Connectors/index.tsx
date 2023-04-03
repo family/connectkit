@@ -33,6 +33,7 @@ import {
   MobileConnectorIcon,
   InfoBox,
   InfoBoxButtons,
+  ConnectorRecentlyUsed,
 } from './styles';
 
 import { isMobile, isAndroid } from '../../../utils';
@@ -41,6 +42,7 @@ import Button from '../../Common/Button';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { Connector } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
+import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 
 const Wallets: React.FC = () => {
@@ -50,6 +52,7 @@ const Wallets: React.FC = () => {
 
   const { uri: wcUri } = useWalletConnectUri();
   const { connectAsync, connectors } = useConnect();
+  const { lastConnectorId } = useLastConnector();
 
   const openDefaultConnect = async (connector: Connector) => {
     // @TODO: use the MetaMask config
@@ -241,7 +244,15 @@ const Wallets: React.FC = () => {
                   }}
                 >
                   <ConnectorIcon>{logo}</ConnectorIcon>
-                  <ConnectorLabel>{name}</ConnectorLabel>
+                  <ConnectorLabel>
+                    {name}
+                    {!context.options?.hideRecentBadge &&
+                      lastConnectorId === connector.id && (
+                        <ConnectorRecentlyUsed>
+                          <span>Recent</span>
+                        </ConnectorRecentlyUsed>
+                      )}
+                  </ConnectorLabel>
                 </ConnectorButton>
               );
             })}

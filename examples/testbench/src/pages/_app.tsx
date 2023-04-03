@@ -7,6 +7,7 @@ import { mainnet, polygon } from 'wagmi/chains';
 import { ConnectKitProvider, getDefaultClient, SIWESession } from 'connectkit';
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siweClient } from '../utils/siweClient';
+import { useEffect } from 'react';
 
 const client = createClient(
   getDefaultClient({
@@ -22,8 +23,14 @@ const client = createClient(
 function App({ Component, pageProps }: AppProps) {
   const { theme, mode, options, customTheme } = useTestBench();
 
+  const key = JSON.stringify({ customTheme });
+
   // SIWE provider needs to be the outer-most provider because the connect kit
   // provider depends on some of the state
+
+  useEffect(() => {
+    console.log('App rendered');
+  }, [customTheme]);
 
   return (
     <siweClient.Provider
@@ -35,6 +42,7 @@ function App({ Component, pageProps }: AppProps) {
       }}
     >
       <ConnectKitProvider
+        key={key}
         theme={theme}
         mode={mode}
         options={options}

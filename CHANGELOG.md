@@ -1,3 +1,30 @@
+# 1.2.2
+
+This update improves the functionality and developer experience of using ConnectKit and moves the peer dependency wagmi up a version to `0.12.x`.
+
+> **Note**
+>
+> This update does not yet include support for WalletConnect 2.0.
+
+## New
+
+- Adds a `Recent` badge to the most recently used connector button by a user. This helps returning users reconnect easily and save time.
+- Introduce [`SafeConnector`](https://wagmi.sh/react/connectors/safe) into the default configuration for better support for Safe Apps. Learn more about this connector in the [wagmi](https://wagmi.sh/react/connectors/safe) docs.
+- Convenient `onConnect` and `onDisconnect` callbacks on the `ConnectKitProvider` component and `useModal` Hook.
+- Added dedicated `overlayBlur` prop to `ConnectKitProvider` to allow for blurring the background when the modal is open.
+- Update peer dependency wagmi to version `0.12.x`.
+
+## Improved
+
+- Added support for Node 14.
+- Improved aria-labels on buttons for better accessibility.
+- Icons within buttons are now properly horizontally centered on FireFox.
+- Optimise some of the SVGs used in ConnectKit.
+
+## Fixed
+
+- Fixed a bug where changing accounts when signed-in with Ethereum would cause an infinite loop (thanks [JamieLottering](https://github.com/JamieLottering)).
+
 # 1.2.1
 
 This update improves the functionality and developer experience of using ConnectKit and moves the peer dependency wagmi up a version to `0.11.x`.
