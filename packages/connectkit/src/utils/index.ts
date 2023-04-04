@@ -110,6 +110,8 @@ const isMetaMask = () => {
   const isTokenary = Boolean(ethereum.isTokenary);
   if (isTokenary) return false;
 
+  if (isPhantom()) return false;
+
   return true;
 };
 
