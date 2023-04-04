@@ -305,6 +305,7 @@ export const MobileConnectorIcon = styled(motion.div)`
   width: 60px;
   height: 60px;
   overflow: hidden;
+  border-radius: 8px;
   svg {
     border-radius: inherit;
     display: block;

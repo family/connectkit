@@ -12,6 +12,6 @@ export { steak } from './connectors/steak';
 export { unstoppable } from './connectors/unstoppable';
 export { slope } from './connectors/slope';
 export { onto } from './connectors/onto';
-export { gnosisSafe } from './connectors/gnosisSafe';
+export { safe } from './connectors/safe';
 export { frontier } from './connectors/frontier';
 export { zerion } from './connectors/zerion';

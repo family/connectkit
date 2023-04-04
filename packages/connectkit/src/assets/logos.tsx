@@ -688,7 +688,7 @@ export const Slope = ({ ...props }) => (
     </defs>
   </svg>
 );
-export const GnosisSafe = ({ background = false, ...props }) => (
+export const Safe = ({ background = false, ...props }) => (
   <svg
     {...props}
     aria-hidden="true"
@@ -697,9 +697,7 @@ export const GnosisSafe = ({ background = false, ...props }) => (
     viewBox="0 0 88 88"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={
-      background ? { background: 'var(--ck-brand-gnosisSafe)' } : undefined
-    }
+    style={background ? { background: 'var(--ck-brand-safe)' } : undefined}
   >
     <path
       d="M68.7186 44H62.6472C60.8339 44 59.3646 45.4686 59.3646 47.281V56.0888C59.3646 57.9012 57.8952 59.3697 56.0819 59.3697H31.9278C30.1145 59.3697 28.6452 60.8383 28.6452 62.6507V68.719C28.6452 70.5314 30.1145 72 31.9278 72H57.48C59.2933 72 60.7417 70.5314 60.7417 68.719V63.8504C60.7417 62.038 62.2111 60.7524 64.0244 60.7524H68.7174C70.5307 60.7524 72 59.2838 72 57.4714V47.2429C72 45.4305 70.5307 44 68.7174 44H68.7186Z"
@@ -826,7 +824,7 @@ export default {
   Unstoppable,
   ONTO,
   Slope,
-  GnosisSafe,
+  Safe,
   Frontier,
   Zerion,
   PlaceHolder,

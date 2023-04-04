@@ -20,7 +20,7 @@ export { useChains } from './hooks/useChains';
 
 // Wallets
 export * as wallets from './wallets/exports';
+export { defaultWallets } from './wallets';
 
 // TODO: Make this private
-export { default as supportedConnectors } from './constants/supportedConnectors';
 export { default as ConnectKitModalDemo } from './components/ConnectModal/demo';

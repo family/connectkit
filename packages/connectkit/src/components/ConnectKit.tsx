@@ -16,7 +16,7 @@ import {
 } from '../types';
 
 import type { WalletProps } from '../wallets/wallet';
-import { getWallets } from '../wallets';
+import { defaultWallets } from '../wallets';
 
 import defaultTheme from '../styles/defaultTheme';
 
@@ -113,7 +113,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   mode = 'auto',
   customTheme,
   options,
-  wallets = getWallets(),
+  wallets = defaultWallets,
   onConnect,
   onDisconnect,
   debugMode = false,

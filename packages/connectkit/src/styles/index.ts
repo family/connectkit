@@ -113,7 +113,7 @@ const themeGlobals = {
     '--ck-brand-argent': '#f36a3d',
     '--ck-brand-imtoken-01': '#11C4D1',
     '--ck-brand-imtoken-02': '#0062AD',
-    '--ck-brand-gnosisSafe': '#12FF80',
+    '--ck-brand-safe': '#12FF80',
   },
 };
 const themeColors = {

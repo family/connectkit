@@ -1,7 +1,6 @@
 import { detect } from 'detect-browser';
 import React from 'react';
-import { Connector } from 'wagmi';
-import supportedConnectors from '../constants/supportedConnectors';
+import { WalletProps } from '../wallets/wallet';
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 
@@ -66,30 +65,26 @@ const isMobile = () => {
   return isAndroid() || isIOS();
 };
 
-const getWalletDownloadUri = (connectorId: string) => {
-  let url: string =
-    getMobileAppUri(connectorId) ?? getBrowserAppUri(connectorId);
-  return url;
+const getWalletDownloadUri = (wallet: WalletProps) => {
+  return getMobileAppUri(wallet) ?? getBrowserAppUri(wallet);
 };
-const getMobileAppUri = (connectorId: string) => {
-  const c = supportedConnectors.filter((c) => c.id === connectorId)[0];
+const getMobileAppUri = (wallet: WalletProps) => {
   if (isIOS()) {
-    return c.appUrls?.ios ? c.appUrls.ios : '';
+    return wallet.downloadUrls?.ios;
   } else if (isAndroid()) {
-    return c.appUrls?.android ? c.appUrls.android : '';
+    return wallet.downloadUrls?.android;
   }
-  return '';
+  return null;
 };
-const getBrowserAppUri = (connectorId: string) => {
-  const c = supportedConnectors.filter((c) => c.id === connectorId)[0];
+const getBrowserAppUri = (wallet: WalletProps) => {
   const browser = detectBrowser();
   switch (browser) {
     case 'firefox':
-      return c.appUrls?.firefox ? c.appUrls.firefox : '';
+      return wallet.downloadUrls?.firefox;
     case 'safari':
-      return c.appUrls?.safari ? c.appUrls.safari : '';
+      return wallet.downloadUrls?.safari;
     default:
-      return c.extensions?.chrome ? c.extensions?.chrome : '';
+      return wallet.downloadUrls?.chrome;
   }
 };
 

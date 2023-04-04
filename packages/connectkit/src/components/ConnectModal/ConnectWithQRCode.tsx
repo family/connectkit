@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { routes, useContext } from '../ConnectKit';
 
-import supportedConnectors from '../../constants/supportedConnectors';
-import { useConnect } from '../../hooks/useConnect';
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
 import {
@@ -29,11 +27,12 @@ import useLocales from '../../hooks/useLocales';
 import { useWalletConnectUri } from '../../hooks/connectors/useWalletConnectUri';
 import { useCoinbaseWalletUri } from '../../hooks/connectors/useCoinbaseWalletUri';
 import { useWallet } from '../../wallets/useDefaultWallets';
+import BrowserIcon from '../Common/BrowserIcon';
 
 const ConnectWithQRCode: React.FC<{
   walletId: string;
   switchConnectMethod: (id?: string) => void;
-}> = ({ walletId }) => {
+}> = ({ walletId, switchConnectMethod }) => {
   const context = useContext();
 
   const { wallet } = useWallet(walletId);
@@ -139,23 +138,21 @@ const ConnectWithQRCode: React.FC<{
         </div>
       )}
 
-      {/*
-      {hasExtensionInstalled && ( // Run the extension
+      {wallet.installed && ( // Run the extension
         <Button
           icon={wallet?.logos.default}
           roundedIcon
-          onClick={() => switchConnectMethod(id)}
+          onClick={() => switchConnectMethod(wallet.id)}
         >
           Open {wallet?.name}
         </Button>
       )}
 
-      {!hasExtensionInstalled && extensionUrl && (
+      {!wallet.installed && extensionUrl && (
         <Button href={extensionUrl} icon={<BrowserIcon />}>
           {locales.installTheExtension}
         </Button>
       )}
-      */}
 
       {hasApps && (
         <>

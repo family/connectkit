@@ -9,10 +9,12 @@ import {
   getDefaultClient,
   SIWESession,
   wallets,
+  defaultWallets,
 } from 'connectkit';
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siweClient } from '../utils/siweClient';
 import { useEffect } from 'react';
+import { family, familyStaging } from '../family';
 
 const client = createClient(
   getDefaultClient({
@@ -47,6 +49,7 @@ function App({ Component, pageProps }: AppProps) {
       }}
     >
       <ConnectKitProvider
+        wallets={[family, familyStaging, ...defaultWallets]}
         key={key}
         theme={theme}
         mode={mode}
@@ -58,14 +61,6 @@ function App({ Component, pageProps }: AppProps) {
         onDisconnect={() => {
           console.log('onDisconnect Provider');
         }}
-        wallets={[
-          wallets.metaMask(),
-          wallets.walletConnect(),
-          wallets.coinbaseWallet(),
-          wallets.brave(),
-          wallets.gnosisSafe(),
-          wallets.rainbow(),
-        ]}
         debugMode
       >
         <Component {...pageProps} />

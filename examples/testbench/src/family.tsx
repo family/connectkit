@@ -1,4 +1,4 @@
-const Logo = () => (
+const Logo = ({ staging }: { staging?: boolean }) => (
   <svg
     width="88"
     height="88"
@@ -6,7 +6,9 @@ const Logo = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: '#C2C9D6',
+      background: staging
+        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
+        : '#C2C9D6',
     }}
   >
     <path
@@ -16,22 +18,39 @@ const Logo = () => (
   </svg>
 );
 
-export const family = (): any => {
-  return {
-    id: 'family',
-    name: 'Family',
-    logos: {
-      default: <Logo />,
-    },
-    logoBackground: '#C2C9D6',
-    scannable: true,
-    installed: false,
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/family',
-      website: 'https://family.co',
-    },
-    createUri: (uri: string) => {
-      return `family://wc?uri=${encodeURIComponent(uri)}`;
-    },
-  };
+export const family = {
+  id: 'family',
+  name: 'Family',
+  logos: {
+    default: <Logo />,
+  },
+  logoBackground: '#C2C9D6',
+  scannable: true,
+  installed: false,
+  downloadUrls: {
+    download: 'https://connect.family.co/v0/download/family',
+    website: 'https://family.co',
+  },
+  createUri: (uri: string) => {
+    return `family://wc?uri=${encodeURIComponent(uri)}`;
+  },
+};
+
+export const familyStaging = {
+  id: 'familyStaging',
+  name: 'Family Staging',
+  shortName: 'Family',
+  logos: {
+    default: <Logo staging />,
+  },
+  logoBackground: '#C2C9D6',
+  scannable: true,
+  installed: false,
+  downloadUrls: {
+    download: 'https://connect.family.co/v0/download/family',
+    website: 'https://family.co',
+  },
+  createUri: (uri: string) => {
+    return `familyStaging://wc?uri=${encodeURIComponent(uri)}`;
+  },
 };

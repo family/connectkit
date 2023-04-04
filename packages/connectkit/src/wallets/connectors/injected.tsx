@@ -9,13 +9,13 @@ import {
 import Logos from './../../assets/logos';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { mainnet } from 'wagmi';
-import { getWallets } from '..';
+import { defaultWallets } from '..';
 
 /**
  * Some injected connectors pretend to be metamask, this helps avoid that issue.
  */
 const findInjectedConnectorInfo = () => {
-  const wallets = getWallets();
+  const wallets = defaultWallets;
   const { name } = new InjectedConnector({
     options: {
       shimDisconnect: true,

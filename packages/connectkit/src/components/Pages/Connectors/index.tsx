@@ -34,11 +34,12 @@ import { useWallets } from '../../../wallets/useDefaultWallets';
 import useLocales from '../../../hooks/useLocales';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { ScrollArea } from '../../Common/ScrollArea';
+import useIsMobile from '../../../hooks/useIsMobile';
 
 const Wallets: React.FC = () => {
   const context = useContext();
   const locales = useLocales({});
-  const mobile = isMobile();
+  const mobile = useIsMobile();
 
   const wallets = useWallets();
 
@@ -50,7 +51,8 @@ const Wallets: React.FC = () => {
         <>
           <MobileConnectorsContainer>
             {wallets
-              .filter((w) => w.installed)
+              .filter((w) => w.installed !== undefined && w.scannable)
+              .slice(0, 3)
               .map((wallet) => {
                 const logos = wallet.logos;
 
@@ -86,7 +88,7 @@ const Wallets: React.FC = () => {
                   >
                     <MobileConnectorIcon>{logo}</MobileConnectorIcon>
                     <MobileConnectorLabel>
-                      {wallet.name}
+                      {wallet.shortName ?? wallet.name}
                       {!context.options?.hideRecentBadge &&
                         lastConnectorId === wallet.id && (
                           <ConnectorRecentlyUsed>
@@ -155,7 +157,7 @@ const Wallets: React.FC = () => {
           <ScrollArea>
             <ConnectorsContainer>
               {wallets
-                .filter((w) => w.installed)
+                // .filter((w) => w.installed !== undefined && w.scannable)
                 .map((wallet) => {
                   const logos = wallet.logos;
 
