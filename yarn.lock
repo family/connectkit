@@ -10010,7 +10010,7 @@ __metadata:
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
     typescript-plugin-styled-components: ^2.0.0
-    wagmi: ^0.12.0
+    wagmi: ^0.12.2
   languageName: unknown
   linkType: soft
 
