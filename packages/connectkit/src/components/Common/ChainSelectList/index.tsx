@@ -53,7 +53,11 @@ const Spinner = (
   </svg>
 );
 
-const ChainSelectList: React.FC = () => {
+const ChainSelectList = ({
+  variant,
+}: {
+  variant?: 'primary' | 'secondary';
+}) => {
   const { connector } = useAccount();
   const { chain, chains } = useNetwork();
   const { isLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
@@ -72,6 +76,7 @@ const ChainSelectList: React.FC = () => {
             return (
               <ChainButton
                 key={`${ch?.id}-${ch?.name}`}
+                $variant={variant}
                 disabled={
                   !switchNetwork ||
                   ch.id === chain?.id ||

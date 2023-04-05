@@ -107,7 +107,9 @@ export const ChainButtons = styled(motion.div)`
     max-height: 70vh;
   }
 `;
-export const ChainButton = styled(motion.button)`
+export const ChainButton = styled(motion.button)<{
+  $variant?: 'primary' | 'secondary';
+}>`
   appearance: none;
   cursor: pointer;
   user-select: none;
@@ -174,6 +176,21 @@ export const ChainButton = styled(motion.button)`
       opacity: 1;
     }
   }
+  ${(props) =>
+    props.$variant === 'secondary' &&
+    css`
+      padding: 12px 4px;
+      margin: 0 0 8px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &:before {
+        opacity: 0.05;
+      }
+      &:hover:before {
+        opacity: 0.1;
+      }
+    `}
 `;
 export const ChainButtonStatus = styled(motion.div)`
   position: absolute;
