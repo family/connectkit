@@ -102,7 +102,7 @@ export const family = (): WalletProps => {
     scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/family',
-      ios: 'https://apps.apple.com/us/app/family-wallet/id1505990009',
+      ios: 'https://family.co/download',
       website: 'https://family.co',
     },
     createUri: (uri: string) => {
