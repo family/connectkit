@@ -14,7 +14,7 @@ import {
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siweClient } from '../utils/siweClient';
 import { useEffect } from 'react';
-import { family, familyStaging } from '../family';
+import { familyStaging } from '../family';
 
 const client = createClient(
   getDefaultClient({
@@ -49,7 +49,7 @@ function App({ Component, pageProps }: AppProps) {
       }}
     >
       <ConnectKitProvider
-        wallets={[family, familyStaging, ...defaultWallets]}
+        wallets={[familyStaging, wallets.family(), ...defaultWallets]}
         key={key}
         theme={theme}
         mode={mode}

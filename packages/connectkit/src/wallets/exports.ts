@@ -1,4 +1,5 @@
 export { injected } from './connectors/injected';
+export { family } from './connectors/family';
 export { walletConnect } from './connectors/walletConnect';
 export { metaMask } from './connectors/metaMask';
 export { coinbaseWallet } from './connectors/coinbaseWallet';

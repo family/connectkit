@@ -1,23 +1,17 @@
 import { WalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
-import { useContext } from '../../components/ConnectKit';
-import useLocales from '../../hooks/useLocales';
 
 export const walletConnect = (): WalletProps => {
-  /*
-  const context = useContext();
-  const locales = useLocales();
-  const name = context.options?.walletConnectName ?? locales.otherWallets;
-  */
   return {
     id: 'walletConnect',
-    name: `name`,
+    name: `Wallet Connect`,
+    shortName: `WalletConnect`,
     logos: {
-      default: <Logos.WalletConnect />,
-      mobile: <Logos.OtherWallets />,
-      transparent: <Logos.WalletConnect background={false} />,
-      connectorButton: <Logos.OtherWallets />,
+      default: <Logos.WalletConnect background={true} />,
+      mobile: <Logos.WalletConnect background={true} />,
+      transparent: <Logos.WalletConnect background={true} />,
+      connectorButton: <Logos.WalletConnect background={true} />,
       qrCode: <Logos.WalletConnect background={true} />,
     },
     logoBackground: 'var(--ck-brand-walletConnect)',

@@ -4,12 +4,14 @@ import { useContext } from './../../components/ConnectKit';
 import { useConnect } from './../useConnect';
 import { useCoinbaseWalletConnector } from './../useConnectors';
 
-export function useCoinbaseWalletUri() {
+export function useCoinbaseWalletUri({
+  enabled = true,
+}: { enabled?: boolean } = {}) {
   const [uri, setUri] = useState<string | undefined>(undefined);
 
   const context = useContext();
 
-  const connector = useCoinbaseWalletConnector();
+  const connector = enabled ? useCoinbaseWalletConnector() : undefined;
   const { connectAsync } = useConnect();
 
   useEffect(() => {

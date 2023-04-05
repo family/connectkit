@@ -8,9 +8,12 @@ export const ScrollAreaContainer = styled.div<{
     $backgroundColor || 'var(--ck-body-background)'};
   --fade-height: 18px;
   position: relative;
+  z-index: 1;
   max-height: ${({ $height }) => ($height ? `${$height}px` : '340px')};
   overflow-y: auto;
+
   margin: calc(var(--fade-height) * -1) 0 0;
+  //margin-right: -6px;
 
   &::-webkit-scrollbar {
     width: 6px;

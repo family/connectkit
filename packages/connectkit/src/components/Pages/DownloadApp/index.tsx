@@ -10,6 +10,10 @@ import CustomQRCode from '../../Common/CustomQRCode';
 
 import useLocales from '../../../hooks/useLocales';
 import { useWallet } from '../../../wallets/useDefaultWallets';
+import { OrDivider } from '../../Common/Modal';
+import Button from '../../Common/Button';
+import { detectBrowser } from '../../../utils';
+import BrowserIcon from '../../Common/BrowserIcon';
 
 const DownloadApp: React.FC<{
   walletId: string;
@@ -32,6 +36,9 @@ const DownloadApp: React.FC<{
       ? locales.downloadAppScreen_ios
       : locales.downloadAppScreen_android;
 
+  const browser = detectBrowser();
+  const extensionUrl = wallet?.downloadUrls?.[browser];
+
   return (
     <PageContent>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
@@ -42,6 +49,21 @@ const DownloadApp: React.FC<{
         >
           {bodycopy}
         </ModalBody>
+
+        {!wallet.installed && extensionUrl && (
+          <>
+            <OrDivider />
+            <Button
+              href={extensionUrl}
+              icon={<BrowserIcon />}
+              style={{
+                marginTop: 0,
+              }}
+            >
+              {locales.installTheExtension}
+            </Button>
+          </>
+        )}
       </ModalContent>
     </PageContent>
   );

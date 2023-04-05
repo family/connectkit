@@ -1,147 +1,60 @@
 import React from 'react';
-import {
-  Container,
-  WalletList,
-  WalletItem,
-  WalletIcon,
-  WalletLabel,
-} from './styles';
+import { Container } from './styles';
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
 import { useWallets } from '../../../wallets/useDefaultWallets';
-import { routes, useContext } from '../../ConnectKit';
-import { WalletProps } from '../../../wallets/wallet';
-import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
-import CopyToClipboard from '../../Common/CopyToClipboard';
-import useLocales from '../../../hooks/useLocales';
-import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
-import { Spinner } from '../../Common/Spinner';
-import { isWalletConnectConnector } from '../../../utils';
+import { ConnectorList } from '../Connectors';
+import Input from '../../Common/Input';
 
-const MoreIcon = (
+const SearchIcon = (
   <svg
-    width="60"
-    height="60"
-    viewBox="0 0 60 60"
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M30 42V19M19 30.5H42"
-      stroke="var(--ck-body-color-muted)"
-      strokeWidth="3"
+      d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11Z"
+      stroke="currentColor"
+      strokeWidth="2"
       strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L12.2929 13.7071ZM13.7071 12.2929L12.4028 10.9886L10.9886 12.4028L12.2929 13.7071L13.7071 12.2929ZM12.4028 10.9886L10.2071 8.79289L8.79289 10.2071L10.9886 12.4028L12.4028 10.9886Z"
+      fill="currentColor"
     />
   </svg>
 );
 
 const MobileConnectors: React.FC = () => {
-  const context = useContext();
-  const locales = useLocales();
+  const wallets = useWallets();
+  const [search, setSearch] = React.useState('');
 
-  const { uri: wcUri } = useWalletConnectUri();
-  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
-  const wallets = useWallets().filter(
-    (wallet: WalletProps) =>
-      !wallet.installed && // Do not show wallets that are injected connectors
-      !isWalletConnectConnector(wallet.id) // Do not show WalletConnect connector
+  const filtered = wallets.filter((w) =>
+    w.name.toLowerCase().includes(search.toLowerCase())
   );
-
-  const connectWallet = (wallet: WalletProps) => {
-    if (wallet.installed) {
-      context.setRoute(routes.CONNECT);
-      context.setConnector(wallet.id);
-    } else {
-      const uri = wallet.createUri?.(wcUri!);
-      if (uri) window.location.href = uri;
-      //if (uri) window.open(uri, '_blank');
-    }
-  };
 
   return (
     <PageContent style={{ width: 312 }}>
       <Container>
         <ModalContent>
-          <WalletList $disabled={!wcUri}>
-            {!wcUri && (
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Spinner />
-              </div>
-            )}
-            {wallets.map((wallet: WalletProps, i: number) => {
-              const { name, shortName, logos, logoBackground } = wallet;
-              return (
-                <WalletItem key={i} onClick={() => connectWallet(wallet)}>
-                  <WalletIcon
-                    $outline={true}
-                    style={
-                      logoBackground
-                        ? {
-                            background: logoBackground,
-                          }
-                        : undefined
-                    }
-                  >
-                    {logos.mobile ?? logos.default}
-                  </WalletIcon>
-                  <WalletLabel>{shortName ?? name}</WalletLabel>
-                </WalletItem>
-              );
-            })}
-            <WalletItem onClick={openW3M} $waiting={isOpenW3M}>
-              <WalletIcon
-                style={{ background: 'var(--ck-body-background-secondary)' }}
-              >
-                {isOpenW3M ? (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: '50%',
-                      }}
-                    >
-                      <Spinner />
-                    </div>
-                  </div>
-                ) : (
-                  MoreIcon
-                )}
-              </WalletIcon>
-              <WalletLabel>{locales.more}</WalletLabel>
-            </WalletItem>
-          </WalletList>
+          <Input
+            autoFocus
+            icon={SearchIcon}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            type="search"
+            placeholder={`Search ${wallets.length} Wallets`}
+          />
+          <ConnectorList
+            wallets={search ? filtered : wallets}
+            start={search ? 0 : 2}
+            end={wallets.length}
+          />
         </ModalContent>
-        {context.options?.walletConnectCTA !== 'modal' && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 14,
-              paddingTop: 16,
-            }}
-          >
-            <CopyToClipboard variant="button" string={wcUri}>
-              {locales.copyToClipboard}
-            </CopyToClipboard>
-          </div>
-        )}
       </Container>
     </PageContent>
   );

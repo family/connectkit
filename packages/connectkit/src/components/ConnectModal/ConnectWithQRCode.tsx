@@ -27,7 +27,6 @@ import useLocales from '../../hooks/useLocales';
 import { useWalletConnectUri } from '../../hooks/connectors/useWalletConnectUri';
 import { useCoinbaseWalletUri } from '../../hooks/connectors/useCoinbaseWalletUri';
 import { useWallet } from '../../wallets/useDefaultWallets';
-import BrowserIcon from '../Common/BrowserIcon';
 
 const ConnectWithQRCode: React.FC<{
   walletId: string;
@@ -145,12 +144,6 @@ const ConnectWithQRCode: React.FC<{
           onClick={() => switchConnectMethod(wallet.id)}
         >
           Open {wallet?.name}
-        </Button>
-      )}
-
-      {!wallet.installed && extensionUrl && (
-        <Button href={extensionUrl} icon={<BrowserIcon />}>
-          {locales.installTheExtension}
         </Button>
       )}
 
