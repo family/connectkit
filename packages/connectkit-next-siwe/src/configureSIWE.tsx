@@ -5,8 +5,27 @@ import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { generateNonce, SiweMessage } from 'siwe';
 
+type RouteHandlerOptions = {
+  afterNonce?: (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    session: NextSIWESession<{}>
+  ) => Promise<void>;
+  afterVerify?: (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    session: NextSIWESession<{}>
+  ) => Promise<void>;
+  afterSession?: (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    session: NextSIWESession<{}>
+  ) => Promise<void>;
+  afterLogout?: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
+};
 type NextServerSIWEConfig = {
   session?: Partial<IronSessionOptions>;
+  options?: RouteHandlerOptions;
 };
 type NextClientSIWEConfig = {
   apiRoutePrefix: string;
@@ -61,12 +80,16 @@ const getSession = async <TSessionData extends Object = {}>(
 const logoutRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<void>,
-  sessionConfig: IronSessionOptions
+  sessionConfig: IronSessionOptions,
+  afterCallback: RouteHandlerOptions['afterLogout']
 ) => {
   switch (req.method) {
     case 'GET':
       const session = await getSession(req, res, sessionConfig);
       session.destroy();
+      if (afterCallback) {
+        await afterCallback(req, res);
+      }
       res.status(200).end();
       break;
     default:
@@ -78,7 +101,8 @@ const logoutRoute = async (
 const nonceRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<string>,
-  sessionConfig: IronSessionOptions
+  sessionConfig: IronSessionOptions,
+  afterCallback: RouteHandlerOptions['afterNonce']
 ) => {
   switch (req.method) {
     case 'GET':
@@ -86,6 +110,9 @@ const nonceRoute = async (
       if (!session.nonce) {
         session.nonce = generateNonce();
         await session.save();
+      }
+      if (afterCallback) {
+        await afterCallback(req, res, session);
       }
       res.send(session.nonce);
       break;
@@ -98,11 +125,16 @@ const nonceRoute = async (
 const sessionRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<{ address?: string; chainId?: number }>,
-  sessionConfig: IronSessionOptions
+  sessionConfig: IronSessionOptions,
+  afterCallback: RouteHandlerOptions['afterSession']
 ) => {
   switch (req.method) {
     case 'GET':
-      const { address, chainId } = await getSession(req, res, sessionConfig);
+      const session = await getSession(req, res, sessionConfig);
+      if (afterCallback) {
+        await afterCallback(req, res, session);
+      }
+      const { address, chainId } = session;
       res.send({ address, chainId });
       break;
     default:
@@ -114,7 +146,8 @@ const sessionRoute = async (
 const verifyRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<void>,
-  sessionConfig: IronSessionOptions
+  sessionConfig: IronSessionOptions,
+  afterCallback: RouteHandlerOptions['afterVerify']
 ) => {
   switch (req.method) {
     case 'POST':
@@ -129,6 +162,9 @@ const verifyRoute = async (
         session.address = fields.address;
         session.chainId = fields.chainId;
         await session.save();
+        if (afterCallback) {
+          await afterCallback(req, res, session);
+        }
         res.status(200).end();
       } catch (error) {
         res.status(400).end(String(error));
@@ -150,6 +186,7 @@ const envVar = (name: string) => {
 
 export const configureServerSideSIWE = <TSessionData extends Object = {}>({
   session: { cookieName, password, cookieOptions, ...otherSessionOptions } = {},
+  options: { afterNonce, afterVerify, afterSession, afterLogout } = {},
 }: NextServerSIWEConfig): ConfigureServerSIWEResult<TSessionData> => {
   const sessionConfig: IronSessionOptions = {
     cookieName: cookieName ?? 'connectkit-next-siwe',
@@ -171,13 +208,13 @@ export const configureServerSideSIWE = <TSessionData extends Object = {}>({
     const route = req.query.route.join('/');
     switch (route) {
       case 'nonce':
-        return await nonceRoute(req, res, sessionConfig);
+        return await nonceRoute(req, res, sessionConfig, afterNonce);
       case 'verify':
-        return await verifyRoute(req, res, sessionConfig);
+        return await verifyRoute(req, res, sessionConfig, afterVerify);
       case 'session':
-        return await sessionRoute(req, res, sessionConfig);
+        return await sessionRoute(req, res, sessionConfig, afterSession);
       case 'logout':
-        return await logoutRoute(req, res, sessionConfig);
+        return await logoutRoute(req, res, sessionConfig, afterLogout);
       default:
         return res.status(404).end();
     }
