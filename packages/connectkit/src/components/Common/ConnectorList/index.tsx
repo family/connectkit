@@ -5,7 +5,7 @@ import {
   ConnectorButton,
   ConnectorLabel,
   ConnectorIcon,
-  ConnectorRecentlyUsed,
+  RecentlyUsedTag,
 } from './styles';
 
 import { isInjectedConnector } from '../../../utils';
@@ -74,7 +74,7 @@ const ConnectorList = ({
 
   return (
     <ScrollArea>
-      <ConnectorsContainer>
+      <ConnectorsContainer $mobile={isMobile}>
         {walletsToDisplay.length === 0 && <>No wallets found</>}
         {walletsToDisplay.map((wallet) => {
           const logos = wallet.logos;
@@ -96,9 +96,9 @@ const ConnectorList = ({
                 {name}
                 {!context.options?.hideRecentBadge &&
                   lastConnectorId === wallet.id && (
-                    <ConnectorRecentlyUsed>
+                    <RecentlyUsedTag>
                       <span>Recent</span>
-                    </ConnectorRecentlyUsed>
+                    </RecentlyUsedTag>
                   )}
               </ConnectorLabel>
             </ConnectorButton>
@@ -118,12 +118,6 @@ const ConnectorList = ({
             </ConnectorIcon>
             <ConnectorLabel>
               {context.options?.walletConnectName ?? locales.otherWallets}
-              {!context.options?.hideRecentBadge &&
-                lastConnectorId === 'walletConnect' && (
-                  <ConnectorRecentlyUsed>
-                    <span>Recent</span>
-                  </ConnectorRecentlyUsed>
-                )}
             </ConnectorLabel>
           </ConnectorButton>
         )}

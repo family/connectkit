@@ -44,7 +44,7 @@ const MobileConnectors: React.FC = () => {
           icon={SearchIcon}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          type="search"
+          type="text"
           placeholder={`Search ${wallets.length} Wallets`}
         />
         <ConnectorList

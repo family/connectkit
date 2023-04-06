@@ -16,6 +16,7 @@ import SignInWithEthereum from '../Pages/SignInWithEthereum';
 
 import { getAppIcon, getAppName } from '../../defaultClient';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import { useWallets } from '../../wallets/useDefaultWallets';
 
 const customThemeDefault: object = {};
 
@@ -33,6 +34,12 @@ const ConnectModal: React.FC<{
   const context = useContext();
   const { isConnected } = useAccount();
   const { chain } = useNetwork();
+
+  const wallets = useWallets();
+  const walletIsInOtherWallets = (walletId: string) => {
+    const i = wallets.map((w) => w.id).indexOf(walletId);
+    return i >= 2;
+  };
 
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(
@@ -53,6 +60,12 @@ const ConnectModal: React.FC<{
       context.setRoute(routes.PROFILE);
     } else if (context.route === routes.DOWNLOAD) {
       context.setRoute(routes.CONNECT);
+    } else if (
+      context.route !== routes.MOBILECONNECTORS &&
+      walletIsInOtherWallets(context.connector)
+    ) {
+      // if in the "other wallets" category, back button should go to that connectors page
+      context.setRoute(routes.MOBILECONNECTORS);
     } else {
       context.setRoute(routes.CONNECTORS);
     }
