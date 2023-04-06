@@ -23,7 +23,7 @@ export const safe = (): WalletProps => {
     createUri: (uri: string) => {
       return isAndroid()
         ? uri
-        : `https://safe.io/wc?uri=${encodeURIComponent(uri)}`;
+        : `https://gnosis-safe.io/wc?uri=${encodeURIComponent(uri)}`;
     },
   };
 };
