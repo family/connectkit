@@ -143,8 +143,15 @@ const styles = {
     ConnectorButton: css`
       text-align: center;
       background: none;
+      max-width: 100%;
+      overflow: hidden;
     `,
     ConnectorLabel: css`
+      display: block;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      overflow: hidden;
+      padding: 10px 0 0;
       color: var(--ck-body-color);
       font-size: 13px;
       line-height: 15px;
@@ -152,21 +159,11 @@ const styles = {
       opacity: 0.75;
     `,
     ConnectorIcon: css`
-      z-index: 9;
-      position: relative;
-      margin: 0 auto 10px;
-      border-radius: 16px;
+      margin: 0 auto;
       width: 60px;
       height: 60px;
       overflow: hidden;
-      &:before {
-        content: '';
-        z-index: 2;
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
-      }
+      border-radius: 16px;
       svg {
         display: block;
         position: relative;
@@ -176,53 +173,6 @@ const styles = {
     `,
   },
 };
-
-export const ConnectorsContainer = styled.div<{
-  $mobile?: boolean;
-  $disabled?: boolean;
-}>`
-  transition: opacity 300ms ease;
-
-  ${(props) =>
-    props.$disabled &&
-    css`
-      pointer-events: none;
-      opacity: 0.4;
-    `}
-
-  ${(props) =>
-    !props.$mobile
-      ? css`
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-
-          ${ConnectorButton} {
-            ${styles.desktop.ConnectorButton}
-            ${ConnectorLabel} {
-              ${styles.desktop.ConnectorLabel}
-            }
-            ${ConnectorIcon} {
-              ${styles.desktop.ConnectorIcon}
-            }
-          }
-        `
-      : css`
-          display: grid;
-          align-items: flex-start;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 22px 8px;
-          ${ConnectorButton} {
-            ${styles.mobile.ConnectorButton}
-            ${ConnectorLabel} {
-              ${styles.mobile.ConnectorLabel}
-            }
-            ${ConnectorIcon} {
-              ${styles.mobile.ConnectorIcon}
-            }
-          }
-        `}
-`;
 
 export const RecentlyUsedTag = styled(motion.span)`
   position: relative;
@@ -268,6 +218,65 @@ export const RecentlyUsedTag = styled(motion.span)`
     );
     animation: ${Shimmer} 2s linear infinite;
   }
+`;
+
+export const ConnectorsContainer = styled.div<{
+  $mobile?: boolean;
+  $disabled?: boolean;
+  $totalResults?: number;
+}>`
+  transition: opacity 300ms ease;
+
+  ${(props) =>
+    props.$disabled &&
+    css`
+      pointer-events: none;
+      opacity: 0.4;
+    `}
+
+  ${(props) =>
+    !props.$mobile
+      ? css`
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+
+          ${ConnectorButton} {
+            ${styles.desktop.ConnectorButton}
+            ${ConnectorLabel} {
+              ${styles.desktop.ConnectorLabel}
+            }
+            ${ConnectorIcon} {
+              ${styles.desktop.ConnectorIcon}
+            }
+          }
+        `
+      : css`
+          display: grid;
+          align-items: flex-start;
+          grid-template-columns: repeat(
+            ${props.$totalResults < 4 ? props.$totalResults : 4},
+            1fr
+          );
+          gap: 22px 6px;
+          //margin: 0px -10px -20px;
+          padding: 14px 0px 10px;
+
+          ${ConnectorButton} {
+            ${styles.mobile.ConnectorButton}
+            ${ConnectorLabel} {
+              ${styles.mobile.ConnectorLabel}
+              ${RecentlyUsedTag} {
+                display: none;
+                width: fit-content;
+                margin: 0 auto;
+              }
+            }
+            ${ConnectorIcon} {
+              ${styles.mobile.ConnectorIcon}
+            }
+          }
+        `}
 `;
 
 const FadeIn = keyframes`

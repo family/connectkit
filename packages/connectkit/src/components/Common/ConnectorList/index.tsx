@@ -76,14 +76,20 @@ const ConnectorList = ({
   return (
     <ScrollArea>
       {walletsToDisplay.length === 0 && <NoResults>No wallets found</NoResults>}
-      <ConnectorsContainer $mobile={isMobile}>
+      <ConnectorsContainer
+        $mobile={isMobile}
+        $totalResults={
+          walletsToDisplay.length + (otherWallets.length !== 0 ? 1 : 0)
+        }
+      >
         {walletsToDisplay.map((wallet) => {
           const logos = wallet.logos;
 
-          let logo = logos.connectorButton ?? logos.default;
-          if (wallet.installed && logos.appIcon) {
-            logo = logos.appIcon;
-          }
+          const logo =
+            (isMobile ? logos.mobile : undefined) ??
+            (wallet.installed ? logos.appIcon : undefined) ??
+            logos.connectorButton ??
+            logos.default;
 
           const name = isMobile ? wallet.shortName ?? wallet.name : wallet.name;
 
@@ -113,9 +119,22 @@ const ConnectorList = ({
             }}
           >
             <ConnectorIcon>
-              <OtherWallets
-                wallets={otherWallets.map((w) => w.logos.default)}
-              />
+              <div
+                style={
+                  isMobile
+                    ? {
+                        padding: 5,
+                        background: 'var(--ck-body-background-secondary)',
+                        borderRadius: '21%',
+                        boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.02)',
+                      }
+                    : undefined
+                }
+              >
+                <OtherWallets
+                  wallets={otherWallets.map((w) => w.logos.default)}
+                />
+              </div>
             </ConnectorIcon>
             <ConnectorLabel>
               {context.options?.walletConnectName ?? locales.otherWallets}

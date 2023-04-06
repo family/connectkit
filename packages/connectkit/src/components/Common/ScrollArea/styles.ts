@@ -13,7 +13,6 @@ export const ScrollAreaContainer = styled.div<{
   overflow-y: auto;
 
   margin: calc(var(--fade-height) * -1) 0 0;
-  //margin-right: -6px;
 
   &::-webkit-scrollbar {
     width: 6px;
