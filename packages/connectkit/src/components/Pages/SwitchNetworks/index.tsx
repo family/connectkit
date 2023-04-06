@@ -43,7 +43,7 @@ const SwitchNetworks: React.FC = () => {
         </div>
 
         {chain?.unsupported && !isSafeConnector(connector?.id) && (
-          <div style={{ paddingTop: '6px' }}>
+          <div style={{ paddingTop: 12 }}>
             <OrDivider />
             <Button
               icon={<DisconnectIcon />}
