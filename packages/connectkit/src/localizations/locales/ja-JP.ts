@@ -58,7 +58,7 @@ export default {
   connectorsScreen_h1: `ウォレットとは何ですか？`,
   connectorsScreen_p: `ウォレットは、デジタル資産の送信、受信、および保存に使用されます。 ウォレットを接続すると、アプリとやり取りできます。`,
 
-  mobileConnectorsScreen_heading: `ウォレットを選択`,
+  otherConnectorsScreen_heading: `ウォレットを選択`,
 
   scanScreen_heading: `電話でスキャンする`,
   scanScreen_heading_withConnector: `{{ CONNECTORNAME }}でスキャンする`,

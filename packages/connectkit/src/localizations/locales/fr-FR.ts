@@ -60,7 +60,7 @@ const frFR: LocaleProps = {
   connectorsScreen_h1: `Qu’est-ce qu’un portefeuille ?`,
   connectorsScreen_p: `Les portefeuilles s'utilisent pour envoyer, recevoir et stocker des actifs numériques. La connexion d'un portefeuille vous permet d'interagir avec les applications.`,
 
-  mobileConnectorsScreen_heading: `Choisissez le portefeuille`,
+  otherConnectorsScreen_heading: `Choisissez le portefeuille`,
 
   scanScreen_heading: `Scannez avec le téléphone`,
   scanScreen_heading_withConnector: `Scannez avec {{ CONNECTORNAME }}`,

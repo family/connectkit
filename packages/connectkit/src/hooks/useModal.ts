@@ -16,7 +16,7 @@ const safeRoutes: {
     routes.CONNECTORS,
     routes.ABOUT,
     routes.ONBOARDING,
-    routes.MOBILECONNECTORS,
+    routes.OTHERCONNECTORS,
     routes.ONBOARDING,
   ],
   connected: [routes.PROFILE, routes.SWITCHNETWORKS, routes.SIGNINWITHETHEREUM],

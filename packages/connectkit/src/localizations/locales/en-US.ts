@@ -60,7 +60,7 @@ const enUS: LocaleProps = {
   connectorsScreen_h1: `What is a wallet?`,
   connectorsScreen_p: `Wallets are used to send, receive, and store digital assets. Connecting a wallet lets you interact with apps.`,
 
-  mobileConnectorsScreen_heading: `Choose Wallet`,
+  otherConnectorsScreen_heading: `Choose Wallet`,
 
   scanScreen_heading: `Scan with Phone`,
   scanScreen_heading_withConnector: `Scan with {{ CONNECTORNAME }}`,

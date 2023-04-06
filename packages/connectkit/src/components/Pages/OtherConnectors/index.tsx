@@ -3,7 +3,7 @@ import React from 'react';
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
 import { useWallets } from '../../../wallets/useDefaultWallets';
-import ConnectorList from './../../Common/ConnectorList';
+import ConnectorList from '../../Common/ConnectorList';
 import Input from '../../Common/Input';
 
 const SearchIcon = (
@@ -28,7 +28,7 @@ const SearchIcon = (
   </svg>
 );
 
-const MobileConnectors: React.FC = () => {
+const OtherConnectors: React.FC = () => {
   const wallets = useWallets();
   const [search, setSearch] = React.useState('');
 
@@ -57,4 +57,4 @@ const MobileConnectors: React.FC = () => {
   );
 };
 
-export default MobileConnectors;
+export default OtherConnectors;

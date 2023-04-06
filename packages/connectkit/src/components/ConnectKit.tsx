@@ -36,7 +36,7 @@ export const routes = {
   ONBOARDING: 'onboarding',
   ABOUT: 'about',
   CONNECTORS: 'connectors',
-  MOBILECONNECTORS: 'mobileConnectors',
+  OTHERCONNECTORS: 'otherConnectors',
   CONNECT: 'connect',
   DOWNLOAD: 'download',
   PROFILE: 'profile',

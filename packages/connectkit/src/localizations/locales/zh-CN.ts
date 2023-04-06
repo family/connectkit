@@ -60,7 +60,7 @@ const zhCN: LocaleProps = {
   connectorsScreen_h1: `什么是钱包？`,
   connectorsScreen_p: `钱包可用于发送、接收和存储数字资产。通过绑定钱包，您可以与应用进行交互。`,
 
-  mobileConnectorsScreen_heading: `选择钱包`,
+  otherConnectorsScreen_heading: `选择钱包`,
 
   scanScreen_heading: `手机扫描`,
   scanScreen_heading_withConnector: `手机扫描{{ CONNECTORNAME }}`,

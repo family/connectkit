@@ -7,7 +7,7 @@ import Modal from '../Common/Modal';
 import Onboarding from '../Pages/Onboarding';
 import About from '../Pages/About';
 import Connectors from '../Pages/Connectors';
-import MobileConnectors from '../Pages/MobileConnectors';
+import OtherConnectors from '../Pages/OtherConnectors';
 import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
@@ -61,11 +61,11 @@ const ConnectModal: React.FC<{
     } else if (context.route === routes.DOWNLOAD) {
       context.setRoute(routes.CONNECT);
     } else if (
-      context.route !== routes.MOBILECONNECTORS &&
+      context.route !== routes.OTHERCONNECTORS &&
       walletIsInOtherWallets(context.connector)
     ) {
       // if in the "other wallets" category, back button should go to that connectors page
-      context.setRoute(routes.MOBILECONNECTORS);
+      context.setRoute(routes.OTHERCONNECTORS);
     } else {
       context.setRoute(routes.CONNECTORS);
     }
@@ -76,7 +76,7 @@ const ConnectModal: React.FC<{
     about: <About />,
     download: <DownloadApp walletId={context.connector} />,
     connectors: <Connectors />,
-    mobileConnectors: <MobileConnectors />,
+    otherConnectors: <OtherConnectors />,
     connect: <ConnectUsing walletId={context.connector} />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,

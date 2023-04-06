@@ -11,7 +11,7 @@ import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
 import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
-import MobileConnectors from '../Pages/MobileConnectors';
+import OtherConnectors from '../Pages/OtherConnectors';
 import SignInWithEthereum from '../Pages/SignInWithEthereum';
 
 import { ConnectKitButton } from '../ConnectButton';
@@ -20,6 +20,7 @@ import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitTh
 
 import styled from './../../styles/styled';
 import { keyframes } from 'styled-components';
+import { useWallets } from '../../wallets/useDefaultWallets';
 
 const dist = 8;
 const shake = keyframes`
@@ -100,6 +101,12 @@ const ConnectModal: React.FC<{
   const { isConnected } = useAccount();
   const { chain } = useNetwork();
 
+  const wallets = useWallets();
+  const walletIsInOtherWallets = (walletId: string) => {
+    const i = wallets.map((w) => w.id).indexOf(walletId);
+    return i >= 2;
+  };
+
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(
     context.options?.enforceSupportedChains && chain?.unsupported
@@ -119,6 +126,12 @@ const ConnectModal: React.FC<{
       context.setRoute(routes.PROFILE);
     } else if (context.route === routes.DOWNLOAD) {
       context.setRoute(routes.CONNECT);
+    } else if (
+      context.route !== routes.OTHERCONNECTORS &&
+      walletIsInOtherWallets(context.connector)
+    ) {
+      // if in the "other wallets" category, back button should go to that connectors page
+      context.setRoute(routes.OTHERCONNECTORS);
     } else {
       context.setRoute(routes.CONNECTORS);
     }
@@ -129,7 +142,7 @@ const ConnectModal: React.FC<{
     about: <About />,
     download: <DownloadApp walletId={context.connector} />,
     connectors: <Connectors />,
-    mobileConnectors: <MobileConnectors />,
+    otherConnectors: <OtherConnectors />,
     connect: <ConnectUsing walletId={context.connector} />,
     profile: <Profile closeModal={() => setIsOpen(false)} />,
     switchNetworks: <SwitchNetworks />,

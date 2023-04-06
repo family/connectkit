@@ -60,7 +60,7 @@ const esES: LocaleProps = {
   connectorsScreen_h1: `¿Qué es una cartera?`,
   connectorsScreen_p: `Las carteras se utilizan para enviar, recibir y almacenar activos digitales. Si conectas una cartera, podrás interactuar con las aplicaciones.`,
 
-  mobileConnectorsScreen_heading: `Elige una cartera`,
+  otherConnectorsScreen_heading: `Elige una cartera`,
 
   scanScreen_heading: `Escanea con el teléfono`,
   scanScreen_heading_withConnector: `Escanea con {{ CONNECTORNAME }}`,

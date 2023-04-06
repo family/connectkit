@@ -333,8 +333,8 @@ const Modal: React.FC<ModalProps> = ({
         }
       case routes.CONNECTORS:
         return locales.connectorsScreen_heading;
-      case routes.MOBILECONNECTORS:
-        return locales.mobileConnectorsScreen_heading;
+      case routes.OTHERCONNECTORS:
+        return locales.otherConnectorsScreen_heading;
       case routes.DOWNLOAD:
         return locales.downloadAppScreen_heading;
       case routes.ONBOARDING:

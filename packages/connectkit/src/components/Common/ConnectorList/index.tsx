@@ -108,7 +108,7 @@ const ConnectorList = ({
         {otherWallets.length !== 0 && (
           <ConnectorButton
             onClick={() => {
-              context.setRoute(routes.MOBILECONNECTORS);
+              context.setRoute(routes.OTHERCONNECTORS);
             }}
           >
             <ConnectorIcon>
