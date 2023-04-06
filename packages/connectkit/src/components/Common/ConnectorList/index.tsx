@@ -6,6 +6,7 @@ import {
   ConnectorLabel,
   ConnectorIcon,
   RecentlyUsedTag,
+  NoResults,
 } from './styles';
 
 import { isInjectedConnector } from '../../../utils';
@@ -75,7 +76,9 @@ const ConnectorList = ({
   return (
     <ScrollArea>
       <ConnectorsContainer $mobile={isMobile}>
-        {walletsToDisplay.length === 0 && <>No wallets found</>}
+        {walletsToDisplay.length === 0 && (
+          <NoResults>No wallets found</NoResults>
+        )}
         {walletsToDisplay.map((wallet) => {
           const logos = wallet.logos;
 

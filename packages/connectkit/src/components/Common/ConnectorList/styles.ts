@@ -270,3 +270,9 @@ export const RecentlyUsedTag = styled(motion.span)`
     animation: ${Shimmer} 2s linear infinite;
   }
 `;
+
+export const NoResults = styled.div`
+  padding: 20px 0;
+  color: var(--ck-body-color-muted);
+  font-size: 16px;
+`;

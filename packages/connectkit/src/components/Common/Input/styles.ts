@@ -8,11 +8,17 @@ export const InputElement = styled.input`
   font-size: 15px;
   background: transparent;
   color: currentColor;
-  box-shadow: var(--ck-primary-button-box-shadow);
+  box-shadow: var(
+    --ck-primary-button-box-shadow,
+    inset 0 0 0 1px var(--ck-primary-button-background)
+  );
   border-radius: var(--ck-primary-button-border-radius);
 
   &:focus {
-    box-shadow: var(--ck-primary-button-hover-box-shadow);
+    box-shadow: var(
+      --ck-primary-butto-hovenr-box-shadow,
+      inset 0 0 0 1px var(--ck-primary-button-hover-background)
+    );
   }
 
   &::placeholder {

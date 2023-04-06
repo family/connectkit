@@ -49,7 +49,7 @@ function App({ Component, pageProps }: AppProps) {
       }}
     >
       <ConnectKitProvider
-        wallets={[familyStaging, wallets.family(), ...defaultWallets]}
+        wallets={[familyStaging, ...defaultWallets]}
         key={key}
         theme={theme}
         mode={mode}
