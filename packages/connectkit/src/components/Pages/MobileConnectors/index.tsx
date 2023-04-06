@@ -1,10 +1,9 @@
 import React from 'react';
-import { Container } from './styles';
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
 import { useWallets } from '../../../wallets/useDefaultWallets';
-import { ConnectorList } from '../Connectors';
+import ConnectorList from './../../Common/ConnectorList';
 import Input from '../../Common/Input';
 
 const SearchIcon = (
@@ -39,23 +38,21 @@ const MobileConnectors: React.FC = () => {
 
   return (
     <PageContent style={{ width: 312 }}>
-      <Container>
-        <ModalContent>
-          <Input
-            autoFocus
-            icon={SearchIcon}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            type="search"
-            placeholder={`Search ${wallets.length} Wallets`}
-          />
-          <ConnectorList
-            wallets={search ? filtered : wallets}
-            start={search ? 0 : 2}
-            end={wallets.length}
-          />
-        </ModalContent>
-      </Container>
+      <ModalContent>
+        <Input
+          autoFocus
+          icon={SearchIcon}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          type="search"
+          placeholder={`Search ${wallets.length} Wallets`}
+        />
+        <ConnectorList
+          wallets={search ? filtered : wallets}
+          start={search ? 0 : 2}
+          end={wallets.length}
+        />
+      </ModalContent>
     </PageContent>
   );
 };
