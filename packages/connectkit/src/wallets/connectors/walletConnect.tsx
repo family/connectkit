@@ -5,7 +5,7 @@ import Logos from './../../assets/logos';
 export const walletConnect = (): WalletProps => {
   return {
     id: 'walletConnect',
-    name: `Wallet Connect`,
+    name: `WalletConnect`,
     shortName: `WalletConnect`,
     logos: {
       default: <Logos.WalletConnect background={true} />,
