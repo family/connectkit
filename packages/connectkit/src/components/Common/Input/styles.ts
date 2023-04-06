@@ -6,7 +6,7 @@ export const InputElement = styled.input`
   padding: 14px;
   padding-left: 38px;
   font-size: 15px;
-  background: transparent;
+  background: var(--ck-body-background);
   color: currentColor;
   box-shadow: var(
     --ck-primary-button-box-shadow,

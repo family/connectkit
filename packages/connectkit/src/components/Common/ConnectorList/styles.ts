@@ -2,7 +2,6 @@ import styled from './../../../styles/styled';
 import { css, keyframes } from 'styled-components';
 
 import { motion } from 'framer-motion';
-import defaultTheme from '../../../constants/defaultTheme';
 
 const Shimmer = keyframes`
   0%{ transform: translate(-100%) rotate(-45deg); }
@@ -271,8 +270,15 @@ export const RecentlyUsedTag = styled(motion.span)`
   }
 `;
 
+const FadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
 export const NoResults = styled.div`
   padding: 20px 0;
   color: var(--ck-body-color-muted);
   font-size: 16px;
+  user-select: none;
+  pointer-events: none;
+  animation: ${FadeIn} 300ms ease forwards;
 `;

@@ -75,10 +75,8 @@ const ConnectorList = ({
 
   return (
     <ScrollArea>
+      {walletsToDisplay.length === 0 && <NoResults>No wallets found</NoResults>}
       <ConnectorsContainer $mobile={isMobile}>
-        {walletsToDisplay.length === 0 && (
-          <NoResults>No wallets found</NoResults>
-        )}
         {walletsToDisplay.map((wallet) => {
           const logos = wallet.logos;
 
