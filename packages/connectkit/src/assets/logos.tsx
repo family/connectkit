@@ -760,16 +760,19 @@ export const PlaceHolder = () => {
 };
 
 export const OtherWallets = ({
+  wallets,
+  ...props
+}: {
+  wallets: React.ReactNode[];
+}) => {
   wallets = [
+    ...wallets,
     <WalletConnect background />,
     <Zerion />,
     <Rainbow />,
     <ImToken />,
-  ],
-  ...props
-}: {
-  wallets?: React.ReactNode[];
-}) => {
+  ];
+
   const column: React.CSSProperties = {
     position: 'relative',
     display: 'flex',
