@@ -32,9 +32,9 @@ const OtherConnectors: React.FC = () => {
   const wallets = useWallets();
   const [search, setSearch] = React.useState('');
 
-  const filtered = wallets.filter((w) =>
-    w.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = wallets
+    .filter((w) => w.name.toLowerCase().includes(search.toLowerCase()))
+    .filter((w, i, a) => a.findIndex((t) => t.name === w.name) === i); // remove duplicates created by the injected connector
 
   return (
     <PageContent style={{ width: 312 }}>
