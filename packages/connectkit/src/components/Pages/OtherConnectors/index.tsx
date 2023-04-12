@@ -38,7 +38,7 @@ const OtherConnectors: React.FC = () => {
 
   return (
     <PageContent style={{ width: 312 }}>
-      <ModalContent>
+      <ModalContent style={{ paddingBottom: 0, marginBottom: -16 }}>
         <Input
           autoFocus
           icon={SearchIcon}

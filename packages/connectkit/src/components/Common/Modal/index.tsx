@@ -292,6 +292,19 @@ const Modal: React.FC<ModalProps> = ({
   }, [chain, switchNetwork, mobile, isSignedIn, context.options]);
 
   useEffect(() => {
+    const onKeyDown = () => {
+      setTimeout(() => {
+        if (ref.current) updateBounds(ref.current);
+      }, 0);
+    };
+    addEventListener('keydown', onKeyDown);
+
+    return () => {
+      removeEventListener('keydown', onKeyDown);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!mounted) {
       setDimensions({
         width: undefined,
