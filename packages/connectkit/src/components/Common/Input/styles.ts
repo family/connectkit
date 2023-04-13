@@ -13,12 +13,10 @@ export const InputElement = styled.input`
     inset 0 0 0 1px var(--ck-primary-button-background)
   );
   border-radius: var(--ck-primary-button-border-radius);
+  transition: box-shadow 100ms ease;
 
   &:focus {
-    box-shadow: var(
-      --ck-primary-butto-hovenr-box-shadow,
-      inset 0 0 0 1px var(--ck-primary-button-hover-background)
-    );
+    box-shadow: inset 0 0 0 2px var(--ck-focus-color);
   }
 
   &::placeholder {
@@ -40,4 +38,5 @@ export const InputIcon = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 14px;
+  color: var(--ck-body-color-muted);
 `;
