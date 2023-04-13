@@ -39,19 +39,27 @@ const OtherConnectors: React.FC = () => {
   return (
     <PageContent style={{ width: 312 }}>
       <ModalContent style={{ paddingBottom: 0, marginBottom: -16 }}>
-        <Input
-          autoFocus
-          icon={SearchIcon}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          type="text"
-          placeholder={`Search ${wallets.length} Wallets`}
-        />
-        <ConnectorList
-          wallets={search ? filtered : wallets}
-          start={search ? 0 : 2}
-          end={wallets.length}
-        />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 16,
+          }}
+        >
+          <Input
+            autoFocus
+            icon={SearchIcon}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            type="text"
+            placeholder={`Search ${wallets.length} Wallets`}
+          />
+          <ConnectorList
+            wallets={search ? filtered : wallets}
+            start={search ? 0 : 2}
+            end={wallets.length}
+          />
+        </div>
       </ModalContent>
     </PageContent>
   );
