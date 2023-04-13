@@ -92,4 +92,9 @@ export default {
   '--ck-qr-border-color': '#E9EAEC',
 
   '--ck-siwe-border': '#EAEBED',
+
+  /* Inputs */
+  '--ck-input-border-radius': '8px',
+
+  '--ck-input-focus-box-shadow': 'inset 0 0 0 1px #000000',
 };

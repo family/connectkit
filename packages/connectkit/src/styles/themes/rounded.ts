@@ -136,4 +136,13 @@ export default {
   */
 
   '--ck-siwe-border': '#DFE4EC',
+
+  /* Inputs */
+  '--ck-input-background': 'transparent',
+  '--ck-input-box-shadow': 'inset 0 0 0 1px #ECECEC',
+  '--ck-input-color': '#000000',
+  '--ck-input-placeholder-color': 'rgba(0, 0, 0, 0.2)',
+  '--ck-input-border-radius': '12px',
+
+  '--ck-input-focus-box-shadow': 'inset 0 0 0 1px #000000',
 };

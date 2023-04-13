@@ -103,4 +103,13 @@ export default {
   '--ck-graphic-primary-box-shadow':
     '0px 2.94737px 14.7368px rgba(0, 0, 0, 0.1)',
   '--ck-graphic-compass-box-shadow': '0px 2px 9px rgba(0, 0, 0, 0.15)',
+
+  /* Inputs */
+  '--ck-input-background': '#ffffff',
+  '--ck-input-box-shadow': 'inset 0 0 0 1px #E4E6EC',
+  '--ck-input-color': '#000000',
+  '--ck-input-placeholder-color': 'rgba(21, 28, 59, 0.2)',
+  '--ck-input-border-radius': '8px',
+
+  '--ck-input-focus-box-shadow': 'inset 0 0 0 1px #000000',
 };

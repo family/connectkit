@@ -170,4 +170,13 @@ export default {
     */
 
   '--ck-siwe-border': '#919B9C',
+
+  /* Inputs */
+  '--ck-input-background': '#ffffff',
+  '--ck-input-box-shadow': 'inset 0 0 0 1px #003C74',
+  '--ck-input-color': '#000000',
+  '--ck-input-placeholder-color': 'rgba(55, 55, 55, 0.3)',
+  '--ck-input-border-radius': '2px',
+
+  '--ck-input-focus-box-shadow': 'inset 0 0 0 2px #000000',
 };

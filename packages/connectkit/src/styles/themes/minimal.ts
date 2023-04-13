@@ -115,4 +115,9 @@ export default {
   */
 
   '--ck-siwe-border': '#EBEBEB',
+
+  /* Inputs */
+  '--ck-input-border-radius': '12px',
+
+  '--ck-input-focus-box-shadow': 'inset 0 0 0 1px #000000',
 };

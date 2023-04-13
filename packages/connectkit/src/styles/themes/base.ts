@@ -98,6 +98,15 @@ export default {
     '--ck-focus-color': '#1A88F8',
     '--ck-spinner-color': 'var(--ck-focus-color)',
     '--ck-copytoclipboard-stroke': '#CCCCCC',
+
+    /* Inputs */
+    '--ck-input-background': 'transparent',
+    '--ck-input-box-shadow': 'inset 0 0 0 1px #ECECEC',
+    '--ck-input-color': '#373737',
+    '--ck-input-placeholder-color': 'rgba(55, 55, 55, 0.3)',
+    '--ck-input-border-radius': '12px',
+
+    '--ck-input-focus-box-shadow': 'inset 0 0 0 2px #1A88F8',
   },
   dark: {
     '--ck-connectbutton-font-size': '15px',
@@ -179,5 +188,14 @@ export default {
 
     '--ck-qr-dot-color': '#ffffff',
     '--ck-qr-border-color': '#3d3d3d',
+
+    /* Inputs */
+    '--ck-input-background': 'transparent',
+    '--ck-input-box-shadow': 'inset 0 0 0 1px #383838',
+    '--ck-input-color': '#ffffff',
+    '--ck-input-placeholder-color': '#696969',
+    '--ck-input-border-radius': '12px',
+
+    '--ck-input-focus-box-shadow': 'inset 0 0 0 2px #ffffff',
   },
 };

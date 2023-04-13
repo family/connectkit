@@ -93,4 +93,13 @@ export default {
   '--ck-qr-border-color': 'rgba(255,255,255,0.1)',
 
   '--ck-recent-badge-border-radius': '32px',
+
+  /* Inputs */
+  '--ck-input-background': 'transparent',
+  '--ck-input-box-shadow': 'inset 0 0 0 1px #383838',
+  '--ck-input-color': '#ffffff',
+  '--ck-input-placeholder-color': '#696969',
+  '--ck-input-border-radius': '12px',
+
+  '--ck-input-focus-box-shadow': 'inset 0 0 0 2px #ffffff',
 };

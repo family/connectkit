@@ -1,22 +1,27 @@
 import styled from '../../../styles/styled';
 
 export const InputElement = styled.input`
+  --color: var(--ck-input-color, var(--ck-body-color));
+  --bg: var(--ck-input-background, var(--ck-body-background));
+  --box-shadow: var(--ck-input-box-shadow, var(--ck-primary-button-box-shadow));
+  --border-radius: var(
+    --ck-input-border-radius,
+    var(--ck-primary-button-border-radius)
+  );
+
   display: block;
   width: 100%;
   padding: 12px 14px;
   padding-left: 38px;
   font-size: 15px;
-  background: var(--ck-body-background);
-  color: currentColor;
-  box-shadow: var(
-    --ck-primary-button-box-shadow,
-    inset 0 0 0 1px var(--ck-primary-button-background)
-  );
-  border-radius: var(--ck-primary-button-border-radius);
+  background: var(--bg);
+  color: var(--color);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
   transition: box-shadow 100ms ease;
 
   &:focus {
-    box-shadow: inset 0 0 0 2px var(--ck-focus-color);
+    box-shadow: var(--ck-input-focus-box-shadow, var(--box-shadow));
   }
 
   &::placeholder {
