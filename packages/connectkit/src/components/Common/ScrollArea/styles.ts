@@ -10,9 +10,9 @@ export const ScrollAreaContainer = styled.div<{
   position: relative;
   z-index: 1;
   max-height: ${({ $height }) => ($height ? `${$height}px` : '340px')};
-  overflow-y: auto;
-
-  margin: calc(var(--fade-height) * -1) 0 0;
+  overflow-y: scroll;
+  padding: 0 10px;
+  margin: calc(var(--fade-height) * -1) -16px 0 -10px;
 
   &::-webkit-scrollbar {
     width: 6px;

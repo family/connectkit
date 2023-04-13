@@ -3,7 +3,7 @@ import styled from '../../../styles/styled';
 export const InputElement = styled.input`
   display: block;
   width: 100%;
-  padding: 14px;
+  padding: 12px 14px;
   padding-left: 38px;
   font-size: 15px;
   background: var(--ck-body-background);
