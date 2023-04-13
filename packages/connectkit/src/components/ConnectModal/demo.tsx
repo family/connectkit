@@ -130,9 +130,11 @@ const ConnectModal: React.FC<{
       context.route !== routes.OTHERCONNECTORS &&
       walletIsInOtherWallets(context.connector)
     ) {
+      context.setConnector('');
       // if in the "other wallets" category, back button should go to that connectors page
       context.setRoute(routes.OTHERCONNECTORS);
     } else {
+      context.setConnector('');
       context.setRoute(routes.CONNECTORS);
     }
   };
