@@ -143,12 +143,12 @@ export default {
     /** Tertiary Button */
     '--ck-tertiary-button-background': '#424242',
 
-    '--ck-focus-color': '#1A88F8',
+    '--ck-focus-color': '#ffffff',
 
     '--ck-overlay-background': 'rgba(0,0,0,0.4)',
     '--ck-body-color': '#ffffff',
-    '--ck-body-color-muted': 'rgba(255, 255, 255, 0.4)',
-    '--ck-body-color-muted-hover': 'rgba(255, 255, 255, 0.8)',
+    '--ck-body-color-muted': '#808080',
+    '--ck-body-color-muted-hover': '#d5d5d5',
     '--ck-body-background': '#2B2B2B',
     '--ck-body-background-transparent': 'rgba(0,0,0,0)',
     '--ck-body-background-secondary': '#333333',
