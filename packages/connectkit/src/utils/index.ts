@@ -129,7 +129,7 @@ const isCoinbaseWallet = () => {
 const isPhantom = () => {
   if (typeof window === 'undefined') return false;
   const { phantom } = window as any;
-  const isPhantom = Boolean(phantom.ethereum?.isPhantom);
+  const isPhantom = Boolean(phantom?.ethereum?.isPhantom);
   if (isPhantom) return true;
   return false;
 };
