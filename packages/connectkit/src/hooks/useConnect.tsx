@@ -27,7 +27,7 @@ export function useConnect({ ...props } = {}) {
       }
     },
     onSuccess(data: any) {
-      updateLastConnectorId(data?.connector?.id ?? '');
+      updateLastConnectorId(context.connector ?? data?.connector?.id ?? '');
     },
     ...props,
     /*

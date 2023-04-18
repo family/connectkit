@@ -51,14 +51,16 @@ const ConnectorList = ({
   const context = useContext();
   const locales = useLocales({});
   const isMobile = useIsMobile();
-
-  const walletsToDisplay: WalletProps[] = filterWallets(wallets).slice(
-    start,
-    end
-  );
-  const otherWallets: WalletProps[] = filterWallets(wallets).slice(end);
-
   const { lastConnectorId } = useLastConnector();
+
+  const filteredWallets = filterWallets(wallets);
+  const sortedWallets = [
+    ...filteredWallets.filter((w) => w.id === lastConnectorId),
+    ...filteredWallets.filter((w) => w.id !== lastConnectorId),
+  ];
+
+  const walletsToDisplay: WalletProps[] = sortedWallets.slice(start, end);
+  const otherWallets: WalletProps[] = sortedWallets.slice(end);
 
   const { uri: wcUri } = useWalletConnectUri();
   //const { uri: cbwUri } = useCoinbaseWalletUri({ enabled: !mobile });
