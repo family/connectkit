@@ -8,8 +8,6 @@ export type { SIWESession, SIWEConfig } from './siwe';
 export {
   ConnectKitProvider,
   Context,
-  useContext,
-  routes,
 } from './components/ConnectKit';
 export { ConnectKitButton } from './components/ConnectButton';
 export { default as SIWEButton } from './components/Standard/SIWE';

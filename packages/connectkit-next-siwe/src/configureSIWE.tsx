@@ -81,7 +81,7 @@ const logoutRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<void>,
   sessionConfig: IronSessionOptions,
-  afterCallback: RouteHandlerOptions['afterLogout']
+  afterCallback?: RouteHandlerOptions['afterLogout']
 ) => {
   switch (req.method) {
     case 'GET':
@@ -102,7 +102,7 @@ const nonceRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<string>,
   sessionConfig: IronSessionOptions,
-  afterCallback: RouteHandlerOptions['afterNonce']
+  afterCallback?: RouteHandlerOptions['afterNonce']
 ) => {
   switch (req.method) {
     case 'GET':
@@ -126,7 +126,7 @@ const sessionRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<{ address?: string; chainId?: number }>,
   sessionConfig: IronSessionOptions,
-  afterCallback: RouteHandlerOptions['afterSession']
+  afterCallback?: RouteHandlerOptions['afterSession']
 ) => {
   switch (req.method) {
     case 'GET':
@@ -147,7 +147,7 @@ const verifyRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<void>,
   sessionConfig: IronSessionOptions,
-  afterCallback: RouteHandlerOptions['afterVerify']
+  afterCallback?: RouteHandlerOptions['afterVerify']
 ) => {
   switch (req.method) {
     case 'POST':
