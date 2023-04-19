@@ -348,12 +348,14 @@ const Home: NextPage = () => {
           </div>
         </div>
 
+        {/**
         <div className="panel">
           <h2>Docs Inline Demo</h2>
           <div style={{ position: 'relative', width: 384, height: 540 }}>
             <ConnectKitModalDemo inline />
           </div>
         </div>
+        */}
       </main>
       <aside>
         <ConnectKitButton.Custom>
