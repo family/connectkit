@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chain, useAccount, useConnect, useEnsName, useNetwork } from 'wagmi';
+import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
 import { truncateENSAddress, truncateEthAddress } from './../../utils';
 import useIsMounted from '../../hooks/useIsMounted';
 
@@ -122,12 +122,11 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   const { open, setOpen } = useModal();
 
   const { chain } = useNetwork();
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, isConnecting, isReconnecting } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
   });
-  const { isLoading } = useConnect();
 
   function hide() {
     setOpen(false);
@@ -149,7 +148,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         chain: chain,
         unsupported: !!chain?.unsupported,
         isConnected: !!address,
-        isConnecting: open || isLoading, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection. Checking isLoading will detect if we're still connecting but modal is closed.
+        isConnecting: open || isConnecting || isReconnecting, // wagmi.useAccount isConnecting is true if and only if an active connector is awaiting connection, and not if the modal is open but no connector has yet been selected, and so here we define isConnected==true if the modal is open, or wagmi.useAccount says we're connecting or reconnecting.
         address: address,
         truncatedAddress: address ? truncateEthAddress(address) : undefined,
         ensName: ensName?.toString(),
