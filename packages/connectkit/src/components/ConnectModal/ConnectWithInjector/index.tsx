@@ -32,6 +32,7 @@ import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
 import { useWallet } from '../../../wallets/useDefaultWallets';
 import { useInjectedConnector } from '../../../hooks/useConnectors';
+import { useContext } from '../../ConnectKit';
 
 export const states = {
   CONNECTED: 'connected',
@@ -80,6 +81,11 @@ const ConnectWithInjector: React.FC<{
   const { wallet } = useWallet(walletId);
   const injectedConnector = useInjectedConnector();
 
+  const shouldScanQRCodeButton =
+    wallet?.scannable && wallet?.id !== 'coinbaseWallet';
+
+  const context = useContext();
+
   const { connect, connectors } = useConnect({
     onMutate: (connector?: any) => {
       if (connector.connector) {
@@ -93,6 +99,7 @@ const ConnectWithInjector: React.FC<{
     },
     onSettled(data?: any, error?: any) {
       if (error) {
+        context.refreshBounds();
         setShowTryAgainTooltip(true);
         setTimeout(() => setShowTryAgainTooltip(false), 3500);
         if (error.code) {
@@ -160,6 +167,7 @@ const ConnectWithInjector: React.FC<{
   const runConnect = () => {
     if (!wallet?.installed) return;
 
+    context.refreshBounds();
     const con: any =
       connectors.find((c) => c.id === wallet?.id) ?? injectedConnector;
     if (con) {
@@ -286,19 +294,19 @@ const ConnectWithInjector: React.FC<{
                     {locales.injectionScreen_failed_h1}
                   </ModalH1>
                   <ModalBody>{locales.injectionScreen_failed_p}</ModalBody>
+                  {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
+                  {shouldScanQRCodeButton && (
+                    <>
+                      <OrDivider />
+                      <Button
+                        icon={<Scan />}
+                        onClick={() => switchConnectMethod(wallet.id)}
+                      >
+                        {locales.scanTheQRCode}
+                      </Button>
+                    </>
+                  )}
                 </ModalContent>
-                {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
-                {wallet.scannable && wallet.id !== 'coinbaseWallet' && (
-                  <>
-                    <OrDivider />
-                    <Button
-                      icon={<Scan />}
-                      onClick={() => switchConnectMethod(wallet.id)}
-                    >
-                      {locales.scanTheQRCode}
-                    </Button>
-                  </>
-                )}
               </Content>
             )}
             {status === states.REJECTED && (
@@ -309,23 +317,25 @@ const ConnectWithInjector: React.FC<{
                 exit={'exit'}
                 variants={contentVariants}
               >
-                <ModalContent style={{ paddingBottom: 28 }}>
+                <ModalContent
+                  style={{ paddingBottom: shouldScanQRCodeButton ? 6 : 28 }}
+                >
                   <ModalH1>{locales.injectionScreen_rejected_h1}</ModalH1>
                   <ModalBody>{locales.injectionScreen_rejected_p}</ModalBody>
-                </ModalContent>
 
-                {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
-                {wallet.scannable && wallet.id !== 'coinbaseWallet' && (
-                  <>
-                    <OrDivider />
-                    <Button
-                      icon={<Scan />}
-                      onClick={() => switchConnectMethod(wallet.id)}
-                    >
-                      {locales.scanTheQRCode}
-                    </Button>
-                  </>
-                )}
+                  {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
+                  {shouldScanQRCodeButton && (
+                    <>
+                      <OrDivider />
+                      <Button
+                        icon={<Scan />}
+                        onClick={() => switchConnectMethod(wallet.id)}
+                      >
+                        {locales.scanTheQRCode}
+                      </Button>
+                    </>
+                  )}
+                </ModalContent>
               </Content>
             )}
             {(status === states.CONNECTING || status === states.EXPIRING) && (

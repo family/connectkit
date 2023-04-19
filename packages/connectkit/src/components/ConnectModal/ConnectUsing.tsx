@@ -7,7 +7,9 @@ import ConnectWithInjector from './ConnectWithInjector';
 import ConnectWithQRCode from './ConnectWithQRCode';
 
 import Alert from '../Common/Alert';
-import { useWallet } from '../../wallets/useDefaultWallets';
+import { useWallet, useWallets } from '../../wallets/useDefaultWallets';
+import { useContext } from '../ConnectKit';
+import { Disclaimer } from '../Common/Modal/styles';
 
 const states = {
   QRCODE: 'qrcode',
@@ -15,6 +17,11 @@ const states = {
 };
 const ConnectUsing: React.FC<{ walletId: string }> = ({ walletId }) => {
   const [id, setId] = useState<string>(walletId);
+
+  const context = useContext();
+
+  const onlyOneWallet = useWallets().length === 1;
+  const showDisclaimer = context.options?.disclaimer && onlyOneWallet;
 
   const { wallet } = useWallet(id);
 
@@ -62,6 +69,11 @@ const ConnectUsing: React.FC<{ walletId: string }> = ({ walletId }) => {
             }}
           />
         </motion.div>
+      )}
+      {showDisclaimer && (
+        <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
+          <div>{context.options?.disclaimer}</div>
+        </Disclaimer>
       )}
     </AnimatePresence>
   );

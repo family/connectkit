@@ -67,6 +67,8 @@ type ContextValue = {
   signInWithEthereum: boolean;
   debugMode?: boolean;
   wallets?: WalletProps[];
+  boundsCount: number;
+  refreshBounds: () => void;
   log: (...props: any) => void;
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
 } & useConnectCallbackProps;
@@ -181,6 +183,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const [connector, setConnector] = useState<string>('');
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [errorMessage, setErrorMessage] = useState<Error>('');
+  const [boundsCount, setBoundsCount] = useState(0);
 
   // Include Google Font that is needed for a themes
   if (opts.embedGoogleFonts) useThemeFont(theme);
@@ -223,6 +226,11 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     options: opts,
     errorMessage,
     debugMode,
+    boundsCount,
+    refreshBounds: () => {
+      // delay to avoid refreshing too early
+      setTimeout(() => setBoundsCount(boundsCount + 1), 25);
+    },
     log,
     displayError: (message: string | React.ReactNode | null, code?: any) => {
       setErrorMessage(message);

@@ -295,7 +295,14 @@ const Modal: React.FC<ModalProps> = ({
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [chain, switchNetwork, mobile, isSignedIn, context.options]);
+  }, [
+    chain,
+    switchNetwork,
+    mobile,
+    isSignedIn,
+    context.options,
+    context.boundsCount,
+  ]);
 
   useEffect(() => {
     if (!mounted) {

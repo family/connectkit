@@ -31,6 +31,8 @@ const getWallets = (type: string) => {
       return [...defaultWallets];
     case 'only fams':
       return [...defaultWallets].filter((wallet) => wallet.id === 'family');
+    case 'only mm':
+      return [...defaultWallets].filter((wallet) => wallet.id === 'metaMask');
     case 'default + family staging':
       return [familyStaging, ...defaultWallets];
     case 'noWalletConnect':

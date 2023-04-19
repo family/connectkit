@@ -646,6 +646,10 @@ const Home: NextPage = () => {
               value: 'only fams',
             },
             {
+              label: 'only mm',
+              value: 'only mm',
+            },
+            {
               label: 'default + family staging',
               value: 'default + family staging',
             },
