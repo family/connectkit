@@ -4,22 +4,12 @@ import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Theme, Mode } from '../../types';
 import Modal from '../Common/Modal';
 
-import Onboarding from '../Pages/Onboarding';
-import About from '../Pages/About';
-import Connectors from '../Pages/Connectors';
-import ConnectUsing from './ConnectUsing';
-import DownloadApp from '../Pages/DownloadApp';
-import Profile from '../Pages/Profile';
-import SwitchNetworks from '../Pages/SwitchNetworks';
-import OtherConnectors from '../Pages/OtherConnectors';
-import SignInWithEthereum from '../Pages/SignInWithEthereum';
-
 import { ConnectKitButton } from '../ConnectButton';
-import { getAppName } from '../../defaultClient';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 import styled from './../../styles/styled';
 import { keyframes } from 'styled-components';
+import { useModalRoutes } from '.';
 import { useWallets } from '../../wallets/useDefaultWallets';
 
 const dist = 8;
@@ -100,70 +90,39 @@ const ConnectModal: React.FC<{
   const context = useContext();
   const { isConnected } = useAccount();
   const { chain } = useNetwork();
-
-  const wallets = useWallets();
-  const walletIsInOtherWallets = (walletId: string) => {
-    const i = wallets.map((w) => w.id).indexOf(walletId);
-    return i >= 2;
-  };
+  const { showBackButton, onInfo, onBack, pages } = useModalRoutes({
+    onDisconnect: () => setIsOpen(false),
+  });
 
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(
     context.options?.enforceSupportedChains && chain?.unsupported
   );
 
-  const showBackButton =
-    closeable &&
-    context.route !== routes.CONNECTORS &&
-    context.route !== routes.PROFILE;
-
-  const showInfoButton = closeable && context.route !== routes.PROFILE;
-
-  const onBack = () => {
-    if (context.route === routes.SIGNINWITHETHEREUM) {
-      context.setRoute(routes.PROFILE);
-    } else if (context.route === routes.SWITCHNETWORKS) {
-      context.setRoute(routes.PROFILE);
-    } else if (context.route === routes.DOWNLOAD) {
-      context.setRoute(routes.CONNECT);
-    } else if (
-      context.route !== routes.OTHERCONNECTORS &&
-      walletIsInOtherWallets(context.connector)
-    ) {
-      context.setConnector('');
-      // if in the "other wallets" category, back button should go to that connectors page
-      context.setRoute(routes.OTHERCONNECTORS);
-    } else {
-      context.setConnector('');
-      context.setRoute(routes.CONNECTORS);
-    }
-  };
-
-  const pages: any = {
-    onboarding: <Onboarding />,
-    about: <About />,
-    download: <DownloadApp walletId={context.connector} />,
-    connectors: <Connectors />,
-    otherConnectors: <OtherConnectors />,
-    connect: <ConnectUsing walletId={context.connector} />,
-    profile: <Profile closeModal={() => setIsOpen(false)} />,
-    switchNetworks: <SwitchNetworks />,
-    signInWithEthereum: <SignInWithEthereum />,
-  };
-
   const ref = useRef<HTMLDivElement | null>(null);
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(open ?? false);
 
+  const wallets = useWallets();
+  const oneWallet = wallets.length === 1 ? wallets[0] : undefined;
+  const initOpen = () => {
+    if (isConnected) {
+      context.setRoute(routes.PROFILE);
+    } else if (oneWallet) {
+      context.setConnector(oneWallet.id);
+      context.setRoute(routes.CONNECT);
+    } else {
+      context.setRoute(routes.CONNECTORS);
+    }
+  };
+
   useEffect(() => {
-    if (open)
-      context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    if (open) initOpen();
     setIsOpen(open ?? false);
   }, [open]);
 
   useEffect(() => {
-    if (isOpen)
-      context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    if (open) initOpen();
   }, [isOpen]);
 
   useEffect(() => {
@@ -184,7 +143,6 @@ const ConnectModal: React.FC<{
       }
     }
   }, [isOpen]);
-  //useEffect(() => setIsOpen(false), [isConnected]);
 
   const onModalClose = () => {
     if (onClose) {
@@ -199,41 +157,6 @@ const ConnectModal: React.FC<{
       }
     }
   };
-
-  useEffect(() => {
-    if (isConnected) {
-      if (
-        context.route !== routes.PROFILE ||
-        context.route !== routes.SIGNINWITHETHEREUM
-      ) {
-        if (
-          context.signInWithEthereum &&
-          !context.options?.disableSiweRedirect
-        ) {
-          context.setRoute(routes.SIGNINWITHETHEREUM);
-        } else {
-          onModalClose(); // Hide on connect
-        }
-      }
-    } else {
-      onModalClose(); // Hide on connect
-    }
-  }, [isConnected]);
-
-  /* When pulling data into WalletConnect, it prioritises the og:title tag over the title tag */
-  useEffect(() => {
-    const appName = getAppName();
-    if (!appName || (!open && !inline)) return;
-
-    const title = document.createElement('meta');
-    title.setAttribute('property', 'og:title');
-    title.setAttribute('content', appName);
-    document.head.prepend(title);
-
-    return () => {
-      document.head.removeChild(title);
-    };
-  }, [open, inline]);
 
   return (
     <ConnectKitThemeProvider
@@ -261,9 +184,7 @@ const ConnectModal: React.FC<{
           open={isOpen}
           pages={pages}
           pageId={context.route}
-          onInfo={
-            showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
-          }
+          onInfo={onInfo}
           onBack={showBackButton ? onBack : undefined}
         />
       </Container>

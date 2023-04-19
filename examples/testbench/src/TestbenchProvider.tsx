@@ -21,6 +21,8 @@ type ContextValue = {
   setHideAvatar: React.Dispatch<React.SetStateAction<boolean>>;
   label: string;
   setLabel: React.Dispatch<React.SetStateAction<string>>;
+  wallets: string;
+  setWallets: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const Context = createContext<ContextValue | null>(null);
@@ -62,6 +64,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
   const [hideBalance, setHideBalance] = useState<boolean>(false);
   const [hideAvatar, setHideAvatar] = useState<boolean>(false);
   const [label, setLabel] = useState<string | undefined>();
+  const [wallets, setWallets] = useState<string>('default');
 
   useEffect(() => setTheme(theme), [theme]);
 
@@ -80,6 +83,8 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
     setHideAvatar,
     label,
     setLabel,
+    wallets,
+    setWallets,
   };
 
   return createElement(Context.Provider, { value }, <>{children}</>);

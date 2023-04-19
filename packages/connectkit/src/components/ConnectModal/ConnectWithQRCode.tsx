@@ -2,6 +2,7 @@ import React from 'react';
 import { routes, useContext } from '../ConnectKit';
 
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
+import WalletIcon from '../../assets/wallet';
 
 import {
   detectBrowser,
@@ -13,6 +14,7 @@ import {
   PageContent,
   ModalContent,
   ModalHeading,
+  Disclaimer,
 } from '../Common/Modal/styles';
 import { OrDivider } from '../Common/Modal';
 
@@ -26,7 +28,9 @@ import useLocales from '../../hooks/useLocales';
 
 import { useWalletConnectUri } from '../../hooks/connectors/useWalletConnectUri';
 import { useCoinbaseWalletUri } from '../../hooks/connectors/useCoinbaseWalletUri';
-import { useWallet } from '../../wallets/useDefaultWallets';
+import { useWallet, useWallets } from '../../wallets/useDefaultWallets';
+import { LearnMoreButton } from '../Pages/Connectors/styles';
+import { LearnMoreContainer } from '../Pages/Connectors/styles';
 
 const ConnectWithQRCode: React.FC<{
   walletId: string;
@@ -34,6 +38,7 @@ const ConnectWithQRCode: React.FC<{
 }> = ({ walletId, switchConnectMethod }) => {
   const context = useContext();
 
+  const onlyOneWallet = useWallets().length === 1;
   const { wallet } = useWallet(walletId);
 
   const { uri } = isWalletConnectConnector(wallet?.id)
@@ -147,6 +152,14 @@ const ConnectWithQRCode: React.FC<{
         </Button>
       )}
 
+      {!hasApps && !context.options?.hideNoWalletCTA && onlyOneWallet && (
+        <LearnMoreContainer>
+          <LearnMoreButton onClick={() => context.setRoute(routes.ONBOARDING)}>
+            <WalletIcon /> {locales.connectorsScreen_newcomer}
+          </LearnMoreButton>
+        </LearnMoreContainer>
+      )}
+
       {hasApps && (
         <>
           <Button
@@ -177,6 +190,12 @@ const ConnectWithQRCode: React.FC<{
           </Button>
         }
         */}
+
+      {context.options?.disclaimer && (
+        <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
+          <div>{context.options?.disclaimer}</div>
+        </Disclaimer>
+      )}
     </PageContent>
   );
 };

@@ -6,10 +6,9 @@ import { WagmiConfig, createClient } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
 import {
   ConnectKitProvider,
+  defaultWallets,
   getDefaultClient,
   SIWESession,
-  wallets,
-  defaultWallets,
 } from 'connectkit';
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siweClient } from '../utils/siweClient';
@@ -26,9 +25,23 @@ const client = createClient(
     //walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
   })
 );
+const getWallets = (type: string) => {
+  switch (type) {
+    case 'default':
+      return [...defaultWallets];
+    case 'only fams':
+      return [...defaultWallets].filter((wallet) => wallet.id === 'family');
+    case 'default + family staging':
+      return [familyStaging, ...defaultWallets];
+    case 'noWalletConnect':
+      return [...defaultWallets].filter(
+        (wallet) => wallet.id !== 'walletConnect'
+      );
+  }
+};
 
 function App({ Component, pageProps }: AppProps) {
-  const { theme, mode, options, customTheme } = useTestBench();
+  const { theme, mode, options, customTheme, wallets } = useTestBench();
 
   const key = JSON.stringify({ customTheme });
 
@@ -49,7 +62,7 @@ function App({ Component, pageProps }: AppProps) {
       }}
     >
       <ConnectKitProvider
-        //wallets={[familyStaging, ...defaultWallets]}
+        wallets={getWallets(wallets)}
         key={key}
         theme={theme}
         mode={mode}

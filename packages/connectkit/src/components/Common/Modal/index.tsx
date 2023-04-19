@@ -45,7 +45,7 @@ import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
-import { useWallet } from '../../../wallets/useDefaultWallets';
+import { useWallet, useWallets } from '../../../wallets/useDefaultWallets';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -212,6 +212,12 @@ const Modal: React.FC<ModalProps> = ({
   const themeContext = useThemeContext();
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();
+
+  const wallets = useWallets();
+  const oneWallet = wallets.length === 1 ? wallets[0] : undefined;
+  const showDisclaimer = oneWallet
+    ? context.route === routes.CONNECT
+    : context.route === routes.CONNECTORS;
 
   const { wallet } = useWallet(context.connector);
   const locales = useLocales({
@@ -395,27 +401,26 @@ const Modal: React.FC<ModalProps> = ({
           />
           <BoxContainer className={`${rendered && 'active'}`}>
             <AnimatePresence initial={false}>
-              {context.options?.disclaimer &&
-                context.route === routes.CONNECTORS && (
-                  <DisclaimerBackground
-                    initial={{
-                      opacity: 0,
-                    }}
-                    animate={{
-                      opacity: 1,
-                    }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      delay: 0,
-                      duration: 0.2,
-                      ease: [0.25, 0.1, 0.25, 1.0],
-                    }}
-                  >
-                    <Disclaimer>
-                      <div>{context.options?.disclaimer}</div>
-                    </Disclaimer>
-                  </DisclaimerBackground>
-                )}
+              {showDisclaimer && context.options?.disclaimer && (
+                <DisclaimerBackground
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    delay: 0,
+                    duration: 0.2,
+                    ease: [0.25, 0.1, 0.25, 1.0],
+                  }}
+                >
+                  <Disclaimer>
+                    <div>{context.options?.disclaimer}</div>
+                  </Disclaimer>
+                </DisclaimerBackground>
+              )}
             </AnimatePresence>
             <AnimatePresence initial={false}>
               {context.errorMessage && (

@@ -22,3 +22,4 @@ export type All = {
 
 export type { ConnectKitOptions } from './components/ConnectKit';
 export type { CustomAvatarProps } from './components/Common/Avatar';
+export type { WalletProps as Wallet } from './wallets/wallet';

@@ -14,6 +14,8 @@ import {
   useChains,
   useModal,
   useSIWE,
+  defaultWallets,
+  ConnectKitModalDemo,
 } from 'connectkit';
 
 import {
@@ -250,6 +252,8 @@ const Home: NextPage = () => {
     setHideAvatar,
     hideBalance,
     setHideBalance,
+    wallets,
+    setWallets,
   } = useTestBench();
 
   const [mounted, setMounted] = useState(false);
@@ -341,6 +345,13 @@ const Home: NextPage = () => {
               address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
               size={12}
             />
+          </div>
+        </div>
+
+        <div className="panel">
+          <h2>Docs Inline Demo</h2>
+          <div style={{ position: 'relative', width: 384, height: 540 }}>
+            <ConnectKitModalDemo inline />
           </div>
         </div>
       </main>
@@ -618,6 +629,28 @@ const Home: NextPage = () => {
               ...options,
               overlayBlur: parseInt(e.target.value),
             });
+          }}
+        />
+        <Select
+          label="Wallets"
+          value={wallets}
+          options={[
+            {
+              label: 'default',
+              value: 'default',
+            },
+            {
+              label: 'only fams',
+              value: 'only fams',
+            },
+            {
+              label: 'default + family staging',
+              value: 'default + family staging',
+            },
+            { label: 'noWalletConnect', value: 'noWalletConnect' },
+          ]}
+          onChange={(e) => {
+            setWallets(e.target.value);
           }}
         />
       </aside>

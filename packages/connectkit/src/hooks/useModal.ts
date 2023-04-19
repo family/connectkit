@@ -5,6 +5,7 @@ import {
   useConnectCallback,
   useConnectCallbackProps,
 } from './useConnectCallback';
+import { useWallets } from '../wallets/useDefaultWallets';
 
 type ModalRoutes = typeof routes[keyof typeof routes];
 
@@ -14,6 +15,7 @@ const safeRoutes: {
 } = {
   disconnected: [
     routes.CONNECTORS,
+    routes.CONNECT,
     routes.ABOUT,
     routes.ONBOARDING,
     routes.OTHERCONNECTORS,
@@ -32,6 +34,8 @@ type UseModalProps = {} & useConnectCallbackProps;
 
 export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
   const context = useContext();
+  const wallets = useWallets();
+  const oneWallet = wallets.length === 1 ? wallets[0] : undefined;
 
   useConnectCallback({
     onConnect,
@@ -46,6 +50,16 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
   };
   const open = () => {
     context.setOpen(true);
+  };
+  const defaultOpen = () => {
+    if (isConnected) {
+      gotoAndOpen(routes.PROFILE);
+    } else if (oneWallet) {
+      context.setConnector(oneWallet.id);
+      gotoAndOpen(routes.CONNECT);
+    } else {
+      gotoAndOpen(routes.CONNECTORS);
+    }
   };
 
   const gotoAndOpen = (route: ValidRoutes) => {
@@ -66,7 +80,7 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
         }
       } else {
         if (!safeRoutes.disconnected.includes(route)) {
-          validRoute = routes.CONNECTORS;
+          validRoute = oneWallet ? routes.CONNECT : routes.CONNECTORS;
           context.log(
             `Route ${route} is not a valid route when disconnected, navigating to ${validRoute} instead.`
           );
@@ -82,7 +96,7 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
     open: context.open,
     setOpen: (show: boolean) => {
       if (show) {
-        gotoAndOpen(isConnected ? routes.PROFILE : routes.CONNECTORS);
+        defaultOpen();
       } else {
         close();
       }

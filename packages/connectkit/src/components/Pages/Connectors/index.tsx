@@ -81,11 +81,6 @@ const Wallets: React.FC = () => {
               )}
             </InfoBoxButtons>
           </InfoBox>
-          {context.options?.disclaimer && (
-            <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
-              <div>{context.options?.disclaimer}</div>
-            </Disclaimer>
-          )}
         </>
       ) : (
         <>
@@ -98,12 +93,12 @@ const Wallets: React.FC = () => {
               </LearnMoreButton>
             </LearnMoreContainer>
           )}
-          {context.options?.disclaimer && (
-            <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
-              <div>{context.options?.disclaimer}</div>
-            </Disclaimer>
-          )}
         </>
+      )}
+      {context.options?.disclaimer && (
+        <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
+          <div>{context.options?.disclaimer}</div>
+        </Disclaimer>
       )}
     </PageContent>
   );

@@ -40,7 +40,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import useLocales from '../../../hooks/useLocales';
 
-const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
+const Profile: React.FC<{ onDisconnect?: () => void }> = ({ onDisconnect }) => {
   const context = useContext();
   const themeContext = useThemeContext();
 
@@ -70,8 +70,8 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     if (!shouldDisconnect) return;
 
     // Close before disconnecting to avoid layout shifting while modal is still open
-    if (closeModal) {
-      closeModal();
+    if (onDisconnect) {
+      onDisconnect();
     } else {
       context.setOpen(false);
     }

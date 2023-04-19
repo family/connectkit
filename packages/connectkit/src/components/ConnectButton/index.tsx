@@ -118,11 +118,10 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   children,
 }) => {
   const isMounted = useIsMounted();
-  const context = useContext();
   const { open, setOpen } = useModal();
 
   const { chain } = useNetwork();
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
@@ -134,7 +133,6 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 
   function show() {
     setOpen(true);
-    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
   }
 
   if (!children) return null;
@@ -325,15 +323,15 @@ export function ConnectKitButton({
   onClick,
 }: ConnectKitButtonProps) {
   const isMounted = useIsMounted();
+  const { setOpen } = useModal();
 
   const context = useContext();
 
-  const { isConnected, address } = useAccount();
+  const { address } = useAccount();
   const { chain } = useNetwork();
 
   function show() {
-    context.setOpen(true);
-    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    setOpen(true);
   }
 
   const separator = ['web95', 'rounded', 'minimal'].includes(

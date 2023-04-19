@@ -10,7 +10,7 @@ import {
 } from './styles';
 
 import { isInjectedConnector } from '../../../utils';
-import { OtherWallets } from '../../../assets/logos';
+import Logos, { OtherWallets } from '../../../assets/logos';
 
 import useLocales from '../../../hooks/useLocales';
 import { useLastConnector } from '../../../hooks/useLastConnector';
@@ -85,7 +85,9 @@ const ConnectorList = ({
         }
       >
         {walletsToDisplay.map((wallet) => {
-          const logos = wallet.logos;
+          const logos = wallet.logos ?? {
+            default: <Logos.PlaceHolder />,
+          };
 
           const logo =
             (isMobile ? logos.mobile : undefined) ??
