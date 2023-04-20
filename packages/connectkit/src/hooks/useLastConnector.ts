@@ -6,7 +6,7 @@ export const useLastConnector = () => {
     add,
     update,
     clear,
-  } = useLocalStorage('lastConnectorId');
+  } = useLocalStorage('connectKit.lastConnectorId');
 
   const updateLastConnectorId = (id: string) => {
     if (lastConnectorId) {
