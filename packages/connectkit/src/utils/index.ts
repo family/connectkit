@@ -110,6 +110,9 @@ const isMetaMask = () => {
   const isTokenary = Boolean(ethereum.isTokenary);
   if (isTokenary) return false;
 
+  const isFrame = Boolean(ethereum.isFrame);
+  if (isFrame) return false;
+
   return true;
 };
 
@@ -121,6 +124,17 @@ const isCoinbaseWallet = () => {
     ethereum?.isCoinbaseWallet ||
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
+  );
+};
+
+const isFrame = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isFrame ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isFrame))
   );
 };
 
@@ -166,5 +180,6 @@ export {
   getWalletDownloadUri,
   isMetaMask,
   isCoinbaseWallet,
+  isFrame,
   flattenChildren,
 };
