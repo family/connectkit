@@ -200,7 +200,18 @@ const ChainSelectList = ({
                     )}
                   </AnimatePresence>
                 </ChainButtonStatus>
-                {
+                {variant === 'secondary' ? (
+                  <ChainButtonBg
+                    initial={false}
+                    animate={{
+                      opacity: ch.id === chain?.id ? 1 : 0,
+                    }}
+                    transition={{
+                      duration: 0.3,
+                      ease: 'easeOut',
+                    }}
+                  />
+                ) : (
                   //hover === ch.name && (
                   ch.id === chain?.id && (
                     <ChainButtonBg
@@ -212,7 +223,7 @@ const ChainSelectList = ({
                       }}
                     />
                   )
-                }
+                )}
               </ChainButton>
             );
           })}
