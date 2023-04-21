@@ -1,3 +1,13 @@
+# 1.2.3
+
+This update adds some minor quality of life features to ConnectKit.
+
+## Improved
+
+- Updated styling of the switch chain page for better readability.
+- Adds prefix to LocalStorage keys to avoid collisions with other apps.
+- Restyled [documentation site](https://docs.family.co/connectkit) to make following guides even easier.
+
 # 1.2.2
 
 This update improves the functionality and developer experience of using ConnectKit and moves the peer dependency wagmi up a version to `0.12.x`.
