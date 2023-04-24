@@ -39,7 +39,7 @@ const Avatar: React.FC<{
   });
   const { data: ensAvatar } = useEnsAvatar({
     chainId: 1,
-    address: address ?? ensAddress ?? undefined,
+    name: ensName,
   });
 
   const ens = {

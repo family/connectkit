@@ -1,6 +1,6 @@
-import { configureClientSIWE } from 'connectkit-next-siwe';
+import { configureSIWE } from 'connectkit-next-siwe';
 
-export const siweClient = configureClientSIWE({
+export const siweClient = configureSIWE({
   apiRoutePrefix: '/api/siwe',
   statement: 'fam token wen',
 });
