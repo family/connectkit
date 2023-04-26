@@ -10,7 +10,7 @@
       "@types/react-dom": "^18.0.0",
       "connectkit": "^1.2.3",
       "typescript": "^4.9.5",
-      "viem": "~0.3.10",
+      "viem": "~0.3.12",
       "wagmi": "0.0.0-20230424041505",
       "web-vitals": "^2.1.0"
     },
