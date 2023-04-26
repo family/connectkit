@@ -36,7 +36,7 @@
     "tslib": "^1.9.3",
     "typescript-plugin-styled-components": "^2.0.0",
     "viem": "~0.3.10",
-    "wagmi": "0.0.0-20230424041505"
+    "wagmi": "0.0.0-20230426032542"
   },
   "packageManager": "yarn@3.2.0",
   "dependencies": {
