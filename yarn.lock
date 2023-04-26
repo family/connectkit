@@ -4911,18 +4911,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/chains@npm:0.0.0-20230424041505":
-  version: 0.0.0-20230424041505
-  resolution: "@wagmi/chains@npm:0.0.0-20230424041505"
-  peerDependencies:
-    typescript: ">=4.9.4"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: cb6fc76d7cd5d650f10fe7519be174d8dbc88361f51c23609d51de20d59344f19a2a372e1748c0c0f89284db5881afb24368cddff8d30a55716310052b65dc55
-  languageName: node
-  linkType: hard
-
 "@wagmi/chains@npm:0.2.16":
   version: 0.2.16
   resolution: "@wagmi/chains@npm:0.2.16"
@@ -4935,9 +4923,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:0.0.0-20230424041505":
-  version: 0.0.0-20230424041505
-  resolution: "@wagmi/connectors@npm:0.0.0-20230424041505"
+"@wagmi/chains@npm:0.2.18":
+  version: 0.2.18
+  resolution: "@wagmi/chains@npm:0.2.18"
+  peerDependencies:
+    typescript: ">=4.9.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 3e88d3dc6e1e397fffae61029bcd5b73e260c3a7aedf4ee3f878cea6fd558b688f00860c1afa831243c4bb88e198fd2ec7c23371c053961664fd8fc2929529b2
+  languageName: node
+  linkType: hard
+
+"@wagmi/connectors@npm:1.0.0-next.1":
+  version: 1.0.0-next.1
+  resolution: "@wagmi/connectors@npm:1.0.0-next.1"
   dependencies:
     "@coinbase/wallet-sdk": ^3.6.4
     "@ledgerhq/connect-kit-loader": ^1.0.1
@@ -4949,34 +4949,34 @@ __metadata:
     abitype: ^0.7.1
     eventemitter3: ^4.0.7
   peerDependencies:
-    "@wagmi/chains": 0.0.0-20230424041505
+    "@wagmi/chains": ">=0.2.0"
     typescript: ">=4.9.4"
-    viem: ~0.3.10
+    viem: ~0.3.12
   peerDependenciesMeta:
     "@wagmi/chains":
       optional: true
     typescript:
       optional: true
-  checksum: 681a7b17a71d9c499a16e341ce723c603e2a9d0871a84742849e6161f78261ea78ee418c8fcd6855b9734804b16841e0dbdc48eaf6d8c4245d6ce718f3b60c89
+  checksum: 53e033ffc20e9811ac481f76df08676a025bfde8581e794d9e2dbce5db05bce4e2b7e9a42af4cb00aac12a6136ec05fdd29fed4938f677aadac40c24b2234198
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:0.0.0-20230424041505":
-  version: 0.0.0-20230424041505
-  resolution: "@wagmi/core@npm:0.0.0-20230424041505"
+"@wagmi/core@npm:1.0.0-next.0":
+  version: 1.0.0-next.0
+  resolution: "@wagmi/core@npm:1.0.0-next.0"
   dependencies:
-    "@wagmi/chains": 0.0.0-20230424041505
-    "@wagmi/connectors": 0.0.0-20230424041505
+    "@wagmi/chains": 0.2.18
+    "@wagmi/connectors": 1.0.0-next.1
     abitype: ^0.7.1
     eventemitter3: ^4.0.7
     zustand: ^4.3.1
   peerDependencies:
     typescript: ">=4.9.4"
-    viem: ~0.3.10
+    viem: ~0.3.12
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 6f85523a5cc80a1c3f216770536fc2a6c9da6ff60f2850947b79c7ab3d18007a527c2d0896347e76389544d9a68126bced8a279b90674e1b4aef72acc44054f0
+  checksum: 536d9397fd676741cc8d921be2ac6c4d0483be68e6c86d33f5c83f35d751780f27a7378d54f991a3d0c73ceb94a39b893f26593c83e7047b85b7192ceb5adcd4
   languageName: node
   linkType: hard
 
@@ -7331,8 +7331,8 @@ __metadata:
   peerDependencies:
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    viem: ~0.3.10
-    wagmi: 0.0.0-20230424041505
+    viem: ~0.3.12
+    wagmi: 1.0.0-next.0
   languageName: unknown
   linkType: soft
 
@@ -7469,8 +7469,8 @@ __metadata:
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^4.9.5
-    viem: ~0.3.10
-    wagmi: 0.0.0-20230424041505
+    viem: ~0.3.12
+    wagmi: 1.0.0-next.0
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -9541,8 +9541,8 @@ __metadata:
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
     typescript-plugin-styled-components: ^2.0.0
-    viem: ~0.3.10
-    wagmi: 0.0.0-20230424041505
+    viem: ~0.3.12
+    wagmi: 1.0.0-next.0
   languageName: unknown
   linkType: soft
 
@@ -13132,8 +13132,8 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^4.9.5
-    viem: ~0.3.10
-    wagmi: 0.0.0-20230424041505
+    viem: ~0.3.12
+    wagmi: 1.0.0-next.0
   languageName: unknown
   linkType: soft
 
@@ -17016,8 +17016,8 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^4.9.5
-    viem: ~0.3.10
-    wagmi: 0.0.0-20230424041505
+    viem: ~0.3.12
+    wagmi: 1.0.0-next.0
   languageName: unknown
   linkType: soft
 
@@ -17655,9 +17655,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:~0.3.10":
-  version: 0.3.10
-  resolution: "viem@npm:0.3.10"
+"viem@npm:~0.3.12":
+  version: 0.3.12
+  resolution: "viem@npm:0.3.12"
   dependencies:
     "@adraffy/ens-normalize": 1.9.0
     "@noble/curves": 0.9.0
@@ -17668,7 +17668,7 @@ __metadata:
     abitype: 0.7.1
     isomorphic-ws: 5.0.0
     ws: 8.12.0
-  checksum: eace232710a47b35bd6483abef470e22c64df762197962392d61fe9e69d63a507eb581b3c0d3d945a46fbc5aa8bfabd41096b8dd12f5d85421cee743c7d5c2f0
+  checksum: 5c2f6c7bb0e029066119be238f688679940af1977eddbd873f22596da279dad5c04ffd4119ca14083851720218d5917e99e8c589edc3fbbb162366a7cd17b652
   languageName: node
   linkType: hard
 
@@ -17715,9 +17715,9 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^4.9.5
-    viem: ~0.3.10
+    viem: ~0.3.12
     vite: ^3.1.0
-    wagmi: 0.0.0-20230424041505
+    wagmi: 1.0.0-next.0
   languageName: unknown
   linkType: soft
 
@@ -17739,24 +17739,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:0.0.0-20230424041505":
-  version: 0.0.0-20230424041505
-  resolution: "wagmi@npm:0.0.0-20230424041505"
+"wagmi@npm:1.0.0-next.0":
+  version: 1.0.0-next.0
+  resolution: "wagmi@npm:1.0.0-next.0"
   dependencies:
     "@tanstack/query-sync-storage-persister": ^4.27.1
     "@tanstack/react-query": ^4.28.0
     "@tanstack/react-query-persist-client": ^4.28.0
-    "@wagmi/core": 0.0.0-20230424041505
+    "@wagmi/core": 1.0.0-next.0
     abitype: ^0.7.1
     use-sync-external-store: ^1.2.0
   peerDependencies:
     react: ">=17.0.0"
     typescript: ">=4.9.4"
-    viem: ~0.3.10
+    viem: ~0.3.12
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 77a2ec915fbfc8fe95eedfd2172348b36bf63c5d9a59f4a5d2d16f3a37b05b88ea8d67282630ab118b2e019f55459dbd42c19470f10395e36a0eb5d55cf5dfc4
+  checksum: 2713452f229c871c1d05e35113ce0575bfbaad9c5945e8a266e91a653e857a12aaefce6e087029629a4d437dae762ec2cb9009f2b3d639faae34fcc3463a3b4d
   languageName: node
   linkType: hard
 
