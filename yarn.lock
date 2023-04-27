@@ -3694,12 +3694,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spruceid/siwe-parser@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "@spruceid/siwe-parser@npm:1.1.3"
+"@spruceid/siwe-parser@npm:*":
+  version: 2.0.2
+  resolution: "@spruceid/siwe-parser@npm:2.0.2"
   dependencies:
+    "@noble/hashes": ^1.1.2
     apg-js: ^4.1.1
-  checksum: 708786ba2f10987c45c1fd8a6243ba6572ee7f320531616d71ff66044828bc24af66f5537ce09c9272bdae93fcc35b566a7804fe7997284f2ee5445a36e6add2
+    uri-js: ^4.4.1
+    valid-url: ^1.0.9
+  checksum: 689b09a73026c79223805c77762b923af25209274f26d5f26d95f808a882ceb138dfbdfb6d7c8e31a67fb677bc16d90079c83821ee8e7c8bcece29cd94b2a67b
   languageName: node
   linkType: hard
 
@@ -7276,14 +7279,14 @@ __metadata:
     "@types/react": ^18.0.6
     "@types/react-dom": ^18.0.2
     iron-session: ^6.2.1
-    siwe: ^1.1.6
+    siwe: ^2.1.4
     typescript: ^4.9.5
   peerDependencies:
     connectkit: ">=1.2.0"
     next: ">=12.x"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    siwe: ">=1.1.0 <2"
+    siwe: ">=2"
   languageName: unknown
   linkType: soft
 
@@ -16401,16 +16404,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"siwe@npm:^1.1.6":
-  version: 1.1.6
-  resolution: "siwe@npm:1.1.6"
+"siwe@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "siwe@npm:2.1.4"
   dependencies:
-    "@spruceid/siwe-parser": ^1.1.3
+    "@spruceid/siwe-parser": "*"
     "@stablelib/random": ^1.0.1
-    apg-js: ^4.1.1
+    uri-js: ^4.4.1
+    valid-url: ^1.0.9
   peerDependencies:
-    ethers: 5.5.1
-  checksum: 067517d2dd37c034f6c81011cf2d9cd821d44710030161990f630cf0228dcf327d02343e59cd00c761836aa3497f1e9f2d975f9d887db6174d611b3b3a6190f5
+    ethers: ^5.6.8 || ^6.0.8
+  checksum: a5eb48a72ccd8cca155b667e065a08ea01f626be81c489ccc65e8978cb5928857d31f073d3dabcb951581293a08868ea5cfaa183ae32bd2bc2ed0b3d88fcca77
   languageName: node
   linkType: hard
 
@@ -17776,7 +17780,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uri-js@npm:^4.2.2":
+"uri-js@npm:^4.2.2, uri-js@npm:^4.4.1":
   version: 4.4.1
   resolution: "uri-js@npm:4.4.1"
   dependencies:
@@ -17885,6 +17889,13 @@ __metadata:
     convert-source-map: ^1.6.0
     source-map: ^0.7.3
   checksum: 54ce92bec2727879626f623d02c8d193f0c7e919941fa373ec135189a8382265117f5316ea317a1e12a5f9c13d84d8449052a731fe3306fa4beaafbfa4cab229
+  languageName: node
+  linkType: hard
+
+"valid-url@npm:^1.0.9":
+  version: 1.0.9
+  resolution: "valid-url@npm:1.0.9"
+  checksum: 3ecb030559404441c2cf104cbabab8770efb0f36d117db03d1081052ef133015a68806148ce954bb4dd0b5c42c14b709a88783c93d66b0916cb67ba771c98702
   languageName: node
   linkType: hard
 
