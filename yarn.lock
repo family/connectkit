@@ -4935,9 +4935,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:1.0.0-next.1":
-  version: 1.0.0-next.1
-  resolution: "@wagmi/connectors@npm:1.0.0-next.1"
+"@wagmi/connectors@npm:1.0.0-next.2":
+  version: 1.0.0-next.2
+  resolution: "@wagmi/connectors@npm:1.0.0-next.2"
   dependencies:
     "@coinbase/wallet-sdk": ^3.6.4
     "@ledgerhq/connect-kit-loader": ^1.0.1
@@ -4951,32 +4951,32 @@ __metadata:
   peerDependencies:
     "@wagmi/chains": ">=0.2.0"
     typescript: ">=4.9.4"
-    viem: ~0.3.12
+    viem: ~0.3.16
   peerDependenciesMeta:
     "@wagmi/chains":
       optional: true
     typescript:
       optional: true
-  checksum: 53e033ffc20e9811ac481f76df08676a025bfde8581e794d9e2dbce5db05bce4e2b7e9a42af4cb00aac12a6136ec05fdd29fed4938f677aadac40c24b2234198
+  checksum: ac51399d85a0d7e2c402b78f30f974d86a061bdc3390e339735c06ab048314adfe5173f4094574af9898b4952d55209abbd9c9262994c3fb718a8e32407bfa04
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:1.0.0-next.0":
-  version: 1.0.0-next.0
-  resolution: "@wagmi/core@npm:1.0.0-next.0"
+"@wagmi/core@npm:1.0.0-next.1":
+  version: 1.0.0-next.1
+  resolution: "@wagmi/core@npm:1.0.0-next.1"
   dependencies:
     "@wagmi/chains": 0.2.18
-    "@wagmi/connectors": 1.0.0-next.1
+    "@wagmi/connectors": 1.0.0-next.2
     abitype: ^0.7.1
     eventemitter3: ^4.0.7
     zustand: ^4.3.1
   peerDependencies:
     typescript: ">=4.9.4"
-    viem: ~0.3.12
+    viem: ~0.3.16
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 536d9397fd676741cc8d921be2ac6c4d0483be68e6c86d33f5c83f35d751780f27a7378d54f991a3d0c73ceb94a39b893f26593c83e7047b85b7192ceb5adcd4
+  checksum: 6b1131a32b0727460b13c003ce25baf0fb573364e850da1d7aee9563a13164be90d741460a519fb53c8523b0c18967a9495e5127930c76b6516f88d4c666fa79
   languageName: node
   linkType: hard
 
@@ -7331,8 +7331,8 @@ __metadata:
   peerDependencies:
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    viem: ~0.3.12
-    wagmi: 1.0.0-next.0
+    viem: ~0.3.16
+    wagmi: 1.0.0-next.1
   languageName: unknown
   linkType: soft
 
@@ -7469,8 +7469,8 @@ __metadata:
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^4.9.5
-    viem: ~0.3.12
-    wagmi: 1.0.0-next.0
+    viem: ~0.3.16
+    wagmi: 1.0.0-next.1
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -9541,8 +9541,8 @@ __metadata:
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
     typescript-plugin-styled-components: ^2.0.0
-    viem: ~0.3.12
-    wagmi: 1.0.0-next.0
+    viem: ~0.3.16
+    wagmi: 1.0.0-next.1
   languageName: unknown
   linkType: soft
 
@@ -13132,8 +13132,8 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^4.9.5
-    viem: ~0.3.12
-    wagmi: 1.0.0-next.0
+    viem: ~0.3.16
+    wagmi: 1.0.0-next.1
   languageName: unknown
   linkType: soft
 
@@ -17016,8 +17016,8 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^4.9.5
-    viem: ~0.3.12
-    wagmi: 1.0.0-next.0
+    viem: ~0.3.16
+    wagmi: 1.0.0-next.1
   languageName: unknown
   linkType: soft
 
@@ -17655,9 +17655,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:~0.3.12":
-  version: 0.3.12
-  resolution: "viem@npm:0.3.12"
+"viem@npm:~0.3.16":
+  version: 0.3.16
+  resolution: "viem@npm:0.3.16"
   dependencies:
     "@adraffy/ens-normalize": 1.9.0
     "@noble/curves": 0.9.0
@@ -17668,7 +17668,7 @@ __metadata:
     abitype: 0.7.1
     isomorphic-ws: 5.0.0
     ws: 8.12.0
-  checksum: 5c2f6c7bb0e029066119be238f688679940af1977eddbd873f22596da279dad5c04ffd4119ca14083851720218d5917e99e8c589edc3fbbb162366a7cd17b652
+  checksum: 3ba275b993f0522b5ac63f6178b7238438fb988ccb9ab7e52068d8e0aaa7b6df8f8daed499dd69f480f6fb33e212cede2ae9744f82b6f8c2b957b1d7645306f1
   languageName: node
   linkType: hard
 
@@ -17715,9 +17715,9 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^4.9.5
-    viem: ~0.3.12
+    viem: ~0.3.16
     vite: ^3.1.0
-    wagmi: 1.0.0-next.0
+    wagmi: 1.0.0-next.1
   languageName: unknown
   linkType: soft
 
@@ -17739,24 +17739,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:1.0.0-next.0":
-  version: 1.0.0-next.0
-  resolution: "wagmi@npm:1.0.0-next.0"
+"wagmi@npm:1.0.0-next.1":
+  version: 1.0.0-next.1
+  resolution: "wagmi@npm:1.0.0-next.1"
   dependencies:
     "@tanstack/query-sync-storage-persister": ^4.27.1
     "@tanstack/react-query": ^4.28.0
     "@tanstack/react-query-persist-client": ^4.28.0
-    "@wagmi/core": 1.0.0-next.0
+    "@wagmi/core": 1.0.0-next.1
     abitype: ^0.7.1
     use-sync-external-store: ^1.2.0
   peerDependencies:
     react: ">=17.0.0"
     typescript: ">=4.9.4"
-    viem: ~0.3.12
+    viem: ~0.3.16
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 2713452f229c871c1d05e35113ce0575bfbaad9c5945e8a266e91a653e857a12aaefce6e087029629a4d437dae762ec2cb9009f2b3d639faae34fcc3463a3b4d
+  checksum: 1409caace0a1bc02677bb8178fd5bff372848cf1122579e98ec9ac5a588b79d169ad1995b135a4d9ec063e6579a7830d5c8a86715df7d9b37f951f5704db7cbf
   languageName: node
   linkType: hard
 
