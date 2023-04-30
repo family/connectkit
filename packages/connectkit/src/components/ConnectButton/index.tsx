@@ -99,6 +99,8 @@ const textVariants: Variants = {
 type Hash = `0x${string}`;
 
 type ConnectButtonRendererProps = {
+  onShow?: () => void;
+  onHide?: () => void;
   children?: (renderProps: {
     show?: () => void;
     hide?: () => void;
@@ -115,6 +117,8 @@ type ConnectButtonRendererProps = {
 };
 
 const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
+  onShow,
+  onHide,
   children,
 }) => {
   const isMounted = useIsMounted();
@@ -130,10 +134,12 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 
   function hide() {
     setOpen(false);
+    onHide?.();
   }
 
   function show() {
     setOpen(true);
+    onShow?.();
     context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
   }
 
