@@ -16,7 +16,7 @@
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "viem": "~0.3.16",
-    "wagmi": "1.0.0-next.1",
+    "wagmi": "1.0.0-next.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

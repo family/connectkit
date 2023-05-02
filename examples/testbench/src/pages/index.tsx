@@ -177,10 +177,8 @@ const Actions = () => {
     },
   });
   const { config } = usePrepareSendTransaction({
-    request: {
-      to: address?.toString() ?? '',
-      value: 0n,
-    },
+    to: address?.toString() ?? '',
+    value: 0n,
   });
   const {
     sendTransaction,

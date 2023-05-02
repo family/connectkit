@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { WagmiConfig, createClient } from 'wagmi';
+import { WagmiConfig, createConfig } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
-import { ConnectKitProvider, getDefaultClient } from 'connectkit';
+import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 
-const client = createClient(
-  getDefaultClient({
+const config = createConfig(
+  getDefaultConfig({
     appName: 'My App Name',
     //infuraId: process.env.REACT_APP_INFURA_ID,
     //alchemyId:  process.env.REACT_APP_ALCHEMY_ID,
@@ -21,7 +21,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <WagmiConfig client={client}>
+    <WagmiConfig config={config}>
       <ConnectKitProvider theme="auto">
         <App />
       </ConnectKitProvider>

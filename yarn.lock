@@ -4935,9 +4935,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:1.0.0-next.2":
-  version: 1.0.0-next.2
-  resolution: "@wagmi/connectors@npm:1.0.0-next.2"
+"@wagmi/connectors@npm:1.0.0-next.3":
+  version: 1.0.0-next.3
+  resolution: "@wagmi/connectors@npm:1.0.0-next.3"
   dependencies:
     "@coinbase/wallet-sdk": ^3.6.4
     "@ledgerhq/connect-kit-loader": ^1.0.1
@@ -4949,7 +4949,7 @@ __metadata:
     abitype: ^0.7.1
     eventemitter3: ^4.0.7
   peerDependencies:
-    "@wagmi/chains": ">=0.2.0"
+    "@wagmi/chains": ">=1.0.0-next.0"
     typescript: ">=4.9.4"
     viem: ~0.3.16
   peerDependenciesMeta:
@@ -4957,16 +4957,16 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: ac51399d85a0d7e2c402b78f30f974d86a061bdc3390e339735c06ab048314adfe5173f4094574af9898b4952d55209abbd9c9262994c3fb718a8e32407bfa04
+  checksum: 730089a22f90e07b935e850c77d6dd90049370a371de994fb21bc8c100c80c968e78ba22d486c2742361fe00563fe26bf091daf0281f7542dce76d671e926a29
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:1.0.0-next.1":
-  version: 1.0.0-next.1
-  resolution: "@wagmi/core@npm:1.0.0-next.1"
+"@wagmi/core@npm:1.0.0-next.2":
+  version: 1.0.0-next.2
+  resolution: "@wagmi/core@npm:1.0.0-next.2"
   dependencies:
     "@wagmi/chains": 0.2.18
-    "@wagmi/connectors": 1.0.0-next.2
+    "@wagmi/connectors": 1.0.0-next.3
     abitype: ^0.7.1
     eventemitter3: ^4.0.7
     zustand: ^4.3.1
@@ -4976,7 +4976,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 6b1131a32b0727460b13c003ce25baf0fb573364e850da1d7aee9563a13164be90d741460a519fb53c8523b0c18967a9495e5127930c76b6516f88d4c666fa79
+  checksum: 808b737d403dab67c032e9ca7675f6d62248659b7d474988fe628716a68bdbe5e936daf4001ed90213724faf02705c46fac3f9b9507f5f0bcd80af2c92e3f3ec
   languageName: node
   linkType: hard
 
@@ -7332,7 +7332,7 @@ __metadata:
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
     viem: ~0.3.16
-    wagmi: 1.0.0-next.1
+    wagmi: 1.0.0-next.2
   languageName: unknown
   linkType: soft
 
@@ -7470,7 +7470,7 @@ __metadata:
     react-scripts: 5.0.1
     typescript: ^4.9.5
     viem: ~0.3.16
-    wagmi: 1.0.0-next.1
+    wagmi: 1.0.0-next.2
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -9542,7 +9542,7 @@ __metadata:
     tslib: ^1.9.3
     typescript-plugin-styled-components: ^2.0.0
     viem: ~0.3.16
-    wagmi: 1.0.0-next.1
+    wagmi: 1.0.0-next.2
   languageName: unknown
   linkType: soft
 
@@ -13133,7 +13133,7 @@ __metadata:
     react-dom: ^18.0.0
     typescript: ^4.9.5
     viem: ~0.3.16
-    wagmi: 1.0.0-next.1
+    wagmi: 1.0.0-next.2
   languageName: unknown
   linkType: soft
 
@@ -17017,7 +17017,7 @@ __metadata:
     react-dom: ^18.0.0
     typescript: ^4.9.5
     viem: ~0.3.16
-    wagmi: 1.0.0-next.1
+    wagmi: 1.0.0-next.2
   languageName: unknown
   linkType: soft
 
@@ -17717,7 +17717,7 @@ __metadata:
     typescript: ^4.9.5
     viem: ~0.3.16
     vite: ^3.1.0
-    wagmi: 1.0.0-next.1
+    wagmi: 1.0.0-next.2
   languageName: unknown
   linkType: soft
 
@@ -17739,14 +17739,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:1.0.0-next.1":
-  version: 1.0.0-next.1
-  resolution: "wagmi@npm:1.0.0-next.1"
+"wagmi@npm:1.0.0-next.2":
+  version: 1.0.0-next.2
+  resolution: "wagmi@npm:1.0.0-next.2"
   dependencies:
     "@tanstack/query-sync-storage-persister": ^4.27.1
     "@tanstack/react-query": ^4.28.0
     "@tanstack/react-query-persist-client": ^4.28.0
-    "@wagmi/core": 1.0.0-next.1
+    "@wagmi/core": 1.0.0-next.2
     abitype: ^0.7.1
     use-sync-external-store: ^1.2.0
   peerDependencies:
@@ -17756,7 +17756,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 1409caace0a1bc02677bb8178fd5bff372848cf1122579e98ec9ac5a588b79d169ad1995b135a4d9ec063e6579a7830d5c8a86715df7d9b37f951f5704db7cbf
+  checksum: 0acdcb2fe3cc63496d5185075df842eddeda5894ce9b051cea86717fc3ae92d55b26d6b35e828f099975e6893a7a502460425fa4aecacc9afa86d1eaa29552b7
   languageName: node
   linkType: hard
 

@@ -6,12 +6,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-import { WagmiConfig, createClient } from 'wagmi';
+import { WagmiConfig, createConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { ConnectKitProvider, getDefaultClient } from 'connectkit';
+import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 
-const client = createClient(
-  getDefaultClient({
+const config = createConfig(
+  getDefaultConfig({
     appName: 'ConnectKit Vite demo',
     //infuraId: process.env.REACT_APP_INFURA_ID,
     //alchemyId:  process.env.REACT_APP_ALCHEMY_ID,
@@ -25,7 +25,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <WagmiConfig client={client}>
+    <WagmiConfig config={config}>
       <ConnectKitProvider theme="auto" debugMode>
         <App />
       </ConnectKitProvider>
