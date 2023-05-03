@@ -13,6 +13,7 @@ import useLocales from '../../../hooks/useLocales';
 import Button from '../../Common/Button';
 import { DisconnectIcon } from '../../../assets/icons';
 import { isSafeConnector } from '../../../utils';
+import { OrDivider } from '../../Common/Modal';
 
 const SwitchNetworks: React.FC = () => {
   const { reset } = useConnect();
@@ -38,17 +39,20 @@ const SwitchNetworks: React.FC = () => {
         )}
 
         <div style={{ padding: '6px 8px' }}>
-          <ChainSelectList />
+          <ChainSelectList variant="secondary" />
         </div>
 
-        {!isSafeConnector(connector?.id) && (
-          <>
-            {chain?.unsupported && (
-              <Button icon={<DisconnectIcon />} onClick={onDisconnect}>
-                {locales.disconnect}
-              </Button>
-            )}
-          </>
+        {chain?.unsupported && !isSafeConnector(connector?.id) && (
+          <div style={{ paddingTop: 12 }}>
+            <OrDivider />
+            <Button
+              icon={<DisconnectIcon />}
+              variant="secondary"
+              onClick={onDisconnect}
+            >
+              {locales.disconnect}
+            </Button>
+          </div>
         )}
       </ModalContent>
     </PageContent>
