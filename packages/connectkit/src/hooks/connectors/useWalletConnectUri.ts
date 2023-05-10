@@ -23,7 +23,6 @@ export function useWalletConnectUri(
 
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect();
-  const { reset, disconnect } = useDisconnect();
 
   useEffect(() => {
     if (!enabled) return;
@@ -115,8 +114,6 @@ export function useWalletConnectUri(
       connector.on('error', handleError);
       return () => {
         log('remove wc listeners');
-        reset();
-        disconnect();
         connector.off('message', handleMessage);
         connector.off('change', handleChange);
         connector.off('connect', handleConnect);
