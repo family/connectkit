@@ -16,6 +16,7 @@ const client = createClient(
     //infuraId: process.env.REACT_APP_INFURA_ID,
     //alchemyId:  process.env.REACT_APP_ALCHEMY_ID,
     chains: [mainnet, polygon, optimism, arbitrum],
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
   })
 );
 
