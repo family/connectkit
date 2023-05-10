@@ -56,7 +56,7 @@ function CustomQRCode({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
               transition={{
-                duration: 0.1,
+                duration: 0.2,
               }}
             >
               <QRCode
@@ -72,7 +72,7 @@ function CustomQRCode({
               animate={{ opacity: 0.1 }}
               exit={{ opacity: 0, position: 'absolute', inset: [0, 0] }}
               transition={{
-                duration: 0.1,
+                duration: 0.2,
               }}
             >
               <span />
