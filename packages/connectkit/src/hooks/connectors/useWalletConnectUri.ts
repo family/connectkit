@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react';
 
-import { Connector, useAccount } from 'wagmi';
+import { Connector, useAccount, useDisconnect } from 'wagmi';
 import { useContext } from '../../components/ConnectKit';
 import { useConnect } from '../useConnect';
 import { useWalletConnectConnector } from './../useConnectors';
 
-export function useWalletConnectUri() {
+type Props = {
+  enabled?: boolean;
+};
+
+export function useWalletConnectUri(
+  { enabled }: Props = {
+    enabled: true,
+  }
+) {
   const { log } = useContext();
 
   const [uri, setUri] = useState<string | undefined>(undefined);
@@ -15,8 +23,11 @@ export function useWalletConnectUri() {
 
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect();
+  const { reset, disconnect } = useDisconnect();
 
   useEffect(() => {
+    if (!enabled) return;
+
     async function handleMessage({ type, data }: any) {
       log('WC Message', type, data);
       if (isWalletConnectLegacy) {
@@ -104,6 +115,8 @@ export function useWalletConnectUri() {
       connector.on('error', handleError);
       return () => {
         log('remove wc listeners');
+        reset();
+        disconnect();
         connector.off('message', handleMessage);
         connector.off('change', handleChange);
         connector.off('connect', handleConnect);
@@ -111,7 +124,7 @@ export function useWalletConnectUri() {
         connector.off('error', handleError);
       };
     }
-  }, [connector, isConnected]);
+  }, [enabled, connector, isConnected]);
 
   return {
     uri,
