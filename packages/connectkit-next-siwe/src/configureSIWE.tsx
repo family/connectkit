@@ -3,7 +3,7 @@ import { SIWEProvider } from 'connectkit';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { generateNonce, SiweMessage } from 'siwe';
+import { generateNonce, SiweErrorType, SiweMessage } from 'siwe';
 
 type RouteHandlerOptions = {
   afterNonce?: (
@@ -155,7 +155,7 @@ const verifyRoute = async (
         const session = await getSession(req, res, sessionConfig);
         const { message, signature } = req.body;
         const siweMessage = new SiweMessage(message);
-        const fields = await siweMessage.validate(signature);
+        const { data: fields } = await siweMessage.verify({ signature, nonce: session.nonce });
         if (fields.nonce !== session.nonce) {
           return res.status(422).end('Invalid nonce.');
         }
@@ -167,7 +167,17 @@ const verifyRoute = async (
         }
         res.status(200).end();
       } catch (error) {
-        res.status(400).end(String(error));
+        switch (error) {
+          case SiweErrorType.INVALID_NONCE:
+          case SiweErrorType.INVALID_SIGNATURE: {
+            res.status(422).end(String(error));
+            break;
+          }
+          default: {
+            res.status(400).end(String(error));
+            break;
+          }
+        }
       }
       break;
     default:
