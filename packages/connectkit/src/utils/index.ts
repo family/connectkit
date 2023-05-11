@@ -112,6 +112,8 @@ const isMetaMask = () => {
   const isTokenary = Boolean(ethereum.isTokenary);
   if (isTokenary) return false;
 
+  if (isPhantom()) return false;
+
   return true;
 };
 
@@ -134,6 +136,14 @@ const isCoinbaseWallet = () => {
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
   );
+};
+
+const isPhantom = () => {
+  if (typeof window === 'undefined') return false;
+  const { phantom } = window as any;
+  const isPhantom = Boolean(phantom?.ethereum?.isPhantom);
+  if (isPhantom) return true;
+  return false;
 };
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
@@ -179,5 +189,6 @@ export {
   isMetaMask,
   isDawn,
   isCoinbaseWallet,
+  isPhantom,
   flattenChildren,
 };

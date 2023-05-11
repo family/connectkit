@@ -29,7 +29,8 @@ function useDefaultWallets(): WalletProps[] | any {
     'gnosisSafe',
     'frontier',
     'zerion',
-    'dawn'
+    'phantom',
+    'dawn',
   );
 
   const wallets = getWallets();
