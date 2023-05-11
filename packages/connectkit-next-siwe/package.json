@@ -1,6 +1,6 @@
 {
   "name": "connectkit-next-siwe",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Family",
   "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
@@ -37,14 +37,14 @@
   ],
   "dependencies": {
     "iron-session": "^6.2.1",
-    "siwe": "^1.1.6"
+    "siwe": "^2.1.4"
   },
   "peerDependencies": {
     "connectkit": ">=1.2.0",
     "next": ">=12.x",
     "react": "17.x || 18.x",
     "react-dom": "17.x || 18.x",
-    "siwe": ">=1.1.0 <2"
+    "siwe": ">=2"
   },
   "devDependencies": {
     "@types/node": "^16.11.27",

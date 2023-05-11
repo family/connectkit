@@ -1,6 +1,5 @@
 import { detect } from 'detect-browser';
 import React from 'react';
-import { Connector } from 'wagmi';
 import supportedConnectors from '../constants/supportedConnectors';
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
@@ -107,6 +106,9 @@ const isMetaMask = () => {
   );
   if (isBrave) return false;
 
+  const isDawn = Boolean(ethereum.isDawn);
+  if (isDawn) return false;
+
   const isTokenary = Boolean(ethereum.isTokenary);
   if (isTokenary) return false;
 
@@ -114,6 +116,16 @@ const isMetaMask = () => {
 
   return true;
 };
+
+const isDawn = () => {
+  if (typeof window === 'undefined') return false;
+
+  const { ethereum } = window;
+  if (!ethereum) return false;
+
+  const isDawn = Boolean(ethereum.isDawn);
+  if (isDawn) return true;
+}
 
 const isCoinbaseWallet = () => {
   if (typeof window === 'undefined') return false;
@@ -175,6 +187,7 @@ export {
   detectOS,
   getWalletDownloadUri,
   isMetaMask,
+  isDawn,
   isCoinbaseWallet,
   isPhantom,
   flattenChildren,

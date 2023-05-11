@@ -114,6 +114,7 @@ const themeGlobals = {
     '--ck-brand-imtoken-01': '#11C4D1',
     '--ck-brand-imtoken-02': '#0062AD',
     '--ck-brand-gnosisSafe': '#12FF80',
+    '--ck-brand-dawn': '#000000',
   },
 };
 const themeColors = {
