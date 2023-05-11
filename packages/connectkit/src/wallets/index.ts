@@ -16,6 +16,7 @@ import { gnosisSafe } from './connectors/gnosisSafe';
 import { frontier } from './connectors/frontier';
 import { zerion } from './connectors/zerion';
 import { frame } from './connectors/frame';
+import { dawn } from './connectors/dawn';
 
 export const getWallets = () => {
   return [
@@ -37,5 +38,6 @@ export const getWallets = () => {
     frontier(),
     zerion(),
     frame(),
+    dawn(),
   ];
 };
