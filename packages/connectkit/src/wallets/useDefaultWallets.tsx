@@ -30,6 +30,7 @@ function useDefaultWallets(): WalletProps[] | any {
     'frontier',
     'zerion',
     'frame',
+    'phantom',
     'dawn',
   );
 
