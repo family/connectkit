@@ -1,3 +1,16 @@
+# 1.2.4
+
+This update adds branding support for additional detectable injected connectors and improves the functionality and developer experience of using ConnectKit with Sign In With Ethereum.
+
+## New
+
+- Branding for additional injected connectors:
+  - Frame
+  - Phantom
+  - Dawn
+- `connectkit-next-siwe` version `0.1.1` add adds `afterNonce` `afterVerify` `afterSession` and `afterLogout` callbacks to the server-side SIWE helper functions.
+- `connectkit-next-siwe` version `0.2.0` updates peer dependency `siwe` to `2.0.0`.
+
 # 1.2.3
 
 This update adds some minor quality of life features to ConnectKit.
