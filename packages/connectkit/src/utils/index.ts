@@ -112,6 +112,9 @@ const isMetaMask = () => {
   const isTokenary = Boolean(ethereum.isTokenary);
   if (isTokenary) return false;
 
+  const isFrame = Boolean(ethereum.isFrame);
+  if (isFrame) return false;
+
   if (isPhantom()) return false;
 
   return true;
@@ -137,6 +140,17 @@ const isCoinbaseWallet = () => {
       ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
   );
 };
+
+const isFrame = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isFrame ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isFrame))
+  );
+}
 
 const isPhantom = () => {
   if (typeof window === 'undefined') return false;
@@ -189,6 +203,7 @@ export {
   isMetaMask,
   isDawn,
   isCoinbaseWallet,
+  isFrame,
   isPhantom,
   flattenChildren,
 };

@@ -15,6 +15,7 @@ import { onto } from './connectors/onto';
 import { gnosisSafe } from './connectors/gnosisSafe';
 import { frontier } from './connectors/frontier';
 import { zerion } from './connectors/zerion';
+import { frame } from './connectors/frame';
 import { phantom } from './connectors/phantom';
 import { dawn } from './connectors/dawn';
 
@@ -38,6 +39,7 @@ export const getWallets = () => {
     onto(),
     frontier(),
     zerion(),
+    frame(),
     phantom(),
     dawn(),
   ];
