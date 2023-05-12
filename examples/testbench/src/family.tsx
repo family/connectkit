@@ -8,6 +8,6 @@ export const familyStaging: Types.Wallet = {
   },
   scannable: true,
   createUri: (uri: string) => {
-    return `familyStaging://wc?uri=${encodeURIComponent(uri)}`;
+    return `familystaging://wc?uri=${encodeURIComponent(uri)}`;
   },
 };
