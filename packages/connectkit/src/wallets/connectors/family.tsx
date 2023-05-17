@@ -108,7 +108,7 @@ export const family = (): WalletProps => {
     createUri: (uri: string) => {
       return isAndroid()
         ? uri
-        : `familystaging://wc?uri=${encodeURIComponent(uri)}`;
+        : `familywallet://wc?uri=${encodeURIComponent(uri)}`;
     },
   };
 };
