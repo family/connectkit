@@ -15,6 +15,7 @@ import { onto } from './connectors/onto';
 import { gnosisSafe } from './connectors/gnosisSafe';
 import { frontier } from './connectors/frontier';
 import { zerion } from './connectors/zerion';
+import { family } from './connectors/family';
 
 export const getWallets = () => {
   return [
@@ -22,18 +23,21 @@ export const getWallets = () => {
     walletConnect(),
     metaMask(),
     coinbaseWallet(),
-    rainbow(),
     argent(),
     trust(),
     ledger(),
+    family(),
     imToken(),
-    brave(),
-    gnosisSafe(),
+    rainbow(),
     unstoppable(),
-    steak(),
-    //slope(),
     onto(),
+    steak(),
     frontier(),
     zerion(),
+    //slope(),
+
+    // injected
+    brave(),
+    gnosisSafe(),
   ];
 };
