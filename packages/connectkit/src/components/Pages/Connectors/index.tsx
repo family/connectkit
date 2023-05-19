@@ -50,7 +50,7 @@ const Wallets: React.FC = () => {
   const locales = useLocales({});
   const mobile = isMobile();
 
-  const { uri: wcUri } = useWalletConnectUri();
+  const { uri: wcUri } = useWalletConnectUri({ enabled: mobile });
   const { connectAsync, connectors } = useConnect();
   const { lastConnectorId } = useLastConnector();
 

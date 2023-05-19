@@ -5,7 +5,15 @@ import { useContext } from '../../components/ConnectKit';
 import { useConnect } from '../useConnect';
 import { useWalletConnectConnector } from './../useConnectors';
 
-export function useWalletConnectUri() {
+type Props = {
+  enabled?: boolean;
+};
+
+export function useWalletConnectUri(
+  { enabled }: Props = {
+    enabled: true,
+  }
+) {
   const { log } = useContext();
 
   const [uri, setUri] = useState<string | undefined>(undefined);
@@ -17,6 +25,8 @@ export function useWalletConnectUri() {
   const { connectAsync } = useConnect();
 
   useEffect(() => {
+    if (!enabled) return;
+
     async function handleMessage({ type, data }: any) {
       log('WC Message', type, data);
       if (isWalletConnectLegacy) {
@@ -111,7 +121,7 @@ export function useWalletConnectUri() {
         connector.off('error', handleError);
       };
     }
-  }, [connector, isConnected]);
+  }, [enabled, connector, isConnected]);
 
   return {
     uri,
