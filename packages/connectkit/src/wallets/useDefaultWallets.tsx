@@ -30,6 +30,9 @@ function useDefaultWallets(): WalletProps[] | any {
     'gnosisSafe',
     'brave'
     //'slope',
+    'frame',
+    'phantom',
+    'dawn',
   );
 
   const wallets = getWallets();

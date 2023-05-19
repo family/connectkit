@@ -411,6 +411,22 @@ export const ImToken = ({ ...props }) => (
   </svg>
 );
 
+export const Frame = ({ ...props }) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    width="32"
+    height="32"
+    viewBox="0 0 153.4 152.9"
+  >
+    <path
+      fill="rgb(0, 210, 190)"
+      d="M145.1,75.6v-58c0-5.1-4.2-9.3-9.3-9.3h0H77.7c-0.6,0-1.1-0.2-1.6-0.6l-7-7c-0.4-0.4-1-0.7-1.6-0.7H9.3 C4.2,0,0,4.1,0,9.3c0,0,0,0,0,0l0,0v58c0,0.6,0.2,1.1,0.6,1.6l7,7c0.4,0.4,0.7,1,0.7,1.6v58c0,5.1,4.2,9.3,9.3,9.3c0,0,0,0,0,0h58.2 c0.6,0,1.1,0.2,1.6,0.6l7,7c0.4,0.4,1,0.6,1.6,0.6h58.2c5.1,0,9.3-4.1,9.3-9.3c0,0,0,0,0,0l0,0v-58c0-0.6-0.2-1.1-0.6-1.6l-7-7 C145.4,76.7,145.1,76.2,145.1,75.6z M105.6,106.6H47.9c-0.7,0-1.3-0.6-1.3-1.3V47.7c0-0.7,0.6-1.3,1.3-1.3h57.7 c0.7,0,1.3,0.6,1.3,1.3v57.6C107,106,106.4,106.6,105.6,106.6z"
+    />
+  </svg>
+);
+
 export const Rainbow = ({ ...props }) => {
   // Here we're using a base64 of an svg because the gradients in this logo do not play nicely on mobile devices
   /*
@@ -757,9 +773,116 @@ export const Zerion = ({ ...props }) => (
     />
   </svg>
 );
+
+export const Phantom = () => (
+  <svg
+    width="128"
+    height="128"
+    viewBox="0 0 128 128"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clip-path="url(#clip0_51_1414)">
+      <circle cx="64" cy="64" r="64" fill="url(#paint0_linear_51_1414)" />
+      <g filter="url(#filter0_d_51_1414)">
+        <path
+          d="M110.584 64.9142H99.1422C99.1422 41.7651 80.1732 23 56.7725 23C33.6614 23 14.8718 41.3057 14.412 64.0583C13.9362 87.577 36.2412 108 60.0188 108H63.0096C83.9725 108 112.069 91.7667 116.459 71.9874C117.27 68.3413 114.359 64.9142 110.584 64.9142ZM39.769 65.9454C39.769 69.0411 37.2097 71.5729 34.0804 71.5729C30.9511 71.5729 28.3917 69.0399 28.3917 65.9454V56.8414C28.3917 53.7457 30.9511 51.2139 34.0804 51.2139C37.2097 51.2139 39.769 53.7457 39.769 56.8414V65.9454ZM59.5226 65.9454C59.5226 69.0411 56.9633 71.5729 53.834 71.5729C50.7046 71.5729 48.1453 69.0399 48.1453 65.9454V56.8414C48.1453 53.7457 50.7058 51.2139 53.834 51.2139C56.9633 51.2139 59.5226 53.7457 59.5226 56.8414V65.9454Z"
+          fill="url(#paint1_linear_51_1414)"
+        />
+      </g>
+    </g>
+    <defs>
+      <filter
+        id="filter0_d_51_1414"
+        x="6.76403"
+        y="15.3596"
+        width="117.472"
+        height="100.281"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset />
+        <feGaussianBlur stdDeviation="3.82022" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow_51_1414"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow_51_1414"
+          result="shape"
+        />
+      </filter>
+      <linearGradient
+        id="paint0_linear_51_1414"
+        x1="64"
+        y1="0"
+        x2="64"
+        y2="128"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#534BB1" />
+        <stop offset="1" stop-color="#551BF9" />
+      </linearGradient>
+      <linearGradient
+        id="paint1_linear_51_1414"
+        x1="65.5"
+        y1="23"
+        x2="65.5"
+        y2="108"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="white" />
+        <stop offset="1" stop-color="white" stop-opacity="0.82" />
+      </linearGradient>
+      <clipPath id="clip0_51_1414">
+        <rect width="128" height="128" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+);
 export const PlaceHolder = () => {
   return <div style={{ width: 80, height: 80, background: '#555' }}></div>;
 };
+
+export const Dawn = ({ ...props}) => (
+  <svg {...props} width="88px" height="88px" viewBox="0 0 192 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#151515" offset="0%"></stop>
+            <stop stop-color="#232323" offset="100%"></stop>
+        </linearGradient>
+        <rect rx="27%" id="path-2" x="0" y="0" width="192" height="192"></rect>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.7051532%" id="linearGradient-3">
+            <stop stop-color="#F3DC83" offset="0%"></stop>
+            <stop stop-color="#F9EEC8" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Icons---Pixel-Fitted" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <g id="Rectangle">
+                <use fill="#232323" xlinkHref="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlinkHref="#path-2"></use>
+            </g>
+            <path d="M123.748399,157.001808 C115.293464,160.853955 105.89735,163 96,163 C86.1026503,163 76.7065363,160.853955 68.2516012,157.001808 Z M146.526595,140.002206 C144.677242,142.123986 142.696426,144.128189 140.59684,146.002121 L51.4031598,146.002121 C49.3035743,144.128189 47.3227581,142.123986 45.4734054,140.002206 Z M157.337411,122.999613 C155.955969,126.133404 154.34141,129.141319 152.515704,132.001388 L39.484296,132.001388 C37.6585895,129.141319 36.0440306,126.133404 34.662589,122.999613 Z M96,29 C133.003078,29 163,58.9969218 163,96 C163,103.706309 161.69895,111.108742 159.304524,117.999626 L32.6954763,117.999626 C30.3010496,111.108742 29,103.706309 29,96 C29,58.9969218 58.9969218,29 96,29 Z" id="Combined-Shape" fill="url(#linearGradient-3)"></path>
+        </g>
+    </g>
+</svg>
+
+);
 
 export const OtherWallets = ({ ...props }) => {
   const column: React.CSSProperties = {
@@ -821,5 +944,8 @@ export default {
   GnosisSafe,
   Frontier,
   Zerion,
+  Phantom,
   PlaceHolder,
+  Frame,
+  Dawn,
 };
