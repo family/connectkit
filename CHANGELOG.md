@@ -1,3 +1,23 @@
+# 1.3.0
+
+Today we’re releasing support for WalletConnect v2.
+
+WalletConnect v1 is scheduled to shut down and will be no longer be supported after **June 28 2023.** It is advised to update your dApps immediately to support WalletConnect v2.
+
+[Read the announcement](https://medium.com/walletconnect/how-to-prepare-for-the-walletconnect-v1-0-shutdown-1a954da1dbff)
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#130-breaking-changes).
+
+## New
+
+- Adds support for WalletConnect v2.
+
+### Deprecated
+
+- Removes default support for WalletConnect v1.
+
 # 1.2.4
 
 This update adds branding support for additional detectable injected connectors and improves the functionality and developer experience of using ConnectKit with Sign In With Ethereum.
