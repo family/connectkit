@@ -13,9 +13,10 @@ import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 const config = createConfig(
   getDefaultConfig({
     appName: 'ConnectKit Vite demo',
-    //infuraId: process.env.REACT_APP_INFURA_ID,
-    //alchemyId:  process.env.REACT_APP_ALCHEMY_ID,
+    //infuraId: import.meta.env.VITE_INFURA_ID,
+    //alchemyId:  import.meta.env.VITE_ALCHEMY_ID,
     chains: [mainnet, polygon, optimism, arbitrum],
+    walletConnectProjectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID!,
   })
 );
 
@@ -26,7 +27,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <WagmiConfig config={config}>
-      <ConnectKitProvider theme="auto" debugMode>
+      <ConnectKitProvider debugMode>
         <App />
       </ConnectKitProvider>
     </WagmiConfig>

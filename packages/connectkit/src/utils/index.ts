@@ -1,6 +1,5 @@
 import { detect } from 'detect-browser';
 import React from 'react';
-import { Connector } from 'wagmi';
 import supportedConnectors from '../constants/supportedConnectors';
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
@@ -107,11 +106,29 @@ const isMetaMask = () => {
   );
   if (isBrave) return false;
 
+  const isDawn = Boolean(ethereum.isDawn);
+  if (isDawn) return false;
+
   const isTokenary = Boolean(ethereum.isTokenary);
   if (isTokenary) return false;
 
+  const isFrame = Boolean(ethereum.isFrame);
+  if (isFrame) return false;
+
+  if (isPhantom()) return false;
+
   return true;
 };
+
+const isDawn = () => {
+  if (typeof window === 'undefined') return false;
+
+  const { ethereum } = window;
+  if (!ethereum) return false;
+
+  const isDawn = Boolean(ethereum.isDawn);
+  if (isDawn) return true;
+}
 
 const isCoinbaseWallet = () => {
   if (typeof window === 'undefined') return false;
@@ -122,6 +139,25 @@ const isCoinbaseWallet = () => {
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
   );
+};
+
+const isFrame = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isFrame ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isFrame))
+  );
+}
+
+const isPhantom = () => {
+  if (typeof window === 'undefined') return false;
+  const { phantom } = window as any;
+  const isPhantom = Boolean(phantom?.ethereum?.isPhantom);
+  if (isPhantom) return true;
+  return false;
 };
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
@@ -165,6 +201,9 @@ export {
   detectOS,
   getWalletDownloadUri,
   isMetaMask,
+  isDawn,
   isCoinbaseWallet,
+  isFrame,
+  isPhantom,
   flattenChildren,
 };

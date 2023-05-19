@@ -265,7 +265,7 @@ const Home: NextPage = () => {
   });
 
   const { reset } = useConnect();
-  const { isConnected } = useAccount();
+  const { isConnected, isConnecting } = useAccount();
   const { disconnect } = useDisconnect();
 
   const handleDisconnect = () => {
@@ -371,6 +371,8 @@ const Home: NextPage = () => {
             );
           }}
         </ConnectKitButton.Custom>
+
+        <p>isConnecting: {isConnecting.toString()}</p>
 
         <Actions />
         <h2>ConnectKitButton props</h2>

@@ -64,23 +64,16 @@ const MobileConnectors: React.FC = () => {
       <Container>
         <ModalContent>
           <WalletList $disabled={!wcUri}>
-            {!wcUri && (
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Spinner />
-              </div>
-            )}
             {wallets.map((wallet: WalletProps, i: number) => {
               const { name, shortName, logos, logoBackground } = wallet;
               return (
-                <WalletItem key={i} onClick={() => connectWallet(wallet)}>
+                <WalletItem
+                  key={i}
+                  onClick={() => connectWallet(wallet)}
+                  style={{
+                    animationDelay: `${i * 50}ms`,
+                  }}
+                >
                   <WalletIcon
                     $outline={true}
                     style={

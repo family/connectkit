@@ -16,19 +16,23 @@ function useDefaultWallets(): WalletProps[] | any {
 
   // define the order of the wallets
   defaultWallets.push(
-    'rainbow',
     'argent',
     'trust',
     'ledger',
+    'family',
     'imToken',
-    'brave',
-    'steak',
+    'rainbow',
     'unstoppable',
-    //'slope',
     'onto',
-    'gnosisSafe',
+    'steak',
     'frontier',
-    'zerion'
+    'zerion',
+    'gnosisSafe',
+    'brave',
+    //'slope',
+    'frame',
+    'phantom',
+    'dawn'
   );
 
   const wallets = getWallets();

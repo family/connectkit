@@ -60,11 +60,19 @@ const ChainSelectList = ({
 }) => {
   const { connector } = useAccount();
   const { chain, chains } = useNetwork();
-  const { isLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
+  const { status, isLoading, pendingChainId, switchNetwork } =
+    useSwitchNetwork();
 
   const locales = useLocales({});
-
   const mobile = isMobile();
+
+  const disabled = status === 'error' || !switchNetwork;
+
+  const handleSwitchNetwork = (chainId: number) => {
+    if (switchNetwork) {
+      switchNetwork(chainId);
+    }
+  };
 
   return (
     <SwitchNetworksContainer style={{ marginBottom: switchNetwork ? -8 : 0 }}>
@@ -78,14 +86,13 @@ const ChainSelectList = ({
                 key={`${ch?.id}-${ch?.name}`}
                 $variant={variant}
                 disabled={
-                  !switchNetwork ||
+                  disabled ||
                   ch.id === chain?.id ||
                   (isLoading && pendingChainId === ch.id)
                 }
-                onClick={() => switchNetwork?.(ch.id)}
+                onClick={() => handleSwitchNetwork?.(ch.id)}
                 style={{
-                  opacity:
-                    !switchNetwork && ch.id !== chain?.id ? 0.4 : undefined,
+                  opacity: disabled && ch.id !== chain?.id ? 0.4 : undefined,
                 }}
               >
                 <span
@@ -229,12 +236,29 @@ const ChainSelectList = ({
           })}
         </ChainButtons>
       </ChainButtonContainer>
-      {!switchNetwork && (
-        <Alert>
-          {locales.warnings_walletSwitchingUnsupported}{' '}
-          {locales.warnings_walletSwitchingUnsupportedResolve}
-        </Alert>
-      )}
+      <AnimatePresence>
+        {disabled && (
+          <motion.div
+            style={{
+              overflow: 'hidden',
+            }}
+            initial={{ height: 0 }}
+            animate={{ height: 'auto' }}
+            exit={{ height: 0 }}
+            transition={{
+              ease: [0.76, 0, 0.24, 1],
+              duration: 0.3,
+            }}
+          >
+            <div style={{ paddingTop: 10, paddingBottom: 8 }}>
+              <Alert>
+                {locales.warnings_walletSwitchingUnsupported}{' '}
+                {locales.warnings_walletSwitchingUnsupportedResolve}
+              </Alert>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </SwitchNetworksContainer>
   );
 };
