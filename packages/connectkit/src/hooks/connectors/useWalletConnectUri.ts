@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { Connector, useAccount, useDisconnect } from 'wagmi';
+import { Connector, useAccount } from 'wagmi';
 import { useContext } from '../../components/ConnectKit';
 import { useConnect } from '../useConnect';
 import { useWalletConnectConnector } from './../useConnectors';
