@@ -159,7 +159,7 @@ const defaultConfig = ({
   webSocketPublicClient,
   enableWebSocketPublicClient,
   walletConnectProjectId,
-}: DefaultClientProps) => {
+}: DefaultConfigProps) => {
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
 
