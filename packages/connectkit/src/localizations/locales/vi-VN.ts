@@ -1,6 +1,6 @@
 import { LocaleProps } from './';
 
-const enUS: LocaleProps = {
+const viVN: LocaleProps = {
   connectWallet: 'Kết nối ví',
   disconnect: 'Ngắt kết nó6i',
   connected: 'Đã kết nối',
@@ -114,4 +114,4 @@ const enUS: LocaleProps = {
   signInWithEthereumScreen_signedIn_button: 'Đăng xuất',
 };
 
-export default enUS;
+export default viVN;
