@@ -1,5 +1,5 @@
 export * as Types from './types';
-export { default as getDefaultClient } from './defaultClient';
+export { default as getDefaultConfig } from './defaultConfig';
 
 export { useModal } from './hooks/useModal';
 export { SIWEProvider, useSIWE } from './siwe';

@@ -7,7 +7,6 @@ import defaultTheme from '../../../constants/defaultTheme';
 export const SwitchNetworksContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     flex-direction: column-reverse;
