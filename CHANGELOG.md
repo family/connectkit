@@ -1,6 +1,21 @@
-# 1.3.0
+# 1.4.0
 
-Today we’re releasing support for WalletConnect v2.
+This update improves the developer experience of using ConnectKit by upgrading the peer dependency wagmi up a version to `1.x.x`, and removes the peer dependency `ethers` in favor of [`viem`](https://viem.sh).
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#140-breaking-changes).
+
+## New
+
+- Updates peer dependency `wagmi` to `1.x.x`.
+- Adds peer dependency [`viem`](https://viem.sh).
+
+## Deprecated
+
+- Removes peer dependency on `ethers`.
+
+# 1.3.0
 
 WalletConnect v1 is scheduled to shut down and will be no longer be supported after **June 28 2023.** It is advised to update your dApps immediately to support WalletConnect v2.
 
