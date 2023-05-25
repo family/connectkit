@@ -5,7 +5,7 @@ import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
 
-import { isMobile } from '../../../utils';
+import { flattenChildren, isWalletConnectConnector, isMobile } from '../../../utils';
 
 import {
   Container,
@@ -327,7 +327,7 @@ const Modal: React.FC<ModalProps> = ({
         return locales.aboutScreen_heading;
       case routes.CONNECT:
         if (shouldUseQrcode()) {
-          return connector?.id === 'walletConnect'
+          return isWalletConnectConnector(connector?.id)
             ? locales.scanScreen_heading
             : locales.scanScreen_heading_withConnector;
         } else {
@@ -367,7 +367,13 @@ const Modal: React.FC<ModalProps> = ({
           position: positionInside ? 'absolute' : undefined,
         }}
       >
-        {!inline && <BackgroundOverlay $active={rendered} onClick={onClose} />}
+        {!inline && (
+          <BackgroundOverlay
+            $active={rendered}
+            onClick={onClose}
+            $blur={context.options?.overlayBlur}
+          />
+        )}
         <Container
           style={dimensionsCSS}
           initial={false}
@@ -423,11 +429,12 @@ const Modal: React.FC<ModalProps> = ({
                 >
                   <span>{context.errorMessage}</span>
                   <div
-                    onClick={() => context.debug(null)}
+                    onClick={() => context.displayError(null)}
                     style={{
                       position: 'absolute',
                       right: 24,
                       top: 24,
+                      cursor: 'pointer',
                     }}
                   >
                     <CloseIcon />
@@ -437,7 +444,10 @@ const Modal: React.FC<ModalProps> = ({
             </AnimatePresence>
             <ControllerContainer>
               {onClose && (
-                <CloseButton aria-label={locales.close} onClick={onClose}>
+                <CloseButton
+                  aria-label={flattenChildren(locales.close).toString()}
+                  onClick={onClose}
+                >
                   <CloseIcon />
                 </CloseButton>
               )}
@@ -454,7 +464,7 @@ const Modal: React.FC<ModalProps> = ({
                   {onBack ? (
                     <BackButton
                       disabled={inTransition}
-                      aria-label={locales.back}
+                      aria-label={flattenChildren(locales.back).toString()}
                       key="backButton"
                       onClick={onBack}
                       initial={{ opacity: 0 }}
@@ -523,7 +533,9 @@ const Modal: React.FC<ModalProps> = ({
                     !context.options?.hideQuestionMarkCTA && (
                       <InfoButton
                         disabled={inTransition}
-                        aria-label={locales.moreInformation}
+                        aria-label={flattenChildren(
+                          locales.moreInformation
+                        ).toString()}
                         key="infoButton"
                         onClick={onInfo}
                         initial={{ opacity: 0 }}

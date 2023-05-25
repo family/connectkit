@@ -15,7 +15,7 @@ import MobileConnectors from '../Pages/MobileConnectors';
 import SignInWithEthereum from '../Pages/SignInWithEthereum';
 
 import { ConnectKitButton } from '../ConnectButton';
-import { getAppName } from '../../defaultClient';
+import { getAppName } from '../../defaultConfig';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 import styled from './../../styles/styled';

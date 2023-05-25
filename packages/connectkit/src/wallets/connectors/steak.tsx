@@ -1,14 +1,9 @@
-import {
-  WalletProps,
-  WalletOptions,
-  getProviderUri,
-  getDefaultWalletConnectConnector,
-} from './../wallet';
+import { WalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const steak = ({ chains }: WalletOptions): WalletProps => {
+export const steak = (): WalletProps => {
   return {
     id: 'steak',
     name: 'Steak',
@@ -24,26 +19,10 @@ export const steak = ({ chains }: WalletOptions): WalletProps => {
       ios: 'https://apps.apple.com/app/steakwallet/id1569375204',
       website: 'https://steakwallet.fi/download',
     },
-    createConnector: () => {
-      const connector = getDefaultWalletConnectConnector(chains);
-
-      return {
-        connector,
-        mobile: {
-          getUri: async () => {
-            const uri = await getProviderUri(connector);
-
-            return isAndroid()
-              ? uri
-              : `https://links.steakwallet.fi/wc?uri=${encodeURIComponent(
-                  uri
-                )}`;
-          },
-        },
-        qrCode: {
-          getUri: async () => await getProviderUri(connector),
-        },
-      };
+    createUri: (uri: string) => {
+      return isAndroid()
+        ? uri
+        : `https://links.steakwallet.fi/wc?uri=${encodeURIComponent(uri)}`;
     },
   };
 };

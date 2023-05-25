@@ -1,28 +1,60 @@
+/**
+ * This is a wrapper around wagmi's useConnect hook that adds some
+ * additional functionality.
+ */
+
 import { useConnect as wagmiUseConnect } from 'wagmi';
 import { useContext } from '../components/ConnectKit';
+import { useLastConnector } from './useLastConnector';
 
-export function useConnect() {
+export function useConnect({ ...props } = {}) {
   const context = useContext();
 
-  const { connectAsync, connectors } = wagmiUseConnect({
+  const connectProps = {
+    chainId: context.options?.initialChainId,
+  };
+
+  const { updateLastConnectorId } = useLastConnector();
+
+  const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
     onError(err) {
       if (err.message) {
         if (err.message !== 'User rejected request') {
-          context.debug(err.message, err);
+          context.log(err.message, err);
         }
       } else {
-        context.debug(`Could not connect. See console for more details.`, err);
+        context.log(`Could not connect.`, err);
       }
     },
+    onSuccess(data: any) {
+      updateLastConnectorId(data?.connector?.id ?? '');
+    },
+    ...props,
+    /*
+    onSuccess: (data) => {
+      context.onConnect?.({
+        address: data.account,
+        //chainId: data.chain.id,
+        connectorId: data.connector?.id,
+      });
+    },
+    */
   });
 
   return {
-    connectAsync: async ({ ...props }) => {
+    connect: ({ ...opts }) => {
+      return connect({
+        ...opts,
+        ...connectProps,
+      });
+    },
+    connectAsync: async ({ ...opts }) => {
       return await connectAsync({
-        ...props,
-        chainId: context.options?.initialChainId,
+        ...opts,
+        ...connectProps,
       });
     },
     connectors,
+    ...rest,
   };
 }

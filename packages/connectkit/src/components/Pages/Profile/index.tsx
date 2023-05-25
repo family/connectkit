@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from '../../ConnectKit';
-import { nFormatter, truncateEthAddress } from '../../../utils';
+import {
+  isSafeConnector,
+  nFormatter,
+  truncateEthAddress,
+} from '../../../utils';
 
 import {
   useConnect,
@@ -47,7 +51,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const { disconnect } = useDisconnect();
 
   const { chain } = useNetwork();
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
@@ -138,12 +142,14 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
           </ModalBody>
         )}
       </ModalContent>
-      <Button
-        onClick={() => setShouldDisconnect(true)}
-        icon={<DisconnectIcon />}
-      >
-        {locales.disconnect}
-      </Button>
+      {!isSafeConnector(connector?.id) && (
+        <Button
+          onClick={() => setShouldDisconnect(true)}
+          icon={<DisconnectIcon />}
+        >
+          {locales.disconnect}
+        </Button>
+      )}
     </PageContent>
   );
 };

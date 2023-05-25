@@ -7,7 +7,7 @@ import {
   StatusState,
   SIWESession,
 } from './SIWEContext';
-import { utils } from 'ethers';
+import { getAddress } from 'viem';
 
 type Props = SIWEConfig & {
   children: ReactNode;
@@ -55,6 +55,7 @@ export const SIWEProvider = ({
   const sessionData = session.data;
 
   const signOutAndRefetch = async () => {
+    if (!sessionData) return false; // No session to sign out of
     setStatus(StatusState.LOADING);
     if (!(await siweConfig.signOut())) {
       throw new Error('Failed to sign out.');
@@ -144,8 +145,7 @@ export const SIWEProvider = ({
     // If SIWE session no longer matches connected account, sign out
     if (
       signOutOnAccountChange &&
-      utils.getAddress(sessionData.address) !==
-        utils.getAddress(connectedAddress)
+      getAddress(sessionData.address) !== getAddress(connectedAddress)
     ) {
       console.warn('Wallet account changed, signing out of SIWE session');
       signOutAndRefetch();
@@ -158,7 +158,7 @@ export const SIWEProvider = ({
       console.warn('Wallet network changed, signing out of SIWE session');
       signOutAndRefetch();
     }
-  }, [session, connectedAddress, chain]);
+  }, [sessionData, connectedAddress, chain]);
 
   return (
     <SIWEContext.Provider

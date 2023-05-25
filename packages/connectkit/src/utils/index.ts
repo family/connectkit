@@ -106,11 +106,29 @@ const isMetaMask = () => {
   );
   if (isBrave) return false;
 
+  const isDawn = Boolean(ethereum.isDawn);
+  if (isDawn) return false;
+
   const isTokenary = Boolean(ethereum.isTokenary);
   if (isTokenary) return false;
 
+  const isFrame = Boolean(ethereum.isFrame);
+  if (isFrame) return false;
+
+  if (isPhantom()) return false;
+
   return true;
 };
+
+const isDawn = () => {
+  if (typeof window === 'undefined') return false;
+
+  const { ethereum } = window;
+  if (!ethereum) return false;
+
+  const isDawn = Boolean(ethereum.isDawn);
+  if (isDawn) return true;
+}
 
 const isCoinbaseWallet = () => {
   if (typeof window === 'undefined') return false;
@@ -121,6 +139,25 @@ const isCoinbaseWallet = () => {
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
   );
+};
+
+const isFrame = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isFrame ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isFrame))
+  );
+}
+
+const isPhantom = () => {
+  if (typeof window === 'undefined') return false;
+  const { phantom } = window as any;
+  const isPhantom = Boolean(phantom?.ethereum?.isPhantom);
+  if (isPhantom) return true;
+  return false;
 };
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
@@ -137,6 +174,23 @@ function flattenChildren(children: React.ReactNode): ReactChildArray {
   }, []);
 }
 
+export const isWalletConnectConnector = (connectorId?: string) =>
+  connectorId === 'walletConnect' || connectorId === 'walletConnectLegacy';
+
+export const isMetaMaskConnector = (connectorId?: string) =>
+  connectorId === 'metaMask';
+
+export const isCoinbaseWalletConnector = (connectorId?: string) =>
+  connectorId === 'coinbaseWallet';
+
+export const isLedgerConnector = (connectorId?: string) =>
+  connectorId === 'ledger';
+
+export const isSafeConnector = (connectorId?: string) => connectorId === 'safe';
+
+export const isInjectedConnector = (connectorId?: string) =>
+  connectorId === 'injected';
+
 export {
   nFormatter,
   truncateEthAddress,
@@ -147,6 +201,9 @@ export {
   detectOS,
   getWalletDownloadUri,
   isMetaMask,
+  isDawn,
   isCoinbaseWallet,
+  isFrame,
+  isPhantom,
   flattenChildren,
 };

@@ -6,9 +6,6 @@ import { useConnect } from 'wagmi';
 function useDefaultWallets(): WalletProps[] | any {
   const { connectors } = useConnect();
 
-  // TODO: Find a better way to get configuration chains
-  const chains = connectors[0].chains;
-
   let defaultWallets: string[] = [];
 
   // If missing metamask or coinbasewallet connector from wagmi config, add them to this list
@@ -17,24 +14,28 @@ function useDefaultWallets(): WalletProps[] | any {
   if (!connectors.find((c) => c.id === 'coinbaseWallet'))
     defaultWallets.push('coinbaseWallet');
 
-  // Add default wallets
+  // define the order of the wallets
   defaultWallets.push(
-    'rainbow',
     'argent',
     'trust',
     'ledger',
+    'family',
     'imToken',
-    'brave',
-    'steak',
+    'rainbow',
     'unstoppable',
-    //'slope', // Removed from defaults
     'onto',
-    'gnosisSafe',
+    'steak',
     'frontier',
-    'zerion'
+    'zerion',
+    'gnosisSafe',
+    'brave',
+    //'slope',
+    'frame',
+    'phantom',
+    'dawn'
   );
 
-  const wallets = getWallets({ chains });
+  const wallets = getWallets();
   return wallets.filter((wallet) => defaultWallets.includes(wallet.id));
 }
 

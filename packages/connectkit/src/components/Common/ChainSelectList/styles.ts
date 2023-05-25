@@ -7,7 +7,6 @@ import defaultTheme from '../../../constants/defaultTheme';
 export const SwitchNetworksContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
 
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     flex-direction: column-reverse;
@@ -104,10 +103,12 @@ export const ChainButtons = styled(motion.div)`
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     padding: 8px 14px;
     margin: 2px -2px 0;
-    max-height: 70vh;
+    max-height: 60vh;
   }
 `;
-export const ChainButton = styled(motion.button)`
+export const ChainButton = styled(motion.button)<{
+  $variant?: 'primary' | 'secondary';
+}>`
   appearance: none;
   cursor: pointer;
   user-select: none;
@@ -143,7 +144,7 @@ export const ChainButton = styled(motion.button)`
     content: '';
     position: absolute;
     z-index: -1;
-    inset: 0 -8px;
+    inset: 0 var(--ck-dropdown-active-inset, -8px);
     border-radius: 12px;
     opacity: 0;
     transition: opacity 180ms ease;
@@ -174,6 +175,21 @@ export const ChainButton = styled(motion.button)`
       opacity: 1;
     }
   }
+  ${(props) =>
+    props.$variant === 'secondary' &&
+    css`
+      padding: 12px 4px;
+      margin: 0 0 8px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &:before {
+        opacity: 0.05;
+      }
+      &:hover:before {
+        opacity: 0.1;
+      }
+    `}
 `;
 export const ChainButtonStatus = styled(motion.div)`
   position: absolute;
@@ -199,13 +215,14 @@ export const ChainButtonStatus = styled(motion.div)`
   }
 `;
 export const ChainButtonBg = styled(motion.div)`
-position: absolute;
-z-index: -1;
-inset: 0 var(--ck-dropdown-active-inset, -8px);
-background: var(--ck-dropdown-active-background, rgba(26, 136, 248, 0.1));
-box-shadow var(--ck-dropdown-active-box-shadow);
-border-radius: var(--ck-dropdown-active-border-radius, 12px);
-@media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-  inset: 0 -12px;
-}
+  position: absolute;
+  z-index: -1;
+  inset: 0 var(--ck-dropdown-active-inset, -8px);
+  background: var(--ck-dropdown-active-background, rgba(26, 136, 248, 0.1));
+  box-shadow var(--ck-dropdown-active-box-shadow);
+  border-radius: var(--ck-dropdown-active-border-radius, 12px);
+  
+  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
+    inset: 0 var(--ck-dropdown-active-inset, -8px);
+  }
 `;

@@ -17,7 +17,7 @@ and much more...
 
 ## Quick Start
 
-Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [ethers.js](https://github.com/ethers-io/ethers.js) project by running one of the following in your terminal:
+Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
 
 #### npm
 

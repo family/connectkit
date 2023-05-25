@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { routes, useContext } from '../ConnectKit';
 
 import supportedConnectors from '../../constants/supportedConnectors';
 import { useConnect } from '../../hooks/useConnect';
-import { useDefaultWalletConnect } from '../../hooks/useDefaultWalletConnect';
+import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
-import { detectBrowser } from '../../utils';
+import {
+  detectBrowser,
+  isWalletConnectConnector,
+  isCoinbaseWalletConnector,
+} from '../../utils';
 
 import {
   PageContent,
@@ -22,200 +26,93 @@ import { ExternalLinkIcon } from '../../assets/icons';
 import CopyToClipboard from '../Common/CopyToClipboard';
 import useLocales from '../../hooks/useLocales';
 
+import { useWalletConnectUri } from '../../hooks/connectors/useWalletConnectUri';
+import { useCoinbaseWalletUri } from '../../hooks/connectors/useCoinbaseWalletUri';
+
 const ConnectWithQRCode: React.FC<{
   connectorId: string;
   switchConnectMethod: (id?: string) => void;
 }> = ({ connectorId }) => {
   const context = useContext();
 
-  const [id, setId] = useState(connectorId);
-  const connector = supportedConnectors.filter((c) => c.id === id)[0];
+  const [id] = useState(connectorId);
 
-  const { connectors, connectAsync } = useConnect();
-  const [connectorUri, setConnectorUri] = useState<string | undefined>(
-    undefined
-  );
+  const { connectors } = useConnect();
+
+  const { uri } = isWalletConnectConnector(id)
+    ? useWalletConnectUri()
+    : isCoinbaseWalletConnector(id)
+    ? useCoinbaseWalletUri()
+    : { uri: undefined };
+
+  const connector = connectors.find((c) => c.id === id);
+  const connectorInfo = supportedConnectors.find((c) => c.id === id);
 
   const locales = useLocales({
-    CONNECTORNAME: connector.name,
+    CONNECTORNAME: connector?.name,
   });
 
-  async function connectWallet(connector: any) {
-    const result = await connectAsync({ connector: connector });
-
-    if (result) {
-      return result;
-    }
-
-    return false;
-  }
-
-  async function connectWalletConnect(connector: any) {
-    if (connector.options?.version === '1') {
-      connector.on('message', async (e) => {
-        //@ts-ignore
-        const p = await connector.getProvider();
-        setConnectorUri(p.connector.uri);
-
-        // User rejected, regenerate QR code
-        p.connector.on('disconnect', () => {
-          connectWallet(connector);
-        });
-      });
-      try {
-        await connectWallet(connector);
-      } catch (err) {
-        context.debug(
-          <>WalletConnect cannot connect. See console for more details.</>,
-          err
-        );
-      }
-    } else {
-      connector.on('message', async (e) => {
-        const p = await connector.getProvider();
-        setConnectorUri(p.uri);
-        console.log(p.uri);
-
-        // User rejected, regenerate QR code
-        connector.on('disconnect', () => {
-          console.log('disconnect');
-        });
-        connector.on('error', () => {
-          console.log('disconnect');
-        });
-      });
-
-      try {
-        await connectWallet(connector);
-      } catch (error: any) {
-        if (error.code) {
-          switch (error.code) {
-            case 4001:
-              console.error('User rejected');
-              connectWalletConnect(connector); // Regenerate QR code
-              break;
-            default:
-              console.error('Unknown error');
-              break;
-          }
-        } else {
-          // Sometimes the error doesn't respond with a code
-          context.debug(
-            <>WalletConnect cannot connect. See console for more details.</>,
-            error
-          );
-        }
-      }
-    }
-  }
-
-  const startConnect = async () => {
-    const c = connectors.filter((c) => c.id === id)[0];
-    if (!c || connectorUri) return;
-
-    switch (c.id) {
-      case 'coinbaseWallet':
-        c.on('message', async (e) => {
-          const p = await c.getProvider();
-          setConnectorUri(p.qrUrl);
-        });
-        try {
-          await connectWallet(c);
-        } catch (err) {
-          context.debug(
-            <>
-              This dApp is most likely missing the{' '}
-              <code>headlessMode: true</code> flag in the custom{' '}
-              <code>CoinbaseWalletConnector</code> options. See{' '}
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://connect.family.co/v0/docs/cbwHeadlessMode"
-              >
-                documentation
-              </a>{' '}
-              for more details.
-            </>,
-            err
-          );
-        }
-        break;
-      case 'walletConnect':
-        connectWalletConnect(c);
-        break;
-    }
-  };
-
-  const [defaultModalOpen, setDefaultModalOpen] = useState(false);
-  const { openDefaultWalletConnect } = useDefaultWalletConnect();
-  const openDefaultConnect = async () => {
-    const c = connectors.filter((c) => c.id === id)[0];
-    if (c.id === 'walletConnect') {
-      setDefaultModalOpen(true);
-      await openDefaultWalletConnect();
-      setDefaultModalOpen(false);
-    } else {
-    }
-  };
-
-  useEffect(() => {
-    if (!connectorUri) startConnect();
-  }, []);
+  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
 
   if (!connector) return <>Connector not found</>;
 
   const browser = detectBrowser();
-  const extensionUrl = connector.extensions
-    ? connector.extensions[browser]
+  const extensionUrl = connectorInfo?.extensions
+    ? connectorInfo.extensions[browser]
     : undefined;
 
   const hasApps =
-    connector.appUrls && Object.keys(connector.appUrls).length !== 0;
+    connectorInfo?.appUrls && Object.keys(connectorInfo?.appUrls).length !== 0;
 
-  const suggestedExtension = connector.extensions
+  const suggestedExtension = connectorInfo?.extensions
     ? {
-        name: Object.keys(connector.extensions)[0],
+        name: Object.keys(connectorInfo?.extensions)[0],
         label:
-          Object.keys(connector.extensions)[0].charAt(0).toUpperCase() +
-          Object.keys(connector.extensions)[0].slice(1), // Capitalise first letter, but this might be better suited as a lookup table
-        url: connector.extensions[Object.keys(connector.extensions)[0]],
+          Object.keys(connectorInfo?.extensions)[0].charAt(0).toUpperCase() +
+          Object.keys(connectorInfo?.extensions)[0].slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+        url: connectorInfo?.extensions[
+          Object.keys(connectorInfo?.extensions)[0]
+        ],
       }
     : undefined;
 
   const hasExtensionInstalled =
-    connector.extensionIsInstalled && connector.extensionIsInstalled();
+    connectorInfo?.extensionIsInstalled &&
+    connectorInfo?.extensionIsInstalled();
 
-  if (!connector.scannable)
+  if (!connectorInfo?.scannable)
     return (
       <PageContent>
         <ModalHeading>Invalid State</ModalHeading>
         <ModalContent>
           <Alert>
-            {connector.name} does not have it's own QR Code to scan. This state
-            should never happen
+            {connectorInfo?.name} does not have it's own QR Code to scan. This
+            state should never happen
           </Alert>
         </ModalContent>
       </PageContent>
     );
 
-  const showAdditionalOptions = connector.defaultConnect;
+  const showAdditionalOptions = isWalletConnectConnector(connectorId);
 
   return (
     <PageContent>
       <ModalContent style={{ paddingBottom: 8, gap: 14 }}>
         <CustomQRCode
-          value={connectorUri}
-          image={connector.logos.qrCode}
-          imageBackground={connector.logoBackground}
+          value={uri}
+          image={connectorInfo?.logos.qrCode}
+          imageBackground={connectorInfo?.logoBackground}
           tooltipMessage={
-            connectorId === 'walletConnect' ? (
+            isWalletConnectConnector(connectorId) ? (
               <>
                 <ScanIconWithLogos />
                 <span>{locales.scanScreen_tooltip_walletConnect}</span>
               </>
             ) : (
               <>
-                <ScanIconWithLogos logo={connector.logos.connectorButton} />
+                <ScanIconWithLogos
+                  logo={connectorInfo?.logos.connectorButton}
+                />
                 <span>{locales.scanScreen_tooltip_default}</span>
               </>
             )
@@ -238,7 +135,7 @@ const ConnectWithQRCode: React.FC<{
           }}
         >
           {context.options?.walletConnectCTA !== 'modal' && (
-            <CopyToClipboard variant="button" string={connectorUri}>
+            <CopyToClipboard variant="button" string={uri}>
               {context.options?.walletConnectCTA === 'link'
                 ? locales.copyToClipboard
                 : locales.copyCode}
@@ -247,8 +144,9 @@ const ConnectWithQRCode: React.FC<{
           {context.options?.walletConnectCTA !== 'link' && (
             <Button
               icon={<ExternalLinkIcon />}
-              onClick={openDefaultConnect}
-              waiting={defaultModalOpen}
+              onClick={openW3M}
+              disabled={isOpenW3M}
+              waiting={isOpenW3M}
             >
               {context.options?.walletConnectCTA === 'modal'
                 ? locales.useWalletConnectModal
@@ -261,11 +159,11 @@ const ConnectWithQRCode: React.FC<{
       {/*
       {hasExtensionInstalled && ( // Run the extension
         <Button
-          icon={connector.logos.default}
+          icon={connectorInfo?.logos.default}
           roundedIcon
           onClick={() => switchConnectMethod(id)}
         >
-          Open {connector.name}
+          Open {connectorInfo?.name}
         </Button>
       )}
 
@@ -284,8 +182,8 @@ const ConnectWithQRCode: React.FC<{
             }}
             /*
             icon={
-              <div style={{ background: connector.logoBackground }}>
-                {connector.logos.default}
+              <div style={{ background: connectorInfo?.logoBackground }}>
+                {connectorInfo?.logos.default}
               </div>
             }
             roundedIcon

@@ -1,3 +1,134 @@
+# 1.4.0
+
+This update improves the developer experience of using ConnectKit by upgrading the peer dependency wagmi up a version to `1.x.x`, and removes the peer dependency `ethers` in favor of [`viem`](https://viem.sh).
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#140-breaking-changes).
+
+## New
+
+- Updates peer dependency `wagmi` to `1.x.x`.
+- Adds peer dependency [`viem`](https://viem.sh).
+
+## Deprecated
+
+- Removes peer dependency on `ethers`.
+
+# 1.3.0
+
+WalletConnect v1 is scheduled to shut down and will be no longer be supported after **June 28 2023.** It is advised to update your dApps immediately to support WalletConnect v2.
+
+[Read the announcement](https://medium.com/walletconnect/how-to-prepare-for-the-walletconnect-v1-0-shutdown-1a954da1dbff)
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#130-breaking-changes).
+
+## New
+
+- Adds support for WalletConnect v2.
+
+### Deprecated
+
+- Removes default support for WalletConnect v1.
+
+# 1.2.4
+
+This update adds branding support for additional detectable injected connectors and improves the functionality and developer experience of using ConnectKit with Sign In With Ethereum.
+
+## New
+
+- Branding for additional injected connectors:
+  - Frame
+  - Phantom
+  - Dawn
+- `connectkit-next-siwe` version `0.1.1` add adds `afterNonce` `afterVerify` `afterSession` and `afterLogout` callbacks to the server-side SIWE helper functions.
+- `connectkit-next-siwe` version `0.2.0` updates peer dependency `siwe` to `2.0.0`.
+
+# 1.2.3
+
+This update adds some minor quality of life features to ConnectKit.
+
+## Improved
+
+- Updated styling of the switch chain page for better readability.
+- Adds prefix to LocalStorage keys to avoid collisions with other apps.
+- Restyled [documentation site](https://docs.family.co/connectkit) to make following guides even easier.
+
+# 1.2.2
+
+This update improves the functionality and developer experience of using ConnectKit and moves the peer dependency wagmi up a version to `0.12.x`.
+
+> **Note**
+>
+> This update does not yet include support for WalletConnect 2.0.
+
+## New
+
+- Adds a `Recent` badge to the most recently used connector button by a user. This helps returning users reconnect easily and save time.
+- Introduce [`SafeConnector`](https://wagmi.sh/react/connectors/safe) into the default configuration for better support for Safe Apps. Learn more about this connector in the [wagmi](https://wagmi.sh/react/connectors/safe) docs.
+- Convenient `onConnect` and `onDisconnect` callbacks on the `ConnectKitProvider` component and `useModal` Hook.
+- Added dedicated `overlayBlur` prop to `ConnectKitProvider` to allow for blurring the background when the modal is open.
+- Update peer dependency wagmi to version `0.12.x`.
+
+## Improved
+
+- Added support for Node 14.
+- Improved aria-labels on buttons for better accessibility.
+- Icons within buttons are now properly horizontally centered on FireFox.
+- Optimise some of the SVGs used in ConnectKit.
+
+## Fixed
+
+- Fixed a bug where changing accounts when signed-in with Ethereum would cause an infinite loop (thanks [JamieLottering](https://github.com/JamieLottering)).
+
+# 1.2.1
+
+This update improves the functionality and developer experience of using ConnectKit and moves the peer dependency wagmi up a version to `0.11.x`.
+This update does not yet include support for WalletConnect 2.0 (wagmi `0.12.x`)
+
+> **Note**
+>
+> This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#011x-breaking-changes).
+
+## New
+
+- Update peer dependency wagmi to version `0.11.x` (thanks [Songkeys](https://github.com/Songkeys)).
+- Add new `pt-BR` translations (thanks [LuwkasLima](https://github.com/luwkaslima)).
+- Include new `hideBalance` option to hide the wallet balance from the profile view.
+- Include new `enforceSupportedChains` option to disable the forced network switching UX when connected to an unsupported chain.
+- Include new `disableSiweRedirect` option to disable the redirect to the SIWE page when a wallet connects.
+- Include new functions from the `useModal` Hook to choose a page to navigate to on open.
+  - The `openSIWE()` function accepts a boolean, if `true` it will initiate the wallet SIWE signing request at the same time as opening the modal.
+- Add logos for the following chains:
+  - Optimism Goerli
+  - Telos + Testnet
+  - Aurora + Testnet
+  - Avalanche + Fuji Testnet
+  - Foundry
+  - Gnosis
+  - Evmos + Testnet
+  - BNB Smart Chain + Testnet
+  - Sepolia
+  - Taraxa + Testnet
+  - zkSync + Testnet
+  - Celo + Alfajores Testnet
+  - Canto
+  - Fantom + Testnet
+  - Filecoin + Hyperspace + Calibration Testnets
+  - Flare + Coston2 testnet
+  - Metis + Testnet
+  - IoTeX + Testnet
+
+## Improved
+
+- Update testbench for better developer experience.
+- Improve logic for `isConnecting` within the Custom `ConnectKitButton`.
+- Replace `getGlobalChains` with `useChains` Hook
+- Tidy up some internal component structure and include a few useful dev updates (thanks [pugson](https://github.com/pugson)).
+- Export `useIsMounted` and `Context` (thanks [shahruz](https://github.com/shahruz)).
+
 # 1.2.0
 
 This update improves the functionality and developer experience of using ConnectKit with Sign In With Ethereum.
@@ -59,17 +190,17 @@ This does not yet include support for WalletConnect 2.0.
 
 This update moves the peer dependency [wagmi](https://wagmi.sh) up to the latest version (`0.9.x`).
 
-{% note %}
-This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#09x-breaking-changes).
-{% endnote %}
+> **Note**
+>
+> This version of wagmi has breaking changes. Make sure your application is compatible by following [wagmi's migration guide](https://wagmi.sh/react/migration-guide#09x-breaking-changes).
 
 # 1.1.0
 
 This update moves the peer dependency wagmi up to the latest version (`0.8.x`).
 
-{% note %}
-This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#110-breaking-changes).
-{% endnote %}
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#110-breaking-changes).
 
 ## New
 

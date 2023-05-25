@@ -19,10 +19,14 @@ import defaultTheme from '../styles/defaultTheme';
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
-import { useAccount, useNetwork } from 'wagmi';
+import { useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
 import { ChainIds } from '../constants/supportedChains';
 import { useChains } from '../hooks/useChains';
+import {
+  useConnectCallback,
+  useConnectCallbackProps,
+} from '../hooks/useConnectCallback';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -57,8 +61,10 @@ type ContextValue = {
   errorMessage: Error;
   options?: ConnectKitOptions;
   signInWithEthereum: boolean;
-  debug: (message: string | React.ReactNode | null, code?: any) => void;
-};
+  debugMode?: boolean;
+  log: (...props: any) => void;
+  displayError: (message: string | React.ReactNode | null, code?: any) => void;
+} & useConnectCallbackProps;
 
 export const Context = createContext<ContextValue | null>(null);
 
@@ -68,7 +74,8 @@ export type ConnectKitOptions = {
   hideTooltips?: boolean;
   hideQuestionMarkCTA?: boolean;
   hideNoWalletCTA?: boolean;
-  walletConnectCTA?: 'modal' | 'link' | 'both';
+  hideRecentBadge?: boolean;
+  walletConnectCTA?: 'link' | 'modal' | 'both';
   avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
   embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
   truncateLongENSAddress?: boolean;
@@ -83,6 +90,7 @@ export type ConnectKitOptions = {
   walletOnboardingUrl?: string;
   disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
   customTokenAddress?: Partial<Record<ChainIds, `0x${string}`>>;
+  overlayBlur?: number; // Blur the background when the modal is open
 };
 
 type ConnectKitProviderProps = {
@@ -91,7 +99,8 @@ type ConnectKitProviderProps = {
   mode?: Mode;
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
-};
+  debugMode?: boolean;
+} & useConnectCallbackProps;
 
 export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   children,
@@ -99,6 +108,9 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   mode = 'auto',
   customTheme,
   options,
+  onConnect,
+  onDisconnect,
+  debugMode = false,
 }) => {
   // Only allow for mounting ConnectKitProvider once, so we avoid weird global
   // state collisions.
@@ -107,6 +119,12 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
     );
   }
+
+  useConnectCallback({
+    onConnect,
+    onDisconnect,
+  });
+
   const chains = useChains();
 
   // Default config options
@@ -116,7 +134,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     hideTooltips: false,
     hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
-    walletConnectCTA: 'modal',
+    walletConnectCTA: 'link',
+    hideRecentBadge: false,
     avoidLayoutShift: true,
     embedGoogleFonts: false,
     truncateLongENSAddress: true,
@@ -175,6 +194,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     }
   }, [chain, route, open]);
 
+  const log = debugMode ? console.log : () => {};
+
   const value = {
     theme: ckTheme,
     setTheme,
@@ -191,13 +212,14 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     connector,
     setConnector,
     signInWithEthereum: React.useContext(SIWEContext)?.enabled ?? false,
-
+    onConnect,
     // Other configuration
     options: opts,
     errorMessage,
-    debug: (message: string | React.ReactNode | null, code?: any) => {
+    debugMode,
+    log,
+    displayError: (message: string | React.ReactNode | null, code?: any) => {
       setErrorMessage(message);
-
       console.log('---------CONNECTKIT DEBUG---------');
       console.log(message);
       if (code) console.table(code);

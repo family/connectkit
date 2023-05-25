@@ -2,8 +2,6 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { BigNumber } from 'ethers';
-
 import {
   Types,
   ConnectKitButton,
@@ -83,7 +81,14 @@ const AccountInfo = () => {
   } = useAccount();
   const { data: balanceData } = useBalance({ address });
   const { chain } = useNetwork();
-  const { isSignedIn, signOut } = useSIWE();
+  const { isSignedIn, signOut } = useSIWE({
+    onSignIn: (data?: SIWESession) => {
+      console.log('onSignIn', data);
+    },
+    onSignOut: () => {
+      console.log('onSignOut');
+    },
+  });
 
   return (
     <div className="panel">
@@ -166,7 +171,8 @@ const Actions = () => {
         { name: 'contents', type: 'string' },
       ],
     },
-    value: {
+    primaryType: 'Mail',
+    message: {
       from: {
         name: 'Cow',
         wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
@@ -179,10 +185,8 @@ const Actions = () => {
     },
   });
   const { config } = usePrepareSendTransaction({
-    request: {
-      to: address?.toString() ?? '',
-      value: BigNumber.from('0'),
-    },
+    to: address?.toString() ?? '',
+    value: 0n,
   });
   const {
     sendTransaction,
@@ -259,10 +263,17 @@ const Home: NextPage = () => {
   const { chain } = useNetwork();
   const chains = useChains();
 
-  const { open, setOpen, openSIWE, openAbout } = useModal();
+  const { open, setOpen, openSIWE, openAbout } = useModal({
+    onConnect: () => {
+      console.log('onConnect Hook');
+    },
+    onDisconnect: () => {
+      console.log('onDisconnect Hook');
+    },
+  });
 
   const { reset } = useConnect();
-  const { isConnected } = useAccount();
+  const { isConnected, isConnecting } = useAccount();
   const { disconnect } = useDisconnect();
 
   const handleDisconnect = () => {
@@ -369,6 +380,8 @@ const Home: NextPage = () => {
           }}
         </ConnectKitButton.Custom>
 
+        <p>isConnecting: {isConnecting.toString()}</p>
+
         <Actions />
         <h2>ConnectKitButton props</h2>
         <Textbox
@@ -442,15 +455,40 @@ const Home: NextPage = () => {
         />
         <Checkbox
           label="Custom Font"
-          value="customTheme"
+          value="customFont"
           checked={customTheme['--ck-font-family'] !== undefined}
           onChange={() => {
-            setCustomTheme(
-              customTheme['--ck-font-family'] !== undefined
-                ? {}
-                : { '--ck-font-family': 'monospace' }
-            );
+            const name = '--ck-font-family';
+            if (customTheme[name] !== undefined) {
+              const { [name]: _, ...rest } = customTheme;
+              setCustomTheme(rest);
+            } else {
+              setCustomTheme({
+                ...customTheme,
+                [name]: 'monospace',
+              });
+            }
           }}
+        />
+        <Select
+          label={'Custom Accent'}
+          value={customTheme['--ck-accent-color'] ?? ''}
+          onChange={(e) => {
+            const name = '--ck-accent-color';
+            setCustomTheme({
+              ...customTheme,
+              [name]: e.target.value,
+            });
+          }}
+          options={[
+            { label: 'none', value: '' },
+            { label: 'red', value: 'red' },
+            { label: 'blue', value: 'blue' },
+            { label: 'green', value: 'green' },
+            { label: 'yellow', value: 'yellow' },
+            { label: 'purple', value: 'purple' },
+            { label: 'orange', value: 'orange' },
+          ]}
         />
         <Checkbox
           label="reduceMotion"
@@ -585,6 +623,22 @@ const Home: NextPage = () => {
               walletConnectCTA: e.target.value as any,
             })
           }
+        />
+        <label htmlFor="overlayBlur">
+          overlayBlur <code>{options.overlayBlur}</code>
+        </label>
+        <input
+          id="overlayBlur"
+          type="range"
+          min="0"
+          max="50"
+          value={options.overlayBlur}
+          onChange={(e) => {
+            setOptions({
+              ...options,
+              overlayBlur: parseInt(e.target.value),
+            });
+          }}
         />
       </aside>
     </>

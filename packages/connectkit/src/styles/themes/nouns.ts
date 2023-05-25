@@ -92,6 +92,10 @@ export default {
   '--ck-qr-dot-color': '#000000',
   '--ck-qr-background': '#ffffff',
 
+  '--ck-recent-badge-color': '#79809C',
+  '--ck-recent-badge-background': '#F4F4F8',
+  '--ck-recent-badge-box-shadow': 'none',
+
   '--ck-siwe-border': '#DFE4EC',
 
   '--ck-graphic-primary-background': '#fff',

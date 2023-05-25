@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Container,
   WalletList,
@@ -9,15 +9,15 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import { useConnect } from '../../../hooks/useConnect';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { routes, useContext } from '../../ConnectKit';
 import { WalletProps } from '../../../wallets/wallet';
-import { useDefaultWalletConnect } from '../../../hooks/useDefaultWalletConnect';
+import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
-import { walletConnect } from '../../../wallets/connectors/walletConnect';
 import useLocales from '../../../hooks/useLocales';
-import { useChains } from '../../../hooks/useChains';
+import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
+import { Spinner } from '../../Common/Spinner';
+import { isWalletConnectConnector } from '../../../utils';
 
 const MoreIcon = (
   <svg
@@ -35,88 +35,45 @@ const MoreIcon = (
     />
   </svg>
 );
+
 const MobileConnectors: React.FC = () => {
   const context = useContext();
-  const { connectAsync } = useConnect();
-
   const locales = useLocales();
 
-  const chains = useChains();
-
-  const { openDefaultWalletConnect } = useDefaultWalletConnect();
+  const { uri: wcUri } = useWalletConnectUri();
+  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
   const wallets = useDefaultWallets().filter(
-    (wallet: WalletProps) => wallet.installed === undefined // Do not show wallets that are injected connectors
+    (wallet: WalletProps) =>
+      wallet.installed === undefined && // Do not show wallets that are injected connectors
+      !isWalletConnectConnector(wallet.id) // Do not show WalletConnect
   );
 
   const connectWallet = (wallet: WalletProps) => {
-    const c = wallet.createConnector();
-
     if (wallet.installed) {
       context.setRoute(routes.CONNECT);
-      context.setConnector(c.connector.id);
+      context.setConnector(wallet.id);
     } else {
-      c.connector.on('message', async ({ type }: any) => {
-        if (type === 'connecting') {
-          const uri = await c.mobile.getUri();
-          window.location.href = uri;
-        }
-      });
-
-      try {
-        connectAsync({ connector: c.connector });
-      } catch (err) {
-        context.debug(
-          'Async connect error. See console for more details.',
-          err
-        );
-      }
+      const uri = wallet.createUri?.(wcUri!);
+      if (uri) window.location.href = uri;
+      //if (uri) window.open(uri, '_blank');
     }
   };
-
-  async function connectWCWallet(connector: any) {
-    await connectAsync({ connector: connector });
-  }
-
-  const [walletConnectUri, setWalletConnectUri] = useState('');
-  useEffect(() => {
-    const getWalletConnectUri = async () => {
-      const c = await walletConnect({ chains }).createConnector();
-
-      const qrUri = await c.qrCode.getUri();
-      console.log(qrUri);
-
-      c.connector.on('message', async (e) => {
-        //@ts-ignore
-        const p = await c.connector.getProvider();
-        console.log(p);
-        setWalletConnectUri(p.connector.uri);
-
-        // User rejected, regenerate QR code
-        p.connector.on('disconnect', () => {
-          connectWCWallet(c.connector);
-        });
-      });
-      try {
-        await connectWCWallet(c.connector);
-      } catch (err) {
-        context.debug(
-          <>WalletConnect cannot connect. See console for more details.</>,
-          err
-        );
-      }
-    };
-    getWalletConnectUri();
-  }, []);
 
   return (
     <PageContent style={{ width: 312 }}>
       <Container>
         <ModalContent>
-          <WalletList>
+          <WalletList $disabled={!wcUri}>
             {wallets.map((wallet: WalletProps, i: number) => {
               const { name, shortName, logos, logoBackground } = wallet;
               return (
-                <WalletItem key={i} onClick={() => connectWallet(wallet)}>
+                <WalletItem
+                  key={i}
+                  onClick={() => connectWallet(wallet)}
+                  style={{
+                    animationDelay: `${i * 50}ms`,
+                  }}
+                >
                   <WalletIcon
                     $outline={true}
                     style={
@@ -133,11 +90,31 @@ const MobileConnectors: React.FC = () => {
                 </WalletItem>
               );
             })}
-            <WalletItem onClick={openDefaultWalletConnect}>
+            <WalletItem onClick={openW3M} $waiting={isOpenW3M}>
               <WalletIcon
                 style={{ background: 'var(--ck-body-background-secondary)' }}
               >
-                {MoreIcon}
+                {isOpenW3M ? (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '50%',
+                      }}
+                    >
+                      <Spinner />
+                    </div>
+                  </div>
+                ) : (
+                  MoreIcon
+                )}
               </WalletIcon>
               <WalletLabel>{locales.more}</WalletLabel>
             </WalletItem>
@@ -153,7 +130,7 @@ const MobileConnectors: React.FC = () => {
               paddingTop: 16,
             }}
           >
-            <CopyToClipboard variant="button" string={walletConnectUri}>
+            <CopyToClipboard variant="button" string={wcUri}>
               {locales.copyToClipboard}
             </CopyToClipboard>
           </div>

@@ -3,7 +3,7 @@ import { routes, useContext } from './../../ConnectKit';
 
 import { useNetwork } from 'wagmi';
 
-import { isMobile } from './../../../utils';
+import { flattenChildren, isMobile } from './../../../utils';
 
 import defaultTheme from './../../../constants/defaultTheme';
 
@@ -161,7 +161,7 @@ const ChainSelector: React.FC = () => {
           onClose={() => setIsOpen(false)}
         >
           <SwitchChainButton
-            aria-label={locales.switchNetworks}
+            aria-label={flattenChildren(locales.switchNetworks).toString()}
             disabled={disabled}
             onClick={() => {
               if (mobile) {

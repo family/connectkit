@@ -56,9 +56,20 @@ export const Select = ({
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }) => {
   return (
-    <label className="select">
+    <label
+      className="select"
+      style={{
+        width: '100%',
+      }}
+    >
       <span>{label}</span>
-      <select value={value} onChange={onChange}>
+      <select
+        value={value}
+        onChange={onChange}
+        style={{
+          boxShadow: '0 0 0 1px #ccc',
+        }}
+      >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

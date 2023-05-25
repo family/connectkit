@@ -17,7 +17,7 @@ import {
 import Alert from '../Alert';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { isMobile } from '../../../utils';
+import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
@@ -53,14 +53,26 @@ const Spinner = (
   </svg>
 );
 
-const ChainSelectList: React.FC = () => {
+const ChainSelectList = ({
+  variant,
+}: {
+  variant?: 'primary' | 'secondary';
+}) => {
   const { connector } = useAccount();
   const { chain, chains } = useNetwork();
-  const { isLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
+  const { status, isLoading, pendingChainId, switchNetwork } =
+    useSwitchNetwork();
 
   const locales = useLocales({});
-
   const mobile = isMobile();
+
+  const disabled = status === 'error' || !switchNetwork;
+
+  const handleSwitchNetwork = (chainId: number) => {
+    if (switchNetwork) {
+      switchNetwork(chainId);
+    }
+  };
 
   return (
     <SwitchNetworksContainer style={{ marginBottom: switchNetwork ? -8 : 0 }}>
@@ -76,15 +88,15 @@ const ChainSelectList: React.FC = () => {
             return (
               <ChainButton
                 key={`${ch?.id}-${ch?.name}`}
+                $variant={variant}
                 disabled={
-                  !switchNetwork ||
+                  disabled ||
                   ch.id === chain?.id ||
                   (isLoading && pendingChainId === ch.id)
                 }
-                onClick={() => switchNetwork?.(ch.id)}
+                onClick={() => handleSwitchNetwork?.(ch.id)}
                 style={{
-                  opacity:
-                    !switchNetwork && ch.id !== chain?.id ? 0.4 : undefined,
+                  opacity: disabled && ch.id !== chain?.id ? 0.4 : undefined,
                 }}
               >
                 <span
@@ -108,6 +120,7 @@ const ChainSelectList: React.FC = () => {
                       transition={{
                         ease: [0.76, 0, 0.24, 1],
                         duration: 0.15,
+                        delay: 0.1,
                       }}
                     >
                       <motion.div
@@ -115,7 +128,7 @@ const ChainSelectList: React.FC = () => {
                         animate={
                           // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
                           mobile &&
-                          connector?.id === 'coinbaseWallet' &&
+                          isCoinbaseWalletConnector(connector?.id) &&
                           isLoading &&
                           pendingChainId === ch.id
                             ? {
@@ -179,13 +192,14 @@ const ChainSelectList: React.FC = () => {
                         transition={{
                           ease: [0.76, 0, 0.24, 1],
                           duration: 0.3,
+                          delay: 0.1,
                         }}
                       >
                         <motion.span
                           animate={
                             // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
                             mobile &&
-                            connector?.id === 'coinbaseWallet' && {
+                            isCoinbaseWalletConnector(connector?.id) && {
                               opacity: [1, 0],
                               transition: { delay: 4, duration: 4 },
                             }
@@ -197,7 +211,18 @@ const ChainSelectList: React.FC = () => {
                     )}
                   </AnimatePresence>
                 </ChainButtonStatus>
-                {
+                {variant === 'secondary' ? (
+                  <ChainButtonBg
+                    initial={false}
+                    animate={{
+                      opacity: ch.id === chain?.id ? 1 : 0,
+                    }}
+                    transition={{
+                      duration: 0.3,
+                      ease: 'easeOut',
+                    }}
+                  />
+                ) : (
                   //hover === ch.name && (
                   ch.id === chain?.id && (
                     <ChainButtonBg
@@ -209,18 +234,35 @@ const ChainSelectList: React.FC = () => {
                       }}
                     />
                   )
-                }
+                )}
               </ChainButton>
             );
           })}
         </ChainButtons>
       </ChainButtonContainer>
-      {!switchNetwork && (
-        <Alert>
-          {locales.warnings_walletSwitchingUnsupported}{' '}
-          {locales.warnings_walletSwitchingUnsupportedResolve}
-        </Alert>
-      )}
+      <AnimatePresence>
+        {disabled && (
+          <motion.div
+            style={{
+              overflow: 'hidden',
+            }}
+            initial={{ height: 0 }}
+            animate={{ height: 'auto' }}
+            exit={{ height: 0 }}
+            transition={{
+              ease: [0.76, 0, 0.24, 1],
+              duration: 0.3,
+            }}
+          >
+            <div style={{ paddingTop: 10, paddingBottom: 8 }}>
+              <Alert>
+                {locales.warnings_walletSwitchingUnsupported}{' '}
+                {locales.warnings_walletSwitchingUnsupportedResolve}
+              </Alert>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </SwitchNetworksContainer>
   );
 };

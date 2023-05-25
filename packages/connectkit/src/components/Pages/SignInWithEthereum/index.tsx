@@ -22,7 +22,7 @@ import { useSIWE } from '../../../siwe';
 import { TickIcon } from '../../../assets/icons';
 import Chains from '../../../assets/chains';
 import Avatar from '../../Common/Avatar';
-import { getAppIcon } from '../../../defaultClient';
+import { getAppIcon } from '../../../defaultConfig';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import LazyImage from '../../Common/LazyImage';

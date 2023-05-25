@@ -1,14 +1,9 @@
-import {
-  WalletProps,
-  WalletOptions,
-  getDefaultWalletConnectConnector,
-  getProviderUri,
-} from './../wallet';
+import { WalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const slope = ({ chains }: WalletOptions): WalletProps => {
+export const slope = (): WalletProps => {
   return {
     id: 'slope',
     name: 'Slope',
@@ -25,24 +20,10 @@ export const slope = ({ chains }: WalletOptions): WalletProps => {
         'https://chrome.google.com/webstore/detail/slope-wallet/pocmplpaccanhmnllbbkpgfliimjljgo',
       website: 'https://slope.finance/',
     },
-    createConnector: () => {
-      const connector = getDefaultWalletConnectConnector(chains);
-
-      return {
-        connector,
-        mobile: {
-          getUri: async () => {
-            const uri = await getProviderUri(connector);
-
-            return isAndroid()
-              ? uri
-              : `https://slope.finance/app/wc?uri=${encodeURIComponent(uri)}`;
-          },
-        },
-        qrCode: {
-          getUri: async () => await getProviderUri(connector),
-        },
-      };
+    createUri: (uri: string) => {
+      return isAndroid()
+        ? uri
+        : `https://slope.finance/app/wc?uri=${encodeURIComponent(uri)}`;
     },
   };
 };

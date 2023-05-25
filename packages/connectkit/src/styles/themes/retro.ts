@@ -114,6 +114,9 @@ export default {
   '--ck-qr-border-color': '#000000',
   '--ck-qr-background': '#ffffff',
 
+  '--ck-recent-badge-border-radius': '32px',
+  '--ck-recent-badge-box-shadow': 'inset 0 0 0 2px currentColor',
+
   /** Graphics options for our themes, not to be exposed to devs */
 
   '--ck-graphic-primary-color': '#000000',

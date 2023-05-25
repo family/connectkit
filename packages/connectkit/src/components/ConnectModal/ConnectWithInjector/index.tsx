@@ -9,8 +9,6 @@ import {
   Content,
 } from './styles';
 
-import { useContext } from '../../ConnectKit';
-import { useConnect } from 'wagmi';
 import supportedConnectors from '../../../constants/supportedConnectors';
 
 import {
@@ -31,8 +29,9 @@ import CircleSpinner from './CircleSpinner';
 import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
-import { detectBrowser } from '../../../utils';
+import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
+import { useConnect } from '../../../hooks/useConnect';
 
 export const states = {
   CONNECTED: 'connected',
@@ -78,8 +77,6 @@ const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void;
   forceState?: typeof states;
 }> = ({ connectorId, switchConnectMethod, forceState }) => {
-  const context = useContext();
-
   const { connect, connectors } = useConnect({
     onMutate: (connector?: any) => {
       if (connector.connector) {
@@ -170,10 +167,7 @@ const ConnectWithInjector: React.FC<{
 
     const con: any = connectors.find((c) => c.id === id);
     if (con) {
-      connect({
-        connector: con,
-        chainId: context.options?.initialChainId,
-      });
+      connect({ connector: con });
     } else {
       setStatus(states.UNAVAILABLE);
     }
@@ -212,7 +206,7 @@ const ConnectWithInjector: React.FC<{
   }, [status, expiryTimer]);
   */
 
-  if (!connector)
+  if (!connector) {
     return (
       <PageContent>
         <Container>
@@ -225,9 +219,10 @@ const ConnectWithInjector: React.FC<{
         </Container>
       </PageContent>
     );
+  }
 
   // TODO: Make this more generic
-  if (connector.id === 'walletConnect')
+  if (isWalletConnectConnector(connector?.id)) {
     return (
       <PageContent>
         <Container>
@@ -241,6 +236,7 @@ const ConnectWithInjector: React.FC<{
         </Container>
       </PageContent>
     );
+  }
 
   return (
     <PageContent>
@@ -491,19 +487,6 @@ const ConnectWithInjector: React.FC<{
                       </ModalBody>
                     </ModalContent>
 
-                    {/**
-                  <OrDivider />
-                  <Button
-                    icon={<Scan />}
-                    onClick={() =>
-                      switchConnectMethod(
-                        !connector.scannable ? 'walletConnect' : id
-                      )
-                    }
-                  >
-                    {locales.scanTheQRCode}
-                  </Button>
-                  */}
                     {!hasExtensionInstalled && suggestedExtension && (
                       <Button
                         href={suggestedExtension?.url}

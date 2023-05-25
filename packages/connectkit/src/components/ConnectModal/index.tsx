@@ -14,7 +14,7 @@ import Profile from '../Pages/Profile';
 import SwitchNetworks from '../Pages/SwitchNetworks';
 import SignInWithEthereum from '../Pages/SignInWithEthereum';
 
-import { getAppIcon, getAppName } from '../../defaultClient';
+import { getAppIcon, getAppName } from '../../defaultConfig';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const customThemeDefault: object = {};
