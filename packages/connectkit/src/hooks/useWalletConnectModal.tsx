@@ -30,6 +30,7 @@ export function useWalletConnectModal() {
           connector = new WalletConnectLegacyConnector({
             ...clientConnector,
             options: {
+              bridge: 'https://derelay.rabby.io',
               ...clientConnector.options,
               qrcode: true,
             },

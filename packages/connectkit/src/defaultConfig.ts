@@ -125,6 +125,7 @@ const getDefaultConnectors = ({
           chains,
           options: {
             qrcode: false,
+            bridge: 'https://derelay.rabby.io',
           },
         }),
     new InjectedConnector({
