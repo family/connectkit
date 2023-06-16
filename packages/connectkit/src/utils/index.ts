@@ -2,6 +2,13 @@ import { detect } from 'detect-browser';
 import React from 'react';
 import supportedConnectors from '../constants/supportedConnectors';
 
+declare global {
+  interface Window {
+    trustWallet: any;
+    trustwallet: any;
+  }
+}
+
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 
 const truncateEthAddress = (address?: string, separator: string = '••••') => {
@@ -128,7 +135,7 @@ const isDawn = () => {
 
   const isDawn = Boolean(ethereum.isDawn);
   if (isDawn) return true;
-}
+};
 
 const isCoinbaseWallet = () => {
   if (typeof window === 'undefined') return false;
@@ -150,7 +157,7 @@ const isFrame = () => {
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isFrame))
   );
-}
+};
 
 const isPhantom = () => {
   if (typeof window === 'undefined') return false;
@@ -190,6 +197,11 @@ export const isSafeConnector = (connectorId?: string) => connectorId === 'safe';
 
 export const isInjectedConnector = (connectorId?: string) =>
   connectorId === 'injected';
+
+export const isTrust = () => {
+  if (typeof window === 'undefined') return false;
+  return !!(window?.trustWallet?.isTrust || window?.trustwallet?.isTrust);
+};
 
 export {
   nFormatter,
