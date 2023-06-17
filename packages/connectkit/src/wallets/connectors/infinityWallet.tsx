@@ -1,15 +1,14 @@
 import { WalletProps } from './../wallet';
 
-import { isMobile, isInfinityWallet, isAndroid } from '../../utils';
+import { isInfinityWallet } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const infinityWallet = (): WalletProps => {
   const isInstalled = isInfinityWallet();
-  const shouldUseWalletConnect = isMobile || !isInstalled; // use walletconnect on mobile or if on desktop but not installed
 
   return {
     id: 'infinityWallet',
-    name: 'Infinity Wallet Test',
+    name: 'Infinity Wallet',
     logos: {
       default: <Logos.InfinityWallet />,
       mobile: <Logos.InfinityWallet />,
@@ -27,6 +26,6 @@ export const infinityWallet = (): WalletProps => {
       brave: 'https://infinitywallet.io/download',
       edge: 'https://infinitywallet.io/download',
     },
-    installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
+    installed: Boolean(isInstalled),
   };
 };
