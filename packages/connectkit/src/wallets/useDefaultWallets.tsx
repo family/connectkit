@@ -19,6 +19,7 @@ function useDefaultWallets(): WalletProps[] | any {
     'argent',
     'trust',
     'ledger',
+    'infinityWallet',
     'family',
     'imToken',
     'rainbow',

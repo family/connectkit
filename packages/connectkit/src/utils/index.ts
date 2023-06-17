@@ -115,6 +115,10 @@ const isMetaMask = () => {
   const isFrame = Boolean(ethereum.isFrame);
   if (isFrame) return false;
 
+  const isInfinityWallet = Boolean(ethereum.isInfinityWallet);
+  if (isInfinityWallet) return false;
+
+
   if (isPhantom()) return false;
 
   return true;
@@ -158,6 +162,17 @@ const isPhantom = () => {
   const isPhantom = Boolean(phantom?.ethereum?.isPhantom);
   if (isPhantom) return true;
   return false;
+};
+
+const isInfinityWallet = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isInfinityWallet ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isInfinityWallet))
+  );
 };
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
@@ -205,5 +220,6 @@ export {
   isCoinbaseWallet,
   isFrame,
   isPhantom,
+  isInfinityWallet,
   flattenChildren,
 };

@@ -875,6 +875,7 @@ export const Phantom = () => (
     </defs>
   </svg>
 );
+
 export const PlaceHolder = () => {
   return <div style={{ width: 80, height: 80, background: '#555' }}></div>;
 };
@@ -923,6 +924,54 @@ export const Dawn = ({ ...props }) => (
           id="Combined-Shape"
           fill="url(#linearGradient-3)"
         ></path>
+      </g>
+    </g>
+  </svg>
+);
+
+export const InfinityWallet = ({...props}) => (
+  <svg
+    {...props}
+    id="9b7bfa39-7116-40eb-a4c1-c6c3ba56815e"
+    data-name="6a72fcd0-0d44-4dab-90c9-9f00f3cee507"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 1025 1025"
+    style={{borderRadius:"12px"}}
+  >
+    <defs>
+      <linearGradient id="04866e85-48a1-4338-a4ba-ccbb22326346" x1="512.5" y1="-30.18" x2="512.5" y2="708.97" gradientTransform="translate(0 234)" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#1d2643"/>
+        <stop offset="1" stop-color="#12142c"/>
+      </linearGradient>
+      <linearGradient id="1f294e6d-146b-4a52-a55e-08da681ae2f5" x1="314.35" y1="2094.52" x2="314.35" y2="1042.23" gradientTransform="matrix(1, 0, 0, -1, 0, 2266)" gradientUnits="userSpaceOnUse">
+        <stop offset="0.01" stop-color="#00bfe1"/>
+        <stop offset="0.97" stop-color="#2738ab"/>
+      </linearGradient>
+      <linearGradient id="0fc4d460-db1f-4614-92f0-d455f3143954" x1="112.85" y1="1725.45" x2="180.64" y2="1668.75" gradientTransform="matrix(1, 0, 0, -1, -0.94, 2265.39)" gradientUnits="userSpaceOnUse">
+        <stop offset="0.03" stop-color="#1b1464"/>
+        <stop offset="1" stop-color="#1b1464" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="3b6ed1b5-b6e8-4bcb-87aa-a2af1e0e1cbf" x1="3726.1" y1="-634.73" x2="3693.81" y2="-680.53" gradientTransform="matrix(-1, 0, 0, 1, 4101, 1356.09)" xlinkHref="#0fc4d460-db1f-4614-92f0-d455f3143954"/>
+      <linearGradient id="a489a5f7-6212-449c-8b54-3963eb8e2180" x1="3817.11" y1="-1054.97" x2="3841.34" y2="-995.02" gradientTransform="matrix(-1, 0, 0, 1, 4101, 1356.09)" xlinkHref="#0fc4d460-db1f-4614-92f0-d455f3143954"/>
+      <linearGradient id="d41626fe-8ae9-4c71-8809-68e8a83c317e" x1="713.15" y1="2094.52" x2="713.15" y2="1042.23" xlinkHref="#1f294e6d-146b-4a52-a55e-08da681ae2f5"/>
+      <linearGradient id="c152b7b3-e653-43ae-b367-0c4908f3908e" x1="3383.56" y1="-445.61" x2="3451.35" y2="-502.31" gradientTransform="matrix(-1, 0, 0, 1, 4299.13, 930.66)" xlinkHref="#0fc4d460-db1f-4614-92f0-d455f3143954"/>
+      <linearGradient id="164b4ec3-1a24-418d-8f35-80f31e3d5bba" x1="455.4" y1="1536.31" x2="423.11" y2="1490.51" gradientTransform="matrix(1, 0, 0, -1, 197.19, 1839.96)" xlinkHref="#0fc4d460-db1f-4614-92f0-d455f3143954"/>
+      <linearGradient id="a957b9f9-0720-43c2-a78d-63d5480b5c65" x1="546.33" y1="1116.11" x2="570.56" y2="1176.06" gradientTransform="matrix(1, 0, 0, -1, 197.19, 1839.96)" xlinkHref="#0fc4d460-db1f-4614-92f0-d455f3143954"/>
+    </defs>
+    <rect width="1025" height="1025" rx="129.96" ry="129.96" fill="url(#04866e85-48a1-4338-a4ba-ccbb22326346)"/>
+    <g>
+      <g>
+        <path d="M554.8,371.6a6.69,6.69,0,0,0-4.7-4.2,6.93,6.93,0,0,0-6.8,1.8L529,383.5l-2.4,2.4L413,272.9a110.21,110.21,0,0,0-155.5,0L95.8,434.8a111.06,111.06,0,0,0,0,156.2L257.7,752a110.09,110.09,0,0,0,155.4,0l36.8-36.8c4.8-4.8,10.6-11.4,13.8-20a45.75,45.75,0,0,0-5.6-41.8,37.28,37.28,0,0,0-5.5-6.4,46.3,46.3,0,0,0-64.9.3L347.9,687a17.42,17.42,0,0,1-8.7,4.8,15.66,15.66,0,0,1-9.4-.6,21.5,21.5,0,0,1-8.2-5.3L160.9,525a18.23,18.23,0,0,1-4.9-9,17.7,17.7,0,0,1,2.2-12.6l.9-1L322.8,339a17.63,17.63,0,0,1,9.3-4.9,18.25,18.25,0,0,1,3.3-.3,16.87,16.87,0,0,1,12.5,5.3L461.1,451.6l-5.7,5.7-11.1,11.3a6.93,6.93,0,0,0-1.8,6.8,6.69,6.69,0,0,0,4.2,4.7L549,492.6a16.22,16.22,0,0,0,16-16Z" fill="url(#1f294e6d-146b-4a52-a55e-08da681ae2f5)"/>
+        <path d="M159.6,523.6c-4.6-5.2-5.5-14.2-1.4-20.3,0,0-53.2,58.1-27.6,122.3l33.7,33.5,49-81.5Z" opacity="0.49" fill="url(#0fc4d460-db1f-4614-92f0-d455f3143954)" style={{isolation:"isolate"}}/>
+        <path d="M325.4,689.1c60,55.2,126.1,24.5,126.1,24.5s8.7-8,12.2-18.6c-8.9-4.3-73.4-50.5-73.4-50.5l-38.1,38.1C338.5,699.2,325.4,689.1,325.4,689.1Z" opacity="0.49" fill="url(#3b6ed1b5-b6e8-4bcb-87aa-a2af1e0e1cbf)" style={{isolation:"isolate"}}/>
+        <path d="M285.8,376.1s38.4-38.7,38.5-38.5c0,0,10.3-8.2,21.1-.7,0,0-63.9-52.6-132.2-19.6l-19.9,20Z" opacity="0.49" fill="url(#a489a5f7-6212-449c-8b54-3963eb8e2180)" style={{isolation:"isolate"}}/>
+      </g>
+      <g>
+        <path d="M472.7,653.4a6.69,6.69,0,0,0,4.7,4.2,6.93,6.93,0,0,0,6.8-1.8l14.3-14.3,2.4-2.4L614.5,752A110.21,110.21,0,0,0,770,752L931.7,590.1a111.06,111.06,0,0,0,0-156.2l-161.9-161a110.09,110.09,0,0,0-155.4,0l-36.8,36.8c-4.8,4.8-10.6,11.4-13.8,20a45.75,45.75,0,0,0,5.6,41.8,37.28,37.28,0,0,0,5.5,6.4,46.3,46.3,0,0,0,64.9-.3l39.8-39.7a17.42,17.42,0,0,1,8.7-4.8,15.66,15.66,0,0,1,9.4.6,21.5,21.5,0,0,1,8.2,5.3L866.6,499.7a18.23,18.23,0,0,1,4.9,9,17.7,17.7,0,0,1-2.2,12.6l-.9,1L704.7,685.7a17.63,17.63,0,0,1-9.3,4.9,18.25,18.25,0,0,1-3.3.3,16.87,16.87,0,0,1-12.5-5.3l-113.3-112,5.7-5.7,11.1-11.3a6.93,6.93,0,0,0,1.8-6.8,6.69,6.69,0,0,0-4.2-4.7L478.5,532.6a16.22,16.22,0,0,0-16,16Z" fill="url(#d41626fe-8ae9-4c71-8809-68e8a83c317e)"/>
+        <path d="M867.9,501.4c4.6,5.2,5.5,14.2,1.4,20.3,0,0,53.2-58.1,27.6-122.3l-33.7-33.5-49,81.5Z" opacity="0.49" fill="url(#c152b7b3-e653-43ae-b367-0c4908f3908e)" style={{isolation:"isolate"}}/>
+        <path d="M702.1,335.9c-60-55.2-126.1-24.5-126.1-24.5s-8.7,8-12.2,18.6c8.9,4.3,73.4,50.5,73.4,50.5l38.1-38.1C689,325.8,702.1,335.9,702.1,335.9Z" opacity="0.49" fill="url(#164b4ec3-1a24-418d-8f35-80f31e3d5bba)" style={{isolation:"isolate"}}/>
+        <path d="M741.6,648.9s-38.4,38.7-38.5,38.5c0,0-10.3,8.2-21.1.7,0,0,63.9,52.6,132.2,19.6l19.9-20Z" opacity="0.49" fill="url(#a957b9f9-0720-43c2-a78d-63d5480b5c65)" style={{isolation:"isolate"}}/>
       </g>
     </g>
   </svg>
@@ -993,4 +1042,5 @@ export default {
   PlaceHolder,
   Frame,
   Dawn,
+  InfinityWallet,
 };
