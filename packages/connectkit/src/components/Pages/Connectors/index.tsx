@@ -7,6 +7,7 @@ import {
   isWalletConnectConnector,
   isInjectedConnector,
   isMetaMaskConnector,
+  isTrust,
 } from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
@@ -78,15 +79,16 @@ const Wallets: React.FC = () => {
    * Some injected connectors pretend to be metamask, this helps avoid that issue.
    */
 
-  const shouldShowInjectedConnector = () => {
+  const shouldShowInjectedConnector = (connector?: any) => {
     // Only display if an injected connector is detected
     const { ethereum } = window;
 
     const needsInjectedWalletFallback =
-      typeof window !== 'undefined' &&
-      ethereum &&
-      !isMetaMask() &&
-      !isCoinbaseWallet();
+      (typeof window !== 'undefined' &&
+        ethereum &&
+        !isMetaMask() &&
+        !isCoinbaseWallet()) ||
+      (connector && isTrust() && /trust wallet/i.test(connector?.name));
     //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
 
     return needsInjectedWalletFallback;
@@ -219,7 +221,7 @@ const Wallets: React.FC = () => {
               }
 
               if (isInjectedConnector(info.id)) {
-                if (!shouldShowInjectedConnector()) return null;
+                if (!shouldShowInjectedConnector(connector)) return null;
 
                 const foundInjector = findInjectedConnectorInfo(connector.name);
                 if (foundInjector) {
