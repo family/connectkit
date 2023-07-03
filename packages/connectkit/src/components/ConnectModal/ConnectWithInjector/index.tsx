@@ -138,12 +138,13 @@ const ConnectWithInjector: React.FC<{
   const { wallet: injectedWallet } = useInjectedWallet();
   const connector = supportedConnectors.filter((c) => c.id === id)[0];
 
+  const fallbackWallet = {
+    ...connector,
+    installed: connector.extensionIsInstalled?.(),
+  };
   const wallet = isInjectedConnector(connectorId)
-    ? injectedWallet
-    : {
-        ...connector,
-        installed: connector.extensionIsInstalled?.(),
-      };
+    ? injectedWallet ?? fallbackWallet
+    : fallbackWallet;
 
   const browser = detectBrowser();
   const extensionUrl = connector.extensions
@@ -160,7 +161,10 @@ const ConnectWithInjector: React.FC<{
       }
     : undefined;
 
-  const [status, setStatus] = useState(states.CONNECTING);
+  const [status, setStatus] = useState(
+    !wallet?.installed ? states.UNAVAILABLE : states.CONNECTING
+  );
+
   const locales = useLocales({
     CONNECTORNAME: wallet?.name,
     CONNECTORSHORTNAME: wallet?.shortName ?? wallet?.name,
