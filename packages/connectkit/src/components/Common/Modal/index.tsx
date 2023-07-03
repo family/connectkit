@@ -5,7 +5,11 @@ import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
 
-import { flattenChildren, isWalletConnectConnector, isMobile } from '../../../utils';
+import {
+  flattenChildren,
+  isWalletConnectConnector,
+  isMobile,
+} from '../../../utils';
 
 import {
   Container,
@@ -114,13 +118,7 @@ const CloseIcon = ({ ...props }) => (
     {...props}
   >
     <path
-      d="M1 13L13 1"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    <path
-      d="M1 0.999999L13 13"
+      d="M1 13L13 1M1 1L13 13"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
