@@ -39,16 +39,18 @@ import {
 import { isMobile, isAndroid } from '../../../utils';
 
 import Button from '../../Common/Button';
-import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { Connector } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
+import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 
 const Wallets: React.FC = () => {
   const context = useContext();
   const locales = useLocales({});
   const mobile = isMobile();
+
+  const injected = useInjectedWallet();
 
   const { uri: wcUri } = useWalletConnectUri({ enabled: mobile });
   const { connectAsync, connectors } = useConnect();
@@ -74,45 +76,6 @@ const Wallets: React.FC = () => {
   };
   useEffect(() => {}, [mobile]);
 
-  /**
-   * Some injected connectors pretend to be metamask, this helps avoid that issue.
-   */
-
-  const shouldShowInjectedConnector = () => {
-    // Only display if an injected connector is detected
-    const { ethereum } = window;
-
-    const needsInjectedWalletFallback =
-      typeof window !== 'undefined' &&
-      ethereum &&
-      !isMetaMask() &&
-      !isCoinbaseWallet();
-    //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
-
-    return needsInjectedWalletFallback;
-  };
-
-  const wallets = useDefaultWallets();
-
-  const findInjectedConnectorInfo = (name: string) => {
-    let walletList = name.split(/[(),]+/);
-    walletList.shift(); // remove "Injected" from array
-    walletList = walletList.map((x) => x.trim());
-
-    const hasWalletLogo = walletList.filter((x) => {
-      const a = wallets.map((wallet: any) => wallet.name).includes(x);
-      if (a) return x;
-      return null;
-    });
-    if (hasWalletLogo.length === 0) return null;
-
-    const foundInjector = wallets.filter(
-      (wallet: any) => wallet.installed && wallet.name === hasWalletLogo[0]
-    )[0];
-
-    return foundInjector;
-  };
-
   return (
     <PageContent style={{ width: 312 }}>
       {mobile ? (
@@ -128,12 +91,11 @@ const Wallets: React.FC = () => {
               let name = info.shortName ?? info.name ?? connector.name;
 
               if (isInjectedConnector(info.id)) {
-                if (!shouldShowInjectedConnector()) return null;
+                if (!injected.shouldDisplay()) return null;
 
-                const foundInjector = findInjectedConnectorInfo(connector.name);
-                if (foundInjector) {
-                  logos = foundInjector.logos;
-                  name = foundInjector.name.replace(' Wallet', '');
+                if (injected.wallet) {
+                  logos = injected.wallet.logos;
+                  name = injected.wallet.name;
                 }
               }
 
@@ -219,12 +181,10 @@ const Wallets: React.FC = () => {
               }
 
               if (isInjectedConnector(info.id)) {
-                if (!shouldShowInjectedConnector()) return null;
-
-                const foundInjector = findInjectedConnectorInfo(connector.name);
-                if (foundInjector) {
-                  logos = foundInjector.logos;
-                  name = foundInjector.name;
+                if (!injected.shouldDisplay()) return null;
+                if (injected.wallet) {
+                  logos = injected.wallet.logos;
+                  name = injected.wallet.name;
                 }
               }
 
