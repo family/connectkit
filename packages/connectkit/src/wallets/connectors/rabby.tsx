@@ -11,9 +11,6 @@ export const rabby = (): WalletProps => {
     name: 'Rabby Wallet',
     logos: {
       default: <Logos.Rabby />,
-      transparent: <Logos.Rabby />,
-      appIcon: <Logos.Rabby />,
-      connectorButton: <Logos.Rabby />,
     },
     logoBackground: '#8697FF',
     scannable: false,
