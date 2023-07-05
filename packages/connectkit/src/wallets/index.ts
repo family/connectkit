@@ -20,6 +20,7 @@ import { frame } from './connectors/frame';
 import { phantom } from './connectors/phantom';
 import { dawn } from './connectors/dawn';
 import { rabby } from './connectors/rabby';
+import { tokenPocket } from './connectors/tokenPocket';
 
 export const getWallets = () => {
   return [
@@ -47,5 +48,6 @@ export const getWallets = () => {
     phantom(),
     dawn(),
     rabby(),
+    tokenPocket(),
   ];
 };
