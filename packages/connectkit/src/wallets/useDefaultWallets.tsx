@@ -33,7 +33,8 @@ function useDefaultWallets(): WalletProps[] | any {
     'frame',
     'phantom',
     'dawn',
-    'rabby'
+    'rabby',
+    'fordefi',
   );
 
   const wallets = getWallets();
