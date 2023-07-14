@@ -104,7 +104,16 @@ const Wallets: React.FC = () => {
       if (a) return x;
       return null;
     });
-    if (hasWalletLogo.length === 0) return null;
+    if (hasWalletLogo.length === 0) {
+      const installedWallets = wallets.filter((wallet) => wallet.installed);
+      if (installedWallets.length === 1) {
+        // Fallback for when there is only one wallet installed
+        return installedWallets[0];
+      } else {
+        // Fallback for when there are multiple wallets installed
+        return null;
+      }
+    }
 
     const foundInjector = wallets.filter(
       (wallet: any) => wallet.installed && wallet.name === hasWalletLogo[0]
