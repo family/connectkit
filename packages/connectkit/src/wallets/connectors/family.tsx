@@ -1,8 +1,9 @@
 import { WalletProps } from './../wallet';
-import { isAndroid } from '../../utils';
+import { isAndroid, isFamily } from '../../utils';
 import Logos from './../../assets/logos';
 
 export const family = (): WalletProps => {
+  const isInstalled = isFamily();
   return {
     id: 'family',
     name: 'Family',
@@ -10,6 +11,7 @@ export const family = (): WalletProps => {
       default: <Logos.Family />,
     },
     logoBackground: '#7DC4FF',
+    installed: Boolean(isInstalled),
     scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/family',

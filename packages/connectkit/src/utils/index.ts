@@ -92,6 +92,16 @@ const getBrowserAppUri = (connectorId: string) => {
   }
 };
 
+const isFamily = () => {
+  if (typeof window === 'undefined') return false;
+
+  const { ethereum } = window;
+  if (!ethereum) return false;
+
+  const isFamily = Boolean(ethereum.isFamily);
+  if (isFamily) return true;
+};
+
 const isMetaMask = () => {
   if (typeof window === 'undefined') return false;
 
@@ -214,6 +224,7 @@ export {
   detectBrowser,
   detectOS,
   getWalletDownloadUri,
+  isFamily,
   isMetaMask,
   isDawn,
   isCoinbaseWallet,
