@@ -149,8 +149,6 @@ const ConnectWithInjector: React.FC<{
     };
   }
 
-  console.log('connector', connector);
-
   const expiryDefault = 9; // Starting at 10 causes layout shifting, better to start at 9
   const [expiryTimer, setExpiryTimer] = useState<number>(expiryDefault);
 

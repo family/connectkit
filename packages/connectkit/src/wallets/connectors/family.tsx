@@ -11,7 +11,7 @@ export const family = (): WalletProps => {
       default: <Logos.Family />,
     },
     logoBackground: '#7DC4FF',
-    installed: Boolean(isInstalled),
+    installed: Boolean(isInstalled) ? true : undefined,
     scannable: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/family',
