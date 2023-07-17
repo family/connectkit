@@ -12,8 +12,8 @@
     "connectkit": "workspace:packages/connectkit",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "~0.3.19",
-    "wagmi": "^1.0.0"
+    "viem": "^1.0.0",
+    "wagmi": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
