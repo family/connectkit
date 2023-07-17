@@ -1,7 +1,6 @@
 export const Injected = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -19,7 +18,6 @@ export const Injected = ({ ...props }) => (
 export const WalletConnect = ({ background = false, ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -42,7 +40,6 @@ export const WalletConnectLegacy = ({ background = false, ...props }) =>
 export const MetaMask = ({ background = false, ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     style={
       background
         ? {
@@ -312,7 +309,6 @@ export const MetaMask = ({ background = false, ...props }) => (
 export const Coinbase = ({ background = false, ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="20"
     height="20"
     viewBox="0 0 20 20"
@@ -344,7 +340,6 @@ export const Family = ({ ...props }) => {
   return (
     <svg
       {...props}
-      aria-hidden="true"
       width="120"
       height="120"
       viewBox="0 0 120 120"
@@ -361,7 +356,6 @@ export const Family = ({ ...props }) => {
 export const Trust = ({ theme = 'light', ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="44"
     height="44"
     viewBox="0 0 44 44"
@@ -393,7 +387,6 @@ export const Trust = ({ theme = 'light', ...props }) => (
 export const Argent = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -411,7 +404,6 @@ export const Argent = ({ ...props }) => (
 export const ImToken = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -436,7 +428,6 @@ export const Frame = ({ ...props }) => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
     width="32"
     height="32"
     viewBox="0 0 153.4 152.9"
@@ -458,7 +449,6 @@ export const Rainbow = ({ ...props }) => {
   return (
     <svg
       {...props}
-      aria-hidden="true"
       width="120"
       height="120"
       viewBox="0 0 120 120"
@@ -474,7 +464,6 @@ export const Rainbow = ({ ...props }) => {
 export const Brave = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -523,7 +512,6 @@ export const Brave = ({ ...props }) => (
 export const Crypto = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -586,7 +574,6 @@ export const Crypto = ({ ...props }) => (
 export const Ledger = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -606,7 +593,6 @@ export const Ledger = ({ ...props }) => (
 export const Steak = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="600"
     height="600"
     viewBox="0 0 600 600"
@@ -636,7 +622,6 @@ export const Steak = ({ ...props }) => (
 export const Unstoppable = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -654,7 +639,6 @@ export const Unstoppable = ({ ...props }) => (
 export const ONTO = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -671,7 +655,6 @@ export const ONTO = ({ ...props }) => (
 export const Slope = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -728,7 +711,6 @@ export const Slope = ({ ...props }) => (
 export const GnosisSafe = ({ background = false, ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -756,7 +738,6 @@ export const GnosisSafe = ({ background = false, ...props }) => (
 export const Frontier = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -774,7 +755,6 @@ export const Frontier = ({ ...props }) => (
 export const Zerion = ({ ...props }) => (
   <svg
     {...props}
-    aria-hidden="true"
     width="88"
     height="88"
     viewBox="0 0 88 88"
@@ -803,7 +783,7 @@ export const Phantom = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_51_1414)">
+    <g clipPath="url(#clip0_51_1414)">
       <circle cx="64" cy="64" r="64" fill="url(#paint0_linear_51_1414)" />
       <g filter="url(#filter0_d_51_1414)">
         <path
@@ -820,9 +800,9 @@ export const Phantom = () => (
         width="117.472"
         height="100.281"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
@@ -855,8 +835,8 @@ export const Phantom = () => (
         y2="128"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#534BB1" />
-        <stop offset="1" stop-color="#551BF9" />
+        <stop stopColor="#534BB1" />
+        <stop offset="1" stopColor="#551BF9" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_51_1414"
@@ -866,8 +846,8 @@ export const Phantom = () => (
         y2="108"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="white" />
-        <stop offset="1" stop-color="white" stop-opacity="0.82" />
+        <stop stopColor="white" />
+        <stop offset="1" stopColor="white" stopOpacity="0.82" />
       </linearGradient>
       <clipPath id="clip0_51_1414">
         <rect width="128" height="128" fill="white" />
@@ -891,8 +871,8 @@ export const Dawn = ({ ...props }) => (
   >
     <defs>
       <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-        <stop stop-color="#151515" offset="0%"></stop>
-        <stop stop-color="#232323" offset="100%"></stop>
+        <stop stopColor="#151515" offset="0%"></stop>
+        <stop stopColor="#232323" offset="100%"></stop>
       </linearGradient>
       <rect rx="27%" id="path-2" x="0" y="0" width="192" height="192"></rect>
       <linearGradient
@@ -902,8 +882,8 @@ export const Dawn = ({ ...props }) => (
         y2="99.7051532%"
         id="linearGradient-3"
       >
-        <stop stop-color="#F3DC83" offset="0%"></stop>
-        <stop stop-color="#F9EEC8" offset="100%"></stop>
+        <stop stopColor="#F3DC83" offset="0%"></stop>
+        <stop stopColor="#F9EEC8" offset="100%"></stop>
       </linearGradient>
     </defs>
     <g
@@ -911,7 +891,7 @@ export const Dawn = ({ ...props }) => (
       stroke="none"
       stroke-width="1"
       fill="none"
-      fill-rule="evenodd"
+      fillRule="evenodd"
     >
       <g id="Group">
         <g id="Rectangle">
@@ -925,6 +905,85 @@ export const Dawn = ({ ...props }) => (
         ></path>
       </g>
     </g>
+  </svg>
+);
+
+const Rabby = ({ ...props }) => (
+  <svg
+    {...props}
+    width="88"
+    height="88"
+    viewBox="0 0 88 88"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ background: '#8697FF' }}
+  >
+    <path
+      d="M76.2062 48.0657C78.7621 42.356 66.1267 26.404 54.0555 19.7581C46.4467 14.6095 38.5183 15.3169 36.9125 17.5775C33.3886 22.5385 48.5814 26.7423 58.742 31.6478C56.5579 32.5964 54.4996 34.2987 53.2893 36.4758C49.5013 32.3404 41.1872 28.7791 31.4315 31.6478C24.8574 33.5809 19.3937 38.1382 17.2821 45.0216C16.7689 44.7936 16.2009 44.6669 15.6032 44.6669C13.3176 44.6669 11.4648 46.5197 11.4648 48.8052C11.4648 51.0908 13.3176 52.9435 15.6032 52.9435C16.0268 52.9435 17.3514 52.6594 17.3514 52.6594L38.5183 52.8128C30.0532 66.2418 23.3634 68.2049 23.3634 70.5314C23.3634 72.8579 29.7643 72.2274 32.1678 71.3602C43.6732 67.2088 56.0306 54.2706 58.1511 50.5462C67.056 51.6572 74.5397 51.7886 76.2062 48.0657Z"
+      fill="url(#paint0_linear_60607_36577)"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M58.65 31.6053C58.682 31.6193 58.7139 31.6332 58.7458 31.6471C59.2168 31.4616 59.1406 30.766 59.0113 30.2198C58.714 28.9643 53.5856 23.9001 48.7696 21.6318C42.1984 18.5367 37.3618 18.7007 36.6582 20.1307C37.9975 22.8695 44.1927 25.441 50.663 28.1266C53.3909 29.2589 56.1676 30.4114 58.65 31.6053Z"
+      fill="url(#paint1_linear_60607_36577)"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M50.4154 59.2247C49.0895 58.7182 47.592 58.2536 45.8898 57.8319C47.707 54.5801 48.0884 49.7663 46.3721 46.7226C43.9635 42.4512 40.9399 40.1777 33.9139 40.1777C30.0495 40.1777 19.6451 41.4794 19.4603 50.1648C19.441 51.0763 19.4599 51.9118 19.5259 52.68L38.5175 52.8176C35.9568 56.8798 33.5586 59.8928 31.4589 62.1841C33.9831 62.8309 36.0657 63.3738 37.9775 63.8722C39.7885 64.3443 41.4462 64.7764 43.1809 65.2191C45.8007 63.3102 48.2635 61.2288 50.4154 59.2247Z"
+      fill="url(#paint2_linear_60607_36577)"
+    />
+    <path
+      d="M17.0296 51.7821C17.8058 58.38 21.5555 60.9657 29.2177 61.7309C36.8799 62.4961 41.2751 61.9828 47.1265 62.5151C52.0136 62.9598 56.3772 65.4502 57.996 64.5895C59.4529 63.815 58.6378 61.0167 56.6884 59.2214C54.1614 56.8943 50.6641 55.2763 44.5104 54.7021C45.7368 51.3443 45.3931 46.6362 43.4885 44.0748C40.7345 40.3711 35.6513 38.6967 29.2177 39.4282C22.4962 40.1926 16.0556 43.5018 17.0296 51.7821Z"
+      fill="url(#paint3_linear_60607_36577)"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_60607_36577"
+        x1="30.666"
+        y1="43.0094"
+        x2="75.6558"
+        y2="55.7677"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="white" />
+        <stop offset="1" stopColor="white" />
+      </linearGradient>
+      <linearGradient
+        id="paint1_linear_60607_36577"
+        x1="68.0842"
+        y1="42.1521"
+        x2="35.6221"
+        y2="9.60636"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#7258DC" />
+        <stop offset="1" stopColor="#797DEA" stopOpacity="0" />
+      </linearGradient>
+      <linearGradient
+        id="paint2_linear_60607_36577"
+        x1="51.3184"
+        y1="60.3591"
+        x2="20.1383"
+        y2="42.4347"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#7461EA" />
+        <stop offset="1" stopColor="#BFC2FF" stopOpacity="0" />
+      </linearGradient>
+      <linearGradient
+        id="paint3_linear_60607_36577"
+        x1="33.3531"
+        y1="42.6732"
+        x2="54.4308"
+        y2="69.4547"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="white" />
+        <stop offset="0.983895" stopColor="#D5CEFF" />
+      </linearGradient>
+    </defs>
   </svg>
 );
 
@@ -993,4 +1052,5 @@ export default {
   PlaceHolder,
   Frame,
   Dawn,
+  Rabby,
 };
