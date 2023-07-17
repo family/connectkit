@@ -128,6 +128,9 @@ const isMetaMask = () => {
   const isRabby = Boolean(ethereum.isRabby);
   if (isRabby) return false;
 
+  const isTokenPocket = Boolean(ethereum.isTokenPocket);
+  if (isTokenPocket) return false;
+
   if (isPhantom()) return false;
 
   return true;
@@ -184,6 +187,13 @@ const isRabby = () => {
   );
 };
 
+const isTokenPocket = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return Boolean(ethereum?.isTokenPocket);
+}
+
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
   const childrenArray = React.Children.toArray(children);
@@ -231,5 +241,6 @@ export {
   isFrame,
   isPhantom,
   isRabby,
+  isTokenPocket,
   flattenChildren,
 };
