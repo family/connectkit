@@ -79,16 +79,15 @@ const Wallets: React.FC = () => {
    * Some injected connectors pretend to be metamask, this helps avoid that issue.
    */
 
-  const shouldShowInjectedConnector = (connector?: any) => {
+  const shouldShowInjectedConnector = () => {
     // Only display if an injected connector is detected
     const { ethereum } = window;
 
     const needsInjectedWalletFallback =
-      (typeof window !== 'undefined' &&
-        ethereum &&
-        !isMetaMask() &&
-        !isCoinbaseWallet()) ||
-      (connector && isTrust() && /trust wallet/i.test(connector?.name));
+      typeof window !== 'undefined' &&
+      ethereum &&
+      !isMetaMask() &&
+      !isCoinbaseWallet();
     //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
 
     return needsInjectedWalletFallback;
@@ -230,7 +229,7 @@ const Wallets: React.FC = () => {
               }
 
               if (isInjectedConnector(info.id)) {
-                if (!shouldShowInjectedConnector(connector)) return null;
+                if (!shouldShowInjectedConnector()) return null;
 
                 const foundInjector = findInjectedConnectorInfo(connector.name);
                 if (foundInjector) {
