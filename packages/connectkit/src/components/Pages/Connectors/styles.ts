@@ -249,6 +249,9 @@ export const ConnectorIcon = styled(motion.div)`
   overflow: hidden;
   svg {
     display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 27.5%;
     width: 100%;
     height: 100%;
   }
@@ -301,14 +304,16 @@ export const MobileConnectorLabel = styled(motion.span)`
 `;
 
 export const MobileConnectorIcon = styled(motion.div)`
+  position: relative;
   margin: 0 auto;
   width: 60px;
   height: 60px;
   overflow: hidden;
   svg {
-    border-radius: inherit;
     display: block;
     position: relative;
+    overflow: hidden;
+    border-radius: 27.5%;
     transform: translate3d(0, 0, 0);
     width: 100%;
     height: 100%;
