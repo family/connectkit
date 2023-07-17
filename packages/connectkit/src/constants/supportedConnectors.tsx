@@ -219,7 +219,7 @@ if (typeof window != 'undefined') {
       //defaultConnect: () => {},
       appUrls: {
         download: 'https://connect.family.co/v0/download/safe',
-        website: 'hhttps://safe.global/wallet',
+        website: 'https://safe.global/wallet',
         android: 'https://play.google.com/store/apps/details?id=io.gnosis.safe',
         ios: 'https://apps.apple.com/app/id1515759131',
       } as IDictionary,

@@ -19,6 +19,7 @@ const Portal = (props: any) => {
     if (!ref.current) {
       const div = document.createElement('div');
       div.setAttribute('id', selector);
+      div.setAttribute('data-connectkit', '1.4.0');
       document.body.appendChild(div);
       ref.current = div;
     }
