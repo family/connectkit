@@ -10,7 +10,10 @@ export const phantom = (): WalletProps => {
     name: 'Phantom',
     shortName: 'Phantom',
     scannable: false,
-    logos: { default: <Logos.Phantom /> },
+    logos: {
+      default: <Logos.Phantom background />,
+      transparent: <Logos.Phantom />,
+    },
     installed: Boolean(isInstalled),
   };
 };
