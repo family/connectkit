@@ -12863,6 +12863,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nextjs-siwe@workspace:examples/nextjs-siwe":
+  version: 0.0.0-use.local
+  resolution: "nextjs-siwe@workspace:examples/nextjs-siwe"
+  dependencies:
+    "@types/node": 18.7.18
+    "@types/react": ^18.0.6
+    "@types/react-dom": ^18.0.2
+    connectkit: "workspace:packages/connectkit"
+    eslint: 8.23.1
+    eslint-config-next: 12.3.0
+    next: 12.3.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+    typescript: ^4.9.5
+    viem: ~0.3.19
+    wagmi: ^1.0.0
+  languageName: unknown
+  linkType: soft
+
 "nextjs@workspace:examples/nextjs":
   version: 0.0.0-use.local
   resolution: "nextjs@workspace:examples/nextjs"

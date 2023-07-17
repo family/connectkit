@@ -1,0 +1,29 @@
+{
+  "name": "nextjs-siwe",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "connectkit": "workspace:packages/connectkit",
+    "connectkit-next-siwe": "workspace:packages/connectkit-next-siwe",
+    "next": "12.3.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "siwe": "^2.1.4",
+    "viem": "^1.1.0",
+    "wagmi": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.7.18",
+    "@types/react": "^18.0.6",
+    "@types/react-dom": "^18.0.2",
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.0",
+    "typescript": "^4.9.5"
+  }
+}
