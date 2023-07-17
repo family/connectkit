@@ -164,8 +164,8 @@ const ConnectWithInjector: React.FC<{
     ? {
         name: Object.keys(connector.extensions)[0],
         label:
-          Object.keys(connector.extensions)[0].charAt(0).toUpperCase() +
-          Object.keys(connector.extensions)[0].slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+          Object.keys(connector.extensions)[0]?.charAt(0).toUpperCase() +
+          Object.keys(connector.extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
         url: connector.extensions[Object.keys(connector.extensions)[0]],
       }
     : undefined;
