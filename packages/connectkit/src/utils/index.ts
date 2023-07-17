@@ -2,6 +2,13 @@ import { detect } from 'detect-browser';
 import React from 'react';
 import supportedConnectors from '../constants/supportedConnectors';
 
+declare global {
+  interface Window {
+    trustWallet: any;
+    trustwallet: any;
+  }
+}
+
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 
 const truncateEthAddress = (address?: string, separator: string = '••••') => {
@@ -133,6 +140,8 @@ const isMetaMask = () => {
 
   if (isPhantom()) return false;
 
+  if (isTrust()) return false;
+
   return true;
 };
 
@@ -187,12 +196,25 @@ const isRabby = () => {
   );
 };
 
+const isTrust = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isTrust ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isTrust)) ||
+    window.trustWallet?.isTrust ||
+    window.trustwallet?.isTrust
+  );
+};
+
 const isTokenPocket = () => {
   if (typeof window === 'undefined') return false;
   const { ethereum } = window;
 
   return Boolean(ethereum?.isTokenPocket);
-}
+};
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
@@ -241,6 +263,7 @@ export {
   isFrame,
   isPhantom,
   isRabby,
+  isTrust,
   isTokenPocket,
   flattenChildren,
 };
