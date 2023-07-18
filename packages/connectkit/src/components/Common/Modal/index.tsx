@@ -9,6 +9,7 @@ import {
   flattenChildren,
   isWalletConnectConnector,
   isMobile,
+  isInjectedConnector,
 } from '../../../utils';
 
 import {
@@ -46,6 +47,7 @@ import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
+import useDefaultWallets from '../../../wallets/useDefaultWallets';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -207,7 +209,25 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();
 
-  const connector = supportedConnectors.find((x) => x.id === context.connector);
+  const wallets = useDefaultWallets();
+  const installedWallets = wallets.filter((wallet) => wallet.installed);
+
+  let connector = supportedConnectors.find((c) => c.id === context.connector);
+  if (isInjectedConnector(context.connector)) {
+    const wallet = installedWallets[0];
+    connector = {
+      ...wallet,
+      extensionIsInstalled: () => {
+        return wallet?.installed;
+      },
+      extensions: {
+        ...wallet?.downloadUrls,
+      },
+      appUrls: {
+        ...wallet?.downloadUrls,
+      },
+    };
+  }
   const locales = useLocales({
     CONNECTORNAME: connector?.name,
   });
