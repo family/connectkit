@@ -138,6 +138,9 @@ const isMetaMask = () => {
   const isTokenPocket = Boolean(ethereum.isTokenPocket);
   if (isTokenPocket) return false;
 
+  const isTalisman = Boolean(ethereum.isTalisman);
+  if (isTalisman) return false;
+
   if (isPhantom()) return false;
 
   if (isTrust()) return false;
@@ -216,6 +219,12 @@ const isTokenPocket = () => {
   return Boolean(ethereum?.isTokenPocket);
 };
 
+const isTalisman = () => {
+  if (typeof window === 'undefined') return false;
+  const { talismanEth } = window as any;
+  return !!talismanEth?.isTalisman;
+};
+
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
   const childrenArray = React.Children.toArray(children);
@@ -265,5 +274,6 @@ export {
   isRabby,
   isTrust,
   isTokenPocket,
+  isTalisman,
   flattenChildren,
 };
