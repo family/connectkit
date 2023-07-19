@@ -195,6 +195,13 @@ const isRabby = () => {
       ethereum?.providers.find((provider) => provider.isRabby))
   );
 };
+const isFrontier = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window as any;
+  const isFrontier = Boolean(ethereum?.isFrontier);
+  if (isFrontier) return true;
+  return false;
+};
 
 const isTrust = () => {
   if (typeof window === 'undefined') return false;
@@ -265,5 +272,6 @@ export {
   isRabby,
   isTrust,
   isTokenPocket,
+  isFrontier,
   flattenChildren,
 };
