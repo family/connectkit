@@ -26,7 +26,7 @@ import {
   useConnectCallback,
   useConnectCallbackProps,
 } from '../hooks/useConnectCallback';
-import { isFamily } from '../utils';
+import { isFamily } from '../utils/wallets';
 import { useConnector } from '../hooks/useConnectors';
 
 export const routes = {

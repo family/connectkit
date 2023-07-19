@@ -104,8 +104,8 @@ export const ConnectorButton = styled(motion.button)`
   line-height: 20px;
   text-align: var(--ck-body-button-text-align, left);
   transition: 180ms ease;
-  transition-property: background, color, box-shadow, transform;
-  will-change: transform, box-shadow, background-color, color;
+  transition-property: background, color, box-shadow, transform, opacity;
+  will-change: transform, box-shadow, background-color, color, opacity;
 
   --fallback-color: var(--ck-primary-button-color);
   --fallback-background: var(--ck-primary-button-background);
@@ -155,6 +155,7 @@ export const ConnectorButton = styled(motion.button)`
 
   &:disabled {
     transition: 180ms ease;
+    opacity: 0.4;
   }
 
   --bg: var(--background);
@@ -277,7 +278,8 @@ export const MobileConnectorButton = styled(motion.button)`
   font-weight: 500;
   line-height: 13px;
   text-align: center;
-  transition: transform 100ms ease;
+  transition: 100ms ease;
+  transition-property: transform, opacity;
 
   background: none;
 
