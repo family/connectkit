@@ -132,6 +132,9 @@ const isMetaMask = () => {
   const isFrame = Boolean(ethereum.isFrame);
   if (isFrame) return false;
 
+  const isInfinityWallet = Boolean(ethereum.isInfinityWallet);
+  if (isInfinityWallet) return false;
+
   const isRabby = Boolean(ethereum.isRabby);
   if (isRabby) return false;
 
@@ -191,10 +194,19 @@ const isPhantom = () => {
   return false;
 };
 
+const isInfinityWallet = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+  return !!(
+    ethereum?.isInfinityWallet ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isInfinityWallet))
+  );
+};
+
 const isRabby = () => {
   if (typeof window === 'undefined') return false;
   const { ethereum } = window;
-
   return !!(
     ethereum?.isRabby ||
     (ethereum?.providers &&
@@ -288,6 +300,7 @@ export {
   isCoinbaseWallet,
   isFrame,
   isPhantom,
+  isInfinityWallet,
   isRabby,
   isFordefi,
   isTrust,
