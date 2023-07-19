@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { CONNECTKIT_VERSION } from '../../..';
 
 const Portal = (props: any) => {
   props = {
@@ -19,7 +20,7 @@ const Portal = (props: any) => {
     if (!ref.current) {
       const div = document.createElement('div');
       div.setAttribute('id', selector);
-      div.setAttribute('data-connectkit', '1.4.0');
+      div.setAttribute('data-connectkit', `${CONNECTKIT_VERSION}`);
       document.body.appendChild(div);
       ref.current = div;
     }
