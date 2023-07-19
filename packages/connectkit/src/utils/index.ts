@@ -132,13 +132,22 @@ const isMetaMask = () => {
   const isFrame = Boolean(ethereum.isFrame);
   if (isFrame) return false;
 
+  const isInfinityWallet = Boolean(ethereum.isInfinityWallet);
+  if (isInfinityWallet) return false;
+
   const isRabby = Boolean(ethereum.isRabby);
   if (isRabby) return false;
 
   const isTokenPocket = Boolean(ethereum.isTokenPocket);
   if (isTokenPocket) return false;
 
+  const isTalisman = Boolean(ethereum.isTalisman);
+  if (isTalisman) return false;
+
   if (isPhantom()) return false;
+
+  const isFordefi = Boolean(ethereum.isFordefi);
+  if (isFordefi) return false;
 
   if (isTrust()) return false;
 
@@ -185,15 +194,31 @@ const isPhantom = () => {
   return false;
 };
 
+const isInfinityWallet = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+  return !!(
+    ethereum?.isInfinityWallet ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isInfinityWallet))
+  );
+};
+
 const isRabby = () => {
   if (typeof window === 'undefined') return false;
   const { ethereum } = window;
-
   return !!(
     ethereum?.isRabby ||
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isRabby))
   );
+};
+const isFrontier = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window as any;
+  const isFrontier = Boolean(ethereum?.isFrontier);
+  if (isFrontier) return true;
+  return false;
 };
 
 const isTrust = () => {
@@ -215,6 +240,19 @@ const isTokenPocket = () => {
 
   return Boolean(ethereum?.isTokenPocket);
 };
+
+const isTalisman = () => {
+  if (typeof window === 'undefined') return false;
+  const { talismanEth } = window as any;
+  return !!talismanEth?.isTalisman;
+};
+
+const isFordefi = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return Boolean(ethereum?.isFordefi);
+}
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
@@ -262,8 +300,12 @@ export {
   isCoinbaseWallet,
   isFrame,
   isPhantom,
+  isInfinityWallet,
   isRabby,
+  isFordefi,
   isTrust,
   isTokenPocket,
+  isTalisman,
+  isFrontier,
   flattenChildren,
 };

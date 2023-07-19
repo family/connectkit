@@ -1,6 +1,7 @@
 import { injected } from './connectors/injected';
 import { walletConnect } from './connectors/walletConnect';
 import { metaMask } from './connectors/metaMask';
+import { infinityWallet } from './connectors/infinityWallet';
 import { coinbaseWallet } from './connectors/coinbaseWallet';
 import { rainbow } from './connectors/rainbow';
 import { argent } from './connectors/argent';
@@ -20,13 +21,17 @@ import { frame } from './connectors/frame';
 import { phantom } from './connectors/phantom';
 import { dawn } from './connectors/dawn';
 import { rabby } from './connectors/rabby';
+import { fordefi } from './connectors/fordefi';
 import { tokenPocket } from './connectors/tokenPocket';
+import { talisman } from './connectors/talisman';
+
 
 export const getWallets = () => {
   return [
     injected(),
     walletConnect(),
     metaMask(),
+    infinityWallet(),
     coinbaseWallet(),
     argent(),
     trust(),
@@ -48,6 +53,8 @@ export const getWallets = () => {
     phantom(),
     dawn(),
     rabby(),
+    fordefi(),
     tokenPocket(),
+    talisman(),
   ];
 };

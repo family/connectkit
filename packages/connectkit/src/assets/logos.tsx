@@ -759,7 +759,7 @@ export const Frontier = ({ ...props }) => (
     viewBox="0 0 88 88"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{ background: '#CC703C' }}
+    style={{ background: '#CC703C', borderRadius: '999px' }}
   >
     <path
       d="M63.6429 20L63.3645 20.7254L62.4521 23.0445L61.8461 24.5395C57.2427 35.7491 53.6629 41.0688 49.8557 41.0688C48.8938 41.0936 47.9371 40.9212 47.0465 40.5625C46.156 40.2038 45.3512 39.6667 44.6834 38.9852L44.1979 38.5518C42.9885 37.4538 42.4799 37.1831 41.3154 37.1832C40.7094 37.1832 39.6238 37.9435 38.2521 39.7303C36.4147 42.2912 34.8522 45.0327 33.59 47.9106L33.4353 48.2482L49.7645 48.2483L47.7312 52.4075H32.4845L32.4843 69.44L28 69.44L28.0001 20L63.6429 20ZM57.2889 24.1518L32.4843 24.1518L32.4843 40.6262C35.4564 35.5545 38.2816 33.0086 41.32 33.0086C42.3421 32.9765 43.3595 33.1534 44.3082 33.5284C45.2569 33.9034 46.1159 34.468 46.8311 35.1865L47.3323 35.6335C48.4611 36.6585 48.8956 36.8941 49.8604 36.8941C50.9211 36.8957 53.7433 32.4855 57.2889 24.1518Z"
@@ -859,6 +859,107 @@ export const Dawn = ({ ...props }) => (
           fill="url(#linearGradient-3)"
         ></path>
       </g>
+    </g>
+  </svg>
+);
+
+export const InfinityWallet = ({...props}) => (
+  <svg
+    {...props}
+    version="1.1"
+    id="e551690a-81c0-4880-9b93-334a37ce6796"
+	  xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    viewBox="0 0 1025 1025"
+  >
+    <style type="text/css">
+      {`
+        .infinityWallet-st0{fill:url(#ID_InfinityWallet_1);}
+        .infinityWallet-st1{fill:url(#ID_InfinityWallet_2);}
+        .infinityWallet-st2{opacity:0.49;fill:url(#ID_InfinityWallet_3);enable-background:new;}
+        .infinityWallet-st3{opacity:0.49;fill:url(#ID_InfinityWallet_4);enable-background:new;}
+        .infinityWallet-st4{opacity:0.49;fill:url(#ID_InfinityWallet_5);enable-background:new;}
+        .infinityWallet-st5{fill:url(#ID_InfinityWallet_6);}
+        .infinityWallet-st6{opacity:0.49;fill:url(#ID_InfinityWallet_7);enable-background:new;}
+        .infinityWallet-st7{opacity:0.49;fill:url(#ID_InfinityWallet_8);enable-background:new;}
+        .infinityWallet-st8{opacity:0.49;fill:url(#ID_InfinityWallet_9);enable-background:new;}
+      `}
+    </style>
+
+    <linearGradient id="ID_InfinityWallet_1" gradientUnits="userSpaceOnUse" x1="512.5" y1="1056.1801" x2="512.5" y2="317.03" gradientTransform="matrix(1 0 0 -1 0 1260)">
+    	<stop  offset="0" style={{stopColor:"#1D2643"}}/>
+    	<stop  offset="1" style={{stopColor:"#12142C"}}/>
+    </linearGradient>
+
+    <path className="infinityWallet-st0" d="M130,0H895c71.8,0,130,58.2,130,130V895c0,71.8-58.2,130-130,130H130C58.2,1025,0,966.8,0,895V130
+    	C0,58.2,58.2,0,130,0z"/>
+    <g>
+    	<g>
+
+    			<linearGradient id="ID_InfinityWallet_2" gradientUnits="userSpaceOnUse" x1="326.0557" y1="-1280.3162" x2="326.0557" y2="-296.3967" gradientTransform="matrix(1 0 0 1 0 1474)">
+    			<stop  offset="1.000000e-02" style={{stopColor:"#00BFE1"}}/>
+    			<stop  offset="0.97" style={{stopColor:"#2738AB"}}/>
+    		</linearGradient>
+    		<path className="infinityWallet-st1" d="M550.9,380.8c-0.7-2-2.4-3.4-4.4-3.9c-2.3-0.6-4.7,0-6.4,1.7l-13.4,13.4l-2.2,2.2L418.3,288.5
+    			c-40.2-40-105.2-40-145.4,0L121.7,439.9c-40,40.5-40,105.6,0,146.1l151.4,150.5c40.2,40,105.1,40,145.3,0l34.4-34.4
+    			c4.5-4.5,9.9-10.7,12.9-18.7c4.7-13.1,2.8-27.7-5.2-39.1c-1.5-2.2-3.2-4.2-5.1-6c-16.9-16.5-43.9-16.3-60.7,0.3l-37.2,37.1
+    			c-2.2,2.3-5,3.8-8.1,4.5c-2.9,0.7-6,0.5-8.8-0.6c-2.9-1-5.5-2.7-7.7-5L182.6,524.2c-2.3-2.3-3.9-5.2-4.6-8.4
+    			c-0.8-4-0.1-8.2,2.1-11.8l0.8-0.9L334,350.3c2.4-2.4,5.4-4,8.7-4.6c1-0.2,2.1-0.3,3.1-0.3c4.4-0.1,8.7,1.7,11.7,5l105.8,105.2
+    			l-5.3,5.3l-10.4,10.6c-1.7,1.7-2.3,4.1-1.7,6.4c0.5,2,2,3.7,3.9,4.4l95.7,11.7c8.2-0.1,14.8-6.7,15-15L550.9,380.8z"/>
+
+    			<linearGradient id="ID_InfinityWallet_3" gradientUnits="userSpaceOnUse" x1="137.7126" y1="-935.1906" x2="201.098" y2="-882.1746" gradientTransform="matrix(1 0 0 1 -0.94 1473.3899)">
+    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
+    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
+    		</linearGradient>
+    		<path className="infinityWallet-st2" d="M181.4,522.9c-4.3-4.9-5.1-13.3-1.3-19c0,0-49.7,54.3-25.8,114.4l31.5,31.3l45.8-76.2L181.4,522.9z"/>
+
+    			<linearGradient id="ID_InfinityWallet_4" gradientUnits="userSpaceOnUse" x1="4132.3252" y1="1674.2513" x2="4102.1333" y2="1717.0756" gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)">
+    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
+    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
+    		</linearGradient>
+    		<path className="infinityWallet-st3" d="M336.4,677.7c56.1,51.6,117.9,22.9,117.9,22.9s8.1-7.5,11.4-17.4c-8.3-4-68.6-47.2-68.6-47.2l-35.6,35.6
+    			C348.6,687.1,336.4,677.7,336.4,677.7z"/>
+
+    			<linearGradient id="ID_InfinityWallet_5" gradientUnits="userSpaceOnUse" x1="4217.4238" y1="2067.1885" x2="4240.0796" y2="2011.1337" gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)">
+    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
+    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
+    		</linearGradient>
+    		<path className="infinityWallet-st4" d="M299.4,385c0,0,35.9-36.2,36-36c0,0,9.6-7.7,19.7-0.7c0,0-59.7-49.2-123.6-18.3l-18.6,18.7L299.4,385z"/>
+    	</g>
+    	<g>
+
+    			<linearGradient id="ID_InfinityWallet_6" gradientUnits="userSpaceOnUse" x1="698.9443" y1="-1280.3162" x2="698.9443" y2="-296.3967" gradientTransform="matrix(1 0 0 1 0 1474)">
+    			<stop  offset="1.000000e-02" style={{stopColor:"#00BFE1"}}/>
+    			<stop  offset="0.97" style={{stopColor:"#2738AB"}}/>
+    		</linearGradient>
+    		<path className="infinityWallet-st5" d="M474.1,644.3c0.7,2,2.4,3.4,4.4,3.9c2.3,0.6,4.7,0,6.4-1.7l13.4-13.4l2.2-2.2l106.2,105.6
+    			c40.2,40,105.2,40,145.4,0l151.2-151.4c40-40.5,40-105.6,0-146.1L751.9,288.5c-40.2-40-105.1-40-145.3,0l-34.4,34.4
+    			c-4.5,4.5-9.9,10.7-12.9,18.7c-4.7,13.1-2.8,27.7,5.2,39.1c1.5,2.2,3.2,4.2,5.1,6c16.9,16.5,43.9,16.3,60.7-0.3l37.2-37.1
+    			c2.2-2.3,5-3.8,8.1-4.5c2.9-0.7,6-0.5,8.8,0.6c2.9,1,5.5,2.7,7.7,5l150.3,150.3c2.3,2.3,3.9,5.2,4.6,8.4c0.8,4,0.1,8.2-2.1,11.8
+    			l-0.8,0.9L691,674.5c-2.4,2.4-5.4,4-8.7,4.6c-1,0.2-2.1,0.3-3.1,0.3c-4.4,0.1-8.7-1.7-11.7-5L561.6,569.7l5.3-5.3l10.4-10.6
+    			c1.7-1.7,2.3-4.1,1.7-6.4c-0.5-2-2-3.7-3.9-4.4l-95.6-11.7c-8.2,0.1-14.8,6.7-15,15L474.1,644.3z"/>
+
+    			<linearGradient id="ID_InfinityWallet_7" gradientUnits="userSpaceOnUse" x1="3824.9182" y1="1469.7789" x2="3888.3037" y2="1522.7949" gradientTransform="matrix(-1 0 0 -1 4713.1299 1956.6599)">
+    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
+    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
+    		</linearGradient>
+    		<path className="infinityWallet-st6" d="M843.6,502.2c4.3,4.9,5.1,13.3,1.3,19c0,0,49.7-54.3,25.8-114.4l-31.5-31.3l-45.8,76.2L843.6,502.2z"/>
+
+    			<linearGradient id="ID_InfinityWallet_8" gradientUnits="userSpaceOnUse" x1="445.1279" y1="-730.6945" x2="414.9359" y2="-687.8702" gradientTransform="matrix(1 0 0 1 197.19 1047.96)">
+    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
+    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
+    		</linearGradient>
+    		<path className="infinityWallet-st7" d="M688.6,347.4c-56.1-51.6-117.9-22.9-117.9-22.9s-8.1,7.5-11.4,17.4c8.3,4,68.6,47.2,68.6,47.2l35.6-35.6
+    			C676.4,338,688.6,347.4,688.6,347.4z"/>
+
+    			<linearGradient id="ID_InfinityWallet_9" gradientUnits="userSpaceOnUse" x1="530.1512" y1="-337.7953" x2="552.8069" y2="-393.8502" gradientTransform="matrix(1 0 0 1 197.19 1047.96)">
+    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
+    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
+    		</linearGradient>
+    		<path className="infinityWallet-st8" d="M725.5,640.1c0,0-35.9,36.2-36,36c0,0-9.6,7.7-19.7,0.7c0,0,59.7,49.2,123.6,18.3l18.6-18.7L725.5,640.1z"/>
+    	</g>
     </g>
   </svg>
 );
@@ -1001,6 +1102,29 @@ const TokenPocket = ({ ...props }) => (
   </svg>
 );
 
+const Talisman = ({ ...props }) => (
+  <svg
+    {...props}
+    width="82"
+    height="82"
+    viewBox="0 0 82 82"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="82" height="82" rx="12" fill="#D5FF5C" />
+    <path
+      d="M35.04 55C35.04 58.2905 37.6887 60.9623 40.9703 60.9996C44.2519 60.9623 46.9006 58.2905 46.9006 55C46.9006 51.7096 44.2519 49.0377 40.9703 49.0004C37.6887 49.0377 35.04 51.7096 35.04 55Z"
+      fill="#FD4848"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M22.8544 44.6623C22.2462 45.9868 20.4553 46.4546 19.4248 45.4241L17.5356 43.5349C15.583 41.5823 12.4171 41.5823 10.4645 43.5349C8.51184 45.4875 8.51184 48.6534 10.4645 50.606L25.7391 65.8807C29.3942 70.2176 34.8595 72.9788 40.9703 72.9994C47.0811 72.9788 52.5464 70.2176 56.2014 65.8807L71.4761 50.606C73.4287 48.6534 73.4287 45.4875 71.4761 43.5349C69.5234 41.5823 66.3576 41.5823 64.4049 43.5349L62.5158 45.4241C61.4852 46.4546 59.6943 45.9868 59.0861 44.6623C58.9663 44.4013 58.901 44.1213 58.901 43.8341L58.901 20.9995C58.901 18.2381 56.6624 15.9995 53.901 15.9995C51.1396 15.9995 48.901 18.2381 48.901 20.9995L48.901 32.5568C48.901 33.5506 47.8829 34.2252 46.9353 33.9257C46.3356 33.7361 45.9023 33.1901 45.9023 32.5611L45.9023 13.9996C45.9023 11.2608 43.7004 9.03637 40.9703 9C38.2402 9.03637 36.0382 11.2608 36.0382 13.9996L36.0382 32.5611C36.0382 33.1901 35.605 33.7361 35.0052 33.9257C34.0576 34.2252 33.0395 33.5506 33.0395 32.5568L33.0396 20.9995C33.0396 18.2381 30.801 15.9995 28.0395 15.9995C25.2781 15.9995 23.0395 18.2381 23.0395 20.9995L23.0395 43.8341C23.0395 44.1213 22.9743 44.4013 22.8544 44.6623ZM40.9703 44.9999C32.1659 45.0525 25.0403 54.9997 25.0403 54.9997C25.0403 54.9997 32.1659 64.9469 40.9703 64.9995C49.7746 64.9469 56.9002 54.9997 56.9002 54.9997C56.9002 54.9997 49.7746 45.0525 40.9703 44.9999Z"
+      fill="#FD4848"
+    />
+  </svg>
+);
+
 export const OtherWallets = ({ ...props }) => {
   const column: React.CSSProperties = {
     position: 'relative',
@@ -1040,6 +1164,21 @@ export const OtherWallets = ({ ...props }) => {
   );
 };
 
+const Fordefi = ({ ...props }) => (
+  <svg {...props} width="88" height="88" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_14298_75627)">
+      <path d="M43.5075 62.5508H6V73.5954C6 79.2046 10.5379 83.7515 16.1357 83.7515H32.9997L43.5075 62.5508Z" fill="#7994FF"/>
+      <path d="M6.00098 39.1016H76.2075L68.0567 55.4841H6.00098V39.1016Z" fill="#486DFF"/>
+      <path d="M30.6398 12H6.09766V32.0282H89.8447V12H65.3025V26.9577H60.2423V12H35.7001V26.9577H30.6398V12Z" fill="#5CD1FA"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_14298_75627">
+        <rect width="84" height="72" fill="white" transform="translate(6 12)"/>
+      </clipPath>
+    </defs>
+  </svg>
+);
+
 export default {
   Injected,
   OtherWallets,
@@ -1066,6 +1205,9 @@ export default {
   PlaceHolder,
   Frame,
   Dawn,
+  InfinityWallet,
   Rabby,
+  Fordefi,
   TokenPocket,
+  Talisman,
 };
