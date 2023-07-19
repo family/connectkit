@@ -1,7 +1,8 @@
 import { WalletProps } from './../wallet';
 
-import { isInfinityWallet } from '../../utils';
 import Logos from './../../assets/logos';
+
+import { isInfinityWallet } from '../../utils/wallets';
 
 export const infinityWallet = (): WalletProps => {
   const isInstalled = isInfinityWallet();

@@ -1,7 +1,8 @@
 import { WalletProps } from '../wallet';
 
-import { isFrame } from '../../utils';
 import Logos from '../../assets/logos';
+
+import { isFrame } from '../../utils/wallets';
 
 export const frame = (): WalletProps => {
   const isInstalled = isFrame();

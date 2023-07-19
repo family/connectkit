@@ -1,7 +1,10 @@
 import { WalletProps } from './../wallet';
 
-import { isAndroid, isTrust } from '../../utils';
+import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
+
+import { isTrust } from '../../utils/wallets';
+
 export const trust = (): WalletProps => {
   const isInstalled = isTrust();
   return {
