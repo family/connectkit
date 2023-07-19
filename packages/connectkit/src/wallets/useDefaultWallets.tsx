@@ -35,6 +35,7 @@ function useDefaultWallets(): WalletProps[] | any {
     'dawn',
     'rabby',
     'fordefi',
+    'tokenPocket'
   );
 
   const wallets = getWallets();

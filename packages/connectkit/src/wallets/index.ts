@@ -21,6 +21,7 @@ import { phantom } from './connectors/phantom';
 import { dawn } from './connectors/dawn';
 import { rabby } from './connectors/rabby';
 import { fordefi } from './connectors/fordefi';
+import { tokenPocket } from './connectors/tokenPocket';
 
 export const getWallets = () => {
   return [
@@ -49,5 +50,6 @@ export const getWallets = () => {
     dawn(),
     rabby(),
     fordefi(),
+    tokenPocket(),
   ];
 };

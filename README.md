@@ -75,6 +75,7 @@ and start the code bundler:
 
 ```sh
 $ yarn dev:connectkit
+$ yarn dev:connectkit-next-siwe
 ```
 
 and then simply select the example you'd like to run:
@@ -82,6 +83,7 @@ and then simply select the example you'd like to run:
 ```sh
 $ yarn dev:vite # Vite
 $ yarn dev:nextjs # Next.js
+$ yarn dev:nextjs-siwe # Next.js with SIWE
 $ yarn dev:cra # Create React App
 ```
 

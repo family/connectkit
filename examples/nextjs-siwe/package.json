@@ -1,9 +1,9 @@
 {
-  "name": "testbench",
+  "name": "nextjs-siwe",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev & local-ssl-proxy --source 3001 --target 3000",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -11,12 +11,12 @@
   "dependencies": {
     "connectkit": "workspace:packages/connectkit",
     "connectkit-next-siwe": "workspace:packages/connectkit-next-siwe",
-    "local-ssl-proxy": "^1.3.0",
-    "next": "13.0.0",
+    "next": "12.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "viem": "^1.0.0",
-    "wagmi": "^1.1.1"
+    "siwe": "^2.1.4",
+    "viem": "^1.1.0",
+    "wagmi": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "18.7.18",

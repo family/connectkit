@@ -26,6 +26,8 @@ import {
   useConnectCallback,
   useConnectCallbackProps,
 } from '../hooks/useConnectCallback';
+import { isFamily } from '../utils';
+import { useConnector } from '../hooks/useConnectors';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -124,6 +126,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   });
 
   const chains = useChains();
+  const injectedConnector = useConnector('injected');
 
   // Default config options
   const defaultOptions: ConnectKitOptions = {
@@ -190,6 +193,13 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       setRoute(routes.SWITCHNETWORKS);
     }
   }, [chain, route, open]);
+
+  // Autoconnect to Family wallet if available
+  useEffect(() => {
+    if (isFamily()) {
+      injectedConnector?.connect();
+    }
+  }, [injectedConnector]);
 
   const log = debugMode ? console.log : () => {};
 
