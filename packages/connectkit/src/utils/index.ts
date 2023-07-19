@@ -2,6 +2,13 @@ import { detect } from 'detect-browser';
 import React from 'react';
 import supportedConnectors from '../constants/supportedConnectors';
 
+declare global {
+  interface Window {
+    trustWallet: any;
+    trustwallet: any;
+  }
+}
+
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 
 const truncateEthAddress = (address?: string, separator: string = '••••') => {
@@ -92,6 +99,16 @@ const getBrowserAppUri = (connectorId: string) => {
   }
 };
 
+const isFamily = () => {
+  if (typeof window === 'undefined') return false;
+
+  const { ethereum } = window;
+  if (!ethereum) return false;
+
+  const isFamily = Boolean(ethereum.isFamily);
+  if (isFamily) return true;
+};
+
 const isMetaMask = () => {
   if (typeof window === 'undefined') return false;
 
@@ -118,8 +135,21 @@ const isMetaMask = () => {
   const isInfinityWallet = Boolean(ethereum.isInfinityWallet);
   if (isInfinityWallet) return false;
 
+  const isRabby = Boolean(ethereum.isRabby);
+  if (isRabby) return false;
+
+  const isTokenPocket = Boolean(ethereum.isTokenPocket);
+  if (isTokenPocket) return false;
+
+  const isTalisman = Boolean(ethereum.isTalisman);
+  if (isTalisman) return false;
 
   if (isPhantom()) return false;
+
+  const isFordefi = Boolean(ethereum.isFordefi);
+  if (isFordefi) return false;
+
+  if (isTrust()) return false;
 
   return true;
 };
@@ -132,7 +162,7 @@ const isDawn = () => {
 
   const isDawn = Boolean(ethereum.isDawn);
   if (isDawn) return true;
-}
+};
 
 const isCoinbaseWallet = () => {
   if (typeof window === 'undefined') return false;
@@ -154,7 +184,7 @@ const isFrame = () => {
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isFrame))
   );
-}
+};
 
 const isPhantom = () => {
   if (typeof window === 'undefined') return false;
@@ -167,13 +197,62 @@ const isPhantom = () => {
 const isInfinityWallet = () => {
   if (typeof window === 'undefined') return false;
   const { ethereum } = window;
-
   return !!(
     ethereum?.isInfinityWallet ||
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isInfinityWallet))
   );
 };
+
+const isRabby = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+  return !!(
+    ethereum?.isRabby ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isRabby))
+  );
+};
+const isFrontier = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window as any;
+  const isFrontier = Boolean(ethereum?.isFrontier);
+  if (isFrontier) return true;
+  return false;
+};
+
+const isTrust = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isTrust ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isTrust)) ||
+    window.trustWallet?.isTrust ||
+    window.trustwallet?.isTrust
+  );
+};
+
+const isTokenPocket = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return Boolean(ethereum?.isTokenPocket);
+};
+
+const isTalisman = () => {
+  if (typeof window === 'undefined') return false;
+  const { talismanEth } = window as any;
+  return !!talismanEth?.isTalisman;
+};
+
+const isFordefi = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return Boolean(ethereum?.isFordefi);
+}
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
@@ -215,11 +294,18 @@ export {
   detectBrowser,
   detectOS,
   getWalletDownloadUri,
+  isFamily,
   isMetaMask,
   isDawn,
   isCoinbaseWallet,
   isFrame,
   isPhantom,
   isInfinityWallet,
+  isRabby,
+  isFordefi,
+  isTrust,
+  isTokenPocket,
+  isTalisman,
+  isFrontier,
   flattenChildren,
 };

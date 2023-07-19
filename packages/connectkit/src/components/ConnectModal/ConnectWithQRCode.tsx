@@ -68,8 +68,8 @@ const ConnectWithQRCode: React.FC<{
     ? {
         name: Object.keys(connectorInfo?.extensions)[0],
         label:
-          Object.keys(connectorInfo?.extensions)[0].charAt(0).toUpperCase() +
-          Object.keys(connectorInfo?.extensions)[0].slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+          Object.keys(connectorInfo?.extensions)[0]?.charAt(0).toUpperCase() +
+          Object.keys(connectorInfo?.extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
         url: connectorInfo?.extensions[
           Object.keys(connectorInfo?.extensions)[0]
         ],

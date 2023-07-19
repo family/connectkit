@@ -20,6 +20,10 @@ import { family } from './connectors/family';
 import { frame } from './connectors/frame';
 import { phantom } from './connectors/phantom';
 import { dawn } from './connectors/dawn';
+import { rabby } from './connectors/rabby';
+import { fordefi } from './connectors/fordefi';
+import { tokenPocket } from './connectors/tokenPocket';
+import { talisman } from './connectors/talisman';
 
 
 export const getWallets = () => {
@@ -48,5 +52,9 @@ export const getWallets = () => {
     frame(),
     phantom(),
     dawn(),
+    rabby(),
+    fordefi(),
+    tokenPocket(),
+    talisman(),
   ];
 };

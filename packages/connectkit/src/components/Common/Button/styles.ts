@@ -25,7 +25,7 @@ export const Arrow = styled.svg`
   margin-right: 1px;
   transition: all 100ms ease;
   transform: translateX(var(--x, -3px));
-  color: var(--ck-secondary-button-color, var(--ck-body-color));
+  color: currentColor;
   opacity: 0.4;
 `;
 export const ArrowChevron = styled.path``;
@@ -40,7 +40,7 @@ export const DownloadArrow = styled.div`
   vertical-align: middle;
   position: relative;
   margin-right: 6px;
-  color: var(--ck-secondary-button-color, var(--ck-body-color));
+  color: currentColor;
 `;
 export const DownloadArrowInner = styled.div`
   transform: rotate(90deg);

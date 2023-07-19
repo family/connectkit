@@ -7,6 +7,9 @@ import {
   isWalletConnectConnector,
   isInjectedConnector,
   isMetaMaskConnector,
+  isTrust,
+  isFrontier,
+  isTalisman,
 } from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
@@ -81,12 +84,17 @@ const Wallets: React.FC = () => {
   const shouldShowInjectedConnector = () => {
     // Only display if an injected connector is detected
     const { ethereum } = window;
-
     const needsInjectedWalletFallback =
-      typeof window !== 'undefined' &&
-      ethereum &&
-      !isMetaMask() &&
-      !isCoinbaseWallet();
+      (typeof window !== 'undefined' &&
+        ethereum &&
+        !isMetaMask() &&
+        !isCoinbaseWallet()) ||
+      // Trust wallet is a special case that requires further debugging to fix.
+      // For now, we'll just show the injected wallet option if it's available.
+      isTrust() ||
+      isFrontier() ||
+      isTalisman();
+
     //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
 
     return needsInjectedWalletFallback;
@@ -104,7 +112,16 @@ const Wallets: React.FC = () => {
       if (a) return x;
       return null;
     });
-    if (hasWalletLogo.length === 0) return null;
+    if (hasWalletLogo.length === 0) {
+      const installedWallets = wallets.filter((wallet) => wallet.installed);
+      if (installedWallets.length === 1) {
+        // Fallback for when there is only one wallet installed
+        return installedWallets[0];
+      } else {
+        // Fallback for when there are multiple wallets installed
+        return null;
+      }
+    }
 
     const foundInjector = wallets.filter(
       (wallet: any) => wallet.installed && wallet.name === hasWalletLogo[0]

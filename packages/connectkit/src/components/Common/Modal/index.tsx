@@ -5,7 +5,12 @@ import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { ResetContainer } from '../../../styles';
 import Portal from '../Portal';
 
-import { flattenChildren, isWalletConnectConnector, isMobile } from '../../../utils';
+import {
+  flattenChildren,
+  isWalletConnectConnector,
+  isMobile,
+  isInjectedConnector,
+} from '../../../utils';
 
 import {
   Container,
@@ -42,6 +47,7 @@ import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
+import useDefaultWallets from '../../../wallets/useDefaultWallets';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -114,13 +120,7 @@ const CloseIcon = ({ ...props }) => (
     {...props}
   >
     <path
-      d="M1 13L13 1"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    <path
-      d="M1 0.999999L13 13"
+      d="M1 13L13 1M1 1L13 13"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
@@ -209,7 +209,25 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();
 
-  const connector = supportedConnectors.find((x) => x.id === context.connector);
+  const wallets = useDefaultWallets();
+  const installedWallets = wallets.filter((wallet) => wallet.installed);
+
+  let connector = supportedConnectors.find((c) => c.id === context.connector);
+  if (isInjectedConnector(context.connector)) {
+    const wallet = installedWallets[0];
+    connector = {
+      ...wallet,
+      extensionIsInstalled: () => {
+        return wallet?.installed;
+      },
+      extensions: {
+        ...wallet?.downloadUrls,
+      },
+      appUrls: {
+        ...wallet?.downloadUrls,
+      },
+    };
+  }
   const locales = useLocales({
     CONNECTORNAME: connector?.name,
   });
