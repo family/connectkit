@@ -34,7 +34,7 @@ function useDefaultWallets(): WalletProps[] | any {
     'phantom',
     'dawn',
     'rabby',
-    'talisman'
+    'talisman',
     'fordefi',
     'tokenPocket'
   );
