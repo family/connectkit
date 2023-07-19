@@ -143,6 +143,9 @@ const isMetaMask = () => {
 
   if (isPhantom()) return false;
 
+  const isFordefi = Boolean(ethereum.isFordefi);
+  if (isFordefi) return false;
+
   if (isTrust()) return false;
 
   return true;
@@ -198,6 +201,13 @@ const isRabby = () => {
       ethereum?.providers.find((provider) => provider.isRabby))
   );
 };
+const isFrontier = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window as any;
+  const isFrontier = Boolean(ethereum?.isFrontier);
+  if (isFrontier) return true;
+  return false;
+};
 
 const isTrust = () => {
   if (typeof window === 'undefined') return false;
@@ -224,6 +234,13 @@ const isTalisman = () => {
   const { talismanEth } = window as any;
   return !!talismanEth?.isTalisman;
 };
+
+const isFordefi = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return Boolean(ethereum?.isFordefi);
+}
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
@@ -272,8 +289,10 @@ export {
   isFrame,
   isPhantom,
   isRabby,
+  isFordefi,
   isTrust,
   isTokenPocket,
   isTalisman,
+  isFrontier,
   flattenChildren,
 };

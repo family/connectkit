@@ -8,6 +8,7 @@ import {
   isInjectedConnector,
   isMetaMaskConnector,
   isTrust,
+  isFrontier,
 } from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
@@ -82,7 +83,6 @@ const Wallets: React.FC = () => {
   const shouldShowInjectedConnector = () => {
     // Only display if an injected connector is detected
     const { ethereum } = window;
-
     const needsInjectedWalletFallback =
       (typeof window !== 'undefined' &&
         ethereum &&
@@ -90,7 +90,10 @@ const Wallets: React.FC = () => {
         !isCoinbaseWallet()) ||
       // Trust wallet is a special case that requires further debugging to fix.
       // For now, we'll just show the injected wallet option if it's available.
-      isTrust();
+      isTrust() ||
+      isFrontier();
+
+    //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
 
     return needsInjectedWalletFallback;
   };
