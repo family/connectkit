@@ -138,6 +138,9 @@ const isMetaMask = () => {
   const isTokenPocket = Boolean(ethereum.isTokenPocket);
   if (isTokenPocket) return false;
 
+  const isTalisman = Boolean(ethereum.isTalisman);
+  if (isTalisman) return false;
+
   if (isPhantom()) return false;
 
   const isFordefi = Boolean(ethereum.isFordefi);
@@ -226,6 +229,12 @@ const isTokenPocket = () => {
   return Boolean(ethereum?.isTokenPocket);
 };
 
+const isTalisman = () => {
+  if (typeof window === 'undefined') return false;
+  const { talismanEth } = window as any;
+  return !!talismanEth?.isTalisman;
+};
+
 const isFordefi = () => {
   if (typeof window === 'undefined') return false;
   const { ethereum } = window;
@@ -283,6 +292,7 @@ export {
   isFordefi,
   isTrust,
   isTokenPocket,
+  isTalisman,
   isFrontier,
   flattenChildren,
 };

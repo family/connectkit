@@ -22,6 +22,7 @@ import { dawn } from './connectors/dawn';
 import { rabby } from './connectors/rabby';
 import { fordefi } from './connectors/fordefi';
 import { tokenPocket } from './connectors/tokenPocket';
+import { talisman } from './connectors/talisman';
 
 export const getWallets = () => {
   return [
@@ -51,5 +52,6 @@ export const getWallets = () => {
     rabby(),
     fordefi(),
     tokenPocket(),
+    talisman(),
   ];
 };

@@ -9,6 +9,7 @@ import {
   isMetaMaskConnector,
   isTrust,
   isFrontier,
+  isTalisman,
 } from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
@@ -91,7 +92,8 @@ const Wallets: React.FC = () => {
       // Trust wallet is a special case that requires further debugging to fix.
       // For now, we'll just show the injected wallet option if it's available.
       isTrust() ||
-      isFrontier();
+      isFrontier() ||
+      isTalisman();
 
     //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
 
