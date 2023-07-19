@@ -1040,6 +1040,21 @@ export const OtherWallets = ({ ...props }) => {
   );
 };
 
+const Fordefi = ({ ...props }) => (
+  <svg {...props} width="88" height="88" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_14298_75627)">
+      <path d="M43.5075 62.5508H6V73.5954C6 79.2046 10.5379 83.7515 16.1357 83.7515H32.9997L43.5075 62.5508Z" fill="#7994FF"/>
+      <path d="M6.00098 39.1016H76.2075L68.0567 55.4841H6.00098V39.1016Z" fill="#486DFF"/>
+      <path d="M30.6398 12H6.09766V32.0282H89.8447V12H65.3025V26.9577H60.2423V12H35.7001V26.9577H30.6398V12Z" fill="#5CD1FA"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_14298_75627">
+        <rect width="84" height="72" fill="white" transform="translate(6 12)"/>
+      </clipPath>
+    </defs>
+  </svg>
+);
+
 export default {
   Injected,
   OtherWallets,
@@ -1067,5 +1082,6 @@ export default {
   Frame,
   Dawn,
   Rabby,
+  Fordefi,
   TokenPocket,
 };

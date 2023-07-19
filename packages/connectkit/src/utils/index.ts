@@ -140,6 +140,9 @@ const isMetaMask = () => {
 
   if (isPhantom()) return false;
 
+  const isFordefi = Boolean(ethereum.isFordefi);
+  if (isFordefi) return false;
+
   if (isTrust()) return false;
 
   return true;
@@ -223,6 +226,13 @@ const isTokenPocket = () => {
   return Boolean(ethereum?.isTokenPocket);
 };
 
+const isFordefi = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return Boolean(ethereum?.isFordefi);
+}
+
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
   const childrenArray = React.Children.toArray(children);
@@ -270,6 +280,7 @@ export {
   isFrame,
   isPhantom,
   isRabby,
+  isFordefi,
   isTrust,
   isTokenPocket,
   isFrontier,
