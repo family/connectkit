@@ -10,6 +10,7 @@ import {
   isTrust,
   isFrontier,
   isTalisman,
+  isSafeheron,
 } from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
@@ -93,7 +94,8 @@ const Wallets: React.FC = () => {
       // For now, we'll just show the injected wallet option if it's available.
       isTrust() ||
       isFrontier() ||
-      isTalisman();
+      isTalisman() ||
+      isSafeheron();
 
     //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
 

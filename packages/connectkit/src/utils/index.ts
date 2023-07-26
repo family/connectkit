@@ -252,7 +252,13 @@ const isFordefi = () => {
   const { ethereum } = window;
 
   return Boolean(ethereum?.isFordefi);
-}
+};
+
+const isSafeheron = () => {
+  if (typeof window === 'undefined') return false;
+
+  return Boolean((window as any)?.safeheron);
+};
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
 function flattenChildren(children: React.ReactNode): ReactChildArray {
@@ -307,5 +313,6 @@ export {
   isTokenPocket,
   isTalisman,
   isFrontier,
+  isSafeheron,
   flattenChildren,
 };
