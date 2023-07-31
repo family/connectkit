@@ -1,3 +1,32 @@
+# 1.5.0
+
+This update improves the developer experience of using ConnectKit by upgrading the peer dependency, [wagmi](https://wagmi.sh), to version `1.1.x`, updating [viem](https://viem.sh/) to version `1.x.x`, and providing additional wallet branding support.
+
+## New
+
+- Updates peer dependency `wagmi` to `1.1.x`.
+- Updates peer dependency `viem` to `1.x.x`.
+- Add branding for the following injected wallets:
+  - [Rabby](https://rabby.io)
+  - [TokenPocket](https://tokenpocket.pro)
+  - [Family](https://family.co)
+  - [Trust](https://trustwallet.com)
+  - [Frontier](https://www.frontier.xyz/)
+  - [Talisman](https://www.talisman.xyz/)
+  - [Infinity](https://infinitywallet.io/)
+  - [Phantom](https://phantom.app) (2023 rebrand)
+
+## Improved
+
+- Better support for injected wallets.
+- Updated [Phantom](https://phantom.app) branding.
+
+## Misc
+
+- Fixed typo in Safe website URL.
+- Updated some SVGs to be more performant with JSX.
+- Fixed arrows in buttons not inheriting hover colors.
+
 # 1.4.0
 
 This update improves the developer experience of using ConnectKit by upgrading the peer dependency wagmi up a version to `1.x.x`, and removes the peer dependency `ethers` in favor of [`viem`](https://viem.sh).
