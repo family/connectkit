@@ -14,9 +14,9 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "viem": "^1.0.0",
-    "wagmi": "^1.1.1",
+    "typescript": "^5.0.4",
+    "viem": "^1.4.2",
+    "wagmi": "^1.3.9",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
