@@ -1,7 +1,6 @@
 export const isMetaMask = () => {
   if (typeof window === 'undefined') return false;
-  if (!window?.ethereum?.isMetaMask) return false;
-
+  /*
   if (isBrave()) return false;
   if (isDawn()) return false;
   if (isTokenary()) return false;
@@ -13,8 +12,19 @@ export const isMetaMask = () => {
   if (isPhantom()) return false;
   if (isFordefi()) return false;
   if (isTrust()) return false;
+  */
+  return window?.ethereum?.isMetaMask;
+};
 
-  return true;
+export const isCoinbaseWallet = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+
+  return !!(
+    ethereum?.isCoinbaseWallet ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
+  );
 };
 
 export const isFamily = () => {
@@ -35,17 +45,6 @@ export const isTokenary = () => {
 export const isDawn = () => {
   if (typeof window === 'undefined') return false;
   return window?.ethereum?.isDawn;
-};
-
-export const isCoinbaseWallet = () => {
-  if (typeof window === 'undefined') return false;
-  const { ethereum } = window;
-
-  return !!(
-    ethereum?.isCoinbaseWallet ||
-    (ethereum?.providers &&
-      ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
-  );
 };
 
 export const isFrame = () => {
