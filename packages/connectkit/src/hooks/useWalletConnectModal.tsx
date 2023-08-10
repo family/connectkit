@@ -17,7 +17,7 @@ export function useWalletConnectModal() {
     open: async () => {
       //add modal styling because wagmi does not let you add styling to the modal
       const w3mcss = document.createElement('style');
-      w3mcss.innerHTML = `w3m-modal{ --w3m-z-index: 2147483647; }`;
+      w3mcss.innerHTML = `w3m-modal{ --wcm-z-index: 2147483647; --w3m-z-index:2147483647; }`;
       document.head.appendChild(w3mcss);
 
       const clientConnector: Connector<any, any> | undefined = connectors.find(
