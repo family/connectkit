@@ -1,6 +1,6 @@
 # 1.5.1
 
-Better support when dealing with multiple injected wallets.
+This update improves how ConnectKit handles multiple injected wallets.
 
 ## Improved
 
