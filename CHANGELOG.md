@@ -1,3 +1,15 @@
+# 1.5.1
+
+Better support when dealing with multiple injected wallets.
+
+## Improved
+
+- Better support when dealing with multiple injected wallets.
+
+## Fixed
+
+- Updated `--w3m-z-index` to `--wcm-z-index` to align with latest wagmi connectors.
+
 # 1.5.0
 
 This update improves the developer experience of using ConnectKit by upgrading the peer dependency, [wagmi](https://wagmi.sh), to version `1.1.x`, updating [viem](https://viem.sh/) to version `1.x.x`, and providing additional wallet branding support.
