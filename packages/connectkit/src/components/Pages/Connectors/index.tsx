@@ -43,6 +43,7 @@ import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 import { isMetaMask } from '../../../utils/wallets';
+import Tooltip from '../../Common/Tooltip';
 
 const Wallets: React.FC = () => {
   const context = useContext();
@@ -105,9 +106,7 @@ const Wallets: React.FC = () => {
               return (
                 <MobileConnectorButton
                   key={`m-${connector.id}`}
-                  disabled={
-                    !connector.ready || context.route !== routes.CONNECTORS
-                  }
+                  disabled={context.route !== routes.CONNECTORS}
                   onClick={() => {
                     if (
                       isInjectedConnector(info.id) ||
@@ -194,12 +193,39 @@ const Wallets: React.FC = () => {
                   logo = logos.appIcon;
                 }
               }
+              if (!connector.ready && injected.enabled) {
+                return (
+                  <Tooltip
+                    key={connector.id}
+                    xOffset={18}
+                    message={
+                      <div style={{ width: 230, padding: '6px 4px' }}>
+                        {name} Unavailable as {injected.wallet.name} is
+                        installed. Disable {injected.wallet.name} to connect
+                        with {name}.
+                      </div>
+                    }
+                    delay={0}
+                  >
+                    <ConnectorButton disabled>
+                      <ConnectorIcon>{logo}</ConnectorIcon>
+                      <ConnectorLabel>
+                        {name}
+                        {!context.options?.hideRecentBadge &&
+                          lastConnectorId === connector.id && (
+                            <ConnectorRecentlyUsed>
+                              <span>Recent</span>
+                            </ConnectorRecentlyUsed>
+                          )}
+                      </ConnectorLabel>
+                    </ConnectorButton>
+                  </Tooltip>
+                );
+              }
               return (
                 <ConnectorButton
                   key={connector.id}
-                  disabled={
-                    !connector.ready || context.route !== routes.CONNECTORS
-                  }
+                  disabled={context.route !== routes.CONNECTORS}
                   onClick={() => {
                     context.setRoute(routes.CONNECT);
                     context.setConnector(connector.id);
