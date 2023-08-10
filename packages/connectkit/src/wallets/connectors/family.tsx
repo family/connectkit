@@ -1,6 +1,9 @@
 import { WalletProps } from './../wallet';
-import { isAndroid, isFamily } from '../../utils';
+
+import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
+
+import { isFamily } from '../../utils/wallets';
 
 export const family = (): WalletProps => {
   const isInstalled = isFamily();

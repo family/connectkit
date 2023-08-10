@@ -2,14 +2,9 @@ import React, { useEffect } from 'react';
 import { useContext, routes } from '../../ConnectKit';
 import supportedConnectors from '../../../constants/supportedConnectors';
 import {
-  isMetaMask,
-  isCoinbaseWallet,
   isWalletConnectConnector,
   isInjectedConnector,
   isMetaMaskConnector,
-  isTrust,
-  isFrontier,
-  isTalisman,
 } from './../../../utils';
 
 import { useConnect } from '../../../hooks/useConnect';
@@ -42,16 +37,20 @@ import {
 import { isMobile, isAndroid } from '../../../utils';
 
 import Button from '../../Common/Button';
-import useDefaultWallets from '../../../wallets/useDefaultWallets';
 import { Connector } from 'wagmi';
 import useLocales from '../../../hooks/useLocales';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
+import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
+import { isMetaMask } from '../../../utils/wallets';
+import Tooltip from '../../Common/Tooltip';
 
 const Wallets: React.FC = () => {
   const context = useContext();
   const locales = useLocales({});
   const mobile = isMobile();
+
+  const injected = useInjectedWallet();
 
   const { uri: wcUri } = useWalletConnectUri({ enabled: mobile });
   const { connectAsync, connectors } = useConnect();
@@ -77,59 +76,6 @@ const Wallets: React.FC = () => {
   };
   useEffect(() => {}, [mobile]);
 
-  /**
-   * Some injected connectors pretend to be metamask, this helps avoid that issue.
-   */
-
-  const shouldShowInjectedConnector = () => {
-    // Only display if an injected connector is detected
-    const { ethereum } = window;
-    const needsInjectedWalletFallback =
-      (typeof window !== 'undefined' &&
-        ethereum &&
-        !isMetaMask() &&
-        !isCoinbaseWallet()) ||
-      // Trust wallet is a special case that requires further debugging to fix.
-      // For now, we'll just show the injected wallet option if it's available.
-      isTrust() ||
-      isFrontier() ||
-      isTalisman();
-
-    //!ethereum?.isBraveWallet; // TODO: Add this line when Brave is supported
-
-    return needsInjectedWalletFallback;
-  };
-
-  const wallets = useDefaultWallets();
-
-  const findInjectedConnectorInfo = (name: string) => {
-    let walletList = name.split(/[(),]+/);
-    walletList.shift(); // remove "Injected" from array
-    walletList = walletList.map((x) => x.trim());
-
-    const hasWalletLogo = walletList.filter((x) => {
-      const a = wallets.map((wallet: any) => wallet.name).includes(x);
-      if (a) return x;
-      return null;
-    });
-    if (hasWalletLogo.length === 0) {
-      const installedWallets = wallets.filter((wallet) => wallet.installed);
-      if (installedWallets.length === 1) {
-        // Fallback for when there is only one wallet installed
-        return installedWallets[0];
-      } else {
-        // Fallback for when there are multiple wallets installed
-        return null;
-      }
-    }
-
-    const foundInjector = wallets.filter(
-      (wallet: any) => wallet.installed && wallet.name === hasWalletLogo[0]
-    )[0];
-
-    return foundInjector;
-  };
-
   return (
     <PageContent style={{ width: 312 }}>
       {mobile ? (
@@ -145,12 +91,10 @@ const Wallets: React.FC = () => {
               let name = info.shortName ?? info.name ?? connector.name;
 
               if (isInjectedConnector(info.id)) {
-                if (!shouldShowInjectedConnector()) return null;
-
-                const foundInjector = findInjectedConnectorInfo(connector.name);
-                if (foundInjector) {
-                  logos = foundInjector.logos;
-                  name = foundInjector.name.replace(' Wallet', '');
+                if (!injected.enabled) return null;
+                if (injected.wallet) {
+                  logos = injected.wallet.logos;
+                  name = injected.wallet.shortName ?? injected.wallet.name;
                 }
               }
 
@@ -162,7 +106,7 @@ const Wallets: React.FC = () => {
               return (
                 <MobileConnectorButton
                   key={`m-${connector.id}`}
-                  //disabled={!connector.ready}
+                  disabled={context.route !== routes.CONNECTORS}
                   onClick={() => {
                     if (
                       isInjectedConnector(info.id) ||
@@ -236,12 +180,10 @@ const Wallets: React.FC = () => {
               }
 
               if (isInjectedConnector(info.id)) {
-                if (!shouldShowInjectedConnector()) return null;
-
-                const foundInjector = findInjectedConnectorInfo(connector.name);
-                if (foundInjector) {
-                  logos = foundInjector.logos;
-                  name = foundInjector.name;
+                if (!injected.enabled) return null;
+                if (injected.wallet) {
+                  logos = injected.wallet.logos;
+                  name = injected.wallet.name;
                 }
               }
 
@@ -250,6 +192,35 @@ const Wallets: React.FC = () => {
                 if (info.extensionIsInstalled()) {
                   logo = logos.appIcon;
                 }
+              }
+              if (!connector.ready && injected.enabled) {
+                return (
+                  <Tooltip
+                    key={connector.id}
+                    xOffset={18}
+                    message={
+                      <div style={{ width: 230, padding: '6px 4px' }}>
+                        {name} Unavailable as {injected.wallet.name} is
+                        installed. Disable {injected.wallet.name} to connect
+                        with {name}.
+                      </div>
+                    }
+                    delay={0}
+                  >
+                    <ConnectorButton disabled>
+                      <ConnectorIcon>{logo}</ConnectorIcon>
+                      <ConnectorLabel>
+                        {name}
+                        {!context.options?.hideRecentBadge &&
+                          lastConnectorId === connector.id && (
+                            <ConnectorRecentlyUsed>
+                              <span>Recent</span>
+                            </ConnectorRecentlyUsed>
+                          )}
+                      </ConnectorLabel>
+                    </ConnectorButton>
+                  </Tooltip>
+                );
               }
               return (
                 <ConnectorButton

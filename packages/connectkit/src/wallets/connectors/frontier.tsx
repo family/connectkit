@@ -1,7 +1,9 @@
 import { WalletProps } from './../wallet';
 
-import { isAndroid, isFrontier } from '../../utils';
+import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
+
+import { isFrontier } from '../../utils/wallets';
 
 export const frontier = (): WalletProps => {
   const isInstalled = isFrontier();

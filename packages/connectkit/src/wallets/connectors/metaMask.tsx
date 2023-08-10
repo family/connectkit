@@ -1,7 +1,9 @@
 import { WalletProps } from './../wallet';
 
-import { isMobile, isMetaMask, isAndroid } from '../../utils';
+import { isMobile, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
+
+import { isMetaMask } from '../../utils/wallets';
 
 export const metaMask = (): WalletProps => {
   const isInstalled = isMetaMask();

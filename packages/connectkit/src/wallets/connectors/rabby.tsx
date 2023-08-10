@@ -1,7 +1,8 @@
 import { WalletProps } from '../wallet';
 
-import { isRabby } from '../../utils';
 import Logos from '../../assets/logos';
+
+import { isRabby } from '../../utils/wallets';
 
 export const rabby = (): WalletProps => {
   const isInstalled = isRabby();
