@@ -1,3 +1,11 @@
+# 1.5.2
+
+wip
+
+## Fixed
+
+- Added `wcm-modal` tag to css variable override.
+
 # 1.5.1
 
 This update improves how ConnectKit handles multiple injected wallets.
