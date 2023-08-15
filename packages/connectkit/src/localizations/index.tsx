@@ -1,4 +1,5 @@
 export type Languages =
+  | 'ar-AE'
   | 'en-US'
   | 'es-ES'
   | 'fr-FR'
@@ -6,6 +7,7 @@ export type Languages =
   | 'pt-BR'
   | 'zh-CN';
 
+import { default as arAE } from './locales/ar-AE';
 import { default as enUS } from './locales/en-US';
 import { default as esES } from './locales/es-ES';
 import { default as frFR } from './locales/fr-FR';
@@ -16,6 +18,8 @@ import { default as zhCN } from './locales/zh-CN';
 // TODO: tree-shaking
 export const getLocale = (lang: Languages) => {
   switch (lang) {
+    case 'ar-AE':
+      return arAE;
     case 'es-ES':
       return esES;
     case 'fr-FR':
@@ -31,7 +35,7 @@ export const getLocale = (lang: Languages) => {
   }
 };
 
-/* 
+/*
 // Could be useful for locale files to use these keys rather than hard-coded into the objects
 export const keys = {
   connectorName: '{{ CONNECTORNAME }}',

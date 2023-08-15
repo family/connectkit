@@ -54,6 +54,7 @@ const modes: SelectProps[] = [
   { label: 'Dark', value: 'dark' },
 ];
 const languages: SelectProps[] = [
+  { label: 'Arabic', value: 'ar-AE' },
   { label: 'English (US)', value: 'en-US' },
   { label: 'French', value: 'fr-FR' },
   { label: 'Spanish', value: 'es-ES' },
