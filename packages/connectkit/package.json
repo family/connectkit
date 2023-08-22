@@ -11,7 +11,10 @@
     "directory": "packages/connectkit"
   },
   "type": "module",
-  "exports": "./build/index.es.js",
+  "exports": {
+    "import": "./build/index.es.js",
+    "types": "./build/index.d.ts"
+  },
   "types": "./build/index.d.ts",
   "engines": {
     "node": ">=12.4"
