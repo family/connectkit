@@ -5,6 +5,8 @@ wip
 ## Fixed
 
 - Added `wcm-modal` tag to css variable override.
+- Fixed flash of unstyled content on the `<ChainIcon>` component
+- Fixed bug where if the configuration didn't include the `InjectedConnector` the modal would not open.
 
 # 1.5.1
 
