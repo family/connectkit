@@ -7,6 +7,8 @@ export const useInjectedWallet = () => {
   const connector = useInjectedConnector();
 
   const getInjectedNames = () => {
+    if (!connector) return [];
+
     let names = connector.name.split(/[(),]+/);
     names.shift(); // remove "Injected" from array
     names = names
