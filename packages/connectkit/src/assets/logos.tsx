@@ -844,7 +844,7 @@ export const Dawn = ({ ...props }) => (
     <g
       id="Icons---Pixel-Fitted"
       stroke="none"
-      stroke-width="1"
+      strokeWidth="1"
       fill="none"
       fillRule="evenodd"
     >
@@ -863,12 +863,12 @@ export const Dawn = ({ ...props }) => (
   </svg>
 );
 
-export const InfinityWallet = ({...props}) => (
+export const InfinityWallet = ({ ...props }) => (
   <svg
     {...props}
     version="1.1"
     id="e551690a-81c0-4880-9b93-334a37ce6796"
-	  xmlns="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
     x="0px"
     y="0px"
@@ -888,78 +888,175 @@ export const InfinityWallet = ({...props}) => (
       `}
     </style>
 
-    <linearGradient id="ID_InfinityWallet_1" gradientUnits="userSpaceOnUse" x1="512.5" y1="1056.1801" x2="512.5" y2="317.03" gradientTransform="matrix(1 0 0 -1 0 1260)">
-    	<stop  offset="0" style={{stopColor:"#1D2643"}}/>
-    	<stop  offset="1" style={{stopColor:"#12142C"}}/>
+    <linearGradient
+      id="ID_InfinityWallet_1"
+      gradientUnits="userSpaceOnUse"
+      x1="512.5"
+      y1="1056.1801"
+      x2="512.5"
+      y2="317.03"
+      gradientTransform="matrix(1 0 0 -1 0 1260)"
+    >
+      <stop offset="0" style={{ stopColor: '#1D2643' }} />
+      <stop offset="1" style={{ stopColor: '#12142C' }} />
     </linearGradient>
 
-    <path className="infinityWallet-st0" d="M130,0H895c71.8,0,130,58.2,130,130V895c0,71.8-58.2,130-130,130H130C58.2,1025,0,966.8,0,895V130
-    	C0,58.2,58.2,0,130,0z"/>
+    <path
+      className="infinityWallet-st0"
+      d="M130,0H895c71.8,0,130,58.2,130,130V895c0,71.8-58.2,130-130,130H130C58.2,1025,0,966.8,0,895V130
+    	C0,58.2,58.2,0,130,0z"
+    />
     <g>
-    	<g>
-
-    			<linearGradient id="ID_InfinityWallet_2" gradientUnits="userSpaceOnUse" x1="326.0557" y1="-1280.3162" x2="326.0557" y2="-296.3967" gradientTransform="matrix(1 0 0 1 0 1474)">
-    			<stop  offset="1.000000e-02" style={{stopColor:"#00BFE1"}}/>
-    			<stop  offset="0.97" style={{stopColor:"#2738AB"}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st1" d="M550.9,380.8c-0.7-2-2.4-3.4-4.4-3.9c-2.3-0.6-4.7,0-6.4,1.7l-13.4,13.4l-2.2,2.2L418.3,288.5
+      <g>
+        <linearGradient
+          id="ID_InfinityWallet_2"
+          gradientUnits="userSpaceOnUse"
+          x1="326.0557"
+          y1="-1280.3162"
+          x2="326.0557"
+          y2="-296.3967"
+          gradientTransform="matrix(1 0 0 1 0 1474)"
+        >
+          <stop offset="1.000000e-02" style={{ stopColor: '#00BFE1' }} />
+          <stop offset="0.97" style={{ stopColor: '#2738AB' }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st1"
+          d="M550.9,380.8c-0.7-2-2.4-3.4-4.4-3.9c-2.3-0.6-4.7,0-6.4,1.7l-13.4,13.4l-2.2,2.2L418.3,288.5
     			c-40.2-40-105.2-40-145.4,0L121.7,439.9c-40,40.5-40,105.6,0,146.1l151.4,150.5c40.2,40,105.1,40,145.3,0l34.4-34.4
     			c4.5-4.5,9.9-10.7,12.9-18.7c4.7-13.1,2.8-27.7-5.2-39.1c-1.5-2.2-3.2-4.2-5.1-6c-16.9-16.5-43.9-16.3-60.7,0.3l-37.2,37.1
     			c-2.2,2.3-5,3.8-8.1,4.5c-2.9,0.7-6,0.5-8.8-0.6c-2.9-1-5.5-2.7-7.7-5L182.6,524.2c-2.3-2.3-3.9-5.2-4.6-8.4
     			c-0.8-4-0.1-8.2,2.1-11.8l0.8-0.9L334,350.3c2.4-2.4,5.4-4,8.7-4.6c1-0.2,2.1-0.3,3.1-0.3c4.4-0.1,8.7,1.7,11.7,5l105.8,105.2
-    			l-5.3,5.3l-10.4,10.6c-1.7,1.7-2.3,4.1-1.7,6.4c0.5,2,2,3.7,3.9,4.4l95.7,11.7c8.2-0.1,14.8-6.7,15-15L550.9,380.8z"/>
+    			l-5.3,5.3l-10.4,10.6c-1.7,1.7-2.3,4.1-1.7,6.4c0.5,2,2,3.7,3.9,4.4l95.7,11.7c8.2-0.1,14.8-6.7,15-15L550.9,380.8z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_3" gradientUnits="userSpaceOnUse" x1="137.7126" y1="-935.1906" x2="201.098" y2="-882.1746" gradientTransform="matrix(1 0 0 1 -0.94 1473.3899)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st2" d="M181.4,522.9c-4.3-4.9-5.1-13.3-1.3-19c0,0-49.7,54.3-25.8,114.4l31.5,31.3l45.8-76.2L181.4,522.9z"/>
+        <linearGradient
+          id="ID_InfinityWallet_3"
+          gradientUnits="userSpaceOnUse"
+          x1="137.7126"
+          y1="-935.1906"
+          x2="201.098"
+          y2="-882.1746"
+          gradientTransform="matrix(1 0 0 1 -0.94 1473.3899)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st2"
+          d="M181.4,522.9c-4.3-4.9-5.1-13.3-1.3-19c0,0-49.7,54.3-25.8,114.4l31.5,31.3l45.8-76.2L181.4,522.9z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_4" gradientUnits="userSpaceOnUse" x1="4132.3252" y1="1674.2513" x2="4102.1333" y2="1717.0756" gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st3" d="M336.4,677.7c56.1,51.6,117.9,22.9,117.9,22.9s8.1-7.5,11.4-17.4c-8.3-4-68.6-47.2-68.6-47.2l-35.6,35.6
-    			C348.6,687.1,336.4,677.7,336.4,677.7z"/>
+        <linearGradient
+          id="ID_InfinityWallet_4"
+          gradientUnits="userSpaceOnUse"
+          x1="4132.3252"
+          y1="1674.2513"
+          x2="4102.1333"
+          y2="1717.0756"
+          gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st3"
+          d="M336.4,677.7c56.1,51.6,117.9,22.9,117.9,22.9s8.1-7.5,11.4-17.4c-8.3-4-68.6-47.2-68.6-47.2l-35.6,35.6
+    			C348.6,687.1,336.4,677.7,336.4,677.7z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_5" gradientUnits="userSpaceOnUse" x1="4217.4238" y1="2067.1885" x2="4240.0796" y2="2011.1337" gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st4" d="M299.4,385c0,0,35.9-36.2,36-36c0,0,9.6-7.7,19.7-0.7c0,0-59.7-49.2-123.6-18.3l-18.6,18.7L299.4,385z"/>
-    	</g>
-    	<g>
-
-    			<linearGradient id="ID_InfinityWallet_6" gradientUnits="userSpaceOnUse" x1="698.9443" y1="-1280.3162" x2="698.9443" y2="-296.3967" gradientTransform="matrix(1 0 0 1 0 1474)">
-    			<stop  offset="1.000000e-02" style={{stopColor:"#00BFE1"}}/>
-    			<stop  offset="0.97" style={{stopColor:"#2738AB"}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st5" d="M474.1,644.3c0.7,2,2.4,3.4,4.4,3.9c2.3,0.6,4.7,0,6.4-1.7l13.4-13.4l2.2-2.2l106.2,105.6
+        <linearGradient
+          id="ID_InfinityWallet_5"
+          gradientUnits="userSpaceOnUse"
+          x1="4217.4238"
+          y1="2067.1885"
+          x2="4240.0796"
+          y2="2011.1337"
+          gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st4"
+          d="M299.4,385c0,0,35.9-36.2,36-36c0,0,9.6-7.7,19.7-0.7c0,0-59.7-49.2-123.6-18.3l-18.6,18.7L299.4,385z"
+        />
+      </g>
+      <g>
+        <linearGradient
+          id="ID_InfinityWallet_6"
+          gradientUnits="userSpaceOnUse"
+          x1="698.9443"
+          y1="-1280.3162"
+          x2="698.9443"
+          y2="-296.3967"
+          gradientTransform="matrix(1 0 0 1 0 1474)"
+        >
+          <stop offset="1.000000e-02" style={{ stopColor: '#00BFE1' }} />
+          <stop offset="0.97" style={{ stopColor: '#2738AB' }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st5"
+          d="M474.1,644.3c0.7,2,2.4,3.4,4.4,3.9c2.3,0.6,4.7,0,6.4-1.7l13.4-13.4l2.2-2.2l106.2,105.6
     			c40.2,40,105.2,40,145.4,0l151.2-151.4c40-40.5,40-105.6,0-146.1L751.9,288.5c-40.2-40-105.1-40-145.3,0l-34.4,34.4
     			c-4.5,4.5-9.9,10.7-12.9,18.7c-4.7,13.1-2.8,27.7,5.2,39.1c1.5,2.2,3.2,4.2,5.1,6c16.9,16.5,43.9,16.3,60.7-0.3l37.2-37.1
     			c2.2-2.3,5-3.8,8.1-4.5c2.9-0.7,6-0.5,8.8,0.6c2.9,1,5.5,2.7,7.7,5l150.3,150.3c2.3,2.3,3.9,5.2,4.6,8.4c0.8,4,0.1,8.2-2.1,11.8
     			l-0.8,0.9L691,674.5c-2.4,2.4-5.4,4-8.7,4.6c-1,0.2-2.1,0.3-3.1,0.3c-4.4,0.1-8.7-1.7-11.7-5L561.6,569.7l5.3-5.3l10.4-10.6
-    			c1.7-1.7,2.3-4.1,1.7-6.4c-0.5-2-2-3.7-3.9-4.4l-95.6-11.7c-8.2,0.1-14.8,6.7-15,15L474.1,644.3z"/>
+    			c1.7-1.7,2.3-4.1,1.7-6.4c-0.5-2-2-3.7-3.9-4.4l-95.6-11.7c-8.2,0.1-14.8,6.7-15,15L474.1,644.3z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_7" gradientUnits="userSpaceOnUse" x1="3824.9182" y1="1469.7789" x2="3888.3037" y2="1522.7949" gradientTransform="matrix(-1 0 0 -1 4713.1299 1956.6599)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st6" d="M843.6,502.2c4.3,4.9,5.1,13.3,1.3,19c0,0,49.7-54.3,25.8-114.4l-31.5-31.3l-45.8,76.2L843.6,502.2z"/>
+        <linearGradient
+          id="ID_InfinityWallet_7"
+          gradientUnits="userSpaceOnUse"
+          x1="3824.9182"
+          y1="1469.7789"
+          x2="3888.3037"
+          y2="1522.7949"
+          gradientTransform="matrix(-1 0 0 -1 4713.1299 1956.6599)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st6"
+          d="M843.6,502.2c4.3,4.9,5.1,13.3,1.3,19c0,0,49.7-54.3,25.8-114.4l-31.5-31.3l-45.8,76.2L843.6,502.2z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_8" gradientUnits="userSpaceOnUse" x1="445.1279" y1="-730.6945" x2="414.9359" y2="-687.8702" gradientTransform="matrix(1 0 0 1 197.19 1047.96)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st7" d="M688.6,347.4c-56.1-51.6-117.9-22.9-117.9-22.9s-8.1,7.5-11.4,17.4c8.3,4,68.6,47.2,68.6,47.2l35.6-35.6
-    			C676.4,338,688.6,347.4,688.6,347.4z"/>
+        <linearGradient
+          id="ID_InfinityWallet_8"
+          gradientUnits="userSpaceOnUse"
+          x1="445.1279"
+          y1="-730.6945"
+          x2="414.9359"
+          y2="-687.8702"
+          gradientTransform="matrix(1 0 0 1 197.19 1047.96)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st7"
+          d="M688.6,347.4c-56.1-51.6-117.9-22.9-117.9-22.9s-8.1,7.5-11.4,17.4c8.3,4,68.6,47.2,68.6,47.2l35.6-35.6
+    			C676.4,338,688.6,347.4,688.6,347.4z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_9" gradientUnits="userSpaceOnUse" x1="530.1512" y1="-337.7953" x2="552.8069" y2="-393.8502" gradientTransform="matrix(1 0 0 1 197.19 1047.96)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st8" d="M725.5,640.1c0,0-35.9,36.2-36,36c0,0-9.6,7.7-19.7,0.7c0,0,59.7,49.2,123.6,18.3l18.6-18.7L725.5,640.1z"/>
-    	</g>
+        <linearGradient
+          id="ID_InfinityWallet_9"
+          gradientUnits="userSpaceOnUse"
+          x1="530.1512"
+          y1="-337.7953"
+          x2="552.8069"
+          y2="-393.8502"
+          gradientTransform="matrix(1 0 0 1 197.19 1047.96)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st8"
+          d="M725.5,640.1c0,0-35.9,36.2-36,36c0,0-9.6,7.7-19.7,0.7c0,0,59.7,49.2,123.6,18.3l18.6-18.7L725.5,640.1z"
+        />
+      </g>
     </g>
   </svg>
 );
@@ -1060,13 +1157,13 @@ const TokenPocket = ({ ...props }) => (
         y2="50.0147427%"
         id="linearGradient-1"
       >
-        <stop stop-color="#FFFFFF" offset="0%"></stop>
-        <stop stop-color="#FFFFFF" stop-opacity="0.3233" offset="96.67%"></stop>
-        <stop stop-color="#FFFFFF" stop-opacity="0.3" offset="100%"></stop>
+        <stop stopColor="#FFFFFF" offset="0%"></stop>
+        <stop stopColor="#FFFFFF" stopOpacity="0.3233" offset="96.67%"></stop>
+        <stop stopColor="#FFFFFF" stopOpacity="0.3" offset="100%"></stop>
       </linearGradient>
     </defs>
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-      <g id="tokenpocket" fill-rule="nonzero">
+    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g id="tokenpocket" fillRule="nonzero">
         <polygon
           fill="#2980FE"
           points="87.9604864 0 0 0 0 88 87.9604864 88"
@@ -1165,15 +1262,31 @@ export const OtherWallets = ({ ...props }) => {
 };
 
 const Fordefi = ({ ...props }) => (
-  <svg {...props} width="88" height="88" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_14298_75627)">
-      <path d="M43.5075 62.5508H6V73.5954C6 79.2046 10.5379 83.7515 16.1357 83.7515H32.9997L43.5075 62.5508Z" fill="#7994FF"/>
-      <path d="M6.00098 39.1016H76.2075L68.0567 55.4841H6.00098V39.1016Z" fill="#486DFF"/>
-      <path d="M30.6398 12H6.09766V32.0282H89.8447V12H65.3025V26.9577H60.2423V12H35.7001V26.9577H30.6398V12Z" fill="#5CD1FA"/>
+  <svg
+    {...props}
+    width="88"
+    height="88"
+    viewBox="0 0 96 96"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clipPath="url(#clip0_14298_75627)">
+      <path
+        d="M43.5075 62.5508H6V73.5954C6 79.2046 10.5379 83.7515 16.1357 83.7515H32.9997L43.5075 62.5508Z"
+        fill="#7994FF"
+      />
+      <path
+        d="M6.00098 39.1016H76.2075L68.0567 55.4841H6.00098V39.1016Z"
+        fill="#486DFF"
+      />
+      <path
+        d="M30.6398 12H6.09766V32.0282H89.8447V12H65.3025V26.9577H60.2423V12H35.7001V26.9577H30.6398V12Z"
+        fill="#5CD1FA"
+      />
     </g>
     <defs>
       <clipPath id="clip0_14298_75627">
-        <rect width="84" height="72" fill="white" transform="translate(6 12)"/>
+        <rect width="84" height="72" fill="white" transform="translate(6 12)" />
       </clipPath>
     </defs>
   </svg>
