@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 import supportedChains from '../../../constants/supportedChains';
 
@@ -21,6 +19,7 @@ import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
+import { useContext } from '../../ConnectKit';
 
 const Spinner = (
   <svg
@@ -73,6 +72,8 @@ const ChainSelectList = ({
       switchNetwork(chainId);
     }
   };
+
+  const { triggerResize } = useContext();
 
   return (
     <SwitchNetworksContainer style={{ marginBottom: switchNetwork ? -8 : 0 }}>
@@ -249,6 +250,8 @@ const ChainSelectList = ({
               ease: [0.76, 0, 0.24, 1],
               duration: 0.3,
             }}
+            //onUpdate={triggerResize}
+            onAnimationComplete={triggerResize}
           >
             <div style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Alert>
