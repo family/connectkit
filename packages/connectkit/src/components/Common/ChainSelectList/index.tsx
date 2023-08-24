@@ -60,12 +60,13 @@ const ChainSelectList = ({
 }) => {
   const { connector } = useAccount();
   const { chain, chains } = useNetwork();
-  const { isLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
+  const { status, isLoading, pendingChainId, switchNetwork } =
+    useSwitchNetwork();
 
   const locales = useLocales({});
   const mobile = isMobile();
 
-  const disabled = !switchNetwork;
+  const disabled = status === 'error' || !switchNetwork;
 
   const handleSwitchNetwork = (chainId: number) => {
     if (switchNetwork) {
