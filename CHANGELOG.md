@@ -1,12 +1,12 @@
 # 1.5.2
 
-wip
+This update addresses a few bugs and improves the overall experience of ConnectKit.
 
 ## Fixed
 
 - Added `wcm-modal` tag to css variable override.
-- Fixed flash of unstyled content on the `<ChainIcon>` component
-- Fixed bug where if the configuration didn't include the `InjectedConnector` the modal would not open.
+- Fixed flash of unstyled content on the `<ChainIcon>` component.
+- Fixed bug where the modal wouldn't open if the configuration didn't include the `InjectedConnector`.
 
 # 1.5.1
 
