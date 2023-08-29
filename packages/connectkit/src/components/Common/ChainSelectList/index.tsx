@@ -59,13 +59,14 @@ const ChainSelectList = ({
 }) => {
   const { connector } = useAccount();
   const { chain, chains } = useNetwork();
-  const { status, isLoading, pendingChainId, switchNetwork } =
+  const { isLoading, pendingChainId, switchNetwork, error } =
     useSwitchNetwork();
 
   const locales = useLocales({});
   const mobile = isMobile();
 
-  const disabled = status === 'error' || !switchNetwork;
+  const isError = error?.['code'] === 4902; // Wallet cannot switch networks
+  const disabled = isError || !switchNetwork;
 
   const handleSwitchNetwork = (chainId: number) => {
     if (switchNetwork) {
@@ -238,19 +239,16 @@ const ChainSelectList = ({
         </ChainButtons>
       </ChainButtonContainer>
       <AnimatePresence>
-        {disabled && (
+        {isError && (
           <motion.div
-            style={{
-              overflow: 'hidden',
-            }}
-            initial={{ height: 0 }}
-            animate={{ height: 'auto' }}
-            exit={{ height: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{
               ease: [0.76, 0, 0.24, 1],
               duration: 0.3,
             }}
-            //onUpdate={triggerResize}
+            onAnimationStart={triggerResize}
             onAnimationComplete={triggerResize}
           >
             <div style={{ paddingTop: 10, paddingBottom: 8 }}>
