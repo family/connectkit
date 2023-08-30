@@ -19,7 +19,7 @@ export const rainbow = (): WalletProps => {
       connectorButton: <Logos.Rainbow round />,
     },
     logoBackground: '#174299',
-    scannable: true,
+    scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/rainbow',
       website: 'https://rainbow.me/?utm_source=connectkit',
@@ -30,11 +30,13 @@ export const rainbow = (): WalletProps => {
       edge: 'https://rainbow.me/extension?utm_source=connectkit',
       brave: 'https://rainbow.me/extension?utm_source=connectkit',
     },
-    installed: Boolean(!shouldUseWalletConnect ? isInstalled : undefined),
+    installed: !shouldUseWalletConnect ? isInstalled : undefined,
     createUri: (uri: string) => {
       return isAndroid()
         ? uri
-        : `https://rnbwapp.com/wc?uri=${encodeURIComponent(uri)}&connector=connectkit`;
+        : `https://rnbwapp.com/wc?uri=${encodeURIComponent(
+            uri
+          )}&connector=connectkit`;
     },
   };
 };
