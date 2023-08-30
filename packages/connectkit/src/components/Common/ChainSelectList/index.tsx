@@ -146,69 +146,71 @@ const ChainSelectList = ({
                   </ChainLogoContainer>
                   {ch.name}
                 </span>
-                <ChainButtonStatus>
-                  <AnimatePresence initial={false} exitBeforeEnter>
-                    {ch.id === chain?.id && (
-                      <motion.span
-                        key={'connectedText'}
-                        style={{
-                          color:
-                            'var(--ck-dropdown-active-color, var(--ck-focus-color))',
-                          display: 'block',
-                          position: 'relative',
-                        }}
-                        initial={{ opacity: 0, x: -4 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{
-                          opacity: 0,
-                          x: 4,
-                          transition: { duration: 0.1, delay: 0 },
-                        }}
-                        transition={{
-                          ease: [0.76, 0, 0.24, 1],
-                          duration: 0.3,
-                          delay: 0.2,
-                        }}
-                      >
-                        {locales.connected}
-                      </motion.span>
-                    )}
-                    {isLoading && pendingChainId === ch.id && (
-                      <motion.span
-                        key={'approveText'}
-                        style={{
-                          color: 'var(--ck-dropdown-pending-color, inherit)',
-                          display: 'block',
-                          position: 'relative',
-                        }}
-                        initial={{
-                          opacity: 0,
-                          x: -4,
-                        }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 4 }}
-                        transition={{
-                          ease: [0.76, 0, 0.24, 1],
-                          duration: 0.3,
-                          delay: 0.1,
-                        }}
-                      >
+                {variant !== 'secondary' && (
+                  <ChainButtonStatus>
+                    <AnimatePresence initial={false} exitBeforeEnter>
+                      {ch.id === chain?.id && (
                         <motion.span
-                          animate={
-                            // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
-                            mobile &&
-                            isCoinbaseWalletConnector(connector?.id) && {
-                              opacity: [1, 0],
-                              transition: { delay: 4, duration: 4 },
-                            }
-                          }
+                          key={'connectedText'}
+                          style={{
+                            color:
+                              'var(--ck-dropdown-active-color, var(--ck-focus-color))',
+                            display: 'block',
+                            position: 'relative',
+                          }}
+                          initial={{ opacity: 0, x: -4 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{
+                            opacity: 0,
+                            x: 4,
+                            transition: { duration: 0.1, delay: 0 },
+                          }}
+                          transition={{
+                            ease: [0.76, 0, 0.24, 1],
+                            duration: 0.3,
+                            delay: 0.2,
+                          }}
                         >
-                          {locales.approveInWallet}
+                          {locales.connected}
                         </motion.span>
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </ChainButtonStatus>
+                      )}
+                      {isLoading && pendingChainId === ch.id && (
+                        <motion.span
+                          key={'approveText'}
+                          style={{
+                            color: 'var(--ck-dropdown-pending-color, inherit)',
+                            display: 'block',
+                            position: 'relative',
+                          }}
+                          initial={{
+                            opacity: 0,
+                            x: -4,
+                          }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 4 }}
+                          transition={{
+                            ease: [0.76, 0, 0.24, 1],
+                            duration: 0.3,
+                            delay: 0.1,
+                          }}
+                        >
+                          <motion.span
+                            animate={
+                              // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
+                              mobile &&
+                              isCoinbaseWalletConnector(connector?.id) && {
+                                opacity: [1, 0],
+                                transition: { delay: 4, duration: 4 },
+                              }
+                            }
+                          >
+                            {locales.approveInWallet}
+                          </motion.span>
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </ChainButtonStatus>
+                )}
                 {variant === 'secondary' ? (
                   <ChainButtonBg
                     initial={false}
