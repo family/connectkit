@@ -2,6 +2,7 @@ export const CONNECTKIT_VERSION = '1.5.2';
 
 export * as Types from './types';
 export { default as getDefaultConfig } from './defaultConfig';
+export { default as getDefaultConnectors } from './defaultConnectors';
 
 export { useModal } from './hooks/useModal';
 export { SIWEProvider, useSIWE } from './siwe';
