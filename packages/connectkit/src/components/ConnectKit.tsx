@@ -65,6 +65,8 @@ type ContextValue = {
   debugMode?: boolean;
   log: (...props: any) => void;
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
+  resize: number;
+  triggerResize: () => void;
 } & useConnectCallbackProps;
 
 export const Context = createContext<ContextValue | null>(null);
@@ -177,6 +179,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [errorMessage, setErrorMessage] = useState<Error>('');
 
+  const [resize, onResize] = useState<number>(0);
+
   // Include Google Font that is needed for a themes
   if (opts.embedGoogleFonts) useThemeFont(theme);
 
@@ -232,6 +236,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       if (code) console.table(code);
       console.log('---------/CONNECTKIT DEBUG---------');
     },
+    resize,
+    triggerResize: () => onResize((prev) => prev + 1),
   };
 
   return createElement(
