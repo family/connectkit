@@ -455,13 +455,12 @@ export const Frame = ({ ...props }) => (
   </svg>
 );
 
-export const Rainbow = ({ ...props }) => {
+export const Rainbow = ({ round = false, ...props }) => {
   // Here we're using a base64 of an svg because the gradients in this logo do not play nicely on mobile devices
-  /*
-  const withoutBackground = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxtYXNrIGlkPSJtYXNrMF8xXzIwIiBzdHlsZT0ibWFzay10eXBlOmFscGhhIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4PSIyMCIgeT0iMjAiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+CjxwYXRoIGQ9Ik0yMCA2MlYyNkMyMCAyMi42ODYzIDIyLjY4NjMgMjAgMjYgMjBDNjYuODY5MSAyMCAxMDAgNTMuMTMwOSAxMDAgOTRDMTAwIDk3LjMxMzcgOTcuMzEzNyAxMDAgOTQgMTAwSDU4QzU0LjY4NjMgMTAwIDUyIDk3LjMxMzcgNTIgOTRDNTIgNzkuNjQwNiA0MC4zNTk0IDY4IDI2IDY4QzIyLjY4NjMgNjggMjAgNjUuMzEzNyAyMCA2MloiIGZpbGw9IiNDNEM0QzQiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI21hc2swXzFfMjApIj4KPG1hc2sgaWQ9Im1hc2sxXzFfMjAiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIj4KPHBhdGggZD0iTTIwLjAwMDEgMzhWMjBIMTAwVjEwMEg4Mi4wMDAxVjk0QzgyLjAwMDEgNjMuMDcyMSA1Ni45MjggMzggMjYuMDAwMSAzOEgyMC4wMDAxWiIgZmlsbD0iI0M0QzRDNCIvPgo8L21hc2s+CjxnIG1hc2s9InVybCgjbWFzazFfMV8yMCkiPgo8cGF0aCBkPSJNMCAwSDEyMFYxMjBIMFYwWiIgZmlsbD0iIzY3NTlGRiIvPgo8ZyBmaWx0ZXI9InVybCgjZmlsdGVyMF9mXzFfMjApIj4KPHBhdGggZD0iTTAgMjZIMjZDNjMuNTU1NCAyNiA5NCA1Ni40NDQ2IDk0IDk0VjEyMEgwVjI2WiIgZmlsbD0iI0ZGNDAwMCIvPgo8L2c+CjwvZz4KPG1hc2sgaWQ9Im1hc2syXzFfMjAiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjIwIiB5PSIzNiIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0Ij4KPHBhdGggZD0iTTIwIDU0VjM2SDI2QzU4LjAzMjUgMzYgODQgNjEuOTY3NSA4NCA5NFYxMDBINjZWOTRDNjYgNzEuOTA4NiA0OC4wOTE0IDU0IDI2IDU0SDIwWiIgZmlsbD0iI0M0QzRDNCIvPgo8L21hc2s+CjxnIG1hc2s9InVybCgjbWFzazJfMV8yMCkiPgo8cGF0aCBkPSJNMCAzNkg4NFYxMjBIMFYzNloiIGZpbGw9IiNGRjdGMDAiLz4KPGcgZmlsdGVyPSJ1cmwoI2ZpbHRlcjFfZl8xXzIwKSI+CjxwYXRoIGQ9Ik0wIDQySDI2QzU0LjcxODggNDIgNzggNjUuMjgxMiA3OCA5NFYxMjBIMFY0MloiIGZpbGw9IiNGRkZGMDAiLz4KPC9nPgo8L2c+CjxtYXNrIGlkPSJtYXNrM18xXzIwIiBzdHlsZT0ibWFzay10eXBlOmFscGhhIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4PSIyMCIgeT0iNTIiIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCI+CjxwYXRoIGQ9Ik0yMCA2MlY1MkgyNkM0OS4xOTYgNTIgNjggNzAuODA0IDY4IDk0VjEwMEg1OEM1NC42ODYzIDEwMCA1MiA5Ny4zMTM3IDUyIDk0QzUyIDc5LjY0MDYgNDAuMzU5NCA2OCAyNiA2OEMyMi42ODYzIDY4IDIwIDY1LjMxMzcgMjAgNjJaIiBmaWxsPSIjQzRDNEM0Ii8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrM18xXzIwKSI+CjxwYXRoIGQ9Ik0wIDUySDI2QzQ5LjE5NiA1MiA2OCA3MC44MDQgNjggOTRWMTIwSDBWNTJaIiBmaWxsPSIjMDBFNTEzIi8+CjwvZz4KPG1hc2sgaWQ9Im1hc2s0XzFfMjAiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjIwIiB5PSI1MiIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KPHBhdGggZD0iTTIwIDEwMFY1MkgyNkM0OS4xOTYgNTIgNjggNzAuODA0IDY4IDk0VjEwMEgyMFoiIGZpbGw9IiNDNEM0QzQiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI21hc2s0XzFfMjApIj4KPGcgZmlsdGVyPSJ1cmwoI2ZpbHRlcjJfZl8xXzIwKSI+CjxwYXRoIGQ9Ik0wIDU4SDI2QzQ1Ljg4MjIgNTggNjIgNzQuMTE3NyA2MiA5NFYxMjBIMFY1OFoiIGZpbGw9IiMwMEFBRkYiLz4KPC9nPgo8L2c+CjwvZz4KPGRlZnM+CjxmaWx0ZXIgaWQ9ImZpbHRlcjBfZl8xXzIwIiB4PSItMTgiIHk9IjgiIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+CjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+CjxmZUJsZW5kIG1vZGU9Im5vcm1hbCIgaW49IlNvdXJjZUdyYXBoaWMiIGluMj0iQmFja2dyb3VuZEltYWdlRml4IiByZXN1bHQ9InNoYXBlIi8+CjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjkiIHJlc3VsdD0iZWZmZWN0MV9mb3JlZ3JvdW5kQmx1cl8xXzIwIi8+CjwvZmlsdGVyPgo8ZmlsdGVyIGlkPSJmaWx0ZXIxX2ZfMV8yMCIgeD0iLTE4IiB5PSIyNCIgd2lkdGg9IjExNCIgaGVpZ2h0PSIxMTQiIGZpbHRlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY29sb3ItaW50ZXJwb2xhdGlvbi1maWx0ZXJzPSJzUkdCIj4KPGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz4KPGZlQmxlbmQgbW9kZT0ibm9ybWFsIiBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0ic2hhcGUiLz4KPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iOSIgcmVzdWx0PSJlZmZlY3QxX2ZvcmVncm91bmRCbHVyXzFfMjAiLz4KPC9maWx0ZXI+CjxmaWx0ZXIgaWQ9ImZpbHRlcjJfZl8xXzIwIiB4PSItMTgiIHk9IjQwIiB3aWR0aD0iOTgiIGhlaWdodD0iOTgiIGZpbHRlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY29sb3ItaW50ZXJwb2xhdGlvbi1maWx0ZXJzPSJzUkdCIj4KPGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz4KPGZlQmxlbmQgbW9kZT0ibm9ybWFsIiBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0ic2hhcGUiLz4KPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iOSIgcmVzdWx0PSJlZmZlY3QxX2ZvcmVncm91bmRCbHVyXzFfMjAiLz4KPC9maWx0ZXI+CjwvZGVmcz4KPC9zdmc+Cg==';
-  */
   const withBackground =
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfNjJfMzI5KSIvPgo8cGF0aCBkPSJNMjAgMzhIMjZDNTYuOTI3OSAzOCA4MiA2My4wNzIxIDgyIDk0VjEwMEg5NEM5Ny4zMTM3IDEwMCAxMDAgOTcuMzEzNyAxMDAgOTRDMTAwIDUzLjEzMDkgNjYuODY5MSAyMCAyNiAyMEMyMi42ODYzIDIwIDIwIDIyLjY4NjMgMjAgMjZWMzhaIiBmaWxsPSJ1cmwoI3BhaW50MV9yYWRpYWxfNjJfMzI5KSIvPgo8cGF0aCBkPSJNODQgOTRIMTAwQzEwMCA5Ny4zMTM3IDk3LjMxMzcgMTAwIDk0IDEwMEg4NFY5NFoiIGZpbGw9InVybCgjcGFpbnQyX2xpbmVhcl82Ml8zMjkpIi8+CjxwYXRoIGQ9Ik0yNiAyMEwyNiAzNkgyMEwyMCAyNkMyMCAyMi42ODYzIDIyLjY4NjMgMjAgMjYgMjBaIiBmaWxsPSJ1cmwoI3BhaW50M19saW5lYXJfNjJfMzI5KSIvPgo8cGF0aCBkPSJNMjAgMzZIMjZDNTguMDMyNSAzNiA4NCA2MS45Njc1IDg0IDk0VjEwMEg2NlY5NEM2NiA3MS45MDg2IDQ4LjA5MTQgNTQgMjYgNTRIMjBWMzZaIiBmaWxsPSJ1cmwoI3BhaW50NF9yYWRpYWxfNjJfMzI5KSIvPgo8cGF0aCBkPSJNNjggOTRIODRWMTAwSDY4Vjk0WiIgZmlsbD0idXJsKCNwYWludDVfbGluZWFyXzYyXzMyOSkiLz4KPHBhdGggZD0iTTIwIDUyTDIwIDM2TDI2IDM2TDI2IDUySDIwWiIgZmlsbD0idXJsKCNwYWludDZfbGluZWFyXzYyXzMyOSkiLz4KPHBhdGggZD0iTTIwIDYyQzIwIDY1LjMxMzcgMjIuNjg2MyA2OCAyNiA2OEM0MC4zNTk0IDY4IDUyIDc5LjY0MDYgNTIgOTRDNTIgOTcuMzEzNyA1NC42ODYzIDEwMCA1OCAxMDBINjhWOTRDNjggNzAuODA0IDQ5LjE5NiA1MiAyNiA1MkgyMFY2MloiIGZpbGw9InVybCgjcGFpbnQ3X3JhZGlhbF82Ml8zMjkpIi8+CjxwYXRoIGQ9Ik01MiA5NEg2OFYxMDBINThDNTQuNjg2MyAxMDAgNTIgOTcuMzEzNyA1MiA5NFoiIGZpbGw9InVybCgjcGFpbnQ4X3JhZGlhbF82Ml8zMjkpIi8+CjxwYXRoIGQ9Ik0yNiA2OEMyMi42ODYzIDY4IDIwIDY1LjMxMzcgMjAgNjJMMjAgNTJMMjYgNTJMMjYgNjhaIiBmaWxsPSJ1cmwoI3BhaW50OV9yYWRpYWxfNjJfMzI5KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzYyXzMyOSIgeDE9IjYwIiB5MT0iMCIgeDI9IjYwIiB5Mj0iMTIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiMxNzQyOTkiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAxRTU5Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQxX3JhZGlhbF82Ml8zMjkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjYgOTQpIHJvdGF0ZSgtOTApIHNjYWxlKDc0KSI+CjxzdG9wIG9mZnNldD0iMC43NzAyNzciIHN0b3AtY29sb3I9IiNGRjQwMDAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjODc1NEM5Ii8+CjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQyX2xpbmVhcl82Ml8zMjkiIHgxPSI4MyIgeTE9Ijk3IiB4Mj0iMTAwIiB5Mj0iOTciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0ZGNDAwMCIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4NzU0QzkiLz4KPC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDNfbGluZWFyXzYyXzMyOSIgeDE9IjIzIiB5MT0iMjAiIHgyPSIyMyIgeTI9IjM3IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM4NzU0QzkiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkY0MDAwIi8+CjwvbGluZWFyR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQ0X3JhZGlhbF82Ml8zMjkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjYgOTQpIHJvdGF0ZSgtOTApIHNjYWxlKDU4KSI+CjxzdG9wIG9mZnNldD0iMC43MjM5MjkiIHN0b3AtY29sb3I9IiNGRkY3MDAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkY5OTAxIi8+CjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQ1X2xpbmVhcl82Ml8zMjkiIHgxPSI2OCIgeTE9Ijk3IiB4Mj0iODQiIHkyPSI5NyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjRkZGNzAwIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZGOTkwMSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50Nl9saW5lYXJfNjJfMzI5IiB4MT0iMjMiIHkxPSI1MiIgeDI9IjIzIiB5Mj0iMzYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0ZGRjcwMCIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRjk5MDEiLz4KPC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDdfcmFkaWFsXzYyXzMyOSIgY3g9IjAiIGN5PSIwIiByPSIxIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgZ3JhZGllbnRUcmFuc2Zvcm09InRyYW5zbGF0ZSgyNiA5NCkgcm90YXRlKC05MCkgc2NhbGUoNDIpIj4KPHN0b3Agb2Zmc2V0PSIwLjU5NTEzIiBzdG9wLWNvbG9yPSIjMDBBQUZGIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAxREE0MCIvPgo8L3JhZGlhbEdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50OF9yYWRpYWxfNjJfMzI5IiBjeD0iMCIgY3k9IjAiIHI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKDUxIDk3KSBzY2FsZSgxNyA0NS4zMzMzKSI+CjxzdG9wIHN0b3AtY29sb3I9IiMwMEFBRkYiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDFEQTQwIi8+CjwvcmFkaWFsR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQ5X3JhZGlhbF82Ml8zMjkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjMgNjkpIHJvdGF0ZSgtOTApIHNjYWxlKDE3IDMyMi4zNykiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMDBBQUZGIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAxREE0MCIvPgo8L3JhZGlhbEdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=';
+  const roundWithBackground =
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF84XzU1NCkiPgo8bWFzayBpZD0ibWFzazBfOF81NTQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj4KPGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNjAiIGZpbGw9IiNEOUQ5RDkiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI21hc2swXzhfNTU0KSI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfOF81NTQpIi8+CjwvZz4KPHBhdGggZD0iTTI2LjY2NjcgNDEuNjY2N0gzMS42NjY3QzU3LjQ0IDQxLjY2NjcgNzguMzMzMyA2Mi41NiA3OC4zMzMzIDg4LjMzMzNWOTMuMzMzM0g4OC4zMzMzQzkxLjA5NDggOTMuMzMzMyA5My4zMzMzIDkxLjA5NDcgOTMuMzMzMyA4OC4zMzMzQzkzLjMzMzMgNTQuMjc1OCA2NS43MjQyIDI2LjY2NjcgMzEuNjY2NyAyNi42NjY3QzI4LjkwNTIgMjYuNjY2NyAyNi42NjY3IDI4LjkwNTIgMjYuNjY2NyAzMS42NjY3VjQxLjY2NjdaIiBmaWxsPSJ1cmwoI3BhaW50MV9yYWRpYWxfOF81NTQpIi8+CjxwYXRoIGQ9Ik04MCA4OC4zMzMzSDkzLjMzMzNDOTMuMzMzMyA5MS4wOTQ4IDkxLjA5NDcgOTMuMzMzMyA4OC4zMzMzIDkzLjMzMzNIODBWODguMzMzM1oiIGZpbGw9InVybCgjcGFpbnQyX2xpbmVhcl84XzU1NCkiLz4KPHBhdGggZD0iTTMxLjY2NjcgMjYuNjY2N0wzMS42NjY3IDQwSDI2LjY2NjdMMjYuNjY2NyAzMS42NjY3QzI2LjY2NjcgMjguOTA1MiAyOC45MDUyIDI2LjY2NjcgMzEuNjY2NyAyNi42NjY3WiIgZmlsbD0idXJsKCNwYWludDNfbGluZWFyXzhfNTU0KSIvPgo8cGF0aCBkPSJNMjYuNjY2NiA0MEgzMS42NjY2QzU4LjM2MDQgNDAgODAgNjEuNjM5NiA4MCA4OC4zMzMzVjkzLjMzMzNINjVWODguMzMzM0M2NSA2OS45MjM4IDUwLjA3NjEgNTUgMzEuNjY2NiA1NUgyNi42NjY2VjQwWiIgZmlsbD0idXJsKCNwYWludDRfcmFkaWFsXzhfNTU0KSIvPgo8cGF0aCBkPSJNNjYuNjY2NiA4OC4zMzMzSDgwVjkzLjMzMzNINjYuNjY2NlY4OC4zMzMzWiIgZmlsbD0idXJsKCNwYWludDVfbGluZWFyXzhfNTU0KSIvPgo8cGF0aCBkPSJNMjYuNjY2NiA1My4zMzMzTDI2LjY2NjYgNDBMMzEuNjY2NiA0MEwzMS42NjY2IDUzLjMzMzNIMjYuNjY2NloiIGZpbGw9InVybCgjcGFpbnQ2X2xpbmVhcl84XzU1NCkiLz4KPHBhdGggZD0iTTI2LjY2NjYgNjEuNjY2N0MyNi42NjY2IDY0LjQyODEgMjguOTA1MiA2Ni42NjY3IDMxLjY2NjYgNjYuNjY2N0M0My42MzI4IDY2LjY2NjcgNTMuMzMzMyA3Ni4zNjcyIDUzLjMzMzMgODguMzMzM0M1My4zMzMzIDkxLjA5NDcgNTUuNTcxOSA5My4zMzMzIDU4LjMzMzMgOTMuMzMzM0g2Ni42NjY2Vjg4LjMzMzNDNjYuNjY2NiA2OS4wMDM0IDUwLjk5NjYgNTMuMzMzMyAzMS42NjY2IDUzLjMzMzNIMjYuNjY2NlY2MS42NjY3WiIgZmlsbD0idXJsKCNwYWludDdfcmFkaWFsXzhfNTU0KSIvPgo8cGF0aCBkPSJNNTMuMzMzMyA4OC4zMzMzSDY2LjY2NjZWOTMuMzMzM0g1OC4zMzMzQzU1LjU3MTkgOTMuMzMzMyA1My4zMzMzIDkxLjA5NDggNTMuMzMzMyA4OC4zMzMzWiIgZmlsbD0idXJsKCNwYWludDhfcmFkaWFsXzhfNTU0KSIvPgo8cGF0aCBkPSJNMzEuNjY2NiA2Ni42NjY3QzI4LjkwNTIgNjYuNjY2NyAyNi42NjY2IDY0LjQyODEgMjYuNjY2NiA2MS42NjY3TDI2LjY2NjYgNTMuMzMzM0wzMS42NjY2IDUzLjMzMzNMMzEuNjY2NiA2Ni42NjY3WiIgZmlsbD0idXJsKCNwYWludDlfcmFkaWFsXzhfNTU0KSIvPgo8L2c+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfOF81NTQiIHgxPSI2MCIgeTE9IjAiIHgyPSI2MCIgeTI9IjEyMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMTc0Mjk5Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwMUU1OSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MV9yYWRpYWxfOF81NTQiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzEuNjY2NyA4OC4zMzMzKSByb3RhdGUoLTkwKSBzY2FsZSg2MS42NjY3KSI+CjxzdG9wIG9mZnNldD0iMC43NzAyNzciIHN0b3AtY29sb3I9IiNGRjQwMDAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjODc1NEM5Ii8+CjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQyX2xpbmVhcl84XzU1NCIgeDE9Ijc5LjE2NjYiIHkxPSI5MC44MzMzIiB4Mj0iOTMuMzMzMyIgeTI9IjkwLjgzMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0ZGNDAwMCIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4NzU0QzkiLz4KPC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDNfbGluZWFyXzhfNTU0IiB4MT0iMjkuMTY2NyIgeTE9IjI2LjY2NjciIHgyPSIyOS4xNjY3IiB5Mj0iNDAuODMzMyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjODc1NEM5Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZGNDAwMCIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50NF9yYWRpYWxfOF81NTQiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzEuNjY2NiA4OC4zMzMzKSByb3RhdGUoLTkwKSBzY2FsZSg0OC4zMzMzKSI+CjxzdG9wIG9mZnNldD0iMC43MjM5MjkiIHN0b3AtY29sb3I9IiNGRkY3MDAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkY5OTAxIi8+CjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQ1X2xpbmVhcl84XzU1NCIgeDE9IjY2LjY2NjYiIHkxPSI5MC44MzMzIiB4Mj0iODAiIHkyPSI5MC44MzMzIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiNGRkY3MDAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkY5OTAxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQ2X2xpbmVhcl84XzU1NCIgeDE9IjI5LjE2NjYiIHkxPSI1My4zMzMzIiB4Mj0iMjkuMTY2NiIgeTI9IjQwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiNGRkY3MDAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkY5OTAxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQ3X3JhZGlhbF84XzU1NCIgY3g9IjAiIGN5PSIwIiByPSIxIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgZ3JhZGllbnRUcmFuc2Zvcm09InRyYW5zbGF0ZSgzMS42NjY2IDg4LjMzMzMpIHJvdGF0ZSgtOTApIHNjYWxlKDM1KSI+CjxzdG9wIG9mZnNldD0iMC41OTUxMyIgc3RvcC1jb2xvcj0iIzAwQUFGRiIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwMURBNDAiLz4KPC9yYWRpYWxHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDhfcmFkaWFsXzhfNTU0IiBjeD0iMCIgY3k9IjAiIHI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKDUyLjUgOTAuODMzMykgc2NhbGUoMTQuMTY2NyAzNy43Nzc4KSI+CjxzdG9wIHN0b3AtY29sb3I9IiMwMEFBRkYiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDFEQTQwIi8+CjwvcmFkaWFsR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQ5X3JhZGlhbF84XzU1NCIgY3g9IjAiIGN5PSIwIiByPSIxIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgZ3JhZGllbnRUcmFuc2Zvcm09InRyYW5zbGF0ZSgyOS4xNjY2IDY3LjUpIHJvdGF0ZSgtOTApIHNjYWxlKDE0LjE2NjcgMjY4LjY0MikiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMDBBQUZGIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAxREE0MCIvPgo8L3JhZGlhbEdyYWRpZW50Pgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzhfNTU0Ij4KPHJlY3Qgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==';
   return (
     <svg
       {...props}
@@ -472,7 +471,9 @@ export const Rainbow = ({ ...props }) => {
       xmlns="http://www.w3.org/2000/svg"
       style={{
         backgroundSize: '100% 100%',
-        backgroundImage: `url("${withBackground}")`,
+        backgroundImage: `url("${
+          round ? roundWithBackground : withBackground
+        }")`,
       }}
     />
   );
@@ -844,7 +845,7 @@ export const Dawn = ({ ...props }) => (
     <g
       id="Icons---Pixel-Fitted"
       stroke="none"
-      stroke-width="1"
+      strokeWidth="1"
       fill="none"
       fillRule="evenodd"
     >
@@ -863,12 +864,12 @@ export const Dawn = ({ ...props }) => (
   </svg>
 );
 
-export const InfinityWallet = ({...props}) => (
+export const InfinityWallet = ({ ...props }) => (
   <svg
     {...props}
     version="1.1"
     id="e551690a-81c0-4880-9b93-334a37ce6796"
-	  xmlns="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
     x="0px"
     y="0px"
@@ -888,78 +889,175 @@ export const InfinityWallet = ({...props}) => (
       `}
     </style>
 
-    <linearGradient id="ID_InfinityWallet_1" gradientUnits="userSpaceOnUse" x1="512.5" y1="1056.1801" x2="512.5" y2="317.03" gradientTransform="matrix(1 0 0 -1 0 1260)">
-    	<stop  offset="0" style={{stopColor:"#1D2643"}}/>
-    	<stop  offset="1" style={{stopColor:"#12142C"}}/>
+    <linearGradient
+      id="ID_InfinityWallet_1"
+      gradientUnits="userSpaceOnUse"
+      x1="512.5"
+      y1="1056.1801"
+      x2="512.5"
+      y2="317.03"
+      gradientTransform="matrix(1 0 0 -1 0 1260)"
+    >
+      <stop offset="0" style={{ stopColor: '#1D2643' }} />
+      <stop offset="1" style={{ stopColor: '#12142C' }} />
     </linearGradient>
 
-    <path className="infinityWallet-st0" d="M130,0H895c71.8,0,130,58.2,130,130V895c0,71.8-58.2,130-130,130H130C58.2,1025,0,966.8,0,895V130
-    	C0,58.2,58.2,0,130,0z"/>
+    <path
+      className="infinityWallet-st0"
+      d="M130,0H895c71.8,0,130,58.2,130,130V895c0,71.8-58.2,130-130,130H130C58.2,1025,0,966.8,0,895V130
+    	C0,58.2,58.2,0,130,0z"
+    />
     <g>
-    	<g>
-
-    			<linearGradient id="ID_InfinityWallet_2" gradientUnits="userSpaceOnUse" x1="326.0557" y1="-1280.3162" x2="326.0557" y2="-296.3967" gradientTransform="matrix(1 0 0 1 0 1474)">
-    			<stop  offset="1.000000e-02" style={{stopColor:"#00BFE1"}}/>
-    			<stop  offset="0.97" style={{stopColor:"#2738AB"}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st1" d="M550.9,380.8c-0.7-2-2.4-3.4-4.4-3.9c-2.3-0.6-4.7,0-6.4,1.7l-13.4,13.4l-2.2,2.2L418.3,288.5
+      <g>
+        <linearGradient
+          id="ID_InfinityWallet_2"
+          gradientUnits="userSpaceOnUse"
+          x1="326.0557"
+          y1="-1280.3162"
+          x2="326.0557"
+          y2="-296.3967"
+          gradientTransform="matrix(1 0 0 1 0 1474)"
+        >
+          <stop offset="1.000000e-02" style={{ stopColor: '#00BFE1' }} />
+          <stop offset="0.97" style={{ stopColor: '#2738AB' }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st1"
+          d="M550.9,380.8c-0.7-2-2.4-3.4-4.4-3.9c-2.3-0.6-4.7,0-6.4,1.7l-13.4,13.4l-2.2,2.2L418.3,288.5
     			c-40.2-40-105.2-40-145.4,0L121.7,439.9c-40,40.5-40,105.6,0,146.1l151.4,150.5c40.2,40,105.1,40,145.3,0l34.4-34.4
     			c4.5-4.5,9.9-10.7,12.9-18.7c4.7-13.1,2.8-27.7-5.2-39.1c-1.5-2.2-3.2-4.2-5.1-6c-16.9-16.5-43.9-16.3-60.7,0.3l-37.2,37.1
     			c-2.2,2.3-5,3.8-8.1,4.5c-2.9,0.7-6,0.5-8.8-0.6c-2.9-1-5.5-2.7-7.7-5L182.6,524.2c-2.3-2.3-3.9-5.2-4.6-8.4
     			c-0.8-4-0.1-8.2,2.1-11.8l0.8-0.9L334,350.3c2.4-2.4,5.4-4,8.7-4.6c1-0.2,2.1-0.3,3.1-0.3c4.4-0.1,8.7,1.7,11.7,5l105.8,105.2
-    			l-5.3,5.3l-10.4,10.6c-1.7,1.7-2.3,4.1-1.7,6.4c0.5,2,2,3.7,3.9,4.4l95.7,11.7c8.2-0.1,14.8-6.7,15-15L550.9,380.8z"/>
+    			l-5.3,5.3l-10.4,10.6c-1.7,1.7-2.3,4.1-1.7,6.4c0.5,2,2,3.7,3.9,4.4l95.7,11.7c8.2-0.1,14.8-6.7,15-15L550.9,380.8z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_3" gradientUnits="userSpaceOnUse" x1="137.7126" y1="-935.1906" x2="201.098" y2="-882.1746" gradientTransform="matrix(1 0 0 1 -0.94 1473.3899)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st2" d="M181.4,522.9c-4.3-4.9-5.1-13.3-1.3-19c0,0-49.7,54.3-25.8,114.4l31.5,31.3l45.8-76.2L181.4,522.9z"/>
+        <linearGradient
+          id="ID_InfinityWallet_3"
+          gradientUnits="userSpaceOnUse"
+          x1="137.7126"
+          y1="-935.1906"
+          x2="201.098"
+          y2="-882.1746"
+          gradientTransform="matrix(1 0 0 1 -0.94 1473.3899)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st2"
+          d="M181.4,522.9c-4.3-4.9-5.1-13.3-1.3-19c0,0-49.7,54.3-25.8,114.4l31.5,31.3l45.8-76.2L181.4,522.9z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_4" gradientUnits="userSpaceOnUse" x1="4132.3252" y1="1674.2513" x2="4102.1333" y2="1717.0756" gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st3" d="M336.4,677.7c56.1,51.6,117.9,22.9,117.9,22.9s8.1-7.5,11.4-17.4c-8.3-4-68.6-47.2-68.6-47.2l-35.6,35.6
-    			C348.6,687.1,336.4,677.7,336.4,677.7z"/>
+        <linearGradient
+          id="ID_InfinityWallet_4"
+          gradientUnits="userSpaceOnUse"
+          x1="4132.3252"
+          y1="1674.2513"
+          x2="4102.1333"
+          y2="1717.0756"
+          gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st3"
+          d="M336.4,677.7c56.1,51.6,117.9,22.9,117.9,22.9s8.1-7.5,11.4-17.4c-8.3-4-68.6-47.2-68.6-47.2l-35.6,35.6
+    			C348.6,687.1,336.4,677.7,336.4,677.7z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_5" gradientUnits="userSpaceOnUse" x1="4217.4238" y1="2067.1885" x2="4240.0796" y2="2011.1337" gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st4" d="M299.4,385c0,0,35.9-36.2,36-36c0,0,9.6-7.7,19.7-0.7c0,0-59.7-49.2-123.6-18.3l-18.6,18.7L299.4,385z"/>
-    	</g>
-    	<g>
-
-    			<linearGradient id="ID_InfinityWallet_6" gradientUnits="userSpaceOnUse" x1="698.9443" y1="-1280.3162" x2="698.9443" y2="-296.3967" gradientTransform="matrix(1 0 0 1 0 1474)">
-    			<stop  offset="1.000000e-02" style={{stopColor:"#00BFE1"}}/>
-    			<stop  offset="0.97" style={{stopColor:"#2738AB"}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st5" d="M474.1,644.3c0.7,2,2.4,3.4,4.4,3.9c2.3,0.6,4.7,0,6.4-1.7l13.4-13.4l2.2-2.2l106.2,105.6
+        <linearGradient
+          id="ID_InfinityWallet_5"
+          gradientUnits="userSpaceOnUse"
+          x1="4217.4238"
+          y1="2067.1885"
+          x2="4240.0796"
+          y2="2011.1337"
+          gradientTransform="matrix(-1 0 0 -1 4515 2382.0898)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st4"
+          d="M299.4,385c0,0,35.9-36.2,36-36c0,0,9.6-7.7,19.7-0.7c0,0-59.7-49.2-123.6-18.3l-18.6,18.7L299.4,385z"
+        />
+      </g>
+      <g>
+        <linearGradient
+          id="ID_InfinityWallet_6"
+          gradientUnits="userSpaceOnUse"
+          x1="698.9443"
+          y1="-1280.3162"
+          x2="698.9443"
+          y2="-296.3967"
+          gradientTransform="matrix(1 0 0 1 0 1474)"
+        >
+          <stop offset="1.000000e-02" style={{ stopColor: '#00BFE1' }} />
+          <stop offset="0.97" style={{ stopColor: '#2738AB' }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st5"
+          d="M474.1,644.3c0.7,2,2.4,3.4,4.4,3.9c2.3,0.6,4.7,0,6.4-1.7l13.4-13.4l2.2-2.2l106.2,105.6
     			c40.2,40,105.2,40,145.4,0l151.2-151.4c40-40.5,40-105.6,0-146.1L751.9,288.5c-40.2-40-105.1-40-145.3,0l-34.4,34.4
     			c-4.5,4.5-9.9,10.7-12.9,18.7c-4.7,13.1-2.8,27.7,5.2,39.1c1.5,2.2,3.2,4.2,5.1,6c16.9,16.5,43.9,16.3,60.7-0.3l37.2-37.1
     			c2.2-2.3,5-3.8,8.1-4.5c2.9-0.7,6-0.5,8.8,0.6c2.9,1,5.5,2.7,7.7,5l150.3,150.3c2.3,2.3,3.9,5.2,4.6,8.4c0.8,4,0.1,8.2-2.1,11.8
     			l-0.8,0.9L691,674.5c-2.4,2.4-5.4,4-8.7,4.6c-1,0.2-2.1,0.3-3.1,0.3c-4.4,0.1-8.7-1.7-11.7-5L561.6,569.7l5.3-5.3l10.4-10.6
-    			c1.7-1.7,2.3-4.1,1.7-6.4c-0.5-2-2-3.7-3.9-4.4l-95.6-11.7c-8.2,0.1-14.8,6.7-15,15L474.1,644.3z"/>
+    			c1.7-1.7,2.3-4.1,1.7-6.4c-0.5-2-2-3.7-3.9-4.4l-95.6-11.7c-8.2,0.1-14.8,6.7-15,15L474.1,644.3z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_7" gradientUnits="userSpaceOnUse" x1="3824.9182" y1="1469.7789" x2="3888.3037" y2="1522.7949" gradientTransform="matrix(-1 0 0 -1 4713.1299 1956.6599)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st6" d="M843.6,502.2c4.3,4.9,5.1,13.3,1.3,19c0,0,49.7-54.3,25.8-114.4l-31.5-31.3l-45.8,76.2L843.6,502.2z"/>
+        <linearGradient
+          id="ID_InfinityWallet_7"
+          gradientUnits="userSpaceOnUse"
+          x1="3824.9182"
+          y1="1469.7789"
+          x2="3888.3037"
+          y2="1522.7949"
+          gradientTransform="matrix(-1 0 0 -1 4713.1299 1956.6599)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st6"
+          d="M843.6,502.2c4.3,4.9,5.1,13.3,1.3,19c0,0,49.7-54.3,25.8-114.4l-31.5-31.3l-45.8,76.2L843.6,502.2z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_8" gradientUnits="userSpaceOnUse" x1="445.1279" y1="-730.6945" x2="414.9359" y2="-687.8702" gradientTransform="matrix(1 0 0 1 197.19 1047.96)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st7" d="M688.6,347.4c-56.1-51.6-117.9-22.9-117.9-22.9s-8.1,7.5-11.4,17.4c8.3,4,68.6,47.2,68.6,47.2l35.6-35.6
-    			C676.4,338,688.6,347.4,688.6,347.4z"/>
+        <linearGradient
+          id="ID_InfinityWallet_8"
+          gradientUnits="userSpaceOnUse"
+          x1="445.1279"
+          y1="-730.6945"
+          x2="414.9359"
+          y2="-687.8702"
+          gradientTransform="matrix(1 0 0 1 197.19 1047.96)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st7"
+          d="M688.6,347.4c-56.1-51.6-117.9-22.9-117.9-22.9s-8.1,7.5-11.4,17.4c8.3,4,68.6,47.2,68.6,47.2l35.6-35.6
+    			C676.4,338,688.6,347.4,688.6,347.4z"
+        />
 
-    			<linearGradient id="ID_InfinityWallet_9" gradientUnits="userSpaceOnUse" x1="530.1512" y1="-337.7953" x2="552.8069" y2="-393.8502" gradientTransform="matrix(1 0 0 1 197.19 1047.96)">
-    			<stop  offset="3.000000e-02" style={{stopColor:"#1B1464"}}/>
-    			<stop  offset="1" style={{stopColor:"#1B1464", stopOpacity:0}}/>
-    		</linearGradient>
-    		<path className="infinityWallet-st8" d="M725.5,640.1c0,0-35.9,36.2-36,36c0,0-9.6,7.7-19.7,0.7c0,0,59.7,49.2,123.6,18.3l18.6-18.7L725.5,640.1z"/>
-    	</g>
+        <linearGradient
+          id="ID_InfinityWallet_9"
+          gradientUnits="userSpaceOnUse"
+          x1="530.1512"
+          y1="-337.7953"
+          x2="552.8069"
+          y2="-393.8502"
+          gradientTransform="matrix(1 0 0 1 197.19 1047.96)"
+        >
+          <stop offset="3.000000e-02" style={{ stopColor: '#1B1464' }} />
+          <stop offset="1" style={{ stopColor: '#1B1464', stopOpacity: 0 }} />
+        </linearGradient>
+        <path
+          className="infinityWallet-st8"
+          d="M725.5,640.1c0,0-35.9,36.2-36,36c0,0-9.6,7.7-19.7,0.7c0,0,59.7,49.2,123.6,18.3l18.6-18.7L725.5,640.1z"
+        />
+      </g>
     </g>
   </svg>
 );
@@ -1060,13 +1158,13 @@ const TokenPocket = ({ ...props }) => (
         y2="50.0147427%"
         id="linearGradient-1"
       >
-        <stop stop-color="#FFFFFF" offset="0%"></stop>
-        <stop stop-color="#FFFFFF" stop-opacity="0.3233" offset="96.67%"></stop>
-        <stop stop-color="#FFFFFF" stop-opacity="0.3" offset="100%"></stop>
+        <stop stopColor="#FFFFFF" offset="0%"></stop>
+        <stop stopColor="#FFFFFF" stopOpacity="0.3233" offset="96.67%"></stop>
+        <stop stopColor="#FFFFFF" stopOpacity="0.3" offset="100%"></stop>
       </linearGradient>
     </defs>
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-      <g id="tokenpocket" fill-rule="nonzero">
+    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g id="tokenpocket" fillRule="nonzero">
         <polygon
           fill="#2980FE"
           points="87.9604864 0 0 0 0 88 87.9604864 88"
@@ -1165,15 +1263,31 @@ export const OtherWallets = ({ ...props }) => {
 };
 
 const Fordefi = ({ ...props }) => (
-  <svg {...props} width="88" height="88" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_14298_75627)">
-      <path d="M43.5075 62.5508H6V73.5954C6 79.2046 10.5379 83.7515 16.1357 83.7515H32.9997L43.5075 62.5508Z" fill="#7994FF"/>
-      <path d="M6.00098 39.1016H76.2075L68.0567 55.4841H6.00098V39.1016Z" fill="#486DFF"/>
-      <path d="M30.6398 12H6.09766V32.0282H89.8447V12H65.3025V26.9577H60.2423V12H35.7001V26.9577H30.6398V12Z" fill="#5CD1FA"/>
+  <svg
+    {...props}
+    width="88"
+    height="88"
+    viewBox="0 0 96 96"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clipPath="url(#clip0_14298_75627)">
+      <path
+        d="M43.5075 62.5508H6V73.5954C6 79.2046 10.5379 83.7515 16.1357 83.7515H32.9997L43.5075 62.5508Z"
+        fill="#7994FF"
+      />
+      <path
+        d="M6.00098 39.1016H76.2075L68.0567 55.4841H6.00098V39.1016Z"
+        fill="#486DFF"
+      />
+      <path
+        d="M30.6398 12H6.09766V32.0282H89.8447V12H65.3025V26.9577H60.2423V12H35.7001V26.9577H30.6398V12Z"
+        fill="#5CD1FA"
+      />
     </g>
     <defs>
       <clipPath id="clip0_14298_75627">
-        <rect width="84" height="72" fill="white" transform="translate(6 12)"/>
+        <rect width="84" height="72" fill="white" transform="translate(6 12)" />
       </clipPath>
     </defs>
   </svg>

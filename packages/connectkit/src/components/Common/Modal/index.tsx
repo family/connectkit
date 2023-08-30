@@ -48,6 +48,7 @@ import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
 import useDefaultWallets from '../../../wallets/useDefaultWallets';
+import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -213,8 +214,11 @@ const Modal: React.FC<ModalProps> = ({
   const installedWallets = wallets.filter((wallet) => wallet.installed);
 
   let connector = supportedConnectors.find((c) => c.id === context.connector);
+
+  const injected = useInjectedWallet();
+
   if (isInjectedConnector(context.connector)) {
-    const wallet = installedWallets[0];
+    const wallet = injected.enabled ? injected.wallet : installedWallets[0];
     connector = {
       ...wallet,
       extensionIsInstalled: () => {
@@ -303,7 +307,14 @@ const Modal: React.FC<ModalProps> = ({
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [chain, switchNetwork, mobile, isSignedIn, context.options]);
+  }, [
+    chain,
+    switchNetwork,
+    mobile,
+    isSignedIn,
+    context.options,
+    context.resize,
+  ]);
 
   useEffect(() => {
     if (!mounted) {

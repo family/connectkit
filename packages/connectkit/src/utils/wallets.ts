@@ -12,6 +12,7 @@ export const isMetaMask = () => {
   if (isPhantom()) return false;
   if (isFordefi()) return false;
   if (isTrust()) return false;
+  if (isRainbow()) return false;
   */
   return window?.ethereum?.isMetaMask;
 };
@@ -117,4 +118,14 @@ export const isTalisman = () => {
 export const isFordefi = () => {
   if (typeof window === 'undefined') return false;
   return window?.ethereum?.isFordefi;
+};
+
+export const isRainbow = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+  return !!(
+    ethereum?.isRainbow ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isRainbow))
+  );
 };
