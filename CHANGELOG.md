@@ -1,11 +1,11 @@
 # 1.5.3
 
-wip
+This update adds branding support for additional detectable injected connectors and improves the functionality and developer experience of using ConnectKit.
 
 ## New
 
 - [Rainbow](https://rainbow.me/) extension support.
-- Exports `defaultConnectors`.
+- Exports `defaultConnectors`
 
 ## Improved
 
