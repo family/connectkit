@@ -1,3 +1,22 @@
+# 1.5.3
+
+wip
+
+## New
+
+- [Rainbow](https://rainbow.me/) extension support.
+- Exports `defaultConnectors`.
+
+## Improved
+
+- Added name in header for injected wallet when detected by wagmi.
+
+## Fixed
+
+- Fixed UI overflow in switch network tab.
+- Fixed text overlap in switch network buttons.
+- Provide `exports.types` in `package.json`
+
 # 1.5.2
 
 This update addresses a few bugs and improves the overall experience of ConnectKit.
