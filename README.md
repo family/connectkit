@@ -1,6 +1,7 @@
 <a href="https://docs.family.co/connectkit">
-  <img width="1080" alt="connectkit" src="https://github.com/family/connectkit/assets/1930210/ade2a50c-8cad-49ee-9be6-2713efda1e84">
+  <img width="1080" alt="connectkit" src="https://github.com/family/connectkit/assets/1930210/87c2e868-3228-44b8-82c3-a38adf6d1bbf">
 </a>
+
 
 
 # ConnectKit
