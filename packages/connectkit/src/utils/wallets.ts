@@ -129,3 +129,13 @@ export const isRainbow = () => {
       ethereum?.providers.find((provider) => provider.isRainbow))
   );
 };
+
+export const isZerion = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+  return !!(
+    ethereum?.isZerion ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isZerion))
+  );
+};
