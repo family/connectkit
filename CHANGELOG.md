@@ -1,3 +1,73 @@
+# 1.5.3
+
+This update adds branding support for additional detectable injected connectors and improves the functionality and developer experience of using ConnectKit.
+
+## New
+
+- [Rainbow](https://rainbow.me/) extension support.
+- Exports `defaultConnectors`
+
+## Improved
+
+- Added name in header for injected wallet when detected by wagmi.
+
+## Fixed
+
+- Fixed UI overflow in switch network tab.
+- Fixed text overlap in switch network buttons.
+- Provide `exports.types` in `package.json`
+
+# 1.5.2
+
+This update addresses a few bugs and improves the overall experience of ConnectKit.
+
+## Fixed
+
+- Added `wcm-modal` tag to css variable override.
+- Fixed flash of unstyled content on the `<ChainIcon>` component.
+- Fixed bug where the modal wouldn't open if the configuration didn't include the `InjectedConnector`.
+
+# 1.5.1
+
+This update improves how ConnectKit handles multiple injected wallets.
+
+## Improved
+
+- Better support when dealing with multiple injected wallets.
+
+## Fixed
+
+- Updated `--w3m-z-index` to `--wcm-z-index` to align with latest wagmi connectors.
+
+# 1.5.0
+
+This update improves the developer experience of using ConnectKit by upgrading the peer dependency, [wagmi](https://wagmi.sh), to version `1.1.x`, updating [viem](https://viem.sh/) to version `1.x.x`, and providing additional wallet branding support.
+
+## New
+
+- Updates peer dependency `wagmi` to `1.1.x`.
+- Updates peer dependency `viem` to `1.x.x`.
+- Add branding for the following injected wallets:
+  - [Rabby](https://rabby.io)
+  - [TokenPocket](https://tokenpocket.pro)
+  - [Family](https://family.co)
+  - [Trust](https://trustwallet.com)
+  - [Frontier](https://www.frontier.xyz/)
+  - [Talisman](https://www.talisman.xyz/)
+  - [Infinity](https://infinitywallet.io/)
+  - [Phantom](https://phantom.app) (2023 rebrand)
+
+## Improved
+
+- Better support for injected wallets.
+- Updated [Phantom](https://phantom.app) branding.
+
+## Misc
+
+- Fixed typo in Safe website URL.
+- Updated some SVGs to be more performant with JSX.
+- Fixed arrows in buttons not inheriting hover colors.
+
 # 1.4.0
 
 This update improves the developer experience of using ConnectKit by upgrading the peer dependency wagmi up a version to `1.x.x`, and removes the peer dependency `ethers` in favor of [`viem`](https://viem.sh).

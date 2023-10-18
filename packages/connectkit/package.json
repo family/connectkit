@@ -1,6 +1,6 @@
 {
   "name": "connectkit",
-  "version": "1.4.0",
+  "version": "1.5.3",
   "author": "Family",
   "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
@@ -11,7 +11,10 @@
     "directory": "packages/connectkit"
   },
   "type": "module",
-  "exports": "./build/index.es.js",
+  "exports": {
+    "import": "./build/index.es.js",
+    "types": "./build/index.d.ts"
+  },
   "types": "./build/index.d.ts",
   "engines": {
     "node": ">=12.4"

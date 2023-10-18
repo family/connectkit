@@ -104,8 +104,8 @@ export const ConnectorButton = styled(motion.button)`
   line-height: 20px;
   text-align: var(--ck-body-button-text-align, left);
   transition: 180ms ease;
-  transition-property: background, color, box-shadow, transform;
-  will-change: transform, box-shadow, background-color, color;
+  transition-property: background, color, box-shadow, transform, opacity;
+  will-change: transform, box-shadow, background-color, color, opacity;
 
   --fallback-color: var(--ck-primary-button-color);
   --fallback-background: var(--ck-primary-button-background);
@@ -155,6 +155,7 @@ export const ConnectorButton = styled(motion.button)`
 
   &:disabled {
     transition: 180ms ease;
+    opacity: 0.4;
   }
 
   --bg: var(--background);
@@ -249,6 +250,9 @@ export const ConnectorIcon = styled(motion.div)`
   overflow: hidden;
   svg {
     display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 27.5%;
     width: 100%;
     height: 100%;
   }
@@ -274,7 +278,8 @@ export const MobileConnectorButton = styled(motion.button)`
   font-weight: 500;
   line-height: 13px;
   text-align: center;
-  transition: transform 100ms ease;
+  transition: 100ms ease;
+  transition-property: transform, opacity;
 
   background: none;
 
@@ -301,14 +306,16 @@ export const MobileConnectorLabel = styled(motion.span)`
 `;
 
 export const MobileConnectorIcon = styled(motion.div)`
+  position: relative;
   margin: 0 auto;
   width: 60px;
   height: 60px;
   overflow: hidden;
   svg {
-    border-radius: inherit;
     display: block;
     position: relative;
+    overflow: hidden;
+    border-radius: 27.5%;
     transform: translate3d(0, 0, 0);
     width: 100%;
     height: 100%;

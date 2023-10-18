@@ -19,6 +19,7 @@ function useDefaultWallets(): WalletProps[] | any {
     'argent',
     'trust',
     'ledger',
+    'infinityWallet',
     'family',
     'imToken',
     'rainbow',
@@ -33,7 +34,10 @@ function useDefaultWallets(): WalletProps[] | any {
     'frame',
     'phantom',
     'dawn',
-    'rabby'
+    'rabby',
+    'talisman',
+    'fordefi',
+    'tokenPocket'
   );
 
   const wallets = getWallets();

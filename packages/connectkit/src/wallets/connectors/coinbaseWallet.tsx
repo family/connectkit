@@ -1,7 +1,9 @@
 import { WalletProps } from './../wallet';
 
-import { isMobile, isCoinbaseWallet } from '../../utils';
+import { isMobile } from '../../utils';
 import Logos from './../../assets/logos';
+
+import { isCoinbaseWallet } from '../../utils/wallets';
 
 export const coinbaseWallet = (): WalletProps => {
   const isInstalled = isCoinbaseWallet();

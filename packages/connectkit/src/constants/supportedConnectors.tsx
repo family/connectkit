@@ -8,7 +8,7 @@
 
 import { ReactNode } from 'react';
 import Logos from './../assets/logos';
-import { isCoinbaseWallet, isMetaMask } from './../utils';
+import { isCoinbaseWallet, isMetaMask } from './../utils/wallets';
 
 let supportedConnectors: {
   id: string;

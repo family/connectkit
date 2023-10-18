@@ -26,6 +26,8 @@ import {
   useConnectCallback,
   useConnectCallbackProps,
 } from '../hooks/useConnectCallback';
+import { isFamily } from '../utils/wallets';
+import { useConnector } from '../hooks/useConnectors';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -63,6 +65,8 @@ type ContextValue = {
   debugMode?: boolean;
   log: (...props: any) => void;
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
+  resize: number;
+  triggerResize: () => void;
 } & useConnectCallbackProps;
 
 export const Context = createContext<ContextValue | null>(null);
@@ -124,6 +128,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   });
 
   const chains = useChains();
+  const injectedConnector = useConnector('injected');
 
   // Default config options
   const defaultOptions: ConnectKitOptions = {
@@ -174,6 +179,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [errorMessage, setErrorMessage] = useState<Error>('');
 
+  const [resize, onResize] = useState<number>(0);
+
   // Include Google Font that is needed for a themes
   if (opts.embedGoogleFonts) useThemeFont(theme);
 
@@ -190,6 +197,13 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       setRoute(routes.SWITCHNETWORKS);
     }
   }, [chain, route, open]);
+
+  // Autoconnect to Family wallet if available
+  useEffect(() => {
+    if (isFamily()) {
+      injectedConnector?.connect();
+    }
+  }, [injectedConnector]);
 
   const log = debugMode ? console.log : () => {};
 
@@ -222,6 +236,8 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
       if (code) console.table(code);
       console.log('---------/CONNECTKIT DEBUG---------');
     },
+    resize,
+    triggerResize: () => onResize((prev) => prev + 1),
   };
 
   return createElement(

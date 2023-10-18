@@ -1,7 +1,8 @@
 import { WalletProps } from '../wallet';
 
-import { isPhantom } from '../../utils';
 import Logos from '../../assets/logos';
+
+import { isPhantom } from '../../utils/wallets';
 
 export const phantom = (): WalletProps => {
   const isInstalled = isPhantom();
@@ -10,7 +11,10 @@ export const phantom = (): WalletProps => {
     name: 'Phantom',
     shortName: 'Phantom',
     scannable: false,
-    logos: { default: <Logos.Phantom /> },
+    logos: {
+      default: <Logos.Phantom background />,
+      transparent: <Logos.Phantom />,
+    },
     installed: Boolean(isInstalled),
   };
 };

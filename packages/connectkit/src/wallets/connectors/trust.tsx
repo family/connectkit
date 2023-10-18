@@ -3,7 +3,10 @@ import { WalletProps } from './../wallet';
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
+import { isTrust } from '../../utils/wallets';
+
 export const trust = (): WalletProps => {
+  const isInstalled = isTrust();
   return {
     id: 'trust',
     name: 'Trust Wallet',
@@ -19,6 +22,7 @@ export const trust = (): WalletProps => {
         'https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp',
       ios: 'https://apps.apple.com/app/trust-crypto-bitcoin-wallet/id1288339409',
     },
+    installed: isInstalled,
     createUri: (uri: string) => {
       return isAndroid()
         ? uri

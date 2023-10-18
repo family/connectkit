@@ -2,8 +2,11 @@ import { WalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
+import { isZerion } from '../../utils/wallets';
 
 export const zerion = (): WalletProps => {
+  const isInstalled = isZerion();
+
   return {
     id: 'zerion',
     name: 'Zerion',
@@ -24,5 +27,6 @@ export const zerion = (): WalletProps => {
         ? uri
         : `https://app.zerion.io/wc?uri=${encodeURIComponent(uri)}`;
     },
+    installed: isInstalled,
   };
 };

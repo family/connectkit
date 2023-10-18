@@ -29,9 +29,14 @@ import CircleSpinner from './CircleSpinner';
 import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
-import { detectBrowser, isWalletConnectConnector } from '../../../utils';
+import {
+  detectBrowser,
+  isInjectedConnector,
+  isWalletConnectConnector,
+} from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
+import useDefaultWallets from '../../../wallets/useDefaultWallets';
 
 export const states = {
   CONNECTED: 'connected',
@@ -125,7 +130,24 @@ const ConnectWithInjector: React.FC<{
 
   const [id, setId] = useState(connectorId);
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
-  const connector = supportedConnectors.filter((c) => c.id === id)[0];
+  const wallets = useDefaultWallets();
+  const installedWallets = wallets.filter((wallet) => wallet.installed);
+  let connector = supportedConnectors.filter((c) => c.id === id)[0];
+  if (isInjectedConnector(connectorId) && installedWallets.length > 0) {
+    const wallet = installedWallets[0];
+    connector = {
+      ...wallet,
+      extensionIsInstalled: () => {
+        return wallet?.installed;
+      },
+      extensions: {
+        ...wallet?.downloadUrls,
+      },
+      appUrls: {
+        ...wallet?.downloadUrls,
+      },
+    };
+  }
 
   const expiryDefault = 9; // Starting at 10 causes layout shifting, better to start at 9
   const [expiryTimer, setExpiryTimer] = useState<number>(expiryDefault);
@@ -142,8 +164,8 @@ const ConnectWithInjector: React.FC<{
     ? {
         name: Object.keys(connector.extensions)[0],
         label:
-          Object.keys(connector.extensions)[0].charAt(0).toUpperCase() +
-          Object.keys(connector.extensions)[0].slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+          Object.keys(connector.extensions)[0]?.charAt(0).toUpperCase() +
+          Object.keys(connector.extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
         url: connector.extensions[Object.keys(connector.extensions)[0]],
       }
     : undefined;
