@@ -54,12 +54,13 @@ export const ConnectingAnimation = styled(motion.div)<{
   &:before {
     content: '';
     position: absolute;
-    inset: -5px;
+    inset: 1px;
     opacity: 0;
     background: var(--ck-body-color-danger);
     ${(props) =>
       props.$circle &&
       css`
+        inset: -5px;
         border-radius: 50%;
         background: none;
         box-shadow: inset 0 0 0 3.5px var(--ck-body-color-danger);

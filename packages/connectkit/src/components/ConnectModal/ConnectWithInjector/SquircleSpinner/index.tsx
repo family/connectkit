@@ -1,21 +1,12 @@
-import {
-  LogoContainer,
-  Logo,
-  Spinner,
-  SpinnerContainer,
-  ExpiringSpinner,
-} from './styles';
-
+import { LogoContainer, Logo, Spinner, SpinnerContainer } from './styles';
 import { AnimatePresence } from 'framer-motion';
 
 const SquircleSpinner = ({
   logo,
   connecting = true,
-  countdown = false,
 }: {
   logo?: React.ReactNode;
   connecting?: boolean;
-  countdown?: boolean;
 }) => {
   return (
     <LogoContainer
@@ -32,22 +23,10 @@ const SquircleSpinner = ({
               exit={{
                 opacity: 0,
                 transition: {
-                  duration: countdown ? 1 : 0,
+                  duration: 0,
                 },
               }}
             />
-          )}
-          {countdown && (
-            <ExpiringSpinner
-              key="ExpiringSpinner"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-            >
-              <div />
-              <div />
-            </ExpiringSpinner>
           )}
         </AnimatePresence>
       </SpinnerContainer>
