@@ -12,7 +12,6 @@ export const family = (): WalletProps => {
     name: 'Family',
     logos: {
       default: <Logos.Family />,
-      transparent: <Logos.Family transparent />,
     },
     logoBackground: '#7DC4FF',
     installed: Boolean(isInstalled) ? true : undefined,
