@@ -9,104 +9,50 @@ import {
   NoResults,
 } from './styles';
 
-import { isInjectedConnector } from '../../../utils';
-import Logos, { OtherWallets } from '../../../assets/logos';
+import { isInjectedConnector, isMobile as useIsMobile } from '../../../utils';
 
-import useLocales from '../../../hooks/useLocales';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { ScrollArea } from '../../Common/ScrollArea';
-import useIsMobile from '../../../hooks/useIsMobile';
-import {
-  detectInjectedConnector,
-  shouldShowInjectedConnector,
-} from '../../../utils/injectedWallet';
-import { WalletProps } from '../../../wallets/wallet';
-import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
+import Tooltip from '../Tooltip';
+import { useWallets } from '../../../hooks/useWallets';
 
-export const filterWallets = (wallets: any[]) => {
-  const injected = wallets.find((w) => isInjectedConnector(w.id));
-  const others = wallets.filter((w) => !isInjectedConnector(w.id));
-
-  if (shouldShowInjectedConnector() && injected) {
-    const injectedConnector = detectInjectedConnector();
-    if (injectedConnector) {
-      injected.name = injectedConnector.name;
-      injected.shortName = injectedConnector.shortName;
-      injected.logos = injectedConnector.logos;
-    }
-    return [injected, ...others];
-  }
-  return [...others];
-};
-
-const ConnectorList = ({
-  wallets,
-  start = 0,
-  end = 2,
-}: {
-  wallets: WalletProps[];
-  start?: number;
-  end?: number;
-}) => {
+const ConnectorList = () => {
   const context = useContext();
-  const locales = useLocales({});
   const isMobile = useIsMobile();
+
   const { lastConnectorId } = useLastConnector();
 
-  const filteredWallets = filterWallets(wallets);
-  const sortedWallets = [
-    ...filteredWallets.filter((w) => w.id === lastConnectorId),
-    ...filteredWallets.filter((w) => w.id !== lastConnectorId),
-  ];
-
-  const walletsToDisplay: WalletProps[] = sortedWallets.slice(start, end);
-  const otherWallets: WalletProps[] = sortedWallets.slice(end);
-
-  const { uri: wcUri } = useWalletConnectUri();
-  //const { uri: cbwUri } = useCoinbaseWalletUri({ enabled: !mobile });
-
-  const onClickHandler = (wallet: WalletProps) => {
-    if (isMobile && !wallet.installed) {
-      const uri = wallet.createUri?.(wcUri!);
-      if (uri) window.location.href = uri;
-    } else {
-      context.setRoute(routes.CONNECT);
-      context.setConnector(wallet.id);
-    }
-  };
+  const wallets = useWallets();
+  const walletsToDisplay = wallets;
 
   return (
     <ScrollArea>
       {walletsToDisplay.length === 0 && <NoResults>No wallets found</NoResults>}
+
       <ConnectorsContainer
         $mobile={isMobile}
-        $totalResults={
-          walletsToDisplay.length + (otherWallets.length !== 0 ? 1 : 0)
-        }
+        $totalResults={walletsToDisplay.length}
       >
         {walletsToDisplay.map((wallet) => {
-          const logos = wallet.logos ?? {
-            default: <Logos.PlaceHolder />,
-          };
+          const { id, name, icon, connector } = wallet;
 
-          const logo =
-            (isMobile ? logos.mobile : undefined) ??
-            (wallet.installed ? logos.appIcon : undefined) ??
-            logos.connectorButton ??
-            logos.default;
-
-          const name = isMobile ? wallet.shortName ?? wallet.name : wallet.name;
-
-          return (
+          const ButtonInner = ({
+            disabled = false,
+          }: {
+            disabled?: boolean;
+          }) => (
             <ConnectorButton
-              key={wallet.id}
-              onClick={() => onClickHandler(wallet)}
+              disabled={disabled || context.route !== routes.CONNECTORS}
+              onClick={() => {
+                context.setRoute(routes.CONNECT);
+                context.setConnector({ id: id, name: name });
+              }}
             >
-              <ConnectorIcon>{logo}</ConnectorIcon>
+              <ConnectorIcon>{icon}</ConnectorIcon>
               <ConnectorLabel>
                 {name}
                 {!context.options?.hideRecentBadge &&
-                  lastConnectorId === wallet.id && (
+                  lastConnectorId === connector.id && (
                     <RecentlyUsedTag>
                       <span>Recent</span>
                     </RecentlyUsedTag>
@@ -114,37 +60,26 @@ const ConnectorList = ({
               </ConnectorLabel>
             </ConnectorButton>
           );
-        })}
 
-        {otherWallets.length !== 0 && (
-          <ConnectorButton
-            onClick={() => {
-              context.setRoute(routes.OTHERCONNECTORS);
-            }}
-          >
-            <ConnectorIcon>
-              <div
-                style={
-                  isMobile
-                    ? {
-                        padding: 5,
-                        background: 'var(--ck-body-background-secondary)',
-                        borderRadius: '21%',
-                        boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.02)',
-                      }
-                    : undefined
+          if (!connector.ready) {
+            return (
+              <Tooltip
+                key={id}
+                xOffset={18}
+                message={
+                  <div style={{ width: 230, padding: '6px 4px' }}>
+                    {name} Unavailable as {connector.name} is installed. Disable{' '}
+                    {connector.name} to connect with {name}.
+                  </div>
                 }
+                delay={0}
               >
-                <OtherWallets
-                  wallets={otherWallets.map((w) => w.logos.default)}
-                />
-              </div>
-            </ConnectorIcon>
-            <ConnectorLabel>
-              {context.options?.walletConnectName ?? locales.otherWallets}
-            </ConnectorLabel>
-          </ConnectorButton>
-        )}
+                <ButtonInner disabled />
+              </Tooltip>
+            );
+          }
+          return <ButtonInner key={id} />;
+        })}
       </ConnectorsContainer>
     </ScrollArea>
   );

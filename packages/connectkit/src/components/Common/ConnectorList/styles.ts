@@ -1,4 +1,4 @@
-import styled from './../../../styles/styled';
+import styled from '../../../styles/styled';
 import { css, keyframes } from 'styled-components';
 
 import { motion } from 'framer-motion';
@@ -29,8 +29,8 @@ const styles = {
       line-height: 20px;
       text-align: var(--ck-body-button-text-align, left);
       transition: 180ms ease;
-      transition-property: background, color, box-shadow, transform;
-      will-change: transform, box-shadow, background-color, color;
+      transition-property: background, color, box-shadow, transform, opacity;
+      will-change: transform, box-shadow, background-color, color, opacity;
 
       --fallback-color: var(--ck-primary-button-color);
       --fallback-background: var(--ck-primary-button-background);
@@ -86,6 +86,7 @@ const styles = {
 
       &:disabled {
         transition: 180ms ease;
+        opacity: 0.4;
       }
 
       --bg: var(--background);
@@ -131,9 +132,13 @@ const styles = {
       width: 32px;
       height: 32px;
       overflow: hidden;
-      border-radius: 6px;
-      svg {
+      svg,
+      img {
         display: block;
+        position: relative;
+        pointer-events: none;
+        overflow: hidden;
+        border-radius: 27.5%;
         width: 100%;
         height: 100%;
       }
@@ -164,7 +169,8 @@ const styles = {
       height: 60px;
       overflow: hidden;
       border-radius: 16px;
-      svg {
+      svg,
+      img {
         display: block;
         position: relative;
         width: 100%;
