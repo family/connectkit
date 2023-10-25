@@ -15,6 +15,7 @@ import { useLastConnector } from '../../../hooks/useLastConnector';
 import { ScrollArea } from '../../Common/ScrollArea';
 import Tooltip from '../Tooltip';
 import { useWallets } from '../../../hooks/useWallets';
+import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 
 const ConnectorList = () => {
   const context = useContext();
@@ -24,6 +25,8 @@ const ConnectorList = () => {
 
   const wallets = useWallets();
   const walletsToDisplay = wallets;
+
+  const injectedWallet = useInjectedWallet();
 
   return (
     <ScrollArea>
@@ -61,15 +64,16 @@ const ConnectorList = () => {
             </ConnectorButton>
           );
 
-          if (!connector.ready) {
+          if (!connector.ready && injectedWallet.enabled) {
             return (
               <Tooltip
                 key={id}
                 xOffset={18}
                 message={
                   <div style={{ width: 230, padding: '6px 4px' }}>
-                    {name} Unavailable as {connector.name} is installed. Disable{' '}
-                    {connector.name} to connect with {name}.
+                    {name} Unavailable as {injectedWallet?.wallet?.name} is
+                    installed. Disable {injectedWallet?.wallet?.name} to connect
+                    with {name}.
                   </div>
                 }
                 delay={0}

@@ -1,3 +1,10 @@
+declare global {
+  interface Window {
+    trustWallet: any;
+    trustwallet: any;
+  }
+}
+
 export const isMetaMask = () => {
   if (typeof window === 'undefined') return false;
   /*

@@ -73,8 +73,8 @@ export const walletConfigs: WalletConfigProps = {
   },
   rainbow: {
     rdns: 'me.rainbow',
-    name: 'Rainbow Wallet 🌈',
-    shortName: '🌈',
+    name: 'Rainbow Wallet',
+    shortName: 'Rainbow',
   },
   frame: {
     name: 'Frame',

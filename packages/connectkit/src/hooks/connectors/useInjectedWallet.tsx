@@ -1,26 +1,27 @@
 import { useInjectedConnector } from '../useConnectors';
 import useDefaultWallets from '../../wallets/useDefaultWallets';
 import Logos from '../../assets/logos';
+import { Connector } from 'wagmi';
+
+export const getInjectedNames = (connector: Connector) => {
+  if (!connector) return [];
+
+  let names = connector.name.split(/[(),]+/);
+  names.shift(); // remove "Injected" from array
+  names = names
+    .map((x) => x.trim())
+    .filter((x) => x !== '')
+    .filter((x) => x !== 'Injected');
+  return names;
+};
 
 export const useInjectedWallet = () => {
   const wallets = useDefaultWallets();
   const connector = useInjectedConnector();
-
-  const getInjectedNames = () => {
-    if (!connector) return [];
-
-    let names = connector.name.split(/[(),]+/);
-    names.shift(); // remove "Injected" from array
-    names = names
-      .map((x) => x.trim())
-      .filter((x) => x !== '')
-      .filter((x) => x !== 'Injected');
-    return names;
-  };
   const shouldShow = () => {
     if (!(typeof window !== 'undefined' && window?.ethereum)) return false;
 
-    const names = getInjectedNames();
+    const names = getInjectedNames(connector);
     if (
       names.length === 1 &&
       (names[0] === 'MetaMask' || names[0] === 'Coinbase Wallet')
@@ -44,8 +45,9 @@ export const useInjectedWallet = () => {
     } else {
       return {
         id: 'injected',
-        name: getInjectedNames()?.[0] ?? 'Browser Wallet',
-        shortName: getInjectedNames()?.[0]?.replace(' Wallet', '') ?? 'Browser',
+        name: getInjectedNames(connector)?.[0] ?? 'Browser Wallet',
+        shortName:
+          getInjectedNames(connector)?.[0]?.replace(' Wallet', '') ?? 'Browser',
         logos: {
           default: <Logos.Injected />,
         },

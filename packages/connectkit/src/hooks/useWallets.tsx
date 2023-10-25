@@ -16,6 +16,7 @@ interface WalletProps {
   id: string;
   rdns?: string;
   name: string;
+  shortName?: string;
   icon: React.ReactNode;
   connector: Connector<any, any>;
   isInstalled?: boolean;
@@ -117,10 +118,13 @@ export const useWallets = (): WalletProps[] => {
         );
         if (override) {
           w.name = override?.name ?? w.name;
+          w.shortName = override?.shortName ?? w.shortName;
         }
       } else {
         const override = walletConfigs[w.id];
         if (override) {
+          w.name = override?.name ?? w.name;
+          w.shortName = override?.shortName ?? w.shortName;
           w.downloadUrls = override.downloadUrls;
         }
       }

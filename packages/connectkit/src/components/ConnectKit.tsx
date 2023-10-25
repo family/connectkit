@@ -57,7 +57,10 @@ type ContextValue = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   route: string;
   setRoute: React.Dispatch<React.SetStateAction<string>>;
-  connector: string;
+  connector: {
+    id: string;
+    name?: string;
+  };
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptions;
@@ -175,7 +178,10 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   );
   const [ckLang, setLang] = useState<Languages>('en-US');
   const [open, setOpen] = useState<boolean>(false);
-  const [connector, setConnector] = useState<string>('');
+  const [connector, setConnector] = useState<ContextValue['connector']>({
+    id: '',
+    name: undefined,
+  });
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [errorMessage, setErrorMessage] = useState<Error>('');
 
