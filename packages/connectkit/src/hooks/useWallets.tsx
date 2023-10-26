@@ -115,7 +115,11 @@ export const useWallets = (): WalletProps[] => {
       } else {
         const override = walletConfigs[w.id];
         if (override) {
-          w = { ...w, ...override };
+          if (w.id === 'injected') {
+            w = { ...override, ...w }; // Injected connector more important
+          } else {
+            w = { ...w, ...override };
+          }
         }
       }
 
@@ -132,7 +136,11 @@ export const useWallets = (): WalletProps[] => {
     if (w.name === '') return false;
 
     const index = wallets.find(
-      (wallet) => wallet.name === w.name && wallet.rdns
+      (wallet) =>
+        (wallet.name === w.name ||
+          wallet.name === w.shortName ||
+          wallet.shortName === w.name) &&
+        wallet.rdns
     );
     return !index;
   });
