@@ -8,23 +8,16 @@ import { useConnectors, useInjectedConnector } from './useConnectors';
 import { isWalletConnectConnector } from '../utils';
 import { getWallets } from '../wallets';
 import { getInjectedNames } from './connectors/useInjectedWallet';
-import { walletConfigs } from '../constants/walletConfigs';
+import { walletConfigs, WalletConfigProps } from '../constants/walletConfigs';
 
 const midp = createMidp();
 
-interface WalletProps {
+type WalletProps = {
   id: string;
-  rdns?: string;
-  name: string;
-  shortName?: string;
-  icon: React.ReactNode;
   connector: Connector<any, any>;
   isInstalled?: boolean;
   createUri?: (uri: string) => string;
-  downloadUrls?: {
-    [key: string]: string;
-  };
-}
+} & WalletConfigProps;
 
 const getWalletConfig = ({ rdns, name }: { rdns?: string; name?: string }) => {
   const wallet = Object.values(walletConfigs).find((w) => {
@@ -53,7 +46,7 @@ export const useWallets = (): WalletProps[] => {
   const injectedConnector = useInjectedConnector();
 
   const wallets = connectors
-    .map((c) => {
+    .map((c): WalletProps => {
       if (c.id === 'injected') {
         const midpConnector = midp?.findConnectorByUUID(c.name);
 
@@ -117,15 +110,12 @@ export const useWallets = (): WalletProps[] => {
           ({ rdns }) => rdns === w.rdns
         );
         if (override) {
-          w.name = override?.name ?? w.name;
-          w.shortName = override?.shortName ?? w.shortName;
+          w = { ...w, ...override };
         }
       } else {
         const override = walletConfigs[w.id];
         if (override) {
-          w.name = override?.name ?? w.name;
-          w.shortName = override?.shortName ?? w.shortName;
-          w.downloadUrls = override.downloadUrls;
+          w = { ...w, ...override };
         }
       }
 

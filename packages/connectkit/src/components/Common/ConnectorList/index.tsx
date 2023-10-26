@@ -31,13 +31,16 @@ const ConnectorList = () => {
   return (
     <ScrollArea>
       {walletsToDisplay.length === 0 && <NoResults>No wallets found</NoResults>}
+      {injectedWallet.enabled && <>Injected Enabled</>}
 
       <ConnectorsContainer
         $mobile={isMobile}
         $totalResults={walletsToDisplay.length}
       >
         {walletsToDisplay.map((wallet) => {
-          const { id, name, icon, connector } = wallet;
+          const { id, name, icon, iconConnector, connector } = wallet;
+
+          if (isInjectedConnector(id) && !injectedWallet.enabled) return null;
 
           const ButtonInner = ({
             disabled = false,
@@ -51,11 +54,11 @@ const ConnectorList = () => {
                 context.setConnector({ id: id, name: name });
               }}
             >
-              <ConnectorIcon>{icon}</ConnectorIcon>
+              <ConnectorIcon>{iconConnector ?? icon}</ConnectorIcon>
               <ConnectorLabel>
                 {name}
                 {!context.options?.hideRecentBadge &&
-                  lastConnectorId === connector.id && (
+                  lastConnectorId === `${connector.id}-${connector.name}` && (
                     <RecentlyUsedTag>
                       <span>Recent</span>
                     </RecentlyUsedTag>

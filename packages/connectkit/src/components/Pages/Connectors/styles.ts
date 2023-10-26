@@ -28,7 +28,8 @@ export const InfoBoxButtons = styled.div`
 `;
 export const LearnMoreContainer = styled(motion.div)`
   text-align: center;
-  margin-bottom: -12px;
+  margin-top: 16px;
+  margin-bottom: -6px;
 `;
 export const LearnMoreButton = styled(motion.button)`
   appearance: none;

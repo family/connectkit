@@ -1,17 +1,16 @@
 import Logos from '../assets/logos';
 
-type WalletConfigProps = {
-  [key: string]: {
-    rdns?: string;
-    name?: string;
-    shortName?: string;
-    icon?: string | JSX.Element;
-    iconBackground?: string;
-    downloadUrls?: { [key: string]: string };
-  };
+export type WalletConfigProps = {
+  rdns?: string;
+  name?: string;
+  shortName?: string;
+  icon?: string | React.ReactNode;
+  iconConnector?: React.ReactNode;
+  iconBackground?: string;
+  downloadUrls?: { [key: string]: string };
 };
 
-export const walletConfigs: WalletConfigProps = {
+export const walletConfigs: { [key: string]: WalletConfigProps } = {
   injected: {
     name: 'Browser Wallet',
     shortName: 'Browser',
@@ -20,16 +19,27 @@ export const walletConfigs: WalletConfigProps = {
   walletConnect: {
     name: 'Other Wallets',
     shortName: 'Other',
-    icon: <Logos.WalletConnect />,
+    icon: <Logos.WalletConnect background />,
+    iconConnector: <Logos.OtherWallets />,
   },
   walletConnectLegacy: {
     name: 'Other Wallets',
     shortName: 'Other',
-    icon: <Logos.WalletConnectLegacy />,
+    icon: <Logos.WalletConnectLegacy background />,
+    iconConnector: <Logos.OtherWallets />,
   },
   metaMask: {
     name: 'MetaMask',
     icon: <Logos.MetaMask />,
+    iconConnector: (
+      <div
+        style={{
+          transform: 'scale(1.1)',
+        }}
+      >
+        <Logos.MetaMask />
+      </div>
+    ),
     iconBackground:
       'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
     downloadUrls: {
@@ -49,7 +59,7 @@ export const walletConfigs: WalletConfigProps = {
   coinbaseWallet: {
     name: 'Coinbase Wallet',
     shortName: 'Coinbase',
-    icon: <Logos.Coinbase />,
+    icon: <Logos.Coinbase background />,
     downloadUrls: {
       chrome:
         'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',

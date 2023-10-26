@@ -161,7 +161,7 @@ const ConnectWithInjector: React.FC<{
   });
 
   const runConnect = async () => {
-    if (!wallet?.isInstalled && wallet?.connector) {
+    if (wallet?.isInstalled && wallet?.connector) {
       connect({ connector: wallet?.connector });
     } else {
       setStatus(states.UNAVAILABLE);
