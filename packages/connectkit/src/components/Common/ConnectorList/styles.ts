@@ -8,7 +8,10 @@ const Shimmer = keyframes`
   100%{ transform: translate(100%) rotate(-80deg); }
 `;
 
-export const ConnectorButton = styled(motion.button)``;
+export const ConnectorButton = styled(motion.button)`
+  display: block;
+  text-decoration: none;
+`;
 export const ConnectorLabel = styled(motion.span)``;
 export const ConnectorIcon = styled(motion.div)``;
 
@@ -290,7 +293,8 @@ const FadeIn = keyframes`
   to { opacity: 1; }
 `;
 export const NoResults = styled.div`
-  padding: 20px 0;
+  text-align: center;
+  padding: 24px 0;
   color: var(--ck-body-color-muted);
   font-size: 16px;
   user-select: none;

@@ -9,19 +9,23 @@ import {
   NoResults,
 } from './styles';
 
-import { isInjectedConnector, isMobile as useIsMobile } from '../../../utils';
-
-import { useLastConnector } from '../../../hooks/useLastConnector';
-import { ScrollArea } from '../../Common/ScrollArea';
-import Tooltip from '../Tooltip';
 import { useWallets } from '../../../hooks/useWallets';
 import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
+import { isInjectedConnector } from '../../../utils';
+
+import { useLastConnector } from '../../../hooks/useLastConnector';
+import useIsMobile from '../../../hooks/useIsMobile';
+
+import { ScrollArea } from '../../Common/ScrollArea';
+import Tooltip from '../Tooltip';
+import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 
 const ConnectorList = () => {
   const context = useContext();
   const isMobile = useIsMobile();
 
   const { lastConnectorId } = useLastConnector();
+  const { uri } = useWalletConnectUri();
 
   const wallets = useWallets();
   const walletsToDisplay = wallets;
@@ -31,14 +35,17 @@ const ConnectorList = () => {
   return (
     <ScrollArea>
       {walletsToDisplay.length === 0 && <NoResults>No wallets found</NoResults>}
-      {injectedWallet.enabled && <>Injected Enabled</>}
+      {injectedWallet.enabled && <NoResults>Injected Enabled</NoResults>}
 
       <ConnectorsContainer
         $mobile={isMobile}
         $totalResults={walletsToDisplay.length}
       >
         {walletsToDisplay.map((wallet) => {
-          const { id, name, icon, iconConnector, connector } = wallet;
+          const { id, name, icon, iconConnector, connector, createUri } =
+            wallet;
+
+          const deeplink = isMobile ? createUri?.(uri ?? '') : undefined;
 
           if (isInjectedConnector(id) && !injectedWallet.enabled) return null;
 
@@ -48,11 +55,17 @@ const ConnectorList = () => {
             disabled?: boolean;
           }) => (
             <ConnectorButton
+              as={deeplink ? 'a' : undefined}
+              href={deeplink ? deeplink : undefined}
               disabled={disabled || context.route !== routes.CONNECTORS}
-              onClick={() => {
-                context.setRoute(routes.CONNECT);
-                context.setConnector({ id: id, name: name });
-              }}
+              onClick={
+                deeplink
+                  ? undefined
+                  : () => {
+                      context.setRoute(routes.CONNECT);
+                      context.setConnector({ id: id, name: name });
+                    }
+              }
             >
               <ConnectorIcon>{iconConnector ?? icon}</ConnectorIcon>
               <ConnectorLabel>
