@@ -261,17 +261,16 @@ export const ConnectorsContainer = styled.div<{
           }
         `
       : css`
-          display: grid;
+          display: flex;
           align-items: flex-start;
-          grid-template-columns: repeat(
-            ${props.$totalResults < 4 ? props.$totalResults : 4},
-            1fr
-          );
+          justify-content: space-around;
           gap: 22px 6px;
           //margin: 0px -10px -20px;
-          padding: 14px 0px 10px;
+          padding: 14px 0px 28px;
 
           ${ConnectorButton} {
+            flex-shrink: 0;
+            width: 80px;
             ${styles.mobile.ConnectorButton}
             ${ConnectorLabel} {
               ${styles.mobile.ConnectorLabel}
@@ -286,18 +285,4 @@ export const ConnectorsContainer = styled.div<{
             }
           }
         `}
-`;
-
-const FadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
-`;
-export const NoResults = styled.div`
-  text-align: center;
-  padding: 24px 0;
-  color: var(--ck-body-color-muted);
-  font-size: 16px;
-  user-select: none;
-  pointer-events: none;
-  animation: ${FadeIn} 300ms ease forwards;
 `;
