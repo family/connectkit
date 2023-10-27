@@ -32,6 +32,7 @@ import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
 import { useContext } from '../../ConnectKit';
 import { useWallet } from '../../../hooks/useWallets';
+import CircleSpinner from './CircleSpinner';
 
 export const states = {
   CONNECTED: 'connected',
@@ -267,26 +268,51 @@ const ConnectWithInjector: React.FC<{
                 </RetryButton>
               )}
             </AnimatePresence>
-            <SquircleSpinner
-              logo={
-                status === states.UNAVAILABLE ? (
-                  <div
-                    style={{
-                      transform: 'scale(1.14)',
-                      position: 'relative',
-                      width: '100%',
-                    }}
-                  >
-                    {wallet.icon}
-                  </div>
-                ) : (
-                  <>{wallet.icon}</>
-                )
-              }
-              //smallLogo={wallet.connector.id === 'injected' && wallet.connector.name === 'injected'}
-              connecting={status === states.CONNECTING}
-              //unavailable={status === states.UNAVAILABLE}
-            />
+            {wallet.iconShape === 'circle' ? (
+              <CircleSpinner
+                logo={
+                  status === states.UNAVAILABLE ? (
+                    <div
+                      style={{
+                        transform: 'scale(1.14)',
+                        position: 'relative',
+                        width: '100%',
+                      }}
+                    >
+                      {wallet.icon}
+                    </div>
+                  ) : (
+                    <>{wallet.icon}</>
+                  )
+                }
+                smallLogo={
+                  wallet.id === 'injected' && wallet.connector.id === 'injected'
+                }
+                connecting={status === states.CONNECTING}
+                unavailable={status === states.UNAVAILABLE}
+              />
+            ) : (
+              <SquircleSpinner
+                logo={
+                  status === states.UNAVAILABLE ? (
+                    <div
+                      style={{
+                        transform: 'scale(1.14)',
+                        position: 'relative',
+                        width: '100%',
+                      }}
+                    >
+                      {wallet.icon}
+                    </div>
+                  ) : (
+                    <>{wallet.icon}</>
+                  )
+                }
+                //smallLogo={wallet.connector.id === 'injected' && wallet.connector.name === 'injected'}
+                connecting={status === states.CONNECTING}
+                //unavailable={status === states.UNAVAILABLE}
+              />
+            )}
             {/* </Tooltip> */}
           </ConnectingAnimation>
         </ConnectingContainer>

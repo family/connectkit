@@ -7,6 +7,7 @@ export type WalletConfigProps = {
   icon?: string | React.ReactNode;
   iconConnector?: React.ReactNode;
   iconBackground?: string;
+  iconShape?: 'squircle' | 'circle';
   downloadUrls?: { [key: string]: string };
 };
 
@@ -42,6 +43,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     ),
     iconBackground:
       'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
+    iconShape: 'circle',
     downloadUrls: {
       chrome:
         'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
