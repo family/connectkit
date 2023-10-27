@@ -88,6 +88,12 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     name: 'Rainbow Wallet',
     shortName: 'Rainbow',
   },
+  rabby: {
+    rdns: 'io.rabby',
+    name: 'Rabby Wallet',
+    shortName: 'Rabby',
+    iconShape: 'circle',
+  },
   frame: {
     name: 'Frame',
     icon: <Logos.Frame />,

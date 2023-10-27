@@ -240,7 +240,7 @@ const ConnectWithInjector: React.FC<{
         <ConnectingContainer>
           <ConnectingAnimation
             $shake={status === states.FAILED || status === states.REJECTED}
-            //$circle
+            $circle={wallet.iconShape === 'circle'}
           >
             <AnimatePresence>
               {(status === states.FAILED || status === states.REJECTED) && (
