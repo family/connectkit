@@ -1,4 +1,5 @@
 import { injected } from './connectors/injected';
+import { XDEFI } from './connectors/XDEFI';
 import { walletConnect } from './connectors/walletConnect';
 import { metaMask } from './connectors/metaMask';
 import { infinityWallet } from './connectors/infinityWallet';
@@ -29,6 +30,7 @@ import { talisman } from './connectors/talisman';
 export const getWallets = () => {
   return [
     injected(),
+    XDEFI(),
     walletConnect(),
     metaMask(),
     infinityWallet(),
