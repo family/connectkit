@@ -13,7 +13,8 @@ function useDefaultWallets(): WalletProps[] | any {
     defaultWallets.push('metaMask');
   if (!connectors.find((c) => c.id === 'coinbaseWallet'))
     defaultWallets.push('coinbaseWallet');
-
+  if (!connectors.find((c) => c.id === 'XDEFI'))
+    defaultWallets.push('XDEFI');
   // define the order of the wallets
   defaultWallets.push(
     'argent',
