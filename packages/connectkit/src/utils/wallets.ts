@@ -1,6 +1,7 @@
 export const isMetaMask = () => {
   if (typeof window === 'undefined') return false;
   /*
+  if (isXDEFI()) return false;
   if (isBrave()) return false;
   if (isDawn()) return false;
   if (isTokenary()) return false;
@@ -25,6 +26,16 @@ export const isCoinbaseWallet = () => {
     ethereum?.isCoinbaseWallet ||
     (ethereum?.providers &&
       ethereum?.providers.find((provider) => provider.isCoinbaseWallet))
+  );
+};
+
+export const isXDEFI = () => {
+  if (typeof window === 'undefined') return false;
+  const { ethereum } = window;
+  return !!(
+    ethereum?.isXDEFI ||
+    (ethereum?.providers &&
+      ethereum?.providers.find((provider) => provider.isXDEFI))
   );
 };
 
