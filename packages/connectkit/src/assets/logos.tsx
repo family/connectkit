@@ -1293,6 +1293,20 @@ const Fordefi = ({ ...props }) => (
   </svg>
 );
 
+export const Tokenary = ({ ...props }) => (
+  <svg
+    {...props}
+    width="128"
+    height="128"
+    viewBox="0 0 128 128"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="128" height="128" fill="white"/>
+    <circle cx="64" cy="64" r="40.875" fill="#2C7CF5"/>
+  </svg>
+);
+
 export default {
   Injected,
   OtherWallets,
@@ -1324,4 +1338,5 @@ export default {
   Fordefi,
   TokenPocket,
   Talisman,
+  Tokenary,
 };

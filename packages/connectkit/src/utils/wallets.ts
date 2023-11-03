@@ -40,7 +40,8 @@ export const isBrave = () => {
 
 export const isTokenary = () => {
   if (typeof window === 'undefined') return false;
-  return window?.ethereum?.isTokenary;
+  if (typeof window?.tokenary === 'undefined') return false;
+  return true;
 };
 
 export const isDawn = () => {

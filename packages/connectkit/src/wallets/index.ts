@@ -24,6 +24,7 @@ import { rabby } from './connectors/rabby';
 import { fordefi } from './connectors/fordefi';
 import { tokenPocket } from './connectors/tokenPocket';
 import { talisman } from './connectors/talisman';
+import { tokenary } from './connectors/tokenary';
 
 
 export const getWallets = () => {
@@ -56,5 +57,6 @@ export const getWallets = () => {
     fordefi(),
     tokenPocket(),
     talisman(),
+    tokenary(),
   ];
 };
