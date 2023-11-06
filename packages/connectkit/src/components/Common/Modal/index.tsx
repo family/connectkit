@@ -509,7 +509,7 @@ const Modal: React.FC<ModalProps> = ({
                   ) : context.route === routes.PROFILE &&
                     context.signInWithEthereum ? (
                     <>
-                      {!isSignedIn && (
+                      {!isSignedIn && !context.options?.hideTooltips && (
                         <motion.div
                           style={{
                             position: 'absolute',
