@@ -5,7 +5,7 @@ type HookProps = {
   isSignedIn: boolean;
   data?: SIWESession;
   status: StatusState;
-  error?: Error | any;
+  error?: Error;
   isRejected: boolean;
   isError: boolean;
   isLoading: boolean;
