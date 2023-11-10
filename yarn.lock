@@ -13802,6 +13802,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nextjs-siwe-app-router@workspace:examples/nextjs-siwe-app-router":
+  version: 0.0.0-use.local
+  resolution: "nextjs-siwe-app-router@workspace:examples/nextjs-siwe-app-router"
+  dependencies:
+    "@types/node": 18.7.18
+    "@types/react": ^18.0.6
+    "@types/react-dom": ^18.0.2
+    connectkit: "workspace:packages/connectkit"
+    connectkit-next-siwe: "workspace:packages/connectkit-next-siwe"
+    eslint: 8.23.1
+    eslint-config-next: ^13
+    next: ^13.4.4
+    react: ^18.0.0
+    react-dom: ^18.0.0
+    siwe: ^2.1.4
+    typescript: ^4.9.5
+    viem: ^1.1.0
+    wagmi: ^1.1.1
+  languageName: unknown
+  linkType: soft
+
 "nextjs-siwe@workspace:examples/nextjs-siwe":
   version: 0.0.0-use.local
   resolution: "nextjs-siwe@workspace:examples/nextjs-siwe"
