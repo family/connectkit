@@ -138,7 +138,7 @@ export const configureServerSideSIWE = <TSessionData extends Object = {}>({
   function checkRouteParam(params: any): asserts params is { route: string[] } {
     if (!(params.route instanceof Array)) {
       throw new Error(
-        'Catch-all query param `route` not found. SIWE API page should be named `[...route].ts` and within your `app/api` directory.'
+        'Catch-all query param `route` not found. SIWE API page should be named `[...route]/route.ts` and within your `app/api` directory.'
       );
     }
   }
