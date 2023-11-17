@@ -18,8 +18,6 @@ const ConnectUsing = () => {
   const context = useContext();
   const wallet = useWallet(context.connector.id, context.connector.name);
 
-  console.log(wallet);
-
   // If cannot be scanned, display injector flow, which if extension is not installed will show CTA to install it
   const useInjector = !wallet?.createUri || wallet?.isInstalled;
 
