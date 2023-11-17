@@ -59,9 +59,11 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     },
   },
   coinbaseWallet: {
+    rdns: 'com.coinbase.wallet',
     name: 'Coinbase Wallet',
     shortName: 'Coinbase',
     icon: <Logos.Coinbase background />,
+    iconShape: 'circle',
     downloadUrls: {
       chrome:
         'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
@@ -107,5 +109,10 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
       brave:
         'https://chrome.google.com/webstore/detail/frame-companion/ldcoohedfbjoobcadoglnnmmfbdlmmhf',
     },
+  },
+  crypto: {
+    rdns: 'com.crypto.wallet',
+    name: 'Crypto.com',
+    shortName: 'Crypto',
   },
 };
