@@ -82,7 +82,13 @@ const ConnectorList = () => {
                       }
                 }
               >
-                <ConnectorIcon>{iconConnector ?? icon}</ConnectorIcon>
+                <ConnectorIcon
+                  style={{
+                    borderRadius: wallet.id === 'walletConnect' ? 0 : undefined,
+                  }}
+                >
+                  {iconConnector ?? icon}
+                </ConnectorIcon>
                 <ConnectorLabel>
                   {isMobile ? shortName ?? name : name}
                   {!context.options?.hideRecentBadge &&

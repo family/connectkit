@@ -235,6 +235,7 @@ export const ConnectorsContainer = styled.div<{
   $totalResults?: number;
 }>`
   transition: opacity 300ms ease;
+  min-width: fit-content;
 
   ${(props) =>
     props.$disabled &&

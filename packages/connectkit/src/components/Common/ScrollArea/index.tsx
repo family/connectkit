@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { ScrollAreaContainer } from './styles';
+import useIsMobile from '../../../hooks/useIsMobile';
 
 export const ScrollArea = ({
   children,
@@ -12,23 +13,35 @@ export const ScrollArea = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  // if scroll at top add class, if scroll at bottom add class
+  const isMobile = useIsMobile();
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     const handleScroll = (e: any) => {
-      const { scrollTop, scrollHeight, clientHeight } = e.target;
-      if (scrollTop === 0) {
-        el.classList.add('scroll-top');
+      const {
+        scrollTop,
+        scrollHeight,
+        clientHeight,
+        scrollLeft,
+        scrollWidth,
+        clientWidth,
+      } = e.target;
+
+      if (scrollTop === 0 && scrollLeft === 0) {
+        el.classList.add('scroll-start');
       } else {
-        el.classList.remove('scroll-top');
+        el.classList.remove('scroll-start');
       }
 
-      if (scrollHeight - scrollTop === clientHeight) {
-        el.classList.add('scroll-bottom');
+      if (
+        scrollHeight - scrollTop === clientHeight &&
+        scrollWidth - scrollLeft === clientWidth
+      ) {
+        el.classList.add('scroll-end');
       } else {
-        el.classList.remove('scroll-bottom');
+        el.classList.remove('scroll-end');
       }
     };
 
@@ -42,6 +55,7 @@ export const ScrollArea = ({
 
   return (
     <ScrollAreaContainer
+      $mobile={isMobile}
       $height={height}
       $backgroundColor={backgroundColor}
       ref={ref}
