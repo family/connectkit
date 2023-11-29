@@ -41,7 +41,10 @@ export const routes = {
   SIGNINWITHETHEREUM: 'signInWithEthereum',
 };
 
-type Connector = any;
+type Connector = {
+  id: string;
+  name?: string;
+};
 type Error = string | React.ReactNode | null;
 
 type ContextValue = {
@@ -57,10 +60,7 @@ type ContextValue = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   route: string;
   setRoute: React.Dispatch<React.SetStateAction<string>>;
-  connector: {
-    id: string;
-    name?: string;
-  };
+  connector: Connector;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptions;
