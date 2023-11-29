@@ -94,7 +94,7 @@ const ConnectorList = () => {
                 </ConnectorLabel>
               </ConnectorButton>
             );
-
+            /*
             if (!connector.ready && injectedWallet.enabled) {
               return (
                 <Tooltip
@@ -113,6 +113,7 @@ const ConnectorList = () => {
                 </Tooltip>
               );
             }
+            */
             return <ButtonInner key={id} />;
           })}
         </ConnectorsContainer>
