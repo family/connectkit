@@ -29,7 +29,22 @@ const ConnectorList = () => {
   const injectedWallet = useInjectedWallet();
 
   const wallets = useWallets();
-  const walletsToDisplay = wallets;
+  const walletsToDisplay = context.options?.hideRecentBadge
+    ? wallets
+    : [
+        // move last used wallet to top of list
+        // using .filter and spread to avoid mutating original array order with .sort
+        ...wallets.filter(
+          (wallet) =>
+            lastConnectorId ===
+            `${wallet.connector.id}-${wallet.connector.name}`
+        ),
+        ...wallets.filter(
+          (wallet) =>
+            lastConnectorId !==
+            `${wallet.connector.id}-${wallet.connector.name}`
+        ),
+      ];
 
   return (
     <ScrollArea>
