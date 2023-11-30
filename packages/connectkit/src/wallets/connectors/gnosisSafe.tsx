@@ -8,10 +8,8 @@ export const gnosisSafe = (): WalletProps => {
     id: 'gnosisSafe',
     name: 'Gnosis Safe',
     shortName: 'Safe',
-    logos: {
-      default: <Logos.GnosisSafe />,
-    },
-    logoBackground: '#ffffff',
+    icon: <Logos.GnosisSafe />,
+    iconBackground: '#ffffff',
     scannable: false,
     installed: !(typeof window === 'undefined') && window?.parent !== window,
     downloadUrls: {

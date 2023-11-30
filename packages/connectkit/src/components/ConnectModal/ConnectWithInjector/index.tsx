@@ -27,12 +27,17 @@ import SquircleSpinner from './SquircleSpinner';
 import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
-import { detectBrowser, isWalletConnectConnector } from '../../../utils';
+import {
+  detectBrowser,
+  isInjectedConnector,
+  isWalletConnectConnector,
+} from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
 import { useContext } from '../../ConnectKit';
 import { useWallet } from '../../../hooks/useWallets';
 import CircleSpinner from './CircleSpinner';
+import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 
 export const states = {
   CONNECTED: 'connected',
@@ -128,6 +133,24 @@ const ConnectWithInjector: React.FC<{
   const id = c.id;
   const wallet = useWallet(id, c.name);
 
+  const injectedWallet = useInjectedWallet();
+
+  const walletInfo =
+    isInjectedConnector(wallet?.id) && injectedWallet.enabled
+      ? {
+          name: injectedWallet.wallet.name,
+          shortName:
+            injectedWallet.wallet.shortName ?? injectedWallet.wallet.name,
+          icon: injectedWallet.wallet.icon,
+          iconShape: 'circle',
+        }
+      : {
+          name: wallet?.name,
+          shortName: wallet?.shortName ?? wallet?.name,
+          icon: wallet?.iconConnector ?? wallet?.icon,
+          iconShape: wallet?.iconShape ?? 'circle',
+        };
+
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
 
   const expiryDefault = 9; // Starting at 10 causes layout shifting, better to start at 9
@@ -156,8 +179,8 @@ const ConnectWithInjector: React.FC<{
   );
 
   const locales = useLocales({
-    CONNECTORNAME: wallet?.name,
-    CONNECTORSHORTNAME: wallet?.shortName ?? wallet?.name,
+    CONNECTORNAME: walletInfo.name,
+    CONNECTORSHORTNAME: walletInfo.shortName ?? walletInfo.name,
     SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label ?? 'your browser',
   });
 
@@ -240,7 +263,7 @@ const ConnectWithInjector: React.FC<{
         <ConnectingContainer>
           <ConnectingAnimation
             $shake={status === states.FAILED || status === states.REJECTED}
-            $circle={wallet.iconShape === 'circle'}
+            $circle={walletInfo.iconShape === 'circle'}
           >
             <AnimatePresence>
               {(status === states.FAILED || status === states.REJECTED) && (
@@ -268,7 +291,7 @@ const ConnectWithInjector: React.FC<{
                 </RetryButton>
               )}
             </AnimatePresence>
-            {wallet.iconShape === 'circle' ? (
+            {walletInfo.iconShape === 'circle' ? (
               <CircleSpinner
                 logo={
                   status === states.UNAVAILABLE ? (
@@ -279,14 +302,16 @@ const ConnectWithInjector: React.FC<{
                         width: '100%',
                       }}
                     >
-                      {wallet.icon}
+                      {walletInfo.icon}
                     </div>
                   ) : (
-                    <>{wallet.icon}</>
+                    <>{walletInfo.icon}</>
                   )
                 }
                 smallLogo={
-                  wallet.id === 'injected' && wallet.connector.id === 'injected'
+                  (wallet.id === 'injected' &&
+                    wallet.connector.id === 'injected') ||
+                  wallet.iconShouldShrink
                 }
                 connecting={status === states.CONNECTING}
                 unavailable={status === states.UNAVAILABLE}
@@ -302,10 +327,10 @@ const ConnectWithInjector: React.FC<{
                         width: '100%',
                       }}
                     >
-                      {wallet.icon}
+                      {walletInfo.icon}
                     </div>
                   ) : (
-                    <>{wallet.icon}</>
+                    <>{walletInfo.icon}</>
                   )
                 }
                 //smallLogo={wallet.connector.id === 'injected' && wallet.connector.name === 'injected'}

@@ -4,15 +4,8 @@ export type WalletProps = {
   id: string;
   name: string;
   shortName?: string;
-  logos: {
-    default: ReactNode;
-    transparent?: ReactNode;
-    connectorButton?: ReactNode;
-    qrCode?: ReactNode;
-    appIcon?: ReactNode;
-    mobile?: ReactNode;
-  };
-  logoBackground?: string;
+  icon: ReactNode;
+  iconBackground?: string;
   scannable?: boolean;
   installed?: boolean;
   downloadUrls?: { [key: string]: string };

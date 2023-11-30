@@ -12,9 +12,7 @@ export const talisman = (): WalletProps => {
     name: 'Talisman',
     shortName: 'Talisman',
     scannable: false,
-    logos: {
-      default: <Logos.Talisman />,
-    },
+    icon: <Logos.Talisman />,
     downloadUrls: {
       download: 'https://talisman.xyz/download',
       website: 'https://talisman.xyz',

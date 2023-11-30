@@ -13,15 +13,8 @@ export const coinbaseWallet = (): WalletProps => {
     id: 'coinbaseWallet',
     name: 'Coinbase Wallet',
     shortName: 'Coinbase',
-    logos: {
-      default: <Logos.Coinbase />,
-      mobile: <Logos.Coinbase background />,
-      transparent: <Logos.Coinbase background={false} />,
-      appIcon: <Logos.Coinbase background={false} />,
-      connectorButton: <Logos.Coinbase background={true} />,
-      qrCode: <Logos.Coinbase background={true} />,
-    },
-    logoBackground: 'var(--ck-brand-coinbaseWallet)',
+    icon: <Logos.Coinbase />,
+    iconBackground: 'var(--ck-brand-coinbaseWallet)',
     scannable: true,
     installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
     downloadUrls: {

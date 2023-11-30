@@ -11,10 +11,8 @@ export const trust = (): WalletProps => {
     id: 'trust',
     name: 'Trust Wallet',
     shortName: 'Trust',
-    logos: {
-      default: <Logos.Trust />,
-    },
-    logoBackground: '#fff',
+    icon: <Logos.Trust />,
+    iconBackground: '#fff',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/trust',

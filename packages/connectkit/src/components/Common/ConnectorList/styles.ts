@@ -135,13 +135,13 @@ const styles = {
       width: 32px;
       height: 32px;
       overflow: hidden;
+      border-radius: 27.5%;
       svg,
       img {
         display: block;
         position: relative;
         pointer-events: none;
         overflow: hidden;
-        border-radius: 27.5%;
         width: 100%;
         height: 100%;
       }
@@ -171,7 +171,7 @@ const styles = {
       width: 60px;
       height: 60px;
       overflow: hidden;
-      border-radius: 16px;
+      border-radius: 27.5%;
       svg,
       img {
         display: block;

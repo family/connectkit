@@ -65,7 +65,7 @@ const MobileConnectors: React.FC = () => {
         <ModalContent>
           <WalletList $disabled={!wcUri}>
             {wallets.map((wallet: WalletProps, i: number) => {
-              const { name, shortName, logos, logoBackground } = wallet;
+              const { name, shortName, icon, iconBackground } = wallet;
               return (
                 <WalletItem
                   key={i}
@@ -77,14 +77,14 @@ const MobileConnectors: React.FC = () => {
                   <WalletIcon
                     $outline={true}
                     style={
-                      logoBackground
+                      iconBackground
                         ? {
-                            background: logoBackground,
+                            background: iconBackground,
                           }
                         : undefined
                     }
                   >
-                    {logos.mobile ?? logos.default}
+                    {icon}
                   </WalletIcon>
                   <WalletLabel>{shortName ?? name}</WalletLabel>
                 </WalletItem>

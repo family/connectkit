@@ -10,10 +10,8 @@ export const tokenPocket = (): WalletProps => {
   return {
     id: 'tokenPocket',
     name: 'TokenPocket Wallet',
-    logos: {
-      default: <Logos.TokenPocket />,
-    },
-    logoBackground: '#2980FE',
+    icon: <Logos.TokenPocket />,
+    iconBackground: '#2980FE',
     scannable: false,
     downloadUrls: {
       website: 'https://www.tokenpocket.pro/en/download/app',

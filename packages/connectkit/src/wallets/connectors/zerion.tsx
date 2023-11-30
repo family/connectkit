@@ -10,10 +10,8 @@ export const zerion = (): WalletProps => {
   return {
     id: 'zerion',
     name: 'Zerion',
-    logos: {
-      default: <Logos.Zerion />,
-    },
-    logoBackground: '#CC703C',
+    icon: <Logos.Zerion />,
+    iconBackground: '#CC703C',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/zerion',

@@ -6,10 +6,8 @@ export const imToken = (): WalletProps => {
   return {
     id: 'imToken',
     name: 'imToken',
-    logos: {
-      default: <Logos.ImToken />,
-    },
-    logoBackground: '#098de6',
+    icon: <Logos.ImToken />,
+    iconBackground: '#098de6',
     scannable: false,
     downloadUrls: {
       //website: 'https://support.token.im/hc/en-us/categories/360000925393',

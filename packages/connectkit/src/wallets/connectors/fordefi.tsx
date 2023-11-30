@@ -10,10 +10,8 @@ export const fordefi = (): WalletProps => {
   return {
     id: 'fordefi',
     name: 'Fordefi',
-    logos: {
-      default: <Logos.Fordefi />,
-    },
-    logoBackground: '#ffffff',
+    icon: <Logos.Fordefi />,
+    iconBackground: '#ffffff',
     scannable: false,
     downloadUrls: {},
     installed: isInstalled,

@@ -7,10 +7,8 @@ export const steak = (): WalletProps => {
   return {
     id: 'steak',
     name: 'Steak',
-    logos: {
-      default: <Logos.Steak />,
-    },
-    logoBackground: '#000000',
+    icon: <Logos.Steak />,
+    iconBackground: '#000000',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/steak',

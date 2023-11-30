@@ -48,9 +48,7 @@ export const useInjectedWallet = () => {
         name: getInjectedNames(connector)?.[0] ?? 'Browser Wallet',
         shortName:
           getInjectedNames(connector)?.[0]?.replace(' Wallet', '') ?? 'Browser',
-        logos: {
-          default: <Logos.Injected />,
-        },
+        icon: <Logos.Injected />,
       };
     }
   };

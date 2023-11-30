@@ -10,10 +10,8 @@ export const family = (): WalletProps => {
   return {
     id: 'family',
     name: 'Family',
-    logos: {
-      default: <Logos.Family />,
-    },
-    logoBackground: '#7DC4FF',
+    icon: <Logos.Family />,
+    iconBackground: '#7DC4FF',
     installed: Boolean(isInstalled) ? true : undefined,
     scannable: true,
     downloadUrls: {

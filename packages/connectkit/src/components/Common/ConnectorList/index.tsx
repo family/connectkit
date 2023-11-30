@@ -60,6 +60,23 @@ const ConnectorList = () => {
             if (isInjectedConnector(id) && !injectedWallet.enabled) return null;
             if (redirectToMoreWallets) deeplink = undefined; // mobile redirects to more wallets page
 
+            const walletInfo =
+              isInjectedConnector(wallet.id) && injectedWallet.enabled
+                ? {
+                    name: injectedWallet.wallet.name,
+                    shortName:
+                      injectedWallet.wallet.shortName ??
+                      injectedWallet.wallet.name,
+                    icon: injectedWallet.wallet.icon,
+                    iconRadius: 0,
+                  }
+                : {
+                    name: name,
+                    shortName: shortName ?? name,
+                    icon: iconConnector ?? icon,
+                    iconRadius: wallet.id === 'walletConnect' ? 0 : undefined,
+                  };
+
             const ButtonInner = ({
               disabled = false,
             }: {
@@ -84,13 +101,13 @@ const ConnectorList = () => {
               >
                 <ConnectorIcon
                   style={{
-                    borderRadius: wallet.id === 'walletConnect' ? 0 : undefined,
+                    borderRadius: walletInfo.iconRadius,
                   }}
                 >
-                  {iconConnector ?? icon}
+                  {walletInfo.icon}
                 </ConnectorIcon>
                 <ConnectorLabel>
-                  {isMobile ? shortName ?? name : name}
+                  {isMobile ? walletInfo.shortName : walletInfo.name}
                   {!context.options?.hideRecentBadge &&
                     lastConnectorId === `${connector.id}-${connector.name}` && (
                       <RecentlyUsedTag>

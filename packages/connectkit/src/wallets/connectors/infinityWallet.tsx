@@ -10,14 +10,8 @@ export const infinityWallet = (): WalletProps => {
   return {
     id: 'infinityWallet',
     name: 'Infinity Wallet',
-    logos: {
-      default: <Logos.InfinityWallet />,
-      mobile: <Logos.InfinityWallet />,
-      transparent: <Logos.InfinityWallet />,
-      appIcon: <Logos.InfinityWallet />,
-      connectorButton: <Logos.InfinityWallet />,
-    },
-    logoBackground: '#08a1d5',
+    icon: <Logos.InfinityWallet />,
+    iconBackground: '#08a1d5',
     scannable: false,
     downloadUrls: {
       download: 'https://infinitywallet.io/download',

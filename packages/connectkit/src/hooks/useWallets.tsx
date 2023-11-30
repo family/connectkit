@@ -74,11 +74,7 @@ export const useWallets = (): WalletProps[] => {
         return {
           id: wallet.id,
           name: names ? names.join(', ') : injectedConnector.name,
-          icon:
-            wallet.logos.mobile ??
-            wallet.logos.appIcon ??
-            wallet.logos.connectorButton ??
-            wallet.logos.default,
+          icon: wallet.icon,
           connector: c,
           isInstalled: wallet.installed,
           createUri: wallet?.createUri,
@@ -88,11 +84,7 @@ export const useWallets = (): WalletProps[] => {
       return {
         id: wallet.id,
         name: wallet.name,
-        icon:
-          wallet.logos.mobile ??
-          wallet.logos.appIcon ??
-          wallet.logos.connectorButton ??
-          wallet.logos.default,
+        icon: wallet.icon,
         connector: c,
         isInstalled: wallet.installed,
         createUri: wallet?.createUri,

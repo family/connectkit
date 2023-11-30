@@ -12,7 +12,7 @@ export const injected = (): WalletProps => {
     name: 'Browser Wallet',
     shortName: 'browser',
     scannable: false,
-    logos: { default: <Logos.Injected /> },
+    icon: <Logos.Injected />,
     installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
   };
 };

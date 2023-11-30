@@ -7,10 +7,8 @@ export const onto = (): WalletProps => {
   return {
     id: 'onto',
     name: 'ONTO',
-    logos: {
-      default: <Logos.ONTO />,
-    },
-    logoBackground: '#ffffff',
+    icon: <Logos.ONTO />,
+    iconBackground: '#ffffff',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/onto',

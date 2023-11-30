@@ -12,31 +12,8 @@ export const metaMask = (): WalletProps => {
   return {
     id: 'metaMask',
     name: 'MetaMask',
-    logos: {
-      default: <Logos.MetaMask background />,
-      mobile: <Logos.MetaMask background />,
-      transparent: (
-        <div
-          style={{
-            transform: 'scale(0.86)',
-            position: 'relative',
-            width: '100%',
-          }}
-        >
-          <Logos.MetaMask />
-        </div>
-      ),
-      connectorButton: (
-        <div
-          style={{
-            transform: 'scale(1.1)',
-          }}
-        >
-          <Logos.MetaMask />
-        </div>
-      ),
-    },
-    logoBackground:
+    icon: <Logos.MetaMask background />,
+    iconBackground:
       'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
     scannable: false,
     downloadUrls: {

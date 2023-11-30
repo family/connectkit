@@ -10,10 +10,8 @@ export const brave = (): WalletProps => {
     id: 'brave',
     name: 'Brave Wallet',
     shortName: 'Brave',
-    logos: {
-      default: <Logos.Brave />,
-    },
-    logoBackground: '#fff',
+    icon: <Logos.Brave />,
+    iconBackground: '#fff',
     scannable: false,
     downloadUrls: {},
     installed: isInstalled,

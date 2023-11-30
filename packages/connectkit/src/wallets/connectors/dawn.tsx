@@ -11,10 +11,8 @@ export const dawn = (): WalletProps => {
     id: 'dawn',
     name: 'Dawn Wallet',
     shortName: 'Dawn',
-    logos: {
-      default: <Logos.Dawn />,
-    },
-    logoBackground: '#000000',
+    icon: <Logos.Dawn />,
+    iconBackground: '#000000',
     scannable: false,
     installed: Boolean(isInstalled),
     downloadUrls: {

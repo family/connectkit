@@ -10,13 +10,8 @@ export const rabby = (): WalletProps => {
   return {
     id: 'rabby',
     name: 'Rabby Wallet',
-    logos: {
-      default: <Logos.Rabby />,
-      transparent: <Logos.Rabby />,
-      appIcon: <Logos.Rabby />,
-      connectorButton: <Logos.Rabby />,
-    },
-    logoBackground: '#8697FF',
+    icon: <Logos.Rabby />,
+    iconBackground: '#8697FF',
     scannable: false,
     downloadUrls: {
       website: 'https://rabby.io',

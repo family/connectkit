@@ -10,11 +10,9 @@ export const frontier = (): WalletProps => {
   return {
     id: 'frontier',
     name: 'Frontier Wallet',
-    logos: {
-      default: <Logos.Frontier />,
-    },
     shortName: 'Frontier',
-    logoBackground: '#CC703C',
+    icon: <Logos.Frontier />,
+    iconBackground: '#CC703C',
     scannable: false,
     installed: isInstalled,
     downloadUrls: {

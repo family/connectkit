@@ -164,7 +164,7 @@ const ConnectWithQRCode: React.FC<{
             }}
             /*
             icon={
-              <div style={{ background: connectorInfo?.logoBackground }}>
+              <div style={{ background: connectorInfo?.icon }}>
                 {connectorInfo?.logos.default}
               </div>
             }
