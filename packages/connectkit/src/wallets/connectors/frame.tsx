@@ -12,6 +12,7 @@ export const frame = (): WalletProps => {
     name: 'Frame',
     icon: <Logos.Frame />,
     iconBackground: '#fff',
+    iconShouldShrink: true,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/frame',

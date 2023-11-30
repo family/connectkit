@@ -15,6 +15,7 @@ export const metaMask = (): WalletProps => {
     icon: <Logos.MetaMask background />,
     iconBackground:
       'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
+    iconShouldShrink: true,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/metamask',

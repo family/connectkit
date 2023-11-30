@@ -142,13 +142,15 @@ const ConnectWithInjector: React.FC<{
           shortName:
             injectedWallet.wallet.shortName ?? injectedWallet.wallet.name,
           icon: injectedWallet.wallet.icon,
-          iconShape: 'circle',
+          iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
+          iconShouldShrink: injectedWallet.wallet.iconShouldShrink,
         }
       : {
           name: wallet?.name,
           shortName: wallet?.shortName ?? wallet?.name,
           icon: wallet?.iconConnector ?? wallet?.icon,
           iconShape: wallet?.iconShape ?? 'circle',
+          iconShouldShrink: wallet?.iconShouldShrink,
         };
 
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
@@ -308,11 +310,7 @@ const ConnectWithInjector: React.FC<{
                     <>{walletInfo.icon}</>
                   )
                 }
-                smallLogo={
-                  (wallet.id === 'injected' &&
-                    wallet.connector.id === 'injected') ||
-                  wallet.iconShouldShrink
-                }
+                smallLogo={walletInfo.iconShouldShrink}
                 connecting={status === states.CONNECTING}
                 unavailable={status === states.UNAVAILABLE}
               />

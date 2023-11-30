@@ -86,6 +86,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     shortName: 'Family',
     icon: <Logos.Family />,
     iconBackground: '#7DC4FF',
+    iconShape: 'squircle',
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/family',
       website: 'https://family.co',

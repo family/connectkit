@@ -6,6 +6,8 @@ export type WalletProps = {
   shortName?: string;
   icon: ReactNode;
   iconBackground?: string;
+  iconShape?: 'squircle' | 'circle';
+  iconShouldShrink?: boolean;
   scannable?: boolean;
   installed?: boolean;
   downloadUrls?: { [key: string]: string };
