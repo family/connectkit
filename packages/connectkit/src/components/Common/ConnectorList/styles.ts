@@ -179,6 +179,12 @@ const styles = {
         width: 100%;
         height: auto;
       }
+      &[data-small='true'] {
+        svg,
+        img {
+          transform: scale(0.8);
+        }
+      }
     `,
   },
 };

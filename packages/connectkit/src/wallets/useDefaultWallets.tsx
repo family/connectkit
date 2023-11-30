@@ -28,7 +28,7 @@ function useDefaultWallets(): WalletProps[] | any {
     'steak',
     'frontier',
     'zerion',
-    'gnosisSafe',
+    'safe',
     'brave',
     //'slope',
     'frame',

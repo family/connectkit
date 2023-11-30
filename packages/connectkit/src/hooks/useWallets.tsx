@@ -119,6 +119,7 @@ export const useWallets = (): WalletProps[] => {
     } else if (duplicates.filter((d) => d.rdns).length === 0) {
       filtered.push(wallet);
     } else {
+      // do nothing
     }
   });
 
@@ -146,6 +147,7 @@ export const useWallets = (): WalletProps[] => {
     if (isWalletConnectConnector(w.connector.id)) {
       w.name = context.options?.walletConnectName ?? locales.otherWallets;
     }
+
     return w;
   });
 };

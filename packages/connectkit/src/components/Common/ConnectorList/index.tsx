@@ -76,7 +76,9 @@ const ConnectorList = () => {
             if (redirectToMoreWallets) deeplink = undefined; // mobile redirects to more wallets page
 
             const walletInfo =
-              isInjectedConnector(wallet.id) && injectedWallet.enabled
+              isInjectedConnector(wallet.id) &&
+              injectedWallet.enabled &&
+              injectedWallet.wallet.name === wallet.name
                 ? {
                     name: injectedWallet.wallet.name,
                     shortName:
@@ -115,6 +117,7 @@ const ConnectorList = () => {
                 }
               >
                 <ConnectorIcon
+                  data-small={wallet.iconShouldShrink}
                   style={{
                     borderRadius: walletInfo.iconRadius,
                   }}

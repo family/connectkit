@@ -45,6 +45,14 @@ export type WalletConfigProps = {
 
 // Organised in alphabetical order by key
 export const walletConfigs: { [key: string]: WalletConfigProps } = {
+  argent: {
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/argent',
+      android:
+        'https://play.google.com/store/apps/details?id=im.argent.contractwalletclient',
+      ios: 'https://apps.apple.com/app/argent/id1358741926',
+    },
+  },
   coinbaseWallet: {
     rdns: 'com.coinbase.wallet',
     name: 'Coinbase Wallet',
@@ -65,6 +73,25 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     name: 'Crypto.com',
     shortName: 'Crypto',
   },
+  dawn: {
+    downloadUrls: {
+      download:
+        'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
+      website: 'https://www.dawnwallet.xyz/',
+      ios: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
+    },
+  },
+  family: {
+    name: 'Family',
+    shortName: 'Family',
+    icon: <Logos.Family />,
+    iconBackground: '#7DC4FF',
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/family',
+      website: 'https://family.co',
+      ios: 'https://family.co/download',
+    },
+  },
   frame: {
     name: 'Frame',
     icon: <Logos.Frame />,
@@ -78,6 +105,19 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
       firefox: 'https://addons.mozilla.org/en-US/firefox/addon/frame-extension',
       brave:
         'https://chrome.google.com/webstore/detail/frame-companion/ldcoohedfbjoobcadoglnnmmfbdlmmhf',
+    },
+  },
+  frontier: {
+    name: 'Frontier Wallet',
+    shortName: 'Frontier',
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/frontier',
+      ios: 'https://apps.apple.com/app/frontier-crypto-defi-wallet/id1482380988',
+      android:
+        'https://play.google.com/store/apps/details?id=com.frontierwallet',
+      website: 'https://frontier.xyz/',
+      chrome:
+        'https://chrome.google.com/webstore/detail/frontier-wallet/kppfdiipphfccemcignhifpjkapfbihd',
     },
   },
   injected: {
@@ -115,16 +155,31 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     name: 'Rainbow Wallet',
     shortName: 'Rainbow',
     iconShape: 'squircle',
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/rainbow',
+      website: 'https://rainbow.me/?utm_source=connectkit',
+      android:
+        'https://play.google.com/store/apps/details?id=me.rainbow&referrer=utm_source%3Dconnectkit&utm_source=connectkit',
+      ios: 'https://apps.apple.com/app/rainbow-ethereum-wallet/id1457119021?pt=119997837&ct=connectkit&mt=8',
+      chrome: 'https://rainbow.me/extension?utm_source=connectkit',
+      edge: 'https://rainbow.me/extension?utm_source=connectkit',
+      brave: 'https://rainbow.me/extension?utm_source=connectkit',
+    },
   },
   rabby: {
     rdns: 'io.rabby',
     name: 'Rabby Wallet',
     shortName: 'Rabby',
+    downloadUrls: {
+      website: 'https://rabby.io',
+      chrome:
+        'https://chrome.google.com/webstore/detail/rabby-wallet/acmacodkjbdgmoleebolmdjonilkdbch',
+    },
   },
   safe: {
     name: 'Safe',
-    icon: <Logos.GnosisSafe />,
-    iconBackground: 'var(--ck-brand-gnosisSafe)',
+    icon: <Logos.Safe />,
+    iconBackground: 'var(--ck-brand-safe)',
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/safe',
       website: 'https://safe.global/wallet',
@@ -137,6 +192,14 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     name: 'Talisman',
     shortName: 'Talisman',
     iconShape: 'squircle',
+    downloadUrls: {
+      download: 'https://talisman.xyz/download',
+      website: 'https://talisman.xyz',
+      chrome:
+        'https://chrome.google.com/webstore/detail/talisman-polkadot-wallet/fijngjgcjhjmmpcmkeiomlglpeiijkld',
+      firefox:
+        'https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension/',
+    },
   },
   trustWallet: {
     rdns: 'com.trustwallet.app',
