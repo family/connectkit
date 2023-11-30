@@ -50,18 +50,25 @@ const ConnectWithQRCode: React.FC<{
   if (!wallet) return <>Wallet not found {context.connector.id}</>;
 
   const downloads = wallet?.downloadUrls;
+  const extensions = {
+    chrome: downloads?.chrome,
+    firefox: downloads?.firefox,
+    brave: downloads?.brave,
+    edge: downloads?.edge,
+    safari: downloads?.safari,
+  };
 
   const browser = detectBrowser();
 
   const hasApps = downloads && Object.keys(downloads).length !== 0;
 
-  const suggestedExtension = downloads?.extensions
+  const suggestedExtension = extensions
     ? {
-        name: Object.keys(downloads?.extensions)[0],
+        name: Object.keys(extensions)[0],
         label:
-          Object.keys(downloads?.extensions)[0]?.charAt(0).toUpperCase() +
-          Object.keys(downloads?.extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
-        url: downloads?.extensions[Object.keys(downloads?.extensions)[0]],
+          Object.keys(extensions)[0]?.charAt(0).toUpperCase() +
+          Object.keys(extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+        url: extensions[Object.keys(extensions)[0]],
       }
     : undefined;
 
