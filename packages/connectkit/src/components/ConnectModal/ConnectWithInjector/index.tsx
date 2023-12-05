@@ -143,7 +143,7 @@ const ConnectWithInjector: React.FC<{
             injectedWallet.wallet.shortName ?? injectedWallet.wallet.name,
           icon: injectedWallet.wallet.icon,
           iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
-          iconShouldShrink: injectedWallet.wallet.iconShouldShrink,
+          iconShouldShrink: injectedWallet.wallet.iconShouldShrink ?? false,
         }
       : {
           name: wallet?.name,

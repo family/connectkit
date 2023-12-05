@@ -2,6 +2,7 @@ import { useInjectedConnector } from '../useConnectors';
 import useDefaultWallets from '../../wallets/useDefaultWallets';
 import Logos from '../../assets/logos';
 import { Connector } from 'wagmi';
+import { useWallets } from '../useWallets';
 
 export const getInjectedNames = (connector: Connector) => {
   if (!connector) return [];
@@ -16,8 +17,10 @@ export const getInjectedNames = (connector: Connector) => {
 };
 
 export const useInjectedWallet = () => {
-  const wallets = useDefaultWallets();
+  const wallets = useWallets();
+  const injectedWallets = useDefaultWallets();
   const connector = useInjectedConnector();
+
   const shouldShow = () => {
     if (!(typeof window !== 'undefined' && window?.ethereum)) return false;
 
@@ -39,7 +42,11 @@ export const useInjectedWallet = () => {
   };
 
   const getWallet = () => {
-    const installedWallets = wallets.filter((wallet: any) => wallet.installed);
+    const installedWalletNames = wallets.map((wallet) => wallet.name);
+    const installedWallets = injectedWallets.filter(
+      (wallet: any) =>
+        wallet.installed && !installedWalletNames.includes(wallet.name)
+    );
     if (installedWallets.length > 0) {
       return installedWallets[0];
     } else {

@@ -17,7 +17,6 @@ import { useLastConnector } from '../../../hooks/useLastConnector';
 import useIsMobile from '../../../hooks/useIsMobile';
 
 import { ScrollArea } from '../../Common/ScrollArea';
-import Tooltip from '../Tooltip';
 import Alert from '../Alert';
 
 const ConnectorList = () => {
@@ -29,6 +28,7 @@ const ConnectorList = () => {
   const injectedWallet = useInjectedWallet();
 
   const wallets = useWallets();
+
   const walletsToDisplay = context.options?.hideRecentBadge
     ? wallets
     : [
