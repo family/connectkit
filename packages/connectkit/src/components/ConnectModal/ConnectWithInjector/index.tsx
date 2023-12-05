@@ -331,7 +331,6 @@ const ConnectWithInjector: React.FC<{
                     <>{walletInfo.icon}</>
                   )
                 }
-                //smallLogo={wallet.connector.id === 'injected' && wallet.connector.name === 'injected'}
                 connecting={status === states.CONNECTING}
                 //unavailable={status === states.UNAVAILABLE}
               />

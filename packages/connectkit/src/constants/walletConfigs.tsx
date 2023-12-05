@@ -127,6 +127,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     icon: <Logos.Injected />,
   },
   metaMask: {
+    rdns: 'io.metamask',
     name: 'MetaMask',
     icon: <Logos.MetaMask />,
     iconConnector: <Logos.MetaMask />,
