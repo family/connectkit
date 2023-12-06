@@ -1,5 +1,13 @@
-import { css } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 import styled from '../../../styles/styled';
+
+export const ScrollContainer = styled.div`
+  position: relative;
+`;
+const fadeIn = keyframes`
+0%{ opacity:0; }
+100%{ opacity:1; }
+`;
 
 export const MoreIndicator = styled.div`
   z-index: 9;
@@ -10,7 +18,7 @@ export const MoreIndicator = styled.div`
   display: flex;
   justify-content: center;
 
-  transition: opacity 100ms ease;
+  transition: opacity 300ms ease;
 
   span {
     cursor: pointer;
@@ -26,6 +34,7 @@ export const MoreIndicator = styled.div`
     font-size: 0.8125rem;
     letter-spacing: -0.01rem;
     box-shadow: var(--ck-tooltip-shadow);
+    animation: ${fadeIn} 300ms ease 1000ms both;
 
     transition: transform 100ms ease;
 

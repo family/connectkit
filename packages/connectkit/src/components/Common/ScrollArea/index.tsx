@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { MoreIndicator, ScrollAreaContainer } from './styles';
+import { MoreIndicator, ScrollAreaContainer, ScrollContainer } from './styles';
 import useIsMobile from '../../../hooks/useIsMobile';
 
 const ArrowDown = () => (
@@ -85,12 +85,15 @@ export const ScrollArea = ({
   }, [ref.current]);
 
   return (
-    <ScrollAreaContainer
-      ref={ref}
-      $mobile={isMobile}
-      $height={height}
-      $backgroundColor={backgroundColor}
-    >
+    <ScrollContainer>
+      <ScrollAreaContainer
+        ref={ref}
+        $mobile={isMobile}
+        $height={height}
+        $backgroundColor={backgroundColor}
+      >
+        {children}
+      </ScrollAreaContainer>
       <MoreIndicator
         ref={moreRef}
         className="hide"
@@ -107,7 +110,6 @@ export const ScrollArea = ({
           <ArrowDown /> More Available
         </span>
       </MoreIndicator>
-      {children}
-    </ScrollAreaContainer>
+    </ScrollContainer>
   );
 };
