@@ -91,7 +91,18 @@ export const ScrollArea = ({
       $height={height}
       $backgroundColor={backgroundColor}
     >
-      <MoreIndicator ref={moreRef} className="hide">
+      <MoreIndicator
+        ref={moreRef}
+        className="hide"
+        onClick={() => {
+          if (ref.current) {
+            ref.current.scrollTo({
+              top: ref.current.scrollHeight,
+              behavior: 'smooth',
+            });
+          }
+        }}
+      >
         <span>
           <ArrowDown /> More Available
         </span>

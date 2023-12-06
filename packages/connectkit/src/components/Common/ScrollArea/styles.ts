@@ -10,10 +10,10 @@ export const MoreIndicator = styled.div`
   display: flex;
   justify-content: center;
 
-  pointer-events: none;
   transition: opacity 100ms ease;
 
   span {
+    cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -26,6 +26,15 @@ export const MoreIndicator = styled.div`
     font-size: 0.8125rem;
     letter-spacing: -0.01rem;
     box-shadow: var(--ck-tooltip-shadow);
+
+    transition: transform 100ms ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+    &:active {
+      transform: scale(0.98);
+    }
     svg {
       display: block;
       transform: translateX(-0.1875rem);
@@ -34,6 +43,7 @@ export const MoreIndicator = styled.div`
 
   &.hide {
     opacity: 0;
+    pointer-events: none;
   }
 `;
 
