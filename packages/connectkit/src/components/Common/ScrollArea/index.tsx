@@ -1,7 +1,24 @@
 import React, { useEffect, useRef } from 'react';
-import { ScrollAreaContainer } from './styles';
+import { MoreIndicator, ScrollAreaContainer } from './styles';
 import useIsMobile from '../../../hooks/useIsMobile';
 
+const ArrowDown = () => (
+  <svg
+    width="11"
+    height="12"
+    viewBox="0 0 11 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M5.49438 1L5.49438 11M5.49438 11L9.5 7M5.49438 11L1.5 7"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 export const ScrollArea = ({
   children,
   height,
@@ -12,12 +29,20 @@ export const ScrollArea = ({
   backgroundColor?: string;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const moreRef = useRef<HTMLDivElement>(null);
 
   const isMobile = useIsMobile();
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // if ref is not scrollable, hide the more indicator
+    if (el.scrollHeight > el.clientHeight) {
+      if (moreRef.current) {
+        moreRef.current.classList.remove('hide');
+      }
+    }
 
     const handleScroll = (e: any) => {
       const {
@@ -28,6 +53,12 @@ export const ScrollArea = ({
         scrollWidth,
         clientWidth,
       } = e.target;
+
+      if (moreRef.current) {
+        if (scrollTop > 0) {
+          moreRef.current.classList.add('hide');
+        }
+      }
 
       if (scrollTop === 0 && scrollLeft === 0) {
         el.classList.add('scroll-start');
@@ -55,11 +86,16 @@ export const ScrollArea = ({
 
   return (
     <ScrollAreaContainer
+      ref={ref}
       $mobile={isMobile}
       $height={height}
       $backgroundColor={backgroundColor}
-      ref={ref}
     >
+      <MoreIndicator ref={moreRef} className="hide">
+        <span>
+          <ArrowDown /> More Available
+        </span>
+      </MoreIndicator>
       {children}
     </ScrollAreaContainer>
   );

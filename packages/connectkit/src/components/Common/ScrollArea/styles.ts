@@ -1,6 +1,42 @@
 import { css } from 'styled-components';
 import styled from '../../../styles/styled';
 
+export const MoreIndicator = styled.div`
+  z-index: 9;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.75rem;
+  display: flex;
+  justify-content: center;
+
+  pointer-events: none;
+  transition: opacity 100ms ease;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.3075rem 0.9375rem 0.375rem;
+    border-radius: 6rem;
+    background: var(--ck-tooltip-background);
+    color: var(--ck-tooltip-color);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: -0.01rem;
+    box-shadow: var(--ck-tooltip-shadow);
+    svg {
+      display: block;
+      transform: translateX(-0.1875rem);
+    }
+  }
+
+  &.hide {
+    opacity: 0;
+  }
+`;
+
 export const ScrollAreaContainer = styled.div<{
   $mobile?: boolean;
   $height?: number;
