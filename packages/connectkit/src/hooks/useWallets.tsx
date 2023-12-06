@@ -105,6 +105,8 @@ export const useWallets = (): WalletProps[] => {
   wallets.forEach((wallet, i) => {
     // if already in filtered, skip
     if (filtered.find((w) => w.id === wallet.id)) return;
+    // if wallet name is empty, skip
+    if (wallet.name === '') return;
 
     // find duplicates
     const duplicates = wallets.filter(
