@@ -38,7 +38,17 @@ export const useWallet = (id: string, name?: string): WalletProps | null => {
   return wallet;
 };
 
-const compareWallets = (a: WalletProps, b: WalletProps) => {
+const compareWallets = (wallet_a: WalletProps, wallet_b: WalletProps) => {
+  // remove " wallet" from name
+  const a = {
+    name: wallet_a.name?.toLowerCase().replace(' wallet', '').split(', ')[0], // split for multiple legacy injected wallets
+    shortName: wallet_a.shortName?.toLowerCase().replace(' wallet', ''),
+  };
+  const b = {
+    name: wallet_b.name?.toLowerCase().replace(' wallet', '').split(', ')[0], // split for multiple legacy injected wallets
+    shortName: wallet_b.shortName?.toLowerCase().replace(' wallet', ''),
+  };
+
   return a.name === b.name || a.name === b.shortName || a.shortName === b.name;
 };
 
