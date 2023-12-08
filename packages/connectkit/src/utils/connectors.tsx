@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { createMidp } from './midp';
+import { createMipd } from './mipd';
 import { useConnectors } from '../hooks/useConnectors';
 import { Connector } from 'wagmi';
 
@@ -10,7 +10,7 @@ interface ConnectorInfo {
   connector?: Connector;
 }
 
-const midp = createMidp();
+const mipd = createMipd();
 
 export const getConnectorInfo = (
   id: string,
@@ -18,14 +18,14 @@ export const getConnectorInfo = (
 ): ConnectorInfo | null => {
   const connectors = useConnectors();
 
-  // If the connector is injected, we need to find the connector info, which can be either EIP-6963 (MIDP) or EIP-1193
+  // If the connector is injected, we need to find the connector info, which can be either EIP-6963 (MIPD) or EIP-1193
   if (id === 'injected' && injectedUUID) {
-    const midpConnector = midp?.findConnectorByUUID(injectedUUID);
-    if (midpConnector) {
+    const mipdConnector = mipd?.findConnectorByUUID(injectedUUID);
+    if (mipdConnector) {
       return {
-        id: midpConnector.uuid,
-        name: midpConnector.name,
-        icon: <img src={midpConnector.icon} alt={midpConnector.name} />,
+        id: mipdConnector.uuid,
+        name: mipdConnector.name,
+        icon: <img src={mipdConnector.icon} alt={mipdConnector.name} />,
         connector: connectors.find((c) => c.id === injectedUUID),
       };
     }

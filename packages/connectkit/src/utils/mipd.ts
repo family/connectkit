@@ -1,6 +1,6 @@
 import { createStore } from 'mipd';
 
-export const createMidp = () => {
+export const createMipd = () => {
   if (typeof window === 'undefined') return null;
 
   // Set up a MIPD Store, and request Providers.

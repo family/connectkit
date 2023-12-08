@@ -1,5 +1,5 @@
 import { Connector } from 'wagmi';
-import { createMidp } from '../utils/midp';
+import { createMipd } from '../utils/mipd';
 
 import { useContext } from '../components/ConnectKit';
 import useLocales from './useLocales';
@@ -10,7 +10,7 @@ import { getWallets } from '../wallets';
 import { getInjectedNames } from './connectors/useInjectedWallet';
 import { walletConfigs, WalletConfigProps } from '../constants/walletConfigs';
 
-const midp = createMidp();
+const mipd = createMipd();
 
 type WalletProps = {
   id: string;
@@ -61,14 +61,14 @@ export const useWallets = (): WalletProps[] => {
 
   const wallets = connectors.map((c): WalletProps => {
     if (c.id === 'injected') {
-      const midpConnector = midp?.findConnectorByUUID(c.name);
+      const mipdConnector = mipd?.findConnectorByUUID(c.name);
 
-      if (midpConnector) {
+      if (mipdConnector) {
         return {
-          id: midpConnector.uuid,
-          rdns: midpConnector.rdns,
-          name: midpConnector.name,
-          icon: <img src={midpConnector.icon} alt={midpConnector.name} />,
+          id: mipdConnector.uuid,
+          rdns: mipdConnector.rdns,
+          name: mipdConnector.name,
+          icon: <img src={mipdConnector.icon} alt={mipdConnector.name} />,
           connector: c,
           isInstalled: true,
         };
@@ -136,7 +136,7 @@ export const useWallets = (): WalletProps[] => {
   });
 
   return filtered.map((w: WalletProps) => {
-    // MIDP overrides
+    // MIPD overrides
     if (w.rdns) {
       const override = Object.values(walletConfigs).find(
         ({ rdns }) => rdns === w.rdns

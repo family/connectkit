@@ -7,7 +7,7 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { SafeConnector } from 'wagmi/connectors/safe';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
-import { createMidp } from './utils/midp';
+import { createMipd } from './utils/mipd';
 
 type DefaultConnectorsProps = {
   chains?: Chain[];
@@ -31,11 +31,11 @@ const defaultConnectors = ({
 
   let connectors: Connector[] = [];
 
-  const midp = createMidp();
+  const mipd = createMipd();
 
-  if (midp) {
+  if (mipd) {
     connectors.push(
-      ...midp.connectors.map(
+      ...mipd.connectors.map(
         (c) =>
           new InjectedConnector({
             chains,
