@@ -67,8 +67,8 @@ export const ScrollAreaContainer = styled.div<{
   position: relative;
   z-index: 1;
 
-  ${({ $mobile, $height }) =>
-    $mobile
+  ${({ $mobile, $height, $mobileDirection }) =>
+    $mobile && $mobileDirection === 'horizontal'
       ? css`
           overflow-x: scroll;
           margin: 0 -24px;
@@ -77,7 +77,7 @@ export const ScrollAreaContainer = styled.div<{
           &:before,
           &:after {
             pointer-events: none;
-            z-index: 2;
+            z-index: 10;
             content: '';
             display: block;
             position: sticky;
@@ -116,7 +116,7 @@ export const ScrollAreaContainer = styled.div<{
           &:before,
           &:after {
             pointer-events: none;
-            z-index: 2;
+            z-index: 10;
             content: '';
             display: block;
             position: sticky;

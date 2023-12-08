@@ -50,7 +50,7 @@ export const WalletList = styled.div<{ $disabled?: boolean }>`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px 8px;
-  margin: 0 -10px -20px;
+  margin: 0 -10px;
   padding: 4px 0 0;
   transition: opacity 300ms ease;
   ${(props) =>

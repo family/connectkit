@@ -47,7 +47,7 @@ const ConnectorList = () => {
       ];
 
   return (
-    <ScrollArea>
+    <ScrollArea mobileDirection={'horizontal'}>
       {walletsToDisplay.length === 0 && (
         <Alert error>No connectors found in ConnectKit config.</Alert>
       )}

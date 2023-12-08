@@ -23,10 +23,12 @@ export const ScrollArea = ({
   children,
   height,
   backgroundColor,
+  mobileDirection,
 }: {
   children: React.ReactNode;
   height?: number;
   backgroundColor?: string;
+  mobileDirection?: 'horizontal' | 'vertical';
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const moreRef = useRef<HTMLDivElement>(null);
@@ -91,6 +93,7 @@ export const ScrollArea = ({
         $mobile={isMobile}
         $height={height}
         $backgroundColor={backgroundColor}
+        $mobileDirection={mobileDirection}
       >
         {children}
       </ScrollAreaContainer>

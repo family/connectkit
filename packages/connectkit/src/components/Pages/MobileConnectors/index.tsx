@@ -18,6 +18,7 @@ import useLocales from '../../../hooks/useLocales';
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 import { Spinner } from '../../Common/Spinner';
 import { isWalletConnectConnector } from '../../../utils';
+import { ScrollArea } from '../../Common/ScrollArea';
 
 const MoreIcon = (
   <svg
@@ -44,7 +45,8 @@ const MobileConnectors: React.FC = () => {
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
   const wallets = useDefaultWallets().filter(
     (wallet: WalletProps) =>
-      wallet.installed === undefined && // Do not show wallets that are injected connectors
+      (wallet.installed === undefined || !wallet.installed) &&
+      wallet.createUri && // Do not show wallets that are injected connectors
       !isWalletConnectConnector(wallet.id) // Do not show WalletConnect
   );
 
@@ -62,52 +64,54 @@ const MobileConnectors: React.FC = () => {
   return (
     <PageContent style={{ width: 312 }}>
       <Container>
-        <ModalContent>
-          <WalletList $disabled={!wcUri}>
-            {wallets.map((wallet: WalletProps, i: number) => {
-              const { name, shortName, icon } = wallet;
-              return (
-                <WalletItem
-                  key={i}
-                  onClick={() => connectWallet(wallet)}
-                  style={{
-                    animationDelay: `${i * 50}ms`,
-                  }}
-                >
-                  <WalletIcon $outline={true}>{icon}</WalletIcon>
-                  <WalletLabel>{shortName ?? name}</WalletLabel>
-                </WalletItem>
-              );
-            })}
-            <WalletItem onClick={openW3M} $waiting={isOpenW3M}>
-              <WalletIcon
-                style={{ background: 'var(--ck-body-background-secondary)' }}
-              >
-                {isOpenW3M ? (
-                  <div
+        <ModalContent style={{ paddingBottom: 0 }}>
+          <ScrollArea height={340}>
+            <WalletList $disabled={!wcUri}>
+              {wallets.map((wallet: WalletProps, i: number) => {
+                const { name, shortName, icon, installed } = wallet;
+                return (
+                  <WalletItem
+                    key={i}
+                    onClick={() => connectWallet(wallet)}
                     style={{
-                      position: 'absolute',
-                      inset: 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      animationDelay: `${i * 50}ms`,
                     }}
                   >
+                    <WalletIcon $outline={true}>{icon}</WalletIcon>
+                    <WalletLabel>{shortName ?? name}</WalletLabel>
+                  </WalletItem>
+                );
+              })}
+              <WalletItem onClick={openW3M} $waiting={isOpenW3M}>
+                <WalletIcon
+                  style={{ background: 'var(--ck-body-background-secondary)' }}
+                >
+                  {isOpenW3M ? (
                     <div
                       style={{
-                        width: '50%',
+                        position: 'absolute',
+                        inset: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
-                      <Spinner />
+                      <div
+                        style={{
+                          width: '50%',
+                        }}
+                      >
+                        <Spinner />
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  MoreIcon
-                )}
-              </WalletIcon>
-              <WalletLabel>{locales.more}</WalletLabel>
-            </WalletItem>
-          </WalletList>
+                  ) : (
+                    MoreIcon
+                  )}
+                </WalletIcon>
+                <WalletLabel>{locales.more}</WalletLabel>
+              </WalletItem>
+            </WalletList>
+          </ScrollArea>
         </ModalContent>
         {context.options?.walletConnectCTA !== 'modal' && (
           <div
@@ -116,7 +120,7 @@ const MobileConnectors: React.FC = () => {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 14,
-              paddingTop: 16,
+              paddingTop: 8,
             }}
           >
             <CopyToClipboard variant="button" string={wcUri}>

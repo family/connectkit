@@ -7,7 +7,7 @@ import { isRainbow } from '../../utils/wallets';
 
 export const rainbow = (): WalletProps => {
   const isInstalled = isRainbow();
-  const shouldUseWalletConnect = isMobile() || !isInstalled;
+  const shouldUseWalletConnect = isMobile() && !isInstalled;
 
   return {
     id: 'rainbow',
