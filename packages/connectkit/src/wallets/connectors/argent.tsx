@@ -8,7 +8,6 @@ export const argent = (): WalletProps => {
     id: 'argent',
     name: 'Argent',
     icon: <Logos.Argent />,
-    iconBackground: '#fff',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/argent',
