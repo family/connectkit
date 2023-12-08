@@ -8,7 +8,6 @@ export const unstoppable = (): WalletProps => {
     id: 'unstoppable',
     name: 'Unstoppable',
     icon: <Logos.Unstoppable />,
-    iconBackground: 'linear-gradient(180deg, #FED812 0%, #FFAF00 100%)',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/unstoppable',

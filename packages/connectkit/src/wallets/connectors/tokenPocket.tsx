@@ -11,7 +11,6 @@ export const tokenPocket = (): WalletProps => {
     id: 'tokenPocket',
     name: 'TokenPocket Wallet',
     icon: <Logos.TokenPocket />,
-    iconBackground: '#2980FE',
     scannable: false,
     downloadUrls: {
       website: 'https://www.tokenpocket.pro/en/download/app',

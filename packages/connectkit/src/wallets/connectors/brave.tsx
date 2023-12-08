@@ -11,7 +11,6 @@ export const brave = (): WalletProps => {
     name: 'Brave Wallet',
     shortName: 'Brave',
     icon: <Logos.Brave />,
-    iconBackground: '#fff',
     scannable: false,
     downloadUrls: {},
     installed: isInstalled,

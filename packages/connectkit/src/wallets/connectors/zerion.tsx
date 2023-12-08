@@ -11,7 +11,6 @@ export const zerion = (): WalletProps => {
     id: 'zerion',
     name: 'Zerion',
     icon: <Logos.Zerion />,
-    iconBackground: '#CC703C',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/zerion',

@@ -16,8 +16,6 @@ export type WalletConfigProps = {
   icon?: string | React.ReactNode;
   // Icon to use on the wallet list button. If not provided, `icon` will be used
   iconConnector?: React.ReactNode;
-  // Hex color or gradient
-  iconBackground?: string;
   // Defaults to `'circle'`, but some icons look better as squircle (e.g. if they have a background)
   iconShape?: 'squircle' | 'circle';
   // Defaults to `false`, but some icons don't have a background and look better if they shrink to fit the container
@@ -85,7 +83,6 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     name: 'Family',
     shortName: 'Family',
     icon: <Logos.Family />,
-    iconBackground: '#7DC4FF',
     iconShape: 'squircle',
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/family',
@@ -96,7 +93,6 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
   frame: {
     name: 'Frame',
     icon: <Logos.Frame />,
-    iconBackground: '#fff',
     iconShouldShrink: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/frame',
@@ -131,8 +127,6 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     name: 'MetaMask',
     icon: <Logos.MetaMask />,
     iconConnector: <Logos.MetaMask />,
-    iconBackground:
-      'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
     iconShouldShrink: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/metamask',
@@ -181,7 +175,6 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
   safe: {
     name: 'Safe',
     icon: <Logos.Safe />,
-    iconBackground: 'var(--ck-brand-safe)',
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/safe',
       website: 'https://safe.global/wallet',

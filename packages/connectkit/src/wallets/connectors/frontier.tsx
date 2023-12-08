@@ -12,7 +12,6 @@ export const frontier = (): WalletProps => {
     name: 'Frontier Wallet',
     shortName: 'Frontier',
     icon: <Logos.Frontier />,
-    iconBackground: '#CC703C',
     scannable: false,
     installed: isInstalled,
     downloadUrls: {

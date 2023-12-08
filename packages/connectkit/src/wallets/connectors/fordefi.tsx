@@ -11,7 +11,6 @@ export const fordefi = (): WalletProps => {
     id: 'fordefi',
     name: 'Fordefi',
     icon: <Logos.Fordefi />,
-    iconBackground: '#ffffff',
     scannable: false,
     downloadUrls: {},
     installed: isInstalled,

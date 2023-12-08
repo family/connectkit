@@ -9,7 +9,6 @@ export const safe = (): WalletProps => {
     name: 'Safe',
     shortName: 'Safe',
     icon: <Logos.Safe />,
-    iconBackground: '#ffffff',
     scannable: false,
     installed: !(typeof window === 'undefined') && window?.parent !== window,
     downloadUrls: {

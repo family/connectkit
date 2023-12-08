@@ -13,8 +13,6 @@ export const metaMask = (): WalletProps => {
     id: 'metaMask',
     name: 'MetaMask',
     icon: <Logos.MetaMask background />,
-    iconBackground:
-      'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
     iconShouldShrink: true,
     scannable: false,
     downloadUrls: {

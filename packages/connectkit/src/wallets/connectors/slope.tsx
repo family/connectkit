@@ -8,7 +8,6 @@ export const slope = (): WalletProps => {
     id: 'slope',
     name: 'Slope',
     icon: <Logos.Slope />,
-    iconBackground: '#6C67F1',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/slope',

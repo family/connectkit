@@ -11,7 +11,6 @@ export const frame = (): WalletProps => {
     id: 'frame',
     name: 'Frame',
     icon: <Logos.Frame />,
-    iconBackground: '#fff',
     iconShouldShrink: true,
     scannable: false,
     downloadUrls: {

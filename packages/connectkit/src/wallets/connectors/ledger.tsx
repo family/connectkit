@@ -9,7 +9,6 @@ export const ledger = (): WalletProps => {
     name: 'Ledger Live',
     shortName: 'Ledger',
     icon: <Logos.Ledger />,
-    iconBackground: '#000',
     scannable: false,
     downloadUrls: {
       website: 'https://www.ledger.com/ledger-live/download#download-device-2',

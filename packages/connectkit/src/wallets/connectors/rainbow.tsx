@@ -13,7 +13,6 @@ export const rainbow = (): WalletProps => {
     id: 'rainbow',
     name: 'Rainbow',
     icon: <Logos.Rainbow />,
-    iconBackground: '#174299',
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/rainbow',

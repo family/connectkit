@@ -11,7 +11,6 @@ export const family = (): WalletProps => {
     id: 'family',
     name: 'Family',
     icon: <Logos.Family />,
-    iconBackground: '#7DC4FF',
     iconShape: 'squircle',
     installed: Boolean(isInstalled) ? true : undefined,
     scannable: true,
