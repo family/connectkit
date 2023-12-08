@@ -1234,10 +1234,10 @@ export const OtherWallets = ({ ...props }) => {
       </div>
       <div style={row}>
         <div style={cell}>
-          <Rainbow />
+          <Family />
         </div>
         <div style={cell}>
-          <ImToken />
+          <Rainbow />
         </div>
       </div>
     </div>
