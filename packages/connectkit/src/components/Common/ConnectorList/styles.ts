@@ -171,7 +171,7 @@ const styles = {
       width: 60px;
       height: 60px;
       overflow: hidden;
-      border-radius: 27.5%;
+      border-radius: 25%;
       svg,
       img {
         display: block;
