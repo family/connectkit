@@ -1,3 +1,5 @@
+import { isFamily, isRainbow, isZerion } from '../utils/wallets';
+
 export const Injected = ({ ...props }) => (
   <svg
     {...props}
@@ -1229,17 +1231,11 @@ export const OtherWallets = ({ ...props }) => {
         <div style={cell}>
           <WalletConnect background />
         </div>
-        <div style={cell}>
-          <Zerion />
-        </div>
+        <div style={cell}>{!isZerion() ? <Zerion /> : <Phantom />}</div>
       </div>
       <div style={row}>
-        <div style={cell}>
-          <Family />
-        </div>
-        <div style={cell}>
-          <Rainbow />
-        </div>
+        <div style={cell}>{!isFamily() ? <Family /> : <ImToken />}</div>
+        <div style={cell}>{!isRainbow() ? <Rainbow /> : <Trust />}</div>
       </div>
     </div>
   );
