@@ -80,6 +80,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     },
   },
   family: {
+    rdns: 'co.family.wallet',
     name: 'Family',
     shortName: 'Family',
     iconShape: 'squircle',
