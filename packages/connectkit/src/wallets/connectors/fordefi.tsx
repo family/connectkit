@@ -1,10 +1,10 @@
-import { WalletProps } from '../wallet';
+import { LegacyWalletProps } from '../wallet';
 
 import Logos from '../../assets/logos';
 
 import { isFordefi } from '../../utils/wallets';
 
-export const fordefi = (): WalletProps => {
+export const fordefi = (): LegacyWalletProps => {
   const isInstalled = isFordefi();
 
   return {

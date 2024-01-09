@@ -1,6 +1,9 @@
 import { ReactNode } from 'react';
 
-export type WalletProps = {
+/*
+ * Legacy Wallets are wallets that use EIP-1193 to connect to dapps.
+ */
+export type LegacyWalletProps = {
   id: string;
   name: string;
   shortName?: string;

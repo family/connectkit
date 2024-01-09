@@ -1,8 +1,8 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
-export const imToken = (): WalletProps => {
+export const imToken = (): LegacyWalletProps => {
   return {
     id: 'imToken',
     name: 'imToken',

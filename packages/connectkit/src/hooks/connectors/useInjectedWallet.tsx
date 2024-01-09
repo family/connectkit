@@ -1,5 +1,5 @@
 import { useInjectedConnector } from '../useConnectors';
-import useDefaultWallets from '../../wallets/useDefaultWallets';
+import useLegacyWallets from '../../wallets/useLegacyWallets';
 import Logos from '../../assets/logos';
 import { Connector } from 'wagmi';
 import { useWallets } from '../useWallets';
@@ -18,7 +18,7 @@ export const getInjectedNames = (connector: Connector) => {
 
 export const useInjectedWallet = () => {
   const wallets = useWallets();
-  const injectedWallets = useDefaultWallets();
+  const injectedWallets = useLegacyWallets();
   const connector = useInjectedConnector();
 
   const shouldShow = () => {

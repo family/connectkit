@@ -1,10 +1,10 @@
-import { WalletProps } from '../wallet';
+import { LegacyWalletProps } from '../wallet';
 
 import Logos from '../../assets/logos';
 
 import { isPhantom } from '../../utils/wallets';
 
-export const phantom = (): WalletProps => {
+export const phantom = (): LegacyWalletProps => {
   const isInstalled = isPhantom();
   return {
     id: 'phantom',

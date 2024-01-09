@@ -9,9 +9,10 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import useDefaultWallets from '../../../wallets/useDefaultWallets';
+import useLegacyWallets from '../../../wallets/useLegacyWallets';
+import { LegacyWalletProps } from '../../../wallets/wallet';
+
 import { routes, useContext } from '../../ConnectKit';
-import { WalletProps } from '../../../wallets/wallet';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import useLocales from '../../../hooks/useLocales';
@@ -43,14 +44,14 @@ const MobileConnectors: React.FC = () => {
 
   const { uri: wcUri } = useWalletConnectUri();
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
-  const wallets = useDefaultWallets().filter(
-    (wallet: WalletProps) =>
+  const wallets = useLegacyWallets().filter(
+    (wallet: LegacyWalletProps) =>
       (wallet.installed === undefined || !wallet.installed) &&
       wallet.createUri && // Do not show wallets that are injected connectors
       !isWalletConnectConnector(wallet.id) // Do not show WalletConnect
   );
 
-  const connectWallet = (wallet: WalletProps) => {
+  const connectWallet = (wallet: LegacyWalletProps) => {
     if (wallet.installed) {
       context.setRoute(routes.CONNECT);
       context.setConnector({ id: wallet.id, name: wallet.name });
@@ -67,7 +68,7 @@ const MobileConnectors: React.FC = () => {
         <ModalContent style={{ paddingBottom: 0 }}>
           <ScrollArea height={340}>
             <WalletList $disabled={!wcUri}>
-              {wallets.map((wallet: WalletProps, i: number) => {
+              {wallets.map((wallet: LegacyWalletProps, i: number) => {
                 const { name, shortName, icon, installed } = wallet;
                 return (
                   <WalletItem

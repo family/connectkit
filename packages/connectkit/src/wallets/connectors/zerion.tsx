@@ -1,10 +1,10 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 import { isZerion } from '../../utils/wallets';
 
-export const zerion = (): WalletProps => {
+export const zerion = (): LegacyWalletProps => {
   const isInstalled = isZerion();
 
   return {

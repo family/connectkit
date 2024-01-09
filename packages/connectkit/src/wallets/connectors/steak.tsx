@@ -1,9 +1,9 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const steak = (): WalletProps => {
+export const steak = (): LegacyWalletProps => {
   return {
     id: 'steak',
     name: 'Steak',

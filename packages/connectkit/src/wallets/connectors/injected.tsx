@@ -1,9 +1,9 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isMobile } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const injected = (): WalletProps => {
+export const injected = (): LegacyWalletProps => {
   const isInstalled = typeof window !== 'undefined' && Boolean(window.ethereum);
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 

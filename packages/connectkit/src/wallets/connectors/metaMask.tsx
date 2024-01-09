@@ -1,11 +1,11 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isMobile, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 import { isMetaMask } from '../../utils/wallets';
 
-export const metaMask = (): WalletProps => {
+export const metaMask = (): LegacyWalletProps => {
   const isInstalled = isMetaMask();
   const shouldUseWalletConnect = isMobile() && !isInstalled; // use walletconnect on mobile if not using metamask in-app browser
 

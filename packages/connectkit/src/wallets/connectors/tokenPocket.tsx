@@ -1,10 +1,10 @@
-import { WalletProps } from '../wallet';
+import { LegacyWalletProps } from '../wallet';
 
 import Logos from '../../assets/logos';
 
 import { isTokenPocket } from '../../utils/wallets';
 
-export const tokenPocket = (): WalletProps => {
+export const tokenPocket = (): LegacyWalletProps => {
   const isInstalled = isTokenPocket();
 
   return {

@@ -1,11 +1,11 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 import { isTrust } from '../../utils/wallets';
 
-export const trust = (): WalletProps => {
+export const trust = (): LegacyWalletProps => {
   const isInstalled = isTrust();
   return {
     id: 'trust',

@@ -1,10 +1,10 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
 import { isDawn } from '../../utils/wallets';
 
-export const dawn = (): WalletProps => {
+export const dawn = (): LegacyWalletProps => {
   const isInstalled = isDawn();
 
   return {

@@ -1,11 +1,11 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isMobile } from '../../utils';
 import Logos from './../../assets/logos';
 
 import { isCoinbaseWallet } from '../../utils/wallets';
 
-export const coinbaseWallet = (): WalletProps => {
+export const coinbaseWallet = (): LegacyWalletProps => {
   const isInstalled = isCoinbaseWallet();
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 
