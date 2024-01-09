@@ -29,22 +29,24 @@ const ConnectorList = () => {
 
   const wallets = useWallets();
 
-  const walletsToDisplay = context.options?.hideRecentBadge
-    ? wallets
-    : [
-        // move last used wallet to top of list
-        // using .filter and spread to avoid mutating original array order with .sort
-        ...wallets.filter(
-          (wallet) =>
-            lastConnectorId ===
-            `${wallet.connector.id}-${wallet.connector.name}`
-        ),
-        ...wallets.filter(
-          (wallet) =>
-            lastConnectorId !==
-            `${wallet.connector.id}-${wallet.connector.name}`
-        ),
-      ];
+  const walletsToDisplay =
+    context.options?.hideRecentBadge ||
+    lastConnectorId === 'walletConnect-WalletConnect' // do not hoist walletconnect to top of list
+      ? wallets
+      : [
+          // move last used wallet to top of list
+          // using .filter and spread to avoid mutating original array order with .sort
+          ...wallets.filter(
+            (wallet) =>
+              lastConnectorId ===
+              `${wallet.connector.id}-${wallet.connector.name}`
+          ),
+          ...wallets.filter(
+            (wallet) =>
+              lastConnectorId !==
+              `${wallet.connector.id}-${wallet.connector.name}`
+          ),
+        ];
 
   return (
     <ScrollArea mobileDirection={'horizontal'}>
