@@ -43,23 +43,28 @@ export const useInjectedWallet = () => {
   };
 
   const getWallet = () => {
-    const installedWalletNames = wallets.map((wallet) => wallet.name);
-    const installedWallets = injectedWallets.filter(
-      (wallet: any) =>
-        wallet.installed && !installedWalletNames.includes(wallet.name)
+    const installedLegacyWallets = injectedWallets.filter(
+      (wallet) => wallet.installed
     );
 
-    if (installedWallets.length > 0) {
-      return installedWallets[0];
-    } else {
-      return {
-        id: 'injected',
-        name: getInjectedNames(connector)?.[0] ?? 'Browser Wallet',
-        shortName:
-          getInjectedNames(connector)?.[0]?.replace(' Wallet', '') ?? 'Browser',
-        icon: <Logos.Injected />,
-      };
+    if (installedLegacyWallets.length > 0) {
+      const installedWallets = wallets.filter(
+        (wallet) => wallet.id !== installedLegacyWallets[0].id
+      );
+
+      const filteredWallets = installedLegacyWallets.filter(
+        (wallet) => !installedWallets.find((w) => w.name === wallet.name)
+      );
+
+      if (filteredWallets.length > 0) return filteredWallets[0];
     }
+    return {
+      id: 'injected',
+      name: getInjectedNames(connector)?.[0] ?? 'Browser Wallet',
+      shortName:
+        getInjectedNames(connector)?.[0]?.replace(' Wallet', '') ?? 'Browser',
+      icon: <Logos.Injected />,
+    };
   };
 
   const wallet: LegacyWalletProps = getWallet();
