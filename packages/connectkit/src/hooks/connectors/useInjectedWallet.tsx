@@ -46,18 +46,15 @@ export const useInjectedWallet = () => {
     const installedLegacyWallets = injectedWallets.filter(
       (wallet) => wallet.installed
     );
-    alert(JSON.stringify(installedLegacyWallets.map((wallet) => wallet.name)));
 
     if (installedLegacyWallets.length > 0) {
       const installedWallets = wallets.filter(
         (wallet) => wallet.id !== installedLegacyWallets[0].id
       );
-      alert(JSON.stringify(installedWallets.map((wallet) => wallet.id)));
 
       const filteredWallets = installedLegacyWallets.filter(
         (wallet) => !installedWallets.find((w) => w.name === wallet.name)
       );
-      alert(JSON.stringify(filteredWallets.map((wallet) => wallet.name)));
 
       if (filteredWallets.length > 0) return filteredWallets[0];
     }
