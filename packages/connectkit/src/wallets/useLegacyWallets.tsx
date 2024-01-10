@@ -3,7 +3,7 @@ import { LegacyWalletProps } from './wallet';
 
 import { useConnect } from 'wagmi';
 
-function useLegacyWallets(): LegacyWalletProps[] | any {
+function useLegacyWallets(): LegacyWalletProps[] {
   const { connectors } = useConnect();
 
   let legacyWallets: string[] = [];

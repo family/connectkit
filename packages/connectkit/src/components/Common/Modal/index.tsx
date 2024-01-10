@@ -217,10 +217,10 @@ const Modal: React.FC<ModalProps> = ({
       ? {
           name: injectedWallet.wallet.name,
           shortName:
-            injectedWallet.wallet.shortName ?? injectedWallet.wallet.name,
-          icon: injectedWallet.wallet.icon,
+            injectedWallet.wallet?.shortName ?? injectedWallet.wallet.name,
+          icon: injectedWallet.wallet?.icon,
           iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
-          iconShouldShrink: injectedWallet.wallet.iconShouldShrink,
+          iconShouldShrink: injectedWallet.wallet?.iconShouldShrink,
         }
       : {
           name: wallet?.name,

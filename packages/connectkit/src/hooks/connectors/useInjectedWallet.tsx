@@ -3,6 +3,7 @@ import useLegacyWallets from '../../wallets/useLegacyWallets';
 import Logos from '../../assets/logos';
 import { Connector } from 'wagmi';
 import { useWallets } from '../useWallets';
+import { LegacyWalletProps } from '../../wallets/wallet';
 
 export const getInjectedNames = (connector: Connector) => {
   if (!connector) return [];
@@ -47,6 +48,7 @@ export const useInjectedWallet = () => {
       (wallet: any) =>
         wallet.installed && !installedWalletNames.includes(wallet.name)
     );
+
     if (installedWallets.length > 0) {
       return installedWallets[0];
     } else {
@@ -60,7 +62,7 @@ export const useInjectedWallet = () => {
     }
   };
 
-  const wallet = getWallet();
+  const wallet: LegacyWalletProps = getWallet();
   return {
     wallet,
     enabled: shouldShow() && wallet !== null,
