@@ -1,24 +1,21 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from '../wallet';
 
 import { isAndroid } from '../../utils';
-import Logos from './../../assets/logos';
+import Logos from '../../assets/logos';
 
-export const gnosisSafe = (): WalletProps => {
+export const safe = (): LegacyWalletProps => {
   return {
-    id: 'gnosisSafe',
-    name: 'Gnosis Safe',
+    id: 'safe',
+    name: 'Safe',
     shortName: 'Safe',
-    logos: {
-      default: <Logos.GnosisSafe />,
-    },
-    logoBackground: '#ffffff',
+    icon: <Logos.Safe />,
     scannable: false,
     installed: !(typeof window === 'undefined') && window?.parent !== window,
     downloadUrls: {
-      download: 'https://connect.family.co/v0/download/gnosisSafe',
+      download: 'https://connect.family.co/v0/download/safe',
       ios: 'https://apps.apple.com/app/id1515759131',
       android: 'https://play.google.com/store/apps/details?id=io.gnosis.safe',
-      website: 'https://gnosis-safe.io/',
+      website: 'https://safe.global/',
     },
     createUri: (uri: string) => {
       return isAndroid()

@@ -1,20 +1,17 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
 import { isDawn } from '../../utils/wallets';
 
-export const dawn = (): WalletProps => {
+export const dawn = (): LegacyWalletProps => {
   const isInstalled = isDawn();
 
   return {
     id: 'dawn',
     name: 'Dawn Wallet',
     shortName: 'Dawn',
-    logos: {
-      default: <Logos.Dawn />,
-    },
-    logoBackground: '#000000',
+    icon: <Logos.Dawn />,
     scannable: false,
     installed: Boolean(isInstalled),
     downloadUrls: {

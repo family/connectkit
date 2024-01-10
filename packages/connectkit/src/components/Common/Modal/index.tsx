@@ -38,7 +38,6 @@ import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
 import FocusTrap from '../../../hooks/useFocusTrap';
-import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
@@ -47,7 +46,7 @@ import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
-import useDefaultWallets from '../../../wallets/useDefaultWallets';
+import { useWallet } from '../../../hooks/useWallets';
 import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
@@ -210,30 +209,29 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();
 
-  const wallets = useDefaultWallets();
-  const installedWallets = wallets.filter((wallet) => wallet.installed);
+  const wallet = useWallet(context.connector?.id, context?.connector?.name);
+  const injectedWallet = useInjectedWallet();
 
-  let connector = supportedConnectors.find((c) => c.id === context.connector);
+  const walletInfo =
+    isInjectedConnector(wallet?.id) && injectedWallet.enabled
+      ? {
+          name: injectedWallet.wallet.name,
+          shortName:
+            injectedWallet.wallet?.shortName ?? injectedWallet.wallet.name,
+          icon: injectedWallet.wallet?.icon,
+          iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
+          iconShouldShrink: injectedWallet.wallet?.iconShouldShrink,
+        }
+      : {
+          name: wallet?.name,
+          shortName: wallet?.shortName ?? wallet?.name,
+          icon: wallet?.iconConnector ?? wallet?.icon,
+          iconShape: wallet?.iconShape ?? 'circle',
+          iconShouldShrink: wallet?.iconShouldShrink,
+        };
 
-  const injected = useInjectedWallet();
-
-  if (isInjectedConnector(context.connector)) {
-    const wallet = injected.enabled ? injected.wallet : installedWallets[0];
-    connector = {
-      ...wallet,
-      extensionIsInstalled: () => {
-        return wallet?.installed;
-      },
-      extensions: {
-        ...wallet?.downloadUrls,
-      },
-      appUrls: {
-        ...wallet?.downloadUrls,
-      },
-    };
-  }
   const locales = useLocales({
-    CONNECTORNAME: connector?.name,
+    CONNECTORNAME: walletInfo?.name,
   });
 
   const [state, setOpen] = useTransition({
@@ -340,13 +338,9 @@ const Modal: React.FC<ModalProps> = ({
   } as React.CSSProperties;
 
   function shouldUseQrcode() {
-    const c = supportedConnectors.filter((x) => x.id === context.connector)[0];
-    if (!c) return false; // Fail states are shown in the injector flow
+    if (!wallet) return false; // Fail states are shown in the injector flow
 
-    const hasExtensionInstalled =
-      c.extensionIsInstalled && c.extensionIsInstalled();
-
-    const useInjector = !c.scannable || hasExtensionInstalled;
+    const useInjector = !wallet.createUri || wallet.isInstalled;
     return !useInjector;
   }
 
@@ -356,11 +350,11 @@ const Modal: React.FC<ModalProps> = ({
         return locales.aboutScreen_heading;
       case routes.CONNECT:
         if (shouldUseQrcode()) {
-          return isWalletConnectConnector(connector?.id)
+          return isWalletConnectConnector(wallet?.connector?.id)
             ? locales.scanScreen_heading
             : locales.scanScreen_heading_withConnector;
         } else {
-          return connector?.name;
+          return walletInfo?.name;
         }
       case routes.CONNECTORS:
         return locales.connectorsScreen_heading;

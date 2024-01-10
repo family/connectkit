@@ -1,16 +1,13 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const slope = (): WalletProps => {
+export const slope = (): LegacyWalletProps => {
   return {
     id: 'slope',
     name: 'Slope',
-    logos: {
-      default: <Logos.Slope />,
-    },
-    logoBackground: '#6C67F1',
+    icon: <Logos.Slope />,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/slope',

@@ -1,43 +1,19 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isMobile, isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 import { isMetaMask } from '../../utils/wallets';
 
-export const metaMask = (): WalletProps => {
+export const metaMask = (): LegacyWalletProps => {
   const isInstalled = isMetaMask();
   const shouldUseWalletConnect = isMobile() && !isInstalled; // use walletconnect on mobile if not using metamask in-app browser
 
   return {
     id: 'metaMask',
     name: 'MetaMask',
-    logos: {
-      default: <Logos.MetaMask background />,
-      mobile: <Logos.MetaMask background />,
-      transparent: (
-        <div
-          style={{
-            transform: 'scale(0.86)',
-            position: 'relative',
-            width: '100%',
-          }}
-        >
-          <Logos.MetaMask />
-        </div>
-      ),
-      connectorButton: (
-        <div
-          style={{
-            transform: 'scale(1.1)',
-          }}
-        >
-          <Logos.MetaMask />
-        </div>
-      ),
-    },
-    logoBackground:
-      'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
+    icon: <Logos.MetaMask background />,
+    iconShouldShrink: true,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/metamask',

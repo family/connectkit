@@ -1,17 +1,14 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const ledger = (): WalletProps => {
+export const ledger = (): LegacyWalletProps => {
   return {
     id: 'ledger',
     name: 'Ledger Live',
     shortName: 'Ledger',
-    logos: {
-      default: <Logos.Ledger />,
-    },
-    logoBackground: '#000',
+    icon: <Logos.Ledger />,
     scannable: false,
     downloadUrls: {
       website: 'https://www.ledger.com/ledger-live/download#download-device-2',

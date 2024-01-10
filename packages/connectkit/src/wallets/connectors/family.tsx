@@ -1,20 +1,17 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 import { isFamily } from '../../utils/wallets';
 
-export const family = (): WalletProps => {
+export const family = (): LegacyWalletProps => {
   const isInstalled = isFamily();
   return {
     id: 'family',
     name: 'Family',
-    logos: {
-      default: <Logos.Family />,
-      transparent: <Logos.Family transparent />,
-    },
-    logoBackground: '#7DC4FF',
+    icon: <Logos.Family />,
+    iconShape: 'squircle',
     installed: Boolean(isInstalled) ? true : undefined,
     scannable: true,
     downloadUrls: {

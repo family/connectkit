@@ -7,6 +7,8 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { SafeConnector } from 'wagmi/connectors/safe';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
+import { createMipd } from './utils/mipd';
+
 type DefaultConnectorsProps = {
   chains?: Chain[];
   app: {
@@ -28,6 +30,24 @@ const defaultConnectors = ({
     !(typeof window === 'undefined') && window?.parent !== window;
 
   let connectors: Connector[] = [];
+
+  const mipd = createMipd();
+
+  if (mipd) {
+    connectors.push(
+      ...mipd.connectors.map(
+        (c) =>
+          new InjectedConnector({
+            chains,
+            options: {
+              getProvider: () =>
+                typeof window !== 'undefined' ? c.provider : undefined,
+              name: c.uuid, // use uuid as name so we can differentiate between multiple instances
+            },
+          })
+      )
+    );
+  }
 
   // If we're in an iframe, include the SafeConnector
   if (shouldUseSafeConnector) {

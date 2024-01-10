@@ -28,6 +28,7 @@ export const InfoBoxButtons = styled.div`
 `;
 export const LearnMoreContainer = styled(motion.div)`
   text-align: center;
+  margin-top: 16px;
   margin-bottom: -6px;
 `;
 export const LearnMoreButton = styled(motion.button)`
@@ -88,6 +89,12 @@ export const ConnectorsContainer = styled(motion.div)`
   flex-direction: column;
   gap: 12px;
   padding: 0 0 16px;
+  overflow-y: scroll;
+  max-height: 20rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ConnectorButton = styled(motion.button)`
@@ -248,9 +255,11 @@ export const ConnectorIcon = styled(motion.div)`
   width: 32px;
   height: 32px;
   overflow: hidden;
-  svg {
+  svg,
+  img {
     display: block;
     position: relative;
+    pointer-events: none;
     overflow: hidden;
     border-radius: 27.5%;
     width: 100%;

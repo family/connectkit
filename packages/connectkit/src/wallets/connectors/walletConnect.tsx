@@ -1,19 +1,12 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
-export const walletConnect = (): WalletProps => {
+export const walletConnect = (): LegacyWalletProps => {
   return {
     id: 'walletConnect',
     name: 'Other Wallets',
-    logos: {
-      default: <Logos.WalletConnect />,
-      mobile: <Logos.OtherWallets />,
-      transparent: <Logos.WalletConnect background={false} />,
-      connectorButton: <Logos.OtherWallets />,
-      qrCode: <Logos.WalletConnect background={true} />,
-    },
-    logoBackground: 'var(--ck-brand-walletConnect)',
+    icon: <Logos.WalletConnect />,
     scannable: true,
     createUri: (uri: string) => uri,
   };

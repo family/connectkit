@@ -1,57 +1,51 @@
-import React, { useState } from 'react';
-import supportedConnectors from '../../../constants/supportedConnectors';
+import React from 'react';
 
 import {
   PageContent,
   ModalBody,
   ModalContent,
 } from '../../Common/Modal/styles';
-import { OrDivider } from '../../Common/Modal';
 
 import CustomQRCode from '../../Common/CustomQRCode';
-import Button from '../../Common/Button';
 
-import { ExternalLinkIcon } from '../../../assets/icons';
 import useLocales from '../../../hooks/useLocales';
+import { useContext } from '../../ConnectKit';
+import { useWallet } from '../../../hooks/useWallets';
 
-const DownloadApp: React.FC<{
-  connectorId: string;
-}> = ({ connectorId }) => {
-  const [id] = useState(connectorId);
-  const connector = supportedConnectors.filter((c) => c.id === id)[0];
+const DownloadApp = () => {
+  const context = useContext();
+  const wallet = useWallet(context.connector.id, context.connector.name);
 
   const locales = useLocales({
-    CONNECTORNAME: connector.name,
+    CONNECTORNAME: wallet?.name,
   });
 
-  if (!connector) return <>Connector not found</>;
+  if (!wallet) return <>Wallet not found</>;
 
-  const ios = connector.appUrls?.ios;
-  const android = connector.appUrls?.android;
-  const downloadUri = connector.appUrls?.download;
+  const downloads = {
+    ios: wallet.downloadUrls?.ios,
+    android: wallet.downloadUrls?.android,
+    redirect: wallet.downloadUrls?.download,
+  };
+
   const bodycopy =
-    ios && android
+    downloads.ios && downloads.android
       ? locales.downloadAppScreen_iosAndroid
-      : ios
+      : downloads.ios
       ? locales.downloadAppScreen_ios
       : locales.downloadAppScreen_android;
 
   return (
     <PageContent>
       <ModalContent style={{ paddingBottom: 4, gap: 14 }}>
-        {downloadUri && <CustomQRCode value={downloadUri} />}
-        {!downloadUri && <>No download link available</>}
+        {downloads.redirect && <CustomQRCode value={downloads.redirect} />}
+        {!downloads.redirect && <>No download link available</>}
         <ModalBody
           style={{ fontSize: 15, lineHeight: '20px', padding: '0 12px' }}
         >
           {bodycopy}
         </ModalBody>
-        {connector.defaultConnect && <OrDivider />}
       </ModalContent>
-
-      {connector.defaultConnect && ( // Open the default connector modal
-        <Button icon={<ExternalLinkIcon />}>Open Default Modal</Button>
-      )}
     </PageContent>
   );
 };

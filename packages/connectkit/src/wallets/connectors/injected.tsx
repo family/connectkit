@@ -1,9 +1,9 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isMobile } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const injected = (): WalletProps => {
+export const injected = (): LegacyWalletProps => {
   const isInstalled = typeof window !== 'undefined' && Boolean(window.ethereum);
   const shouldUseWalletConnect = isMobile() && !isInstalled;
 
@@ -12,7 +12,7 @@ export const injected = (): WalletProps => {
     name: 'Browser Wallet',
     shortName: 'browser',
     scannable: false,
-    logos: { default: <Logos.Injected /> },
+    icon: <Logos.Injected />,
     installed: Boolean(!shouldUseWalletConnect ? isInstalled : false),
   };
 };

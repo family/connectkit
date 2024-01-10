@@ -1,16 +1,13 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const unstoppable = (): WalletProps => {
+export const unstoppable = (): LegacyWalletProps => {
   return {
     id: 'unstoppable',
     name: 'Unstoppable',
-    logos: {
-      default: <Logos.Unstoppable />,
-    },
-    logoBackground: 'linear-gradient(180deg, #FED812 0%, #FFAF00 100%)',
+    icon: <Logos.Unstoppable />,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/unstoppable',

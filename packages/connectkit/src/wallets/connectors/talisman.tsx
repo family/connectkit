@@ -1,10 +1,10 @@
-import { WalletProps } from '../wallet';
+import { LegacyWalletProps } from '../wallet';
 
 import Logos from '../../assets/logos';
 
 import { isTalisman } from '../../utils/wallets';
 
-export const talisman = (): WalletProps => {
+export const talisman = (): LegacyWalletProps => {
   const isInstalled = isTalisman();
 
   return {
@@ -12,9 +12,7 @@ export const talisman = (): WalletProps => {
     name: 'Talisman',
     shortName: 'Talisman',
     scannable: false,
-    logos: {
-      default: <Logos.Talisman />,
-    },
+    icon: <Logos.Talisman />,
     downloadUrls: {
       download: 'https://talisman.xyz/download',
       website: 'https://talisman.xyz',

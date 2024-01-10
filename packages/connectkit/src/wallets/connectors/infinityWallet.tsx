@@ -1,23 +1,16 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
 import { isInfinityWallet } from '../../utils/wallets';
 
-export const infinityWallet = (): WalletProps => {
+export const infinityWallet = (): LegacyWalletProps => {
   const isInstalled = isInfinityWallet();
 
   return {
     id: 'infinityWallet',
     name: 'Infinity Wallet',
-    logos: {
-      default: <Logos.InfinityWallet />,
-      mobile: <Logos.InfinityWallet />,
-      transparent: <Logos.InfinityWallet />,
-      appIcon: <Logos.InfinityWallet />,
-      connectorButton: <Logos.InfinityWallet />,
-    },
-    logoBackground: '#08a1d5',
+    icon: <Logos.InfinityWallet />,
     scannable: false,
     downloadUrls: {
       download: 'https://infinitywallet.io/download',
