@@ -23,9 +23,10 @@ type UseSIWEConfig = {
 };
 
 // Consumer-facing hook
-export const useSIWE = ({ onSignIn, onSignOut }: UseSIWEConfig = {}):
-  | HookProps
-  | any => {
+export const useSIWE = ({
+  onSignIn,
+  onSignOut,
+}: UseSIWEConfig = {}): HookProps => {
   const siweContextValue = useContext(SIWEContext);
   if (!siweContextValue) {
     // If we throw an error here then this will break non-SIWE apps, so best to just respond with not signed in.
