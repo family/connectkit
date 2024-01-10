@@ -9,9 +9,10 @@ import { useAccount, useBalance, useNetwork } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 
 import Chain from '../Common/Chain';
-import supportedChains from '../../constants/supportedChains';
+import supportedChains, { ChainIds } from '../../constants/supportedChains';
 import ThemedButton from '../Common/ThemedButton';
 import { nFormatter } from '../../utils';
+import { useContext } from '../ConnectKit';
 
 const Container = styled(motion.div)`
   display: flex;
@@ -47,14 +48,21 @@ type BalanceProps = {
 export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
   const isMounted = useIsMounted();
   const [isInitial, setIsInitial] = useState(true);
+  const context = useContext();
 
   const { address } = useAccount();
   const { chain } = useNetwork();
+
+  const customTokenAddress =
+    context?.options?.customTokenAddress && chain
+      ? context.options.customTokenAddress[chain.id as ChainIds]
+      : undefined;
 
   const { data: balance } = useBalance({
     address,
     chainId: chain?.id,
     watch: true,
+    ...(customTokenAddress && { token: customTokenAddress }),
   });
 
   const currentChain = supportedChains.find((c) => c.id === chain?.id);
@@ -112,11 +120,13 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
             </Container>
           ) : (
             <Container>
-              {!hideIcon && <Chain id={chain?.id} />}
+              {!hideIcon && !customTokenAddress ? (
+                <Chain id={chain?.id} />
+              ) : null}
               <span style={{ minWidth: 32 }}>
                 {nFormatter(Number(balance?.formatted))}
               </span>
-              {!hideSymbol && ` ${balance?.symbol}`}
+              {!hideSymbol || customTokenAddress ? ` ${balance?.symbol}` : null}
             </Container>
           )}
         </motion.div>

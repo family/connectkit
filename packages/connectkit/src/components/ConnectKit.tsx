@@ -21,6 +21,7 @@ import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
 import { useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
+import { ChainIds } from '../constants/supportedChains';
 import { useChains } from '../hooks/useChains';
 import {
   useConnectCallback,
@@ -95,6 +96,7 @@ export type ConnectKitOptions = {
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;
   disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
+  customTokenAddress?: Partial<Record<ChainIds, `0x${string}`>>;
   overlayBlur?: number; // Blur the background when the modal is open
 };
 
@@ -155,6 +157,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
     disableSiweRedirect: false,
+    customTokenAddress: undefined,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);

@@ -62,6 +62,14 @@ const languages: SelectProps[] = [
   { label: 'Chinese', value: 'zh-CN' },
 ];
 
+// USDC addresses for each chain
+const customTokenAddresses = {
+  [wagmiChains.mainnet.id]: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  [wagmiChains.polygon.id]: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
+  [wagmiChains.optimism.id]: '0x7f5c764cbc14f9669b88837ca1490cca17c31607',
+  [wagmiChains.arbitrum.id]: '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8',
+} as const;
+
 const AccountInfo = () => {
   const {
     address,
@@ -280,7 +288,7 @@ const Home: NextPage = () => {
       <main>
         <div className="panel">
           <h2>Connect Button</h2>
-          <ConnectKitButton label={label} />
+          <ConnectKitButton showBalance={!hideBalance} label={label} />
           {isConnected && (
             <button onClick={handleDisconnect}>Disconnect</button>
           )}
@@ -585,6 +593,19 @@ const Home: NextPage = () => {
             setOptions({
               ...options,
               bufferPolyfill: !options.bufferPolyfill,
+            })
+          }
+        />
+        <Checkbox
+          label="customTokenAddress"
+          value="customTokenAddress"
+          checked={options.customTokenAddress !== undefined}
+          onChange={() =>
+            setOptions({
+              ...options,
+              customTokenAddress: options.customTokenAddress
+                ? undefined
+                : customTokenAddresses,
             })
           }
         />

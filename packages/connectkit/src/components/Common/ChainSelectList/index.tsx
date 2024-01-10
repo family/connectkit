@@ -82,7 +82,11 @@ const ChainSelectList = ({
         <ChainButtons>
           {chains.map((x) => {
             const c = supportedChains.find((ch) => ch.id === x.id);
+
+            if (!c) return;
+
             const ch = { ...c, ...x };
+
             return (
               <ChainButton
                 key={`${ch?.id}-${ch?.name}`}
