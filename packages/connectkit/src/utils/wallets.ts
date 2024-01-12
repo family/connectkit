@@ -39,3 +39,4 @@ export const isTalisman = () => isWalletInstalled('Talisman');
 export const isFordefi = () => isWalletInstalled('Fordefi');
 export const isRainbow = () => isWalletInstalled('Rainbow');
 export const isZerion = () => isWalletInstalled('Zerion');
+export const isBloom = () => isWalletInstalled('Bloom');

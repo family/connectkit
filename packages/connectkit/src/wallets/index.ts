@@ -6,6 +6,7 @@ import { coinbaseWallet } from './connectors/coinbaseWallet';
 import { rainbow } from './connectors/rainbow';
 import { argent } from './connectors/argent';
 import { trust } from './connectors/trust';
+import { bloom } from './connectors/bloom';
 import { ledger } from './connectors/ledger';
 import { imToken } from './connectors/imToken';
 import { brave } from './connectors/brave';
@@ -42,6 +43,7 @@ export const getWallets = () => {
     steak(),
     frontier(),
     zerion(),
+    bloom(),
     //slope(),
 
     // injected

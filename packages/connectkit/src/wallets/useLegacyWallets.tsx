@@ -30,6 +30,7 @@ function useLegacyWallets(): LegacyWalletProps[] {
     'zerion',
     'safe',
     'brave',
+    'bloom',
     //'slope',
     'frame',
     'phantom',
