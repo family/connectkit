@@ -1,17 +1,25 @@
-import {
-  Connector,
-  configureChains,
-  ChainProviderFn,
-  PublicClient,
-  WebSocketPublicClient,
-} from 'wagmi';
-import { Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { CreateConnectorFn } from 'wagmi';
+import { type CreateConfigParameters } from '@wagmi/core';
+import { type Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { Transport, http } from 'viem';
 
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { infuraProvider } from 'wagmi/providers/infura';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { publicProvider } from 'wagmi/providers/public';
 import defaultConnectors from './defaultConnectors';
+const getTransport = (
+  provider: string,
+  apiKey: string,
+  chain: Chain
+): Transport => {
+  const chainName = chain.name.toLowerCase();
+  console.log(chain.rpcUrls.default);
+  switch (provider) {
+    case 'alchemy':
+      return http(`https://${chainName}.g.alchemy.com/v2/${apiKey}`);
+    case 'infura':
+      return http(`https://${chainName}.infura.io/v3/${apiKey}`);
+    default: // public
+      return http();
+  }
+};
 
 let globalAppName: string;
 let globalAppIcon: string;
@@ -19,80 +27,57 @@ let globalAppIcon: string;
 export const getAppName = () => globalAppName;
 export const getAppIcon = () => globalAppIcon;
 
-const defaultChains = [mainnet, polygon, optimism, arbitrum];
-
 type DefaultConfigProps = {
   appName: string;
   appIcon?: string;
   appDescription?: string;
   appUrl?: string;
-  autoConnect?: boolean;
-  alchemyId?: string;
-  infuraId?: string;
   chains?: Chain[];
-  connectors?: any;
-  publicClient?: any;
-  webSocketPublicClient?: any;
-  enableWebSocketPublicClient?: boolean;
-  stallTimeout?: number;
+  connectors?: CreateConnectorFn[];
+
   /* WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in) */
   walletConnectProjectId: string;
-};
-
-type ConnectKitClientProps = {
-  autoConnect?: boolean;
-  connectors?: Connector[];
-  publicClient: PublicClient;
-  webSocketPublicClient?: WebSocketPublicClient;
+  alchemyApiKey?: string;
+  infuraApiKey?: string;
 };
 
 const defaultConfig = ({
-  autoConnect = true,
   appName = 'ConnectKit',
   appIcon,
   appDescription,
   appUrl,
-  chains = defaultChains,
-  alchemyId,
-  infuraId,
   connectors,
-  publicClient,
-  stallTimeout,
-  webSocketPublicClient,
-  enableWebSocketPublicClient,
   walletConnectProjectId,
-}: DefaultConfigProps) => {
+  alchemyApiKey,
+  infuraApiKey,
+}: DefaultConfigProps): CreateConfigParameters => {
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
 
-  const providers: ChainProviderFn[] = [];
-  if (alchemyId) {
-    providers.push(alchemyProvider({ apiKey: alchemyId }));
-  }
-  if (infuraId) {
-    providers.push(infuraProvider({ apiKey: infuraId }));
-  }
-  providers.push(
-    jsonRpcProvider({
-      rpc: (c) => {
-        return { http: c.rpcUrls.default.http[0] };
-      },
-    })
-  );
-  providers.push(publicProvider());
+  const chains: CreateConfigParameters['chains'] = [
+    mainnet,
+    polygon,
+    optimism,
+    arbitrum,
+  ];
 
-  const {
-    publicClient: configuredPublicClient,
-    chains: configuredChains,
-    webSocketPublicClient: configuredWebSocketPublicClient,
-  } = configureChains(chains, providers, { stallTimeout });
+  const transports: CreateConfigParameters['transports'] = {};
+  Object.keys(chains).forEach((key, index) => {
+    const chain = chains[index];
+    transports[chain.id] = alchemyApiKey
+      ? getTransport('alchemy', alchemyApiKey, chain)
+      : infuraApiKey
+      ? getTransport('infura', infuraApiKey, chain)
+      : http();
+  });
 
-  const connectKitClient: ConnectKitClientProps = {
-    autoConnect,
+  const config: CreateConfigParameters = {
+    chains,
+    transports: transports,
+    multiInjectedProviderDiscovery: true,
     connectors:
       connectors ??
       defaultConnectors({
-        chains: configuredChains,
         app: {
           name: appName,
           icon: appIcon,
@@ -101,13 +86,9 @@ const defaultConfig = ({
         },
         walletConnectProjectId,
       }),
-    publicClient: publicClient ?? configuredPublicClient,
-    webSocketPublicClient: enableWebSocketPublicClient // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"
-      ? webSocketPublicClient ?? configuredWebSocketPublicClient
-      : undefined,
   };
 
-  return { ...connectKitClient };
+  return config;
 };
 
 export default defaultConfig;

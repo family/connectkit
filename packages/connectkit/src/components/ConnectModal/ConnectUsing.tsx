@@ -20,7 +20,7 @@ const ConnectUsing = () => {
 
   // If cannot be scanned, display injector flow, which if extension is not installed will show CTA to install it
   const useInjector =
-    wallet?.connector?.ready && (!wallet?.createUri || wallet?.isInstalled);
+    wallet?.connector && (!wallet?.createUri || wallet?.isInstalled);
 
   const [status, setStatus] = useState(
     useInjector ? states.INJECTOR : states.QRCODE

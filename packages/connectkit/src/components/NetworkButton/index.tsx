@@ -3,7 +3,7 @@ import { All } from './../../types';
 
 import { AnimatePresence } from 'framer-motion';
 
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 
 import Chain from '../Common/Chain';
@@ -54,8 +54,7 @@ const NetworkButton: React.FC<NetworkButtonProps & All> = ({
 
   const [open, setOpen] = useState(false);
 
-  const { isConnected } = useAccount();
-  const { chain } = useNetwork();
+  const { isConnected, chain } = useAccount();
 
   if (!isMounted) return null;
 

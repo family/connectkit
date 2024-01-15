@@ -6,7 +6,7 @@ import { WagmiConfig, createConfig } from 'wagmi';
 
 const config = createConfig(
   getDefaultConfig({
-    alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_KEY,
+    alchemyApiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY,
     walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
     appName: 'My ConnectKit App',
   })

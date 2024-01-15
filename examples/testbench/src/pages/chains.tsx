@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 
 import { ConnectKitButton, ChainIcon, useChains } from 'connectkit';
 
-import { useNetwork } from 'wagmi';
 import * as wagmiChains from 'wagmi/chains';
+import { useAccount } from 'wagmi';
 const allChains = Object.keys(wagmiChains).map(
   (key) => wagmiChains[key as keyof typeof wagmiChains]
 );
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const { chain } = useNetwork();
+  const { chain } = useAccount();
   const chains = useChains();
 
   if (!mounted) return null;
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
         <div className="panel">
           <h1>Chains</h1>
           <h2>Connected to</h2>
-          <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
+          <ChainIcon id={chain?.id} unsupported={!`chain?.unsupported`} />
           <h2>Configured/Supported Chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
             {chains.map((chain) => (

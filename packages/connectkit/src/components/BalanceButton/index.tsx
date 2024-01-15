@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { All } from './../../types';
+import { useQueryClient } from '@tanstack/react-query';
 
 import styled from './../../styles/styled';
 import { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { useAccount, useBalance, useBlockNumber } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 
 import Chain from '../Common/Chain';
@@ -48,14 +49,18 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
   const isMounted = useIsMounted();
   const [isInitial, setIsInitial] = useState(true);
 
-  const { address } = useAccount();
-  const { chain } = useNetwork();
+  const { address, chain } = useAccount();
 
-  const { data: balance } = useBalance({
+  const queryClient = useQueryClient();
+  const { data: blockNumber } = useBlockNumber({ watch: true });
+  const { data: balance, queryKey } = useBalance({
     address,
     chainId: chain?.id,
-    watch: true,
   });
+
+  useEffect(() => {
+    if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey });
+  }, [blockNumber, queryKey]);
 
   const currentChain = supportedChains.find((c) => c.id === chain?.id);
   const state = `${
@@ -105,7 +110,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
                 </PulseContainer>
               </span>
             </Container>
-          ) : chain?.unsupported ? (
+          ) : `chain?.unsupported` ? (
             <Container>
               {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>???</span>

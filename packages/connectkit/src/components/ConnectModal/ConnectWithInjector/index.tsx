@@ -83,49 +83,51 @@ const ConnectWithInjector: React.FC<{
   forceState?: typeof states;
 }> = ({ switchConnectMethod, forceState }) => {
   const { connect } = useConnect({
-    onMutate: (connector?: any) => {
-      if (connector.connector) {
-        setStatus(states.CONNECTING);
-      } else {
-        setStatus(states.UNAVAILABLE);
-      }
-    },
-    onError(err?: any) {
-      console.error(err);
-    },
-    onSettled(data?: any, error?: any) {
-      if (error) {
-        setShowTryAgainTooltip(true);
-        setTimeout(() => setShowTryAgainTooltip(false), 3500);
-        if (error.code) {
-          // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
-          switch (error.code) {
-            case -32002:
-              setStatus(states.NOTCONNECTED);
-              break;
-            case 4001:
-              setStatus(states.REJECTED);
-              break;
-            default:
-              setStatus(states.FAILED);
-              break;
-          }
+    mutation: {
+      onMutate: (connector?: any) => {
+        if (connector.connector) {
+          setStatus(states.CONNECTING);
         } else {
-          // Sometimes the error doesn't respond with a code
-          if (error.message) {
-            switch (error.message) {
-              case 'User rejected request':
+          setStatus(states.UNAVAILABLE);
+        }
+      },
+      onError(err?: any) {
+        console.error(err);
+      },
+      onSettled(data?: any, error?: any) {
+        if (error) {
+          setShowTryAgainTooltip(true);
+          setTimeout(() => setShowTryAgainTooltip(false), 3500);
+          if (error.code) {
+            // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
+            switch (error.code) {
+              case -32002:
+                setStatus(states.NOTCONNECTED);
+                break;
+              case 4001:
                 setStatus(states.REJECTED);
                 break;
               default:
                 setStatus(states.FAILED);
                 break;
             }
+          } else {
+            // Sometimes the error doesn't respond with a code
+            if (error.message) {
+              switch (error.message) {
+                case 'User rejected request':
+                  setStatus(states.REJECTED);
+                  break;
+                default:
+                  setStatus(states.FAILED);
+                  break;
+              }
+            }
           }
+        } else if (data) {
         }
-      } else if (data) {
-      }
-      setTimeout(triggerResize, 100);
+        setTimeout(triggerResize, 100);
+      },
     },
   });
 

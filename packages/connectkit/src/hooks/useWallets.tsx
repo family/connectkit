@@ -14,7 +14,7 @@ const mipd = createMipd();
 
 type WalletProps = {
   id: string;
-  connector: Connector<any, any>;
+  connector: Connector;
   isInstalled?: boolean;
   createUri?: (uri: string) => string;
 } & WalletConfigProps;

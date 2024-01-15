@@ -27,12 +27,12 @@ export function useWalletConnectUri(
   useEffect(() => {
     if (!enabled) return;
 
-    async function handleMessage({ type, data }: any) {
+    async function handleMessage({ type, data }) {
       log('WC Message', type, data);
       if (isWalletConnectLegacy) {
         log('isWalletConnectLegacy');
         if (type === 'connecting') {
-          const p = await connector.getProvider();
+          const p: any = await connector.getProvider();
           setUri(p.connector.uri);
 
           // User rejected, regenerate QR code
@@ -62,9 +62,7 @@ export function useWalletConnectUri(
       log('WC Disconnect');
 
       if (connector) {
-        if (connector.options?.version === '1') {
-          connectWallet(connector);
-        }
+        connectWallet(connector);
       }
     }
     async function handleConnect() {
@@ -106,20 +104,17 @@ export function useWalletConnectUri(
     if (!connector || uri) return;
     if (connector && !isConnected) {
       connectWalletConnect(connector);
+      /*
       log('add wc listeners');
-      connector.on('message', handleMessage);
-      connector.on('change', handleChange);
-      connector.on('connect', handleConnect);
-      connector.on('disconnect', handleDisconnect);
-      connector.on('error', handleError);
+      connector.onMessage?.(handleMessage);
+      connector.onChainChanged?.(handleChange);
+      connector.onConnect?.(handleConnect);
+      connector.onDisconnect?.(handleDisconnect);
+      connector.onError?.(handleError);
       return () => {
-        log('remove wc listeners');
-        connector.off('message', handleMessage);
-        connector.off('change', handleChange);
-        connector.off('connect', handleConnect);
-        connector.off('disconnect', handleDisconnect);
-        connector.off('error', handleError);
+        // log('remove wc listeners');
       };
+      */
     }
   }, [enabled, connector, isConnected]);
 

@@ -50,10 +50,11 @@
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {
+    "@tanstack/react-query": ">=5.0.0",
     "react": "17.x || 18.x",
     "react-dom": "17.x || 18.x",
-    "viem": "^1.0.0",
-    "wagmi": "^1.1.1"
+    "viem": "2.x.x",
+    "wagmi": "2.x.x"
   },
   "devDependencies": {
     "@types/node": "^16.11.27",
@@ -66,6 +67,6 @@
   "resolutions": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "wagmi": "^1.0.0"
+    "wagmi": "2.x.x"
   }
 }

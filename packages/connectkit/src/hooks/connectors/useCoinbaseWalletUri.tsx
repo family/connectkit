@@ -3,6 +3,7 @@ import { useContext } from './../../components/ConnectKit';
 
 import { useConnect } from './../useConnect';
 import { useCoinbaseWalletConnector } from './../useConnectors';
+import { ProviderMessage } from 'viem';
 
 export function useCoinbaseWalletUri() {
   const [uri, setUri] = useState<string | undefined>(undefined);
@@ -13,28 +14,24 @@ export function useCoinbaseWalletUri() {
   const { connectAsync } = useConnect();
 
   useEffect(() => {
-    async function handleMessage(e: any) {
-      context.log('CBW Message', e);
-      if (connector) {
-        if (e.type === 'connecting') {
-          const p = await connector.getProvider();
-          setUri(p.qrUrl);
-        }
-      }
-    }
     if (connector) {
-      context.log('add cbw listeners');
-      connectCoinbaseWallet(connector);
-      connector.on('message', handleMessage);
-      return () => {
-        context.log('remove cbw listeners');
-        connector.off('message', handleMessage);
+      connector.onMessage = async (message: ProviderMessage) => {
+        context.log('CBW Message', message);
+        if (connector) {
+          if (message.type === 'connecting') {
+            const p: any = await connector.getProvider();
+            if (p?.qrUrl) setUri(p.qrUrl);
+          }
+        }
       };
+      connectCoinbaseWallet(connector);
     }
   }, [connector]);
 
   async function connectWallet(connector: any) {
-    const result = await connectAsync({ connector });
+    const result = await connectAsync({
+      connector,
+    });
     if (result) return result;
     return false;
   }

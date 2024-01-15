@@ -41,7 +41,7 @@ import FocusTrap from '../../../hooks/useFocusTrap';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { useAccount, useSwitchChain } from 'wagmi';
 import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
@@ -299,20 +299,13 @@ const Modal: React.FC<ModalProps> = ({
   );
 
   // Update layout on chain/network switch to avoid clipping
-  const { chain } = useNetwork();
-  const { switchNetwork } = useSwitchNetwork();
+  const { chain } = useAccount();
+  const { switchChain } = useSwitchChain();
 
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [
-    chain,
-    switchNetwork,
-    mobile,
-    isSignedIn,
-    context.options,
-    context.resize,
-  ]);
+  }, [chain, switchChain, mobile, isSignedIn, context.options, context.resize]);
 
   useEffect(() => {
     if (!mounted) {

@@ -12,7 +12,6 @@ import {
   useAccount,
   useEnsName,
   useBalance,
-  useNetwork,
 } from 'wagmi';
 
 import {
@@ -49,8 +48,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
 
-  const { chain } = useNetwork();
-  const { address, isConnected, connector } = useAccount();
+  const { address, isConnected, connector, chain } = useAccount();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,

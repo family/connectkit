@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Connector } from 'wagmi';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
+import { Connector, CreateConnectorFn } from 'wagmi';
+import { walletConnect } from 'wagmi/connectors';
 import { useContext } from '../components/ConnectKit';
 
 import { isWalletConnectConnector } from '../utils';
@@ -20,29 +19,15 @@ export function useWalletConnectModal() {
       w3mcss.innerHTML = `w3m-modal, wcm-modal{ --wcm-z-index: 2147483647; --w3m-z-index:2147483647; }`;
       document.head.appendChild(w3mcss);
 
-      const clientConnector: Connector<any, any> | undefined = connectors.find(
-        (c) => isWalletConnectConnector(c.id)
+      const clientConnector = connectors.find((c) =>
+        isWalletConnectConnector(c.id)
       );
-      if (clientConnector) {
-        let connector: WalletConnectConnector | WalletConnectLegacyConnector;
 
-        if (clientConnector.id === 'walletConnectLegacy') {
-          connector = new WalletConnectLegacyConnector({
-            ...clientConnector,
-            options: {
-              ...clientConnector.options,
-              qrcode: true,
-            },
-          });
-        } else {
-          connector = new WalletConnectConnector({
-            ...clientConnector,
-            options: {
-              ...clientConnector.options,
-              showQrModal: true,
-            },
-          });
-        }
+      if (clientConnector) {
+        const connector: CreateConnectorFn = walletConnect({
+          projectId: '',
+          showQrModal: true,
+        });
 
         setIsOpen(true);
         try {

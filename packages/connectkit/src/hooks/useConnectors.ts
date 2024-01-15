@@ -1,12 +1,15 @@
-import { Connector, useConnect } from 'wagmi';
+import { useContext } from 'react';
+import { type Connector, WagmiContext } from 'wagmi';
 
 export function useConnectors() {
-  const { connectors } = useConnect();
-
-  return connectors;
+  const context = useContext(WagmiContext);
+  const connectors = context?.connectors;
+  console.log('useConnector', connectors);
+  return connectors ?? [];
 }
 
 export function useConnector(id: string, uuid?: string) {
+  console.log('useConnector');
   const connectors = useConnectors();
   if (id === 'injected' && uuid) {
     return connectors.find((c) => c.id === id && c.name === uuid) as Connector;
