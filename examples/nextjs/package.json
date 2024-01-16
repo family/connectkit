@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.17.10",
     "connectkit": "workspace:packages/connectkit",
     "next": "12.3.0",
     "react": "^18.0.0",

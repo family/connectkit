@@ -38,7 +38,9 @@ const Home: NextPage = () => {
           <h2>Connected to</h2>
           <ChainIcon
             id={chain?.id}
-            unsupported={chains.some((x) => x.id === chain?.id)}
+            unsupported={Boolean(
+              chain && !chains.some((x) => x.id !== chain?.id)
+            )}
           />
           <h2>Configured/Supported Chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>

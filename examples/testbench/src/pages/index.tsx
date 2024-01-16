@@ -104,7 +104,8 @@ const AccountInfo = () => {
             <tr>
               <td>Chain Supported</td>
               <td>
-                {!chain || chains.some((x) => x.id === chain?.id)
+                {!chain ||
+                Boolean(chain && !chains.some((x) => x.id !== chain?.id))
                   ? 'No'
                   : 'Yes'}
               </td>
@@ -319,7 +320,9 @@ const Home: NextPage = () => {
           <div style={{ display: 'flex', gap: 8 }}>
             <ChainIcon
               id={chain?.id}
-              unsupported={chains.some((x) => x.id === chain?.id)}
+              unsupported={Boolean(
+                chain && !chains.some((x) => x.id !== chain?.id)
+              )}
             />
             <ChainIcon id={1} size={64} radius={6} />
             <ChainIcon id={1337} size={32} radius={0} />
@@ -363,7 +366,9 @@ const Home: NextPage = () => {
                     {chain?.name}
                     <ChainIcon
                       id={chain?.id}
-                      unsupported={chains.some((x) => x.id === chain?.id)}
+                      unsupported={Boolean(
+                        chain && !chains.some((x) => x.id !== chain?.id)
+                      )}
                     />
                     <Avatar address={address} size={12} />
                     {ensName ?? address}

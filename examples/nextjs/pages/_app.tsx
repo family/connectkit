@@ -1,9 +1,10 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiProvider, createConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const config = createConfig(
   getDefaultConfig({
@@ -15,13 +16,17 @@ const config = createConfig(
   })
 );
 
+const queryClient = new QueryClient();
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={config}>
-      <ConnectKitProvider debugMode>
-        <Component {...pageProps} />
-      </ConnectKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <ConnectKitProvider debugMode>
+          <Component {...pageProps} />
+        </ConnectKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 
