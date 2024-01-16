@@ -20,6 +20,7 @@ import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectU
 import { Spinner } from '../../Common/Spinner';
 import { isWalletConnectConnector } from '../../../utils';
 import { ScrollArea } from '../../Common/ScrollArea';
+import { useWeb3 } from '../../contexts/web3';
 
 const MoreIcon = (
   <svg
@@ -42,7 +43,11 @@ const MobileConnectors: React.FC = () => {
   const context = useContext();
   const locales = useLocales();
 
-  const { uri: wcUri } = useWalletConnectUri();
+  const {
+    connect: { getUri },
+  } = useWeb3();
+  const wcUri = getUri();
+
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
   const wallets = useLegacyWallets().filter(
     (wallet: LegacyWalletProps) =>

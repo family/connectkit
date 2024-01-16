@@ -174,13 +174,17 @@ const ChainSelector: React.FC = () => {
               <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
                 <Chain
                   id={chain?.id}
-                  unsupported={chains.some((x) => x.id === chain?.id)}
+                  unsupported={Boolean(
+                    chain && !chains.some((x) => x.id !== chain?.id)
+                  )}
                 />
               </Tooltip>
             ) : (
               <Chain
                 id={chain?.id}
-                unsupported={chains.some((x) => x.id === chain?.id)}
+                unsupported={Boolean(
+                  chain && !chains.some((x) => x.id !== chain?.id)
+                )}
               />
             )}
             {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}

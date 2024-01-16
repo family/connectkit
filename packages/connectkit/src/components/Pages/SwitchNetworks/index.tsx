@@ -32,7 +32,7 @@ const SwitchNetworks: React.FC = () => {
   return (
     <PageContent style={{ width: 278 }}>
       <ModalContent style={{ padding: 0, marginTop: -10 }}>
-        {chains.some((x) => x.id === chain?.id) && (
+        {Boolean(chain && !chains.some((x) => x.id !== chain?.id)) && (
           <ModalBody>
             {locales.warnings_chainUnsupported}{' '}
             {locales.warnings_chainUnsupportedResolve}
@@ -43,7 +43,7 @@ const SwitchNetworks: React.FC = () => {
           <ChainSelectList variant="secondary" />
         </div>
 
-        {chains.some((x) => x.id === chain?.id) &&
+        {Boolean(chain && !chains.some((x) => x.id !== chain?.id)) &&
           !isSafeConnector(connector?.id) && (
             <div style={{ paddingTop: 12 }}>
               <OrDivider />

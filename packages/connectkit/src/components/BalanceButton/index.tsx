@@ -112,7 +112,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
                 </PulseContainer>
               </span>
             </Container>
-          ) : chains.some((x) => x.id === chain?.id) ? (
+          ) : Boolean(chain && !chains.some((x) => x.id !== chain?.id)) ? (
             <Container>
               {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>???</span>

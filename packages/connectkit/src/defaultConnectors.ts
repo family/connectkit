@@ -31,27 +31,26 @@ const defaultConnectors = ({
 
   // If we're in an iframe, include the SafeConnector
   if (shouldUseSafeConnector) {
-    connectors = [
-      ...connectors,
+    connectors.push(
       safe({
         allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-      }),
-    ];
+      })
+    );
   }
 
   // Add the rest of the connectors
-  connectors = [
-    ...connectors,
+  connectors.push(
     injected({ target: 'metaMask' }),
     coinbaseWallet({
       appName: app.name,
       appLogoUrl: app.icon,
       headlessMode: true,
       overrideIsMetaMask: false,
-    }),
-  ];
+    })
+  );
+
   if (walletConnectProjectId) {
-    connectors = [
+    connectors.push(
       walletConnect({
         showQrModal: false,
         projectId: walletConnectProjectId,
@@ -63,15 +62,15 @@ const defaultConnectors = ({
               icons: [app.icon!],
             }
           : undefined,
-      }),
-    ];
+      })
+    );
   }
 
-  connectors = [
+  connectors.push(
     injected({
       shimDisconnect: true,
-    }),
-  ];
+    })
+  );
 
   return connectors;
 };

@@ -11,7 +11,7 @@ function useLegacyWallets(): LegacyWalletProps[] {
   // If missing metamask or coinbasewallet connector from wagmi config, add them to this list
   if (!connectors.find((c) => c.id === 'metaMask'))
     legacyWallets.push('metaMask');
-  if (!connectors.find((c) => c.id === 'coinbaseWallet'))
+  if (!connectors.find((c) => c.id === 'coinbaseWalletSDK'))
     legacyWallets.push('coinbaseWallet');
 
   // define the order of the wallets

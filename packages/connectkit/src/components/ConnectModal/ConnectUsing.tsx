@@ -19,11 +19,10 @@ const ConnectUsing = () => {
   const wallet = useWallet(context.connector.id, context.connector.name);
 
   // If cannot be scanned, display injector flow, which if extension is not installed will show CTA to install it
-  const useInjector =
-    wallet?.connector && (!wallet?.createUri || wallet?.isInstalled);
+  const isQrCode = wallet?.getWalletConnectDeeplink || !wallet?.isInstalled;
 
   const [status, setStatus] = useState(
-    useInjector ? states.INJECTOR : states.QRCODE
+    isQrCode ? states.QRCODE : states.INJECTOR
   );
 
   if (!wallet) return <Alert>Connector not found {context.connector.id}</Alert>;

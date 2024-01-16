@@ -148,7 +148,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         show,
         hide,
         chain: chain,
-        unsupported: !!chains.some((x) => x.id === chain?.id),
+        unsupported: Boolean(chain && !chains.some((x) => x.id !== chain?.id)),
         isConnected: !!address,
         isConnecting: open, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
         address: address,
@@ -214,7 +214,7 @@ function ConnectKitButtonInner({
                     <AuthIcon />
                   </motion.div>
                 )}
-                {chains.some((x) => x.id === chain?.id) && (
+                {Boolean(chain && !chains.some((x) => x.id !== chain?.id)) && (
                   <UnsupportedNetworkContainer
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -347,7 +347,7 @@ export function ConnectKitButton({
   if (!isMounted) return null;
 
   const shouldShowBalance =
-    showBalance && !chains.some((x) => x.id === chain?.id);
+    showBalance && Boolean(chain && !chains.some((x) => x.id !== chain?.id));
   const willShowBalance = address && shouldShowBalance;
 
   return (

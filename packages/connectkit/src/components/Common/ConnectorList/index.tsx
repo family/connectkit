@@ -12,18 +12,22 @@ import { useWallets } from '../../../hooks/useWallets';
 import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 import { isInjectedConnector, isWalletConnectConnector } from '../../../utils';
 
-import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import useIsMobile from '../../../hooks/useIsMobile';
 
 import { ScrollArea } from '../../Common/ScrollArea';
 import Alert from '../Alert';
+import { useWeb3 } from '../../contexts/web3';
 
 const ConnectorList = () => {
   const context = useContext();
   const isMobile = useIsMobile();
 
-  const { uri } = useWalletConnectUri();
+  const {
+    connect: { getUri },
+  } = useWeb3();
+  const uri = getUri();
+
   const { lastConnectorId } = useLastConnector();
   const injectedWallet = useInjectedWallet();
 
@@ -66,10 +70,12 @@ const ConnectorList = () => {
               icon,
               iconConnector,
               connector,
-              createUri,
+              getWalletConnectDeeplink,
             } = wallet;
 
-            let deeplink = isMobile ? createUri?.(uri ?? '') : undefined;
+            let deeplink = isMobile
+              ? getWalletConnectDeeplink?.(uri ?? '')
+              : undefined;
 
             const redirectToMoreWallets =
               isMobile && isWalletConnectConnector(id);

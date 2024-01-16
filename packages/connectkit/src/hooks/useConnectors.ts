@@ -4,12 +4,10 @@ import { type Connector, WagmiContext } from 'wagmi';
 export function useConnectors() {
   const context = useContext(WagmiContext);
   const connectors = context?.connectors;
-  console.log('useConnector', connectors);
   return connectors ?? [];
 }
 
 export function useConnector(id: string, uuid?: string) {
-  console.log('useConnector');
   const connectors = useConnectors();
   if (id === 'injected' && uuid) {
     return connectors.find((c) => c.id === id && c.name === uuid) as Connector;
@@ -53,7 +51,7 @@ export function useCoinbaseWalletConnector() {
     headlessMode: true,
   }
   */
-  return useConnector('coinbaseWallet');
+  return useConnector('coinbaseWalletSDK');
 }
 export function useMetaMaskConnector() {
   /*

@@ -333,7 +333,7 @@ const Modal: React.FC<ModalProps> = ({
   function shouldUseQrcode() {
     if (!wallet) return false; // Fail states are shown in the injector flow
 
-    const useInjector = !wallet.createUri || wallet.isInstalled;
+    const useInjector = !wallet.getWalletConnectDeeplink || wallet.isInstalled;
     return !useInjector;
   }
 

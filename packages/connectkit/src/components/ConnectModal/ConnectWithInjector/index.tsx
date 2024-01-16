@@ -358,17 +358,18 @@ const ConnectWithInjector: React.FC<{
                   <ModalBody>{locales.injectionScreen_failed_p}</ModalBody>
                 </ModalContent>
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
-                {wallet?.createUri && wallet.id !== 'coinbaseWallet' && (
-                  <>
-                    <OrDivider />
-                    <Button
-                      icon={<Scan />}
-                      onClick={() => switchConnectMethod(id)}
-                    >
-                      {locales.scanTheQRCode}
-                    </Button>
-                  </>
-                )}
+                {wallet?.getWalletConnectDeeplink &&
+                  wallet.id !== 'coinbaseWalletSDK' && (
+                    <>
+                      <OrDivider />
+                      <Button
+                        icon={<Scan />}
+                        onClick={() => switchConnectMethod(id)}
+                      >
+                        {locales.scanTheQRCode}
+                      </Button>
+                    </>
+                  )}
               </Content>
             )}
             {status === states.REJECTED && (
@@ -385,17 +386,18 @@ const ConnectWithInjector: React.FC<{
                 </ModalContent>
 
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
-                {wallet?.createUri && wallet.id !== 'coinbaseWallet' && (
-                  <>
-                    <OrDivider />
-                    <Button
-                      icon={<Scan />}
-                      onClick={() => switchConnectMethod(id)}
-                    >
-                      {locales.scanTheQRCode}
-                    </Button>
-                  </>
-                )}
+                {wallet?.getWalletConnectDeeplink &&
+                  wallet.id !== 'coinbaseWalletSDK' && (
+                    <>
+                      <OrDivider />
+                      <Button
+                        icon={<Scan />}
+                        onClick={() => switchConnectMethod(id)}
+                      >
+                        {locales.scanTheQRCode}
+                      </Button>
+                    </>
+                  )}
               </Content>
             )}
             {(status === states.CONNECTING || status === states.EXPIRING) && (
@@ -489,10 +491,10 @@ const ConnectWithInjector: React.FC<{
                       <ModalBody>{locales.injectionScreen_install_p}</ModalBody>
                     </ModalContent>
                     {/**
-                    {(wallet.createUri &&
+                    {(wallet.getWalletConnectDeeplink &&
                     (!wallet.isInstalled && extensionUrl)) && <OrDivider />}
 
-                    {wallet.createUri && (
+                    {wallet.getWalletConnectDeeplink && (
                       <Button icon={<Scan />} onClick={switchConnectMethod}>
                         {locales.scanTheQRCode}
                       </Button>

@@ -1,4 +1,5 @@
 import Logos from '../assets/logos';
+import { isAndroid } from '../utils';
 
 /**
  * EIP-6963: Multi Injected Provider Discovery
@@ -39,6 +40,8 @@ export type WalletConfigProps = {
     edge?: string;
     safari?: string;
   };
+  // Create URI for QR code, where uri is encoded data from WalletConnect
+  getWalletConnectDeeplink?: (uri: string) => string;
 };
 
 // Organised in alphabetical order by key
@@ -65,6 +68,21 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
       chrome:
         'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
     },
+  },
+  coinbaseWalletSDK: {
+    name: 'Coinbase Wallet',
+    shortName: 'Coinbase',
+    icon: <Logos.Coinbase background />,
+    iconShape: 'squircle',
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/coinbasewallet',
+      website: 'https://www.coinbase.com/wallet/getting-started-extension',
+      android: 'https://play.google.com/store/apps/details?id=org.toshi',
+      ios: 'https://apps.apple.com/app/coinbase-wallet-store-crypto/id1278383455',
+      chrome:
+        'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
+    },
+    getWalletConnectDeeplink: (uri: string) => uri,
   },
   crypto: {
     rdns: 'com.crypto.wallet',
@@ -122,6 +140,24 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     shortName: 'Browser',
     icon: <Logos.Injected />,
   },
+  'metaMask-io': {
+    name: 'MetaMask',
+    icon: <Logos.MetaMask />,
+    iconConnector: <Logos.MetaMask />,
+    iconShouldShrink: true,
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/metamask',
+      website: 'https://metamask.io/download/',
+      android: 'https://play.google.com/store/apps/details?id=io.metamask',
+      ios: 'https://apps.apple.com/app/metamask/id1438144202',
+      chrome:
+        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      firefox: 'https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/',
+      brave:
+        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
+    },
+  },
   metaMask: {
     rdns: 'io.metamask',
     name: 'MetaMask',
@@ -160,6 +196,13 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
       chrome: 'https://rainbow.me/extension?utm_source=connectkit',
       edge: 'https://rainbow.me/extension?utm_source=connectkit',
       brave: 'https://rainbow.me/extension?utm_source=connectkit',
+    },
+    getWalletConnectDeeplink: (uri: string) => {
+      return isAndroid()
+        ? uri
+        : `https://rnbwapp.com/wc?uri=${encodeURIComponent(
+            uri
+          )}&connector=connectkit`;
     },
   },
   rabby: {
@@ -213,11 +256,6 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     shortName: 'Other',
     icon: <Logos.WalletConnect background />,
     iconConnector: <Logos.OtherWallets />,
-  },
-  walletConnectLegacy: {
-    name: 'Other Wallets',
-    shortName: 'Other',
-    icon: <Logos.WalletConnectLegacy background />,
-    iconConnector: <Logos.OtherWallets />,
+    getWalletConnectDeeplink: (uri: string) => uri,
   },
 };
