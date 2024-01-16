@@ -16,13 +16,18 @@ const randomID = () => {
 };
 
 export const save = (storageKey: string, data: any[]) => {
-  localStorage.setItem(storageKey, JSON.stringify(data));
-  return get(storageKey);
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(data));
+    return get(storageKey);
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 };
 
 export const get = (storageKey: string) => {
-  const data = localStorage.getItem(storageKey);
   try {
+    const data = localStorage.getItem(storageKey);
     if (data) return JSON.parse(data);
     return [];
   } catch (e) {
