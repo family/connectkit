@@ -16,6 +16,7 @@ import SignInWithEthereum from '../Pages/SignInWithEthereum';
 
 import { getAppIcon, getAppName } from '../../defaultConfig';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import { useChains } from '../../hooks/useChains';
 
 const customThemeDefault: object = {};
 
@@ -32,10 +33,12 @@ const ConnectModal: React.FC<{
 }) => {
   const context = useContext();
   const { isConnected, chain } = useAccount();
+  const chains = useChains();
 
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(
-    context.options?.enforceSupportedChains && `chain?.unsupported`
+    context.options?.enforceSupportedChains &&
+    chains.some((x) => x.id === chain?.id)
   );
 
   const showBackButton =

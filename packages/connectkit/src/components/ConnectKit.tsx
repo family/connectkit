@@ -207,7 +207,10 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     // Check if chain is supported, elsewise redirect to switches page
     const { chain } = useAccount();
     useEffect(() => {
-      if (opts.enforceSupportedChains && `chain?.unsupported`) {
+      if (
+        opts.enforceSupportedChains &&
+        chains.some((x) => x.id === chain?.id)
+      ) {
         setOpen(true);
         setRoute(routes.SWITCHNETWORKS);
       }

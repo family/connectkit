@@ -14,9 +14,7 @@ import ChainSelectDropdown from '../ChainSelectDropdown';
 import Chain from '../Chain';
 import useLocales from '../../../hooks/useLocales';
 
-import Logos from '../../../assets/chains';
 import { useAccount, useSwitchChain } from 'wagmi';
-import { useChains } from '../../../hooks/useChains';
 
 const Container = styled(motion.div)``;
 
@@ -174,10 +172,16 @@ const ChainSelector: React.FC = () => {
           >
             {disabled ? (
               <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
-                <Chain id={chain?.id} unsupported={!`chain?.unsupported`} />
+                <Chain
+                  id={chain?.id}
+                  unsupported={chains.some((x) => x.id === chain?.id)}
+                />
               </Tooltip>
             ) : (
-              <Chain id={chain?.id} unsupported={!`chain?.unsupported`} />
+              <Chain
+                id={chain?.id}
+                unsupported={chains.some((x) => x.id === chain?.id)}
+              />
             )}
             {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
           </SwitchChainButton>

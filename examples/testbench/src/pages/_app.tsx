@@ -2,17 +2,14 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { WagmiProvider, createConfig, useAccount, useConnect } from 'wagmi';
+import { WagmiProvider, createConfig } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
 import { ConnectKitProvider, getDefaultConfig, SIWESession } from 'connectkit';
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siweClient } from '../utils/siweClient';
 import { useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { http } from 'wagmi';
-import { sepolia } from 'wagmi/chains';
-
-/*
 const config = createConfig(
   getDefaultConfig({
     //chains: [mainnet, polygon],
@@ -23,7 +20,7 @@ const config = createConfig(
     walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
   })
 );
-*/
+const queryClient = new QueryClient();
 
 function App({ Component, pageProps }: AppProps) {
   const { theme, mode, options, customTheme } = useTestBench();
@@ -69,31 +66,36 @@ function App({ Component, pageProps }: AppProps) {
     */
   );
 }
-
-const config = createConfig({
-  chains: [mainnet, sepolia],
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
-});
 function MyApp(appProps: AppProps) {
   return (
     <>
-      <WagmiProvider config={config}>
-        <WagmiTest />
+      <Head>
+        <meta charSet="utf-8" />
+        <title>ConnectKit Testbench</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+      </Head>
+      <WagmiProvider
+        config={config}
+        // reconnectOnMount
+        // maybe useReconnect hook..?
+      >
+        <QueryClientProvider client={queryClient}>
+          <TestBenchProvider
+          //customTheme={{ '--ck-font-family': 'monospace' }}
+          >
+            <App {...appProps} />
+          </TestBenchProvider>
+        </QueryClientProvider>
       </WagmiProvider>
     </>
   );
 }
 
 const WagmiTest = () => {
-  useConnect();
-  return (
-    <div>
-      <pre>wat</pre>
-    </div>
-  );
+  return <div>wat</div>;
 };
 
 export default MyApp;

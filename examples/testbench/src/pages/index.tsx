@@ -73,6 +73,8 @@ const AccountInfo = () => {
   } = useAccount();
   const { data: balanceData } = useBalance({ address });
   const { chain } = useAccount();
+  const chains = useChains();
+
   const { isSignedIn, signOut } = useSIWE({
     onSignIn: (data?: SIWESession) => {
       console.log('onSignIn', data);
@@ -101,7 +103,11 @@ const AccountInfo = () => {
             </tr>
             <tr>
               <td>Chain Supported</td>
-              <td>{!chain || `chain?.unsupported` ? 'No' : 'Yes'}</td>
+              <td>
+                {!chain || chains.some((x) => x.id === chain?.id)
+                  ? 'No'
+                  : 'Yes'}
+              </td>
             </tr>
             <tr>
               <td>Address</td>
@@ -311,7 +317,10 @@ const Home: NextPage = () => {
         <div className="panel">
           <h2>Chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
-            <ChainIcon id={chain?.id} unsupported={!`chain?.unsupported`} />
+            <ChainIcon
+              id={chain?.id}
+              unsupported={chains.some((x) => x.id === chain?.id)}
+            />
             <ChainIcon id={1} size={64} radius={6} />
             <ChainIcon id={1337} size={32} radius={0} />
             <ChainIcon id={2} unsupported />
@@ -354,7 +363,7 @@ const Home: NextPage = () => {
                     {chain?.name}
                     <ChainIcon
                       id={chain?.id}
-                      unsupported={chain?.unsupported}
+                      unsupported={chains.some((x) => x.id === chain?.id)}
                     />
                     <Avatar address={address} size={12} />
                     {ensName ?? address}

@@ -14,11 +14,13 @@ import Button from '../../Common/Button';
 import { DisconnectIcon } from '../../../assets/icons';
 import { isSafeConnector } from '../../../utils';
 import { OrDivider } from '../../Common/Modal';
+import { useChains } from '../../../hooks/useChains';
 
 const SwitchNetworks: React.FC = () => {
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
   const { connector, chain } = useAccount();
+  const chains = useChains();
 
   const locales = useLocales({});
 
@@ -30,7 +32,7 @@ const SwitchNetworks: React.FC = () => {
   return (
     <PageContent style={{ width: 278 }}>
       <ModalContent style={{ padding: 0, marginTop: -10 }}>
-        {`chain?.unsupported` && (
+        {chains.some((x) => x.id === chain?.id) && (
           <ModalBody>
             {locales.warnings_chainUnsupported}{' '}
             {locales.warnings_chainUnsupportedResolve}
@@ -41,18 +43,19 @@ const SwitchNetworks: React.FC = () => {
           <ChainSelectList variant="secondary" />
         </div>
 
-        {`chain?.unsupported` && !isSafeConnector(connector?.id) && (
-          <div style={{ paddingTop: 12 }}>
-            <OrDivider />
-            <Button
-              icon={<DisconnectIcon />}
-              variant="secondary"
-              onClick={onDisconnect}
-            >
-              {locales.disconnect}
-            </Button>
-          </div>
-        )}
+        {chains.some((x) => x.id === chain?.id) &&
+          !isSafeConnector(connector?.id) && (
+            <div style={{ paddingTop: 12 }}>
+              <OrDivider />
+              <Button
+                icon={<DisconnectIcon />}
+                variant="secondary"
+                onClick={onDisconnect}
+              >
+                {locales.disconnect}
+              </Button>
+            </div>
+          )}
       </ModalContent>
     </PageContent>
   );

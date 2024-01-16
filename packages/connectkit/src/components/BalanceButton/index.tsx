@@ -13,6 +13,7 @@ import Chain from '../Common/Chain';
 import supportedChains from '../../constants/supportedChains';
 import ThemedButton from '../Common/ThemedButton';
 import { nFormatter } from '../../utils';
+import { useChains } from '../../hooks/useChains';
 
 const Container = styled(motion.div)`
   display: flex;
@@ -50,6 +51,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
   const [isInitial, setIsInitial] = useState(true);
 
   const { address, chain } = useAccount();
+  const chains = useChains();
 
   const queryClient = useQueryClient();
   const { data: blockNumber } = useBlockNumber({ watch: true });
@@ -110,7 +112,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
                 </PulseContainer>
               </span>
             </Container>
-          ) : `chain?.unsupported` ? (
+          ) : chains.some((x) => x.id === chain?.id) ? (
             <Container>
               {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>???</span>

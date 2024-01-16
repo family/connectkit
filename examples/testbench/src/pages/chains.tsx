@@ -36,7 +36,10 @@ const Home: NextPage = () => {
         <div className="panel">
           <h1>Chains</h1>
           <h2>Connected to</h2>
-          <ChainIcon id={chain?.id} unsupported={!`chain?.unsupported`} />
+          <ChainIcon
+            id={chain?.id}
+            unsupported={chains.some((x) => x.id === chain?.id)}
+          />
           <h2>Configured/Supported Chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
             {chains.map((chain) => (
