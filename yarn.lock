@@ -7217,6 +7217,7 @@ __metadata:
     styled-components: ^5.3.5
     typescript: ^4.9.5
   peerDependencies:
+    "@tanstack/react-query": ">=5.0.0"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
     viem: 2.x.x
@@ -13234,6 +13235,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nextjs@workspace:examples/nextjs"
   dependencies:
+    "@tanstack/react-query": ^5.17.10
     "@types/node": 18.7.18
     "@types/react": ^18.0.6
     "@types/react-dom": ^18.0.2
