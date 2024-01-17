@@ -1,16 +1,13 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const onto = (): WalletProps => {
+export const onto = (): LegacyWalletProps => {
   return {
     id: 'onto',
     name: 'ONTO',
-    logos: {
-      default: <Logos.ONTO />,
-    },
-    logoBackground: '#ffffff',
+    icon: <Logos.ONTO />,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/onto',

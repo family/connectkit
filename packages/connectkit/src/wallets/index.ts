@@ -13,7 +13,7 @@ import { steak } from './connectors/steak';
 import { unstoppable } from './connectors/unstoppable';
 //import { slope } from './connectors/slope';
 import { onto } from './connectors/onto';
-import { gnosisSafe } from './connectors/gnosisSafe';
+import { safe } from './connectors/safe';
 import { frontier } from './connectors/frontier';
 import { zerion } from './connectors/zerion';
 import { family } from './connectors/family';
@@ -24,7 +24,6 @@ import { rabby } from './connectors/rabby';
 import { fordefi } from './connectors/fordefi';
 import { tokenPocket } from './connectors/tokenPocket';
 import { talisman } from './connectors/talisman';
-
 
 export const getWallets = () => {
   return [
@@ -47,7 +46,7 @@ export const getWallets = () => {
 
     // injected
     brave(),
-    gnosisSafe(),
+    safe(),
     frame(),
     rainbow(),
     phantom(),

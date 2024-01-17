@@ -1,10 +1,9 @@
-import React from 'react';
 import { AlertProps } from './types';
 import { AlertContainer, IconContainer } from './styles';
 
-const Alert = ({ children, icon }: AlertProps) => {
+const Alert = ({ children, error, icon }: AlertProps) => {
   return (
-    <AlertContainer>
+    <AlertContainer $error={error}>
       {icon && <IconContainer>{icon}</IconContainer>}
       <div>{children}</div>
     </AlertContainer>

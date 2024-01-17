@@ -1,16 +1,13 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
-export const steak = (): WalletProps => {
+export const steak = (): LegacyWalletProps => {
   return {
     id: 'steak',
     name: 'Steak',
-    logos: {
-      default: <Logos.Steak />,
-    },
-    logoBackground: '#000000',
+    icon: <Logos.Steak />,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/steak',

@@ -1,4 +1,4 @@
-export const CONNECTKIT_VERSION = '1.5.3';
+export const CONNECTKIT_VERSION = '1.6.0';
 
 export * as Types from './types';
 export { default as getDefaultConfig } from './defaultConfig';
@@ -22,5 +22,4 @@ export { default as useIsMounted } from './hooks/useIsMounted'; // Useful for ap
 export { useChains } from './hooks/useChains';
 
 // TODO: Make this private
-export { default as supportedConnectors } from './constants/supportedConnectors';
 export { default as ConnectKitModalDemo } from './components/ConnectModal/demo';

@@ -1,3 +1,17 @@
+# 1.6.0
+
+This update adds [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) support for enhanced wallet discovery and improves the functionality and developer experience of using ConnectKit.
+
+## New
+
+- Support for [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963).
+  - Includes dependency [`mipd`](https://www.npmjs.com/package/mipd) for EIP-6963 TypeScript utilities, built by the team at [wevm](https://github.com/wevm) (creators of [wagmi](https://wagmi.sh/) and [viem](https://viem.sh/)).
+- Added [Zerion](https://zerion.io) extension support.
+
+## Improved
+
+- Hide SIWE tooltip when using `hideTooltips` option.
+
 # 1.5.3
 
 This update adds branding support for additional detectable injected connectors and improves the functionality and developer experience of using ConnectKit.

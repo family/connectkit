@@ -61,10 +61,10 @@ const ConnectModal: React.FC<{
   const pages: any = {
     onboarding: <Onboarding />,
     about: <About />,
-    download: <DownloadApp connectorId={context.connector} />,
+    download: <DownloadApp />,
     connectors: <Connectors />,
     mobileConnectors: <MobileConnectors />,
-    connect: <ConnectUsing connectorId={context.connector} />,
+    connect: <ConnectUsing />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     signInWithEthereum: <SignInWithEthereum />,

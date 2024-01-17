@@ -1,15 +1,12 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
-export const imToken = (): WalletProps => {
+export const imToken = (): LegacyWalletProps => {
   return {
     id: 'imToken',
     name: 'imToken',
-    logos: {
-      default: <Logos.ImToken />,
-    },
-    logoBackground: '#098de6',
+    icon: <Logos.ImToken />,
     scannable: false,
     downloadUrls: {
       //website: 'https://support.token.im/hc/en-us/categories/360000925393',

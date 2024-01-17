@@ -1,22 +1,17 @@
-import { WalletProps } from '../wallet';
+import { LegacyWalletProps } from '../wallet';
 
 import Logos from '../../assets/logos';
 
 import { isFrame } from '../../utils/wallets';
 
-export const frame = (): WalletProps => {
+export const frame = (): LegacyWalletProps => {
   const isInstalled = isFrame();
 
   return {
     id: 'frame',
     name: 'Frame',
-    logos: {
-      default: <Logos.Frame />,
-      transparent: <Logos.Frame />,
-      appIcon: <Logos.Frame />,
-      connectorButton: <Logos.Frame />,
-    },
-    logoBackground: '#fff',
+    icon: <Logos.Frame />,
+    iconShouldShrink: true,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/frame',

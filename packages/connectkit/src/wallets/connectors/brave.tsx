@@ -1,19 +1,16 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
+import { isBrave } from '../../utils/wallets';
 
-export const brave = (): WalletProps => {
-  const isInstalled =
-    typeof window !== 'undefined' && window.ethereum?.isBraveWallet === true;
+export const brave = (): LegacyWalletProps => {
+  const isInstalled = isBrave();
 
   return {
     id: 'brave',
     name: 'Brave Wallet',
     shortName: 'Brave',
-    logos: {
-      default: <Logos.Brave />,
-    },
-    logoBackground: '#fff',
+    icon: <Logos.Brave />,
     scannable: false,
     downloadUrls: {},
     installed: isInstalled,

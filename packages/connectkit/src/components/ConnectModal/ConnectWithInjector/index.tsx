@@ -9,8 +9,6 @@ import {
   Content,
 } from './styles';
 
-import supportedConnectors from '../../../constants/supportedConnectors';
-
 import {
   PageContent,
   ModalHeading,
@@ -24,7 +22,7 @@ import Button from '../../Common/Button';
 import Tooltip from '../../Common/Tooltip';
 import Alert from '../../Common/Alert';
 
-import CircleSpinner from './CircleSpinner';
+import SquircleSpinner from './SquircleSpinner';
 
 import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
@@ -36,7 +34,10 @@ import {
 } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
-import useDefaultWallets from '../../../wallets/useDefaultWallets';
+import { useContext } from '../../ConnectKit';
+import { useWallet } from '../../../hooks/useWallets';
+import CircleSpinner from './CircleSpinner';
+import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 
 export const states = {
   CONNECTED: 'connected',
@@ -78,11 +79,10 @@ const contentVariants: Variants = {
 };
 
 const ConnectWithInjector: React.FC<{
-  connectorId: string;
   switchConnectMethod: (id?: string) => void;
   forceState?: typeof states;
-}> = ({ connectorId, switchConnectMethod, forceState }) => {
-  const { connect, connectors } = useConnect({
+}> = ({ switchConnectMethod, forceState }) => {
+  const { connect } = useConnect({
     onMutate: (connector?: any) => {
       if (connector.connector) {
         setStatus(states.CONNECTING);
@@ -125,71 +125,70 @@ const ConnectWithInjector: React.FC<{
         }
       } else if (data) {
       }
+      setTimeout(triggerResize, 100);
     },
   });
 
-  const [id, setId] = useState(connectorId);
+  const { triggerResize, connector: c } = useContext();
+  const id = c.id;
+  const wallet = useWallet(id, c.name);
+
+  const injectedWallet = useInjectedWallet();
+
+  const walletInfo =
+    isInjectedConnector(wallet?.id) && injectedWallet.enabled
+      ? {
+          name: injectedWallet.wallet.name,
+          shortName:
+            injectedWallet.wallet.shortName ?? injectedWallet.wallet.name,
+          icon: injectedWallet.wallet.icon,
+          iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
+          iconShouldShrink: injectedWallet.wallet.iconShouldShrink ?? false,
+        }
+      : {
+          name: wallet?.name,
+          shortName: wallet?.shortName ?? wallet?.name,
+          icon: wallet?.iconConnector ?? wallet?.icon,
+          iconShape: wallet?.iconShape ?? 'circle',
+          iconShouldShrink: wallet?.iconShouldShrink,
+        };
+
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
-  const wallets = useDefaultWallets();
-  const installedWallets = wallets.filter((wallet) => wallet.installed);
-  let connector = supportedConnectors.filter((c) => c.id === id)[0];
-  if (isInjectedConnector(connectorId) && installedWallets.length > 0) {
-    const wallet = installedWallets[0];
-    connector = {
-      ...wallet,
-      extensionIsInstalled: () => {
-        return wallet?.installed;
-      },
-      extensions: {
-        ...wallet?.downloadUrls,
-      },
-      appUrls: {
-        ...wallet?.downloadUrls,
-      },
-    };
-  }
 
   const expiryDefault = 9; // Starting at 10 causes layout shifting, better to start at 9
   const [expiryTimer, setExpiryTimer] = useState<number>(expiryDefault);
 
-  const hasExtensionInstalled =
-    connector.extensionIsInstalled && connector.extensionIsInstalled();
-
   const browser = detectBrowser();
-  const extensionUrl = connector.extensions
-    ? connector.extensions[browser]
-    : undefined;
 
-  const suggestedExtension = connector.extensions
+  const extensionUrl = wallet?.downloadUrls?.[browser];
+
+  const suggestedExtension = wallet?.downloadUrls
     ? {
-        name: Object.keys(connector.extensions)[0],
+        name: Object.keys(wallet?.downloadUrls)[0],
         label:
-          Object.keys(connector.extensions)[0]?.charAt(0).toUpperCase() +
-          Object.keys(connector.extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
-        url: connector.extensions[Object.keys(connector.extensions)[0]],
+          Object.keys(wallet?.downloadUrls)[0]?.charAt(0).toUpperCase() +
+          Object.keys(wallet?.downloadUrls)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+        url: wallet?.downloadUrls[Object.keys(wallet?.downloadUrls)[0]],
       }
     : undefined;
 
   const [status, setStatus] = useState(
     forceState
       ? forceState
-      : !hasExtensionInstalled
+      : !wallet?.isInstalled
       ? states.UNAVAILABLE
       : states.CONNECTING
   );
 
   const locales = useLocales({
-    CONNECTORNAME: connector.name,
-    CONNECTORSHORTNAME: connector.shortName ?? connector.name,
+    CONNECTORNAME: walletInfo.name,
+    CONNECTORSHORTNAME: walletInfo.shortName ?? walletInfo.name,
     SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label ?? 'your browser',
   });
 
-  const runConnect = () => {
-    if (!hasExtensionInstalled) return;
-
-    const con: any = connectors.find((c) => c.id === id);
-    if (con) {
-      connect({ connector: con });
+  const runConnect = async () => {
+    if (wallet?.isInstalled && wallet?.connector) {
+      connect({ connector: wallet?.connector });
     } else {
       setStatus(states.UNAVAILABLE);
     }
@@ -228,7 +227,7 @@ const ConnectWithInjector: React.FC<{
   }, [status, expiryTimer]);
   */
 
-  if (!connector) {
+  if (!wallet) {
     return (
       <PageContent>
         <Container>
@@ -244,7 +243,7 @@ const ConnectWithInjector: React.FC<{
   }
 
   // TODO: Make this more generic
-  if (isWalletConnectConnector(connector?.id)) {
+  if (isWalletConnectConnector(wallet?.connector.id)) {
     return (
       <PageContent>
         <Container>
@@ -266,7 +265,7 @@ const ConnectWithInjector: React.FC<{
         <ConnectingContainer>
           <ConnectingAnimation
             $shake={status === states.FAILED || status === states.REJECTED}
-            $circle
+            $circle={walletInfo.iconShape === 'circle'}
           >
             <AnimatePresence>
               {(status === states.FAILED || status === states.REJECTED) && (
@@ -294,87 +293,48 @@ const ConnectWithInjector: React.FC<{
                 </RetryButton>
               )}
             </AnimatePresence>
-
-            {/*
-            <Tooltip
-              open={status === states.EXPIRING}
-              message={
-                <span
-                  style={{
-                    display: 'block',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {copy.expiring.requestWillExpiryIn}{' '}
-                  <span style={{ position: 'relative' }}>
-                    <AnimatePresence>
-                      <motion.span
-                        key={expiryTimer}
-                        style={{
-                          display: 'inline-block',
-                          whiteSpace: 'nowrap',
-                          fontVariantNumeric: 'tabular-nums',
-                        }}
-                        initial={{
-                          willChange: 'transform,opacity',
-                          position: 'relative',
-                          opacity: 0,
-                          scale: 0.5,
-                          y: 0,
-                        }}
-                        animate={{
-                          position: 'relative',
-                          opacity: 1,
-                          scale: 1,
-                          y: 0,
-                          transition: {
-                            ease: 'easeOut',
-                            duration: 0.2,
-                            delay: 0.2,
-                          },
-                        }}
-                        exit={{
-                          position: 'absolute',
-                          opacity: 0,
-                          scale: 0.5,
-                          y: 0,
-                          transition: {
-                            ease: 'easeIn',
-                            duration: 0.2,
-                          },
-                        }}
-                      >
-                        {expiryTimer}
-                      </motion.span>
-                    </AnimatePresence>
-                    s
-                  </span>
-                </span>
-              }
-              xOffset={-2}
-            >
-            */}
-            <CircleSpinner
-              logo={
-                status === states.UNAVAILABLE ? (
-                  <div
-                    style={{
-                      transform: 'scale(1.14)',
-                      position: 'relative',
-                      width: '100%',
-                    }}
-                  >
-                    {connector.logos.transparent ?? connector.logos.default}
-                  </div>
-                ) : (
-                  <>{connector.logos.transparent ?? connector.logos.default}</>
-                )
-              }
-              smallLogo={connector.id === 'injected'}
-              connecting={status === states.CONNECTING}
-              unavailable={status === states.UNAVAILABLE}
-              countdown={status === states.EXPIRING}
-            />
+            {walletInfo.iconShape === 'circle' ? (
+              <CircleSpinner
+                logo={
+                  status === states.UNAVAILABLE ? (
+                    <div
+                      style={{
+                        transform: 'scale(1.14)',
+                        position: 'relative',
+                        width: '100%',
+                      }}
+                    >
+                      {walletInfo.icon}
+                    </div>
+                  ) : (
+                    <>{walletInfo.icon}</>
+                  )
+                }
+                smallLogo={walletInfo.iconShouldShrink}
+                connecting={status === states.CONNECTING}
+                unavailable={status === states.UNAVAILABLE}
+              />
+            ) : (
+              <SquircleSpinner
+                logo={
+                  status === states.UNAVAILABLE ? (
+                    <div
+                      style={{
+                        transform: 'scale(1.14)',
+                        position: 'relative',
+                        width: '100%',
+                      }}
+                    >
+                      {walletInfo.icon}
+                    </div>
+                  ) : (
+                    <>{walletInfo.icon}</>
+                  )
+                }
+                connecting={status === states.CONNECTING}
+                //unavailable={status === states.UNAVAILABLE}
+              />
+            )}
             {/* </Tooltip> */}
           </ConnectingAnimation>
         </ConnectingContainer>
@@ -396,7 +356,7 @@ const ConnectWithInjector: React.FC<{
                   <ModalBody>{locales.injectionScreen_failed_p}</ModalBody>
                 </ModalContent>
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
-                {connector.scannable && connector.id !== 'coinbaseWallet' && (
+                {wallet?.createUri && wallet.id !== 'coinbaseWallet' && (
                   <>
                     <OrDivider />
                     <Button
@@ -423,7 +383,7 @@ const ConnectWithInjector: React.FC<{
                 </ModalContent>
 
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
-                {connector.scannable && connector.id !== 'coinbaseWallet' && (
+                {wallet?.createUri && wallet.id !== 'coinbaseWallet' && (
                   <>
                     <OrDivider />
                     <Button
@@ -446,12 +406,12 @@ const ConnectWithInjector: React.FC<{
               >
                 <ModalContent style={{ paddingBottom: 28 }}>
                   <ModalH1>
-                    {connector.id === 'injected'
+                    {wallet.connector.id === 'injected'
                       ? locales.injectionScreen_connecting_injected_h1
                       : locales.injectionScreen_connecting_h1}
                   </ModalH1>
                   <ModalBody>
-                    {connector.id === 'injected'
+                    {wallet.connector.id === 'injected'
                       ? locales.injectionScreen_connecting_injected_p
                       : locales.injectionScreen_connecting_p}
                   </ModalBody>
@@ -509,7 +469,7 @@ const ConnectWithInjector: React.FC<{
                       </ModalBody>
                     </ModalContent>
 
-                    {!hasExtensionInstalled && suggestedExtension && (
+                    {!wallet.isInstalled && suggestedExtension && (
                       <Button
                         href={suggestedExtension?.url}
                         icon={
@@ -527,16 +487,16 @@ const ConnectWithInjector: React.FC<{
                       <ModalBody>{locales.injectionScreen_install_p}</ModalBody>
                     </ModalContent>
                     {/**
-                  {(connector.scannable &&|
-                    (!hasExtensionInstalled && extensionUrl)) && <OrDivider />}
+                    {(wallet.createUri &&
+                    (!wallet.isInstalled && extensionUrl)) && <OrDivider />}
 
-                  {connector.scannable && (
-                    <Button icon={<Scan />} onClick={switchConnectMethod}>
-                      {locales.scanTheQRCode}
-                    </Button>
-                  )}
-                  */}
-                    {!hasExtensionInstalled && extensionUrl && (
+                    {wallet.createUri && (
+                      <Button icon={<Scan />} onClick={switchConnectMethod}>
+                        {locales.scanTheQRCode}
+                      </Button>
+                    )}
+                    */}
+                    {!wallet.isInstalled && extensionUrl && (
                       <Button href={extensionUrl} icon={<BrowserIcon />}>
                         {locales.installTheExtension}
                       </Button>

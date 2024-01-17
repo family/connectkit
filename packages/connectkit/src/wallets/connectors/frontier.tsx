@@ -1,20 +1,17 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import { isAndroid } from '../../utils';
 import Logos from './../../assets/logos';
 
 import { isFrontier } from '../../utils/wallets';
 
-export const frontier = (): WalletProps => {
+export const frontier = (): LegacyWalletProps => {
   const isInstalled = isFrontier();
   return {
     id: 'frontier',
     name: 'Frontier Wallet',
-    logos: {
-      default: <Logos.Frontier />,
-    },
     shortName: 'Frontier',
-    logoBackground: '#CC703C',
+    icon: <Logos.Frontier />,
     scannable: false,
     installed: isInstalled,
     downloadUrls: {

@@ -1,24 +1,18 @@
-import { WalletProps } from './../wallet';
+import { LegacyWalletProps } from './../wallet';
 
 import Logos from './../../assets/logos';
 
 import { isAndroid, isMobile } from '../../utils';
 import { isRainbow } from '../../utils/wallets';
 
-export const rainbow = (): WalletProps => {
+export const rainbow = (): LegacyWalletProps => {
   const isInstalled = isRainbow();
-  const shouldUseWalletConnect = isMobile() || !isInstalled;
+  const shouldUseWalletConnect = isMobile() && !isInstalled;
 
   return {
     id: 'rainbow',
     name: 'Rainbow',
-    logos: {
-      default: <Logos.Rainbow />,
-      mobile: <Logos.Rainbow />,
-      appIcon: <Logos.Rainbow />,
-      connectorButton: <Logos.Rainbow round />,
-    },
-    logoBackground: '#174299',
+    icon: <Logos.Rainbow />,
     scannable: false,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/rainbow',
