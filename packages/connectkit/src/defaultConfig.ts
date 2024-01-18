@@ -4,6 +4,7 @@ import { type Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 import { Transport, http } from 'viem';
 
 import defaultConnectors from './defaultConnectors';
+
 const getTransport = (
   provider: string,
   apiKey: string,
@@ -31,7 +32,7 @@ type DefaultConfigProps = {
   appIcon?: string;
   appDescription?: string;
   appUrl?: string;
-  chains?: Chain[];
+  chains?: readonly [Chain, ...Chain[]];
   connectors?: CreateConnectorFn[];
 
   /* WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in) */
@@ -45,6 +46,7 @@ const defaultConfig = ({
   appIcon,
   appDescription,
   appUrl,
+  chains: chains = [mainnet, polygon, optimism, arbitrum],
   connectors,
   walletConnectProjectId,
   alchemyApiKey,
@@ -52,13 +54,6 @@ const defaultConfig = ({
 }: DefaultConfigProps): CreateConfigParameters => {
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
-
-  const chains: CreateConfigParameters['chains'] = [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-  ];
 
   const transports: CreateConfigParameters['transports'] = {};
   Object.keys(chains).forEach((key, index) => {
