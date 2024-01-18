@@ -1,7 +1,7 @@
-import { CreateConnectorFn } from 'wagmi';
+import { type CreateConnectorFn } from 'wagmi';
 import { type CreateConfigParameters } from '@wagmi/core';
 import { type Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { Transport, http } from 'viem';
+import { type HttpTransport, http } from 'viem';
 
 import defaultConnectors from './defaultConnectors';
 
@@ -9,7 +9,7 @@ const getTransport = (
   provider: string,
   apiKey: string,
   chain: Chain
-): Transport => {
+): HttpTransport => {
   const chainName = chain.name.toLowerCase();
   switch (provider) {
     case 'alchemy':
@@ -32,7 +32,8 @@ type DefaultConfigProps = {
   appIcon?: string;
   appDescription?: string;
   appUrl?: string;
-  chains?: readonly [Chain, ...Chain[]];
+  chains?: CreateConfigParameters['chains'];
+  transports?: CreateConfigParameters['transports'];
   connectors?: CreateConnectorFn[];
 
   /* WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in) */
@@ -46,7 +47,7 @@ const defaultConfig = ({
   appIcon,
   appDescription,
   appUrl,
-  chains: chains = [mainnet, polygon, optimism, arbitrum],
+  chains = [mainnet, polygon, optimism, arbitrum],
   connectors,
   walletConnectProjectId,
   alchemyApiKey,
@@ -68,7 +69,6 @@ const defaultConfig = ({
   const config: CreateConfigParameters = {
     chains,
     transports,
-    //multiInjectedProviderDiscovery: true,
     connectors:
       connectors ??
       defaultConnectors({

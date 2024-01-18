@@ -107,7 +107,7 @@ type ConnectKitProviderProps = {
   debugMode?: boolean;
 } & useConnectCallbackProps;
 
-export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
+export const ConnectKitProvider = ({
   children,
   theme = 'auto',
   mode = 'auto',
@@ -116,10 +116,11 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   onConnect,
   onDisconnect,
   debugMode = false,
-}) => {
+}: ConnectKitProviderProps) => {
   // ConnectKitProvider must be within a WagmiProvider
-  if (!React.useContext(WagmiContext))
+  if (!React.useContext(WagmiContext)) {
     throw Error('ConnectKitProvider must be within a WagmiProvider');
+  }
 
   // Only allow for mounting ConnectKitProvider once, so we avoid weird global
   // state collisions.

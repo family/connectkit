@@ -1,9 +1,7 @@
-import { useContext } from 'react';
-import { type Connector, WagmiContext } from 'wagmi';
+import { type Connector, useConnectors as useWagmiConnectors } from 'wagmi';
 
 export function useConnectors() {
-  const context = useContext(WagmiContext);
-  const connectors = context?.connectors;
+  const connectors = useWagmiConnectors();
   return connectors ?? [];
 }
 

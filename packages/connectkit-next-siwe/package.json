@@ -47,7 +47,7 @@
     "siwe": ">=2"
   },
   "devDependencies": {
-    "@types/node": "^16.11.27",
+    "@types/node": "18.7.18",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "typescript": "^5.0.4"

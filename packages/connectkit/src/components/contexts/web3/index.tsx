@@ -44,6 +44,7 @@ export const Web3ContextProvider = ({
   children: React.ReactNode;
 }) => {
   const context = useContext();
+
   const { uri: walletConnectUri } = useWalletConnectUri({
     enabled: context.open,
   });

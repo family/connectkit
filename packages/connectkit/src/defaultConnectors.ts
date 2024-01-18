@@ -1,5 +1,4 @@
 import { CreateConnectorFn } from 'wagmi';
-import { Chain } from 'wagmi/chains';
 import {
   injected,
   walletConnect,
@@ -8,7 +7,6 @@ import {
 } from '@wagmi/connectors';
 
 type DefaultConnectorsProps = {
-  chains?: Chain[];
   app: {
     name: string;
     icon?: string;
@@ -19,15 +17,14 @@ type DefaultConnectorsProps = {
 };
 
 const defaultConnectors = ({
-  chains,
   app,
   walletConnectProjectId,
-}: DefaultConnectorsProps) => {
+}: DefaultConnectorsProps): CreateConnectorFn[] => {
   const hasAllAppData = app.name && app.icon && app.description && app.url;
   const shouldUseSafeConnector =
     !(typeof window === 'undefined') && window?.parent !== window;
 
-  let connectors: CreateConnectorFn<any>[] = [];
+  const connectors: CreateConnectorFn[] = [];
 
   // If we're in an iframe, include the SafeConnector
   if (shouldUseSafeConnector) {

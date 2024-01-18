@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { WagmiContext } from 'wagmi';
+import { Chain } from 'viem';
+import { useConfig } from 'wagmi';
 
 export function useChains() {
-  const wagmi = useContext(WagmiContext);
+  const wagmi = useConfig();
   const chains = wagmi?.chains ?? [];
-  return chains;
+  return chains.map((c) => c) as Chain[];
 }
