@@ -31,6 +31,17 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <ConnectKitProvider debugMode>
           <App />
+          {config.connectors.map((connector) => (
+            <div key={connector.id}>
+              <pre>
+                {JSON.stringify(
+                  { id: connector.id, name: connector.name },
+                  null,
+                  2
+                )}
+              </pre>
+            </div>
+          ))}
         </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
