@@ -20,7 +20,6 @@ export const save = (storageKey: string, data: any[]) => {
     localStorage.setItem(storageKey, JSON.stringify(data));
     return get(storageKey);
   } catch (e) {
-    console.log(e);
     return [];
   }
 };
