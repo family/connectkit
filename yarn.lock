@@ -7187,7 +7187,7 @@ __metadata:
     "@types/react-dom": ^18.0.2
     iron-session: ^6.2.1
     siwe: ^2.1.4
-    typescript: ^4.9.5
+    typescript: ^5.0.4
   peerDependencies:
     connectkit: ">=1.2.0"
     next: ">=12.x"
@@ -7215,7 +7215,7 @@ __metadata:
     react-use-measure: ^2.1.1
     resize-observer-polyfill: ^1.5.1
     styled-components: ^5.3.5
-    typescript: ^4.9.5
+    typescript: ^5.0.4
   peerDependencies:
     "@tanstack/react-query": ">=5.0.0"
     react: 17.x || 18.x
@@ -7369,7 +7369,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     react-scripts: 5.0.1
-    typescript: ^4.9.5
+    typescript: ^5.0.4
     viem: 2.x.x
     wagmi: 2.x.x
     web-vitals: ^2.1.4
@@ -13225,7 +13225,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     siwe: ^2.1.4
-    typescript: ^4.9.5
+    typescript: ^5.0.4
     viem: 2.x.x
     wagmi: 2.x.x
   languageName: unknown
@@ -13245,9 +13245,9 @@ __metadata:
     next: 12.3.0
     react: ^18.0.0
     react-dom: ^18.0.0
-    typescript: ^4.9.5
+    typescript: ^5.0.4
     viem: 2.x.x
-    wagmi: 2.x.x
+    wagmi: 2.2.1
   languageName: unknown
   linkType: soft
 
@@ -17417,7 +17417,7 @@ __metadata:
     next: 13.0.0
     react: ^18.0.0
     react-dom: ^18.0.0
-    typescript: ^4.9.5
+    typescript: ^5.0.4
     viem: 2.x.x
     wagmi: 2.x.x
   languageName: unknown
@@ -17692,23 +17692,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.9.5":
-  version: 4.9.5
-  resolution: "typescript@npm:4.9.5"
+"typescript@npm:^5.0.4":
+  version: 5.3.3
+  resolution: "typescript@npm:5.3.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
+  checksum: 2007ccb6e51bbbf6fde0a78099efe04dc1c3dfbdff04ca3b6a8bc717991862b39fd6126c0c3ebf2d2d98ac5e960bcaa873826bb2bb241f14277034148f41f6a2
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>":
-  version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=a1c5e5"
+"typescript@patch:typescript@^5.0.4#~builtin<compat/typescript>":
+  version: 5.3.3
+  resolution: "typescript@patch:typescript@npm%3A5.3.3#~builtin<compat/typescript>::version=5.3.3&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 2eee5c37cad4390385db5db5a8e81470e42e8f1401b0358d7390095d6f681b410f2c4a0c496c6ff9ebd775423c7785cdace7bcdad76c7bee283df3d9718c0f20
+  checksum: f61375590b3162599f0f0d5b8737877ac0a7bc52761dbb585d67e7b8753a3a4c42d9a554c4cc929f591ffcf3a2b0602f65ae3ce74714fd5652623a816862b610
   languageName: node
   linkType: hard
 
@@ -18213,7 +18213,7 @@ __metadata:
     connectkit: "workspace:packages/connectkit"
     react: ^18.2.0
     react-dom: ^18.2.0
-    typescript: ^4.9.5
+    typescript: ^5.0.4
     viem: 2.x.x
     vite: ^3.1.0
     wagmi: 2.x.x
@@ -18245,7 +18245,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:2.x.x":
+"wagmi@npm:2.2.1, wagmi@npm:2.x.x":
   version: 2.2.1
   resolution: "wagmi@npm:2.2.1"
   dependencies:
