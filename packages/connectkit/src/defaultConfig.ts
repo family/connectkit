@@ -10,7 +10,6 @@ const getTransport = (
   chain: Chain
 ): Transport => {
   const chainName = chain.name.toLowerCase();
-  console.log(chain.rpcUrls.default);
   switch (provider) {
     case 'alchemy':
       return http(`https://${chainName}.g.alchemy.com/v2/${apiKey}`);
@@ -73,8 +72,8 @@ const defaultConfig = ({
 
   const config: CreateConfigParameters = {
     chains,
-    transports: transports,
-    multiInjectedProviderDiscovery: true,
+    transports,
+    //multiInjectedProviderDiscovery: true,
     connectors:
       connectors ??
       defaultConnectors({

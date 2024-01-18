@@ -59,7 +59,7 @@ const MobileConnectors: React.FC = () => {
   const connectWallet = (wallet: LegacyWalletProps) => {
     if (wallet.installed) {
       context.setRoute(routes.CONNECT);
-      context.setConnector({ id: wallet.id, name: wallet.name });
+      context.setConnector({ id: wallet.id });
     } else {
       const uri = wallet.createUri?.(wcUri!);
       if (uri) window.location.href = uri;

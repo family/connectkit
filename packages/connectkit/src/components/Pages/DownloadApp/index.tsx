@@ -14,7 +14,7 @@ import { useWallet } from '../../../hooks/useWallets';
 
 const DownloadApp = () => {
   const context = useContext();
-  const wallet = useWallet(context.connector.id, context.connector.name);
+  const wallet = useWallet(context.connector.id);
 
   const locales = useLocales({
     CONNECTORNAME: wallet?.name,

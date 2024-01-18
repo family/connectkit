@@ -133,7 +133,7 @@ const ConnectWithInjector: React.FC<{
 
   const { triggerResize, connector: c } = useContext();
   const id = c.id;
-  const wallet = useWallet(id, c.name);
+  const wallet = useWallet(id);
 
   const injectedWallet = useInjectedWallet();
 

@@ -25,7 +25,7 @@ const ConnectWithQRCode: React.FC<{
 
   const id = context.connector.id;
 
-  const wallet = useWallet(context.connector.id, context.connector.name);
+  const wallet = useWallet(context.connector.id);
 
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
   const {

@@ -8,47 +8,36 @@ import {
   RecentlyUsedTag,
 } from './styles';
 
-import { useWallets } from '../../../hooks/useWallets';
-import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
-import { isInjectedConnector, isWalletConnectConnector } from '../../../utils';
+import { useEffect, useState } from 'react';
+import { useWeb3 } from '../../contexts/web3';
 
-import { useLastConnector } from '../../../hooks/useLastConnector';
 import useIsMobile from '../../../hooks/useIsMobile';
-
 import { ScrollArea } from '../../Common/ScrollArea';
 import Alert from '../Alert';
-import { useWeb3 } from '../../contexts/web3';
+
+import { WalletProps, useWallets } from '../../../hooks/useWallets';
+import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
+import { isInjectedConnector, isWalletConnectConnector } from '../../../utils';
+import { useLastConnector } from '../../../hooks/useLastConnector';
 
 const ConnectorList = () => {
   const context = useContext();
   const isMobile = useIsMobile();
 
-  const {
-    connect: { getUri },
-  } = useWeb3();
-  const uri = getUri();
-
-  const { lastConnectorId } = useLastConnector();
-  const injectedWallet = useInjectedWallet();
-
   const wallets = useWallets();
+  const { lastConnectorId } = useLastConnector();
 
   const walletsToDisplay =
-    context.options?.hideRecentBadge ||
-    lastConnectorId === 'walletConnect-WalletConnect' // do not hoist walletconnect to top of list
+    context.options?.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
       ? wallets
       : [
           // move last used wallet to top of list
           // using .filter and spread to avoid mutating original array order with .sort
           ...wallets.filter(
-            (wallet) =>
-              lastConnectorId ===
-              `${wallet.connector.id}-${wallet.connector.name}`
+            (wallet) => lastConnectorId === wallet.connector.id
           ),
           ...wallets.filter(
-            (wallet) =>
-              lastConnectorId !==
-              `${wallet.connector.id}-${wallet.connector.name}`
+            (wallet) => lastConnectorId !== wallet.connector.id
           ),
         ];
 
@@ -62,108 +51,12 @@ const ConnectorList = () => {
           $mobile={isMobile}
           $totalResults={walletsToDisplay.length}
         >
-          {walletsToDisplay.map((wallet) => {
-            const {
-              id,
-              name,
-              shortName,
-              icon,
-              iconConnector,
-              connector,
-              getWalletConnectDeeplink,
-            } = wallet;
-
-            let deeplink = isMobile
-              ? getWalletConnectDeeplink?.(uri ?? '')
-              : undefined;
-
-            const redirectToMoreWallets =
-              isMobile && isWalletConnectConnector(id);
-
-            if (isInjectedConnector(id) && !injectedWallet.enabled) return null;
-            if (redirectToMoreWallets) deeplink = undefined; // mobile redirects to more wallets page
-
-            const walletInfo =
-              isInjectedConnector(wallet.id) && injectedWallet.enabled
-                ? // && injectedWallet.wallet.name === wallet.name
-                  {
-                    name: injectedWallet.wallet.name,
-                    shortName:
-                      injectedWallet.wallet.shortName ??
-                      injectedWallet.wallet.name,
-                    icon: injectedWallet.wallet.icon,
-                    //iconRadius: 0,
-                  }
-                : {
-                    name: name,
-                    shortName: shortName ?? name,
-                    icon: iconConnector ?? icon,
-                    iconRadius: wallet.id === 'walletConnect' ? 0 : undefined,
-                  };
-
-            const ButtonInner = ({
-              disabled = false,
-            }: {
-              disabled?: boolean;
-            }) => (
-              <ConnectorButton
-                as={deeplink ? 'a' : undefined}
-                href={deeplink ? deeplink : undefined}
-                disabled={disabled || context.route !== routes.CONNECTORS}
-                onClick={
-                  deeplink
-                    ? undefined
-                    : () => {
-                        if (redirectToMoreWallets) {
-                          context.setRoute(routes.MOBILECONNECTORS);
-                        } else {
-                          context.setRoute(routes.CONNECT);
-                          context.setConnector({ id: id, name: name });
-                        }
-                      }
-                }
-              >
-                <ConnectorIcon
-                  data-small={wallet.iconShouldShrink}
-                  style={{
-                    borderRadius: walletInfo.iconRadius,
-                  }}
-                >
-                  {walletInfo.icon}
-                </ConnectorIcon>
-                <ConnectorLabel>
-                  {isMobile ? walletInfo.shortName : walletInfo.name}
-                  {!context.options?.hideRecentBadge &&
-                    lastConnectorId === `${connector.id}-${connector.name}` && (
-                      <RecentlyUsedTag>
-                        <span>Recent</span>
-                      </RecentlyUsedTag>
-                    )}
-                </ConnectorLabel>
-              </ConnectorButton>
-            );
-            /*
-            if (!connector.ready && injectedWallet.enabled) {
-              return (
-                <Tooltip
-                  key={id}
-                  xOffset={18}
-                  message={
-                    <div style={{ width: 230, padding: '6px 4px' }}>
-                      {name} Unavailable as {injectedWallet?.wallet?.name} is
-                      installed. Disable {injectedWallet?.wallet?.name} to
-                      connect with {name}.
-                    </div>
-                  }
-                  delay={0}
-                >
-                  <ButtonInner disabled />
-                </Tooltip>
-              );
-            }
-            */
-            return <ButtonInner key={id} />;
-          })}
+          {walletsToDisplay.map((wallet) => (
+            <ConnectorItem
+              wallet={wallet}
+              isRecent={wallet.id === lastConnectorId}
+            />
+          ))}
         </ConnectorsContainer>
       )}
     </ScrollArea>
@@ -171,3 +64,75 @@ const ConnectorList = () => {
 };
 
 export default ConnectorList;
+
+const ConnectorItem = ({
+  wallet,
+  isRecent,
+}: {
+  wallet: WalletProps;
+  isRecent?: boolean;
+}) => {
+  const {
+    connect: { getUri },
+  } = useWeb3();
+  const uri = getUri();
+  const isMobile = useIsMobile();
+  const context = useContext();
+
+  const injectedWallet = useInjectedWallet();
+
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    (async () => {
+      const provider = await wallet.connector.getProvider();
+      setReady(!!provider);
+    })();
+  }, [wallet, setReady]);
+
+  let deeplink = isMobile
+    ? wallet.getWalletConnectDeeplink?.(uri ?? '')
+    : undefined;
+
+  const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
+
+  if (isInjectedConnector(wallet.id) && !injectedWallet.enabled) return null;
+  if (redirectToMoreWallets) deeplink = undefined; // mobile redirects to more wallets page
+
+  return (
+    <ConnectorButton
+      type="button"
+      as={deeplink ? 'a' : undefined}
+      href={deeplink ? deeplink : undefined}
+      disabled={!ready || context.route !== routes.CONNECTORS}
+      onClick={
+        deeplink
+          ? undefined
+          : () => {
+              if (redirectToMoreWallets) {
+                context.setRoute(routes.MOBILECONNECTORS);
+              } else {
+                context.setRoute(routes.CONNECT);
+                context.setConnector({ id: wallet.id });
+              }
+            }
+      }
+    >
+      <ConnectorIcon
+        data-small={wallet.iconShouldShrink}
+        style={{
+          borderRadius: wallet.iconShape === 'circle' ? '100%' : '15%',
+        }}
+      >
+        {wallet.iconConnector ?? wallet.icon}
+      </ConnectorIcon>
+      <ConnectorLabel>
+        {isMobile ? wallet.shortName : wallet.name}
+        {!context.options?.hideRecentBadge && isRecent && (
+          <RecentlyUsedTag>
+            <span>Recent</span>
+          </RecentlyUsedTag>
+        )}
+      </ConnectorLabel>
+    </ConnectorButton>
+  );
+};

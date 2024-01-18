@@ -44,7 +44,6 @@ export const routes = {
 
 type Connector = {
   id: string;
-  name?: string;
 };
 type Error = string | React.ReactNode | null;
 
@@ -186,7 +185,6 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   const [open, setOpen] = useState<boolean>(false);
   const [connector, setConnector] = useState<ContextValue['connector']>({
     id: '',
-    name: undefined,
   });
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [errorMessage, setErrorMessage] = useState<Error>('');

@@ -65,12 +65,13 @@ const defaultConnectors = ({
       })
     );
   }
-
+  /*
   connectors.push(
     injected({
       shimDisconnect: true,
     })
   );
+  */
 
   return connectors;
 };

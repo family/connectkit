@@ -209,7 +209,7 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();
 
-  const wallet = useWallet(context.connector?.id, context?.connector?.name);
+  const wallet = useWallet(context.connector?.id);
   const injectedWallet = useInjectedWallet();
 
   const walletInfo =

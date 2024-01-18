@@ -4,6 +4,7 @@ import { useContext } from './../../components/ConnectKit';
 import { useConnect } from './../useConnect';
 import { useCoinbaseWalletConnector } from './../useConnectors';
 import { Connector, useAccount } from 'wagmi';
+import { useWallet } from '../useWallets';
 
 type Props = {
   enabled?: boolean;
@@ -19,12 +20,15 @@ export function useCoinbaseWalletUri(
   const [uri, setUri] = useState<string | undefined>(undefined);
 
   const connector = useCoinbaseWalletConnector();
+  const wallet = useWallet('com.coinbase.wallet');
+
+  const shouldConnect = enabled && !wallet;
 
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect();
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!shouldConnect) return;
 
     async function handleMessage(message) {
       const { type } = message;
@@ -83,7 +87,7 @@ export function useCoinbaseWalletUri(
         //connector.emitter.off('disconnect', handleDisconnect);
       };
     }
-  }, [enabled, connector, isConnected]);
+  }, [shouldConnect, connector, isConnected]);
 
   return {
     uri,

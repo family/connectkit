@@ -3,17 +3,15 @@ import { Connector } from 'wagmi';
 import { useConnectors } from './useConnectors';
 import { walletConfigs, WalletConfigProps } from '../constants/walletConfigs';
 
-type WalletProps = {
+export type WalletProps = {
   id: string;
   connector: Connector;
   isInstalled?: boolean;
 } & WalletConfigProps;
 
-export const useWallet = (id: string, name?: string): WalletProps | null => {
+export const useWallet = (id: string): WalletProps | null => {
   const wallets = useWallets();
-  const wallet = wallets.find(
-    (c) => c.id === id && (id === 'injected' ? c.name === name : true)
-  );
+  const wallet = wallets.find((c) => c.id === id);
   if (!wallet) return null;
   return wallet;
 };
@@ -26,41 +24,53 @@ export const useWallets = (): WalletProps[] => {
       (id) => id === connector.id
     );
 
+    const c = {
+      id: connector.id,
+      name: connector.type ?? connector.name,
+      icon: (
+        <img
+          src={connector.icon}
+          alt={connector.name}
+          width={'100%'}
+          height={'100%'}
+        />
+      ),
+      connector,
+      isInstalled: connector.type === 'injected',
+    };
+
     if (walletId) {
       const wallet = walletConfigs[walletId];
       return {
-        id: walletId,
-        connector,
+        ...c,
         ...wallet,
       };
     }
 
-    // use MIDP wallet
-    return {
-      id: connector.id,
-      rdns: connector.id,
-      name: connector.name,
-      icon: <img src={connector.icon} alt={connector.name} />,
-      connector,
-      isInstalled: true,
-    };
+    return c;
   });
 
   return (
     wallets
-      // find and remove duplicates by id and favor ones with isInstalled
+      // remove wallet with id coinbaseWalletSDK if wallet with id 'com.coinbase.wallet' exists
       .filter(
         (wallet, index, self) =>
-          index ===
-          self.findIndex(
-            (w) => w.id === wallet.id && w.isInstalled === wallet.isInstalled
+          !(
+            wallet.id === 'coinbaseWalletSDK' &&
+            self.find((w) => w.id === 'com.coinbase.wallet')
           )
       )
-      // order by isInstalled and then by rdns
+      // remove wallet with id io.metamask if wallet with id 'metaMask' exists
+      .filter(
+        (wallet, index, self) =>
+          !(
+            wallet.id === 'metaMask' && self.find((w) => w.id === 'io.metamask')
+          )
+      )
+      // order by isInstalled
       .sort((a, b) => {
         if (a.isInstalled && !b.isInstalled) return -1;
         if (!a.isInstalled && b.isInstalled) return 1;
-        if (a.rdns && b.rdns) return a.rdns.localeCompare(b.rdns);
         return 0;
       })
       // move walletConnect to the end

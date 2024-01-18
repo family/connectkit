@@ -7,8 +7,6 @@ import { isAndroid } from '../utils';
  *
  */
 export type WalletConfigProps = {
-  // Reverse domain name system identifier
-  rdns?: string;
   // Wallets name
   name?: string;
   // Wallets short name. Defaults to `name`
@@ -45,7 +43,7 @@ export type WalletConfigProps = {
 };
 
 // Organised in alphabetical order by key
-export const walletConfigs: { [key: string]: WalletConfigProps } = {
+export const walletConfigs: { [rdns: string]: WalletConfigProps } = {
   argent: {
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/argent',
@@ -55,7 +53,20 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     },
   },
   coinbaseWallet: {
-    rdns: 'com.coinbase.wallet',
+    name: 'Coinbase Wallet',
+    shortName: 'Coinbase',
+    icon: <Logos.Coinbase background />,
+    iconShape: 'squircle',
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/coinbasewallet',
+      website: 'https://www.coinbase.com/wallet/getting-started-extension',
+      android: 'https://play.google.com/store/apps/details?id=org.toshi',
+      ios: 'https://apps.apple.com/app/coinbase-wallet-store-crypto/id1278383455',
+      chrome:
+        'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
+    },
+  },
+  'com.coinbase.wallet': {
     name: 'Coinbase Wallet',
     shortName: 'Coinbase',
     icon: <Logos.Coinbase background />,
@@ -84,8 +95,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
     },
     getWalletConnectDeeplink: (uri: string) => uri,
   },
-  crypto: {
-    rdns: 'com.crypto.wallet',
+  'com.crypto.wallet': {
     name: 'Crypto.com',
     shortName: 'Crypto',
   },
@@ -97,8 +107,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
       ios: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
     },
   },
-  family: {
-    rdns: 'co.family.wallet',
+  'co.family.wallet': {
     name: 'Family',
     shortName: 'Family',
     iconShape: 'squircle',
@@ -158,8 +167,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
     },
   },
-  metaMask: {
-    rdns: 'io.metamask',
+  'io.metamask': {
     name: 'MetaMask',
     icon: <Logos.MetaMask />,
     iconConnector: <Logos.MetaMask />,
@@ -177,13 +185,29 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
     },
   },
-  phantom: {
-    rdns: 'app.phantom',
+  metaMask: {
+    name: 'MetaMask',
+    icon: <Logos.MetaMask />,
+    iconConnector: <Logos.MetaMask />,
+    iconShouldShrink: true,
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/metamask',
+      website: 'https://metamask.io/download/',
+      android: 'https://play.google.com/store/apps/details?id=io.metamask',
+      ios: 'https://apps.apple.com/app/metamask/id1438144202',
+      chrome:
+        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      firefox: 'https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/',
+      brave:
+        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
+    },
+  },
+  'app.phantom': {
     name: 'Phantom',
     iconShape: 'squircle',
   },
-  rainbow: {
-    rdns: 'me.rainbow',
+  'me.rainbow': {
     name: 'Rainbow Wallet',
     shortName: 'Rainbow',
     iconShape: 'squircle',
@@ -205,8 +229,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
           )}&connector=connectkit`;
     },
   },
-  rabby: {
-    rdns: 'io.rabby',
+  'io.rabby': {
     name: 'Rabby Wallet',
     shortName: 'Rabby',
     downloadUrls: {
@@ -225,8 +248,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
       ios: 'https://apps.apple.com/app/id1515759131',
     },
   },
-  talisman: {
-    rdns: 'xyz.talisman',
+  'xyz.talisman': {
     name: 'Talisman',
     shortName: 'Talisman',
     iconShape: 'squircle',
@@ -239,8 +261,7 @@ export const walletConfigs: { [key: string]: WalletConfigProps } = {
         'https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension/',
     },
   },
-  trustWallet: {
-    rdns: 'com.trustwallet.app',
+  'com.trustwallet.app': {
     name: 'Trust Wallet',
     shortName: 'Trust',
     iconShouldShrink: true,
