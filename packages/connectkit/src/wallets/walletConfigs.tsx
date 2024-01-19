@@ -213,6 +213,24 @@ export const walletConfigs: { [rdns: string]: WalletConfigProps } = {
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
     },
   },
+  'io.metamask.mobile': {
+    name: 'MetaMask',
+    icon: <Logos.MetaMask />,
+    iconConnector: <Logos.MetaMask />,
+    iconShouldShrink: true,
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/metamask',
+      website: 'https://metamask.io/download/',
+      android: 'https://play.google.com/store/apps/details?id=io.metamask',
+      ios: 'https://apps.apple.com/app/metamask/id1438144202',
+      chrome:
+        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      firefox: 'https://addons.mozilla.org/firefox/addon/ether-metamask/',
+      brave:
+        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
+    },
+  },
   metaMask: {
     name: 'MetaMask',
     icon: <Logos.MetaMask />,

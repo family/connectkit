@@ -26,7 +26,7 @@ export const useWallets = (): WalletProps[] => {
 
     const c: WalletProps = {
       id: connector.id,
-      name: connector.type ?? connector.name,
+      name: connector.name ?? connector.id ?? connector.type,
       icon: (
         <img
           src={connector.icon}
@@ -39,9 +39,6 @@ export const useWallets = (): WalletProps[] => {
       iconShape: 'squircle',
       isInstalled: connector.type === 'injected' && connector.id !== 'metaMask',
     };
-    if (connector.type === 'injected') {
-      console.log('connector', connector);
-    }
 
     if (walletId) {
       const wallet = walletConfigs[walletId];
@@ -76,7 +73,10 @@ export const useWallets = (): WalletProps[] => {
       .filter(
         (wallet, index, self) =>
           !(
-            wallet.id === 'metaMask' && self.find((w) => w.id === 'io.metamask')
+            wallet.id === 'metaMask' &&
+            self.find(
+              (w) => w.id === 'io.metamask' || w.id === 'io.metamask.mobile'
+            )
           )
       )
       // order by isInstalled
