@@ -21,7 +21,12 @@ export const useWallets = (): WalletProps[] => {
   const wallets = connectors.map((connector): WalletProps => {
     // use overrides
     const walletId = Object.keys(walletConfigs).find(
-      (id) => id === connector.id
+      // where id is comma seperated list
+      (id) =>
+        id
+          .split(',')
+          .map((i) => i.trim())
+          .indexOf(connector.id) !== -1
     );
 
     const c: WalletProps = {

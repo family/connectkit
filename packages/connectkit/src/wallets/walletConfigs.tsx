@@ -43,7 +43,9 @@ export type WalletConfigProps = {
 };
 
 // Organised in alphabetical order by key
-export const walletConfigs: { [rdns: string]: WalletConfigProps } = {
+export const walletConfigs: {
+  [rdns: string]: WalletConfigProps; // for multiple cases seperate rdns by comma
+} = {
   argent: {
     name: 'Argent',
     icon: <Logos.Argent />,
@@ -59,41 +61,7 @@ export const walletConfigs: { [rdns: string]: WalletConfigProps } = {
         : `https://argent.link/app/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
-  coinbaseWallet: {
-    name: 'Coinbase Wallet',
-    shortName: 'Coinbase',
-    icon: <Logos.Coinbase background />,
-    iconShape: 'squircle',
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/coinbasewallet',
-      website: 'https://www.coinbase.com/wallet/getting-started-extension',
-      android: 'https://play.google.com/store/apps/details?id=org.toshi',
-      ios: 'https://apps.apple.com/app/coinbase-wallet-store-crypto/id1278383455',
-      chrome:
-        'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
-    },
-    getWalletConnectDeeplink: (uri: string) => {
-      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
-    },
-  },
-  'com.coinbase.wallet': {
-    name: 'Coinbase Wallet',
-    shortName: 'Coinbase',
-    icon: <Logos.Coinbase background />,
-    iconShape: 'squircle',
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/coinbasewallet',
-      website: 'https://www.coinbase.com/wallet/getting-started-extension',
-      android: 'https://play.google.com/store/apps/details?id=org.toshi',
-      ios: 'https://apps.apple.com/app/coinbase-wallet-store-crypto/id1278383455',
-      chrome:
-        'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
-    },
-    getWalletConnectDeeplink: (uri: string) => {
-      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
-    },
-  },
-  coinbaseWalletSDK: {
+  'coinbaseWallet, com.coinbase.wallet, coinbaseWalletSDK': {
     name: 'Coinbase Wallet',
     shortName: 'Coinbase',
     icon: <Logos.Coinbase background />,
@@ -177,61 +145,7 @@ export const walletConfigs: { [rdns: string]: WalletConfigProps } = {
     shortName: 'Browser',
     icon: <Logos.Injected />,
   },
-  'metaMask-io': {
-    name: 'MetaMask',
-    icon: <Logos.MetaMask />,
-    iconConnector: <Logos.MetaMask />,
-    iconShouldShrink: true,
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/metamask',
-      website: 'https://metamask.io/download/',
-      android: 'https://play.google.com/store/apps/details?id=io.metamask',
-      ios: 'https://apps.apple.com/app/metamask/id1438144202',
-      chrome:
-        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-      firefox: 'https://addons.mozilla.org/firefox/addon/ether-metamask/',
-      brave:
-        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-      edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
-    },
-  },
-  'io.metamask': {
-    name: 'MetaMask',
-    icon: <Logos.MetaMask />,
-    iconConnector: <Logos.MetaMask />,
-    iconShouldShrink: true,
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/metamask',
-      website: 'https://metamask.io/download/',
-      android: 'https://play.google.com/store/apps/details?id=io.metamask',
-      ios: 'https://apps.apple.com/app/metamask/id1438144202',
-      chrome:
-        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-      firefox: 'https://addons.mozilla.org/firefox/addon/ether-metamask/',
-      brave:
-        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-      edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
-    },
-  },
-  'io.metamask.mobile': {
-    name: 'MetaMask',
-    icon: <Logos.MetaMask />,
-    iconConnector: <Logos.MetaMask />,
-    iconShouldShrink: true,
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/metamask',
-      website: 'https://metamask.io/download/',
-      android: 'https://play.google.com/store/apps/details?id=io.metamask',
-      ios: 'https://apps.apple.com/app/metamask/id1438144202',
-      chrome:
-        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-      firefox: 'https://addons.mozilla.org/firefox/addon/ether-metamask/',
-      brave:
-        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-      edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
-    },
-  },
-  metaMask: {
+  'metaMask, metaMask-io, io.metamask, io.metamask.mobile': {
     name: 'MetaMask',
     icon: <Logos.MetaMask />,
     iconConnector: <Logos.MetaMask />,
