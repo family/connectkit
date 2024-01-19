@@ -167,11 +167,12 @@ const styles = {
       opacity: 0.75;
     `,
     ConnectorIcon: css`
+      position: relative;
       margin: 0 auto;
       width: 60px;
       height: 60px;
       overflow: hidden;
-      border-radius: 25%;
+      border-radius: 27.5%;
       svg,
       img {
         display: block;
@@ -184,6 +185,14 @@ const styles = {
         img {
           transform: scale(0.8);
         }
+      }
+      &:before {
+        content: '';
+        z-index: 2;
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
       }
     `,
   },

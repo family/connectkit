@@ -9,7 +9,6 @@ import {
   flattenChildren,
   isWalletConnectConnector,
   isMobile,
-  isInjectedConnector,
 } from '../../../utils';
 
 import {
@@ -46,8 +45,7 @@ import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
-import { useWallet } from '../../../hooks/useWallets';
-import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
+import { useWallet } from '../../../wallets/useWallets';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -210,25 +208,14 @@ const Modal: React.FC<ModalProps> = ({
   const { isSignedIn, reset } = useSIWE();
 
   const wallet = useWallet(context.connector?.id);
-  const injectedWallet = useInjectedWallet();
 
-  const walletInfo =
-    isInjectedConnector(wallet?.id) && injectedWallet.enabled
-      ? {
-          name: injectedWallet.wallet.name,
-          shortName:
-            injectedWallet.wallet?.shortName ?? injectedWallet.wallet.name,
-          icon: injectedWallet.wallet?.icon,
-          iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
-          iconShouldShrink: injectedWallet.wallet?.iconShouldShrink,
-        }
-      : {
-          name: wallet?.name,
-          shortName: wallet?.shortName ?? wallet?.name,
-          icon: wallet?.iconConnector ?? wallet?.icon,
-          iconShape: wallet?.iconShape ?? 'circle',
-          iconShouldShrink: wallet?.iconShouldShrink,
-        };
+  const walletInfo = {
+    name: wallet?.name,
+    shortName: wallet?.shortName ?? wallet?.name,
+    icon: wallet?.iconConnector ?? wallet?.icon,
+    iconShape: wallet?.iconShape ?? 'circle',
+    iconShouldShrink: wallet?.iconShouldShrink,
+  };
 
   const locales = useLocales({
     CONNECTORNAME: walletInfo?.name,

@@ -15,7 +15,7 @@ import { ExternalLinkIcon } from '../../assets/icons';
 import CopyToClipboard from '../Common/CopyToClipboard';
 import useLocales from '../../hooks/useLocales';
 
-import { useWallet } from '../../hooks/useWallets';
+import { useWallet } from '../../wallets/useWallets';
 import { useWeb3 } from '../contexts/web3';
 
 const ConnectWithQRCode: React.FC<{

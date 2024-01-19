@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
 import { useContext } from '../ConnectKit';
-import { useWallet } from '../../hooks/useWallets';
+import { useWallet } from '../../wallets/useWallets';
 
 import ConnectWithInjector from './ConnectWithInjector';
 import ConnectWithQRCode from './ConnectWithQRCode';

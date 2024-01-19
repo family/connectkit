@@ -4,7 +4,7 @@ import { useContext } from './../../components/ConnectKit';
 import { useConnect } from './../useConnect';
 import { useCoinbaseWalletConnector } from './../useConnectors';
 import { Connector, useAccount } from 'wagmi';
-import { useWallet } from '../useWallets';
+import { useWallet } from '../../wallets/useWallets';
 
 type Props = {
   enabled?: boolean;

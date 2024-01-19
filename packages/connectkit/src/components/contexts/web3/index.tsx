@@ -12,6 +12,7 @@ import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectU
 import { useCoinbaseWalletUri } from '../../../hooks/connectors/useCoinbaseWalletUri';
 import { isCoinbaseWalletConnector } from '../../../utils';
 import { useContext } from '../../ConnectKit';
+import useIsMobile from '../../../hooks/useIsMobile';
 
 type Web3Context = {
   connect: {
@@ -44,12 +45,13 @@ export const Web3ContextProvider = ({
   children: React.ReactNode;
 }) => {
   const context = useContext();
+  const isMobile = useIsMobile();
 
   const { uri: walletConnectUri } = useWalletConnectUri({
     enabled: context.open,
   });
   const { uri: coinbaseWalletUri } = useCoinbaseWalletUri({
-    enabled: context.open,
+    enabled: context.open && !isMobile,
   });
 
   const { address: currentAddress, chain } = useAccount();

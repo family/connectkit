@@ -1,7 +1,7 @@
 import { Connector } from 'wagmi';
 
-import { useConnectors } from './useConnectors';
-import { walletConfigs, WalletConfigProps } from '../constants/walletConfigs';
+import { useConnectors } from '../hooks/useConnectors';
+import { walletConfigs, WalletConfigProps } from './walletConfigs';
 
 export type WalletProps = {
   id: string;
@@ -43,6 +43,14 @@ export const useWallets = (): WalletProps[] => {
       const wallet = walletConfigs[walletId];
       return {
         ...c,
+        iconConnector: connector.icon ? (
+          <img
+            src={connector.icon}
+            alt={connector.name}
+            width={'100%'}
+            height={'100%'}
+          />
+        ) : undefined,
         ...wallet,
       };
     }

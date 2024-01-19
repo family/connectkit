@@ -15,9 +15,8 @@ import useIsMobile from '../../../hooks/useIsMobile';
 import { ScrollArea } from '../../Common/ScrollArea';
 import Alert from '../Alert';
 
-import { WalletProps, useWallets } from '../../../hooks/useWallets';
-import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
-import { isInjectedConnector, isWalletConnectConnector } from '../../../utils';
+import { WalletProps, useWallets } from '../../../wallets/useWallets';
+import { isWalletConnectConnector } from '../../../utils';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 
 const ConnectorList = () => {
@@ -53,6 +52,7 @@ const ConnectorList = () => {
         >
           {walletsToDisplay.map((wallet) => (
             <ConnectorItem
+              key={wallet.id}
               wallet={wallet}
               isRecent={wallet.id === lastConnectorId}
             />
@@ -79,8 +79,6 @@ const ConnectorItem = ({
   const isMobile = useIsMobile();
   const context = useContext();
 
-  const injectedWallet = useInjectedWallet();
-
   const [ready, setReady] = useState(false);
   useEffect(() => {
     (async () => {
@@ -89,13 +87,12 @@ const ConnectorItem = ({
     })();
   }, [wallet, setReady]);
 
-  let deeplink = isMobile
-    ? wallet.getWalletConnectDeeplink?.(uri ?? '')
-    : undefined;
+  let deeplink =
+    !wallet.isInstalled && isMobile
+      ? wallet.getWalletConnectDeeplink?.(uri ?? '')
+      : undefined;
 
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
-
-  if (isInjectedConnector(wallet.id) && !injectedWallet.enabled) return null;
   if (redirectToMoreWallets) deeplink = undefined; // mobile redirects to more wallets page
 
   return (
@@ -120,13 +117,18 @@ const ConnectorItem = ({
       <ConnectorIcon
         data-small={wallet.iconShouldShrink}
         style={{
-          borderRadius: wallet.iconShape === 'circle' ? '100%' : '15%',
+          borderRadius:
+            wallet.iconShape === 'circle'
+              ? '100%'
+              : wallet.iconShape === 'square'
+              ? 0
+              : undefined,
         }}
       >
         {wallet.iconConnector ?? wallet.icon}
       </ConnectorIcon>
       <ConnectorLabel>
-        {isMobile ? wallet.shortName : wallet.name}
+        {isMobile ? wallet.shortName ?? wallet.name : wallet.name}
         {!context.options?.hideRecentBadge && isRecent && (
           <RecentlyUsedTag>
             <span>Recent</span>

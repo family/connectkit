@@ -27,17 +27,12 @@ import SquircleSpinner from './SquircleSpinner';
 import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
-import {
-  detectBrowser,
-  isInjectedConnector,
-  isWalletConnectConnector,
-} from '../../../utils';
+import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
 import { useContext } from '../../ConnectKit';
-import { useWallet } from '../../../hooks/useWallets';
+import { useWallet } from '../../../wallets/useWallets';
 import CircleSpinner from './CircleSpinner';
-import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 
 export const states = {
   CONNECTED: 'connected',
@@ -135,25 +130,13 @@ const ConnectWithInjector: React.FC<{
   const id = c.id;
   const wallet = useWallet(id);
 
-  const injectedWallet = useInjectedWallet();
-
-  const walletInfo =
-    isInjectedConnector(wallet?.id) && injectedWallet.enabled
-      ? {
-          name: injectedWallet.wallet.name,
-          shortName:
-            injectedWallet.wallet.shortName ?? injectedWallet.wallet.name,
-          icon: injectedWallet.wallet.icon,
-          iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
-          iconShouldShrink: injectedWallet.wallet.iconShouldShrink ?? false,
-        }
-      : {
-          name: wallet?.name,
-          shortName: wallet?.shortName ?? wallet?.name,
-          icon: wallet?.iconConnector ?? wallet?.icon,
-          iconShape: wallet?.iconShape ?? 'circle',
-          iconShouldShrink: wallet?.iconShouldShrink,
-        };
+  const walletInfo = {
+    name: wallet?.name,
+    shortName: wallet?.shortName ?? wallet?.name,
+    icon: wallet?.iconConnector ?? wallet?.icon,
+    iconShape: wallet?.iconShape ?? 'circle',
+    iconShouldShrink: wallet?.iconShouldShrink,
+  };
 
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
 
