@@ -8,7 +8,6 @@ import {
   RecentlyUsedTag,
 } from './styles';
 
-import { useEffect, useState } from 'react';
 import { useWeb3 } from '../../contexts/web3';
 
 import useIsMobile from '../../../hooks/useIsMobile';
@@ -79,6 +78,7 @@ const ConnectorItem = ({
   const isMobile = useIsMobile();
   const context = useContext();
 
+  /*
   const [ready, setReady] = useState(false);
   useEffect(() => {
     (async () => {
@@ -86,6 +86,7 @@ const ConnectorItem = ({
       setReady(!!provider);
     })();
   }, [wallet, setReady]);
+  */
 
   let deeplink =
     !wallet.isInstalled && isMobile
@@ -100,7 +101,7 @@ const ConnectorItem = ({
       type="button"
       as={deeplink ? 'a' : undefined}
       href={deeplink ? deeplink : undefined}
-      disabled={!ready || context.route !== routes.CONNECTORS}
+      disabled={context.route !== routes.CONNECTORS}
       onClick={
         deeplink
           ? undefined
@@ -116,14 +117,7 @@ const ConnectorItem = ({
     >
       <ConnectorIcon
         data-small={wallet.iconShouldShrink}
-        style={{
-          borderRadius:
-            wallet.iconShape === 'circle'
-              ? '100%'
-              : wallet.iconShape === 'square'
-              ? 0
-              : undefined,
-        }}
+        data-shape={wallet.iconShape}
       >
         {wallet.iconConnector ?? wallet.icon}
       </ConnectorIcon>

@@ -11,6 +11,10 @@ This update improves the developer experience of using ConnectKit by upgrading t
 - Updates peer dependency `wagmi` to `2.x`.
 - Updates peer dependency `viem` to `2.x`.
 
+## Deprecated
+
+- Removes need for `mipd` dependency.
+
 # 1.6.0
 
 This update adds [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) support for enhanced wallet discovery and improves the functionality and developer experience of using ConnectKit.

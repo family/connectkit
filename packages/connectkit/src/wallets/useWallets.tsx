@@ -24,7 +24,7 @@ export const useWallets = (): WalletProps[] => {
       (id) => id === connector.id
     );
 
-    const c = {
+    const c: WalletProps = {
       id: connector.id,
       name: connector.type ?? connector.name,
       icon: (
@@ -36,8 +36,12 @@ export const useWallets = (): WalletProps[] => {
         />
       ),
       connector,
-      isInstalled: connector.type === 'injected',
+      iconShape: 'squircle',
+      isInstalled: connector.type === 'injected' && connector.id !== 'metaMask',
     };
+    if (connector.type === 'injected') {
+      console.log('connector', connector);
+    }
 
     if (walletId) {
       const wallet = walletConfigs[walletId];
