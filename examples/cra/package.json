@@ -12,8 +12,8 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1",
-    "viem": "2.x.x",
-    "wagmi": "2.x.x",
+    "viem": "2.0.6",
+    "wagmi": "2.2.1",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
@@ -22,7 +22,7 @@
     "@types/react-dom": "^18.0.2",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
-    "typescript": "^5.3.3"
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "dev": "react-scripts start",
