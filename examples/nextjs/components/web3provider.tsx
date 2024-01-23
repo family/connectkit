@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 import React from 'react';
 
-/*
 const config = createConfig(
   getDefaultConfig({
     appName: 'ConnectKit Next.js demo',
@@ -14,20 +13,12 @@ const config = createConfig(
     walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
   })
 );
-*/
 
 declare module 'wagmi' {
   interface Register {
     config: typeof config;
   }
 }
-
-const config = createConfig({
-  chains: [mainnet],
-  transports: {
-    [mainnet.id]: http(),
-  },
-});
 
 const queryClient = new QueryClient();
 
