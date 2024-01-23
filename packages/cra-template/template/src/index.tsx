@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiProvider, createConfig } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 
@@ -13,6 +13,7 @@ const config = createConfig(
     //infuraId: process.env.REACT_APP_INFURA_ID,
     //alchemyId:  process.env.REACT_APP_ALCHEMY_ID,
     chains: [mainnet, polygon],
+    walletConnectProjectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID!,
   })
 );
 
@@ -21,11 +22,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <WagmiConfig config={config}>
+    <WagmiProvider config={config}>
       <ConnectKitProvider theme="auto">
         <App />
       </ConnectKitProvider>
-    </WagmiConfig>
+    </WagmiProvider>
   </React.StrictMode>
 );
 
