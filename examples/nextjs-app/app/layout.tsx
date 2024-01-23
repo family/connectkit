@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { type ReactNode } from 'react';
-import './../styles/globals.css';
+import '../styles/globals.css';
 
 import { Providers } from './providers';
 
