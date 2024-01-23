@@ -14351,9 +14351,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nextjs-app@workspace:examples/nextj-app":
+"nextjs-app@workspace:examples/nextjs-app":
   version: 0.0.0-use.local
-  resolution: "nextjs-app@workspace:examples/nextj-app"
+  resolution: "nextjs-app@workspace:examples/nextjs-app"
   dependencies:
     "@tanstack/react-query": ^5.17.15
     "@types/node": ^18.19.3

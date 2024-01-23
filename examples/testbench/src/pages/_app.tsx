@@ -35,7 +35,6 @@ function App({ Component, pageProps }: AppProps) {
   }, [customTheme]);
 
   return (
-    /*
     <siweClient.Provider
       onSignIn={(data?: SIWESession) => {
         console.log('onSignIn Provider', data);
@@ -44,26 +43,23 @@ function App({ Component, pageProps }: AppProps) {
         console.log('onSignOut Provider');
       }}
     >
-    */
-    <ConnectKitProvider
-      key={key}
-      theme={theme}
-      mode={mode}
-      options={options}
-      customTheme={customTheme}
-      onConnect={(data) => {
-        console.log('onConnect Provider', data);
-      }}
-      onDisconnect={() => {
-        console.log('onDisconnect Provider');
-      }}
-      debugMode
-    >
-      <Component {...pageProps} />
-    </ConnectKitProvider>
-    /*
+      <ConnectKitProvider
+        key={key}
+        theme={theme}
+        mode={mode}
+        options={options}
+        customTheme={customTheme}
+        onConnect={(data) => {
+          console.log('onConnect Provider', data);
+        }}
+        onDisconnect={() => {
+          console.log('onDisconnect Provider');
+        }}
+        debugMode
+      >
+        <Component {...pageProps} />
+      </ConnectKitProvider>
     </siweClient.Provider>
-    */
   );
 }
 function MyApp(appProps: AppProps) {
