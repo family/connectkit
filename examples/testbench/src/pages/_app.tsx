@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
 import { WagmiProvider, createConfig } from 'wagmi';
+import { injected } from '@wagmi/connectors';
 import {
   ConnectKitProvider,
   getDefaultConfig,
@@ -25,7 +26,7 @@ const ckConfig = getDefaultConfig({
 
 const config = createConfig({
   ...ckConfig,
-  connectors: [wallets.family, ...(ckConfig.connectors ?? [])],
+  connectors: [wallets['family'], ...(ckConfig.connectors ?? [])],
 });
 const queryClient = new QueryClient();
 

@@ -403,4 +403,4 @@ export const walletConfigs: {
     iconShape: 'square',
     getWalletConnectDeeplink: (uri: string) => uri,
   },
-};
+} as const;

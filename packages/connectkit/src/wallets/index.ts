@@ -3,16 +3,21 @@ import { injected } from '@wagmi/connectors';
 
 import { walletConfigs } from './walletConfigs';
 
-type TargetId = any; // wagmi doesn't export this type
+type WalletIds = Extract<keyof typeof walletConfigs, string>;
 
 export const wallets: {
-  [key: string]: CreateConnectorFn;
+  [key: WalletIds]: CreateConnectorFn;
 } = Object.keys(walletConfigs).reduce((acc, key) => {
   const config = walletConfigs[key];
   if (!config?.getWalletConnectDeeplink) return acc;
   const target = key.split(',')[0].trim();
-  // Warning: This is deprecated from wagmi and may not be supported in the future
-  const connector = injected({ target: target as TargetId });
+  const connector = injected({
+    target: {
+      id: target,
+      name: config.name ?? config.shortName ?? key,
+      provider: (w) => w?.ethereum,
+    },
+  });
   const name = (config.name ?? config.shortName ?? key)
     .toLowerCase()
     // capitalize first letter
