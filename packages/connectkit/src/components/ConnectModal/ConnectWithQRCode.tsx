@@ -31,7 +31,8 @@ const ConnectWithQRCode: React.FC<{
   const {
     connect: { getUri },
   } = useWeb3();
-  const uri = getUri(id);
+
+  const uri = wallet?.getWalletConnectDeeplink?.(getUri(id)) ?? getUri(id);
 
   const locales = useLocales({
     CONNECTORNAME: wallet?.name,

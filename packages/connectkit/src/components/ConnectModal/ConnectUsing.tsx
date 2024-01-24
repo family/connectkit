@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useContext } from '../ConnectKit';
 import { useWallet } from '../../wallets/useWallets';
@@ -14,6 +14,7 @@ const states = {
   QRCODE: 'qrcode',
   INJECTOR: 'injector',
 };
+
 const ConnectUsing = () => {
   const context = useContext();
   const wallet = useWallet(context.connector.id);
@@ -24,6 +25,18 @@ const ConnectUsing = () => {
   const [status, setStatus] = useState(
     isQrCode ? states.QRCODE : states.INJECTOR
   );
+
+  useEffect(() => {
+    // if no provider, change to qrcode
+    const checkProvider = async () => {
+      const res = await wallet?.connector.getProvider();
+      if (!res) {
+        setStatus(states.QRCODE);
+        setTimeout(context.triggerResize, 10); // delay required here for modal to resize
+      }
+    };
+    if (status === states.INJECTOR) checkProvider();
+  }, []);
 
   if (!wallet) return <Alert>Connector not found {context.connector.id}</Alert>;
 

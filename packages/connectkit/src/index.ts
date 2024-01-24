@@ -3,6 +3,7 @@ export const CONNECTKIT_VERSION = '1.6.0';
 export * as Types from './types';
 export { default as getDefaultConfig } from './defaultConfig';
 export { default as getDefaultConnectors } from './defaultConnectors';
+export { wallets } from './wallets';
 
 export { useModal } from './hooks/useModal';
 export { SIWEProvider, useSIWE } from './siwe';

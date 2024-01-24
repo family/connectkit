@@ -3,23 +3,30 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
 import { WagmiProvider, createConfig } from 'wagmi';
-import { mainnet, polygon } from 'wagmi/chains';
-import { ConnectKitProvider, getDefaultConfig, SIWESession } from 'connectkit';
+import {
+  ConnectKitProvider,
+  getDefaultConfig,
+  SIWESession,
+  wallets,
+} from 'connectkit';
+
 import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
 import { siweClient } from '../utils/siweClient';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const config = createConfig(
-  getDefaultConfig({
-    //chains: [mainnet, polygon],
-    appName: 'ConnectKit testbench',
-    appIcon: '/app.png',
-    infuraApiKey: process.env.NEXT_PUBLIC_INFURA_ID,
-    alchemyApiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID,
-    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
-  })
-);
+const ckConfig = getDefaultConfig({
+  appName: 'ConnectKit testbench',
+  appIcon: '/app.png',
+  infuraApiKey: process.env.NEXT_PUBLIC_INFURA_ID,
+  alchemyApiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID,
+  walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+});
+
+const config = createConfig({
+  ...ckConfig,
+  connectors: [wallets.family, ...(ckConfig.connectors ?? [])],
+});
 const queryClient = new QueryClient();
 
 function App({ Component, pageProps }: AppProps) {
@@ -73,11 +80,7 @@ function MyApp(appProps: AppProps) {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </Head>
-      <WagmiProvider
-        config={config}
-        // reconnectOnMount
-        // maybe useReconnect hook..?
-      >
+      <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <TestBenchProvider
           //customTheme={{ '--ck-font-family': 'monospace' }}
