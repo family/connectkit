@@ -341,6 +341,7 @@ const ConnectWithInjector: React.FC<{
                   <ModalBody>{locales.injectionScreen_failed_p}</ModalBody>
                 </ModalContent>
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
+                {/* 
                 {wallet?.getWalletConnectDeeplink &&
                   wallet.id !== 'coinbaseWalletSDK' && (
                     <>
@@ -353,6 +354,7 @@ const ConnectWithInjector: React.FC<{
                       </Button>
                     </>
                   )}
+                   */}
               </Content>
             )}
             {status === states.REJECTED && (
@@ -369,6 +371,7 @@ const ConnectWithInjector: React.FC<{
                 </ModalContent>
 
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
+                {/* 
                 {wallet?.getWalletConnectDeeplink &&
                   wallet.id !== 'coinbaseWalletSDK' && (
                     <>
@@ -381,6 +384,7 @@ const ConnectWithInjector: React.FC<{
                       </Button>
                     </>
                   )}
+                   */}
               </Content>
             )}
             {(status === states.CONNECTING || status === states.EXPIRING) && (
