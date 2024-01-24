@@ -2,7 +2,7 @@ import { getDefaultConfig } from 'connectkit';
 import { createConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 
-const config = createConfig(
+export const config = createConfig(
   getDefaultConfig({
     appName: 'ConnectKit Next.js demo',
     //infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
