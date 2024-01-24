@@ -1,6 +1,8 @@
 import { ReactNode, useContext, useEffect, useState } from 'react';
 import { useAccount, useAccountEffect, useSignMessage } from 'wagmi';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { getAddress } from 'viem';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+
 import { Context as ConnectKitContext } from './../components/ConnectKit';
 import {
   SIWEContext,
@@ -8,7 +10,6 @@ import {
   StatusState,
   SIWESession,
 } from './SIWEContext';
-import { getAddress } from 'viem';
 
 type Props = SIWEConfig & {
   children: ReactNode;
@@ -44,13 +45,14 @@ export const SIWEProvider = ({
     throw new Error('ConnectKitProvider must be mounted inside SIWEProvider.');
   }
 
-  const nonce = useSuspenseQuery({
+  const nonce = useQuery({
     queryKey: ['ckSiweNonce'],
-    queryFn: () => siweConfig.getNonce(),
+    queryFn: siweConfig.getNonce,
     initialData: null,
     refetchInterval: nonceRefetchInterval,
   });
-  const session = useSuspenseQuery({
+
+  const session = useQuery({
     queryKey: ['ckSiweSession'],
     queryFn: siweConfig.getSession,
     initialData: null,
