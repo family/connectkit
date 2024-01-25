@@ -11,11 +11,15 @@ export const wallets: {
   const config = walletConfigs[key];
   if (!config?.getWalletConnectDeeplink) return acc;
   const target = key.split(',')[0].trim();
+  const flag =
+    config.name?.replace('Wallet', '').replace(' ', '') ??
+    target[0].toUpperCase() + target.slice(1);
+
   const connector = injected({
     target: {
       id: target,
       name: config.name ?? config.shortName ?? key,
-      provider: (w) => w?.ethereum,
+      provider: (w) => w?.ethereum?.[`is${flag}`],
     },
   });
   const name = (config.name ?? config.shortName ?? key)
