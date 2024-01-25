@@ -19,8 +19,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const ckConfig = getDefaultConfig({
   appName: 'ConnectKit testbench',
   appIcon: '/app.png',
-  infuraApiKey: process.env.NEXT_PUBLIC_INFURA_ID,
-  alchemyApiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID,
+  infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+  alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_ID,
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
 });
 
