@@ -18658,8 +18658,8 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^5.0.4
-    viem: ^2.0.6
-    wagmi: ^2.2.1
+    viem: ^2.5.0
+    wagmi: ^2.5.2
   languageName: unknown
   linkType: soft
 
@@ -19487,7 +19487,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.0.6":
+"viem@npm:^2.0.6, viem@npm:^2.5.0":
   version: 2.5.0
   resolution: "viem@npm:2.5.0"
   dependencies:
@@ -19588,7 +19588,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^2.2.1":
+"wagmi@npm:^2.2.1, wagmi@npm:^2.5.2":
   version: 2.5.2
   resolution: "wagmi@npm:2.5.2"
   dependencies:

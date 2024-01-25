@@ -2,45 +2,14 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { WagmiProvider, createConfig } from 'wagmi';
-import { injected } from '@wagmi/connectors';
-import {
-  ConnectKitProvider,
-  getDefaultConfig,
-  SIWESession,
-  wallets,
-} from 'connectkit';
-
-import { TestBenchProvider, useTestBench } from '../TestbenchProvider';
+import { ConnectKitProvider, SIWESession } from 'connectkit';
 import { siweClient } from '../utils/siweClient';
-import { useEffect } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-const ckConfig = getDefaultConfig({
-  appName: 'ConnectKit testbench',
-  appIcon: '/app.png',
-  infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
-  alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_ID,
-  walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
-});
-
-const config = createConfig({
-  ...ckConfig,
-  connectors: [wallets['family'], ...(ckConfig.connectors ?? [])],
-});
-const queryClient = new QueryClient();
+import { Web3Provider } from '../components/Web3Provider';
+import { useTestBench } from '../TestbenchProvider';
 
 function App({ Component, pageProps }: AppProps) {
   const { theme, mode, options, customTheme } = useTestBench();
-
-  const key = JSON.stringify({ customTheme });
-
-  // SIWE provider needs to be the outer-most provider because the connect kit
-  // provider depends on some of the state
-
-  useEffect(() => {
-    console.log('App rendered');
-  }, [customTheme]);
+  const key = JSON.stringify({ customTheme }); // re-render on customTheme change
 
   return (
     <siweClient.Provider
@@ -81,21 +50,12 @@ function MyApp(appProps: AppProps) {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </Head>
-      <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>
-          <TestBenchProvider
-          //customTheme={{ '--ck-font-family': 'monospace' }}
-          >
-            <App {...appProps} />
-          </TestBenchProvider>
-        </QueryClientProvider>
-      </WagmiProvider>
+
+      <Web3Provider>
+        <App {...appProps} />
+      </Web3Provider>
     </>
   );
 }
-
-const WagmiTest = () => {
-  return <div>wat</div>;
-};
 
 export default MyApp;
