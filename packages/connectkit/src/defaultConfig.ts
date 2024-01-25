@@ -36,10 +36,11 @@ type DefaultConfigProps = {
   transports?: CreateConfigParameters['transports'];
   connectors?: CreateConnectorFn[];
 
-  /* WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in) */
+  // API keys
+  alchemyId?: string;
+  infuraId?: string;
+  // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
   walletConnectProjectId: string;
-  alchemyApiKey?: string;
-  infuraApiKey?: string;
 };
 
 const defaultConfig = ({
@@ -50,8 +51,8 @@ const defaultConfig = ({
   chains = [mainnet, polygon, optimism, arbitrum],
   connectors,
   walletConnectProjectId,
-  alchemyApiKey,
-  infuraApiKey,
+  alchemyId,
+  infuraId,
 }: DefaultConfigProps): CreateConfigParameters => {
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
@@ -59,10 +60,10 @@ const defaultConfig = ({
   const transports: CreateConfigParameters['transports'] = {};
   Object.keys(chains).forEach((key, index) => {
     const chain = chains[index];
-    transports[chain.id] = alchemyApiKey
-      ? getTransport('alchemy', alchemyApiKey, chain)
-      : infuraApiKey
-      ? getTransport('infura', infuraApiKey, chain)
+    transports[chain.id] = alchemyId
+      ? getTransport('alchemy', alchemyId, chain)
+      : infuraId
+      ? getTransport('infura', infuraId, chain)
       : http();
   });
 
