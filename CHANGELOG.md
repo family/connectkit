@@ -1,6 +1,6 @@
 # 1.7.0
 
-This update improves the developer experience of using ConnectKit by upgrading the peer dependency, [wagmi](https://wagmi.sh), to version `2.x`, updating [viem](https://viem.sh/) to version `2.x`.
+This update moves peer dependencies wagmi and viem up to their latest versions.
 
 > **Note**
 >
@@ -10,10 +10,11 @@ This update improves the developer experience of using ConnectKit by upgrading t
 
 - Updates peer dependency `wagmi` to `2.x`.
 - Updates peer dependency `viem` to `2.x`.
+- New peer dependency `@tanstack/react-query`.
 
 ## Deprecated
 
-- Removes need for `mipd` dependency.
+- Removes dependency `mipd`.
 
 # 1.6.0
 
