@@ -1,10 +1,12 @@
-import { WagmiProvider, createConfig } from 'wagmi';
+import { createElement, createContext, useContext, useState } from 'react';
+import { TestBenchProvider } from '../TestbenchProvider';
+
 import { getDefaultConfig, wallets } from 'connectkit';
 
-import { TestBenchProvider } from '../TestbenchProvider';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+import { WagmiProvider, createConfig } from 'wagmi';
 import { defineChain, type Chain, http } from 'viem';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const avalanche: Chain = defineChain({
   id: 43_114,
@@ -33,15 +35,21 @@ const ckConfig = getDefaultConfig({
   appIcon: '/app.png',
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
 });
-
-const config = createConfig({
+const customConfig = {
   ...ckConfig,
-  connectors: [wallets['family'], ...(ckConfig.connectors ?? [])],
-});
+  connectors: [wallets['rainbow'], ...(ckConfig.connectors ?? [])],
+};
+const config = createConfig(ckConfig);
 const queryClient = new QueryClient();
 
+type ContextValue = {};
+
+const Context = createContext<ContextValue | null>(null);
+
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
-  return (
+  return createElement(
+    Context.Provider,
+    { value: {} },
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <TestBenchProvider
@@ -52,4 +60,10 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
       </QueryClientProvider>
     </WagmiProvider>
   );
+};
+
+export const useWeb3 = () => {
+  const context = useContext(Context);
+  if (!context) throw Error('useWeb3 must be inside a Web3Provider.');
+  return context;
 };
