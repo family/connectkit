@@ -24,7 +24,7 @@ export const WalletIcon = styled.div<{ $outline?: boolean }>`
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+    box-shadow: inset 0 0 0 1px var(--ck-body-background-tertiary);
   }`}
   svg {
     display: block;

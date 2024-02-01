@@ -1,7 +1,8 @@
-import { useConnectors } from './useConnectors';
+import { Chain } from 'viem';
+import { useConfig } from 'wagmi';
 
 export function useChains() {
-  // TODO: Find a better way to get configuration chains, but for now just grab first connector's chains
-  const connectors = useConnectors();
-  return connectors[0]?.chains;
+  const wagmi = useConfig();
+  const chains = wagmi?.chains ?? [];
+  return chains.map((c) => c) as Chain[];
 }

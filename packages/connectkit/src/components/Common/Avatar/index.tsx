@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { EnsAvatar, ImageContainer } from './styles';
 
 import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
+import { normalize } from 'viem/ens';
 import { ResetContainer } from '../../../styles';
 import { useContext } from '../../ConnectKit';
 import useIsMounted from '../../../hooks/useIsMounted';
@@ -39,7 +40,7 @@ const Avatar: React.FC<{
   });
   const { data: ensAvatar } = useEnsAvatar({
     chainId: 1,
-    name: ensName,
+    name: normalize(ensName ?? ''),
   });
 
   const ens = {

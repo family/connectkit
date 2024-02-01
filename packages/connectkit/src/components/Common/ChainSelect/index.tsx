@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { routes, useContext } from './../../ConnectKit';
 
-import { useNetwork } from 'wagmi';
-
 import { flattenChildren, isMobile } from './../../../utils';
 
 import defaultTheme from './../../../constants/defaultTheme';
@@ -16,7 +14,7 @@ import ChainSelectDropdown from '../ChainSelectDropdown';
 import Chain from '../Chain';
 import useLocales from '../../../hooks/useLocales';
 
-import Logos from '../../../assets/chains';
+import { useAccount, useSwitchChain } from 'wagmi';
 
 const Container = styled(motion.div)``;
 
@@ -138,7 +136,8 @@ const ChevronDown = ({ ...props }) => (
 const ChainSelector: React.FC = () => {
   const context = useContext();
   const [isOpen, setIsOpen] = useState(false);
-  const { chain, chains } = useNetwork();
+  const { chain } = useAccount();
+  const { chains } = useSwitchChain();
 
   const locales = useLocales({
     CHAIN: chain?.name,
@@ -173,10 +172,20 @@ const ChainSelector: React.FC = () => {
           >
             {disabled ? (
               <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
-                <Chain id={chain?.id} unsupported={chain?.unsupported} />
+                <Chain
+                  id={chain?.id}
+                  unsupported={Boolean(
+                    chain && !chains.some((x) => x.id !== chain?.id)
+                  )}
+                />
               </Tooltip>
             ) : (
-              <Chain id={chain?.id} unsupported={chain?.unsupported} />
+              <Chain
+                id={chain?.id}
+                unsupported={Boolean(
+                  chain && !chains.some((x) => x.id !== chain?.id)
+                )}
+              />
             )}
             {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
           </SwitchChainButton>

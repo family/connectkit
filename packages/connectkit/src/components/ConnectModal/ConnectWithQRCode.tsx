@@ -1,33 +1,22 @@
 import React from 'react';
 import { routes, useContext } from '../ConnectKit';
 
-import { useConnect } from '../../hooks/useConnect';
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
-import {
-  detectBrowser,
-  isWalletConnectConnector,
-  isCoinbaseWalletConnector,
-} from '../../utils';
+import { detectBrowser, isWalletConnectConnector } from '../../utils';
 
-import {
-  PageContent,
-  ModalContent,
-  ModalHeading,
-} from '../Common/Modal/styles';
+import { PageContent, ModalContent } from '../Common/Modal/styles';
 import { OrDivider } from '../Common/Modal';
 
 import CustomQRCode from '../Common/CustomQRCode';
 import Button from '../Common/Button';
-import Alert from '../Common/Alert';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import { ExternalLinkIcon } from '../../assets/icons';
 import CopyToClipboard from '../Common/CopyToClipboard';
 import useLocales from '../../hooks/useLocales';
 
-import { useWalletConnectUri } from '../../hooks/connectors/useWalletConnectUri';
-import { useCoinbaseWalletUri } from '../../hooks/connectors/useCoinbaseWalletUri';
-import { useWallet } from '../../hooks/useWallets';
+import { useWallet } from '../../wallets/useWallets';
+import { useWeb3 } from '../contexts/web3';
 
 const ConnectWithQRCode: React.FC<{
   switchConnectMethod: (id?: string) => void;
@@ -36,12 +25,17 @@ const ConnectWithQRCode: React.FC<{
 
   const id = context.connector.id;
 
-  const wallet = useWallet(context.connector.id, context.connector.name);
+  const wallet = useWallet(context.connector.id);
 
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
-  const { uri } = isCoinbaseWalletConnector(id)
-    ? useCoinbaseWalletUri()
-    : useWalletConnectUri();
+  const {
+    connect: { getUri },
+  } = useWeb3();
+
+  const wcUri = getUri(id);
+  const uri = wcUri
+    ? wallet?.getWalletConnectDeeplink?.(wcUri) ?? wcUri
+    : undefined;
 
   const locales = useLocales({
     CONNECTORNAME: wallet?.name,
@@ -71,19 +65,6 @@ const ConnectWithQRCode: React.FC<{
         url: extensions[Object.keys(extensions)[0]],
       }
     : undefined;
-
-  if (!wallet?.createUri)
-    return (
-      <PageContent>
-        <ModalHeading>Invalid State</ModalHeading>
-        <ModalContent>
-          <Alert>
-            {wallet?.name} does not have it's own QR Code to scan. This state
-            should never happen
-          </Alert>
-        </ModalContent>
-      </PageContent>
-    );
 
   const showAdditionalOptions = isWalletConnectConnector(id);
 

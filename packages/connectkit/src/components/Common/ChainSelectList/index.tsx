@@ -1,5 +1,5 @@
-import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
-import supportedChains from '../../../constants/supportedChains';
+import { useAccount, useSwitchChain } from 'wagmi';
+import { chainConfigs } from '../../../constants/chainConfigs';
 
 import {
   SwitchNetworksContainer,
@@ -57,31 +57,32 @@ const ChainSelectList = ({
 }: {
   variant?: 'primary' | 'secondary';
 }) => {
-  const { connector } = useAccount();
-  const { chain, chains } = useNetwork();
-  const { isLoading, pendingChainId, switchNetwork, error } =
-    useSwitchNetwork();
+  const { connector, chain } = useAccount();
+  const { chains, isPending, data, switchChain, error } = useSwitchChain();
 
   const locales = useLocales({});
   const mobile = isMobile();
 
   const isError = error?.['code'] === 4902; // Wallet cannot switch networks
-  const disabled = isError || !switchNetwork;
+  const disabled = isError || !switchChain;
 
   const handleSwitchNetwork = (chainId: number) => {
-    if (switchNetwork) {
-      switchNetwork(chainId);
+    if (switchChain) {
+      switchChain({ chainId });
     }
   };
+  const pendingChainId = isPending ? data?.id : undefined;
 
   const { triggerResize } = useContext();
 
   return (
-    <SwitchNetworksContainer style={{ marginBottom: switchNetwork ? -8 : 0 }}>
+    <SwitchNetworksContainer
+      style={{ marginBottom: switchChain !== undefined ? -8 : 0 }}
+    >
       <ChainButtonContainer>
         <ChainButtons>
           {chains.map((x) => {
-            const c = supportedChains.find((ch) => ch.id === x.id);
+            const c = chainConfigs.find((ch) => ch.id === x.id);
             const ch = { ...c, ...x };
             return (
               <ChainButton
@@ -90,7 +91,7 @@ const ChainSelectList = ({
                 disabled={
                   disabled ||
                   ch.id === chain?.id ||
-                  (isLoading && pendingChainId === ch.id)
+                  (isPending && pendingChainId === ch.id)
                 }
                 onClick={() => handleSwitchNetwork?.(ch.id)}
                 style={{
@@ -113,7 +114,7 @@ const ChainSelectList = ({
                     <ChainLogoSpinner
                       initial={{ opacity: 0 }}
                       animate={{
-                        opacity: isLoading && pendingChainId === ch.id ? 1 : 0,
+                        opacity: isPending && pendingChainId === ch.id ? 1 : 0,
                       }}
                       transition={{
                         ease: [0.76, 0, 0.24, 1],
@@ -124,10 +125,10 @@ const ChainSelectList = ({
                       <motion.div
                         key={`${ch?.id}-${ch?.name}`}
                         animate={
-                          // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
+                          // UI fix for Coinbase Wallet on mobile does not remove isPending on rejection event
                           mobile &&
                           isCoinbaseWalletConnector(connector?.id) &&
-                          isLoading &&
+                          isPending &&
                           pendingChainId === ch.id
                             ? {
                                 opacity: [1, 0],
@@ -174,7 +175,7 @@ const ChainSelectList = ({
                           {locales.connected}
                         </motion.span>
                       )}
-                      {isLoading && pendingChainId === ch.id && (
+                      {isPending && pendingChainId === ch.id && (
                         <motion.span
                           key={'approveText'}
                           style={{

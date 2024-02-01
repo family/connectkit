@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { routes, useContext } from '../ConnectKit';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
@@ -16,6 +16,7 @@ import SignInWithEthereum from '../Pages/SignInWithEthereum';
 
 import { getAppIcon, getAppName } from '../../defaultConfig';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import { useChains } from '../../hooks/useChains';
 
 const customThemeDefault: object = {};
 
@@ -31,12 +32,13 @@ const ConnectModal: React.FC<{
   lang = 'en-US',
 }) => {
   const context = useContext();
-  const { isConnected } = useAccount();
-  const { chain } = useNetwork();
+  const { isConnected, chain } = useAccount();
+  const chains = useChains();
 
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(
-    context.options?.enforceSupportedChains && chain?.unsupported
+    context.options?.enforceSupportedChains &&
+    Boolean(chain && !chains.some((x) => x.id !== chain?.id))
   );
 
   const showBackButton =

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { All } from './../../types';
+import { useQueryClient } from '@tanstack/react-query';
 
 import styled from './../../styles/styled';
 import { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { useAccount, useBalance, useBlockNumber } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 
 import Chain from '../Common/Chain';
-import supportedChains from '../../constants/supportedChains';
+import { chainConfigs } from '../../constants/chainConfigs';
 import ThemedButton from '../Common/ThemedButton';
 import { nFormatter } from '../../utils';
+import { useChains } from '../../hooks/useChains';
 
 const Container = styled(motion.div)`
   display: flex;
@@ -48,16 +50,21 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
   const isMounted = useIsMounted();
   const [isInitial, setIsInitial] = useState(true);
 
-  const { address } = useAccount();
-  const { chain } = useNetwork();
+  const { address, chain } = useAccount();
+  const chains = useChains();
 
-  const { data: balance } = useBalance({
+  const queryClient = useQueryClient();
+  const { data: blockNumber } = useBlockNumber({ watch: true });
+  const { data: balance, queryKey } = useBalance({
     address,
     chainId: chain?.id,
-    watch: true,
   });
 
-  const currentChain = supportedChains.find((c) => c.id === chain?.id);
+  useEffect(() => {
+    if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey });
+  }, [blockNumber, queryKey]);
+
+  const currentChain = chainConfigs.find((c) => c.id === chain?.id);
   const state = `${
     !isMounted || balance?.formatted === undefined
       ? `balance-loading`
@@ -105,7 +112,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
                 </PulseContainer>
               </span>
             </Container>
-          ) : chain?.unsupported ? (
+          ) : Boolean(chain && !chains.some((x) => x.id !== chain?.id)) ? (
             <Container>
               {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>???</span>

@@ -135,7 +135,6 @@ const styles = {
       width: 32px;
       height: 32px;
       overflow: hidden;
-      border-radius: 27.5%;
       svg,
       img {
         display: block;
@@ -144,6 +143,16 @@ const styles = {
         overflow: hidden;
         width: 100%;
         height: 100%;
+      }
+
+      &[data-shape='squircle'] {
+        border-radius: 22.5%;
+      }
+      &[data-shape='circle'] {
+        border-radius: 100%;
+      }
+      &[data-shape='square'] {
+        border-radius: 0;
       }
     `,
   },
@@ -167,11 +176,11 @@ const styles = {
       opacity: 0.75;
     `,
     ConnectorIcon: css`
+      position: relative;
       margin: 0 auto;
       width: 60px;
       height: 60px;
       overflow: hidden;
-      border-radius: 25%;
       svg,
       img {
         display: block;
@@ -184,6 +193,24 @@ const styles = {
         img {
           transform: scale(0.8);
         }
+      }
+
+      &[data-shape='squircle'] {
+        border-radius: 22.5%;
+        &:before {
+          content: '';
+          z-index: -1;
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          box-shadow: inset 0 0 0 1px var(--ck-body-background-tertiary);
+        }
+      }
+      &[data-shape='circle'] {
+        border-radius: 100%;
+      }
+      &[data-shape='square'] {
+        border-radius: 0;
       }
     `,
   },

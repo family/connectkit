@@ -9,17 +9,19 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import useLegacyWallets from '../../../wallets/useLegacyWallets';
-import { LegacyWalletProps } from '../../../wallets/wallet';
-
-import { routes, useContext } from '../../ConnectKit';
+import { useContext } from '../../ConnectKit';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import useLocales from '../../../hooks/useLocales';
-import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 import { Spinner } from '../../Common/Spinner';
-import { isWalletConnectConnector } from '../../../utils';
 import { ScrollArea } from '../../Common/ScrollArea';
+import { useWeb3 } from '../../contexts/web3';
+import { useWallets } from '../../../wallets/useWallets';
+import {
+  WalletConfigProps,
+  walletConfigs,
+} from '../../../wallets/walletConfigs';
+import wallet from '../../../assets/wallet';
 
 const MoreIcon = (
   <svg
@@ -42,24 +44,27 @@ const MobileConnectors: React.FC = () => {
   const context = useContext();
   const locales = useLocales();
 
-  const { uri: wcUri } = useWalletConnectUri();
-  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
-  const wallets = useLegacyWallets().filter(
-    (wallet: LegacyWalletProps) =>
-      (wallet.installed === undefined || !wallet.installed) &&
-      wallet.createUri && // Do not show wallets that are injected connectors
-      !isWalletConnectConnector(wallet.id) // Do not show WalletConnect
-  );
+  const {
+    connect: { getUri },
+  } = useWeb3();
+  const wcUri = getUri();
 
-  const connectWallet = (wallet: LegacyWalletProps) => {
-    if (wallet.installed) {
-      context.setRoute(routes.CONNECT);
-      context.setConnector({ id: wallet.id, name: wallet.name });
-    } else {
-      const uri = wallet.createUri?.(wcUri!);
-      if (uri) window.location.href = uri;
-      //if (uri) window.open(uri, '_blank');
-    }
+  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
+  const wallets = useWallets();
+
+  // filter out installed wallets
+  const walletsIdsToDisplay =
+    Object.keys(walletConfigs).filter((walletId) => {
+      const wallet = walletConfigs[walletId];
+      if (wallets.find((w) => w.connector.id === walletId)) return false;
+      if (!wallet.getWalletConnectDeeplink) return false;
+      return true;
+    }) ?? [];
+
+  const connectWallet = (wallet: WalletConfigProps) => {
+    const uri = wallet.getWalletConnectDeeplink?.(wcUri!);
+    if (uri) window.location.href = uri;
+    //if (uri) window.open(uri, '_blank');
   };
 
   return (
@@ -68,21 +73,42 @@ const MobileConnectors: React.FC = () => {
         <ModalContent style={{ paddingBottom: 0 }}>
           <ScrollArea height={340}>
             <WalletList $disabled={!wcUri}>
-              {wallets.map((wallet: LegacyWalletProps, i: number) => {
-                const { name, shortName, icon, installed } = wallet;
-                return (
-                  <WalletItem
-                    key={i}
-                    onClick={() => connectWallet(wallet)}
-                    style={{
-                      animationDelay: `${i * 50}ms`,
-                    }}
-                  >
-                    <WalletIcon $outline={true}>{icon}</WalletIcon>
-                    <WalletLabel>{shortName ?? name}</WalletLabel>
-                  </WalletItem>
-                );
-              })}
+              {walletsIdsToDisplay
+                .sort(
+                  // sort by name
+                  (a, b) => {
+                    const walletA = walletConfigs[a];
+                    const walletB = walletConfigs[b];
+                    const nameA = walletA.name ?? walletA.shortName ?? a;
+                    const nameB = walletB.name ?? walletB.shortName ?? b;
+                    return nameA.localeCompare(nameB);
+                  }
+                )
+                .filter(
+                  (walletId) =>
+                    !(
+                      walletId === 'coinbaseWallet' ||
+                      walletId === 'com.coinbase.wallet'
+                    )
+                )
+                .map((walletId, i) => {
+                  const wallet = walletConfigs[walletId];
+                  const { name, shortName, iconConnector, icon } = wallet;
+                  return (
+                    <WalletItem
+                      key={i}
+                      onClick={() => connectWallet(wallet)}
+                      style={{
+                        animationDelay: `${i * 50}ms`,
+                      }}
+                    >
+                      <WalletIcon $outline={true}>
+                        {iconConnector ?? icon}
+                      </WalletIcon>
+                      <WalletLabel>{shortName ?? name}</WalletLabel>
+                    </WalletItem>
+                  );
+                })}
               <WalletItem onClick={openW3M} $waiting={isOpenW3M}>
                 <WalletIcon
                   style={{ background: 'var(--ck-body-background-secondary)' }}
