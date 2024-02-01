@@ -8,7 +8,7 @@ import useIsMounted from '../../hooks/useIsMounted';
 
 import Chain from '../Common/Chain';
 import DynamicContainer from '../Common/DynamicContainer';
-import supportedChains from '../../constants/supportedChains';
+import { chainConfigs } from '../../constants/chainConfigs';
 import ThemedButton from '../Common/ThemedButton';
 import ChainSelectDropdown from '../Common/ChainSelectDropdown';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
@@ -58,7 +58,7 @@ const NetworkButton: React.FC<NetworkButtonProps & All> = ({
 
   if (!isMounted) return null;
 
-  const currentChain = supportedChains.find((c) => c.id === chain?.id);
+  const currentChain = chainConfigs.find((c) => c.id === chain?.id);
   return (
     <ConnectKitThemeProvider
       theme={theme ?? context.theme}

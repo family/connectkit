@@ -1,17 +1,43 @@
 import { ReactNode } from 'react';
-import Logos from './../assets/chains';
+import Logos from '../assets/chains';
 
-type Chain = { id: number; name: string; logo: ReactNode };
-const supportedChains: Chain[] = [
+type Chain = {
+  id: number;
+  name: string;
+  logo: ReactNode;
+  rpcUrls?: {
+    // https://github.com/wevm/viem/tree/1.x.x/src/chains/definitions
+    alchemy?: {
+      http?: string[];
+      webSocket?: string[];
+    };
+    infura?: {
+      http?: string[];
+      webSocket?: string[];
+    };
+  };
+};
+export const chainConfigs: Chain[] = [
   {
     id: 1,
     name: 'Ethereum',
     logo: <Logos.Ethereum />,
+    rpcUrls: {
+      alchemy: {
+        http: ['https://eth-mainnet.g.alchemy.com/v2'],
+        webSocket: ['wss://eth-mainnet.g.alchemy.com/v2'],
+      },
+      infura: {
+        http: ['https://mainnet.infura.io/v3'],
+        webSocket: ['wss://mainnet.infura.io/ws/v3'],
+      },
+    },
   },
   {
     id: 3,
     name: 'Rinkeby',
     logo: <Logos.Ethereum testnet />,
+    rpcUrls: {},
   },
   {
     id: 4,
@@ -67,6 +93,16 @@ const supportedChains: Chain[] = [
     id: 42161,
     name: 'Arbitrum',
     logo: <Logos.Arbitrum />,
+    rpcUrls: {
+      alchemy: {
+        http: ['https://arb-mainnet.g.alchemy.com/v2'],
+        webSocket: ['wss://arb-mainnet.g.alchemy.com/v2'],
+      },
+      infura: {
+        http: ['https://arbitrum-mainnet.infura.io/v3'],
+        webSocket: ['wss://arbitrum-mainnet.infura.io/ws/v3'],
+      },
+    },
   },
   {
     id: 421611,
@@ -77,6 +113,16 @@ const supportedChains: Chain[] = [
     id: 421613,
     name: 'Arbitrum Goerli',
     logo: <Logos.Arbitrum testnet />,
+    rpcUrls: {
+      alchemy: {
+        http: ['https://arb-goerli.g.alchemy.com/v2'],
+        webSocket: ['wss://arb-goerli.g.alchemy.com/v2'],
+      },
+      infura: {
+        http: ['https://arbitrum-goerli.infura.io/v3'],
+        webSocket: ['wss://arbitrum-goerli.infura.io/ws/v3'],
+      },
+    },
   },
   {
     id: 40,
@@ -234,5 +280,3 @@ const supportedChains: Chain[] = [
     logo: <Logos.IoTeX testnet />,
   },
 ];
-
-export default supportedChains;

@@ -10,7 +10,7 @@ import { useAccount, useBalance, useBlockNumber } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 
 import Chain from '../Common/Chain';
-import supportedChains from '../../constants/supportedChains';
+import { chainConfigs } from '../../constants/chainConfigs';
 import ThemedButton from '../Common/ThemedButton';
 import { nFormatter } from '../../utils';
 import { useChains } from '../../hooks/useChains';
@@ -64,7 +64,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
     if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey });
   }, [blockNumber, queryKey]);
 
-  const currentChain = supportedChains.find((c) => c.id === chain?.id);
+  const currentChain = chainConfigs.find((c) => c.id === chain?.id);
   const state = `${
     !isMounted || balance?.formatted === undefined
       ? `balance-loading`

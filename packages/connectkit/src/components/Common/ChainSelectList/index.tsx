@@ -1,5 +1,5 @@
 import { useAccount, useSwitchChain } from 'wagmi';
-import supportedChains from '../../../constants/supportedChains';
+import { chainConfigs } from '../../../constants/chainConfigs';
 
 import {
   SwitchNetworksContainer,
@@ -82,7 +82,7 @@ const ChainSelectList = ({
       <ChainButtonContainer>
         <ChainButtons>
           {chains.map((x) => {
-            const c = supportedChains.find((ch) => ch.id === x.id);
+            const c = chainConfigs.find((ch) => ch.id === x.id);
             const ch = { ...c, ...x };
             return (
               <ChainButton

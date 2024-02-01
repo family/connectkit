@@ -7,7 +7,7 @@ import {
   Unsupported,
 } from './styles';
 import { AnimatePresence } from 'framer-motion';
-import supportedChains from '../../../constants/supportedChains';
+import { chainConfigs } from '../../../constants/chainConfigs';
 import Chains from '../../../assets/chains';
 import useIsMounted from '../../../hooks/useIsMounted';
 
@@ -56,7 +56,7 @@ const Chain: React.FC<{
   radius?: number | string;
   size?: number | string;
 }> = ({ id, unsupported, radius = '50%', size = 24 }) => {
-  const chain = supportedChains.find((c) => c.id === id);
+  const chain = chainConfigs.find((c) => c.id === id);
   const isMounted = useIsMounted();
   if (!isMounted)
     return (
