@@ -17,6 +17,10 @@ type Chain = {
     };
   };
 };
+
+// Note: these rpcUrls are incomplete, and are subject to change from their respective providers
+// More RPC URLs can be found: https://chainid.network/chains.json
+
 export const chainConfigs: Chain[] = [
   {
     id: 1,
