@@ -40,18 +40,19 @@ const Web3Context = React.createContext({
 } as Web3Context);
 
 export const Web3ContextProvider = ({
+  enabled,
   children,
 }: {
+  enabled?: boolean;
   children: React.ReactNode;
 }) => {
-  const context = useContext();
   const isMobile = useIsMobile();
 
   const { uri: walletConnectUri } = useWalletConnectUri({
-    enabled: context.open,
+    enabled,
   });
   const { uri: coinbaseWalletUri } = useCoinbaseWalletUri({
-    enabled: context.open && !isMobile,
+    enabled: enabled && !isMobile,
   });
 
   const { address: currentAddress, chain } = useAccount();

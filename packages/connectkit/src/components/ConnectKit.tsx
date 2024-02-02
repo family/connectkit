@@ -258,7 +258,7 @@ export const ConnectKitProvider = ({
     Context.Provider,
     { value },
     <>
-      <Web3ContextProvider>
+      <Web3ContextProvider enabled={open}>
         <ThemeProvider theme={defaultTheme}>
           {children}
           <ConnectKitModal

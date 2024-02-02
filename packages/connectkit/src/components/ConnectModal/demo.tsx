@@ -21,6 +21,7 @@ import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitTh
 import styled from './../../styles/styled';
 import { keyframes } from 'styled-components';
 import { useChains } from '../../hooks/useChains';
+import { Web3ContextProvider } from '../contexts/web3';
 
 const dist = 8;
 const shake = keyframes`
@@ -223,38 +224,40 @@ const ConnectModal: React.FC<{
   }, [open, inline]);
 
   return (
-    <ConnectKitThemeProvider
-      theme={theme}
-      customTheme={customTheme}
-      mode={mode}
-    >
-      <Container ref={ref}>
-        {inline && onClose && (
-          <>
-            <Cursor ref={cursorRef} />
-            <ButtonContainer>
-              <ConnectKitButton
-                customTheme={customTheme}
-                theme={theme}
-                mode={mode}
-              />
-            </ButtonContainer>
-          </>
-        )}
-        <Modal
-          demo={{ theme: theme, customTheme: customTheme, mode: mode }}
-          onClose={closeable ? onModalClose : undefined}
-          positionInside={inline}
-          open={isOpen}
-          pages={pages}
-          pageId={context.route}
-          onInfo={
-            showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
-          }
-          onBack={showBackButton ? onBack : undefined}
-        />
-      </Container>
-    </ConnectKitThemeProvider>
+    <Web3ContextProvider enabled={open}>
+      <ConnectKitThemeProvider
+        theme={theme}
+        customTheme={customTheme}
+        mode={mode}
+      >
+        <Container ref={ref}>
+          {inline && onClose && (
+            <>
+              <Cursor ref={cursorRef} />
+              <ButtonContainer>
+                <ConnectKitButton
+                  customTheme={customTheme}
+                  theme={theme}
+                  mode={mode}
+                />
+              </ButtonContainer>
+            </>
+          )}
+          <Modal
+            demo={{ theme: theme, customTheme: customTheme, mode: mode }}
+            onClose={closeable ? onModalClose : undefined}
+            positionInside={inline}
+            open={isOpen}
+            pages={pages}
+            pageId={context.route}
+            onInfo={
+              showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
+            }
+            onBack={showBackButton ? onBack : undefined}
+          />
+        </Container>
+      </ConnectKitThemeProvider>
+    </Web3ContextProvider>
   );
 };
 
