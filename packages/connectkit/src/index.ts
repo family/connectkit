@@ -1,4 +1,4 @@
-export const CONNECTKIT_VERSION = '1.7.0';
+export const CONNECTKIT_VERSION = '1.7.0-demo';
 
 export * as Types from './types';
 export { default as getDefaultConfig } from './defaultConfig';

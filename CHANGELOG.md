@@ -1,3 +1,7 @@
+# 1.7.0-demo
+
+Fixes the demonstration modal used with the ConnectKit documentation.
+
 # 1.7.0
 
 This update moves peer dependencies wagmi and viem up to their latest versions.
