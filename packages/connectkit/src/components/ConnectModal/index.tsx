@@ -37,7 +37,9 @@ const ConnectModal: React.FC<{
 
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(
-    context.options?.enforceSupportedChains && !chainIsSupported
+    context.options?.enforceSupportedChains &&
+    isConnected &&
+    !chainIsSupported
   );
 
   const showBackButton =

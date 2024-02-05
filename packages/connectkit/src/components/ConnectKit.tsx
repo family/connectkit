@@ -202,15 +202,15 @@ export const ConnectKitProvider = ({
   useEffect(() => setErrorMessage(null), [route, open]);
 
   // Check if chain is supported, elsewise redirect to switches page
-  const { chain } = useAccount();
+  const { chain, isConnected } = useAccount();
   const isChainSupported = useChainIsSupported(chain?.id);
 
   useEffect(() => {
-    if (opts.enforceSupportedChains && !isChainSupported) {
+    if (isConnected && opts.enforceSupportedChains && !isChainSupported) {
       setOpen(true);
       setRoute(routes.SWITCHNETWORKS);
     }
-  }, [chain, route, open]);
+  }, [isConnected, isChainSupported, chain, route, open]);
 
   // Autoconnect to Family wallet if available
   useEffect(() => {
