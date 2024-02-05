@@ -29,6 +29,7 @@ import { isFamily } from '../utils/wallets';
 import { useConnector } from '../hooks/useConnectors';
 import { WagmiContext, useAccount } from 'wagmi';
 import { Web3ContextProvider } from './contexts/web3';
+import { useChainIsSupported } from '../hooks/useChainIsSupported';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -202,11 +203,10 @@ export const ConnectKitProvider = ({
 
   // Check if chain is supported, elsewise redirect to switches page
   const { chain } = useAccount();
+  const isChainSupported = useChainIsSupported(chain?.id);
+
   useEffect(() => {
-    if (
-      opts.enforceSupportedChains &&
-      Boolean(chain && !chains.some((x) => x.id !== chain?.id))
-    ) {
+    if (opts.enforceSupportedChains && !isChainSupported) {
       setOpen(true);
       setRoute(routes.SWITCHNETWORKS);
     }

@@ -7,6 +7,7 @@ import { WagmiProvider, createConfig } from 'wagmi';
 import { defineChain, type Chain, http } from 'viem';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { mainnet } from 'viem/chains';
 
 const avalanche: Chain = defineChain({
   id: 43_114,
@@ -27,10 +28,16 @@ const avalanche: Chain = defineChain({
 });
 
 const ckConfig = getDefaultConfig({
-  chains: [avalanche],
+  /*
+  chains: [
+    mainnet,
+    //avalanche
+  ],
   transports: {
-    [avalanche.id]: http(avalanche.rpcUrls.default.http[0]),
+    [mainnet.id]: http(mainnet.rpcUrls.default.http[0]),
+    //[avalanche.id]: http(avalanche.rpcUrls.default.http[0]),
   },
+  */
   appName: 'ConnectKit testbench',
   appIcon: '/app.png',
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,

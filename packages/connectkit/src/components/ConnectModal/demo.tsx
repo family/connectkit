@@ -20,8 +20,8 @@ import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitTh
 
 import styled from './../../styles/styled';
 import { keyframes } from 'styled-components';
-import { useChains } from '../../hooks/useChains';
 import { Web3ContextProvider } from '../contexts/web3';
+import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 
 const dist = 8;
 const shake = keyframes`
@@ -99,13 +99,13 @@ const ConnectModal: React.FC<{
   onClose,
 }) => {
   const context = useContext();
+
   const { isConnected, chain } = useAccount();
-  const chains = useChains();
+  const chainIsSupported = useChainIsSupported(chain?.id);
 
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(
-    context.options?.enforceSupportedChains &&
-    Boolean(chain && !chains.some((x) => x.id !== chain?.id))
+    context.options?.enforceSupportedChains && !chainIsSupported
   );
 
   const showBackButton =

@@ -11,8 +11,8 @@ import { useChains } from '../../../hooks/useChains';
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 import { useCoinbaseWalletUri } from '../../../hooks/connectors/useCoinbaseWalletUri';
 import { isCoinbaseWalletConnector } from '../../../utils';
-import { useContext } from '../../ConnectKit';
 import useIsMobile from '../../../hooks/useIsMobile';
+import { useChainIsSupported } from '../../../hooks/useChainIsSupported';
 
 type Web3Context = {
   connect: {
@@ -22,9 +22,8 @@ type Web3Context = {
     chains: Chain[];
   };
   account?: {
-    chain: Chain & {
-      unsupported?: boolean;
-    };
+    chain: Chain;
+    chainIsSupported: boolean;
     address: Address;
   };
 };
@@ -56,6 +55,7 @@ export const Web3ContextProvider = ({
   });
 
   const { address: currentAddress, chain } = useAccount();
+  const chainIsSupported = useChainIsSupported(chain?.id);
   const chains = useChains();
 
   const value = {
@@ -70,7 +70,8 @@ export const Web3ContextProvider = ({
     },
     account: currentAddress
       ? {
-          chain: Boolean(chain && !chains.some((x) => x.id !== chain?.id)),
+          chain,
+          chainIsSupported,
           address: currentAddress,
         }
       : undefined,

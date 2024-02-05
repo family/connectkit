@@ -21,7 +21,6 @@ import {
   WalletConfigProps,
   walletConfigs,
 } from '../../../wallets/walletConfigs';
-import wallet from '../../../assets/wallet';
 
 const MoreIcon = (
   <svg

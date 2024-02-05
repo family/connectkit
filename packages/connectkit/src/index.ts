@@ -21,6 +21,7 @@ export { default as ChainIcon } from './components/Common/Chain';
 // Hooks
 export { default as useIsMounted } from './hooks/useIsMounted'; // Useful for apps that use SSR
 export { useChains } from './hooks/useChains';
+export { useChainIsSupported } from './hooks/useChainIsSupported';
 
 // TODO: Make this private
 export { default as ConnectKitModalDemo } from './components/ConnectModal/demo';
