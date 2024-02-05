@@ -224,7 +224,7 @@ const ConnectModal: React.FC<{
   }, [open, inline]);
 
   return (
-    <Web3ContextProvider enabled={open}>
+    <Web3ContextProvider enabled={isOpen}>
       <ConnectKitThemeProvider
         theme={theme}
         customTheme={customTheme}
