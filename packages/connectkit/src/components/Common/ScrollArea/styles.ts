@@ -84,7 +84,10 @@ export const ScrollAreaContainer = styled.div<{
             top: 0;
             bottom: 0;
             width: var(--fade-height);
-            background: var(--ck-body-divider);
+            background: var(
+              --ck-body-divider-secondary,
+              var(--ck-body-divider)
+            );
             box-shadow: var(--ck-body-divider-box-shadow);
             transition: opacity 300ms ease;
           }
@@ -123,7 +126,10 @@ export const ScrollAreaContainer = styled.div<{
             left: 0;
             right: 0;
             height: var(--fade-height);
-            background: var(--ck-body-divider);
+            background: var(
+              --ck-body-divider-secondary,
+              var(--ck-body-divider)
+            );
             box-shadow: var(--ck-body-divider-box-shadow);
             transition: opacity 300ms ease;
           }

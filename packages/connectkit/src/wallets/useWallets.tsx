@@ -66,6 +66,11 @@ export const useWallets = (): WalletProps[] => {
 
   return (
     wallets
+      // remove duplicate ids
+      .filter(
+        (wallet, index, self) =>
+          self.findIndex((w) => w.id === wallet.id) === index
+      )
       // remove wallet with id coinbaseWalletSDK if wallet with id 'com.coinbase.wallet' exists
       .filter(
         (wallet, index, self) =>

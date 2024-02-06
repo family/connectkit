@@ -64,6 +64,7 @@ export default {
     '--ck-body-background-tertiary': '#F3F4F7',
     '--ck-body-action-color': '#999999',
     '--ck-body-divider': '#f7f6f8',
+    '--ck-body-divider-secondary': 'rgba(0, 0, 0, 0.06)',
     '--ck-body-color-danger': '#FF4E4E',
     '--ck-body-color-valid': '#32D74B',
     '--ck-siwe-border': '#F0F0F0',
