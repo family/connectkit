@@ -25,8 +25,8 @@ const Home: NextPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const { chain } = useAccount();
   const chains = useChains();
+  const { chain } = useAccount();
 
   if (!mounted) return null;
 
@@ -36,12 +36,7 @@ const Home: NextPage = () => {
         <div className="panel">
           <h1>Chains</h1>
           <h2>Connected to</h2>
-          <ChainIcon
-            id={chain?.id}
-            unsupported={Boolean(
-              chain && !chains.some((x) => x.id !== chain?.id)
-            )}
-          />
+          <ChainIcon id={chain?.id} />
           <h2>Configured/Supported Chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
             {chains.map((chain) => (
@@ -93,17 +88,19 @@ const Home: NextPage = () => {
               gap: 8,
             }}
           >
-            {allChains.map((chain) => (
-              <div
-                key={chain.id}
-                style={{ display: 'flex', gap: 8, alignItems: 'center' }}
-              >
-                <ChainIcon id={chain.id} size={42} />
-                <span>
-                  {chain.name} <code>{chain.id}</code>
-                </span>
-              </div>
-            ))}
+            {allChains
+              .sort((a, b) => a.id - b.id)
+              .map((chain) => (
+                <div
+                  key={chain.id}
+                  style={{ display: 'flex', gap: 8, alignItems: 'center' }}
+                >
+                  <ChainIcon id={chain.id} size={42} />
+                  <span>
+                    {chain.name} <code>{chain.id}</code>
+                  </span>
+                </div>
+              ))}
           </div>
         </div>
       </main>
