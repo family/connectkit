@@ -2,9 +2,16 @@
 
 This update fixes a bug where the chain was incorrectly detected as unsupported when only one chain is configured.
 
+## Improved
+
+- Switch to using wagmi storage for detecting the last used connector ID.
+- Filter out duplicate connectors from the list of available connectors.
+- More defined overflow divider for the connector list.
+
 ## Fixed
 
 - Chain being incorrectly detected as unsupported when only one chain is configured.
+- Ability to override the "Other Wallets" button text.
 
 # 1.7.0
 
