@@ -105,7 +105,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
         >
           {!address || !isMounted || balance?.formatted === undefined ? (
             <Container>
-              {!hideIcon && <Chain />}
+              {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>
                 <PulseContainer>
                   <span style={{ animationDelay: '0ms' }} />
