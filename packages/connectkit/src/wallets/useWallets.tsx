@@ -2,6 +2,7 @@ import { Connector } from 'wagmi';
 
 import { useConnectors } from '../hooks/useConnectors';
 import { walletConfigs, WalletConfigProps } from './walletConfigs';
+import { useContext } from '../components/ConnectKit';
 
 export type WalletProps = {
   id: string;
@@ -17,6 +18,7 @@ export const useWallet = (id: string): WalletProps | null => {
 };
 export const useWallets = (): WalletProps[] => {
   const connectors = useConnectors();
+  const context = useContext();
 
   const wallets = connectors.map((connector): WalletProps => {
     // use overrides
@@ -71,6 +73,17 @@ export const useWallets = (): WalletProps[] => {
         (wallet, index, self) =>
           self.findIndex((w) => w.id === wallet.id) === index
       )
+      // Replace walletConnect's name with the one from options
+      .map((wallet) => {
+        if (wallet.id === 'walletConnect') {
+          return {
+            ...wallet,
+            name: context.options?.walletConnectName || wallet.name,
+            shortName: context.options?.walletConnectName || wallet.shortName,
+          };
+        }
+        return wallet;
+      })
       // remove wallet with id coinbaseWalletSDK if wallet with id 'com.coinbase.wallet' exists
       .filter(
         (wallet, index, self) =>
