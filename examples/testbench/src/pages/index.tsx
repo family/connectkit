@@ -20,7 +20,6 @@ import {
   useSendTransaction,
   useSignMessage,
   useSignTypedData,
-  useSimulateContract,
   useConnect,
   useDisconnect,
 } from 'wagmi';
@@ -103,12 +102,7 @@ const AccountInfo = () => {
             </tr>
             <tr>
               <td>Chain Supported</td>
-              <td>
-                {!chain ||
-                Boolean(chain && !chains.some((x) => x.id !== chain?.id))
-                  ? 'No'
-                  : 'Yes'}
-              </td>
+              <td>{chains.some((x) => x.id === chain?.id) ? 'Yes' : 'No'}</td>
             </tr>
             <tr>
               <td>Address</td>
@@ -318,12 +312,7 @@ const Home: NextPage = () => {
         <div className="panel">
           <h2>Chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
-            <ChainIcon
-              id={chain?.id}
-              unsupported={Boolean(
-                chain && !chains.some((x) => x.id !== chain?.id)
-              )}
-            />
+            <ChainIcon id={chain?.id} />
             <ChainIcon id={1} size={64} radius={6} />
             <ChainIcon id={1337} size={32} radius={0} />
             <ChainIcon id={2} unsupported />
@@ -364,12 +353,7 @@ const Home: NextPage = () => {
                     }}
                   >
                     {chain?.name}
-                    <ChainIcon
-                      id={chain?.id}
-                      unsupported={Boolean(
-                        chain && !chains.some((x) => x.id !== chain?.id)
-                      )}
-                    />
+                    <ChainIcon id={chain?.id} />
                     <Avatar address={address} size={12} />
                     {ensName ?? address}
                   </div>

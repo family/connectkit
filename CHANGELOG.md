@@ -1,3 +1,11 @@
+# 1.7.1
+
+This update fixes a bug where the chain was incorrectly detected as unsupported when only one chain is configured.
+
+## Fixed
+
+- Chain being incorrectly detected as unsupported when only one chain is configured.
+
 # 1.7.0
 
 This update moves peer dependencies wagmi and viem up to their latest versions.
