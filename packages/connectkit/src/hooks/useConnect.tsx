@@ -15,8 +15,6 @@ import { useLastConnector } from './useLastConnector';
 export function useConnect({ ...props }: UseConnectParameters = {}) {
   const context = useContext();
 
-  const { updateLastConnectorId } = useLastConnector();
-
   const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
     ...props,
     mutation: {
@@ -29,11 +27,6 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
         } else {
           context.log(`Could not connect.`, err);
         }
-      },
-      onSuccess(data: any) {
-        updateLastConnectorId(
-          `${data?.connector?.id}-${data?.connector?.name}` ?? ''
-        );
       },
     },
   });
