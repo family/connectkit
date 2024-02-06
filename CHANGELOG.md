@@ -12,6 +12,7 @@ This update fixes a bug where the chain was incorrectly detected as unsupported 
 
 - Chain being incorrectly detected as unsupported when only one chain is configured.
 - Ability to override the "Other Wallets" button text.
+- SIWE Provider stability and returned types when returning `nonce` and `session` from the server.
 
 # 1.7.0
 

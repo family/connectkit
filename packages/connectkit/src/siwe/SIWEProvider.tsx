@@ -1,7 +1,7 @@
 import { ReactNode, useContext, useEffect, useState } from 'react';
 import { useAccount, useAccountEffect, useSignMessage } from 'wagmi';
 import { getAddress } from 'viem';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { Context as ConnectKitContext } from './../components/ConnectKit';
 import {
@@ -47,14 +47,14 @@ export const SIWEProvider = ({
 
   const nonce = useQuery({
     queryKey: ['ckSiweNonce'],
-    queryFn: siweConfig.getNonce,
+    queryFn: () => siweConfig.getNonce(),
     initialData: null,
     refetchInterval: nonceRefetchInterval,
   });
 
   const session = useQuery({
     queryKey: ['ckSiweSession'],
-    queryFn: siweConfig.getSession,
+    queryFn: () => siweConfig.getSession(),
     initialData: null,
     refetchInterval: sessionRefetchInterval,
   });

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-//import { useQuery } from 'wagmi';
+import { useQuery } from '@tanstack/react-query';
 
 export enum StatusState {
   READY = 'ready',
@@ -39,9 +39,8 @@ export type SIWEConfig = {
 };
 
 export type SIWEContextValue = Required<SIWEConfig> & {
-  // TODO: switch to exported type once wagmi is updated
-  nonce: any; //ReturnType<typeof useQuery<string | null>>;
-  session: any; //ReturnType<typeof useQuery<SIWESession | null>>;
+  nonce: ReturnType<typeof useQuery<string | null>>;
+  session: ReturnType<typeof useQuery<SIWESession | null>>;
   status: StatusState;
   signIn: () => Promise<SIWESession | false>;
   resetStatus: () => void;
