@@ -48,14 +48,12 @@ export const SIWEProvider = ({
   const nonce = useQuery({
     queryKey: ['ckSiweNonce'],
     queryFn: () => siweConfig.getNonce(),
-    initialData: null,
     refetchInterval: nonceRefetchInterval,
   });
 
   const session = useQuery({
     queryKey: ['ckSiweSession'],
     queryFn: () => siweConfig.getSession(),
-    initialData: null,
     refetchInterval: sessionRefetchInterval,
   });
 
