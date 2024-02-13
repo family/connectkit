@@ -53,7 +53,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
 
   const { address, chain } = useAccount();
   const chains = useChains();
-  const unsupported = useChainIsSupported(chain?.id);
+  const isChainSupported = useChainIsSupported(chain?.id);
 
   const queryClient = useQueryClient();
   const { data: blockNumber } = useBlockNumber({ watch: true });
@@ -105,7 +105,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
         >
           {!address || !isMounted || balance?.formatted === undefined ? (
             <Container>
-              {!hideIcon && <Chain />}
+              {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>
                 <PulseContainer>
                   <span style={{ animationDelay: '0ms' }} />
@@ -114,7 +114,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
                 </PulseContainer>
               </span>
             </Container>
-          ) : unsupported ? (
+          ) : !isChainSupported ? (
             <Container>
               {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>???</span>
