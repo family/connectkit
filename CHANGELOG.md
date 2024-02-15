@@ -1,3 +1,37 @@
+# 1.7.1
+
+This update fixes a bug where the chain was incorrectly detected as unsupported when only one chain is configured.
+
+## Improved
+
+- Switch to using wagmi storage for detecting the last used connector ID.
+- Filter out duplicate connectors from the list of available connectors.
+- More defined overflow divider for the connector list.
+
+## Fixed
+
+- Chain being incorrectly detected as unsupported when only one chain is configured.
+- Ability to override the "Other Wallets" button text.
+- SIWE Provider stability and returned types when returning `nonce` and `session` from the server.
+
+# 1.7.0
+
+This update moves peer dependencies wagmi and viem up to their latest versions.
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [ConnectKit migration guide](https://docs.family.co/connectkit/migration-guide#170-breaking-changes), and the [wagmi 2.x migration guide](https://wagmi.sh/react/guides/migrate-from-v1-to-v2).
+
+## New
+
+- Updates peer dependency `wagmi` to `2.x`.
+- Updates peer dependency `viem` to `2.x`.
+- New peer dependency `@tanstack/react-query`.
+
+## Deprecated
+
+- Removes dependency `mipd`.
+
 # 1.6.0
 
 This update adds [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) support for enhanced wallet discovery and improves the functionality and developer experience of using ConnectKit.

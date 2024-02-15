@@ -27,17 +27,12 @@ import SquircleSpinner from './SquircleSpinner';
 import { RetryIconCircle, Scan } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
-import {
-  detectBrowser,
-  isInjectedConnector,
-  isWalletConnectConnector,
-} from '../../../utils';
+import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
 import { useContext } from '../../ConnectKit';
-import { useWallet } from '../../../hooks/useWallets';
+import { useWallet } from '../../../wallets/useWallets';
 import CircleSpinner from './CircleSpinner';
-import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
 
 export const states = {
   CONNECTED: 'connected',
@@ -83,75 +78,65 @@ const ConnectWithInjector: React.FC<{
   forceState?: typeof states;
 }> = ({ switchConnectMethod, forceState }) => {
   const { connect } = useConnect({
-    onMutate: (connector?: any) => {
-      if (connector.connector) {
-        setStatus(states.CONNECTING);
-      } else {
-        setStatus(states.UNAVAILABLE);
-      }
-    },
-    onError(err?: any) {
-      console.error(err);
-    },
-    onSettled(data?: any, error?: any) {
-      if (error) {
-        setShowTryAgainTooltip(true);
-        setTimeout(() => setShowTryAgainTooltip(false), 3500);
-        if (error.code) {
-          // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
-          switch (error.code) {
-            case -32002:
-              setStatus(states.NOTCONNECTED);
-              break;
-            case 4001:
-              setStatus(states.REJECTED);
-              break;
-            default:
-              setStatus(states.FAILED);
-              break;
-          }
+    mutation: {
+      onMutate: (connector?: any) => {
+        if (connector.connector) {
+          setStatus(states.CONNECTING);
         } else {
-          // Sometimes the error doesn't respond with a code
-          if (error.message) {
-            switch (error.message) {
-              case 'User rejected request':
+          setStatus(states.UNAVAILABLE);
+        }
+      },
+      onError(err?: any) {
+        console.error(err);
+      },
+      onSettled(data?: any, error?: any) {
+        if (error) {
+          setShowTryAgainTooltip(true);
+          setTimeout(() => setShowTryAgainTooltip(false), 3500);
+          if (error.code) {
+            // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
+            switch (error.code) {
+              case -32002:
+                setStatus(states.NOTCONNECTED);
+                break;
+              case 4001:
                 setStatus(states.REJECTED);
                 break;
               default:
                 setStatus(states.FAILED);
                 break;
             }
+          } else {
+            // Sometimes the error doesn't respond with a code
+            if (error.message) {
+              switch (error.message) {
+                case 'User rejected request':
+                  setStatus(states.REJECTED);
+                  break;
+                default:
+                  setStatus(states.FAILED);
+                  break;
+              }
+            }
           }
+        } else if (data) {
         }
-      } else if (data) {
-      }
-      setTimeout(triggerResize, 100);
+        setTimeout(triggerResize, 100);
+      },
     },
   });
 
   const { triggerResize, connector: c } = useContext();
   const id = c.id;
-  const wallet = useWallet(id, c.name);
+  const wallet = useWallet(id);
 
-  const injectedWallet = useInjectedWallet();
-
-  const walletInfo =
-    isInjectedConnector(wallet?.id) && injectedWallet.enabled
-      ? {
-          name: injectedWallet.wallet.name,
-          shortName:
-            injectedWallet.wallet.shortName ?? injectedWallet.wallet.name,
-          icon: injectedWallet.wallet.icon,
-          iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
-          iconShouldShrink: injectedWallet.wallet.iconShouldShrink ?? false,
-        }
-      : {
-          name: wallet?.name,
-          shortName: wallet?.shortName ?? wallet?.name,
-          icon: wallet?.iconConnector ?? wallet?.icon,
-          iconShape: wallet?.iconShape ?? 'circle',
-          iconShouldShrink: wallet?.iconShouldShrink,
-        };
+  const walletInfo = {
+    name: wallet?.name,
+    shortName: wallet?.shortName ?? wallet?.name,
+    icon: wallet?.iconConnector ?? wallet?.icon,
+    iconShape: wallet?.iconShape ?? 'circle',
+    iconShouldShrink: wallet?.iconShouldShrink,
+  };
 
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false);
 
@@ -356,17 +341,20 @@ const ConnectWithInjector: React.FC<{
                   <ModalBody>{locales.injectionScreen_failed_p}</ModalBody>
                 </ModalContent>
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
-                {wallet?.createUri && wallet.id !== 'coinbaseWallet' && (
-                  <>
-                    <OrDivider />
-                    <Button
-                      icon={<Scan />}
-                      onClick={() => switchConnectMethod(id)}
-                    >
-                      {locales.scanTheQRCode}
-                    </Button>
-                  </>
-                )}
+                {/* 
+                {wallet?.getWalletConnectDeeplink &&
+                  wallet.id !== 'coinbaseWalletSDK' && (
+                    <>
+                      <OrDivider />
+                      <Button
+                        icon={<Scan />}
+                        onClick={() => switchConnectMethod(id)}
+                      >
+                        {locales.scanTheQRCode}
+                      </Button>
+                    </>
+                  )}
+                   */}
               </Content>
             )}
             {status === states.REJECTED && (
@@ -383,17 +371,20 @@ const ConnectWithInjector: React.FC<{
                 </ModalContent>
 
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
-                {wallet?.createUri && wallet.id !== 'coinbaseWallet' && (
-                  <>
-                    <OrDivider />
-                    <Button
-                      icon={<Scan />}
-                      onClick={() => switchConnectMethod(id)}
-                    >
-                      {locales.scanTheQRCode}
-                    </Button>
-                  </>
-                )}
+                {/* 
+                {wallet?.getWalletConnectDeeplink &&
+                  wallet.id !== 'coinbaseWalletSDK' && (
+                    <>
+                      <OrDivider />
+                      <Button
+                        icon={<Scan />}
+                        onClick={() => switchConnectMethod(id)}
+                      >
+                        {locales.scanTheQRCode}
+                      </Button>
+                    </>
+                  )}
+                   */}
               </Content>
             )}
             {(status === states.CONNECTING || status === states.EXPIRING) && (
@@ -487,10 +478,10 @@ const ConnectWithInjector: React.FC<{
                       <ModalBody>{locales.injectionScreen_install_p}</ModalBody>
                     </ModalContent>
                     {/**
-                    {(wallet.createUri &&
+                    {(wallet.getWalletConnectDeeplink &&
                     (!wallet.isInstalled && extensionUrl)) && <OrDivider />}
 
-                    {wallet.createUri && (
+                    {wallet.getWalletConnectDeeplink && (
                       <Button icon={<Scan />} onClick={switchConnectMethod}>
                         {locales.scanTheQRCode}
                       </Button>

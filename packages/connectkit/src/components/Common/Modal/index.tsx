@@ -9,7 +9,6 @@ import {
   flattenChildren,
   isWalletConnectConnector,
   isMobile,
-  isInjectedConnector,
 } from '../../../utils';
 
 import {
@@ -41,13 +40,12 @@ import FocusTrap from '../../../hooks/useFocusTrap';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { useAccount, useSwitchChain } from 'wagmi';
 import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
-import { useWallet } from '../../../hooks/useWallets';
-import { useInjectedWallet } from '../../../hooks/connectors/useInjectedWallet';
+import { useWallet } from '../../../wallets/useWallets';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -209,26 +207,15 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();
 
-  const wallet = useWallet(context.connector?.id, context?.connector?.name);
-  const injectedWallet = useInjectedWallet();
+  const wallet = useWallet(context.connector?.id);
 
-  const walletInfo =
-    isInjectedConnector(wallet?.id) && injectedWallet.enabled
-      ? {
-          name: injectedWallet.wallet.name,
-          shortName:
-            injectedWallet.wallet?.shortName ?? injectedWallet.wallet.name,
-          icon: injectedWallet.wallet?.icon,
-          iconShape: injectedWallet.wallet?.iconShape ?? 'circle',
-          iconShouldShrink: injectedWallet.wallet?.iconShouldShrink,
-        }
-      : {
-          name: wallet?.name,
-          shortName: wallet?.shortName ?? wallet?.name,
-          icon: wallet?.iconConnector ?? wallet?.icon,
-          iconShape: wallet?.iconShape ?? 'circle',
-          iconShouldShrink: wallet?.iconShouldShrink,
-        };
+  const walletInfo = {
+    name: wallet?.name,
+    shortName: wallet?.shortName ?? wallet?.name,
+    icon: wallet?.iconConnector ?? wallet?.icon,
+    iconShape: wallet?.iconShape ?? 'circle',
+    iconShouldShrink: wallet?.iconShouldShrink,
+  };
 
   const locales = useLocales({
     CONNECTORNAME: walletInfo?.name,
@@ -299,20 +286,13 @@ const Modal: React.FC<ModalProps> = ({
   );
 
   // Update layout on chain/network switch to avoid clipping
-  const { chain } = useNetwork();
-  const { switchNetwork } = useSwitchNetwork();
+  const { chain } = useAccount();
+  const { switchChain } = useSwitchChain();
 
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [
-    chain,
-    switchNetwork,
-    mobile,
-    isSignedIn,
-    context.options,
-    context.resize,
-  ]);
+  }, [chain, switchChain, mobile, isSignedIn, context.options, context.resize]);
 
   useEffect(() => {
     if (!mounted) {
@@ -340,7 +320,7 @@ const Modal: React.FC<ModalProps> = ({
   function shouldUseQrcode() {
     if (!wallet) return false; // Fail states are shown in the injector flow
 
-    const useInjector = !wallet.createUri || wallet.isInstalled;
+    const useInjector = !wallet.getWalletConnectDeeplink || wallet.isInstalled;
     return !useInjector;
   }
 

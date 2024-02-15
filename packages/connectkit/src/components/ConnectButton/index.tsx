@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
+import { useAccount, useEnsName } from 'wagmi';
 import { truncateENSAddress, truncateEthAddress } from './../../utils';
 import useIsMounted from '../../hooks/useIsMounted';
 
@@ -20,6 +20,8 @@ import { ResetContainer } from '../../styles';
 import { AuthIcon } from '../../assets/icons';
 import { useSIWE } from '../../siwe';
 import useLocales from '../../hooks/useLocales';
+import { Chain } from 'viem';
+import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 
 const contentVariants: Variants = {
   initial: {
@@ -121,8 +123,9 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   const context = useContext();
   const { open, setOpen } = useModal();
 
-  const { chain } = useNetwork();
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chain } = useAccount();
+  const isChainSupported = useChainIsSupported(chain?.id);
+
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
@@ -146,7 +149,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         show,
         hide,
         chain: chain,
-        unsupported: !!chain?.unsupported,
+        unsupported: !isChainSupported,
         isConnected: !!address,
         isConnecting: open, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
         address: address,
@@ -172,12 +175,13 @@ function ConnectKitButtonInner({
   const context = useContext();
   const { isSignedIn } = useSIWE();
 
-  const { address } = useAccount();
+  const { address, chain } = useAccount();
+  const isChainSupported = useChainIsSupported(chain?.id);
+
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
   });
-  const { chain } = useNetwork();
   const defaultLabel = locales.connectWallet;
 
   return (
@@ -212,7 +216,7 @@ function ConnectKitButtonInner({
                     <AuthIcon />
                   </motion.div>
                 )}
-                {chain?.unsupported && (
+                {!isChainSupported && (
                   <UnsupportedNetworkContainer
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -328,8 +332,8 @@ export function ConnectKitButton({
 
   const context = useContext();
 
-  const { isConnected, address } = useAccount();
-  const { chain } = useNetwork();
+  const { isConnected, address, chain } = useAccount();
+  const chainIsSupported = useChainIsSupported(chain?.id);
 
   function show() {
     context.setOpen(true);
@@ -344,7 +348,7 @@ export function ConnectKitButton({
 
   if (!isMounted) return null;
 
-  const shouldShowBalance = showBalance && !chain?.unsupported;
+  const shouldShowBalance = showBalance && chainIsSupported;
   const willShowBalance = address && shouldShowBalance;
 
   return (

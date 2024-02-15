@@ -1,5 +1,8 @@
 import { ReactNode, useContext, useEffect, useState } from 'react';
-import { useAccount, useQuery, useNetwork, useSignMessage } from 'wagmi';
+import { useAccount, useAccountEffect, useSignMessage } from 'wagmi';
+import { getAddress } from 'viem';
+import { useQuery } from '@tanstack/react-query';
+
 import { Context as ConnectKitContext } from './../components/ConnectKit';
 import {
   SIWEContext,
@@ -7,7 +10,6 @@ import {
   StatusState,
   SIWESession,
 } from './SIWEContext';
-import { getAddress } from 'viem';
 
 type Props = SIWEConfig & {
   children: ReactNode;
@@ -43,12 +45,15 @@ export const SIWEProvider = ({
     throw new Error('ConnectKitProvider must be mounted inside SIWEProvider.');
   }
 
-  const nonce = useQuery(['ckSiweNonce'], () => siweConfig.getNonce(), {
-    initialData: null,
+  const nonce = useQuery({
+    queryKey: ['ckSiweNonce'],
+    queryFn: () => siweConfig.getNonce(),
     refetchInterval: nonceRefetchInterval,
   });
-  const session = useQuery(['ckSiweSession'], siweConfig.getSession, {
-    initialData: null,
+
+  const session = useQuery({
+    queryKey: ['ckSiweSession'],
+    queryFn: () => siweConfig.getSession(),
     refetchInterval: sessionRefetchInterval,
   });
 
@@ -66,7 +71,8 @@ export const SIWEProvider = ({
     return true;
   };
 
-  const { address: connectedAddress } = useAccount({
+  const { address: connectedAddress } = useAccount();
+  useAccountEffect({
     onDisconnect: () => {
       if (signOutOnDisconnect) {
         // For security reasons we sign out the user when a wallet disconnects.
@@ -74,8 +80,8 @@ export const SIWEProvider = ({
       }
     },
   });
-  const { address } = useAccount();
-  const { chain } = useNetwork();
+
+  const { address, chain } = useAccount();
   const { signMessageAsync } = useSignMessage();
 
   const onError = (error: any) => {

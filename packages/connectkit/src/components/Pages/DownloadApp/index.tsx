@@ -10,11 +10,11 @@ import CustomQRCode from '../../Common/CustomQRCode';
 
 import useLocales from '../../../hooks/useLocales';
 import { useContext } from '../../ConnectKit';
-import { useWallet } from '../../../hooks/useWallets';
+import { useWallet } from '../../../wallets/useWallets';
 
 const DownloadApp = () => {
   const context = useContext();
-  const wallet = useWallet(context.connector.id, context.connector.name);
+  const wallet = useWallet(context.connector.id);
 
   const locales = useLocales({
     CONNECTORNAME: wallet?.name,

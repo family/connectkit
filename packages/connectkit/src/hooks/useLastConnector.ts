@@ -1,25 +1,24 @@
-import { useLocalStorage } from './useLocalStorage';
+import { useEffect, useState } from 'react';
+import { useConfig } from 'wagmi';
 
 export const useLastConnector = () => {
-  const {
-    data: lastConnectorId,
-    add,
-    update,
-    clear,
-  } = useLocalStorage('connectKit.lastConnectorId');
+  const { storage } = useConfig();
+  const [lastConnectorId, setLastConnectorId] = useState<string | null>(null);
 
-  const updateLastConnectorId = (id: string) => {
-    if (lastConnectorId) {
-      if (lastConnectorId === id) return;
-      clear();
-      update(id);
-    } else {
-      add(id);
-    }
+  useEffect(() => {
+    const init = async () => {
+      const id = await storage?.getItem('recentConnectorId');
+      setLastConnectorId(id ?? '');
+    };
+    init();
+  }, []);
+
+  const update = (id: string) => {
+    storage?.setItem('recentConnectorId', id);
   };
 
   return {
     lastConnectorId,
-    updateLastConnectorId,
+    updateLastConnectorId: update,
   };
 };
