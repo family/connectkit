@@ -38,6 +38,7 @@ import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import useLocales from '../../../hooks/useLocales';
+import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
@@ -49,9 +50,11 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const { disconnect } = useDisconnect();
 
   const { address, isConnected, connector, chain } = useAccount();
+  const ensFallbackConfig = useEnsFallbackConfig();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
+    config: ensFallbackConfig,
   });
   const { data: balance } = useBalance({
     address,

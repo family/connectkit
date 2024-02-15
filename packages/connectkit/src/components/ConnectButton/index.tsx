@@ -22,6 +22,7 @@ import { useSIWE } from '../../siwe';
 import useLocales from '../../hooks/useLocales';
 import { Chain } from 'viem';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
+import { useEnsFallbackConfig } from '../../hooks/useEnsFallbackConfig';
 
 const contentVariants: Variants = {
   initial: {
@@ -126,9 +127,11 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   const { address, isConnected, chain } = useAccount();
   const isChainSupported = useChainIsSupported(chain?.id);
 
+  const ensFallbackConfig = useEnsFallbackConfig();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
+    config: ensFallbackConfig,
   });
 
   function hide() {
@@ -178,9 +181,11 @@ function ConnectKitButtonInner({
   const { address, chain } = useAccount();
   const isChainSupported = useChainIsSupported(chain?.id);
 
+  const ensFallbackConfig = useEnsFallbackConfig();
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
+    config: ensFallbackConfig,
   });
   const defaultLabel = locales.connectWallet;
 
