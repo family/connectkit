@@ -2,6 +2,7 @@ declare global {
   interface Window {
     trustWallet: any;
     trustwallet: any;
+    phantom: any;
   }
 }
 
@@ -22,7 +23,10 @@ export const isBrave = () => isWalletInstalled('BraveWallet');
 export const isTokenary = () => isWalletInstalled('Tokenary');
 export const isDawn = () => isWalletInstalled('Dawn');
 export const isFrame = () => isWalletInstalled('Frame');
-export const isPhantom = () => isWalletInstalled('Phantom');
+export const isPhantom = () => {
+  if (typeof window === 'undefined') return false;
+  return isWalletInstalled('Phantom') || window?.phantom?.ethereum?.isPhantom;
+};
 export const isInfinityWallet = () => isWalletInstalled('InfinityWallet');
 export const isRabby = () => isWalletInstalled('Rabby');
 export const isFrontier = () => isWalletInstalled('Frontier');
