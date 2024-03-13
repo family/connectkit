@@ -1,3 +1,15 @@
+# 1.7.2
+
+This update fixes an issue with the order of React Hooks, and improves the stability of the SIWE Provider.
+
+## Improved
+
+- Remove `initialData` from `useQuery` Hooks.
+
+## Fixed
+
+- Fix order of Hooks in `useChainIsSupported`.
+
 # 1.7.1
 
 This update fixes a bug where the chain was incorrectly detected as unsupported when only one chain is configured.
