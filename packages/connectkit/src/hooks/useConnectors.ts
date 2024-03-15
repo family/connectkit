@@ -41,7 +41,7 @@ export function useWalletConnectConnector() {
     showQrModal: false,
   }
   */
-  return useConnector('walletConnect') ?? useConnector('walletConnectLegacy');
+  return useConnector('walletConnect');
 }
 export function useCoinbaseWalletConnector() {
   /*
