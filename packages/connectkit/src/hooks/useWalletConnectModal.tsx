@@ -19,26 +19,33 @@ export function useWalletConnectModal() {
       w3mcss.innerHTML = `w3m-modal, wcm-modal{ --wcm-z-index: 2147483647; --w3m-z-index:2147483647; }`;
       document.head.appendChild(w3mcss);
 
-      const clientConnector = connectors.find((c) =>
+      const clientConnector: Connector | undefined = connectors.find((c) =>
         isWalletConnectConnector(c.id)
       );
 
       if (clientConnector) {
-        const connector: CreateConnectorFn = walletConnect({
-          projectId: '',
-          showQrModal: true,
-        });
-
-        setIsOpen(true);
         try {
-          await connectAsync({ connector: connector });
-        } catch (err) {
-          log('WalletConnect', err);
-        }
-        setIsOpen(false);
+          const provider: any = await clientConnector.getProvider();
+          const projectId = provider.rpc.projectId;
 
-        // remove modal styling
-        document.head.removeChild(w3mcss);
+          const connector: CreateConnectorFn = walletConnect({
+            projectId,
+            showQrModal: true,
+          });
+
+          setIsOpen(true);
+          try {
+            await connectAsync({ connector: connector });
+          } catch (err) {
+            log('WalletConnect', err);
+          }
+          setIsOpen(false);
+
+          // remove modal styling
+          document.head.removeChild(w3mcss);
+        } catch (err) {
+          log('Could not get WalletConnect provider', err);
+        }
       } else {
         log('No WalletConnect connector available');
       }
