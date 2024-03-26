@@ -3,7 +3,11 @@ import { routes, useContext } from '../ConnectKit';
 
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
-import { detectBrowser, isWalletConnectConnector } from '../../utils';
+import {
+  detectBrowser,
+  isCoinbaseWalletConnector,
+  isWalletConnectConnector,
+} from '../../utils';
 
 import { PageContent, ModalContent } from '../Common/Modal/styles';
 import { OrDivider } from '../Common/Modal';
@@ -33,7 +37,9 @@ const ConnectWithQRCode: React.FC<{
   } = useWeb3();
 
   const wcUri = getUri(id);
-  const uri = wcUri
+  const uri = isCoinbaseWalletConnector(id)
+    ? wcUri
+    : wcUri
     ? wallet?.getWalletConnectDeeplink?.(wcUri) ?? wcUri
     : undefined;
 

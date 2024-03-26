@@ -75,18 +75,21 @@ export function useWalletConnectUri(
         }
       }
     }
-
-    if (!connector || uri) return;
-    if (connector && !isConnected) {
-      connectWalletConnect(connector);
-      log('add wc listeners');
-      connector.emitter.on('message', handleMessage);
-      connector.emitter.on('disconnect', handleDisconnect);
-      return () => {
-        log('remove wc listeners');
-        connector.emitter.off('message', handleMessage);
-        connector.emitter.off('disconnect', handleDisconnect);
-      };
+    if (isConnected) {
+      setUri(undefined);
+    } else {
+      if (!connector || uri) return;
+      if (connector && !isConnected) {
+        connectWalletConnect(connector);
+        log('add wc listeners');
+        connector.emitter.on('message', handleMessage);
+        connector.emitter.on('disconnect', handleDisconnect);
+        return () => {
+          log('remove wc listeners');
+          connector.emitter.off('message', handleMessage);
+          connector.emitter.off('disconnect', handleDisconnect);
+        };
+      }
     }
   }, [enabled, connector, isConnected]);
 
