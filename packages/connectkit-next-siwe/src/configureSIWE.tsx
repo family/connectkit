@@ -252,7 +252,7 @@ export const configureClientSIWE = <TSessionData extends Object = {}>({
           const nonce = await res.text();
           return nonce;
         }}
-        createMessage={({ nonce, address, chainId }) =>
+        createMessage={async ({ nonce, address, chainId }) =>
           new SiweMessage({
             version: '1',
             domain: window.location.host,

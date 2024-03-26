@@ -21,7 +21,7 @@ export type SIWEConfig = {
     nonce: string;
     address: string;
     chainId: number;
-  }) => string;
+  }) => Promise<string>;
   verifyMessage: (args: {
     message: string;
     signature: string;

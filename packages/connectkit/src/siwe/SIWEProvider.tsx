@@ -113,7 +113,7 @@ export const SIWEProvider = ({
 
       setStatus(StatusState.LOADING);
 
-      const message = siweConfig.createMessage({
+      const message = await siweConfig.createMessage({
         address,
         chainId,
         nonce: nonce?.data,
