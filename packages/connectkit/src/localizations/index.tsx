@@ -4,6 +4,7 @@ export type Languages =
   | 'fr-FR'
   | 'ja-JP'
   | 'pt-BR'
+  | 'ru-RU'
   | 'zh-CN';
 
 import { default as enUS } from './locales/en-US';
@@ -11,6 +12,7 @@ import { default as esES } from './locales/es-ES';
 import { default as frFR } from './locales/fr-FR';
 import { default as jaJP } from './locales/ja-JP';
 import { default as ptBR } from './locales/pt-BR';
+import { default as ruRU } from './locales/ru-RU';
 import { default as zhCN } from './locales/zh-CN';
 
 // TODO: tree-shaking
@@ -24,6 +26,8 @@ export const getLocale = (lang: Languages) => {
       return jaJP;
     case 'pt-BR':
       return ptBR;
+    case 'ru-RU':
+      return ruRU;
     case 'zh-CN':
       return zhCN;
     default:
