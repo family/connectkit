@@ -17,6 +17,9 @@ type Props = SIWEConfig & {
   onSignOut?: () => void;
 };
 
+export const SIWE_NONCE_QUERY_KEY = 'ckSiweNonce';
+export const SIWE_SESSION_QUERY_KEY = 'ckSiweSession';
+
 export const SIWEProvider = ({
   children,
   enabled = true,
@@ -46,13 +49,13 @@ export const SIWEProvider = ({
   }
 
   const nonce = useQuery({
-    queryKey: ['ckSiweNonce'],
+    queryKey: [SIWE_NONCE_QUERY_KEY],
     queryFn: () => siweConfig.getNonce(),
     refetchInterval: nonceRefetchInterval,
   });
 
   const session = useQuery({
-    queryKey: ['ckSiweSession'],
+    queryKey: [SIWE_SESSION_QUERY_KEY],
     queryFn: () => siweConfig.getSession(),
     refetchInterval: sessionRefetchInterval,
   });
