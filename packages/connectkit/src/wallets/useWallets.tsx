@@ -44,7 +44,9 @@ export const useWallets = (): WalletProps[] => {
       ),
       connector,
       iconShape: 'squircle',
-      isInstalled: connector.type === 'injected' && connector.id !== 'metaMask',
+      isInstalled:
+        (connector.type === 'injected' && connector.id !== 'metaMask') ||
+        connector.type === 'coinbaseWallet',
     };
 
     if (walletId) {
