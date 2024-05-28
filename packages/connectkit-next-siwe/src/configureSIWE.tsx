@@ -3,14 +3,10 @@ import { SIWEProvider } from 'connectkit';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import {
-  generateSiweNonce,
-  createSiweMessage,
-  verifySiweMessage,
-} from 'viem/siwe';
+import { generateSiweNonce, createSiweMessage } from 'viem/siwe';
 
 import { createPublicClient, http } from 'viem';
-import { mainnet } from 'viem/chains';
+import * as allChains from 'viem/chains';
 
 type RouteHandlerOptions = {
   afterNonce?: (
@@ -158,18 +154,29 @@ const verifyRoute = async (
 ) => {
   switch (req.method) {
     case 'POST':
-      const publicClient = createPublicClient({
-        chain: mainnet, // TODO: use chain from message
-        transport: http(),
-      });
-
       try {
         const session = await getSession(req, res, sessionConfig);
         const { message, signature } = req.body as {
           message: string;
           signature: `0x${string}`;
         };
-        const verified = await verifySiweMessage(publicClient, {
+
+        const splitMessage = message.split('\n');
+        const address = splitMessage.find((m) => m.startsWith('0x'));
+        const chainId = Number(
+          splitMessage
+            .find((m) => m.startsWith('Chain ID: '))
+            ?.split('Chain ID: ')[1]
+        );
+
+        const chain = Object.values(allChains).find((c) => c.id === chainId);
+        if (!chain) throw new Error('Invalid chain ID');
+
+        const publicClient = createPublicClient({
+          chain,
+          transport: http(),
+        });
+        const verified = await publicClient.verifySiweMessage({
           message,
           signature,
           nonce: session.nonce,
@@ -177,35 +184,16 @@ const verifyRoute = async (
         if (!verified) {
           return res.status(422).end('Invalid nonce.');
         }
-
-        const splitMessage = message.split('\n');
-        session.address = splitMessage.find((m) => m.startsWith('0x'));
-        session.chainId = Number(
-          splitMessage
-            .find((m) => m.startsWith('Chain ID: '))
-            ?.split('Chain ID: ')[1]
-        );
+        session.address = address;
+        session.chainId = chainId;
 
         await session.save();
         if (afterCallback) {
           await afterCallback(req, res, session);
         }
         res.status(200).end();
-      } catch (error: any) {
-        console.log(error.shortMessage);
-        switch (error) {
-          /*
-          case SiweErrorType.INVALID_NONCE:
-          case SiweErrorType.INVALID_SIGNATURE: {
-            res.status(422).end(String(error));
-            break;
-          }
-          */
-          default: {
-            res.status(400).end(String(error.shortMessage));
-            break;
-          }
-        }
+      } catch (error) {
+        res.status(400).end(String(error));
       }
       break;
     default:
