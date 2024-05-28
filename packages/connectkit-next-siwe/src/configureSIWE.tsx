@@ -3,7 +3,7 @@ import { SIWEProvider } from 'connectkit';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { generateNonce, SiweErrorType, SiweMessage } from 'siwe';
+import { generateSiweNonce, createSiweMessage } from 'viem/siwe';
 
 type RouteHandlerOptions = {
   afterNonce?: (
@@ -108,7 +108,7 @@ const nonceRoute = async (
     case 'GET':
       const session = await getSession(req, res, sessionConfig);
       if (!session.nonce) {
-        session.nonce = generateNonce();
+        session.nonce = generateSiweNonce();
         await session.save();
       }
       if (afterCallback) {
@@ -154,8 +154,11 @@ const verifyRoute = async (
       try {
         const session = await getSession(req, res, sessionConfig);
         const { message, signature } = req.body;
-        const siweMessage = new SiweMessage(message);
-        const { data: fields } = await siweMessage.verify({ signature, nonce: session.nonce });
+        const siweMessage = createSiweMessage(message);
+        const { data: fields } = await verifySiweMessage({
+          signature,
+          nonce: session.nonce,
+        });
         if (fields.nonce !== session.nonce) {
           return res.status(422).end('Invalid nonce.');
         }
@@ -168,11 +171,13 @@ const verifyRoute = async (
         res.status(200).end();
       } catch (error) {
         switch (error) {
+          /*
           case SiweErrorType.INVALID_NONCE:
           case SiweErrorType.INVALID_SIGNATURE: {
             res.status(422).end(String(error));
             break;
           }
+          */
           default: {
             res.status(400).end(String(error));
             break;
@@ -253,7 +258,7 @@ export const configureClientSIWE = <TSessionData extends Object = {}>({
           return nonce;
         }}
         createMessage={({ nonce, address, chainId }) =>
-          new SiweMessage({
+          createSiweMessage({
             version: '1',
             domain: window.location.host,
             uri: window.location.origin,
@@ -261,7 +266,7 @@ export const configureClientSIWE = <TSessionData extends Object = {}>({
             chainId,
             nonce,
             statement,
-          }).prepareMessage()
+          })
         }
         verifyMessage={({ message, signature }) =>
           fetch(`${apiRoutePrefix}/verify`, {
