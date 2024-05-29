@@ -3,6 +3,7 @@ import {
   injected,
   walletConnect,
   coinbaseWallet,
+  CoinbaseWalletParameters,
   safe,
 } from '@wagmi/connectors';
 
@@ -14,11 +15,13 @@ type DefaultConnectorsProps = {
     url?: string;
   };
   walletConnectProjectId?: string;
+  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
 };
 
 const defaultConnectors = ({
   app,
   walletConnectProjectId,
+  coinbaseWalletPreference,
 }: DefaultConnectorsProps): CreateConnectorFn[] => {
   const hasAllAppData = app.name && app.icon && app.description && app.url;
   const shouldUseSafeConnector =
@@ -42,7 +45,7 @@ const defaultConnectors = ({
       appName: app.name,
       appLogoUrl: app.icon,
       overrideIsMetaMask: false,
-      preference: 'all',
+      preference: coinbaseWalletPreference,
     })
   );
 
