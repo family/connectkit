@@ -3,7 +3,11 @@ import { SIWEProvider } from 'connectkit';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { generateSiweNonce, createSiweMessage } from 'viem/siwe';
+import {
+  generateSiweNonce,
+  createSiweMessage,
+  parseSiweMessage,
+} from 'viem/siwe';
 
 import { createPublicClient, http } from 'viem';
 import * as allChains from 'viem/chains';
@@ -161,15 +165,14 @@ const verifyRoute = async (
           signature: `0x${string}`;
         };
 
-        const splitMessage = message.split('\n');
-        const address = splitMessage.find((m) => m.startsWith('0x'));
-        const chainId = Number(
-          splitMessage
-            .find((m) => m.startsWith('Chain ID: '))
-            ?.split('Chain ID: ')[1]
-        );
+        const parsed = parseSiweMessage(message);
+        if (parsed.nonce !== session.nonce) {
+          return res.status(422).end('Invalid nonce.');
+        }
 
-        const chain = Object.values(allChains).find((c) => c.id === chainId);
+        const chain = Object.values(allChains).find(
+          (c) => c.id === parsed.chainId
+        );
         if (!chain) throw new Error('Invalid chain ID');
 
         const publicClient = createPublicClient({
@@ -182,11 +185,11 @@ const verifyRoute = async (
           nonce: session.nonce,
         });
         if (!verified) {
-          return res.status(422).end('Invalid nonce.');
+          return res.status(422).end('Unable to verify signature.');
         }
-        session.address = address;
-        session.chainId = chainId;
 
+        session.address = parsed.address;
+        session.chainId = parsed.chainId;
         await session.save();
         if (afterCallback) {
           await afterCallback(req, res, session);
