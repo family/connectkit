@@ -3,13 +3,13 @@ import { SIWEProvider } from 'connectkit';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+
+import { createPublicClient, http } from 'viem';
 import {
   generateSiweNonce,
   createSiweMessage,
   parseSiweMessage,
 } from 'viem/siwe';
-
-import { createPublicClient, http } from 'viem';
 import * as allChains from 'viem/chains';
 
 type RouteHandlerOptions = {
