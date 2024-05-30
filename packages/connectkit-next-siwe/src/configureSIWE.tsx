@@ -4,13 +4,12 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-import { createPublicClient, http } from 'viem';
+import { PublicClient, createPublicClient, http } from 'viem';
 import {
   generateSiweNonce,
   createSiweMessage,
   parseSiweMessage,
 } from 'viem/siwe';
-import * as allChains from 'viem/chains';
 
 type RouteHandlerOptions = {
   afterNonce?: (
@@ -31,6 +30,7 @@ type RouteHandlerOptions = {
   afterLogout?: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
 };
 type NextServerSIWEConfig = {
+  publicClient: PublicClient;
   session?: Partial<IronSessionOptions>;
   options?: RouteHandlerOptions;
 };
@@ -154,6 +154,7 @@ const verifyRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<void>,
   sessionConfig: IronSessionOptions,
+  publicClient: PublicClient,
   afterCallback?: RouteHandlerOptions['afterVerify']
 ) => {
   switch (req.method) {
@@ -170,15 +171,6 @@ const verifyRoute = async (
           return res.status(422).end('Invalid nonce.');
         }
 
-        const chain = Object.values(allChains).find(
-          (c) => c.id === parsed.chainId
-        );
-        if (!chain) throw new Error('Invalid chain ID');
-
-        const publicClient = createPublicClient({
-          chain,
-          transport: http(),
-        });
         const verified = await publicClient.verifySiweMessage({
           message,
           signature,
@@ -214,6 +206,7 @@ const envVar = (name: string) => {
 };
 
 export const configureServerSideSIWE = <TSessionData extends Object = {}>({
+  publicClient,
   session: { cookieName, password, cookieOptions, ...otherSessionOptions } = {},
   options: { afterNonce, afterVerify, afterSession, afterLogout } = {},
 }: NextServerSIWEConfig): ConfigureServerSIWEResult<TSessionData> => {
@@ -239,7 +232,13 @@ export const configureServerSideSIWE = <TSessionData extends Object = {}>({
       case 'nonce':
         return await nonceRoute(req, res, sessionConfig, afterNonce);
       case 'verify':
-        return await verifyRoute(req, res, sessionConfig, afterVerify);
+        return await verifyRoute(
+          req,
+          res,
+          sessionConfig,
+          publicClient,
+          afterVerify
+        );
       case 'session':
         return await sessionRoute(req, res, sessionConfig, afterSession);
       case 'logout':
