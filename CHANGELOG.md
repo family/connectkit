@@ -1,3 +1,18 @@
+# 1.7.3
+
+This update fixes a few bugs and improves the stability of the QR code generation for WalletConnect and Coinbase Wallet.
+
+## Fixed
+
+- ENS resolution when `mainnet` not found in `createConfig`.
+- `WalletConnectConnector` regenerates QR codes when a user disconnects and attempts to reconnect their wallet.
+- `CoinbaseConnector` generated QR code now using a better supported URI.
+- Configured `projectId` now being passed to the `WalletConnectConnector` when opening "More" UI in mobile view.
+
+## Removed
+
+- References to `WalletConnectLegacy` (WalletConnect v1).
+
 # 1.7.2
 
 This update fixes an issue with the order of React Hooks, and improves the stability of the SIWE Provider.
