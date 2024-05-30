@@ -1,6 +1,13 @@
 import { configureServerSideSIWE } from 'connectkit-next-siwe';
+import { createPublicClient, http } from 'viem';
+import { mainnet } from 'viem/chains';
 
+const publicClient = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+});
 export const siweServer = configureServerSideSIWE({
+  publicClient,
   options: {
     afterLogout: async () => console.log('afterLogout'),
     afterNonce: async () => console.log('afterNonce'),
