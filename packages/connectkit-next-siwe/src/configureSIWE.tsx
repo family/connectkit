@@ -4,7 +4,8 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import { getIronSession, IronSession, IronSessionOptions } from 'iron-session';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-import { PublicClient, createPublicClient, http } from 'viem';
+import { Chain, Transport, PublicClient, createPublicClient, http } from 'viem';
+import * as allChains from 'viem/chains';
 import {
   generateSiweNonce,
   createSiweMessage,
@@ -30,7 +31,10 @@ type RouteHandlerOptions = {
   afterLogout?: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
 };
 type NextServerSIWEConfig = {
-  publicClient: PublicClient;
+  config?: {
+    chains: readonly [Chain, ...Chain[]];
+    transports?: Record<number, Transport>;
+  };
   session?: Partial<IronSessionOptions>;
   options?: RouteHandlerOptions;
 };
@@ -154,7 +158,7 @@ const verifyRoute = async (
   req: NextApiRequest,
   res: NextApiResponse<void>,
   sessionConfig: IronSessionOptions,
-  publicClient: PublicClient,
+  config?: NextServerSIWEConfig['config'],
   afterCallback?: RouteHandlerOptions['afterVerify']
 ) => {
   switch (req.method) {
@@ -170,6 +174,22 @@ const verifyRoute = async (
         if (parsed.nonce !== session.nonce) {
           return res.status(422).end('Invalid nonce.');
         }
+
+        let chain = config?.chains
+          ? Object.values(config.chains).find((c) => c.id === parsed.chainId)
+          : undefined;
+        if (!chain) {
+          // Try to find chain from allChains if not found in user-provided chains
+          chain = Object.values(allChains).find((c) => c.id === parsed.chainId);
+        }
+        if (!chain) {
+          throw new Error('Chain not found.');
+        }
+
+        const publicClient: PublicClient = createPublicClient({
+          chain,
+          transport: http(),
+        });
 
         const verified = await publicClient.verifySiweMessage({
           message,
@@ -206,7 +226,7 @@ const envVar = (name: string) => {
 };
 
 export const configureServerSideSIWE = <TSessionData extends Object = {}>({
-  publicClient,
+  config,
   session: { cookieName, password, cookieOptions, ...otherSessionOptions } = {},
   options: { afterNonce, afterVerify, afterSession, afterLogout } = {},
 }: NextServerSIWEConfig): ConfigureServerSIWEResult<TSessionData> => {
@@ -232,13 +252,7 @@ export const configureServerSideSIWE = <TSessionData extends Object = {}>({
       case 'nonce':
         return await nonceRoute(req, res, sessionConfig, afterNonce);
       case 'verify':
-        return await verifyRoute(
-          req,
-          res,
-          sessionConfig,
-          publicClient,
-          afterVerify
-        );
+        return await verifyRoute(req, res, sessionConfig, config, afterVerify);
       case 'session':
         return await sessionRoute(req, res, sessionConfig, afterSession);
       case 'logout':
