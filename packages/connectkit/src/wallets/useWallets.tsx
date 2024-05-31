@@ -3,6 +3,7 @@ import { Connector } from 'wagmi';
 import { useConnectors } from '../hooks/useConnectors';
 import { walletConfigs, WalletConfigProps } from './walletConfigs';
 import { useContext } from '../components/ConnectKit';
+import { isCoinbaseWalletConnector } from '../utils';
 
 export type WalletProps = {
   id: string;
@@ -46,7 +47,7 @@ export const useWallets = (): WalletProps[] => {
       iconShape: 'squircle',
       isInstalled:
         (connector.type === 'injected' && connector.id !== 'metaMask') ||
-        connector.type === 'coinbaseWallet',
+        isCoinbaseWalletConnector(connector.id), // always run coinbase wallet SDK
     };
 
     if (walletId) {
