@@ -1,4 +1,4 @@
-# 1.8.0
+# 1.x.x
 
 This update adds support for [Coinbase Smart Wallet](https://smartwallet.dev) and adds additional support for the latest versions of peer dependencies `wagmi` and `viem`.
 
