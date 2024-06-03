@@ -7703,7 +7703,7 @@ __metadata:
     "@types/react-dom": ^18.0.2
     iron-session: ^6.2.1
     typescript: ^4.9.5
-    viem: 2.12.0
+    viem: 2.13.3
   peerDependencies:
     connectkit: ">=1.2.0"
     next: ">=12.x"
@@ -10200,8 +10200,8 @@ __metadata:
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
     typescript-plugin-styled-components: ^2.0.0
-    viem: ^2.0.6
-    wagmi: ^2.2.1
+    viem: ^2.13.3
+    wagmi: ^2.9.8
   languageName: unknown
   linkType: soft
 
@@ -19253,9 +19253,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:2.12.0":
-  version: 2.12.0
-  resolution: "viem@npm:2.12.0"
+"viem@npm:2.13.3, viem@npm:^2.13.3":
+  version: 2.13.3
+  resolution: "viem@npm:2.13.3"
   dependencies:
     "@adraffy/ens-normalize": 1.10.0
     "@noble/curves": 1.2.0
@@ -19270,7 +19270,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 7373bf955eca9a044cfa51a3d0eece054eb91d1088f500a056c7d3f84ea10e8c79efaaca237e6d47beb9c7f21febd67085b8098838ad6f2fe13fe4c19ee626e8
+  checksum: 44f59e9a1fb1956017d846ad2fc18f60e9711bc5059801a09c40e1d606f778e6b4e2dcae892b3007e36ba2390c285e2518184ece2097e345e390c92a6788339d
   languageName: node
   linkType: hard
 
@@ -19313,27 +19313,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 856810b098ec6e099603e1cead73f71c6c9cae28ceac327c39d56742e2c29bcfa4aa9070a96aef1313740ffc0b8a854744557a36d469239743bd2df1a55970a6
-  languageName: node
-  linkType: hard
-
-"viem@npm:^2.13.3":
-  version: 2.13.3
-  resolution: "viem@npm:2.13.3"
-  dependencies:
-    "@adraffy/ens-normalize": 1.10.0
-    "@noble/curves": 1.2.0
-    "@noble/hashes": 1.3.2
-    "@scure/bip32": 1.3.2
-    "@scure/bip39": 1.2.1
-    abitype: 1.0.0
-    isows: 1.0.4
-    ws: 8.13.0
-  peerDependencies:
-    typescript: ">=5.0.4"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 44f59e9a1fb1956017d846ad2fc18f60e9711bc5059801a09c40e1d606f778e6b4e2dcae892b3007e36ba2390c285e2518184ece2097e345e390c92a6788339d
   languageName: node
   linkType: hard
 

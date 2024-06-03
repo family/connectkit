@@ -30,6 +30,7 @@ type RouteHandlerOptions = {
   ) => Promise<void>;
   afterLogout?: (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
 };
+
 type NextServerSIWEConfig = {
   config?: {
     chains: readonly [Chain, ...Chain[]];
@@ -38,6 +39,7 @@ type NextServerSIWEConfig = {
   session?: Partial<IronSessionOptions>;
   options?: RouteHandlerOptions;
 };
+
 type NextClientSIWEConfig = {
   apiRoutePrefix: string;
   statement?: string;
