@@ -10,8 +10,8 @@
       "@types/react-dom": "^18.0.0",
       "connectkit": "^1.7.3",
       "typescript": "^5.0.4",
-      "viem": "^2.0.6",
-      "wagmi": "^2.2.1",
+      "viem": "^2.13.3",
+      "wagmi": "^2.9.8",
       "web-vitals": "^2.1.0"
     },
     "eslintConfig": {
