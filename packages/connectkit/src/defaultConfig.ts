@@ -1,6 +1,7 @@
 import { http } from 'wagmi';
 import { type CreateConfigParameters } from '@wagmi/core';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { CoinbaseWalletParameters } from 'wagmi/connectors';
 
 import defaultConnectors from './defaultConnectors';
 
@@ -18,6 +19,8 @@ type DefaultConfigProps = {
 
   // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
   walletConnectProjectId: string;
+  // Coinbase Wallet preference
+  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
 } & Partial<CreateConfigParameters>;
 
 const defaultConfig = ({
@@ -26,7 +29,7 @@ const defaultConfig = ({
   appDescription,
   appUrl,
   walletConnectProjectId,
-
+  coinbaseWalletPreference,
   chains = [mainnet, polygon, optimism, arbitrum],
   client,
   ...props
@@ -49,6 +52,7 @@ const defaultConfig = ({
         url: appUrl,
       },
       walletConnectProjectId,
+      coinbaseWalletPreference,
     });
 
   const config: CreateConfigParameters<any, any> = {

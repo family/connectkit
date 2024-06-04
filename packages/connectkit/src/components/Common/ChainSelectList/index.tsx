@@ -20,6 +20,7 @@ import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
 import { useContext } from '../../ConnectKit';
+import { useState } from 'react';
 
 const Spinner = (
   <svg
@@ -59,6 +60,9 @@ const ChainSelectList = ({
 }) => {
   const { connector, chain } = useAccount();
   const { chains, isPending, data, switchChain, error } = useSwitchChain();
+  const [pendingChainId, setPendingChainId] = useState<number | undefined>(
+    undefined
+  );
 
   const locales = useLocales({});
   const mobile = isMobile();
@@ -68,10 +72,10 @@ const ChainSelectList = ({
 
   const handleSwitchNetwork = (chainId: number) => {
     if (switchChain) {
+      setPendingChainId(chainId);
       switchChain({ chainId });
     }
   };
-  const pendingChainId = isPending ? data?.id : undefined;
 
   const { triggerResize } = useContext();
 

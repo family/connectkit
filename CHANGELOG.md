@@ -1,6 +1,15 @@
+
+# x.y.z
+
+This update adds support for [Coinbase Smart Wallet](https://smartwallet.dev) and adds additional support for the latest versions of peer dependencies `wagmi` and `viem`.
+
+## New
+
+- Adds support for [Coinbase Smart Wallet](https://smartwallet.dev).
+
 ## Updated
 
-- Changed default setting for `enforceSupportedChains` to `false` to allow for better defaul user and developer experience.
+- Changed default setting for `enforceSupportedChains` to `false` to allow for a better default user and developer experience.
 
 # 1.7.3
 
