@@ -21,7 +21,6 @@ import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
 import { useContext } from '../../ConnectKit';
-import { useState } from 'react';
 
 const Spinner = (
   <svg
