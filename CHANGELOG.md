@@ -1,3 +1,7 @@
+## Updated
+
+- Changed default setting for `enforceSupportedChains` to `false` to allow for better defaul user and developer experience.
+
 # 1.7.3
 
 This update fixes a few bugs and improves the stability of the QR code generation for WalletConnect and Coinbase Wallet.

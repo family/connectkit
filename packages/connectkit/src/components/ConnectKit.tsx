@@ -158,7 +158,7 @@ export const ConnectKitProvider = ({
     bufferPolyfill: true,
     customAvatar: undefined,
     initialChainId: chains?.[0]?.id,
-    enforceSupportedChains: true,
+    enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
     disableSiweRedirect: false,
