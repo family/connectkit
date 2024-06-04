@@ -89,7 +89,8 @@ const ConnectorItem = ({
   */
 
   let deeplink =
-    !wallet.isInstalled && isMobile
+    (!wallet.isInstalled && isMobile) ||
+    (wallet.shouldDeeplinkDesktop && !isMobile)
       ? wallet.getWalletConnectDeeplink?.(uri ?? '')
       : undefined;
 

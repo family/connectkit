@@ -40,6 +40,7 @@ export type WalletConfigProps = {
   };
   // Create URI for QR code, where uri is encoded data from WalletConnect
   getWalletConnectDeeplink?: (uri: string) => string;
+  shouldDeeplinkDesktop?: boolean;
 };
 
 // Organised in alphabetical order by key
@@ -353,6 +354,7 @@ export const walletConfigs: {
         ? uri
         : `ledgerlive://wc?uri=${encodeURIComponent(uri)}`;
     },
+    shouldDeeplinkDesktop: true,
   },
   zerion: {
     name: 'Zerion',
