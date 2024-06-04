@@ -22,7 +22,7 @@ export type SIWEConfig = {
     nonce: string;
     address: Address;
     chainId: number;
-  }) => string;
+  }) => Promise<string> | string;
   verifyMessage: (args: {
     message: string;
     signature: string;
