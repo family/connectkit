@@ -21,6 +21,7 @@ import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
 import { useContext } from '../../ConnectKit';
+import { useState } from 'react';
 
 const Spinner = (
   <svg
@@ -60,7 +61,9 @@ const ChainSelectList = ({
 }) => {
   const { connector, chain } = useAccount();
   const { chains, isPending, switchChain, error } = useSwitchChain();
-  const [pendingChainId, setPendingChainId] = useState<number>(1);
+  const [pendingChainId, setPendingChainId] = useState<number | undefined>(
+    undefined
+  );
 
   const locales = useLocales({});
   const mobile = isMobile();

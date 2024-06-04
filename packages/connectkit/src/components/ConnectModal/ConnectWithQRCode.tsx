@@ -37,9 +37,7 @@ const ConnectWithQRCode: React.FC<{
   } = useWeb3();
 
   const wcUri = getUri(id);
-  const uri = isCoinbaseWalletConnector(id)
-    ? wcUri
-    : wcUri
+  const uri = wcUri
     ? wallet?.getWalletConnectDeeplink?.(wcUri) ?? wcUri
     : undefined;
 

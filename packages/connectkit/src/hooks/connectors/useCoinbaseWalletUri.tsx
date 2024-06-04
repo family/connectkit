@@ -1,3 +1,10 @@
+/*
+ * DEPRECATED
+ *
+ * This file is no longer in use and will be removed in the future.
+ * Keeping it here for reference purposes only.
+ */
+/*
 import { useState, useEffect } from 'react';
 
 import { Connector, useAccount } from 'wagmi';
@@ -72,11 +79,6 @@ export function useCoinbaseWalletUri(
       }
     }
 
-    /*
-    if (isConnected) {
-      setUri(undefined);
-    } else {
-      */
     if (!connector || uri) return;
     if (connector && !isConnected) {
       connectCoinbaseWallet(connector);
@@ -95,3 +97,5 @@ export function useCoinbaseWalletUri(
     uri,
   };
 }
+
+*/

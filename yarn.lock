@@ -3306,6 +3306,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@noble/hashes@npm:^1.1.2":
+  version: 1.4.0
+  resolution: "@noble/hashes@npm:1.4.0"
+  checksum: 8ba816ae26c90764b8c42493eea383716396096c5f7ba6bea559993194f49d80a73c081f315f4c367e51bd2d5891700bcdfa816b421d24ab45b41cb03e4f3342
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -3782,6 +3789,18 @@ __metadata:
   version: 3.1.0
   resolution: "@socket.io/component-emitter@npm:3.1.0"
   checksum: db069d95425b419de1514dffe945cc439795f6a8ef5b9465715acf5b8b50798e2c91b8719cbf5434b3fe7de179d6cdcd503c277b7871cb3dd03febb69bdd50fa
+  languageName: node
+  linkType: hard
+
+"@spruceid/siwe-parser@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "@spruceid/siwe-parser@npm:2.1.2"
+  dependencies:
+    "@noble/hashes": ^1.1.2
+    apg-js: ^4.3.0
+    uri-js: ^4.4.1
+    valid-url: ^1.0.9
+  checksum: feb0806ed3da945192245e6ac20108a1e4ef79184a04967bf251307e7315ca824862b016bd8e2100a739e8ee76ef768f088314601adbf3e847bb7692fcb33ac0
   languageName: node
   linkType: hard
 
@@ -5068,6 +5087,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wagmi/connectors@npm:5.0.6":
+  version: 5.0.6
+  resolution: "@wagmi/connectors@npm:5.0.6"
+  dependencies:
+    "@coinbase/wallet-sdk": 4.0.2
+    "@metamask/sdk": 0.20.3
+    "@safe-global/safe-apps-provider": 0.18.1
+    "@safe-global/safe-apps-sdk": 8.1.0
+    "@walletconnect/ethereum-provider": 2.13.0
+    "@walletconnect/modal": 2.6.2
+    cbw-sdk: "npm:@coinbase/wallet-sdk@3.9.3"
+  peerDependencies:
+    "@wagmi/core": 2.10.4
+    typescript: ">=5.0.4"
+    viem: 2.x
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 7796188e9cd751fd514048736f2d6128488da7fefecb6fca5e760835cf3f0ff891c6de5ebffe59233adc7258c2fd3b50211c3114309433917ede24e27c97e25b
+  languageName: node
+  linkType: hard
+
 "@wagmi/connectors@npm:5.0.7":
   version: 5.0.7
   resolution: "@wagmi/connectors@npm:5.0.7"
@@ -5087,6 +5128,26 @@ __metadata:
     typescript:
       optional: true
   checksum: 7eb0c2f2bb47801d8276a16642fbdebbfb6cafd2b8e5ef90d9b2b191cdbc7ba34667010faf26c75351a6d9c49c3325a7a9635f990cd615c613286c92dada90f8
+  languageName: node
+  linkType: hard
+
+"@wagmi/core@npm:2.10.4":
+  version: 2.10.4
+  resolution: "@wagmi/core@npm:2.10.4"
+  dependencies:
+    eventemitter3: 5.0.1
+    mipd: 0.0.5
+    zustand: 4.4.1
+  peerDependencies:
+    "@tanstack/query-core": ">=5.0.0"
+    typescript: ">=5.0.4"
+    viem: 2.x
+  peerDependenciesMeta:
+    "@tanstack/query-core":
+      optional: true
+    typescript:
+      optional: true
+  checksum: af7054d1b970ffb0c06f99427bccb1b69555eff61fa644eb50c122067483d7a087e0d3cd4f2ca65beaf2e9186ce7f14dec7d30189f058304c6e6cd96dfca94da
   languageName: node
   linkType: hard
 
@@ -5926,6 +5987,13 @@ __metadata:
     normalize-path: ^3.0.0
     picomatch: ^2.0.4
   checksum: 3e044fd6d1d26545f235a9fe4d7a534e2029d8e59fa7fd9f2a6eb21230f6b5380ea1eaf55136e60cbf8e613544b3b766e7a6fa2102e2a3a117505466e3025dc2
+  languageName: node
+  linkType: hard
+
+"apg-js@npm:^4.3.0":
+  version: 4.4.0
+  resolution: "apg-js@npm:4.4.0"
+  checksum: 81f9753ef8ec102d6ec7ceddd57a5aee2e7e238ac5877165f9ac6cb5cb8ec73ec5070e040d3af04822bc0de754699b0199c39159ed0d8453d6bb99812a326deb
   languageName: node
   linkType: hard
 
@@ -7367,8 +7435,8 @@ __metadata:
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^5.0.4
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -13593,8 +13661,8 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -13612,9 +13680,10 @@ __metadata:
     next: 12.3.0
     react: ^18.0.0
     react-dom: ^18.0.0
+    siwe: ^2.1.4
     typescript: ^5.0.4
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -13632,8 +13701,8 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -16837,6 +16906,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"siwe@npm:^2.1.4":
+  version: 2.3.2
+  resolution: "siwe@npm:2.3.2"
+  dependencies:
+    "@spruceid/siwe-parser": ^2.1.2
+    "@stablelib/random": ^1.0.1
+    uri-js: ^4.4.1
+    valid-url: ^1.0.9
+  peerDependencies:
+    ethers: ^5.6.8 || ^6.0.8
+  checksum: f49356ceaf2dff256cb5379a41cd75461dcd67cc478e0f3338943aa094d4d92d35b8295e6a987afbd16fdb6c870ffb4d43adf9ff79085aaddab58084df8f188c
+  languageName: node
+  linkType: hard
+
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -18471,7 +18554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uri-js@npm:^4.2.2":
+"uri-js@npm:^4.2.2, uri-js@npm:^4.4.1":
   version: 4.4.1
   resolution: "uri-js@npm:4.4.1"
   dependencies:
@@ -18575,6 +18658,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"valid-url@npm:^1.0.9":
+  version: 1.0.9
+  resolution: "valid-url@npm:1.0.9"
+  checksum: 3ecb030559404441c2cf104cbabab8770efb0f36d117db03d1081052ef133015a68806148ce954bb4dd0b5c42c14b709a88783c93d66b0916cb67ba771c98702
+  languageName: node
+  linkType: hard
+
 "validate-npm-package-license@npm:^3.0.1":
   version: 3.0.4
   resolution: "validate-npm-package-license@npm:3.0.4"
@@ -18652,6 +18742,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"viem@npm:^2.13.0":
+  version: 2.13.1
+  resolution: "viem@npm:2.13.1"
+  dependencies:
+    "@adraffy/ens-normalize": 1.10.0
+    "@noble/curves": 1.2.0
+    "@noble/hashes": 1.3.2
+    "@scure/bip32": 1.3.2
+    "@scure/bip39": 1.2.1
+    abitype: 1.0.0
+    isows: 1.0.4
+    ws: 8.13.0
+  peerDependencies:
+    typescript: ">=5.0.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: d03af7645db1ba347a532d64de727206b13cfb77d7728d7751fc9550b8f76bb169793dcb0d9c95cd01571de999a11d022010c4def055108da4c7431472153c4c
+  languageName: node
+  linkType: hard
+
 "vite@npm:^3.1.0":
   version: 3.2.8
   resolution: "vite@npm:3.2.8"
@@ -18702,9 +18813,9 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.3
+    viem: ^2.13.0
     vite: ^3.1.0
-    wagmi: ^2.9.8
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -18723,6 +18834,25 @@ __metadata:
   dependencies:
     xml-name-validator: ^3.0.0
   checksum: ae25c51cf71f1fb2516df1ab33a481f83461a117565b95e3d0927432522323f93b1b2846cbb60196d337970c421adb604fc2d0d180c6a47a839da01db5b9973b
+  languageName: node
+  linkType: hard
+
+"wagmi@npm:^2.9.7":
+  version: 2.9.7
+  resolution: "wagmi@npm:2.9.7"
+  dependencies:
+    "@wagmi/connectors": 5.0.6
+    "@wagmi/core": 2.10.4
+    use-sync-external-store: 1.2.0
+  peerDependencies:
+    "@tanstack/react-query": ">=5.0.0"
+    react: ">=18"
+    typescript: ">=5.0.4"
+    viem: 2.x
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 4c31c0334027389cfb459d2dfaf577a30526b29472edb310995a09189db37cc049571cd7b73e406d2db50631b9412e8d013ab2acae8743ed3115b7de664749bd
   languageName: node
   linkType: hard
 
