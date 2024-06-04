@@ -3,7 +3,7 @@ import { Connector } from 'wagmi';
 import { useConnectors } from '../hooks/useConnectors';
 import { walletConfigs, WalletConfigProps } from './walletConfigs';
 import { useContext } from '../components/ConnectKit';
-import { isCoinbaseWalletConnector } from '../utils';
+import { isCoinbaseWalletConnector, isInjectedConnector } from '../utils';
 
 export type WalletProps = {
   id: string;
@@ -105,10 +105,15 @@ export const useWallets = (): WalletProps[] => {
             )
           )
       )
-      // order by isInstalled
+      // order by isInstalled injected connectors first
       .sort((a, b) => {
-        if (a.isInstalled && !b.isInstalled) return -1;
-        if (!a.isInstalled && b.isInstalled) return 1;
+        const AisInstalled =
+          a.isInstalled && isInjectedConnector(a.connector.type);
+        const BisInstalled =
+          b.isInstalled && isInjectedConnector(b.connector.type);
+
+        if (AisInstalled && !BisInstalled) return -1;
+        if (!AisInstalled && BisInstalled) return 1;
         return 0;
       })
       // move walletConnect to the end
