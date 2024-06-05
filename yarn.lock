@@ -5087,28 +5087,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:5.0.6":
-  version: 5.0.6
-  resolution: "@wagmi/connectors@npm:5.0.6"
-  dependencies:
-    "@coinbase/wallet-sdk": 4.0.2
-    "@metamask/sdk": 0.20.3
-    "@safe-global/safe-apps-provider": 0.18.1
-    "@safe-global/safe-apps-sdk": 8.1.0
-    "@walletconnect/ethereum-provider": 2.13.0
-    "@walletconnect/modal": 2.6.2
-    cbw-sdk: "npm:@coinbase/wallet-sdk@3.9.3"
-  peerDependencies:
-    "@wagmi/core": 2.10.4
-    typescript: ">=5.0.4"
-    viem: 2.x
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 7796188e9cd751fd514048736f2d6128488da7fefecb6fca5e760835cf3f0ff891c6de5ebffe59233adc7258c2fd3b50211c3114309433917ede24e27c97e25b
-  languageName: node
-  linkType: hard
-
 "@wagmi/connectors@npm:5.0.7":
   version: 5.0.7
   resolution: "@wagmi/connectors@npm:5.0.7"
@@ -5128,26 +5106,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 7eb0c2f2bb47801d8276a16642fbdebbfb6cafd2b8e5ef90d9b2b191cdbc7ba34667010faf26c75351a6d9c49c3325a7a9635f990cd615c613286c92dada90f8
-  languageName: node
-  linkType: hard
-
-"@wagmi/core@npm:2.10.4":
-  version: 2.10.4
-  resolution: "@wagmi/core@npm:2.10.4"
-  dependencies:
-    eventemitter3: 5.0.1
-    mipd: 0.0.5
-    zustand: 4.4.1
-  peerDependencies:
-    "@tanstack/query-core": ">=5.0.0"
-    typescript: ">=5.0.4"
-    viem: 2.x
-  peerDependenciesMeta:
-    "@tanstack/query-core":
-      optional: true
-    typescript:
-      optional: true
-  checksum: af7054d1b970ffb0c06f99427bccb1b69555eff61fa644eb50c122067483d7a087e0d3cd4f2ca65beaf2e9186ce7f14dec7d30189f058304c6e6cd96dfca94da
   languageName: node
   linkType: hard
 
@@ -7265,7 +7223,7 @@ __metadata:
     next: ">=12.x"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    viem: ">=2.13.0"
+    viem: ">=2.13.3"
   languageName: unknown
   linkType: soft
 
@@ -7435,8 +7393,8 @@ __metadata:
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^5.0.4
-    viem: ^2.13.0
-    wagmi: ^2.9.7
+    viem: ^2.13.3
+    wagmi: ^2.9.8
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -13661,8 +13619,8 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.0
-    wagmi: ^2.9.7
+    viem: ^2.13.3
+    wagmi: ^2.9.8
   languageName: unknown
   linkType: soft
 
@@ -13682,8 +13640,8 @@ __metadata:
     react-dom: ^18.0.0
     siwe: ^2.1.4
     typescript: ^5.0.4
-    viem: ^2.13.0
-    wagmi: ^2.9.7
+    viem: ^2.13.3
+    wagmi: ^2.9.8
   languageName: unknown
   linkType: soft
 
@@ -13701,8 +13659,8 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.0
-    wagmi: ^2.9.7
+    viem: ^2.13.3
+    wagmi: ^2.9.8
   languageName: unknown
   linkType: soft
 
@@ -17883,7 +17841,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^5.0.4
-    viem: ^2.13.3
+    viem: ^2.13.6
     wagmi: ^2.9.8
   languageName: unknown
   linkType: soft
@@ -18742,9 +18700,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.13.0":
-  version: 2.13.1
-  resolution: "viem@npm:2.13.1"
+"viem@npm:^2.13.6":
+  version: 2.13.6
+  resolution: "viem@npm:2.13.6"
   dependencies:
     "@adraffy/ens-normalize": 1.10.0
     "@noble/curves": 1.2.0
@@ -18759,7 +18717,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: d03af7645db1ba347a532d64de727206b13cfb77d7728d7751fc9550b8f76bb169793dcb0d9c95cd01571de999a11d022010c4def055108da4c7431472153c4c
+  checksum: e6dae3cb8e90922d2deac6c6d5922c63908eb545820fcbd21572591d05d5a69b9434b4dad859461d20bf23faa3cde9b10f5f879de5db6858735c4b848bccb584
   languageName: node
   linkType: hard
 
@@ -18813,9 +18771,9 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.0
+    viem: ^2.13.3
     vite: ^3.1.0
-    wagmi: ^2.9.7
+    wagmi: ^2.9.8
   languageName: unknown
   linkType: soft
 
@@ -18834,25 +18792,6 @@ __metadata:
   dependencies:
     xml-name-validator: ^3.0.0
   checksum: ae25c51cf71f1fb2516df1ab33a481f83461a117565b95e3d0927432522323f93b1b2846cbb60196d337970c421adb604fc2d0d180c6a47a839da01db5b9973b
-  languageName: node
-  linkType: hard
-
-"wagmi@npm:^2.9.7":
-  version: 2.9.7
-  resolution: "wagmi@npm:2.9.7"
-  dependencies:
-    "@wagmi/connectors": 5.0.6
-    "@wagmi/core": 2.10.4
-    use-sync-external-store: 1.2.0
-  peerDependencies:
-    "@tanstack/react-query": ">=5.0.0"
-    react: ">=18"
-    typescript: ">=5.0.4"
-    viem: 2.x
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 4c31c0334027389cfb459d2dfaf577a30526b29472edb310995a09189db37cc049571cd7b73e406d2db50631b9412e8d013ab2acae8743ed3115b7de664749bd
   languageName: node
   linkType: hard
 
