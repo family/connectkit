@@ -87,7 +87,7 @@ const zhCN: LocaleProps = {
   injectionScreen_connected_p: `现在可以关闭此弹窗`,
 
   injectionScreen_rejected_h1: `请求已取消`,
-  injectionScreen_rejected_p: `您已取消请求。n点击上面可重试。`,
+  injectionScreen_rejected_p: `您已取消请求。点击上面可重试。`,
 
   injectionScreen_failed_h1: `绑定失败`,
   injectionScreen_failed_p: `抱歉，发生错误。请尝试重新绑定。`,
