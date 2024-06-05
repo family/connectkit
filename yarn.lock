@@ -9705,7 +9705,7 @@ __metadata:
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
     typescript-plugin-styled-components: ^2.0.0
-    viem: ^2.13.3
+    viem: ^2.13.6
     wagmi: ^2.9.8
   languageName: unknown
   linkType: soft
