@@ -319,7 +319,7 @@ const Home: NextPage = () => {
           </div>
           <h2>dApps configured chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
-            {chains.map((chain: wagmiChains.Chain) => (
+            {chains.map((chain) => (
               <ChainIcon key={chain.id} id={chain.id} />
             ))}
           </div>
