@@ -37,7 +37,7 @@
   ],
   "dependencies": {
     "iron-session": "^6.2.1",
-    "viem": "2.13.3"
+    "viem": "^2.13.3"
   },
   "peerDependencies": {
     "connectkit": ">=1.2.0",
