@@ -7217,7 +7217,7 @@ __metadata:
     "@types/react-dom": ^18.0.2
     iron-session: ^6.2.1
     typescript: ^4.9.5
-    viem: ^2.13.3
+    viem: ^2.13.0
   peerDependencies:
     connectkit: ">=1.2.0"
     next: ">=12.x"
@@ -7249,7 +7249,7 @@ __metadata:
     "@tanstack/react-query": ">=5.0.0"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    viem: ">=2.13.x"
+    viem: 2.x
     wagmi: 2.x
   languageName: unknown
   linkType: soft
@@ -7393,8 +7393,8 @@ __metadata:
     react-dom: ^18.0.0
     react-scripts: 5.0.1
     typescript: ^5.0.4
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -9705,8 +9705,8 @@ __metadata:
     rollup-plugin-visualizer: ^5.5.4
     tslib: ^1.9.3
     typescript-plugin-styled-components: ^2.0.0
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -13619,8 +13619,8 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -13640,8 +13640,8 @@ __metadata:
     react-dom: ^18.0.0
     siwe: ^2.1.4
     typescript: ^5.0.4
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -13659,8 +13659,8 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.3
-    wagmi: ^2.9.8
+    viem: ^2.13.0
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -17842,7 +17842,7 @@ __metadata:
     react-dom: ^18.0.0
     typescript: ^5.0.4
     viem: ^2.13.6
-    wagmi: ^2.9.8
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -18679,28 +18679,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.13.3":
-  version: 2.13.3
-  resolution: "viem@npm:2.13.3"
-  dependencies:
-    "@adraffy/ens-normalize": 1.10.0
-    "@noble/curves": 1.2.0
-    "@noble/hashes": 1.3.2
-    "@scure/bip32": 1.3.2
-    "@scure/bip39": 1.2.1
-    abitype: 1.0.0
-    isows: 1.0.4
-    ws: 8.13.0
-  peerDependencies:
-    typescript: ">=5.0.4"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 44f59e9a1fb1956017d846ad2fc18f60e9711bc5059801a09c40e1d606f778e6b4e2dcae892b3007e36ba2390c285e2518184ece2097e345e390c92a6788339d
-  languageName: node
-  linkType: hard
-
-"viem@npm:^2.13.6":
+"viem@npm:^2.13.0, viem@npm:^2.13.6":
   version: 2.13.6
   resolution: "viem@npm:2.13.6"
   dependencies:
@@ -18771,9 +18750,9 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: ^2.13.3
+    viem: ^2.13.0
     vite: ^3.1.0
-    wagmi: ^2.9.8
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -18795,7 +18774,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^2.9.8":
+"wagmi@npm:^2.9.7":
   version: 2.9.8
   resolution: "wagmi@npm:2.9.8"
   dependencies:
