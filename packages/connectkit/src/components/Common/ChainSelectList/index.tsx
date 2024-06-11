@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useAccount, useSwitchChain } from 'wagmi';
 import { chainConfigs } from '../../../constants/chainConfigs';
 
@@ -20,7 +21,6 @@ import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
 import { useContext } from '../../ConnectKit';
-import { useState } from 'react';
 
 const Spinner = (
   <svg
@@ -59,7 +59,7 @@ const ChainSelectList = ({
   variant?: 'primary' | 'secondary';
 }) => {
   const { connector, chain } = useAccount();
-  const { chains, isPending, data, switchChain, error } = useSwitchChain();
+  const { chains, isPending, switchChain, error } = useSwitchChain();
   const [pendingChainId, setPendingChainId] = useState<number | undefined>(
     undefined
   );

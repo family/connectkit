@@ -88,7 +88,7 @@ export const SIWEProvider = ({
   const { signMessageAsync } = useSignMessage();
 
   const onError = (error: any) => {
-    console.error('signIn error', error.code, error.message);
+    console.error('signIn error', error, error.message);
     switch (error.code) {
       case -32000: // WalletConnect: user rejected
       case 4001: // MetaMask: user rejected
@@ -116,7 +116,7 @@ export const SIWEProvider = ({
 
       setStatus(StatusState.LOADING);
 
-      const message = siweConfig.createMessage({
+      const message = await siweConfig.createMessage({
         address,
         chainId,
         nonce: nonce?.data,
