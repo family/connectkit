@@ -99,7 +99,7 @@ export const useWallets = (): WalletProps[] => {
       .filter(
         (wallet, index, self) =>
           !(
-            wallet.id === 'metaMask' &&
+            wallet.id === 'metaMaskSDK' &&
             self.find(
               (w) => w.id === 'io.metamask' || w.id === 'io.metamask.mobile'
             )
