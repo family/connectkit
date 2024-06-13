@@ -1,16 +1,23 @@
-import { Connector, useConnect } from 'wagmi';
+import { type Connector, useConnectors as useWagmiConnectors } from 'wagmi';
 
 export function useConnectors() {
-  const { connectors } = useConnect();
-  return connectors;
+  const connectors = useWagmiConnectors();
+  return connectors ?? [];
 }
 
-export function useConnector(id: string) {
+export function useConnector(id: string, uuid?: string) {
   const connectors = useConnectors();
+  if (id === 'injected' && uuid) {
+    return connectors.find((c) => c.id === id && c.name === uuid) as Connector;
+  } else if (id === 'injected') {
+    return connectors.find(
+      (c) => c.id === id && c.name.includes('Injected')
+    ) as Connector;
+  }
   return connectors.find((c) => c.id === id) as Connector;
 }
 
-export function useInjectedConnector() {
+export function useInjectedConnector(uuid?: string) {
   /*
   options: {
     shimDisconnect: true,
@@ -24,7 +31,7 @@ export function useInjectedConnector() {
       })`,
   }
   */
-  return useConnector('injected');
+  return useConnector('injected', uuid);
 }
 export function useWalletConnectConnector() {
   /*
@@ -34,7 +41,7 @@ export function useWalletConnectConnector() {
     showQrModal: false,
   }
   */
-  return useConnector('walletConnect') ?? useConnector('walletConnectLegacy');
+  return useConnector('walletConnect');
 }
 export function useCoinbaseWalletConnector() {
   /*
@@ -42,7 +49,7 @@ export function useCoinbaseWalletConnector() {
     headlessMode: true,
   }
   */
-  return useConnector('coinbaseWallet');
+  return useConnector('coinbaseWalletSDK');
 }
 export function useMetaMaskConnector() {
   /*

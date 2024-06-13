@@ -1,8 +1,9 @@
 import styled from './../../../styles/styled';
 import { motion } from 'framer-motion';
 import defaultTheme from '../../../constants/defaultTheme';
+import { css } from 'styled-components';
 
-export const AlertContainer = styled(motion.div)`
+export const AlertContainer = styled(motion.div)<{ $error?: boolean }>`
   display: flex;
   gap: 8px;
   position: relative;
@@ -28,6 +29,14 @@ export const AlertContainer = styled(motion.div)`
     border-radius: 24px;
     text-align: center;
   }
+
+  ${($error) => {
+    if ($error)
+      return css`
+        color: #fff;
+        background: var(--ck-body-color-danger, red);
+      `;
+  }}
 `;
 
 export const IconContainer = styled(motion.div)`

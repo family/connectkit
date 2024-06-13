@@ -9,7 +9,6 @@ import {
   flattenChildren,
   isWalletConnectConnector,
   isMobile,
-  isInjectedConnector,
 } from '../../../utils';
 
 import {
@@ -38,16 +37,15 @@ import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
 import FocusTrap from '../../../hooks/useFocusTrap';
-import { supportedConnectors } from '../../..';
 import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { useAccount, useSwitchChain } from 'wagmi';
 import { AuthIcon } from '../../../assets/icons';
 import { useSIWE } from '../../../siwe';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../FitText';
-import useDefaultWallets from '../../../wallets/useDefaultWallets';
+import { useWallet } from '../../../wallets/useWallets';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
@@ -209,27 +207,18 @@ const Modal: React.FC<ModalProps> = ({
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();
 
-  const wallets = useDefaultWallets();
-  const installedWallets = wallets.filter((wallet) => wallet.installed);
+  const wallet = useWallet(context.connector?.id);
 
-  let connector = supportedConnectors.find((c) => c.id === context.connector);
-  if (isInjectedConnector(context.connector)) {
-    const wallet = installedWallets[0];
-    connector = {
-      ...wallet,
-      extensionIsInstalled: () => {
-        return wallet?.installed;
-      },
-      extensions: {
-        ...wallet?.downloadUrls,
-      },
-      appUrls: {
-        ...wallet?.downloadUrls,
-      },
-    };
-  }
+  const walletInfo = {
+    name: wallet?.name,
+    shortName: wallet?.shortName ?? wallet?.name,
+    icon: wallet?.iconConnector ?? wallet?.icon,
+    iconShape: wallet?.iconShape ?? 'circle',
+    iconShouldShrink: wallet?.iconShouldShrink,
+  };
+
   const locales = useLocales({
-    CONNECTORNAME: connector?.name,
+    CONNECTORNAME: walletInfo?.name,
   });
 
   const [state, setOpen] = useTransition({
@@ -297,13 +286,13 @@ const Modal: React.FC<ModalProps> = ({
   );
 
   // Update layout on chain/network switch to avoid clipping
-  const { chain } = useNetwork();
-  const { switchNetwork } = useSwitchNetwork();
+  const { chain } = useAccount();
+  const { switchChain } = useSwitchChain();
 
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [chain, switchNetwork, mobile, isSignedIn, context.options]);
+  }, [chain, switchChain, mobile, isSignedIn, context.options, context.resize]);
 
   useEffect(() => {
     if (!mounted) {
@@ -329,13 +318,9 @@ const Modal: React.FC<ModalProps> = ({
   } as React.CSSProperties;
 
   function shouldUseQrcode() {
-    const c = supportedConnectors.filter((x) => x.id === context.connector)[0];
-    if (!c) return false; // Fail states are shown in the injector flow
+    if (!wallet) return false; // Fail states are shown in the injector flow
 
-    const hasExtensionInstalled =
-      c.extensionIsInstalled && c.extensionIsInstalled();
-
-    const useInjector = !c.scannable || hasExtensionInstalled;
+    const useInjector = !wallet.getWalletConnectDeeplink || wallet.isInstalled;
     return !useInjector;
   }
 
@@ -345,11 +330,11 @@ const Modal: React.FC<ModalProps> = ({
         return locales.aboutScreen_heading;
       case routes.CONNECT:
         if (shouldUseQrcode()) {
-          return isWalletConnectConnector(connector?.id)
+          return isWalletConnectConnector(wallet?.connector?.id)
             ? locales.scanScreen_heading
             : locales.scanScreen_heading_withConnector;
         } else {
-          return connector?.name;
+          return walletInfo?.name;
         }
       case routes.CONNECTORS:
         return locales.connectorsScreen_heading;
@@ -498,7 +483,7 @@ const Modal: React.FC<ModalProps> = ({
                   ) : context.route === routes.PROFILE &&
                     context.signInWithEthereum ? (
                     <>
-                      {!isSignedIn && (
+                      {!isSignedIn && !context.options?.hideTooltips && (
                         <motion.div
                           style={{
                             position: 'absolute',

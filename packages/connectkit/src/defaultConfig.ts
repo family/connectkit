@@ -1,211 +1,68 @@
-import {
-  Connector,
-  configureChains,
-  ChainProviderFn,
-  PublicClient,
-  WebSocketPublicClient,
-} from 'wagmi';
-import { Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { http } from 'wagmi';
+import { type CreateConfigParameters } from '@wagmi/core';
+import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { CoinbaseWalletParameters } from 'wagmi/connectors';
 
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { SafeConnector } from 'wagmi/connectors/safe';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import defaultConnectors from './defaultConnectors';
 
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { infuraProvider } from 'wagmi/providers/infura';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { publicProvider } from 'wagmi/providers/public';
-
+// TODO: Move these to a provider rather than global variable
 let globalAppName: string;
 let globalAppIcon: string;
-
 export const getAppName = () => globalAppName;
 export const getAppIcon = () => globalAppIcon;
-
-const defaultChains = [mainnet, polygon, optimism, arbitrum];
-
-type DefaultConnectorsProps = {
-  chains?: Chain[];
-  app: {
-    name: string;
-    icon?: string;
-    description?: string;
-    url?: string;
-  };
-  walletConnectProjectId?: string;
-};
 
 type DefaultConfigProps = {
   appName: string;
   appIcon?: string;
   appDescription?: string;
   appUrl?: string;
-  autoConnect?: boolean;
-  alchemyId?: string;
-  infuraId?: string;
-  chains?: Chain[];
-  connectors?: any;
-  publicClient?: any;
-  webSocketPublicClient?: any;
-  enableWebSocketPublicClient?: boolean;
-  stallTimeout?: number;
-  /* WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in) */
+
+  // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
   walletConnectProjectId: string;
-};
-
-type ConnectKitClientProps = {
-  autoConnect?: boolean;
-  connectors?: Connector[];
-  publicClient: PublicClient;
-  webSocketPublicClient?: WebSocketPublicClient;
-};
-
-const getDefaultConnectors = ({
-  chains,
-  app,
-  walletConnectProjectId,
-}: DefaultConnectorsProps) => {
-  const hasAllAppData = app.name && app.icon && app.description && app.url;
-  const shouldUseSafeConnector =
-    !(typeof window === 'undefined') && window?.parent !== window;
-
-  let connectors: Connector[] = [];
-
-  // If we're in an iframe, include the SafeConnector
-  if (shouldUseSafeConnector) {
-    connectors = [
-      ...connectors,
-      new SafeConnector({
-        chains,
-        options: {
-          allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-          debug: false,
-        },
-      }),
-    ];
-  }
-
-  // Add the rest of the connectors
-  connectors = [
-    ...connectors,
-    new MetaMaskConnector({
-      chains,
-      options: {
-        shimDisconnect: true,
-        UNSTABLE_shimOnConnectSelectAccount: true,
-      },
-    }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: app.name,
-        headlessMode: true,
-      },
-    }),
-    walletConnectProjectId
-      ? new WalletConnectConnector({
-          chains,
-          options: {
-            showQrModal: false,
-            projectId: walletConnectProjectId,
-            metadata: hasAllAppData
-              ? {
-                  name: app.name,
-                  description: app.description!,
-                  url: app.url!,
-                  icons: [app.icon!],
-                }
-              : undefined,
-          },
-        })
-      : new WalletConnectLegacyConnector({
-          chains,
-          options: {
-            qrcode: false,
-          },
-        }),
-    new InjectedConnector({
-      chains,
-      options: {
-        shimDisconnect: true,
-        name: (detectedName) =>
-          `Injected (${
-            typeof detectedName === 'string'
-              ? detectedName
-              : detectedName.join(', ')
-          })`,
-      },
-    }),
-  ];
-
-  return connectors;
-};
+  // Coinbase Wallet preference
+  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
+} & Partial<CreateConfigParameters>;
 
 const defaultConfig = ({
-  autoConnect = true,
   appName = 'ConnectKit',
   appIcon,
   appDescription,
   appUrl,
-  chains = defaultChains,
-  alchemyId,
-  infuraId,
-  connectors,
-  publicClient,
-  stallTimeout,
-  webSocketPublicClient,
-  enableWebSocketPublicClient,
   walletConnectProjectId,
-}: DefaultConfigProps) => {
+  coinbaseWalletPreference,
+  chains = [mainnet, polygon, optimism, arbitrum],
+  client,
+  ...props
+}: DefaultConfigProps): CreateConfigParameters => {
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
 
-  const providers: ChainProviderFn[] = [];
-  if (alchemyId) {
-    providers.push(alchemyProvider({ apiKey: alchemyId }));
-  }
-  if (infuraId) {
-    providers.push(infuraProvider({ apiKey: infuraId }));
-  }
-  providers.push(
-    jsonRpcProvider({
-      rpc: (c) => {
-        return { http: c.rpcUrls.default.http[0] };
+  // TODO: nice to have, automate transports based on chains, but for now just provide public if not provided
+  const transports: CreateConfigParameters['transports'] =
+    props?.transports ??
+    Object.fromEntries(chains.map((chain) => [chain.id, http()]));
+
+  const connectors: CreateConfigParameters['connectors'] =
+    props?.connectors ??
+    defaultConnectors({
+      app: {
+        name: appName,
+        icon: appIcon,
+        description: appDescription,
+        url: appUrl,
       },
-    })
-  );
-  providers.push(publicProvider());
+      walletConnectProjectId,
+      coinbaseWalletPreference,
+    });
 
-  const {
-    publicClient: configuredPublicClient,
-    chains: configuredChains,
-    webSocketPublicClient: configuredWebSocketPublicClient,
-  } = configureChains(chains, providers, { stallTimeout });
-
-  const connectKitClient: ConnectKitClientProps = {
-    autoConnect,
-    connectors:
-      connectors ??
-      getDefaultConnectors({
-        chains: configuredChains,
-        app: {
-          name: appName,
-          icon: appIcon,
-          description: appDescription,
-          url: appUrl,
-        },
-        walletConnectProjectId,
-      }),
-    publicClient: publicClient ?? configuredPublicClient,
-    webSocketPublicClient: enableWebSocketPublicClient // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"
-      ? webSocketPublicClient ?? configuredWebSocketPublicClient
-      : undefined,
+  const config: CreateConfigParameters<any, any> = {
+    ...props,
+    chains,
+    connectors,
+    transports,
   };
 
-  return { ...connectKitClient };
+  return config;
 };
 
 export default defaultConfig;
