@@ -11,7 +11,7 @@
       "connectkit": "latest",
       "typescript": "^5.0.4",
       "viem": "^2.13.0",
-      "wagmi": "^2.9.7",
+      "wagmi": "^2.10.2",
       "web-vitals": "^2.1.0"
     },
     "eslintConfig": {
