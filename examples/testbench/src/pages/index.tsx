@@ -54,11 +54,18 @@ const modes: SelectProps[] = [
 ];
 const languages: SelectProps[] = [
   { label: 'English (US)', value: 'en-US' },
-  { label: 'French', value: 'fr-FR' },
-  { label: 'Spanish', value: 'es-ES' },
-  { label: 'Japanese', value: 'ja-JP' },
-  { label: 'Portuguese', value: 'pt-BR' },
+  { label: 'Arabic', value: 'ar-AE' },
+  { label: 'Catalan', value: 'ca-AD' },
   { label: 'Chinese', value: 'zh-CN' },
+  { label: 'Estonian', value: 'ee-EE' },
+  { label: 'French', value: 'fr-FR' },
+  { label: 'Japanese', value: 'ja-JP' },
+  { label: 'Persian', value: 'fa-IR' },
+  { label: 'Portuguese', value: 'pt-BR' },
+  { label: 'Russian', value: 'ru-RU' },
+  { label: 'Spanish', value: 'es-ES' },
+  { label: 'Turkish', value: 'tr-TR'},
+  { label: 'Vietnamese', value: 'vi-VN' },
 ];
 
 const AccountInfo = () => {
