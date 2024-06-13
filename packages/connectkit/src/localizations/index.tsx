@@ -5,7 +5,7 @@ export type Languages =
   | 'ja-JP'
   | 'pt-BR'
   | 'zh-CN'
-  | 'tr-TR';
+  | 'tr-TR'
   | 'vi-VN';
 
 import { default as enUS } from './locales/en-US';
