@@ -1,6 +1,6 @@
 {
   "name": "connectkit",
-  "version": "1.5.3",
+  "version": "1.8.0",
   "author": "Family",
   "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
@@ -49,22 +49,24 @@
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {
+    "@tanstack/react-query": ">=5.0.0",
     "react": "17.x || 18.x",
     "react-dom": "17.x || 18.x",
-    "viem": "^1.0.0",
-    "wagmi": "^1.1.1"
+    "viem": "2.x",
+    "wagmi": "2.x"
   },
   "devDependencies": {
-    "@types/node": "^16.11.27",
+    "@types/node": "18.7.18",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.4"
   },
   "resolutions": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "wagmi": "^1.0.0"
+    "viem": "^2.13.0",
+    "wagmi": "^2.9.7"
   }
 }

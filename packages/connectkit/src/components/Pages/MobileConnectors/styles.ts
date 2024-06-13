@@ -14,6 +14,7 @@ export const WalletIcon = styled.div<{ $outline?: boolean }>`
   width: 60px;
   height: 60px;
   overflow: hidden;
+  background: rgba(0, 0, 0, 0.04);
   ${(props) =>
     props.$outline &&
     `
@@ -23,7 +24,7 @@ export const WalletIcon = styled.div<{ $outline?: boolean }>`
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+    box-shadow: inset 0 0 0 1px var(--ck-body-background-tertiary);
   }`}
   svg {
     display: block;
@@ -49,7 +50,7 @@ export const WalletList = styled.div<{ $disabled?: boolean }>`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px 8px;
-  margin: 0 -10px -20px;
+  margin: 0 -10px;
   padding: 4px 0 0;
   transition: opacity 300ms ease;
   ${(props) =>

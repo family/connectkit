@@ -1,113 +1,68 @@
-import {
-  Connector,
-  configureChains,
-  ChainProviderFn,
-  PublicClient,
-  WebSocketPublicClient,
-} from 'wagmi';
-import { Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { http } from 'wagmi';
+import { type CreateConfigParameters } from '@wagmi/core';
+import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { CoinbaseWalletParameters } from 'wagmi/connectors';
 
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { infuraProvider } from 'wagmi/providers/infura';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { publicProvider } from 'wagmi/providers/public';
 import defaultConnectors from './defaultConnectors';
 
+// TODO: Move these to a provider rather than global variable
 let globalAppName: string;
 let globalAppIcon: string;
-
 export const getAppName = () => globalAppName;
 export const getAppIcon = () => globalAppIcon;
-
-const defaultChains = [mainnet, polygon, optimism, arbitrum];
 
 type DefaultConfigProps = {
   appName: string;
   appIcon?: string;
   appDescription?: string;
   appUrl?: string;
-  autoConnect?: boolean;
-  alchemyId?: string;
-  infuraId?: string;
-  chains?: Chain[];
-  connectors?: any;
-  publicClient?: any;
-  webSocketPublicClient?: any;
-  enableWebSocketPublicClient?: boolean;
-  stallTimeout?: number;
-  /* WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in) */
-  walletConnectProjectId: string;
-};
 
-type ConnectKitClientProps = {
-  autoConnect?: boolean;
-  connectors?: Connector[];
-  publicClient: PublicClient;
-  webSocketPublicClient?: WebSocketPublicClient;
-};
+  // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
+  walletConnectProjectId: string;
+  // Coinbase Wallet preference
+  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
+} & Partial<CreateConfigParameters>;
 
 const defaultConfig = ({
-  autoConnect = true,
   appName = 'ConnectKit',
   appIcon,
   appDescription,
   appUrl,
-  chains = defaultChains,
-  alchemyId,
-  infuraId,
-  connectors,
-  publicClient,
-  stallTimeout,
-  webSocketPublicClient,
-  enableWebSocketPublicClient,
   walletConnectProjectId,
-}: DefaultConfigProps) => {
+  coinbaseWalletPreference,
+  chains = [mainnet, polygon, optimism, arbitrum],
+  client,
+  ...props
+}: DefaultConfigProps): CreateConfigParameters => {
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
 
-  const providers: ChainProviderFn[] = [];
-  if (alchemyId) {
-    providers.push(alchemyProvider({ apiKey: alchemyId }));
-  }
-  if (infuraId) {
-    providers.push(infuraProvider({ apiKey: infuraId }));
-  }
-  providers.push(
-    jsonRpcProvider({
-      rpc: (c) => {
-        return { http: c.rpcUrls.default.http[0] };
+  // TODO: nice to have, automate transports based on chains, but for now just provide public if not provided
+  const transports: CreateConfigParameters['transports'] =
+    props?.transports ??
+    Object.fromEntries(chains.map((chain) => [chain.id, http()]));
+
+  const connectors: CreateConfigParameters['connectors'] =
+    props?.connectors ??
+    defaultConnectors({
+      app: {
+        name: appName,
+        icon: appIcon,
+        description: appDescription,
+        url: appUrl,
       },
-    })
-  );
-  providers.push(publicProvider());
+      walletConnectProjectId,
+      coinbaseWalletPreference,
+    });
 
-  const {
-    publicClient: configuredPublicClient,
-    chains: configuredChains,
-    webSocketPublicClient: configuredWebSocketPublicClient,
-  } = configureChains(chains, providers, { stallTimeout });
-
-  const connectKitClient: ConnectKitClientProps = {
-    autoConnect,
-    connectors:
-      connectors ??
-      defaultConnectors({
-        chains: configuredChains,
-        app: {
-          name: appName,
-          icon: appIcon,
-          description: appDescription,
-          url: appUrl,
-        },
-        walletConnectProjectId,
-      }),
-    publicClient: publicClient ?? configuredPublicClient,
-    webSocketPublicClient: enableWebSocketPublicClient // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"
-      ? webSocketPublicClient ?? configuredWebSocketPublicClient
-      : undefined,
+  const config: CreateConfigParameters<any, any> = {
+    ...props,
+    chains,
+    connectors,
+    transports,
   };
 
-  return { ...connectKitClient };
+  return config;
 };
 
 export default defaultConfig;

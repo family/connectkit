@@ -1,11 +1,17 @@
-export const CONNECTKIT_VERSION = '1.5.3';
+export const CONNECTKIT_VERSION = '1.8.0';
 
 export * as Types from './types';
 export { default as getDefaultConfig } from './defaultConfig';
 export { default as getDefaultConnectors } from './defaultConnectors';
+export { wallets } from './wallets';
 
 export { useModal } from './hooks/useModal';
-export { SIWEProvider, useSIWE } from './siwe';
+export {
+  SIWEProvider,
+  useSIWE,
+  SIWE_NONCE_QUERY_KEY,
+  SIWE_SESSION_QUERY_KEY,
+} from './siwe';
 export type { SIWESession, SIWEConfig } from './siwe';
 
 export { ConnectKitProvider, Context } from './components/ConnectKit';
@@ -20,7 +26,7 @@ export { default as ChainIcon } from './components/Common/Chain';
 // Hooks
 export { default as useIsMounted } from './hooks/useIsMounted'; // Useful for apps that use SSR
 export { useChains } from './hooks/useChains';
+export { useChainIsSupported } from './hooks/useChainIsSupported';
 
 // TODO: Make this private
-export { default as supportedConnectors } from './constants/supportedConnectors';
 export { default as ConnectKitModalDemo } from './components/ConnectModal/demo';

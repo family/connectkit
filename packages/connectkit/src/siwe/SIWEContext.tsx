@@ -1,5 +1,6 @@
 import { createContext } from 'react';
-//import { useQuery } from 'wagmi';
+import { useQuery } from '@tanstack/react-query';
+import { Address } from 'viem';
 
 export enum StatusState {
   READY = 'ready',
@@ -10,7 +11,7 @@ export enum StatusState {
 }
 
 export type SIWESession = {
-  address: string;
+  address: Address;
   chainId: number;
 };
 
@@ -19,9 +20,9 @@ export type SIWEConfig = {
   getNonce: () => Promise<string>;
   createMessage: (args: {
     nonce: string;
-    address: string;
+    address: Address;
     chainId: number;
-  }) => string;
+  }) => Promise<string> | string;
   verifyMessage: (args: {
     message: string;
     signature: string;
@@ -39,9 +40,8 @@ export type SIWEConfig = {
 };
 
 export type SIWEContextValue = Required<SIWEConfig> & {
-  // TODO: switch to exported type once wagmi is updated
-  nonce: any; //ReturnType<typeof useQuery<string | null>>;
-  session: any; //ReturnType<typeof useQuery<SIWESession | null>>;
+  nonce: ReturnType<typeof useQuery<string | null>>;
+  session: ReturnType<typeof useQuery<SIWESession | null>>;
   status: StatusState;
   signIn: () => Promise<SIWESession | false>;
   resetStatus: () => void;

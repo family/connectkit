@@ -1,14 +1,13 @@
-import { Connector } from 'wagmi';
-import { Chain } from 'wagmi/chains';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { SafeConnector } from 'wagmi/connectors/safe';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { CreateConnectorFn } from 'wagmi';
+import {
+  injected,
+  walletConnect,
+  coinbaseWallet,
+  CoinbaseWalletParameters,
+  safe,
+} from '@wagmi/connectors';
 
 type DefaultConnectorsProps = {
-  chains?: Chain[];
   app: {
     name: string;
     icon?: string;
@@ -16,85 +15,63 @@ type DefaultConnectorsProps = {
     url?: string;
   };
   walletConnectProjectId?: string;
+  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
 };
 
 const defaultConnectors = ({
-  chains,
   app,
   walletConnectProjectId,
-}: DefaultConnectorsProps) => {
+  coinbaseWalletPreference,
+}: DefaultConnectorsProps): CreateConnectorFn[] => {
   const hasAllAppData = app.name && app.icon && app.description && app.url;
   const shouldUseSafeConnector =
     !(typeof window === 'undefined') && window?.parent !== window;
 
-  let connectors: Connector[] = [];
+  const connectors: CreateConnectorFn[] = [];
 
   // If we're in an iframe, include the SafeConnector
   if (shouldUseSafeConnector) {
-    connectors = [
-      ...connectors,
-      new SafeConnector({
-        chains,
-        options: {
-          allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-          debug: false,
-        },
-      }),
-    ];
+    connectors.push(
+      safe({
+        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+      })
+    );
   }
 
   // Add the rest of the connectors
-  connectors = [
-    ...connectors,
-    new MetaMaskConnector({
-      chains,
-      options: {
-        shimDisconnect: true,
-        UNSTABLE_shimOnConnectSelectAccount: true,
-      },
-    }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: app.name,
-        headlessMode: true,
-      },
-    }),
-    walletConnectProjectId
-      ? new WalletConnectConnector({
-          chains,
-          options: {
-            showQrModal: false,
-            projectId: walletConnectProjectId,
-            metadata: hasAllAppData
-              ? {
-                  name: app.name,
-                  description: app.description!,
-                  url: app.url!,
-                  icons: [app.icon!],
-                }
-              : undefined,
-          },
-        })
-      : new WalletConnectLegacyConnector({
-          chains,
-          options: {
-            qrcode: false,
-          },
-        }),
-    new InjectedConnector({
-      chains,
-      options: {
-        shimDisconnect: true,
-        name: (detectedName) =>
-          `Injected (${
-            typeof detectedName === 'string'
-              ? detectedName
-              : detectedName.join(', ')
-          })`,
-      },
-    }),
-  ];
+  connectors.push(
+    injected({ target: 'metaMask' }),
+    coinbaseWallet({
+      appName: app.name,
+      appLogoUrl: app.icon,
+      overrideIsMetaMask: false,
+      preference: coinbaseWalletPreference,
+    })
+  );
+
+  if (walletConnectProjectId) {
+    connectors.push(
+      walletConnect({
+        showQrModal: false,
+        projectId: walletConnectProjectId,
+        metadata: hasAllAppData
+          ? {
+              name: app.name,
+              description: app.description!,
+              url: app.url!,
+              icons: [app.icon!],
+            }
+          : undefined,
+      })
+    );
+  }
+  /*
+  connectors.push(
+    injected({
+      shimDisconnect: true,
+    })
+  );
+  */
 
   return connectors;
 };

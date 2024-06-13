@@ -1,13 +1,5 @@
-import { detect } from 'detect-browser';
 import React from 'react';
-import supportedConnectors from '../constants/supportedConnectors';
-
-declare global {
-  interface Window {
-    trustWallet: any;
-    trustwallet: any;
-  }
-}
+import { detect } from 'detect-browser';
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 
@@ -67,36 +59,8 @@ const isAndroid = () => {
   const os = detectOS();
   return os.toLowerCase().includes('android');
 };
-
 const isMobile = () => {
   return isAndroid() || isIOS();
-};
-
-const getWalletDownloadUri = (connectorId: string) => {
-  let url: string =
-    getMobileAppUri(connectorId) ?? getBrowserAppUri(connectorId);
-  return url;
-};
-const getMobileAppUri = (connectorId: string) => {
-  const c = supportedConnectors.filter((c) => c.id === connectorId)[0];
-  if (isIOS()) {
-    return c.appUrls?.ios ? c.appUrls.ios : '';
-  } else if (isAndroid()) {
-    return c.appUrls?.android ? c.appUrls.android : '';
-  }
-  return '';
-};
-const getBrowserAppUri = (connectorId: string) => {
-  const c = supportedConnectors.filter((c) => c.id === connectorId)[0];
-  const browser = detectBrowser();
-  switch (browser) {
-    case 'firefox':
-      return c.appUrls?.firefox ? c.appUrls.firefox : '';
-    case 'safari':
-      return c.appUrls?.safari ? c.appUrls.safari : '';
-    default:
-      return c.extensions?.chrome ? c.extensions?.chrome : '';
-  }
 };
 
 type ReactChildArray = ReturnType<typeof React.Children.toArray>;
@@ -114,13 +78,13 @@ function flattenChildren(children: React.ReactNode): ReactChildArray {
 }
 
 export const isWalletConnectConnector = (connectorId?: string) =>
-  connectorId === 'walletConnect' || connectorId === 'walletConnectLegacy';
+  connectorId === 'walletConnect';
 
 export const isMetaMaskConnector = (connectorId?: string) =>
   connectorId === 'metaMask';
 
 export const isCoinbaseWalletConnector = (connectorId?: string) =>
-  connectorId === 'coinbaseWallet';
+  connectorId === 'coinbaseWalletSDK';
 
 export const isLedgerConnector = (connectorId?: string) =>
   connectorId === 'ledger';
@@ -138,6 +102,5 @@ export {
   isAndroid,
   detectBrowser,
   detectOS,
-  getWalletDownloadUri,
   flattenChildren,
 };

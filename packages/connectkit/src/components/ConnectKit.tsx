@@ -19,7 +19,6 @@ import defaultTheme from '../styles/defaultTheme';
 import ConnectKitModal from '../components/ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
-import { useNetwork } from 'wagmi';
 import { SIWEContext } from './../siwe';
 import { useChains } from '../hooks/useChains';
 import {
@@ -28,6 +27,9 @@ import {
 } from '../hooks/useConnectCallback';
 import { isFamily } from '../utils/wallets';
 import { useConnector } from '../hooks/useConnectors';
+import { WagmiContext, useAccount } from 'wagmi';
+import { Web3ContextProvider } from './contexts/web3';
+import { useChainIsSupported } from '../hooks/useChainIsSupported';
 
 export const routes = {
   ONBOARDING: 'onboarding',
@@ -41,7 +43,9 @@ export const routes = {
   SIGNINWITHETHEREUM: 'signInWithEthereum',
 };
 
-type Connector = any;
+type Connector = {
+  id: string;
+};
 type Error = string | React.ReactNode | null;
 
 type ContextValue = {
@@ -57,7 +61,7 @@ type ContextValue = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   route: string;
   setRoute: React.Dispatch<React.SetStateAction<string>>;
-  connector: string;
+  connector: Connector;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptions;
@@ -104,7 +108,7 @@ type ConnectKitProviderProps = {
   debugMode?: boolean;
 } & useConnectCallbackProps;
 
-export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
+export const ConnectKitProvider = ({
   children,
   theme = 'auto',
   mode = 'auto',
@@ -113,7 +117,12 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   onConnect,
   onDisconnect,
   debugMode = false,
-}) => {
+}: ConnectKitProviderProps) => {
+  // ConnectKitProvider must be within a WagmiProvider
+  if (!React.useContext(WagmiContext)) {
+    throw Error('ConnectKitProvider must be within a WagmiProvider');
+  }
+
   // Only allow for mounting ConnectKitProvider once, so we avoid weird global
   // state collisions.
   if (React.useContext(Context)) {
@@ -128,6 +137,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   });
 
   const chains = useChains();
+
   const injectedConnector = useConnector('injected');
 
   // Default config options
@@ -148,7 +158,7 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     bufferPolyfill: true,
     customAvatar: undefined,
     initialChainId: chains?.[0]?.id,
-    enforceSupportedChains: true,
+    enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
     disableSiweRedirect: false,
@@ -175,7 +185,9 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   );
   const [ckLang, setLang] = useState<Languages>('en-US');
   const [open, setOpen] = useState<boolean>(false);
-  const [connector, setConnector] = useState<string>('');
+  const [connector, setConnector] = useState<ContextValue['connector']>({
+    id: '',
+  });
   const [route, setRoute] = useState<string>(routes.CONNECTORS);
   const [errorMessage, setErrorMessage] = useState<Error>('');
 
@@ -190,13 +202,15 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
   useEffect(() => setErrorMessage(null), [route, open]);
 
   // Check if chain is supported, elsewise redirect to switches page
-  const { chain } = useNetwork();
+  const { chain, isConnected } = useAccount();
+  const isChainSupported = useChainIsSupported(chain?.id);
+
   useEffect(() => {
-    if (opts.enforceSupportedChains && chain?.unsupported) {
+    if (isConnected && opts.enforceSupportedChains && !isChainSupported) {
       setOpen(true);
       setRoute(routes.SWITCHNETWORKS);
     }
-  }, [chain, route, open]);
+  }, [isConnected, isChainSupported, chain, route, open]);
 
   // Autoconnect to Family wallet if available
   useEffect(() => {
@@ -244,15 +258,17 @@ export const ConnectKitProvider: React.FC<ConnectKitProviderProps> = ({
     Context.Provider,
     { value },
     <>
-      <ThemeProvider theme={defaultTheme}>
-        {children}
-        <ConnectKitModal
-          lang={ckLang}
-          theme={ckTheme}
-          mode={mode}
-          customTheme={ckCustomTheme}
-        />
-      </ThemeProvider>
+      <Web3ContextProvider enabled={open}>
+        <ThemeProvider theme={defaultTheme}>
+          {children}
+          <ConnectKitModal
+            lang={ckLang}
+            theme={ckTheme}
+            mode={mode}
+            customTheme={ckCustomTheme}
+          />
+        </ThemeProvider>
+      </Web3ContextProvider>
     </>
   );
 };
