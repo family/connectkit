@@ -1,6 +1,6 @@
 import { LocaleProps } from './';
 
-const enUS: LocaleProps = {
+const eeEE: LocaleProps = {
   connectWallet: 'Ühenda rahakott',
   disconnect: 'Katkesta ühendus',
   connected: 'Ühendatud',
@@ -109,6 +109,10 @@ const enUS: LocaleProps = {
   signInWithEthereumScreen_signedOut_button: 'Logi sisse',
 
   signInWithEthereumScreen_signedIn_heading: 'Logi välja',
+  signInWithEthereumScreen_signedIn_h1:
+    'Olete edukalt autentinud end \n selle rahakoti omanikuna.',
+  signInWithEthereumScreen_signedIn_p: `Välja logimine nõuab tulevikus \n uuesti autentimist.`,
+  signInWithEthereumScreen_signedIn_button: 'Logi välja',
 };
 
-export default enUS;
+export default eeEE;
