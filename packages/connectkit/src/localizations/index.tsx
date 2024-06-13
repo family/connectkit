@@ -7,6 +7,8 @@ export type Languages =
   | 'fr-FR'
   | 'ja-JP'
   | 'pt-BR'
+  | 'zh-CN'
+  | 'ca-AD'
   | 'ru-RU'
   | 'zh-CN'
   | 'tr-TR'
@@ -22,6 +24,7 @@ import { default as jaJP } from './locales/ja-JP';
 import { default as ptBR } from './locales/pt-BR';
 import { default as ruRU } from './locales/ru-RU';
 import { default as zhCN } from './locales/zh-CN';
+import { default as caAD } from './locales/ca-AD';
 import { default as trTR } from './locales/tr-TR';
 import { default as viVN } from './locales/vi-VN';
 
@@ -46,6 +49,8 @@ export const getLocale = (lang: Languages) => {
       return ruRU;
     case 'zh-CN':
       return zhCN;
+    case 'ca-AD':
+      return caAD;
     case 'tr-TR':
       return trTR;
     case 'vi-VN':
