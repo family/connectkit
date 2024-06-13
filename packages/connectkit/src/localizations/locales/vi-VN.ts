@@ -2,7 +2,7 @@ import { LocaleProps } from './';
 
 const viVN: LocaleProps = {
   connectWallet: 'Kết nối ví',
-  disconnect: 'Ngắt kết nó6i',
+  disconnect: 'Ngắt kết nối',
   connected: 'Đã kết nối',
   wrongNetwork: 'Mạng không hỗ trợ',
   switchNetworks: 'Đổi mạng',
@@ -41,7 +41,7 @@ const viVN: LocaleProps = {
 
   onboardingScreen_heading: `Tạo một ví`,
   onboardingScreen_h1: `Bắt đầu khám khá Web3`,
-  onboardingScreen_p: `Ví của bạn là cổng giao tiếp mọi thứ trên Ethereum, Công nghệ tuyệt vời giúp khám phá Web3.`,
+  onboardingScreen_p: `Ví của bạn là cổng giao tiếp mọi thứ trên Ethereum, công nghệ tuyệt vời giúp khám phá Web3.`,
   onboardingScreen_ctaText: `Chọn ví đầu tiên của bạn`,
   onboardingScreen_ctaUrl: `https://ethereum.org/en/wallets/find-wallet/`,
 
