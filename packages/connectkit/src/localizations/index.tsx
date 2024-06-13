@@ -6,6 +6,7 @@ export type Languages =
   | 'pt-BR'
   | 'zh-CN'
   | 'tr-TR';
+  | 'vi-VN';
 
 import { default as enUS } from './locales/en-US';
 import { default as esES } from './locales/es-ES';
@@ -14,6 +15,7 @@ import { default as jaJP } from './locales/ja-JP';
 import { default as ptBR } from './locales/pt-BR';
 import { default as zhCN } from './locales/zh-CN';
 import { default as trTR } from './locales/tr-TR';
+import { default as viVN } from './locales/vi-VN';
 
 // TODO: tree-shaking
 export const getLocale = (lang: Languages) => {
@@ -30,6 +32,8 @@ export const getLocale = (lang: Languages) => {
       return zhCN;
     case 'tr-TR':
       return trTR;
+    case 'vi-VN':
+      return viVN;
     default:
       return enUS;
   }
