@@ -27,7 +27,7 @@ const avalanche: Chain = defineChain({
   testnet: false,
 });
 
-const ckConfig = getDefaultConfig({
+export const ckConfig = getDefaultConfig({
   /*
   chains: [
     mainnet,
@@ -41,12 +41,14 @@ const ckConfig = getDefaultConfig({
   appName: 'ConnectKit testbench',
   appIcon: '/app.png',
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+  coinbaseWalletPreference: 'smartWalletOnly',
 });
 const customConfig = {
   ...ckConfig,
   connectors: [wallets['rainbow'], ...(ckConfig.connectors ?? [])],
 };
 const config = createConfig(ckConfig);
+
 const queryClient = new QueryClient();
 
 type ContextValue = {};

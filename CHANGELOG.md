@@ -1,3 +1,20 @@
+# 1.8.0
+
+This update adds support for [Coinbase Smart Wallet](https://smartwallet.dev), adds additional support for the latest versions of peer dependencies `wagmi` and `viem`, and removes the dependency `ethers` from `connectkit-next-siwe` in favor of `viem`'s [SIWE implementation](https://viem.sh/docs/siwe/actions/verifySiweMessage).
+
+## New
+
+- Adds support for [Coinbase Smart Wallet](https://smartwallet.dev).
+
+## Updated
+
+- Changed default setting for `enforceSupportedChains` to `false` to allow for a better default user and developer experience.
+- Updates peer dependency `viem` to `>=2.13.x`.
+
+## Deprecated
+
+- Removes dependency `ethers` from `connectkit-next-siwe` in favor of `viem`'s [SIWE implementation](https://viem.sh/docs/siwe/actions/verifySiweMessage).
+
 # 1.7.3
 
 This update fixes a few bugs and improves the stability of the QR code generation for WalletConnect and Coinbase Wallet.
