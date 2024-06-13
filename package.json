@@ -13,6 +13,7 @@
     "dev:connectkit-next-siwe": "yarn workspace connectkit-next-siwe run dev",
     "dev:cra": "yarn workspace cra run dev",
     "dev:nextjs": "yarn workspace nextjs run dev",
+    "dev:nextjs-app": "yarn workspace nextjs-app run dev",
     "dev:nextjs-siwe": "yarn workspace nextjs-siwe run dev",
     "dev:vite": "yarn workspace vite run dev",
     "dev:testbench": "yarn workspace testbench run dev",
@@ -20,6 +21,7 @@
     "build:connectkit-next-siwe": "yarn workspace connectkit-next-siwe run build",
     "build:cra": "yarn build && yarn workspace cra build",
     "build:nextjs": "yarn build && yarn workspace nextjs build",
+    "build:nextjs-app": "yarn build && yarn workspace nextjs-app build",
     "build:nextjs-siwe": "yarn build && yarn workspace nextjs-siwe build",
     "build:vite": "yarn build && yarn workspace vite build",
     "build:testbench": "yarn build && yarn build:connectkit-next-siwe && yarn workspace testbench build",
@@ -37,8 +39,8 @@
     "rollup-plugin-visualizer": "^5.5.4",
     "tslib": "^1.9.3",
     "typescript-plugin-styled-components": "^2.0.0",
-    "viem": "^1.0.0",
-    "wagmi": "^1.1.1"
+    "viem": "^2.13.0",
+    "wagmi": "^2.9.7"
   },
   "packageManager": "yarn@3.2.0",
   "dependencies": {

@@ -1,6 +1,4 @@
-import { LocaleProps } from './';
-
-const enUS: LocaleProps = {
+const enUS = {
   connectWallet: 'Connect Wallet',
   disconnect: 'Disconnect',
   connected: 'Connected',

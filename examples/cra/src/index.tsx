@@ -5,30 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
 
-import { WagmiConfig, createConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
-
-const config = createConfig(
-  getDefaultConfig({
-    appName: 'ConnectKit CRA demo',
-    //infuraId: process.env.REACT_APP_INFURA_ID,
-    //alchemyId:  process.env.REACT_APP_ALCHEMY_ID,
-    chains: [mainnet, polygon, optimism, arbitrum],
-    walletConnectProjectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID!,
-  })
-);
+import { Web3Provider } from './components/Web3Provider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <WagmiConfig config={config}>
-      <ConnectKitProvider debugMode>
-        <App />
-      </ConnectKitProvider>
-    </WagmiConfig>
+    <Web3Provider>
+      <App />
+    </Web3Provider>
   </React.StrictMode>
 );
 

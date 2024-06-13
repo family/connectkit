@@ -1,7 +1,6 @@
-import React from 'react';
-
-import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
-import supportedChains from '../../../constants/supportedChains';
+import { useState } from 'react';
+import { useAccount, useSwitchChain } from 'wagmi';
+import { chainConfigs } from '../../../constants/chainConfigs';
 
 import {
   SwitchNetworksContainer,
@@ -21,6 +20,7 @@ import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
+import { useContext } from '../../ConnectKit';
 
 const Spinner = (
   <svg
@@ -58,28 +58,35 @@ const ChainSelectList = ({
 }: {
   variant?: 'primary' | 'secondary';
 }) => {
-  const { connector } = useAccount();
-  const { chain, chains } = useNetwork();
-  const { status, isLoading, pendingChainId, switchNetwork } =
-    useSwitchNetwork();
+  const { connector, chain } = useAccount();
+  const { chains, isPending, switchChain, error } = useSwitchChain();
+  const [pendingChainId, setPendingChainId] = useState<number | undefined>(
+    undefined
+  );
 
   const locales = useLocales({});
   const mobile = isMobile();
 
-  const disabled = status === 'error' || !switchNetwork;
+  const isError = error?.['code'] === 4902; // Wallet cannot switch networks
+  const disabled = isError || !switchChain;
 
   const handleSwitchNetwork = (chainId: number) => {
-    if (switchNetwork) {
-      switchNetwork(chainId);
+    if (switchChain) {
+      setPendingChainId(chainId);
+      switchChain({ chainId });
     }
   };
 
+  const { triggerResize } = useContext();
+
   return (
-    <SwitchNetworksContainer style={{ marginBottom: switchNetwork ? -8 : 0 }}>
+    <SwitchNetworksContainer
+      style={{ marginBottom: switchChain !== undefined ? -8 : 0 }}
+    >
       <ChainButtonContainer>
         <ChainButtons>
           {chains.map((x) => {
-            const c = supportedChains.find((ch) => ch.id === x.id);
+            const c = chainConfigs.find((ch) => ch.id === x.id);
             const ch = { ...c, ...x };
             return (
               <ChainButton
@@ -88,7 +95,7 @@ const ChainSelectList = ({
                 disabled={
                   disabled ||
                   ch.id === chain?.id ||
-                  (isLoading && pendingChainId === ch.id)
+                  (isPending && pendingChainId === ch.id)
                 }
                 onClick={() => handleSwitchNetwork?.(ch.id)}
                 style={{
@@ -111,7 +118,7 @@ const ChainSelectList = ({
                     <ChainLogoSpinner
                       initial={{ opacity: 0 }}
                       animate={{
-                        opacity: isLoading && pendingChainId === ch.id ? 1 : 0,
+                        opacity: isPending && pendingChainId === ch.id ? 1 : 0,
                       }}
                       transition={{
                         ease: [0.76, 0, 0.24, 1],
@@ -122,10 +129,10 @@ const ChainSelectList = ({
                       <motion.div
                         key={`${ch?.id}-${ch?.name}`}
                         animate={
-                          // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
+                          // UI fix for Coinbase Wallet on mobile does not remove isPending on rejection event
                           mobile &&
                           isCoinbaseWalletConnector(connector?.id) &&
-                          isLoading &&
+                          isPending &&
                           pendingChainId === ch.id
                             ? {
                                 opacity: [1, 0],
@@ -144,69 +151,71 @@ const ChainSelectList = ({
                   </ChainLogoContainer>
                   {ch.name}
                 </span>
-                <ChainButtonStatus>
-                  <AnimatePresence initial={false} exitBeforeEnter>
-                    {ch.id === chain?.id && (
-                      <motion.span
-                        key={'connectedText'}
-                        style={{
-                          color:
-                            'var(--ck-dropdown-active-color, var(--ck-focus-color))',
-                          display: 'block',
-                          position: 'relative',
-                        }}
-                        initial={{ opacity: 0, x: -4 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{
-                          opacity: 0,
-                          x: 4,
-                          transition: { duration: 0.1, delay: 0 },
-                        }}
-                        transition={{
-                          ease: [0.76, 0, 0.24, 1],
-                          duration: 0.3,
-                          delay: 0.2,
-                        }}
-                      >
-                        {locales.connected}
-                      </motion.span>
-                    )}
-                    {isLoading && pendingChainId === ch.id && (
-                      <motion.span
-                        key={'approveText'}
-                        style={{
-                          color: 'var(--ck-dropdown-pending-color, inherit)',
-                          display: 'block',
-                          position: 'relative',
-                        }}
-                        initial={{
-                          opacity: 0,
-                          x: -4,
-                        }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 4 }}
-                        transition={{
-                          ease: [0.76, 0, 0.24, 1],
-                          duration: 0.3,
-                          delay: 0.1,
-                        }}
-                      >
+                {variant !== 'secondary' && (
+                  <ChainButtonStatus>
+                    <AnimatePresence initial={false} exitBeforeEnter>
+                      {ch.id === chain?.id && (
                         <motion.span
-                          animate={
-                            // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
-                            mobile &&
-                            isCoinbaseWalletConnector(connector?.id) && {
-                              opacity: [1, 0],
-                              transition: { delay: 4, duration: 4 },
-                            }
-                          }
+                          key={'connectedText'}
+                          style={{
+                            color:
+                              'var(--ck-dropdown-active-color, var(--ck-focus-color))',
+                            display: 'block',
+                            position: 'relative',
+                          }}
+                          initial={{ opacity: 0, x: -4 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{
+                            opacity: 0,
+                            x: 4,
+                            transition: { duration: 0.1, delay: 0 },
+                          }}
+                          transition={{
+                            ease: [0.76, 0, 0.24, 1],
+                            duration: 0.3,
+                            delay: 0.2,
+                          }}
                         >
-                          {locales.approveInWallet}
+                          {locales.connected}
                         </motion.span>
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </ChainButtonStatus>
+                      )}
+                      {isPending && pendingChainId === ch.id && (
+                        <motion.span
+                          key={'approveText'}
+                          style={{
+                            color: 'var(--ck-dropdown-pending-color, inherit)',
+                            display: 'block',
+                            position: 'relative',
+                          }}
+                          initial={{
+                            opacity: 0,
+                            x: -4,
+                          }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 4 }}
+                          transition={{
+                            ease: [0.76, 0, 0.24, 1],
+                            duration: 0.3,
+                            delay: 0.1,
+                          }}
+                        >
+                          <motion.span
+                            animate={
+                              // UI fix for Coinbase Wallet on mobile does not remove isLoading on rejection event
+                              mobile &&
+                              isCoinbaseWalletConnector(connector?.id) && {
+                                opacity: [1, 0],
+                                transition: { delay: 4, duration: 4 },
+                              }
+                            }
+                          >
+                            {locales.approveInWallet}
+                          </motion.span>
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </ChainButtonStatus>
+                )}
                 {variant === 'secondary' ? (
                   <ChainButtonBg
                     initial={false}
@@ -237,18 +246,17 @@ const ChainSelectList = ({
         </ChainButtons>
       </ChainButtonContainer>
       <AnimatePresence>
-        {disabled && (
+        {isError && (
           <motion.div
-            style={{
-              overflow: 'hidden',
-            }}
-            initial={{ height: 0 }}
-            animate={{ height: 'auto' }}
-            exit={{ height: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{
               ease: [0.76, 0, 0.24, 1],
               duration: 0.3,
             }}
+            onAnimationStart={triggerResize}
+            onAnimationComplete={triggerResize}
           >
             <div style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Alert>
