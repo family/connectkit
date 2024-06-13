@@ -55,6 +55,7 @@ const modes: SelectProps[] = [
 const languages: SelectProps[] = [
   { label: 'Arabic', value: 'ar-AE' },
   { label: 'English (US)', value: 'en-US' },
+  { label: 'Estonian', value: 'ee-EE' },
   { label: 'Persian', value: 'fa-IR' },
   { label: 'French', value: 'fr-FR' },
   { label: 'Spanish', value: 'es-ES' },
