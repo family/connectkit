@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useAccount, useSwitchChain } from 'wagmi';
 import { chainConfigs } from '../../../constants/chainConfigs';
 
@@ -58,7 +59,10 @@ const ChainSelectList = ({
   variant?: 'primary' | 'secondary';
 }) => {
   const { connector, chain } = useAccount();
-  const { chains, isPending, data, switchChain, error } = useSwitchChain();
+  const { chains, isPending, switchChain, error } = useSwitchChain();
+  const [pendingChainId, setPendingChainId] = useState<number | undefined>(
+    undefined
+  );
 
   const locales = useLocales({});
   const mobile = isMobile();
@@ -68,10 +72,10 @@ const ChainSelectList = ({
 
   const handleSwitchNetwork = (chainId: number) => {
     if (switchChain) {
+      setPendingChainId(chainId);
       switchChain({ chainId });
     }
   };
-  const pendingChainId = isPending ? data?.id : undefined;
 
   const { triggerResize } = useContext();
 

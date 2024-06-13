@@ -1,4 +1,4 @@
-export const CONNECTKIT_VERSION = '1.7.3';
+export const CONNECTKIT_VERSION = '1.8.0';
 
 export * as Types from './types';
 export { default as getDefaultConfig } from './defaultConfig';
@@ -6,7 +6,12 @@ export { default as getDefaultConnectors } from './defaultConnectors';
 export { wallets } from './wallets';
 
 export { useModal } from './hooks/useModal';
-export { SIWEProvider, useSIWE } from './siwe';
+export {
+  SIWEProvider,
+  useSIWE,
+  SIWE_NONCE_QUERY_KEY,
+  SIWE_SESSION_QUERY_KEY,
+} from './siwe';
 export type { SIWESession, SIWEConfig } from './siwe';
 
 export { ConnectKitProvider, Context } from './components/ConnectKit';

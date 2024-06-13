@@ -9,9 +9,6 @@ import { useAccount } from 'wagmi';
 
 import { useChains } from '../../../hooks/useChains';
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
-import { useCoinbaseWalletUri } from '../../../hooks/connectors/useCoinbaseWalletUri';
-import { isCoinbaseWalletConnector } from '../../../utils';
-import useIsMobile from '../../../hooks/useIsMobile';
 import { useChainIsSupported } from '../../../hooks/useChainIsSupported';
 
 type Web3Context = {
@@ -45,13 +42,8 @@ export const Web3ContextProvider = ({
   enabled?: boolean;
   children: React.ReactNode;
 }) => {
-  const isMobile = useIsMobile();
-
   const { uri: walletConnectUri } = useWalletConnectUri({
     enabled,
-  });
-  const { uri: coinbaseWalletUri } = useCoinbaseWalletUri({
-    enabled: enabled && !isMobile,
   });
 
   const { address: currentAddress, chain } = useAccount();
@@ -61,7 +53,6 @@ export const Web3ContextProvider = ({
   const value = {
     connect: {
       getUri: (id?: string) => {
-        if (isCoinbaseWalletConnector(id)) return coinbaseWalletUri;
         return walletConnectUri;
       },
     },

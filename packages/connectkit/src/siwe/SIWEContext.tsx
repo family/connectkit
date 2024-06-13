@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { Address } from 'viem';
 
 export enum StatusState {
   READY = 'ready',
@@ -10,7 +11,7 @@ export enum StatusState {
 }
 
 export type SIWESession = {
-  address: string;
+  address: Address;
   chainId: number;
 };
 
@@ -19,9 +20,9 @@ export type SIWEConfig = {
   getNonce: () => Promise<string>;
   createMessage: (args: {
     nonce: string;
-    address: string;
+    address: Address;
     chainId: number;
-  }) => string;
+  }) => Promise<string> | string;
   verifyMessage: (args: {
     message: string;
     signature: string;

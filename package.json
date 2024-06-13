@@ -39,8 +39,8 @@
     "rollup-plugin-visualizer": "^5.5.4",
     "tslib": "^1.9.3",
     "typescript-plugin-styled-components": "^2.0.0",
-    "viem": "^2.0.6",
-    "wagmi": "^2.2.1"
+    "viem": "^2.13.0",
+    "wagmi": "^2.9.7"
   },
   "packageManager": "yarn@3.2.0",
   "dependencies": {
