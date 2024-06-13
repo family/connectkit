@@ -60,6 +60,8 @@ const languages: SelectProps[] = [
   { label: 'Japanese', value: 'ja-JP' },
   { label: 'Portuguese', value: 'pt-BR' },
   { label: 'Chinese', value: 'zh-CN' },
+  { label: 'Turkish', value: 'tr-TR'},
+  { label: 'Vietnamese', value: 'vi-VN' },
 ];
 
 const AccountInfo = () => {
