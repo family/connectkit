@@ -1,3 +1,81 @@
+# 1.8.0
+
+This update adds support for [Coinbase Smart Wallet](https://smartwallet.dev), adds additional support for the latest versions of peer dependencies `wagmi` and `viem`, and removes the dependency `ethers` from `connectkit-next-siwe` in favor of `viem`'s [SIWE implementation](https://viem.sh/docs/siwe/actions/verifySiweMessage).
+
+## New
+
+- Adds support for [Coinbase Smart Wallet](https://smartwallet.dev).
+
+## Updated
+
+- Changed default setting for `enforceSupportedChains` to `false` to allow for a better default user and developer experience.
+- Updates peer dependency `viem` to `>=2.13.x`.
+
+## Deprecated
+
+- Removes dependency `ethers` from `connectkit-next-siwe` in favor of `viem`'s [SIWE implementation](https://viem.sh/docs/siwe/actions/verifySiweMessage).
+
+# 1.7.3
+
+This update fixes a few bugs and improves the stability of the QR code generation for WalletConnect and Coinbase Wallet.
+
+## Fixed
+
+- ENS resolution when `mainnet` not found in `createConfig`.
+- `WalletConnectConnector` regenerates QR codes when a user disconnects and attempts to reconnect their wallet.
+- `CoinbaseConnector` generated QR code now using a better supported URI.
+- Configured `projectId` now being passed to the `WalletConnectConnector` when opening "More" UI in mobile view.
+
+## Removed
+
+- References to `WalletConnectLegacy` (WalletConnect v1).
+
+# 1.7.2
+
+This update fixes an issue with the order of React Hooks, and improves the stability of the SIWE Provider.
+
+## Improved
+
+- Remove `initialData` from `useQuery` Hooks.
+
+## Fixed
+
+- Fix order of Hooks in `useChainIsSupported`.
+
+# 1.7.1
+
+This update fixes a bug where the chain was incorrectly detected as unsupported when only one chain is configured.
+
+## Improved
+
+- Switch to using wagmi storage for detecting the last used connector ID.
+- Filter out duplicate connectors from the list of available connectors.
+- More defined overflow divider for the connector list.
+
+## Fixed
+
+- Chain being incorrectly detected as unsupported when only one chain is configured.
+- Ability to override the "Other Wallets" button text.
+- SIWE Provider stability and returned types when returning `nonce` and `session` from the server.
+
+# 1.7.0
+
+This update moves peer dependencies wagmi and viem up to their latest versions.
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [ConnectKit migration guide](https://docs.family.co/connectkit/migration-guide#170-breaking-changes), and the [wagmi 2.x migration guide](https://wagmi.sh/react/guides/migrate-from-v1-to-v2).
+
+## New
+
+- Updates peer dependency `wagmi` to `2.x`.
+- Updates peer dependency `viem` to `2.x`.
+- New peer dependency `@tanstack/react-query`.
+
+## Deprecated
+
+- Removes dependency `mipd`.
+
 # 1.6.0
 
 This update adds [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) support for enhanced wallet discovery and improves the functionality and developer experience of using ConnectKit.

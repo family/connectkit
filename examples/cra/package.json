@@ -3,21 +3,26 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.17.15",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.59",
-    "@types/react": "^18.0.20",
-    "@types/react-dom": "^18.0.6",
     "connectkit": "workspace:packages/connectkit",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "viem": "^1.0.0",
-    "wagmi": "^1.1.1",
+    "viem": "^2.13.0",
+    "wagmi": "^2.9.7",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "18.7.18",
+    "@types/react": "^18.0.6",
+    "@types/react-dom": "^18.0.2",
+    "eslint": "8.56.0",
+    "eslint-config-next": "14.0.4",
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "dev": "react-scripts start",

@@ -78,13 +78,13 @@ function flattenChildren(children: React.ReactNode): ReactChildArray {
 }
 
 export const isWalletConnectConnector = (connectorId?: string) =>
-  connectorId === 'walletConnect' || connectorId === 'walletConnectLegacy';
+  connectorId === 'walletConnect';
 
 export const isMetaMaskConnector = (connectorId?: string) =>
   connectorId === 'metaMask';
 
 export const isCoinbaseWalletConnector = (connectorId?: string) =>
-  connectorId === 'coinbaseWallet';
+  connectorId === 'coinbaseWalletSDK';
 
 export const isLedgerConnector = (connectorId?: string) =>
   connectorId === 'ledger';

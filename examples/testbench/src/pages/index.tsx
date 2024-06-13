@@ -18,10 +18,8 @@ import {
   useAccount,
   useBalance,
   useSendTransaction,
-  useNetwork,
   useSignMessage,
   useSignTypedData,
-  usePrepareSendTransaction,
   useConnect,
   useDisconnect,
 } from 'wagmi';
@@ -32,6 +30,7 @@ import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 
 import CustomAvatar from '../components/CustomAvatar';
 import CustomSIWEButton from '../components/CustomSIWEButton';
+import { Address } from 'viem';
 
 const allChains = Object.keys(wagmiChains).map(
   (key) => wagmiChains[key as keyof typeof wagmiChains]
@@ -72,7 +71,9 @@ const AccountInfo = () => {
     isReconnecting,
   } = useAccount();
   const { data: balanceData } = useBalance({ address });
-  const { chain } = useNetwork();
+  const { chain } = useAccount();
+  const chains = useChains();
+
   const { isSignedIn, signOut } = useSIWE({
     onSignIn: (data?: SIWESession) => {
       console.log('onSignIn', data);
@@ -101,7 +102,7 @@ const AccountInfo = () => {
             </tr>
             <tr>
               <td>Chain Supported</td>
-              <td>{!chain || chain?.unsupported ? 'No' : 'Yes'}</td>
+              <td>{chains.some((x) => x.id === chain?.id) ? 'Yes' : 'No'}</td>
             </tr>
             <tr>
               <td>Address</td>
@@ -134,66 +135,65 @@ const Actions = () => {
 
   const {
     signMessage,
-    isLoading: signMessageIsLoading,
+    isPending: signMessageIsLoading,
     isError: signMessageIsError,
-  } = useSignMessage({
-    message: 'fam token wen',
-  });
+  } = useSignMessage();
   const {
     signTypedData,
-    isLoading: signTypedDataIsLoading,
+    isPending: signTypedDataIsLoading,
     isError: signTypedDataIsError,
-  } = useSignTypedData({
-    // All properties on a domain are optional
-    domain: {
-      name: 'Ether Mail',
-      version: '1',
-      chainId: 1,
-      verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
-    },
-    // The named list of all type definitions
-    types: {
-      Person: [
-        { name: 'name', type: 'string' },
-        { name: 'wallet', type: 'address' },
-      ],
-      Mail: [
-        { name: 'from', type: 'Person' },
-        { name: 'to', type: 'Person' },
-        { name: 'contents', type: 'string' },
-      ],
-    },
-    primaryType: 'Mail',
-    message: {
-      from: {
-        name: 'Cow',
-        wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
-      },
-      to: {
-        name: 'Bob',
-        wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
-      },
-      contents: 'Hello, Bob!',
-    },
-  });
-  const { config } = usePrepareSendTransaction({
-    to: address?.toString() ?? '',
-    value: 0n,
-  });
+  } = useSignTypedData();
   const {
     sendTransaction,
-    isLoading: sendTransactionIsLoading,
+    isPending: sendTransactionIsLoading,
     isError: sendTransactionIsError,
-  } = useSendTransaction(config);
+  } = useSendTransaction();
 
   const testSignMessage = () => {
-    signMessage();
+    signMessage({
+      message: 'fam token wen',
+    });
   };
   const testSignTypedData = () => {
-    signTypedData();
+    signTypedData({
+      // All properties on a domain are optional
+      domain: {
+        name: 'Ether Mail',
+        version: '1',
+        chainId: 1,
+        verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+      },
+      // The named list of all type definitions
+      types: {
+        Person: [
+          { name: 'name', type: 'string' },
+          { name: 'wallet', type: 'address' },
+        ],
+        Mail: [
+          { name: 'from', type: 'Person' },
+          { name: 'to', type: 'Person' },
+          { name: 'contents', type: 'string' },
+        ],
+      },
+      primaryType: 'Mail',
+      message: {
+        from: {
+          name: 'Cow',
+          wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+        },
+        to: {
+          name: 'Bob',
+          wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+        },
+        contents: 'Hello, Bob!',
+      },
+    });
   };
   const testSendTransaction = () => {
-    sendTransaction?.();
+    sendTransaction({
+      to: (address as Address) ?? '',
+      value: 0n,
+    });
   };
 
   return (
@@ -252,9 +252,6 @@ const Home: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const { chain } = useNetwork();
-  const chains = useChains();
-
   const { open, setOpen, openSIWE, openAbout } = useModal({
     onConnect: () => {
       console.log('onConnect Hook');
@@ -265,8 +262,9 @@ const Home: NextPage = () => {
   });
 
   const { reset } = useConnect();
-  const { isConnected, isConnecting } = useAccount();
+  const { isConnected, isConnecting, chain } = useAccount();
   const { disconnect } = useDisconnect();
+  const chains = useChains();
 
   const handleDisconnect = () => {
     disconnect();
@@ -314,14 +312,14 @@ const Home: NextPage = () => {
         <div className="panel">
           <h2>Chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
-            <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
+            <ChainIcon id={chain?.id} />
             <ChainIcon id={1} size={64} radius={6} />
             <ChainIcon id={1337} size={32} radius={0} />
             <ChainIcon id={2} unsupported />
           </div>
           <h2>dApps configured chains</h2>
           <div style={{ display: 'flex', gap: 8 }}>
-            {chains.map((chain: wagmiChains.Chain) => (
+            {chains.map((chain) => (
               <ChainIcon key={chain.id} id={chain.id} />
             ))}
           </div>
@@ -355,10 +353,7 @@ const Home: NextPage = () => {
                     }}
                   >
                     {chain?.name}
-                    <ChainIcon
-                      id={chain?.id}
-                      unsupported={chain?.unsupported}
-                    />
+                    <ChainIcon id={chain?.id} />
                     <Avatar address={address} size={12} />
                     {ensName ?? address}
                   </div>

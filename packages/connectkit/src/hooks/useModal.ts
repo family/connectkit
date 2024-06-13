@@ -6,7 +6,7 @@ import {
   useConnectCallbackProps,
 } from './useConnectCallback';
 
-type ModalRoutes = typeof routes[keyof typeof routes];
+type ModalRoutes = (typeof routes)[keyof typeof routes];
 
 const safeRoutes: {
   connected: ModalRoutes[];

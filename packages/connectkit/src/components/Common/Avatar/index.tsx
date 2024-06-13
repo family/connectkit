@@ -3,9 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { EnsAvatar, ImageContainer } from './styles';
 
 import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
+import { normalize } from 'viem/ens';
 import { ResetContainer } from '../../../styles';
 import { useContext } from '../../ConnectKit';
 import useIsMounted from '../../../hooks/useIsMounted';
+import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
 
 type Hash = `0x${string}`;
 
@@ -29,17 +31,21 @@ const Avatar: React.FC<{
   const imageRef = useRef<any>(null);
   const [loaded, setLoaded] = useState(true);
 
+  const ensFallbackConfig = useEnsFallbackConfig();
   const { data: ensAddress } = useEnsAddress({
     chainId: 1,
     name: name,
+    config: ensFallbackConfig,
   });
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address ?? ensAddress ?? undefined,
+    config: ensFallbackConfig,
   });
   const { data: ensAvatar } = useEnsAvatar({
     chainId: 1,
-    name: ensName,
+    name: normalize(ensName ?? ''),
+    config: ensFallbackConfig,
   });
 
   const ens = {

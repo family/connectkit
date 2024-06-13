@@ -1,9 +1,8 @@
-import { Connector, useConnect } from 'wagmi';
+import { type Connector, useConnectors as useWagmiConnectors } from 'wagmi';
 
 export function useConnectors() {
-  const { connectors } = useConnect();
-
-  return connectors;
+  const connectors = useWagmiConnectors();
+  return connectors ?? [];
 }
 
 export function useConnector(id: string, uuid?: string) {
@@ -42,7 +41,7 @@ export function useWalletConnectConnector() {
     showQrModal: false,
   }
   */
-  return useConnector('walletConnect') ?? useConnector('walletConnectLegacy');
+  return useConnector('walletConnect');
 }
 export function useCoinbaseWalletConnector() {
   /*
@@ -50,7 +49,7 @@ export function useCoinbaseWalletConnector() {
     headlessMode: true,
   }
   */
-  return useConnector('coinbaseWallet');
+  return useConnector('coinbaseWalletSDK');
 }
 export function useMetaMaskConnector() {
   /*

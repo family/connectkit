@@ -36,9 +36,6 @@ export const WalletConnect = ({ background = false, ...props }) => (
   </svg>
 );
 
-export const WalletConnectLegacy = ({ background = false, ...props }) =>
-  WalletConnect({ background, ...props });
-
 export const MetaMask = ({ background = false, ...props }) => (
   <svg
     {...props}
@@ -1276,7 +1273,6 @@ export default {
   Injected,
   OtherWallets,
   WalletConnect,
-  WalletConnectLegacy,
   MetaMask,
   Coinbase,
   Family,
