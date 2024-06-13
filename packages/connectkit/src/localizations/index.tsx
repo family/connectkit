@@ -1,4 +1,5 @@
 export type Languages =
+  | 'ar-AE'
   | 'en-US'
   | 'es-ES'
   | 'fa-IR'
@@ -9,6 +10,7 @@ export type Languages =
   | 'tr-TR'
   | 'vi-VN';
 
+import { default as arAE } from './locales/ar-AE';
 import { default as enUS } from './locales/en-US';
 import { default as esES } from './locales/es-ES';
 import { default as faIR } from './locales/fa-IR';
@@ -22,6 +24,8 @@ import { default as viVN } from './locales/vi-VN';
 // TODO: tree-shaking
 export const getLocale = (lang: Languages) => {
   switch (lang) {
+    case 'ar-AE':
+      return arAE;
     case 'es-ES':
       return esES;
     case 'fa-IR':
