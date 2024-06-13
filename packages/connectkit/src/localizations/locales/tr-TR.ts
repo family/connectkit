@@ -70,7 +70,7 @@ const trTR: LocaleProps = {
   downloadAppScreen_heading: `{{ CONNECTORNAME }} İndir`,
   downloadAppScreen_iosAndroid: `iOS ve Android'e indirmek için telefon kameran ile tarat.`,
   downloadAppScreen_ios: `iOS'a indirmek için telefon kameran ile tarat.`,
-  downloadAppScreen_android: `Android'e indirmek için telefon kameran ile tarat`,
+  downloadAppScreen_android: `Android'e indirmek için telefon kameran ile tarat.`,
 
   injectionScreen_unavailable_h1: `Desteklenmeyen Tarayıcı`,
   injectionScreen_unavailable_p: `{{ CONNECTORSHORTNAME }} cüzdanına bağlanmak için\n{{ SUGGESTEDEXTENSIONBROWSER }} üzerinde indirmen gerekiyor.`,
