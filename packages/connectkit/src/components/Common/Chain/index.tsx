@@ -7,8 +7,10 @@ import {
   Unsupported,
 } from './styles';
 import { AnimatePresence } from 'framer-motion';
-import supportedChains from '../../../constants/supportedChains';
+import { chainConfigs } from '../../../constants/chainConfigs';
 import Chains from '../../../assets/chains';
+import useIsMounted from '../../../hooks/useIsMounted';
+import { useChainIsSupported } from '../../../hooks/useChainIsSupported';
 
 const Spinner = (
   <svg
@@ -56,11 +58,25 @@ const Chain: React.FC<{
   size?: number | string;
 }> = ({
   id,
-  unsupported,
+  unsupported: controlledUnsupported,
   radius = '50%',
-  size = 24
+  size = 24,
 }) => {
-  const chain = supportedChains.find((c) => c.id === id);
+  const isChainSupported = useChainIsSupported(id);
+  const unsupported = controlledUnsupported ?? !isChainSupported;
+
+  const chain = chainConfigs.find((c) => c.id === id);
+  const isMounted = useIsMounted();
+  if (!isMounted)
+    return (
+      <div
+        style={{
+          width: size,
+          height: size,
+        }}
+      />
+    );
+
   return (
     <ChainContainer size={size} radius={radius}>
       <AnimatePresence initial={false}>

@@ -1,20 +1,6 @@
-import { css } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 import styled from './../../../styles/styled';
 
-export const WalletList = styled.div<{ $disabled?: boolean }>`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px 8px;
-  margin: 0 -10px -20px;
-  padding: 4px 0 0;
-  transition: opacity 300ms ease;
-  ${(props) =>
-    props.$disabled &&
-    css`
-      pointer-events: none;
-      opacity: 0.4;
-    `}
-`;
 export const WalletItem = styled.div<{ $waiting?: boolean }>`
   text-align: center;
   transition: opacity 100ms ease;
@@ -28,6 +14,7 @@ export const WalletIcon = styled.div<{ $outline?: boolean }>`
   width: 60px;
   height: 60px;
   overflow: hidden;
+  background: rgba(0, 0, 0, 0.04);
   ${(props) =>
     props.$outline &&
     `
@@ -37,7 +24,7 @@ export const WalletIcon = styled.div<{ $outline?: boolean }>`
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+    box-shadow: inset 0 0 0 1px var(--ck-body-background-tertiary);
   }`}
   svg {
     display: block;
@@ -54,4 +41,26 @@ export const WalletLabel = styled.div`
   opacity: 0.75;
 `;
 
+const PulseKeyframes = keyframes`
+  0%,100% { opacity:1; }
+  50% { opacity:0.5; }
+`;
+
+export const WalletList = styled.div<{ $disabled?: boolean }>`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px 8px;
+  margin: 0 -10px;
+  padding: 4px 0 0;
+  transition: opacity 300ms ease;
+  ${(props) =>
+    props.$disabled &&
+    css`
+      pointer-events: none;
+      opacity: 0.4;
+      ${WalletItem} {
+        animation: ${PulseKeyframes} 1s infinite ease-in-out;
+      }
+    `}
+`;
 export const Container = styled.div``;

@@ -1,5 +1,8 @@
 import { ReactNode, useContext, useEffect, useState } from 'react';
-import { useAccount, useQuery, useNetwork, useSignMessage } from 'wagmi';
+import { useAccount, useAccountEffect, useSignMessage } from 'wagmi';
+import { getAddress } from 'viem';
+import { useQuery } from '@tanstack/react-query';
+
 import { Context as ConnectKitContext } from './../components/ConnectKit';
 import {
   SIWEContext,
@@ -7,13 +10,15 @@ import {
   StatusState,
   SIWESession,
 } from './SIWEContext';
-import { utils } from 'ethers';
 
 type Props = SIWEConfig & {
   children: ReactNode;
   onSignIn?: (data?: SIWESession) => void;
   onSignOut?: () => void;
 };
+
+export const SIWE_NONCE_QUERY_KEY = 'ckSiweNonce';
+export const SIWE_SESSION_QUERY_KEY = 'ckSiweSession';
 
 export const SIWEProvider = ({
   children,
@@ -43,12 +48,15 @@ export const SIWEProvider = ({
     throw new Error('ConnectKitProvider must be mounted inside SIWEProvider.');
   }
 
-  const nonce = useQuery(['ckSiweNonce'], () => siweConfig.getNonce(), {
-    initialData: null,
+  const nonce = useQuery({
+    queryKey: [SIWE_NONCE_QUERY_KEY],
+    queryFn: () => siweConfig.getNonce(),
     refetchInterval: nonceRefetchInterval,
   });
-  const session = useQuery(['ckSiweSession'], siweConfig.getSession, {
-    initialData: null,
+
+  const session = useQuery({
+    queryKey: [SIWE_SESSION_QUERY_KEY],
+    queryFn: () => siweConfig.getSession(),
     refetchInterval: sessionRefetchInterval,
   });
 
@@ -66,7 +74,8 @@ export const SIWEProvider = ({
     return true;
   };
 
-  const { address: connectedAddress } = useAccount({
+  const { address: connectedAddress } = useAccount();
+  useAccountEffect({
     onDisconnect: () => {
       if (signOutOnDisconnect) {
         // For security reasons we sign out the user when a wallet disconnects.
@@ -74,12 +83,12 @@ export const SIWEProvider = ({
       }
     },
   });
-  const { address } = useAccount();
-  const { chain } = useNetwork();
+
+  const { address, chain } = useAccount();
   const { signMessageAsync } = useSignMessage();
 
   const onError = (error: any) => {
-    console.error('signIn error', error.code, error.message);
+    console.error('signIn error', error, error.message);
     switch (error.code) {
       case -32000: // WalletConnect: user rejected
       case 4001: // MetaMask: user rejected
@@ -107,7 +116,7 @@ export const SIWEProvider = ({
 
       setStatus(StatusState.LOADING);
 
-      const message = siweConfig.createMessage({
+      const message = await siweConfig.createMessage({
         address,
         chainId,
         nonce: nonce?.data,
@@ -145,8 +154,7 @@ export const SIWEProvider = ({
     // If SIWE session no longer matches connected account, sign out
     if (
       signOutOnAccountChange &&
-      utils.getAddress(sessionData.address) !==
-        utils.getAddress(connectedAddress)
+      getAddress(sessionData.address) !== getAddress(connectedAddress)
     ) {
       console.warn('Wallet account changed, signing out of SIWE session');
       signOutAndRefetch();

@@ -28,6 +28,7 @@ export const InfoBoxButtons = styled.div`
 `;
 export const LearnMoreContainer = styled(motion.div)`
   text-align: center;
+  margin-top: 16px;
   margin-bottom: -6px;
 `;
 export const LearnMoreButton = styled(motion.button)`
@@ -88,6 +89,12 @@ export const ConnectorsContainer = styled(motion.div)`
   flex-direction: column;
   gap: 12px;
   padding: 0 0 16px;
+  overflow-y: scroll;
+  max-height: 20rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ConnectorButton = styled(motion.button)`
@@ -104,8 +111,8 @@ export const ConnectorButton = styled(motion.button)`
   line-height: 20px;
   text-align: var(--ck-body-button-text-align, left);
   transition: 180ms ease;
-  transition-property: background, color, box-shadow, transform;
-  will-change: transform, box-shadow, background-color, color;
+  transition-property: background, color, box-shadow, transform, opacity;
+  will-change: transform, box-shadow, background-color, color, opacity;
 
   --fallback-color: var(--ck-primary-button-color);
   --fallback-background: var(--ck-primary-button-background);
@@ -155,6 +162,7 @@ export const ConnectorButton = styled(motion.button)`
 
   &:disabled {
     transition: 180ms ease;
+    opacity: 0.4;
   }
 
   --bg: var(--background);
@@ -247,69 +255,13 @@ export const ConnectorIcon = styled(motion.div)`
   width: 32px;
   height: 32px;
   overflow: hidden;
-  svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-`;
-export const MobileConnectorsContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 14px 0 28px;
-  margin: 0 0;
-`;
-
-export const MobileConnectorButton = styled(motion.button)`
-  --background: var(--ck-body-background-secondary);
-  cursor: pointer;
-  user-select: none;
-  position: relative;
-  padding: 0;
-  width: 100%;
-  min-width: 25%;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 13px;
-  text-align: center;
-  transition: transform 100ms ease;
-
-  background: none;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
-  }
-
-  &:not(:disabled) {
-    &:active {
-      transform: scale(0.97);
-    }
-  }
-`;
-
-export const MobileConnectorLabel = styled(motion.span)`
-  display: block;
-  padding: 10px 0 0;
-  color: var(--ck-body-color);
-  opacity: 0.75;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-export const MobileConnectorIcon = styled(motion.div)`
-  margin: 0 auto;
-  width: 60px;
-  height: 60px;
-  overflow: hidden;
-  svg {
-    border-radius: inherit;
+  svg,
+  img {
     display: block;
     position: relative;
-    transform: translate3d(0, 0, 0);
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: 27.5%;
     width: 100%;
     height: 100%;
   }

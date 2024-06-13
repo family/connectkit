@@ -16,7 +16,7 @@ export const LogoContainer = styled(motion.div)`
 export const Logo = styled(motion.div)<{ $small?: boolean }>`
   z-index: 2;
   position: absolute;
-  //overflow: hidden;
+  overflow: hidden;
   inset: 6px;
   border-radius: 50px;
   background: var(--ck-body-background);
@@ -33,8 +33,8 @@ export const Logo = styled(motion.div)<{ $small?: boolean }>`
     ${(props) =>
       props.$small &&
       css`
-        width: 60%;
-        height: 60%;
+        width: 85%;
+        height: 85%;
       `}
   }
 `;

@@ -3,56 +3,68 @@
  * additional functionality.
  */
 
-import { useConnect as wagmiUseConnect } from 'wagmi';
+import {
+  type UseConnectParameters,
+  useConnect as wagmiUseConnect,
+  CreateConnectorFn,
+  Connector,
+} from 'wagmi';
 import { useContext } from '../components/ConnectKit';
 import { useLastConnector } from './useLastConnector';
 
-export function useConnect({ ...props } = {}) {
+export function useConnect({ ...props }: UseConnectParameters = {}) {
   const context = useContext();
 
-  const connectProps = {
-    chainId: context.options?.initialChainId,
-  };
-
-  const { updateLastConnectorId } = useLastConnector();
-
   const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
-    onError(err) {
-      if (err.message) {
-        if (err.message !== 'User rejected request') {
-          context.log(err.message, err);
-        }
-      } else {
-        context.log(`Could not connect.`, err);
-      }
-    },
-    onSuccess(data: any) {
-      updateLastConnectorId(data?.connector?.id ?? '');
-    },
     ...props,
-    /*
-    onSuccess: (data) => {
-      context.onConnect?.({
-        address: data.account,
-        //chainId: data.chain.id,
-        connectorId: data.connector?.id,
-      });
+    mutation: {
+      ...props.mutation,
+      onError(err) {
+        if (err.message) {
+          if (err.message !== 'User rejected request') {
+            context.log(err.message, err);
+          }
+        } else {
+          context.log(`Could not connect.`, err);
+        }
+      },
     },
-    */
   });
 
   return {
-    connect: ({ ...opts }) => {
-      return connect({
-        ...opts,
-        ...connectProps,
-      });
+    connect: ({
+      connector,
+      chainId,
+      mutation,
+    }: {
+      connector: CreateConnectorFn | Connector;
+      chainId?: number;
+      mutation?: UseConnectParameters['mutation'];
+    }) => {
+      return connect(
+        {
+          connector,
+          chainId: chainId ?? context.options?.initialChainId,
+        },
+        mutation
+      );
     },
-    connectAsync: async ({ ...opts }) => {
-      return await connectAsync({
-        ...opts,
-        ...connectProps,
-      });
+    connectAsync: async ({
+      connector,
+      chainId,
+      mutation,
+    }: {
+      connector: CreateConnectorFn | Connector;
+      chainId?: number;
+      mutation?: UseConnectParameters['mutation'];
+    }) => {
+      return connectAsync(
+        {
+          connector,
+          chainId: chainId ?? context.options?.initialChainId,
+        },
+        mutation
+      );
     },
     connectors,
     ...rest,

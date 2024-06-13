@@ -5,37 +5,34 @@ import { useContext } from '../../components/ConnectKit';
 import { useConnect } from '../useConnect';
 import { useWalletConnectConnector } from './../useConnectors';
 
-export function useWalletConnectUri() {
+type Props = {
+  enabled?: boolean;
+};
+
+export function useWalletConnectUri(
+  { enabled }: Props = {
+    enabled: true,
+  }
+) {
   const { log } = useContext();
 
   const [uri, setUri] = useState<string | undefined>(undefined);
 
   const connector: Connector = useWalletConnectConnector();
-  const isWalletConnectLegacy = connector?.id === 'walletConnectLegacy';
 
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect();
 
   useEffect(() => {
-    async function handleMessage({ type, data }: any) {
-      log('WC Message', type, data);
-      if (isWalletConnectLegacy) {
-        log('isWalletConnectLegacy');
-        if (type === 'connecting') {
-          const p = await connector.getProvider();
-          setUri(p.connector.uri);
+    if (!enabled) return;
 
-          // User rejected, regenerate QR code
-          p.connector.on('disconnect', () => {
-            log('User rejected, regenerate QR code');
-            connectWalletConnect(connector);
-          });
-        }
-      } else {
-        if (type === 'display_uri') {
-          setUri(data);
-        }
-        /*
+    async function handleMessage(message) {
+      const { type, data } = message;
+      log('WC Message', type, data);
+      if (type === 'display_uri') {
+        setUri(data);
+      }
+      /*
         // This has the URI as well, but we're probably better off using the one in the display_uri event
         if (type === 'connecting') {
           const p = await connector.getProvider();
@@ -43,25 +40,11 @@ export function useWalletConnectUri() {
           setConnectorUri(uri);
         }
         */
-      }
-    }
-    async function handleChange(e: any) {
-      log('WC Change', e);
     }
     async function handleDisconnect() {
       log('WC Disconnect');
 
-      if (connector) {
-        if (connector.options?.version === '1') {
-          connectWallet(connector);
-        }
-      }
-    }
-    async function handleConnect() {
-      log('WC Connect');
-    }
-    async function handleError(e: any) {
-      log('WC Error', e);
+      if (connector) connectWallet(connector);
     }
 
     async function connectWallet(connector: Connector) {
@@ -92,26 +75,23 @@ export function useWalletConnectUri() {
         }
       }
     }
-
-    if (!connector || uri) return;
-    if (connector && !isConnected) {
-      connectWalletConnect(connector);
-      log('add wc listeners');
-      connector.on('message', handleMessage);
-      connector.on('change', handleChange);
-      connector.on('connect', handleConnect);
-      connector.on('disconnect', handleDisconnect);
-      connector.on('error', handleError);
-      return () => {
-        log('remove wc listeners');
-        connector.off('message', handleMessage);
-        connector.off('change', handleChange);
-        connector.off('connect', handleConnect);
-        connector.off('disconnect', handleDisconnect);
-        connector.off('error', handleError);
-      };
+    if (isConnected) {
+      setUri(undefined);
+    } else {
+      if (!connector || uri) return;
+      if (connector && !isConnected) {
+        connectWalletConnect(connector);
+        log('add wc listeners');
+        connector.emitter.on('message', handleMessage);
+        connector.emitter.on('disconnect', handleDisconnect);
+        return () => {
+          log('remove wc listeners');
+          connector.emitter.off('message', handleMessage);
+          connector.emitter.off('disconnect', handleDisconnect);
+        };
+      }
     }
-  }, [connector, isConnected]);
+  }, [enabled, connector, isConnected]);
 
   return {
     uri,

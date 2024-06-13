@@ -1,26 +1,13 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 
-import { WagmiConfig, createClient } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { ConnectKitProvider, getDefaultClient } from 'connectkit';
-
-const client = createClient(
-  getDefaultClient({
-    appName: 'ConnectKit Next.js demo',
-    //infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
-    //alchemyId:  process.env.NEXT_PUBLIC_ALCHEMY_ID,
-    chains: [mainnet, polygon, optimism, arbitrum],
-  })
-);
+import { Web3Provider } from '../components/Web3Provider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig client={client}>
-      <ConnectKitProvider debugMode>
-        <Component {...pageProps} />
-      </ConnectKitProvider>
-    </WagmiConfig>
+    <Web3Provider>
+      <Component {...pageProps} />
+    </Web3Provider>
   );
 }
 

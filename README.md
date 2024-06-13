@@ -1,6 +1,8 @@
 <a href="https://docs.family.co/connectkit">
-  <img width="1080" alt="connectkit" src="https://user-images.githubusercontent.com/1930210/197782607-5903aba7-8e7f-4fde-b80a-80465d4ad54e.png">
+  <img width="1080" alt="connectkit" src="https://github.com/family/connectkit/assets/1930210/87c2e868-3228-44b8-82c3-a38adf6d1bbf">
 </a>
+
+
 
 # ConnectKit
 
@@ -17,7 +19,7 @@ and much more...
 
 ## Quick Start
 
-Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [ethers.js](https://github.com/ethers-io/ethers.js) project by running one of the following in your terminal:
+Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
 
 #### npm
 
@@ -75,6 +77,7 @@ and start the code bundler:
 
 ```sh
 $ yarn dev:connectkit
+$ yarn dev:connectkit-next-siwe
 ```
 
 and then simply select the example you'd like to run:
@@ -82,6 +85,7 @@ and then simply select the example you'd like to run:
 ```sh
 $ yarn dev:vite # Vite
 $ yarn dev:nextjs # Next.js
+$ yarn dev:nextjs-siwe # Next.js with SIWE
 $ yarn dev:cra # Create React App
 ```
 

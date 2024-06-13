@@ -1,4 +1,4 @@
-import { useAccount } from 'wagmi';
+import { useAccountEffect } from 'wagmi';
 
 export type useConnectCallbackProps = {
   onConnect?: ({
@@ -15,7 +15,7 @@ export const useConnectCallback = ({
   onConnect,
   onDisconnect,
 }: useConnectCallbackProps) => {
-  useAccount({
+  useAccountEffect({
     onConnect: ({ address, connector, isReconnected }) => {
       if (!isReconnected) {
         onConnect?.({

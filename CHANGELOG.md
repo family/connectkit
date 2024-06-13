@@ -1,3 +1,200 @@
+# 1.8.0
+
+This update adds support for [Coinbase Smart Wallet](https://smartwallet.dev), adds additional support for the latest versions of peer dependencies `wagmi` and `viem`, and removes the dependency `ethers` from `connectkit-next-siwe` in favor of `viem`'s [SIWE implementation](https://viem.sh/docs/siwe/actions/verifySiweMessage).
+
+## New
+
+- Adds support for [Coinbase Smart Wallet](https://smartwallet.dev).
+
+## Updated
+
+- Changed default setting for `enforceSupportedChains` to `false` to allow for a better default user and developer experience.
+- Updates peer dependency `viem` to `>=2.13.x`.
+
+## Deprecated
+
+- Removes dependency `ethers` from `connectkit-next-siwe` in favor of `viem`'s [SIWE implementation](https://viem.sh/docs/siwe/actions/verifySiweMessage).
+
+# 1.7.3
+
+This update fixes a few bugs and improves the stability of the QR code generation for WalletConnect and Coinbase Wallet.
+
+## Fixed
+
+- ENS resolution when `mainnet` not found in `createConfig`.
+- `WalletConnectConnector` regenerates QR codes when a user disconnects and attempts to reconnect their wallet.
+- `CoinbaseConnector` generated QR code now using a better supported URI.
+- Configured `projectId` now being passed to the `WalletConnectConnector` when opening "More" UI in mobile view.
+
+## Removed
+
+- References to `WalletConnectLegacy` (WalletConnect v1).
+
+# 1.7.2
+
+This update fixes an issue with the order of React Hooks, and improves the stability of the SIWE Provider.
+
+## Improved
+
+- Remove `initialData` from `useQuery` Hooks.
+
+## Fixed
+
+- Fix order of Hooks in `useChainIsSupported`.
+
+# 1.7.1
+
+This update fixes a bug where the chain was incorrectly detected as unsupported when only one chain is configured.
+
+## Improved
+
+- Switch to using wagmi storage for detecting the last used connector ID.
+- Filter out duplicate connectors from the list of available connectors.
+- More defined overflow divider for the connector list.
+
+## Fixed
+
+- Chain being incorrectly detected as unsupported when only one chain is configured.
+- Ability to override the "Other Wallets" button text.
+- SIWE Provider stability and returned types when returning `nonce` and `session` from the server.
+
+# 1.7.0
+
+This update moves peer dependencies wagmi and viem up to their latest versions.
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [ConnectKit migration guide](https://docs.family.co/connectkit/migration-guide#170-breaking-changes), and the [wagmi 2.x migration guide](https://wagmi.sh/react/guides/migrate-from-v1-to-v2).
+
+## New
+
+- Updates peer dependency `wagmi` to `2.x`.
+- Updates peer dependency `viem` to `2.x`.
+- New peer dependency `@tanstack/react-query`.
+
+## Deprecated
+
+- Removes dependency `mipd`.
+
+# 1.6.0
+
+This update adds [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) support for enhanced wallet discovery and improves the functionality and developer experience of using ConnectKit.
+
+## New
+
+- Support for [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963).
+  - Includes dependency [`mipd`](https://www.npmjs.com/package/mipd) for EIP-6963 TypeScript utilities, built by the team at [wevm](https://github.com/wevm) (creators of [wagmi](https://wagmi.sh/) and [viem](https://viem.sh/)).
+- Added [Zerion](https://zerion.io) extension support.
+
+## Improved
+
+- Hide SIWE tooltip when using `hideTooltips` option.
+
+# 1.5.3
+
+This update adds branding support for additional detectable injected connectors and improves the functionality and developer experience of using ConnectKit.
+
+## New
+
+- [Rainbow](https://rainbow.me/) extension support.
+- Exports `defaultConnectors`
+
+## Improved
+
+- Added name in header for injected wallet when detected by wagmi.
+
+## Fixed
+
+- Fixed UI overflow in switch network tab.
+- Fixed text overlap in switch network buttons.
+- Provide `exports.types` in `package.json`
+
+# 1.5.2
+
+This update addresses a few bugs and improves the overall experience of ConnectKit.
+
+## Fixed
+
+- Added `wcm-modal` tag to css variable override.
+- Fixed flash of unstyled content on the `<ChainIcon>` component.
+- Fixed bug where the modal wouldn't open if the configuration didn't include the `InjectedConnector`.
+
+# 1.5.1
+
+This update improves how ConnectKit handles multiple injected wallets.
+
+## Improved
+
+- Better support when dealing with multiple injected wallets.
+
+## Fixed
+
+- Updated `--w3m-z-index` to `--wcm-z-index` to align with latest wagmi connectors.
+
+# 1.5.0
+
+This update improves the developer experience of using ConnectKit by upgrading the peer dependency, [wagmi](https://wagmi.sh), to version `1.1.x`, updating [viem](https://viem.sh/) to version `1.x.x`, and providing additional wallet branding support.
+
+## New
+
+- Updates peer dependency `wagmi` to `1.1.x`.
+- Updates peer dependency `viem` to `1.x.x`.
+- Add branding for the following injected wallets:
+  - [Rabby](https://rabby.io)
+  - [TokenPocket](https://tokenpocket.pro)
+  - [Family](https://family.co)
+  - [Trust](https://trustwallet.com)
+  - [Frontier](https://www.frontier.xyz/)
+  - [Talisman](https://www.talisman.xyz/)
+  - [Infinity](https://infinitywallet.io/)
+  - [Phantom](https://phantom.app) (2023 rebrand)
+
+## Improved
+
+- Better support for injected wallets.
+- Updated [Phantom](https://phantom.app) branding.
+
+## Misc
+
+- Fixed typo in Safe website URL.
+- Updated some SVGs to be more performant with JSX.
+- Fixed arrows in buttons not inheriting hover colors.
+
+# 1.4.0
+
+This update improves the developer experience of using ConnectKit by upgrading the peer dependency wagmi up a version to `1.x.x`, and removes the peer dependency `ethers` in favor of [`viem`](https://viem.sh).
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#140-breaking-changes).
+
+## New
+
+- Updates peer dependency `wagmi` to `1.x.x`.
+- Adds peer dependency [`viem`](https://viem.sh).
+
+## Deprecated
+
+- Removes peer dependency on `ethers`.
+
+# 1.3.0
+
+WalletConnect v1 is scheduled to shut down and will be no longer be supported after **June 28 2023.** It is advised to update your dApps immediately to support WalletConnect v2.
+
+[Read the announcement](https://medium.com/walletconnect/how-to-prepare-for-the-walletconnect-v1-0-shutdown-1a954da1dbff)
+
+> **Note**
+>
+> This version of ConnectKit has breaking changes. Make sure your application is compatible by following the [migration guide](https://docs.family.co/connectkit/migration-guide#130-breaking-changes).
+
+## New
+
+- Adds support for WalletConnect v2.
+
+### Deprecated
+
+- Removes default support for WalletConnect v1.
+
 # 1.2.4
 
 This update adds branding support for additional detectable injected connectors and improves the functionality and developer experience of using ConnectKit with Sign In With Ethereum.

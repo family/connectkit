@@ -1,46 +1,36 @@
-import { injected } from './connectors/injected';
-import { walletConnect } from './connectors/walletConnect';
-import { metaMask } from './connectors/metaMask';
-import { coinbaseWallet } from './connectors/coinbaseWallet';
-import { rainbow } from './connectors/rainbow';
-import { argent } from './connectors/argent';
-import { trust } from './connectors/trust';
-import { ledger } from './connectors/ledger';
-import { imToken } from './connectors/imToken';
-import { brave } from './connectors/brave';
-import { steak } from './connectors/steak';
-import { unstoppable } from './connectors/unstoppable';
-//import { slope } from './connectors/slope';
-import { onto } from './connectors/onto';
-import { gnosisSafe } from './connectors/gnosisSafe';
-import { frontier } from './connectors/frontier';
-import { zerion } from './connectors/zerion';
-import { frame } from './connectors/frame';
-import { phantom } from './connectors/phantom';
-import { dawn } from './connectors/dawn';
+import { CreateConnectorFn } from 'wagmi';
+import { injected } from '@wagmi/connectors';
 
+import { walletConfigs } from './walletConfigs';
 
-export const getWallets = () => {
-  return [
-    injected(),
-    walletConnect(),
-    metaMask(),
-    coinbaseWallet(),
-    rainbow(),
-    argent(),
-    trust(),
-    ledger(),
-    imToken(),
-    brave(),
-    gnosisSafe(),
-    unstoppable(),
-    steak(),
-    //slope(),
-    onto(),
-    frontier(),
-    zerion(),
-    frame(),
-    phantom(),
-    dawn(),
-  ];
-};
+type WalletIds = Extract<keyof typeof walletConfigs, string>;
+
+export const wallets: {
+  [key: WalletIds]: CreateConnectorFn;
+} = Object.keys(walletConfigs).reduce((acc, key) => {
+  const config = walletConfigs[key];
+  if (!config?.getWalletConnectDeeplink) return acc;
+  const target = key.split(',')[0].trim();
+  const flag =
+    config.name?.replace('Wallet', '').replace(' ', '') ??
+    target[0].toUpperCase() + target.slice(1);
+
+  const connector = injected({
+    target: {
+      id: target,
+      name: config.name ?? config.shortName ?? key,
+      provider: (w) => w?.ethereum?.[`is${flag}`],
+    },
+  });
+  const name = (config.name ?? config.shortName ?? key)
+    .toLowerCase()
+    // capitalize first letter
+    .replace(/(?:^|\s)\S/g, (a) => a.toUpperCase())
+    // remove spaces
+    .replace(/\s/g, '')
+    // lowercase first letter
+    .replace(/(?:^|\s)\S/g, (a) => a.toLowerCase());
+
+  acc[name] = connector;
+  return acc;
+}, {});
