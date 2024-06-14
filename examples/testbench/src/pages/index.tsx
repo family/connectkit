@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import {
   Types,
@@ -22,6 +22,7 @@ import {
   useSignTypedData,
   useConnect,
   useDisconnect,
+  WagmiContext,
 } from 'wagmi';
 import * as wagmiChains from 'wagmi/chains';
 
@@ -64,7 +65,7 @@ const languages: SelectProps[] = [
   { label: 'Portuguese', value: 'pt-BR' },
   { label: 'Russian', value: 'ru-RU' },
   { label: 'Spanish', value: 'es-ES' },
-  { label: 'Turkish', value: 'tr-TR'},
+  { label: 'Turkish', value: 'tr-TR' },
   { label: 'Vietnamese', value: 'vi-VN' },
 ];
 
@@ -268,7 +269,7 @@ const Home: NextPage = () => {
     },
   });
 
-  const { reset } = useConnect();
+  const { connect, reset } = useConnect();
   const { isConnected, isConnecting, chain } = useAccount();
   const { disconnect } = useDisconnect();
   const chains = useChains();
@@ -277,6 +278,7 @@ const Home: NextPage = () => {
     disconnect();
     reset();
   };
+  const wagmi = useContext(WagmiContext);
 
   if (!mounted) return null;
 
@@ -289,6 +291,18 @@ const Home: NextPage = () => {
           {isConnected && (
             <button onClick={handleDisconnect}>Disconnect</button>
           )}
+          <button
+            onClick={() => {
+              const connector = wagmi?.connectors.find(
+                (c) => c.id === 'coinbaseWalletSDK'
+              );
+              if (!connector) return;
+
+              connect({ connector });
+            }}
+          >
+            Direct coinbaseWalletSDK connect
+          </button>
         </div>
 
         <div className="panel">
