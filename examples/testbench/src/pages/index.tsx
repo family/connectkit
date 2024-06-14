@@ -22,7 +22,6 @@ import {
   useSignTypedData,
   useConnect,
   useDisconnect,
-  WagmiContext,
 } from 'wagmi';
 import * as wagmiChains from 'wagmi/chains';
 
@@ -269,7 +268,7 @@ const Home: NextPage = () => {
     },
   });
 
-  const { connect, reset } = useConnect();
+  const { reset } = useConnect();
   const { isConnected, isConnecting, chain } = useAccount();
   const { disconnect } = useDisconnect();
   const chains = useChains();
@@ -278,7 +277,6 @@ const Home: NextPage = () => {
     disconnect();
     reset();
   };
-  const wagmi = useContext(WagmiContext);
 
   if (!mounted) return null;
 
