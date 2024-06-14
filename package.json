@@ -40,7 +40,7 @@
     "tslib": "^1.9.3",
     "typescript-plugin-styled-components": "^2.0.0",
     "viem": "^2.13.0",
-    "wagmi": "^2.9.7"
+    "wagmi": "^2.10.2"
   },
   "packageManager": "yarn@3.2.0",
   "dependencies": {
