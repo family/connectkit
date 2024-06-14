@@ -1,3 +1,17 @@
+# 1.8.1
+
+This update adds additional localisations, and improves the stability Coinbase Wallet and MetaMask connections.
+
+## New
+
+- Localisations for `Vietnamese`, `Turkish`, `Persian`, `Arabic`, `Russian`, `Estonian` and `Catalan`.
+
+## Fixed
+
+- `CoinbaseWalletSDK` connect popup being blocked on iOS Safari.
+- Revert back to using `MetaMaskSDK` for MetaMask connections.
+- Desktop deeplinking for LedgerLive.
+
 # 1.8.0
 
 This update adds support for [Coinbase Smart Wallet](https://smartwallet.dev), adds additional support for the latest versions of peer dependencies `wagmi` and `viem`, and removes the dependency `ethers` from `connectkit-next-siwe` in favor of `viem`'s [SIWE implementation](https://viem.sh/docs/siwe/actions/verifySiweMessage).
