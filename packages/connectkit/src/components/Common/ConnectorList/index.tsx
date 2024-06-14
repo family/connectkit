@@ -16,6 +16,7 @@ import Alert from '../Alert';
 
 import { WalletProps, useWallets } from '../../../wallets/useWallets';
 import {
+  detectBrowser,
   isCoinbaseWalletConnector,
   isWalletConnectConnector,
 } from '../../../utils';
@@ -100,8 +101,9 @@ const ConnectorItem = ({
       : undefined;
 
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
+  // Safari requires opening popup on user gesture, so we connect immediately here
   const shouldConnectImmediately =
-    //isMobile &&
+    detectBrowser() === 'safari' &&
     isCoinbaseWalletConnector(wallet.connector.id);
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
