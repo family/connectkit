@@ -40,7 +40,12 @@ const defaultConnectors = ({
 
   // Add the rest of the connectors
   connectors.push(
-    metaMask(),
+    metaMask({
+      dappMetadata: {
+        name: app.name,
+        iconUrl: app.icon,
+      },
+    }),
     coinbaseWallet({
       appName: app.name,
       appLogoUrl: app.icon,
