@@ -15,8 +15,13 @@ import { ScrollArea } from '../../Common/ScrollArea';
 import Alert from '../Alert';
 
 import { WalletProps, useWallets } from '../../../wallets/useWallets';
-import { isWalletConnectConnector } from '../../../utils';
+import {
+  detectBrowser,
+  isCoinbaseWalletConnector,
+  isWalletConnectConnector,
+} from '../../../utils';
 import { useLastConnector } from '../../../hooks/useLastConnector';
+import { useConnect } from '../../../hooks/useConnect';
 
 const ConnectorList = () => {
   const context = useContext();
@@ -78,6 +83,8 @@ const ConnectorItem = ({
   const isMobile = useIsMobile();
   const context = useContext();
 
+  const { connect } = useConnect();
+
   /*
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -89,12 +96,18 @@ const ConnectorItem = ({
   */
 
   let deeplink =
-    !wallet.isInstalled && isMobile
+    (!wallet.isInstalled && isMobile) ||
+    (wallet.shouldDeeplinkDesktop && !isMobile)
       ? wallet.getWalletConnectDeeplink?.(uri ?? '')
       : undefined;
 
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
-  if (redirectToMoreWallets) deeplink = undefined; // mobile redirects to more wallets page
+  // Safari requires opening popup on user gesture, so we connect immediately here
+  const shouldConnectImmediately =
+    (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
+    isCoinbaseWalletConnector(wallet.connector.id);
+
+  if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
   return (
     <ConnectorButton
@@ -109,6 +122,9 @@ const ConnectorItem = ({
               if (redirectToMoreWallets) {
                 context.setRoute(routes.MOBILECONNECTORS);
               } else {
+                if (shouldConnectImmediately) {
+                  connect({ connector: wallet?.connector });
+                }
                 context.setRoute(routes.CONNECT);
                 context.setConnector({ id: wallet.id });
               }
