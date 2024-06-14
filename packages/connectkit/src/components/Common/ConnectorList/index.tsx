@@ -15,8 +15,12 @@ import { ScrollArea } from '../../Common/ScrollArea';
 import Alert from '../Alert';
 
 import { WalletProps, useWallets } from '../../../wallets/useWallets';
-import { isWalletConnectConnector } from '../../../utils';
+import {
+  isCoinbaseWalletConnector,
+  isWalletConnectConnector,
+} from '../../../utils';
 import { useLastConnector } from '../../../hooks/useLastConnector';
+import { useConnect } from '../../../hooks/useConnect';
 
 const ConnectorList = () => {
   const context = useContext();
@@ -78,6 +82,8 @@ const ConnectorItem = ({
   const isMobile = useIsMobile();
   const context = useContext();
 
+  const { connect } = useConnect();
+
   /*
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -94,41 +100,57 @@ const ConnectorItem = ({
       : undefined;
 
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
-  if (redirectToMoreWallets) deeplink = undefined; // mobile redirects to more wallets page
+  const shouldConnectImmediately =
+    isMobile && isCoinbaseWalletConnector(wallet.connector.id);
+
+  if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
   return (
-    <ConnectorButton
-      type="button"
-      as={deeplink ? 'a' : undefined}
-      href={deeplink ? deeplink : undefined}
-      disabled={context.route !== routes.CONNECTORS}
-      onClick={
-        deeplink
-          ? undefined
-          : () => {
-              if (redirectToMoreWallets) {
-                context.setRoute(routes.MOBILECONNECTORS);
-              } else {
-                context.setRoute(routes.CONNECT);
-                context.setConnector({ id: wallet.id });
-              }
-            }
-      }
-    >
-      <ConnectorIcon
-        data-small={wallet.iconShouldShrink}
-        data-shape={wallet.iconShape}
+    <>
+      <button
+        onClick={() => {
+          connect({ connector: wallet?.connector });
+        }}
       >
-        {wallet.iconConnector ?? wallet.icon}
-      </ConnectorIcon>
-      <ConnectorLabel>
-        {isMobile ? wallet.shortName ?? wallet.name : wallet.name}
-        {!context.options?.hideRecentBadge && isRecent && (
-          <RecentlyUsedTag>
-            <span>Recent</span>
-          </RecentlyUsedTag>
-        )}
-      </ConnectorLabel>
-    </ConnectorButton>
+        test
+      </button>
+      <ConnectorButton
+        type="button"
+        as={deeplink ? 'a' : undefined}
+        href={deeplink ? deeplink : undefined}
+        disabled={context.route !== routes.CONNECTORS}
+        onClick={
+          shouldConnectImmediately && false
+            ? () => {
+                connect({ connector: wallet?.connector });
+              }
+            : deeplink
+            ? undefined
+            : () => {
+                if (redirectToMoreWallets) {
+                  context.setRoute(routes.MOBILECONNECTORS);
+                } else {
+                  context.setRoute(routes.CONNECT);
+                  context.setConnector({ id: wallet.id });
+                }
+              }
+        }
+      >
+        <ConnectorIcon
+          data-small={wallet.iconShouldShrink}
+          data-shape={wallet.iconShape}
+        >
+          {wallet.iconConnector ?? wallet.icon}
+        </ConnectorIcon>
+        <ConnectorLabel>
+          {isMobile ? wallet.shortName ?? wallet.name : wallet.name}
+          {!context.options?.hideRecentBadge && isRecent && (
+            <RecentlyUsedTag>
+              <span>Recent</span>
+            </RecentlyUsedTag>
+          )}
+        </ConnectorLabel>
+      </ConnectorButton>
+    </>
   );
 };
