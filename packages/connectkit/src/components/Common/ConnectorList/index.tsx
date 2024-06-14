@@ -120,7 +120,7 @@ const ConnectorItem = ({
         href={deeplink ? deeplink : undefined}
         disabled={context.route !== routes.CONNECTORS}
         onClick={
-          shouldConnectImmediately && false
+          shouldConnectImmediately
             ? () => {
                 connect({ connector: wallet?.connector });
               }
