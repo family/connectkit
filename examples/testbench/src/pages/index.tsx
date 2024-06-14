@@ -291,18 +291,6 @@ const Home: NextPage = () => {
           {isConnected && (
             <button onClick={handleDisconnect}>Disconnect</button>
           )}
-          <button
-            onClick={() => {
-              const connector = wagmi?.connectors.find(
-                (c) => c.id === 'coinbaseWalletSDK'
-              );
-              if (!connector) return;
-
-              connect({ connector });
-            }}
-          >
-            Direct coinbaseWalletSDK connect
-          </button>
         </div>
 
         <div className="panel">

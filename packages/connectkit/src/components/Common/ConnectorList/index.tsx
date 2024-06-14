@@ -101,56 +101,47 @@ const ConnectorItem = ({
 
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
   const shouldConnectImmediately =
-    isMobile && isCoinbaseWalletConnector(wallet.connector.id);
+    //isMobile &&
+    isCoinbaseWalletConnector(wallet.connector.id);
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
   return (
-    <>
-      <button
-        onClick={() => {
-          connect({ connector: wallet?.connector });
-        }}
-      >
-        test
-      </button>
-      <ConnectorButton
-        type="button"
-        as={deeplink ? 'a' : undefined}
-        href={deeplink ? deeplink : undefined}
-        disabled={context.route !== routes.CONNECTORS}
-        onClick={
-          shouldConnectImmediately
-            ? () => {
-                connect({ connector: wallet?.connector });
-              }
-            : deeplink
-            ? undefined
-            : () => {
-                if (redirectToMoreWallets) {
-                  context.setRoute(routes.MOBILECONNECTORS);
-                } else {
-                  context.setRoute(routes.CONNECT);
-                  context.setConnector({ id: wallet.id });
+    <ConnectorButton
+      type="button"
+      as={deeplink ? 'a' : undefined}
+      href={deeplink ? deeplink : undefined}
+      disabled={context.route !== routes.CONNECTORS}
+      onClick={
+        deeplink
+          ? undefined
+          : () => {
+              if (redirectToMoreWallets) {
+                context.setRoute(routes.MOBILECONNECTORS);
+              } else {
+                if (shouldConnectImmediately) {
+                  connect({ connector: wallet?.connector });
                 }
+                context.setRoute(routes.CONNECT);
+                context.setConnector({ id: wallet.id });
               }
-        }
+            }
+      }
+    >
+      <ConnectorIcon
+        data-small={wallet.iconShouldShrink}
+        data-shape={wallet.iconShape}
       >
-        <ConnectorIcon
-          data-small={wallet.iconShouldShrink}
-          data-shape={wallet.iconShape}
-        >
-          {wallet.iconConnector ?? wallet.icon}
-        </ConnectorIcon>
-        <ConnectorLabel>
-          {isMobile ? wallet.shortName ?? wallet.name : wallet.name}
-          {!context.options?.hideRecentBadge && isRecent && (
-            <RecentlyUsedTag>
-              <span>Recent</span>
-            </RecentlyUsedTag>
-          )}
-        </ConnectorLabel>
-      </ConnectorButton>
-    </>
+        {wallet.iconConnector ?? wallet.icon}
+      </ConnectorIcon>
+      <ConnectorLabel>
+        {isMobile ? wallet.shortName ?? wallet.name : wallet.name}
+        {!context.options?.hideRecentBadge && isRecent && (
+          <RecentlyUsedTag>
+            <span>Recent</span>
+          </RecentlyUsedTag>
+        )}
+      </ConnectorLabel>
+    </ConnectorButton>
   );
 };
