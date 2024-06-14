@@ -1,6 +1,6 @@
 # 1.8.1
 
-This update adds additional localisations, and improves the stability Coinbase Wallet and MetaMask connections.
+This update adds additional localisations, and improves the stability of Coinbase Wallet and MetaMask connections.
 
 ## New
 
