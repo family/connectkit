@@ -18,6 +18,7 @@ import { WalletProps, useWallets } from '../../../wallets/useWallets';
 import {
   detectBrowser,
   isCoinbaseWalletConnector,
+  isMetaMaskConnector,
   isWalletConnectConnector,
 } from '../../../utils';
 import { useLastConnector } from '../../../hooks/useLastConnector';
@@ -105,7 +106,9 @@ const ConnectorItem = ({
   // Safari requires opening popup on user gesture, so we connect immediately here
   const shouldConnectImmediately =
     (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
-    isCoinbaseWalletConnector(wallet.connector.id);
+    // TODO: convert this to a flag in the configs
+    (isCoinbaseWalletConnector(wallet.connector.id) ||
+      isMetaMaskConnector(wallet.connector.id));
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
