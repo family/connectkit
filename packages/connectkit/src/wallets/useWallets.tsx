@@ -7,6 +7,7 @@ import {
   isCoinbaseWalletConnector,
   isInjectedConnector,
   isMetaMaskConnector,
+  isMobile,
 } from '../utils';
 
 export type WalletProps = {
@@ -53,7 +54,7 @@ export const useWallets = (): WalletProps[] => {
         connector.type === 'injected' ||
         // TODO: convert this to a flag in the configs
         isCoinbaseWalletConnector(connector.id) || // always run coinbase wallet SDK ||
-        isMetaMaskConnector(connector.id), // always run metamask SDK
+        (isMobile() && isMetaMaskConnector(connector.id)), // always run metamask SDK
     };
 
     if (walletId) {

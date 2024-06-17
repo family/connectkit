@@ -105,10 +105,11 @@ const ConnectorItem = ({
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
   // Safari requires opening popup on user gesture, so we connect immediately here
   const shouldConnectImmediately =
-    (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
-    // TODO: convert this to a flag in the configs
-    (isCoinbaseWalletConnector(wallet.connector.id) ||
-      isMetaMaskConnector(wallet.connector.id));
+    (wallet.isInstalled &&
+      (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
+      // TODO: convert this to a flag in the configs
+      isCoinbaseWalletConnector(wallet.connector.id)) ||
+    (isMobile && isMetaMaskConnector(wallet.connector.id));
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
@@ -118,21 +119,18 @@ const ConnectorItem = ({
       as={deeplink ? 'a' : undefined}
       href={deeplink ? deeplink : undefined}
       disabled={context.route !== routes.CONNECTORS}
-      onClick={
-        deeplink
-          ? undefined
-          : () => {
-              if (redirectToMoreWallets) {
-                context.setRoute(routes.MOBILECONNECTORS);
-              } else {
-                if (shouldConnectImmediately) {
-                  connect({ connector: wallet?.connector });
-                }
-                context.setRoute(routes.CONNECT);
-                context.setConnector({ id: wallet.id });
-              }
-            }
-      }
+      onClick={() => {
+        if (deeplink) return;
+        if (redirectToMoreWallets) {
+          context.setRoute(routes.MOBILECONNECTORS);
+        } else {
+          if (shouldConnectImmediately) {
+            connect({ connector: wallet?.connector });
+          }
+          context.setRoute(routes.CONNECT);
+          context.setConnector({ id: wallet.id });
+        }
+      }}
     >
       <ConnectorIcon
         data-small={wallet.iconShouldShrink}
