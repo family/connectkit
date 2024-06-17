@@ -1,7 +1,15 @@
+'use client';
+
 import type { NextPage } from 'next';
-import { ConnectKitButton } from 'connectkit';
+import { useIsMounted } from 'connectkit';
+import { useConnectors } from 'wagmi';
 
 const Home: NextPage = () => {
+  const connectors = useConnectors();
+
+  const mounted = useIsMounted();
+  if (!mounted) return;
+
   return (
     <div
       style={{
@@ -11,7 +19,11 @@ const Home: NextPage = () => {
         height: '100vh',
       }}
     >
-      <ConnectKitButton />
+      {connectors.map((connector) => (
+        <button key={connector.id} onClick={() => connector.connect()}>
+          {connector.name}
+        </button>
+      ))}
     </div>
   );
 };
