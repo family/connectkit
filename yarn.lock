@@ -7394,7 +7394,7 @@ __metadata:
     react-scripts: 5.0.1
     typescript: ^5.0.4
     viem: ^2.13.0
-    wagmi: ^2.10.2
+    wagmi: ^2.9.7
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -9706,7 +9706,7 @@ __metadata:
     tslib: ^1.9.3
     typescript-plugin-styled-components: ^2.0.0
     viem: ^2.13.0
-    wagmi: ^2.10.2
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -13620,7 +13620,7 @@ __metadata:
     react-dom: ^18.2.0
     typescript: ^5.0.4
     viem: ^2.13.0
-    wagmi: ^2.10.2
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -13641,7 +13641,7 @@ __metadata:
     siwe: ^2.1.4
     typescript: ^5.0.4
     viem: ^2.13.0
-    wagmi: ^2.10.2
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -13660,7 +13660,7 @@ __metadata:
     react-dom: ^18.2.0
     typescript: ^5.0.4
     viem: ^2.13.0
-    wagmi: ^2.10.2
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -17842,7 +17842,7 @@ __metadata:
     react-dom: ^18.0.0
     typescript: ^5.0.4
     viem: ^2.13.6
-    wagmi: ^2.10.2
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -18752,7 +18752,7 @@ __metadata:
     typescript: ^5.0.4
     viem: ^2.13.0
     vite: ^3.1.0
-    wagmi: ^2.10.2
+    wagmi: ^2.9.7
   languageName: unknown
   linkType: soft
 
@@ -18774,7 +18774,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:^2.10.2":
+"wagmi@npm:^2.9.7":
   version: 2.10.2
   resolution: "wagmi@npm:2.10.2"
   dependencies:
