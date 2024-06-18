@@ -46,6 +46,7 @@ export const useWallets = (): WalletProps[] => {
       connector,
       iconShape: 'squircle',
       isInstalled:
+        connector.type === 'mock' ||
         (connector.type === 'injected' && connector.id !== 'metaMask') ||
         isCoinbaseWalletConnector(connector.id), // always run coinbase wallet SDK
     };
