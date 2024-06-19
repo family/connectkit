@@ -1,3 +1,12 @@
+# 1.8.2
+
+This update includes improvements to the `CoinbaseWalletSDK` connect popup and `MockConnector`.
+
+## Fixed
+
+- `CoinbaseWalletSDK` connect popup now works on first interaction.
+- `MockConnector` now working as intended.
+
 # 1.8.1
 
 This update adds additional localisations, and improves the stability of Coinbase Wallet and MetaMask connections.
