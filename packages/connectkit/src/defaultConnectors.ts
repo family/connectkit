@@ -1,6 +1,6 @@
 import { CreateConnectorFn } from 'wagmi';
 import {
-  metaMask,
+  injected,
   walletConnect,
   coinbaseWallet,
   CoinbaseWalletParameters,
@@ -40,12 +40,7 @@ const defaultConnectors = ({
 
   // Add the rest of the connectors
   connectors.push(
-    metaMask({
-      dappMetadata: {
-        name: app.name,
-        iconUrl: app.icon,
-      },
-    }),
+    injected({ target: 'metaMask' }),
     coinbaseWallet({
       appName: app.name,
       appLogoUrl: app.icon,
