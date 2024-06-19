@@ -47,6 +47,9 @@ export type WalletConfigProps = {
 export const walletConfigs: {
   [rdns: string]: WalletConfigProps; // for multiple cases seperate rdns by comma
 } = {
+  mock: {
+    icon: <Logos.Mock />,
+  },
   argent: {
     name: 'Argent',
     icon: <Logos.Argent />,
