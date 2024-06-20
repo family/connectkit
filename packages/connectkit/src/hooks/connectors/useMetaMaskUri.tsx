@@ -39,11 +39,7 @@ export function useMetaMaskUri(
       log('MM Message', message);
       if (type === 'connecting') {
         const p: any = await connector.getProvider();
-        console.log('MM Provider');
-        console.log(p);
-        /*
-        console.log('p', p);
-        if (p?.qrUrl) setUri(p.qrUrl);*/
+        //if (p?.qrUrl) setUri(p.qrUrl);
       }
     }
     async function handleDisconnect() {
