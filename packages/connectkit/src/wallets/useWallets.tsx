@@ -51,6 +51,7 @@ export const useWallets = (): WalletProps[] => {
       connector,
       iconShape: 'squircle',
       isInstalled:
+        connector.type === 'mock' ||
         connector.type === 'injected' ||
         // TODO: convert this to a flag in the configs
         isCoinbaseWalletConnector(connector.id) || // always run coinbase wallet SDK ||
@@ -106,7 +107,7 @@ export const useWallets = (): WalletProps[] => {
       .filter(
         (wallet, index, self) =>
           !(
-            wallet.id === 'metaMaskSDK' &&
+            (wallet.id === 'metaMaskSDK' || wallet.id === 'metaMask') &&
             self.find(
               (w) => w.id === 'io.metamask' || w.id === 'io.metamask.mobile'
             )
