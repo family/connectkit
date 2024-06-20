@@ -39,7 +39,7 @@ const ConnectWithQRCode: React.FC<{
 
   const wcUri = getUri(id);
   const uri = isMetaMaskConnector(id)
-    ? wcUri
+    ? wcUri // TODO: Rename this, in this case it will actually be the MetaMask URI
     : wcUri
     ? wallet?.getWalletConnectDeeplink?.(wcUri) ?? wcUri
     : undefined;
