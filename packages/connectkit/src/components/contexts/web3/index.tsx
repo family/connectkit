@@ -10,6 +10,8 @@ import { useAccount } from 'wagmi';
 import { useChains } from '../../../hooks/useChains';
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
 import { useChainIsSupported } from '../../../hooks/useChainIsSupported';
+import { useMetaMaskUri } from '../../../hooks/connectors/useMetaMaskUri';
+import { isMetaMaskConnector } from '../../../utils';
 
 type Web3Context = {
   connect: {
@@ -45,6 +47,10 @@ export const Web3ContextProvider = ({
   const { uri: walletConnectUri } = useWalletConnectUri({
     enabled,
   });
+  const { uri: metaMaskUri } = useMetaMaskUri({
+    enabled,
+    //enabled: enabled && !isMobile,
+  });
 
   const { address: currentAddress, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
@@ -53,6 +59,7 @@ export const Web3ContextProvider = ({
   const value = {
     connect: {
       getUri: (id?: string) => {
+        if (isMetaMaskConnector(id)) return metaMaskUri;
         return walletConnectUri;
       },
     },

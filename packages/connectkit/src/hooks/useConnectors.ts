@@ -59,5 +59,5 @@ export function useMetaMaskConnector() {
     UNSTABLE_shimOnConnectSelectAccount: true,
   }
   */
-  return useConnector('metaMask');
+  return useConnector('metaMaskSDK');
 }
