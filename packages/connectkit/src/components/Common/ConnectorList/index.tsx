@@ -119,18 +119,21 @@ const ConnectorItem = ({
       as={deeplink ? 'a' : undefined}
       href={deeplink ? deeplink : undefined}
       disabled={context.route !== routes.CONNECTORS}
-      onClick={() => {
-        if (deeplink) return;
-        if (redirectToMoreWallets) {
-          context.setRoute(routes.MOBILECONNECTORS);
-        } else {
-          if (shouldConnectImmediately) {
-            connect({ connector: wallet?.connector });
-          }
-          context.setRoute(routes.CONNECT);
-          context.setConnector({ id: wallet.id });
-        }
-      }}
+      onClick={
+        deeplink
+          ? undefined
+          : () => {
+              if (redirectToMoreWallets) {
+                context.setRoute(routes.MOBILECONNECTORS);
+              } else {
+                if (shouldConnectImmediately) {
+                  connect({ connector: wallet?.connector });
+                }
+                context.setRoute(routes.CONNECT);
+                context.setConnector({ id: wallet.id });
+              }
+            }
+      }
     >
       <ConnectorIcon
         data-small={wallet.iconShouldShrink}
