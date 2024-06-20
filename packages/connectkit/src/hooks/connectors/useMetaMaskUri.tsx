@@ -19,7 +19,6 @@ export function useMetaMaskUri(
   const [uri, setUri] = useState<string | undefined>(undefined);
 
   const connector = useMetaMaskConnector();
-  const shouldConnect = enabled;
 
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect();
@@ -32,7 +31,9 @@ export function useMetaMaskUri(
   }, []);
 
   useEffect(() => {
-    if (!shouldConnect) return;
+    if (typeof window !== 'undefined' && !window.mmsdk) return;
+    if (window.mmsdk?.isExtensionActive()) return;
+    if (!enabled) return;
 
     async function handleMessage(message) {
       const { type } = message;
@@ -89,7 +90,7 @@ export function useMetaMaskUri(
         connector.emitter.off('disconnect', handleDisconnect);
       };
     }
-  }, [shouldConnect, connector, isConnected]);
+  }, [enabled, connector, isConnected]);
 
   return {
     uri,
