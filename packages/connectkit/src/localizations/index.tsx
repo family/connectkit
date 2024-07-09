@@ -56,6 +56,8 @@ export const getLocale = (lang: Languages) => {
       return trTR;
     case 'vi-VN':
       return viVN;
+    case 'nl-NL':
+      return nlNL;
     default:
       return enUS;
   }
