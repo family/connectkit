@@ -65,7 +65,20 @@ export const walletConfigs: {
         : `https://argent.link/app/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
-  'coinbaseWallet, coinbaseWalletSDK': {
+  bloom: {
+    name: 'Bloom',
+    icon: <Logos.Bloom />,
+    downloadUrls: {
+      download: 'https://connect.family.co/v0/download/bloom',
+      website: 'https://bloomwallet.io/',
+      desktop: 'https://bloomwallet.io/',
+
+    },
+    getWalletConnectDeeplink: (uri: string) => {
+      return `bloom://wallet-connect/wc?uri=${encodeURIComponent(uri)}`;
+    },
+  },
+  'coinbaseWallet, com.coinbase.wallet, coinbaseWalletSDK': {
     name: 'Coinbase Wallet',
     shortName: 'Coinbase',
     icon: <Logos.Coinbase background />,
@@ -212,8 +225,8 @@ export const walletConfigs: {
       return isAndroid()
         ? uri
         : `https://rnbwapp.com/wc?uri=${encodeURIComponent(
-            uri
-          )}&connector=connectkit`;
+          uri
+        )}&connector=connectkit`;
     },
   },
   'io.rabby': {
