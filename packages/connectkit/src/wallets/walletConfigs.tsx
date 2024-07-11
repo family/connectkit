@@ -72,7 +72,6 @@ export const walletConfigs: {
       download: 'https://connect.family.co/v0/download/bloom',
       website: 'https://bloomwallet.io/',
       desktop: 'https://bloomwallet.io/',
-
     },
     getWalletConnectDeeplink: (uri: string) => {
       return `bloom://wallet-connect/wc?uri=${encodeURIComponent(uri)}`;
