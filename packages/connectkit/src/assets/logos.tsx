@@ -94,10 +94,10 @@ export const MetaMask = ({ background = false, ...props }) => (
     style={
       background
         ? {
-          background:
-            'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
-          borderRadius: '27.5%',
-        }
+            background:
+              'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
+            borderRadius: '27.5%',
+          }
         : undefined
     }
     width="32"
@@ -507,8 +507,9 @@ export const Rainbow = ({ round = false, ...props }) => {
       xmlns="http://www.w3.org/2000/svg"
       style={{
         backgroundSize: '100% 100%',
-        backgroundImage: `url("${round ? roundWithBackground : withBackground
-          }")`,
+        backgroundImage: `url("${
+          round ? roundWithBackground : withBackground
+        }")`,
       }}
     />
   );

@@ -225,8 +225,8 @@ export const walletConfigs: {
       return isAndroid()
         ? uri
         : `https://rnbwapp.com/wc?uri=${encodeURIComponent(
-          uri
-        )}&connector=connectkit`;
+            uri
+          )}&connector=connectkit`;
     },
   },
   'io.rabby': {
