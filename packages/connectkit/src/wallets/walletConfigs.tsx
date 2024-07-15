@@ -78,7 +78,7 @@ export const walletConfigs: {
     },
     shouldDeeplinkDesktop: true,
   },
-  'coinbaseWallet, com.coinbase.wallet, coinbaseWalletSDK': {
+  'coinbaseWallet, coinbaseWalletSDK': {
     name: 'Coinbase Wallet',
     shortName: 'Coinbase',
     icon: <Logos.Coinbase background />,
