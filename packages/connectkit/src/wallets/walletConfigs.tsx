@@ -76,6 +76,7 @@ export const walletConfigs: {
     getWalletConnectDeeplink: (uri: string) => {
       return `bloom://wallet-connect/wc?uri=${encodeURIComponent(uri)}`;
     },
+    shouldDeeplinkDesktop: true,
   },
   'coinbaseWallet, com.coinbase.wallet, coinbaseWalletSDK': {
     name: 'Coinbase Wallet',
@@ -224,8 +225,8 @@ export const walletConfigs: {
       return isAndroid()
         ? uri
         : `https://rnbwapp.com/wc?uri=${encodeURIComponent(
-            uri
-          )}&connector=connectkit`;
+          uri
+        )}&connector=connectkit`;
     },
   },
   'io.rabby': {
