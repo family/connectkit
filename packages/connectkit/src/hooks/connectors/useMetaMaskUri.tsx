@@ -24,23 +24,15 @@ export function useMetaMaskUri(
   const { connectAsync } = useConnect();
 
   useEffect(() => {
-    window.addEventListener('metaMaskUri', (e: any) => {
-      console.log('link', e.detail);
-      setUri(e.detail);
-    });
-  }, []);
-
-  useEffect(() => {
     if (typeof window !== 'undefined' && !window.mmsdk) return;
     if (window.mmsdk?.isExtensionActive()) return;
     if (!enabled) return;
 
     async function handleMessage(message) {
-      const { type } = message;
+      const { type, data } = message;
       log('MM Message', message);
-      if (type === 'connecting') {
-        const p: any = await connector.getProvider();
-        //if (p?.qrUrl) setUri(p.qrUrl);
+      if (type === 'display_uri') {
+        setUri(data);
       }
     }
     async function handleDisconnect() {
@@ -67,7 +59,6 @@ export function useMetaMaskUri(
           switch (error.code) {
             case 4001:
               log('error.code - User rejected');
-              tryConnect(connector); // Regenerate QR code
               break;
             default:
               log('error.code - Unknown Error');

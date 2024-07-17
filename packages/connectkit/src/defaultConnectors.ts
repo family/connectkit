@@ -44,15 +44,12 @@ const defaultConnectors = ({
       dappMetadata: {
         name: app.name,
         iconUrl: app.icon,
+        //source: "connectkit"
       },
-      // disables metamask modal /*
+      // disables metamask modal
       extensionOnly: true,
       modals: {
-        install: ({ link }) => {
-          console.log('dispatch metaMaskUri', link);
-          window.dispatchEvent(
-            new CustomEvent('metaMaskUri', { detail: link })
-          );
+        install: () => {
           return {};
         },
       },
