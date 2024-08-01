@@ -17,6 +17,7 @@ import Alert from '../Alert';
 import { WalletProps, useWallets } from '../../../wallets/useWallets';
 import {
   detectBrowser,
+  isAndroid,
   isCoinbaseWalletConnector,
   isWalletConnectConnector,
 } from '../../../utils';
@@ -114,7 +115,7 @@ const ConnectorItem = ({
       type="button"
       as={deeplink ? 'a' : undefined}
       href={deeplink ? deeplink : undefined}
-      target={deeplink && detectBrowser() === 'chromium-webview' ? '_blank' : undefined}
+      target={deeplink && isAndroid() ? '_blank' : undefined}
       disabled={context.route !== routes.CONNECTORS}
       onClick={
         deeplink
