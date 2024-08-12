@@ -294,6 +294,11 @@ export const chainConfigs: Chain[] = [
     logo: <Logos.Base />,
   },
   {
+    id: 84_531,
+    name: 'Base Goerli',
+    logo: <Logos.Base testnet />,
+  },
+  {
     id: 84_532,
     name: 'Base Sepolia',
     logo: <Logos.Base testnet />,
