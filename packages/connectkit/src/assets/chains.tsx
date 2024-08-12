@@ -602,8 +602,254 @@ const Metis = ({ testnet, ...props }: { testnet?: boolean }) => (
   </svg>
 );
 
+const Base = ({ testnet, ...props }: { testnet?: boolean }) => (
+  <svg
+    {...props}
+    width="44"
+    height="44"
+    viewBox="0 0 44 44"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{
+      background: testnet
+        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
+        : '#0052FF',
+    }}
+  >
+    <path
+      d="M21.9756 36C29.721 36 36 29.732 36 22C36 14.268 29.721 8 21.9756 8C14.6271 8 8.59871 13.6419 8 20.8232H26.5371V23.1768H8C8.59871 30.3581 14.6271 36 21.9756 36Z"
+      fill="white"
+    />
+  </svg>
+);
+const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
+  <svg
+    {...props}
+    width="44"
+    height="44"
+    viewBox="0 0 44 44"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{
+      filter: testnet ? 'grayscale(1)' : 'none',
+    }}
+  >
+    <mask
+      id="ck_zora_mask_a"
+      style={{
+        maskType: 'alpha',
+      }}
+      maskUnits="userSpaceOnUse"
+      x="0"
+      y="0"
+      width="44"
+      height="44"
+    >
+      <path
+        d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z"
+        fill="#D9D9D9"
+      />
+    </mask>
+    <g mask="url(#ck_zora_mask_a)">
+      <path
+        d="M51.4558 -9.56445H-6.78906V48.6804H51.4558V-9.56445Z"
+        fill="#A1723A"
+      />
+      <g filter="url(#ck_zora_filter_a)">
+        <path
+          d="M23.6807 43.0752C36.6464 43.0752 47.157 32.5675 47.157 19.6058C47.157 6.64397 36.6464 -3.86365 23.6807 -3.86365C10.7152 -3.86365 0.20459 6.64397 0.20459 19.6058C0.20459 32.5675 10.7152 43.0752 23.6807 43.0752Z"
+          fill="#531002"
+        />
+      </g>
+      <g filter="url(#ck_zora_filter_b)">
+        <path
+          d="M26.2112 35.6464C36.7271 35.6464 45.2521 27.1185 45.2521 16.5988C45.2521 6.07904 36.7271 -2.44885 26.2112 -2.44885C15.6953 -2.44885 7.17041 6.07904 7.17041 16.5988C7.17041 27.1185 15.6953 35.6464 26.2112 35.6464Z"
+          fill="#2B5DF0"
+        />
+      </g>
+      <g filter="url(#ck_zora_filter_c)">
+        <path
+          d="M25.8644 36.7348C36.8276 36.7348 45.7149 27.8444 45.7149 16.8777C45.7149 5.91084 36.8276 -2.97949 25.8644 -2.97949C14.9015 -2.97949 6.01416 5.91084 6.01416 16.8777C6.01416 27.8444 14.9015 36.7348 25.8644 36.7348Z"
+          fill="url(#paint0_radial_3914_1946)"
+        />
+      </g>
+      <g filter="url(#ck_zora_filter_d)">
+        <path
+          d="M29.1567 21.8779C34.6797 21.8779 39.1567 17.4008 39.1567 11.8779C39.1567 6.35509 34.6797 1.87793 29.1567 1.87793C23.6338 1.87793 19.1567 6.35509 19.1567 11.8779C19.1567 17.4008 23.6338 21.8779 29.1567 21.8779Z"
+          fill="#FCB8D4"
+        />
+      </g>
+      <g filter="url(#ck_zora_filter_e)">
+        <path
+          d="M29.15 15.8642C31.3555 15.8642 33.1432 14.0765 33.1432 11.871C33.1432 9.66562 31.3555 7.87781 29.15 7.87781C26.9445 7.87781 25.1567 9.66562 25.1567 11.871C25.1567 14.0765 26.9445 15.8642 29.15 15.8642Z"
+          fill="white"
+        />
+      </g>
+      <g filter="url(#ck_zora_filter_f)">
+        <path
+          d="M26.4967 51.7416C46.3151 51.7416 62.3811 35.6757 62.3811 15.8573C62.3811 -3.96109 46.3151 -20.0271 26.4967 -20.0271C6.67829 -20.0271 -9.3877 -3.96109 -9.3877 15.8573C-9.3877 35.6757 6.67829 51.7416 26.4967 51.7416Z"
+          fill="url(#paint1_radial_3914_1946)"
+          fillOpacity="0.9"
+        />
+      </g>
+    </g>
+    <defs>
+      <filter
+        id="ck_zora_filter_a"
+        x="-5.23758"
+        y="-9.30581"
+        width="57.837"
+        height="57.8232"
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feGaussianBlur
+          stdDeviation="2.72108"
+          result="effect1_foregroundBlur_3914_1946"
+        />
+      </filter>
+      <filter
+        id="ck_zora_filter_b"
+        x="-3.71395"
+        y="-13.3332"
+        width="59.8503"
+        height="59.8639"
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feGaussianBlur
+          stdDeviation="5.44218"
+          result="effect1_foregroundBlur_3914_1946"
+        />
+      </filter>
+      <filter
+        id="ck_zora_filter_c"
+        x="1.93251"
+        y="-7.06114"
+        width="47.864"
+        height="47.8775"
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feGaussianBlur
+          stdDeviation="2.04082"
+          result="effect1_foregroundBlur_3914_1946"
+        />
+      </filter>
+      <filter
+        id="ck_zora_filter_d"
+        x="10.9935"
+        y="-6.28533"
+        width="36.3265"
+        height="36.3265"
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feGaussianBlur
+          stdDeviation="4.08163"
+          result="effect1_foregroundBlur_3914_1946"
+        />
+      </filter>
+      <filter
+        id="ck_zora_filter_e"
+        x="19.7146"
+        y="2.43564"
+        width="18.8707"
+        height="18.8708"
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feGaussianBlur
+          stdDeviation="2.72108"
+          result="effect1_foregroundBlur_3914_1946"
+        />
+      </filter>
+      <filter
+        id="ck_zora_filter_f"
+        x="-13.4693"
+        y="-24.1087"
+        width="79.9318"
+        height="79.9321"
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feGaussianBlur
+          stdDeviation="2.04082"
+          result="effect1_foregroundBlur_3914_1946"
+        />
+      </filter>
+      <radialGradient
+        id="paint0_radial_3914_1946"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(29.2127 11.2756) rotate(128.228) scale(37.4897 37.4867)"
+      >
+        <stop offset="0.286458" stopColor="#387AFA" />
+        <stop offset="0.647782" stopColor="#387AFA" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient
+        id="paint1_radial_3914_1946"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(26.4967 15.8573) rotate(90) scale(35.8844 35.8844)"
+      >
+        <stop offset="0.598958" stopOpacity="0" />
+        <stop offset="0.671875" />
+        <stop offset="0.734375" stopOpacity="0" />
+      </radialGradient>
+    </defs>
+  </svg>
+);
+
 export default {
   UnknownChain,
+  Base,
   Ethereum,
   Polygon,
   Optimism,
@@ -625,4 +871,5 @@ export default {
   Filecoin,
   Metis,
   IoTeX,
+  Zora,
 };
