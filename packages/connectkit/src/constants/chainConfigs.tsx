@@ -74,6 +74,11 @@ export const chainConfigs: Chain[] = [
     logo: <Logos.Optimism testnet />,
   },
   {
+    id: 11155420,
+    name: 'Optimism Sepolia',
+    logo: <Logos.Optimism testnet />,
+  },
+  {
     id: 137,
     name: 'Polygon',
     logo: <Logos.Polygon />,
@@ -282,5 +287,30 @@ export const chainConfigs: Chain[] = [
     id: 4_690,
     name: 'IoTeX Testnet',
     logo: <Logos.IoTeX testnet />,
+  },
+  {
+    id: 8_453,
+    name: 'Base',
+    logo: <Logos.Base />,
+  },
+  {
+    id: 84_532,
+    name: 'Base Sepolia',
+    logo: <Logos.Base testnet />,
+  },
+  {
+    id: 7777777,
+    name: 'Zora',
+    logo: <Logos.Zora />,
+  },
+  {
+    id: 999999999,
+    name: 'Zora Sepolia',
+    logo: <Logos.Zora testnet />,
+  },
+  {
+    id: 999,
+    name: 'Zora Goerli Testnet',
+    logo: <Logos.Zora testnet />,
   },
 ];
