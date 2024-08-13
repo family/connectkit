@@ -6,6 +6,7 @@ import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 import {
   detectBrowser,
   isCoinbaseWalletConnector,
+  isMetaMaskConnector,
   isWalletConnectConnector,
 } from '../../utils';
 
@@ -37,7 +38,9 @@ const ConnectWithQRCode: React.FC<{
   } = useWeb3();
 
   const wcUri = getUri(id);
-  const uri = wcUri
+  const uri = isMetaMaskConnector(id)
+    ? wcUri // TODO: Rename this, in this case it will actually be the MetaMask URI
+    : wcUri
     ? wallet?.getWalletConnectDeeplink?.(wcUri) ?? wcUri
     : undefined;
 
