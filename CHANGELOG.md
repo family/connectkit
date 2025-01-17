@@ -1,3 +1,11 @@
+# 1.8.3
+
+This update upgrades the peer dependency `react` to `19.x`.
+
+## New
+
+- Add `Treasure` and `TreasureTopaz` chain icons.
+
 # 1.8.2
 
 This update includes improvements to the `CoinbaseWalletSDK` connect popup and `MockConnector`.
