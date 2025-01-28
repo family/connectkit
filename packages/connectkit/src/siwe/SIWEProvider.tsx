@@ -3,7 +3,7 @@ import { useAccount, useAccountEffect, useSignMessage } from 'wagmi';
 import { getAddress } from 'viem';
 import { useQuery } from '@tanstack/react-query';
 
-import { Context as ConnectKitContext } from './../components/ConnectKit';
+import { Context as ConnectKitContext } from '../components/FortKit';
 import {
   SIWEContext,
   SIWEConfig,

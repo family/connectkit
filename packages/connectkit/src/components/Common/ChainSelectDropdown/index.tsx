@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useContext } from './../../ConnectKit';
+import { useContext } from '../../FortKit';
 
 import useMeasure from 'react-use-measure';
 
@@ -110,12 +110,12 @@ const ChainSelectDropdown: React.FC<{
     if (
       !targetRef.current ||
       bounds.top +
-        bounds.bottom +
-        bounds.left +
-        bounds.right +
-        bounds.height +
-        bounds.width ===
-        0
+      bounds.bottom +
+      bounds.left +
+      bounds.right +
+      bounds.height +
+      bounds.width ===
+      0
     ) {
       return;
     }

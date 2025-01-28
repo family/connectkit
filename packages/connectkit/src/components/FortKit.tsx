@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
   ReactNode,
+  useMemo,
 } from 'react';
 import { Buffer } from 'buffer';
 import {
@@ -30,6 +31,8 @@ import { useConnector } from '../hooks/useConnectors';
 import { WagmiContext, useAccount } from 'wagmi';
 import { Web3ContextProvider } from './contexts/web3';
 import { useChainIsSupported } from '../hooks/useChainIsSupported';
+import Openfort, { OAuthProvider, OpenfortConfiguration } from '@openfort/openfort-js';
+import { OpenfortProvider, OpenfortProviderProps } from '../openfort/OpenfortProvider';
 
 export const routes = {
   OPENFORTLOGIN: 'openfortLogin',
@@ -66,7 +69,6 @@ type ContextValue = {
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptions;
-  openfortOptions: { thirdPartyAuth: string[] } // TODO: implement
   signInWithEthereum: boolean;
   debugMode?: boolean;
   log: (...props: any) => void;
@@ -76,6 +78,30 @@ type ContextValue = {
 } & useConnectCallbackProps;
 
 export const Context = createContext<ContextValue | null>(null);
+
+
+export enum FortOAuthProvider {
+  // OAuth Providers (from OAuthProvider) (enums cannot be extended)
+  GOOGLE = "google",
+  TWITTER = "twitter",
+  FACEBOOK = "facebook",
+  DISCORD = "discord",
+  EPIC_GAMES = "epic_games",
+  TELEGRAM = "telegram",
+  LINE = "line",
+
+  // Extended Providers
+  EMAIL = "email",
+  WALLET = "wallet",
+  GUEST = "guest",
+}
+
+export type OpenfortOptions = {
+  authProviders?: FortOAuthProvider[];
+
+  chainId?: number;
+
+};
 
 export type ConnectKitOptions = {
   language?: Languages;
@@ -99,7 +125,7 @@ export type ConnectKitOptions = {
   walletOnboardingUrl?: string;
   disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
   overlayBlur?: number; // Blur the background when the modal is open
-};
+} & OpenfortOptions;
 
 type ConnectKitProviderProps = {
   children?: React.ReactNode;
@@ -108,8 +134,7 @@ type ConnectKitProviderProps = {
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
   debugMode?: boolean;
-  openfortOptions?: { thirdPartyAuth: string[] };
-} & useConnectCallbackProps;
+} & useConnectCallbackProps & OpenfortProviderProps;
 
 /**
  * ConnectKitProvider component provides context and configuration for ConnectKit.
@@ -135,7 +160,10 @@ export const ConnectKitProvider = ({
   onConnect,
   onDisconnect,
   debugMode = false,
-  openfortOptions,
+
+  baseConfiguration,
+  shieldConfiguration,
+  overrides,
 }: ConnectKitProviderProps) => {
   // ConnectKitProvider must be within a WagmiProvider
   if (!React.useContext(WagmiContext)) {
@@ -181,6 +209,10 @@ export const ConnectKitProvider = ({
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
     disableSiweRedirect: false,
+
+    // Openfort options
+    authProviders: [],
+    chainId: undefined,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
@@ -238,6 +270,7 @@ export const ConnectKitProvider = ({
     }
   }, [injectedConnector]);
 
+
   const log = debugMode ? console.log : () => { };
 
   const value: ContextValue = {
@@ -262,7 +295,6 @@ export const ConnectKitProvider = ({
     errorMessage,
     debugMode,
     log,
-    openfortOptions: openfortOptions ?? { thirdPartyAuth: ["email", "Google", "Twitter", "Wallet"] },
     displayError: (message: string | React.ReactNode | null, code?: any) => {
       setErrorMessage(message);
       console.log('---------CONNECTKIT DEBUG---------');
@@ -274,20 +306,27 @@ export const ConnectKitProvider = ({
     triggerResize: () => onResize((prev) => prev + 1),
   };
 
+  console.log('----ConnectKitProvider', baseConfiguration, shieldConfiguration, overrides);
   return createElement(
     Context.Provider,
     { value },
     <>
       <Web3ContextProvider enabled={open}>
-        <ThemeProvider theme={defaultTheme}>
-          {children}
-          <ConnectKitModal
-            lang={ckLang}
-            theme={ckTheme}
-            mode={mode}
-            customTheme={ckCustomTheme}
-          />
-        </ThemeProvider>
+        <OpenfortProvider
+          baseConfiguration={baseConfiguration}
+          shieldConfiguration={shieldConfiguration}
+          overrides={overrides}
+        >
+          <ThemeProvider theme={defaultTheme}>
+            {children}
+            <ConnectKitModal
+              lang={ckLang}
+              theme={ckTheme}
+              mode={mode}
+              customTheme={ckCustomTheme}
+            />
+          </ThemeProvider>
+        </OpenfortProvider>
       </Web3ContextProvider>
     </>
   );

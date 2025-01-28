@@ -9,7 +9,7 @@ import {
 import CustomQRCode from '../../Common/CustomQRCode';
 
 import useLocales from '../../../hooks/useLocales';
-import { useContext } from '../../ConnectKit';
+import { useContext } from '../../FortKit';
 import { useWallet } from '../../../wallets/useWallets';
 
 const DownloadApp = () => {
@@ -32,8 +32,8 @@ const DownloadApp = () => {
     downloads.ios && downloads.android
       ? locales.downloadAppScreen_iosAndroid
       : downloads.ios
-      ? locales.downloadAppScreen_ios
-      : locales.downloadAppScreen_android;
+        ? locales.downloadAppScreen_ios
+        : locales.downloadAppScreen_android;
 
   return (
     <PageContent>

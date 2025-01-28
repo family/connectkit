@@ -9,7 +9,7 @@ import {
   CreateConnectorFn,
   Connector,
 } from 'wagmi';
-import { useContext } from '../components/ConnectKit';
+import { useContext } from '../components/FortKit';
 import { useLastConnector } from './useLastConnector';
 
 export function useConnect({ ...props }: UseConnectParameters = {}) {

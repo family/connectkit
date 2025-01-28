@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { routes, useContext } from './../../ConnectKit';
+import { routes, useContext } from '../../FortKit';
 
 import { flattenChildren, isMobile } from './../../../utils';
 
@@ -97,7 +97,7 @@ const SwitchChainButton = styled(motion.button)`
           cursor: pointer;
 
           @media only screen and (min-width: ${defaultTheme.mobileWidth +
-            1}px) {
+        1}px) {
             &:hover,
             &:focus-visible {
               color: var(--hover-color);

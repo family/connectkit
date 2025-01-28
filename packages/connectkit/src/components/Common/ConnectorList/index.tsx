@@ -1,4 +1,4 @@
-import { useContext, routes } from '../../ConnectKit';
+import { useContext, routes } from '../../FortKit';
 
 import {
   ConnectorsContainer,
@@ -22,6 +22,7 @@ import {
 } from '../../../utils';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useConnect } from '../../../hooks/useConnect';
+import { Connector } from 'wagmi';
 
 const ConnectorList = () => {
   const context = useContext();
@@ -34,15 +35,15 @@ const ConnectorList = () => {
     context.options?.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
       ? wallets
       : [
-          // move last used wallet to top of list
-          // using .filter and spread to avoid mutating original array order with .sort
-          ...wallets.filter(
-            (wallet) => lastConnectorId === wallet.connector.id
-          ),
-          ...wallets.filter(
-            (wallet) => lastConnectorId !== wallet.connector.id
-          ),
-        ];
+        // move last used wallet to top of list
+        // using .filter and spread to avoid mutating original array order with .sort
+        ...wallets.filter(
+          (wallet) => lastConnectorId === wallet.connector.id
+        ),
+        ...wallets.filter(
+          (wallet) => lastConnectorId !== wallet.connector.id
+        ),
+      ];
 
   return (
     <ScrollArea mobileDirection={'horizontal'}>
@@ -97,7 +98,7 @@ const ConnectorItem = ({
 
   let deeplink =
     (!wallet.isInstalled && isMobile) ||
-    (wallet.shouldDeeplinkDesktop && !isMobile)
+      (wallet.shouldDeeplinkDesktop && !isMobile)
       ? wallet.getWalletConnectDeeplink?.(uri ?? '')
       : undefined;
 
@@ -119,16 +120,16 @@ const ConnectorItem = ({
         deeplink
           ? undefined
           : () => {
-              if (redirectToMoreWallets) {
-                context.setRoute(routes.MOBILECONNECTORS);
-              } else {
-                if (shouldConnectImmediately) {
-                  connect({ connector: wallet?.connector });
-                }
-                context.setRoute(routes.CONNECT);
-                context.setConnector({ id: wallet.id });
+            if (redirectToMoreWallets) {
+              context.setRoute(routes.MOBILECONNECTORS);
+            } else {
+              if (shouldConnectImmediately) {
+                connect({ connector: wallet?.connector });
               }
+              context.setRoute(routes.CONNECT);
+              context.setConnector({ id: wallet.id });
             }
+          }
       }
     >
       <ConnectorIcon

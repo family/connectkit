@@ -2,7 +2,7 @@ import { Connector } from 'wagmi';
 
 import { useConnectors } from '../hooks/useConnectors';
 import { walletConfigs, WalletConfigProps } from './walletConfigs';
-import { useContext } from '../components/ConnectKit';
+import { useContext } from '../components/FortKit';
 import { isCoinbaseWalletConnector, isInjectedConnector } from '../utils';
 
 export type WalletProps = {

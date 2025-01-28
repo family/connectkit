@@ -32,7 +32,7 @@ import {
   SignInTooltip,
 } from './styles';
 
-import { routes, useContext } from '../../ConnectKit';
+import { routes, useContext } from '../../FortKit';
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
@@ -233,8 +233,8 @@ const Modal: React.FC<ModalProps> = ({
     context.route === routes.CONNECTORS
       ? 0
       : context.route === routes.DOWNLOAD
-      ? 2
-      : 1;
+        ? 2
+        : 1;
   const prevDepth = usePrevious(currentDepth, currentDepth);
   if (!positionInside) useLockBodyScroll(mounted);
 
@@ -328,6 +328,8 @@ const Modal: React.FC<ModalProps> = ({
     switch (context.route) {
       case routes.ABOUT:
         return locales.aboutScreen_heading;
+      case routes.OPENFORTLOGIN:
+        return "Login";// TODO: Localize
       case routes.CONNECT:
         if (shouldUseQrcode()) {
           return isWalletConnectConnector(wallet?.connector?.id)
@@ -380,10 +382,10 @@ const Modal: React.FC<ModalProps> = ({
         <Container
           style={dimensionsCSS}
           initial={false}
-          // transition={{
-          //   ease: [0.2555, 0.1111, 0.2555, 1.0001],
-          //   duration: !positionInside && state !== 'entered' ? 0 : 0.24,
-          // }}
+        // transition={{
+        //   ease: [0.2555, 0.1111, 0.2555, 1.0001],
+        //   duration: !positionInside && state !== 'entered' ? 0 : 0.24,
+        // }}
         >
           <div
             style={{

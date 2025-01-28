@@ -8,7 +8,7 @@ import {
   TextContainer,
   UnsupportedNetworkContainer,
 } from './styles';
-import { routes, useContext } from '../ConnectKit';
+import { routes, useContext } from '../FortKit';
 import { useModal } from '../../hooks/useModal';
 
 import Avatar from '../Common/Avatar';
@@ -297,6 +297,7 @@ function ConnectKitButtonInner({
             //padding: '0 5px',
           }}
         >
+          CONNECTBUTTON
           {label ? label : defaultLabel}
         </TextContainer>
       )}
@@ -342,7 +343,8 @@ export function ConnectKitButton({
 
   function show() {
     context.setOpen(true);
-    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    // context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    context.setRoute(isConnected ? routes.PROFILE : routes.OPENFORTLOGIN);
   }
 
   const separator = ['web95', 'rounded', 'minimal'].includes(
@@ -424,20 +426,20 @@ export function ConnectKitButton({
           customTheme={customTheme ?? context.customTheme}
           style={
             shouldShowBalance &&
-            showBalance &&
-            address &&
-            (theme === 'retro' || context.theme === 'retro')
+              showBalance &&
+              address &&
+              (theme === 'retro' || context.theme === 'retro')
               ? {
-                  /** Special fix for the retro theme... not happy about this one */
-                  boxShadow:
-                    'var(--ck-connectbutton-balance-connectbutton-box-shadow)',
-                  borderRadius:
-                    'var(--ck-connectbutton-balance-connectbutton-border-radius)',
-                  overflow: 'hidden',
-                }
+                /** Special fix for the retro theme... not happy about this one */
+                boxShadow:
+                  'var(--ck-connectbutton-balance-connectbutton-box-shadow)',
+                borderRadius:
+                  'var(--ck-connectbutton-balance-connectbutton-border-radius)',
+                overflow: 'hidden',
+              }
               : {
-                  overflow: 'hidden',
-                }
+                overflow: 'hidden',
+              }
           }
         >
           <ConnectKitButtonInner

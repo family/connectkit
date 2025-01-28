@@ -30,7 +30,7 @@ import { AlertIcon, TickIcon } from '../../../assets/icons';
 import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
-import { useContext } from '../../ConnectKit';
+import { useContext } from '../../FortKit';
 import { useWallet } from '../../../wallets/useWallets';
 import CircleSpinner from './CircleSpinner';
 
@@ -149,20 +149,20 @@ const ConnectWithInjector: React.FC<{
 
   const suggestedExtension = wallet?.downloadUrls
     ? {
-        name: Object.keys(wallet?.downloadUrls)[0],
-        label:
-          Object.keys(wallet?.downloadUrls)[0]?.charAt(0).toUpperCase() +
-          Object.keys(wallet?.downloadUrls)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
-        url: wallet?.downloadUrls[Object.keys(wallet?.downloadUrls)[0]],
-      }
+      name: Object.keys(wallet?.downloadUrls)[0],
+      label:
+        Object.keys(wallet?.downloadUrls)[0]?.charAt(0).toUpperCase() +
+        Object.keys(wallet?.downloadUrls)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+      url: wallet?.downloadUrls[Object.keys(wallet?.downloadUrls)[0]],
+    }
     : undefined;
 
   const [status, setStatus] = useState(
     forceState
       ? forceState
       : !wallet?.isInstalled
-      ? states.UNAVAILABLE
-      : states.CONNECTING
+        ? states.UNAVAILABLE
+        : states.CONNECTING
   );
 
   const locales = useLocales({
@@ -317,7 +317,7 @@ const ConnectWithInjector: React.FC<{
                   )
                 }
                 connecting={status === states.CONNECTING}
-                //unavailable={status === states.UNAVAILABLE}
+              //unavailable={status === states.UNAVAILABLE}
               />
             )}
             {/* </Tooltip> */}

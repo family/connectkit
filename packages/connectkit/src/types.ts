@@ -20,5 +20,5 @@ export type All = {
   lang?: Languages;
 };
 
-export type { ConnectKitOptions } from './components/ConnectKit';
+export type { ConnectKitOptions } from './components/FortKit';
 export type { CustomAvatarProps } from './components/Common/Avatar';

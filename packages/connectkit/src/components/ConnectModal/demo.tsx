@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAccount } from 'wagmi';
-import { routes, useContext } from '../ConnectKit';
+import { routes, useContext } from '../FortKit';
 import { CustomTheme, Languages, Theme, Mode } from '../../types';
 import Modal from '../Common/Modal';
 
@@ -98,169 +98,169 @@ const ConnectModal: React.FC<{
   open,
   onClose,
 }) => {
-  const context = useContext();
+    const context = useContext();
 
-  const { isConnected, chain } = useAccount();
-  const chainIsSupported = useChainIsSupported(chain?.id);
+    const { isConnected, chain } = useAccount();
+    const chainIsSupported = useChainIsSupported(chain?.id);
 
-  //if chain is unsupported we enforce a "switch chain" prompt
-  const closeable = !(
-    context.options?.enforceSupportedChains &&
-    isConnected &&
-    !chainIsSupported
-  );
+    //if chain is unsupported we enforce a "switch chain" prompt
+    const closeable = !(
+      context.options?.enforceSupportedChains &&
+      isConnected &&
+      !chainIsSupported
+    );
 
-  const showBackButton =
-    closeable &&
-    context.route !== routes.CONNECTORS &&
-    context.route !== routes.PROFILE;
+    const showBackButton =
+      closeable &&
+      context.route !== routes.CONNECTORS &&
+      context.route !== routes.PROFILE;
 
-  const showInfoButton = closeable && context.route !== routes.PROFILE;
+    const showInfoButton = closeable && context.route !== routes.PROFILE;
 
-  const onBack = () => {
-    if (context.route === routes.SIGNINWITHETHEREUM) {
-      context.setRoute(routes.PROFILE);
-    } else if (context.route === routes.SWITCHNETWORKS) {
-      context.setRoute(routes.PROFILE);
-    } else if (context.route === routes.DOWNLOAD) {
-      context.setRoute(routes.CONNECT);
-    } else {
-      context.setRoute(routes.CONNECTORS);
-    }
-  };
-
-  const pages: any = {
-    onboarding: <Onboarding />,
-    about: <About />,
-    download: <DownloadApp />,
-    connectors: <Connectors />,
-    mobileConnectors: <MobileConnectors />,
-    connect: <ConnectUsing />,
-    profile: <Profile closeModal={() => setIsOpen(false)} />,
-    switchNetworks: <SwitchNetworks />,
-    signInWithEthereum: <SignInWithEthereum />,
-  };
-
-  const ref = useRef<HTMLDivElement | null>(null);
-  const cursorRef = useRef<HTMLDivElement | null>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(open ?? false);
-
-  useEffect(() => {
-    if (open)
-      context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
-    setIsOpen(open ?? false);
-  }, [open]);
-
-  useEffect(() => {
-    if (isOpen)
-      context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen && inline) {
-      if (onClose) {
-        if (cursorRef.current) {
-          cursorRef.current.classList.remove('play');
-          void cursorRef.current.offsetWidth;
-          cursorRef.current.classList.add('play');
-        }
-        setTimeout(() => {
-          setIsOpen(true);
-        }, 1500);
+    const onBack = () => {
+      if (context.route === routes.SIGNINWITHETHEREUM) {
+        context.setRoute(routes.PROFILE);
+      } else if (context.route === routes.SWITCHNETWORKS) {
+        context.setRoute(routes.PROFILE);
+      } else if (context.route === routes.DOWNLOAD) {
+        context.setRoute(routes.CONNECT);
       } else {
-        setTimeout(() => {
-          setIsOpen(true);
-        }, 500);
+        context.setRoute(routes.CONNECTORS);
       }
-    }
-  }, [isOpen]);
-  //useEffect(() => setIsOpen(false), [isConnected]);
+    };
 
-  const onModalClose = () => {
-    if (onClose) {
-      setIsOpen(false);
-      onClose();
-    } else {
-      if (ref.current) {
-        // reset animation
-        ref.current.classList.remove('shake');
-        void ref.current.offsetWidth;
-        ref.current.classList.add('shake');
-      }
-    }
-  };
+    const pages: any = {
+      onboarding: <Onboarding />,
+      about: <About />,
+      download: <DownloadApp />,
+      connectors: <Connectors />,
+      mobileConnectors: <MobileConnectors />,
+      connect: <ConnectUsing />,
+      profile: <Profile closeModal={() => setIsOpen(false)} />,
+      switchNetworks: <SwitchNetworks />,
+      signInWithEthereum: <SignInWithEthereum />,
+    };
 
-  useEffect(() => {
-    if (isConnected) {
-      if (
-        context.route !== routes.PROFILE ||
-        context.route !== routes.SIGNINWITHETHEREUM
-      ) {
-        if (
-          context.signInWithEthereum &&
-          !context.options?.disableSiweRedirect
-        ) {
-          context.setRoute(routes.SIGNINWITHETHEREUM);
+    const ref = useRef<HTMLDivElement | null>(null);
+    const cursorRef = useRef<HTMLDivElement | null>(null);
+    const [isOpen, setIsOpen] = useState<boolean>(open ?? false);
+
+    useEffect(() => {
+      if (open)
+        context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+      setIsOpen(open ?? false);
+    }, [open]);
+
+    useEffect(() => {
+      if (isOpen)
+        context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    }, [isOpen]);
+
+    useEffect(() => {
+      if (!isOpen && inline) {
+        if (onClose) {
+          if (cursorRef.current) {
+            cursorRef.current.classList.remove('play');
+            void cursorRef.current.offsetWidth;
+            cursorRef.current.classList.add('play');
+          }
+          setTimeout(() => {
+            setIsOpen(true);
+          }, 1500);
         } else {
-          onModalClose(); // Hide on connect
+          setTimeout(() => {
+            setIsOpen(true);
+          }, 500);
         }
       }
-    } else {
-      onModalClose(); // Hide on connect
-    }
-  }, [isConnected]);
+    }, [isOpen]);
+    //useEffect(() => setIsOpen(false), [isConnected]);
 
-  /* When pulling data into WalletConnect, it prioritises the og:title tag over the title tag */
-  useEffect(() => {
-    const appName = getAppName();
-    if (!appName || (!open && !inline)) return;
-
-    const title = document.createElement('meta');
-    title.setAttribute('property', 'og:title');
-    title.setAttribute('content', appName);
-    document.head.prepend(title);
-
-    return () => {
-      document.head.removeChild(title);
+    const onModalClose = () => {
+      if (onClose) {
+        setIsOpen(false);
+        onClose();
+      } else {
+        if (ref.current) {
+          // reset animation
+          ref.current.classList.remove('shake');
+          void ref.current.offsetWidth;
+          ref.current.classList.add('shake');
+        }
+      }
     };
-  }, [open, inline]);
 
-  return (
-    <Web3ContextProvider enabled={isOpen}>
-      <ConnectKitThemeProvider
-        theme={theme}
-        customTheme={customTheme}
-        mode={mode}
-      >
-        <Container ref={ref}>
-          {inline && onClose && (
-            <>
-              <Cursor ref={cursorRef} />
-              <ButtonContainer>
-                <ConnectKitButton
-                  customTheme={customTheme}
-                  theme={theme}
-                  mode={mode}
-                />
-              </ButtonContainer>
-            </>
-          )}
-          <Modal
-            demo={{ theme: theme, customTheme: customTheme, mode: mode }}
-            onClose={closeable ? onModalClose : undefined}
-            positionInside={inline}
-            open={isOpen}
-            pages={pages}
-            pageId={context.route}
-            onInfo={
-              showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
-            }
-            onBack={showBackButton ? onBack : undefined}
-          />
-        </Container>
-      </ConnectKitThemeProvider>
-    </Web3ContextProvider>
-  );
-};
+    useEffect(() => {
+      if (isConnected) {
+        if (
+          context.route !== routes.PROFILE ||
+          context.route !== routes.SIGNINWITHETHEREUM
+        ) {
+          if (
+            context.signInWithEthereum &&
+            !context.options?.disableSiweRedirect
+          ) {
+            context.setRoute(routes.SIGNINWITHETHEREUM);
+          } else {
+            onModalClose(); // Hide on connect
+          }
+        }
+      } else {
+        onModalClose(); // Hide on connect
+      }
+    }, [isConnected]);
+
+    /* When pulling data into WalletConnect, it prioritises the og:title tag over the title tag */
+    useEffect(() => {
+      const appName = getAppName();
+      if (!appName || (!open && !inline)) return;
+
+      const title = document.createElement('meta');
+      title.setAttribute('property', 'og:title');
+      title.setAttribute('content', appName);
+      document.head.prepend(title);
+
+      return () => {
+        document.head.removeChild(title);
+      };
+    }, [open, inline]);
+
+    return (
+      <Web3ContextProvider enabled={isOpen}>
+        <ConnectKitThemeProvider
+          theme={theme}
+          customTheme={customTheme}
+          mode={mode}
+        >
+          <Container ref={ref}>
+            {inline && onClose && (
+              <>
+                <Cursor ref={cursorRef} />
+                <ButtonContainer>
+                  <ConnectKitButton
+                    customTheme={customTheme}
+                    theme={theme}
+                    mode={mode}
+                  />
+                </ButtonContainer>
+              </>
+            )}
+            <Modal
+              demo={{ theme: theme, customTheme: customTheme, mode: mode }}
+              onClose={closeable ? onModalClose : undefined}
+              positionInside={inline}
+              open={isOpen}
+              pages={pages}
+              pageId={context.route}
+              onInfo={
+                showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
+              }
+              onBack={showBackButton ? onBack : undefined}
+            />
+          </Container>
+        </ConnectKitThemeProvider>
+      </Web3ContextProvider>
+    );
+  };
 
 export default ConnectModal;

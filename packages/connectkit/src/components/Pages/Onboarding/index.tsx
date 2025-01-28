@@ -22,7 +22,7 @@ import wave from '../../../assets/wave';
 
 import Button from '../../Common/Button';
 import useLocales from '../../../hooks/useLocales';
-import { useContext } from '../../ConnectKit';
+import { useContext } from '../../FortKit';
 
 const Introduction: React.FC = () => {
   const context = useContext();

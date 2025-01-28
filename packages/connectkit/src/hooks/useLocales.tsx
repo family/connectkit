@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import Logos from '../assets/logos';
 
-import { useContext } from '../components/ConnectKit';
+import { useContext } from '../components/FortKit';
 
 import { getLocale } from './../localizations';
 

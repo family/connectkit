@@ -5,7 +5,7 @@ import { EnsAvatar, ImageContainer } from './styles';
 import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
 import { normalize } from 'viem/ens';
 import { ResetContainer } from '../../../styles';
-import { useContext } from '../../ConnectKit';
+import { useContext } from '../../FortKit';
 import useIsMounted from '../../../hooks/useIsMounted';
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
 

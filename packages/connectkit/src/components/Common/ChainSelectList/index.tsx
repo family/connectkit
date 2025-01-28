@@ -20,7 +20,7 @@ import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
-import { useContext } from '../../ConnectKit';
+import { useContext } from '../../FortKit';
 
 const Spinner = (
   <svg
@@ -131,14 +131,14 @@ const ChainSelectList = ({
                         animate={
                           // UI fix for Coinbase Wallet on mobile does not remove isPending on rejection event
                           mobile &&
-                          isCoinbaseWalletConnector(connector?.id) &&
-                          isPending &&
-                          pendingChainId === ch.id
+                            isCoinbaseWalletConnector(connector?.id) &&
+                            isPending &&
+                            pendingChainId === ch.id
                             ? {
-                                opacity: [1, 0],
+                              opacity: [1, 0],
 
-                                transition: { delay: 4, duration: 3 },
-                              }
+                              transition: { delay: 4, duration: 3 },
+                            }
                             : { opacity: 1 }
                         }
                       >

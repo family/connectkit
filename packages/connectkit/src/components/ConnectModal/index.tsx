@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
-import { routes, useContext } from '../ConnectKit';
+import { routes, useContext } from '../FortKit';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
@@ -17,6 +17,7 @@ import SignInWithEthereum from '../Pages/SignInWithEthereum';
 import { getAppIcon, getAppName } from '../../defaultConfig';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
+import OpenfortLogin from '../Pages/OpenfortLogin';
 
 const customThemeDefault: object = {};
 
@@ -25,12 +26,7 @@ const ConnectModal: React.FC<{
   theme?: Theme;
   customTheme?: CustomTheme;
   lang?: Languages;
-}> = ({
-  mode = 'auto',
-  theme = 'auto',
-  customTheme = customThemeDefault,
-  lang = 'en-US',
-}) => {
+}> = ({ mode = 'auto', theme = 'auto', customTheme = customThemeDefault, lang = 'en-US' }) => {
   const context = useContext();
   const { isConnected, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
@@ -44,7 +40,7 @@ const ConnectModal: React.FC<{
 
   const showBackButton =
     closeable &&
-    context.route !== routes.CONNECTORS &&
+    context.route !== routes.OPENFORTLOGIN &&
     context.route !== routes.PROFILE;
 
   const showInfoButton = closeable && context.route !== routes.PROFILE;
@@ -57,7 +53,7 @@ const ConnectModal: React.FC<{
     } else if (context.route === routes.DOWNLOAD) {
       context.setRoute(routes.CONNECT);
     } else {
-      context.setRoute(routes.CONNECTORS);
+      context.setRoute(routes.OPENFORTLOGIN);
     }
   };
 
@@ -67,6 +63,7 @@ const ConnectModal: React.FC<{
     download: <DownloadApp />,
     connectors: <Connectors />,
     mobileConnectors: <MobileConnectors />,
+    openfortLogin: <OpenfortLogin />,
     connect: <ConnectUsing />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,

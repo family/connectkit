@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useContext } from '../../ConnectKit';
+import { useContext } from '../../FortKit';
 
 import {
   PageContent,
@@ -46,17 +46,17 @@ const SignInWithEthereum: React.FC = () => {
   const copy =
     status === 'signedIn'
       ? {
-          heading: locales.signInWithEthereumScreen_signedIn_heading,
-          h1: locales.signInWithEthereumScreen_signedIn_h1,
-          p: locales.signInWithEthereumScreen_signedIn_p,
-          button: locales.signInWithEthereumScreen_signedIn_button,
-        }
+        heading: locales.signInWithEthereumScreen_signedIn_heading,
+        h1: locales.signInWithEthereumScreen_signedIn_h1,
+        p: locales.signInWithEthereumScreen_signedIn_p,
+        button: locales.signInWithEthereumScreen_signedIn_button,
+      }
       : {
-          heading: locales.signInWithEthereumScreen_signedOut_heading,
-          h1: locales.signInWithEthereumScreen_signedOut_h1,
-          p: locales.signInWithEthereumScreen_signedOut_p,
-          button: locales.signInWithEthereumScreen_signedOut_button,
-        };
+        heading: locales.signInWithEthereumScreen_signedOut_heading,
+        h1: locales.signInWithEthereumScreen_signedOut_h1,
+        p: locales.signInWithEthereumScreen_signedOut_p,
+        button: locales.signInWithEthereumScreen_signedOut_button,
+      };
 
   useEffect(() => {
     if (isSignedIn) setStatus('signedIn');
@@ -147,10 +147,10 @@ const SignInWithEthereum: React.FC = () => {
               mobile
                 ? false
                 : {
-                    opacity: 0,
-                    x: 50,
-                    scale: 0.8,
-                  }
+                  opacity: 0,
+                  x: 50,
+                  scale: 0.8,
+                }
             }
             animate={{
               opacity: 1,
@@ -169,8 +169,8 @@ const SignInWithEthereum: React.FC = () => {
               mobile
                 ? false
                 : {
-                    scale: 0.6,
-                  }
+                  scale: 0.6,
+                }
             }
             animate={{
               scale: 1,
@@ -189,10 +189,10 @@ const SignInWithEthereum: React.FC = () => {
               mobile
                 ? false
                 : {
-                    opacity: 0,
-                    x: -40,
-                    scale: 0.8,
-                  }
+                  opacity: 0,
+                  x: -40,
+                  scale: 0.8,
+                }
             }
             animate={{
               opacity: 1,

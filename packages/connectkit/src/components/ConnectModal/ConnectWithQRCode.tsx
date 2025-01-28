@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes, useContext } from '../ConnectKit';
+import { routes, useContext } from '../FortKit';
 
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
@@ -62,12 +62,12 @@ const ConnectWithQRCode: React.FC<{
 
   const suggestedExtension = extensions
     ? {
-        name: Object.keys(extensions)[0],
-        label:
-          Object.keys(extensions)[0]?.charAt(0).toUpperCase() +
-          Object.keys(extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
-        url: extensions[Object.keys(extensions)[0]],
-      }
+      name: Object.keys(extensions)[0],
+      label:
+        Object.keys(extensions)[0]?.charAt(0).toUpperCase() +
+        Object.keys(extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+      url: extensions[Object.keys(extensions)[0]],
+    }
     : undefined;
 
   const showAdditionalOptions = isWalletConnectConnector(id);

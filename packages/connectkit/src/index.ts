@@ -14,7 +14,11 @@ export {
 } from './siwe';
 export type { SIWESession, SIWEConfig } from './siwe';
 
-export { ConnectKitProvider, Context } from './components/ConnectKit';
+export {
+  ConnectKitProvider as FortKitProvider,
+  Context as FortKitContext,
+  FortOAuthProvider
+} from './components/FortKit';
 export { ConnectKitButton } from './components/ConnectButton';
 export { default as SIWEButton } from './components/Standard/SIWE';
 

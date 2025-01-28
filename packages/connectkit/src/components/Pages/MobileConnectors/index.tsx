@@ -9,7 +9,7 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import { useContext } from '../../ConnectKit';
+import { useContext } from '../../FortKit';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import useLocales from '../../../hooks/useLocales';

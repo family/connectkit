@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import { useContext } from '../ConnectKit';
+import { useContext } from '../FortKit';
 import { useWallet } from '../../wallets/useWallets';
 
 import ConnectWithInjector from './ConnectWithInjector';
@@ -42,6 +42,7 @@ const ConnectUsing = () => {
 
   return (
     <AnimatePresence>
+      fefwe
       {status === states.QRCODE && (
         <motion.div
           key={states.QRCODE}
