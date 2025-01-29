@@ -11,7 +11,7 @@ export type Theme =
   | 'rounded'
   | 'nouns';
 export type Mode = 'light' | 'dark' | 'auto';
-export type CustomTheme = any; // TODO: define type
+export type CustomTheme = any; // OLD_TODO: define type
 
 export type All = {
   theme?: Theme;

@@ -28,7 +28,7 @@ import { default as caAD } from './locales/ca-AD';
 import { default as trTR } from './locales/tr-TR';
 import { default as viVN } from './locales/vi-VN';
 
-// TODO: tree-shaking
+// OLD_TODO: tree-shaking
 export const getLocale = (lang: Languages) => {
   switch (lang) {
     case 'ee-EE':

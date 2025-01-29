@@ -227,7 +227,7 @@ const ConnectWithInjector: React.FC<{
     );
   }
 
-  // TODO: Make this more generic
+  // OLD_TODO: Make this more generic
   if (isWalletConnectConnector(wallet?.connector.id)) {
     return (
       <PageContent>

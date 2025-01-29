@@ -113,7 +113,7 @@ const ConnectModal: React.FC<{
     document.head.prepend(title);
 
     /*
-    // TODO:  When pulling data into WalletConnect, figure out which icon gets used and replace with appIcon if available 
+    // OLD_TODO:  When pulling data into WalletConnect, figure out which icon gets used and replace with appIcon if available 
     const appIcon = getAppIcon();
     const icon = document.createElement('link');
     if (appIcon) {

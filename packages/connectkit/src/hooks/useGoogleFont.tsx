@@ -30,7 +30,7 @@ export function useGoogleFont(font: string) {
   }, [font]);
 }
 
-// TODO: This could be dynamic if theming wasn't set up as css variables
+// OLD_TODO: This could be dynamic if theming wasn't set up as css variables
 export function useThemeFont(theme: Theme) {
   const themeFonts: any = {
     web95: 'Lato',

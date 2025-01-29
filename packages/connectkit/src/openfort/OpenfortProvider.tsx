@@ -121,8 +121,8 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
         setUserIfNull();
 
         log("Embedded signer not configured", automaticRecovery);
-        // new-todo:allow configuration of embedded signer
-        // new-todo:separate function
+        // TODO:allow configuration of embedded signer
+        // TODO:separate function
         if (automaticRecovery) {
           log("Automatic recovery enabled, configuring embedded signer");
           handleRecovery({
@@ -160,7 +160,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
   // ---- Recovery ----
   const getEncryptionSession = async (): Promise<string> => {
-    const resp = await fetch(`/api/protected-create-encryption-session`, { // new-todo:replace with variable
+    const resp = await fetch(`/api/protected-create-encryption-session`, { // TODO:replace with variable
       method: "POST",
       headers: {
         "Content-Type": "application/json",

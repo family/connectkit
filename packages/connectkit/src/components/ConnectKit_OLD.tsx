@@ -66,7 +66,7 @@ type ContextValue = {
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptions;
-  openfortOptions: { thirdPartyAuth: string[] } // TODO: implement
+  openfortOptions: { thirdPartyAuth: string[] } // OLD_TODO: implement
   signInWithEthereum: boolean;
   debugMode?: boolean;
   log: (...props: any) => void;

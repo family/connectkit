@@ -66,7 +66,7 @@ export const SIWEButton: React.FC<ButtonProps> = ({
   }
 
   if (!connectedAddress) {
-    // TODO: discuss non-connected wallet developer expectations
+    // OLD_TODO: discuss non-connected wallet developer expectations
     return (
       <Button
         key="button"

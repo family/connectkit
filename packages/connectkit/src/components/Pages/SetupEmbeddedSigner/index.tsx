@@ -15,7 +15,7 @@ const SetupEmbeddedSigner: React.FC = () => {
   // // Configure embedded signer
   // useEffect(() => {
 
-  //   // new-todo:allow configuration of embedded signer
+  //   // TODO:allow configuration of embedded signer
   //   if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
   //     handleRecovery({
   //       method: "automatic",

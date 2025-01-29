@@ -329,7 +329,7 @@ const Modal: React.FC<ModalProps> = ({
       case routes.ABOUT:
         return locales.aboutScreen_heading;
       case routes.OPENFORTLOGIN:
-        return "Login";// TODO: Localize
+        return "Login";// OLD_TODO: Localize
       case routes.CONNECT:
         if (shouldUseQrcode()) {
           return isWalletConnectConnector(wallet?.connector?.id)
@@ -590,7 +590,7 @@ const Modal: React.FC<ModalProps> = ({
               {Object.keys(pages).map((key) => {
                 const page = pages[key];
                 return (
-                  // TODO: We may need to use the follow check avoid unnecessary computations, but this causes a bug where the content flashes
+                  // OLD_TODO: We may need to use the follow check avoid unnecessary computations, but this causes a bug where the content flashes
                   // (key === pageId || key === prevPage) && (
                   <Page
                     key={key}

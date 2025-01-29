@@ -477,7 +477,7 @@ export const SlideTwo = ({ layoutId }: Slide) => {
 };
 
 export const SlideThree = ({ layoutId }: Slide) => {
-  const id = Math.random(); // TODO: Better unique ID handling
+  const id = Math.random(); // OLD_TODO: Better unique ID handling
   return (
     <>
       <motion.div

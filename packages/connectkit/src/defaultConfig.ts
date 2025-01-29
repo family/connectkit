@@ -5,7 +5,7 @@ import { CoinbaseWalletParameters } from 'wagmi/connectors';
 
 import defaultConnectors from './defaultConnectors';
 
-// TODO: Move these to a provider rather than global variable
+// OLD_TODO: Move these to a provider rather than global variable
 let globalAppName: string;
 let globalAppIcon: string;
 export const getAppName = () => globalAppName;
@@ -37,7 +37,7 @@ const defaultConfig = ({
   globalAppName = appName;
   if (appIcon) globalAppIcon = appIcon;
 
-  // TODO: nice to have, automate transports based on chains, but for now just provide public if not provided
+  // OLD_TODO: nice to have, automate transports based on chains, but for now just provide public if not provided
   const transports: CreateConfigParameters['transports'] =
     props?.transports ??
     Object.fromEntries(chains.map((chain) => [chain.id, http()]));

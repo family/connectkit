@@ -32,5 +32,5 @@ export { default as useIsMounted } from './hooks/useIsMounted'; // Useful for ap
 export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
 
-// TODO: Make this private
+// OLD_TODO: Make this private
 export { default as ConnectKitModalDemo } from './components/ConnectModal/demo';

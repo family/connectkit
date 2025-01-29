@@ -69,7 +69,7 @@ const SignInWithEthereum: React.FC = () => {
   const { address } = useAccount();
 
   // We use the favicon for the dApp logo because that's how the connectors do it
-  // TODO: Allow for dev customisation
+  // OLD_TODO: Allow for dev customisation
   const getFavicons = () => {
     const favicons: { svg: string | null; default: string | null } = {
       svg: null,

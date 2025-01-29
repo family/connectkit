@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
     };
   }
 
-  // TODO: check for token
+  // OLD_TODO: check for token
 
   return {
     props: { isCollector: true, address },
