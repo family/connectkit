@@ -31,7 +31,7 @@ import { useConnector } from '../hooks/useConnectors';
 import { WagmiContext, useAccount } from 'wagmi';
 import { Web3ContextProvider } from './contexts/web3';
 import { useChainIsSupported } from '../hooks/useChainIsSupported';
-import Openfort, { OAuthProvider, OpenfortConfiguration } from '@openfort/openfort-js';
+import Openfort, { OAuthProvider, OpenfortConfiguration, RecoveryMethod, } from '@openfort/openfort-js';
 import { OpenfortProvider, OpenfortProviderProps } from '../openfort/OpenfortProvider';
 
 export const routes = {
@@ -45,7 +45,8 @@ export const routes = {
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
   SIGNINWITHETHEREUM: 'signInWithEthereum',
-};
+  SETUP_EMBEDDED_SIGNER: 'setupEmbeddedSigner',
+} as const;
 
 type Connector = {
   id: string;
@@ -99,7 +100,6 @@ export enum FortOAuthProvider {
 export type OpenfortOptions = {
   authProviders?: FortOAuthProvider[];
 
-  chainId?: number;
 
 };
 
@@ -134,6 +134,8 @@ type ConnectKitProviderProps = {
   customTheme?: CustomTheme;
   options?: ConnectKitOptions;
   debugMode?: boolean;
+
+  chainId: number;
 } & useConnectCallbackProps & OpenfortProviderProps;
 
 /**
@@ -164,6 +166,8 @@ export const ConnectKitProvider = ({
   baseConfiguration,
   shieldConfiguration,
   overrides,
+  chainId,
+  recoveryMethod,
 }: ConnectKitProviderProps) => {
   // ConnectKitProvider must be within a WagmiProvider
   if (!React.useContext(WagmiContext)) {
@@ -212,7 +216,6 @@ export const ConnectKitProvider = ({
 
     // Openfort options
     authProviders: [],
-    chainId: undefined,
   };
 
   const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
@@ -306,7 +309,6 @@ export const ConnectKitProvider = ({
     triggerResize: () => onResize((prev) => prev + 1),
   };
 
-  console.log('----ConnectKitProvider', baseConfiguration, shieldConfiguration, overrides);
   return createElement(
     Context.Provider,
     { value },
@@ -316,6 +318,9 @@ export const ConnectKitProvider = ({
           baseConfiguration={baseConfiguration}
           shieldConfiguration={shieldConfiguration}
           overrides={overrides}
+          debugMode={debugMode}
+          recoveryMethod={recoveryMethod}
+        // chainId={chainId}
         >
           <ThemeProvider theme={defaultTheme}>
             {children}
@@ -332,7 +337,7 @@ export const ConnectKitProvider = ({
   );
 };
 
-export const useContext = () => {
+export const useFortKit = () => {
   const context = React.useContext(Context);
   if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
   return context;

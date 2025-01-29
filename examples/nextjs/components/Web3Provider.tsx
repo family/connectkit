@@ -1,21 +1,22 @@
+"use client";
 import React from 'react';
 
-import { OAuthProvider } from '@openfort/openfort-js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { FortKitProvider, FortOAuthProvider, getDefaultConfig } from 'connectkit';
+import { polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
+import { RecoveryMethod } from '@openfort/openfort-js';
 
 const config = createConfig(
   getDefaultConfig({
-    appName: 'ConnectKit Next.js demo',
-    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+    appName: 'FortKit Next.js demo',
   })
 );
 
 const queryClient = new QueryClient();
+const chainId = polygonAmoy.id
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
-  console.log("process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY", process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY);
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
@@ -26,6 +27,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           shieldConfiguration={{
             shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
           }}
+          recoveryMethod={RecoveryMethod.PASSWORD}
 
           options={
             {
@@ -35,6 +37,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
               ],
             }
           }
+          chainId={chainId}
           debugMode
           // theme='nouns'
           mode='dark'

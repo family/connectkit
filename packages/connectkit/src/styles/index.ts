@@ -136,23 +136,23 @@ const themeColors = {
 const createCssVars = (scheme: any, important?: boolean) => {
   return css`
     ${Object.keys(scheme).map((key) => {
-      const value = scheme[key];
-      return value && `${key}:${value};`;
-    })}
+    const value = scheme[key];
+    return value && `${key}:${value};`;
+  })}
   `;
 };
 const createCssColors = (scheme: any, override?: boolean) => {
   const important = override ? ' !important' : '';
   return css`
     ${Object.keys(scheme).map((key) => {
-      const value = scheme[key];
-      return value && `${key}:${value}${important};`;
-    })}
+    const value = scheme[key];
+    return value && `${key}:${value}${important};`;
+  })}
     @supports (color: color(display-p3 1 1 1)) {
       ${Object.keys(scheme).map((key) => {
-        const value = scheme[key];
-        return `${key}:${hexToP3(value)}${important};`;
-      })}
+    const value = scheme[key];
+    return `${key}:${hexToP3(value)}${important};`;
+  })}
     }
   `;
 };
@@ -196,7 +196,7 @@ const globalsDark = css`
 // TODO: Merge theme objects instead of overriding
 
 let mode = 'auto';
-export const ResetContainer = styled(motion.div)<{
+export const ResetContainer = styled(motion.div) <{
   $useTheme?: string;
   $useMode?: string;
   $customTheme?: CustomTheme;

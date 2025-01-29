@@ -1,15 +1,21 @@
 import React from "react";
 import { PageContent } from "../../Common/Modal/styles";
-import { FortOAuthProvider, routes, useContext } from "../../FortKit";
+import { FortOAuthProvider, routes, useFortKit } from "../../FortKit";
 import ConnectorList from "../../Common/ConnectorList";
 import Button from "../../Common/Button";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 
 const GuestButton: React.FC = () => {
   const { signUpGuest } = useOpenfort();
+  const { setRoute } = useFortKit();
+
+  const handleClick = () => {
+    signUpGuest();
+    setRoute(routes.SETUP_EMBEDDED_SIGNER);
+  }
 
   return (
-    <Button onClick={signUpGuest}>Guest login</Button>
+    <Button onClick={handleClick}>Guest login</Button>
   )
 }
 
@@ -24,7 +30,7 @@ const ProviderButton: React.FC<{ provider: FortOAuthProvider }> = ({ provider })
 
 
 const OpenfortLogin: React.FC = () => {
-  const { options, setRoute } = useContext();
+  const { options, setRoute } = useFortKit();
 
   return (
     <PageContent>

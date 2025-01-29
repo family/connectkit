@@ -30,7 +30,7 @@ import { AlertIcon, TickIcon } from '../../../assets/icons';
 import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
-import { useContext } from '../../FortKit';
+import { useFortKit } from '../../FortKit';
 import { useWallet } from '../../../wallets/useWallets';
 import CircleSpinner from './CircleSpinner';
 
@@ -126,7 +126,7 @@ const ConnectWithInjector: React.FC<{
     },
   });
 
-  const { triggerResize, connector: c } = useContext();
+  const { triggerResize, connector: c } = useFortKit();
   const id = c.id;
   const wallet = useWallet(id);
 

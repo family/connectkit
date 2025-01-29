@@ -1,5 +1,5 @@
 import { useAccount } from 'wagmi';
-import { routes, useContext } from '../components/FortKit';
+import { routes, useFortKit } from '../components/FortKit';
 import { useSIWE } from '../siwe';
 import {
   useConnectCallback,
@@ -31,7 +31,7 @@ type ValidRoutes = ModalRoutes;
 type UseModalProps = {} & useConnectCallbackProps;
 
 export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
-  const context = useContext();
+  const context = useFortKit();
 
   useConnectCallback({
     onConnect,

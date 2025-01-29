@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { Connector, useAccount } from 'wagmi';
-import { useContext } from '../../components/FortKit';
+import { useFortKit } from '../../components/FortKit';
 import { useConnect } from '../useConnect';
 import { useWalletConnectConnector } from './../useConnectors';
 
@@ -14,7 +14,7 @@ export function useWalletConnectUri(
     enabled: true,
   }
 ) {
-  const { log } = useContext();
+  const { log } = useFortKit();
 
   const [uri, setUri] = useState<string | undefined>(undefined);
 

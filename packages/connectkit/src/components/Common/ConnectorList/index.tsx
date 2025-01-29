@@ -1,4 +1,4 @@
-import { useContext, routes } from '../../FortKit';
+import { useFortKit, routes } from '../../FortKit';
 
 import {
   ConnectorsContainer,
@@ -25,7 +25,7 @@ import { useConnect } from '../../../hooks/useConnect';
 import { Connector } from 'wagmi';
 
 const ConnectorList = () => {
-  const context = useContext();
+  const context = useFortKit();
   const isMobile = useIsMobile();
 
   const wallets = useWallets();
@@ -82,7 +82,7 @@ const ConnectorItem = ({
   } = useWeb3();
   const uri = getUri();
   const isMobile = useIsMobile();
-  const context = useContext();
+  const context = useFortKit();
 
   const { connect } = useConnect();
 

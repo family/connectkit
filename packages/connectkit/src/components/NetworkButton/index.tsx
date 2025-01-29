@@ -14,7 +14,7 @@ import ChainSelectDropdown from '../Common/ChainSelectDropdown';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { motion } from 'framer-motion';
 import styled from './../../styles/styled';
-import { useContext } from '../FortKit';
+import { useFortKit } from '../FortKit';
 
 const Container = styled(motion.div)`
   position: relative;
@@ -49,7 +49,7 @@ const NetworkButton: React.FC<NetworkButtonProps & All> = ({
   hideIcon,
   hideName,
 }) => {
-  const context = useContext();
+  const context = useFortKit();
   const isMounted = useIsMounted();
 
   const [open, setOpen] = useState(false);

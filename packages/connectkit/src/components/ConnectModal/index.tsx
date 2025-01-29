@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
-import { routes, useContext } from '../FortKit';
+import { routes, useFortKit } from '../FortKit';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
 
@@ -18,6 +18,8 @@ import { getAppIcon, getAppName } from '../../defaultConfig';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 import OpenfortLogin from '../Pages/OpenfortLogin';
+import { ValueOf } from 'viem/_types/types/utils';
+import SetupEmbeddedSigner from '../Pages/SetupEmbeddedSigner';
 
 const customThemeDefault: object = {};
 
@@ -27,7 +29,7 @@ const ConnectModal: React.FC<{
   customTheme?: CustomTheme;
   lang?: Languages;
 }> = ({ mode = 'auto', theme = 'auto', customTheme = customThemeDefault, lang = 'en-US' }) => {
-  const context = useContext();
+  const context = useFortKit();
   const { isConnected, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
 
@@ -57,7 +59,7 @@ const ConnectModal: React.FC<{
     }
   };
 
-  const pages: any = {
+  const pages: Record<ValueOf<typeof routes>, React.ReactNode> = {
     onboarding: <Onboarding />,
     about: <About />,
     download: <DownloadApp />,
@@ -68,6 +70,7 @@ const ConnectModal: React.FC<{
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     signInWithEthereum: <SignInWithEthereum />,
+    setupEmbeddedSigner: <SetupEmbeddedSigner />,
   };
 
   function hide() {
@@ -77,8 +80,8 @@ const ConnectModal: React.FC<{
   useEffect(() => {
     if (isConnected) {
       if (
-        context.route !== routes.PROFILE ||
-        context.route !== routes.SIGNINWITHETHEREUM
+        context.route !== routes.PROFILE
+        // || context.route !== routes.SIGNINWITHETHEREUM
       ) {
         if (
           context.signInWithEthereum &&

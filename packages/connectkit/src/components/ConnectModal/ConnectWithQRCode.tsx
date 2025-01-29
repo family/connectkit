@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes, useContext } from '../FortKit';
+import { routes, useFortKit } from '../FortKit';
 
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
@@ -25,7 +25,7 @@ import { useWeb3 } from '../contexts/web3';
 const ConnectWithQRCode: React.FC<{
   switchConnectMethod: (id?: string) => void;
 }> = ({ switchConnectMethod }) => {
-  const context = useContext();
+  const context = useFortKit();
 
   const id = context.connector.id;
 

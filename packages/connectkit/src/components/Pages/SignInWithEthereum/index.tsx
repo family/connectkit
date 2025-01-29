@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useContext } from '../../FortKit';
+import { useFortKit } from '../../FortKit';
 
 import {
   PageContent,
@@ -34,7 +34,7 @@ const transition = { duration: 0.2, ease: [0.26, 0.08, 0.25, 1] };
 const copyTransition = { duration: 0.16, ease: [0.26, 0.08, 0.25, 1] };
 
 const SignInWithEthereum: React.FC = () => {
-  const context = useContext();
+  const context = useFortKit();
   const { isSignedIn, reset } = useSIWE();
   const mobile = isMobile();
 

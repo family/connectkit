@@ -8,7 +8,7 @@ import {
   TextContainer,
   UnsupportedNetworkContainer,
 } from './styles';
-import { routes, useContext } from '../FortKit';
+import { routes, useFortKit } from '../FortKit';
 import { useModal } from '../../hooks/useModal';
 
 import Avatar from '../Common/Avatar';
@@ -23,6 +23,7 @@ import useLocales from '../../hooks/useLocales';
 import { Chain } from 'viem';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 import { useEnsFallbackConfig } from '../../hooks/useEnsFallbackConfig';
+import { useOpenfort } from '../../openfort/OpenfortProvider';
 
 const contentVariants: Variants = {
   initial: {
@@ -121,7 +122,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   children,
 }) => {
   const isMounted = useIsMounted();
-  const context = useContext();
+  const context = useFortKit();
   const { open, setOpen } = useModal();
 
   const { address, isConnected, chain } = useAccount();
@@ -175,8 +176,10 @@ function ConnectKitButtonInner({
   separator?: string;
 }) {
   const locales = useLocales({});
-  const context = useContext();
+  const context = useFortKit();
   const { isSignedIn } = useSIWE();
+
+  const { isLoading, user, needsRecovery, embeddedState } = useOpenfort();
 
   const { address, chain } = useAccount();
   const isChainSupported = useChainIsSupported(chain?.id);
@@ -188,6 +191,18 @@ function ConnectKitButtonInner({
     config: ensFallbackConfig,
   });
   const defaultLabel = locales.connectWallet;
+
+  if (isLoading)
+    return (<div>{embeddedState} loading</div>)
+
+  if (!user)
+    return (<div>{embeddedState} login button</div>)
+
+  if (needsRecovery)
+    return (<div>{embeddedState} needs recovery</div>)
+
+  if (1 + 1 == 2)
+    return (<div>{embeddedState} normal button</div>)
 
   return (
     <AnimatePresence initial={false}>
@@ -297,7 +312,6 @@ function ConnectKitButtonInner({
             //padding: '0 5px',
           }}
         >
-          CONNECTBUTTON
           {label ? label : defaultLabel}
         </TextContainer>
       )}
@@ -336,7 +350,7 @@ export function ConnectKitButton({
 }: ConnectKitButtonProps) {
   const isMounted = useIsMounted();
 
-  const context = useContext();
+  const context = useFortKit();
 
   const { isConnected, address, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);

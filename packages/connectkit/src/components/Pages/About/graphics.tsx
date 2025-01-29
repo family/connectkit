@@ -518,8 +518,8 @@ export const SlideThree = ({ layoutId }: Slide) => {
               style={
                 !Boolean(layoutId)
                   ? {
-                      animationPlayState: 'paused',
-                    }
+                    animationPlayState: 'paused',
+                  }
                   : undefined
               }
             >

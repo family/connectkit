@@ -1,0 +1,28 @@
+import Openfort from '@openfort/openfort-node';
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+const openfort = (() => {
+  if (!process.env.NEXTAUTH_OPENFORT_SECRET_KEY) {
+    throw new Error("Openfort secret key is not set");
+  }
+
+  return new Openfort(process.env.NEXTAUTH_OPENFORT_SECRET_KEY);
+})();
+
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  try {
+    const session = await openfort.registerRecoverySession(process.env.NEXT_PUBLIC_SHIELD_API_KEY!, process.env.NEXTAUTH_SHIELD_SECRET_KEY!, process.env.NEXTAUTH_SHIELD_ENCRYPTION_SHARE!)
+    res.status(200).send({
+      session: session,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send({
+      error: 'Internal server error',
+    });
+  }
+}

@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { EmbeddedState, Provider } from '@openfort/openfort-js';
 import OpenfortService from '../../openfort/services/openfortService';
 
+// remove this
 const openfortService = new OpenfortService(1);
 
 export const useOpenfort = () => {

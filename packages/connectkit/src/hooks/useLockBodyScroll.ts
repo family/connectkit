@@ -1,5 +1,5 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
-import { useContext } from '../components/FortKit';
+import { useFortKit } from '../components/FortKit';
 
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -7,7 +7,7 @@ const useIsomorphicLayoutEffect =
 export default function useLockBodyScroll(initialLocked: boolean) {
   const [locked, setLocked] = useState(initialLocked);
 
-  const context = useContext();
+  const context = useFortKit();
 
   useIsomorphicLayoutEffect(() => {
     if (!locked) return;

@@ -9,11 +9,11 @@ import {
   CreateConnectorFn,
   Connector,
 } from 'wagmi';
-import { useContext } from '../components/FortKit';
+import { useFortKit } from '../components/FortKit';
 import { useLastConnector } from './useLastConnector';
 
 export function useConnect({ ...props }: UseConnectParameters = {}) {
-  const context = useContext();
+  const context = useFortKit();
 
   const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
     ...props,

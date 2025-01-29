@@ -18,7 +18,7 @@ type DefaultConfigProps = {
   appUrl?: string;
 
   // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
-  walletConnectProjectId: string;
+  // walletConnectProjectId: string;
   // Coinbase Wallet preference
   coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
 } & Partial<CreateConfigParameters>;
@@ -28,7 +28,7 @@ const defaultConfig = ({
   appIcon,
   appDescription,
   appUrl,
-  walletConnectProjectId,
+  // walletConnectProjectId,
   coinbaseWalletPreference,
   chains = [mainnet, polygon, optimism, arbitrum],
   client,
@@ -51,7 +51,7 @@ const defaultConfig = ({
         description: appDescription,
         url: appUrl,
       },
-      walletConnectProjectId,
+      // walletConnectProjectId,
       coinbaseWalletPreference,
     });
 

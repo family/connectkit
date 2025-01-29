@@ -1,53 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { useContext } from '../../FortKit';
 import {
   isSafeConnector,
   nFormatter,
   truncateEthAddress,
 } from '../../../utils';
+import { useFortKit } from '../../FortKit';
 
 import {
-  useConnect,
-  useDisconnect,
   useAccount,
-  useEnsName,
   useBalance,
+  useEnsName
 } from 'wagmi';
 
 import {
   AvatarContainer,
   AvatarInner,
-  ChainSelectorContainer,
-  BalanceContainer,
-  LoadingBalance,
   Balance,
+  BalanceContainer,
+  ChainSelectorContainer,
+  LoadingBalance,
 } from './styles';
 
+import Avatar from '../../Common/Avatar';
+import Button from '../../Common/Button';
+import ChainSelector from '../../Common/ChainSelect';
 import {
-  PageContent,
   ModalBody,
   ModalContent,
   ModalH1,
+  PageContent,
 } from '../../Common/Modal/styles';
-import Button from '../../Common/Button';
-import Avatar from '../../Common/Avatar';
-import ChainSelector from '../../Common/ChainSelect';
 
-import { DisconnectIcon } from '../../../assets/icons';
-import CopyToClipboard from '../../Common/CopyToClipboard';
 import { AnimatePresence } from 'framer-motion';
-import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import useLocales from '../../../hooks/useLocales';
+import { DisconnectIcon } from '../../../assets/icons';
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
+import useLocales from '../../../hooks/useLocales';
+import { useOpenfort } from '../../../openfort/OpenfortProvider';
+import CopyToClipboard from '../../Common/CopyToClipboard';
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
-  const context = useContext();
+  const context = useFortKit();
   const themeContext = useThemeContext();
 
   const locales = useLocales();
 
-  const { reset } = useConnect();
-  const { disconnect } = useDisconnect();
 
   const { address, isConnected, connector, chain } = useAccount();
   const ensFallbackConfig = useEnsFallbackConfig();
@@ -62,6 +59,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   });
 
   const [shouldDisconnect, setShouldDisconnect] = useState(false);
+  const { logout } = useOpenfort();
 
   useEffect(() => {
     if (!isConnected) context.setOpen(false);
@@ -77,10 +75,9 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
       context.setOpen(false);
     }
     return () => {
-      disconnect();
-      reset();
+      logout();
     };
-  }, [shouldDisconnect, disconnect, reset]);
+  }, [shouldDisconnect, logout]);
 
   const separator = ['web95', 'rounded', 'minimal'].includes(
     themeContext.theme ?? context.theme ?? ''

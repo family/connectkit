@@ -9,7 +9,7 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import { useContext } from '../../FortKit';
+import { useFortKit } from '../../FortKit';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import useLocales from '../../../hooks/useLocales';
@@ -40,7 +40,7 @@ const MoreIcon = (
 );
 
 const MobileConnectors: React.FC = () => {
-  const context = useContext();
+  const context = useFortKit();
   const locales = useLocales();
 
   const {

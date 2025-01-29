@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAccount } from 'wagmi';
-import { routes, useContext } from '../FortKit';
+import { routes, useFortKit } from '../FortKit';
 import { CustomTheme, Languages, Theme, Mode } from '../../types';
 import Modal from '../Common/Modal';
 
@@ -98,7 +98,7 @@ const ConnectModal: React.FC<{
   open,
   onClose,
 }) => {
-    const context = useContext();
+    const context = useFortKit();
 
     const { isConnected, chain } = useAccount();
     const chainIsSupported = useChainIsSupported(chain?.id);
@@ -193,8 +193,8 @@ const ConnectModal: React.FC<{
     useEffect(() => {
       if (isConnected) {
         if (
-          context.route !== routes.PROFILE ||
-          context.route !== routes.SIGNINWITHETHEREUM
+          context.route !== routes.PROFILE
+          // || context.route !== routes.SIGNINWITHETHEREUM
         ) {
           if (
             context.signInWithEthereum &&

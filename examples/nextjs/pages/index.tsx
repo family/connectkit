@@ -1,28 +1,27 @@
+import { ConnectKitButton } from 'connectkit';
 import type { NextPage } from 'next';
-import { ConnectKitButton, ConnectKitModalDemo } from 'connectkit';
-import { useContext } from 'connectkit/build/components/ConnectKit';
-import { useAccount } from 'wagmi';
+import { Connected } from './Connected';
 
 const Home: NextPage = () => {
-  const { address, isConnecting, isDisconnected } = useAccount();
   return (
     <div
       style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'start',
         height: '100vh',
         flexDirection: 'column',
       }}
     >
-      <ConnectKitButton />
-      {address && (
-        <>
-          <p>Connected with address: {address}</p>
-          <button style={{ margin: "10px" }}>Mint... with wagmi</button>
-          <button style={{ margin: "10px" }}>Sign... with wagmi</button>
-        </>
-      )}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        marginTop: '20px',
+      }}>
+        <ConnectKitButton />
+        <Connected />
+      </div>
     </div>
   );
 };

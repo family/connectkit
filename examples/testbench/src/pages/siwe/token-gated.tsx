@@ -4,9 +4,9 @@ import { siweServer } from '../../utils/siweServer';
 type Props =
   | { isCollector: false }
   | {
-      isCollector: true;
-      address: string;
-    };
+    isCollector: true;
+    address: string;
+  };
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({
   req,
