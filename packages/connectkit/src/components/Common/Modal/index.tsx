@@ -229,12 +229,14 @@ const Modal: React.FC<ModalProps> = ({
   });
   const mounted = !(state === 'exited' || state === 'unmounted');
   const rendered = state === 'preEnter' || state !== 'exiting';
+
   const currentDepth =
-    context.route === routes.CONNECTORS
+    context.route === routes.LOGIN
       ? 0
       : context.route === routes.DOWNLOAD
         ? 2
         : 1;
+
   const prevDepth = usePrevious(currentDepth, currentDepth);
   if (!positionInside) useLockBodyScroll(mounted);
 
@@ -328,8 +330,17 @@ const Modal: React.FC<ModalProps> = ({
     switch (context.route) {
       case routes.ABOUT:
         return locales.aboutScreen_heading;
-      case routes.OPENFORTLOGIN:
-        return "Login";// OLD_TODO: Localize
+      case routes.LOGIN:
+        return "Login";// TODO: Localize
+      case routes.RECOVER:
+        return "Recover";// TODO: Localize 
+      case routes.EMAIL_LOGIN:
+        return "Email Login";// TODO: Localize
+      case routes.EMAIL_SIGNUP:
+        return "Email Signup";// TODO: Localize
+
+
+
       case routes.CONNECT:
         if (shouldUseQrcode()) {
           return isWalletConnectConnector(wallet?.connector?.id)

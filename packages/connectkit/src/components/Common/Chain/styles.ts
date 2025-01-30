@@ -17,8 +17,8 @@ export const ChainContainer = styled.div<ChainContainerProps>`
           --height: ${props.size};
         `
       : css`
-          --width: ${props.size >= 0 ? `${props.size}px` : '24px'};
-          --height: ${props.size >= 0 ? `${props.size}px` : '24px'};
+          --width: ${props.size && props.size >= 0 ? `${props.size}px` : '24px'};
+          --height: ${props.size && props.size >= 0 ? `${props.size}px` : '24px'};
         `};
   ${(props) =>
     typeof props.radius === 'string'
@@ -26,7 +26,7 @@ export const ChainContainer = styled.div<ChainContainerProps>`
           --radius: ${props.radius};
         `
       : css`
-          --radius: ${props.radius >= 0 ? `${props.radius}px` : '24px'};
+          --radius: ${props.radius && props.radius >= 0 ? `${props.radius}px` : '24px'};
         `};
   display: block;
   position: relative;

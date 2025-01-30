@@ -19,7 +19,11 @@ import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitTh
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 import OpenfortLogin from '../Pages/OpenfortLogin';
 import { ValueOf } from 'viem/_types/types/utils';
-import SetupEmbeddedSigner from '../Pages/SetupEmbeddedSigner';
+import SetupEmbeddedSigner from '../Pages/SetRecover';
+import Loading from '../Pages/Loading';
+import { useOpenfort } from '../../openfort/OpenfortProvider';
+import EmailLogin from '../Pages/EmailLogin';
+import EmailSignup from '../Pages/EmailSignup';
 
 const customThemeDefault: object = {};
 
@@ -30,6 +34,7 @@ const ConnectModal: React.FC<{
   lang?: Languages;
 }> = ({ mode = 'auto', theme = 'auto', customTheme = customThemeDefault, lang = 'en-US' }) => {
   const context = useFortKit();
+  const { logout } = useOpenfort();
   const { isConnected, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
 
@@ -40,37 +45,50 @@ const ConnectModal: React.FC<{
     !chainIsSupported
   );
 
+  const mainRoutes: ValueOf<typeof routes>[] = [
+    routes.LOGIN,
+    routes.PROFILE,
+    routes.LOADING,
+  ];
+
   const showBackButton =
     closeable &&
-    context.route !== routes.OPENFORTLOGIN &&
-    context.route !== routes.PROFILE;
+    !mainRoutes.includes(context.route);
 
   const showInfoButton = closeable && context.route !== routes.PROFILE;
 
   const onBack = () => {
-    if (context.route === routes.SIGNINWITHETHEREUM) {
-      context.setRoute(routes.PROFILE);
-    } else if (context.route === routes.SWITCHNETWORKS) {
-      context.setRoute(routes.PROFILE);
-    } else if (context.route === routes.DOWNLOAD) {
-      context.setRoute(routes.CONNECT);
-    } else {
-      context.setRoute(routes.OPENFORTLOGIN);
+    // if (context.route === routes.SIGNINWITHETHEREUM) {
+    //   context.setRoute(routes.PROFILE);
+    // } else if (context.route === routes.SWITCHNETWORKS) {
+    //   context.setRoute(routes.PROFILE);
+    // } else if (context.route === routes.DOWNLOAD) {
+    //   context.setRoute(routes.CONNECT);
+    // } else {
+    if (context.route === routes.RECOVER) {
+      logout();
     }
+    context.setRoute(routes.LOGIN);
+    // }
   };
 
   const pages: Record<ValueOf<typeof routes>, React.ReactNode> = {
     onboarding: <Onboarding />,
     about: <About />,
+    loading: <Loading />,
+
+    emailLogin: <EmailLogin />,
+    emailSignup: <EmailSignup />,
+
     download: <DownloadApp />,
     connectors: <Connectors />,
     mobileConnectors: <MobileConnectors />,
-    openfortLogin: <OpenfortLogin />,
+    login: <OpenfortLogin />,
     connect: <ConnectUsing />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     signInWithEthereum: <SignInWithEthereum />,
-    setupEmbeddedSigner: <SetupEmbeddedSigner />,
+    recover: <SetupEmbeddedSigner />,
   };
 
   function hide() {
@@ -139,9 +157,10 @@ const ConnectModal: React.FC<{
         pages={pages}
         pageId={context.route}
         onClose={closeable ? hide : undefined}
-        onInfo={
-          showInfoButton ? () => context.setRoute(routes.ABOUT) : undefined
-        }
+        // TODO: Implement onInfo
+        // onInfo={
+        //   showInfoButton ? () => context.setRoute(routes.ONBOARDING) : undefined
+        // }
         onBack={showBackButton ? onBack : undefined}
       />
     </ConnectKitThemeProvider>

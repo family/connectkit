@@ -8,7 +8,7 @@ type RecoveryProps =
 
 type ContextValue = {
   signUpGuest: () => Promise<void>;
-  handleRecovery: (props: RecoveryProps) => Promise<void>;
+  handleRecovery: (props: RecoveryProps) => Promise<boolean>;
   embeddedState: EmbeddedState;
 
   isLoading: boolean;
@@ -18,7 +18,8 @@ type ContextValue = {
   logout: () => void;
 
   // from Openfort
-  getEthereumProvider: typeof Openfort.prototype.getEthereumProvider;
+  logInWithEmailPassword: typeof Openfort.prototype.logInWithEmailPassword;
+  signUpWithEmailPassword: typeof Openfort.prototype.signUpWithEmailPassword;
 };
 
 const Context = createContext<ContextValue | null>(null);
@@ -61,9 +62,10 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   // ---- Embedded state ----
   const [embeddedState, setEmbeddedState] = useState<EmbeddedState>(EmbeddedState.NONE);
   const pollingRef = useRef<NodeJS.Timeout | null>(null);
-  const isPollingEmbeddedState = !!pollingRef.current;
 
-  const pollEmbeddedState = useCallback(() => {
+  const pollEmbeddedState = useCallback(async () => {
+    if (!openfort) return;
+
     try {
       const state = openfort.getEmbeddedState();
       log("Polling embedded state", state);
@@ -72,51 +74,54 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
       console.error('Error checking embedded state with Openfort:', error);
       if (pollingRef.current) clearInterval(pollingRef.current);
     }
-  }, []);
+  }, [openfort]);
 
   const startPollingEmbeddedState = useCallback(() => {
-    if (isPollingEmbeddedState) return;
-    log("Starting polling embedded state");
+    if (!!pollingRef.current) return;
+    log("Starting polling embedded state", pollingRef.current, !!pollingRef.current);
     pollingRef.current = setInterval(pollEmbeddedState, 300);
-  }, [isPollingEmbeddedState]);
+  }, [pollEmbeddedState]);
 
   const stopPollingEmbeddedState = useCallback(() => {
     log("Stopping polling embedded state");
     clearInterval(pollingRef.current || undefined);
     pollingRef.current = null;
-  }, [isPollingEmbeddedState]);
+  }, []);
 
   useEffect(() => {
     if (!openfort) return;
 
     startPollingEmbeddedState();
 
-    return () => {
-      stopPollingEmbeddedState();
-    };
+    // return () => {
+    //   stopPollingEmbeddedState();
+    // };
   }, [openfort]);
 
   const setUserIfNull = useCallback(async () => {
+    if (!openfort) return;
     if (!user) {
+      log("Getting user");
       const user = await openfort.getUser();
       log("Setting user", user);
       setUser(user);
     }
-  }, [user]);
+  }, [user, openfort]);
 
   useEffect(() => {
+    if (!openfort) return;
     // Poll embedded signer state
 
     log("Embedded state update", embeddedState);
 
     switch (embeddedState) {
       case EmbeddedState.NONE:
-      case EmbeddedState.CREATING_ACCOUNT:
         break;
       case EmbeddedState.UNAUTHENTICATED:
         setUser(null);
         break;
 
+      case EmbeddedState.CREATING_ACCOUNT: // There is a bug on openfort-js that makes creating account state to be stuck. When its fixed, we should remove this case (same as NONE)
       case EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED:
         setUserIfNull();
 
@@ -144,7 +149,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
       default:
         throw new Error(`Unknown embedded state: ${embeddedState}`);
     }
-  }, [embeddedState])
+  }, [embeddedState, openfort, automaticRecovery, /* handleRecovery, */ setUserIfNull]);
 
   useEffect(() => {
     // Connect to wagmi with Openfort
@@ -159,6 +164,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
 
   // ---- Recovery ----
+
   const getEncryptionSession = async (): Promise<string> => {
     const resp = await fetch(`/api/protected-create-encryption-session`, { // TODO:replace with variable
       method: "POST",
@@ -176,7 +182,10 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   }
 
   const handleRecovery = useCallback(async (props: RecoveryProps) => {
+    if (!openfort) return false;
+
     const { method, password, chainId } = { password: undefined, ...props };
+    log(`Handling recovery with Openfort: method=${method}, password=${password}, chainId=${chainId}`);
     try {
       const shieldAuth: ShieldAuthentication = {
         auth: ShieldAuthType.OPENFORT,
@@ -191,21 +200,27 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
         }
         await openfort.configureEmbeddedSigner(chainId, shieldAuth, password);
       }
+      return true;
     } catch (err) {
-      console.error('Error handling recovery with Openfort:', err);
-      alert(`Error: ${(err as unknown as Error).message}`);
-      location.reload();
+      log('Error handling recovery with Openfort:', err);
+      return false;
     }
-  }, []);
+  }, [openfort]);
+
+  // ---- Auth functions ----
 
   const logout = useCallback(() => {
+    if (!openfort) return;
+
     openfort.logout();
     disconnect();
     reset();
     startPollingEmbeddedState();
-  }, []);
+  }, [openfort]);
 
   const signUpGuest = useCallback(async () => {
+    if (!openfort) return;
+
     try {
       log('Signing up as guest...');
       const res = await openfort.signUpGuest();
@@ -215,15 +230,29 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     }
   }, [openfort]);
 
+  const logInWithEmailPassword: typeof Openfort.prototype.logInWithEmailPassword = useCallback(async (props) => {
+    return openfort.logInWithEmailPassword(props);
+  }, [openfort]);
+
+  const signUpWithEmailPassword: typeof Openfort.prototype.signUpWithEmailPassword = useCallback(async (props) => {
+    return openfort.signUpWithEmailPassword(props);
+  }, [openfort]);
+
+
+  // ---- Return values ----
+
   const isLoading = useCallback(() => {
     switch (embeddedState) {
       case EmbeddedState.NONE:
-      case EmbeddedState.CREATING_ACCOUNT:
         return true;
 
       case EmbeddedState.UNAUTHENTICATED:
+        if (user) return true; // If user is set in unauthenticated state, it means that the embedded state is not up to date, so we should wait
         return false;
+
+      case EmbeddedState.CREATING_ACCOUNT: // There is a bug on openfort-js that makes creating account state to be stuck. When its fixed, we should remove this case (same as NONE)
       case EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED:
+        if (!user) return true;
         // If automatic recovery is enabled, we should wait for the embedded signer to be ready
         if (automaticRecovery) {
           return true;
@@ -242,6 +271,12 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     }
   }, [embeddedState, address, user]);
 
+  const needsRecovery =
+    !automaticRecovery && (
+      embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED
+      || embeddedState === EmbeddedState.CREATING_ACCOUNT // There is a bug on openfort-js that makes creating account state to be stuck. When its fixed, we should remove this case (same as NONE)
+    );
+
   const value: ContextValue = {
     signUpGuest,
     handleRecovery,
@@ -249,11 +284,12 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     logout,
 
     isLoading: isLoading(),
-    needsRecovery: !automaticRecovery && embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED,
+    needsRecovery,
     user,
 
     // from Openfort
-    getEthereumProvider: () => openfort.getEthereumProvider(),
+    signUpWithEmailPassword,
+    logInWithEmailPassword,
   };
 
   return createElement(Context.Provider, { value }, <>{children}</>);

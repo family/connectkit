@@ -143,7 +143,7 @@ export const ModalContent = styled(motion.div)`
     display: block;
   }
 `;
-export const ModalH1 = styled(motion.h1)<{
+export const ModalH1 = styled(motion.h1) <{
   $error?: boolean;
   $valid?: boolean;
   $small?: boolean;
@@ -171,14 +171,22 @@ export const ModalH1 = styled(motion.h1)<{
   }
 `;
 
-export const ModalBody = styled.div`
+export const ModalBody = styled.div<{
+  $error?: boolean;
+}>`
   font-size: 16px;
   font-weight: 400;
   line-height: 21px;
-  color: var(--ck-body-color-muted);
+  color: ${(props) => {
+    if (props.$error) return 'var(--ck-body-color-danger)';
+    return 'var(--ck-body-color-muted)';
+  }};
   strong {
     font-weight: 500;
-    color: var(--ck-body-color);
+    color: ${(props) => {
+    if (props.$error) return 'var(--ck-body-color-danger)';
+    return 'var(--ck-body-color)';
+  }};
   }
 `;
 
@@ -194,7 +202,7 @@ export const ModalBodySmall = styled.div`
   }
 `;
 
-export const BackgroundOverlay = styled(motion.div)<{
+export const BackgroundOverlay = styled(motion.div) <{
   $active: boolean;
   $blur?: number;
 }>`

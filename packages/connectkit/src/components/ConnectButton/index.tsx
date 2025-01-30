@@ -352,13 +352,22 @@ export function ConnectKitButton({
 
   const context = useFortKit();
 
-  const { isConnected, address, chain } = useAccount();
+  const { address, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
+
+  const { isLoading, user, needsRecovery } = useOpenfort();
 
   function show() {
     context.setOpen(true);
-    // context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
-    context.setRoute(isConnected ? routes.PROFILE : routes.OPENFORTLOGIN);
+
+    if (isLoading)
+      context.setRoute(routes.LOADING);
+    else if (!user)
+      context.setRoute(routes.LOGIN);
+    else if (needsRecovery)
+      context.setRoute(routes.RECOVER);
+    else
+      context.setRoute(routes.PROFILE);
   }
 
   const separator = ['web95', 'rounded', 'minimal'].includes(

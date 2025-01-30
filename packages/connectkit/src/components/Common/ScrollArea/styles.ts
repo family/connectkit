@@ -60,6 +60,7 @@ export const ScrollAreaContainer = styled.div<{
   $mobile?: boolean;
   $height?: number;
   $backgroundColor?: string;
+  $mobileDirection?: 'horizontal' | 'vertical';
 }>`
   --bg: ${({ $backgroundColor }) =>
     $backgroundColor || 'var(--ck-body-background)'};

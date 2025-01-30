@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { FortKitProvider, FortOAuthProvider, getDefaultConfig } from 'connectkit';
@@ -17,6 +17,7 @@ const queryClient = new QueryClient();
 const chainId = polygonAmoy.id
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
@@ -32,16 +33,20 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           options={
             {
               authProviders: [
+                FortOAuthProvider.EMAIL,
                 FortOAuthProvider.GOOGLE,
                 FortOAuthProvider.GUEST,
+                FortOAuthProvider.WALLET,
               ],
             }
           }
           chainId={chainId}
           debugMode
-          // theme='nouns'
+          // theme='rounded'
           mode='dark'
-        // theme='retro'
+          theme='retro'
+        // theme='nouns'
+
         >
           {children}
         </FortKitProvider>

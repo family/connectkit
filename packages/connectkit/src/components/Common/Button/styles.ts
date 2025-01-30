@@ -265,7 +265,7 @@ export const InnerContainer = styled.div`
   */
 `;
 
-export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
+export const IconContainer = styled(motion.div) <{ $rounded?: boolean }>`
   position: relative;
   display: inline-block;
   vertical-align: middle;

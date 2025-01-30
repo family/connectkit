@@ -113,8 +113,8 @@ const ConnectorItem = ({
   return (
     <ConnectorButton
       type="button"
-      as={deeplink ? 'a' : undefined}
-      href={deeplink ? deeplink : undefined}
+      // as={deeplink ? 'a' : undefined}
+      // href={deeplink ? deeplink : undefined}
       disabled={context.route !== routes.CONNECTORS}
       onClick={
         deeplink

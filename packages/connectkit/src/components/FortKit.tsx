@@ -33,19 +33,28 @@ import { Web3ContextProvider } from './contexts/web3';
 import { useChainIsSupported } from '../hooks/useChainIsSupported';
 import Openfort, { OAuthProvider, OpenfortConfiguration, RecoveryMethod, } from '@openfort/openfort-js';
 import { OpenfortProvider, OpenfortProviderProps } from '../openfort/OpenfortProvider';
+import { ValueOf } from 'viem/_types/types/utils';
 
 export const routes = {
-  OPENFORTLOGIN: 'openfortLogin',
+  LOGIN: 'login',
+  LOADING: 'loading',
+  RECOVER: 'recover',
+
+  EMAIL_LOGIN: 'emailLogin',
+  EMAIL_SIGNUP: 'emailSignup',
+
   ONBOARDING: 'onboarding',
   ABOUT: 'about',
+
   CONNECTORS: 'connectors',
   MOBILECONNECTORS: 'mobileConnectors',
+
+
   CONNECT: 'connect',
   DOWNLOAD: 'download',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
   SIGNINWITHETHEREUM: 'signInWithEthereum',
-  SETUP_EMBEDDED_SIGNER: 'setupEmbeddedSigner',
 } as const;
 
 type Connector = {
@@ -64,8 +73,8 @@ type ContextValue = {
   setLang: React.Dispatch<React.SetStateAction<Languages>>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  route: string;
-  setRoute: React.Dispatch<React.SetStateAction<string>>;
+  route: ValueOf<typeof routes>;
+  setRoute: React.Dispatch<React.SetStateAction<ValueOf<typeof routes>>>;
   connector: Connector;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
@@ -242,7 +251,7 @@ export const ConnectKitProvider = ({
   const [connector, setConnector] = useState<ContextValue['connector']>({
     id: '',
   });
-  const [route, setRoute] = useState<string>(routes.CONNECTORS);
+  const [route, setRoute] = useState<ValueOf<typeof routes>>(routes.LOADING);
   const [errorMessage, setErrorMessage] = useState<Error>('');
 
   const [resize, onResize] = useState<number>(0);

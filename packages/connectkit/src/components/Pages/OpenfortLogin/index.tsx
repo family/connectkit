@@ -11,7 +11,7 @@ const GuestButton: React.FC = () => {
 
   const handleClick = () => {
     signUpGuest();
-    setRoute(routes.SETUP_EMBEDDED_SIGNER);
+    setRoute(routes.RECOVER);
   }
 
   return (
@@ -19,10 +19,24 @@ const GuestButton: React.FC = () => {
   )
 }
 
+const WalletButton: React.FC = () => {
+  const { setRoute } = useFortKit();
+  return <Button onClick={() => setRoute(routes.CONNECTORS)}>NOT IMPLEMENTED: Wallet</Button>
+}
+
+const EmailButton: React.FC = () => {
+  const { setRoute } = useFortKit();
+  return <Button onClick={() => setRoute(routes.EMAIL_LOGIN)}>Email</Button>
+}
+
 const ProviderButton: React.FC<{ provider: FortOAuthProvider }> = ({ provider }) => {
   switch (provider) {
     case FortOAuthProvider.GUEST:
       return <GuestButton />;
+    case FortOAuthProvider.WALLET:
+      return <WalletButton />
+    case FortOAuthProvider.EMAIL:
+      return <EmailButton />
     default:
       return <Button>NOT IMPLEMENTED: {provider}</Button>;
   }
@@ -41,7 +55,6 @@ const OpenfortLogin: React.FC = () => {
         ))
       }
 
-      <Button onClick={() => setRoute(routes.CONNECTORS)}>Wallet</Button>
 
     </PageContent>
   )
