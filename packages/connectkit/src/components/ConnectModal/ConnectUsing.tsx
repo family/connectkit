@@ -9,6 +9,7 @@ import ConnectWithQRCode from './ConnectWithQRCode';
 
 import { contentVariants } from '../Common/Modal';
 import Alert from '../Common/Alert';
+import ConnectWithOAuth from './ConnectWithOAuth';
 
 const states = {
   QRCODE: 'qrcode',
@@ -22,11 +23,15 @@ const ConnectUsing = () => {
   // If cannot be scanned, display injector flow, which if extension is not installed will show CTA to install it
   const isQrCode = !wallet?.isInstalled && wallet?.getWalletConnectDeeplink;
 
+  // For OAuth connectors, we don't need to show the injector flow
+  const isOauth = context.connector.type === "oauth"
+
   const [status, setStatus] = useState(
     isQrCode ? states.QRCODE : states.INJECTOR
   );
 
   useEffect(() => {
+    if (isOauth) return;
     // if no provider, change to qrcode
     const checkProvider = async () => {
       const res = await wallet?.connector.getProvider();
@@ -38,11 +43,12 @@ const ConnectUsing = () => {
     if (status === states.INJECTOR) checkProvider();
   }, []);
 
+  if (isOauth) return <ConnectWithOAuth />;
+
   if (!wallet) return <Alert>Connector not found {context.connector.id}</Alert>;
 
   return (
     <AnimatePresence>
-      fefwe
       {status === states.QRCODE && (
         <motion.div
           key={states.QRCODE}

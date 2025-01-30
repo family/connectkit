@@ -1,4 +1,4 @@
-import Openfort, { AuthPlayerResponse, EmbeddedState, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from '@openfort/openfort-js';
+import Openfort, { AuthPlayerResponse, EmbeddedState, OAuthProvider, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from '@openfort/openfort-js';
 import React, { createContext, createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 
@@ -20,6 +20,8 @@ type ContextValue = {
   // from Openfort
   logInWithEmailPassword: typeof Openfort.prototype.logInWithEmailPassword;
   signUpWithEmailPassword: typeof Openfort.prototype.signUpWithEmailPassword;
+  initOAuth: typeof Openfort.prototype.initOAuth;
+  storeCredentials: typeof Openfort.prototype.storeCredentials;
 };
 
 const Context = createContext<ContextValue | null>(null);
@@ -27,14 +29,12 @@ const Context = createContext<ContextValue | null>(null);
 export type OpenfortProviderProps = {
   debugMode?: boolean;
   recoveryMethod?: RecoveryMethod;
-  // chainId: number;
 } & ConstructorParameters<typeof Openfort>[0];
 
 
 export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>> = (
   {
     children,
-    // chainId,
     recoveryMethod: recoveryMethodUsed = RecoveryMethod.AUTOMATIC,
     debugMode,
     ...openfortProps
@@ -102,7 +102,10 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!openfort) return;
     if (!user) {
       log("Getting user");
-      const user = await openfort.getUser();
+      const user = await openfort.getUser().catch((err) => {
+        log("Error getting user", err);
+        return null;
+      });
       log("Setting user", user);
       setUser(user);
     }
@@ -238,6 +241,24 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     return openfort.signUpWithEmailPassword(props);
   }, [openfort]);
 
+  const initOAuth: typeof Openfort.prototype.initOAuth = useCallback(async (props) => {
+    return openfort.initOAuth(props);
+  }, [openfort]);
+
+  const storeCredentials: typeof Openfort.prototype.storeCredentials = useCallback(async (props) => {
+    return openfort.storeCredentials(props);
+  }, [openfort]);
+
+  const g = useCallback(async () => {
+    if (!openfort) return;
+    const res = await openfort.initOAuth({
+      provider: OAuthProvider.GOOGLE,
+      options: {
+        redirectTo: location.href,
+      }
+    });
+    console.log('Signed up as guest:', res);
+  }, [openfort]);
 
   // ---- Return values ----
 
@@ -290,6 +311,8 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     // from Openfort
     signUpWithEmailPassword,
     logInWithEmailPassword,
+    initOAuth,
+    storeCredentials,
   };
 
   return createElement(Context.Provider, { value }, <>{children}</>);

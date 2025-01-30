@@ -49,6 +49,8 @@ export const routes = {
   CONNECTORS: 'connectors',
   MOBILECONNECTORS: 'mobileConnectors',
 
+  AUTH_PROVIDER: 'authProvider',
+
 
   CONNECT: 'connect',
   DOWNLOAD: 'download',
@@ -59,6 +61,10 @@ export const routes = {
 
 type Connector = {
   id: string;
+  type?: "wallet"
+} | {
+  id: OAuthProvider;
+  type: "oauth";
 };
 type Error = string | React.ReactNode | null;
 
@@ -91,14 +97,14 @@ export const Context = createContext<ContextValue | null>(null);
 
 
 export enum FortOAuthProvider {
-  // OAuth Providers (from OAuthProvider) (enums cannot be extended)
   GOOGLE = "google",
   TWITTER = "twitter",
   FACEBOOK = "facebook",
+
   DISCORD = "discord",
   EPIC_GAMES = "epic_games",
-  TELEGRAM = "telegram",
   LINE = "line",
+  // TELEGRAM = "telegram", // Telegram is not working yet
 
   // Extended Providers
   EMAIL = "email",
@@ -144,7 +150,6 @@ type ConnectKitProviderProps = {
   options?: ConnectKitOptions;
   debugMode?: boolean;
 
-  chainId: number;
 } & useConnectCallbackProps & OpenfortProviderProps;
 
 /**
@@ -175,7 +180,6 @@ export const ConnectKitProvider = ({
   baseConfiguration,
   shieldConfiguration,
   overrides,
-  chainId,
   recoveryMethod,
 }: ConnectKitProviderProps) => {
   // ConnectKitProvider must be within a WagmiProvider

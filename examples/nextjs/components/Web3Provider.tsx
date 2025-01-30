@@ -10,11 +10,11 @@ import { RecoveryMethod } from '@openfort/openfort-js';
 const config = createConfig(
   getDefaultConfig({
     appName: 'FortKit Next.js demo',
+    chains: [polygonAmoy],
   })
 );
 
 const queryClient = new QueryClient();
-const chainId = polygonAmoy.id
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
@@ -37,14 +37,20 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
                 FortOAuthProvider.GOOGLE,
                 FortOAuthProvider.GUEST,
                 FortOAuthProvider.WALLET,
+                FortOAuthProvider.TWITTER,
+                FortOAuthProvider.DISCORD,
+                FortOAuthProvider.EPIC_GAMES,
+                FortOAuthProvider.FACEBOOK,
+                FortOAuthProvider.LINE,
               ],
+              initialChainId: polygonAmoy.id,
+              enforceSupportedChains: true,
             }
           }
-          chainId={chainId}
           debugMode
           // theme='rounded'
           mode='dark'
-          theme='retro'
+        // theme='retro'
         // theme='nouns'
 
         >

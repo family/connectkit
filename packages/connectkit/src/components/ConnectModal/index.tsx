@@ -24,6 +24,7 @@ import Loading from '../Pages/Loading';
 import { useOpenfort } from '../../openfort/OpenfortProvider';
 import EmailLogin from '../Pages/EmailLogin';
 import EmailSignup from '../Pages/EmailSignup';
+import { OAuthProvider } from '@openfort/openfort-js';
 
 const customThemeDefault: object = {};
 
@@ -89,6 +90,8 @@ const ConnectModal: React.FC<{
     switchNetworks: <SwitchNetworks />,
     signInWithEthereum: <SignInWithEthereum />,
     recover: <SetupEmbeddedSigner />,
+
+    authProvider: <div>TODO</div>,
   };
 
   function hide() {
@@ -114,6 +117,27 @@ const ConnectModal: React.FC<{
       hide(); // Hide on connect
     }
   }, [isConnected]);
+
+  // if auth redirect
+  useEffect(() => {
+    const newUrl = new URL(window.location.href);
+    const provider = newUrl.searchParams.get("fort_auth_provider");
+
+    context.log("Checking for auth provider", provider);
+
+    function isProvider(value: string | null): value is OAuthProvider {
+      if (!value) return false;
+      return Object.values(OAuthProvider).includes(value as OAuthProvider);
+    }
+
+    if (isProvider(provider)) {
+      context.log("Found auth provider", provider);
+      context.setOpen(true);
+      context.setConnector({ id: provider, type: "oauth" });
+      context.setRoute(routes.CONNECT);
+    }
+
+  }, [])
 
   useEffect(() => context.setMode(mode), [mode]);
   useEffect(() => context.setTheme(theme), [theme]);
