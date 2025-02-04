@@ -241,3 +241,154 @@ export const AuthIcon = ({ ...props }) => (
     </svg>
   </div>
 );
+
+export const EmailIcon = ({ ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    width="256"
+    height="256"
+  >
+    <rect
+      width="256"
+      height="256"
+      fill="none"
+    />
+    <path
+      d="M32,96V200a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V96L128,32Z"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <polyline
+      points="224 96 145.46 152 110.55 152 32 96"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </svg>
+);
+
+export const GuestIcon = ({ ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    width="256"
+    height="256"
+  >
+    <rect
+      width="256"
+      height="256"
+      fill="none"
+    />
+    <circle
+      cx="128"
+      cy="96"
+      r="64"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M32,216c19.37-33.47,54.55-56,96-56s76.63,22.53,96,56"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </svg>
+);
+
+export const WalletIcon = ({ ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    width="256"
+    height="256"
+  >
+    <rect
+      width="256"
+      height="256"
+      fill="none"
+    />
+    <path
+      d="M40,56V184a16,16,0,0,0,16,16H216a8,8,0,0,0,8-8V80a8,8,0,0,0-8-8H56A16,16,0,0,1,40,56h0A16,16,0,0,1,56,40H192"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <circle
+      cx="180"
+      cy="132"
+      r="12"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+export const GoogleIcon = ({ ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="128"
+    height="128"
+    viewBox="0 0 128 128"
+  >
+    <path
+      fill="currentColor"
+      d="M44.59 4.21a63.28 63.28 0 004.33 120.9 67.6 67.6 0 0032.36.35 57.13 57.13 0 0025.9-13.46 57.44 57.44 0 0016-26.26 74.33 74.33 0 001.61-33.58H65.27v24.69h34.47a29.72 29.72 0 01-12.66 19.52 36.16 36.16 0 01-13.93 5.5 41.29 41.29 0 01-15.1 0A37.16 37.16 0 0144 95.74a39.3 39.3 0 01-14.5-19.42 38.31 38.31 0 010-24.63 39.25 39.25 0 019.18-14.91A37.17 37.17 0 0176.13 27a34.28 34.28 0 0113.64 8q5.83-5.8 11.64-11.63c2-2.09 4.18-4.08 6.15-6.22A61.22 61.22 0 0087.2 4.59a64 64 0 00-42.61-.38z"
+    />
+  </svg>
+);
+
+export const FacebookIcon = ({ ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="128"
+    height="128"
+    viewBox="0 0 128 128"
+  >
+    <path
+      fill="currentColor"
+      d="M116.42 5.07H11.58a6.5 6.5 0 00-6.5 6.5v104.85a6.5 6.5 0 006.5 6.5H68V77.29H52.66V59.5H68V46.38c0-15.22 9.3-23.51 22.88-23.51a126 126 0 0113.72.7v15.91h-9.39c-7.39 0-8.82 3.51-8.82 8.66V59.5H104l-2.29 17.79H86.39v45.64h30a6.51 6.51 0 006.5-6.5V11.58a6.5 6.5 0 00-6.47-6.51z"
+    />
+  </svg>
+);
+
+export const TwitterIcon = ({ ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="128"
+    height="128"
+    viewBox="0 0 128 128"
+  >
+    <path
+      fill="currentColor"
+      strokeWidth={0.104373}
+      d="M75.916 54.2 122.542 0h-11.05L71.008 47.06 38.672 0H1.376l48.898 71.164L1.376 128h11.05L55.18 78.303 89.328 128h37.296L75.913 54.2ZM60.782 71.79l-4.955-7.086-39.42-56.386h16.972L65.19 53.824l4.954 7.086 41.353 59.15h-16.97L60.782 71.793Z"
+    />
+  </svg>
+);
+
+export const OpenfortIcon = ({ ...props }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="110"
+    height="24"
+  >
+    <path
+      fill="currentColor"
+      transform="translate(0, 5) scale(0.13)"
+      d="m75.9 72.3h18.2v32.4h-18.2zm94.8 32.3h-18.2v-87.1h-135v87.1h-18.2v-105.2h13.5v-0.1h157.9v0.1zm-36.5-50.7h-0.1v50.7h-18.2v-50.7h-61.9v50.7h-18.2v-66.5-2.4h98.4z"
+    >
+    </path>
+  </svg>
+);

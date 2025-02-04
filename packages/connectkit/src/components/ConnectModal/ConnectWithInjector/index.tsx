@@ -33,6 +33,12 @@ import { useConnect } from '../../../hooks/useConnect';
 import { useFortKit } from '../../FortKit';
 import { useWallet } from '../../../wallets/useWallets';
 import CircleSpinner from './CircleSpinner';
+import Openfort from '@openfort/openfort-js';
+import { useOpenfort } from '../../../openfort/OpenfortProvider';
+import { createSIWEMessage } from './create-siwe-message';
+import { useAccount, useChainId, useConfig, useSignMessage } from 'wagmi';
+
+import { signMessage } from '@wagmi/core';
 
 export const states = {
   CONNECTED: 'connected',
@@ -77,6 +83,10 @@ const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void;
   forceState?: typeof states;
 }> = ({ switchConnectMethod, forceState }) => {
+  const openfort = useOpenfort();
+  const { address } = useAccount();
+  const chainId = useChainId();
+
   const { connect } = useConnect({
     mutation: {
       onMutate: (connector?: any) => {
@@ -90,6 +100,7 @@ const ConnectWithInjector: React.FC<{
         console.error(err);
       },
       onSettled(data?: any, error?: any) {
+        console.log(`data: ${data}, error: ${error}`, data);
         if (error) {
           setShowTryAgainTooltip(true);
           setTimeout(() => setShowTryAgainTooltip(false), 3500);
@@ -120,6 +131,45 @@ const ConnectWithInjector: React.FC<{
             }
           }
         } else if (data) {
+          if (!address)
+            throw console.error('No address found');
+          if (!wallet)
+            throw console.error('No wallet found');
+          if (openfort.user?.linkedAccounts.find((acc) => acc.provider === "wallet"))
+            return;
+          // if(openfort.user?.linkedAccounts.find((acc) => acc.metadata === wallet?.connector?.type && acc.walletClientType === wallet?.connector?.name))
+
+          const con = async () => {
+            try {
+              const { nonce } = await openfort.initSIWE({ address });
+              const SIWEMessage = createSIWEMessage(address, nonce, chainId);
+              const signature = await signMessage(config, { message: SIWEMessage });
+
+              if (openfort.user) {
+                const authToken = openfort.getAccessToken();
+                if (!authToken) throw new Error('No access token found');
+
+                await openfort.linkWallet({
+                  signature,
+                  message: SIWEMessage,
+                  connectorType: wallet?.connector?.type,
+                  walletClientType: wallet?.connector?.name,
+                  authToken,
+                })
+              }
+
+              await openfort.authenticateWithSIWE({
+                signature,
+                message: SIWEMessage,
+                connectorType: wallet?.connector?.type,
+                walletClientType: wallet?.connector?.name,
+              })
+            }
+            catch (err) {
+              console.error(err);
+            }
+          }
+          con();
         }
         setTimeout(triggerResize, 100);
       },
@@ -171,9 +221,13 @@ const ConnectWithInjector: React.FC<{
     SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label ?? 'your browser',
   });
 
+  // const { signMessage } = useSignMessageM();
+  const config = useConfig();
+
   const runConnect = async () => {
     if (wallet?.isInstalled && wallet?.connector) {
-      connect({ connector: wallet?.connector });
+      connect({ connector: wallet?.connector })
+
     } else {
       setStatus(states.UNAVAILABLE);
     }

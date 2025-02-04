@@ -1,7 +1,10 @@
 import React from 'react';
 import { detect } from 'detect-browser';
+import { AuthPlayerResponse } from '@openfort/openfort-js';
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
+
+const playerRegex = /^(pla_[a-zA-Z0-9]{4})[a-zA-Z0-9-]+([a-zA-Z0-9]{4})$/;
 
 const truncateEthAddress = (address?: string, separator: string = '••••') => {
   if (!address) return '';
@@ -16,6 +19,13 @@ const truncateENSAddress = (ensName: string, maxLength: number) => {
   } else {
     return ensName;
   }
+};
+
+const truncateUserId = (playerId?: string, separator: string = '••••') => {
+  if (!playerId) return '';
+  const match = playerId.match(playerRegex);
+  if (!match) return playerId;
+  return `${match[1]}${separator}${match[2]}`;
 };
 
 const nFormatter = (num: number, digits: number = 2) => {
@@ -94,10 +104,17 @@ export const isSafeConnector = (connectorId?: string) => connectorId === 'safe';
 export const isInjectedConnector = (connectorId?: string) =>
   connectorId === 'injected';
 
+export const isPlayerVerified = (player: AuthPlayerResponse | undefined | null) => {
+  const linkedEmail = player?.linkedAccounts.find((account) => account.provider === "email");
+  if (!linkedEmail) return true; // player is verified if it has no linked email
+  return linkedEmail.verified;
+}
+
 export {
   nFormatter,
   truncateEthAddress,
   truncateENSAddress,
+  truncateUserId,
   isMobile,
   isAndroid,
   detectBrowser,

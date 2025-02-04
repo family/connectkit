@@ -59,7 +59,7 @@ const Wallets: React.FC = () => {
         </>
       ) : (
         <>
-          {!context.options?.hideNoWalletCTA && (
+          {/* {!context.options?.hideNoWalletCTA && (
             <LearnMoreContainer>
               <LearnMoreButton
                 onClick={() => context.setRoute(routes.ONBOARDING)}
@@ -67,7 +67,7 @@ const Wallets: React.FC = () => {
                 <WalletIcon /> {locales.connectorsScreen_newcomer}
               </LearnMoreButton>
             </LearnMoreContainer>
-          )}
+          )} */}
         </>
       )}
       {context.options?.disclaimer && (

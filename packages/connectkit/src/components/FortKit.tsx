@@ -36,20 +36,21 @@ import { OpenfortProvider, OpenfortProviderProps } from '../openfort/OpenfortPro
 import { ValueOf } from 'viem/_types/types/utils';
 
 export const routes = {
-  LOGIN: 'login',
+  PROVIDERS: 'providers',
   LOADING: 'loading',
   RECOVER: 'recover',
 
   EMAIL_LOGIN: 'emailLogin',
   EMAIL_SIGNUP: 'emailSignup',
+  FORGOT_PASSWORD: 'forgotPassword',
+  EMAIL_VERIFICATION: 'emailVerification',
+  LINK_EMAIL: 'linkEmail',
 
   ONBOARDING: 'onboarding',
   ABOUT: 'about',
 
   CONNECTORS: 'connectors',
   MOBILECONNECTORS: 'mobileConnectors',
-
-  AUTH_PROVIDER: 'authProvider',
 
 
   CONNECT: 'connect',
@@ -84,7 +85,7 @@ type ContextValue = {
   connector: Connector;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
-  options?: ConnectKitOptions;
+  options?: ConnectKitOptionsExtended;
   signInWithEthereum: boolean;
   debugMode?: boolean;
   log: (...props: any) => void;
@@ -101,9 +102,9 @@ export enum FortOAuthProvider {
   TWITTER = "twitter",
   FACEBOOK = "facebook",
 
-  DISCORD = "discord",
-  EPIC_GAMES = "epic_games",
-  LINE = "line",
+  // DISCORD = "discord",
+  // EPIC_GAMES = "epic_games",
+  // LINE = "line",
   // TELEGRAM = "telegram", // Telegram is not working yet
 
   // Extended Providers
@@ -112,13 +113,43 @@ export enum FortOAuthProvider {
   GUEST = "guest",
 }
 
+export type FortWalletOptions = {
+  createEmbeddedSigner?: boolean;
+  linkWalletOnSignUp?: boolean;
+  recoveryMethod?: RecoveryMethod;
+};
+
 export type OpenfortOptions = {
   authProviders?: FortOAuthProvider[];
-
-
+  wallet?: FortWalletOptions;
+  skipEmailVerification?: boolean;
 };
 
 export type ConnectKitOptions = {
+  // language?: Languages;
+  hideBalance?: boolean;
+  hideTooltips?: boolean;
+  // hideQuestionMarkCTA?: boolean;
+  // hideNoWalletCTA?: boolean;
+  hideRecentBadge?: boolean;
+  walletConnectCTA?: 'link' | 'modal' | 'both';
+  avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
+  embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
+  truncateLongENSAddress?: boolean;
+  walletConnectName?: string;
+  reducedMotion?: boolean;
+  disclaimer?: ReactNode | string;
+  bufferPolyfill?: boolean;
+  customAvatar?: React.FC<CustomAvatarProps>;
+  initialChainId?: number;
+  enforceSupportedChains?: boolean;
+  ethereumOnboardingUrl?: string;
+  walletOnboardingUrl?: string;
+  disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
+  overlayBlur?: number; // Blur the background when the modal is open
+} & OpenfortOptions;
+
+type ConnectKitOptionsExtended = {
   language?: Languages;
   hideBalance?: boolean;
   hideTooltips?: boolean;
@@ -180,7 +211,6 @@ export const ConnectKitProvider = ({
   baseConfiguration,
   shieldConfiguration,
   overrides,
-  recoveryMethod,
 }: ConnectKitProviderProps) => {
   // ConnectKitProvider must be within a WagmiProvider
   if (!React.useContext(WagmiContext)) {
@@ -205,7 +235,7 @@ export const ConnectKitProvider = ({
   const injectedConnector = useConnector('injected');
 
   // Default config options
-  const defaultOptions: ConnectKitOptions = {
+  const defaultOptions: ConnectKitOptionsExtended = {
     language: 'en-US',
     hideBalance: false,
     hideTooltips: false,
@@ -231,7 +261,7 @@ export const ConnectKitProvider = ({
     authProviders: [],
   };
 
-  const opts: ConnectKitOptions = Object.assign({}, defaultOptions, options);
+  const opts: ConnectKitOptionsExtended = Object.assign({}, defaultOptions, options);
 
   if (typeof window !== 'undefined') {
     // Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.)
@@ -286,6 +316,24 @@ export const ConnectKitProvider = ({
     }
   }, [injectedConnector]);
 
+  if (opts.wallet && !opts.wallet?.linkWalletOnSignUp && !opts.wallet?.createEmbeddedSigner) {
+    console.warn("Link wallet on sign up is disabled, but no wallet option is enabled. Please enable 'linkWalletOnSignUp' or 'createEmbeddedSigner' in the wallet options.");
+    opts.wallet = undefined;
+  }
+
+  if (!opts.wallet) {
+    opts.wallet = {
+      createEmbeddedSigner: true,
+      recoveryMethod: RecoveryMethod.AUTOMATIC,
+    };
+  }
+
+  // const onLogin = () => {
+  //   if (opts.wallet?.createEmbeddedSigner) {
+  //     setRoute(routes.RECOVER);
+  //   }
+  // }
+
 
   const log = debugMode ? console.log : () => { };
 
@@ -332,8 +380,6 @@ export const ConnectKitProvider = ({
           shieldConfiguration={shieldConfiguration}
           overrides={overrides}
           debugMode={debugMode}
-          recoveryMethod={recoveryMethod}
-        // chainId={chainId}
         >
           <ThemeProvider theme={defaultTheme}>
             {children}

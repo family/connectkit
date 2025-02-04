@@ -23,11 +23,16 @@ import {
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useConnect } from '../../../hooks/useConnect';
 import { Connector } from 'wagmi';
+import { useOpenfort } from '../../../openfort/OpenfortProvider';
+import Button from '../Button';
+
+const openfortWalletId = 'xyz.openfort';
 
 const ConnectorList = () => {
   const context = useFortKit();
   const isMobile = useIsMobile();
 
+  const { user } = useOpenfort();
   const wallets = useWallets();
   const { lastConnectorId } = useLastConnector();
 
@@ -55,13 +60,22 @@ const ConnectorList = () => {
           $mobile={isMobile}
           $totalResults={walletsToDisplay.length}
         >
-          {walletsToDisplay.map((wallet) => (
-            <ConnectorItem
-              key={wallet.id}
-              wallet={wallet}
-              isRecent={wallet.id === lastConnectorId}
-            />
-          ))}
+          {/* {user && (
+            <Button
+              onClick={() => {
+                context.setRoute(routes.RECOVER);
+              }}
+            >Create one for me</Button>
+          )} */}
+
+          {walletsToDisplay.map((wallet) =>
+            (wallet.id !== openfortWalletId) && (
+              <ConnectorItem
+                key={wallet.id}
+                wallet={wallet}
+                isRecent={wallet.id === lastConnectorId}
+              />
+            ))}
         </ConnectorsContainer>
       )}
     </ScrollArea>

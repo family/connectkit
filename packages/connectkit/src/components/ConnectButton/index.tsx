@@ -1,29 +1,29 @@
 import React from 'react';
 import { useAccount, useEnsName } from 'wagmi';
-import { truncateENSAddress, truncateEthAddress } from './../../utils';
 import useIsMounted from '../../hooks/useIsMounted';
+import { truncateEthAddress, truncateUserId } from './../../utils';
 
+import { useModal } from '../../hooks/useModal';
+import { routes, useFortKit } from '../FortKit';
 import {
   IconContainer,
   TextContainer,
   UnsupportedNetworkContainer,
 } from './styles';
-import { routes, useFortKit } from '../FortKit';
-import { useModal } from '../../hooks/useModal';
 
-import Avatar from '../Common/Avatar';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
-import { CustomTheme, Mode, Theme } from '../../types';
-import { Balance } from '../BalanceButton';
-import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
-import { ResetContainer } from '../../styles';
-import { AuthIcon } from '../../assets/icons';
-import { useSIWE } from '../../siwe';
-import useLocales from '../../hooks/useLocales';
 import { Chain } from 'viem';
+import { AuthIcon } from '../../assets/icons';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 import { useEnsFallbackConfig } from '../../hooks/useEnsFallbackConfig';
+import useLocales from '../../hooks/useLocales';
 import { useOpenfort } from '../../openfort/OpenfortProvider';
+import { useSIWE } from '../../siwe';
+import { ResetContainer } from '../../styles';
+import { CustomTheme, Mode, Theme } from '../../types';
+import { Balance } from '../BalanceButton';
+import Avatar from '../Common/Avatar';
+import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
 
 const contentVariants: Variants = {
   initial: {
@@ -136,6 +136,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   });
 
   function hide() {
+    console.log("hide");
     setOpen(false);
   }
 
@@ -192,23 +193,23 @@ function ConnectKitButtonInner({
   });
   const defaultLabel = locales.connectWallet;
 
-  if (isLoading)
-    return (<div>{embeddedState} loading</div>)
+  // if (isLoading)
+  //   return (<div>{embeddedState} loading</div>)
 
-  if (!user)
-    return (<div>{embeddedState} login button</div>)
+  // if (!user)
+  //   return (<div>{embeddedState} login button</div>)
 
-  if (needsRecovery)
-    return (<div>{embeddedState} needs recovery</div>)
+  // if (needsRecovery)
+  //   return (<div>{embeddedState} needs recovery</div>)
 
-  if (1 + 1 == 2)
-    return (<div>{embeddedState} normal button</div>)
+  // if (1 + 1 == 2)
+  //   return (<div>{embeddedState} normal button</div>)
 
   return (
     <AnimatePresence initial={false}>
-      {address ? (
+      {user || address ? (
         <TextContainer
-          key="connectedText"
+          key={"connectedText"}
           initial={'initial'}
           animate={'animate'}
           exit={'exit'}
@@ -268,7 +269,7 @@ function ConnectKitButtonInner({
             }}
           >
             <AnimatePresence initial={false}>
-              {ensName ? (
+              {/* {ensName ? (
                 <TextContainer
                   key="ckEnsName"
                   initial={'initial'}
@@ -283,20 +284,25 @@ function ConnectKitButtonInner({
                     ? truncateENSAddress(ensName, 20)
                     : ensName}
                 </TextContainer>
-              ) : (
-                <TextContainer
-                  key="ckTruncatedAddress"
-                  initial={'initial'}
-                  animate={'animate'}
-                  exit={'exit'}
-                  variants={textVariants}
-                  style={{
-                    position: ensName ? 'absolute' : 'relative',
-                  }}
-                >
-                  {truncateEthAddress(address, separator)}{' '}
-                </TextContainer>
-              )}
+              ) : ( */}
+              <TextContainer
+                key="ckTruncatedAddress"
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
+                variants={textVariants}
+                style={{
+                  position: ensName ? 'absolute' : 'relative',
+                }}
+              >
+                {
+                  user ?
+                    truncateUserId(user.id)
+                    : "Loading user..."
+                }
+                {/* {truncateEthAddress(address, separator)}{' '} */}
+              </TextContainer>
+              {/* )} */}
             </AnimatePresence>
           </div>
         </TextContainer>
@@ -351,6 +357,7 @@ export function ConnectKitButton({
   const isMounted = useIsMounted();
 
   const context = useFortKit();
+  const setRoute = context.setRoute;
 
   const { address, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
@@ -361,13 +368,19 @@ export function ConnectKitButton({
     context.setOpen(true);
 
     if (isLoading)
-      context.setRoute(routes.LOADING);
+      setRoute(routes.LOADING);
+
     else if (!user)
-      context.setRoute(routes.LOGIN);
+      setRoute(routes.PROVIDERS);
+
+    else if (!address)
+      setRoute(routes.RECOVER);
+
     else if (needsRecovery)
-      context.setRoute(routes.RECOVER);
+      setRoute(routes.RECOVER);
     else
-      context.setRoute(routes.PROFILE);
+      setRoute(routes.PROFILE);
+
   }
 
   const separator = ['web95', 'rounded', 'minimal'].includes(

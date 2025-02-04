@@ -23,6 +23,7 @@ const transition = {
 };
 
 const Button: React.FC<ButtonProps> = ({
+  className,
   children,
   variant = 'secondary', // unique aspect to how we're handling buttons
   disabled,
@@ -46,6 +47,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <ButtonContainer
+      className={className}
       as={href ? 'a' : undefined}
       onClick={(event: any) => {
         if (!disabled && onClick) onClick(event);

@@ -3,45 +3,53 @@ import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import { PageContent } from "../../Common/Modal/styles";
 import { routes, useFortKit } from "../../FortKit";
+import { useAccount } from "wagmi";
+import Loader from "../../Common/Loading";
 
 
 const Loading: React.FC = () => {
 
   const { setRoute, triggerResize } = useFortKit();
   const { isLoading, user, needsRecovery, logout } = useOpenfort();
-
-
-  useEffect(() => {
-    if (isLoading)
-      setRoute(routes.LOADING);
-    else if (!user)
-      setRoute(routes.LOGIN);
-    else if (needsRecovery)
-      setRoute(routes.RECOVER);
-    else
-      setRoute(routes.PROFILE);
-
-  }, [isLoading, user, needsRecovery]);
-
+  const { address } = useAccount();
   const [isFirstFrame, setIsFirstFrame] = React.useState(true);
 
   useEffect(() => {
-    setIsFirstFrame(false);
-    triggerResize();
-  }, []);
+    if (isFirstFrame) return;
 
-  if (isFirstFrame) return <PageContent />;
+    if (isLoading)
+      return
+
+    else if (!user)
+      setRoute(routes.PROVIDERS);
+
+    else if (!address)
+      setRoute(routes.RECOVER);
+    //   setRoute(routes.CONNECTORS);
+
+    else if (needsRecovery)
+      setRoute(routes.RECOVER);
+
+    else
+      setRoute(routes.PROFILE);
+  }, [isLoading, user, address, needsRecovery, isFirstFrame]);
+
+
+
+  useEffect(() => {
+    // UX: Wait a bit before showing the next page
+    setTimeout(() => setIsFirstFrame(false), 400);
+
+    // triggerResize();
+  }, []);
 
   // TODO: Add a loading spinner
   return (
     <PageContent>
-      <div>
-        Loading... Loading...
-      </div>
-
-      <Button onClick={() => { logout() }}>
+      <Loader />
+      {/* <Button onClick={() => { logout() }}>
         logout (for testing only)
-      </Button>
+      </Button> */}
     </PageContent>
   )
 }

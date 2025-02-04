@@ -1,6 +1,8 @@
 import Openfort, { AuthPlayerResponse, EmbeddedState, OAuthProvider, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from '@openfort/openfort-js';
 import React, { createContext, createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
+import { useFortKit } from '../components/FortKit';
+import { useConnect } from '../hooks/useConnect';
 
 type RecoveryProps =
   | { method: RecoveryMethod.AUTOMATIC; chainId: number }
@@ -14,28 +16,37 @@ type ContextValue = {
   isLoading: boolean;
   needsRecovery: boolean;
   user: AuthPlayerResponse | null;
+  updateUser: () => Promise<AuthPlayerResponse | null>;
 
   logout: () => void;
 
   // from Openfort
   logInWithEmailPassword: typeof Openfort.prototype.logInWithEmailPassword;
   signUpWithEmailPassword: typeof Openfort.prototype.signUpWithEmailPassword;
+  requestResetPassword: typeof Openfort.prototype.requestResetPassword;
+  requestEmailVerification: typeof Openfort.prototype.requestEmailVerification;
+  verifyEmail: typeof Openfort.prototype.verifyEmail;
+  resetPassword: typeof Openfort.prototype.resetPassword;
   initOAuth: typeof Openfort.prototype.initOAuth;
   storeCredentials: typeof Openfort.prototype.storeCredentials;
+  initSIWE: typeof Openfort.prototype.initSIWE;
+  authenticateWithSIWE: typeof Openfort.prototype.authenticateWithSIWE;
+  linkWallet: typeof Openfort.prototype.linkWallet;
+  getAccessToken: typeof Openfort.prototype.getAccessToken;
+  initLinkOAuth: typeof Openfort.prototype.initLinkOAuth;
+  linkEmailPassword: typeof Openfort.prototype.linkEmailPassword;
 };
 
 const Context = createContext<ContextValue | null>(null);
 
 export type OpenfortProviderProps = {
   debugMode?: boolean;
-  recoveryMethod?: RecoveryMethod;
 } & ConstructorParameters<typeof Openfort>[0];
 
 
 export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>> = (
   {
     children,
-    recoveryMethod: recoveryMethodUsed = RecoveryMethod.AUTOMATIC,
     debugMode,
     ...openfortProps
   }
@@ -47,8 +58,9 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const [user, setUser] = useState<AuthPlayerResponse | null>(null);
 
   const { disconnect } = useDisconnect();
-  const automaticRecovery = recoveryMethodUsed === RecoveryMethod.AUTOMATIC;
+  const { options } = useFortKit();
 
+  const automaticRecovery = options?.wallet?.recoveryMethod === RecoveryMethod.AUTOMATIC;
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
     log('Creating Openfort instance with props:', openfortProps);
@@ -101,15 +113,28 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const setUserIfNull = useCallback(async () => {
     if (!openfort) return;
     if (!user) {
-      log("Getting user");
-      const user = await openfort.getUser().catch((err) => {
-        log("Error getting user", err);
-        return null;
-      });
-      log("Setting user", user);
-      setUser(user);
+      log("Getting user"); openfort.getUser()
+        .then((user) => {
+          log("Setting user", user);
+          setUser(user);
+        }).catch((err) => {
+          log("Error getting user", err);
+        })
     }
   }, [user, openfort]);
+
+  const updateUser = useCallback(async () => {
+    if (!openfort) return null;
+    return openfort.getUser()
+      .then((user) => {
+        log("Setting user", user);
+        setUser(user);
+        return user;
+      }).catch((err) => {
+        log("Error getting user", err);
+        return null;
+      })
+  }, [openfort]);
 
   useEffect(() => {
     if (!openfort) return;
@@ -128,16 +153,14 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
       case EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED:
         setUserIfNull();
 
-        log("Embedded signer not configured", automaticRecovery);
-        // TODO:allow configuration of embedded signer
-        // TODO:separate function
-        if (automaticRecovery) {
-          log("Automatic recovery enabled, configuring embedded signer");
-          handleRecovery({
-            method: RecoveryMethod.AUTOMATIC,
-            chainId: 80002
-          });
-        }
+        // log("Embedded signer not configured", automaticRecovery);
+        // if (automaticRecovery) {
+        //   log("Automatic recovery enabled, configuring embedded signer");
+        //   handleRecovery({
+        //     method: RecoveryMethod.AUTOMATIC,
+        //     chainId: options?.initialChainId ?? chain,
+        //   });
+        // }
         break;
       case EmbeddedState.READY:
         log("Getting ethereum provider");
@@ -145,7 +168,9 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
         setUserIfNull();
 
-        stopPollingEmbeddedState();
+        // We cannot stop polling here because there is a bug on openfort-js
+        // that makes 
+        // stopPollingEmbeddedState();
 
         break;
 
@@ -155,15 +180,16 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   }, [embeddedState, openfort, automaticRecovery, /* handleRecovery, */ setUserIfNull]);
 
   useEffect(() => {
-    // Connect to wagmi with Openfort
+    // Connect to wagmi with Embedded signer
+    if (address || !user) return;
 
     if (embeddedState !== EmbeddedState.READY) return;
     const connector = connectors.find((connector) => connector.name === "Openfort")
     if (!connector) return
 
     log("Connecting to wagmi with Openfort");
-    connect({ connector: connector!, chainId: 80002 });
-  }, [connectors, embeddedState])
+    connect({ connector: connector! });
+  }, [connectors, embeddedState, address, connect, user]);
 
 
   // ---- Recovery ----
@@ -196,6 +222,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
         encryptionSession: await getEncryptionSession(),
       };
       if (method === 'automatic') {
+        console.log("Configuring embedded signer with automatic recovery");
         await openfort.configureEmbeddedSigner(chainId, shieldAuth);
       } else if (method === 'password') {
         if (!password || password.length < 4) {
@@ -216,6 +243,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!openfort) return;
 
     openfort.logout();
+    setUser(null);
     disconnect();
     reset();
     startPollingEmbeddedState();
@@ -241,6 +269,22 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     return openfort.signUpWithEmailPassword(props);
   }, [openfort]);
 
+  const resetPassword: typeof Openfort.prototype.resetPassword = useCallback(async (props) => {
+    return openfort.resetPassword(props);
+  }, [openfort]);
+
+  const requestResetPassword: typeof Openfort.prototype.requestResetPassword = useCallback(async (props) => {
+    return openfort.requestResetPassword(props);
+  }, [openfort]);
+
+  const requestEmailVerification: typeof Openfort.prototype.requestEmailVerification = useCallback(async (props) => {
+    return openfort.requestEmailVerification(props);
+  }, [openfort]);
+
+  const verifyEmail: typeof Openfort.prototype.verifyEmail = useCallback(async (props) => {
+    return openfort.verifyEmail(props);
+  }, [openfort]);
+
   const initOAuth: typeof Openfort.prototype.initOAuth = useCallback(async (props) => {
     return openfort.initOAuth(props);
   }, [openfort]);
@@ -249,15 +293,28 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     return openfort.storeCredentials(props);
   }, [openfort]);
 
-  const g = useCallback(async () => {
-    if (!openfort) return;
-    const res = await openfort.initOAuth({
-      provider: OAuthProvider.GOOGLE,
-      options: {
-        redirectTo: location.href,
-      }
-    });
-    console.log('Signed up as guest:', res);
+  const initSIWE: typeof Openfort.prototype.initSIWE = useCallback(async (props) => {
+    return openfort.initSIWE(props);
+  }, [openfort]);
+
+  const authenticateWithSIWE: typeof Openfort.prototype.authenticateWithSIWE = useCallback(async (props) => {
+    return openfort.authenticateWithSIWE(props);
+  }, [openfort]);
+
+  const linkWallet: typeof Openfort.prototype.linkWallet = useCallback(async (props) => {
+    return openfort.linkWallet(props);
+  }, [openfort]);
+
+  const getAccessToken: typeof Openfort.prototype.getAccessToken = useCallback(() => {
+    return openfort.getAccessToken();
+  }, [openfort]);
+
+  const initLinkOAuth: typeof Openfort.prototype.initLinkOAuth = useCallback(async (props) => {
+    return openfort.initLinkOAuth(props);
+  }, [openfort]);
+
+  const linkEmailPassword: typeof Openfort.prototype.linkEmailPassword = useCallback(async (props) => {
+    return openfort.linkEmailPassword(props);
   }, [openfort]);
 
   // ---- Return values ----
@@ -273,13 +330,10 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
       case EmbeddedState.CREATING_ACCOUNT: // There is a bug on openfort-js that makes creating account state to be stuck. When its fixed, we should remove this case (same as NONE)
       case EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED:
-        if (!user) return true;
-        // If automatic recovery is enabled, we should wait for the embedded signer to be ready
-        if (automaticRecovery) {
+        if (!user)
           return true;
-        } else {
-          return false;
-        }
+        // If automatic recovery is enabled, we should wait for the embedded signer to be ready
+        return false;
       case EmbeddedState.READY:
         // We should wait for the user to be set  
         if (!address || !user)
@@ -296,6 +350,8 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     !automaticRecovery && (
       embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED
       || embeddedState === EmbeddedState.CREATING_ACCOUNT // There is a bug on openfort-js that makes creating account state to be stuck. When its fixed, we should remove this case (same as NONE)
+    ) && (
+      !address
     );
 
   const value: ContextValue = {
@@ -307,12 +363,23 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     isLoading: isLoading(),
     needsRecovery,
     user,
+    updateUser,
+    requestEmailVerification,
+    verifyEmail,
 
     // from Openfort
     signUpWithEmailPassword,
     logInWithEmailPassword,
+    resetPassword,
+    requestResetPassword,
     initOAuth,
     storeCredentials,
+    initSIWE,
+    authenticateWithSIWE,
+    linkWallet,
+    getAccessToken,
+    initLinkOAuth,
+    linkEmailPassword,
   };
 
   return createElement(Context.Provider, { value }, <>{children}</>);

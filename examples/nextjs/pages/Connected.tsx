@@ -1,12 +1,13 @@
 "use client";
 
+import { useOpenfort } from "connectkit";
 import { useEffect, useState } from "react";
-import { useAccount, useDisconnect } from "wagmi";
+import { useAccount } from "wagmi";
 
 export const Connected = () => {
   const { address } = useAccount();
   const [isClient, setIsClient] = useState(false);
-  const { disconnect } = useDisconnect();
+  const { user, logout } = useOpenfort()
 
   useEffect(() => {
     setIsClient(true);
@@ -15,15 +16,14 @@ export const Connected = () => {
   if (!isClient || !address) return null; // Avoid mismatch by rendering nothing during SSR
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <p>Connected with address: {address}</p>
-      <button style={{ margin: "10px" }}>Mint... with wagmi</button>
-      <button style={{ margin: "10px" }}>Sign... with wagmi</button>
+      {user && <p>Connected with user: {user.id}</p>}
       <button
         style={{ margin: "10px" }}
-        onClick={() => disconnect()}
+        onClick={() => logout()}
       >
-        disconnect
+        Log out
       </button>
     </div>
   );

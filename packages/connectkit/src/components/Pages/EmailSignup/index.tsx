@@ -14,9 +14,10 @@ import FitText from "../../Common/FitText";
 const EmailSignup: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [username, setUsername] = React.useState("");
 
-  const { setRoute, triggerResize, log } = useFortKit();
-  const { signUpWithEmailPassword, user } = useOpenfort();
+  const { setRoute, triggerResize, log, options } = useFortKit();
+  const { signUpWithEmailPassword, user, requestEmailVerification } = useOpenfort();
 
   const [signupLoading, setSignupLoading] = React.useState(false);
   const [signupError, setSignupError] = React.useState(false);
@@ -25,19 +26,38 @@ const EmailSignup: React.FC = () => {
     setSignupLoading(true);
     signUpWithEmailPassword({
       email,
-      password
+      password,
+      options: {
+        data: {
+          name: username
+        }
+      }
     }).catch((e) => {
       log("Signup error:", e);
       setSignupLoading(false);
       setSignupError(true);
       triggerResize();
-    })
+    }).then((user) => {
+      if (user) {
+        if (options?.skipEmailVerification) {
+          setRoute(routes.RECOVER);
+        }
+        else {
+          setRoute(routes.EMAIL_VERIFICATION);
+        }
+      }
+      else {
+        setSignupLoading(false);
+        setSignupError(true);
+        triggerResize();
+      }
+    });
   }
 
-  useEffect(() => {
-    if (user)
-      setRoute(routes.LOADING);
-  }, [user]);
+  // useEffect(() => {
+  //   if (user)
+  //     setRoute(routes.RECOVER);
+  // }, [user]);
 
   return (
     <PageContent>
@@ -47,12 +67,22 @@ const EmailSignup: React.FC = () => {
           handleSubmit();
         }}
       >
+        {/* <Input
+          style={{ marginTop: 0 }}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          type="text"
+          placeholder="Enter your username"
+          disabled={signupLoading}
+        /> */}
         <Input
+          style={{ marginTop: 0 }}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Enter your email"
           disabled={signupLoading}
+          autoComplete="off"
         />
         <Input
           value={password}
@@ -60,6 +90,7 @@ const EmailSignup: React.FC = () => {
           type="password"
           placeholder="Enter your password"
           disabled={signupLoading}
+          autoComplete="new-password"
         />
 
         {signupError && (

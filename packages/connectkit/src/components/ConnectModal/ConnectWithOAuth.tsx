@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { PageContent } from "../Common/Modal/styles";
 import { routes, useFortKit } from "../FortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
+import Loader from "../Common/Loading";
 
 const states = {
   INIT: "init",
@@ -12,7 +13,7 @@ const states = {
 
 const ConnectWithOAuth: React.FC<{}> = ({ }) => {
   const { connector, setRoute, log } = useFortKit();
-  const { initOAuth, storeCredentials } = useOpenfort();
+  const { initOAuth, getAccessToken, initLinkOAuth, storeCredentials, user } = useOpenfort();
 
   const [status, setStatus] = useState(states.INIT);
 
@@ -42,7 +43,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
           "access_token",
           "player_id",
         ].forEach((key) => url.searchParams.delete(key));
-        window.history.replaceState(null, "", url.toString());
+        window.history.replaceState({}, document.title, url.toString());
 
         if (!player || !accessToken || !refreshToken) {
           console.error(`Missing player id or access token or refresh token: player=${player}, accessToken=${accessToken ? accessToken.substring(0, 10) + "..." : accessToken}, refreshToken=${refreshToken}`);
@@ -73,19 +74,44 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
         );
         queryParams["fort_auth_provider"] = provider;
 
-        initOAuth({
-          provider,
-          options: {
-            redirectTo: cleanURL,
-            queryParams,
+        if (user) {
+          const authToken = getAccessToken();
+          if (!authToken) {
+            console.error("No auth token found");
+            setRoute(routes.LOADING);
+            return;
           }
-        }).then((r) => {
-          log(r);
-          // console.log("SHOULD REDIRECT TO", r.url);
-          window.location.href = r.url;
-        }).catch((e) => {
-          log(`Error logging in with ${provider}:`, e);
-        });
+          initLinkOAuth({
+            authToken,
+            provider,
+            options: {
+              redirectTo: cleanURL,
+              queryParams,
+            }
+          }).then((r) => {
+            log(r);
+            // console.log("SHOULD REDIRECT TO", r.url);
+            window.location.href = r.url;
+          }).catch((e) => {
+            log(`Error logging in with ${provider}:`, e);
+          });
+        } else {
+          initOAuth({
+            provider,
+            options: {
+              redirectTo: cleanURL,
+              queryParams,
+            }
+          }).then((r) => {
+            log(r);
+            // console.log("SHOULD REDIRECT TO", r.url);
+            window.location.href = r.url;
+          }).catch((e) => {
+            log(`Error logging in with ${provider}:`, e);
+          });
+        }
+
+
 
         break;
     }
@@ -99,7 +125,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
 
   return (
     <PageContent>
-      Connecting with oauth... {connector.id}
+      <Loader />
     </PageContent>
   )
 }

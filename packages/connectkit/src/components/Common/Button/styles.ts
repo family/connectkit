@@ -294,3 +294,16 @@ export const IconContainer = styled(motion.div) <{ $rounded?: boolean }>`
     height: auto;
   }
 `;
+
+export const TextLinkButton = styled.button`
+  background: none;
+  border: none;
+  color: var(--ck-body-color-muted);
+  cursor: pointer;
+  font-size: inherit;
+
+  &:hover {
+    text-decoration: underline;
+    color: var(--ck-body-color-muted-hover);
+  }
+`

@@ -1,30 +1,33 @@
 import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
-import { routes, useFortKit } from '../FortKit';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
+import { routes, useFortKit } from '../FortKit';
 
-import Onboarding from '../Pages/Onboarding';
 import About from '../Pages/About';
 import Connectors from '../Pages/Connectors';
-import MobileConnectors from '../Pages/MobileConnectors';
-import ConnectUsing from './ConnectUsing';
 import DownloadApp from '../Pages/DownloadApp';
+import MobileConnectors from '../Pages/MobileConnectors';
+import Onboarding from '../Pages/Onboarding';
 import Profile from '../Pages/Profile';
-import SwitchNetworks from '../Pages/SwitchNetworks';
 import SignInWithEthereum from '../Pages/SignInWithEthereum';
+import SwitchNetworks from '../Pages/SwitchNetworks';
+import ConnectUsing from './ConnectUsing';
 
-import { getAppIcon, getAppName } from '../../defaultConfig';
-import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import { useChainIsSupported } from '../../hooks/useChainIsSupported';
-import OpenfortLogin from '../Pages/OpenfortLogin';
+import { OAuthProvider } from '@openfort/openfort-js';
 import { ValueOf } from 'viem/_types/types/utils';
-import SetupEmbeddedSigner from '../Pages/SetRecover';
-import Loading from '../Pages/Loading';
+import { getAppName } from '../../defaultConfig';
+import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 import { useOpenfort } from '../../openfort/OpenfortProvider';
+import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import EmailLogin from '../Pages/EmailLogin';
 import EmailSignup from '../Pages/EmailSignup';
-import { OAuthProvider } from '@openfort/openfort-js';
+import Loading from '../Pages/Loading';
+import Providers from '../Pages/Providers';
+import CreateEmbeddedSigner from '../Pages/Recover';
+import ForgotPassword from '../Pages/ForgotPassword';
+import EmailVerification from '../Pages/EmailVerification';
+import LinkEmail from '../Pages/LinkEmail';
 
 const customThemeDefault: object = {};
 
@@ -35,7 +38,7 @@ const ConnectModal: React.FC<{
   lang?: Languages;
 }> = ({ mode = 'auto', theme = 'auto', customTheme = customThemeDefault, lang = 'en-US' }) => {
   const context = useFortKit();
-  const { logout } = useOpenfort();
+  const { logout, user } = useOpenfort();
   const { isConnected, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
 
@@ -47,29 +50,44 @@ const ConnectModal: React.FC<{
   );
 
   const mainRoutes: ValueOf<typeof routes>[] = [
-    routes.LOGIN,
     routes.PROFILE,
     routes.LOADING,
+    routes.PROVIDERS,
+    routes.EMAIL_VERIFICATION,
   ];
 
   const showBackButton =
     closeable &&
-    !mainRoutes.includes(context.route);
+    !mainRoutes.includes(context.route)
+    || (closeable && context.route === routes.PROVIDERS && user);
 
   const showInfoButton = closeable && context.route !== routes.PROFILE;
 
   const onBack = () => {
-    // if (context.route === routes.SIGNINWITHETHEREUM) {
-    //   context.setRoute(routes.PROFILE);
-    // } else if (context.route === routes.SWITCHNETWORKS) {
-    //   context.setRoute(routes.PROFILE);
     // } else if (context.route === routes.DOWNLOAD) {
     //   context.setRoute(routes.CONNECT);
-    // } else {
-    if (context.route === routes.RECOVER) {
+    // } 
+
+    if (context.route === routes.FORGOT_PASSWORD) {
+      context.setRoute(routes.EMAIL_LOGIN);
+      return;
+    }
+
+    if (context.route === routes.PROVIDERS
+      || context.route === routes.SWITCHNETWORKS
+    ) {
+      context.setRoute(routes.PROFILE);
+      return;
+    }
+
+    if (context.route === routes.RECOVER
+      || context.route === routes.CONNECTORS
+      || context.route === routes.EMAIL_VERIFICATION
+    ) {
       logout();
     }
-    context.setRoute(routes.LOGIN);
+
+    context.setRoute(routes.PROVIDERS);
     // }
   };
 
@@ -80,50 +98,59 @@ const ConnectModal: React.FC<{
 
     emailLogin: <EmailLogin />,
     emailSignup: <EmailSignup />,
+    forgotPassword: <ForgotPassword />,
+    emailVerification: <EmailVerification />,
+    linkEmail: <LinkEmail />,
 
     download: <DownloadApp />,
     connectors: <Connectors />,
     mobileConnectors: <MobileConnectors />,
-    login: <OpenfortLogin />,
+
+    providers: <Providers />,
     connect: <ConnectUsing />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     signInWithEthereum: <SignInWithEthereum />,
-    recover: <SetupEmbeddedSigner />,
-
-    authProvider: <div>TODO</div>,
+    recover: <CreateEmbeddedSigner />,
   };
 
   function hide() {
+    console.log("Hiding modal");
     context.setOpen(false);
   }
 
   useEffect(() => {
     if (isConnected) {
       if (
-        context.route !== routes.PROFILE
-        // || context.route !== routes.SIGNINWITHETHEREUM
+        context.route !== routes.PROFILE && user
       ) {
-        if (
-          context.signInWithEthereum &&
-          !context.options?.disableSiweRedirect
-        ) {
-          context.setRoute(routes.SIGNINWITHETHEREUM);
-        } else {
-          hide(); // Hide on connect
-        }
+        hide(); // Hide on connect
       }
     } else {
-      hide(); // Hide on connect
+      // hide(); // Hide on disconnect
     }
-  }, [isConnected]);
+  }, [isConnected, user]);
 
   // if auth redirect
   useEffect(() => {
-    const newUrl = new URL(window.location.href);
-    const provider = newUrl.searchParams.get("fort_auth_provider");
+    const url = new URL(window.location.href);
+    const provider = url.searchParams.get("fort_auth_provider");
+    const emailVerification = url.searchParams.get("fort_email_verification");
+    const forgotPassword = url.searchParams.get("fort_forgot_password");
 
-    context.log("Checking for auth provider", provider);
+    context.log("Checking for search parameters", url);
+
+    if (emailVerification) {
+      context.setOpen(true);
+      context.setRoute(routes.EMAIL_VERIFICATION);
+      return;
+    }
+
+    if (forgotPassword) {
+      context.setOpen(true);
+      context.setRoute(routes.FORGOT_PASSWORD);
+      return;
+    }
 
     function isProvider(value: string | null): value is OAuthProvider {
       if (!value) return false;
@@ -136,7 +163,6 @@ const ConnectModal: React.FC<{
       context.setConnector({ id: provider, type: "oauth" });
       context.setRoute(routes.CONNECT);
     }
-
   }, [])
 
   useEffect(() => context.setMode(mode), [mode]);

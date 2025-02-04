@@ -2,6 +2,8 @@ import { keyframes } from 'styled-components';
 import styled from './../../../styles/styled';
 import { motion } from 'framer-motion';
 import defaultTheme from '../../../constants/defaultTheme';
+import Button from '../../Common/Button';
+import { InnerContainer } from '../../Common/Button/styles';
 
 export const AvatarContainer = styled(motion.div)`
   padding: 18px 0 20px;
@@ -53,4 +55,37 @@ export const LoadingBalance = styled(motion.div)`
     background-size: 200% 100%;
     animation: ${PlaceholderKeyframes} 1000ms linear infinite both;
   }
+`;
+
+export const Unsupported = styled(motion.div)`
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  min-width: 13px;
+  min-height: 13px;
+  color: var(--ck-body-color-danger, red);
+`;
+
+export const LinkedProviderContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const LinkedProviderButton = styled(Button)`
+  width: 50px;
+  margin: 0px;
+
+  ${InnerContainer} {
+    max-width: calc(100% - 16px);
+  }
+`;
+
+export const ProvidersHeader = styled(motion.h3)`
+  font-size: 14px;
+  margin-bottom: 4px;
+  font-weight: bold;
+  color: var(--ck-body-color);
 `;

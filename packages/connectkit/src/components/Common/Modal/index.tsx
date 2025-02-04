@@ -231,7 +231,7 @@ const Modal: React.FC<ModalProps> = ({
   const rendered = state === 'preEnter' || state !== 'exiting';
 
   const currentDepth =
-    context.route === routes.LOGIN
+    context.route === routes.PROVIDERS
       ? 0
       : context.route === routes.DOWNLOAD
         ? 2
@@ -330,16 +330,18 @@ const Modal: React.FC<ModalProps> = ({
     switch (context.route) {
       case routes.ABOUT:
         return locales.aboutScreen_heading;
-      case routes.LOGIN:
-        return "Login";// TODO: Localize
+      case routes.PROVIDERS:
+        return "Connect";// TODO: Localize
       case routes.RECOVER:
         return "Recover";// TODO: Localize 
       case routes.EMAIL_LOGIN:
         return "Email Login";// TODO: Localize
       case routes.EMAIL_SIGNUP:
         return "Email Signup";// TODO: Localize
-
-
+      case routes.FORGOT_PASSWORD:
+        return "Reset your password";// TODO: Localize
+      case routes.EMAIL_VERIFICATION:
+        return "Email Verification"; // TODO: Localize
 
       case routes.CONNECT:
         if (shouldUseQrcode()) {

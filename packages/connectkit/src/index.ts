@@ -17,7 +17,7 @@ export type { SIWESession, SIWEConfig } from './siwe';
 export {
   ConnectKitProvider as FortKitProvider,
   Context as FortKitContext,
-  FortOAuthProvider
+  FortOAuthProvider,
 } from './components/FortKit';
 export { ConnectKitButton } from './components/ConnectButton';
 export { default as SIWEButton } from './components/Standard/SIWE';
@@ -31,6 +31,8 @@ export { default as ChainIcon } from './components/Common/Chain';
 export { default as useIsMounted } from './hooks/useIsMounted'; // Useful for apps that use SSR
 export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
+
+export { useOpenfort } from "./openfort/OpenfortProvider";
 
 // OLD_TODO: Make this private
 export { default as ConnectKitModalDemo } from './components/ConnectModal/demo';
