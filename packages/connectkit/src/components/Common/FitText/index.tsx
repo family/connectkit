@@ -1,12 +1,16 @@
 import React from 'react';
 import useFitText from '../../../hooks/useFitText';
 
-const FitText = ({ children }: { children: React.ReactNode }) => {
+const FitText = ({ children, maxFontSize = 100, minFontSize = 70 }: {
+  children: React.ReactNode
+  maxFontSize?: number
+  minFontSize?: number
+}) => {
   const [ready, setReady] = React.useState(false);
   const { fontSize, ref: textRef } = useFitText({
     logLevel: 'none',
-    maxFontSize: 100,
-    minFontSize: 70,
+    maxFontSize,
+    minFontSize,
     onStart: () => setReady(true),
     onFinish: () => setReady(true),
   });
