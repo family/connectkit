@@ -56,13 +56,11 @@ const EmailLogin: React.FC = () => {
       log("Login error:", e);
       setLoginLoading(false);
       setLoginError("Invalid email or password.");
-      triggerResize();
     }).then((user) => {
       console.log("User", user);
       if (!user) {
         setLoginLoading(false);
         setLoginError("Invalid email or password.");
-        triggerResize();
         return;
       }
 
@@ -98,21 +96,30 @@ const EmailLogin: React.FC = () => {
           disabled={loginLoading}
         />
 
-        {loginError && (
-          <ModalBody style={{ height: 24, marginTop: 12 }} $error>
-            <FitText>
-              {loginError}
-              <TextLinkButton
-                type="button"
-                onClick={() => {
-                  setRoute(routes.FORGOT_PASSWORD);
-                }}
-              >
-                Forgot password?
-              </TextLinkButton>
-            </FitText>
-          </ModalBody>
-        )}
+        <ModalBody style={{ marginTop: 12 }} $error={!!loginError}>
+          <AnimatePresence initial={false}>
+            <motion.div
+              style={{ height: 24 }}
+              key={loginError ? "error" : "no-error"}
+              initial={'initial'}
+              animate={'animate'}
+              exit={'exit'}
+              variants={textVariants}
+            >
+              <FitText maxFontSize={80} >
+                {loginError ? loginError : ""}
+                <TextLinkButton
+                  type="button"
+                  onClick={() => {
+                    setRoute(routes.FORGOT_PASSWORD);
+                  }}
+                >
+                  Forgot password?
+                </TextLinkButton>
+              </FitText>
+            </motion.div>
+          </AnimatePresence>
+        </ModalBody>
         <Button
           onClick={handleSubmit}
           disabled={loginLoading}
