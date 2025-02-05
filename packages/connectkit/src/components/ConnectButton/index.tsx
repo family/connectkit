@@ -267,11 +267,13 @@ function ConnectKitButtonInner({
                 }}
               >
                 {
-                  user ?
-                    truncateUserId(user.id)
-                    : "Loading user..."
+                  address ?
+                    truncateEthAddress(address, separator)
+                    : user ?
+                      truncateUserId(user.id)
+                      : "Loading user..."
                 }
-                {/* {truncateEthAddress(address, separator)}{' '} */}
+                {' '}
               </TextContainer>
               {/* )} */}
             </AnimatePresence>

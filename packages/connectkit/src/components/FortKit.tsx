@@ -286,7 +286,11 @@ export const OpenfortKitProvider = ({
     disableSiweRedirect: false,
 
     // Openfort options
-    authProviders: [],
+    authProviders: [
+      KitOAuthProvider.GUEST,
+      KitOAuthProvider.EMAIL,
+      KitOAuthProvider.WALLET,
+    ],
   };
 
   const opts: ConnectKitOptionsExtended = Object.assign({}, defaultOptions, options);
@@ -345,7 +349,7 @@ export const OpenfortKitProvider = ({
   }, [injectedConnector]);
 
 
-  if (walletConfig?.linkWalletOnSignUp && !walletConfig?.createEmbeddedSigner) {
+  if (!walletConfig?.linkWalletOnSignUp && !walletConfig?.createEmbeddedSigner) {
     throw new Error("Link wallet on sign up is disabled, but no wallet option is enabled. Please enable 'linkWalletOnSignUp' or 'createEmbeddedSigner' in the wallet options.");
   }
 

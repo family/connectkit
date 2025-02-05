@@ -36,7 +36,7 @@ import CircleSpinner from './CircleSpinner';
 import Openfort from '@openfort/openfort-js';
 import { useOpenfort } from '../../../openfort/OpenfortProvider';
 import { createSIWEMessage } from './create-siwe-message';
-import { useAccount, useChainId, useConfig, useSignMessage } from 'wagmi';
+import { useAccount, useChainId, useConfig, useDisconnect, useSignMessage } from 'wagmi';
 
 import { signMessage } from '@wagmi/core';
 
@@ -84,8 +84,10 @@ const ConnectWithInjector: React.FC<{
   forceState?: typeof states;
 }> = ({ switchConnectMethod, forceState }) => {
   const openfort = useOpenfort();
+  const { log } = useFortKit();
   const { address } = useAccount();
   const chainId = useChainId();
+  const { disconnect } = useDisconnect();
 
   const { connect } = useConnect({
     mutation: {
@@ -100,7 +102,7 @@ const ConnectWithInjector: React.FC<{
         console.error(err);
       },
       onSettled(data?: any, error?: any) {
-        console.log(`data: ${data}, error: ${error}`, data);
+        log(`onSettled - data: ${data}, error: ${error}`, data);
         if (error) {
           setShowTryAgainTooltip(true);
           setTimeout(() => setShowTryAgainTooltip(false), 3500);
@@ -167,6 +169,8 @@ const ConnectWithInjector: React.FC<{
             }
             catch (err) {
               console.error(err);
+              disconnect();
+              setStatus(states.FAILED);
             }
           }
           con();

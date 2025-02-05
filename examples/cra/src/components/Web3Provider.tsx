@@ -2,12 +2,12 @@ import React from 'react';
 
 import { WagmiProvider, createConfig } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { OpenfortKitProvider, getDefaultConfig } from 'connectkit';
+import { KitOAuthProvider, OpenfortKitProvider, getDefaultConfig } from 'connectkit';
+import { RecoveryMethod } from '@openfort/openfort-js';
 
 const config = createConfig(
   getDefaultConfig({
-    appName: 'ConnectKit CRA demo',
-    walletConnectProjectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID!,
+    appName: 'OpenfortKit CRA demo',
   })
 );
 
@@ -17,7 +17,23 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <OpenfortKitProvider debugMode>{children}</OpenfortKitProvider>
+        <OpenfortKitProvider
+          debugMode
+          publishableKey={process.env.REACT_APP_OPENFORT_PUBLIC_KEY!}
+
+          walletConfig={{
+            linkWalletOnSignUp: true,
+          }}
+
+          options={{
+            authProviders: [
+              KitOAuthProvider.WALLET,
+              KitOAuthProvider.EMAIL,
+            ]
+          }}
+        >
+          {children}
+        </OpenfortKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );

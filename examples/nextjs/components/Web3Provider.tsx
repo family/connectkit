@@ -3,14 +3,16 @@ import React from 'react';
 
 import { RecoveryMethod } from '@openfort/openfort-js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { OpenfortKitProvider, KitOAuthProvider, getDefaultConfig } from 'connectkit';
+import { KitOAuthProvider, OpenfortKitProvider, getDefaultConfig } from 'connectkit';
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
 
 const config = createConfig(
   getDefaultConfig({
-    appName: 'FortKit Next.js demo',
+    appName: 'OpenfortKit Next.js demo',
     chains: [beamTestnet, polygonAmoy],
+
+    ssr: true,
   })
 );
 
@@ -32,19 +34,20 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             embeddedSignerConfiguration: {
               shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
               recoveryMethod: RecoveryMethod.PASSWORD,
+              // shieldEncryptionKey: process.env.NEXT_PUBLIC_SHIELD_ENCRYPTION_KEY!,
               createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
             }
           }}
 
           options={{
-            authProviders: [
-              KitOAuthProvider.GUEST,
-              KitOAuthProvider.EMAIL,
-              KitOAuthProvider.GOOGLE,
-              KitOAuthProvider.TWITTER,
-              KitOAuthProvider.FACEBOOK,
-              KitOAuthProvider.WALLET,
-            ],
+            // authProviders: [
+            //   KitOAuthProvider.GUEST,
+            //   KitOAuthProvider.EMAIL,
+            //   KitOAuthProvider.GOOGLE,
+            //   KitOAuthProvider.TWITTER,
+            //   KitOAuthProvider.FACEBOOK,
+            //   KitOAuthProvider.WALLET,
+            // ],
             initialChainId: polygonAmoy.id,
             enforceSupportedChains: true,
 
@@ -58,9 +61,9 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             // disclaimer: "This is a demo app. Do not use real funds.",
           }}
           debugMode
-          // theme='rounded'
-          // mode='dark'
-          theme='retro'
+        // theme='rounded'
+        // mode='dark'
+        // theme='retro'
         // theme='web95'
 
         >

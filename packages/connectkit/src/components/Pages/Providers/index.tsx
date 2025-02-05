@@ -9,6 +9,8 @@ import { ScrollArea } from "../../Common/ScrollArea";
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
 import WalletIcon from "../../../assets/wallet";
 import PoweredByFooter from "../../Common/PoweredByFooter";
+import { useAccount, useDisconnect } from "wagmi";
+import Loader from "../../Common/Loading";
 
 const ProviderButton: React.FC<{
   onClick: () => void;
@@ -137,19 +139,39 @@ const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provid
   }
 }
 
+// This accounts for the case where the user has an address but no user, which can happen if the user has not signed up yet, but logged in with a wallet
+const AddressButNoUserCase: React.FC = () => {
+  const { updateUser } = useOpenfort();
+  const { disconnect } = useDisconnect();
+
+  useEffect(() => {
+    updateUser()
+      .then((user) => {
+        if (!user)
+          disconnect();
+      })
+      .catch(() => {
+        console.error("Failed to update user");
+      })
+  }, [])
+
+  return (
+    <PageContent>
+      <Loader />
+    </PageContent>
+  )
+}
 
 const Providers: React.FC = () => {
   const { options } = useFortKit();
   const { user } = useOpenfort();
+  const { address } = useAccount();
 
-  const providers = options?.authProviders ?? [
-    KitOAuthProvider.GUEST,
-    KitOAuthProvider.EMAIL,
-    KitOAuthProvider.WALLET,
-  ];
+  const providers = options?.authProviders!;
 
-  if (user) {
+  if (address && !user) {
 
+    return <AddressButNoUserCase />
   }
 
   return (

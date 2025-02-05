@@ -1,23 +1,34 @@
 "use client";
 
 import { useIsMounted, useOpenfort } from "connectkit";
-import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useEnsName } from "wagmi";
 
 export const Connected = () => {
-  const { address } = useAccount();
+  const account = useAccount();
   const isMounted = useIsMounted();
+  const { data: ensName } = useEnsName({
+    address: account.address,
+  })
   const { user, logout } = useOpenfort()
 
   // Avoid mismatch by rendering nothing during SSR
-  if (!isMounted || !address) return null;
+  if (!isMounted) return null;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <p>Connected with address: {address}</p>
-      {user && <p>Connected with user: {user.id}</p>}
+    <div style={{ display: "flex", width: "90vw", flexDirection: "column", alignItems: "start", gap: "10px" }}>
+      <div style={{ width: "100%" }}>
+        account: {account.address} {ensName}
+        <br />
+        chainId: {account.chainId}
+        <br />
+        status: {account.status}
+      </div>
+      <div style={{ width: "100%" }}>
+        player: {user?.id}
+        <br />
+        linked accounts: {user?.linkedAccounts.map((a) => a.provider).join(", ")}
+      </div>
       <button
-        style={{ margin: "10px" }}
         onClick={() => logout()}
       >
         Log out

@@ -43,6 +43,14 @@ export type OpenfortProviderProps = {
   debugMode?: boolean;
 } & ConstructorParameters<typeof Openfort>[0];
 
+const openfort = new Openfort({
+  baseConfiguration: {
+    publishableKey: "pk_test_b73c8a93-3ab3-58f2-b144-d79833edcc7a",
+  },
+  shieldConfiguration: {
+    shieldPublishableKey: "a5cd1734-a783-4b1f-b7e6-c11a7c922729"
+  },
+});
 
 export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>> = (
   {
@@ -63,14 +71,16 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const automaticRecovery = walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC;
 
   // ---- Openfort instance ----
-  const openfort = useMemo(() => {
-    log('Creating Openfort instance with props:', openfortProps);
+  // const openfort = useMemo(() => {
+  //   // return {} as Openfort;
 
-    if (!openfortProps.baseConfiguration.publishableKey)
-      throw Error('OpenfortProvider requires a publishableKey to be set in the baseConfiguration.');
+  //   log('Creating Openfort instance with props:', openfortProps);
 
-    return new Openfort(openfortProps)
-  }, []);
+  //   if (!openfortProps.baseConfiguration.publishableKey)
+  //     throw Error('OpenfortProvider requires a publishableKey to be set in the baseConfiguration.');
+
+  //   return new Openfort(openfortProps)
+  // }, []);
 
   // ---- Embedded state ----
   const [embeddedState, setEmbeddedState] = useState<EmbeddedState>(EmbeddedState.NONE);
@@ -90,6 +100,8 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   }, [openfort]);
 
   const startPollingEmbeddedState = useCallback(() => {
+    // return;
+
     if (!!pollingRef.current) return;
     log("Starting polling embedded state", pollingRef.current, !!pollingRef.current);
     pollingRef.current = setInterval(pollEmbeddedState, 300);
@@ -114,7 +126,8 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const setUserIfNull = useCallback(async () => {
     if (!openfort) return;
     if (!user) {
-      log("Getting user"); openfort.getUser()
+      log("Getting user");
+      openfort.getUser()
         .then((user) => {
           log("Setting user", user);
           setUser(user);
@@ -139,7 +152,15 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
   useEffect(() => {
     if (!openfort) return;
+
+    log("Getting ethereum provider");
+    openfort.getEthereumProvider();
+  }, [openfort])
+
+  useEffect(() => {
+    if (!openfort) return;
     // Poll embedded signer state
+    // return;
 
     log("Embedded state update", embeddedState);
 
@@ -154,23 +175,12 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
       case EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED:
         setUserIfNull();
 
-        // log("Embedded signer not configured", automaticRecovery);
-        // if (automaticRecovery) {
-        //   log("Automatic recovery enabled, configuring embedded signer");
-        //   handleRecovery({
-        //     method: RecoveryMethod.AUTOMATIC,
-        //     chainId: options?.initialChainId ?? chain,
-        //   });
-        // }
         break;
       case EmbeddedState.READY:
-        log("Getting ethereum provider");
-        openfort.getEthereumProvider();
-
         setUserIfNull();
 
         // We cannot stop polling here because there is a bug on openfort-js
-        // that makes 
+        // that makes the embedded state to be stuck on CREATING_ACCOUNT
         // stopPollingEmbeddedState();
 
         break;
@@ -216,6 +226,8 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   }
 
   const handleRecovery = useCallback(async (props: RecoveryProps) => {
+    // return false;
+
     if (!openfort) return false;
 
     const { method, password, chainId } = { password: undefined, ...props };
