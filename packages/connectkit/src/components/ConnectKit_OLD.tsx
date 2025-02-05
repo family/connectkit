@@ -101,7 +101,7 @@ export type ConnectKitOptions = {
   overlayBlur?: number; // Blur the background when the modal is open
 };
 
-type ConnectKitProviderProps = {
+type OpenfortKitProviderProps = {
   children?: React.ReactNode;
   theme?: Theme;
   mode?: Mode;
@@ -112,7 +112,7 @@ type ConnectKitProviderProps = {
 } & useConnectCallbackProps;
 
 /**
- * ConnectKitProvider component provides context and configuration for ConnectKit.
+ * OpenfortKitProvider component provides context and configuration for ConnectKit.
  * It must be used within a WagmiProvider.
  *
  * @param {React.ReactNode} children - The child components to be wrapped by the provider.
@@ -126,7 +126,7 @@ type ConnectKitProviderProps = {
  * @param {OpenfortOptions} [openfortOptions] - Options for Openfort integration.
  * @throws Will throw an error if used outside of a WagmiProvider or if nested usages are detected.
  */
-export const ConnectKitProvider = ({
+export const OpenfortKitProvider = ({
   children,
   theme = 'auto',
   mode = 'auto',
@@ -136,17 +136,17 @@ export const ConnectKitProvider = ({
   onDisconnect,
   debugMode = false,
   openfortOptions,
-}: ConnectKitProviderProps) => {
-  // ConnectKitProvider must be within a WagmiProvider
+}: OpenfortKitProviderProps) => {
+  // OpenfortKitProvider must be within a WagmiProvider
   if (!React.useContext(WagmiContext)) {
-    throw Error('ConnectKitProvider must be within a WagmiProvider');
+    throw Error('OpenfortKitProvider must be within a WagmiProvider');
   }
 
-  // Only allow for mounting ConnectKitProvider once, so we avoid weird global
+  // Only allow for mounting OpenfortKitProvider once, so we avoid weird global
   // state collisions.
   if (React.useContext(Context)) {
     throw new Error(
-      'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
+      'Multiple, nested usages of OpenfortKitProvider detected. Please use only one.'
     );
   }
 

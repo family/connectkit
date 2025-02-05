@@ -1,19 +1,16 @@
 "use client";
 
-import { useOpenfort } from "connectkit";
+import { useIsMounted, useOpenfort } from "connectkit";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
 export const Connected = () => {
   const { address } = useAccount();
-  const [isClient, setIsClient] = useState(false);
+  const isMounted = useIsMounted();
   const { user, logout } = useOpenfort()
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient || !address) return null; // Avoid mismatch by rendering nothing during SSR
+  // Avoid mismatch by rendering nothing during SSR
+  if (!isMounted || !address) return null;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>

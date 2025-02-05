@@ -253,8 +253,8 @@ This update improves the functionality and developer experience of using Connect
 
 - Adds a `Recent` badge to the most recently used connector button by a user. This helps returning users reconnect easily and save time.
 - Introduce [`SafeConnector`](https://wagmi.sh/react/connectors/safe) into the default configuration for better support for Safe Apps. Learn more about this connector in the [wagmi](https://wagmi.sh/react/connectors/safe) docs.
-- Convenient `onConnect` and `onDisconnect` callbacks on the `ConnectKitProvider` component and `useModal` Hook.
-- Added dedicated `overlayBlur` prop to `ConnectKitProvider` to allow for blurring the background when the modal is open.
+- Convenient `onConnect` and `onDisconnect` callbacks on the `OpenfortKitProvider` component and `useModal` Hook.
+- Added dedicated `overlayBlur` prop to `OpenfortKitProvider` to allow for blurring the background when the modal is open.
 - Update peer dependency wagmi to version `0.12.x`.
 
 ## Improved
@@ -463,7 +463,7 @@ This update introduces Sign In With Ethereum and other helpful changes and addit
   - `showBalance` to show wallet balance when connected (false default)
   - `showAvatar` to show ENS/wallet avatar when connected (true default)
 
-## ConnectKitProvider
+## OpenfortKitProvider
 
 - Add `disclaimer` option under `options` that accepts a string or ReactNode to be displayed in the first screen of the modal when a wallet is not connected
 

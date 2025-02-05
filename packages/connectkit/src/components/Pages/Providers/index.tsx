@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import { PageContent } from "../../Common/Modal/styles";
-import { FortOAuthProvider, routes, useFortKit } from "../../FortKit";
+import { KitOAuthProvider, routes, useFortKit } from "../../FortKit";
 import { EmailIcon, FacebookIcon, GoogleIcon, GuestIcon, TwitterIcon, } from "../../../assets/icons";
 import { ScrollArea } from "../../Common/ScrollArea";
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
@@ -92,15 +92,15 @@ const AuthProviderButton: React.FC<{ provider: OAuthProvider, title?: string, ic
   )
 }
 
-const ProviderButtonSwitch: React.FC<{ provider: FortOAuthProvider }> = ({ provider }) => {
+const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provider }) => {
   switch (provider) {
-    case FortOAuthProvider.GUEST:
+    case KitOAuthProvider.GUEST:
       return <GuestButton />;
-    case FortOAuthProvider.WALLET:
+    case KitOAuthProvider.WALLET:
       return <WalletButton />
-    case FortOAuthProvider.EMAIL:
+    case KitOAuthProvider.EMAIL:
       return <EmailButton />
-    case FortOAuthProvider.GOOGLE:
+    case KitOAuthProvider.GOOGLE:
       return (
         <AuthProviderButton
           provider={OAuthProvider.GOOGLE}
@@ -108,7 +108,7 @@ const ProviderButtonSwitch: React.FC<{ provider: FortOAuthProvider }> = ({ provi
           icon={<GoogleIcon />}
         />
       )
-    case FortOAuthProvider.TWITTER:
+    case KitOAuthProvider.TWITTER:
       return (
         <AuthProviderButton
           provider={OAuthProvider.TWITTER}
@@ -116,7 +116,7 @@ const ProviderButtonSwitch: React.FC<{ provider: FortOAuthProvider }> = ({ provi
           icon={<TwitterIcon />}
         />
       )
-    case FortOAuthProvider.FACEBOOK:
+    case KitOAuthProvider.FACEBOOK:
       return (
         <AuthProviderButton
           provider={OAuthProvider.FACEBOOK}
@@ -124,13 +124,13 @@ const ProviderButtonSwitch: React.FC<{ provider: FortOAuthProvider }> = ({ provi
           icon={<FacebookIcon />}
         />
       )
-    // case FortOAuthProvider.DISCORD:
+    // case KitOAuthProvider.DISCORD:
     //   return <AuthProviderButton provider={OAuthProvider.DISCORD} title="Discord" />
-    // case FortOAuthProvider.EPIC_GAMES:
+    // case KitOAuthProvider.EPIC_GAMES:
     //   return <AuthProviderButton provider={OAuthProvider.EPIC_GAMES} title="Epic games" />
-    // case FortOAuthProvider.TELEGRAM:
+    // case KitOAuthProvider.TELEGRAM:
     //   return <AuthProviderButton provider={OAuthProvider.TELEGRAM} title="Telegram" />
-    // case FortOAuthProvider.LINE:
+    // case KitOAuthProvider.LINE:
     //   return <AuthProviderButton provider={OAuthProvider.LINE} title="Line" />
     default:
       return <Button>NOT IMPLEMENTED: {provider}</Button>;
@@ -143,9 +143,9 @@ const Providers: React.FC = () => {
   const { user } = useOpenfort();
 
   const providers = options?.authProviders ?? [
-    FortOAuthProvider.GUEST,
-    FortOAuthProvider.EMAIL,
-    FortOAuthProvider.WALLET,
+    KitOAuthProvider.GUEST,
+    KitOAuthProvider.EMAIL,
+    KitOAuthProvider.WALLET,
   ];
 
   if (user) {
@@ -159,7 +159,7 @@ const Providers: React.FC = () => {
         {
 
           (user
-            ? providers.filter(p => p !== FortOAuthProvider.GUEST && !user.linkedAccounts?.find(a => a.provider === p))
+            ? providers.filter(p => p !== KitOAuthProvider.GUEST && !user.linkedAccounts?.find(a => a.provider === p))
             : providers)
             .map((auth) => (
               <ProviderButtonSwitch key={auth} provider={auth} />

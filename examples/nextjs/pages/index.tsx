@@ -20,7 +20,9 @@ const Home: NextPage = () => {
         gap: '20px',
         marginTop: '20px',
       }}>
-        <ConnectKitButton />
+        <ConnectKitButton
+          showBalance
+        />
         <Connected />
       </div>
     </div>

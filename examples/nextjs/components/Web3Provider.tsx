@@ -3,7 +3,7 @@ import React from 'react';
 
 import { RecoveryMethod } from '@openfort/openfort-js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { FortKitProvider, FortOAuthProvider, getDefaultConfig } from 'connectkit';
+import { OpenfortKitProvider, KitOAuthProvider, getDefaultConfig } from 'connectkit';
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
 
@@ -21,40 +21,41 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <FortKitProvider
-          baseConfiguration={{
-            publishableKey: process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!, // TODO: remove from here and put in options
-          }}
-          shieldConfiguration={{
-            shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!, // TODO: remove from here and put in options
-          }}
+        <OpenfortKitProvider
 
-          options={
+          publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
 
-            {
-              authProviders: [
-                FortOAuthProvider.GUEST,
-                FortOAuthProvider.EMAIL,
-                FortOAuthProvider.GOOGLE,
-                FortOAuthProvider.TWITTER,
-                FortOAuthProvider.FACEBOOK,
-                FortOAuthProvider.WALLET,
-              ],
-              initialChainId: polygonAmoy.id,
-              enforceSupportedChains: true,
+          walletConfig={{
+            // linkWalletOnSignUp: true,
+            createEmbeddedSigner: true,
 
-              wallet: {
-                createEmbeddedSigner: true,
-                recoveryMethod: RecoveryMethod.PASSWORD,
-              },
-              hideBalance: true,
-              skipEmailVerification: true,
-              walletConnectCTA: 'both',
-              // wallet: {
-              //   linkWalletOnSignUp: true,
-              // }
+            embeddedSignerConfiguration: {
+              shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
+              recoveryMethod: RecoveryMethod.PASSWORD,
+              createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
             }
-          }
+          }}
+
+          options={{
+            authProviders: [
+              KitOAuthProvider.GUEST,
+              KitOAuthProvider.EMAIL,
+              KitOAuthProvider.GOOGLE,
+              KitOAuthProvider.TWITTER,
+              KitOAuthProvider.FACEBOOK,
+              KitOAuthProvider.WALLET,
+            ],
+            initialChainId: polygonAmoy.id,
+            enforceSupportedChains: true,
+
+            hideBalance: true,
+            skipEmailVerification: true,
+            reducedMotion: true,
+            // walletConnectCTA: 'both',
+            // wallet: {
+            //   linkWalletOnSignUp: true,
+            // }
+          }}
           debugMode
           // theme='rounded'
           // mode='dark'
@@ -63,7 +64,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
         >
           {children}
-        </FortKitProvider>
+        </OpenfortKitProvider>
       </QueryClientProvider>
     </WagmiProvider >
   );

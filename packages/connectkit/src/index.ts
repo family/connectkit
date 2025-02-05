@@ -6,21 +6,13 @@ export { default as getDefaultConnectors } from './defaultConnectors';
 export { wallets } from './wallets';
 
 export { useModal } from './hooks/useModal';
-export {
-  SIWEProvider,
-  useSIWE,
-  SIWE_NONCE_QUERY_KEY,
-  SIWE_SESSION_QUERY_KEY,
-} from './siwe';
-export type { SIWESession, SIWEConfig } from './siwe';
 
 export {
-  ConnectKitProvider as FortKitProvider,
+  OpenfortKitProvider,
   Context as FortKitContext,
-  FortOAuthProvider,
+  KitOAuthProvider,
 } from './components/FortKit';
 export { ConnectKitButton } from './components/ConnectButton';
-export { default as SIWEButton } from './components/Standard/SIWE';
 
 //export { default as NetworkButton } from './components/NetworkButton';
 //export { default as BalanceButton, Balance } from './components/BalanceButton';
@@ -33,6 +25,3 @@ export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
 
 export { useOpenfort } from "./openfort/OpenfortProvider";
-
-// OLD_TODO: Make this private
-export { default as ConnectKitModalDemo } from './components/ConnectModal/demo';

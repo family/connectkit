@@ -24,7 +24,7 @@ type DefaultConfigProps = {
 } & Partial<CreateConfigParameters>;
 
 const defaultConfig = ({
-  appName = 'ConnectKit',
+  appName = 'OpenfortKit',
   appIcon,
   appDescription,
   appUrl,

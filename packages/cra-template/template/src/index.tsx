@@ -4,7 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { WagmiProvider, createConfig } from 'wagmi';
-import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
+import { OpenfortKitProvider, getDefaultConfig } from 'connectkit';
 
 const config = createConfig(
   getDefaultConfig({
@@ -19,9 +19,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <WagmiProvider config={config}>
-      <ConnectKitProvider theme="auto">
+      <OpenfortKitProvider theme="auto">
         <App />
-      </ConnectKitProvider>
+      </OpenfortKitProvider>
     </WagmiProvider>
   </React.StrictMode>
 );

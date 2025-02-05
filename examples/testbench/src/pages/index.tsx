@@ -217,22 +217,22 @@ const Actions = () => {
         {signMessageIsError
           ? 'Error. Check console'
           : signMessageIsLoading
-          ? 'Waiting...'
-          : 'Sign message'}
+            ? 'Waiting...'
+            : 'Sign message'}
       </button>
       <button disabled={!isConnected} onClick={testSignTypedData}>
         {signTypedDataIsError
           ? 'Error. Check console'
           : signTypedDataIsLoading
-          ? 'Waiting...'
-          : 'Sign typed data'}
+            ? 'Waiting...'
+            : 'Sign typed data'}
       </button>
       <button disabled={!isConnected} onClick={testSendTransaction}>
         {sendTransactionIsError
           ? 'Error. Check console'
           : sendTransactionIsLoading
-          ? 'Waiting...'
-          : 'Send transaction'}
+            ? 'Waiting...'
+            : 'Send transaction'}
       </button>
     </div>
   );
@@ -397,7 +397,7 @@ const Home: NextPage = () => {
           checked={hideBalance}
           onChange={() => setHideBalance(!hideBalance)}
         />
-        <h2>ConnectKitProvider props</h2>
+        <h2>OpenfortKitProvider props</h2>
         <Select
           label="Theme"
           value={theme ?? themes[0].value}

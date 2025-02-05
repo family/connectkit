@@ -43,10 +43,10 @@ const ConnectorList = () => {
         // move last used wallet to top of list
         // using .filter and spread to avoid mutating original array order with .sort
         ...wallets.filter(
-          (wallet) => lastConnectorId === wallet.connector.id
+          (wallet) => lastConnectorId === wallet.connector.id && wallet.id !== openfortWalletId
         ),
         ...wallets.filter(
-          (wallet) => lastConnectorId !== wallet.connector.id
+          (wallet) => lastConnectorId !== wallet.connector.id && wallet.id !== openfortWalletId
         ),
       ];
 
@@ -69,13 +69,12 @@ const ConnectorList = () => {
           )} */}
 
           {walletsToDisplay.map((wallet) =>
-            (wallet.id !== openfortWalletId) && (
-              <ConnectorItem
-                key={wallet.id}
-                wallet={wallet}
-                isRecent={wallet.id === lastConnectorId}
-              />
-            ))}
+            <ConnectorItem
+              key={wallet.id}
+              wallet={wallet}
+              isRecent={wallet.id === lastConnectorId}
+            />
+          )}
         </ConnectorsContainer>
       )}
     </ScrollArea>

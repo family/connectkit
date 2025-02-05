@@ -22,6 +22,7 @@ const Recover: React.FC = () => {
 
   const handleSubmit = () => {
     setLoading(true);
+    console.log("Recovery phrase", recoveryPhrase);
     handleRecovery({
       method: RecoveryMethod.PASSWORD,
       password: recoveryPhrase,
@@ -106,7 +107,7 @@ const AutomaticRecovery: React.FC = () => {
 
 const CreateEmbeddedSigner: React.FC = () => {
   const { needsRecovery, user } = useOpenfort();
-  const { triggerResize, options, setRoute } = useFortKit();
+  const { triggerResize, options, walletConfig, setRoute } = useFortKit();
   const [loading, setLoading] = React.useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = React.useState(true);
 
@@ -126,14 +127,14 @@ const CreateEmbeddedSigner: React.FC = () => {
       return;
     }
 
-    if (options?.wallet?.linkWalletOnSignUp) {
+    if (walletConfig.linkWalletOnSignUp) {
 
       if (!user.linkedAccounts.find((account) => account.provider === "wallet")) {
         setRoute(routes.CONNECTORS);
         return;
       }
 
-      if (!options.wallet.createEmbeddedSigner) {
+      if (!walletConfig.createEmbeddedSigner) {
         // Logged in without a wallet
         setRoute(routes.PROFILE);
         return;
@@ -144,15 +145,25 @@ const CreateEmbeddedSigner: React.FC = () => {
   }, [user])
 
   if (embeddedSignerLoading || loading) {
-    return <PageContent>
-      <Loader />
-    </PageContent>
+    return (
+      <PageContent>
+        <Loader />
+      </PageContent>
+    )
+  }
+
+  if (walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC) {
+    return <AutomaticRecovery />
   }
 
   if (needsRecovery) {
     return <Recover />
   } else {
-    return <AutomaticRecovery />
+    return (
+      <PageContent>
+        <Loader />
+      </PageContent>
+    )
   }
 }
 

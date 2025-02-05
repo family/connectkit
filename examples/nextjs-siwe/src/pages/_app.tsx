@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
 import { siweClient } from '@/utils/siweClient';
-import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
+import { OpenfortKitProvider, getDefaultConfig } from 'connectkit';
 import type { AppProps } from 'next/app';
 import { WagmiProvider, createConfig } from 'wagmi';
 
@@ -15,9 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiProvider config={config}>
       <siweClient.Provider>
-        <ConnectKitProvider>
+        <OpenfortKitProvider>
           <Component {...pageProps} />
-        </ConnectKitProvider>
+        </OpenfortKitProvider>
       </siweClient.Provider>
     </WagmiProvider>
   );

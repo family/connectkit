@@ -58,9 +58,10 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const [user, setUser] = useState<AuthPlayerResponse | null>(null);
 
   const { disconnect } = useDisconnect();
-  const { options } = useFortKit();
+  const { walletConfig } = useFortKit();
 
-  const automaticRecovery = options?.wallet?.recoveryMethod === RecoveryMethod.AUTOMATIC;
+  const automaticRecovery = walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC;
+
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
     log('Creating Openfort instance with props:', openfortProps);
@@ -105,9 +106,9 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
     startPollingEmbeddedState();
 
-    // return () => {
-    //   stopPollingEmbeddedState();
-    // };
+    return () => {
+      stopPollingEmbeddedState();
+    };
   }, [openfort]);
 
   const setUserIfNull = useCallback(async () => {
@@ -195,7 +196,11 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   // ---- Recovery ----
 
   const getEncryptionSession = async (): Promise<string> => {
-    const resp = await fetch(`/api/protected-create-encryption-session`, { // TODO:replace with variable
+    if (!(walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC)) {
+      throw new Error("Automatic recovery is not enabled");
+    }
+
+    const resp = await fetch(walletConfig.embeddedSignerConfiguration.createEncryptedSessionEndpoint, { // TODO:replace with variable
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -216,18 +221,23 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     const { method, password, chainId } = { password: undefined, ...props };
     log(`Handling recovery with Openfort: method=${method}, password=${password}, chainId=${chainId}`);
     try {
-      const shieldAuth: ShieldAuthentication = {
-        auth: ShieldAuthType.OPENFORT,
-        token: openfort.getAccessToken()!,
-        encryptionSession: await getEncryptionSession(),
-      };
-      if (method === 'automatic') {
+      if (method === RecoveryMethod.AUTOMATIC) {
+
+        const shieldAuth: ShieldAuthentication = {
+          auth: ShieldAuthType.OPENFORT,
+          token: openfort.getAccessToken()!,
+          encryptionSession: await getEncryptionSession(),
+        };
         console.log("Configuring embedded signer with automatic recovery");
         await openfort.configureEmbeddedSigner(chainId, shieldAuth);
-      } else if (method === 'password') {
+      } else if (method === RecoveryMethod.PASSWORD) {
         if (!password || password.length < 4) {
           throw new Error('Password recovery must be at least 4 characters');
         }
+        const shieldAuth: ShieldAuthentication = {
+          auth: ShieldAuthType.OPENFORT,
+          token: openfort.getAccessToken()!,
+        };
         await openfort.configureEmbeddedSigner(chainId, shieldAuth, password);
       }
       return true;

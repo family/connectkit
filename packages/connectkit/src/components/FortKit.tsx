@@ -31,7 +31,7 @@ import { useConnector } from '../hooks/useConnectors';
 import { WagmiContext, useAccount } from 'wagmi';
 import { Web3ContextProvider } from './contexts/web3';
 import { useChainIsSupported } from '../hooks/useChainIsSupported';
-import Openfort, { OAuthProvider, OpenfortConfiguration, RecoveryMethod, } from '@openfort/openfort-js';
+import Openfort, { OAuthProvider, OpenfortConfiguration, RecoveryMethod, ShieldConfiguration, } from '@openfort/openfort-js';
 import { OpenfortProvider, OpenfortProviderProps } from '../openfort/OpenfortProvider';
 import { ValueOf } from 'viem/_types/types/utils';
 
@@ -92,12 +92,12 @@ type ContextValue = {
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
   resize: number;
   triggerResize: () => void;
+  walletConfig: FortWalletOptions;
 } & useConnectCallbackProps;
 
 export const Context = createContext<ContextValue | null>(null);
 
-
-export enum FortOAuthProvider {
+export enum KitOAuthProvider {
   GOOGLE = "google",
   TWITTER = "twitter",
   FACEBOOK = "facebook",
@@ -113,16 +113,40 @@ export enum FortOAuthProvider {
   GUEST = "guest",
 }
 
+type CommonEmbeddedSignerConfiguration = {
+  shieldPublishableKey: string;
+  debug?: boolean;
+}
+
+type EmbeddedSignerConfiguration = CommonEmbeddedSignerConfiguration & (
+  {
+    recoveryMethod: RecoveryMethod.AUTOMATIC;
+    createEncryptedSessionEndpoint: string;
+  } | {
+    recoveryMethod: RecoveryMethod.PASSWORD;
+    createEncryptedSessionEndpoint: string;
+    shieldEncryptionKey?: string;
+  } | {
+    recoveryMethod: RecoveryMethod.PASSWORD;
+    shieldEncryptionKey: string;
+    createEncryptedSessionEndpoint?: string;
+  }
+)
+
 export type FortWalletOptions = {
-  createEmbeddedSigner?: boolean;
+  linkWalletOnSignUp: true;
+  createEmbeddedSigner?: false;
+} | {
   linkWalletOnSignUp?: boolean;
-  recoveryMethod?: RecoveryMethod;
-};
+  createEmbeddedSigner: true;
+  embeddedSignerConfiguration: EmbeddedSignerConfiguration;
+}
 
 export type OpenfortOptions = {
-  authProviders?: FortOAuthProvider[];
-  wallet?: FortWalletOptions;
+  authProviders?: KitOAuthProvider[];
   skipEmailVerification?: boolean;
+
+  openfortUrlOverrides?: OpenfortProviderProps['overrides'];
 };
 
 export type ConnectKitOptions = {
@@ -139,13 +163,14 @@ export type ConnectKitOptions = {
   walletConnectName?: string;
   reducedMotion?: boolean;
   disclaimer?: ReactNode | string;
+  /** Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.) */
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
   initialChainId?: number;
   enforceSupportedChains?: boolean;
-  ethereumOnboardingUrl?: string;
-  walletOnboardingUrl?: string;
-  disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
+  // ethereumOnboardingUrl?: string;
+  // walletOnboardingUrl?: string;
+  // disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
   overlayBlur?: number; // Blur the background when the modal is open
 } & OpenfortOptions;
 
@@ -173,7 +198,7 @@ type ConnectKitOptionsExtended = {
   overlayBlur?: number; // Blur the background when the modal is open
 } & OpenfortOptions;
 
-type ConnectKitProviderProps = {
+type OpenfortKitProviderProps = {
   children?: React.ReactNode;
   theme?: Theme;
   mode?: Mode;
@@ -181,10 +206,12 @@ type ConnectKitProviderProps = {
   options?: ConnectKitOptions;
   debugMode?: boolean;
 
-} & useConnectCallbackProps & OpenfortProviderProps;
+  publishableKey: string;
+  walletConfig: FortWalletOptions;
+} & useConnectCallbackProps;
 
 /**
- * ConnectKitProvider component provides context and configuration for ConnectKit.
+ * OpenfortKitProvider component provides context and configuration for ConnectKit.
  * It must be used within a WagmiProvider.
  *
  * @param {React.ReactNode} children - The child components to be wrapped by the provider.
@@ -198,7 +225,7 @@ type ConnectKitProviderProps = {
  * @param {OpenfortOptions} [openfortOptions] - Options for Openfort integration.
  * @throws Will throw an error if used outside of a WagmiProvider or if nested usages are detected.
  */
-export const ConnectKitProvider = ({
+export const OpenfortKitProvider = ({
   children,
   theme = 'auto',
   mode = 'auto',
@@ -208,20 +235,19 @@ export const ConnectKitProvider = ({
   onDisconnect,
   debugMode = false,
 
-  baseConfiguration,
-  shieldConfiguration,
-  overrides,
-}: ConnectKitProviderProps) => {
-  // ConnectKitProvider must be within a WagmiProvider
+  publishableKey,
+  walletConfig,
+}: OpenfortKitProviderProps) => {
+  // OpenfortKitProvider must be within a WagmiProvider
   if (!React.useContext(WagmiContext)) {
-    throw Error('ConnectKitProvider must be within a WagmiProvider');
+    throw Error('OpenfortKitProvider must be within a WagmiProvider');
   }
 
-  // Only allow for mounting ConnectKitProvider once, so we avoid weird global
+  // Only allow for mounting OpenfortKitProvider once, so we avoid weird global
   // state collisions.
   if (React.useContext(Context)) {
     throw new Error(
-      'Multiple, nested usages of ConnectKitProvider detected. Please use only one.'
+      'Multiple, nested usages of OpenfortKitProvider detected. Please use only one.'
     );
   }
 
@@ -316,17 +342,21 @@ export const ConnectKitProvider = ({
     }
   }, [injectedConnector]);
 
-  if (opts.wallet && !opts.wallet?.linkWalletOnSignUp && !opts.wallet?.createEmbeddedSigner) {
-    console.warn("Link wallet on sign up is disabled, but no wallet option is enabled. Please enable 'linkWalletOnSignUp' or 'createEmbeddedSigner' in the wallet options.");
-    opts.wallet = undefined;
+
+  if (walletConfig?.linkWalletOnSignUp && !walletConfig?.createEmbeddedSigner) {
+    throw new Error("Link wallet on sign up is disabled, but no wallet option is enabled. Please enable 'linkWalletOnSignUp' or 'createEmbeddedSigner' in the wallet options.");
   }
 
-  if (!opts.wallet) {
-    opts.wallet = {
-      createEmbeddedSigner: true,
-      recoveryMethod: RecoveryMethod.AUTOMATIC,
-    };
-  }
+  // if (!walletConfig) {
+  //   opts.wallet = {
+  //     createEmbeddedSigner: true,
+  //     embeddedSignerConfiguration: {
+  //       shieldPublishableKey: ,
+  //       recoveryMethod: RecoveryMethod.AUTOMATIC,
+  //       createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
+  //     }
+  //   };
+  // }
 
   // const onLogin = () => {
   //   if (opts.wallet?.createEmbeddedSigner) {
@@ -368,6 +398,7 @@ export const ConnectKitProvider = ({
     },
     resize,
     triggerResize: () => onResize((prev) => prev + 1),
+    walletConfig,
   };
 
   return createElement(
@@ -376,9 +407,14 @@ export const ConnectKitProvider = ({
     <>
       <Web3ContextProvider enabled={open}>
         <OpenfortProvider
-          baseConfiguration={baseConfiguration}
-          shieldConfiguration={shieldConfiguration}
-          overrides={overrides}
+          baseConfiguration={{
+            publishableKey,
+          }}
+          shieldConfiguration={walletConfig.createEmbeddedSigner ? {
+            shieldPublishableKey: walletConfig.embeddedSignerConfiguration.shieldPublishableKey,
+            shieldEncryptionKey: walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.PASSWORD ? walletConfig.embeddedSignerConfiguration.shieldEncryptionKey : undefined,
+          } : undefined}
+          overrides={opts.openfortUrlOverrides}
           debugMode={debugMode}
         >
           <ThemeProvider theme={defaultTheme}>

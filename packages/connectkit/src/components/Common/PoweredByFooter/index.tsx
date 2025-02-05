@@ -51,14 +51,14 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
 
 
 export const Disclaimer = styled(motion.div)`
-  padding-bottom: 8px;
+  padding: 0px 50px 8px 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--ck-body-disclaimer-font-size, 13px);
+  font-size: var(--ck-body-disclaimer-font-size, 10px);
   font-weight: var(--ck-body-disclaimer-font-weight, 400);
   text-align: center;
-  line-height: 19px;
+  line-height: 1rem;
   color: var(--ck-body-disclaimer-color, var(--ck-body-color-muted, inherit));
 
   & a {
@@ -69,11 +69,6 @@ export const Disclaimer = styled(motion.div)`
     &:hover {
       color: var(--ck-body-disclaimer-link-hover-color, inherit);
     }
-  }
-
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    margin: 24px -24px -26px -24px;
-    padding: 20px 42px 22px 42px;
   }
 `;
 

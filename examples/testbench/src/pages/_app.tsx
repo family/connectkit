@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { ConnectKitProvider, SIWESession } from 'connectkit';
+import { OpenfortKitProvider, SIWESession } from 'connectkit';
 import { siweClient } from '../utils/siweClient';
 import { Web3Provider } from '../components/Web3Provider';
 import { useTestBench } from '../TestbenchProvider';
@@ -20,7 +20,7 @@ function App({ Component, pageProps }: AppProps) {
         console.log('onSignOut Provider');
       }}
     >
-      <ConnectKitProvider
+      <OpenfortKitProvider
         key={key}
         theme={theme}
         mode={mode}
@@ -35,7 +35,7 @@ function App({ Component, pageProps }: AppProps) {
         debugMode
       >
         <Component {...pageProps} />
-      </ConnectKitProvider>
+      </OpenfortKitProvider>
     </siweClient.Provider>
   );
 }

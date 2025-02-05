@@ -42,10 +42,10 @@ export const SIWEProvider = ({
       'Multiple, nested usages of SIWEProvider detected. Please use only one.'
     );
   }
-  // SIWEProvider must be wrapped outside of ConnectKitProvider so that the
+  // SIWEProvider must be wrapped outside of OpenfortKitProvider so that the
   // ConnectKitButton and other UI can use SIWE context values.
   if (useContext(ConnectKitContext)) {
-    throw new Error('ConnectKitProvider must be mounted inside SIWEProvider.');
+    throw new Error('OpenfortKitProvider must be mounted inside SIWEProvider.');
   }
 
   const nonce = useQuery({
