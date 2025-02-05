@@ -177,10 +177,8 @@ function ConnectKitButtonInner({
   separator?: string;
 }) {
   const locales = useLocales({});
-  const context = useFortKit();
-  const { isSignedIn } = useSIWE();
 
-  const { isLoading, user, needsRecovery, embeddedState } = useOpenfort();
+  const { user } = useOpenfort();
 
   const { address, chain } = useAccount();
   const isChainSupported = useChainIsSupported(chain?.id);
@@ -192,18 +190,6 @@ function ConnectKitButtonInner({
     config: ensFallbackConfig,
   });
   const defaultLabel = locales.connectWallet;
-
-  // if (isLoading)
-  //   return (<div>{embeddedState} loading</div>)
-
-  // if (!user)
-  //   return (<div>{embeddedState} login button</div>)
-
-  // if (needsRecovery)
-  //   return (<div>{embeddedState} needs recovery</div>)
-
-  // if (1 + 1 == 2)
-  //   return (<div>{embeddedState} normal button</div>)
 
   return (
     <AnimatePresence initial={false}>
@@ -222,21 +208,6 @@ function ConnectKitButtonInner({
           {showAvatar && (
             <IconContainer>
               <AnimatePresence initial={false}>
-                {isSignedIn && (
-                  <motion.div
-                    style={{
-                      zIndex: 2,
-                      position: 'absolute',
-                      bottom: 0,
-                      right: 0,
-                    }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <AuthIcon />
-                  </motion.div>
-                )}
                 {!isChainSupported && (
                   <UnsupportedNetworkContainer
                     initial={{ opacity: 0 }}

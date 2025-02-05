@@ -414,7 +414,7 @@ const Modal: React.FC<ModalProps> = ({
             }}
           />
           <BoxContainer className={`${rendered && 'active'}`}>
-            <AnimatePresence initial={false}>
+            {/* <AnimatePresence initial={false}>
               {context.options?.disclaimer &&
                 context.route === routes.CONNECTORS && (
                   <DisclaimerBackground
@@ -436,7 +436,7 @@ const Modal: React.FC<ModalProps> = ({
                     </Disclaimer>
                   </DisclaimerBackground>
                 )}
-            </AnimatePresence>
+            </AnimatePresence> */}
             <AnimatePresence initial={false}>
               {context.errorMessage && (
                 <ErrorMessage

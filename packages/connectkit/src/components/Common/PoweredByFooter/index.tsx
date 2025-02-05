@@ -33,11 +33,11 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
           ) : (
             <div>
               By logging in, you agree to our <a
-                href="https://www.openfort.xyz/terms"
+                href={options?.termsOfServiceUrl ?? "https://www.openfort.xyz/terms"}
                 target="_blank"
                 rel="noopener noreferrer"
               >Terms of Service</a> & <a
-                href="https://www.openfort.xyz/privacy"
+                href={options?.privacyPolicyUrl ?? "https://www.openfort.xyz/privacy"}
                 target="_blank"
                 rel="noopener noreferrer"
               >Privacy Policy</a>.

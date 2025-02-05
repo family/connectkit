@@ -252,6 +252,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const logout = useCallback(() => {
     if (!openfort) return;
 
+    console.log('Logging out...');
     openfort.logout();
     setUser(null);
     disconnect();

@@ -2,9 +2,8 @@
   "name": "@openfort/openfort-kit",
   "version": "0.0.0",
   "author": "Openfort (https://www.openfort.xyz)",
-  "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
-  "description": "Connecting a wallet, made simple.",
+  "description": "Using Openfort in your React app.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/family/connectkit.git",
@@ -34,7 +33,7 @@
     "react-hook",
     "blockchain",
     "hooks",
-    "family",
+    "Openfort",
     "ethereum",
     "react"
   ],

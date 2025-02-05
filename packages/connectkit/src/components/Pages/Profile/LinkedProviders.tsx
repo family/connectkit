@@ -61,8 +61,6 @@ export const LinkedProviders: React.FC = () => {
     );
   }
 
-  console.log("linked providers", user.linkedAccounts);
-
   return (
     <>
       <ProvidersHeader>

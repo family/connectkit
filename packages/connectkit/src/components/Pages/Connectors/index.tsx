@@ -70,11 +70,11 @@ const Wallets: React.FC = () => {
           )} */}
         </>
       )}
-      {context.options?.disclaimer && (
+      {/* {context.options?.disclaimer && (
         <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
           <div>{context.options?.disclaimer}</div>
         </Disclaimer>
-      )}
+      )} */}
     </PageContent>
   );
 };

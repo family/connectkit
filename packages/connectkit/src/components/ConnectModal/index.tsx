@@ -115,7 +115,6 @@ const ConnectModal: React.FC<{
   };
 
   function hide() {
-    console.log("Hiding modal");
     context.setOpen(false);
   }
 

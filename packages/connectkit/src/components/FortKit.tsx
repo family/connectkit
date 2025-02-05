@@ -145,6 +145,8 @@ export type FortWalletOptions = {
 export type OpenfortOptions = {
   authProviders?: KitOAuthProvider[];
   skipEmailVerification?: boolean;
+  termsOfServiceUrl?: string;
+  privacyPolicyUrl?: string;
 
   openfortUrlOverrides?: OpenfortProviderProps['overrides'];
 };

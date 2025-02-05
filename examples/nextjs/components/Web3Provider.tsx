@@ -55,6 +55,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             // wallet: {
             //   linkWalletOnSignUp: true,
             // }
+            // disclaimer: "This is a demo app. Do not use real funds.",
           }}
           debugMode
           // theme='rounded'
