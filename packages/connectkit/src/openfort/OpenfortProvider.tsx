@@ -1,6 +1,6 @@
 import Openfort, { AuthPlayerResponse, EmbeddedState, OAuthProvider, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from '@openfort/openfort-js';
 import React, { createContext, createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount, useChainId, useDisconnect } from 'wagmi';
 import { useFortKit } from '../components/FortKit';
 import { useConnect } from '../hooks/useConnect';
 
@@ -182,7 +182,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
       default:
         throw new Error(`Unknown embedded state: ${embeddedState}`);
     }
-  }, [embeddedState, openfort, automaticRecovery, /* handleRecovery, */ setUserIfNull]);
+  }, [embeddedState, openfort, automaticRecovery, setUserIfNull]);
 
   useEffect(() => {
     // Connect to wagmi with Embedded signer
@@ -193,8 +193,8 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!connector) return
 
     log("Connecting to wagmi with Openfort");
-    connect({ connector: connector! });
-  }, [connectors, embeddedState, address, connect, user]);
+    connect({ connector });
+  }, [connectors, embeddedState, address, user]);
 
 
   // ---- Recovery ----
@@ -234,7 +234,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
           token: openfort.getAccessToken()!,
           encryptionSession: await getEncryptionSession(),
         };
-        console.log("Configuring embedded signer with automatic recovery");
+        log("Configuring embedded signer with automatic recovery");
         await openfort.configureEmbeddedSigner(chainId, shieldAuth);
       } else if (method === RecoveryMethod.PASSWORD) {
         if (!password || password.length < 4) {
@@ -258,7 +258,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const logout = useCallback(() => {
     if (!openfort) return;
 
-    console.log('Logging out...');
+    log('Logging out...');
     openfort.logout();
     setUser(null);
     disconnect();
