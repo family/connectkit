@@ -1,6 +1,8 @@
 import Openfort from '@openfort/openfort-node';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+// this is a simple example of how to use the Openfort SDK to create a recovery session
+
 const openfort = (() => {
   if (!process.env.NEXTAUTH_OPENFORT_SECRET_KEY) {
     throw new Error("Openfort secret key is not set");

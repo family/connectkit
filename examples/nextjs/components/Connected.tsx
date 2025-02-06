@@ -2,6 +2,7 @@
 
 import { useIsMounted, useOpenfort } from "connectkit";
 import { useAccount, useEnsName } from "wagmi";
+import { WriteContract } from "./WritteContract";
 
 export const Connected = () => {
   const account = useAccount();
@@ -9,7 +10,7 @@ export const Connected = () => {
   const { data: ensName } = useEnsName({
     address: account.address,
   })
-  const { user, logout } = useOpenfort()
+  const { user, logout, signUpGuest, needsRecovery, isLoading } = useOpenfort()
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;
@@ -27,6 +28,18 @@ export const Connected = () => {
         player: {user?.id}
         <br />
         linked accounts: {user?.linkedAccounts.map((a) => a.provider).join(", ")}
+      </div>
+      <WriteContract />
+      <div>
+        <h2>OPENFORT</h2>
+        <div>Needs recover: {needsRecovery.toString()}</div>
+        <div>Is loading: {isLoading.toString()}</div>
+        <button
+          onClick={() => signUpGuest()}
+          type="button"
+        >
+          guest
+        </button>
       </div>
       <button
         onClick={() => logout()}

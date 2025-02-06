@@ -22,6 +22,10 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           publishableKey={process.env.REACT_APP_OPENFORT_PUBLIC_KEY!}
 
           walletConfig={{
+            // In this example, we require the user to link their wallet on sign up.
+            // We don't need an embedded signer for this example,
+            // we will be using the user wallet for signing.
+
             linkWalletOnSignUp: true,
           }}
 

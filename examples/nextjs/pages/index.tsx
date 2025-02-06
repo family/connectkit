@@ -1,6 +1,6 @@
 import { ConnectKitButton } from 'connectkit';
 import type { NextPage } from 'next';
-import { Connected } from './Connected';
+import { Connected } from '../components/Connected';
 
 const Home: NextPage = () => {
   return (

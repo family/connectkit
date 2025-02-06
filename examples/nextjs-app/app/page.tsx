@@ -1,12 +1,17 @@
 'use client';
 
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { ConnectKitButton } from 'connectkit';
+import { ConnectKitButton, useIsMounted, useOpenfort } from 'connectkit';
 
 function App() {
   const account = useAccount();
   const { connectors, connect, status, error } = useConnect();
   const { disconnect } = useDisconnect();
+  const { signUpGuest } = useOpenfort();
+
+  const isMounted = useIsMounted();
+
+  if (!isMounted) return null;
 
   return (
     <>
@@ -41,6 +46,15 @@ function App() {
         ))}
         <div>{status}</div>
         <div>{error?.message}</div>
+      </div>
+      <div>
+        <h2>OPENFORT</h2>
+        <button
+          onClick={() => signUpGuest()}
+          type="button"
+        >
+          guest
+        </button>
       </div>
     </>
   );

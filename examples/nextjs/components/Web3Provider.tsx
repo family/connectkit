@@ -33,21 +33,21 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
             embeddedSignerConfiguration: {
               shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
-              recoveryMethod: RecoveryMethod.PASSWORD,
+              recoveryMethod: RecoveryMethod.AUTOMATIC,
               // shieldEncryptionKey: process.env.NEXT_PUBLIC_SHIELD_ENCRYPTION_KEY!,
               createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
             }
           }}
 
           options={{
-            // authProviders: [
-            //   KitOAuthProvider.GUEST,
-            //   KitOAuthProvider.EMAIL,
-            //   KitOAuthProvider.GOOGLE,
-            //   KitOAuthProvider.TWITTER,
-            //   KitOAuthProvider.FACEBOOK,
-            //   KitOAuthProvider.WALLET,
-            // ],
+            authProviders: [
+              KitOAuthProvider.GUEST,
+              KitOAuthProvider.EMAIL,
+              KitOAuthProvider.GOOGLE,
+              KitOAuthProvider.TWITTER,
+              KitOAuthProvider.FACEBOOK,
+              KitOAuthProvider.WALLET,
+            ],
             initialChainId: polygonAmoy.id,
             enforceSupportedChains: true,
 
