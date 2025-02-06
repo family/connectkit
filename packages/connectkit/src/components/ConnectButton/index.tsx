@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 import { truncateEthAddress, truncateUserId } from './../../utils';
@@ -167,6 +167,18 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 
 ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
 
+const ConnectedLabel = ({ separator }: { separator?: string }) => {
+  const { user, isLoading } = useOpenfort();
+  const { address } = useAccount();
+
+  if (address && (user || isLoading)) return truncateEthAddress(address, separator)
+
+  if (!user) return "Loading user...";
+  if (!address) return truncateUserId(user.id, separator);
+
+  return "Loading...";
+}
+
 function ConnectKitButtonInner({
   label,
   showAvatar,
@@ -266,14 +278,7 @@ function ConnectKitButtonInner({
                   position: ensName ? 'absolute' : 'relative',
                 }}
               >
-                {
-                  address ?
-                    truncateEthAddress(address, separator)
-                    : user ?
-                      truncateUserId(user.id)
-                      : "Loading user..."
-                }
-                {' '}
+                <ConnectedLabel separator={separator} />
               </TextContainer>
               {/* )} */}
             </AnimatePresence>
