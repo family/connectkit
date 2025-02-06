@@ -57,7 +57,7 @@ const EmailLogin: React.FC = () => {
       setLoginLoading(false);
       setLoginError("Invalid email or password.");
     }).then((user) => {
-      console.log("User", user);
+      // console.log("User", user);
       if (!user) {
         setLoginLoading(false);
         setLoginError("Invalid email or password.");

@@ -24,8 +24,6 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
     const hasProvider = !!url.searchParams.get("fort_auth_provider");
     const provider = connector.id;
 
-    console.log("status", status, "hasProvider", hasProvider, "provider", provider);
-
     switch (status) {
       case states.INIT:
         if (hasProvider) setStatus(states.CONNECTING);

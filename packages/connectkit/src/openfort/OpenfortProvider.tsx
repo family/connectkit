@@ -143,13 +143,13 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!walletConfig.createEmbeddedSigner) return
 
     log("Getting ethereum provider");
-    openfort.getEthereumProvider(
-      process.env.NEXT_PUBLIC_POLICY_ID ?
-        {
-          policy: process.env.NEXT_PUBLIC_POLICY_ID,
-        }
-        : undefined
-    );
+    // openfort.getEthereumProvider(
+    //   process.env.NEXT_PUBLIC_POLICY_ID ?
+    //     {
+    //       policy: process.env.NEXT_PUBLIC_POLICY_ID,
+    //     }
+    //     : undefined
+    // );
   }, [openfort])
 
   useEffect(() => {
@@ -173,6 +173,13 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
       case EmbeddedState.READY:
         setUserIfNull();
 
+        openfort.getEthereumProvider(
+          process.env.NEXT_PUBLIC_POLICY_ID ?
+            {
+              policy: process.env.NEXT_PUBLIC_POLICY_ID,
+            }
+            : undefined
+        );
         // We cannot stop polling here because there is a bug on openfort-js
         // that makes the embedded state to be stuck on CREATING_ACCOUNT
         // stopPollingEmbeddedState();
