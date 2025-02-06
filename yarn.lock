@@ -3545,9 +3545,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/openfort-kit@workspace:packages/connectkit":
+"@openfort/openfort-kit@workspace:packages/openfortkit":
   version: 0.0.0-use.local
-  resolution: "@openfort/openfort-kit@workspace:packages/connectkit"
+  resolution: "@openfort/openfort-kit@workspace:packages/openfortkit"
   dependencies:
     "@openfort/openfort-js": ^0.8.20
     "@types/node": 18.7.18
@@ -7576,7 +7576,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cra@workspace:examples/cra"
   dependencies:
-    "@openfort/openfort-kit": "workspace:packages/connectkit"
+    "@openfort/openfort-kit": "workspace:packages/openfortkit"
     "@tanstack/react-query": ^5.17.15
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
@@ -14036,7 +14036,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nextjs-app@workspace:examples/nextjs-app"
   dependencies:
-    "@openfort/openfort-kit": "workspace:packages/connectkit"
+    "@openfort/openfort-kit": "workspace:packages/openfortkit"
     "@tanstack/react-query": ^5.17.15
     "@types/node": ^18.19.3
     "@types/react": ^18.2.43
@@ -14056,7 +14056,7 @@ __metadata:
   resolution: "nextjs@workspace:examples/nextjs"
   dependencies:
     "@openfort/openfort-js": ^0.8.20
-    "@openfort/openfort-kit": "workspace:packages/connectkit"
+    "@openfort/openfort-kit": "workspace:packages/openfortkit"
     "@openfort/openfort-node": ^0.6.69
     "@tanstack/react-query": ^5.17.15
     "@types/node": ^18.19.3
@@ -18383,7 +18383,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "testbench@workspace:examples/testbench"
   dependencies:
-    "@openfort/openfort-kit": "workspace:packages/connectkit"
+    "@openfort/openfort-kit": "workspace:packages/openfortkit"
     "@tanstack/react-query": ^5.17.10
     "@types/node": 18.7.18
     "@types/react": ^18.0.6
@@ -19305,7 +19305,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vite@workspace:examples/vite"
   dependencies:
-    "@openfort/openfort-kit": "workspace:packages/connectkit"
+    "@openfort/openfort-kit": "workspace:packages/openfortkit"
     "@tanstack/react-query": ^5.17.10
     "@types/react": ^18.0.17
     "@types/react-dom": ^18.0.6
