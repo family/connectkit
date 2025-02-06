@@ -5,7 +5,7 @@ import { type ReactNode } from 'react';
 import { WagmiProvider } from 'wagmi';
 
 import { config } from '../config';
-import { KitOAuthProvider, OpenfortKitProvider } from 'connectkit';
+import { KitOAuthProvider, OpenfortKitProvider } from '@openfort/openfort-kit';
 
 const queryClient = new QueryClient();
 export function Providers(props: { children: ReactNode }) {

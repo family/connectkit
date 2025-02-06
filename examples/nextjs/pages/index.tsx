@@ -1,4 +1,4 @@
-import { ConnectKitButton } from 'connectkit';
+import { ConnectKitButton } from '@openfort/openfort-kit';
 import type { NextPage } from 'next';
 import { Connected } from '../components/Connected';
 

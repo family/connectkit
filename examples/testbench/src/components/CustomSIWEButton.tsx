@@ -1,5 +1,5 @@
-import { useSIWE, useModal } from 'connectkit';
-import { SIWESession } from 'connectkit';
+import { useSIWE, useModal } from '@openfort/openfort-kit';
+import { SIWESession } from '@openfort/openfort-kit';
 import { useAccount } from 'wagmi';
 
 const CustomSIWEButton = () => {
@@ -31,8 +31,8 @@ const CustomSIWEButton = () => {
           {isRejected
             ? 'Try Again'
             : isLoading
-            ? 'Awaiting request...'
-            : 'Sign In'}
+              ? 'Awaiting request...'
+              : 'Sign In'}
         </button>
       </>
     );

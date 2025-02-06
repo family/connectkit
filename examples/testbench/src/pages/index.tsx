@@ -12,7 +12,7 @@ import {
   useChains,
   useModal,
   useSIWE,
-} from 'connectkit';
+} from '@openfort/openfort-kit';
 
 import {
   useAccount,

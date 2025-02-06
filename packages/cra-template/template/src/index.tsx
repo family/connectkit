@@ -4,7 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { WagmiProvider, createConfig } from 'wagmi';
-import { OpenfortKitProvider, getDefaultConfig } from 'connectkit';
+import { OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
 
 const config = createConfig(
   getDefaultConfig({

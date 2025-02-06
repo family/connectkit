@@ -7,8 +7,7 @@
     "react",
     "create-react-app",
     "template",
-    "typescript",
-    "connectkit"
+    "typescript"
   ],
   "description": "ConnectKit + TypeScript template for Create React App.",
   "repository": {

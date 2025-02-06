@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { Types } from 'connectkit';
+import { Types } from '@openfort/openfort-kit';
 
 type ContextValue = {
   theme: Types.Theme;

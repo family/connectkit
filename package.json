@@ -9,18 +9,18 @@
     "examples/*"
   ],
   "scripts": {
-    "dev:connectkit": "yarn workspace connectkit run dev",
+    "dev:kit": "yarn workspace @openfort/openfort-kit run dev",
     "dev:cra": "yarn workspace cra run dev",
     "dev:nextjs": "yarn workspace nextjs run dev",
     "dev:nextjs-app": "yarn workspace nextjs-app run dev",
     "dev:vite": "yarn workspace vite run dev",
     "dev:testbench": "yarn workspace testbench run dev",
-    "build": "node build.js && yarn workspace connectkit run build && cp README.md packages/connectkit/README.md",
+    "build": "node build.js && yarn workspace @openfort/openfort-kit run build && cp README.md packages/connectkit/README.md",
     "build:cra": "yarn build && yarn workspace cra build",
     "build:nextjs": "yarn build && yarn workspace nextjs build",
     "build:nextjs-app": "yarn build && yarn workspace nextjs-app build",
     "build:vite": "yarn build && yarn workspace vite build",
-    "build:testbench": "yarn build && yarn build:connectkit-next-siwe && yarn workspace testbench build",
+    "build:testbench": "yarn build && yarn workspace testbench build",
     "build:ci": "yarn workspaces foreach -R run build",
     "lint:ci": "yarn workspaces foreach -R run lint"
   },

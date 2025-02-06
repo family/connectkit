@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { OpenfortKitProvider, SIWESession } from 'connectkit';
+import { OpenfortKitProvider, SIWESession } from '@openfort/openfort-kit';
 import { siweClient } from '../utils/siweClient';
 import { Web3Provider } from '../components/Web3Provider';
 import { useTestBench } from '../TestbenchProvider';

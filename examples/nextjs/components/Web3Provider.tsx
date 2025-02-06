@@ -3,7 +3,7 @@ import React from 'react';
 
 import { RecoveryMethod } from '@openfort/openfort-js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { KitOAuthProvider, OpenfortKitProvider, getDefaultConfig } from 'connectkit';
+import { KitOAuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
 

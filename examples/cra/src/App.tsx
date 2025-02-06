@@ -1,4 +1,4 @@
-import { ConnectKitButton } from 'connectkit';
+import { ConnectKitButton } from '@openfort/openfort-kit';
 
 function App() {
   return (

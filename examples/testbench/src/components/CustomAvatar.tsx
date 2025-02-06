@@ -1,4 +1,4 @@
-import { Types } from 'connectkit';
+import { Types } from '@openfort/openfort-kit';
 
 import { motion } from 'framer-motion';
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMounted, useOpenfort, useProviders } from "connectkit";
+import { useIsMounted, useOpenfort, useProviders } from "@openfort/openfort-kit"
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WritteContract";
 

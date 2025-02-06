@@ -1,7 +1,7 @@
 'use client';
 
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { ConnectKitButton, useIsMounted, useOpenfort } from 'connectkit';
+import { ConnectKitButton, useIsMounted, useOpenfort } from '@openfort/openfort-kit';
 
 function App() {
   const account = useAccount();
