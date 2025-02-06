@@ -115,6 +115,7 @@ export enum KitOAuthProvider {
 
 type CommonEmbeddedSignerConfiguration = {
   shieldPublishableKey: string;
+  ethereumProviderPolicyId?: string;
   debug?: boolean;
 }
 

@@ -40,7 +40,7 @@ const LinkedProvider: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][
 
 const AddLinkedProviderButton: React.FC = () => {
   const { setRoute } = useFortKit();
-  const { unlinkedProviders } = useProviders();
+  const { availableProviders: unlinkedProviders } = useProviders();
 
   return (
     <LinkedProviderButton

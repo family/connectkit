@@ -63,8 +63,6 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
-    // return {} as Openfort;
-
     log('Creating Openfort instance with props:', openfortProps);
 
     if (!openfortProps.baseConfiguration.publishableKey)
@@ -91,7 +89,6 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   }, [openfort]);
 
   const startPollingEmbeddedState = useCallback(() => {
-    // return;
 
     if (!!pollingRef.current) return;
     log("Starting polling embedded state", pollingRef.current, !!pollingRef.current);
@@ -143,15 +140,21 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
   useEffect(() => {
     if (!openfort) return;
+    if (!walletConfig.createEmbeddedSigner) return
 
     log("Getting ethereum provider");
-    openfort.getEthereumProvider();
+    openfort.getEthereumProvider(
+      process.env.NEXT_PUBLIC_POLICY_ID ?
+        {
+          policy: process.env.NEXT_PUBLIC_POLICY_ID,
+        }
+        : undefined
+    );
   }, [openfort])
 
   useEffect(() => {
     if (!openfort) return;
     // Poll embedded signer state
-    // return;
 
     log("Embedded state update", embeddedState);
 

@@ -25,3 +25,4 @@ export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
 
 export { useOpenfort } from "./openfort/OpenfortProvider";
+export { useProviders } from "./hooks/openfort/useProviders";

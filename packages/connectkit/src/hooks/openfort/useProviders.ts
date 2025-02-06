@@ -5,13 +5,15 @@ export function useProviders() {
   const { user } = useOpenfort();
   const { options } = useFortKit();
 
-  const providers = options?.authProviders?.filter(p => p !== KitOAuthProvider.GUEST) || [];
+  const allProviders = options?.authProviders || [];
+  const providers = allProviders.filter(p => p !== KitOAuthProvider.GUEST) || [];
 
   const linkedProviders = user ? providers.filter(p => user.linkedAccounts?.find(a => a.provider === p)) : [];
-  const unlinkedProviders = user ? providers.filter(p => !user.linkedAccounts?.find(a => a.provider === p)) : providers;
+  const availableProviders = user ? providers.filter(p => !user.linkedAccounts?.find(a => a.provider === p)) : providers;
 
   return {
-    unlinkedProviders,
+    availableProviders,
     linkedProviders,
+    allProviders,
   }
 }

@@ -166,7 +166,7 @@ const AddressButNoUserCase: React.FC = () => {
 const Providers: React.FC = () => {
   const { user } = useOpenfort();
   const { address } = useAccount();
-  const { unlinkedProviders } = useProviders();
+  const { allProviders, availableProviders } = useProviders();
 
   if (address && !user) {
     return <AddressButNoUserCase />
@@ -177,7 +177,7 @@ const Providers: React.FC = () => {
       <ScrollArea mobileDirection={'horizontal'}>
         {/* <ProvidersContainer> */}
         {
-          unlinkedProviders.map((auth) => (
+          (user ? availableProviders : allProviders).map((auth) => (
             <ProviderButtonSwitch key={auth} provider={auth} />
           ))
         }

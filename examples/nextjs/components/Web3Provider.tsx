@@ -28,14 +28,15 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
 
           walletConfig={{
-            // linkWalletOnSignUp: true,
             createEmbeddedSigner: true,
 
             embeddedSignerConfiguration: {
               shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
-              recoveryMethod: RecoveryMethod.AUTOMATIC,
-              // shieldEncryptionKey: process.env.NEXT_PUBLIC_SHIELD_ENCRYPTION_KEY!,
+              recoveryMethod: RecoveryMethod.PASSWORD,
               createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
+
+              // You can set a policy id to sponsor the gas fees for your users
+              ethereumProviderPolicyId: process.env.NEXT_PUBLIC_POLICY_ID,
             }
           }}
 
@@ -51,21 +52,11 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             initialChainId: polygonAmoy.id,
             enforceSupportedChains: true,
 
-            hideBalance: true,
             skipEmailVerification: true,
             reducedMotion: true,
-            // walletConnectCTA: 'both',
-            // wallet: {
-            //   linkWalletOnSignUp: true,
-            // }
-            // disclaimer: "This is a demo app. Do not use real funds.",
           }}
           debugMode
-        // theme='rounded'
-        // mode='dark'
-        // theme='retro'
-        // theme='web95'
-
+          theme='retro'
         >
           {children}
         </OpenfortKitProvider>

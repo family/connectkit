@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMounted, useOpenfort } from "connectkit";
+import { useIsMounted, useOpenfort, useProviders } from "connectkit";
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WritteContract";
 
@@ -10,7 +10,8 @@ export const Connected = () => {
   const { data: ensName } = useEnsName({
     address: account.address,
   })
-  const { user, logout, signUpGuest, needsRecovery, isLoading } = useOpenfort()
+  const { user, logout } = useOpenfort()
+  const { linkedProviders, availableProviders } = useProviders()
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;
@@ -24,28 +25,20 @@ export const Connected = () => {
         <br />
         status: {account.status}
       </div>
-      <div style={{ width: "100%" }}>
-        player: {user?.id}
-        <br />
-        linked accounts: {user?.linkedAccounts.map((a) => a.provider).join(", ")}
-      </div>
-      <WriteContract />
       <div>
         <h2>OPENFORT</h2>
-        <div>Needs recover: {needsRecovery.toString()}</div>
-        <div>Is loading: {isLoading.toString()}</div>
-        <button
-          onClick={() => signUpGuest()}
-          type="button"
-        >
-          guest
-        </button>
+        player: {user?.id}
+        <br />
+        linked providers: {linkedProviders.join(", ")}
+        <br />
+        not linked providers: {availableProviders.join(", ")}
       </div>
       <button
         onClick={() => logout()}
       >
         Log out
       </button>
+      <WriteContract />
     </div>
   );
 };
