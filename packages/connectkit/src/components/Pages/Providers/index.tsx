@@ -11,6 +11,7 @@ import WalletIcon from "../../../assets/wallet";
 import PoweredByFooter from "../../Common/PoweredByFooter";
 import { useAccount, useDisconnect } from "wagmi";
 import Loader from "../../Common/Loading";
+import { useProviders } from "../../../hooks/openfort/useProviders";
 
 const ProviderButton: React.FC<{
   onClick: () => void;
@@ -163,14 +164,11 @@ const AddressButNoUserCase: React.FC = () => {
 }
 
 const Providers: React.FC = () => {
-  const { options } = useFortKit();
   const { user } = useOpenfort();
   const { address } = useAccount();
-
-  const providers = options?.authProviders!;
+  const { unlinkedProviders } = useProviders();
 
   if (address && !user) {
-
     return <AddressButNoUserCase />
   }
 
@@ -179,13 +177,9 @@ const Providers: React.FC = () => {
       <ScrollArea mobileDirection={'horizontal'}>
         {/* <ProvidersContainer> */}
         {
-
-          (user
-            ? providers.filter(p => p !== KitOAuthProvider.GUEST && !user.linkedAccounts?.find(a => a.provider === p))
-            : providers)
-            .map((auth) => (
-              <ProviderButtonSwitch key={auth} provider={auth} />
-            ))
+          unlinkedProviders.map((auth) => (
+            <ProviderButtonSwitch key={auth} provider={auth} />
+          ))
         }
         {/* </ProvidersContainer> */}
       </ScrollArea>

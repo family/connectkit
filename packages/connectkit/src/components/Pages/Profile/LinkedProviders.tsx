@@ -6,6 +6,7 @@ import { EmailIcon, FacebookIcon, GoogleIcon, TwitterIcon } from "../../../asset
 import WalletIcon from "../../../assets/wallet";
 import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { routes, useFortKit } from "../../FortKit";
+import { useProviders } from "../../../hooks/openfort/useProviders";
 
 const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0]["provider"] }> = ({ provider }) => {
   switch (provider) {
@@ -37,11 +38,13 @@ const LinkedProvider: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][
   )
 }
 
-const LinkProviderButton: React.FC = () => {
+const AddLinkedProviderButton: React.FC = () => {
   const { setRoute } = useFortKit();
+  const { unlinkedProviders } = useProviders();
 
   return (
     <LinkedProviderButton
+      disabled={unlinkedProviders.length === 0}
       onClick={() => setRoute(routes.PROVIDERS)}
     >
       +
@@ -72,7 +75,7 @@ export const LinkedProviders: React.FC = () => {
             <LinkedProvider key={provider.provider} provider={provider} />
           ))
         }
-        <LinkProviderButton />
+        <AddLinkedProviderButton />
       </LinkedProviderContainer>
     </>
   );

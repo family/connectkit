@@ -43,15 +43,6 @@ export type OpenfortProviderProps = {
   debugMode?: boolean;
 } & ConstructorParameters<typeof Openfort>[0];
 
-const openfort = new Openfort({
-  baseConfiguration: {
-    publishableKey: "pk_test_b73c8a93-3ab3-58f2-b144-d79833edcc7a",
-  },
-  shieldConfiguration: {
-    shieldPublishableKey: "a5cd1734-a783-4b1f-b7e6-c11a7c922729"
-  },
-});
-
 export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>> = (
   {
     children,
@@ -71,16 +62,16 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const automaticRecovery = walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC;
 
   // ---- Openfort instance ----
-  // const openfort = useMemo(() => {
-  //   // return {} as Openfort;
+  const openfort = useMemo(() => {
+    // return {} as Openfort;
 
-  //   log('Creating Openfort instance with props:', openfortProps);
+    log('Creating Openfort instance with props:', openfortProps);
 
-  //   if (!openfortProps.baseConfiguration.publishableKey)
-  //     throw Error('OpenfortProvider requires a publishableKey to be set in the baseConfiguration.');
+    if (!openfortProps.baseConfiguration.publishableKey)
+      throw Error('OpenfortProvider requires a publishableKey to be set in the baseConfiguration.');
 
-  //   return new Openfort(openfortProps)
-  // }, []);
+    return new Openfort(openfortProps)
+  }, []);
 
   // ---- Embedded state ----
   const [embeddedState, setEmbeddedState] = useState<EmbeddedState>(EmbeddedState.NONE);
