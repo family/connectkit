@@ -2,8 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { OpenfortKitProvider, SIWESession } from '@openfort/openfort-kit';
-import { siweClient } from '../utils/siweClient';
+import { OpenfortKitProvider } from '@openfort/openfort-kit';
 import { Web3Provider } from '../components/Web3Provider';
 import { useTestBench } from '../TestbenchProvider';
 
@@ -12,31 +11,28 @@ function App({ Component, pageProps }: AppProps) {
   const key = JSON.stringify({ customTheme }); // re-render on customTheme change
 
   return (
-    <siweClient.Provider
-      onSignIn={(data?: SIWESession) => {
-        console.log('onSignIn Provider', data);
+    <OpenfortKitProvider
+
+      publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
+      walletConfig={{
+        linkWalletOnSignUp: true,
       }}
-      onSignOut={() => {
-        console.log('onSignOut Provider');
+
+      key={key}
+      theme={theme}
+      mode={mode}
+      options={options}
+      customTheme={customTheme}
+      onConnect={(data) => {
+        console.log('onConnect Provider', data);
       }}
+      onDisconnect={() => {
+        console.log('onDisconnect Provider');
+      }}
+      debugMode
     >
-      <OpenfortKitProvider
-        key={key}
-        theme={theme}
-        mode={mode}
-        options={options}
-        customTheme={customTheme}
-        onConnect={(data) => {
-          console.log('onConnect Provider', data);
-        }}
-        onDisconnect={() => {
-          console.log('onDisconnect Provider');
-        }}
-        debugMode
-      >
-        <Component {...pageProps} />
-      </OpenfortKitProvider>
-    </siweClient.Provider>
+      <Component {...pageProps} />
+    </OpenfortKitProvider>
   );
 }
 function MyApp(appProps: AppProps) {

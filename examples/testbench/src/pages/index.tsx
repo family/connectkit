@@ -6,12 +6,9 @@ import {
   Types,
   ConnectKitButton,
   Avatar,
-  SIWEButton,
   ChainIcon,
-  SIWESession,
   useChains,
   useModal,
-  useSIWE,
 } from '@openfort/openfort-kit';
 
 import {
@@ -29,7 +26,6 @@ import { useTestBench } from '../TestbenchProvider';
 import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 
 import CustomAvatar from '../components/CustomAvatar';
-import CustomSIWEButton from '../components/CustomSIWEButton';
 import { Address } from 'viem';
 
 const allChains = Object.keys(wagmiChains).map(
@@ -81,15 +77,6 @@ const AccountInfo = () => {
   const { chain } = useAccount();
   const chains = useChains();
 
-  const { isSignedIn, signOut } = useSIWE({
-    onSignIn: (data?: SIWESession) => {
-      console.log('onSignIn', data);
-    },
-    onSignOut: () => {
-      console.log('onSignOut');
-    },
-  });
-
   return (
     <div className="panel">
       <h2>Wallet Info</h2>
@@ -122,13 +109,6 @@ const AccountInfo = () => {
             <tr>
               <td>Connector</td>
               <td>{connector?.id}</td>
-            </tr>
-            <tr>
-              <td>SIWE session</td>
-              <td>
-                {isSignedIn ? 'yes' : 'no'}{' '}
-                {isSignedIn && <button onClick={signOut}>sign out</button>}
-              </td>
             </tr>
           </tbody>
         </table>
@@ -259,7 +239,7 @@ const Home: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const { open, setOpen, openSIWE, openAbout } = useModal({
+  const { open, setOpen, openAbout } = useModal({
     onConnect: () => {
       console.log('onConnect Hook');
     },
@@ -292,26 +272,10 @@ const Home: NextPage = () => {
         </div>
 
         <div className="panel">
-          <h2>Sign In With Ethereum</h2>
-          <SIWEButton
-            showSignOutButton
-            onSignIn={(data?: SIWESession) => {
-              console.log('onSignIn SIWEButton', data);
-            }}
-            onSignOut={() => {
-              console.log('onSignOut SIWEButton');
-            }}
-          />
-          <CustomSIWEButton />
-          <Link href="/siwe/token-gated">Token-gated page &rarr;</Link>
-        </div>
-
-        <div className="panel">
           <h2>useModal Hook</h2>
           <p>open: {open.toString()}</p>
           <button onClick={() => setOpen(true)}>Open modal</button>
           <button onClick={() => openAbout()}>Open to About</button>
-          <button onClick={() => openSIWE(true)}>Open to SIWE</button>
         </div>
 
         <AccountInfo />
@@ -410,7 +374,7 @@ const Home: NextPage = () => {
           options={modes}
           onChange={(e) => setMode(e.target.value as Types.Mode)}
         />
-        <Select
+        {/* <Select
           label="Language"
           value={options.language ?? languages[0].value}
           options={languages}
@@ -420,7 +384,7 @@ const Home: NextPage = () => {
               language: e.target.value as Types.Languages,
             })
           }
-        />
+        /> */}
         <h3>options</h3>
         <Textbox
           label="disclaimer"
@@ -522,7 +486,7 @@ const Home: NextPage = () => {
             setOptions({ ...options, hideTooltips: !options.hideTooltips })
           }
         />
-        <Checkbox
+        {/* <Checkbox
           label="hideQuestionMarkCTA"
           value="hideQuestionMarkCTA"
           checked={options.hideQuestionMarkCTA as boolean}
@@ -532,8 +496,8 @@ const Home: NextPage = () => {
               hideQuestionMarkCTA: !options.hideQuestionMarkCTA,
             })
           }
-        />
-        <Checkbox
+        /> */}
+        {/* <Checkbox
           label="hideNoWalletCTA"
           value="hideNoWalletCTA"
           checked={options.hideNoWalletCTA as boolean}
@@ -543,7 +507,7 @@ const Home: NextPage = () => {
               hideNoWalletCTA: !options.hideNoWalletCTA,
             })
           }
-        />
+        /> */}
         <Checkbox
           label="avoidLayoutShift"
           value="avoidLayoutShift"
@@ -552,17 +516,6 @@ const Home: NextPage = () => {
             setOptions({
               ...options,
               avoidLayoutShift: !options.avoidLayoutShift,
-            })
-          }
-        />
-        <Checkbox
-          label="disableSiweRedirect"
-          value="disableSiweRedirect"
-          checked={options.disableSiweRedirect as boolean}
-          onChange={() =>
-            setOptions({
-              ...options,
-              disableSiweRedirect: !options.disableSiweRedirect,
             })
           }
         />
