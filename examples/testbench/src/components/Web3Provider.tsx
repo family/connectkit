@@ -61,7 +61,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <TestBenchProvider
-        //customTheme={{ '--ck-font-family': 'monospace' }}
+        // customTheme={{ '--ck-font-family': 'monospace' }}
         >
           {children}
         </TestBenchProvider>

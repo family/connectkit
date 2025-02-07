@@ -66,7 +66,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
-    log('Creating Openfort instance with props:', openfortProps);
+    log('Creating Openfort instance. Props:', openfortProps);
 
     if (!openfortProps.baseConfiguration.publishableKey)
       throw Error('OpenfortProvider requires a publishableKey to be set in the baseConfiguration.');

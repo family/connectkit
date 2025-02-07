@@ -1,4 +1,4 @@
-export type SelectProps = { label: string; value: string };
+export type SelectProps<T extends string = string> = { label: string; value: T };
 
 export const Textbox = ({
   label,

@@ -28,6 +28,7 @@ import CreateEmbeddedSigner from '../Pages/Recover';
 import ForgotPassword from '../Pages/ForgotPassword';
 import EmailVerification from '../Pages/EmailVerification';
 import LinkEmail from '../Pages/LinkEmail';
+import SocialProviders from '../Pages/SoicalProviders';
 
 const customThemeDefault: object = {};
 
@@ -64,9 +65,10 @@ const ConnectModal: React.FC<{
   const showInfoButton = closeable && context.route !== routes.PROFILE;
 
   const onBack = () => {
-    // } else if (context.route === routes.DOWNLOAD) {
-    //   context.setRoute(routes.CONNECT);
-    // } 
+    if (context.route === routes.CONNECT) {
+      context.setRoute(routes.CONNECTORS);
+      return;
+    }
 
     if (context.route === routes.FORGOT_PASSWORD) {
       context.setRoute(routes.EMAIL_LOGIN);
@@ -95,6 +97,8 @@ const ConnectModal: React.FC<{
     onboarding: <Onboarding />,
     about: <About />,
     loading: <Loading />,
+
+    socialProviders: <SocialProviders />,
 
     emailLogin: <EmailLogin />,
     emailSignup: <EmailSignup />,

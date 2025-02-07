@@ -37,6 +37,8 @@ import { ValueOf } from 'viem/_types/types/utils';
 
 export const routes = {
   PROVIDERS: 'providers',
+  SOCIAL_PROVIDERS: 'socialProviders',
+
   LOADING: 'loading',
   RECOVER: 'recover',
 
@@ -112,6 +114,11 @@ export enum KitOAuthProvider {
   WALLET = "wallet",
   GUEST = "guest",
 }
+export const socialProviders = [
+  KitOAuthProvider.GOOGLE,
+  KitOAuthProvider.TWITTER,
+  KitOAuthProvider.FACEBOOK,
+]
 
 
 type CommonEmbeddedSignerConfiguration = {
@@ -326,14 +333,18 @@ export const OpenfortKitProvider = ({
     disableSiweRedirect: false,
 
     // Openfort options
-    authProviders: [
-      KitOAuthProvider.GUEST,
-      KitOAuthProvider.EMAIL,
-      KitOAuthProvider.WALLET,
-    ],
+    authProviders: [],
   };
 
   const opts: ConnectKitOptionsExtended = Object.assign({}, defaultOptions, options);
+
+  if (opts.authProviders?.length === 0) {
+    opts.authProviders = [
+      KitOAuthProvider.GUEST,
+      KitOAuthProvider.EMAIL,
+      KitOAuthProvider.WALLET,
+    ];
+  }
 
   if (typeof window !== 'undefined') {
     // Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.)

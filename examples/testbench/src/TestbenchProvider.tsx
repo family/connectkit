@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { Types } from '@openfort/openfort-kit';
+import { KitOAuthProvider, Types } from '@openfort/openfort-kit';
 
 type ContextValue = {
   theme: Types.Theme;
@@ -40,9 +40,9 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
   mode = 'light',
   options = {
     overlayBlur: 0,
-    language: 'en-US',
+    // language: 'en-US',
     hideTooltips: false,
-    hideQuestionMarkCTA: false,
+    // hideQuestionMarkCTA: false,
     hideNoWalletCTA: false,
     avoidLayoutShift: true,
     embedGoogleFonts: true,

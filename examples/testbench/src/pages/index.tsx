@@ -9,6 +9,7 @@ import {
   ChainIcon,
   useChains,
   useModal,
+  KitOAuthProvider,
 } from '@openfort/openfort-kit';
 
 import {
@@ -62,6 +63,14 @@ const languages: SelectProps[] = [
   { label: 'Spanish', value: 'es-ES' },
   { label: 'Turkish', value: 'tr-TR' },
   { label: 'Vietnamese', value: 'vi-VN' },
+];
+const providers: SelectProps<KitOAuthProvider>[] = [
+  { label: 'email', value: KitOAuthProvider.EMAIL },
+  { label: 'google', value: KitOAuthProvider.GOOGLE },
+  { label: 'facebook', value: KitOAuthProvider.FACEBOOK },
+  { label: 'twitter', value: KitOAuthProvider.TWITTER },
+  { label: 'wallet', value: KitOAuthProvider.WALLET },
+  { label: 'guest', value: KitOAuthProvider.GUEST },
 ];
 
 const AccountInfo = () => {
@@ -393,6 +402,7 @@ const Home: NextPage = () => {
             setOptions({ ...options, disclaimer: e.target.value });
           }}
         />
+
         <Textbox
           label="walletConnectName"
           value={options.walletConnectName as string}
@@ -574,6 +584,48 @@ const Home: NextPage = () => {
             });
           }}
         />
+        <div>
+          <h3>
+            <label>
+
+              <input
+                style={{ marginRight: 8 }}
+                type="checkbox"
+                value={"all-checked"}
+                checked={providers.filter((p) => options.authProviders?.includes(p.value)).length === providers.length}
+                onChange={() => providers.filter((p) => options.authProviders?.includes(p.value)).length === providers.length ?
+                  setOptions({ ...options, authProviders: [] })
+                  : setOptions({ ...options, authProviders: providers.map((p) => p.value) })
+                }
+              />
+              Providers
+            </label>
+          </h3>
+          {
+            providers.map((p, i) => (
+              <Checkbox
+                key={p.label}
+                label={`${options.authProviders ?
+                  options.authProviders.indexOf(p.value) >= 0
+                    ? options.authProviders?.indexOf(p.value) + 1 : "-"
+                  : "-"
+                  } ${p.label}`}
+                value={p.value}
+                checked={!!options.authProviders?.includes(p.value)}
+                onChange={() =>
+                  setOptions({
+                    ...options,
+                    authProviders: options.authProviders ?
+                      options.authProviders.includes(p.value)
+                        ? options.authProviders?.filter((x) => x !== p.value)
+                        : options.authProviders?.concat(p.value)
+                      : [p.value],
+                  })
+                }
+              />
+            ))
+          }
+        </div>
       </aside>
     </>
   );
