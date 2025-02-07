@@ -1,6 +1,6 @@
-import Openfort, { AuthPlayerResponse, EmbeddedState, OAuthProvider, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from '@openfort/openfort-js';
+import Openfort, { AuthPlayerResponse, EmbeddedState, MissingRecoveryPasswordError, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from '@openfort/openfort-js';
 import React, { createContext, createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useAccount, useChainId, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { useFortKit } from '../components/FortKit';
 import { useConnect } from '../hooks/useConnect';
 
@@ -10,7 +10,10 @@ type RecoveryProps =
 
 type ContextValue = {
   signUpGuest: () => Promise<void>;
-  handleRecovery: (props: RecoveryProps) => Promise<boolean>;
+  handleRecovery: (props: RecoveryProps) => Promise<{
+    success?: boolean;
+    error?: string;
+  }>;
   embeddedState: EmbeddedState;
 
   isLoading: boolean;
@@ -143,13 +146,13 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!walletConfig.createEmbeddedSigner) return
 
     log("Getting ethereum provider");
-    // openfort.getEthereumProvider(
-    //   process.env.NEXT_PUBLIC_POLICY_ID ?
-    //     {
-    //       policy: process.env.NEXT_PUBLIC_POLICY_ID,
-    //     }
-    //     : undefined
-    // );
+    openfort.getEthereumProvider(
+      process.env.NEXT_PUBLIC_POLICY_ID ?
+        {
+          policy: process.env.NEXT_PUBLIC_POLICY_ID,
+        }
+        : undefined
+    );
   }, [openfort])
 
   useEffect(() => {
@@ -173,13 +176,6 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
       case EmbeddedState.READY:
         setUserIfNull();
 
-        openfort.getEthereumProvider(
-          process.env.NEXT_PUBLIC_POLICY_ID ?
-            {
-              policy: process.env.NEXT_PUBLIC_POLICY_ID,
-            }
-            : undefined
-        );
         // We cannot stop polling here because there is a bug on openfort-js
         // that makes the embedded state to be stuck on CREATING_ACCOUNT
         // stopPollingEmbeddedState();
@@ -207,11 +203,11 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   // ---- Recovery ----
 
   const getEncryptionSession = async (): Promise<string> => {
-    if (!(walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC)) {
-      throw new Error("Automatic recovery is not enabled");
+    if (!(walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.createEncryptedSessionEndpoint)) {
+      throw new Error("No createEncryptedSessionEndpoint set in walletConfig");
     }
 
-    const resp = await fetch(walletConfig.embeddedSignerConfiguration.createEncryptedSessionEndpoint, { // TODO:replace with variable
+    const resp = await fetch(walletConfig.embeddedSignerConfiguration.createEncryptedSessionEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -227,9 +223,14 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   }
 
   const handleRecovery = useCallback(async (props: RecoveryProps) => {
-    // return false;
-
-    if (!openfort) return false;
+    if (!openfort) return {
+      error: "Openfort not initialized",
+    };
+    if (!walletConfig.createEmbeddedSigner) {
+      return {
+        error: "Embedded signer not enabled",
+      }
+    }
 
     const { method, password, chainId } = { password: undefined, ...props };
     log(`Handling recovery with Openfort: method=${method}, password=${password}, chainId=${chainId}`);
@@ -239,7 +240,9 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
         const shieldAuth: ShieldAuthentication = {
           auth: ShieldAuthType.OPENFORT,
           token: openfort.getAccessToken()!,
-          encryptionSession: await getEncryptionSession(),
+          encryptionSession: walletConfig.embeddedSignerConfiguration.getEncryptionSession ?
+            await walletConfig.embeddedSignerConfiguration.getEncryptionSession() :
+            await getEncryptionSession(),
         };
         log("Configuring embedded signer with automatic recovery");
         await openfort.configureEmbeddedSigner(chainId, shieldAuth);
@@ -253,10 +256,25 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
         };
         await openfort.configureEmbeddedSigner(chainId, shieldAuth, password);
       }
-      return true;
+
+      return {
+        success: true,
+      };
     } catch (err) {
       log('Error handling recovery with Openfort:', err);
-      return false;
+      if (err instanceof MissingRecoveryPasswordError) {
+        return {
+          error: "Missing recovery password",
+        }
+      }
+      if (typeof err === 'string') {
+        return {
+          error: err,
+        }
+      }
+      return {
+        error: "Error handling recovery with Openfort",
+      };
     }
   }, [openfort]);
 

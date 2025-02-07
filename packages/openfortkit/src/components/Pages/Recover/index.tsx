@@ -27,9 +27,9 @@ const Recover: React.FC = () => {
       method: RecoveryMethod.PASSWORD,
       password: recoveryPhrase,
       chainId: options?.initialChainId ?? chain,
-    }).then((success) => {
+    }).then((response) => {
       setLoading(false);
-      if (success) {
+      if (response.success) {
         log("Recovery success");
       } else {
         setRecoveryError(true);
@@ -86,6 +86,7 @@ const AutomaticRecovery: React.FC = () => {
   const { needsRecovery, handleRecovery } = useOpenfort();
   const { options, log } = useFortKit();
   const chain = useChainId();
+  const [hasRecoveryMethod, setHasRecoveryMethod] = React.useState(false);
 
   useEffect(() => {
     if (!needsRecovery) {
@@ -93,10 +94,17 @@ const AutomaticRecovery: React.FC = () => {
       handleRecovery({
         method: RecoveryMethod.AUTOMATIC,
         chainId: options?.initialChainId ?? chain,
+      }).then((response) => {
+        if (response.error && response.error === "Missing recovery password") {
+          setHasRecoveryMethod(true);
+        }
       });
     }
   }, [needsRecovery]);
 
+  if (hasRecoveryMethod) {
+    return <Recover />
+  }
 
   return (
     <PageContent>

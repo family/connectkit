@@ -33,8 +33,17 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
             embeddedSignerConfiguration: {
               shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
-              recoveryMethod: RecoveryMethod.PASSWORD,
-              createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
+              recoveryMethod: RecoveryMethod.AUTOMATIC,
+              // createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
+              getEncryptionSession: async () => {
+                const res = await fetch('/api/protected-create-encryption-session', {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                });
+                return (await res.json()).session;
+              },
 
               // You can set a policy id to sponsor the gas fees for your users
               ethereumProviderPolicyId: process.env.NEXT_PUBLIC_POLICY_ID,

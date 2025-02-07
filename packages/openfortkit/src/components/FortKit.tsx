@@ -113,26 +113,65 @@ export enum KitOAuthProvider {
   GUEST = "guest",
 }
 
+
 type CommonEmbeddedSignerConfiguration = {
+  /** Publishable key for the Shield API */
   shieldPublishableKey: string;
+  /** Policy ID (pol_...) for the embedded signer */
   ethereumProviderPolicyId?: string;
   debug?: boolean;
 }
 
-type EmbeddedSignerConfiguration = CommonEmbeddedSignerConfiguration & (
-  {
-    recoveryMethod: RecoveryMethod.AUTOMATIC;
-    createEncryptedSessionEndpoint: string;
-  } | {
-    recoveryMethod: RecoveryMethod.PASSWORD;
-    createEncryptedSessionEndpoint: string;
-    shieldEncryptionKey?: string;
-  } | {
-    recoveryMethod: RecoveryMethod.PASSWORD;
-    shieldEncryptionKey: string;
-    createEncryptedSessionEndpoint?: string;
+type EncryptionSession =
+  | {
+    /** Function to retrieve an encryption session using a session ID */
+    getEncryptionSession: () => Promise<string>;
+    createEncryptedSessionEndpoint?: never;
   }
-)
+  | {
+    /** API endpoint for creating an encrypted session */
+    createEncryptedSessionEndpoint: string;
+    getEncryptionSession?: never;
+  };
+
+/**
+ * Configuration for automatic recovery, which requires an encryption session.
+ */
+type AutomaticRecoveryEmbeddedSignerConfiguration = {
+  /** Specifies that the recovery method is automatic */
+  recoveryMethod: RecoveryMethod.AUTOMATIC;
+} & EncryptionSession;
+
+type PasswordRecoveryEmbeddedSignerConfiguration = {
+  /** Specifies that the recovery method is password-based */
+  recoveryMethod: RecoveryMethod.PASSWORD;
+} & (
+    | (EncryptionSession & {
+      shieldEncryptionKey?: never;
+    })
+    | {
+      /** Required shield encryption key when no encryption session is used */
+      shieldEncryptionKey: string;
+      createEncryptedSessionEndpoint?: never;
+      getEncryptionSession?: never;
+    }
+  );
+
+/**
+ * Configuration for automatic recovery.
+ * - An encryption session is required.
+ * 
+ * Configuration for password-based recovery.
+ * - An encryption session, OR
+ * - A `shieldEncryptionKey` without an encryption session.
+ * 
+ * Encryption session can be created using either:
+ * - `createEncryptedSessionEndpoint` as a string, OR
+ * - `getEncryptionSession.` as a function that returns a promise.
+ */
+type EmbeddedSignerConfiguration = CommonEmbeddedSignerConfiguration & (
+  AutomaticRecoveryEmbeddedSignerConfiguration | PasswordRecoveryEmbeddedSignerConfiguration
+);
 
 export type FortWalletOptions = {
   linkWalletOnSignUp: true;
