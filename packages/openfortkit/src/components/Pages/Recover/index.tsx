@@ -115,9 +115,10 @@ const AutomaticRecovery: React.FC = () => {
 
 const CreateEmbeddedSigner: React.FC = () => {
   const { needsRecovery, user } = useOpenfort();
-  const { triggerResize, options, walletConfig, setRoute } = useFortKit();
+  const { triggerResize, options, walletConfig, setOpen, setRoute } = useFortKit();
   const [loading, setLoading] = React.useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = React.useState(true);
+  const { isConnected } = useAccount();
 
   useEffect(() => {
 
@@ -126,6 +127,12 @@ const CreateEmbeddedSigner: React.FC = () => {
       triggerResize();
     }, 500);
   }, [])
+
+  // hide on connect
+  useEffect(() => {
+    if (isConnected)
+      setOpen(false);
+  }, [isConnected]);
 
   useEffect(() => {
     if (!user) return;

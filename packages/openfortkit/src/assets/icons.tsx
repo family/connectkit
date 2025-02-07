@@ -305,32 +305,3 @@ export const GuestIcon = ({ ...props }) => (
     />
   </svg>
 );
-
-export const WalletIcon = ({ ...props }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 256 256"
-    width="256"
-    height="256"
-  >
-    <rect
-      width="256"
-      height="256"
-      fill="none"
-    />
-    <path
-      d="M40,56V184a16,16,0,0,0,16,16H216a8,8,0,0,0,8-8V80a8,8,0,0,0-8-8H56A16,16,0,0,1,40,56h0A16,16,0,0,1,56,40H192"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="16"
-    />
-    <circle
-      cx="180"
-      cy="132"
-      r="12"
-      fill="currentColor"
-    />
-  </svg>
-);

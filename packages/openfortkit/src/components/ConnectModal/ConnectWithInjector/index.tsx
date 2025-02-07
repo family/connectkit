@@ -84,8 +84,8 @@ const ConnectWithInjector: React.FC<{
   forceState?: typeof states;
 }> = ({ switchConnectMethod, forceState }) => {
   const openfort = useOpenfort();
-  const { log } = useFortKit();
-  const { address } = useAccount();
+  const { log, setOpen } = useFortKit();
+  const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { disconnect } = useDisconnect();
 
@@ -133,24 +133,34 @@ const ConnectWithInjector: React.FC<{
             }
           }
         } else if (data) {
-          if (!address)
+          if (!address) {
+            setStatus(states.FAILED);
             throw console.error('No address found');
-          if (!wallet)
+          }
+          if (!wallet) {
+            setStatus(states.FAILED);
             throw console.error('No wallet found');
-          if (openfort.user?.linkedAccounts.find((acc) => acc.provider === "wallet"))
-            return;
-          // if(openfort.user?.linkedAccounts.find((acc) => acc.metadata === wallet?.connector?.type && acc.walletClientType === wallet?.connector?.name))
+          }
 
-          const con = async () => {
+          // If already has linked account, don't link again
+
+          // if (openfort.user?.linkedAccounts.find((acc) => acc.metadata === wallet?.connector?.type && acc.walletClientType === wallet?.connector?.name)) {
+          //   setOpen(false);
+          //   return;
+          // }
+
+          const connectWithSiwe = async () => {
             try {
               const { nonce } = await openfort.initSIWE({ address });
               const SIWEMessage = createSIWEMessage(address, nonce, chainId);
               const signature = await signMessage(config, { message: SIWEMessage });
 
+              // if has user, we link the wallet
               if (openfort.user) {
                 const authToken = openfort.getAccessToken();
                 if (!authToken) throw new Error('No access token found');
 
+                log("Linking wallet", { signature, message: SIWEMessage, connectorType: wallet?.connector?.type, walletClientType: wallet?.connector?.name, authToken });
                 await openfort.linkWallet({
                   signature,
                   message: SIWEMessage,
@@ -166,6 +176,9 @@ const ConnectWithInjector: React.FC<{
                 connectorType: wallet?.connector?.type,
                 walletClientType: wallet?.connector?.name,
               })
+
+              // Close modal after successful connection
+              setOpen(false);
             }
             catch (err) {
               console.error(err);
@@ -173,7 +186,7 @@ const ConnectWithInjector: React.FC<{
               setStatus(states.FAILED);
             }
           }
-          con();
+          connectWithSiwe();
         }
         setTimeout(triggerResize, 100);
       },
@@ -230,6 +243,11 @@ const ConnectWithInjector: React.FC<{
 
   const runConnect = async () => {
     if (wallet?.isInstalled && wallet?.connector) {
+      // Disconnect if already connected
+      console.log('TRYING TO DISCONNECT', address);
+      if (address)
+        disconnect();
+
       connect({ connector: wallet?.connector })
 
     } else {

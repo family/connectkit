@@ -1,11 +1,12 @@
 "use client";
 
 import { useIsMounted, useOpenfort, useProviders } from "@openfort/openfort-kit"
-import { useAccount, useEnsName } from "wagmi";
+import { useAccount, useDisconnect, useEnsName } from "wagmi";
 import { WriteContract } from "./WritteContract";
 
 export const Connected = () => {
   const account = useAccount();
+  const { disconnect } = useDisconnect();
   const isMounted = useIsMounted();
   const { data: ensName } = useEnsName({
     address: account.address,
@@ -38,6 +39,12 @@ export const Connected = () => {
       >
         Log out
       </button>
+      <button
+        onClick={() => disconnect({ connector: account.connector })}
+      >
+        disconnect
+      </button>
+
       <WriteContract />
     </div>
   );

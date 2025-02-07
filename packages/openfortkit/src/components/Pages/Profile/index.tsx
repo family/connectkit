@@ -93,11 +93,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   return (
     <PageContent>
       <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
-        <div style={{ height: "min-content" }}>
-          <CopyToClipboard string={user?.id}>
-            Welcome, {truncateUserId(user?.id)}
-          </CopyToClipboard>
-        </div>
         {
           address ? (
             <>

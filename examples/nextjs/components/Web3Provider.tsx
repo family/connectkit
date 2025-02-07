@@ -29,6 +29,8 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
 
           walletConfig={{
+            // linkWalletOnSignUp: true,
+
             createEmbeddedSigner: true,
 
             embeddedSignerConfiguration: {

@@ -7,13 +7,14 @@ import FitText from "../../Common/FitText";
 import { routes, useFortKit } from "../../FortKit";
 import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
+import Wallet from "../../../assets/wallet";
 
 const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0]["provider"] }> = ({ provider }) => {
   switch (provider) {
     case "email":
       return <EmailIcon />;
     case "wallet":
-      return <Logos.WalletConnect />;
+      return <Wallet />;
     case "google":
       return <Logos.Google />;
     case "twitter":
@@ -71,8 +72,8 @@ export const LinkedProviders: React.FC = () => {
       </ProvidersHeader>
       <LinkedProviderContainer>
         {
-          user.linkedAccounts.map((provider) => (
-            <LinkedProvider key={provider.provider} provider={provider} />
+          user.linkedAccounts.map((provider, i) => (
+            <LinkedProvider key={provider.provider + i} provider={provider} />
           ))
         }
         <AddLinkedProviderButton />

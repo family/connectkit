@@ -124,6 +124,10 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
           setUser(user);
         }).catch((err) => {
           log("Error getting user", err);
+          if (err?.response?.status === 404) {
+            log("User not found, logging out");
+            logout();
+          }
         })
     }
   }, [user, openfort]);

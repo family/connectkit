@@ -83,7 +83,6 @@ const ConnectModal: React.FC<{
     }
 
     if (context.route === routes.RECOVER
-      || context.route === routes.CONNECTORS
       || context.route === routes.EMAIL_VERIFICATION
     ) {
       logout();
@@ -121,18 +120,6 @@ const ConnectModal: React.FC<{
   function hide() {
     context.setOpen(false);
   }
-
-  useEffect(() => {
-    if (isConnected) {
-      if (
-        context.route !== routes.PROFILE && user
-      ) {
-        hide(); // Hide on connect
-      }
-    } else {
-      // hide(); // Hide on disconnect
-    }
-  }, [isConnected, user]);
 
   // if auth redirect
   useEffect(() => {
