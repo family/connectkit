@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@openfort/openfort-js": "^0.8.20",
+    "@openfort/openfort-js": "^0.8.22",
     "@openfort/openfort-kit": "workspace:packages/openfortkit",
     "@openfort/openfort-node": "^0.6.69",
     "@tanstack/react-query": "^5.17.15",
