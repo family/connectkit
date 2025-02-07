@@ -40,7 +40,7 @@ export const ckConfig = getDefaultConfig({
   */
   appName: 'ConnectKit testbench',
   appIcon: '/app.png',
-  walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+  walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
 });
 const customConfig = {
   ...ckConfig,

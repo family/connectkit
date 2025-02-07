@@ -3,11 +3,11 @@ import React from 'react';
 import { WagmiProvider, createConfig } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { KitOAuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
-import { RecoveryMethod } from '@openfort/openfort-js';
 
 const config = createConfig(
   getDefaultConfig({
     appName: 'OpenfortKit CRA demo',
+    walletConnectProjectId: process.env.REACT_APP_WALLET_CONNECT_PROJECT_ID!,
   })
 );
 

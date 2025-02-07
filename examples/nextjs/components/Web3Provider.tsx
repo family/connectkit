@@ -12,6 +12,7 @@ const config = createConfig(
     appName: 'OpenfortKit Next.js demo',
     chains: [beamTestnet, polygonAmoy],
 
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
     ssr: true,
   })
 );
