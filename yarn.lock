@@ -14054,7 +14054,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nextjs@workspace:examples/nextjs"
   dependencies:
-    "@openfort/openfort-js": ^0.8.22
     "@openfort/openfort-kit": "workspace:packages/openfortkit"
     "@openfort/openfort-node": ^0.6.69
     "@tanstack/react-query": ^5.17.15
