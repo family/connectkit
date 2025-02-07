@@ -1,17 +1,17 @@
 import { OAuthProvider } from "@openfort/openfort-js";
 import React, { useEffect } from "react";
+import { useAccount, useDisconnect } from "wagmi";
+import { EmailIcon, GuestIcon, } from "../../../assets/icons";
+import Logos from "../../../assets/logos";
+import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
-import { PageContent } from "../../Common/Modal/styles";
-import { KitOAuthProvider, routes, useFortKit } from "../../FortKit";
-import { EmailIcon, FacebookIcon, GoogleIcon, GuestIcon, TwitterIcon, } from "../../../assets/icons";
-import { ScrollArea } from "../../Common/ScrollArea";
-import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
-import WalletIcon from "../../../assets/wallet";
-import PoweredByFooter from "../../Common/PoweredByFooter";
-import { useAccount, useDisconnect } from "wagmi";
 import Loader from "../../Common/Loading";
-import { useProviders } from "../../../hooks/openfort/useProviders";
+import { PageContent } from "../../Common/Modal/styles";
+import PoweredByFooter from "../../Common/PoweredByFooter";
+import { ScrollArea } from "../../Common/ScrollArea";
+import { KitOAuthProvider, routes, useFortKit } from "../../FortKit";
+import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
 
 const ProviderButton: React.FC<{
   onClick: () => void;
@@ -59,7 +59,7 @@ const WalletButton: React.FC = () => {
   const { setRoute } = useFortKit();
   return <ProviderButton
     onClick={() => setRoute(routes.CONNECTORS)}
-    icon={<WalletIcon />}
+    icon={<Logos.OtherWallets />}
   >
     Wallet
   </ProviderButton>
@@ -108,7 +108,7 @@ const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provid
         <AuthProviderButton
           provider={OAuthProvider.GOOGLE}
           title="Google"
-          icon={<GoogleIcon />}
+          icon={<Logos.Google />}
         />
       )
     case KitOAuthProvider.TWITTER:
@@ -116,7 +116,7 @@ const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provid
         <AuthProviderButton
           provider={OAuthProvider.TWITTER}
           title="Twitter"
-          icon={<TwitterIcon />}
+          icon={<Logos.Twitter />}
         />
       )
     case KitOAuthProvider.FACEBOOK:
@@ -124,17 +124,9 @@ const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provid
         <AuthProviderButton
           provider={OAuthProvider.FACEBOOK}
           title="Facebook"
-          icon={<FacebookIcon />}
+          icon={<Logos.Facebook />}
         />
       )
-    // case KitOAuthProvider.DISCORD:
-    //   return <AuthProviderButton provider={OAuthProvider.DISCORD} title="Discord" />
-    // case KitOAuthProvider.EPIC_GAMES:
-    //   return <AuthProviderButton provider={OAuthProvider.EPIC_GAMES} title="Epic games" />
-    // case KitOAuthProvider.TELEGRAM:
-    //   return <AuthProviderButton provider={OAuthProvider.TELEGRAM} title="Telegram" />
-    // case KitOAuthProvider.LINE:
-    //   return <AuthProviderButton provider={OAuthProvider.LINE} title="Line" />
     default:
       return <Button>NOT IMPLEMENTED: {provider}</Button>;
   }

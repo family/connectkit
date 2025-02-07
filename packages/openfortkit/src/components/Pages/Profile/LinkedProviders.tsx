@@ -1,25 +1,25 @@
 import { AuthPlayerResponse } from "@openfort/openfort-js";
+import { EmailIcon } from "../../../assets/icons";
+import Logos from "../../../assets/logos";
+import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import FitText from "../../Common/FitText";
-import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
-import { EmailIcon, FacebookIcon, GoogleIcon, TwitterIcon } from "../../../assets/icons";
-import WalletIcon from "../../../assets/wallet";
-import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { routes, useFortKit } from "../../FortKit";
-import { useProviders } from "../../../hooks/openfort/useProviders";
+import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
+import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
 
 const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0]["provider"] }> = ({ provider }) => {
   switch (provider) {
     case "email":
       return <EmailIcon />;
     case "wallet":
-      return <WalletIcon />;
+      return <Logos.WalletConnect />;
     case "google":
-      return <GoogleIcon />;
+      return <Logos.Google />;
     case "twitter":
-      return <TwitterIcon />;
+      return <Logos.Twitter />;
     case "facebook":
-      return <FacebookIcon />;
+      return <Logos.Facebook />;
     default:
       return <FitText>{provider.substring(0, 1).toUpperCase()}</FitText>;
   }

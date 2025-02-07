@@ -33,6 +33,11 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             authProviders: [
               KitOAuthProvider.WALLET,
               KitOAuthProvider.EMAIL,
+              KitOAuthProvider.GOOGLE,
+              KitOAuthProvider.TWITTER,
+              KitOAuthProvider.FACEBOOK,
+              KitOAuthProvider.GUEST,
+
             ]
           }}
         >

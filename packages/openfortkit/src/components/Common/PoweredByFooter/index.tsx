@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { OpenfortIcon } from "../../../assets/icons";
+import Logos from "../../../assets/logos";
 import styled from "../../../styles/styled";
-import defaultTheme from "../../../constants/defaultTheme";
 import { useFortKit } from "../../FortKit";
 
 const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
@@ -18,7 +17,7 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
         }}
       >
         <IconContainer>
-          <OpenfortIcon />
+          <Logos.Openfort />
         </IconContainer>
         <span>
           Powered by Openfort
