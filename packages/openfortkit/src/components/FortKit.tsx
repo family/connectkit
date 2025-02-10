@@ -300,10 +300,6 @@ export const OpenfortKitProvider = ({
     );
   }
 
-  useConnectCallback({
-    onConnect,
-    onDisconnect,
-  });
 
   const chains = useChains();
 
@@ -473,6 +469,8 @@ export const OpenfortKitProvider = ({
           } : undefined}
           overrides={opts.openfortUrlOverrides}
           debugMode={debugMode}
+          onConnect={onConnect}
+          onDisconnect={onDisconnect}
         >
           <ThemeProvider theme={defaultTheme}>
             {children}

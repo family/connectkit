@@ -3,6 +3,7 @@ import React, { createContext, createElement, PropsWithChildren, useCallback, us
 import { useAccount, useDisconnect } from 'wagmi';
 import { useOpenfortKit } from '../components/FortKit';
 import { useConnect } from '../hooks/useConnect';
+import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback';
 
 type RecoveryProps =
   | { method: RecoveryMethod.AUTOMATIC; chainId: number }
@@ -42,14 +43,25 @@ type ContextValue = {
 
 const Context = createContext<ContextValue | null>(null);
 
+const ConnectCallback = ({ onConnect, onDisconnect }: useConnectCallbackProps) => {
+  useConnectCallback({
+    onConnect,
+    onDisconnect,
+  });
+
+  return null;
+}
+
 export type OpenfortProviderProps = {
   debugMode?: boolean;
-} & ConstructorParameters<typeof Openfort>[0];
+} & ConstructorParameters<typeof Openfort>[0] & useConnectCallbackProps;
 
 export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>> = (
   {
     children,
     debugMode,
+    onConnect,
+    onDisconnect,
     ...openfortProps
   }
 ) => {
@@ -432,7 +444,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     linkEmailPassword,
   };
 
-  return createElement(Context.Provider, { value }, <>{children}</>);
+  return createElement(Context.Provider, { value }, <><ConnectCallback onConnect={onConnect} onDisconnect={onDisconnect} />{children}</>);
 };
 
 export const useOpenfort = () => {

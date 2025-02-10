@@ -52,6 +52,13 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             }
           }}
 
+          onConnect={(params) => {
+            console.log('onConnect', params);
+          }}
+          onDisconnect={() => {
+            console.log('onDisconnect');
+          }}
+
           options={{
             authProviders: [
               KitOAuthProvider.GUEST,
