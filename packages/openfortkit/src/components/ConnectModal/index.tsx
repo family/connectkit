@@ -10,7 +10,6 @@ import DownloadApp from '../Pages/DownloadApp';
 import MobileConnectors from '../Pages/MobileConnectors';
 import Onboarding from '../Pages/Onboarding';
 import Profile from '../Pages/Profile';
-import SignInWithEthereum from '../Pages/SignInWithEthereum';
 import SwitchNetworks from '../Pages/SwitchNetworks';
 import ConnectUsing from './ConnectUsing';
 
@@ -22,12 +21,12 @@ import { useOpenfort } from '../../openfort/OpenfortProvider';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import EmailLogin from '../Pages/EmailLogin';
 import EmailSignup from '../Pages/EmailSignup';
+import EmailVerification from '../Pages/EmailVerification';
+import ForgotPassword from '../Pages/ForgotPassword';
+import LinkEmail from '../Pages/LinkEmail';
 import Loading from '../Pages/Loading';
 import Providers from '../Pages/Providers';
 import CreateEmbeddedSigner from '../Pages/Recover';
-import ForgotPassword from '../Pages/ForgotPassword';
-import EmailVerification from '../Pages/EmailVerification';
-import LinkEmail from '../Pages/LinkEmail';
 import SocialProviders from '../Pages/SoicalProviders';
 
 const customThemeDefault: object = {};
@@ -113,7 +112,6 @@ const ConnectModal: React.FC<{
     connect: <ConnectUsing />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
-    signInWithEthereum: <SignInWithEthereum />,
     recover: <CreateEmbeddedSigner />,
   };
 

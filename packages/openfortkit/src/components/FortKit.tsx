@@ -20,7 +20,6 @@ import defaultTheme from '../styles/defaultTheme';
 import ConnectKitModal from './ConnectModal';
 import { ThemeProvider } from 'styled-components';
 import { useThemeFont } from '../hooks/useGoogleFont';
-import { SIWEContext } from '../siwe';
 import { useChains } from '../hooks/useChains';
 import {
   useConnectCallback,
@@ -59,7 +58,6 @@ export const routes = {
   DOWNLOAD: 'download',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
-  SIGNINWITHETHEREUM: 'signInWithEthereum',
 } as const;
 
 type Connector = {
@@ -88,7 +86,6 @@ type ContextValue = {
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: Error;
   options?: ConnectKitOptionsExtended;
-  signInWithEthereum: boolean;
   debugMode?: boolean;
   log: (...props: any) => void;
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
@@ -435,7 +432,6 @@ export const OpenfortKitProvider = ({
     setRoute,
     connector,
     setConnector,
-    signInWithEthereum: React.useContext(SIWEContext)?.enabled ?? false,
     onConnect,
     // Other configuration
     options: opts,

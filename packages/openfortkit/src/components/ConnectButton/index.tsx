@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 import { truncateEthAddress, truncateUserId } from '../../utils';
@@ -13,12 +13,10 @@ import {
 
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { Chain } from 'viem';
-import { AuthIcon } from '../../assets/icons';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 import { useEnsFallbackConfig } from '../../hooks/useEnsFallbackConfig';
 import useLocales from '../../hooks/useLocales';
 import { useOpenfort } from '../../openfort/OpenfortProvider';
-import { useSIWE } from '../../siwe';
 import { ResetContainer } from '../../styles';
 import { CustomTheme, Mode, Theme } from '../../types';
 import { Balance } from '../BalanceButton';

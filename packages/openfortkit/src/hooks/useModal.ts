@@ -1,6 +1,5 @@
 import { useAccount } from 'wagmi';
 import { routes, useOpenfortKit } from '../components/FortKit';
-import { useSIWE } from '../siwe';
 import {
   useConnectCallback,
   useConnectCallbackProps,
@@ -19,8 +18,9 @@ const safeRoutes: {
     routes.MOBILECONNECTORS,
     routes.ONBOARDING,
   ],
-  connected: [routes.PROFILE, routes.SWITCHNETWORKS, routes.SIGNINWITHETHEREUM],
+  connected: [routes.PROFILE, routes.SWITCHNETWORKS],
 };
+
 const allRoutes: ModalRoutes[] = [
   ...safeRoutes.connected,
   ...safeRoutes.disconnected,
@@ -39,7 +39,6 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
   });
 
   const { isConnected } = useAccount();
-  const { signIn } = useSIWE();
 
   const close = () => {
     context.setOpen(false);
@@ -93,9 +92,5 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
     // Connected Routes
     openProfile: () => gotoAndOpen(routes.PROFILE),
     openSwitchNetworks: () => gotoAndOpen(routes.SWITCHNETWORKS),
-    openSIWE: (triggerSIWE?: boolean) => {
-      gotoAndOpen(routes.SIGNINWITHETHEREUM);
-      if (triggerSIWE) signIn();
-    },
   };
 };
