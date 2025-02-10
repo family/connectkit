@@ -3,6 +3,7 @@ import { PageContent } from "../Common/Modal/styles";
 import { routes, useFortKit } from "../FortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 import Loader from "../Common/Loading";
+import { providersLogos } from "../../assets/logos";
 
 const states = {
   INIT: "init",
@@ -26,7 +27,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
     switch (status) {
       case states.INIT:
         if (hasProvider) setStatus(states.CONNECTING);
-        else setStatus(states.REDIRECT);
+        else setTimeout(() => setStatus(states.REDIRECT), 150); // UX: wait a bit before redirecting
         break;
       case states.CONNECTING:
         const player = url.searchParams.get("player_id");
@@ -108,21 +109,18 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
           });
         }
 
-
-
         break;
     }
 
 
   }, [status]);
 
-
-  useEffect(() => {
-  }, []);
-
   return (
     <PageContent>
-      <Loader reason={`Connecting with ${connector.id}`} />
+      <Loader
+        reason={`Connecting with ${connector.id}`}
+        icon={providersLogos[connector.id]}
+      />
     </PageContent>
   )
 }

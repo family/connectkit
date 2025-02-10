@@ -1398,8 +1398,8 @@ const Discord = ({ ...props }) => (
 
 const Openfort = ({ ...props }) => (
   <svg
-    viewBox="0 0 24 24"
-    width="110"
+    viewBox="0 0 22 24"
+    width="22"
     height="24"
   >
     <path
@@ -1449,6 +1449,12 @@ export const OtherSocials = ({ ...props }) => {
   );
 };
 
+
+export const providersLogos = {
+  google: <Google />,
+  twitter: <Twitter />,
+  facebook: <Facebook />,
+}
 
 export default {
   Mock,

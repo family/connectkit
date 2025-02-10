@@ -35,7 +35,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
             embeddedSignerConfiguration: {
               shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
-              recoveryMethod: RecoveryMethod.PASSWORD,
+              recoveryMethod: RecoveryMethod.AUTOMATIC,
               // createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
               getEncryptionSession: async () => {
                 const res = await fetch('/api/protected-create-encryption-session', {
@@ -68,7 +68,8 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             reducedMotion: true,
           }}
           debugMode
-          theme='retro'
+          // theme='retro'
+          theme='midnight'
         >
           {children}
         </OpenfortKitProvider>

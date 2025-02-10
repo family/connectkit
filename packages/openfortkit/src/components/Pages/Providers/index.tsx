@@ -2,7 +2,7 @@ import { OAuthProvider } from "@openfort/openfort-js";
 import React, { useEffect } from "react";
 import { useAccount, useDisconnect } from "wagmi";
 import { EmailIcon, GuestIcon, } from "../../../assets/icons";
-import Logos, { OtherSocials } from "../../../assets/logos";
+import Logos, { OtherSocials, providersLogos } from "../../../assets/logos";
 import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
@@ -108,7 +108,7 @@ const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provid
         <AuthProviderButton
           provider={OAuthProvider.GOOGLE}
           title="Google"
-          icon={<Logos.Google />}
+          icon={providersLogos[provider]}
         />
       )
     case KitOAuthProvider.TWITTER:
@@ -116,7 +116,7 @@ const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provid
         <AuthProviderButton
           provider={OAuthProvider.TWITTER}
           title="Twitter"
-          icon={<Logos.Twitter />}
+          icon={providersLogos[provider]}
         />
       )
     case KitOAuthProvider.FACEBOOK:
@@ -124,7 +124,7 @@ const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provid
         <AuthProviderButton
           provider={OAuthProvider.FACEBOOK}
           title="Facebook"
-          icon={<Logos.Facebook />}
+          icon={providersLogos[provider]}
         />
       )
     default:

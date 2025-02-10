@@ -99,6 +99,7 @@ const AutomaticRecovery: React.FC = () => {
         if (response.error && response.error === "Missing recovery password") {
           setHasRecoveryMethod(true);
         }
+
       });
     }
   }, [needsRecovery]);
@@ -114,9 +115,29 @@ const AutomaticRecovery: React.FC = () => {
   )
 }
 
+const Connected: React.FC = () => {
+  const { setOpen } = useFortKit();
+
+  // hide on connect
+  useEffect(() => {
+    setTimeout(() => {
+      setOpen(false);
+    }, 1000);
+  }, []);
+
+  return (
+    <PageContent>
+      <Loader
+        isLoading={false}
+        reason="Connected"
+      />
+    </PageContent>
+  )
+}
+
 const CreateEmbeddedSigner: React.FC = () => {
   const { needsRecovery, user } = useOpenfort();
-  const { triggerResize, options, walletConfig, setOpen, setRoute } = useFortKit();
+  const { triggerResize, options, walletConfig, setRoute } = useFortKit();
   const [loading, setLoading] = React.useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = React.useState(true);
   const { isConnected } = useAccount();
@@ -129,11 +150,6 @@ const CreateEmbeddedSigner: React.FC = () => {
     }, 500);
   }, [])
 
-  // hide on connect
-  useEffect(() => {
-    if (isConnected)
-      setOpen(false);
-  }, [isConnected]);
 
   useEffect(() => {
     if (!user) return;
@@ -159,6 +175,10 @@ const CreateEmbeddedSigner: React.FC = () => {
 
     setLoading(false);
   }, [user])
+
+  if (isConnected) {
+    return <Connected />
+  }
 
   if (embeddedSignerLoading || loading) {
     return (

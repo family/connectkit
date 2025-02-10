@@ -21,7 +21,7 @@ import {
 } from '../../Common/Modal/styles';
 import Tooltip from '../../Common/Tooltip';
 
-import SquircleSpinner from './SquircleSpinner';
+import SquircleSpinner from '../../Common/SquircleSpinner';
 
 import { useAccount, useDisconnect } from 'wagmi';
 import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons';

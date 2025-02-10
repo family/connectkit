@@ -1,15 +1,15 @@
 import { AuthPlayerResponse } from "@openfort/openfort-js";
+import { useMemo } from "react";
 import { EmailIcon } from "../../../assets/icons";
-import Logos from "../../../assets/logos";
+import Logos, { providersLogos } from "../../../assets/logos";
+import Wallet from "../../../assets/wallet";
 import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
+import { useWallets } from "../../../wallets/useWallets";
 import FitText from "../../Common/FitText";
 import { routes, useFortKit } from "../../FortKit";
 import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
-import Wallet from "../../../assets/wallet";
-import { useMemo } from "react";
-import { useWallets } from "../../../wallets/useWallets";
 
 const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
 
@@ -25,7 +25,6 @@ const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }
   return <Wallet />
 }
 
-
 const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
   switch (provider.provider) {
     case "email":
@@ -33,11 +32,9 @@ const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0]
     case "wallet":
       return <WalletIcon provider={provider} />;
     case "google":
-      return <Logos.Google />;
     case "twitter":
-      return <Logos.Twitter />;
     case "facebook":
-      return <Logos.Facebook />;
+      return providersLogos[provider.provider]
     default:
       return <FitText>{provider.provider.substring(0, 1).toUpperCase()}</FitText>;
   }
