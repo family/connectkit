@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { Connector, useAccount } from 'wagmi';
+import { Connector, useAccount, useDisconnect } from 'wagmi';
 import { useFortKit } from '../../components/FortKit';
 import { useConnect } from '../useConnect';
 import { useWalletConnectConnector } from '../useConnectors';
@@ -22,6 +22,7 @@ export function useWalletConnectUri(
 
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect();
+  const { disconnect } = useDisconnect();
 
   useEffect(() => {
     if (!enabled) return;
@@ -48,6 +49,9 @@ export function useWalletConnectUri(
     }
 
     async function connectWallet(connector: Connector) {
+      if (isConnected)
+        disconnect();
+
       const result = await connectAsync({ connector });
       if (result) return result;
       return false;
@@ -75,6 +79,7 @@ export function useWalletConnectUri(
         }
       }
     }
+
     if (isConnected) {
       setUri(undefined);
     } else {

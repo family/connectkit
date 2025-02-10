@@ -8,13 +8,30 @@ import { routes, useFortKit } from "../../FortKit";
 import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
 import Wallet from "../../../assets/wallet";
+import { useMemo } from "react";
+import { useWallets } from "../../../wallets/useWallets";
 
-const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0]["provider"] }> = ({ provider }) => {
-  switch (provider) {
+const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
+
+  if (provider.walletClientType === "walletconnect") return <Logos.WalletConnect />
+
+  const wallets = useWallets();
+  const wallet = useMemo(() => {
+    return wallets.find(w => w.name?.toLowerCase() === provider.walletClientType);
+  }, [provider])
+
+  if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>
+
+  return <Wallet />
+}
+
+
+const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
+  switch (provider.provider) {
     case "email":
       return <EmailIcon />;
     case "wallet":
-      return <Wallet />;
+      return <WalletIcon provider={provider} />;
     case "google":
       return <Logos.Google />;
     case "twitter":
@@ -22,7 +39,7 @@ const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0]
     case "facebook":
       return <Logos.Facebook />;
     default:
-      return <FitText>{provider.substring(0, 1).toUpperCase()}</FitText>;
+      return <FitText>{provider.provider.substring(0, 1).toUpperCase()}</FitText>;
   }
 }
 
@@ -33,7 +50,7 @@ const LinkedProvider: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][
       disabled={true} // TODO: on click, unlink provider
     >
       <ProviderIconContainer>
-        <ProviderIcon provider={provider.provider} />
+        <ProviderIcon provider={provider} />
       </ProviderIconContainer>
     </LinkedProviderButton>
   )

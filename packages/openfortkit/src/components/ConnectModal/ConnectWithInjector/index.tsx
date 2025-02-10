@@ -1,44 +1,40 @@
-import React, { useEffect, useState } from 'react';
 import { AnimatePresence, Variants } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 import {
-  Container,
-  ConnectingContainer,
   ConnectingAnimation,
+  ConnectingContainer,
+  Container,
+  Content,
   RetryButton,
   RetryIconContainer,
-  Content,
 } from './styles';
 
-import {
-  PageContent,
-  ModalHeading,
-  ModalBody,
-  ModalH1,
-  ModalContentContainer,
-  ModalContent,
-} from '../../Common/Modal/styles';
-import { OrDivider } from '../../Common/Modal';
-import Button from '../../Common/Button';
-import Tooltip from '../../Common/Tooltip';
 import Alert from '../../Common/Alert';
+import Button from '../../Common/Button';
+import {
+  ModalBody,
+  ModalContent,
+  ModalContentContainer,
+  ModalH1,
+  ModalHeading,
+  PageContent,
+} from '../../Common/Modal/styles';
+import Tooltip from '../../Common/Tooltip';
 
 import SquircleSpinner from './SquircleSpinner';
 
-import { RetryIconCircle, Scan } from '../../../assets/icons';
-import BrowserIcon from '../../Common/BrowserIcon';
-import { AlertIcon, TickIcon } from '../../../assets/icons';
-import { detectBrowser, isWalletConnectConnector } from '../../../utils';
-import useLocales from '../../../hooks/useLocales';
+import { useAccount, useDisconnect } from 'wagmi';
+import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons';
 import { useConnect } from '../../../hooks/useConnect';
-import { useFortKit } from '../../FortKit';
-import { useWallet } from '../../../wallets/useWallets';
-import CircleSpinner from './CircleSpinner';
-import Openfort from '@openfort/openfort-js';
+import useLocales from '../../../hooks/useLocales';
 import { useOpenfort } from '../../../openfort/OpenfortProvider';
-import { createSIWEMessage } from './create-siwe-message';
-import { useAccount, useChainId, useConfig, useDisconnect, useSignMessage } from 'wagmi';
+import { detectBrowser, isWalletConnectConnector } from '../../../utils';
+import { useWallet } from '../../../wallets/useWallets';
+import BrowserIcon from '../../Common/BrowserIcon';
+import { useFortKit } from '../../FortKit';
+import CircleSpinner from './CircleSpinner';
 
-import { signMessage } from '@wagmi/core';
+import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe';
 
 export const states = {
   CONNECTED: 'connected',
@@ -48,6 +44,7 @@ export const states = {
   REJECTED: 'rejected',
   NOTCONNECTED: 'notconnected',
   UNAVAILABLE: 'unavailable',
+  DUPLICATED: 'duplicated',
 };
 
 const contentVariants: Variants = {
@@ -85,9 +82,9 @@ const ConnectWithInjector: React.FC<{
 }> = ({ switchConnectMethod, forceState }) => {
   const openfort = useOpenfort();
   const { log, setOpen } = useFortKit();
-  const { address, isConnected } = useAccount();
-  const chainId = useChainId();
+  const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
+  const connectWithSiwe = useConnectWithSiwe();
 
   const { connect } = useConnect({
     mutation: {
@@ -133,10 +130,6 @@ const ConnectWithInjector: React.FC<{
             }
           }
         } else if (data) {
-          if (!address) {
-            setStatus(states.FAILED);
-            throw console.error('No address found');
-          }
           if (!wallet) {
             setStatus(states.FAILED);
             throw console.error('No wallet found');
@@ -148,44 +141,22 @@ const ConnectWithInjector: React.FC<{
             return;
           }
 
-          const connectWithSiwe = async () => {
-            try {
-              const { nonce } = await openfort.initSIWE({ address });
-              const SIWEMessage = createSIWEMessage(address, nonce, chainId);
-              const signature = await signMessage(config, { message: SIWEMessage });
-
-              // if has user, we link the wallet
-              if (openfort.user) {
-                const authToken = openfort.getAccessToken();
-                if (!authToken) throw new Error('No access token found');
-
-                log("Linking wallet", { signature, message: SIWEMessage, connectorType: wallet?.connector?.type, walletClientType: wallet?.connector?.name, authToken });
-                await openfort.linkWallet({
-                  signature,
-                  message: SIWEMessage,
-                  connectorType: wallet?.connector?.type,
-                  walletClientType: wallet?.connector?.name,
-                  authToken,
-                })
-              }
-
-              await openfort.authenticateWithSIWE({
-                signature,
-                message: SIWEMessage,
-                connectorType: wallet?.connector?.type,
-                walletClientType: wallet?.connector?.name,
-              })
-
-              // Close modal after successful connection
-              setOpen(false);
-            }
-            catch (err) {
-              console.error(err);
+          connectWithSiwe({
+            connectorType: wallet.connector.id,
+            walletClientType: wallet.connector.name.toLowerCase(),
+            onError: (error, status) => {
+              console.error(error);
               disconnect();
-              setStatus(states.FAILED);
-            }
-          }
-          connectWithSiwe();
+              if (status === 409) {
+                setStatus(states.DUPLICATED);
+              } else {
+                setStatus(states.FAILED);
+              }
+            },
+            onConnect: () => {
+              setOpen(false);
+            },
+          });
         }
         setTimeout(triggerResize, 100);
       },
@@ -237,14 +208,11 @@ const ConnectWithInjector: React.FC<{
     SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label ?? 'your browser',
   });
 
-  // const { signMessage } = useSignMessageM();
-  const config = useConfig();
-
   const runConnect = async () => {
     if (wallet?.isInstalled && wallet?.connector) {
       // Disconnect if already connected
-      console.log('TRYING TO DISCONNECT', address);
-      if (address)
+      console.log('TRYING TO DISCONNECT', isConnected);
+      if (isConnected)
         disconnect();
 
       connect({ connector: wallet?.connector })
@@ -319,16 +287,18 @@ const ConnectWithInjector: React.FC<{
     );
   }
 
+  const hasError = status === states.FAILED || status === states.REJECTED || status === states.DUPLICATED;
+
   return (
     <PageContent>
       <Container>
         <ConnectingContainer>
           <ConnectingAnimation
-            $shake={status === states.FAILED || status === states.REJECTED}
+            $shake={hasError}
             $circle={walletInfo.iconShape === 'circle'}
           >
             <AnimatePresence>
-              {(status === states.FAILED || status === states.REJECTED) && (
+              {(hasError) && (
                 <RetryButton
                   aria-label="Retry"
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -342,7 +312,7 @@ const ConnectWithInjector: React.FC<{
                     <Tooltip
                       open={
                         showTryAgainTooltip &&
-                        (status === states.FAILED || status === states.REJECTED)
+                        (hasError)
                       }
                       message={locales.tryAgainQuestion}
                       xOffset={-6}
@@ -460,6 +430,23 @@ const ConnectWithInjector: React.FC<{
                     </>
                   )}
                    */}
+              </Content>
+            )}
+            {status === states.DUPLICATED && (
+              <Content
+                key={states.DUPLICATED}
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
+                variants={contentVariants}
+              >
+                <ModalContent style={{ paddingBottom: 28 }}>
+                  <ModalH1 $error>
+                    <AlertIcon />
+                    {locales.injectionScreen_failed_h1}
+                  </ModalH1>
+                  <ModalBody>This wallet is already linked to another player. Please try another wallet.</ModalBody>{/* TODO: Localize */}
+                </ModalContent>
               </Content>
             )}
             {(status === states.CONNECTING || status === states.EXPIRING) && (

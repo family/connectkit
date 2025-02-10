@@ -61,10 +61,10 @@ export const Web3ContextProvider = ({
     },
     account: currentAddress
       ? {
-          chain,
-          chainIsSupported,
-          address: currentAddress,
-        }
+        chain,
+        chainIsSupported,
+        address: currentAddress,
+      }
       : undefined,
   } as Web3Context;
 

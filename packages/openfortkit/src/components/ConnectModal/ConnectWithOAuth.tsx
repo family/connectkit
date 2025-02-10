@@ -6,7 +6,6 @@ import Loader from "../Common/Loading";
 
 const states = {
   INIT: "init",
-  // LOADING: "loading",
   REDIRECT: "redirect",
   CONNECTING: "connecting",
 };
@@ -123,7 +122,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
 
   return (
     <PageContent>
-      <Loader />
+      <Loader reason={`Connecting with ${connector.id}`} />
     </PageContent>
   )
 }

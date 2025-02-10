@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { routes, useFortKit } from '../FortKit';
 
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
 import {
   detectBrowser,
-  isCoinbaseWalletConnector,
-  isWalletConnectConnector,
+  isWalletConnectConnector
 } from '../../utils';
 
-import { PageContent, ModalContent } from '../Common/Modal/styles';
 import { OrDivider } from '../Common/Modal';
+import { ModalContent, PageContent } from '../Common/Modal/styles';
 
-import CustomQRCode from '../Common/CustomQRCode';
-import Button from '../Common/Button';
 import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
 import { ExternalLinkIcon } from '../../assets/icons';
-import CopyToClipboard from '../Common/CopyToClipboard';
 import useLocales from '../../hooks/useLocales';
+import Button from '../Common/Button';
+import CopyToClipboard from '../Common/CopyToClipboard';
+import CustomQRCode from '../Common/CustomQRCode';
 
+import { useAccount, useDisconnect } from 'wagmi';
+import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe';
 import { useWallet } from '../../wallets/useWallets';
 import { useWeb3 } from '../contexts/web3';
 
@@ -59,6 +60,37 @@ const ConnectWithQRCode: React.FC<{
   const browser = detectBrowser();
 
   const hasApps = downloads && Object.keys(downloads).length !== 0;
+
+  const connectWithSiwe = useConnectWithSiwe();
+  const { isConnected } = useAccount();
+  const { log, setOpen } = useFortKit();
+  const { disconnect } = useDisconnect();
+
+  const [isFirstFrame, setIsFirstFrame] = React.useState(true);
+  useEffect(() => {
+    // When the component is first rendered, we disconnect the user if they are connected
+    if (isFirstFrame) {
+      setIsFirstFrame(false);
+      if (isConnected) {
+        disconnect();
+      }
+    } else {
+      // When connected with WalletConnect, we connect with SIWE
+      if (isConnected) {
+        connectWithSiwe({
+          connectorType: 'walletConnect',
+          walletClientType: 'walletConnect',
+          onError: (error) => {
+            log(error);
+            disconnect();
+          },
+          onConnect: () => {
+            setOpen(false);
+          },
+        });
+      }
+    }
+  }, [isConnected]);
 
   const suggestedExtension = extensions
     ? {
