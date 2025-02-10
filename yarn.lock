@@ -3519,9 +3519,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/openfort-js@npm:^0.8.22":
-  version: 0.8.22
-  resolution: "@openfort/openfort-js@npm:0.8.22"
+"@openfort/openfort-js@npm:^0.8.26":
+  version: 0.8.26
+  resolution: "@openfort/openfort-js@npm:0.8.26"
   dependencies:
     "@ethersproject/bytes": ^5.7.0
     "@ethersproject/hash": ^5.7.0
@@ -3540,7 +3540,7 @@ __metadata:
     path: ^0.12.7
     stream-browserify: ^3.0.0
     uuid: ^8.3.2
-  checksum: 998c57ff380d669b46ac3ad5859e01c74fbef84c262f3722284e27b58da0da3c3f2d5a9f0ec17c276531e4171a212d9ba37268fdeaf66e833c3b93e8c08ef4c4
+  checksum: e3ca37af770cd2927617aa30280d70bbf8356934db344361b4e8e1f4ec61b325d703cddd42b80c703ae484dc6f350eefe7e1501b2879d4ff43ef9121a6fa6051
   languageName: node
   linkType: hard
 
@@ -3548,7 +3548,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openfort/openfort-kit@workspace:packages/openfortkit"
   dependencies:
-    "@openfort/openfort-js": ^0.8.22
+    "@openfort/openfort-js": ^0.8.26
     "@types/node": 18.7.18
     "@types/qrcode": ^1.4.2
     "@types/react": ^18.0.6
@@ -10015,7 +10015,7 @@ __metadata:
   resolution: "family-connectkit@workspace:."
   dependencies:
     "@changesets/cli": ^2.24.4
-    "@openfort/openfort-js": ^0.8.22
+    "@openfort/openfort-js": ^0.8.26
     "@rollup/plugin-node-resolve": ^13.1.3
     react: ^18.0.0
     react-dom: ^18.0.0

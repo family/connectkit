@@ -143,11 +143,10 @@ const ConnectWithInjector: React.FC<{
           }
 
           // If already has linked account, don't link again
-
-          // if (openfort.user?.linkedAccounts.find((acc) => acc.metadata === wallet?.connector?.type && acc.walletClientType === wallet?.connector?.name)) {
-          //   setOpen(false);
-          //   return;
-          // }
+          if (openfort.user?.linkedAccounts.find((acc) => acc.walletClientType === wallet?.connector?.name.toLowerCase())) {
+            setOpen(false);
+            return;
+          }
 
           const connectWithSiwe = async () => {
             try {

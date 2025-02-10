@@ -26,3 +26,4 @@ export { useChainIsSupported } from './hooks/useChainIsSupported';
 
 export { useOpenfort } from "./openfort/OpenfortProvider";
 export { useProviders } from "./hooks/openfort/useProviders";
+export { useWallet } from "./hooks/openfort/useWallet";

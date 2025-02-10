@@ -1,32 +1,29 @@
-import { useFortKit, routes } from '../../FortKit';
+import { routes, useFortKit } from '../../FortKit';
 
 import {
-  ConnectorsContainer,
   ConnectorButton,
-  ConnectorLabel,
   ConnectorIcon,
+  ConnectorLabel,
+  ConnectorsContainer,
   RecentlyUsedTag,
 } from './styles';
 
 import { useWeb3 } from '../../contexts/web3';
 
 import useIsMobile from '../../../hooks/useIsMobile';
-import { ScrollArea } from '../ScrollArea';
 import Alert from '../Alert';
+import { ScrollArea } from '../ScrollArea';
 
-import { WalletProps, useWallets } from '../../../wallets/useWallets';
+import { useConnect } from '../../../hooks/useConnect';
+import { useLastConnector } from '../../../hooks/useLastConnector';
+import { useOpenfort } from '../../../openfort/OpenfortProvider';
 import {
   detectBrowser,
   isCoinbaseWalletConnector,
   isWalletConnectConnector,
 } from '../../../utils';
-import { useLastConnector } from '../../../hooks/useLastConnector';
-import { useConnect } from '../../../hooks/useConnect';
-import { Connector } from 'wagmi';
-import { useOpenfort } from '../../../openfort/OpenfortProvider';
-import Button from '../Button';
-
-const openfortWalletId = 'xyz.openfort';
+import { WalletProps, useWallets } from '../../../wallets/useWallets';
+import { openfortWalletId } from '../../../constants/openfort';
 
 const ConnectorList = () => {
   const context = useFortKit();

@@ -62,7 +62,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
               KitOAuthProvider.WALLET,
             ],
             initialChainId: polygonAmoy.id,
-            enforceSupportedChains: true,
+            // enforceSupportedChains: true,
 
             skipEmailVerification: true,
             reducedMotion: true,

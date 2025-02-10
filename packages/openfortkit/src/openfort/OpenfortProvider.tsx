@@ -159,6 +159,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     );
   }, [openfort])
 
+  const [isConnectedWithEmbeddedSigner, setIsConnectedWithEmbeddedSigner] = useState(false);
   useEffect(() => {
     if (!openfort) return;
     // Poll embedded signer state
@@ -167,14 +168,15 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
     switch (embeddedState) {
       case EmbeddedState.NONE:
+      case EmbeddedState.CREATING_ACCOUNT:
         break;
       case EmbeddedState.UNAUTHENTICATED:
         setUser(null);
         break;
 
-      case EmbeddedState.CREATING_ACCOUNT: // There is a bug on openfort-js that makes creating account state to be stuck. When its fixed, we should remove this case (same as NONE)
       case EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED:
         setUserIfNull();
+        setIsConnectedWithEmbeddedSigner(false);
 
         break;
       case EmbeddedState.READY:
@@ -194,12 +196,14 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   useEffect(() => {
     // Connect to wagmi with Embedded signer
     if (address || !user) return;
+    if (isConnectedWithEmbeddedSigner) return;
 
     if (embeddedState !== EmbeddedState.READY) return;
     const connector = connectors.find((connector) => connector.name === "Openfort")
     if (!connector) return
 
     log("Connecting to wagmi with Openfort");
+    setIsConnectedWithEmbeddedSigner(true);
     connect({ connector });
   }, [connectors, embeddedState, address, user]);
 
@@ -207,7 +211,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   // ---- Recovery ----
 
   const getEncryptionSession = async (): Promise<string> => {
-    if (!(walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.createEncryptedSessionEndpoint)) {
+    if (!walletConfig.createEmbeddedSigner || !walletConfig.embeddedSignerConfiguration.createEncryptedSessionEndpoint) {
       throw new Error("No createEncryptedSessionEndpoint set in walletConfig");
     }
 

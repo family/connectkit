@@ -56,7 +56,7 @@
     "wagmi": "2.x"
   },
   "devDependencies": {
-    "@openfort/openfort-js": "^0.8.22",
+    "@openfort/openfort-js": "^0.8.26",
     "@types/node": "18.7.18",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^18.0.6",

@@ -31,6 +31,9 @@ const ConnectUsing = () => {
   );
 
   useEffect(() => {
+    const connector = context.connector;
+    context.log("ConnectUsing", { status, isQrCode, isOauth, connector });
+
     if (isOauth) return;
     // if no provider, change to qrcode
     const checkProvider = async () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMounted, useOpenfort, useProviders } from "@openfort/openfort-kit"
+import { useIsMounted, useOpenfort, useProviders, useWallet } from "@openfort/openfort-kit";
 import { useAccount, useDisconnect, useEnsName } from "wagmi";
 import { WriteContract } from "./WritteContract";
 
@@ -13,6 +13,7 @@ export const Connected = () => {
   })
   const { user, logout } = useOpenfort()
   const { linkedProviders, availableProviders } = useProviders()
+  const { wallets, setActiveWallet } = useWallet()
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;
@@ -25,6 +26,8 @@ export const Connected = () => {
         chainId: {account.chainId}
         <br />
         status: {account.status}
+        <br />
+        connector: {account.connector?.name} {account.connector?.id}
       </div>
       <div>
         <h2>OPENFORT</h2>
@@ -39,8 +42,22 @@ export const Connected = () => {
       >
         Log out
       </button>
+      {
+        wallets.map((wallet) => (
+          <div key={wallet.id}>
+            {wallet.id} {wallet.connectorType} {wallet.walletClientType} {wallet.address}
+
+            <button
+              onClick={() => setActiveWallet(wallet.id!)}
+            >
+              connectWith {wallet.walletClientType}
+            </button>
+          </div>
+        ))
+      }
+
       <button
-        onClick={() => disconnect({ connector: account.connector })}
+        onClick={() => disconnect()}
       >
         disconnect
       </button>

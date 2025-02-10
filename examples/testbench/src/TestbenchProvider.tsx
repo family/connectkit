@@ -43,7 +43,7 @@ export const TestBenchProvider: React.FC<TestBenchProviderProps> = ({
     // language: 'en-US',
     hideTooltips: false,
     // hideQuestionMarkCTA: false,
-    hideNoWalletCTA: false,
+    // hideNoWalletCTA: false,
     avoidLayoutShift: true,
     embedGoogleFonts: true,
     truncateLongENSAddress: true,
