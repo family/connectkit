@@ -57,14 +57,6 @@ const ConnectorList = () => {
           $mobile={isMobile}
           $totalResults={walletsToDisplay.length}
         >
-          {/* {user && (
-            <Button
-              onClick={() => {
-                context.setRoute(routes.RECOVER);
-              }}
-            >Create one for me</Button>
-          )} */}
-
           {walletsToDisplay.map((wallet) =>
             <ConnectorItem
               key={wallet.id}

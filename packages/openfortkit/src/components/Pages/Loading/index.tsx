@@ -9,8 +9,8 @@ import Loader from "../../Common/Loading";
 
 const Loading: React.FC = () => {
 
-  const { setRoute, triggerResize } = useFortKit();
-  const { isLoading, user, needsRecovery, logout } = useOpenfort();
+  const { setRoute } = useFortKit();
+  const { isLoading, user, needsRecovery } = useOpenfort();
   const { address } = useAccount();
   const [isFirstFrame, setIsFirstFrame] = React.useState(true);
 
@@ -39,17 +39,11 @@ const Loading: React.FC = () => {
   useEffect(() => {
     // UX: Wait a bit before showing the next page
     setTimeout(() => setIsFirstFrame(false), 400);
-
-    // triggerResize();
   }, []);
 
-  // TODO: Add a loading spinner
   return (
     <PageContent>
-      <Loader />
-      {/* <Button onClick={() => { logout() }}>
-        logout (for testing only)
-      </Button> */}
+      <Loader reason="Redirecting" />
     </PageContent>
   )
 }

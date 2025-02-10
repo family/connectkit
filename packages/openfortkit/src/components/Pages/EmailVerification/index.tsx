@@ -109,7 +109,7 @@ const EmailVerification: React.FC = () => {
   if (loading) {
     return (
       <PageContent>
-        <Loader />
+        <Loader reason="Checking if account is verified" />
       </PageContent >
     )
   }

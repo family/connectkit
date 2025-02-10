@@ -3,7 +3,7 @@ import { useAccount, useChainId, useConnect } from "wagmi";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import Input from "../../Common/Input";
-import { ModalBody, PageContent } from "../../Common/Modal/styles";
+import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
 import { routes, useFortKit } from "../../FortKit";
 import { OAuthProvider, RecoveryMethod } from "@openfort/openfort-js";
 import FitText from "../../Common/FitText";
@@ -44,6 +44,7 @@ const Recover: React.FC = () => {
 
   return (
     <PageContent>
+      <ModalHeading>Secure your account</ModalHeading>
       <ModalBody style={{ textAlign: "center" }}>
         <FitText>
           Enter the phrase to recover your account.
@@ -108,7 +109,7 @@ const AutomaticRecovery: React.FC = () => {
 
   return (
     <PageContent>
-      <Loader />
+      <Loader reason="Setting up signer" />
     </PageContent>
   )
 }
@@ -162,7 +163,7 @@ const CreateEmbeddedSigner: React.FC = () => {
   if (embeddedSignerLoading || loading) {
     return (
       <PageContent>
-        <Loader />
+        <Loader reason="Setting up signer" />
       </PageContent>
     )
   }
@@ -176,7 +177,7 @@ const CreateEmbeddedSigner: React.FC = () => {
   } else {
     return (
       <PageContent>
-        <Loader />
+        <Loader reason="Setting up signer" />
       </PageContent>
     )
   }

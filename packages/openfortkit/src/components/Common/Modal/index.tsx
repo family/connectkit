@@ -332,8 +332,6 @@ const Modal: React.FC<ModalProps> = ({
         return locales.aboutScreen_heading;
       case routes.PROVIDERS:
         return "Connect";// TODO: Localize
-      case routes.RECOVER:
-        return "Recover";// TODO: Localize 
       case routes.EMAIL_LOGIN:
         return "Email Login";// TODO: Localize
       case routes.EMAIL_SIGNUP:

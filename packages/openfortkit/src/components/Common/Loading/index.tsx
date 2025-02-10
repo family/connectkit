@@ -31,7 +31,7 @@ const LoaderWrapper = styled.div`
   margin-bottom: 64px;
 `;
 
-const Loader = () => {
+const Loader = ({ reason }: { reason: string }) => {
 
   const { triggerResize } = useFortKit();
 
