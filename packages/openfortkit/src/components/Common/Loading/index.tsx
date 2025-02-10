@@ -25,13 +25,8 @@ margin: 10px auto 16px;
 height: 120px;
 `;
 
-const dist = 2;
-const outlineKeyframes = keyframes`
-  0%{ opacity:1; }
-  100%{ opacity:0; }
-`;
 const ConnectingAnimation = styled(motion.div) <{
-  $shake: boolean;
+  $success: boolean;
 }>`
   user-select: none;
   position: relative;
@@ -43,10 +38,10 @@ const ConnectingAnimation = styled(motion.div) <{
     opacity: 0;
     background: var(--ck-body-color-valid);
   }
-  ${(props) => props.$shake &&
+  ${(props) => props.$success &&
     css`
     &:before {
-      animation: ${outlineKeyframes} 220ms ease-out 500ms both;
+      opacity: 1;
     }
   `}
 `;
@@ -63,7 +58,7 @@ const Loader = ({ reason, isLoading = true, icon }: { reason: string, isLoading?
     <>
       <ConnectingContainer>
         <ConnectingAnimation
-          $shake={!isLoading}
+          $success={!isLoading}
         >
           <SquircleSpinner
             logo={
