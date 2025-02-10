@@ -248,7 +248,7 @@ const Home: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const { open, setOpen, openAbout } = useModal({
+  const { open, setOpen } = useModal({
     onConnect: () => {
       console.log('onConnect Hook');
     },
@@ -284,7 +284,6 @@ const Home: NextPage = () => {
           <h2>useModal Hook</h2>
           <p>open: {open.toString()}</p>
           <button onClick={() => setOpen(true)}>Open modal</button>
-          <button onClick={() => openAbout()}>Open to About</button>
         </div>
 
         <AccountInfo />

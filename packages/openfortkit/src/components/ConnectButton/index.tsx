@@ -140,7 +140,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 
   function show() {
     setOpen(true);
-    context.setRoute(isConnected ? routes.PROFILE : routes.CONNECTORS);
+    context.setRoute(isConnected ? routes.PROFILE : routes.PROVIDERS);
   }
 
   if (!children) return null;
