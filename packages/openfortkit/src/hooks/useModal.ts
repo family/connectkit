@@ -12,13 +12,17 @@ const safeRoutes: {
   disconnected: ModalRoutes[];
 } = {
   disconnected: [
+    routes.PROVIDERS,
     routes.CONNECTORS,
-    routes.ABOUT,
-    routes.ONBOARDING,
+    // routes.ABOUT,
+    // routes.ONBOARDING,
     routes.MOBILECONNECTORS,
-    routes.ONBOARDING,
   ],
-  connected: [routes.PROFILE, routes.SWITCHNETWORKS],
+  connected: [
+    routes.PROFILE,
+    routes.CONNECTORS,
+    routes.SWITCHNETWORKS
+  ],
 };
 
 const allRoutes: ModalRoutes[] = [
@@ -51,7 +55,7 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
     let validRoute: ValidRoutes = route;
 
     if (!allRoutes.includes(route)) {
-      validRoute = isConnected ? routes.PROFILE : routes.CONNECTORS;
+      validRoute = isConnected ? routes.PROFILE : routes.PROVIDERS;
       context.log(
         `Route ${route} is not a valid route, navigating to ${validRoute} instead.`
       );
@@ -65,7 +69,7 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
         }
       } else {
         if (!safeRoutes.disconnected.includes(route)) {
-          validRoute = routes.CONNECTORS;
+          validRoute = routes.PROVIDERS;
           context.log(
             `Route ${route} is not a valid route when disconnected, navigating to ${validRoute} instead.`
           );
@@ -81,14 +85,14 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
     open: context.open,
     setOpen: (show: boolean) => {
       if (show) {
-        gotoAndOpen(isConnected ? routes.PROFILE : routes.CONNECTORS);
+        gotoAndOpen(isConnected ? routes.PROFILE : routes.PROVIDERS);
       } else {
         close();
       }
     },
     // Disconnected Routes
-    openAbout: () => gotoAndOpen(routes.ABOUT),
-    openOnboarding: () => gotoAndOpen(routes.ONBOARDING),
+    // openAbout: () => gotoAndOpen(routes.ABOUT),
+    // openOnboarding: () => gotoAndOpen(routes.ONBOARDING),
     // Connected Routes
     openProfile: () => gotoAndOpen(routes.PROFILE),
     openSwitchNetworks: () => gotoAndOpen(routes.SWITCHNETWORKS),

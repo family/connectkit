@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMounted, useOpenfort, useProviders, useWallet } from "@openfort/openfort-kit";
+import { useIsMounted, useModal, useOpenfort, useProviders, useWallet } from "@openfort/openfort-kit";
 import { useAccount, useDisconnect, useEnsName } from "wagmi";
 import { WriteContract } from "./WritteContract";
 
@@ -14,6 +14,7 @@ export const Connected = () => {
   const { user, logout } = useOpenfort()
   const { linkedProviders, availableProviders } = useProviders()
   const { wallets, setActiveWallet } = useWallet()
+  const { openSwitchNetworks } = useModal()
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;
@@ -60,6 +61,11 @@ export const Connected = () => {
         onClick={() => disconnect()}
       >
         disconnect
+      </button>
+      <button
+        onClick={() => openSwitchNetworks()}
+      >
+        open switch networks
       </button>
 
       <WriteContract />
