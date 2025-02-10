@@ -9,7 +9,7 @@ export { useModal } from './hooks/useModal';
 
 export {
   OpenfortKitProvider,
-  Context as FortKitContext,
+  Context as OpenfortKitContext,
   KitOAuthProvider,
 } from './components/FortKit';
 export { ConnectKitButton } from './components/ConnectButton';

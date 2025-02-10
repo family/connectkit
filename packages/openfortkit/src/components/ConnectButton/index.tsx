@@ -4,7 +4,7 @@ import useIsMounted from '../../hooks/useIsMounted';
 import { truncateEthAddress, truncateUserId } from '../../utils';
 
 import { useModal } from '../../hooks/useModal';
-import { routes, useFortKit } from '../FortKit';
+import { routes, useOpenfortKit } from '../FortKit';
 import {
   IconContainer,
   TextContainer,
@@ -122,7 +122,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   children,
 }) => {
   const isMounted = useIsMounted();
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const { open, setOpen } = useModal();
 
   const { address, isConnected, chain } = useAccount();
@@ -334,7 +334,7 @@ export function ConnectKitButton({
 }: ConnectKitButtonProps) {
   const isMounted = useIsMounted();
 
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const setRoute = context.setRoute;
 
   const { address, chain } = useAccount();

@@ -4,7 +4,7 @@ import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import Input from "../../Common/Input";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
-import { routes, useFortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../FortKit";
 import { RecoveryMethod } from "@openfort/openfort-js";
 import { OrDivider } from "../../Common/Modal";
 import FitText from "../../Common/FitText";
@@ -16,7 +16,7 @@ const EmailSignup: React.FC = () => {
   const [password, setPassword] = React.useState("");
   const [username, setUsername] = React.useState("");
 
-  const { setRoute, triggerResize, log, options } = useFortKit();
+  const { setRoute, triggerResize, log, options } = useOpenfortKit();
   const { signUpWithEmailPassword, user, requestEmailVerification } = useOpenfort();
 
   const [signupLoading, setSignupLoading] = React.useState(false);

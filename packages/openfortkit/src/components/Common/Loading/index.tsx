@@ -1,7 +1,7 @@
 import { css, keyframes } from "styled-components";
 import styled from "../../../styles/styled";
 import { useEffect } from "react";
-import { useFortKit } from "../../FortKit";
+import { useOpenfortKit } from "../../FortKit";
 import { motion } from "framer-motion";
 import SquircleSpinner from "../SquircleSpinner";
 import Logos from "../../../assets/logos";
@@ -53,7 +53,7 @@ const ConnectingAnimation = styled(motion.div) <{
 
 const Loader = ({ reason, isLoading = true, icon }: { reason: string, isLoading?: boolean, icon?: React.ReactNode }) => {
 
-  const { triggerResize } = useFortKit();
+  const { triggerResize } = useOpenfortKit();
 
   useEffect(() => {
     return () => triggerResize();

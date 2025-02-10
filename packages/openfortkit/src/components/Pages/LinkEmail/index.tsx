@@ -6,7 +6,7 @@ import FitText from "../../Common/FitText";
 import Input from "../../Common/Input";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { TextContainer } from "../../ConnectButton/styles";
-import { routes, useFortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../FortKit";
 
 // TODO: Localize
 
@@ -35,7 +35,7 @@ const LinkEmail: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setRoute, triggerResize, log } = useFortKit();
+  const { setRoute, triggerResize, log } = useOpenfortKit();
   const { linkEmailPassword, getAccessToken, updateUser } = useOpenfort();
 
   const [loginLoading, setLoginLoading] = React.useState(false);

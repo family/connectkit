@@ -1,4 +1,4 @@
-import { routes, useFortKit } from '../../FortKit';
+import { routes, useOpenfortKit } from '../../FortKit';
 
 import {
   ConnectorButton,
@@ -26,7 +26,7 @@ import { WalletProps, useWallets } from '../../../wallets/useWallets';
 import { openfortWalletId } from '../../../constants/openfort';
 
 const ConnectorList = () => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const isMobile = useIsMobile();
 
   const { user } = useOpenfort();
@@ -84,7 +84,7 @@ const ConnectorItem = ({
   } = useWeb3();
   const uri = getUri();
   const isMobile = useIsMobile();
-  const context = useFortKit();
+  const context = useOpenfortKit();
 
   const { connect } = useConnect();
 

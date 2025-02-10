@@ -22,10 +22,10 @@ import wave from '../../../assets/wave';
 
 import Button from '../../Common/Button';
 import useLocales from '../../../hooks/useLocales';
-import { useFortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../FortKit';
 
 const Introduction: React.FC = () => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const locales = useLocales({});
 
   const ctaUrl =

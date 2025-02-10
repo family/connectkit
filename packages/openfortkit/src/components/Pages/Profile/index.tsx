@@ -5,7 +5,7 @@ import {
   truncateEthAddress,
   truncateUserId,
 } from '../../../utils';
-import { routes, useFortKit } from '../../FortKit';
+import { routes, useOpenfortKit } from '../../FortKit';
 
 import {
   useAccount,
@@ -45,7 +45,7 @@ import { LinkedProviders } from './LinkedProviders';
 import PoweredByFooter from '../../Common/PoweredByFooter';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const themeContext = useThemeContext();
 
   const locales = useLocales();

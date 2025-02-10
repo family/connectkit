@@ -1,9 +1,9 @@
-import { KitOAuthProvider, useFortKit } from "../../components/FortKit";
+import { KitOAuthProvider, useOpenfortKit } from "../../components/FortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 
 export function useProviders() {
   const { user } = useOpenfort();
-  const { options } = useFortKit();
+  const { options } = useOpenfortKit();
 
   const allProviders = options?.authProviders || [];
   const providers: KitOAuthProvider[] = allProviders.filter(p => p !== KitOAuthProvider.GUEST) || [];

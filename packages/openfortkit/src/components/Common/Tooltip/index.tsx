@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useFortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../FortKit';
 import useMeasure from 'react-use-measure';
 
 import { TooltipProps, TooltipSizeProps } from './types';
@@ -18,7 +18,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   yOffset = 0,
   delay,
 }) => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const themeContext = useThemeContext();
 
   if (context.options?.hideTooltips) return <>{children}</>;

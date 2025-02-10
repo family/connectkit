@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFortKit, routes } from '../../FortKit';
+import { useOpenfortKit, routes } from '../../FortKit';
 
 import {
   LearnMoreContainer,
@@ -22,7 +22,7 @@ import useIsMobile from '../../../hooks/useIsMobile';
 import Button from '../../Common/Button';
 
 const Wallets: React.FC = () => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const locales = useLocales({});
 
   const isMobile = useIsMobile();

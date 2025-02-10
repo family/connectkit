@@ -4,7 +4,7 @@ import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import Input from "../../Common/Input";
 import { InnerContainer, ModalBody, PageContent } from "../../Common/Modal/styles";
-import { routes, useFortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../FortKit";
 import { RecoveryMethod } from "@openfort/openfort-js";
 import { OrDivider } from "../../Common/Modal";
 import FitText from "../../Common/FitText";
@@ -41,7 +41,7 @@ const EmailLogin: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setRoute, triggerResize, log, options } = useFortKit();
+  const { setRoute, triggerResize, log, options } = useOpenfortKit();
   const { logInWithEmailPassword, logout, verifyEmail, requestEmailVerification } = useOpenfort();
 
   const [loginLoading, setLoginLoading] = React.useState(false);

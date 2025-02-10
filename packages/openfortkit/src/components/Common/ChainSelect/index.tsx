@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { routes, useFortKit } from '../../FortKit';
+import { routes, useOpenfortKit } from '../../FortKit';
 
 import { flattenChildren, isMobile } from '../../../utils';
 
@@ -134,7 +134,7 @@ const ChevronDown = ({ ...props }) => (
 );
 
 const ChainSelector: React.FC = () => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const [isOpen, setIsOpen] = useState(false);
   const { chain } = useAccount();
   const { chains } = useSwitchChain();

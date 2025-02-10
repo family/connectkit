@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Loader from "../../Common/Loading";
 import { ModalBody, ModalContent, ModalH1, PageContent } from "../../Common/Modal/styles";
-import { routes, useFortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../FortKit";
 import Button from "../../Common/Button";
 import { isPlayerVerified } from "../../../utils";
 import { EmailIcon } from "../../../assets/icons";
@@ -15,7 +15,7 @@ import { TextLinkButton } from "../../Common/Button/styles";
 
 const EmailVerification: React.FC = () => {
   const { user, verifyEmail, logout, requestEmailVerification, updateUser } = useOpenfort();
-  const { setRoute, log } = useFortKit();
+  const { setRoute, log } = useOpenfortKit();
   const linkedAccount = user?.linkedAccounts?.find((account) => account.provider === "email");
 
   const [loading, setLoading] = useState(true);

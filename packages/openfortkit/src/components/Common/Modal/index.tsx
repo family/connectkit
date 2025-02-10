@@ -32,7 +32,7 @@ import {
   SignInTooltip,
 } from './styles';
 
-import { routes, useFortKit } from '../../FortKit';
+import { routes, useOpenfortKit } from '../../FortKit';
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
 
 import { useTransition } from 'react-transition-state';
@@ -202,7 +202,7 @@ const Modal: React.FC<ModalProps> = ({
   onBack,
   onInfo,
 }) => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const themeContext = useThemeContext();
   const mobile = isMobile();
   const { isSignedIn, reset } = useSIWE();

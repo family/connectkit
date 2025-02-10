@@ -4,7 +4,7 @@ import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import Input from "../../Common/Input";
 import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
-import { routes, useFortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../FortKit";
 import { OAuthProvider, RecoveryMethod } from "@openfort/openfort-js";
 import FitText from "../../Common/FitText";
 import Loader from "../../Common/Loading";
@@ -16,7 +16,7 @@ const Recover: React.FC = () => {
   const [recoveryPhrase, setRecoveryPhrase] = React.useState("");
   const { handleRecovery } = useOpenfort();
   const [recoveryError, setRecoveryError] = React.useState(false);
-  const { triggerResize, options, log } = useFortKit();
+  const { triggerResize, options, log } = useOpenfortKit();
   const chain = useChainId();
   const [loading, setLoading] = React.useState(false);
 
@@ -85,7 +85,7 @@ const Recover: React.FC = () => {
 
 const AutomaticRecovery: React.FC = () => {
   const { needsRecovery, handleRecovery } = useOpenfort();
-  const { options, log } = useFortKit();
+  const { options, log } = useOpenfortKit();
   const chain = useChainId();
   const [hasRecoveryMethod, setHasRecoveryMethod] = React.useState(false);
 
@@ -116,7 +116,7 @@ const AutomaticRecovery: React.FC = () => {
 }
 
 const Connected: React.FC = () => {
-  const { setOpen } = useFortKit();
+  const { setOpen } = useOpenfortKit();
 
   // hide on connect
   useEffect(() => {
@@ -137,7 +137,7 @@ const Connected: React.FC = () => {
 
 const CreateEmbeddedSigner: React.FC = () => {
   const { needsRecovery, user } = useOpenfort();
-  const { triggerResize, options, walletConfig, setRoute } = useFortKit();
+  const { triggerResize, options, walletConfig, setRoute } = useOpenfortKit();
   const [loading, setLoading] = React.useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = React.useState(true);
   const { isConnected } = useAccount();

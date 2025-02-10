@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import Logos from "../../../assets/logos";
 import styled from "../../../styles/styled";
-import { useFortKit } from "../../FortKit";
+import { useOpenfortKit } from "../../FortKit";
 
 const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
-  const { options } = useFortKit();
+  const { options } = useOpenfortKit();
 
   return (
     <Container>

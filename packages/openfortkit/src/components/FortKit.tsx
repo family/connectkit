@@ -489,7 +489,7 @@ export const OpenfortKitProvider = ({
   );
 };
 
-export const useFortKit = () => {
+export const useOpenfortKit = () => {
   const context = React.useContext(Context);
   if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
   return context;

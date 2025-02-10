@@ -5,7 +5,7 @@ import { EnsAvatar, ImageContainer } from './styles';
 import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
 import { normalize } from 'viem/ens';
 import { ResetContainer } from '../../../styles';
-import { useFortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../FortKit';
 import useIsMounted from '../../../hooks/useIsMounted';
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
 
@@ -26,7 +26,7 @@ const Avatar: React.FC<{
   radius?: number;
 }> = ({ address, name, size = 96, radius = 96 }) => {
   const isMounted = useIsMounted();
-  const context = useFortKit();
+  const context = useOpenfortKit();
 
   const imageRef = useRef<any>(null);
   const [loaded, setLoaded] = useState(true);

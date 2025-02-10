@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import Logos from '../assets/logos';
 
-import { useFortKit } from '../components/FortKit';
+import { useOpenfortKit } from '../components/FortKit';
 
 import { getLocale } from '../localizations';
 
 export default function useLocales(replacements?: any) {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const language = context.options?.language ?? 'en-US';
 
   const translations = useMemo(() => {

@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import { PageContent } from "../../Common/Modal/styles";
-import { routes, useFortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../FortKit";
 import { useAccount } from "wagmi";
 import Loader from "../../Common/Loading";
 
 
 const Loading: React.FC = () => {
 
-  const { setRoute } = useFortKit();
+  const { setRoute } = useOpenfortKit();
   const { isLoading, user, needsRecovery } = useOpenfort();
   const { address } = useAccount();
   const [isFirstFrame, setIsFirstFrame] = React.useState(true);

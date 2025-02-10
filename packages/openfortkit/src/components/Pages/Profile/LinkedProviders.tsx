@@ -7,7 +7,7 @@ import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import { useWallets } from "../../../wallets/useWallets";
 import FitText from "../../Common/FitText";
-import { routes, useFortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../FortKit";
 import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
 
@@ -54,7 +54,7 @@ const LinkedProvider: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][
 }
 
 const AddLinkedProviderButton: React.FC = () => {
-  const { setRoute } = useFortKit();
+  const { setRoute } = useOpenfortKit();
   const { availableProviders: unlinkedProviders } = useProviders();
 
   return (

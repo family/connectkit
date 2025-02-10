@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PageContent } from "../Common/Modal/styles";
-import { routes, useFortKit } from "../FortKit";
+import { routes, useOpenfortKit } from "../FortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 import Loader from "../Common/Loading";
 import { providersLogos } from "../../assets/logos";
@@ -12,7 +12,7 @@ const states = {
 };
 
 const ConnectWithOAuth: React.FC<{}> = ({ }) => {
-  const { connector, setRoute, log } = useFortKit();
+  const { connector, setRoute, log } = useOpenfortKit();
   const { initOAuth, getAccessToken, initLinkOAuth, storeCredentials, user } = useOpenfort();
 
   const [status, setStatus] = useState(states.INIT);

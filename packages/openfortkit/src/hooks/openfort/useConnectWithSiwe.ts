@@ -1,5 +1,5 @@
 import { useAccount, useChainId, useConfig, useDisconnect } from "wagmi";
-import { useFortKit } from "../../components/FortKit";
+import { useOpenfortKit } from "../../components/FortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 import { createSIWEMessage } from "../../siwe/create-siwe-message";
 import { AxiosError } from "axios";
@@ -8,7 +8,7 @@ import { signMessage } from '@wagmi/core';
 
 export function useConnectWithSiwe() {
   const openfort = useOpenfort();
-  const { log } = useFortKit();
+  const { log } = useOpenfortKit();
   const { address } = useAccount();
   const chainId = useChainId();
   const config = useConfig();

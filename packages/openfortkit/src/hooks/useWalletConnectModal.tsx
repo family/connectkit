@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Connector, CreateConnectorFn } from 'wagmi';
 import { walletConnect } from 'wagmi/connectors';
-import { useFortKit } from '../components/FortKit';
+import { useOpenfortKit } from '../components/FortKit';
 
 import { isWalletConnectConnector } from '../utils';
 import { useConnect } from './useConnect';
 
 export function useWalletConnectModal() {
-  const { log } = useFortKit();
+  const { log } = useOpenfortKit();
   const { connectAsync, connectors } = useConnect();
   const [isOpen, setIsOpen] = useState(false);
 

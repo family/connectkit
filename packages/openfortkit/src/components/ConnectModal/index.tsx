@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
-import { routes, useFortKit } from '../FortKit';
+import { routes, useOpenfortKit } from '../FortKit';
 
 import About from '../Pages/About';
 import Connectors from '../Pages/Connectors';
@@ -38,7 +38,7 @@ const ConnectModal: React.FC<{
   customTheme?: CustomTheme;
   lang?: Languages;
 }> = ({ mode = 'auto', theme = 'auto', customTheme = customThemeDefault, lang = 'en-US' }) => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const { logout, user } = useOpenfort();
   const { isConnected, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);

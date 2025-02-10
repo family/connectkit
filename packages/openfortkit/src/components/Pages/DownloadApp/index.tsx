@@ -9,11 +9,11 @@ import {
 import CustomQRCode from '../../Common/CustomQRCode';
 
 import useLocales from '../../../hooks/useLocales';
-import { useFortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../FortKit';
 import { useWallet } from '../../../wallets/useWallets';
 
 const DownloadApp = () => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const wallet = useWallet(context.connector.id);
 
   const locales = useLocales({

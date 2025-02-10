@@ -20,7 +20,7 @@ import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
 
 import ChainIcons from '../../../assets/chains';
 import useLocales from '../../../hooks/useLocales';
-import { useFortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../FortKit';
 
 const Spinner = (
   <svg
@@ -77,7 +77,7 @@ const ChainSelectList = ({
     }
   };
 
-  const { triggerResize } = useFortKit();
+  const { triggerResize } = useOpenfortKit();
 
   return (
     <SwitchNetworksContainer

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { KitOAuthProvider, routes, useFortKit } from "../../components/FortKit";
+import { KitOAuthProvider, routes, useOpenfortKit } from "../../components/FortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 import { openfortWalletId } from "../../constants/openfort";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
@@ -15,7 +15,7 @@ type UserWallet = {
 
 export function useWallet() {
   const { user, embeddedState } = useOpenfort();
-  const { walletConfig, log, setOpen, setRoute, setConnector } = useFortKit();
+  const { walletConfig, log, setOpen, setRoute, setConnector } = useOpenfortKit();
   const { connector, isConnected, address } = useAccount();
   const wallets2 = useWallets();
   const { disconnect } = useDisconnect();

@@ -1,7 +1,7 @@
 import Openfort, { AuthPlayerResponse, EmbeddedState, MissingRecoveryPasswordError, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from '@openfort/openfort-js';
 import React, { createContext, createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
-import { useFortKit } from '../components/FortKit';
+import { useOpenfortKit } from '../components/FortKit';
 import { useConnect } from '../hooks/useConnect';
 
 type RecoveryProps =
@@ -60,7 +60,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const [user, setUser] = useState<AuthPlayerResponse | null>(null);
 
   const { disconnect } = useDisconnect();
-  const { walletConfig } = useFortKit();
+  const { walletConfig } = useOpenfortKit();
 
   const automaticRecovery = walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC;
 

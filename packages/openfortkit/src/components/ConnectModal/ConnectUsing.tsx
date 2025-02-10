@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import { useFortKit } from '../FortKit';
+import { useOpenfortKit } from '../FortKit';
 import { useWallet } from '../../wallets/useWallets';
 
 import ConnectWithInjector from './ConnectWithInjector';
@@ -17,7 +17,7 @@ const states = {
 };
 
 const ConnectUsing = () => {
-  const context = useFortKit();
+  const context = useOpenfortKit();
   const wallet = useWallet(context.connector.id);
 
   // If cannot be scanned, display injector flow, which if extension is not installed will show CTA to install it
