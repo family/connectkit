@@ -21,7 +21,7 @@ body {
     margin-bottom: 15px;
   }
   p {
-    line-height: 0.4;
+    margin: 5px 0;
   }
   button {
     display: inline-block;
@@ -50,5 +50,10 @@ body {
       border-color: #d5d9d9;
       color: #a7adad;
     }
+  }
+
+  b {
+    font-weight: 600;
+    color: #3f3f31;
   }
 }

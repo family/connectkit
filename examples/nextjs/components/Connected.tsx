@@ -1,19 +1,17 @@
 "use client";
 
 import { useIsMounted, useModal, useOpenfort, useProviders, useWallets } from "@openfort/openfort-kit";
-import { useAccount, useDisconnect, useEnsName } from "wagmi";
-import { WriteContract } from "./WritteContract";
+import { useAccount, useEnsName } from "wagmi";
+import { WriteContract } from "./WriteContract";
 
 export const Connected = () => {
-  const account = useAccount();
   const isMounted = useIsMounted();
-  const { data: ensName } = useEnsName({
-    address: account.address,
-  })
+  const account = useAccount();
+  const { data: ensName } = useEnsName({ address: account.address })
   const { user, logout } = useOpenfort()
   const { linkedProviders, availableProviders } = useProviders()
   const { wallets, setActiveWallet, currentWallet } = useWallets()
-  const { openSwitchNetworks } = useModal();
+  const { openSwitchNetworks, setOpen } = useModal();
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;
@@ -21,35 +19,42 @@ export const Connected = () => {
   return (
     <div className="demo" style={{ display: "flex", width: "90vw", flexDirection: "column", alignItems: "start", }}>
       <section style={{ width: "100%" }}>
-        <h2>ADDRESS</h2>
-        <p>
-          account: {account.address} {ensName}
-        </p>
-        <p>
-          chainId: {account.chainId}
-        </p>
-        <p>
-          status: {account.status}
-        </p>
-        <p>
-          connector: {account.connector?.name} {account.connector?.id}
-        </p>
-        <button
-          onClick={() => openSwitchNetworks()}
-        >
-          open switch networks
-        </button>
+        <h2>MODAL</h2>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button
+            onClick={() => { setOpen(true) }}
+          >
+            open modal
+          </button>
+          <button
+            onClick={() => openSwitchNetworks()}
+          >
+            open switch networks page
+          </button>
+        </div>
       </section>
       <section>
-        <h2>OPENFORT</h2>
+        <h2>ADDRESS</h2>
         <p>
-          player: {user?.id}
+          <b>account:</b> {account.address} {ensName}
         </p>
         <p>
-          linked providers: {linkedProviders.join(", ")}
+          <b>chainId:</b> {account.chainId}
         </p>
         <p>
-          not linked providers: {availableProviders.join(", ")}
+          <b>status:</b> {account.status}
+        </p>
+      </section>
+      <section>
+        <h2>OPENFORT USER</h2>
+        <p>
+          <b>player:</b> {user?.id}
+        </p>
+        <p>
+          <b>linked providers:</b> {linkedProviders.join(", ")}
+        </p>
+        <p>
+          <b>not linked providers:</b> {availableProviders.join(", ")}
         </p>
         <button
           onClick={() => logout()}
@@ -58,19 +63,24 @@ export const Connected = () => {
         </button>
 
         <section>
-          <h3>Linked wallets:</h3>
-          {
-            wallets.map((wallet) => (
-              <div key={wallet.id}>
-                <button
-                  onClick={() => setActiveWallet(wallet.id!)}
-                  disabled={currentWallet?.id === wallet.id}
-                >
-                  {wallet.walletClientType} ({wallet.id})
-                </button>
-              </div>
-            ))
-          }
+          <h3>Linked wallets</h3>
+          <p>
+            <b>current connector:</b> {account.connector?.name} {account.connector?.id}
+          </p>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {
+              wallets.map((wallet) => (
+                <div key={wallet.id}>
+                  <button
+                    onClick={() => setActiveWallet(wallet.id!)}
+                    disabled={currentWallet?.id === wallet.id}
+                  >
+                    {wallet.walletClientType} ({wallet.id})
+                  </button>
+                </div>
+              ))
+            }
+          </div>
 
         </section>
 
