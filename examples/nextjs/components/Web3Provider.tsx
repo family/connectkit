@@ -35,7 +35,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
             embeddedSignerConfiguration: {
               shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
-              recoveryMethod: RecoveryMethod.AUTOMATIC,
+              recoveryMethod: RecoveryMethod.PASSWORD,
               // createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
               getEncryptionSession: async () => {
                 const res = await fetch('/api/protected-create-encryption-session', {

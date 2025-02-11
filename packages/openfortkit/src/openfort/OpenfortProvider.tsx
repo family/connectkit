@@ -384,16 +384,17 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const isLoading = useCallback(() => {
     switch (embeddedState) {
       case EmbeddedState.NONE:
+      case EmbeddedState.CREATING_ACCOUNT:
         return true;
 
       case EmbeddedState.UNAUTHENTICATED:
         if (user) return true; // If user is set in unauthenticated state, it means that the embedded state is not up to date, so we should wait
         return false;
 
-      case EmbeddedState.CREATING_ACCOUNT: // There is a bug on openfort-js that makes creating account state to be stuck. When its fixed, we should remove this case (same as NONE)
       case EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED:
         if (!user)
           return true;
+
         // If automatic recovery is enabled, we should wait for the embedded signer to be ready
         return false;
       case EmbeddedState.READY:
@@ -411,7 +412,6 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   const needsRecovery =
     !automaticRecovery && (
       embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED
-      || embeddedState === EmbeddedState.CREATING_ACCOUNT // There is a bug on openfort-js that makes creating account state to be stuck. When its fixed, we should remove this case (same as NONE)
     ) && (
       !address
     );
