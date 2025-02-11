@@ -86,6 +86,10 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
             // Skip the email verification, useful for testing
             skipEmailVerification: true,
+
+            // Other useful options
+            overlayBlur: 2.5,
+            hideTooltips: true,
           }}
 
           // debugMode

@@ -11,7 +11,7 @@ export const Info = () => {
   const { user, logout } = useOpenfort()
   const { linkedProviders, availableProviders } = useProviders()
   const { wallets, setActiveWallet, currentWallet } = useWallets()
-  const { openSwitchNetworks, setOpen, openProviders } = useModal();
+  const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;
@@ -35,6 +35,11 @@ export const Info = () => {
             onClick={() => openProviders()}
           >
             open providers page
+          </button>
+          <button
+            onClick={() => openWallets()}
+          >
+            open wallets page
           </button>
         </div>
       </section>
@@ -84,6 +89,14 @@ export const Info = () => {
                   </button>
                 </div>
               ))
+            }
+            {
+              <button
+                onClick={() => openWallets()}
+                disabled={!user}
+              >
+                +
+              </button>
             }
           </div>
 

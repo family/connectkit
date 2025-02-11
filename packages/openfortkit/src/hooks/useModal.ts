@@ -99,5 +99,6 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
     openProfile: () => gotoAndOpen(routes.PROFILE),
     openSwitchNetworks: () => gotoAndOpen(routes.SWITCHNETWORKS),
     openProviders: () => gotoAndOpen(routes.PROVIDERS),
+    openWallets: () => gotoAndOpen(routes.CONNECTORS),
   };
 };
