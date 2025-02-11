@@ -19,7 +19,7 @@ jobs:
         run: corepack enable
 
       - name: Prepare Yarn
-        run: corepack prepare yarn@3.6.1 --activate
+        run: corepack prepare yarn@3.2.0 --activate
 
       - name: Setup Node
         uses: actions/setup-node@v3
