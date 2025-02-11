@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.3] - 2024-02-11
+
+### Fix issues
+
+Added openfort-js as direct dependency, button href issue solved
+
 ## [0.0.2] - 2024-02-11
 
 ### Exported methods and types

@@ -12,6 +12,7 @@ node_modules
 # production
 build
 tsconfig.tsbuildinfo
+package.tgz
 
 # misc
 .DS_Store

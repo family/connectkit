@@ -1,6 +1,6 @@
 {
   "name": "@openfort/openfort-kit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Openfort (https://www.openfort.xyz)",
   "license": "BSD-2-Clause license",
   "description": "The easiest way to integrate Openfort to your project.",
@@ -45,10 +45,10 @@
     "react-transition-state": "^1.1.4",
     "react-use-measure": "^2.1.1",
     "resize-observer-polyfill": "^1.5.1",
+    "@openfort/openfort-js": "^0.8.26",
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {
-    "@openfort/openfort-js": "^0.8.20",
     "@tanstack/react-query": ">=5.0.0",
     "react": "17.x || 18.x",
     "react-dom": "17.x || 18.x",
@@ -56,7 +56,6 @@
     "wagmi": "2.x"
   },
   "devDependencies": {
-    "@openfort/openfort-js": "^0.8.26",
     "@types/node": "18.7.18",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^18.0.6",
