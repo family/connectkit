@@ -1,4 +1,4 @@
-import { KitOAuthProvider, useOpenfortKit } from "../../components/FortKit";
+import { KitOAuthProvider, useOpenfortKit } from "../../components/OpenfortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 
 export function useProviders() {

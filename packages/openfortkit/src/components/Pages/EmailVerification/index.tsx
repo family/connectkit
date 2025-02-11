@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Loader from "../../Common/Loading";
 import { ModalBody, ModalContent, ModalH1, PageContent } from "../../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../OpenfortKit";
 import Button from "../../Common/Button";
 import { isPlayerVerified } from "../../../utils";
 import { EmailIcon } from "../../../assets/icons";

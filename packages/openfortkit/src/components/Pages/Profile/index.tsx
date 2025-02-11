@@ -5,7 +5,7 @@ import {
   truncateEthAddress,
   truncateUserId,
 } from '../../../utils';
-import { routes, useOpenfortKit } from '../../FortKit';
+import { routes, useOpenfortKit } from '../../OpenfortKit';
 
 import {
   useAccount,

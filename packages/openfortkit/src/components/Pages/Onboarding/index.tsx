@@ -22,7 +22,7 @@ import wave from '../../../assets/wave';
 
 import Button from '../../Common/Button';
 import useLocales from '../../../hooks/useLocales';
-import { useOpenfortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../OpenfortKit';
 
 const Introduction: React.FC = () => {
   const context = useOpenfortKit();

@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useOpenfortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../OpenfortKit';
 import useMeasure from 'react-use-measure';
 
 import { TooltipProps, TooltipSizeProps } from './types';

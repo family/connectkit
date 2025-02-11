@@ -1,5 +1,5 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
-import { useOpenfortKit } from '../components/FortKit';
+import { useOpenfortKit } from '../components/OpenfortKit';
 
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;

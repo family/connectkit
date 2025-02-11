@@ -11,7 +11,7 @@ export {
   OpenfortKitProvider,
   Context as OpenfortKitContext,
   KitOAuthProvider,
-} from './components/FortKit';
+} from './components/OpenfortKit';
 export { ConnectKitButton } from './components/ConnectButton';
 
 //export { default as NetworkButton } from './components/NetworkButton';

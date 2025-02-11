@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import Logos from '../assets/logos';
 
-import { useOpenfortKit } from '../components/FortKit';
+import { useOpenfortKit } from '../components/OpenfortKit';
 
 import { getLocale } from '../localizations';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PageContent } from "../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../FortKit";
+import { routes, useOpenfortKit } from "../OpenfortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 import Loader from "../Common/Loading";
 import { providersLogos } from "../../assets/logos";

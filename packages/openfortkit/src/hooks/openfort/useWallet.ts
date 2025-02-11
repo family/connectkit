@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { KitOAuthProvider, routes, useOpenfortKit } from "../../components/FortKit";
+import { KitOAuthProvider, routes, useOpenfortKit } from "../../components/OpenfortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 import { openfortWalletId } from "../../constants/openfort";
 import { useAccount, useConnect, useDisconnect } from "wagmi";

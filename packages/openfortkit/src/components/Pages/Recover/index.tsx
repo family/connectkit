@@ -4,7 +4,7 @@ import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import Input from "../../Common/Input";
 import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../OpenfortKit";
 import { OAuthProvider, RecoveryMethod } from "@openfort/openfort-js";
 import FitText from "../../Common/FitText";
 import Loader from "../../Common/Loading";

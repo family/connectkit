@@ -4,7 +4,7 @@ import useIsMounted from '../../hooks/useIsMounted';
 import { truncateEthAddress, truncateUserId } from '../../utils';
 
 import { useModal } from '../../hooks/useModal';
-import { routes, useOpenfortKit } from '../FortKit';
+import { routes, useOpenfortKit } from '../OpenfortKit';
 import {
   IconContainer,
   TextContainer,

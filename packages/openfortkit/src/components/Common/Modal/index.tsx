@@ -31,7 +31,7 @@ import {
 } from './styles';
 
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
-import { routes, useOpenfortKit } from '../../FortKit';
+import { routes, useOpenfortKit } from '../../OpenfortKit';
 
 import { useTransition } from 'react-transition-state';
 import { useAccount, useSwitchChain } from 'wagmi';

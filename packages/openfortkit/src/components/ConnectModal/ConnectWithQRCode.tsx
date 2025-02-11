@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { routes, useOpenfortKit } from '../FortKit';
+import { routes, useOpenfortKit } from '../OpenfortKit';
 
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 

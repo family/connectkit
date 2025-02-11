@@ -1,5 +1,5 @@
 import React from 'react';
-import { useOpenfortKit, routes } from '../../FortKit';
+import { useOpenfortKit, routes } from '../../OpenfortKit';
 
 import {
   LearnMoreContainer,

@@ -10,7 +10,7 @@ import Loader from "../../Common/Loading";
 import { PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
 import { ScrollArea } from "../../Common/ScrollArea";
-import { KitOAuthProvider, routes, socialProviders, useOpenfortKit } from "../../FortKit";
+import { KitOAuthProvider, routes, socialProviders, useOpenfortKit } from "../../OpenfortKit";
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
 
 const ProviderButton: React.FC<{

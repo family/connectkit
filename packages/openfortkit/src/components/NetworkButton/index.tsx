@@ -14,7 +14,7 @@ import ChainSelectDropdown from '../Common/ChainSelectDropdown';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { motion } from 'framer-motion';
 import styled from '../../styles/styled';
-import { useOpenfortKit } from '../FortKit';
+import { useOpenfortKit } from '../OpenfortKit';
 
 const Container = styled(motion.div)`
   position: relative;

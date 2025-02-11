@@ -4,7 +4,7 @@ import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import Input from "../../Common/Input";
 import { InnerContainer, ModalBody, PageContent } from "../../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../OpenfortKit";
 import { RecoveryMethod } from "@openfort/openfort-js";
 import { OrDivider } from "../../Common/Modal";
 import FitText from "../../Common/FitText";

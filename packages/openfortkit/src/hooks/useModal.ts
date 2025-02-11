@@ -1,5 +1,5 @@
 import { useAccount } from 'wagmi';
-import { routes, useOpenfortKit } from '../components/FortKit';
+import { routes, useOpenfortKit } from '../components/OpenfortKit';
 import {
   useConnectCallback,
   useConnectCallbackProps,

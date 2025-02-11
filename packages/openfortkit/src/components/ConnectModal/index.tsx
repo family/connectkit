@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
-import { routes, useOpenfortKit } from '../FortKit';
+import { routes, useOpenfortKit } from '../OpenfortKit';
 
 import About from '../Pages/About';
 import Connectors from '../Pages/Connectors';

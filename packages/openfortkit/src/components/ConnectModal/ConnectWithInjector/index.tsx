@@ -31,7 +31,7 @@ import { useOpenfort } from '../../../openfort/OpenfortProvider';
 import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import { useWallet } from '../../../wallets/useWallets';
 import BrowserIcon from '../../Common/BrowserIcon';
-import { useOpenfortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../OpenfortKit';
 import CircleSpinner from './CircleSpinner';
 
 import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe';

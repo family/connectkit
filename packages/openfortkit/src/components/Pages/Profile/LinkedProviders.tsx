@@ -7,7 +7,7 @@ import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import { useWallets } from "../../../wallets/useWallets";
 import FitText from "../../Common/FitText";
-import { routes, useOpenfortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../OpenfortKit";
 import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { routes, useOpenfortKit } from '../../FortKit';
+import { routes, useOpenfortKit } from '../../OpenfortKit';
 
 import { flattenChildren, isMobile } from '../../../utils';
 

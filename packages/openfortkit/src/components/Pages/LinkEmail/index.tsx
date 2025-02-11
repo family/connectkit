@@ -6,7 +6,7 @@ import FitText from "../../Common/FitText";
 import Input from "../../Common/Input";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { TextContainer } from "../../ConnectButton/styles";
-import { routes, useOpenfortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../OpenfortKit";
 
 // TODO: Localize
 

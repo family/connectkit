@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useOpenfort } from "../../../openfort/OpenfortProvider";
 import Button from "../../Common/Button";
 import { PageContent } from "../../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../../FortKit";
+import { routes, useOpenfortKit } from "../../OpenfortKit";
 import { useAccount } from "wagmi";
 import Loader from "../../Common/Loading";
 

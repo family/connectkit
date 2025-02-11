@@ -1,38 +1,36 @@
+import { Buffer } from 'buffer';
 import React, {
+  ReactNode,
   createContext,
   createElement,
   useEffect,
-  useState,
-  ReactNode,
-  useMemo,
+  useState
 } from 'react';
-import { Buffer } from 'buffer';
 import {
+  CustomAvatarProps,
   CustomTheme,
   Languages,
   Mode,
   Theme,
-  CustomAvatarProps,
 } from '../types';
 
 import defaultTheme from '../styles/defaultTheme';
 
-import ConnectKitModal from './ConnectModal';
+import { OAuthProvider, RecoveryMethod } from '@openfort/openfort-js';
 import { ThemeProvider } from 'styled-components';
-import { useThemeFont } from '../hooks/useGoogleFont';
+import { ValueOf } from 'viem/_types/types/utils';
+import { WagmiContext, useAccount } from 'wagmi';
+import { useChainIsSupported } from '../hooks/useChainIsSupported';
 import { useChains } from '../hooks/useChains';
 import {
-  useConnectCallback,
-  useConnectCallbackProps,
+  useConnectCallbackProps
 } from '../hooks/useConnectCallback';
-import { isFamily } from '../utils/wallets';
 import { useConnector } from '../hooks/useConnectors';
-import { WagmiContext, useAccount } from 'wagmi';
-import { Web3ContextProvider } from './contexts/web3';
-import { useChainIsSupported } from '../hooks/useChainIsSupported';
-import Openfort, { OAuthProvider, OpenfortConfiguration, RecoveryMethod, ShieldConfiguration, } from '@openfort/openfort-js';
+import { useThemeFont } from '../hooks/useGoogleFont';
 import { OpenfortProvider, OpenfortProviderProps } from '../openfort/OpenfortProvider';
-import { ValueOf } from 'viem/_types/types/utils';
+import { isFamily } from '../utils/wallets';
+import ConnectKitModal from './ConnectModal';
+import { Web3ContextProvider } from './contexts/web3';
 
 export const routes = {
   PROVIDERS: 'providers',

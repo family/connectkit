@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Logos from "../../../assets/logos";
 import styled from "../../../styles/styled";
-import { useOpenfortKit } from "../../FortKit";
+import { useOpenfortKit } from "../../OpenfortKit";
 
 const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
   const { options } = useOpenfortKit();

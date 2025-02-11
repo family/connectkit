@@ -23,7 +23,7 @@ import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { OrDivider } from '../../Common/Modal';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../../Common/FitText';
-import { useOpenfortKit } from '../../FortKit';
+import { useOpenfortKit } from '../../OpenfortKit';
 
 const About: React.FC = () => {
   const locales = useLocales({

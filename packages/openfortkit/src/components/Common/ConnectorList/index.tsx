@@ -1,4 +1,4 @@
-import { routes, useOpenfortKit } from '../../FortKit';
+import { routes, useOpenfortKit } from '../../OpenfortKit';
 
 import {
   ConnectorButton,
