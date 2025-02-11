@@ -21,7 +21,8 @@ const safeRoutes: {
   connected: [
     routes.PROFILE,
     routes.CONNECTORS,
-    routes.SWITCHNETWORKS
+    routes.SWITCHNETWORKS,
+    routes.PROVIDERS,
   ],
 };
 
@@ -93,8 +94,10 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
     // Disconnected Routes
     // openAbout: () => gotoAndOpen(routes.ABOUT),
     // openOnboarding: () => gotoAndOpen(routes.ONBOARDING),
+
     // Connected Routes
     openProfile: () => gotoAndOpen(routes.PROFILE),
     openSwitchNetworks: () => gotoAndOpen(routes.SWITCHNETWORKS),
+    openProviders: () => gotoAndOpen(routes.PROVIDERS),
   };
 };

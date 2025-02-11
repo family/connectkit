@@ -11,7 +11,7 @@ export const Connected = () => {
   const { user, logout } = useOpenfort()
   const { linkedProviders, availableProviders } = useProviders()
   const { wallets, setActiveWallet, currentWallet } = useWallets()
-  const { openSwitchNetworks, setOpen } = useModal();
+  const { openSwitchNetworks, setOpen, openProviders } = useModal();
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;
@@ -30,6 +30,11 @@ export const Connected = () => {
             onClick={() => openSwitchNetworks()}
           >
             open switch networks page
+          </button>
+          <button
+            onClick={() => openProviders()}
+          >
+            open providers page
           </button>
         </div>
       </section>
