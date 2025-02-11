@@ -1,30 +1,14 @@
 import { ConnectKitButton } from '@openfort/openfort-kit';
 import type { NextPage } from 'next';
-import { Connected } from '../components/Connected';
+import { Info } from '../components/Info';
 
 const Home: NextPage = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'start',
-        height: '100vh',
-        flexDirection: 'column',
-      }}
-    >
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '20px',
-        marginTop: '20px',
-      }}>
-        <ConnectKitButton
-          showBalance
-        />
-        <Connected />
-      </div>
+    <div className="container">
+      <ConnectKitButton
+        showBalance
+      />
+      <Info />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import CustomLogo from './CustomLogo';
 const config = createConfig(
   getDefaultConfig({
     appName: 'OpenfortKit Next.js demo',
-    chains: [beamTestnet, polygonAmoy,],
+    chains: [beamTestnet, polygonAmoy],
 
     walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
     ssr: true,
@@ -27,17 +27,20 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
       <QueryClientProvider client={queryClient}>
         <OpenfortKitProvider
 
+          // Set the publishable key of your OpenfortKit account. This field is required.
           publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
 
+          // Set the wallet configuration. In this example, we will be using the embedded signer.
           walletConfig={{
-            // linkWalletOnSignUp: true,
-
             createEmbeddedSigner: true,
 
             embeddedSignerConfiguration: {
               shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
+
+              // Set the recovery method you want to use, in this case we will use the password recovery method
               recoveryMethod: RecoveryMethod.PASSWORD,
-              // createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
+
+              // Your can customize the recovery method, either by setting the recovery method function or the endpoint
               getEncryptionSession: async () => {
                 const res = await fetch('/api/protected-create-encryption-session', {
                   method: "POST",
@@ -47,12 +50,16 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
                 });
                 return (await res.json()).session;
               },
+              // This is how you would customize only the endpoint:
+              // createEncryptedSessionEndpoint: '/api/protected-create-encrypted-session',
+
 
               // You can set a policy id to sponsor the gas fees for your users
               ethereumProviderPolicyId: process.env.NEXT_PUBLIC_POLICY_ID,
             }
           }}
 
+          // This is the callback that will be called when the user connects or disconnects
           onConnect={(params) => {
             console.log('onConnect', params);
           }}
@@ -61,7 +68,10 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           }}
 
           options={{
+            // You can customize the logo of your app
             logo: (<CustomLogo />),
+
+            // Set the auth providers you want to use
             authProviders: [
               KitOAuthProvider.GUEST,
               KitOAuthProvider.EMAIL,
@@ -70,14 +80,17 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
               KitOAuthProvider.FACEBOOK,
               KitOAuthProvider.WALLET,
             ],
-            initialChainId: polygonAmoy.id,
-            // enforceSupportedChains: true,
 
+            // Set the chain id you want to use, by default it will use the first chain
+            initialChainId: polygonAmoy.id,
+
+            // Skip the email verification, useful for testing
             skipEmailVerification: true,
-            reducedMotion: true,
           }}
-          debugMode
-          // theme='retro'
+
+          // debugMode
+
+          // Set the theme of the OpenfortKit
           theme='midnight'
         >
           {children}

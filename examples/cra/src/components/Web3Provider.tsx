@@ -31,14 +31,13 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
           options={{
             authProviders: [
-              KitOAuthProvider.WALLET,
+              KitOAuthProvider.GUEST,
               KitOAuthProvider.EMAIL,
               KitOAuthProvider.GOOGLE,
-              KitOAuthProvider.TWITTER,
-              KitOAuthProvider.FACEBOOK,
-              KitOAuthProvider.GUEST,
+              KitOAuthProvider.WALLET,
+            ],
 
-            ]
+            skipEmailVerification: true,
           }}
         >
           {children}

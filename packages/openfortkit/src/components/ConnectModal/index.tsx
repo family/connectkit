@@ -74,6 +74,11 @@ const ConnectModal: React.FC<{
       return;
     }
 
+    if (context.route === routes.CONNECTORS && user) {
+      context.setRoute(routes.PROFILE);
+      return;
+    }
+
     if (context.route === routes.PROVIDERS
       || context.route === routes.SWITCHNETWORKS
     ) {

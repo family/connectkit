@@ -6,6 +6,7 @@ import { WagmiProvider } from 'wagmi';
 
 import { config } from '../config';
 import { KitOAuthProvider, OpenfortKitProvider } from '@openfort/openfort-kit';
+import { RecoveryMethod } from '@openfort/openfort-js';
 
 const queryClient = new QueryClient();
 export function Providers(props: { children: ReactNode }) {
@@ -16,20 +17,32 @@ export function Providers(props: { children: ReactNode }) {
           debugMode
           publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
 
+          // Set the wallet configuration. In this example, we will be using the embedded signer.
           walletConfig={{
-            // In this example, we require the user to link their wallet on sign up.
-            // We don't need an embedded signer for this example,
-            // we will be using the user wallet for signing.
+            createEmbeddedSigner: true,
 
-            linkWalletOnSignUp: true,
+            embeddedSignerConfiguration: {
+              shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
+
+              // Set the recovery method you want to use, in this case we will use the password recovery method
+              recoveryMethod: RecoveryMethod.PASSWORD,
+
+              // With password recovery we can set the encryption key to encrypt the recovery data
+              // This way we don't have a backend to store the recovery data
+              shieldEncryptionKey: process.env.NEXT_PUBLIC_SHIELD_ENCRYPTION_SHARE!,
+
+              // You can set a policy id to sponsor the gas fees for your users
+              ethereumProviderPolicyId: process.env.NEXT_PUBLIC_POLICY_ID,
+            }
           }}
+
 
           options={{
             skipEmailVerification: true,
 
             authProviders: [
-              KitOAuthProvider.WALLET,
               KitOAuthProvider.EMAIL,
+              KitOAuthProvider.WALLET,
             ]
           }}
         >

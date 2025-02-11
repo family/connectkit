@@ -1,10 +1,8 @@
-"use client";
-
 import { useIsMounted, useModal, useOpenfort, useProviders, useWallets } from "@openfort/openfort-kit";
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WriteContract";
 
-export const Connected = () => {
+export const Info = () => {
   const isMounted = useIsMounted();
   const account = useAccount();
   const { data: ensName } = useEnsName({ address: account.address })
@@ -86,9 +84,7 @@ export const Connected = () => {
               ))
             }
           </div>
-
         </section>
-
       </section>
       <WriteContract />
     </div>
