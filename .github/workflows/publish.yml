@@ -21,12 +21,6 @@ jobs:
       - name: Prepare Yarn
         run: corepack prepare yarn@3.2.0 --activate
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: .nvmrc
-          cache: 'yarn'
-
       - name: Install dependencies
         run: yarn install --immutable
 
