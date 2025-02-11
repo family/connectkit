@@ -5,20 +5,21 @@ This is a simple ConnectKit + [Create React App (TypeScript)](https://reactjs.or
 #### npm
 
 ```sh
-npx create-react-app my-app --template cra-template-connectkit
+npx create-react-app my-app --template cra-template-openfortkit
 ```
 
 #### yarn
 
 ```sh
-yarn create react-app my-app --template cra-template-connectkit
+yarn create react-app my-app --template cra-template-openfortkit
 ```
 
 #### pnpm
 
 ```sh
-pnpm dlx create-react-app ./my-app --template cra-template-connectkit
+pnpm dlx create-react-app ./my-app --template cra-template-openfortkit
 ```
+
 ---
 
 - If you'd like to look at an example online, try this [CodeSandbox](https://codesandbox.io/s/5rhqm0?file=/README.md)

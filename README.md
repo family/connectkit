@@ -2,8 +2,6 @@
   <img width="1080" alt="connectkit" src="https://github.com/family/connectkit/assets/1930210/87c2e868-3228-44b8-82c3-a38adf6d1bbf">
 </a>
 
-
-
 # ConnectKit
 
 ConnectKit is a powerful [React](https://reactjs.org/) component library for connecting a wallet to your dApp. It supports the most popular connectors and chains out of the box and provides a beautiful, seamless experience.
@@ -24,19 +22,19 @@ Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem
 #### npm
 
 ```sh
-npx create-react-app my-app --template cra-template-connectkit
+npx create-react-app my-app --template cra-template-openfortkit
 ```
 
 #### yarn
 
 ```sh
-yarn create react-app my-app --template cra-template-connectkit
+yarn create react-app my-app --template cra-template-openfortkit
 ```
 
 #### pnpm
 
 ```sh
-pnpm dlx create-react-app ./my-app --template cra-template-connectkit
+pnpm dlx create-react-app ./my-app --template cra-template-openfortkit
 ```
 
 ## Documentation
