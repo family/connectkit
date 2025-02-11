@@ -65,7 +65,7 @@ You can find the full OpenfortKit documentation in the Family docs [here]().
 
 ## Examples
 
-There are various runnable examples included in this repository in the [examples folder](https://github.com/family/connectkit/tree/main/examples):
+There are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/fortkit/tree/main/examples):
 
 - [Create React App Example (TypeScript)](https://github.com/openfort-xyz/fortkit/tree/main/examples/cra)
 - [Next.js Example (TypeScript)](https://github.com/openfort-xyz/fortkit/tree/main/examples/nextjs)
@@ -73,11 +73,11 @@ There are various runnable examples included in this repository in the [examples
 
 ### Running Examples Locally
 
-Clone the ConnectKit project and install the necessary dependencies:
+Clone the FortKit project and install the necessary dependencies:
 
 ```sh
-$ git clone git@github.com:family/connectkit.git
-$ cd connectkit
+$ git clone git@github.com:openfort-xyz/fortkit.git
+$ cd fortkit
 $ yarn install
 ```
 
