@@ -101,4 +101,4 @@ See [LICENSE](https://github.com/openfort-xyz/fortkit/blob/main/LICENSE) for mor
 
 ## Credits
 
-OpenfortKit is a fork of [Connectkit](https://github.com/family/connectkit) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beatiful and open-source.
+OpenfortKit is a fork of [Connectkit](https://github.com/family/connectkit) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beautiful and open-source.
