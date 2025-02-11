@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 
 import { WagmiProvider, createConfig } from 'wagmi';
 import { OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
+import { RecoveryMethod } from '@openfort/openfort-js';
 
 const config = createConfig(
   getDefaultConfig({
@@ -19,7 +20,18 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <WagmiProvider config={config}>
-      <OpenfortKitProvider theme="auto">
+      <OpenfortKitProvider
+        theme="auto"
+        publishableKey={process.env.REACT_APP_OPENFORT_PUBLIC_KEY!}
+        walletConfig={{
+          createEmbeddedSigner: true,
+          embeddedSignerConfiguration: {
+            shieldPublishableKey: process.env.REACT_APP_SHIELD_API_KEY!,
+            recoveryMethod: RecoveryMethod.PASSWORD,
+            shieldEncryptionKey: process.env.REACT_APP_SHIELD_ENCRYPTION_KEY!,
+          },
+        }}
+      >
         <App />
       </OpenfortKitProvider>
     </WagmiProvider>

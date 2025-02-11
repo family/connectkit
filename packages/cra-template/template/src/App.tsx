@@ -1,3 +1,4 @@
+import React from 'react';
 import { ConnectKitButton } from '@openfort/openfort-kit';
 
 function App() {
