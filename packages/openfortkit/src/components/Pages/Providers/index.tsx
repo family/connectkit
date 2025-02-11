@@ -9,7 +9,6 @@ import Button from "../../Common/Button";
 import Loader from "../../Common/Loading";
 import { PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
-import { ScrollArea } from "../../Common/ScrollArea";
 import { KitOAuthProvider, routes, socialProviders, useOpenfortKit } from "../../OpenfortKit";
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
 
@@ -95,7 +94,7 @@ const AuthProviderButton: React.FC<{ provider: OAuthProvider, title?: string, ic
   )
 }
 
-const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provider }) => {
+export const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provider }) => {
   switch (provider) {
     case KitOAuthProvider.GUEST:
       return <GuestButton />;
@@ -115,7 +114,7 @@ const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provid
       return (
         <AuthProviderButton
           provider={OAuthProvider.TWITTER}
-          title="Twitter"
+          title="X"
           icon={providersLogos[provider]}
         />
       )
