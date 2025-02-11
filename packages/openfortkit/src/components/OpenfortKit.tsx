@@ -189,6 +189,7 @@ export type OpenfortOptions = {
   skipEmailVerification?: boolean;
   termsOfServiceUrl?: string;
   privacyPolicyUrl?: string;
+  logo?: React.ReactNode;
 
   openfortUrlOverrides?: OpenfortProviderProps['overrides'];
 };

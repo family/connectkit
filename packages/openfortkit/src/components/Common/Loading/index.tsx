@@ -48,6 +48,7 @@ const ConnectingAnimation = styled(motion.div) <{
 
 const Loader = ({ reason, isLoading = true, icon }: { reason: string, isLoading?: boolean, icon?: React.ReactNode }) => {
 
+  const { options } = useOpenfortKit();
   const { triggerResize } = useOpenfortKit();
 
   useEffect(() => {
@@ -64,12 +65,12 @@ const Loader = ({ reason, isLoading = true, icon }: { reason: string, isLoading?
             logo={
               <div
                 style={{
-                  transform: 'scale(0.75)',
+                  padding: '12px',
                   position: 'relative',
                   width: '100%',
                 }}
               >
-                {icon || <Logos.Openfort />}
+                {icon || options?.logo || <Logos.Openfort />}
               </div>
             }
             connecting={isLoading}

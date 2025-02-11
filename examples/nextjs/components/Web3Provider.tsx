@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { KitOAuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
+import CustomLogo from './CustomLogo';
 
 const config = createConfig(
   getDefaultConfig({
@@ -60,6 +61,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           }}
 
           options={{
+            logo: (<CustomLogo />),
             authProviders: [
               KitOAuthProvider.GUEST,
               KitOAuthProvider.EMAIL,
