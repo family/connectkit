@@ -176,16 +176,16 @@ const CreateEmbeddedSigner: React.FC = () => {
     setLoading(false);
   }, [user])
 
-  if (isConnected) {
-    return <Connected />
-  }
-
   if (embeddedSignerLoading || loading) {
     return (
       <PageContent>
         <Loader reason="Setting up signer" />
       </PageContent>
     )
+  }
+
+  if (isConnected && user) {
+    return <Connected />
   }
 
   if (walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC) {
