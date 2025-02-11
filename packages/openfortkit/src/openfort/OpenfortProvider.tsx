@@ -268,7 +268,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
         await openfort.configureEmbeddedSigner(chainId, shieldAuth);
       } else if (method === RecoveryMethod.PASSWORD) {
         if (!password || password.length < 4) {
-          throw new Error('Password recovery must be at least 4 characters');
+          throw "Password recovery must be at least 4 characters";
         }
         const shieldAuth: ShieldAuthentication = {
           auth: ShieldAuthType.OPENFORT,
@@ -293,7 +293,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
         }
       }
       return {
-        error: "Error handling recovery with Openfort",
+        error: "The recovery phrase you entered is incorrect.",
       };
     }
   }, [openfort]);

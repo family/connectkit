@@ -9,20 +9,20 @@ import { OAuthProvider, RecoveryMethod } from "@openfort/openfort-js";
 import FitText from "../../Common/FitText";
 import Loader from "../../Common/Loading";
 import { isPlayerVerified } from "../../../utils";
+import { motion, AnimatePresence } from 'framer-motion';
 
 // TODO: Localize
 
 const Recover: React.FC = () => {
   const [recoveryPhrase, setRecoveryPhrase] = React.useState("");
   const { handleRecovery } = useOpenfort();
-  const [recoveryError, setRecoveryError] = React.useState(false);
+  const [recoveryError, setRecoveryError] = React.useState<false | string>(false);
   const { triggerResize, options, log } = useOpenfortKit();
   const chain = useChainId();
   const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = () => {
     setLoading(true);
-    console.log("Recovery phrase", recoveryPhrase);
     handleRecovery({
       method: RecoveryMethod.PASSWORD,
       password: recoveryPhrase,
@@ -32,7 +32,7 @@ const Recover: React.FC = () => {
       if (response.success) {
         log("Recovery success");
       } else {
-        setRecoveryError(true);
+        setRecoveryError(response.error || "There was an error recovering your account");
       }
     });
   };
@@ -65,11 +65,13 @@ const Recover: React.FC = () => {
         />
 
         {recoveryError && (
-          <ModalBody style={{ height: 24, marginTop: 12 }} $error>
-            <FitText>
-              The recovery phrase you entered is incorrect.
-            </FitText>
-          </ModalBody>
+          <motion.div key={recoveryError} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <ModalBody style={{ height: 24, marginTop: 12 }} $error>
+              <FitText>
+                {recoveryError}
+              </FitText>
+            </ModalBody>
+          </motion.div>
         )}
         <Button
           onClick={handleSubmit}
