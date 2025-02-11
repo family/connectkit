@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.2] - 2024-02-11
+
+### Exported methods and types
+
+Exported methods and types have been updated.
+
 ## [0.0.1] - 2024-02-11
 
 ### Initial release
