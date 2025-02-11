@@ -94,7 +94,7 @@ type ContextValue = {
 
 export const Context = createContext<ContextValue | null>(null);
 
-export enum KitOAuthProvider {
+export enum AuthProvider {
   GOOGLE = "google",
   TWITTER = "twitter",
   FACEBOOK = "facebook",
@@ -110,9 +110,9 @@ export enum KitOAuthProvider {
   GUEST = "guest",
 }
 export const socialProviders = [
-  KitOAuthProvider.GOOGLE,
-  KitOAuthProvider.TWITTER,
-  KitOAuthProvider.FACEBOOK,
+  AuthProvider.GOOGLE,
+  AuthProvider.TWITTER,
+  AuthProvider.FACEBOOK,
 ]
 
 
@@ -185,7 +185,7 @@ export type FortWalletOptions = {
 }
 
 export type OpenfortOptions = {
-  authProviders?: KitOAuthProvider[];
+  authProviders?: AuthProvider[];
   skipEmailVerification?: boolean;
   termsOfServiceUrl?: string;
   privacyPolicyUrl?: string;
@@ -332,9 +332,9 @@ export const OpenfortKitProvider = ({
 
   if (opts.authProviders?.length === 0) {
     opts.authProviders = [
-      KitOAuthProvider.GUEST,
-      KitOAuthProvider.EMAIL,
-      KitOAuthProvider.WALLET,
+      AuthProvider.GUEST,
+      AuthProvider.EMAIL,
+      AuthProvider.WALLET,
     ];
   }
 

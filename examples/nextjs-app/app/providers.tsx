@@ -5,8 +5,7 @@ import { type ReactNode } from 'react';
 import { WagmiProvider } from 'wagmi';
 
 import { config } from '../config';
-import { KitOAuthProvider, OpenfortKitProvider } from '@openfort/openfort-kit';
-import { RecoveryMethod } from '@openfort/openfort-js';
+import { AuthProvider, OpenfortKitProvider, RecoveryMethod } from '@openfort/openfort-kit';
 
 const queryClient = new QueryClient();
 export function Providers(props: { children: ReactNode }) {
@@ -41,8 +40,8 @@ export function Providers(props: { children: ReactNode }) {
             skipEmailVerification: true,
 
             authProviders: [
-              KitOAuthProvider.EMAIL,
-              KitOAuthProvider.WALLET,
+              AuthProvider.EMAIL,
+              AuthProvider.WALLET,
             ]
           }}
         >

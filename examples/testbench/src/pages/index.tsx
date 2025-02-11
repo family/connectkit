@@ -9,7 +9,7 @@ import {
   ChainIcon,
   useChains,
   useModal,
-  KitOAuthProvider,
+  AuthProvider,
 } from '@openfort/openfort-kit';
 
 import {
@@ -64,13 +64,13 @@ const languages: SelectProps[] = [
   { label: 'Turkish', value: 'tr-TR' },
   { label: 'Vietnamese', value: 'vi-VN' },
 ];
-const providers: SelectProps<KitOAuthProvider>[] = [
-  { label: 'email', value: KitOAuthProvider.EMAIL },
-  { label: 'google', value: KitOAuthProvider.GOOGLE },
-  { label: 'facebook', value: KitOAuthProvider.FACEBOOK },
-  { label: 'twitter', value: KitOAuthProvider.TWITTER },
-  { label: 'wallet', value: KitOAuthProvider.WALLET },
-  { label: 'guest', value: KitOAuthProvider.GUEST },
+const providers: SelectProps<AuthProvider>[] = [
+  { label: 'email', value: AuthProvider.EMAIL },
+  { label: 'google', value: AuthProvider.GOOGLE },
+  { label: 'facebook', value: AuthProvider.FACEBOOK },
+  { label: 'twitter', value: AuthProvider.TWITTER },
+  { label: 'wallet', value: AuthProvider.WALLET },
+  { label: 'guest', value: AuthProvider.GUEST },
 ];
 
 const AccountInfo = () => {

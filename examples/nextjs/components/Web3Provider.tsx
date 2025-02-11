@@ -1,9 +1,8 @@
 "use client";
 import React from 'react';
 
-import { RecoveryMethod } from '@openfort/openfort-js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { KitOAuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
+import { AuthProvider, OpenfortKitProvider, RecoveryMethod, getDefaultConfig } from '@openfort/openfort-kit';
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
 import CustomLogo from './CustomLogo';
@@ -73,12 +72,12 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
             // Set the auth providers you want to use
             authProviders: [
-              KitOAuthProvider.GUEST,
-              KitOAuthProvider.EMAIL,
-              KitOAuthProvider.GOOGLE,
-              KitOAuthProvider.TWITTER,
-              KitOAuthProvider.FACEBOOK,
-              KitOAuthProvider.WALLET,
+              AuthProvider.GUEST,
+              AuthProvider.EMAIL,
+              AuthProvider.GOOGLE,
+              AuthProvider.TWITTER,
+              AuthProvider.FACEBOOK,
+              AuthProvider.WALLET,
             ],
 
             // Set the chain id you want to use, by default it will use the first chain

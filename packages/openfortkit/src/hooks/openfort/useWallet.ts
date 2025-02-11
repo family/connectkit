@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import { KitOAuthProvider, routes, useOpenfortKit } from "../../components/OpenfortKit";
+import { AuthProvider, routes, useOpenfortKit } from "../../components/OpenfortKit";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 import { openfortWalletId } from "../../constants/openfort";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { EmbeddedState } from "@openfort/openfort-js";
 import { useWallets as useWagmiWallets } from "../../wallets/useWallets";
 
-type UserWallet = {
+export type UserWallet = {
   address?: `0x${string}`;
   connectorType?: string;
   walletClientType?: string;
@@ -25,7 +25,7 @@ export function useWallets() {
 
   const wallets: UserWallet[] = useMemo(() => {
     const linkedWallets: UserWallet[] = user ? user.linkedAccounts
-      .filter((a) => a.provider === KitOAuthProvider.WALLET)
+      .filter((a) => a.provider === AuthProvider.WALLET)
       .map((a) => {
         const id = wagmiWallets.find((c) => c.connector.name.toLowerCase() === a.walletClientType)?.id;
         return {

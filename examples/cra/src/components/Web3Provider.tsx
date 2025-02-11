@@ -2,7 +2,7 @@ import React from 'react';
 
 import { WagmiProvider, createConfig } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { KitOAuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
+import { AuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
 
 const config = createConfig(
   getDefaultConfig({
@@ -31,10 +31,10 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
           options={{
             authProviders: [
-              KitOAuthProvider.GUEST,
-              KitOAuthProvider.EMAIL,
-              KitOAuthProvider.GOOGLE,
-              KitOAuthProvider.WALLET,
+              AuthProvider.GUEST,
+              AuthProvider.EMAIL,
+              AuthProvider.GOOGLE,
+              AuthProvider.WALLET,
             ],
 
             skipEmailVerification: true,

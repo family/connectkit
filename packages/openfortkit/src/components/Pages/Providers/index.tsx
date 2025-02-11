@@ -9,7 +9,7 @@ import Button from "../../Common/Button";
 import Loader from "../../Common/Loading";
 import { PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
-import { KitOAuthProvider, routes, socialProviders, useOpenfortKit } from "../../OpenfortKit";
+import { AuthProvider, routes, socialProviders, useOpenfortKit } from "../../OpenfortKit";
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
 
 const ProviderButton: React.FC<{
@@ -94,15 +94,15 @@ const AuthProviderButton: React.FC<{ provider: OAuthProvider, title?: string, ic
   )
 }
 
-export const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({ provider }) => {
+export const ProviderButtonSwitch: React.FC<{ provider: AuthProvider }> = ({ provider }) => {
   switch (provider) {
-    case KitOAuthProvider.GUEST:
+    case AuthProvider.GUEST:
       return <GuestButton />;
-    case KitOAuthProvider.WALLET:
+    case AuthProvider.WALLET:
       return <WalletButton />
-    case KitOAuthProvider.EMAIL:
+    case AuthProvider.EMAIL:
       return <EmailButton />
-    case KitOAuthProvider.GOOGLE:
+    case AuthProvider.GOOGLE:
       return (
         <AuthProviderButton
           provider={OAuthProvider.GOOGLE}
@@ -110,7 +110,7 @@ export const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({
           icon={providersLogos[provider]}
         />
       )
-    case KitOAuthProvider.TWITTER:
+    case AuthProvider.TWITTER:
       return (
         <AuthProviderButton
           provider={OAuthProvider.TWITTER}
@@ -118,7 +118,7 @@ export const ProviderButtonSwitch: React.FC<{ provider: KitOAuthProvider }> = ({
           icon={providersLogos[provider]}
         />
       )
-    case KitOAuthProvider.FACEBOOK:
+    case AuthProvider.FACEBOOK:
       return (
         <AuthProviderButton
           provider={OAuthProvider.FACEBOOK}

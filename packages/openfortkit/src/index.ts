@@ -10,7 +10,7 @@ export { useModal } from './hooks/useModal';
 export {
   OpenfortKitProvider,
   Context as OpenfortKitContext,
-  KitOAuthProvider,
+  AuthProvider as AuthProvider,
 } from './components/OpenfortKit';
 export { OpenfortKitButton } from './components/ConnectButton';
 
@@ -26,4 +26,6 @@ export { useChainIsSupported } from './hooks/useChainIsSupported';
 
 export { useOpenfort } from "./openfort/OpenfortProvider";
 export { useProviders } from "./hooks/openfort/useProviders";
-export { useWallets } from "./hooks/openfort/useWallet";
+export { useWallets, UserWallet } from "./hooks/openfort/useWallet";
+
+export { RecoveryMethod, AuthPlayerResponse } from "@openfort/openfort-js";
