@@ -211,7 +211,6 @@ const ConnectWithInjector: React.FC<{
   const runConnect = async () => {
     if (wallet?.isInstalled && wallet?.connector) {
       // Disconnect if already connected
-      console.log('TRYING TO DISCONNECT', isConnected);
       if (isConnected)
         disconnect();
 

@@ -439,10 +439,10 @@ export const OpenfortKitProvider = ({
     log,
     displayError: (message: string | React.ReactNode | null, code?: any) => {
       setErrorMessage(message);
-      console.log('---------CONNECTKIT DEBUG---------');
+      console.log('---------OPENFORT DEBUG---------');
       console.log(message);
       if (code) console.table(code);
-      console.log('---------/CONNECTKIT DEBUG---------');
+      console.log('---------/OPENFORT DEBUG---------');
     },
     resize,
     triggerResize: () => onResize((prev) => prev + 1),

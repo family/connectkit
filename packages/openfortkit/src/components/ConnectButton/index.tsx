@@ -134,7 +134,6 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   });
 
   function hide() {
-    console.log("hide");
     setOpen(false);
   }
 
