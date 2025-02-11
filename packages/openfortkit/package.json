@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "author": "Openfort (https://www.openfort.xyz)",
   "license": "BSD-2-Clause license",
-  "description": "Using Openfort in your React app.",
+  "description": "The easiest way to integrate Openfort to your project.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/family/connectkit.git",

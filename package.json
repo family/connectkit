@@ -1,7 +1,7 @@
 {
-  "name": "family-connectkit",
+  "name": "openfort-kit",
   "version": "0.0.0",
-  "description": "Family ConnectKit.",
+  "description": "The easiest way to integrate Openfort to your project.",
   "main": "packages/openfortkit/src/index.ts",
   "private": true,
   "workspaces": [
