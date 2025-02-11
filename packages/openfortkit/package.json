@@ -1,6 +1,6 @@
 {
   "name": "@openfort/openfort-kit",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "author": "Openfort (https://www.openfort.xyz)",
   "license": "BSD-2-Clause license",
   "description": "The easiest way to integrate Openfort to your project.",
