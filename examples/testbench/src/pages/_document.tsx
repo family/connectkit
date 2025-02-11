@@ -33,7 +33,7 @@ export default class CustomDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="https://family.co/favicon.png" />
+          <link rel="icon" href="https://www.openfort.xyz/favicon.ico" />
           <link
             href="https://fonts.cdnfonts.com/css/pt-root-ui"
             rel="stylesheet"
