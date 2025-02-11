@@ -12,7 +12,7 @@
   "description": "ConnectKit + TypeScript template for Create React App.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/family/connectkit.git",
+    "url": "git+https://github.com/openfort-xyz/openfort-kit.git",
     "directory": "packages/cra-template"
   },
   "license": "MIT",
@@ -20,7 +20,7 @@
     "node": ">=14"
   },
   "bugs": {
-    "url": "https://github.com/family/connectkit/issues"
+    "url": "https://github.com/openfort-xyz/openfort-kit/issues"
   },
   "files": [
     "template",

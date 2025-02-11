@@ -6,7 +6,7 @@
   "description": "The easiest way to integrate Openfort to your project.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/family/connectkit.git",
+    "url": "git+https://github.com/openfort-xyz/openfort-kit.git",
     "directory": "packages/openfortkit"
   },
   "type": "module",

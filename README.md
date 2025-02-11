@@ -65,18 +65,18 @@ You can find the full OpenfortKit documentation in the Family docs [here]().
 
 ## Examples
 
-There are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/fortkit/tree/main/examples):
+There are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/openfort-kit/tree/main/examples):
 
-- [Create React App Example (TypeScript)](https://github.com/openfort-xyz/fortkit/tree/main/examples/cra)
-- [Next.js Example (TypeScript)](https://github.com/openfort-xyz/fortkit/tree/main/examples/nextjs)
-- [Vite Example (TypeScript)](https://github.com/openfort-xyz/fortkit/tree/main/examples/vite)
+- [Create React App Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/cra)
+- [Next.js Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/nextjs)
+- [Vite Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/vite)
 
 ### Running Examples Locally
 
 Clone the FortKit project and install the necessary dependencies:
 
 ```sh
-$ git clone git@github.com:openfort-xyz/fortkit.git
+$ git clone git@github.com:openfort-xyz/openfort-kit.git
 $ cd fortkit
 $ yarn install
 ```
@@ -97,8 +97,8 @@ $ yarn dev:cra # Create React App
 
 ## License
 
-See [LICENSE](https://github.com/openfort-xyz/fortkit/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/openfort-xyz/openfort-kit/blob/main/LICENSE) for more information.
 
 ## Credits
 
-OpenfortKit is a fork of [Connectkit](https://github.com/family/connectkit) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beautiful and open-source.
+OpenfortKit is a fork of [Connectkit](https://github.com/openfort-xyz/openfort-kit) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beautiful and open-source.
