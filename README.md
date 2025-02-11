@@ -1,10 +1,8 @@
-<a href="https://docs.family.co/connectkit">
-  <img width="1080" alt="connectkit" src="https://github.com/family/connectkit/assets/1930210/87c2e868-3228-44b8-82c3-a38adf6d1bbf">
-</a>
+# OpenfortKit
 
-# ConnectKit
+The easiest way to integrate Openfort to your project, with built-in authentication and seamless wallet connectivity.
 
-ConnectKit is a powerful [React](https://reactjs.org/) component library for connecting a wallet to your dApp. It supports the most popular connectors and chains out of the box and provides a beautiful, seamless experience.
+It offers a simple, customizable UI. Supports authentication providers like Google, X, or Facebook out of the box. Access your address through Openfort’s [embedded wallet solution](https://www.openfort.xyz/docs/guides/javascript/embedded-signer/recovery) or connect their own wallet provider effortlessly.
 
 ## Features
 
@@ -17,7 +15,9 @@ and much more...
 
 ## Quick Start
 
-Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
+### New app
+
+Get started with `create-react-app` Openfortkit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
 
 #### npm
 
@@ -37,29 +37,39 @@ yarn create react-app my-app --template cra-template-openfortkit
 pnpm dlx create-react-app ./my-app --template cra-template-openfortkit
 ```
 
+### Import `OpenfortKit` to your project
+
+Add OpenfortKit to your already existing project.
+
+#### npm
+
+```sh
+npm install @openfort/openfort-kit @tanstack/react-query wagmi viem
+```
+
+#### yarn
+
+```sh
+yarn add @openfort/openfort-kit @tanstack/react-query wagmi viem
+```
+
+#### pnpm
+
+```sh
+pnpm add @openfort/openfort-kit @tanstack/react-query wagmi viem
+```
+
 ## Documentation
 
-You can find the full ConnectKit documentation in the Family docs [here](https://docs.family.co/connectkit).
-
-## API Reference
-
-You can find the full API Reference in the Family docs [here](https://docs.family.co/connectkit/api-reference).
+You can find the full OpenfortKit documentation in the Family docs [here]().
 
 ## Examples
 
 There are various runnable examples included in this repository in the [examples folder](https://github.com/family/connectkit/tree/main/examples):
 
-- [Create React App Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/cra)
-- [Next.js Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/nextjs)
-- [Vite Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/vite)
-
-### Try in CodeSandbox
-
-You can try out some ConnectKit examples directly in your browser through CodeSandbox:
-
-- [Create React App Example (TypeScript)](https://codesandbox.io/s/5rhqm0?file=/README.md)
-- [Next.js (TypeScript)](https://codesandbox.io/s/qnvyqe?file=/README.md)
-- [Vite Example (TypeScript)](https://codesandbox.io/s/4jtssh?file=/README.md)
+- [Create React App Example (TypeScript)](https://github.com/openfort-xyz/fortkit/tree/main/examples/cra)
+- [Next.js Example (TypeScript)](https://github.com/openfort-xyz/fortkit/tree/main/examples/nextjs)
+- [Vite Example (TypeScript)](https://github.com/openfort-xyz/fortkit/tree/main/examples/vite)
 
 ### Running Examples Locally
 
@@ -74,8 +84,7 @@ $ yarn install
 and start the code bundler:
 
 ```sh
-$ yarn dev:connectkit
-$ yarn dev:connectkit-next-siwe
+$ yarn dev:kit
 ```
 
 and then simply select the example you'd like to run:
@@ -83,18 +92,13 @@ and then simply select the example you'd like to run:
 ```sh
 $ yarn dev:vite # Vite
 $ yarn dev:nextjs # Next.js
-$ yarn dev:nextjs-siwe # Next.js with SIWE
 $ yarn dev:cra # Create React App
 ```
 
-## Contribute
-
-Before starting on anything, please have a read through our [Contribution Guidelines](https://github.com/family/connectkit/blob/main/CONTRIBUTING.md).
-
-## Twitter
-
-Follow [@family](https://twitter.com/family) on Twitter for the latest updates on ConnectKit.
-
 ## License
 
-See [LICENSE](https://github.com/family/connectkit/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/openfort-xyz/fortkit/blob/main/LICENSE) for more information.
+
+## Credits
+
+OpenfortKit is a fork of [Connectkit](https://github.com/family/connectkit) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beatiful and open-source.
