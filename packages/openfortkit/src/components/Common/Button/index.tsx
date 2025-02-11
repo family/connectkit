@@ -52,7 +52,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={(event: any) => {
         if (!disabled && onClick) onClick(event);
       }}
-      href={hrefUrl}
+      href={href && hrefUrl}
       target={href && '_blank'}
       rel={href && 'noopener noreferrer'}
       disabled={disabled}
