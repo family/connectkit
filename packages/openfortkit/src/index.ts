@@ -12,7 +12,7 @@ export {
   Context as OpenfortKitContext,
   KitOAuthProvider,
 } from './components/OpenfortKit';
-export { ConnectKitButton } from './components/ConnectButton';
+export { OpenfortKitButton } from './components/ConnectButton';
 
 //export { default as NetworkButton } from './components/NetworkButton';
 //export { default as BalanceButton, Balance } from './components/BalanceButton';

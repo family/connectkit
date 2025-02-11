@@ -1,10 +1,10 @@
-import { ConnectKitButton } from '@openfort/openfort-kit';
+import { OpenfortKitButton } from '@openfort/openfort-kit';
 import { Info } from './components/Info';
 
 function App() {
   return (
     <div className="container">
-      <ConnectKitButton />
+      <OpenfortKitButton />
       <Info />
     </div>
   );

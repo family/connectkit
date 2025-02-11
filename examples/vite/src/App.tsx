@@ -1,4 +1,4 @@
-import { ConnectKitButton } from '@openfort/openfort-kit';
+import { OpenfortKitButton } from '@openfort/openfort-kit';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         height: '100vh',
       }}
     >
-      <ConnectKitButton />
+      <OpenfortKitButton />
     </div>
   );
 }

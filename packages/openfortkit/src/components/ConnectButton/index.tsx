@@ -163,7 +163,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   );
 };
 
-ConnectButtonRenderer.displayName = 'ConnectKitButton.Custom';
+ConnectButtonRenderer.displayName = 'OpenfortKitButton.Custom';
 
 const ConnectedLabel = ({ separator }: { separator?: string }) => {
   const { user, isLoading } = useOpenfort();
@@ -177,7 +177,7 @@ const ConnectedLabel = ({ separator }: { separator?: string }) => {
   return "Loading...";
 }
 
-function ConnectKitButtonInner({
+function OpenfortKitButtonInner({
   label,
   showAvatar,
   separator,
@@ -301,7 +301,7 @@ function ConnectKitButtonInner({
   );
 }
 
-type ConnectKitButtonProps = {
+type OpenfortKitButtonProps = {
   // Options
   label?: string;
   showBalance?: boolean;
@@ -316,7 +316,7 @@ type ConnectKitButtonProps = {
   onClick?: (open: () => void) => void;
 };
 
-export function ConnectKitButton({
+export function OpenfortKitButton({
   // Options
   label,
   showBalance = false,
@@ -329,7 +329,7 @@ export function ConnectKitButton({
 
   // Events
   onClick,
-}: ConnectKitButtonProps) {
+}: OpenfortKitButtonProps) {
   const isMounted = useIsMounted();
 
   const context = useOpenfortKit();
@@ -454,7 +454,7 @@ export function ConnectKitButton({
               }
           }
         >
-          <ConnectKitButtonInner
+          <OpenfortKitButtonInner
             separator={separator}
             showAvatar={showAvatar}
             label={label}
@@ -465,4 +465,4 @@ export function ConnectKitButton({
   );
 }
 
-ConnectKitButton.Custom = ConnectButtonRenderer;
+OpenfortKitButton.Custom = ConnectButtonRenderer;

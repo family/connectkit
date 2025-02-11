@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import {
   Types,
-  ConnectKitButton,
+  OpenfortKitButton,
   Avatar,
   ChainIcon,
   useChains,
@@ -274,7 +274,7 @@ const Home: NextPage = () => {
       <main>
         <div className="panel">
           <h2>Connect Button</h2>
-          <ConnectKitButton label={label} />
+          <OpenfortKitButton label={label} />
           {isConnected && (
             <button onClick={handleDisconnect}>Disconnect</button>
           )}
@@ -319,7 +319,7 @@ const Home: NextPage = () => {
         </div>
       </main>
       <aside>
-        <ConnectKitButton.Custom>
+        <OpenfortKitButton.Custom>
           {({ isConnected, isConnecting, show, address, ensName, chain }) => {
             return (
               <button onClick={show}>
@@ -344,14 +344,14 @@ const Home: NextPage = () => {
               </button>
             );
           }}
-        </ConnectKitButton.Custom>
+        </OpenfortKitButton.Custom>
 
         <p>isConnecting: {isConnecting.toString()}</p>
 
         <Actions />
-        <h2>ConnectKitButton props</h2>
+        <h2>OpenfortKitButton props</h2>
         <Textbox
-          label="ConnectKitButton Label"
+          label="OpenfortKitButton Label"
           value={label}
           onChange={(e: any) => {
             setLabel(e.target.value);
