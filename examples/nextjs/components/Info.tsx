@@ -19,7 +19,7 @@ export const Info = () => {
   return (
     <div className="demo" style={{ display: "flex", width: "90vw", flexDirection: "column", alignItems: "start", }}>
       <section style={{ width: "100%" }}>
-        <h2>MODAL</h2>
+        <h2 className="text-red-200">MODAL</h2>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button
             onClick={() => { setOpen(true) }}

@@ -1,16 +1,10 @@
 import { OpenfortKitButton } from '@openfort/openfort-kit';
 import type { NextPage } from 'next';
 import { Info } from '../components/Info';
+import Page from './Page';
 
 const Home: NextPage = () => {
-  return (
-    <div className="container">
-      <OpenfortKitButton
-        showBalance
-      />
-      <Info />
-    </div>
-  );
+  return <Page />;
 };
 
 export default Home;
