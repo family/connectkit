@@ -27,7 +27,7 @@ export default function Page() {
     <>
       {/* Header */}
       <header className="fixed h-20 w-full border-b px-6 py-3 flex items-center z-[2147483647] bg-white">
-        <div className="max-w-7xl mx-auto col-span-2 flex items-center w-full justify-between">
+        <div className="mx-auto col-span-2 flex items-center w-full justify-between">
           <div className="flex items-center space-x-4">
             <svg
               viewBox="0 0 39 11"
@@ -83,15 +83,16 @@ export default function Page() {
         </div>
       </header>
 
-      <div className="relative pt-20 min-h-screen grid grid-cols-[300px,1fr] max-w-7xl mx-auto">
-
+      <div className="relative pt-20 min-h-screen grid grid-cols-[300px,1fr] mx-auto">
 
         {/* Right Sidebar */}
         <aside className="relative z-[2147483647]">
           <div className="absolute right-0 top-0 bottom-0 bg-white w-screen"></div>
           <div className="relative flex flex-col h-full border-r border-l p-6">
             <div className="mb-6 flex h-[100px] bg-gray-100 items-center justify-center rounded-lg border bg-muted">
-              <OpenfortKitButton />
+              <OpenfortKitButton
+                label="Login"
+              />
             </div>
             <div className="">
               <h3 className="text-lg font-semibold">Theme</h3>
@@ -187,7 +188,7 @@ export default function Page() {
 
         {/* Main Content */}
         <main className="p-6 relative" >
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+          <div className="flex gap-6  flex-wrap" >
             {[
               {
                 title: "Address",
@@ -210,16 +211,16 @@ export default function Page() {
                 title: "User",
                 metrics: [
                   {
-                    label: "Player",
+                    label: "ID",
                     value: user?.id
                   },
                   {
                     label: "Linked providers",
-                    value: linkedProviders.join(", ")
+                    value: linkedProviders.join(", ") || "None"
                   },
                   {
                     label: "Not linked providers",
-                    value: availableProviders.join(", ")
+                    value: availableProviders.join(", ") || "All providers are linked"
                   },
                 ],
                 needsUser: true
@@ -258,7 +259,7 @@ export default function Page() {
                 needsUser: true
               },
             ].map((card, i) => (
-              <div key={i} className="relative rounded-lg border bg-card p-6 shadow-sm">
+              <div key={i} className="relative rounded-lg border bg-card p-6 shadow-sm max-w-[600px] min-w-[400px] w-full flex-1">
                 {
                   card.needsUser && !user && (
                     <div
@@ -267,7 +268,7 @@ export default function Page() {
                     >
                       <h3 className="text-lg font-semibold">{card.title}</h3>
                       <div>
-                        Connect wallet to view {card.title.toLowerCase()} section
+                        Login to view {card.title.toLowerCase()} section
                       </div>
                     </div>
                   )
