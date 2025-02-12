@@ -26,7 +26,7 @@ export default function Page() {
   return (
     <>
       {/* Header */}
-      <header className="fixed h-20 w-full border-b px-6 py-3 flex items-center z-10">
+      <header className="fixed h-20 w-full border-b px-6 py-3 flex items-center z-[2147483647] bg-white">
         <div className="max-w-7xl mx-auto col-span-2 flex items-center w-full justify-between">
           <div className="flex items-center space-x-4">
             <svg
@@ -83,94 +83,98 @@ export default function Page() {
         </div>
       </header>
 
-      <div className="relative pt-20 min-h-screen grid grid-cols-[300px,1fr]  max-w-7xl mx-auto">
+      <div className="relative pt-20 min-h-screen grid grid-cols-[300px,1fr] max-w-7xl mx-auto">
 
 
         {/* Right Sidebar */}
-        <aside className="border-r p-6 mt flex flex-col">
-          <div className="mb-6 flex h-[100px] bg-gray-100 items-center justify-center rounded-lg border bg-muted">
-            <OpenfortKitButton />
-          </div>
-          <div className="">
-            <h3 className="text-lg font-semibold">Theme</h3>
-            <div className="w-40">
-              <Select value={sampleTheme} onValueChange={(value) => setSampleTheme(value as Theme)}>
-                <SelectTrigger className="h-9 w-full bg-white shadow-sm rounded-md ring-1 ring-black ring-opacity-5 text-red flex items-center px-4">
-                  {sampleTheme}
-                  <CaretDownIcon className="h-4 w-4 ml-auto" />
-                </SelectTrigger>
-                <SelectContent className="bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5 w-full">
-                  {
-                    [
-                      "auto", "web95", "retro", "soft", "midnight", "minimal", "rounded", "nouns"
-                    ].map((theme) => (
-                      <SelectItem
-                        className="p-2 hover:bg-gray-100 cursor-pointer rounded-md w-40 text pl-4"
-                        key={theme} value={theme}
-                      >
-                        {theme}
-                      </SelectItem>
-                    ))
-                  }
-                </SelectContent>
-              </Select>
+        <aside className="relative border-r p-6  z-[2147483647]">
+          <div className="absolute right-0 top-0 bottom-0 bg-white w-screen"></div>
+          <div className="relative flex flex-col h-full">
+            <div className="mb-6 flex h-[100px] bg-gray-100 items-center justify-center rounded-lg border bg-muted">
+              <OpenfortKitButton />
             </div>
-            {/* <div className="rounded-lg border bg-card p-4">
+            <div className="">
+              <h3 className="text-lg font-semibold">Theme</h3>
+              <div className="w-40">
+                <Select value={sampleTheme} onValueChange={(value) => setSampleTheme(value as Theme)}>
+                  <SelectTrigger className="h-9 w-full bg-white shadow-sm rounded-md ring-1 ring-black ring-opacity-5 text-red flex items-center px-4">
+                    {sampleTheme}
+                    <CaretDownIcon className="h-4 w-4 ml-auto" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5 w-full">
+                    {
+                      [
+                        "auto", "web95", "retro", "soft", "midnight", "minimal", "rounded", "nouns"
+                      ].map((theme) => (
+                        <SelectItem
+                          className="p-2 hover:bg-gray-100 cursor-pointer rounded-md w-40 text pl-4"
+                          key={theme} value={theme}
+                        >
+                          {theme}
+                        </SelectItem>
+                      ))
+                    }
+                  </SelectContent>
+                </Select>
+
+              </div>
+              {/* <div className="rounded-lg border bg-card p-4">
               <h4 className="font-medium">Quick Stats</h4>
               <p className="mt-2 text-sm text-muted-foreground">
                 Your account has shown a 12% increase in activity over the last 7 days.
               </p>
             </div> */}
-          </div>
-          <div className="flex gap-2 mt-2 flex-col">
-            <h3 className="text-lg font-semibold">Open page</h3>
-            <div>
+            </div>
+            <div className="flex gap-2 mt-2 flex-col">
+              <h3 className="text-lg font-semibold">Open page</h3>
+              <div>
+                <Button
+                  onClick={() => { setOpen(true) }}
+                  variant="outline"
+                >
+                  Default page
+                </Button>
+              </div>
+              {
+                user && (
+                  <>
+                    <div>
+                      <Button
+                        onClick={() => openSwitchNetworks()}
+                        variant="outline"
+                      >
+                        Switch networks page
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        onClick={() => openProviders()}
+                        variant="outline"
+                      >
+                        Providers page
+                      </Button>
+                    </div>
+                  </>
+                )
+              }
+              <div>
+                <Button
+                  onClick={() => openWallets()}
+                  variant="outline"
+                >
+                  {!user ? "Wallets page" : "Link wallets page"}
+                </Button>
+              </div>
+            </div>
+            <div className="mt-auto">
               <Button
-                onClick={() => { setOpen(true) }}
-                variant="outline"
+                onClick={() => logout()}
+                disabled={!user}
+                className="bg-red-500"
               >
-                Default page
+                Log out
               </Button>
             </div>
-            {
-              user && (
-                <>
-                  <div>
-                    <Button
-                      onClick={() => openSwitchNetworks()}
-                      variant="outline"
-                    >
-                      Switch networks page
-                    </Button>
-                  </div>
-                  <div>
-                    <Button
-                      onClick={() => openProviders()}
-                      variant="outline"
-                    >
-                      Providers page
-                    </Button>
-                  </div>
-                </>
-              )
-            }
-            <div>
-              <Button
-                onClick={() => openWallets()}
-                variant="outline"
-              >
-                {!user ? "Wallets page" : "Link wallets page"}
-              </Button>
-            </div>
-          </div>
-          <div className="mt-auto">
-            <Button
-              onClick={() => logout()}
-              disabled={!user}
-              className="bg-red-500"
-            >
-              Log out
-            </Button>
           </div>
         </aside >
 
