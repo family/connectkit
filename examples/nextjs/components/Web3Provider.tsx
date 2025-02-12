@@ -6,6 +6,8 @@ import { AuthProvider, OpenfortKitProvider, RecoveryMethod, getDefaultConfig } f
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
 import CustomLogo from './CustomLogo';
+import { useSample } from './SampleProvider';
+import { Theme } from '@openfort/openfort-kit/build/types';
 
 const config = createConfig(
   getDefaultConfig({
@@ -20,6 +22,7 @@ const config = createConfig(
 const queryClient = new QueryClient();
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
+  const { sampleTheme } = useSample();
 
   return (
     <WagmiProvider config={config}>
@@ -94,7 +97,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           // debugMode
 
           // Set the theme of the OpenfortKit
-          theme='midnight'
+          theme={sampleTheme}
         >
           {children}
         </OpenfortKitProvider>

@@ -1,14 +1,16 @@
 "use client"
 
 import Image from "next/image"
-import { BellIcon, BookIcon, BookOpen, BookOpenIcon, BookOpenText, MenuIcon } from "lucide-react"
+import { ArrowDown, BellIcon, BookIcon, BookOpen, BookOpenIcon, BookOpenText, MenuIcon } from "lucide-react"
 import Button from "../components/Button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select"
 import { OpenfortKitButton } from "@openfort/openfort-kit"
 
 import { useIsMounted, useModal, useOpenfort, useProviders, useWallets } from "@openfort/openfort-kit";
 import { useAccount, useEnsName } from "wagmi";
-import { GitHubLogoIcon } from "@radix-ui/react-icons"
+import { CaretDownIcon, GitHubLogoIcon } from "@radix-ui/react-icons"
+import { useSample } from "../components/SampleProvider"
+import { Theme } from "@openfort/openfort-kit/build/types"
 
 export default function Page() {
   const isMounted = useIsMounted();
@@ -18,6 +20,8 @@ export default function Page() {
   const { linkedProviders, availableProviders } = useProviders()
   const { wallets, setActiveWallet, currentWallet } = useWallets()
   const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();
+
+  const { sampleTheme, setSampleTheme } = useSample();
 
   return (
     <>
@@ -89,21 +93,28 @@ export default function Page() {
           </div>
           <div className="">
             <h3 className="text-lg font-semibold">Theme</h3>
-            <p className="text-sm text-muted-foreground">
-              Midnight
-            </p>
-            {/* <div className="w-40">
-              <Select defaultValue="weekly">
-                <SelectTrigger className="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50 [&>span]:truncate">
-                  <SelectValue placeholder="Select frequency" />
+            <div className="w-40">
+              <Select value={sampleTheme} onValueChange={(value) => setSampleTheme(value as Theme)}>
+                <SelectTrigger className="h-9 w-full bg-white shadow-sm rounded-md ring-1 ring-black ring-opacity-5 text-red flex items-center px-4">
+                  {sampleTheme}
+                  <CaretDownIcon className="h-4 w-4 ml-auto" />
                 </SelectTrigger>
-                <SelectContent className="bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5">
-                  <SelectItem className="m-2" value="daily">Daily</SelectItem>
-                  <SelectItem className="" value="weekly">Weekly</SelectItem>
-                  <SelectItem value="monthly">Monthly</SelectItem>
+                <SelectContent className="bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5 w-full">
+                  {
+                    [
+                      "auto", "web95", "retro", "soft", "midnight", "minimal", "rounded", "nouns"
+                    ].map((theme) => (
+                      <SelectItem
+                        className="p-2 hover:bg-gray-100 cursor-pointer rounded-md w-40 text pl-4"
+                        key={theme} value={theme}
+                      >
+                        {theme}
+                      </SelectItem>
+                    ))
+                  }
                 </SelectContent>
               </Select>
-            </div> */}
+            </div>
             {/* <div className="rounded-lg border bg-card p-4">
               <h4 className="font-medium">Quick Stats</h4>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -263,8 +274,8 @@ export default function Page() {
               </div>
             ))}
           </div>
-        </main>
-      </div>
+        </main >
+      </div >
     </>
   )
 }
