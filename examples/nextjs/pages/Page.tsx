@@ -165,6 +165,13 @@ export default function Page() {
                   {!user ? "Wallets page" : "Link wallets page"}
                 </Button>
               </div>
+              <div>
+                <Button
+                  onClick={() => setOpen(false)}
+                >
+                  Close modal
+                </Button>
+              </div>
             </div>
             <div className="mt-auto">
               <Button
