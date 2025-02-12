@@ -87,9 +87,9 @@ export default function Page() {
 
 
         {/* Right Sidebar */}
-        <aside className="relative border-r p-6  z-[2147483647]">
+        <aside className="relative z-[2147483647]">
           <div className="absolute right-0 top-0 bottom-0 bg-white w-screen"></div>
-          <div className="relative flex flex-col h-full">
+          <div className="relative flex flex-col h-full border-r border-l p-6">
             <div className="mb-6 flex h-[100px] bg-gray-100 items-center justify-center rounded-lg border bg-muted">
               <OpenfortKitButton />
             </div>
