@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { CONNECTKIT_VERSION } from '../../..';
+import { OPENFORTKIT_VERSION } from '../../..';
 
 const Portal = (props: any) => {
   props = {
@@ -20,7 +20,7 @@ const Portal = (props: any) => {
     if (!ref.current) {
       const div = document.createElement('div');
       div.setAttribute('id', selector);
-      div.setAttribute('data-connectkit', `${CONNECTKIT_VERSION}`);
+      div.setAttribute('data-connectkit', `${OPENFORTKIT_VERSION}`);
       document.body.appendChild(div);
       ref.current = div;
     }
