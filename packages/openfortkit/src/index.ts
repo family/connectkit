@@ -24,7 +24,10 @@ export { default as useIsMounted } from './hooks/useIsMounted'; // Useful for ap
 export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
 
-export { useOpenfort } from "./openfort/OpenfortProvider";
+export { useStatus, OpenfortKitStatus } from './hooks/openfort/useStatus';
+export { useLogout } from './hooks/openfort/useLogout';
+export { useUser } from './hooks/openfort/useUser';
+
 export { useProviders } from "./hooks/openfort/useProviders";
 export { useWallets, UserWallet } from "./hooks/openfort/useWallet";
 

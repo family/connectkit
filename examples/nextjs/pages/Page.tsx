@@ -1,22 +1,21 @@
 "use client"
 
-import Image from "next/image"
-import { ArrowDown, BellIcon, BookIcon, BookOpen, BookOpenIcon, BookOpenText, MenuIcon } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@radix-ui/react-select"
+import { BookOpenText } from "lucide-react"
 import Button from "../components/Button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select"
-import { OpenfortKitButton } from "@openfort/openfort-kit"
 
-import { useIsMounted, useModal, useOpenfort, useProviders, useWallets } from "@openfort/openfort-kit";
-import { useAccount, useEnsName } from "wagmi";
-import { CaretDownIcon, GitHubLogoIcon } from "@radix-ui/react-icons"
-import { useSample } from "../components/SampleProvider"
+import { OpenfortKitButton, useIsMounted, useLogout, useModal, useProviders, useUser, useWallets } from "@openfort/openfort-kit"
 import { Theme } from "@openfort/openfort-kit/build/types"
+import { CaretDownIcon, GitHubLogoIcon } from "@radix-ui/react-icons"
+import { useAccount, useEnsName } from "wagmi"
+import { useSample } from "../components/SampleProvider"
 
 export default function Page() {
   const isMounted = useIsMounted();
   const account = useAccount();
+  const { user } = useUser()
+  const logout = useLogout()
   const { data: ensName } = useEnsName({ address: account.address })
-  const { user, logout } = useOpenfort()
   const { linkedProviders, availableProviders } = useProviders()
   const { wallets, setActiveWallet, currentWallet } = useWallets()
   const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();

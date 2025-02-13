@@ -1,14 +1,15 @@
 "use client";
 
-import { useIsMounted, useModal, useOpenfort, useProviders, useWallets } from "@openfort/openfort-kit";
+import { useIsMounted, useLogout, useModal, useProviders, useStatus, useUser, useWallets } from "@openfort/openfort-kit";
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WriteContract";
 
 export const Info = () => {
   const isMounted = useIsMounted();
   const account = useAccount();
+  const { user } = useUser()
+  const logout = useLogout()
   const { data: ensName } = useEnsName({ address: account.address })
-  const { user, logout } = useOpenfort()
   const { linkedProviders, availableProviders } = useProviders()
   const { wallets, setActiveWallet, currentWallet } = useWallets()
   const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();
