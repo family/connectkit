@@ -17,11 +17,14 @@ export default function Page() {
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data?.from != "docs") return;
-      console.log("Received data:", event.data);
+      // console.log("Received data:", event.data);
 
       switch (event.data?.type) {
         case "theme":
           setSampleTheme(event.data.theme);
+          break;
+        case "providers":
+          setSampleTheme(event.data.providers);
           break;
 
       }
@@ -33,7 +36,7 @@ export default function Page() {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <OpenfortKitButton />
+      <OpenfortKitButton label="Login" />
     </div>
   )
 }

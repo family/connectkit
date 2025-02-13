@@ -22,7 +22,7 @@ const config = createConfig(
 const queryClient = new QueryClient();
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
-  const { sampleTheme } = useSample();
+  const { sampleTheme, sampleProviders } = useSample();
 
   return (
     <WagmiProvider config={config}>
@@ -74,14 +74,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             logo: (<CustomLogo />),
 
             // Set the auth providers you want to use
-            authProviders: [
-              AuthProvider.GUEST,
-              AuthProvider.EMAIL,
-              AuthProvider.GOOGLE,
-              AuthProvider.TWITTER,
-              AuthProvider.FACEBOOK,
-              AuthProvider.WALLET,
-            ],
+            authProviders: sampleProviders,
 
             // Set the chain id you want to use, by default it will use the first chain
             initialChainId: polygonAmoy.id,
