@@ -10,7 +10,7 @@ export { useModal } from './hooks/useModal';
 export {
   OpenfortKitProvider,
   Context as OpenfortKitContext,
-  AuthProvider as AuthProvider,
+  AuthProvider,
 } from './components/OpenfortKit';
 export { OpenfortKitButton } from './components/ConnectButton';
 

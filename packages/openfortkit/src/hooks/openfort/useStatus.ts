@@ -1,12 +1,12 @@
 import { useAccount } from "wagmi";
 import { useOpenfort } from "../../openfort/OpenfortProvider";
 
-export const OpenfortKitStatus = {
-  LOADING: 'LOADING',
-  CONNECTED: 'CONNECTED',
-  DISCONNECTED: 'DISCONNECTED',
-  NEEDS_RECOVERY: 'NEEDS_RECOVERY',
-  DISCONNECTED_WITH_ADDRESS: 'DISCONNECTED_WITH_ADDRESS',
+export enum OpenfortKitStatus {
+  LOADING,
+  CONNECTED,
+  DISCONNECTED,
+  NEEDS_RECOVERY,
+  DISCONNECTED_WITH_ADDRESS,
 }
 
 export function useStatus() {
