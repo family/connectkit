@@ -25,7 +25,7 @@ export default function Page() {
   return (
     <>
       {/* Header */}
-      <header className="fixed h-20 w-full border-b px-6 py-3 flex items-center z-[2147483647] bg-white">
+      <header className="fixed h-20 w-full border-b px-6 py-3 flex items-center sm:z-[2147483647] bg-white">
         <div className="mx-auto col-span-2 flex items-center w-full justify-between">
           <div className="flex items-center space-x-4">
             <svg
@@ -54,7 +54,7 @@ export default function Page() {
           <div className="space-x-2 flex pointer-events-auto">
             <a
               target="_blank"
-              href="https://www.openfort.xyz/docs/guides/getting-started"
+              href="https://www.openfort.xyz/docs/guides/react/"
             >
               <Button variant="outline">
                 <BookOpenText className="h-5 w-5 mr-2" />
@@ -85,7 +85,7 @@ export default function Page() {
       <div className="relative pt-20 min-h-screen grid grid-cols-[300px,1fr] mx-auto">
 
         {/* Right Sidebar */}
-        <aside className="relative z-[2147483647]">
+        <aside className="relative lg:z-[2147483647]">
           <div className="absolute right-0 top-0 bottom-0 bg-white w-screen"></div>
           <div className="relative flex flex-col h-full border-r border-l p-6">
             <div className="mb-6 flex h-[100px] bg-gray-100 items-center justify-center rounded-lg border bg-muted">
@@ -258,7 +258,7 @@ export default function Page() {
                 needsUser: true
               },
             ].map((card, i) => (
-              <div key={i} className="relative rounded-lg border bg-card p-6 shadow-sm max-w-[600px] min-w-[400px] w-full flex-1">
+              <div key={i} className="relative rounded-lg border bg-card p-6 shadow-sm w-full max-w-[600px] min-w-[400px] flex-1">
                 {
                   card.needsUser && !user && (
                     <div
@@ -284,6 +284,7 @@ export default function Page() {
                 </div>
               </div>
             ))}
+            <div className="flex-1 px-6 w-full max-w-[600px] min-w-[400px]" />
           </div>
         </main >
       </div >
