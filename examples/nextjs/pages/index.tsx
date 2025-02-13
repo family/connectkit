@@ -82,7 +82,7 @@ export default function Page() {
         </div>
       </header>
 
-      <div className="relative pt-20 min-h-screen grid grid-cols-[300px,1fr] mx-auto">
+      <div className="relative pt-20 min-h-screen grid md:grid-cols-[300px,1fr] mx-auto">
 
         {/* Right Sidebar */}
         <aside className="relative lg:z-[2147483647]">
@@ -173,7 +173,7 @@ export default function Page() {
                 </Button>
               </div>
             </div>
-            <div className="mt-auto">
+            <div className="md:mt-auto mt-2">
               <Button
                 onClick={() => logout()}
                 disabled={!user}
@@ -291,4 +291,3 @@ export default function Page() {
     </>
   )
 }
-
