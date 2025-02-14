@@ -163,9 +163,9 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
     log("Getting ethereum provider");
     openfort.getEthereumProvider(
-      process.env.NEXT_PUBLIC_POLICY_ID ?
+      walletConfig.embeddedSignerConfiguration.ethereumProviderPolicyId ?
         {
-          policy: process.env.NEXT_PUBLIC_POLICY_ID,
+          policy: walletConfig.embeddedSignerConfiguration.ethereumProviderPolicyId,
         }
         : undefined
     );
