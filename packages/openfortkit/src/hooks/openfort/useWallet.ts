@@ -14,7 +14,7 @@ export type UserWallet = {
 }
 
 export function useWallets() {
-  const { user, embeddedState } = useOpenfort();
+  const { user, embeddedState, exportPrivateKey } = useOpenfort();
   const { walletConfig, log, setOpen, setRoute, setConnector } = useOpenfortKit();
   const { connector, isConnected, address } = useAccount();
   const wagmiWallets = useWagmiWallets();
@@ -76,5 +76,6 @@ export function useWallets() {
     wallets,
     currentWallet,
     setActiveWallet,
+    exportPrivateKey,
   }
 }

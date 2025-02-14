@@ -39,6 +39,7 @@ type ContextValue = {
   getAccessToken: typeof Openfort.prototype.getAccessToken;
   initLinkOAuth: typeof Openfort.prototype.initLinkOAuth;
   linkEmailPassword: typeof Openfort.prototype.linkEmailPassword;
+  exportPrivateKey: typeof Openfort.prototype.exportPrivateKey;
 };
 
 const Context = createContext<ContextValue | null>(null);
@@ -379,6 +380,10 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     return openfort.linkEmailPassword(props);
   }, [openfort]);
 
+  const exportPrivateKey: typeof Openfort.prototype.exportPrivateKey = useCallback(async () => {
+    return openfort.exportPrivateKey();
+  }, [openfort]);
+
   // ---- Return values ----
 
   const isLoading = useCallback(() => {
@@ -442,6 +447,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     getAccessToken,
     initLinkOAuth,
     linkEmailPassword,
+    exportPrivateKey,
   };
 
   return createElement(Context.Provider, { value }, <><ConnectCallback onConnect={onConnect} onDisconnect={onDisconnect} />{children}</>);
