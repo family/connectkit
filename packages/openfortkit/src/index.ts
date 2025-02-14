@@ -1,4 +1,4 @@
-export const OPENFORTKIT_VERSION = '0.0.0';
+export const OPENFORTKIT_VERSION = '0.0.4';
 
 export * as Types from './types';
 export { default as getDefaultConfig } from './defaultConfig';

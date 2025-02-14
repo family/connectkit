@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.4] - 2024-02-11
+
+### Separated Hooks
+
+Separated hooks instead of having a general useOpenfort. This hook is no longer available.
+To learn more about the available hooks go to the [openfort documentation](https://www.openfort.xyz/docs/guides/react/hooks).
+
 ## [0.0.3] - 2024-02-11
 
 ### Fix issues
