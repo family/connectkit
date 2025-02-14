@@ -111,29 +111,38 @@ export default function Page() {
             </div>
 
             {/* Theme Selection */}
-            <div className="mb-6">
+            <div className="mb-6 relative">
               <h3 className="text-lg font-semibold mb-2">Theme</h3>
               <div className="w-full md:w-40">
                 <Select value={sampleTheme} onValueChange={(value) => setSampleTheme(value as Theme)}>
-                    <SelectTrigger className="h-9 w-full bg-white shadow-sm rounded-md ring-1 ring-black ring-opacity-5 text-red flex items-center px-4">
-                      {sampleTheme}
-                      <CaretDownIcon className="h-4 w-4 ml-auto" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-white z-50 shadow-lg rounded-md ring-1 ring-black ring-opacity-5 w-full">
-                      {
-                        [
-                          "auto", "web95", "retro", "soft", "midnight", "minimal", "rounded", "nouns"
-                        ].map((theme) => (
-                          <SelectItem
-                            className="p-2 hover:bg-gray-100 cursor-pointer rounded-md w-40 text pl-4"
-                            key={theme} value={theme}
-                          >
-                            {theme}
-                          </SelectItem>
-                        ))
-                      }
-                    </SelectContent>
-                  </Select>
+                  <SelectTrigger className="h-9 w-full bg-white shadow-sm rounded-md ring-1 ring-black ring-opacity-5 text-red flex items-center px-4">
+                    {sampleTheme}
+                    <CaretDownIcon className="h-4 w-4 ml-auto" />
+                  </SelectTrigger>
+                  <SelectContent 
+                    position="popper"
+                    className="w-[var(--radix-select-trigger-width)] bg-white border rounded-md shadow-md z-50 overflow-hidden"
+                    style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      maxHeight: '300px',
+                      overflowY: 'auto'
+                    }}
+                  >
+                    <div className="py-1">
+                      {["auto", "web95", "retro", "soft", "midnight", "minimal", "rounded", "nouns"].map((theme) => (
+                        <SelectItem
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm md:text-base"
+                          key={theme}
+                          value={theme}
+                        >
+                          {theme}
+                        </SelectItem>
+                      ))}
+                    </div>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
@@ -154,8 +163,6 @@ export default function Page() {
                 <Button onClick={() => setOpen(false)}>Close modal</Button>
               </div>
             </div>
-
-
 
             {/* Logout Button */}
             <Button
