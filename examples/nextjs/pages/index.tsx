@@ -222,7 +222,7 @@ export default function Page() {
                 needsUser: true
               },
             ].map((card, i) => (
-              <div key={i} className="rounded-lg border bg-card p-4 md:p-6 shadow-sm relative">
+              <div key={i} className="rounded-lg border bg-card p-4 md:p-6 shadow-sm relative overflow-x-auto">
                 {card.needsUser && !user && (
                   <div className="absolute inset-0 m-2 flex items-center justify-center bg-white/60 backdrop-blur-[5px] rounded-lg" style={{ position: 'absolute', zIndex: 10 }}>
                     <div className="text-center">
