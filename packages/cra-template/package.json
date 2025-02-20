@@ -1,7 +1,7 @@
 {
   "name": "cra-template-openfortkit",
   "version": "0.0.1",
-  "author": "Family",
+  "author": "Openfort",
   "homepage": "https://www.openfort.xyz/",
   "keywords": [
     "react",
@@ -9,7 +9,7 @@
     "template",
     "typescript"
   ],
-  "description": "ConnectKit + TypeScript template for Create React App.",
+  "description": "The easiest way to integrate Openfort for Create React App.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openfort-xyz/openfort-kit.git",
