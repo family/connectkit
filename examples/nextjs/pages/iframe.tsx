@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useSample } from "../components/SampleProvider";
 
 export default function Page() {
-  const { setSampleTheme } = useSample();
+  const { setSampleTheme, setSampleProviders } = useSample();
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -17,7 +17,7 @@ export default function Page() {
           setSampleTheme(event.data.theme);
           break;
         case "providers":
-          setSampleTheme(event.data.providers);
+          setSampleProviders(event.data.providers);
           break;
 
       }
@@ -25,7 +25,7 @@ export default function Page() {
 
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [setSampleTheme]);
+  }, [setSampleTheme, setSampleProviders]);
 
   return (
     <div className="flex items-center justify-center min-h-screen">
