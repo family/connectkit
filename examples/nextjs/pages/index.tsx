@@ -27,7 +27,7 @@ export default function Page() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white">
+      <header className="sticky top-0 z-50 w-full border-b bg-white xl:z-[2147483647]">
         <div className="px-4 md:px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -101,8 +101,8 @@ export default function Page() {
       {/* Main Content with Sidebar */}
       <div className="flex-1 grid grid-cols-1 md:grid-cols-[300px,1fr]">
         {/* Sidebar */}
-        <aside className="order-2 md:order-1 border-t md:border-t-0 md:border-r bg-white">
-          <div className="p-4 md:p-6 md:sticky md:top-[73px]">
+        <aside className="order-2 md:order-1 border-t md:border-t-0 md:border-r bg-white xl:z-[2147483647]">
+          <div className="p-4 md:p-6 md:sticky md:top-[73px] md:h-full md:flex md:flex-col">
             {/* Login Button - Desktop only */}
             <div className="hidden md:block mb-6">
               <div className="h-[100px] bg-gray-100 flex items-center justify-center rounded-lg border">
@@ -119,7 +119,7 @@ export default function Page() {
                     {sampleTheme}
                     <CaretDownIcon className="h-4 w-4 ml-auto" />
                   </SelectTrigger>
-                  <SelectContent 
+                  <SelectContent
                     position="popper"
                     className="w-[var(--radix-select-trigger-width)] bg-white border rounded-md shadow-md z-50 overflow-hidden"
                     style={{
@@ -168,7 +168,7 @@ export default function Page() {
             <Button
               onClick={() => logout()}
               disabled={!user}
-              className="w-full bg-red-500"
+              className="w-full bg-red-500 md:mt-auto"
             >
               Log out
             </Button>
