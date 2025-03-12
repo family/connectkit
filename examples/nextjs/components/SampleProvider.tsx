@@ -1,4 +1,4 @@
-import { AuthProvider } from '@openfort/openfort-kit';
+import { AuthProvider, RecoveryMethod } from '@openfort/openfort-kit';
 import { Theme } from '@openfort/openfort-kit/build/types';
 import React, { createContext, useState, ReactNode } from 'react';
 
@@ -7,6 +7,8 @@ interface SampleContextProps {
   setSampleTheme: React.Dispatch<React.SetStateAction<Theme>>;
   sampleProviders: AuthProvider[];
   setSampleProviders: React.Dispatch<React.SetStateAction<AuthProvider[]>>;
+  recoveryMethod: RecoveryMethod;
+  setRecoveryMethod: React.Dispatch<React.SetStateAction<RecoveryMethod>>;
 }
 
 export const SampleContext = createContext<SampleContextProps | undefined>(undefined);
@@ -25,9 +27,10 @@ export const SampleProvider: React.FC<SampleProviderProps> = ({ children }) => {
     // AuthProvider.TWITTER,
     // AuthProvider.FACEBOOK,
   ]);
+  const [recoveryMethod, setRecoveryMethod] = useState<RecoveryMethod>(RecoveryMethod.PASSWORD);
 
   return (
-    <SampleContext.Provider value={{ sampleTheme, setSampleTheme, sampleProviders, setSampleProviders }}>
+    <SampleContext.Provider value={{ sampleTheme, setSampleTheme, sampleProviders, setSampleProviders, recoveryMethod, setRecoveryMethod }}>
       {children}
     </SampleContext.Provider>
   );

@@ -22,7 +22,7 @@ const config = createConfig(
 const queryClient = new QueryClient();
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
-  const { sampleTheme, sampleProviders } = useSample();
+  const { sampleTheme, sampleProviders, recoveryMethod } = useSample();
 
   return (
     <WagmiProvider config={config}>
@@ -40,7 +40,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
               shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
 
               // Set the recovery method you want to use, in this case we will use the password recovery method
-              recoveryMethod: RecoveryMethod.PASSWORD,
+              recoveryMethod: recoveryMethod,
 
               // Your can customize the recovery method, either by setting the recovery method function or the endpoint
               getEncryptionSession: async () => {
@@ -88,6 +88,9 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           }}
 
           // debugMode
+          customTheme={{
+            // "--ck-body-background": "#000000",
+          }}
 
           // Set the theme of the OpenfortKit
           theme={sampleTheme}
