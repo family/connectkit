@@ -18,6 +18,10 @@ export const Input = styled.input`
   width: 100%;
   height: 100%;
 
+  ::placeholder {
+    color: var(--ck-body-color-muted);
+  }
+
   &:focus {
     background: var(--ck-secondary-button-background);
     box-shadow: var(--ck-secondary-button-hover-box-shadow);
@@ -29,7 +33,7 @@ export const IconButton = styled.button`
   right: 0;
   top: 0;
   bottom: 0;
-  padding: 12px;
+  padding: 14px;
   background: transparent;
   display: flex;
   align-items: center;

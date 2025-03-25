@@ -1,7 +1,7 @@
 import React from 'react';
+import { EyeIcon, EyeOffIcon } from '../../../assets/icons';
 import { IconButton, InputContainer, Input as StyledInput } from './styles';
 import { InputProps } from './types';
-import { AuthIcon, EyeIcon, EyeOffIcon } from '../../../assets/icons';
 
 const PasswordInput: React.FC<InputProps> = ({
   ...props
