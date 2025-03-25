@@ -4,6 +4,7 @@ import {
   useConnectCallback,
   useConnectCallbackProps,
 } from './useConnectCallback';
+import { useOpenfort } from '../openfort/OpenfortProvider';
 
 type ModalRoutes = (typeof routes)[keyof typeof routes];
 
@@ -37,6 +38,9 @@ type UseModalProps = {} & useConnectCallbackProps;
 
 export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
   const context = useOpenfortKit();
+  const setRoute = context.setRoute;
+  const { isLoading, user, needsRecovery } = useOpenfort();
+  const { address } = useAccount();
 
   useConnectCallback({
     onConnect,
@@ -44,6 +48,24 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
   });
 
   const { isConnected } = useAccount();
+
+  function defaultOpen() {
+    context.setOpen(true);
+
+    if (isLoading)
+      setRoute(routes.LOADING);
+
+    else if (!user)
+      setRoute(routes.PROVIDERS);
+
+    else if (!address)
+      setRoute(routes.RECOVER);
+
+    else if (needsRecovery)
+      setRoute(routes.RECOVER);
+    else
+      setRoute(routes.PROFILE);
+  }
 
   const close = () => {
     context.setOpen(false);
@@ -86,7 +108,7 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
     open: context.open,
     setOpen: (show: boolean) => {
       if (show) {
-        gotoAndOpen(isConnected ? routes.PROFILE : routes.PROVIDERS);
+        defaultOpen();
       } else {
         close();
       }

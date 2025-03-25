@@ -332,31 +332,11 @@ export function OpenfortKitButton({
   const isMounted = useIsMounted();
 
   const context = useOpenfortKit();
-  const setRoute = context.setRoute;
 
   const { address, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
 
-  const { isLoading, user, needsRecovery } = useOpenfort();
-
-  function show() {
-    context.setOpen(true);
-
-    if (isLoading)
-      setRoute(routes.LOADING);
-
-    else if (!user)
-      setRoute(routes.PROVIDERS);
-
-    else if (!address)
-      setRoute(routes.RECOVER);
-
-    else if (needsRecovery)
-      setRoute(routes.RECOVER);
-    else
-      setRoute(routes.PROFILE);
-
-  }
+  const { setOpen } = useModal();
 
   const separator = ['web95', 'rounded', 'minimal'].includes(
     theme ?? context.theme ?? ''
@@ -378,9 +358,9 @@ export function OpenfortKitButton({
       <ThemeContainer
         onClick={() => {
           if (onClick) {
-            onClick(show);
+            onClick(() => setOpen(true));
           } else {
-            show();
+            setOpen(true);
           }
         }}
       >
