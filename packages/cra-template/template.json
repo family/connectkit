@@ -10,8 +10,8 @@
       "@types/react-dom": "^18.0.0",
       "@openfort/openfort-kit": "latest",
       "typescript": "^5.0.4",
-      "viem": "^2.13.0",
-      "wagmi": "^2.10.2",
+      "viem": "^2.23.2",
+      "wagmi": "^2.14.11",
       "web-vitals": "^2.1.0"
     },
     "eslintConfig": {
