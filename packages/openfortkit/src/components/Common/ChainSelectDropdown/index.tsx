@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useOpenfortKit } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 
 import useMeasure from 'react-use-measure';
 

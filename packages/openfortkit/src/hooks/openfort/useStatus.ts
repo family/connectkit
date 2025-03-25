@@ -1,5 +1,5 @@
 import { useAccount } from "wagmi";
-import { useOpenfort } from "../../openfort/OpenfortProvider";
+import { useOpenfort } from '../../openfort/useOpenfort';
 
 export enum OpenfortKitStatus {
   LOADING,

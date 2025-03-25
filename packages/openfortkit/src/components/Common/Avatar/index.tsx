@@ -5,7 +5,7 @@ import { EnsAvatar, ImageContainer } from './styles';
 import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
 import { normalize } from 'viem/ens';
 import { ResetContainer } from '../../../styles';
-import { useOpenfortKit } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import useIsMounted from '../../../hooks/useIsMounted';
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
 

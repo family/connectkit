@@ -1,15 +1,16 @@
+import { RecoveryMethod } from "@openfort/openfort-js";
+import { motion } from 'framer-motion';
 import React, { useEffect } from "react";
-import { useAccount, useChainId, useConnect } from "wagmi";
-import { useOpenfort } from "../../../openfort/OpenfortProvider";
-import Button from "../../Common/Button";
-import Input from "../../Common/Input";
-import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../../OpenfortKit";
-import { OAuthProvider, RecoveryMethod } from "@openfort/openfort-js";
-import FitText from "../../Common/FitText";
-import Loader from "../../Common/Loading";
+import { useAccount, useChainId } from "wagmi";
+import { useOpenfort } from '../../../openfort/useOpenfort';
 import { isPlayerVerified } from "../../../utils";
-import { motion, AnimatePresence } from 'framer-motion';
+import Button from "../../Common/Button";
+import FitText from "../../Common/FitText";
+import Input from "../../Common/Input";
+import Loader from "../../Common/Loading";
+import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
+import { routes } from "../../OpenfortKit/types";
 
 // TODO: Localize
 

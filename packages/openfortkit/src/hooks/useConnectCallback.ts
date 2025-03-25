@@ -1,7 +1,7 @@
 import { AuthPlayerResponse } from '@openfort/openfort-js';
 import { useEffect, useState } from 'react';
 import { useAccount, useAccountEffect } from 'wagmi';
-import { useOpenfort } from '../openfort/OpenfortProvider';
+import { useOpenfort } from '../openfort/useOpenfort';
 import useIsMounted from './useIsMounted';
 
 export type useConnectCallbackProps = {

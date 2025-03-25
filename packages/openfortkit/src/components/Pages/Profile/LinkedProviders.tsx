@@ -4,10 +4,11 @@ import { EmailIcon } from "../../../assets/icons";
 import Logos, { providersLogos } from "../../../assets/logos";
 import Wallet from "../../../assets/wallet";
 import { useProviders } from "../../../hooks/openfort/useProviders";
-import { useOpenfort } from "../../../openfort/OpenfortProvider";
+import { useOpenfort } from '../../../openfort/useOpenfort';
 import { useWallets } from "../../../wallets/useWallets";
 import FitText from "../../Common/FitText";
-import { routes, useOpenfortKit } from "../../OpenfortKit";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
+import { routes } from "../../OpenfortKit/types";
 import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
 

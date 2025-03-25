@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { useOpenfort } from "../../../openfort/OpenfortProvider";
-import Button from "../../Common/Button";
-import { PageContent } from "../../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../../OpenfortKit";
 import { useAccount } from "wagmi";
+import { useOpenfort } from '../../../openfort/useOpenfort';
 import Loader from "../../Common/Loading";
+import { PageContent } from "../../Common/Modal/styles";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
+import { routes } from "../../OpenfortKit/types";
 
 
 const Loading: React.FC = () => {

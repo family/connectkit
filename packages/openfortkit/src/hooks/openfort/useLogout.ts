@@ -1,4 +1,4 @@
-import { useOpenfort } from "../../openfort/OpenfortProvider";
+import { useOpenfort } from '../../openfort/useOpenfort';
 
 export function useLogout() {
   const { logout } = useOpenfort();

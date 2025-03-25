@@ -1,4 +1,4 @@
-export const OPENFORTKIT_VERSION = '0.0.6';
+export { OPENFORTKIT_VERSION } from './version';
 
 export * as Types from './types';
 export { default as getDefaultConfig } from './defaultConfig';
@@ -8,10 +8,14 @@ export { wallets } from './wallets';
 export { useModal } from './hooks/useModal';
 
 export {
-  OpenfortKitProvider,
-  Context as OpenfortKitContext,
   AuthProvider,
-} from './components/OpenfortKit';
+} from './components/OpenfortKit/types';
+export {
+  OpenfortKitContext,
+} from './components/OpenfortKit/context';
+export {
+  OpenfortKitProvider,
+} from './components/OpenfortKit/OpenfortKit';
 export { OpenfortKitButton } from './components/ConnectButton';
 
 //export { default as NetworkButton } from './components/NetworkButton';

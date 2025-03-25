@@ -1,4 +1,4 @@
-import { routes, useOpenfortKit } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 
 import {
   ConnectorButton,
@@ -14,22 +14,21 @@ import useIsMobile from '../../../hooks/useIsMobile';
 import Alert from '../Alert';
 import { ScrollArea } from '../ScrollArea';
 
+import { openfortWalletId } from '../../../constants/openfort';
 import { useConnect } from '../../../hooks/useConnect';
 import { useLastConnector } from '../../../hooks/useLastConnector';
-import { useOpenfort } from '../../../openfort/OpenfortProvider';
 import {
   detectBrowser,
   isCoinbaseWalletConnector,
   isWalletConnectConnector,
 } from '../../../utils';
 import { WalletProps, useWallets } from '../../../wallets/useWallets';
-import { openfortWalletId } from '../../../constants/openfort';
+import { routes } from '../../OpenfortKit/types';
 
 const ConnectorList = () => {
   const context = useOpenfortKit();
   const isMobile = useIsMobile();
 
-  const { user } = useOpenfort();
   const wallets = useWallets();
   const { lastConnectorId } = useLastConnector();
 

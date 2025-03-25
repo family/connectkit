@@ -1,15 +1,16 @@
 import { Openfort, AuthPlayerResponse, EmbeddedState, MissingRecoveryPasswordError, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from '@openfort/openfort-js';
-import React, { createContext, createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
-import { useOpenfortKit } from '../components/OpenfortKit';
+import { useOpenfortKit } from '../components/OpenfortKit/useOpenfortKit';
 import { useConnect } from '../hooks/useConnect';
 import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback';
+import { Context } from './context';
 
 type RecoveryProps =
   | { method: RecoveryMethod.AUTOMATIC; chainId: number }
   | { method: RecoveryMethod.PASSWORD; password: string; chainId: number };
 
-type ContextValue = {
+export type ContextValue = {
   signUpGuest: () => Promise<void>;
   handleRecovery: (props: RecoveryProps) => Promise<{
     success?: boolean;
@@ -41,8 +42,6 @@ type ContextValue = {
   linkEmailPassword: typeof Openfort.prototype.linkEmailPassword;
   exportPrivateKey: typeof Openfort.prototype.exportPrivateKey;
 };
-
-const Context = createContext<ContextValue | null>(null);
 
 const ConnectCallback = ({ onConnect, onDisconnect }: useConnectCallbackProps) => {
   useConnectCallback({
@@ -453,9 +452,4 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   return createElement(Context.Provider, { value }, <><ConnectCallback onConnect={onConnect} onDisconnect={onDisconnect} />{children}</>);
 };
 
-export const useOpenfort = () => {
-  const context = React.useContext(Context);
-  if (!context)
-    throw Error('useOpenfortContext Hook must be inside OpenfortProvider.');
-  return context;
-};
+

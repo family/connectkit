@@ -1,247 +1,30 @@
 import { Buffer } from 'buffer';
 import React, {
-  ReactNode,
-  createContext,
   createElement,
   useEffect,
   useState
 } from 'react';
-import {
-  CustomAvatarProps,
-  CustomTheme,
-  Languages,
-  Mode,
-  Theme,
-} from '../types';
 
-import defaultTheme from '../styles/defaultTheme';
+import defaultTheme from '../../styles/defaultTheme';
 
-import { OAuthProvider, RecoveryMethod } from '@openfort/openfort-js';
+import { RecoveryMethod } from '@openfort/openfort-js';
 import { ThemeProvider } from 'styled-components';
 import { ValueOf } from 'viem/_types/types/utils';
 import { WagmiContext, useAccount } from 'wagmi';
-import { useChainIsSupported } from '../hooks/useChainIsSupported';
-import { useChains } from '../hooks/useChains';
+import { useChainIsSupported } from '../../hooks/useChainIsSupported';
+import { useChains } from '../../hooks/useChains';
 import {
   useConnectCallbackProps
-} from '../hooks/useConnectCallback';
-import { useConnector } from '../hooks/useConnectors';
-import { useThemeFont } from '../hooks/useGoogleFont';
-import { OpenfortProvider, OpenfortProviderProps } from '../openfort/OpenfortProvider';
-import { isFamily } from '../utils/wallets';
-import ConnectKitModal from './ConnectModal';
-import { Web3ContextProvider } from './contexts/web3';
-
-export const routes = {
-  PROVIDERS: 'providers',
-  SOCIAL_PROVIDERS: 'socialProviders',
-
-  LOADING: 'loading',
-  RECOVER: 'recover',
-
-  EMAIL_LOGIN: 'emailLogin',
-  EMAIL_SIGNUP: 'emailSignup',
-  FORGOT_PASSWORD: 'forgotPassword',
-  EMAIL_VERIFICATION: 'emailVerification',
-  LINK_EMAIL: 'linkEmail',
-
-  ONBOARDING: 'onboarding',
-  ABOUT: 'about',
-
-  CONNECTORS: 'connectors',
-  MOBILECONNECTORS: 'mobileConnectors',
-
-
-  CONNECT: 'connect',
-  DOWNLOAD: 'download',
-  PROFILE: 'profile',
-  SWITCHNETWORKS: 'switchNetworks',
-} as const;
-
-type Connector = {
-  id: string;
-  type?: "wallet"
-} | {
-  id: OAuthProvider;
-  type: "oauth";
-};
-type Error = string | React.ReactNode | null;
-
-type ContextValue = {
-  theme: Theme;
-  setTheme: React.Dispatch<React.SetStateAction<Theme>>;
-  mode: Mode;
-  setMode: React.Dispatch<React.SetStateAction<Mode>>;
-  customTheme: CustomTheme | undefined;
-  setCustomTheme: React.Dispatch<React.SetStateAction<CustomTheme | undefined>>;
-  lang: Languages;
-  setLang: React.Dispatch<React.SetStateAction<Languages>>;
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  route: ValueOf<typeof routes>;
-  setRoute: React.Dispatch<React.SetStateAction<ValueOf<typeof routes>>>;
-  connector: Connector;
-  setConnector: React.Dispatch<React.SetStateAction<Connector>>;
-  errorMessage: Error;
-  options?: ConnectKitOptionsExtended;
-  debugMode?: boolean;
-  log: (...props: any) => void;
-  displayError: (message: string | React.ReactNode | null, code?: any) => void;
-  resize: number;
-  triggerResize: () => void;
-  walletConfig: FortWalletOptions;
-} & useConnectCallbackProps;
-
-export const Context = createContext<ContextValue | null>(null);
-
-export enum AuthProvider {
-  GOOGLE = "google",
-  TWITTER = "twitter",
-  FACEBOOK = "facebook",
-
-  // DISCORD = "discord",
-  // EPIC_GAMES = "epic_games",
-  // LINE = "line",
-  // TELEGRAM = "telegram", // Telegram is not working yet
-
-  // Extended Providers
-  EMAIL = "email",
-  WALLET = "wallet",
-  GUEST = "guest",
-}
-export const socialProviders = [
-  AuthProvider.GOOGLE,
-  AuthProvider.TWITTER,
-  AuthProvider.FACEBOOK,
-]
-
-
-type CommonEmbeddedSignerConfiguration = {
-  /** Publishable key for the Shield API */
-  shieldPublishableKey: string;
-  /** Policy ID (pol_...) for the embedded signer */
-  ethereumProviderPolicyId?: string;
-  debug?: boolean;
-}
-
-type EncryptionSession =
-  | {
-    /** Function to retrieve an encryption session using a session ID */
-    getEncryptionSession: () => Promise<string>;
-    createEncryptedSessionEndpoint?: never;
-  }
-  | {
-    /** API endpoint for creating an encrypted session */
-    createEncryptedSessionEndpoint: string;
-    getEncryptionSession?: never;
-  };
-
-/**
- * Configuration for automatic recovery, which requires an encryption session.
- */
-type AutomaticRecoveryEmbeddedSignerConfiguration = {
-  /** Specifies that the recovery method is automatic */
-  recoveryMethod: RecoveryMethod.AUTOMATIC;
-} & EncryptionSession;
-
-type PasswordRecoveryEmbeddedSignerConfiguration = {
-  /** Specifies that the recovery method is password-based */
-  recoveryMethod: RecoveryMethod.PASSWORD;
-} & (
-    | (EncryptionSession & {
-      shieldEncryptionKey?: never;
-    })
-    | {
-      /** Required shield encryption key when no encryption session is used */
-      shieldEncryptionKey: string;
-      createEncryptedSessionEndpoint?: never;
-      getEncryptionSession?: never;
-    }
-  );
-
-/**
- * Configuration for automatic recovery.
- * - An encryption session is required.
- * 
- * Configuration for password-based recovery.
- * - An encryption session, OR
- * - A `shieldEncryptionKey` without an encryption session.
- * 
- * Encryption session can be created using either:
- * - `createEncryptedSessionEndpoint` as a string, OR
- * - `getEncryptionSession.` as a function that returns a promise.
- */
-type EmbeddedSignerConfiguration = CommonEmbeddedSignerConfiguration & (
-  AutomaticRecoveryEmbeddedSignerConfiguration | PasswordRecoveryEmbeddedSignerConfiguration
-);
-
-export type FortWalletOptions = {
-  linkWalletOnSignUp: true;
-  createEmbeddedSigner?: false;
-} | {
-  linkWalletOnSignUp?: boolean;
-  createEmbeddedSigner: true;
-  embeddedSignerConfiguration: EmbeddedSignerConfiguration;
-}
-
-export type OpenfortOptions = {
-  authProviders?: AuthProvider[];
-  skipEmailVerification?: boolean;
-  termsOfServiceUrl?: string;
-  privacyPolicyUrl?: string;
-  logo?: React.ReactNode;
-
-  openfortUrlOverrides?: OpenfortProviderProps['overrides'];
-};
-
-export type ConnectKitOptions = {
-  // language?: Languages;
-  hideBalance?: boolean;
-  hideTooltips?: boolean;
-  // hideQuestionMarkCTA?: boolean;
-  // hideNoWalletCTA?: boolean;
-  hideRecentBadge?: boolean;
-  walletConnectCTA?: 'link' | 'modal' | 'both';
-  avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
-  embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
-  truncateLongENSAddress?: boolean;
-  walletConnectName?: string;
-  reducedMotion?: boolean;
-  disclaimer?: ReactNode | string;
-  /** Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.) */
-  bufferPolyfill?: boolean;
-  customAvatar?: React.FC<CustomAvatarProps>;
-  initialChainId?: number;
-  enforceSupportedChains?: boolean;
-  // ethereumOnboardingUrl?: string;
-  // walletOnboardingUrl?: string;
-  // disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
-  overlayBlur?: number; // Blur the background when the modal is open
-} & OpenfortOptions;
-
-type ConnectKitOptionsExtended = {
-  language?: Languages;
-  hideBalance?: boolean;
-  hideTooltips?: boolean;
-  hideQuestionMarkCTA?: boolean;
-  hideNoWalletCTA?: boolean;
-  hideRecentBadge?: boolean;
-  walletConnectCTA?: 'link' | 'modal' | 'both';
-  avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
-  embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
-  truncateLongENSAddress?: boolean;
-  walletConnectName?: string;
-  reducedMotion?: boolean;
-  disclaimer?: ReactNode | string;
-  bufferPolyfill?: boolean;
-  customAvatar?: React.FC<CustomAvatarProps>;
-  initialChainId?: number;
-  enforceSupportedChains?: boolean;
-  ethereumOnboardingUrl?: string;
-  walletOnboardingUrl?: string;
-  disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
-  overlayBlur?: number; // Blur the background when the modal is open
-} & OpenfortOptions;
+} from '../../hooks/useConnectCallback';
+import { useConnector } from '../../hooks/useConnectors';
+import { useThemeFont } from '../../hooks/useGoogleFont';
+import { OpenfortProvider } from '../../openfort/OpenfortProvider';
+import { isFamily } from '../../utils/wallets';
+import ConnectKitModal from '../ConnectModal';
+import { Web3ContextProvider } from '../contexts/web3';
+import { OpenfortKitContext, ContextValue, ErrorMessage } from './context';
+import { AuthProvider, ConnectKitOptions, ConnectKitOptionsExtended, FortWalletOptions, routes } from './types';
+import { CustomTheme, Languages, Mode, Theme } from '../../types';
 
 type OpenfortKitProviderProps = {
   children?: React.ReactNode;
@@ -290,7 +73,7 @@ export const OpenfortKitProvider = ({
 
   // Only allow for mounting OpenfortKitProvider once, so we avoid weird global
   // state collisions.
-  if (React.useContext(Context)) {
+  if (React.useContext(OpenfortKitContext)) {
     throw new Error(
       'Multiple, nested usages of OpenfortKitProvider detected. Please use only one.'
     );
@@ -361,7 +144,7 @@ export const OpenfortKitProvider = ({
     id: '',
   });
   const [route, setRoute] = useState<ValueOf<typeof routes>>(routes.LOADING);
-  const [errorMessage, setErrorMessage] = useState<Error>('');
+  const [errorMessage, setErrorMessage] = useState<ErrorMessage>('');
 
   const [resize, onResize] = useState<number>(0);
 
@@ -450,7 +233,7 @@ export const OpenfortKitProvider = ({
   };
 
   return createElement(
-    Context.Provider,
+    OpenfortKitContext.Provider,
     { value },
     <>
       <Web3ContextProvider enabled={open}>
@@ -482,8 +265,4 @@ export const OpenfortKitProvider = ({
   );
 };
 
-export const useOpenfortKit = () => {
-  const context = React.useContext(Context);
-  if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
-  return context;
-};
+

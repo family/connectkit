@@ -9,7 +9,7 @@ import {
 import CustomQRCode from '../../Common/CustomQRCode';
 
 import useLocales from '../../../hooks/useLocales';
-import { useOpenfortKit } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { useWallet } from '../../../wallets/useWallets';
 
 const DownloadApp = () => {

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { PageContent } from "../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../OpenfortKit";
-import { useOpenfort } from "../../openfort/OpenfortProvider";
-import Loader from "../Common/Loading";
 import { providersLogos } from "../../assets/logos";
+import { useOpenfort } from '../../openfort/useOpenfort';
+import Loader from "../Common/Loading";
+import { PageContent } from "../Common/Modal/styles";
+import { useOpenfortKit } from '../OpenfortKit/useOpenfortKit';
+import { routes } from "../OpenfortKit/types";
 
 const states = {
   INIT: "init",

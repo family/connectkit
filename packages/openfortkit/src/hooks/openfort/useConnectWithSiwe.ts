@@ -1,6 +1,6 @@
 import { useAccount, useChainId, useConfig, useDisconnect } from "wagmi";
-import { useOpenfortKit } from "../../components/OpenfortKit";
-import { useOpenfort } from "../../openfort/OpenfortProvider";
+import { useOpenfortKit } from '../../components/OpenfortKit/useOpenfortKit';
+import { useOpenfort } from '../../openfort/useOpenfort';
 import { createSIWEMessage } from "../../siwe/create-siwe-message";
 import { AxiosError } from "axios";
 

@@ -4,7 +4,7 @@ import useIsMounted from '../../hooks/useIsMounted';
 import { truncateEthAddress, truncateUserId } from '../../utils';
 
 import { useModal } from '../../hooks/useModal';
-import { routes, useOpenfortKit } from '../OpenfortKit';
+import { useOpenfortKit } from '../OpenfortKit/useOpenfortKit';
 import {
   IconContainer,
   TextContainer,
@@ -16,12 +16,13 @@ import { Chain } from 'viem';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
 import { useEnsFallbackConfig } from '../../hooks/useEnsFallbackConfig';
 import useLocales from '../../hooks/useLocales';
-import { useOpenfort } from '../../openfort/OpenfortProvider';
+import { useOpenfort } from '../../openfort/useOpenfort';
 import { ResetContainer } from '../../styles';
 import { CustomTheme, Mode, Theme } from '../../types';
 import { Balance } from '../BalanceButton';
 import Avatar from '../Common/Avatar';
 import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
+import { routes } from '../OpenfortKit/types';
 
 const contentVariants: Variants = {
   initial: {

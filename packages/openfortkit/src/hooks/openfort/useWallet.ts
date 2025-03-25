@@ -1,9 +1,10 @@
-import { useMemo } from "react";
-import { AuthProvider, routes, useOpenfortKit } from "../../components/OpenfortKit";
-import { useOpenfort } from "../../openfort/OpenfortProvider";
-import { openfortWalletId } from "../../constants/openfort";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { EmbeddedState } from "@openfort/openfort-js";
+import { useMemo } from "react";
+import { useAccount, useDisconnect } from "wagmi";
+import { useOpenfortKit } from '../../components/OpenfortKit/useOpenfortKit';
+import { AuthProvider, routes } from "../../components/OpenfortKit/types";
+import { openfortWalletId } from "../../constants/openfort";
+import { useOpenfort } from '../../openfort/useOpenfort';
 import { useWallets as useWagmiWallets } from "../../wallets/useWallets";
 
 export type UserWallet = {

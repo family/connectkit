@@ -8,11 +8,11 @@
 const fs = require('fs');
 const config = require('./packages/openfortkit/package.json');
 
-const file = fs.readFileSync('packages/openfortkit/src/index.ts', 'utf8');
+const file = fs.readFileSync('packages/openfortkit/src/version.ts', 'utf8');
 const lines = file.split('\n');
 const versionLine = lines.findIndex((line) =>
   line.includes('export const OPENFORTKIT_VERSION = ')
 );
 lines[versionLine] = `export const OPENFORTKIT_VERSION = '${config.version}';`;
 
-fs.writeFileSync('packages/openfortkit/src/index.ts', lines.join('\n'), 'utf8');
+fs.writeFileSync('packages/openfortkit/src/version.ts', lines.join('\n'), 'utf8');

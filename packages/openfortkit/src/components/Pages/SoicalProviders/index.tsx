@@ -3,7 +3,7 @@ import { useProviders } from "../../../hooks/openfort/useProviders";
 import { PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
 import { ScrollArea } from "../../Common/ScrollArea";
-import { socialProviders } from "../../OpenfortKit";
+import { socialProviders } from "../../OpenfortKit/types";
 import { ProviderButtonSwitch } from "../Providers";
 
 const SocialProviders: React.FC = () => {

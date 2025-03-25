@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import { useOpenfortKit } from '../OpenfortKit';
+import { useOpenfortKit } from '../OpenfortKit/useOpenfortKit';
 import { useWallet } from '../../wallets/useWallets';
 
 import ConnectWithInjector from './ConnectWithInjector';

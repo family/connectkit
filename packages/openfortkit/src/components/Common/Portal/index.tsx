@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { OPENFORTKIT_VERSION } from '../../..';
+import { OPENFORTKIT_VERSION } from '../../../version';
 
 const Portal = (props: any) => {
   props = {

@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { routes, useOpenfortKit } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 
 import { flattenChildren, isMobile } from '../../../utils';
 
 import defaultTheme from '../../../constants/defaultTheme';
 
-import styled from '../../../styles/styled';
-import { css } from 'styled-components';
 import { motion } from 'framer-motion';
+import { css } from 'styled-components';
+import styled from '../../../styles/styled';
 
-import Tooltip from '../Tooltip';
-import ChainSelectDropdown from '../ChainSelectDropdown';
-import Chain from '../Chain';
 import useLocales from '../../../hooks/useLocales';
+import Chain from '../Chain';
+import ChainSelectDropdown from '../ChainSelectDropdown';
+import Tooltip from '../Tooltip';
 
 import { useAccount, useSwitchChain } from 'wagmi';
+import { routes } from '../../OpenfortKit/types';
 
 const Container = styled(motion.div)``;
 
