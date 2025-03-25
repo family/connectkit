@@ -305,3 +305,49 @@ export const GuestIcon = ({ ...props }) => (
     />
   </svg>
 );
+
+export const EyeIcon = ({ ...props }) => (
+  <svg
+    width="800"
+    height="800"
+    fill="none"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="m15.001 12c0 1.6569-1.3431 3-3 3-1.6568 0-3-1.3431-3-3s1.3432-3 3-3c1.6569 0 3 1.3431 3 3z"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+    <path
+      d="m12.001 5c-4.4777 0-8.2679 2.9429-9.5422 7 1.2743 4.0571 5.0646 7 9.5422 7 4.4776 0 8.2679-2.9429 9.5422-7-1.2743-4.0571-5.0646-7-9.5422-7z"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+  </svg>
+);
+
+
+export const EyeOffIcon = ({ ...props }) => (
+  <svg
+    width="800"
+    height="800"
+    fill="none"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="m2.999 3 18 18m-11.156-11.086c-0.52264 0.53996-0.84428 1.2756-0.84428 2.0864 0 1.6569 1.3432 3 3 3 0.8225 0 1.5677-0.331 2.1096-0.867m-7.6096-7.4858c-1.8993 1.2532-3.346 3.1368-4.042 5.3528 1.2742 4.0571 5.0646 7 9.5422 7 1.9889 0 3.8422-0.5806 5.3996-1.5816m-6.3998-12.369c0.329-0.03266 0.6627-0.04939 1.0002-0.04939 4.4777 0 8.268 2.9429 9.5422 7-0.2807 0.894-0.6837 1.7338-1.1892 2.5"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+  </svg>
+);

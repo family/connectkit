@@ -1,14 +1,47 @@
 import React from 'react';
-import { InputContainer } from './styles';
+import { IconButton, InputContainer, Input as StyledInput } from './styles';
 import { InputProps } from './types';
+import { AuthIcon, EyeIcon, EyeOffIcon } from '../../../assets/icons';
+
+const PasswordInput: React.FC<InputProps> = ({
+  ...props
+}) => {
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  return (
+    <InputContainer>
+      <StyledInput
+        {...props}
+        style={{ paddingRight: '48px', ...props.style }}
+        type={showPassword ? 'text' : 'password'}
+      />
+      <IconButton
+        type='button'
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        {
+          showPassword ?
+            <EyeIcon /> :
+            <EyeOffIcon />
+        }
+      </IconButton>
+    </InputContainer>
+  );
+};
 
 const Input: React.FC<InputProps> = ({
   ...props
 }) => {
+  if (props.type === 'password')
+    return <PasswordInput {...props} />;
+
   return (
-    <InputContainer
-      {...props}
-    />
+    <InputContainer>
+      <StyledInput
+        {...props}
+      />
+    </InputContainer>
   );
 };
+
 export default Input;
