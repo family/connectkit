@@ -28,9 +28,11 @@ export default function Page() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-4">
-              <svg viewBox="0 0 39 11" aria-hidden="true" className="h-6 md:h-8 w-auto">
-                <path className="fill-zinc-400" transform="translate(0, 5) scale(0.04)" d="m75.9 72.3h18.2v32.4h-18.2zm94.8 32.3h-18.2v-87.1h-135v87.1h-18.2v-105.2h13.5v-0.1h157.9v0.1zm-36.5-50.7h-0.1v50.7h-18.2v-50.7h-61.9v50.7h-18.2v-66.5-2.4h98.4z" />
-              </svg>
+              <div className="h-4 w-auto">
+                <svg viewBox="0 0 175 100" aria-hidden="true" className="w-full h-full">
+                  <path className="fill-zinc-400" d="m75.9 72.3h18.2v32.4h-18.2zm94.8 32.3h-18.2v-87.1h-135v87.1h-18.2v-105.2h13.5v-0.1h157.9v0.1zm-36.5-50.7h-0.1v50.7h-18.2v-50.7h-61.9v50.7h-18.2v-66.5-2.4h98.4z" />
+                </svg>
+              </div>
               <span className="text-gray-300 hidden md:flex">-</span>
               <p className="font-mono text-orange-600 font-medium">Openfort Kit</p>
             </div>
