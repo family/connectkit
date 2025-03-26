@@ -1,18 +1,13 @@
-import { OpenfortKitButton } from '@openfort/openfort-kit';
+import './App.css'
+import { Providers } from './providers'
+import { OpenfortKitButton } from '@openfort/openfort-kit'
 
 function App() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-      }}
-    >
+    <Providers>
       <OpenfortKitButton />
-    </div>
-  );
+    </Providers>
+  )
 }
 
-export default App;
+export default App
