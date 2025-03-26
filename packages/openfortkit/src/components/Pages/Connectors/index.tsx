@@ -1,25 +1,22 @@
 import React from 'react';
-import { useOpenfortKit, routes } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 
 import {
-  LearnMoreContainer,
-  LearnMoreButton,
-  InfoBox,
-  InfoBoxButtons,
-} from './styles';
-import {
-  PageContent,
-  Disclaimer,
+  ModalBody,
   ModalContent,
   ModalH1,
-  ModalBody,
+  PageContent
 } from '../../Common/Modal/styles';
-import WalletIcon from '../../../assets/wallet';
+import {
+  InfoBox,
+  InfoBoxButtons
+} from './styles';
 
-import useLocales from '../../../hooks/useLocales';
-import ConnectorList from '../../Common/ConnectorList';
 import useIsMobile from '../../../hooks/useIsMobile';
+import useLocales from '../../../hooks/useLocales';
 import Button from '../../Common/Button';
+import ConnectorList from '../../Common/ConnectorList';
+import { routes } from '../../OpenfortKit/types';
 
 const Wallets: React.FC = () => {
   const context = useOpenfortKit();

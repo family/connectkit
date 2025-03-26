@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {
   isSafeConnector,
   nFormatter,
-  truncateEthAddress,
-  truncateUserId,
+  truncateEthAddress
 } from '../../../utils';
-import { routes, useOpenfortKit } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 
 import {
   useAccount,
@@ -37,12 +36,12 @@ import { AnimatePresence } from 'framer-motion';
 import { DisconnectIcon } from '../../../assets/icons';
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
 import useLocales from '../../../hooks/useLocales';
-import { useOpenfort } from '../../../openfort/OpenfortProvider';
+import { useOpenfort } from '../../../openfort/useOpenfort';
 import CopyToClipboard from '../../Common/CopyToClipboard';
-import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import FitText from '../../Common/FitText';
-import { LinkedProviders } from './LinkedProviders';
 import PoweredByFooter from '../../Common/PoweredByFooter';
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import { routes } from '../../OpenfortKit/types';
+import { LinkedProviders } from './LinkedProviders';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useOpenfortKit();

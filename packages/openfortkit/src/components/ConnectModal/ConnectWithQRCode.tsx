@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { routes, useOpenfortKit } from '../OpenfortKit';
+import { useOpenfortKit } from '../OpenfortKit/useOpenfortKit';
 
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
@@ -22,6 +22,7 @@ import { useAccount, useDisconnect } from 'wagmi';
 import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe';
 import { useWallet } from '../../wallets/useWallets';
 import { useWeb3 } from '../contexts/web3';
+import { routes } from '../OpenfortKit/types';
 
 const ConnectWithQRCode: React.FC<{
   switchConnectMethod: (id?: string) => void;

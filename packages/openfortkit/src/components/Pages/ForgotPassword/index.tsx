@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
-import { useConnect } from "wagmi";
-import { useOpenfort } from "../../../openfort/OpenfortProvider";
+import { useOpenfort } from '../../../openfort/useOpenfort';
 import Button from "../../Common/Button";
-import Input from "../../Common/Input";
-import { InnerContainer, ModalBody, PageContent } from "../../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../../OpenfortKit";
-import { RecoveryMethod } from "@openfort/openfort-js";
-import { OrDivider } from "../../Common/Modal";
 import FitText from "../../Common/FitText";
-import { AnimatePresence, Variants, motion } from 'framer-motion';
-import { AuthIcon } from "../../../assets/icons";
-import { TextContainer } from "../../ConnectButton/styles";
+import Input from "../../Common/Input";
+import { ModalBody, PageContent } from "../../Common/Modal/styles";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
+import { routes } from "../../OpenfortKit/types";
 
 // TODO: Localize
 const RequestEmail: React.FC = () => {

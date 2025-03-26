@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Connector, CreateConnectorFn } from 'wagmi';
 import { walletConnect } from 'wagmi/connectors';
-import { useOpenfortKit } from '../components/OpenfortKit';
+import { useOpenfortKit } from '../components/OpenfortKit/useOpenfortKit';
 
 import { isWalletConnectConnector } from '../utils';
 import { useConnect } from './useConnect';

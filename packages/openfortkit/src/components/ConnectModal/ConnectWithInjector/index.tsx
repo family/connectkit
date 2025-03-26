@@ -27,11 +27,11 @@ import { useAccount, useDisconnect } from 'wagmi';
 import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons';
 import { useConnect } from '../../../hooks/useConnect';
 import useLocales from '../../../hooks/useLocales';
-import { useOpenfort } from '../../../openfort/OpenfortProvider';
+import { useOpenfort } from '../../../openfort/useOpenfort';
 import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import { useWallet } from '../../../wallets/useWallets';
 import BrowserIcon from '../../Common/BrowserIcon';
-import { useOpenfortKit } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import CircleSpinner from './CircleSpinner';
 
 import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe';

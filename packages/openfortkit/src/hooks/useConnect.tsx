@@ -9,7 +9,7 @@ import {
   CreateConnectorFn,
   Connector,
 } from 'wagmi';
-import { useOpenfortKit } from '../components/OpenfortKit';
+import { useOpenfortKit } from '../components/OpenfortKit/useOpenfortKit';
 import { useLastConnector } from './useLastConnector';
 
 export function useConnect({ ...props }: UseConnectParameters = {}) {

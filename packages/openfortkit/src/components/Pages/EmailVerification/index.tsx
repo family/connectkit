@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useOpenfort } from "../../../openfort/OpenfortProvider";
+import { EmailIcon } from "../../../assets/icons";
+import wave from "../../../assets/wave";
+import { useOpenfort } from '../../../openfort/useOpenfort';
+import { isPlayerVerified } from "../../../utils";
+import { TextLinkButton } from "../../Common/Button/styles";
 import Loader from "../../Common/Loading";
 import { ModalBody, ModalContent, ModalH1, PageContent } from "../../Common/Modal/styles";
-import { routes, useOpenfortKit } from "../../OpenfortKit";
-import Button from "../../Common/Button";
-import { isPlayerVerified } from "../../../utils";
-import { EmailIcon } from "../../../assets/icons";
-import FitText from "../../Common/FitText";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
+import { routes } from "../../OpenfortKit/types";
 import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../Onboarding/styles";
-import wave from "../../../assets/wave";
-import { TextLinkButton } from "../../Common/Button/styles";
 
 // TODO: Localize
 

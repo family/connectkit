@@ -1,12 +1,13 @@
 import { AnimatePresence, Variants } from 'framer-motion';
 import React from "react";
-import { useOpenfort } from "../../../openfort/OpenfortProvider";
+import { useOpenfort } from '../../../openfort/useOpenfort';
 import Button from "../../Common/Button";
 import FitText from "../../Common/FitText";
 import Input from "../../Common/Input";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { TextContainer } from "../../ConnectButton/styles";
-import { routes, useOpenfortKit } from "../../OpenfortKit";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
+import { routes } from '../../OpenfortKit/types';
 
 // TODO: Localize
 

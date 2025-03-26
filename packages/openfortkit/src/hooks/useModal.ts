@@ -1,10 +1,11 @@
 import { useAccount } from 'wagmi';
-import { routes, useOpenfortKit } from '../components/OpenfortKit';
+import { useOpenfortKit } from '../components/OpenfortKit/useOpenfortKit';
 import {
   useConnectCallback,
   useConnectCallbackProps,
 } from './useConnectCallback';
-import { useOpenfort } from '../openfort/OpenfortProvider';
+import { useOpenfort } from '../openfort/useOpenfort';
+import { routes } from '../components/OpenfortKit/types';
 
 type ModalRoutes = (typeof routes)[keyof typeof routes];
 

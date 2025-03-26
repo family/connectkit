@@ -1,7 +1,7 @@
 import { css, keyframes } from "styled-components";
 import styled from "../../../styles/styled";
 import { useEffect } from "react";
-import { useOpenfortKit } from "../../OpenfortKit";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { motion } from "framer-motion";
 import SquircleSpinner from "../SquircleSpinner";
 import Logos from "../../../assets/logos";

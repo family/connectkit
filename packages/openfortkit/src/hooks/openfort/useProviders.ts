@@ -1,5 +1,6 @@
-import { AuthProvider, useOpenfortKit } from "../../components/OpenfortKit";
-import { useOpenfort } from "../../openfort/OpenfortProvider";
+import { useOpenfortKit } from '../../components/OpenfortKit/useOpenfortKit';
+import { AuthProvider } from "../../components/OpenfortKit/types";
+import { useOpenfort } from '../../openfort/useOpenfort';
 
 export function useProviders() {
   const { user } = useOpenfort();

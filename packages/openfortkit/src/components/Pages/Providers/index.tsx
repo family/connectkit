@@ -4,13 +4,14 @@ import { useAccount, useDisconnect } from "wagmi";
 import { EmailIcon, GuestIcon, } from "../../../assets/icons";
 import Logos, { OtherSocials, providersLogos } from "../../../assets/logos";
 import { useProviders } from "../../../hooks/openfort/useProviders";
-import { useOpenfort } from "../../../openfort/OpenfortProvider";
+import { useOpenfort } from '../../../openfort/useOpenfort';
 import Button from "../../Common/Button";
 import Loader from "../../Common/Loading";
 import { PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
-import { AuthProvider, routes, socialProviders, useOpenfortKit } from "../../OpenfortKit";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
+import { AuthProvider, routes, socialProviders } from "../../OpenfortKit/types";
 
 const ProviderButton: React.FC<{
   onClick: () => void;

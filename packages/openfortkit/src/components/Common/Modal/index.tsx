@@ -25,13 +25,11 @@ import {
   ModalHeading,
   PageContainer,
   PageContents,
-  SignInTooltip,
-  SiweButton,
   TextWithHr
 } from './styles';
 
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
-import { routes, useOpenfortKit } from '../../OpenfortKit';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 
 import { useTransition } from 'react-transition-state';
 import { useAccount, useSwitchChain } from 'wagmi';
@@ -42,6 +40,7 @@ import usePrevious from '../../../hooks/usePrevious';
 import { CustomTheme } from '../../../types';
 import { useWallet } from '../../../wallets/useWallets';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
+import { routes } from '../../OpenfortKit/types';
 import FitText from '../FitText';
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
