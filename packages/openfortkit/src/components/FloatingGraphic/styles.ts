@@ -1,12 +1,12 @@
 import { keyframes } from 'styled-components';
-import styled from '../../../styles/styled';
+import styled from '../../styles/styled';
 import { motion } from 'framer-motion';
-import defaultTheme from '../../../constants/defaultTheme';
+import defaultTheme from '../../constants/defaultTheme';
 
-export const Graphic = styled(motion.div)`
+export const Graphic = styled(motion.div) <{ $height?: string }>`
   position: relative;
   margin: 16px auto 20px;
-  height: 190px;
+  height: ${({ $height }) => $height ?? '190px'};
   max-width: 295px;
   pointer-events: none;
   user-select: none;

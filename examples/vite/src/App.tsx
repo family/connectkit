@@ -1,12 +1,17 @@
-import './App.css'
-import { Providers } from './providers'
-import { OpenfortKitButton } from '@openfort/openfort-kit'
+import { OpenfortKitButton, useModal, useUser } from '@openfort/openfort-kit';
+import { useEffect } from 'react';
+import './App.css';
 
 function App() {
+  const { setOpen } = useModal();
+  const { user } = useUser();
+
+  useEffect(() => {
+    setOpen(!user)
+  }, [user])
+
   return (
-    <Providers>
-      <OpenfortKitButton />
-    </Providers>
+    <OpenfortKitButton />
   )
 }
 

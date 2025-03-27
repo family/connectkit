@@ -8,21 +8,6 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
 
   return (
     <Container>
-      <TextButton
-        onClick={() => {
-          window.open(
-            "https://www.openfort.xyz/",
-            "_blank",
-          );
-        }}
-      >
-        <IconContainer>
-          <Logos.Openfort />
-        </IconContainer>
-        <span>
-          Powered by Openfort
-        </span>
-      </TextButton>
       {showDisclaimer && (
         <Disclaimer>
           {options?.disclaimer ? (
@@ -44,13 +29,31 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
           )}
         </Disclaimer>
       )}
+      <TextButton
+        onClick={() => {
+          window.open(
+            "https://www.openfort.xyz/",
+            "_blank",
+          );
+        }}
+      >
+        <span>
+          Powered by
+        </span>
+        <IconContainer>
+          <Logos.Openfort />
+        </IconContainer>
+        <span>
+          Openfort
+        </span>
+      </TextButton>
     </Container>
   );
 };
 
 
 export const Disclaimer = styled(motion.div)`
-  padding: 0px 50px 8px 50px;
+  padding: 8px 50px 0px 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,8 +75,9 @@ export const Disclaimer = styled(motion.div)`
 `;
 
 const IconContainer = styled.div`
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
   svg,
   img {
     display: block;
@@ -111,7 +115,7 @@ const TextButton = styled(motion.button)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
   height: 42px;
   padding: 0 16px;
   border-radius: 6px;

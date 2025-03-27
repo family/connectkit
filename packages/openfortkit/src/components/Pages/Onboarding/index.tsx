@@ -9,7 +9,7 @@ import {
   LogoGraphic,
   GraphicBackground,
   RotateWrapper,
-} from './styles';
+} from '../../FloatingGraphic/styles';
 
 import {
   PageContent,
