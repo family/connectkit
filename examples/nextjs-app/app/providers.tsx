@@ -42,6 +42,7 @@ export function Providers(props: { children: ReactNode }) {
             authProviders: [
               AuthProvider.EMAIL,
               AuthProvider.WALLET,
+              AuthProvider.GOOGLE,
             ]
           }}
         >

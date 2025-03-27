@@ -8,7 +8,7 @@ import Loader from "../../Common/Loading";
 import { ModalBody, ModalContent, ModalH1, PageContent } from "../../Common/Modal/styles";
 import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { routes } from "../../OpenfortKit/types";
-import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../Onboarding/styles";
+import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
 
 // TODO: Localize
 

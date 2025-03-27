@@ -8,11 +8,11 @@ import { routes } from "../../OpenfortKit/types";
 
 
 const Loading: React.FC = () => {
-
   const { setRoute } = useOpenfortKit();
   const { isLoading, user, needsRecovery } = useOpenfort();
   const { address } = useAccount();
   const [isFirstFrame, setIsFirstFrame] = React.useState(true);
+  const [retryCount, setRetryCount] = React.useState(0);
 
   useEffect(() => {
     if (isFirstFrame) return;
@@ -32,9 +32,15 @@ const Loading: React.FC = () => {
 
     else
       setRoute(routes.PROFILE);
-  }, [isLoading, user, address, needsRecovery, isFirstFrame]);
+  }, [isLoading, user, address, needsRecovery, isFirstFrame, retryCount]);
 
-
+  // Retry every 250ms
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRetryCount(r => r + 1);
+    }, 250);
+    return () => clearInterval(interval);
+  }, [])
 
   useEffect(() => {
     // UX: Wait a bit before showing the next page

@@ -43,10 +43,10 @@ export function Providers({ children }: { children?: React.ReactNode }) {
             embeddedSignerConfiguration: {
               shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY,
 
-              recoveryMethod: RecoveryMethod.AUTOMATIC,
+              recoveryMethod: RecoveryMethod.PASSWORD,
 
               // shieldEncryptionKey: import.meta.env.VITE_SHIELD_ENCRYPTION_SHARE,
-              createEncryptedSessionEndpoint: "http://localhost:3110/api/protected-create-encryption-session",
+              createEncryptedSessionEndpoint: "http://localhost:ss3110/api/protected-create-encryption-session",
 
               ethereumProviderPolicyId: "pol_6b30a204-7f5b-4ba1-bc7f-4de11e922b31",
             }

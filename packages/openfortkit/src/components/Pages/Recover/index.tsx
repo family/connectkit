@@ -11,6 +11,9 @@ import Loader from "../../Common/Loading";
 import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
 import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { routes } from "../../OpenfortKit/types";
+import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
+import wave from "../../../assets/wave";
+import { EmailIcon, KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
 
 // TODO: Localize
 
@@ -45,10 +48,60 @@ const Recover: React.FC = () => {
 
   return (
     <PageContent>
+      <Graphic $height="110px">
+        <LogoGroup>
+          <Logo>
+            <LogoPosition>
+              <LogoInner>
+                <FloatWrapper>
+                  <RotateWrapper>
+                    <LogoGraphic style={{ transform: "scale(1.2)" }}>
+                      <KeyIcon />
+                    </LogoGraphic>
+                  </RotateWrapper>
+                </FloatWrapper>
+              </LogoInner>
+            </LogoPosition>
+          </Logo>
+          <Logo>
+            <LogoPosition>
+              <LogoInner>
+                <FloatWrapper>
+                  <RotateWrapper>
+                    <LogoGraphic style={{ transform: "scale(0.75)" }}>
+                      <ShieldIcon />
+                    </LogoGraphic>
+                  </RotateWrapper>
+                </FloatWrapper>
+              </LogoInner>
+            </LogoPosition>
+          </Logo>
+          <Logo>
+          </Logo>
+          <Logo>
+          </Logo>
+          <Logo>
+            <LogoPosition>
+              <LogoInner>
+                <FloatWrapper>
+                  <RotateWrapper>
+                    <LogoGraphic style={{ transform: "scale(0.5)" }}>
+                      <LockIcon />
+                    </LogoGraphic>
+                  </RotateWrapper>
+                </FloatWrapper>
+              </LogoInner>
+            </LogoPosition>
+          </Logo>
+        </LogoGroup>
+        <GraphicBackground>{wave}</GraphicBackground>
+      </Graphic>
       <ModalHeading>Secure your account</ModalHeading>
       <ModalBody style={{ textAlign: "center" }}>
         <FitText>
-          Enter the phrase to recover your account.
+          Set or enter your password to secure your account.
+          {/* Enter the phrase to recover your account. */}
+
         </FitText>
       </ModalBody>
       <form
@@ -61,7 +114,7 @@ const Recover: React.FC = () => {
           value={recoveryPhrase}
           onChange={(e) => setRecoveryPhrase(e.target.value)}
           type="password"
-          placeholder="Enter your recovery phrase"
+          placeholder="Enter your password"
           autoComplete="off"
         />
 

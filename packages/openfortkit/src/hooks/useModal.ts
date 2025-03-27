@@ -107,7 +107,7 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
 
   return {
     open: context.open,
-    setOpen: (show: boolean) => {
+    setOpen: (show: boolean = true) => {
       if (show) {
         defaultOpen();
       } else {
