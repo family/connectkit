@@ -1,7 +1,7 @@
 /*
  * This script is used to copy over the version number in the package.json to
  * the OPENFORTKIT_VERSION constant in the index.ts file. This is done to
- * ensure that the version number attribute on the ConnectKit wrapper is always
+ * ensure that the version number attribute on the OpenfortKit wrapper is always
  * up to date with the version number in the package.json file.
  */
 

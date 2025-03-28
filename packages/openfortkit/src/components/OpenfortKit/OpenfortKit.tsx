@@ -39,7 +39,7 @@ type OpenfortKitProviderProps = {
 } & useConnectCallbackProps;
 
 /**
- * OpenfortKitProvider component provides context and configuration for ConnectKit.
+ * OpenfortKitProvider component provides context and configuration for OpenfortKit.
  * It must be used within a WagmiProvider.
  *
  * @param {React.ReactNode} children - The child components to be wrapped by the provider.

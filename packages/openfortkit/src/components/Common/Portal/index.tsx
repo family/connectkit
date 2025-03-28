@@ -20,7 +20,7 @@ const Portal = (props: any) => {
     if (!ref.current) {
       const div = document.createElement('div');
       div.setAttribute('id', selector);
-      div.setAttribute('data-connectkit', `${OPENFORTKIT_VERSION}`);
+      div.setAttribute('data-openfortkit', `${OPENFORTKIT_VERSION}`);
       document.body.appendChild(div);
       ref.current = div;
     }

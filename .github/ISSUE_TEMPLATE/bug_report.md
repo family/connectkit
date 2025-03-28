@@ -4,7 +4,6 @@ about: Let us know about some broken functionality
 title: '[BUG] '
 labels: bug
 assignees: ''
-
 ---
 
 **Describe the bug**
@@ -13,7 +12,7 @@ A clear and concise description of what the bug is.
 
 **To reproduce**
 
-A CodeSandbox (preferably) or specify which version of ConnectKit you're using along with reproduction steps.
+A CodeSandbox (preferably) or specify which version of OpenfortKit you're using along with reproduction steps.
 
 **Expected behavior**
 

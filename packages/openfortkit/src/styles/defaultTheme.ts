@@ -81,7 +81,7 @@ if (darkMode) {
 }
 
 const defaultTheme: CustomTheme = {
-  connectKit: {
+  openfortKit: {
     options: {
       iconStyle: 'light',
     },

@@ -38,7 +38,7 @@ export const ckConfig = getDefaultConfig({
     //[avalanche.id]: http(avalanche.rpcUrls.default.http[0]),
   },
   */
-  appName: 'ConnectKit testbench',
+  appName: 'OpenfortKit testbench',
   appIcon: '/app.png',
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
 });

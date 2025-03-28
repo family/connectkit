@@ -5,7 +5,7 @@ import '../styles/globals.css';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  title: 'ConnectKit Next.js Example',
+  title: 'OpenfortKit Next.js Example',
   description: 'By Family',
 };
 

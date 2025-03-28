@@ -153,7 +153,7 @@ export type ConnectKitOptions = {
   // hideNoWalletCTA?: boolean;
   hideRecentBadge?: boolean;
   walletConnectCTA?: 'link' | 'modal' | 'both';
-  avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
+  avoidLayoutShift?: boolean; // Avoids layout shift when the OpenfortKit modal is open by adding padding to the body
   embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
   truncateLongENSAddress?: boolean;
   walletConnectName?: string;
@@ -178,7 +178,7 @@ export type ConnectKitOptionsExtended = {
   hideNoWalletCTA?: boolean;
   hideRecentBadge?: boolean;
   walletConnectCTA?: 'link' | 'modal' | 'both';
-  avoidLayoutShift?: boolean; // Avoids layout shift when the ConnectKit modal is open by adding padding to the body
+  avoidLayoutShift?: boolean; // Avoids layout shift when the OpenfortKit modal is open by adding padding to the body
   embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
   truncateLongENSAddress?: boolean;
   walletConnectName?: string;
