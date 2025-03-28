@@ -11,7 +11,7 @@
   "dependencies": {
     "@openfort/openfort-kit": "workspace:packages/openfortkit",
     "@tanstack/react-query": "^5.17.15",
-    "next": "14.0.4",
+    "next": "^14.2.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "viem": "^2.23.2",
@@ -22,7 +22,7 @@
     "@types/react": "^18.2.43",
     "eslint": "^8.15.0",
     "eslint-config-next": "^14.0.4",
-    "next": "^14.0.4",
+    "next": "^14.2.25",
     "typescript": "^5.0.4"
   }
 }
