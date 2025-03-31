@@ -23,7 +23,7 @@ import { isFamily } from '../../utils/wallets';
 import ConnectKitModal from '../ConnectModal';
 import { Web3ContextProvider } from '../contexts/web3';
 import { OpenfortKitContext, ContextValue, ErrorMessage } from './context';
-import { AuthProvider, ConnectKitOptions, ConnectKitOptionsExtended, FortWalletOptions, routes } from './types';
+import { AuthProvider, ConnectKitOptions, ConnectKitOptionsExtended, OpenfortWalletConfig, routes } from './types';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 
 type OpenfortKitProviderProps = {
@@ -35,7 +35,7 @@ type OpenfortKitProviderProps = {
   debugMode?: boolean;
 
   publishableKey: string;
-  walletConfig: FortWalletOptions;
+  walletConfig: OpenfortWalletConfig;
 } & useConnectCallbackProps;
 
 /**

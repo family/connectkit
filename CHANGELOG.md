@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.9] - 2024-02-31
+
+### Chore
+
+-Update type exports
+
 ## [0.0.8] - 2024-02-19
 
 ### Update UI
