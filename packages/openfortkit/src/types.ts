@@ -20,5 +20,5 @@ export type All = {
   lang?: Languages;
 };
 
-export type { ConnectKitOptions } from './components/OpenfortKit/types';
+export type { ConnectKitOptions as OpenfortKitOptions, OpenfortWalletConfig } from './components/OpenfortKit/types';
 export type { CustomAvatarProps } from './components/Common/Avatar';

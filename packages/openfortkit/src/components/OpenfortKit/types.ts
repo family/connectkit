@@ -126,7 +126,7 @@ type EmbeddedSignerConfiguration = CommonEmbeddedSignerConfiguration & (
   AutomaticRecoveryEmbeddedSignerConfiguration | PasswordRecoveryEmbeddedSignerConfiguration
 );
 
-export type FortWalletOptions = {
+export type OpenfortWalletConfig = {
   linkWalletOnSignUp: true;
   createEmbeddedSigner?: false;
 } | {

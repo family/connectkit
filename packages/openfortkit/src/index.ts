@@ -1,6 +1,6 @@
 export { OPENFORTKIT_VERSION } from './version';
 
-export * as Types from './types';
+export * from './types';
 export { default as getDefaultConfig } from './defaultConfig';
 export { default as getDefaultConnectors } from './defaultConnectors';
 export { wallets } from './wallets';

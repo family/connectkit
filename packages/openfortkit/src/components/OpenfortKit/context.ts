@@ -1,23 +1,20 @@
 import React, {
-  ReactNode,
   createContext
 } from 'react';
 import {
-  CustomAvatarProps,
   CustomTheme,
   Languages,
   Mode,
-  Theme,
+  Theme
 } from '../../types';
 
 
-import { OAuthProvider, RecoveryMethod } from '@openfort/openfort-js';
+import { OAuthProvider } from '@openfort/openfort-js';
 import { ValueOf } from 'viem/_types/types/utils';
 import {
   useConnectCallbackProps
 } from '../../hooks/useConnectCallback';
-import { OpenfortProviderProps } from '../../openfort/OpenfortProvider';
-import { ConnectKitOptionsExtended, FortWalletOptions, OpenfortOptions, routes } from './types';
+import { ConnectKitOptionsExtended, OpenfortWalletConfig, routes } from './types';
 
 type Connector = {
   id: string;
@@ -50,7 +47,7 @@ export type ContextValue = {
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
   resize: number;
   triggerResize: () => void;
-  walletConfig: FortWalletOptions;
+  walletConfig: OpenfortWalletConfig;
 } & useConnectCallbackProps;
 
 export const OpenfortKitContext = createContext<ContextValue | null>(null);

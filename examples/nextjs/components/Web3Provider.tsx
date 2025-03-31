@@ -1,13 +1,12 @@
 "use client";
 import React from 'react';
 
+import { OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider, OpenfortKitProvider, RecoveryMethod, getDefaultConfig } from '@openfort/openfort-kit';
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
 import CustomLogo from './CustomLogo';
 import { useSample } from './SampleProvider';
-import { Theme } from '@openfort/openfort-kit/build/types';
 
 const config = createConfig(
   getDefaultConfig({
