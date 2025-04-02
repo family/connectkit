@@ -1,4 +1,10 @@
 const enUS = {
+  // Family Account
+  continueWithFamily: 'Continue with Family',
+  orSelectWallet: 'or select a wallet from the list below',
+  loginWithEmailOrPhone: 'Login with Email or Phone',
+  connectWithFamilyIOS: 'Connect with Family iOS',
+  // ConnectKit
   connectWallet: 'Connect Wallet',
   disconnect: 'Disconnect',
   connected: 'Connected',
@@ -68,7 +74,7 @@ const enUS = {
   downloadAppScreen_heading: `Get {{ CONNECTORNAME }}`,
   downloadAppScreen_iosAndroid: `Scan with your phone camera to download on iOS or Android.`,
   downloadAppScreen_ios: `Scan with your phone camera to download on iOS.`,
-  downloadAppScreen_android: `Scan with your phone camera to download Android.`,
+  downloadAppScreen_android: `Scan with your phone camera to download on Android.`,
 
   injectionScreen_unavailable_h1: `Unsupported Browser`,
   injectionScreen_unavailable_p: `To connect your {{ CONNECTORSHORTNAME }} wallet,\ninstall the extension on {{ SUGGESTEDEXTENSIONBROWSER }}.`,

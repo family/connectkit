@@ -1,6 +1,8 @@
 import { LocaleProps } from './';
+import enUS from './en-US';
 
 const faIR: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'اتصال به کیف پول',
   disconnect: 'قطع ارتباط',
   connected: 'متصل شد',

@@ -41,6 +41,7 @@
   "dependencies": {
     "buffer": "^6.0.3",
     "detect-browser": "^5.3.0",
+    "family": "^0.1.1",
     "framer-motion": "^6.3.11",
     "qrcode": "^1.5.0",
     "react-transition-state": "^1.1.4",

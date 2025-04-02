@@ -1,6 +1,8 @@
 import { LocaleProps } from './';
+import enUS from './en-US';
 
 const viVN: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Kết nối ví',
   disconnect: 'Ngắt kết nối',
   connected: 'Đã kết nối',

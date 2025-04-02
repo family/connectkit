@@ -1,4 +1,8 @@
-export default {
+import { LocaleProps } from './';
+import enUS from './en-US';
+
+const jaJP: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'ウォレットの接続',
   disconnect: '切断',
   connected: '接続されました',
@@ -111,3 +115,5 @@ export default {
   signInWithEthereumScreen_signedIn_p: `サインアウトすると、今後 再度認証する必要があります。`,
   signInWithEthereumScreen_signedIn_button: 'サインアウト',
 };
+
+export default jaJP;

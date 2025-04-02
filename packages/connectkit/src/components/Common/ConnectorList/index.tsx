@@ -22,6 +22,11 @@ import {
 } from '../../../utils';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useConnect } from '../../../hooks/useConnect';
+import {
+  useFamilyAccountsConnector,
+  useFamilyConnector,
+} from '../../../hooks/useConnectors';
+import { isFamily } from '../../../utils/wallets';
 
 const ConnectorList = () => {
   const context = useContext();
@@ -29,17 +34,28 @@ const ConnectorList = () => {
 
   const wallets = useWallets();
   const { lastConnectorId } = useLastConnector();
+  const familyConnector = useFamilyConnector();
+  const familyAccountsConnector = useFamilyAccountsConnector();
+
+  let filteredWallets = wallets.filter(
+    (wallet) => wallet.id !== familyAccountsConnector?.id
+  );
+  if (familyConnector && isFamily()) {
+    filteredWallets = filteredWallets.filter(
+      (wallet) => wallet.id !== familyConnector?.id
+    );
+  }
 
   const walletsToDisplay =
     context.options?.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
-      ? wallets
+      ? filteredWallets
       : [
           // move last used wallet to top of list
           // using .filter and spread to avoid mutating original array order with .sort
-          ...wallets.filter(
+          ...filteredWallets.filter(
             (wallet) => lastConnectorId === wallet.connector.id
           ),
-          ...wallets.filter(
+          ...filteredWallets.filter(
             (wallet) => lastConnectorId !== wallet.connector.id
           ),
         ];
@@ -134,6 +150,7 @@ const ConnectorItem = ({
       <ConnectorIcon
         data-small={wallet.iconShouldShrink}
         data-shape={wallet.iconShape}
+        data-background={redirectToMoreWallets}
       >
         {wallet.iconConnector ?? wallet.icon}
       </ConnectorIcon>

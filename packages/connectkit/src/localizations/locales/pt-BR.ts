@@ -1,6 +1,8 @@
 import { LocaleProps } from './';
+import enUS from './en-US';
 
 const ptBR: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Conectar carteira',
   disconnect: 'Desconectar',
   connected: 'Conectado',
@@ -101,16 +103,19 @@ const ptBR: LocaleProps = {
 
   switchNetworkScreen_heading: 'Alternar rede',
 
-  signInWithEthereumScreen_tooltip: 'Você não está conectado a este aplicativo.\n**Entre com Ethereum** para continuar.',
+  signInWithEthereumScreen_tooltip:
+    'Você não está conectado a este aplicativo.\n**Entre com Ethereum** para continuar.',
   signInWithEthereumScreen_signedOut_heading: 'Entrar com Ethereum',
-  signInWithEthereumScreen_signedOut_h1: 'Este aplicativo gostaria de verificar você \n como o proprietário desta carteira.',
+  signInWithEthereumScreen_signedOut_h1:
+    'Este aplicativo gostaria de verificar você \n como o proprietário desta carteira.',
   signInWithEthereumScreen_signedOut_p: `Por favor, assine o pedido de mensagem \n em sua carteira para continuar.`,
   signInWithEthereumScreen_signedOut_button: 'Entrar',
 
   signInWithEthereumScreen_signedIn_heading: 'Conectado com Ethereum',
-  signInWithEthereumScreen_signedIn_h1: 'Você se verificou com sucesso \n como o proprietário desta carteira',
+  signInWithEthereumScreen_signedIn_h1:
+    'Você se verificou com sucesso \n como o proprietário desta carteira',
   signInWithEthereumScreen_signedIn_p: `Se sair, será necessário que você \n autentique novamente no futuro.`,
-  signInWithEthereumScreen_signedIn_button: 'Sair'
+  signInWithEthereumScreen_signedIn_button: 'Sair',
 };
 
 export default ptBR;

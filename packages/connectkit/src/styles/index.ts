@@ -31,7 +31,7 @@ const themeGlobals = {
       '--ck-graphic-scaniconwithlogos-04': '#F6F7F9',
 
       '--ck-chain-ethereum-01': '#25292E',
-      '--ck-chain-ethereum-02': '#fff',
+      '--ck-chain-ethereum-02': '#ffffff',
       '--ck-chain-ethereum-03': '#DFE0E0',
     },
     dark: {
@@ -90,6 +90,7 @@ const themeGlobals = {
     },
   },
   brand: {
+    '--ck-family-accounts-brand': '#0FCCCC',
     '--ck-family-brand': '#1A88F8',
     '--ck-brand-walletConnect': '#3B99FC',
     '--ck-brand-coinbaseWallet': '#0052FF',
@@ -170,11 +171,11 @@ const themes = {
   nouns: createCssColors(themeColors.nouns),
 };
 const globals = {
-  brand: createCssVars(themeGlobals.brand),
-  ensLight: createCssVars(themeGlobals.ens.light),
-  ensDark: createCssVars(themeGlobals.ens.dark),
-  graphicsLight: createCssVars(themeGlobals.graphics.light),
-  graphicsDark: createCssVars(themeGlobals.graphics.dark),
+  brand: createCssColors(themeGlobals.brand),
+  ensLight: createCssColors(themeGlobals.ens.light),
+  ensDark: createCssColors(themeGlobals.ens.dark),
+  graphicsLight: createCssColors(themeGlobals.graphics.light),
+  graphicsDark: createCssColors(themeGlobals.graphics.dark),
 };
 
 const globalsLight = css`
@@ -261,7 +262,6 @@ export const ResetContainer = styled(motion.div)<{
         `;
     }
   }}
-
 
   ${(props) => {
     if (
