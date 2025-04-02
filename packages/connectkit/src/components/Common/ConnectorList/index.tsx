@@ -22,7 +22,11 @@ import {
 } from '../../../utils';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useConnect } from '../../../hooks/useConnect';
-import { useFamilyAccountsConnector } from '../../../hooks/useConnectors';
+import {
+  useFamilyAccountsConnector,
+  useFamilyConnector,
+} from '../../../hooks/useConnectors';
+import { isFamily } from '../../../utils/wallets';
 
 const ConnectorList = () => {
   const context = useContext();
@@ -30,11 +34,17 @@ const ConnectorList = () => {
 
   const wallets = useWallets();
   const { lastConnectorId } = useLastConnector();
+  const familyConnector = useFamilyConnector();
   const familyAccountsConnector = useFamilyAccountsConnector();
 
-  const filteredWallets = wallets.filter(
+  let filteredWallets = wallets.filter(
     (wallet) => wallet.id !== familyAccountsConnector?.id
   );
+  if (familyConnector && isFamily()) {
+    filteredWallets = filteredWallets.filter(
+      (wallet) => wallet.id !== familyConnector?.id
+    );
+  }
 
   const walletsToDisplay =
     context.options?.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
