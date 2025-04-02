@@ -12,7 +12,7 @@ Learn more by reading the announcement [here](https://family.co/blog/family-acco
 
 ## Improved
 
-- Updates chain logos for `zora`, `base` and `optimism`.
+- Updates chain logos for `zora`, `base`, `optimism` and `lens`.
 
 # 1.8.2
 
