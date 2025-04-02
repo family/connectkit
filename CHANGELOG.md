@@ -1,3 +1,19 @@
+# 1.9.0
+
+We're thrilled to announce a major upgrade to ConnectKit—designed to make onboarding and navigating Ethereum simpler and safer than ever.
+
+Introducing [Family Accounts](https://app.family.co), simplified onboarding for new users.
+
+Learn more by reading the announcement [here](https://family.co/blog/family-accounts).
+
+## New
+
+- Support for [Family Accounts](https://app.family.co).
+
+## Improved
+
+- Updates chain logos for `zora`, `base` and `optimism`.
+
 # 1.8.2
 
 This update includes improvements to the `CoinbaseWalletSDK` connect popup and `MockConnector`.

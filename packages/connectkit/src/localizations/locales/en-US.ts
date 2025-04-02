@@ -2,7 +2,8 @@ const enUS = {
   // Family Account
   continueWithFamily: 'Continue with Family',
   orSelectWallet: 'or select a wallet from the list below',
-
+  loginWithEmailOrPhone: 'Login with Email or Phone',
+  connectWithFamilyIOS: 'Connect with Family iOS',
   // ConnectKit
   connectWallet: 'Connect Wallet',
   disconnect: 'Disconnect',

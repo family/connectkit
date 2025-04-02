@@ -71,7 +71,9 @@ export const PageContent = styled(motion.div)`
   padding-top: 48px;
 `;
 
-export const TextWithHr = styled(motion.div)`
+export const TextWithHr = styled(motion.div)<{
+  $disableHr?: boolean;
+}>`
   user-select: none;
   position: relative;
   display: block;
@@ -90,6 +92,9 @@ export const TextWithHr = styled(motion.div)`
     background: var(--ck-body-background);
     transition: background-color 200ms ease;
   }
+  ${(props) =>
+    !props.$disableHr &&
+    `
   &:before {
     z-index: 2;
     content: '';
@@ -102,6 +107,7 @@ export const TextWithHr = styled(motion.div)`
     background: var(--ck-body-divider);
     box-shadow: var(--ck-body-divider-box-shadow);
   }
+    `}
 `;
 export const ModalHeading = styled(motion.div)`
   z-index: 3;

@@ -14,7 +14,14 @@ export function useConnector(id: string, uuid?: string) {
       (c) => c.id === id && c.name.includes('Injected')
     ) as Connector;
   }
-  return connectors.find((c) => c.id === id) as Connector;
+  return connectors.find((c) => c.id === id);
+}
+
+export function useFamilyAccountsConnector() {
+  return useConnector('familyAccountsProvider');
+}
+export function useFamilyConnector() {
+  return useConnector('co.family.wallet');
 }
 
 export function useInjectedConnector(uuid?: string) {

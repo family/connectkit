@@ -5,7 +5,7 @@ import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
 import {
   detectBrowser,
-  isCoinbaseWalletConnector,
+  isFamilyAccountsConnector,
   isWalletConnectConnector,
 } from '../../utils';
 
@@ -130,6 +130,14 @@ const ConnectWithQRCode: React.FC<{
         </div>
       )}
 
+      {isFamilyAccountsConnector(wallet.id) && (
+        <>
+          <OrDivider />
+          <Button onClick={() => switchConnectMethod(id)}>
+            {locales.loginWithEmailOrPhone}
+          </Button>
+        </>
+      )}
       {/*
       {hasExtensionInstalled && ( // Run the extension
         <Button
