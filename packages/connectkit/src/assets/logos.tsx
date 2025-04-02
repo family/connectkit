@@ -1,4 +1,4 @@
-import { isFamily, isRainbow, isZerion } from '../utils/wallets';
+import { isArgent, isPhantom, isSafe } from '../utils/wallets';
 
 export const Mock = ({ ...props }) => (
   <svg
@@ -1280,11 +1280,13 @@ export const OtherWallets = ({ ...props }) => {
         <div style={cell}>
           <WalletConnect background />
         </div>
-        <div style={cell}>{!isZerion() ? <Zerion /> : <Phantom />}</div>
+        <div style={cell}>{!isArgent() ? <Argent /> : <Rabby />}</div>
       </div>
       <div style={row}>
-        <div style={cell}>{!isFamily() ? <Family /> : <ImToken />}</div>
-        <div style={cell}>{!isRainbow() ? <Rainbow /> : <Trust />}</div>
+        <div style={cell}>
+          {!isPhantom() ? <Phantom background /> : <ImToken />}
+        </div>
+        <div style={cell}>{!isSafe() ? <Safe /> : <Trust />}</div>
       </div>
     </div>
   );

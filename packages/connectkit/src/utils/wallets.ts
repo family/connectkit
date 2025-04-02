@@ -25,6 +25,7 @@ export const isFrame = () => isWalletInstalled('Frame');
 export const isPhantom = () => isWalletInstalled('Phantom');
 export const isInfinityWallet = () => isWalletInstalled('InfinityWallet');
 export const isRabby = () => isWalletInstalled('Rabby');
+export const isArgent = () => isWalletInstalled('Argent');
 export const isFrontier = () => isWalletInstalled('Frontier');
 export const isTrust = () => {
   if (typeof window === 'undefined') return false;
@@ -39,3 +40,4 @@ export const isTalisman = () => isWalletInstalled('Talisman');
 export const isFordefi = () => isWalletInstalled('Fordefi');
 export const isRainbow = () => isWalletInstalled('Rainbow');
 export const isZerion = () => isWalletInstalled('Zerion');
+export const isSafe = () => isWalletInstalled('Safe');
