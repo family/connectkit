@@ -38,6 +38,16 @@ export const chainConfigs: Chain[] = [
     },
   },
   {
+    id: 232,
+    name: 'Lens Chain',
+    logo: <Logos.LensChain />,
+  },
+  {
+    id: 37111,
+    name: 'Lens Chain Testnet',
+    logo: <Logos.LensChain testnet />,
+  },
+  {
     id: 3,
     name: 'Rinkeby',
     logo: <Logos.Ethereum testnet />,
