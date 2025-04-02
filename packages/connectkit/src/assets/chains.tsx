@@ -108,6 +108,27 @@ export const Ethereum = ({ testnet, ...props }: Logo) => {
   );
 };
 
+export const LensChain = ({ testnet, ...props }: { testnet?: boolean }) => (
+  <svg
+    {...props}
+    width="44"
+    height="44"
+    viewBox="0 0 44 44"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{
+      background: testnet
+        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
+        : '#2C2D30',
+    }}
+  >
+    <path
+      d="M30.4076 17.2002C29.1337 17.2002 27.9906 17.6998 27.1194 18.506L27.0299 18.4612C26.8302 15.8187 24.6817 13.7344 21.9891 13.7344C19.2966 13.7344 17.1481 15.8187 16.9484 18.4612L16.8589 18.506C15.9877 17.6998 14.8446 17.2002 13.5706 17.2002C10.7438 17.2002 8.45068 19.4947 8.45068 22.3267C8.45068 24.7727 10.8781 26.8709 11.4807 27.3532C14.3144 29.6098 18.0054 30.9293 21.9891 30.9293C25.9729 30.9293 29.6639 29.6098 32.4976 27.3532C33.1036 26.8709 35.5276 24.7762 35.5276 22.3267C35.5276 19.4947 33.2345 17.2002 30.4042 17.2002H30.4076Z"
+      fill="white"
+    />
+  </svg>
+);
+
 export const Polygon = ({ testnet, ...props }: Logo) => (
   <svg
     {...props}
@@ -859,6 +880,7 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
 export default {
   UnknownChain,
   Base,
+  LensChain,
   Ethereum,
   Polygon,
   Optimism,
