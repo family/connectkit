@@ -1,6 +1,8 @@
 import { LocaleProps } from './';
+import enUS from './en-US';
 
 const ruRU: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Подключить кошелек',
   disconnect: 'Отключить',
   connected: 'Подключена',
@@ -46,7 +48,7 @@ const ruRU: LocaleProps = {
   onboardingScreen_ctaUrl: `https://ethereum.org/en/wallets/find-wallet/`,
 
   aboutScreen_heading: `О кошельках`,
-    aboutScreen_a_h1: `Для ваших цифровых активов`,
+  aboutScreen_a_h1: `Для ваших цифровых активов`,
   aboutScreen_a_p: `Кошельки позволяют вам отправлять, получать, хранить и взаимодействовать с цифровыми активами, такими как NFT и другие токены Ethereum.`,
   aboutScreen_b_h1: `Лучший способ входа`,
   aboutScreen_b_p: `В современных приложениях ваш кошелек можно использовать как удобный способ входа без необходимости помнить пароль.`,

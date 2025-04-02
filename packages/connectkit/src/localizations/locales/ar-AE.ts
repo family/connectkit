@@ -1,6 +1,8 @@
 import { LocaleProps } from './';
+import enUS from './en-US';
 
 const arAE: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'الاتصال بالمحفظة',
   disconnect: 'قطع الاتصال',
   connected: 'متصل',
@@ -16,7 +18,7 @@ const arAE: LocaleProps = {
   more: 'المزيد',
   tryAgain: 'حاول مجددًا',
   tryAgainQuestion: 'هل نحاول مرة أخرى؟',
-  dontHaveTheApp: "ليس لديك التطبيق؟",
+  dontHaveTheApp: 'ليس لديك التطبيق؟',
   scanTheQRCode: 'مسح رمز الاستجابة السريعة',
   useWalletConnectModal: 'استخدم نموذج ولِيت‌كنيكت',
   useModal: 'استخدم النموذج',
@@ -46,7 +48,7 @@ const arAE: LocaleProps = {
   onboardingScreen_ctaUrl: `https://ethereum.org/ar/wallets/find-wallet/`,
 
   aboutScreen_heading: `حول المحافظ`,
-    aboutScreen_a_h1: `حافظ على أصولك الرقمية`,
+  aboutScreen_a_h1: `حافظ على أصولك الرقمية`,
   aboutScreen_a_p: `تمكنك المحافظ من إرسال واستقبال وتخزين والتفاعل مع الأصول الرقمية مثل NFTs ورموز إيثريوم الأخرى.`,
   aboutScreen_b_h1: `وسيلة أفضل لتسجيل الدخول`,
   aboutScreen_b_p: `في تطبيقات العصر الحديث، يمكن استخدام محفظتك كوسيلة سهلة لتسجيل الدخول بدلاً من الحاجة إلى تذكر كلمة مرور.`,
@@ -102,17 +104,17 @@ const arAE: LocaleProps = {
   switchNetworkScreen_heading: 'تبديل الشبكات',
 
   signInWithEthereumScreen_tooltip:
-'أنت غير مسجل الدخول حاليًا إلى هذا التطبيق.\n**سجل الدخول باستخدام إثيريوم** للمتابعة.',
+    'أنت غير مسجل الدخول حاليًا إلى هذا التطبيق.\n**سجل الدخول باستخدام إثيريوم** للمتابعة.',
 
   signInWithEthereumScreen_signedOut_heading: 'سجل الدخول باستخدام إثيريوم',
   signInWithEthereumScreen_signedOut_h1:
-'يود هذا التطبيق التحقق منك \n كصاحب لهذه المحفظة.',
+    'يود هذا التطبيق التحقق منك \n كصاحب لهذه المحفظة.',
   signInWithEthereumScreen_signedOut_p: `يرجى تأكيد طلب الرسالة في محفظتك للمتابعة.`,
   signInWithEthereumScreen_signedOut_button: 'سجل الدخول',
 
   signInWithEthereumScreen_signedIn_heading: 'تم تسجيل الدخول باستخدام إثيريوم',
   signInWithEthereumScreen_signedIn_h1:
-'لقد قمت بتأكيد نفسك كصاحب لهذه المحفظة بنجاح.',
+    'لقد قمت بتأكيد نفسك كصاحب لهذه المحفظة بنجاح.',
   signInWithEthereumScreen_signedIn_p: `سيتطلب تسجيل الخروج منك إعادة المصادقة مرة أخرى في المستقبل.`,
   signInWithEthereumScreen_signedIn_button: 'تسجيل الخروج',
 };

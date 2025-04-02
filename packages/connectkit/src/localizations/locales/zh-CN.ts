@@ -1,6 +1,8 @@
 import { LocaleProps } from './';
+import enUS from './en-US';
 
 const zhCN: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: '绑定钱包',
   disconnect: '解除绑定',
   connected: '已绑定',
