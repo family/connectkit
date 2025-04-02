@@ -140,6 +140,7 @@ const ConnectorItem = ({
       <ConnectorIcon
         data-small={wallet.iconShouldShrink}
         data-shape={wallet.iconShape}
+        data-background={redirectToMoreWallets}
       >
         {wallet.iconConnector ?? wallet.icon}
       </ConnectorIcon>

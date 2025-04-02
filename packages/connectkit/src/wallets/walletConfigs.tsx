@@ -129,6 +129,13 @@ export const walletConfigs: {
         : `familywallet://wc?uri=${encodeURIComponent(uri)}`;
     },
   },
+  familyAccountsProvider: {
+    name: 'Family',
+    shortName: 'Family',
+    icon: <Logos.FamilyAccount />,
+    iconConnector: <Logos.FamilyAccount />,
+    iconShape: 'squircle',
+  },
   frame: {
     name: 'Frame',
     icon: <Logos.Frame />,

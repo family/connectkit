@@ -38,7 +38,7 @@ export const ButtonContainer = styled.button`
   display: block;
   text-align: center;
   height: 48px;
-  margin: 12px 0 0;
+  margin: 18px 0 2px;
   line-height: 48px;
   padding: 0 4px;
   font-size: 16px;
@@ -69,7 +69,7 @@ export const IconContainer = styled.div`
   vertical-align: middle;
   max-width: 20px;
   max-height: 20px;
-  margin: 0 10px;
+  margin: 0 12px 0 0;
   svg {
     display: block;
     position: relative;
