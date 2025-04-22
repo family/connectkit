@@ -42,8 +42,8 @@ export const IconButton = styled.button`
   transition: all 0.2s;
 
   > svg {
-    height: 100%;
-    width: 100%;
+    height: 24px;
+    width: 24px;
   }
 
   &:hover {
