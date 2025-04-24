@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## [0.0.11] - 2025-04-24
+
+### Feat
+
+- Update @openfort/openfort-js
+
 ## [0.0.10] - 2025-04-22
 
 ### Fix
