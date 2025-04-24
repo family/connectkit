@@ -2,7 +2,9 @@
 
 The easiest way to integrate Openfort to your project, with built-in authentication and seamless wallet connectivity.
 
-It offers a simple, customizable UI. Supports authentication providers like Google, X, or Facebook out of the box. Access your address through Openfort’s [embedded wallet solution](https://www.openfort.xyz/docs/guides/javascript/embedded-signer/recovery) or connect their own wallet provider effortlessly.
+It offers a simple, customizable UI. Supports authentication providers like Google, X, or Facebook out of the box. Access your address through Openfort’s [invisible wallet](https://www.openfort.io/docs/products/embedded-wallet/javascript) or connect their own wallet provider effortlessly.
+
+Docs: https://www.openfort.io/docs/products/kit/react/quickstart
 
 ## Features
 
