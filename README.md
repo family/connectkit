@@ -19,24 +19,24 @@ and much more...
 
 ### New app
 
-Get started with `create-react-app` Openfortkit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
+Get started with `create` Openfortkit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
 
 #### npm
 
 ```sh
-npx create-react-app my-app --template cra-template-openfortkit
+npx create openfortkit
 ```
 
 #### yarn
 
 ```sh
-yarn create react-app my-app --template cra-template-openfortkit
+yarn create openfortkit
 ```
 
 #### pnpm
 
 ```sh
-pnpm dlx create-react-app ./my-app --template cra-template-openfortkit
+pnpm create openfortkit
 ```
 
 ### Import `OpenfortKit` to your project
