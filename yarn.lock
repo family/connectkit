@@ -8933,12 +8933,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cra-template-openfortkit@workspace:packages/cra-template":
-  version: 0.0.0-use.local
-  resolution: "cra-template-openfortkit@workspace:packages/cra-template"
-  languageName: unknown
-  linkType: soft
-
 "cra@workspace:examples/cra":
   version: 0.0.0-use.local
   resolution: "cra@workspace:examples/cra"
