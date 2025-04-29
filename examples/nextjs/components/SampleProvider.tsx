@@ -18,7 +18,7 @@ interface SampleProviderProps {
 }
 
 export const SampleProvider: React.FC<SampleProviderProps> = ({ children }) => {
-  const [sampleTheme, setSampleTheme] = useState<Theme>('auto');
+  const [sampleTheme, setSampleTheme] = useState<Theme>('midnight');
   const [sampleProviders, setSampleProviders] = useState<AuthProvider[]>([
     AuthProvider.GUEST,
     AuthProvider.EMAIL,
