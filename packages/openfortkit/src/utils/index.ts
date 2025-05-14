@@ -104,12 +104,6 @@ export const isSafeConnector = (connectorId?: string) => connectorId === 'safe';
 export const isInjectedConnector = (connectorId?: string) =>
   connectorId === 'injected';
 
-export const isPlayerVerified = (player: AuthPlayerResponse | undefined | null) => {
-  const linkedEmail = player?.linkedAccounts.find((account) => account.provider === "email");
-  if (!linkedEmail) return true; // player is verified if it has no linked email
-  return linkedEmail.verified;
-}
-
 export {
   nFormatter,
   truncateEthAddress,

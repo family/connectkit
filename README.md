@@ -79,7 +79,7 @@ Clone the FortKit project and install the necessary dependencies:
 
 ```sh
 $ git clone git@github.com:openfort-xyz/openfort-kit.git
-$ cd fortkit
+$ cd openfort-kit
 $ yarn install
 ```
 

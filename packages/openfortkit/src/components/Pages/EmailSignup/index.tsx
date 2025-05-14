@@ -7,6 +7,8 @@ import { OrDivider } from "../../Common/Modal";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { routes } from "../../OpenfortKit/types";
+import { emailToVerifyLocalStorageKey } from "../../../constants/openfort";
+import { AuthActionRequiredActions } from "@openfort/openfort-js";
 
 // TODO: Localize
 
@@ -38,11 +40,11 @@ const EmailSignup: React.FC = () => {
       triggerResize();
     }).then((user) => {
       if (user) {
-        if (options?.skipEmailVerification) {
-          setRoute(routes.RECOVER);
-        }
-        else {
+        if ("action" in user && user.action === AuthActionRequiredActions.ACTION_VERIFY_EMAIL) {
+          localStorage.setItem(emailToVerifyLocalStorageKey, email);
           setRoute(routes.EMAIL_VERIFICATION);
+        } else {
+          setRoute(routes.RECOVER);
         }
       }
       else {

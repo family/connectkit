@@ -139,6 +139,9 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
           if (err?.response?.status === 404) {
             log("User not found, logging out");
             logout();
+          } else if (err?.response?.status === 401) {
+            log("User not authenticated, logging out");
+            logout();
           }
         })
     }

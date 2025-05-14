@@ -1,7 +1,7 @@
+import { AuthActionRequiredActions } from '@openfort/openfort-js';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import React from "react";
 import { useOpenfort } from '../../../openfort/useOpenfort';
-import { isPlayerVerified } from "../../../utils";
 import Button from "../../Common/Button";
 import { TextLinkButton } from "../../Common/Button/styles";
 import FitText from "../../Common/FitText";
@@ -9,8 +9,9 @@ import Input from "../../Common/Input";
 import { OrDivider } from "../../Common/Modal";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { TextContainer } from "../../ConnectButton/styles";
-import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { routes } from '../../OpenfortKit/types';
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
+import { emailToVerifyLocalStorageKey } from '../../../constants/openfort';
 
 // TODO: Localize
 
@@ -21,7 +22,7 @@ const textVariants: Variants = {
   animate: {
     opacity: 1,
     transition: {
-      duration: 0.3,
+      duration: .3,
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -29,9 +30,8 @@ const textVariants: Variants = {
     position: 'absolute',
     opacity: 0,
     transition: {
-      duration: 0.3,
-      ease: [0.25, 1, 0.5, 1],
-    },
+      duration: 0,
+    }
   },
 };
 
@@ -39,8 +39,8 @@ const EmailLogin: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setRoute, triggerResize, log, options } = useOpenfortKit();
-  const { logInWithEmailPassword, logout, verifyEmail, requestEmailVerification } = useOpenfort();
+  const { setRoute, log } = useOpenfortKit();
+  const { logInWithEmailPassword } = useOpenfort();
 
   const [loginLoading, setLoginLoading] = React.useState(false);
   const [loginError, setLoginError] = React.useState<false | string>(false);
@@ -62,7 +62,9 @@ const EmailLogin: React.FC = () => {
         return;
       }
 
-      if (!options?.skipEmailVerification && !isPlayerVerified(user.player)) {
+      if ("action" in user && user.action === AuthActionRequiredActions.ACTION_VERIFY_EMAIL) {
+        console.log("User needs to verify email");
+        localStorage.setItem(emailToVerifyLocalStorageKey, email);
         setRoute(routes.EMAIL_VERIFICATION);
       } else {
         setRoute(routes.RECOVER);
@@ -104,8 +106,13 @@ const EmailLogin: React.FC = () => {
               exit={'exit'}
               variants={textVariants}
             >
-              <FitText maxFontSize={80} >
-                {loginError ? loginError : ""}
+              <FitText
+                maxFontSize={80}
+                key={loginError ? "text-error" : "text-no-error"}
+              >
+                <span style={{ color: "var(--color-error)", marginRight: "4px" }} >
+                  {loginError ? loginError : ""}
+                </span>
                 <TextLinkButton
                   type="button"
                   onClick={() => {

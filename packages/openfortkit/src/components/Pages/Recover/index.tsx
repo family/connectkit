@@ -2,18 +2,17 @@ import { RecoveryMethod } from "@openfort/openfort-js";
 import { motion } from 'framer-motion';
 import React, { useEffect } from "react";
 import { useAccount, useChainId } from "wagmi";
+import { KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
+import wave from "../../../assets/wave";
 import { useOpenfort } from '../../../openfort/useOpenfort';
-import { isPlayerVerified } from "../../../utils";
 import Button from "../../Common/Button";
 import FitText from "../../Common/FitText";
 import Input from "../../Common/Input";
 import Loader from "../../Common/Loading";
 import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
-import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
-import { routes } from "../../OpenfortKit/types";
 import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
-import wave from "../../../assets/wave";
-import { EmailIcon, KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
+import { routes } from "../../OpenfortKit/types";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 
 // TODO: Localize
 
@@ -209,11 +208,6 @@ const CreateEmbeddedSigner: React.FC = () => {
 
   useEffect(() => {
     if (!user) return;
-
-    if (!options?.skipEmailVerification && !isPlayerVerified(user)) {
-      setRoute(routes.EMAIL_VERIFICATION);
-      return;
-    }
 
     if (walletConfig.linkWalletOnSignUp) {
 

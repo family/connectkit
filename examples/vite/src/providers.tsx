@@ -2,7 +2,7 @@ import React from 'react'
 import { OpenfortKitProvider, getDefaultConfig, RecoveryMethod, AuthProvider } from '@openfort/openfort-kit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiProvider, createConfig } from 'wagmi'
-import { polygonAmoy } from 'viem/chains'
+import { polygonAmoy } from 'wagmi/chains'
 
 const config = createConfig(
   getDefaultConfig({
@@ -51,6 +51,8 @@ export function Providers({ children }: { children?: React.ReactNode }) {
               ethereumProviderPolicyId: "pol_6b30a204-7f5b-4ba1-bc7f-4de11e922b31",
             }
           }}
+
+          debugMode
         >
           {children}
         </OpenfortKitProvider>
