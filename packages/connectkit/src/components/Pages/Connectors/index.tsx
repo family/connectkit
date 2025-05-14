@@ -28,10 +28,13 @@ import {
 import { OrDivider } from '../../Common/Modal';
 import { FamilyAccountsButton } from '../../Common/FamilyAccountsButton';
 import { isFamily } from '../../../utils/wallets';
+import { states } from '../../ConnectModal/ConnectWithInjector';
+import { useConnect } from '../../../hooks/useConnect';
 
 const Wallets: React.FC = () => {
   const context = useContext();
   const locales = useLocales({});
+  const { connect } = useConnect();
 
   const isMobile = useIsMobile();
   const familyConnector = useFamilyConnector();
@@ -49,11 +52,17 @@ const Wallets: React.FC = () => {
           <>
             <FamilyAccountsButton
               onClick={() => {
+                // Determine the correct connector to use
+                let connector;
                 if (familyConnector && isFamily()) {
-                  context.setConnector(familyConnector);
+                  connector = familyConnector;
                 } else {
-                  context.setConnector(familyAccountsConnector);
+                  connector = familyAccountsConnector;
                 }
+                context.setConnector(connector);
+                // connect directly
+                connect({ connector });
+                // Set route for UI updates
                 context.setRoute(routes.CONNECT);
               }}
             />
