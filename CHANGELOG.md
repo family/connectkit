@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.12] - 2025-05-14
+
+### Feat
+
+- Update dependencies
 
 ## [0.0.11] - 2025-04-24
 
