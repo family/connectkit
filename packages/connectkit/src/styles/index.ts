@@ -90,7 +90,7 @@ const themeGlobals = {
     },
   },
   brand: {
-    '--ck-family-accounts-brand': '#0FCCCC',
+    '--ck-family-accounts-brand': '#0090ff',
     '--ck-family-brand': '#1A88F8',
     '--ck-brand-walletConnect': '#3B99FC',
     '--ck-brand-coinbaseWallet': '#0052FF',
