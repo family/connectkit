@@ -51,8 +51,7 @@ const ConnectUsing = () => {
           variants={contentVariants}
         >
           <ConnectWithQRCode
-            switchConnectMethod={(id?: string) => {
-              //if (id) setId(id);
+            switchConnectMethod={() => {
               setStatus(states.INJECTOR);
               setTimeout(context.triggerResize, 10); // delay required here for modal to resize
             }}
@@ -68,8 +67,7 @@ const ConnectUsing = () => {
           variants={contentVariants}
         >
           <ConnectWithInjector
-            switchConnectMethod={(id?: string) => {
-              //if (id) setId(id);
+            switchConnectMethod={() => {
               setStatus(states.QRCODE);
               setTimeout(context.triggerResize, 10); // delay required here for modal to resize
             }}
