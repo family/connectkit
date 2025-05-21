@@ -60,8 +60,8 @@ const Wallets: React.FC = () => {
                   connector = familyAccountsConnector;
                 }
                 context.setConnector(connector);
-                // connect directly
-                connect({ connector });
+                //connect directly
+                connect({ connector: connector });
                 // Set route for UI updates
                 context.setRoute(routes.CONNECT);
               }}
