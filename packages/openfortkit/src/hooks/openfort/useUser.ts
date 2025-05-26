@@ -1,13 +1,27 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useOpenfort } from '../../openfort/useOpenfort';
 
 export function useUser() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const { user, getAccessToken } = useOpenfort();
+  const { user, getAccessToken, validateAndRefreshToken } = useOpenfort();
 
   useEffect(() => {
-    setAccessToken(getAccessToken())
+    (async () => {
+      setAccessToken(await getAccessToken())
+    })();
   }, [user])
 
-  return { user, accessToken };
+  const getAccessTokenAndUpdate = useCallback(async () => {
+    const token = await getAccessToken();
+    setAccessToken(token);
+    return token;
+  }, [getAccessToken]);
+
+  return {
+    user,
+    /** @deprecated Use getAccessToken instead */
+    accessToken,
+    getAccessToken: getAccessTokenAndUpdate,
+    validateAndRefreshToken,
+  };
 }

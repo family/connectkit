@@ -44,7 +44,7 @@ const LinkEmail: React.FC = () => {
 
   const handleSubmit = async () => {
     setLoginLoading(true);
-    const authToken = getAccessToken();
+    const authToken = await getAccessToken();
     if (!authToken) {
       log("No token found");
       setLoginLoading(false);

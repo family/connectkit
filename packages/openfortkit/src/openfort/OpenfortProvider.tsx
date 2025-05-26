@@ -37,7 +37,8 @@ export type ContextValue = {
   initSIWE: typeof Openfort.prototype.initSIWE;
   authenticateWithSIWE: typeof Openfort.prototype.authenticateWithSIWE;
   linkWallet: typeof Openfort.prototype.linkWallet;
-  getAccessToken: typeof Openfort.prototype.getAccessToken;
+  getAccessToken: () => Promise<string | null>;
+  validateAndRefreshToken: typeof Openfort.prototype.validateAndRefreshToken;
   initLinkOAuth: typeof Openfort.prototype.initLinkOAuth;
   linkEmailPassword: typeof Openfort.prototype.linkEmailPassword;
   exportPrivateKey: typeof Openfort.prototype.exportPrivateKey;
@@ -370,8 +371,13 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     return openfort.linkWallet(props);
   }, [openfort]);
 
-  const getAccessToken: typeof Openfort.prototype.getAccessToken = useCallback(() => {
+  const getAccessToken: () => Promise<string | null> = useCallback(async () => {
+    await openfort.validateAndRefreshToken();
     return openfort.getAccessToken();
+  }, [openfort]);
+
+  const validateAndRefreshToken: typeof Openfort.prototype.validateAndRefreshToken = useCallback(async (...props) => {
+    return openfort.validateAndRefreshToken(...props);
   }, [openfort]);
 
   const initLinkOAuth: typeof Openfort.prototype.initLinkOAuth = useCallback(async (props) => {
@@ -447,6 +453,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     authenticateWithSIWE,
     linkWallet,
     getAccessToken,
+    validateAndRefreshToken,
     initLinkOAuth,
     linkEmailPassword,
     exportPrivateKey,

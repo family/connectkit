@@ -37,7 +37,7 @@ export function useConnectWithSiwe() {
 
       // if has user, we link the wallet
       if (openfort.user) {
-        const authToken = openfort.getAccessToken();
+        const authToken = await openfort.getAccessToken();
         if (!authToken) throw new Error('No access token found');
 
         log("Linking wallet", { signature, message: SIWEMessage, connectorType, walletClientType, authToken });
