@@ -1,1 +1,1 @@
-export const OPENFORTKIT_VERSION = '0.0.14';
+export const OPENFORTKIT_VERSION = '0.0.15';

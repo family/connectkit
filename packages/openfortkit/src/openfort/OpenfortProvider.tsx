@@ -372,8 +372,12 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
   }, [openfort]);
 
   const getAccessToken: () => Promise<string | null> = useCallback(async () => {
-    await openfort.validateAndRefreshToken();
-    return openfort.getAccessToken();
+    try {
+      await openfort.validateAndRefreshToken();
+      return openfort.getAccessToken();
+    } catch (error) {
+      return null;
+    }
   }, [openfort]);
 
   const validateAndRefreshToken: typeof Openfort.prototype.validateAndRefreshToken = useCallback(async (...props) => {
