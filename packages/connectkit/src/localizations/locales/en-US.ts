@@ -10,6 +10,7 @@ const enUS = {
   connected: 'Connected',
   wrongNetwork: 'Wrong Network',
   switchNetworks: 'Switch Networks',
+  switchWallets: 'Switch Wallets',
   chainNetwork: '{{ CHAIN }} Network',
   copyToClipboard: 'Copy to Clipboard',
   copyCode: 'Copy Code',
