@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from '../../ConnectKit';
 import {
+  isFamilyAccountsConnector,
   isSafeConnector,
   nFormatter,
   truncateEthAddress,
@@ -12,6 +13,7 @@ import {
   useAccount,
   useEnsName,
   useBalance,
+  useConnectorClient,
 } from 'wagmi';
 
 import {
@@ -50,6 +52,11 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const { disconnect } = useDisconnect();
 
   const { address, isConnected, connector, chain } = useAccount();
+  const isFamilyConnector = isFamilyAccountsConnector(connector?.id);
+  const { data: connectorClient } = useConnectorClient({
+    connector,
+  });
+
   const ensFallbackConfig = useEnsFallbackConfig();
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -135,10 +142,36 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
           </ModalBody>
         )}
       </ModalContent>
+
+      {isFamilyConnector && (
+        <>
+          <Button
+            onClick={async () => {
+              try {
+                await connectorClient?.request<{
+                  Method: 'family_switchAccounts';
+                  Parameters: [];
+                  ReturnType: { message: string; success: boolean };
+                }>({
+                  method: 'family_switchAccounts',
+                  params: [],
+                });
+              } catch (error) {
+                context.log(
+                  'rpc method family_switchAccounts is not implemented in this connector',
+                  error
+                );
+              }
+            }}
+          >
+            {locales.switchWallets}
+          </Button>
+        </>
+      )}
       {!isSafeConnector(connector?.id) && (
         <Button
           onClick={() => setShouldDisconnect(true)}
-          icon={<DisconnectIcon />}
+          icon={isFamilyConnector ? undefined : <DisconnectIcon />}
         >
           {locales.disconnect}
         </Button>
