@@ -1,4 +1,37 @@
-# OpenfortKit
+![openfort_kit_8d6f715e38](https://github.com/user-attachments/assets/e652c9d8-c2ff-4f13-b046-405338fdea01)
+
+<div align="center">
+  <h4>
+    <a href="https://www.openfort.io/">
+      Website
+    </a>
+    <span> | </span>
+    <a href="https://www.openfort.io/docs">
+      Documentation
+    </a>
+    <span> | </span>
+    <a href="https://www.openfort.io/docs/reference/api/authentication">
+      API Docs
+    </a>
+    <span> | </span>
+    <a href="https://x.com/openfort_hq">
+      X
+    </a>
+        <span> | </span>
+    <a href="https://create-next-app.openfort.xyz/">
+      Demo
+    </a>
+  </h4>
+</div>
+
+
+# Openfort Kit
+
+[![npm version](https://badge.fury.io/js/@openfort/openfort-kit.svg)](https://www.npmjs.com/package/@openfort/openfort-kit)
+[![Downloads](https://img.shields.io/npm/dm/@openfort/openfort-kit.svg)](https://www.npmjs.com/package/@openfort/openfort-kit)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@openfort/openfort-kit)](https://bundlephobia.com/package/@openfort/openfort-kit)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 
 The easiest way to integrate Openfort to your project, with built-in authentication and seamless wallet connectivity.
 
