@@ -27,10 +27,10 @@
 
 # Openfort Kit
 
-[![npm version](https://badge.fury.io/js/@openfort/openfort-kit.svg)](https://www.npmjs.com/package/@openfort/openfort-kit)
 [![Downloads](https://img.shields.io/npm/dm/@openfort/openfort-kit.svg)](https://www.npmjs.com/package/@openfort/openfort-kit)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@openfort/openfort-kit)](https://bundlephobia.com/package/@openfort/openfort-kit)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs)
+[![Version](https://img.shields.io/npm/v/@openfort/openfort-js.svg)](https://www.npmjs.org/package/@openfort/openfort-js)
 
 
 The easiest way to integrate Openfort to your project, with built-in authentication and seamless wallet connectivity.
