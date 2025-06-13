@@ -6,7 +6,7 @@
       Website
     </a>
     <span> | </span>
-    <a href="https://www.openfort.io/docs">
+    <a href="https://www.openfort.io/docs/products/kit/react/quickstart">
       Documentation
     </a>
     <span> | </span>
@@ -29,7 +29,7 @@
 
 [![Downloads](https://img.shields.io/npm/dm/@openfort/openfort-kit.svg)](https://www.npmjs.com/package/@openfort/openfort-kit)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs)
+[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/kit/react/quickstart)
 [![Version](https://img.shields.io/npm/v/@openfort/openfort-js.svg)](https://www.npmjs.org/package/@openfort/openfort-js)
 
 
