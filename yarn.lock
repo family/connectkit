@@ -7218,7 +7218,7 @@ __metadata:
     "@types/styled-components": ^5.1.25
     buffer: ^6.0.3
     detect-browser: ^5.3.0
-    family: ^0.1.1
+    family: ^0.1.2
     framer-motion: ^6.3.11
     qrcode: ^1.5.0
     react-transition-state: ^1.1.4
@@ -9692,9 +9692,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"family@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "family@npm:0.1.1"
+"family@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "family@npm:0.1.2"
   peerDependencies:
     react: 17.x || 18.x || 19.x
     react-dom: 17.x || 18.x || 19.x
@@ -9709,7 +9709,7 @@ __metadata:
       optional: true
     wagmi:
       optional: true
-  checksum: 520006079a7c3f8ac1b5c492d30ab7bfa7f19f396aa2992bbe42e24ae1f65b4511ff1e6c25b325428cbbaaaae61b44cb6fca2bbddcf5307758c8f7f44fe9fb59
+  checksum: 2e2d43b773f7c8719fcb93331416ef7710151f961e6645ae3ff87a23584335b1fe36b29099b28d6d860bacc3722888cf5de0373ea976d620b43a8daf21422274
   languageName: node
   linkType: hard
 
