@@ -1,3 +1,15 @@
+# 1.9.1
+
+This update includes updates to the peer dependencies and improvements to the Family Accounts features.
+
+## Updated
+
+- `family` package updated to latest.
+
+## Improved
+
+- Improved support for `family` features.
+
 # 1.9.0
 
 We're thrilled to announce a major upgrade to ConnectKit—designed to make onboarding and navigating Ethereum simpler and safer than ever.
