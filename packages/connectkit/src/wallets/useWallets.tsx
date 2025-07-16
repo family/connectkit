@@ -123,11 +123,5 @@ export const useWallets = (): WalletProps[] => {
         if (b.id === 'walletConnect') return -1;
         return 0;
       })
-      // move infinex to the start
-      .sort((a, b) => {
-        if (a.id === 'xyz.infinex') return -1;
-        if (b.id === 'xyz.infinex') return 1;
-        return 0;
-      })
   );
 };

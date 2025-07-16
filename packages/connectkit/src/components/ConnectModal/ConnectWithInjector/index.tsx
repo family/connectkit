@@ -38,7 +38,6 @@ import { useConnect } from '../../../hooks/useConnect';
 import { useContext } from '../../ConnectKit';
 import { useWallet } from '../../../wallets/useWallets';
 import CircleSpinner from './CircleSpinner';
-import useIsMobile from '../../../hooks/useIsMobile';
 
 export const states = {
   CONNECTED: 'connected',
@@ -135,7 +134,6 @@ const ConnectWithInjector: React.FC<{
   const { triggerResize, connector: c } = useContext();
   const id = c.id;
   const wallet = useWallet(id);
-  const isMobile = useIsMobile();
 
   const walletInfo = {
     name: wallet?.name,
@@ -189,7 +187,7 @@ const ConnectWithInjector: React.FC<{
   let connectTimeout: any;
 
   const shouldConnectImmediately =
-    (detectBrowser() === 'safari' || detectBrowser() === 'ios' || isMobile) &&
+    (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
     (isCoinbaseWalletConnector(wallet?.connector.id) ||
       isInfinexConnector(wallet?.connector.id));
 
