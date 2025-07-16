@@ -29,7 +29,8 @@ import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
 import {
   detectBrowser,
-  isFamilyAccountsConnector,
+  isCoinbaseWalletConnector,
+  isInfinexConnector,
   isWalletConnectConnector,
 } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
@@ -37,6 +38,7 @@ import { useConnect } from '../../../hooks/useConnect';
 import { useContext } from '../../ConnectKit';
 import { useWallet } from '../../../wallets/useWallets';
 import CircleSpinner from './CircleSpinner';
+import useIsMobile from '../../../hooks/useIsMobile';
 
 export const states = {
   CONNECTED: 'connected',
@@ -133,6 +135,7 @@ const ConnectWithInjector: React.FC<{
   const { triggerResize, connector: c } = useContext();
   const id = c.id;
   const wallet = useWallet(id);
+  const isMobile = useIsMobile();
 
   const walletInfo = {
     name: wallet?.name,
@@ -184,8 +187,16 @@ const ConnectWithInjector: React.FC<{
   };
 
   let connectTimeout: any;
+
+  const shouldConnectImmediately =
+    (detectBrowser() === 'safari' || detectBrowser() === 'ios' || isMobile) &&
+    (isCoinbaseWalletConnector(wallet?.connector.id) ||
+      isInfinexConnector(wallet?.connector.id));
+
   useEffect(() => {
     if (status === states.UNAVAILABLE) return;
+    // If the wallet already connected, don't connect again
+    if (shouldConnectImmediately) return;
 
     // UX: Give user time to see the UI before opening the extension
     connectTimeout = setTimeout(runConnect, 600);

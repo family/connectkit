@@ -120,8 +120,9 @@ const ConnectorItem = ({
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
   // Safari requires opening popup on user gesture, so we connect immediately here
   const shouldConnectImmediately =
-    (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
-    isCoinbaseWalletConnector(wallet.connector.id);
+    (detectBrowser() === 'safari' || detectBrowser() === 'ios' || isMobile) &&
+    (isCoinbaseWalletConnector(wallet.connector.id) ||
+      wallet.connector.id === 'xyz.infinex');
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
