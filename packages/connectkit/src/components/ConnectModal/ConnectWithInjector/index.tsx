@@ -29,8 +29,7 @@ import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
 import {
   detectBrowser,
-  isCoinbaseWalletConnector,
-  isInfinexConnector,
+  isFamilyAccountsConnector,
   isWalletConnectConnector,
 } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
@@ -185,16 +184,8 @@ const ConnectWithInjector: React.FC<{
   };
 
   let connectTimeout: any;
-
-  const shouldConnectImmediately =
-    (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
-    (isCoinbaseWalletConnector(wallet?.connector.id) ||
-      isInfinexConnector(wallet?.connector.id));
-
   useEffect(() => {
     if (status === states.UNAVAILABLE) return;
-    // If the wallet already connected, don't connect again
-    if (shouldConnectImmediately) return;
 
     // UX: Give user time to see the UI before opening the extension
     connectTimeout = setTimeout(runConnect, 600);
