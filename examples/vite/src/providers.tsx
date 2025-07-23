@@ -1,7 +1,7 @@
 import React from 'react'
 import { OpenfortKitProvider, getDefaultConfig, RecoveryMethod, AuthProvider } from '@openfort/openfort-kit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { WagmiProvider, createConfig } from 'wagmi'
+import { WagmiProvider, createConfig, http } from 'wagmi'
 import { polygonAmoy } from 'wagmi/chains'
 
 const config = createConfig(
@@ -9,6 +9,9 @@ const config = createConfig(
     appName: 'OpenfortKit demo',
     walletConnectProjectId: "fc3261354522f71e19adc4081a7e9f53",
     chains: [polygonAmoy],
+    transports: {
+      [polygonAmoy.id]: http("https://rpc-amoy.polygon.technology")
+    }
   })
 );
 

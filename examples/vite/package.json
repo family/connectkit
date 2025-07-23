@@ -15,8 +15,8 @@
     "crypto-browserify": "^3.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "^2.30.1",
-    "wagmi": "^2.15.4"
+    "viem": "*",
+    "wagmi": "*"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

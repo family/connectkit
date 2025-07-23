@@ -250,15 +250,17 @@ export const OpenfortKitProvider = ({
           onConnect={onConnect}
           onDisconnect={onDisconnect}
         >
-          <ThemeProvider theme={defaultTheme}>
-            {children}
-            <ConnectKitModal
-              lang={ckLang}
-              theme={ckTheme}
-              mode={mode}
-              customTheme={ckCustomTheme}
-            />
-          </ThemeProvider>
+          {/* <ThemeProvider
+            theme={defaultTheme}
+          > */}
+          {children}
+          <ConnectKitModal
+            lang={ckLang}
+            theme={ckTheme}
+            mode={mode}
+            customTheme={ckCustomTheme}
+          />
+          {/* </ThemeProvider> */}
         </OpenfortProvider>
       </Web3ContextProvider>
     </>

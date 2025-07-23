@@ -5,6 +5,7 @@ import { useOpenfortKit } from '../components/OpenfortKit/useOpenfortKit';
 import { useConnect } from '../hooks/useConnect';
 import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback';
 import { Context } from './context';
+import { polygonAmoy } from 'viem/chains';
 
 type RecoveryProps =
   | { method: RecoveryMethod.AUTOMATIC; chainId: number }
@@ -26,22 +27,22 @@ export type ContextValue = {
   logout: () => void;
 
   // from Openfort
-  logInWithEmailPassword: typeof Openfort.prototype.logInWithEmailPassword;
-  signUpWithEmailPassword: typeof Openfort.prototype.signUpWithEmailPassword;
-  requestResetPassword: typeof Openfort.prototype.requestResetPassword;
-  requestEmailVerification: typeof Openfort.prototype.requestEmailVerification;
-  verifyEmail: typeof Openfort.prototype.verifyEmail;
-  resetPassword: typeof Openfort.prototype.resetPassword;
-  initOAuth: typeof Openfort.prototype.initOAuth;
-  storeCredentials: typeof Openfort.prototype.storeCredentials;
-  initSIWE: typeof Openfort.prototype.initSIWE;
-  authenticateWithSIWE: typeof Openfort.prototype.authenticateWithSIWE;
-  linkWallet: typeof Openfort.prototype.linkWallet;
+  logInWithEmailPassword: typeof Openfort.prototype.auth.logInWithEmailPassword;
+  signUpWithEmailPassword: typeof Openfort.prototype.auth.signUpWithEmailPassword;
+  requestResetPassword: typeof Openfort.prototype.auth.requestResetPassword;
+  requestEmailVerification: typeof Openfort.prototype.auth.requestEmailVerification;
+  verifyEmail: typeof Openfort.prototype.auth.verifyEmail;
+  resetPassword: typeof Openfort.prototype.auth.resetPassword;
+  initOAuth: typeof Openfort.prototype.auth.initOAuth;
+  storeCredentials: typeof Openfort.prototype.auth.storeCredentials;
+  initSIWE: typeof Openfort.prototype.auth.initSIWE;
+  authenticateWithSIWE: typeof Openfort.prototype.auth.authenticateWithSIWE;
+  linkWallet: typeof Openfort.prototype.auth.linkWallet;
   getAccessToken: () => Promise<string | null>;
   validateAndRefreshToken: typeof Openfort.prototype.validateAndRefreshToken;
-  initLinkOAuth: typeof Openfort.prototype.initLinkOAuth;
-  linkEmailPassword: typeof Openfort.prototype.linkEmailPassword;
-  exportPrivateKey: typeof Openfort.prototype.exportPrivateKey;
+  initLinkOAuth: typeof Openfort.prototype.auth.initLinkOAuth;
+  linkEmailPassword: typeof Openfort.prototype.auth.linkEmailPassword;
+  exportPrivateKey: typeof Openfort.prototype.embeddedWallet.exportPrivateKey;
 };
 
 const ConnectCallback = ({ onConnect, onDisconnect }: useConnectCallbackProps) => {
@@ -95,7 +96,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!openfort) return;
 
     try {
-      const state = openfort.getEmbeddedState();
+      const state = await openfort.embeddedWallet.getEmbeddedState();
       log("Polling embedded state", state);
       setEmbeddedState(state);
     } catch (error) {
@@ -131,7 +132,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!openfort) return;
     if (!user) {
       log("Getting user");
-      openfort.getUser()
+      openfort.user.get()
         .then((user) => {
           log("Setting user", user);
           setUser(user);
@@ -150,7 +151,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
   const updateUser = useCallback(async () => {
     if (!openfort) return null;
-    return openfort.getUser()
+    return openfort.user.get()
       .then((user) => {
         log("Setting user", user);
         setUser(user);
@@ -166,12 +167,15 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!walletConfig.createEmbeddedSigner) return
 
     log("Getting ethereum provider");
-    openfort.getEthereumProvider(
+    openfort.embeddedWallet.getEthereumProvider(
       walletConfig.embeddedSignerConfiguration.ethereumProviderPolicyId ?
         {
           policy: walletConfig.embeddedSignerConfiguration.ethereumProviderPolicyId,
+          chains: {
+            [polygonAmoy.id]: "https://rpc-amoy.polygon.technology",
+          }
         }
-        : undefined
+        : undefined,
     );
   }, [openfort])
 
@@ -259,26 +263,44 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     const { method, password, chainId } = { password: undefined, ...props };
     log(`Handling recovery with Openfort: method=${method}, password=${password}, chainId=${chainId}`);
     try {
+      const accessToken = await openfort.getAccessToken();
+      if (!accessToken) {
+        throw new Error("Openfort access token not found");
+      }
+
       if (method === RecoveryMethod.AUTOMATIC) {
 
         const shieldAuth: ShieldAuthentication = {
           auth: ShieldAuthType.OPENFORT,
-          token: openfort.getAccessToken()!,
+          token: accessToken,
           encryptionSession: walletConfig.embeddedSignerConfiguration.getEncryptionSession ?
             await walletConfig.embeddedSignerConfiguration.getEncryptionSession() :
             await getEncryptionSession(),
         };
         log("Configuring embedded signer with automatic recovery");
-        await openfort.configureEmbeddedSigner(chainId, shieldAuth);
+        await openfort.embeddedWallet.configure({
+          chainId,
+          recoveryParams: {
+            recoveryMethod: RecoveryMethod.AUTOMATIC,
+          },
+          shieldAuthentication: shieldAuth,
+        });
       } else if (method === RecoveryMethod.PASSWORD) {
         if (!password || password.length < 4) {
           throw "Password recovery must be at least 4 characters";
         }
         const shieldAuth: ShieldAuthentication = {
           auth: ShieldAuthType.OPENFORT,
-          token: openfort.getAccessToken()!,
+          token: accessToken,
         };
-        await openfort.configureEmbeddedSigner(chainId, shieldAuth, password);
+        await openfort.embeddedWallet.configure({
+          chainId,
+          recoveryParams: {
+            recoveryMethod: RecoveryMethod.PASSWORD,
+            password,
+          },
+          shieldAuthentication: shieldAuth,
+        });
       }
 
       return {
@@ -308,7 +330,7 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     if (!openfort) return;
 
     log('Logging out...');
-    openfort.logout();
+    openfort.auth.logout();
     setUser(null);
     disconnect();
     reset();
@@ -320,55 +342,55 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
 
     try {
       log('Signing up as guest...');
-      const res = await openfort.signUpGuest();
+      const res = await openfort.auth.signUpGuest();
       log('Signed up as guest:', res);
     } catch (error) {
       console.error('Error logging in as guest:', error);
     }
   }, [openfort]);
 
-  const logInWithEmailPassword: typeof Openfort.prototype.logInWithEmailPassword = useCallback(async (props) => {
-    return openfort.logInWithEmailPassword(props);
+  const logInWithEmailPassword: typeof Openfort.prototype.auth.logInWithEmailPassword = useCallback(async (props) => {
+    return openfort.auth.logInWithEmailPassword(props);
   }, [openfort]);
 
-  const signUpWithEmailPassword: typeof Openfort.prototype.signUpWithEmailPassword = useCallback(async (props) => {
-    return openfort.signUpWithEmailPassword(props);
+  const signUpWithEmailPassword: typeof Openfort.prototype.auth.signUpWithEmailPassword = useCallback(async (props) => {
+    return openfort.auth.signUpWithEmailPassword(props);
   }, [openfort]);
 
-  const resetPassword: typeof Openfort.prototype.resetPassword = useCallback(async (props) => {
-    return openfort.resetPassword(props);
+  const resetPassword: typeof Openfort.prototype.auth.resetPassword = useCallback(async (props) => {
+    return openfort.auth.resetPassword(props);
   }, [openfort]);
 
-  const requestResetPassword: typeof Openfort.prototype.requestResetPassword = useCallback(async (props) => {
-    return openfort.requestResetPassword(props);
+  const requestResetPassword: typeof Openfort.prototype.auth.requestResetPassword = useCallback(async (props) => {
+    return openfort.auth.requestResetPassword(props);
   }, [openfort]);
 
-  const requestEmailVerification: typeof Openfort.prototype.requestEmailVerification = useCallback(async (props) => {
-    return openfort.requestEmailVerification(props);
+  const requestEmailVerification: typeof Openfort.prototype.auth.requestEmailVerification = useCallback(async (props) => {
+    return openfort.auth.requestEmailVerification(props);
   }, [openfort]);
 
-  const verifyEmail: typeof Openfort.prototype.verifyEmail = useCallback(async (props) => {
-    return openfort.verifyEmail(props);
+  const verifyEmail: typeof Openfort.prototype.auth.verifyEmail = useCallback(async (props) => {
+    return openfort.auth.verifyEmail(props);
   }, [openfort]);
 
-  const initOAuth: typeof Openfort.prototype.initOAuth = useCallback(async (props) => {
-    return openfort.initOAuth(props);
+  const initOAuth: typeof Openfort.prototype.auth.initOAuth = useCallback(async (props) => {
+    return openfort.auth.initOAuth(props);
   }, [openfort]);
 
-  const storeCredentials: typeof Openfort.prototype.storeCredentials = useCallback(async (props) => {
-    return openfort.storeCredentials(props);
+  const storeCredentials: typeof Openfort.prototype.auth.storeCredentials = useCallback(async (props) => {
+    return openfort.auth.storeCredentials(props);
   }, [openfort]);
 
-  const initSIWE: typeof Openfort.prototype.initSIWE = useCallback(async (props) => {
-    return openfort.initSIWE(props);
+  const initSIWE: typeof Openfort.prototype.auth.initSIWE = useCallback(async (props) => {
+    return openfort.auth.initSIWE(props);
   }, [openfort]);
 
-  const authenticateWithSIWE: typeof Openfort.prototype.authenticateWithSIWE = useCallback(async (props) => {
-    return openfort.authenticateWithSIWE(props);
+  const authenticateWithSIWE: typeof Openfort.prototype.auth.authenticateWithSIWE = useCallback(async (props) => {
+    return openfort.auth.authenticateWithSIWE(props);
   }, [openfort]);
 
-  const linkWallet: typeof Openfort.prototype.linkWallet = useCallback(async (props) => {
-    return openfort.linkWallet(props);
+  const linkWallet: typeof Openfort.prototype.auth.linkWallet = useCallback(async (props) => {
+    return openfort.auth.linkWallet(props);
   }, [openfort]);
 
   const getAccessToken: () => Promise<string | null> = useCallback(async () => {
@@ -384,16 +406,16 @@ export const OpenfortProvider: React.FC<PropsWithChildren<OpenfortProviderProps>
     return openfort.validateAndRefreshToken(...props);
   }, [openfort]);
 
-  const initLinkOAuth: typeof Openfort.prototype.initLinkOAuth = useCallback(async (props) => {
-    return openfort.initLinkOAuth(props);
+  const initLinkOAuth: typeof Openfort.prototype.auth.initLinkOAuth = useCallback(async (props) => {
+    return openfort.auth.initLinkOAuth(props);
   }, [openfort]);
 
-  const linkEmailPassword: typeof Openfort.prototype.linkEmailPassword = useCallback(async (props) => {
-    return openfort.linkEmailPassword(props);
+  const linkEmailPassword: typeof Openfort.prototype.auth.linkEmailPassword = useCallback(async (props) => {
+    return openfort.auth.linkEmailPassword(props);
   }, [openfort]);
 
-  const exportPrivateKey: typeof Openfort.prototype.exportPrivateKey = useCallback(async () => {
-    return openfort.exportPrivateKey();
+  const exportPrivateKey: typeof Openfort.prototype.embeddedWallet.exportPrivateKey = useCallback(async () => {
+    return openfort.embeddedWallet.exportPrivateKey();
   }, [openfort]);
 
   // ---- Return values ----
