@@ -9,8 +9,8 @@ export default function Page() {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.data?.from != "docs") return;
-      // console.log("Received data:", event.data);
+      if (event.data?.from !== "docs") return;
+      console.log("Received data:", event.data);
 
       switch (event.data?.type) {
         case "theme":
@@ -18,6 +18,9 @@ export default function Page() {
           break;
         case "providers":
           setSampleProviders(event.data.providers);
+          break;
+        case "bg":
+          document.documentElement.style.setProperty('--color-background', event.data.bg);
           break;
 
       }
