@@ -6,7 +6,7 @@
       Website
     </a>
     <span> | </span>
-    <a href="https://www.openfort.io/docs/products/kit/react/quickstart">
+    <a href="https://www.openfort.io/docs/products/embedded-wallet/react/kit">
       Documentation
     </a>
     <span> | </span>
@@ -29,7 +29,7 @@
 
 [![Downloads](https://img.shields.io/npm/dm/@openfort/openfort-kit.svg)](https://www.npmjs.com/package/@openfort/openfort-kit)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/kit/react/quickstart)
+[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/embedded-wallet/react/kit)
 [![Version](https://img.shields.io/npm/v/@openfort/openfort-kit.svg)](https://www.npmjs.org/package/@openfort/openfort-kit)
 
 
@@ -37,7 +37,7 @@ The easiest way to integrate Openfort to your project, with built-in authenticat
 
 It offers a simple, customizable UI. Supports authentication providers like Google, X, or Facebook out of the box. Access your address through Openfort’s [invisible wallet](https://www.openfort.io/docs/products/embedded-wallet/javascript) or connect their own wallet provider effortlessly.
 
-Docs: https://www.openfort.io/docs/products/kit/react/quickstart
+Docs: https://www.openfort.io/docs/products/embedded-wallet/react/kit
 
 ## Features
 
