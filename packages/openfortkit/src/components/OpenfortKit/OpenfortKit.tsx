@@ -28,14 +28,11 @@ import { CustomTheme, Languages, Mode, Theme } from '../../types';
 
 type OpenfortKitProviderProps = {
   children?: React.ReactNode;
-  theme?: Theme;
-  mode?: Mode;
-  customTheme?: CustomTheme;
-  options?: ConnectKitOptions;
   debugMode?: boolean;
 
   publishableKey: string;
-  walletConfig: OpenfortWalletConfig;
+  uiConfig?: ConnectKitOptions;
+  walletConfig?: OpenfortWalletConfig;
 } & useConnectCallbackProps;
 
 /**
@@ -55,10 +52,7 @@ type OpenfortKitProviderProps = {
  */
 export const OpenfortKitProvider = ({
   children,
-  theme = 'auto',
-  mode = 'auto',
-  customTheme,
-  options,
+  uiConfig,
   onConnect,
   onDisconnect,
   debugMode = false,
@@ -86,6 +80,8 @@ export const OpenfortKitProvider = ({
 
   // Default config options
   const defaultOptions: ConnectKitOptionsExtended = {
+    theme: 'auto',
+    mode: 'auto',
     language: 'en-US',
     hideBalance: false,
     hideTooltips: false,
@@ -111,7 +107,7 @@ export const OpenfortKitProvider = ({
     authProviders: [],
   };
 
-  const opts: ConnectKitOptionsExtended = Object.assign({}, defaultOptions, options);
+  const opts: ConnectKitOptionsExtended = Object.assign({}, defaultOptions, uiConfig);
 
   if (opts.authProviders?.length === 0) {
     opts.authProviders = [
@@ -133,10 +129,10 @@ export const OpenfortKitProvider = ({
      */
   }
 
-  const [ckTheme, setTheme] = useState<Theme>(theme);
-  const [ckMode, setMode] = useState<Mode>(mode);
+  const [ckTheme, setTheme] = useState<Theme>(uiConfig?.theme ?? defaultOptions.theme ?? "auto");
+  const [ckMode, setMode] = useState<Mode>(uiConfig?.mode ?? defaultOptions.mode ?? 'auto');
   const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(
-    customTheme ?? {}
+    uiConfig?.customTheme ?? {}
   );
   const [ckLang, setLang] = useState<Languages>('en-US');
   const [open, setOpen] = useState<boolean>(false);
@@ -149,10 +145,10 @@ export const OpenfortKitProvider = ({
   const [resize, onResize] = useState<number>(0);
 
   // Include Google Font that is needed for a themes
-  if (opts.embedGoogleFonts) useThemeFont(theme);
+  if (opts.embedGoogleFonts) useThemeFont(ckTheme);
 
   // Other Configuration
-  useEffect(() => setTheme(theme), [theme]);
+  useEffect(() => setTheme(uiConfig?.theme ?? 'auto'), [uiConfig?.theme]);
   useEffect(() => setLang(opts.language || 'en-US'), [opts.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
 
@@ -174,37 +170,16 @@ export const OpenfortKitProvider = ({
     }
   }, [injectedConnector]);
 
-
-  if (!walletConfig?.linkWalletOnSignUp && !walletConfig?.createEmbeddedSigner) {
-    throw new Error("Link wallet on sign up is disabled, but no wallet option is enabled. Please enable 'linkWalletOnSignUp' or 'createEmbeddedSigner' in the wallet options.");
-  }
-
-  // if (!walletConfig) {
-  //   opts.wallet = {
-  //     createEmbeddedSigner: true,
-  //     embeddedSignerConfiguration: {
-  //       shieldPublishableKey: ,
-  //       recoveryMethod: RecoveryMethod.AUTOMATIC,
-  //       createEncryptedSessionEndpoint: '/api/protected-create-encryption-session',
-  //     }
-  //   };
-  // }
-
-  // const onLogin = () => {
-  //   if (opts.wallet?.createEmbeddedSigner) {
-  //     setRoute(routes.RECOVER);
-  //   }
-  // }
-
-
   const log = debugMode ? console.log : () => { };
 
+  useEffect(() => {
+    log("ROUTE", route)
+  }, [route]);
+
   const value: ContextValue = {
-    theme: ckTheme,
     setTheme,
     mode: ckMode,
     setMode,
-    customTheme,
     setCustomTheme,
     lang: ckLang,
     setLang,
@@ -216,7 +191,7 @@ export const OpenfortKitProvider = ({
     setConnector,
     onConnect,
     // Other configuration
-    options: opts,
+    uiConfig: opts,
     errorMessage,
     debugMode,
     log,
@@ -241,9 +216,9 @@ export const OpenfortKitProvider = ({
           baseConfiguration={{
             publishableKey,
           }}
-          shieldConfiguration={walletConfig.createEmbeddedSigner ? {
-            shieldPublishableKey: walletConfig.embeddedSignerConfiguration.shieldPublishableKey,
-            shieldEncryptionKey: walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.PASSWORD ? walletConfig.embeddedSignerConfiguration.shieldEncryptionKey : undefined,
+          shieldConfiguration={walletConfig ? {
+            shieldPublishableKey: walletConfig.shieldPublishableKey,
+            shieldEncryptionKey: walletConfig.recoveryMethod === RecoveryMethod.PASSWORD ? walletConfig.shieldEncryptionKey : undefined,
           } : undefined}
           overrides={opts.openfortUrlOverrides}
           debugMode={debugMode}
@@ -257,7 +232,7 @@ export const OpenfortKitProvider = ({
           <ConnectKitModal
             lang={ckLang}
             theme={ckTheme}
-            mode={mode}
+            mode={uiConfig?.mode ?? ckMode}
             customTheme={ckCustomTheme}
           />
           {/* </ThemeProvider> */}

@@ -29,10 +29,22 @@ export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
 
 export { useStatus, OpenfortKitStatus } from './hooks/openfort/useStatus';
-export { useLogout } from './hooks/openfort/useLogout';
 export { useUser } from './hooks/openfort/useUser';
 
-export { useProviders } from "./hooks/openfort/useProviders";
-export { useWallets, UserWallet } from "./hooks/openfort/useWallet";
+export { useUI } from "./hooks/openfort/useUI";
+
+export { useWallets, UserWallet } from "./hooks/openfort/useWallets";
 
 export { RecoveryMethod, AuthPlayerResponse } from "@openfort/openfort-js";
+
+export { useOpenfort } from './openfort/useOpenfort';
+export { useConnectWithSiwe } from './hooks/openfort/useConnectWithSiwe';
+
+export { useWallets as useOgWallets, useWallet } from './wallets/useWallets';
+export { embeddedWalletId } from './constants/openfort';
+export { useEmailAuth } from './hooks/openfort/auth/useEmailAuth';
+export { useAuthCallback } from './hooks/openfort/auth/useAuthCallback';
+export { useGuestAuth } from './hooks/openfort/auth/useGuestAuth';
+export { useWalletAuth } from './hooks/openfort/auth/useWalletAuth';
+export { useOAuth } from './hooks/openfort/auth/useOAuth';
+export { useSignOut } from './hooks/openfort/auth/useSignOut';

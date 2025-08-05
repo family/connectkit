@@ -12,7 +12,7 @@ const RequestEmail: React.FC = () => {
   const [email, setEmail] = React.useState("");
 
   const { log, triggerResize } = useOpenfortKit();
-  const { requestResetPassword } = useOpenfort();
+  const { client } = useOpenfort();
 
   const [loading, setLoading] = React.useState(false);
 
@@ -46,9 +46,9 @@ const RequestEmail: React.FC = () => {
   const handleSubmit = async () => {
     const cleanURL = window.location.origin + window.location.pathname;
     setLoading(true);
-    requestResetPassword({
+    client.auth.requestResetPassword({
       email,
-      redirectUrl: cleanURL + `?fort_forgot_password=true&email=${email}`,
+      redirectUrl: cleanURL + `?openfortForgotPasswordUI=true&email=${email}`,
     }).then(() => {
       setMessage("Reset email sent.");
       setLoading(false);
@@ -112,11 +112,10 @@ const ResetPassword: React.FC = () => {
   const [password, setPassword] = React.useState("");
 
   const { setRoute, triggerResize, log } = useOpenfortKit();
-  const { resetPassword, logInWithEmailPassword, updateUser } = useOpenfort();
+  const { client, updateUser } = useOpenfort();
 
   const [loading, setLoading] = React.useState(false);
 
-  const [message, setMessage] = React.useState<string>("");
   const email = url.searchParams.get("email")
 
   const handleSubmit = async () => {
@@ -130,13 +129,13 @@ const ResetPassword: React.FC = () => {
     }
 
     try {
-      await resetPassword({
+      await client.auth.resetPassword({
         password: password,
         email,
         state
       });
 
-      await logInWithEmailPassword({
+      await client.auth.logInWithEmailPassword({
         email,
         password
       });
@@ -145,7 +144,7 @@ const ResetPassword: React.FC = () => {
 
       if (!user) throw new Error("No user found");
 
-      ["fort_forgot_password", "state", "email"].forEach((param) => {
+      ["openfortForgotPasswordUI", "state", "email"].forEach((param) => {
         url.searchParams.delete(param);
       });
 
@@ -178,13 +177,6 @@ const ResetPassword: React.FC = () => {
           placeholder="Enter your new password"
           disabled={loading}
         />
-        {
-          message && (
-            <FitText>
-              {message}
-            </FitText>
-          )
-        }
         <Button
           onClick={handleSubmit}
           disabled={loading}
@@ -200,7 +192,7 @@ const ResetPassword: React.FC = () => {
 const ForgotPassword: React.FC = () => {
 
   const url = new URL(window.location.href);
-  const isRequestingEmail = !url.searchParams.get("fort_forgot_password");
+  const isRequestingEmail = !url.searchParams.get("openfortForgotPasswordUI");
 
   if (isRequestingEmail)
     return <RequestEmail />

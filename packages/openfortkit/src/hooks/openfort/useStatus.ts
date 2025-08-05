@@ -6,7 +6,7 @@ export enum OpenfortKitStatus {
   CONNECTED,
   DISCONNECTED,
   NEEDS_RECOVERY,
-  DISCONNECTED_WITH_ADDRESS,
+  CONNECTED_WITHOUT_USER,
 }
 
 export function useStatus() {
@@ -17,8 +17,8 @@ export function useStatus() {
     if (isLoading) return OpenfortKitStatus.LOADING;
     if (needsRecovery) return OpenfortKitStatus.NEEDS_RECOVERY;
     if (!user) {
-      if (isConnected) return OpenfortKitStatus.DISCONNECTED_WITH_ADDRESS;
-      return OpenfortKitStatus.DISCONNECTED;
+      if (isConnected) return OpenfortKitStatus.CONNECTED_WITHOUT_USER;
+      else return OpenfortKitStatus.DISCONNECTED;
     }
 
     return OpenfortKitStatus.CONNECTED;
@@ -30,7 +30,7 @@ export function useStatus() {
     isLoading: status === OpenfortKitStatus.LOADING,
     isConnected: status === OpenfortKitStatus.CONNECTED,
     isDisconnected: status === OpenfortKitStatus.DISCONNECTED,
-    isDisconnectedWithAddress: status === OpenfortKitStatus.DISCONNECTED_WITH_ADDRESS,
+    isDisconnectedWithAddress: status === OpenfortKitStatus.CONNECTED_WITHOUT_USER,
     needsRecovery: status === OpenfortKitStatus.NEEDS_RECOVERY,
   }
 }

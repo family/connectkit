@@ -1,47 +1,48 @@
-import { useAccount, useChainId, useConfig, useDisconnect } from "wagmi";
+import { AxiosError } from "axios";
+import { useAccount, useChainId, useConfig } from "wagmi";
 import { useOpenfortKit } from '../../components/OpenfortKit/useOpenfortKit';
 import { useOpenfort } from '../../openfort/useOpenfort';
 import { createSIWEMessage } from "../../siwe/create-siwe-message";
-import { AxiosError } from "axios";
 
 import { signMessage } from '@wagmi/core';
+import { useCallback } from "react";
 
 export function useConnectWithSiwe() {
-  const openfort = useOpenfort();
+  const { client, user, updateUser } = useOpenfort();
   const { log } = useOpenfortKit();
   const { address } = useAccount();
   const chainId = useChainId();
   const config = useConfig();
+  const { connector } = useAccount()
 
-  const connectWithSiwe = async ({
-    connectorType,
-    walletClientType,
+  const connectWithSiwe = useCallback(async ({
     onError,
     onConnect,
   }: {
-    connectorType: string,
-    walletClientType: string,
     onError?: (error: string, status?: number) => void,
     onConnect?: () => void,
   }) => {
-    if (!address) {
-      log("No address found");
+    const connectorType = connector?.type;
+    const walletClientType = connector?.id;
+
+    if (!address || !connectorType || !walletClientType) {
+      log("No address found", { address, connectorType, walletClientType });
       onError && onError("No address found");
       return;
     }
 
     try {
-      const { nonce } = await openfort.initSIWE({ address });
+      const { nonce } = await client.auth.initSIWE({ address });
       const SIWEMessage = createSIWEMessage(address, nonce, chainId);
       const signature = await signMessage(config, { message: SIWEMessage });
 
       // if has user, we link the wallet
-      if (openfort.user) {
-        const authToken = await openfort.getAccessToken();
+      if (user) {
+        const authToken = await client.getAccessToken();
         if (!authToken) throw new Error('No access token found');
 
         log("Linking wallet", { signature, message: SIWEMessage, connectorType, walletClientType, authToken });
-        await openfort.linkWallet({
+        await client.auth.linkWallet({
           signature,
           message: SIWEMessage,
           connectorType,
@@ -50,14 +51,14 @@ export function useConnectWithSiwe() {
         })
       }
 
-      await openfort.authenticateWithSIWE({
+      await client.auth.authenticateWithSIWE({
         signature,
         message: SIWEMessage,
         connectorType,
         walletClientType,
       })
 
-      await openfort.updateUser();
+      await updateUser();
 
       onConnect && onConnect();
     }
@@ -69,7 +70,7 @@ export function useConnectWithSiwe() {
         onError && onError("Failed to connect with SIWE");
       }
     }
-  }
+  }, [client, user, updateUser, log]);
 
   return connectWithSiwe;
 }

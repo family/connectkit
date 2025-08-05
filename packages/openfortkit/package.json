@@ -1,6 +1,6 @@
 {
   "name": "@openfort/openfort-kit",
-  "version": "0.0.15",
+  "version": "0.1.0",
   "author": "Openfort (https://www.openfort.io)",
   "license": "BSD-2-Clause license",
   "description": "The easiest way to integrate Openfort to your project.",
@@ -38,7 +38,7 @@
     "react"
   ],
   "dependencies": {
-    "@openfort/openfort-js": "*",
+    "@openfort/openfort-js": "^0.9.5",
     "buffer": "^6.0.3",
     "detect-browser": "^5.3.0",
     "framer-motion": "^6.3.11",
@@ -57,12 +57,17 @@
     "wagmi": "2.x"
   },
   "devDependencies": {
+    "@eslint/js": "^9.21.0",
     "@types/node": "18.7.18",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
-    "typescript": "^5.0.4"
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "typescript": "^5.0.4",
+    "typescript-eslint": "^8.24.1"
   },
   "resolutions": {
     "react": "^18.0.0",

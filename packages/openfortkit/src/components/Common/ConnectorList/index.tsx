@@ -14,7 +14,7 @@ import useIsMobile from '../../../hooks/useIsMobile';
 import Alert from '../Alert';
 import { ScrollArea } from '../ScrollArea';
 
-import { openfortWalletId } from '../../../constants/openfort';
+import { embeddedWalletId } from '../../../constants/openfort';
 import { useConnect } from '../../../hooks/useConnect';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import {
@@ -33,16 +33,16 @@ const ConnectorList = () => {
   const { lastConnectorId } = useLastConnector();
 
   const walletsToDisplay =
-    context.options?.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
+    context.uiConfig?.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
       ? wallets
       : [
         // move last used wallet to top of list
         // using .filter and spread to avoid mutating original array order with .sort
         ...wallets.filter(
-          (wallet) => lastConnectorId === wallet.connector.id && wallet.id !== openfortWalletId
+          (wallet) => lastConnectorId === wallet.connector.id && wallet.id !== embeddedWalletId
         ),
         ...wallets.filter(
-          (wallet) => lastConnectorId !== wallet.connector.id && wallet.id !== openfortWalletId
+          (wallet) => lastConnectorId !== wallet.connector.id && wallet.id !== embeddedWalletId
         ),
       ];
 
@@ -141,7 +141,7 @@ const ConnectorItem = ({
       </ConnectorIcon>
       <ConnectorLabel>
         {isMobile ? wallet.shortName ?? wallet.name : wallet.name}
-        {!context.options?.hideRecentBadge && isRecent && (
+        {!context.uiConfig?.hideRecentBadge && isRecent && (
           <RecentlyUsedTag>
             <span>Recent</span>
           </RecentlyUsedTag>

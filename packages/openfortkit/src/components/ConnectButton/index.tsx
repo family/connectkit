@@ -340,7 +340,7 @@ export function OpenfortKitButton({
   const { setOpen } = useModal();
 
   const separator = ['web95', 'rounded', 'minimal'].includes(
-    theme ?? context.theme ?? ''
+    theme ?? context.uiConfig?.theme ?? ''
   )
     ? '....'
     : undefined;
@@ -352,9 +352,9 @@ export function OpenfortKitButton({
 
   return (
     <ResetContainer
-      $useTheme={theme ?? context.theme}
+      $useTheme={theme ?? context.uiConfig?.theme}
       $useMode={mode ?? context.mode}
-      $customTheme={customTheme ?? context.customTheme}
+      $customTheme={customTheme ?? context.uiConfig?.customTheme}
     >
       <ThemeContainer
         onClick={() => {
@@ -399,9 +399,9 @@ export function OpenfortKitButton({
               >
                 <ThemedButton
                   variant={'secondary'}
-                  theme={theme ?? context.theme}
+                  theme={theme ?? context.uiConfig?.theme}
                   mode={mode ?? context.mode}
-                  customTheme={customTheme ?? context.customTheme}
+                  customTheme={customTheme ?? context.uiConfig?.customTheme}
                   style={{ overflow: 'hidden' }}
                 >
                   <motion.div style={{ paddingRight: 24 }}>
@@ -413,14 +413,14 @@ export function OpenfortKitButton({
           </AnimatePresence>
         )}
         <ThemedButton
-          theme={theme ?? context.theme}
+          theme={theme ?? context.uiConfig?.theme}
           mode={mode ?? context.mode}
-          customTheme={customTheme ?? context.customTheme}
+          customTheme={customTheme ?? context.uiConfig?.customTheme}
           style={
             shouldShowBalance &&
               showBalance &&
               address &&
-              (theme === 'retro' || context.theme === 'retro')
+              (theme === 'retro' || context.uiConfig?.theme === 'retro')
               ? {
                 /** Special fix for the retro theme... not happy about this one */
                 boxShadow:

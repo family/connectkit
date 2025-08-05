@@ -29,7 +29,7 @@ const Introduction: React.FC = () => {
   const locales = useLocales({});
 
   const ctaUrl =
-    context.options?.walletOnboardingUrl ?? locales.onboardingScreen_ctaUrl;
+    context.uiConfig?.walletOnboardingUrl ?? locales.onboardingScreen_ctaUrl;
   return (
     <PageContent>
       <Graphic>

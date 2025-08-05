@@ -1,21 +1,16 @@
 import React, {
-  ReactNode,
-  createContext
+  ReactNode
 } from 'react';
 import {
   CustomAvatarProps,
   CustomTheme,
   Languages,
   Mode,
-  Theme,
+  Theme
 } from '../../types';
 
 
-import { OAuthProvider, RecoveryMethod } from '@openfort/openfort-js';
-import { ValueOf } from 'viem/_types/types/utils';
-import {
-  useConnectCallbackProps
-} from '../../hooks/useConnectCallback';
+import { RecoveryMethod } from '@openfort/openfort-js';
 import { OpenfortProviderProps } from '../../openfort/OpenfortProvider';
 
 export const routes = {
@@ -67,7 +62,7 @@ export const socialProviders = [
 ]
 
 
-type CommonEmbeddedSignerConfiguration = {
+type CommonWalletConfig = {
   /** Publishable key for the Shield API */
   shieldPublishableKey: string;
   /** Policy ID (pol_...) for the embedded signer */
@@ -83,19 +78,19 @@ type EncryptionSession =
   }
   | {
     /** API endpoint for creating an encrypted session */
-    createEncryptedSessionEndpoint: string;
     getEncryptionSession?: never;
+    createEncryptedSessionEndpoint: string;
   };
 
 /**
  * Configuration for automatic recovery, which requires an encryption session.
  */
-type AutomaticRecoveryEmbeddedSignerConfiguration = {
+type AutomaticRecoveryWalletConfig = {
   /** Specifies that the recovery method is automatic */
   recoveryMethod: RecoveryMethod.AUTOMATIC;
 } & EncryptionSession;
 
-type PasswordRecoveryEmbeddedSignerConfiguration = {
+type PasswordRecoveryWalletConfig = {
   /** Specifies that the recovery method is password-based */
   recoveryMethod: RecoveryMethod.PASSWORD;
 } & (
@@ -122,20 +117,13 @@ type PasswordRecoveryEmbeddedSignerConfiguration = {
  * - `createEncryptedSessionEndpoint` as a string, OR
  * - `getEncryptionSession.` as a function that returns a promise.
  */
-type EmbeddedSignerConfiguration = CommonEmbeddedSignerConfiguration & (
-  AutomaticRecoveryEmbeddedSignerConfiguration | PasswordRecoveryEmbeddedSignerConfiguration
-);
 
-export type OpenfortWalletConfig = {
-  linkWalletOnSignUp: true;
-  createEmbeddedSigner?: false;
-} | {
-  linkWalletOnSignUp?: boolean;
-  createEmbeddedSigner: true;
-  embeddedSignerConfiguration: EmbeddedSignerConfiguration;
-}
+export type OpenfortWalletConfig = CommonWalletConfig & (AutomaticRecoveryWalletConfig | PasswordRecoveryWalletConfig);
+
 
 export type OpenfortOptions = {
+  linkWalletOnSignUp?: boolean;
+
   authProviders?: AuthProvider[];
   skipEmailVerification?: boolean;
   termsOfServiceUrl?: string;
@@ -146,6 +134,9 @@ export type OpenfortOptions = {
 };
 
 export type ConnectKitOptions = {
+  theme?: Theme;
+  mode?: Mode;
+  customTheme?: CustomTheme;
   // language?: Languages;
   hideBalance?: boolean;
   hideTooltips?: boolean;
@@ -168,9 +159,13 @@ export type ConnectKitOptions = {
   // walletOnboardingUrl?: string;
   // disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
   overlayBlur?: number; // Blur the background when the modal is open
+
 } & OpenfortOptions;
 
 export type ConnectKitOptionsExtended = {
+  theme: Theme;
+  mode: Mode;
+  customTheme?: CustomTheme;
   language?: Languages;
   hideBalance?: boolean;
   hideTooltips?: boolean;

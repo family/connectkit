@@ -26,11 +26,9 @@ type Connector = {
 export type ErrorMessage = string | React.ReactNode | null;
 
 export type ContextValue = {
-  theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
   mode: Mode;
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
-  customTheme: CustomTheme | undefined;
   setCustomTheme: React.Dispatch<React.SetStateAction<CustomTheme | undefined>>;
   lang: Languages;
   setLang: React.Dispatch<React.SetStateAction<Languages>>;
@@ -41,13 +39,13 @@ export type ContextValue = {
   connector: Connector;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: ErrorMessage;
-  options?: ConnectKitOptionsExtended;
   debugMode?: boolean;
   log: (...props: any) => void;
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
   resize: number;
   triggerResize: () => void;
-  walletConfig: OpenfortWalletConfig;
+  uiConfig?: ConnectKitOptionsExtended;
+  walletConfig?: OpenfortWalletConfig;
 } & useConnectCallbackProps;
 
 export const OpenfortKitContext = createContext<ContextValue | null>(null);

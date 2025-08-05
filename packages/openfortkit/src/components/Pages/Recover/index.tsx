@@ -13,31 +13,33 @@ import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles"
 import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
 import { routes } from "../../OpenfortKit/types";
 import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
+import { useWallets } from "../../../hooks/openfort/useWallets";
+import { embeddedWalletId } from "../../../constants/openfort";
 
 // TODO: Localize
 
 const Recover: React.FC = () => {
   const [recoveryPhrase, setRecoveryPhrase] = React.useState("");
-  const { handleRecovery } = useOpenfort();
   const [recoveryError, setRecoveryError] = React.useState<false | string>(false);
-  const { triggerResize, options, log } = useOpenfortKit();
+  const { triggerResize, uiConfig: options, log } = useOpenfortKit();
   const chain = useChainId();
   const [loading, setLoading] = React.useState(false);
+  const { setActiveWallet } = useWallets();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true);
-    handleRecovery({
-      method: RecoveryMethod.PASSWORD,
+
+    const { error } = await setActiveWallet({
+      connector: embeddedWalletId,
       password: recoveryPhrase,
-      chainId: options?.initialChainId ?? chain,
-    }).then((response) => {
-      setLoading(false);
-      if (response.success) {
-        log("Recovery success");
-      } else {
-        setRecoveryError(response.error || "There was an error recovering your account");
-      }
-    });
+    })
+    setLoading(false);
+
+    if (error) {
+      setRecoveryError(error || "There was an error recovering your account");
+    } else {
+      log("Recovery success");
+    }
   };
 
   useEffect(() => {
@@ -139,24 +141,25 @@ const Recover: React.FC = () => {
 }
 
 const AutomaticRecovery: React.FC = () => {
-  const { needsRecovery, handleRecovery } = useOpenfort();
-  const { options, log } = useOpenfortKit();
-  const chain = useChainId();
+  const { needsRecovery } = useOpenfort();
+  const { setActiveWallet } = useWallets();
+  const { log } = useOpenfortKit();
   const [hasRecoveryMethod, setHasRecoveryMethod] = React.useState(false);
 
   useEffect(() => {
-    if (!needsRecovery) {
-      log("Automatic recovery enabled, configuring embedded signer");
-      handleRecovery({
-        method: RecoveryMethod.AUTOMATIC,
-        chainId: options?.initialChainId ?? chain,
-      }).then((response) => {
+    (async () => {
+      if (!needsRecovery) {
+        log("Automatic recovery enabled, configuring embedded signer");
+
+        const response = await setActiveWallet({
+          connector: embeddedWalletId,
+        })
+
         if (response.error && response.error === "Missing recovery password") {
           setHasRecoveryMethod(true);
         }
-
-      });
-    }
+      }
+    })();
   }, [needsRecovery]);
 
   if (hasRecoveryMethod) {
@@ -192,7 +195,7 @@ const Connected: React.FC = () => {
 
 const CreateEmbeddedSigner: React.FC = () => {
   const { needsRecovery, user } = useOpenfort();
-  const { triggerResize, options, walletConfig, setRoute } = useOpenfortKit();
+  const { triggerResize, uiConfig, walletConfig, setRoute } = useOpenfortKit();
   const [loading, setLoading] = React.useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = React.useState(true);
   const { isConnected } = useAccount();
@@ -209,14 +212,14 @@ const CreateEmbeddedSigner: React.FC = () => {
   useEffect(() => {
     if (!user) return;
 
-    if (walletConfig.linkWalletOnSignUp) {
+    if (uiConfig?.linkWalletOnSignUp || !walletConfig) {
 
       if (!user.linkedAccounts.find((account) => account.provider === "wallet")) {
         setRoute(routes.CONNECTORS);
         return;
       }
 
-      if (!walletConfig.createEmbeddedSigner) {
+      if (!walletConfig) {
         // Logged in without a wallet
         setRoute(routes.PROFILE);
         return;
@@ -238,7 +241,7 @@ const CreateEmbeddedSigner: React.FC = () => {
     return <Connected />
   }
 
-  if (walletConfig.createEmbeddedSigner && walletConfig.embeddedSignerConfiguration.recoveryMethod === RecoveryMethod.AUTOMATIC) {
+  if (walletConfig && walletConfig.recoveryMethod === RecoveryMethod.AUTOMATIC) {
     return <AutomaticRecovery />
   }
 

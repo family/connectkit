@@ -3,7 +3,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@radix-ui/react-select"
 import { ArrowRight, ExternalLink, LockIcon } from "lucide-react"
 
-import { RecoveryMethod, useLogout, useModal, useUser } from "@openfort/openfort-kit"
+import { RecoveryMethod, useModal, useSignOut, useUser } from "@openfort/openfort-kit"
 import { Theme } from "@openfort/openfort-kit/build/types"
 import { CaretDownIcon } from "@radix-ui/react-icons"
 
@@ -19,7 +19,7 @@ type Props = {
 
 export const AsideMainContent = ({ setContent }: Props) => {
   const { user } = useUser();
-  const logout = useLogout();
+  const { signOut } = useSignOut();
   const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();
   const { sampleTheme, setSampleTheme, recoveryMethod, setRecoveryMethod } = useSample();
 
@@ -114,7 +114,7 @@ export const AsideMainContent = ({ setContent }: Props) => {
 
       {/* Logout Button */}
       <Button
-        onClick={() => logout()}
+        onClick={() => signOut()}
         disabled={!user}
         className="w-full bg-red-500 md:mt-auto"
       >

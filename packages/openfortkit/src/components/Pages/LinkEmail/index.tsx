@@ -37,14 +37,16 @@ const LinkEmail: React.FC = () => {
   const [password, setPassword] = React.useState("");
 
   const { setRoute, triggerResize, log } = useOpenfortKit();
-  const { linkEmailPassword, getAccessToken, updateUser } = useOpenfort();
+  const { client, updateUser } = useOpenfort();
 
   const [loginLoading, setLoginLoading] = React.useState(false);
   const [loginError, setLoginError] = React.useState<false | string>(false);
 
   const handleSubmit = async () => {
     setLoginLoading(true);
-    const authToken = await getAccessToken();
+
+    await client.validateAndRefreshToken();
+    const authToken = await client.getAccessToken();
     if (!authToken) {
       log("No token found");
       setLoginLoading(false);
@@ -52,7 +54,7 @@ const LinkEmail: React.FC = () => {
       triggerResize();
       return;
     }
-    linkEmailPassword({
+    client.auth.linkEmailPassword({
       email,
       password,
       authToken,

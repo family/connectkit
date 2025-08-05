@@ -3,22 +3,31 @@
 import { BookOpenText } from "lucide-react"
 import Button from "../components/Button"
 
-import { OpenfortKitButton, useModal, useProviders, useUser, useWallets } from "@openfort/openfort-kit"
+import { OpenfortKitButton, useModal, useUser, useWallets } from "@openfort/openfort-kit"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import { useAccount } from "wagmi"
 
 import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AsideMainContent } from "../components/Aside/AsideMainContent"
 import { AsideContent } from "../components/Aside/AsideContent"
 
 export default function Page() {
   const account = useAccount();
   const { user } = useUser();
-  const { linkedProviders, availableProviders } = useProviders();
-  const { wallets, setActiveWallet, currentWallet } = useWallets();
+  const { wallets, setActiveWallet, activeWallet: currentWallet } = useWallets();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { openWallets } = useModal();
+  const linkedProviders = user?.linkedAccounts.map(provider => provider.connectorType) || [];
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, [])
+  if (!mounted) {
+    return null; // Prevents hydration mismatch
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -39,7 +48,7 @@ export default function Page() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex gap-4">
-              <a href="https://www.openfort.xyz/docs/guides/react/" target="_blank">
+              <a href="https://www.openfort.xyz/docs/" target="_blank">
                 <Button variant="outline">
                   <BookOpenText className="h-5 w-5 mr-2" />
                   View Docs
@@ -67,7 +76,7 @@ export default function Page() {
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
             <div className="md:hidden mt-4 space-y-2 pb-2">
-              <a href="https://www.openfort.xyz/docs/guides/react/" target="_blank" className="block">
+              <a href="https://www.openfort.xyz/docs/" target="_blank" className="block">
                 <Button variant="outline" className="w-full">
                   <BookOpenText className="h-4 w-4 mr-2" />
                   View Docs
@@ -130,7 +139,6 @@ export default function Page() {
                 metrics: [
                   { label: "ID", value: user?.id },
                   { label: "Linked providers", value: linkedProviders.join(", ") || "None" },
-                  { label: "Not linked providers", value: availableProviders.join(", ") || "All providers are linked" },
                 ],
                 needsUser: true
               },

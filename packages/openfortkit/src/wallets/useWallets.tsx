@@ -82,8 +82,8 @@ export const useWallets = (): WalletProps[] => {
         if (wallet.id === 'walletConnect') {
           return {
             ...wallet,
-            name: context.options?.walletConnectName || wallet.name,
-            shortName: context.options?.walletConnectName || wallet.shortName,
+            name: context.uiConfig?.walletConnectName || wallet.name,
+            shortName: context.uiConfig?.walletConnectName || wallet.shortName,
           };
         }
         return wallet;

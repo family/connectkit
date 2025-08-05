@@ -33,31 +33,28 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
           // Set the wallet configuration. In this example, we will be using the embedded signer.
           walletConfig={{
-            createEmbeddedSigner: true,
 
-            embeddedSignerConfiguration: {
-              shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
+            shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
 
-              // Set the recovery method you want to use, in this case we will use the password recovery method
-              recoveryMethod: recoveryMethod,
+            // Set the recovery method you want to use, in this case we will use the password recovery method
+            recoveryMethod: recoveryMethod,
 
-              // Your can customize the recovery method, either by setting the recovery method function or the endpoint
-              getEncryptionSession: async () => {
-                const res = await fetch('/api/protected-create-encryption-session', {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                });
-                return (await res.json()).session;
-              },
-              // This is how you would customize only the endpoint:
-              // createEncryptedSessionEndpoint: '/api/protected-create-encrypted-session',
+            // Your can customize the recovery method, either by setting the recovery method function or the endpoint
+            getEncryptionSession: async () => {
+              const res = await fetch('/api/protected-create-encryption-session', {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              });
+              return (await res.json()).session;
+            },
 
+            // createEncryptedSessionEndpoint: '/api/protected-create-encrypted-session',
+            // This is how you would customize only the endpoint:
 
-              // You can set a policy id to sponsor the gas fees for your users
-              ethereumProviderPolicyId: process.env.NEXT_PUBLIC_POLICY_ID,
-            }
+            // ethereumProviderPolicyId: process.env.NEXT_PUBLIC_POLICY_ID,
+            // You can set a policy id to sponsor the gas fees for your users
           }}
 
           // This is the callback that will be called when the user connects or disconnects
@@ -68,7 +65,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             console.log('onDisconnect');
           }}
 
-          options={{
+          uiConfig={{
             // You can customize the logo of your app
             logo: (<CustomLogo />),
 
@@ -84,15 +81,15 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             // Other useful options
             overlayBlur: 2.5,
             hideTooltips: true,
-          }}
 
-          // debugMode
-          customTheme={{
-            // "--ck-body-background": "#000000",
-          }}
+            customTheme: {
+              // "--ck-body-background": "#000000",
+            },
 
-          // Set the theme of the OpenfortKit
-          theme={sampleTheme}
+            // Set the theme of the OpenfortKit
+            theme: sampleTheme
+          }}
+          debugMode
         >
           {children}
         </OpenfortKitProvider>

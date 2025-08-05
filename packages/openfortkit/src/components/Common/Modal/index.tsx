@@ -289,7 +289,7 @@ const Modal: React.FC<ModalProps> = ({
   const ref = useRef<any>(null);
   useEffect(() => {
     if (ref.current) updateBounds(ref.current);
-  }, [chain, switchChain, mobile, context.options, context.resize]);
+  }, [chain, switchChain, mobile, context.uiConfig, context.resize]);
 
   useEffect(() => {
     if (!mounted) {
@@ -380,7 +380,7 @@ const Modal: React.FC<ModalProps> = ({
           <BackgroundOverlay
             $active={rendered}
             onClick={onClose}
-            $blur={context.options?.overlayBlur}
+            $blur={context.uiConfig?.overlayBlur}
           />
         )}
         <Container
@@ -488,7 +488,7 @@ const Modal: React.FC<ModalProps> = ({
                     </BackButton>
                   ) : (
                     onInfo &&
-                    !context.options?.hideQuestionMarkCTA && (
+                    !context.uiConfig?.hideQuestionMarkCTA && (
                       <InfoButton
                         disabled={inTransition}
                         aria-label={flattenChildren(

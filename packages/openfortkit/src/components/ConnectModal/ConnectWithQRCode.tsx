@@ -79,8 +79,8 @@ const ConnectWithQRCode: React.FC<{
       // When connected with WalletConnect, we connect with SIWE
       if (isConnected) {
         connectWithSiwe({
-          connectorType: 'walletConnect',
-          walletClientType: 'walletConnect',
+          // connectorType: 'walletConnect',
+          // walletClientType: 'walletConnect',
           onError: (error) => {
             log(error);
             disconnect();
@@ -141,21 +141,21 @@ const ConnectWithQRCode: React.FC<{
             gap: 14,
           }}
         >
-          {context.options?.walletConnectCTA !== 'modal' && (
+          {context.uiConfig?.walletConnectCTA !== 'modal' && (
             <CopyToClipboard variant="button" string={uri}>
-              {context.options?.walletConnectCTA === 'link'
+              {context.uiConfig?.walletConnectCTA === 'link'
                 ? locales.copyToClipboard
                 : locales.copyCode}
             </CopyToClipboard>
           )}
-          {context.options?.walletConnectCTA !== 'link' && (
+          {context.uiConfig?.walletConnectCTA !== 'link' && (
             <Button
               icon={<ExternalLinkIcon />}
               onClick={openW3M}
               disabled={isOpenW3M}
               waiting={isOpenW3M}
             >
-              {context.options?.walletConnectCTA === 'modal'
+              {context.uiConfig?.walletConnectCTA === 'modal'
                 ? locales.useWalletConnectModal
                 : locales.useModal}
             </Button>

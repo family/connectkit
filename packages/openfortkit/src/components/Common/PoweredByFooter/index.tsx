@@ -4,7 +4,7 @@ import styled from "../../../styles/styled";
 import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 
 const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
-  const { options } = useOpenfortKit();
+  const { uiConfig: options } = useOpenfortKit();
 
   return (
     <Container>

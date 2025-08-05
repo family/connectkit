@@ -21,7 +21,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const context = useOpenfortKit();
   const themeContext = useThemeContext();
 
-  if (context.options?.hideTooltips) return <>{children}</>;
+  if (context.uiConfig?.hideTooltips) return <>{children}</>;
 
   const [isOpen, setIsOpen] = useState(false);
   const [outOfBounds, setOutOfBounds] = useState(false);

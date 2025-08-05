@@ -7,7 +7,7 @@ import { getLocale } from '../localizations';
 
 export default function useLocales(replacements?: any) {
   const context = useOpenfortKit();
-  const language = context.options?.language ?? 'en-US';
+  const language = context.uiConfig?.language ?? 'en-US';
 
   const translations = useMemo(() => {
     return getLocale(language);
