@@ -6,11 +6,14 @@ import { OpenfortHookOptions, OpenfortKitError, OpenfortKitErrorType } from "../
 import { buildCallbackUrl } from "./requestEmailVerification";
 import { BaseFlowState, mapStatus } from "./status";
 import { onError, onSuccess } from '../hookConsistency';
+import { useCreateWalletPostAuth } from './useCreateWalletPostAuth';
+import { UserWallet } from '../useWallets';
 
 
 export type EmailAuthResult = {
   error?: OpenfortKitError;
   user?: OpenfortUser;
+  wallet?: UserWallet;
   requiresEmailVerification?: boolean;
 };
 
@@ -52,15 +55,25 @@ export type UseEmailHookOptions = {
 export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const { log } = useOpenfortKit();
   const { client, updateUser } = useOpenfort();
+  const [requiresEmailVerification, setRequiresEmailVerification] = useState(false);
   const [status, setStatus] = useState<BaseFlowState>({
     status: "idle",
   });
+  const reset = useCallback(() => {
+    setStatus({
+      status: "idle",
+    });
+    setRequiresEmailVerification(false);
+  }, []);
+
+  const { tryUseWallet } = useCreateWalletPostAuth();
 
   const signInEmail = useCallback(async (options: SignInEmailOptions): Promise<EmailAuthResult> => {
     try {
       setStatus({
         status: 'loading',
       });
+      setRequiresEmailVerification(false);
 
       const result = await client.auth.logInWithEmailPassword({
         email: options.email,
@@ -81,12 +94,15 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           })
         })
 
+        setRequiresEmailVerification(true);
         return onSuccess<EmailAuthResult>({
           data: { requiresEmailVerification: true },
           hookOptions,
           options,
         })
       } else {
+
+        const { wallet } = await tryUseWallet();
 
         setStatus({
           status: 'success',
@@ -96,7 +112,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         await updateUser();
 
         return onSuccess<EmailAuthResult>({
-          data: { user },
+          data: { user, wallet },
           hookOptions,
           options,
         });
@@ -117,13 +133,13 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     }
   }, [client, setStatus, updateUser, hookOptions]);
 
-
   const requestResetPassword = useCallback(async (options: RequestResetPasswordOptions): Promise<EmailAuthResult> => {
 
     try {
       setStatus({
         status: 'loading',
       });
+      setRequiresEmailVerification(false);
 
       await client.auth.requestResetPassword({
         email: options.email,
@@ -138,6 +154,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         status: 'success',
       });
 
+      setRequiresEmailVerification(true);
       return onSuccess<EmailAuthResult>({
         data: { requiresEmailVerification: true },
         hookOptions,
@@ -164,6 +181,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
       setStatus({
         status: 'loading',
       });
+      setRequiresEmailVerification(false);
 
       await client.auth.resetPassword({
         email: options.email,
@@ -175,6 +193,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         status: 'success',
       });
 
+      setRequiresEmailVerification(true);
       return onSuccess<EmailAuthResult>({
         data: { requiresEmailVerification: true },
         hookOptions,
@@ -195,13 +214,12 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     }
   }, [client, setStatus, updateUser, hookOptions]);
 
-
   const signUpEmail = useCallback(async (options: SignUpEmailOptions): Promise<EmailAuthResult> => {
-
     try {
       setStatus({
         status: 'loading',
       });
+      setRequiresEmailVerification(false);
 
       const result = await client.auth.signUpWithEmailPassword({
         email: options.email,
@@ -214,7 +232,6 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           status: 'awaiting-input',
         });
 
-
         client.auth.requestEmailVerification({
           email: options.email,
           redirectUrl: buildCallbackUrl({
@@ -224,12 +241,16 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           })
         })
 
+        setRequiresEmailVerification(true);
         return onSuccess<EmailAuthResult>({
           data: { requiresEmailVerification: true },
           hookOptions,
           options,
         });
       } else {
+
+        const { wallet } = await tryUseWallet();
+
         setStatus({
           status: 'success',
         });
@@ -237,7 +258,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         await updateUser(user);
 
         return onSuccess<EmailAuthResult>({
-          data: { user },
+          data: { user, wallet },
           hookOptions,
           options,
         });
@@ -298,6 +319,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         })
 
         updateUser();
+        setRequiresEmailVerification(true);
         return onSuccess<EmailAuthResult>({
           data: { requiresEmailVerification: true },
           hookOptions,
@@ -333,7 +355,9 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     linkEmail,
     requestResetPassword,
     resetPassword,
+    reset,
     ...mapStatus(status),
+    requiresEmailVerification,
     isAwaitingInput: status.status === 'awaiting-input',
   };
 }

@@ -4,13 +4,12 @@
  */
 
 import {
+  Connector,
+  CreateConnectorFn,
   type UseConnectParameters,
   useConnect as wagmiUseConnect,
-  CreateConnectorFn,
-  Connector,
 } from 'wagmi';
 import { useOpenfortKit } from '../components/OpenfortKit/useOpenfortKit';
-import { useLastConnector } from './useLastConnector';
 
 export function useConnect({ ...props }: UseConnectParameters = {}) {
   const context = useOpenfortKit();

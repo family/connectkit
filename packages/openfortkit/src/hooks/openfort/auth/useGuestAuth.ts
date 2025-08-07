@@ -4,10 +4,13 @@ import { OpenfortHookOptions, OpenfortKitError, OpenfortKitErrorType } from "../
 import { BaseFlowState, mapStatus } from "./status";
 import { useOpenfort } from "../../../openfort/useOpenfort";
 import { onError, onSuccess } from "../hookConsistency";
+import { useCreateWalletPostAuth } from "./useCreateWalletPostAuth";
+import { UserWallet } from "../useWallets";
 
 export type GuestHookResult = {
   error?: OpenfortKitError;
   user?: OpenfortUser;
+  wallet?: UserWallet;
 };
 
 export type GuestHookOptions = OpenfortHookOptions<OpenfortUser>;
@@ -18,7 +21,7 @@ export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
   const [status, setStatus] = useState<BaseFlowState>({
     status: "idle",
   });
-
+  const { tryUseWallet } = useCreateWalletPostAuth();
 
   const signUpGuest = useCallback(async (options: GuestHookOptions = {}): Promise<GuestHookResult> => {
     try {
@@ -28,11 +31,14 @@ export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
 
       const result = await client.auth.signUpGuest();
 
+      const user = result.player;
+      await updateUser(user);
+
+      const { wallet } = await tryUseWallet();
+
       setStatus({
         status: 'success',
       });
-      const user = result.player;
-      await updateUser(user);
 
       onSuccess({
         hookOptions,
@@ -40,7 +46,7 @@ export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
         data: user,
       });
 
-      return { user };
+      return { user, wallet };
     } catch (error) {
       const openfortKitError = new OpenfortKitError("Failed to signup guest", OpenfortKitErrorType.AUTHENTICATION_ERROR, { error });
 

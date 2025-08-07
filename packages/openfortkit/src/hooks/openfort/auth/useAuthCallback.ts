@@ -4,22 +4,41 @@ import { BaseFlowState, mapStatus } from "./status";
 import { useOpenfort } from "../../../openfort/useOpenfort";
 import { OpenfortHookOptions, OpenfortKitError, OpenfortKitErrorType } from "../../../types";
 import { onError, onSuccess } from "../hookConsistency";
+import { AuthProvider } from "../../../components/OpenfortKit/types";
+import { useCreateWalletPostAuth } from "./useCreateWalletPostAuth";
+import { UserWallet } from "../useWallets";
+import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js';
 
+
+type CallbackResult = StoreCredentialsResult | EmailVerificationResult;
+
+type EmailVerificationResult = {
+  type: "verifyEmail";
+  email?: string,
+  error?: OpenfortKitError
+}
+
+type StoreCredentialsResult = {
+  type: "storeCredentials";
+  user?: OpenfortUser;
+  wallet?: UserWallet;
+  error?: OpenfortKitError;
+}
 
 type VerifyEmailOptions = {
   email: string;
   state: string;
-} & OpenfortHookOptions;
+} & OpenfortHookOptions<EmailVerificationResult>;
 
 type StoreCredentialsOptions = {
   player: string;
   accessToken: string;
   refreshToken: string;
-} & OpenfortHookOptions;
+} & OpenfortHookOptions<StoreCredentialsResult>;
 
 type UseAuthCallbackOptions = {
   automaticallyHandleCallback?: boolean;
-} & OpenfortHookOptions;
+} & OpenfortHookOptions<CallbackResult>;
 
 export const useAuthCallback = ({
   automaticallyHandleCallback = true, // Automatically handle OAuth and email callback
@@ -29,12 +48,16 @@ export const useAuthCallback = ({
   const [status, setStatus] = useState<BaseFlowState>({
     status: "idle",
   });
-  const { client } = useOpenfort();
+  const { client, updateUser } = useOpenfort();
+  const [provider, setProvider] = useState<AuthProvider | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
+  const { tryUseWallet } = useCreateWalletPostAuth();
 
-  const verifyEmail = useCallback(async ({ email, state, ...options }: VerifyEmailOptions) => {
+  const verifyEmail = useCallback(async ({ email, state, ...options }: VerifyEmailOptions): Promise<EmailVerificationResult> => {
     setStatus({
       status: 'loading',
     });
+    setEmail(email);
 
     try {
       await client.auth.verifyEmail({
@@ -48,7 +71,7 @@ export const useAuthCallback = ({
       return onSuccess({
         hookOptions,
         options,
-        data: {},
+        data: { email, type: "verifyEmail" },
       });
 
     } catch (e) {
@@ -61,11 +84,13 @@ export const useAuthCallback = ({
 
       log("Error verifying email", e);
 
-      return onError({
+      onError({
         hookOptions,
         options,
         error,
       });
+
+      return { error, type: "verifyEmail" };
     }
   }, [client, log, hookOptions]);
 
@@ -74,7 +99,7 @@ export const useAuthCallback = ({
     accessToken,
     refreshToken,
     ...options
-  }: StoreCredentialsOptions) => {
+  }: StoreCredentialsOptions): Promise<StoreCredentialsResult> => {
     setStatus({
       status: 'loading',
     });
@@ -89,10 +114,14 @@ export const useAuthCallback = ({
         status: 'success',
       });
 
+      const user = await updateUser() || undefined;
+
+      const { wallet } = await tryUseWallet();
+
       return onSuccess({
+        data: { user, wallet, type: "storeCredentials" },
         hookOptions,
         options,
-        data: {},
       });
     } catch (e) {
       const error = new OpenfortKitError("Failed to store credentials", OpenfortKitErrorType.AUTHENTICATION_ERROR, { error: e });
@@ -103,11 +132,12 @@ export const useAuthCallback = ({
       });
       log("Error storing credentials", e);
 
-      return onError({
+      onError({
         hookOptions,
         options,
         error,
       });
+      return { error, type: "storeCredentials" };
     }
   }, [client, log, hookOptions]);
 
@@ -124,6 +154,7 @@ export const useAuthCallback = ({
         return;
       }
 
+      setProvider(openfortAuthProvider as AuthProvider);
       if (openfortAuthProvider === "email") {
 
         // Verify email flow
@@ -148,13 +179,6 @@ export const useAuthCallback = ({
         log("EmailVerification", state, email);
         await verifyEmail({ email, state });
         removeParams();
-
-        onSuccess({
-          hookOptions,
-          options: {},
-          data: {},
-        });
-
       } else {
 
         const player = url.searchParams.get("player_id");
@@ -189,19 +213,16 @@ export const useAuthCallback = ({
 
         log("callback", { player, accessToken, refreshToken });
 
-        await storeCredentials({ player, accessToken, refreshToken });
+        const { wallet, user, error, type } = await storeCredentials({ player, accessToken, refreshToken });
         removeParams();
-        onSuccess({
-          hookOptions,
-          options: {},
-          data: {},
-        });
       }
 
     })();
   }, []);
 
   return {
+    email,
+    provider,
     verifyEmail,
     storeCredentials,
     ...mapStatus(status),

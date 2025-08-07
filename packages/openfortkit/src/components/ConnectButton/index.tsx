@@ -3,7 +3,6 @@ import { useAccount, useEnsName } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 import { truncateEthAddress, truncateUserId } from '../../utils';
 
-import { useModal } from '../../hooks/useModal';
 import { useOpenfortKit } from '../OpenfortKit/useOpenfortKit';
 import {
   IconContainer,
@@ -23,6 +22,7 @@ import { Balance } from '../BalanceButton';
 import Avatar from '../Common/Avatar';
 import ThemedButton, { ThemeContainer } from '../Common/ThemedButton';
 import { routes } from '../OpenfortKit/types';
+import { useUI } from '../../hooks/openfort/useUI';
 
 const contentVariants: Variants = {
   initial: {
@@ -122,7 +122,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
 }) => {
   const isMounted = useIsMounted();
   const context = useOpenfortKit();
-  const { open, setOpen } = useModal();
+  const { open, close, isOpen } = useUI();
 
   const { address, isConnected, chain } = useAccount();
   const isChainSupported = useChainIsSupported(chain?.id);
@@ -135,11 +135,11 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   });
 
   function hide() {
-    setOpen(false);
+    close();
   }
 
   function show() {
-    setOpen(true);
+    open();
     context.setRoute(isConnected ? routes.PROFILE : routes.PROVIDERS);
   }
 
@@ -154,7 +154,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
         chain: chain,
         unsupported: !isChainSupported,
         isConnected: !!address,
-        isConnecting: open, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
+        isConnecting: isOpen, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
         address: address,
         truncatedAddress: address ? truncateEthAddress(address) : undefined,
         ensName: ensName?.toString(),
@@ -337,7 +337,7 @@ export function OpenfortKitButton({
   const { address, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
 
-  const { setOpen } = useModal();
+  const { open } = useUI();
 
   const separator = ['web95', 'rounded', 'minimal'].includes(
     theme ?? context.uiConfig?.theme ?? ''
@@ -359,9 +359,9 @@ export function OpenfortKitButton({
       <ThemeContainer
         onClick={() => {
           if (onClick) {
-            onClick(() => setOpen(true));
+            onClick(() => open());
           } else {
-            setOpen(true);
+            open();
           }
         }}
       >

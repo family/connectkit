@@ -20,6 +20,8 @@ export function useStatus() {
       if (isConnected) return OpenfortKitStatus.CONNECTED_WITHOUT_USER;
       else return OpenfortKitStatus.DISCONNECTED;
     }
+    if (!isConnected)
+      return OpenfortKitStatus.NEEDS_RECOVERY;
 
     return OpenfortKitStatus.CONNECTED;
   }
@@ -28,9 +30,10 @@ export function useStatus() {
   return {
     status,
     isLoading: status === OpenfortKitStatus.LOADING,
+    hasUser: !!user,
     isConnected: status === OpenfortKitStatus.CONNECTED,
     isDisconnected: status === OpenfortKitStatus.DISCONNECTED,
-    isDisconnectedWithAddress: status === OpenfortKitStatus.CONNECTED_WITHOUT_USER,
+    isConnectedWithoutUser: status === OpenfortKitStatus.CONNECTED_WITHOUT_USER,
     needsRecovery: status === OpenfortKitStatus.NEEDS_RECOVERY,
   }
 }

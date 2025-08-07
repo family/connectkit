@@ -89,6 +89,7 @@ export function useUI() {
     isOpen: open,
     open: () => defaultOpen(),
     close: () => setOpen(false),
+    setIsOpen: setOpen,
 
     openProfile: () => gotoAndOpen(routes.PROFILE),
     openSwitchNetworks: () => gotoAndOpen(routes.SWITCHNETWORKS),

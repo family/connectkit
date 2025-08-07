@@ -30,6 +30,23 @@ type SetActiveWalletOptions = {
   password?: string;
 })
 
+const createOpenfortWallet = ({
+  connector,
+  isEmbedded,
+  address,
+}: {
+  connector: Connector | undefined;
+  isEmbedded: boolean;
+  address?: Hex | undefined;
+}): UserWallet => ({
+  connectorType: "embedded",
+  walletClientType: "openfort",
+  address: isEmbedded ? address : undefined,
+  id: embeddedWalletId,
+  isAvailable: true,
+  isActive: isEmbedded && connector?.id === embeddedWalletId,
+});
+
 export function useWallets() {
   const { user, embeddedState, client } = useOpenfort();
   const { walletConfig, log, setOpen, setRoute, setConnector, uiConfig: openfortKitOptions } = useOpenfortKit();
@@ -68,6 +85,7 @@ export function useWallets() {
     }
   });
 
+
   const usesEmbeddedWallet = user && walletConfig;
   const isEmbedded = embeddedState === EmbeddedState.READY;
 
@@ -88,14 +106,11 @@ export function useWallets() {
 
     // TODO: List user wallets with embeddedWallet.list
     if (usesEmbeddedWallet) {
-      linkedWallets.push({
-        connectorType: "embedded",
-        walletClientType: "openfort",
-        address: isEmbedded ? address : undefined,
-        id: embeddedWalletId,
-        isAvailable: true,
-        isActive: isEmbedded && connector?.id === embeddedWalletId,
-      });
+      linkedWallets.push(createOpenfortWallet({
+        connector,
+        isEmbedded,
+        address
+      }));
     }
 
     return linkedWallets;
@@ -109,7 +124,7 @@ export function useWallets() {
   }, [connectToConnector])
 
   const setActiveWallet = useCallback(async (options: SetActiveWalletOptions | string):
-    Promise<{ error?: string }> => {
+    Promise<{ error?: string, wallet?: UserWallet }> => {
     const optionsObject = typeof options === "string" ? { connector: options } : options;
 
     const { showUI } = optionsObject;
@@ -135,14 +150,9 @@ export function useWallets() {
 
     if (activeWallet?.id === connector.id && address === optionsObject.address) {
       log(`Already connected to ${connector.id} with address ${address}, skipping connection`);
-      return {};
+      return { wallet: activeWallet };
     }
 
-    const walletToConnect = wallets.find((w) => w.id == connector.id)
-    if (!walletToConnect) {
-      log("Wallet not found", connector);
-      return {};
-    }
 
     const hasDisconnected = new Promise<void>((resolve) => {
       disconnect(undefined, {
@@ -163,6 +173,12 @@ export function useWallets() {
     await hasDisconnected;
 
     if (showUI) {
+      const walletToConnect = wallets.find((w) => w.id == connector.id)
+      if (!walletToConnect) {
+        log("Wallet not found", connector);
+        return {};
+      }
+
       log("Connecting to wallet", walletToConnect);
       if (connector.id === embeddedWalletId) {
         setTimeout(() => {
@@ -270,7 +286,13 @@ export function useWallets() {
           status: 'success',
         });
 
-        return {};
+        return {
+          wallet: createOpenfortWallet({
+            connector,
+            isEmbedded,
+            address,
+          }),
+        };
       } catch (err) {
         log('Error handling recovery with Openfort:', err);
         if (err instanceof MissingRecoveryPasswordError) {
@@ -315,7 +337,7 @@ export function useWallets() {
     availableWallets: deviceWallets,
     activeWallet,
     setActiveWallet,
-    createWallet,
+    // createWallet,
     ...mapStatus(status),
     exportPrivateKey: client.embeddedWallet.exportPrivateKey,
   }

@@ -5,8 +5,6 @@ export { default as getDefaultConfig } from './defaultConfig';
 export { default as getDefaultConnectors } from './defaultConnectors';
 export { wallets } from './wallets';
 
-export { useModal } from './hooks/useModal';
-
 export {
   AuthProvider,
 } from './components/OpenfortKit/types';
