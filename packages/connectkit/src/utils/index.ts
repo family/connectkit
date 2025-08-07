@@ -92,6 +92,9 @@ export const isMetaMaskConnector = (connectorId?: string) =>
 export const isCoinbaseWalletConnector = (connectorId?: string) =>
   connectorId === 'coinbaseWalletSDK';
 
+export const isBaseAccountConnector = (connectorId?: string) =>
+  connectorId === 'baseAccount';
+
 export const isLedgerConnector = (connectorId?: string) =>
   connectorId === 'ledger';
 
