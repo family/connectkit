@@ -1,62 +1,29 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router';
-import { Nav, NavRoute } from '../components/Nav';
-import { OpenfortKitButton } from '@openfort/openfort-kit';
 import { ModeToggle } from '@/components/mode-toggle';
+import { Nav } from '@/components/Nav';
+import { OpenfortKitButton } from '@openfort/openfort-kit';
+import { Outlet, createRootRoute } from '@tanstack/react-router';
+import z from 'zod';
 
 export const Route = createRootRoute({
   component: RootComponent,
+  validateSearch: z.object({
+    focus: z.string().optional(),
+  })
 })
 
-const navRoutes: NavRoute[] = [
-  {
-    href: '/',
-    label: 'Provider',
-    exact: true,
-  },
-  {
-    href: '/auth',
-    label: 'Auth'
-  },
-  {
-    href: '/user',
-    label: 'User'
-  },
-  {
-    href: '/wallet',
-    label: 'Wallet'
-  },
-  {
-    href: '/ui',
-    label: 'UI Hooks'
-  },
-  {
-    href: '/wagmi',
-    label: 'Wagmi Hooks'
-  },
-]
 
 function RootComponent() {
-
   return (
-    <div className='w-screen h-screen bg-white bg-background dark:bg-background text-zinc-900 dark:text-white flex overflow-hidden'>
-      <div className='w-xs border-r border-zinc-200 dark:border-zinc-700'>
-        <div className='w-full h-40 flex items-center justify-center bg-gray-100 dark:bg-zinc-900'>
-          <OpenfortKitButton />
+    <div className='flex flex-col min-h-screen'>
+      <Nav showLogo>
+        <div className='flex gap-4 border-l pl-4'>
+          <ModeToggle className="scale-110" />
+          <div className=''>
+            <OpenfortKitButton />
+          </div>
         </div>
-        <div className='border-20 border-red-900 p-4 m-4 bg-red-50 dark:bg-red-900/30 rounded'>
-          <button
-            onClick={() => {
-              localStorage.removeItem("openfort.account");
-              // window.location.reload();
-            }}> fix</button>
-        </div>
-      </div>
-      <div className='flex-1 overflow-hidden flex flex-col'>
-        <Nav navRoutes={navRoutes} >
-          <ModeToggle className="scale-110 ml-auto" />
-        </Nav>
-        <Outlet />
-      </div>
+      </Nav>
+      <Outlet />
     </div>
   )
 }

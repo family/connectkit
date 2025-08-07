@@ -3,7 +3,7 @@
 import { BookOpenText } from "lucide-react"
 import Button from "../components/Button"
 
-import { OpenfortKitButton, useModal, useUser, useWallets } from "@openfort/openfort-kit"
+import { OpenfortKitButton, useUI, useUser, useWallets } from "@openfort/openfort-kit"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import { useAccount } from "wagmi"
 
@@ -17,7 +17,7 @@ export default function Page() {
   const { user } = useUser();
   const { wallets, setActiveWallet, activeWallet: currentWallet } = useWallets();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { openWallets } = useModal();
+  const { openWallets } = useUI();
   const linkedProviders = user?.linkedAccounts.map(provider => provider.connectorType) || [];
 
   const [mounted, setMounted] = useState(false);

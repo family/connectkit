@@ -29,62 +29,6 @@ type FormProps<TOptions extends Record<string, any>, TResult = any> = {
   description?: string;
 } & React.PropsWithChildren<React.HTMLProps<HTMLFormElement>>
 
-// const renderInputs = (input: FunctionInputType, name: string) => {
-//   if (!input || !input.type) {
-//     return null; // or handle the case where input is not defined
-//   }
-//   switch (input.type) {
-//     case 'select':
-//       return (
-//         <Select
-//           key={name}
-//           name={name}
-//           required={input.required}
-//           defaultValue={input.defaultValue}
-//           placeholder={input.placeholder}
-//           options={input.options}
-//           onChange={(e) => input.onChange?.(e.currentTarget.value)}
-//         />
-//       );
-//     case 'function':
-//       return (
-//         <Select
-//           key={name}
-//           name={name}
-//           required={input.required}
-//           defaultValue={input.defaultValue}
-//           placeholder={input.placeholder}
-//           options={['undefined', 'console.log', 'alert']}
-//           onChange={(e) => input.onChange?.(e.currentTarget.value)}
-//         />
-//       )
-//     case 'boolean':
-//       return (
-//         <Select
-//           key={name}
-//           name={name}
-//           required={input.required}
-//           defaultValue={input.defaultValue}
-//           placeholder={input.placeholder}
-//           options={['true', 'false']}
-//           onChange={(e) => input.onChange?.(e.currentTarget.value)}
-//         />
-//       );
-//     default:
-//       return (
-//         <Input
-//           key={name}
-//           name={name}
-//           type={input.type}
-//           required={input.required}
-//           defaultValue={input.defaultValue}
-//           placeholder={input.placeholder}
-//           onChange={(e) => input.onChange?.(e.currentTarget.value)}
-//         />
-//       );
-//   }
-// }
-
 export const Form = <TOptions extends Record<string, any>, TResult = any>({
   fn,
   fnName,
@@ -118,17 +62,14 @@ export const Form = <TOptions extends Record<string, any>, TResult = any>({
           }
         }
 
-
         if (input.type === 'select') {
           if (input && 'options' in input) {
             options[key] = (input.options
-              ?.find(opt => typeof opt === "object" && opt.value === options[key]) as { value: any })
-              ?.value || options[key];
+              ?.find(opt => typeof opt === "object" && opt.value == options[key]) as { value: any })?.value || options[key];
           }
         }
       }
     });
-    console.log('Submitting options:', options);
     try {
       setFunctionResult(null);
       setFunctionError(null);

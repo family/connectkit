@@ -3,10 +3,11 @@ import { commonVariables } from '@/components/Variable/commonVariables';
 import { getFunctionSignature } from '@/components/Variable/getFunctionSignature';
 import { getValueColor } from '@/components/Variable/getValueColor';
 import { VariableTooltip } from '@/components/Variable/VariableTooltip';
-import { alertFn, cn, logFn } from '@/lib/utils';
+import { alertFn, logFn } from '@/lib/utils';
 import { ChevronRight, PenLine } from 'lucide-react';
 import { useState } from 'react';
 import { Form, FunctionInputType, FunctionInputTypeType } from '../Form/Form';
+import { cn } from '@/lib/cn';
 
 
 type HookFunctions = {
@@ -27,6 +28,7 @@ interface VariableProps {
   maxDepth?: number;
   defaultExpanded?: number;
   variables?: Record<string, HookInput>;
+  focusedVariable?: string;
 }
 
 
@@ -107,6 +109,7 @@ const EditableVariable = ({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
+      onChange(valueState);
       setIsEditing(false);
     } else if (e.key === 'Escape') {
       e.preventDefault();
@@ -205,10 +208,10 @@ export const BaseVariable = ({
   depth = 0,
   maxDepth = 100,
   defaultExpanded = 0,
+  focusedVariable,
   variables = {}
 }: VariableProps) => {
   const [isExpanded, setIsExpanded] = useState(depth < defaultExpanded);
-
 
   const getValueType = (val: unknown) => {
     if (val === null) return 'null';
@@ -238,7 +241,7 @@ export const BaseVariable = ({
     if (actualType === 'function') {
       if (!variable) return null;
       return (
-        <div className='bg-gray-100 dark:bg-zinc-900 border dark:border-zinc-700 p-4 pt-2 rounded-lg m-2 max-w-lg'>
+        <div className='bg-background-100 border dark:border-zinc-700 p-4 pt-2 rounded-lg m-2 max-w-lg'>
           <Form
             fn={value}
             fnName={name}
@@ -274,6 +277,7 @@ export const BaseVariable = ({
                 className="mb-1"
                 variables={variables}
                 defaultExpanded={defaultExpanded}
+                focusedVariable={focusedVariable}
               />
             );
           } catch (error) {
@@ -303,7 +307,8 @@ export const BaseVariable = ({
     return (
       <div className={cn(
         "flex items-center gap-2 font-mono text-sm group/parent",
-        !isEditable && "overflow-hidden", 
+        focusedVariable === name ? "animate-focus" : "",
+        !isEditable && "overflow-hidden",
         className,
       )}>
         {!(actualType === 'undefined' && !hasVariable) &&
@@ -348,7 +353,10 @@ export const BaseVariable = ({
 
   // Expandable objects/arrays
   return (
-    <div className={`${className}`}>
+    <div className={cn(
+      className,
+      focusedVariable === name ? "animate-focus" : "",
+    )}>
       <div
         className="flex items-center gap-1 cursor-pointer group/parent rounded"
         onClick={() => setIsExpanded(!isExpanded)}
@@ -386,6 +394,7 @@ export const Variable = ({
   defaultExpanded?: number;
   maxDepth?: number;
 }) => {
+
   return (
     <div className="flex flex-col gap-4 font-mono text-sm">
       <span className="text-gray-700 dark:text-gray-300 font-medium text-lg">

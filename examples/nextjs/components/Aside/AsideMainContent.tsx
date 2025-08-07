@@ -3,7 +3,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@radix-ui/react-select"
 import { ArrowRight, ExternalLink, LockIcon } from "lucide-react"
 
-import { RecoveryMethod, useModal, useSignOut, useUser } from "@openfort/openfort-kit"
+import { RecoveryMethod, useSignOut, useUI, useUser } from "@openfort/openfort-kit"
 import { Theme } from "@openfort/openfort-kit/build/types"
 import { CaretDownIcon } from "@radix-ui/react-icons"
 
@@ -20,7 +20,7 @@ type Props = {
 export const AsideMainContent = ({ setContent }: Props) => {
   const { user } = useUser();
   const { signOut } = useSignOut();
-  const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();
+  const { openSwitchNetworks, open, close, openProviders, openWallets } = useUI();
   const { sampleTheme, setSampleTheme, recoveryMethod, setRecoveryMethod } = useSample();
 
   return (
@@ -98,7 +98,7 @@ export const AsideMainContent = ({ setContent }: Props) => {
       <div className="mb-6" >
         <h3 className="text-lg font-semibold mb-2">Open page</h3>
         <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
-          <Button onClick={() => setOpen(true)} variant="outline">Default page</Button>
+          <Button onClick={() => open()} variant="outline">Default page</Button>
           {user && (
             <>
               <Button onClick={() => openSwitchNetworks()} variant="outline">Switch networks</Button>
@@ -108,7 +108,7 @@ export const AsideMainContent = ({ setContent }: Props) => {
           <Button onClick={() => openWallets()} variant="outline">
             {!user ? "Wallets" : "Link wallets"}
           </Button>
-          <Button onClick={() => setOpen(false)}>Close modal</Button>
+          <Button onClick={() => close()}>Close modal</Button>
         </div>
       </div >
 

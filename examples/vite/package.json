@@ -11,6 +11,7 @@
     "generate-types": "typedoc --json src/generated/types.json src/generate-types.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
     "@openfort/openfort-kit": "workspace:packages/openfortkit",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-slot": "^1.2.3",
@@ -23,14 +24,18 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "crypto-browserify": "^3.12.1",
+    "daisyui": "^5.0.50",
+    "framer-motion": "^12.23.12",
     "lucide-react": "^0.535.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.62.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
     "typedoc-json-parser": "^10.2.0",
     "viem": "*",
     "wagmi": "*",
+    "zod": "^4.0.15",
     "zustand": "^5.0.7"
   },
   "devDependencies": {

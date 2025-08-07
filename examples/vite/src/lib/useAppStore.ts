@@ -49,13 +49,13 @@ const defaultProviderOptions: Parameters<typeof OpenfortKitProvider>[0] = {
   walletConfig: {
     shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY,
 
-    recoveryMethod: RecoveryMethod.PASSWORD,
+    recoveryMethod: RecoveryMethod.AUTOMATIC,
 
     ethereumProviderPolicyId: "pol_6b30a204-7f5b-4ba1-bc7f-4de11e922b31",
 
     debug: false,
     getEncryptionSession: undefined, // Optional function to get the encryption session
-    shieldEncryptionKey: undefined, // Optional encryption key for the shield
+    // shieldEncryptionKey: undefined, // Optional encryption key for the shield
 
     createEncryptedSessionEndpoint: "http://localhost:3110/api/protected-create-encryption-session",
   },

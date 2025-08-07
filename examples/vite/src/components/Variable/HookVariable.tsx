@@ -1,6 +1,7 @@
 import { BaseVariable, HookInput } from "@/components/Variable/Variable";
 import { onSettledInputs } from "@/components/Variable/commonVariables";
-import { useState } from "react";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 
 export const HookVariable = <TOptions extends object, TResult extends object>({
@@ -25,6 +26,24 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
   const [opts, setOpts] = useState<TOptions>(defaultOptions);
 
   const values = hook(opts);
+  const params = useSearch({ strict: false });
+  const navigate = useNavigate()
+  useEffect(() => {
+
+    if (params.focus) {
+      return clearTimeout(setTimeout(() => {
+        navigate({
+          to: '.',
+          search: (prev) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { focus, ...rest } = prev
+            return rest
+          },
+          replace: true,
+        })
+      }, 2000));
+    }
+  }, [params.focus, navigate]);
 
   return (
     <div className="flex flex-col gap-2 font-mono text-sm">
@@ -49,6 +68,7 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
                 Object.entries(opts ?? {})
                   .map(([key, value]) => (
                     <BaseVariable
+                      focusedVariable={params.focus}
                       key={key}
                       name={key}
                       value={value}
@@ -108,6 +128,7 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
                     maxDepth={maxDepth}
                     variables={variables}
                     defaultExpanded={defaultExpanded}
+                    focusedVariable={params.focus}
                   />
                 ))
               }

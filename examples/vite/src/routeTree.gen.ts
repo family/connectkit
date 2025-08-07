@@ -9,452 +9,670 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WalletRouteImport } from './routes/wallet'
-import { Route as WagmiRouteImport } from './routes/wagmi'
-import { Route as UserRouteImport } from './routes/user'
-import { Route as UiRouteImport } from './routes/ui'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as WalletUseWalletsRouteImport } from './routes/wallet/useWallets'
-import { Route as WagmiUseDisconnectRouteImport } from './routes/wagmi/useDisconnect'
-import { Route as WagmiUseBalanceRouteImport } from './routes/wagmi/useBalance'
-import { Route as WagmiUseAccountRouteImport } from './routes/wagmi/useAccount'
-import { Route as UserUseUserRouteImport } from './routes/user/useUser'
-import { Route as UiUseUIRouteImport } from './routes/ui/useUI'
-import { Route as AuthUseWalletAuthRouteImport } from './routes/auth/useWalletAuth'
-import { Route as AuthUseSignOutRouteImport } from './routes/auth/useSignOut'
-import { Route as AuthUseOauthRouteImport } from './routes/auth/useOauth'
-import { Route as AuthUseGuestAuthRouteImport } from './routes/auth/useGuestAuth'
-import { Route as AuthUseEmailAuthRouteImport } from './routes/auth/useEmailAuth'
-import { Route as AuthUseAuthCallbackRouteImport } from './routes/auth/useAuthCallback'
+import { Route as ShowcaseRouteImport } from './routes/_showcase'
+import { Route as HooksRouteImport } from './routes/_hooks'
+import { Route as ShowcaseIndexRouteImport } from './routes/_showcase/index'
+import { Route as HooksWagmiRouteImport } from './routes/_hooks/wagmi'
+import { Route as HooksProviderRouteImport } from './routes/_hooks/provider'
+import { Route as HooksAuthRouteImport } from './routes/_hooks/auth'
+import { Route as HooksAppRouteImport } from './routes/_hooks/app'
+import { Route as ShowcaseShowcaseAppRouteImport } from './routes/_showcase/showcase/app'
+import { Route as HooksWagmiUseSwitchChainRouteImport } from './routes/_hooks/wagmi/useSwitchChain'
+import { Route as HooksWagmiUseDisconnectRouteImport } from './routes/_hooks/wagmi/useDisconnect'
+import { Route as HooksWagmiUseBalanceRouteImport } from './routes/_hooks/wagmi/useBalance'
+import { Route as HooksWagmiUseAccountRouteImport } from './routes/_hooks/wagmi/useAccount'
+import { Route as HooksAuthUseWalletAuthRouteImport } from './routes/_hooks/auth/useWalletAuth'
+import { Route as HooksAuthUseSignOutRouteImport } from './routes/_hooks/auth/useSignOut'
+import { Route as HooksAuthUseOauthRouteImport } from './routes/_hooks/auth/useOauth'
+import { Route as HooksAuthUseGuestAuthRouteImport } from './routes/_hooks/auth/useGuestAuth'
+import { Route as HooksAuthUseEmailAuthRouteImport } from './routes/_hooks/auth/useEmailAuth'
+import { Route as HooksAuthUseAuthCallbackRouteImport } from './routes/_hooks/auth/useAuthCallback'
+import { Route as HooksAppUseWalletsRouteImport } from './routes/_hooks/app/useWallets'
+import { Route as HooksAppUseUserRouteImport } from './routes/_hooks/app/useUser'
+import { Route as HooksAppUseUIRouteImport } from './routes/_hooks/app/useUI'
+import { Route as HooksAppUseStatusRouteImport } from './routes/_hooks/app/useStatus'
+import { Route as ShowcaseShowcaseAuthSignupRouteImport } from './routes/_showcase/showcase/auth/signup'
+import { Route as ShowcaseShowcaseAuthPasswordCallbackRouteImport } from './routes/_showcase/showcase/auth/password-callback'
+import { Route as ShowcaseShowcaseAuthLoginRouteImport } from './routes/_showcase/showcase/auth/login'
+import { Route as ShowcaseShowcaseAuthForgotPasswordRouteImport } from './routes/_showcase/showcase/auth/forgot-password'
+import { Route as ShowcaseShowcaseAuthConnectWalletRouteImport } from './routes/_showcase/showcase/auth/connect-wallet'
+import { Route as ShowcaseShowcaseAuthCallbackRouteImport } from './routes/_showcase/showcase/auth/callback'
 
-const WalletRoute = WalletRouteImport.update({
-  id: '/wallet',
-  path: '/wallet',
+const ShowcaseRoute = ShowcaseRouteImport.update({
+  id: '/_showcase',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WagmiRoute = WagmiRouteImport.update({
-  id: '/wagmi',
-  path: '/wagmi',
+const HooksRoute = HooksRouteImport.update({
+  id: '/_hooks',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserRoute = UserRouteImport.update({
-  id: '/user',
-  path: '/user',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UiRoute = UiRouteImport.update({
-  id: '/ui',
-  path: '/ui',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+const ShowcaseIndexRoute = ShowcaseIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => ShowcaseRoute,
 } as any)
-const WalletUseWalletsRoute = WalletUseWalletsRouteImport.update({
-  id: '/useWallets',
-  path: '/useWallets',
-  getParentRoute: () => WalletRoute,
+const HooksWagmiRoute = HooksWagmiRouteImport.update({
+  id: '/wagmi',
+  path: '/wagmi',
+  getParentRoute: () => HooksRoute,
 } as any)
-const WagmiUseDisconnectRoute = WagmiUseDisconnectRouteImport.update({
+const HooksProviderRoute = HooksProviderRouteImport.update({
+  id: '/provider',
+  path: '/provider',
+  getParentRoute: () => HooksRoute,
+} as any)
+const HooksAuthRoute = HooksAuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => HooksRoute,
+} as any)
+const HooksAppRoute = HooksAppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => HooksRoute,
+} as any)
+const ShowcaseShowcaseAppRoute = ShowcaseShowcaseAppRouteImport.update({
+  id: '/showcase/app',
+  path: '/showcase/app',
+  getParentRoute: () => ShowcaseRoute,
+} as any)
+const HooksWagmiUseSwitchChainRoute =
+  HooksWagmiUseSwitchChainRouteImport.update({
+    id: '/useSwitchChain',
+    path: '/useSwitchChain',
+    getParentRoute: () => HooksWagmiRoute,
+  } as any)
+const HooksWagmiUseDisconnectRoute = HooksWagmiUseDisconnectRouteImport.update({
   id: '/useDisconnect',
   path: '/useDisconnect',
-  getParentRoute: () => WagmiRoute,
+  getParentRoute: () => HooksWagmiRoute,
 } as any)
-const WagmiUseBalanceRoute = WagmiUseBalanceRouteImport.update({
+const HooksWagmiUseBalanceRoute = HooksWagmiUseBalanceRouteImport.update({
   id: '/useBalance',
   path: '/useBalance',
-  getParentRoute: () => WagmiRoute,
+  getParentRoute: () => HooksWagmiRoute,
 } as any)
-const WagmiUseAccountRoute = WagmiUseAccountRouteImport.update({
+const HooksWagmiUseAccountRoute = HooksWagmiUseAccountRouteImport.update({
   id: '/useAccount',
   path: '/useAccount',
-  getParentRoute: () => WagmiRoute,
+  getParentRoute: () => HooksWagmiRoute,
 } as any)
-const UserUseUserRoute = UserUseUserRouteImport.update({
-  id: '/useUser',
-  path: '/useUser',
-  getParentRoute: () => UserRoute,
-} as any)
-const UiUseUIRoute = UiUseUIRouteImport.update({
-  id: '/useUI',
-  path: '/useUI',
-  getParentRoute: () => UiRoute,
-} as any)
-const AuthUseWalletAuthRoute = AuthUseWalletAuthRouteImport.update({
+const HooksAuthUseWalletAuthRoute = HooksAuthUseWalletAuthRouteImport.update({
   id: '/useWalletAuth',
   path: '/useWalletAuth',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => HooksAuthRoute,
 } as any)
-const AuthUseSignOutRoute = AuthUseSignOutRouteImport.update({
+const HooksAuthUseSignOutRoute = HooksAuthUseSignOutRouteImport.update({
   id: '/useSignOut',
   path: '/useSignOut',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => HooksAuthRoute,
 } as any)
-const AuthUseOauthRoute = AuthUseOauthRouteImport.update({
+const HooksAuthUseOauthRoute = HooksAuthUseOauthRouteImport.update({
   id: '/useOauth',
   path: '/useOauth',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => HooksAuthRoute,
 } as any)
-const AuthUseGuestAuthRoute = AuthUseGuestAuthRouteImport.update({
+const HooksAuthUseGuestAuthRoute = HooksAuthUseGuestAuthRouteImport.update({
   id: '/useGuestAuth',
   path: '/useGuestAuth',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => HooksAuthRoute,
 } as any)
-const AuthUseEmailAuthRoute = AuthUseEmailAuthRouteImport.update({
+const HooksAuthUseEmailAuthRoute = HooksAuthUseEmailAuthRouteImport.update({
   id: '/useEmailAuth',
   path: '/useEmailAuth',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => HooksAuthRoute,
 } as any)
-const AuthUseAuthCallbackRoute = AuthUseAuthCallbackRouteImport.update({
-  id: '/useAuthCallback',
-  path: '/useAuthCallback',
-  getParentRoute: () => AuthRoute,
+const HooksAuthUseAuthCallbackRoute =
+  HooksAuthUseAuthCallbackRouteImport.update({
+    id: '/useAuthCallback',
+    path: '/useAuthCallback',
+    getParentRoute: () => HooksAuthRoute,
+  } as any)
+const HooksAppUseWalletsRoute = HooksAppUseWalletsRouteImport.update({
+  id: '/useWallets',
+  path: '/useWallets',
+  getParentRoute: () => HooksAppRoute,
 } as any)
+const HooksAppUseUserRoute = HooksAppUseUserRouteImport.update({
+  id: '/useUser',
+  path: '/useUser',
+  getParentRoute: () => HooksAppRoute,
+} as any)
+const HooksAppUseUIRoute = HooksAppUseUIRouteImport.update({
+  id: '/useUI',
+  path: '/useUI',
+  getParentRoute: () => HooksAppRoute,
+} as any)
+const HooksAppUseStatusRoute = HooksAppUseStatusRouteImport.update({
+  id: '/useStatus',
+  path: '/useStatus',
+  getParentRoute: () => HooksAppRoute,
+} as any)
+const ShowcaseShowcaseAuthSignupRoute =
+  ShowcaseShowcaseAuthSignupRouteImport.update({
+    id: '/showcase/auth/signup',
+    path: '/showcase/auth/signup',
+    getParentRoute: () => ShowcaseRoute,
+  } as any)
+const ShowcaseShowcaseAuthPasswordCallbackRoute =
+  ShowcaseShowcaseAuthPasswordCallbackRouteImport.update({
+    id: '/showcase/auth/password-callback',
+    path: '/showcase/auth/password-callback',
+    getParentRoute: () => ShowcaseRoute,
+  } as any)
+const ShowcaseShowcaseAuthLoginRoute =
+  ShowcaseShowcaseAuthLoginRouteImport.update({
+    id: '/showcase/auth/login',
+    path: '/showcase/auth/login',
+    getParentRoute: () => ShowcaseRoute,
+  } as any)
+const ShowcaseShowcaseAuthForgotPasswordRoute =
+  ShowcaseShowcaseAuthForgotPasswordRouteImport.update({
+    id: '/showcase/auth/forgot-password',
+    path: '/showcase/auth/forgot-password',
+    getParentRoute: () => ShowcaseRoute,
+  } as any)
+const ShowcaseShowcaseAuthConnectWalletRoute =
+  ShowcaseShowcaseAuthConnectWalletRouteImport.update({
+    id: '/showcase/auth/connect-wallet',
+    path: '/showcase/auth/connect-wallet',
+    getParentRoute: () => ShowcaseRoute,
+  } as any)
+const ShowcaseShowcaseAuthCallbackRoute =
+  ShowcaseShowcaseAuthCallbackRouteImport.update({
+    id: '/showcase/auth/callback',
+    path: '/showcase/auth/callback',
+    getParentRoute: () => ShowcaseRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/auth': typeof AuthRouteWithChildren
-  '/ui': typeof UiRouteWithChildren
-  '/user': typeof UserRouteWithChildren
-  '/wagmi': typeof WagmiRouteWithChildren
-  '/wallet': typeof WalletRouteWithChildren
-  '/auth/useAuthCallback': typeof AuthUseAuthCallbackRoute
-  '/auth/useEmailAuth': typeof AuthUseEmailAuthRoute
-  '/auth/useGuestAuth': typeof AuthUseGuestAuthRoute
-  '/auth/useOauth': typeof AuthUseOauthRoute
-  '/auth/useSignOut': typeof AuthUseSignOutRoute
-  '/auth/useWalletAuth': typeof AuthUseWalletAuthRoute
-  '/ui/useUI': typeof UiUseUIRoute
-  '/user/useUser': typeof UserUseUserRoute
-  '/wagmi/useAccount': typeof WagmiUseAccountRoute
-  '/wagmi/useBalance': typeof WagmiUseBalanceRoute
-  '/wagmi/useDisconnect': typeof WagmiUseDisconnectRoute
-  '/wallet/useWallets': typeof WalletUseWalletsRoute
+  '/app': typeof HooksAppRouteWithChildren
+  '/auth': typeof HooksAuthRouteWithChildren
+  '/provider': typeof HooksProviderRoute
+  '/wagmi': typeof HooksWagmiRouteWithChildren
+  '/': typeof ShowcaseIndexRoute
+  '/app/useStatus': typeof HooksAppUseStatusRoute
+  '/app/useUI': typeof HooksAppUseUIRoute
+  '/app/useUser': typeof HooksAppUseUserRoute
+  '/app/useWallets': typeof HooksAppUseWalletsRoute
+  '/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
+  '/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
+  '/auth/useGuestAuth': typeof HooksAuthUseGuestAuthRoute
+  '/auth/useOauth': typeof HooksAuthUseOauthRoute
+  '/auth/useSignOut': typeof HooksAuthUseSignOutRoute
+  '/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
+  '/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
+  '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
+  '/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
+  '/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/showcase/app': typeof ShowcaseShowcaseAppRoute
+  '/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
+  '/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
+  '/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
+  '/showcase/auth/login': typeof ShowcaseShowcaseAuthLoginRoute
+  '/showcase/auth/password-callback': typeof ShowcaseShowcaseAuthPasswordCallbackRoute
+  '/showcase/auth/signup': typeof ShowcaseShowcaseAuthSignupRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/auth': typeof AuthRouteWithChildren
-  '/ui': typeof UiRouteWithChildren
-  '/user': typeof UserRouteWithChildren
-  '/wagmi': typeof WagmiRouteWithChildren
-  '/wallet': typeof WalletRouteWithChildren
-  '/auth/useAuthCallback': typeof AuthUseAuthCallbackRoute
-  '/auth/useEmailAuth': typeof AuthUseEmailAuthRoute
-  '/auth/useGuestAuth': typeof AuthUseGuestAuthRoute
-  '/auth/useOauth': typeof AuthUseOauthRoute
-  '/auth/useSignOut': typeof AuthUseSignOutRoute
-  '/auth/useWalletAuth': typeof AuthUseWalletAuthRoute
-  '/ui/useUI': typeof UiUseUIRoute
-  '/user/useUser': typeof UserUseUserRoute
-  '/wagmi/useAccount': typeof WagmiUseAccountRoute
-  '/wagmi/useBalance': typeof WagmiUseBalanceRoute
-  '/wagmi/useDisconnect': typeof WagmiUseDisconnectRoute
-  '/wallet/useWallets': typeof WalletUseWalletsRoute
+  '/app': typeof HooksAppRouteWithChildren
+  '/auth': typeof HooksAuthRouteWithChildren
+  '/provider': typeof HooksProviderRoute
+  '/wagmi': typeof HooksWagmiRouteWithChildren
+  '/': typeof ShowcaseIndexRoute
+  '/app/useStatus': typeof HooksAppUseStatusRoute
+  '/app/useUI': typeof HooksAppUseUIRoute
+  '/app/useUser': typeof HooksAppUseUserRoute
+  '/app/useWallets': typeof HooksAppUseWalletsRoute
+  '/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
+  '/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
+  '/auth/useGuestAuth': typeof HooksAuthUseGuestAuthRoute
+  '/auth/useOauth': typeof HooksAuthUseOauthRoute
+  '/auth/useSignOut': typeof HooksAuthUseSignOutRoute
+  '/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
+  '/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
+  '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
+  '/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
+  '/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/showcase/app': typeof ShowcaseShowcaseAppRoute
+  '/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
+  '/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
+  '/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
+  '/showcase/auth/login': typeof ShowcaseShowcaseAuthLoginRoute
+  '/showcase/auth/password-callback': typeof ShowcaseShowcaseAuthPasswordCallbackRoute
+  '/showcase/auth/signup': typeof ShowcaseShowcaseAuthSignupRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/auth': typeof AuthRouteWithChildren
-  '/ui': typeof UiRouteWithChildren
-  '/user': typeof UserRouteWithChildren
-  '/wagmi': typeof WagmiRouteWithChildren
-  '/wallet': typeof WalletRouteWithChildren
-  '/auth/useAuthCallback': typeof AuthUseAuthCallbackRoute
-  '/auth/useEmailAuth': typeof AuthUseEmailAuthRoute
-  '/auth/useGuestAuth': typeof AuthUseGuestAuthRoute
-  '/auth/useOauth': typeof AuthUseOauthRoute
-  '/auth/useSignOut': typeof AuthUseSignOutRoute
-  '/auth/useWalletAuth': typeof AuthUseWalletAuthRoute
-  '/ui/useUI': typeof UiUseUIRoute
-  '/user/useUser': typeof UserUseUserRoute
-  '/wagmi/useAccount': typeof WagmiUseAccountRoute
-  '/wagmi/useBalance': typeof WagmiUseBalanceRoute
-  '/wagmi/useDisconnect': typeof WagmiUseDisconnectRoute
-  '/wallet/useWallets': typeof WalletUseWalletsRoute
+  '/_hooks': typeof HooksRouteWithChildren
+  '/_showcase': typeof ShowcaseRouteWithChildren
+  '/_hooks/app': typeof HooksAppRouteWithChildren
+  '/_hooks/auth': typeof HooksAuthRouteWithChildren
+  '/_hooks/provider': typeof HooksProviderRoute
+  '/_hooks/wagmi': typeof HooksWagmiRouteWithChildren
+  '/_showcase/': typeof ShowcaseIndexRoute
+  '/_hooks/app/useStatus': typeof HooksAppUseStatusRoute
+  '/_hooks/app/useUI': typeof HooksAppUseUIRoute
+  '/_hooks/app/useUser': typeof HooksAppUseUserRoute
+  '/_hooks/app/useWallets': typeof HooksAppUseWalletsRoute
+  '/_hooks/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
+  '/_hooks/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
+  '/_hooks/auth/useGuestAuth': typeof HooksAuthUseGuestAuthRoute
+  '/_hooks/auth/useOauth': typeof HooksAuthUseOauthRoute
+  '/_hooks/auth/useSignOut': typeof HooksAuthUseSignOutRoute
+  '/_hooks/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
+  '/_hooks/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
+  '/_hooks/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
+  '/_hooks/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
+  '/_hooks/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/_showcase/showcase/app': typeof ShowcaseShowcaseAppRoute
+  '/_showcase/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
+  '/_showcase/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
+  '/_showcase/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
+  '/_showcase/showcase/auth/login': typeof ShowcaseShowcaseAuthLoginRoute
+  '/_showcase/showcase/auth/password-callback': typeof ShowcaseShowcaseAuthPasswordCallbackRoute
+  '/_showcase/showcase/auth/signup': typeof ShowcaseShowcaseAuthSignupRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
+    | '/app'
     | '/auth'
-    | '/ui'
-    | '/user'
+    | '/provider'
     | '/wagmi'
-    | '/wallet'
+    | '/'
+    | '/app/useStatus'
+    | '/app/useUI'
+    | '/app/useUser'
+    | '/app/useWallets'
     | '/auth/useAuthCallback'
     | '/auth/useEmailAuth'
     | '/auth/useGuestAuth'
     | '/auth/useOauth'
     | '/auth/useSignOut'
     | '/auth/useWalletAuth'
-    | '/ui/useUI'
-    | '/user/useUser'
     | '/wagmi/useAccount'
     | '/wagmi/useBalance'
     | '/wagmi/useDisconnect'
-    | '/wallet/useWallets'
+    | '/wagmi/useSwitchChain'
+    | '/showcase/app'
+    | '/showcase/auth/callback'
+    | '/showcase/auth/connect-wallet'
+    | '/showcase/auth/forgot-password'
+    | '/showcase/auth/login'
+    | '/showcase/auth/password-callback'
+    | '/showcase/auth/signup'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
+    | '/app'
     | '/auth'
-    | '/ui'
-    | '/user'
+    | '/provider'
     | '/wagmi'
-    | '/wallet'
+    | '/'
+    | '/app/useStatus'
+    | '/app/useUI'
+    | '/app/useUser'
+    | '/app/useWallets'
     | '/auth/useAuthCallback'
     | '/auth/useEmailAuth'
     | '/auth/useGuestAuth'
     | '/auth/useOauth'
     | '/auth/useSignOut'
     | '/auth/useWalletAuth'
-    | '/ui/useUI'
-    | '/user/useUser'
     | '/wagmi/useAccount'
     | '/wagmi/useBalance'
     | '/wagmi/useDisconnect'
-    | '/wallet/useWallets'
+    | '/wagmi/useSwitchChain'
+    | '/showcase/app'
+    | '/showcase/auth/callback'
+    | '/showcase/auth/connect-wallet'
+    | '/showcase/auth/forgot-password'
+    | '/showcase/auth/login'
+    | '/showcase/auth/password-callback'
+    | '/showcase/auth/signup'
   id:
     | '__root__'
-    | '/'
-    | '/auth'
-    | '/ui'
-    | '/user'
-    | '/wagmi'
-    | '/wallet'
-    | '/auth/useAuthCallback'
-    | '/auth/useEmailAuth'
-    | '/auth/useGuestAuth'
-    | '/auth/useOauth'
-    | '/auth/useSignOut'
-    | '/auth/useWalletAuth'
-    | '/ui/useUI'
-    | '/user/useUser'
-    | '/wagmi/useAccount'
-    | '/wagmi/useBalance'
-    | '/wagmi/useDisconnect'
-    | '/wallet/useWallets'
+    | '/_hooks'
+    | '/_showcase'
+    | '/_hooks/app'
+    | '/_hooks/auth'
+    | '/_hooks/provider'
+    | '/_hooks/wagmi'
+    | '/_showcase/'
+    | '/_hooks/app/useStatus'
+    | '/_hooks/app/useUI'
+    | '/_hooks/app/useUser'
+    | '/_hooks/app/useWallets'
+    | '/_hooks/auth/useAuthCallback'
+    | '/_hooks/auth/useEmailAuth'
+    | '/_hooks/auth/useGuestAuth'
+    | '/_hooks/auth/useOauth'
+    | '/_hooks/auth/useSignOut'
+    | '/_hooks/auth/useWalletAuth'
+    | '/_hooks/wagmi/useAccount'
+    | '/_hooks/wagmi/useBalance'
+    | '/_hooks/wagmi/useDisconnect'
+    | '/_hooks/wagmi/useSwitchChain'
+    | '/_showcase/showcase/app'
+    | '/_showcase/showcase/auth/callback'
+    | '/_showcase/showcase/auth/connect-wallet'
+    | '/_showcase/showcase/auth/forgot-password'
+    | '/_showcase/showcase/auth/login'
+    | '/_showcase/showcase/auth/password-callback'
+    | '/_showcase/showcase/auth/signup'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthRoute: typeof AuthRouteWithChildren
-  UiRoute: typeof UiRouteWithChildren
-  UserRoute: typeof UserRouteWithChildren
-  WagmiRoute: typeof WagmiRouteWithChildren
-  WalletRoute: typeof WalletRouteWithChildren
+  HooksRoute: typeof HooksRouteWithChildren
+  ShowcaseRoute: typeof ShowcaseRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wallet': {
-      id: '/wallet'
-      path: '/wallet'
-      fullPath: '/wallet'
-      preLoaderRoute: typeof WalletRouteImport
+    '/_showcase': {
+      id: '/_showcase'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof ShowcaseRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/wagmi': {
-      id: '/wagmi'
-      path: '/wagmi'
-      fullPath: '/wagmi'
-      preLoaderRoute: typeof WagmiRouteImport
+    '/_hooks': {
+      id: '/_hooks'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof HooksRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user': {
-      id: '/user'
-      path: '/user'
-      fullPath: '/user'
-      preLoaderRoute: typeof UserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ui': {
-      id: '/ui'
-      path: '/ui'
-      fullPath: '/ui'
-      preLoaderRoute: typeof UiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/_showcase/': {
+      id: '/_showcase/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof ShowcaseIndexRouteImport
+      parentRoute: typeof ShowcaseRoute
     }
-    '/wallet/useWallets': {
-      id: '/wallet/useWallets'
-      path: '/useWallets'
-      fullPath: '/wallet/useWallets'
-      preLoaderRoute: typeof WalletUseWalletsRouteImport
-      parentRoute: typeof WalletRoute
+    '/_hooks/wagmi': {
+      id: '/_hooks/wagmi'
+      path: '/wagmi'
+      fullPath: '/wagmi'
+      preLoaderRoute: typeof HooksWagmiRouteImport
+      parentRoute: typeof HooksRoute
     }
-    '/wagmi/useDisconnect': {
-      id: '/wagmi/useDisconnect'
+    '/_hooks/provider': {
+      id: '/_hooks/provider'
+      path: '/provider'
+      fullPath: '/provider'
+      preLoaderRoute: typeof HooksProviderRouteImport
+      parentRoute: typeof HooksRoute
+    }
+    '/_hooks/auth': {
+      id: '/_hooks/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof HooksAuthRouteImport
+      parentRoute: typeof HooksRoute
+    }
+    '/_hooks/app': {
+      id: '/_hooks/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof HooksAppRouteImport
+      parentRoute: typeof HooksRoute
+    }
+    '/_showcase/showcase/app': {
+      id: '/_showcase/showcase/app'
+      path: '/showcase/app'
+      fullPath: '/showcase/app'
+      preLoaderRoute: typeof ShowcaseShowcaseAppRouteImport
+      parentRoute: typeof ShowcaseRoute
+    }
+    '/_hooks/wagmi/useSwitchChain': {
+      id: '/_hooks/wagmi/useSwitchChain'
+      path: '/useSwitchChain'
+      fullPath: '/wagmi/useSwitchChain'
+      preLoaderRoute: typeof HooksWagmiUseSwitchChainRouteImport
+      parentRoute: typeof HooksWagmiRoute
+    }
+    '/_hooks/wagmi/useDisconnect': {
+      id: '/_hooks/wagmi/useDisconnect'
       path: '/useDisconnect'
       fullPath: '/wagmi/useDisconnect'
-      preLoaderRoute: typeof WagmiUseDisconnectRouteImport
-      parentRoute: typeof WagmiRoute
+      preLoaderRoute: typeof HooksWagmiUseDisconnectRouteImport
+      parentRoute: typeof HooksWagmiRoute
     }
-    '/wagmi/useBalance': {
-      id: '/wagmi/useBalance'
+    '/_hooks/wagmi/useBalance': {
+      id: '/_hooks/wagmi/useBalance'
       path: '/useBalance'
       fullPath: '/wagmi/useBalance'
-      preLoaderRoute: typeof WagmiUseBalanceRouteImport
-      parentRoute: typeof WagmiRoute
+      preLoaderRoute: typeof HooksWagmiUseBalanceRouteImport
+      parentRoute: typeof HooksWagmiRoute
     }
-    '/wagmi/useAccount': {
-      id: '/wagmi/useAccount'
+    '/_hooks/wagmi/useAccount': {
+      id: '/_hooks/wagmi/useAccount'
       path: '/useAccount'
       fullPath: '/wagmi/useAccount'
-      preLoaderRoute: typeof WagmiUseAccountRouteImport
-      parentRoute: typeof WagmiRoute
+      preLoaderRoute: typeof HooksWagmiUseAccountRouteImport
+      parentRoute: typeof HooksWagmiRoute
     }
-    '/user/useUser': {
-      id: '/user/useUser'
-      path: '/useUser'
-      fullPath: '/user/useUser'
-      preLoaderRoute: typeof UserUseUserRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/ui/useUI': {
-      id: '/ui/useUI'
-      path: '/useUI'
-      fullPath: '/ui/useUI'
-      preLoaderRoute: typeof UiUseUIRouteImport
-      parentRoute: typeof UiRoute
-    }
-    '/auth/useWalletAuth': {
-      id: '/auth/useWalletAuth'
+    '/_hooks/auth/useWalletAuth': {
+      id: '/_hooks/auth/useWalletAuth'
       path: '/useWalletAuth'
       fullPath: '/auth/useWalletAuth'
-      preLoaderRoute: typeof AuthUseWalletAuthRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof HooksAuthUseWalletAuthRouteImport
+      parentRoute: typeof HooksAuthRoute
     }
-    '/auth/useSignOut': {
-      id: '/auth/useSignOut'
+    '/_hooks/auth/useSignOut': {
+      id: '/_hooks/auth/useSignOut'
       path: '/useSignOut'
       fullPath: '/auth/useSignOut'
-      preLoaderRoute: typeof AuthUseSignOutRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof HooksAuthUseSignOutRouteImport
+      parentRoute: typeof HooksAuthRoute
     }
-    '/auth/useOauth': {
-      id: '/auth/useOauth'
+    '/_hooks/auth/useOauth': {
+      id: '/_hooks/auth/useOauth'
       path: '/useOauth'
       fullPath: '/auth/useOauth'
-      preLoaderRoute: typeof AuthUseOauthRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof HooksAuthUseOauthRouteImport
+      parentRoute: typeof HooksAuthRoute
     }
-    '/auth/useGuestAuth': {
-      id: '/auth/useGuestAuth'
+    '/_hooks/auth/useGuestAuth': {
+      id: '/_hooks/auth/useGuestAuth'
       path: '/useGuestAuth'
       fullPath: '/auth/useGuestAuth'
-      preLoaderRoute: typeof AuthUseGuestAuthRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof HooksAuthUseGuestAuthRouteImport
+      parentRoute: typeof HooksAuthRoute
     }
-    '/auth/useEmailAuth': {
-      id: '/auth/useEmailAuth'
+    '/_hooks/auth/useEmailAuth': {
+      id: '/_hooks/auth/useEmailAuth'
       path: '/useEmailAuth'
       fullPath: '/auth/useEmailAuth'
-      preLoaderRoute: typeof AuthUseEmailAuthRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof HooksAuthUseEmailAuthRouteImport
+      parentRoute: typeof HooksAuthRoute
     }
-    '/auth/useAuthCallback': {
-      id: '/auth/useAuthCallback'
+    '/_hooks/auth/useAuthCallback': {
+      id: '/_hooks/auth/useAuthCallback'
       path: '/useAuthCallback'
       fullPath: '/auth/useAuthCallback'
-      preLoaderRoute: typeof AuthUseAuthCallbackRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof HooksAuthUseAuthCallbackRouteImport
+      parentRoute: typeof HooksAuthRoute
+    }
+    '/_hooks/app/useWallets': {
+      id: '/_hooks/app/useWallets'
+      path: '/useWallets'
+      fullPath: '/app/useWallets'
+      preLoaderRoute: typeof HooksAppUseWalletsRouteImport
+      parentRoute: typeof HooksAppRoute
+    }
+    '/_hooks/app/useUser': {
+      id: '/_hooks/app/useUser'
+      path: '/useUser'
+      fullPath: '/app/useUser'
+      preLoaderRoute: typeof HooksAppUseUserRouteImport
+      parentRoute: typeof HooksAppRoute
+    }
+    '/_hooks/app/useUI': {
+      id: '/_hooks/app/useUI'
+      path: '/useUI'
+      fullPath: '/app/useUI'
+      preLoaderRoute: typeof HooksAppUseUIRouteImport
+      parentRoute: typeof HooksAppRoute
+    }
+    '/_hooks/app/useStatus': {
+      id: '/_hooks/app/useStatus'
+      path: '/useStatus'
+      fullPath: '/app/useStatus'
+      preLoaderRoute: typeof HooksAppUseStatusRouteImport
+      parentRoute: typeof HooksAppRoute
+    }
+    '/_showcase/showcase/auth/signup': {
+      id: '/_showcase/showcase/auth/signup'
+      path: '/showcase/auth/signup'
+      fullPath: '/showcase/auth/signup'
+      preLoaderRoute: typeof ShowcaseShowcaseAuthSignupRouteImport
+      parentRoute: typeof ShowcaseRoute
+    }
+    '/_showcase/showcase/auth/password-callback': {
+      id: '/_showcase/showcase/auth/password-callback'
+      path: '/showcase/auth/password-callback'
+      fullPath: '/showcase/auth/password-callback'
+      preLoaderRoute: typeof ShowcaseShowcaseAuthPasswordCallbackRouteImport
+      parentRoute: typeof ShowcaseRoute
+    }
+    '/_showcase/showcase/auth/login': {
+      id: '/_showcase/showcase/auth/login'
+      path: '/showcase/auth/login'
+      fullPath: '/showcase/auth/login'
+      preLoaderRoute: typeof ShowcaseShowcaseAuthLoginRouteImport
+      parentRoute: typeof ShowcaseRoute
+    }
+    '/_showcase/showcase/auth/forgot-password': {
+      id: '/_showcase/showcase/auth/forgot-password'
+      path: '/showcase/auth/forgot-password'
+      fullPath: '/showcase/auth/forgot-password'
+      preLoaderRoute: typeof ShowcaseShowcaseAuthForgotPasswordRouteImport
+      parentRoute: typeof ShowcaseRoute
+    }
+    '/_showcase/showcase/auth/connect-wallet': {
+      id: '/_showcase/showcase/auth/connect-wallet'
+      path: '/showcase/auth/connect-wallet'
+      fullPath: '/showcase/auth/connect-wallet'
+      preLoaderRoute: typeof ShowcaseShowcaseAuthConnectWalletRouteImport
+      parentRoute: typeof ShowcaseRoute
+    }
+    '/_showcase/showcase/auth/callback': {
+      id: '/_showcase/showcase/auth/callback'
+      path: '/showcase/auth/callback'
+      fullPath: '/showcase/auth/callback'
+      preLoaderRoute: typeof ShowcaseShowcaseAuthCallbackRouteImport
+      parentRoute: typeof ShowcaseRoute
     }
   }
 }
 
-interface AuthRouteChildren {
-  AuthUseAuthCallbackRoute: typeof AuthUseAuthCallbackRoute
-  AuthUseEmailAuthRoute: typeof AuthUseEmailAuthRoute
-  AuthUseGuestAuthRoute: typeof AuthUseGuestAuthRoute
-  AuthUseOauthRoute: typeof AuthUseOauthRoute
-  AuthUseSignOutRoute: typeof AuthUseSignOutRoute
-  AuthUseWalletAuthRoute: typeof AuthUseWalletAuthRoute
+interface HooksAppRouteChildren {
+  HooksAppUseStatusRoute: typeof HooksAppUseStatusRoute
+  HooksAppUseUIRoute: typeof HooksAppUseUIRoute
+  HooksAppUseUserRoute: typeof HooksAppUseUserRoute
+  HooksAppUseWalletsRoute: typeof HooksAppUseWalletsRoute
 }
 
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthUseAuthCallbackRoute: AuthUseAuthCallbackRoute,
-  AuthUseEmailAuthRoute: AuthUseEmailAuthRoute,
-  AuthUseGuestAuthRoute: AuthUseGuestAuthRoute,
-  AuthUseOauthRoute: AuthUseOauthRoute,
-  AuthUseSignOutRoute: AuthUseSignOutRoute,
-  AuthUseWalletAuthRoute: AuthUseWalletAuthRoute,
+const HooksAppRouteChildren: HooksAppRouteChildren = {
+  HooksAppUseStatusRoute: HooksAppUseStatusRoute,
+  HooksAppUseUIRoute: HooksAppUseUIRoute,
+  HooksAppUseUserRoute: HooksAppUseUserRoute,
+  HooksAppUseWalletsRoute: HooksAppUseWalletsRoute,
 }
 
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+const HooksAppRouteWithChildren = HooksAppRoute._addFileChildren(
+  HooksAppRouteChildren,
+)
 
-interface UiRouteChildren {
-  UiUseUIRoute: typeof UiUseUIRoute
+interface HooksAuthRouteChildren {
+  HooksAuthUseAuthCallbackRoute: typeof HooksAuthUseAuthCallbackRoute
+  HooksAuthUseEmailAuthRoute: typeof HooksAuthUseEmailAuthRoute
+  HooksAuthUseGuestAuthRoute: typeof HooksAuthUseGuestAuthRoute
+  HooksAuthUseOauthRoute: typeof HooksAuthUseOauthRoute
+  HooksAuthUseSignOutRoute: typeof HooksAuthUseSignOutRoute
+  HooksAuthUseWalletAuthRoute: typeof HooksAuthUseWalletAuthRoute
 }
 
-const UiRouteChildren: UiRouteChildren = {
-  UiUseUIRoute: UiUseUIRoute,
+const HooksAuthRouteChildren: HooksAuthRouteChildren = {
+  HooksAuthUseAuthCallbackRoute: HooksAuthUseAuthCallbackRoute,
+  HooksAuthUseEmailAuthRoute: HooksAuthUseEmailAuthRoute,
+  HooksAuthUseGuestAuthRoute: HooksAuthUseGuestAuthRoute,
+  HooksAuthUseOauthRoute: HooksAuthUseOauthRoute,
+  HooksAuthUseSignOutRoute: HooksAuthUseSignOutRoute,
+  HooksAuthUseWalletAuthRoute: HooksAuthUseWalletAuthRoute,
 }
 
-const UiRouteWithChildren = UiRoute._addFileChildren(UiRouteChildren)
+const HooksAuthRouteWithChildren = HooksAuthRoute._addFileChildren(
+  HooksAuthRouteChildren,
+)
 
-interface UserRouteChildren {
-  UserUseUserRoute: typeof UserUseUserRoute
+interface HooksWagmiRouteChildren {
+  HooksWagmiUseAccountRoute: typeof HooksWagmiUseAccountRoute
+  HooksWagmiUseBalanceRoute: typeof HooksWagmiUseBalanceRoute
+  HooksWagmiUseDisconnectRoute: typeof HooksWagmiUseDisconnectRoute
+  HooksWagmiUseSwitchChainRoute: typeof HooksWagmiUseSwitchChainRoute
 }
 
-const UserRouteChildren: UserRouteChildren = {
-  UserUseUserRoute: UserUseUserRoute,
+const HooksWagmiRouteChildren: HooksWagmiRouteChildren = {
+  HooksWagmiUseAccountRoute: HooksWagmiUseAccountRoute,
+  HooksWagmiUseBalanceRoute: HooksWagmiUseBalanceRoute,
+  HooksWagmiUseDisconnectRoute: HooksWagmiUseDisconnectRoute,
+  HooksWagmiUseSwitchChainRoute: HooksWagmiUseSwitchChainRoute,
 }
 
-const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
+const HooksWagmiRouteWithChildren = HooksWagmiRoute._addFileChildren(
+  HooksWagmiRouteChildren,
+)
 
-interface WagmiRouteChildren {
-  WagmiUseAccountRoute: typeof WagmiUseAccountRoute
-  WagmiUseBalanceRoute: typeof WagmiUseBalanceRoute
-  WagmiUseDisconnectRoute: typeof WagmiUseDisconnectRoute
+interface HooksRouteChildren {
+  HooksAppRoute: typeof HooksAppRouteWithChildren
+  HooksAuthRoute: typeof HooksAuthRouteWithChildren
+  HooksProviderRoute: typeof HooksProviderRoute
+  HooksWagmiRoute: typeof HooksWagmiRouteWithChildren
 }
 
-const WagmiRouteChildren: WagmiRouteChildren = {
-  WagmiUseAccountRoute: WagmiUseAccountRoute,
-  WagmiUseBalanceRoute: WagmiUseBalanceRoute,
-  WagmiUseDisconnectRoute: WagmiUseDisconnectRoute,
+const HooksRouteChildren: HooksRouteChildren = {
+  HooksAppRoute: HooksAppRouteWithChildren,
+  HooksAuthRoute: HooksAuthRouteWithChildren,
+  HooksProviderRoute: HooksProviderRoute,
+  HooksWagmiRoute: HooksWagmiRouteWithChildren,
 }
 
-const WagmiRouteWithChildren = WagmiRoute._addFileChildren(WagmiRouteChildren)
+const HooksRouteWithChildren = HooksRoute._addFileChildren(HooksRouteChildren)
 
-interface WalletRouteChildren {
-  WalletUseWalletsRoute: typeof WalletUseWalletsRoute
+interface ShowcaseRouteChildren {
+  ShowcaseIndexRoute: typeof ShowcaseIndexRoute
+  ShowcaseShowcaseAppRoute: typeof ShowcaseShowcaseAppRoute
+  ShowcaseShowcaseAuthCallbackRoute: typeof ShowcaseShowcaseAuthCallbackRoute
+  ShowcaseShowcaseAuthConnectWalletRoute: typeof ShowcaseShowcaseAuthConnectWalletRoute
+  ShowcaseShowcaseAuthForgotPasswordRoute: typeof ShowcaseShowcaseAuthForgotPasswordRoute
+  ShowcaseShowcaseAuthLoginRoute: typeof ShowcaseShowcaseAuthLoginRoute
+  ShowcaseShowcaseAuthPasswordCallbackRoute: typeof ShowcaseShowcaseAuthPasswordCallbackRoute
+  ShowcaseShowcaseAuthSignupRoute: typeof ShowcaseShowcaseAuthSignupRoute
 }
 
-const WalletRouteChildren: WalletRouteChildren = {
-  WalletUseWalletsRoute: WalletUseWalletsRoute,
+const ShowcaseRouteChildren: ShowcaseRouteChildren = {
+  ShowcaseIndexRoute: ShowcaseIndexRoute,
+  ShowcaseShowcaseAppRoute: ShowcaseShowcaseAppRoute,
+  ShowcaseShowcaseAuthCallbackRoute: ShowcaseShowcaseAuthCallbackRoute,
+  ShowcaseShowcaseAuthConnectWalletRoute:
+    ShowcaseShowcaseAuthConnectWalletRoute,
+  ShowcaseShowcaseAuthForgotPasswordRoute:
+    ShowcaseShowcaseAuthForgotPasswordRoute,
+  ShowcaseShowcaseAuthLoginRoute: ShowcaseShowcaseAuthLoginRoute,
+  ShowcaseShowcaseAuthPasswordCallbackRoute:
+    ShowcaseShowcaseAuthPasswordCallbackRoute,
+  ShowcaseShowcaseAuthSignupRoute: ShowcaseShowcaseAuthSignupRoute,
 }
 
-const WalletRouteWithChildren =
-  WalletRoute._addFileChildren(WalletRouteChildren)
+const ShowcaseRouteWithChildren = ShowcaseRoute._addFileChildren(
+  ShowcaseRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AuthRoute: AuthRouteWithChildren,
-  UiRoute: UiRouteWithChildren,
-  UserRoute: UserRouteWithChildren,
-  WagmiRoute: WagmiRouteWithChildren,
-  WalletRoute: WalletRouteWithChildren,
+  HooksRoute: HooksRouteWithChildren,
+  ShowcaseRoute: ShowcaseRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

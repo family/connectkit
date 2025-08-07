@@ -1,12 +1,12 @@
 'use client';
 
-import { OpenfortKitButton, useModal, useStatus } from '@openfort/openfort-kit';
+import { OpenfortKitButton, useUI, useStatus } from '@openfort/openfort-kit';
 import { useEffect, useState } from 'react';
 import { Info } from './Info';
 
 function App() {
 
-  const { setOpen } = useModal();
+  const { open } = useUI();
   const { isLoading, isConnected } = useStatus();
   const [shouldOpenIfDisconnected, setSetShouldOpenIfDisconnected] = useState(true);
 
@@ -15,11 +15,11 @@ function App() {
     if (isLoading) return;
 
     if (!isConnected) {
-      setOpen(true);
+      open();
     }
 
     setSetShouldOpenIfDisconnected(false);
-  }, [isLoading, isConnected, shouldOpenIfDisconnected, setOpen]);
+  }, [isLoading, isConnected, shouldOpenIfDisconnected, open]);
 
   return (
     <div className="container">

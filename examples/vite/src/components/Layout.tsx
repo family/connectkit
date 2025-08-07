@@ -4,7 +4,7 @@ export const Layout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className='flex flex-col h-full gap-4 p-4 pb-8 overflow-auto'>
+    <div className='flex flex-col h-full gap-4 p-4 pb-8'>
       {children}
     </div>
   )

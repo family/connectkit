@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMounted, useSignOut, useModal, useUser, useWallets } from "@openfort/openfort-kit";
+import { useIsMounted, useSignOut, useUI, useUser, useWallets } from "@openfort/openfort-kit";
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WriteContract";
 
@@ -11,7 +11,7 @@ export const Info = () => {
   const { user } = useUser()
   const { signOut } = useSignOut()
   const { wallets, setActiveWallet, activeWallet: currentWallet } = useWallets();
-  const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();
+  const { openSwitchNetworks, open, openProviders, openWallets } = useUI();
 
   const linkedProviders = user?.linkedAccounts.map(provider => provider.connectorType) || [];
 
@@ -24,7 +24,7 @@ export const Info = () => {
         <h2>MODAL</h2>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button
-            onClick={() => { setOpen(true) }}
+            onClick={() => { open() }}
           >
             open modal
           </button>

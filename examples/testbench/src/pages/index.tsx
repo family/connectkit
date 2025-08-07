@@ -3,13 +3,12 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import {
-  Types,
   OpenfortKitButton,
   Avatar,
   ChainIcon,
   useChains,
-  useModal,
   AuthProvider,
+  useUI,
 } from '@openfort/openfort-kit';
 
 import {
@@ -248,15 +247,6 @@ const Home: NextPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const { open, setOpen } = useModal({
-    onConnect: () => {
-      console.log('onConnect Hook');
-    },
-    onDisconnect: () => {
-      console.log('onDisconnect Hook');
-    },
-  });
-
   const { reset } = useConnect();
   const { isConnected, isConnecting, chain } = useAccount();
   const { disconnect } = useDisconnect();
@@ -278,12 +268,6 @@ const Home: NextPage = () => {
           {isConnected && (
             <button onClick={handleDisconnect}>Disconnect</button>
           )}
-        </div>
-
-        <div className="panel">
-          <h2>useModal Hook</h2>
-          <p>open: {open.toString()}</p>
-          <button onClick={() => setOpen(true)}>Open modal</button>
         </div>
 
         <AccountInfo />

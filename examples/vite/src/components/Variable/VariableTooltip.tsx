@@ -30,7 +30,7 @@ export const VariableTooltip = ({
     </TooltipTrigger>
     <TooltipContent>
       <div className='overflow-y-auto text-sm max-h-40 max-w-xs overflow-x-hidden overflow-y-auto'>
-        <span className='text-primary-foreground font-mono'>
+        <span className=' font-mono'>
           {name}:
           {" "}
         </span>
