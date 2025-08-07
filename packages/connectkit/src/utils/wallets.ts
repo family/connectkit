@@ -17,6 +17,7 @@ export const isWalletInstalled = (name: string) => {
 
 export const isMetaMask = () => isWalletInstalled('MetaMask');
 export const isCoinbaseWallet = () => isWalletInstalled('CoinbaseWallet');
+export const isBaseAccount = () => isWalletInstalled('BaseAccount');
 export const isFamily = () => isWalletInstalled('Family');
 export const isBrave = () => isWalletInstalled('BraveWallet');
 export const isTokenary = () => isWalletInstalled('Tokenary');

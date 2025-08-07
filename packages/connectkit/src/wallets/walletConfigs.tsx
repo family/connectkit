@@ -99,6 +99,16 @@ export const walletConfigs: {
       return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
+  baseAccount: {
+    name: 'Base Account',
+    shortName: 'Base',
+    icon: <Logos.BaseAccount />,
+    iconShape: 'squircle',
+    downloadUrls: {
+      android: 'https://play.google.com/store/apps/details?id=org.toshi',
+      ios: 'https://apps.apple.com/us/app/base-formerly-coinbase-wallet/id1278383455',
+    },
+  },
   'com.crypto.wallet': {
     name: 'Crypto.com',
     shortName: 'Crypto',
