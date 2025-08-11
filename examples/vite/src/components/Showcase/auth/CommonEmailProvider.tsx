@@ -1,4 +1,4 @@
-import { CommonEmailContext } from '@/components/Showcase/CommonEmailContext';
+import { CommonEmailContext } from '@/components/Showcase/auth/CommonEmailContext';
 import React, { ReactNode, useState } from 'react';
 
 interface ConfigurationProviderProps {

@@ -14,7 +14,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen w-[100vw]'>
       <Nav showLogo>
         <div className='flex gap-4 border-l pl-4'>
           <ModeToggle className="scale-110" />

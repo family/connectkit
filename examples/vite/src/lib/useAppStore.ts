@@ -51,7 +51,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortKitProvider>[0] = {
 
     recoveryMethod: RecoveryMethod.AUTOMATIC,
 
-    ethereumProviderPolicyId: "pol_6b30a204-7f5b-4ba1-bc7f-4de11e922b31",
+    ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID,
 
     debug: false,
     getEncryptionSession: undefined, // Optional function to get the encryption session

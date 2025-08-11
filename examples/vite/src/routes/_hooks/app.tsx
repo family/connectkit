@@ -1,5 +1,4 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import { WithNav } from '../../components/Nav';
 
 export const Route = createFileRoute('/_hooks/app')({
   component: RouteComponent,
@@ -12,27 +11,6 @@ export const Route = createFileRoute('/_hooks/app')({
 
 function RouteComponent() {
   return (
-    <WithNav
-      navRoutes={[
-        {
-          href: '/app/useUser',
-          label: 'useUser',
-        },
-        {
-          href: '/app/useWallets',
-          label: 'useWallets',
-        },
-        {
-          href: '/app/useUI',
-          label: 'useUI',
-        },
-        {
-          href: '/app/useStatus',
-          label: 'useStatus',
-        },
-      ]}
-    >
-      <Outlet />
-    </WithNav>
+    <Outlet />
   )
 }

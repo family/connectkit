@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
-import { DialogLayout } from "@/components/Showcase/DialogLayout"
+import { DialogLayout } from "@/components/Showcase/auth/DialogLayout"
 import { Button } from "@/components/Showcase/ui/Button"
 import { Header } from "@/components/Showcase/ui/Header"
 import { InputMessage } from "@/components/Showcase/ui/InputMessage"

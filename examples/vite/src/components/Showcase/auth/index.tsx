@@ -1,6 +1,6 @@
 import { Input } from "@/components/Form/Input"
-import { CommonEmailProvider } from "@/components/Showcase/CommonEmailProvider"
-import { EmailLoginButton } from "@/components/Showcase/EmailLoginButton"
+import { CommonEmailProvider } from "@/components/Showcase/auth/CommonEmailProvider"
+import { EmailLoginButton } from "@/components/Showcase/auth/EmailLoginButton"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
 import { Link } from "@tanstack/react-router"

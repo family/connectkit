@@ -1,4 +1,4 @@
-import { CommonEmail, CommonEmailContext } from "@/components/Showcase/CommonEmailContext";
+import { CommonEmail, CommonEmailContext } from "@/components/Showcase/auth/CommonEmailContext";
 import React from "react";
 
 export const useCommonEmail = (): CommonEmail => {

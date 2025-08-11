@@ -22,7 +22,6 @@ export { default as Avatar } from './components/Common/Avatar';
 export { default as ChainIcon } from './components/Common/Chain';
 
 // Hooks
-export { default as useIsMounted } from './hooks/useIsMounted'; // Useful for apps that use SSR
 export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
 
@@ -38,7 +37,6 @@ export { RecoveryMethod, AuthPlayerResponse } from "@openfort/openfort-js";
 export { useOpenfort } from './openfort/useOpenfort';
 export { useConnectWithSiwe } from './hooks/openfort/useConnectWithSiwe';
 
-export { useWallets as useOgWallets, useWallet } from './wallets/useWallets';
 export { embeddedWalletId } from './constants/openfort';
 export { useEmailAuth } from './hooks/openfort/auth/useEmailAuth';
 export { useAuthCallback } from './hooks/openfort/auth/useAuthCallback';

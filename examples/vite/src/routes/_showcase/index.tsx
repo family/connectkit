@@ -1,12 +1,13 @@
-import { DialogLayout } from '@/components/Showcase/DialogLayout'
-import { EmailLoginButton } from '@/components/Showcase/EmailLoginButton'
-import { GuestLogin } from '@/components/Showcase/GuestLogin'
-import { SocialLogin } from '@/components/Showcase/SocialLogin'
-import { Button } from '@/components/ui/button'
+import { App } from '@/components/Showcase/app'
+import { DialogLayout } from '@/components/Showcase/auth/DialogLayout'
+import { EmailLoginButton } from '@/components/Showcase/auth/EmailLoginButton'
+import { GuestLogin } from '@/components/Showcase/auth/GuestLogin'
+import { SampleTooltipLink } from '@/components/Showcase/auth/SampleTooltipLink'
+import { SocialLogin } from '@/components/Showcase/auth/SocialLogin'
 import { Logo } from '@/components/ui/logo'
-import { AuthProvider, useSignOut, useStatus } from '@openfort/openfort-kit'
+import { AuthProvider, useStatus } from '@openfort/openfort-kit'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { PlayIcon, Wallet2Icon } from 'lucide-react'
+import { Wallet2Icon } from 'lucide-react'
 
 export const Route = createFileRoute('/_showcase/')({
   component: RouteComponent,
@@ -14,8 +15,12 @@ export const Route = createFileRoute('/_showcase/')({
 
 function RouteComponent() {
   const { isConnected } = useStatus();
-  const { signOut } = useSignOut();
 
+  if (isConnected) {
+    return (
+      <App />
+    )
+  }
   return (
     <>
       <DialogLayout>
@@ -29,7 +34,7 @@ function RouteComponent() {
         {
           isConnected ? (
             <>
-              <div className="flex flex-col items-center gap-2 mb-4">
+              {/* <div className="flex flex-col items-center gap-2 mb-4">
                 <h2 className="text-lg font-semibold">You are logged in</h2>
                 <p className="text-sm text-muted-foreground">Welcome back!</p>
               </div>
@@ -39,27 +44,55 @@ function RouteComponent() {
                 Go to app
               </Link>
 
-              <Button className='btn btn-accent' onClick={() => signOut()} >
-                <Wallet2Icon className='w-5 h-5' />
-                Log out
-              </Button>
-
+              <SampleTooltipLink
+                href='/auth/useSignOut'
+                hook='useSignOut'
+                fn='signOut'
+              >
+                <Button className='btn btn-accent' onClick={() => signOut()} >
+                  <Wallet2Icon className='w-5 h-5' />
+                  Sign out
+                </Button>
+              </SampleTooltipLink> */}
             </>
           ) : (
             <>
+              <SampleTooltipLink
+                href='/auth/useGuestAuth'
+                hook='useGuestAuth'
+                fn='signUpGuest'
+              >
+                <GuestLogin />
+              </SampleTooltipLink>
 
-              <GuestLogin />
+              <SampleTooltipLink
+                href='/auth/useEmailAuth'
+                hook='useEmailAuth'
+                fn='signInEmail'
+              >
+                <EmailLoginButton />
+              </SampleTooltipLink>
 
-              <EmailLoginButton />
+              <SampleTooltipLink
+                href='/auth/useWalletAuth'
+                hook='useWalletAuth'
+                fn='connectWallet'
+              >
+                <Link className='btn btn-accent' to="/showcase/auth/connect-wallet" >
+                  <Wallet2Icon className='w-5 h-5' />
+                  Continue with wallet
+                </Link>
+              </SampleTooltipLink>
 
-              <Link className='btn btn-accent' to="/showcase/auth/connect-wallet" >
-                <Wallet2Icon className='w-5 h-5' />
-                Continue with wallet
-              </Link>
-
-              <SocialLogin
-                provider={AuthProvider.GOOGLE}
-              />
+              <SampleTooltipLink
+                href='/auth/useOauth'
+                hook='useOAuth'
+                fn='initOAuth'
+              >
+                <SocialLogin
+                  provider={AuthProvider.GOOGLE}
+                />
+              </SampleTooltipLink>
             </>
           )
         }

@@ -1,4 +1,4 @@
-import { CommonEmailProvider } from '@/components/Showcase/CommonEmailProvider'
+import { CommonEmailProvider } from '@/components/Showcase/auth/CommonEmailProvider'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_showcase')({

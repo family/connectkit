@@ -27,6 +27,7 @@ body {
   name: "corporate";
   default: true;
   prefersdark: true;
+  background: var(--background);
   --color-base-100: var(--background-200);
   --color-base-content: var(--foreground);
   --color-primary: var(--primary);
@@ -242,16 +243,10 @@ body {
 
   }
 
-  body {
+  /* body {
     @apply bg-background text-foreground;
-
-  }
-
+  } */
 }
-
-
-
-
 
 
 @keyframes FadeIn {

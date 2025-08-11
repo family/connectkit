@@ -16,7 +16,6 @@ import { Route as HooksWagmiRouteImport } from './routes/_hooks/wagmi'
 import { Route as HooksProviderRouteImport } from './routes/_hooks/provider'
 import { Route as HooksAuthRouteImport } from './routes/_hooks/auth'
 import { Route as HooksAppRouteImport } from './routes/_hooks/app'
-import { Route as ShowcaseShowcaseAppRouteImport } from './routes/_showcase/showcase/app'
 import { Route as HooksWagmiUseSwitchChainRouteImport } from './routes/_hooks/wagmi/useSwitchChain'
 import { Route as HooksWagmiUseDisconnectRouteImport } from './routes/_hooks/wagmi/useDisconnect'
 import { Route as HooksWagmiUseBalanceRouteImport } from './routes/_hooks/wagmi/useBalance'
@@ -70,11 +69,6 @@ const HooksAppRoute = HooksAppRouteImport.update({
   id: '/app',
   path: '/app',
   getParentRoute: () => HooksRoute,
-} as any)
-const ShowcaseShowcaseAppRoute = ShowcaseShowcaseAppRouteImport.update({
-  id: '/showcase/app',
-  path: '/showcase/app',
-  getParentRoute: () => ShowcaseRoute,
 } as any)
 const HooksWagmiUseSwitchChainRoute =
   HooksWagmiUseSwitchChainRouteImport.update({
@@ -205,7 +199,6 @@ export interface FileRoutesByFullPath {
   '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
-  '/showcase/app': typeof ShowcaseShowcaseAppRoute
   '/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
   '/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
   '/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
@@ -233,7 +226,6 @@ export interface FileRoutesByTo {
   '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
-  '/showcase/app': typeof ShowcaseShowcaseAppRoute
   '/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
   '/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
   '/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
@@ -264,7 +256,6 @@ export interface FileRoutesById {
   '/_hooks/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/_hooks/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/_hooks/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
-  '/_showcase/showcase/app': typeof ShowcaseShowcaseAppRoute
   '/_showcase/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
   '/_showcase/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
   '/_showcase/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
@@ -294,7 +285,6 @@ export interface FileRouteTypes {
     | '/wagmi/useBalance'
     | '/wagmi/useDisconnect'
     | '/wagmi/useSwitchChain'
-    | '/showcase/app'
     | '/showcase/auth/callback'
     | '/showcase/auth/connect-wallet'
     | '/showcase/auth/forgot-password'
@@ -322,7 +312,6 @@ export interface FileRouteTypes {
     | '/wagmi/useBalance'
     | '/wagmi/useDisconnect'
     | '/wagmi/useSwitchChain'
-    | '/showcase/app'
     | '/showcase/auth/callback'
     | '/showcase/auth/connect-wallet'
     | '/showcase/auth/forgot-password'
@@ -352,7 +341,6 @@ export interface FileRouteTypes {
     | '/_hooks/wagmi/useBalance'
     | '/_hooks/wagmi/useDisconnect'
     | '/_hooks/wagmi/useSwitchChain'
-    | '/_showcase/showcase/app'
     | '/_showcase/showcase/auth/callback'
     | '/_showcase/showcase/auth/connect-wallet'
     | '/_showcase/showcase/auth/forgot-password'
@@ -416,13 +404,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app'
       preLoaderRoute: typeof HooksAppRouteImport
       parentRoute: typeof HooksRoute
-    }
-    '/_showcase/showcase/app': {
-      id: '/_showcase/showcase/app'
-      path: '/showcase/app'
-      fullPath: '/showcase/app'
-      preLoaderRoute: typeof ShowcaseShowcaseAppRouteImport
-      parentRoute: typeof ShowcaseRoute
     }
     '/_hooks/wagmi/useSwitchChain': {
       id: '/_hooks/wagmi/useSwitchChain'
@@ -643,7 +624,6 @@ const HooksRouteWithChildren = HooksRoute._addFileChildren(HooksRouteChildren)
 
 interface ShowcaseRouteChildren {
   ShowcaseIndexRoute: typeof ShowcaseIndexRoute
-  ShowcaseShowcaseAppRoute: typeof ShowcaseShowcaseAppRoute
   ShowcaseShowcaseAuthCallbackRoute: typeof ShowcaseShowcaseAuthCallbackRoute
   ShowcaseShowcaseAuthConnectWalletRoute: typeof ShowcaseShowcaseAuthConnectWalletRoute
   ShowcaseShowcaseAuthForgotPasswordRoute: typeof ShowcaseShowcaseAuthForgotPasswordRoute
@@ -654,7 +634,6 @@ interface ShowcaseRouteChildren {
 
 const ShowcaseRouteChildren: ShowcaseRouteChildren = {
   ShowcaseIndexRoute: ShowcaseIndexRoute,
-  ShowcaseShowcaseAppRoute: ShowcaseShowcaseAppRoute,
   ShowcaseShowcaseAuthCallbackRoute: ShowcaseShowcaseAuthCallbackRoute,
   ShowcaseShowcaseAuthConnectWalletRoute:
     ShowcaseShowcaseAuthConnectWalletRoute,

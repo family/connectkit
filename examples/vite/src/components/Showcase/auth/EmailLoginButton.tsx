@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/cn";
-import { useCommonEmail } from "@/components/Showcase/useCommonEmail";
+import { useCommonEmail } from "@/components/Showcase/auth/useCommonEmail";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/Showcase/ui/Button";
 import { MDiv } from "@/components/motion/motion";

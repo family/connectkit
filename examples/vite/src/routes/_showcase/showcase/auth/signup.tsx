@@ -1,5 +1,5 @@
-import { DialogLayout } from '@/components/Showcase/DialogLayout'
-import { EmailPasswordForm } from '@/components/Showcase/EmailAndPassword'
+import { DialogLayout } from '@/components/Showcase/auth/DialogLayout'
+import { EmailPasswordForm } from '@/components/Showcase/auth/EmailAndPassword'
 import { Header } from '@/components/Showcase/ui/Header'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 

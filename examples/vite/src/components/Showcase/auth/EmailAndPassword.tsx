@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/Showcase/ui/Button"
 import { InputMessage } from "@/components/Showcase/ui/InputMessage"
-import { useCommonEmail } from "@/components/Showcase/useCommonEmail"
+import { useCommonEmail } from "@/components/Showcase/auth/useCommonEmail"
 import { cn } from "@/lib/cn"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEmailAuth } from "@openfort/openfort-kit"
