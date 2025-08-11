@@ -171,9 +171,9 @@ const ChainSelectDropdown: React.FC<{
         {open && (
           <Portal>
             <ResetContainer
-              $useTheme={themeContext.theme ?? context.theme}
+              $useTheme={themeContext.theme ?? context.uiConfig?.theme}
               $useMode={themeContext.mode ?? context.mode}
-              $customTheme={themeContext.customTheme ?? context.customTheme}
+              $customTheme={themeContext.customTheme ?? themeContext.customTheme}
             >
               <FocusTrap>
                 <DropdownWindow ref={contentRef}>

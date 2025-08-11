@@ -1,11 +1,7 @@
+import { useOpenfortKit } from '../../components/OpenfortKit/useOpenfortKit';
+import { AuthProvider, routes } from "../../components/OpenfortKit/types";
+import { useOpenfort } from '../../openfort/useOpenfort';
 import { useAccount } from 'wagmi';
-import { useOpenfortKit } from '../components/OpenfortKit/useOpenfortKit';
-import {
-  useConnectCallback,
-  useConnectCallbackProps,
-} from './useConnectCallback';
-import { useOpenfort } from '../openfort/useOpenfort';
-import { routes } from '../components/OpenfortKit/types';
 
 type ModalRoutes = (typeof routes)[keyof typeof routes];
 
@@ -35,23 +31,14 @@ const allRoutes: ModalRoutes[] = [
 
 type ValidRoutes = ModalRoutes;
 
-type UseModalProps = {} & useConnectCallbackProps;
 
-export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
-  const context = useOpenfortKit();
-  const setRoute = context.setRoute;
+export function useUI() {
+  const { open, setOpen, setRoute, log } = useOpenfortKit();
   const { isLoading, user, needsRecovery } = useOpenfort();
-  const { address } = useAccount();
-
-  useConnectCallback({
-    onConnect,
-    onDisconnect,
-  });
-
   const { isConnected } = useAccount();
 
   function defaultOpen() {
-    context.setOpen(true);
+    setOpen(true);
 
     if (isLoading)
       setRoute(routes.LOADING);
@@ -59,7 +46,7 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
     else if (!user)
       setRoute(routes.PROVIDERS);
 
-    else if (!address)
+    else if (!isConnected)
       setRoute(routes.RECOVER);
 
     else if (needsRecovery)
@@ -68,60 +55,45 @@ export const useModal = ({ onConnect, onDisconnect }: UseModalProps = {}) => {
       setRoute(routes.PROFILE);
   }
 
-  const close = () => {
-    context.setOpen(false);
-  };
-  const open = () => {
-    context.setOpen(true);
-  };
-
   const gotoAndOpen = (route: ValidRoutes) => {
     let validRoute: ValidRoutes = route;
 
     if (!allRoutes.includes(route)) {
       validRoute = isConnected ? routes.PROFILE : routes.PROVIDERS;
-      context.log(
+      log(
         `Route ${route} is not a valid route, navigating to ${validRoute} instead.`
       );
     } else {
       if (isConnected) {
         if (!safeRoutes.connected.includes(route)) {
           validRoute = routes.PROFILE;
-          context.log(
+          log(
             `Route ${route} is not a valid route when connected, navigating to ${validRoute} instead.`
           );
         }
       } else {
         if (!safeRoutes.disconnected.includes(route)) {
           validRoute = routes.PROVIDERS;
-          context.log(
+          log(
             `Route ${route} is not a valid route when disconnected, navigating to ${validRoute} instead.`
           );
         }
       }
     }
 
-    context.setRoute(validRoute);
-    open();
+    setRoute(validRoute);
+    setOpen(true);
   };
 
   return {
-    open: context.open,
-    setOpen: (show: boolean = true) => {
-      if (show) {
-        defaultOpen();
-      } else {
-        close();
-      }
-    },
-    // Disconnected Routes
-    // openAbout: () => gotoAndOpen(routes.ABOUT),
-    // openOnboarding: () => gotoAndOpen(routes.ONBOARDING),
+    isOpen: open,
+    open: () => defaultOpen(),
+    close: () => setOpen(false),
+    setIsOpen: setOpen,
 
-    // Connected Routes
     openProfile: () => gotoAndOpen(routes.PROFILE),
     openSwitchNetworks: () => gotoAndOpen(routes.SWITCHNETWORKS),
     openProviders: () => gotoAndOpen(routes.PROVIDERS),
     openWallets: () => gotoAndOpen(routes.CONNECTORS),
-  };
-};
+  }
+}

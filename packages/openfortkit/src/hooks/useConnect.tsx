@@ -4,13 +4,12 @@
  */
 
 import {
+  Connector,
+  CreateConnectorFn,
   type UseConnectParameters,
   useConnect as wagmiUseConnect,
-  CreateConnectorFn,
-  Connector,
 } from 'wagmi';
 import { useOpenfortKit } from '../components/OpenfortKit/useOpenfortKit';
-import { useLastConnector } from './useLastConnector';
 
 export function useConnect({ ...props }: UseConnectParameters = {}) {
   const context = useOpenfortKit();
@@ -44,7 +43,7 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
       return connect(
         {
           connector,
-          chainId: chainId ?? context.options?.initialChainId,
+          chainId: chainId ?? context.uiConfig?.initialChainId,
         },
         mutation
       );
@@ -61,7 +60,7 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
       return connectAsync(
         {
           connector,
-          chainId: chainId ?? context.options?.initialChainId,
+          chainId: chainId ?? context.uiConfig?.initialChainId,
         },
         mutation
       );

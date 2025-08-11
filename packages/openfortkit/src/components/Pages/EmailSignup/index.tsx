@@ -17,15 +17,15 @@ const EmailSignup: React.FC = () => {
   const [password, setPassword] = React.useState("");
   const [username, setUsername] = React.useState("");
 
-  const { setRoute, triggerResize, log, options } = useOpenfortKit();
-  const { signUpWithEmailPassword, user, requestEmailVerification } = useOpenfort();
+  const { setRoute, triggerResize, log, uiConfig: options } = useOpenfortKit();
+  const { client } = useOpenfort();
 
   const [signupLoading, setSignupLoading] = React.useState(false);
   const [signupError, setSignupError] = React.useState(false);
 
   const handleSubmit = async () => {
     setSignupLoading(true);
-    signUpWithEmailPassword({
+    client.auth.signUpWithEmailPassword({
       email,
       password,
       options: {

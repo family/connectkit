@@ -142,8 +142,8 @@ const ConnectWithInjector: React.FC<{
           }
 
           connectWithSiwe({
-            connectorType: wallet.connector.id,
-            walletClientType: wallet.connector.name.toLowerCase(),
+            // connectorType: wallet.connector.id,
+            // walletClientType: wallet.connector.name.toLowerCase(),
             onError: (error, status) => {
               console.error(error);
               disconnect();

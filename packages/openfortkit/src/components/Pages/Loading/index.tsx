@@ -8,7 +8,7 @@ import { routes } from "../../OpenfortKit/types";
 
 
 const Loading: React.FC = () => {
-  const { setRoute } = useOpenfortKit();
+  const { setRoute, walletConfig } = useOpenfortKit();
   const { isLoading, user, needsRecovery } = useOpenfort();
   const { address } = useAccount();
   const [isFirstFrame, setIsFirstFrame] = React.useState(true);
@@ -20,15 +20,23 @@ const Loading: React.FC = () => {
     if (isLoading)
       return
 
+
     else if (!user)
       setRoute(routes.PROVIDERS);
 
-    else if (!address)
-      setRoute(routes.RECOVER);
-    //   setRoute(routes.CONNECTORS);
+    else if (!address) {
+      if (!walletConfig)
+        setRoute(routes.CONNECTORS);
+      else
+        setRoute(routes.RECOVER);
+    }
 
-    else if (needsRecovery)
-      setRoute(routes.RECOVER);
+    else if (needsRecovery) {
+      if (!walletConfig)
+        setRoute(routes.CONNECTORS);
+      else
+        setRoute(routes.RECOVER);
+    }
 
     else
       setRoute(routes.PROFILE);

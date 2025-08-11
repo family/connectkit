@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { useEffect, useState } from 'react';
 
-import { OpenfortKitButton, ChainIcon, useChains } from '@openfort/openfort-kit';
+import { OpenfortKitButton, ChainIcon, useChains } from '@openfort/react';
 
 import * as wagmiChains from 'wagmi/chains';
 import { useAccount } from 'wagmi';

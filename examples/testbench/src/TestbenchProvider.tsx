@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { AuthProvider, Types } from '@openfort/openfort-kit';
+import { AuthProvider, Types } from '@openfort/react';
 
 type ContextValue = {
   theme: Types.Theme;

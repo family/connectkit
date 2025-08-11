@@ -55,6 +55,8 @@ const defaultConfig = ({
       coinbaseWalletPreference,
     });
 
+  console.log("OPENFORTKIT CHAINS", chains, transports);
+
   const config: CreateConfigParameters<any, any> = {
     ...props,
     chains,

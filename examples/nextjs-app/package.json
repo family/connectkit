@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@openfort/openfort-kit": "workspace:packages/openfortkit",
+    "@openfort/react": "workspace:packages/openfortkit",
     "@tanstack/react-query": "^5.17.15",
     "next": "^14.2.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "^2.30.1",
-    "wagmi": "^2.15.4"
+    "viem": "*",
+    "wagmi": "*"
   },
   "devDependencies": {
     "@types/node": "^18.19.3",

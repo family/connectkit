@@ -5,7 +5,7 @@ import { type ReactNode } from 'react';
 import { WagmiProvider } from 'wagmi';
 
 import { config } from '../config';
-import { AuthProvider, OpenfortKitProvider, RecoveryMethod } from '@openfort/openfort-kit';
+import { AuthProvider, OpenfortKitProvider, RecoveryMethod } from '@openfort/react';
 
 const queryClient = new QueryClient();
 export function Providers(props: { children: ReactNode }) {
@@ -18,28 +18,25 @@ export function Providers(props: { children: ReactNode }) {
 
           // Set the wallet configuration. In this example, we will be using the embedded signer.
           walletConfig={{
-            createEmbeddedSigner: true,
 
-            embeddedSignerConfiguration: {
-              shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
+            shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
 
-              // Set the recovery method you want to use, in this case we will use the password recovery method
-              recoveryMethod: RecoveryMethod.PASSWORD,
+            // Set the recovery method you want to use, in this case we will use the password recovery method
+            recoveryMethod: RecoveryMethod.PASSWORD,
 
-              // With password recovery we can set the encryption key to encrypt the recovery data
-              // This way we don't have a backend to store the recovery data
-              shieldEncryptionKey: process.env.NEXT_PUBLIC_SHIELD_ENCRYPTION_SHARE!,
+            // With password recovery we can set the encryption key to encrypt the recovery data
+            // This way we don't have a backend to store the recovery data
+            shieldEncryptionKey: process.env.NEXT_PUBLIC_SHIELD_ENCRYPTION_SHARE!,
 
-              // You can set a policy id to sponsor the gas fees for your users
-              ethereumProviderPolicyId: process.env.NEXT_PUBLIC_POLICY_ID,
-            }
+            // You can set a policy id to sponsor the gas fees for your users
+            ethereumProviderPolicyId: process.env.NEXT_PUBLIC_POLICY_ID,
           }}
 
-
-          options={{
+          uiConfig={{
             skipEmailVerification: true,
 
             authProviders: [
+              AuthProvider.GUEST,
               AuthProvider.EMAIL,
               AuthProvider.WALLET,
               AuthProvider.GOOGLE,

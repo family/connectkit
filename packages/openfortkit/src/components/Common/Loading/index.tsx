@@ -48,7 +48,7 @@ const ConnectingAnimation = styled(motion.div) <{
 
 const Loader = ({ reason, isLoading = true, icon }: { reason: string, isLoading?: boolean, icon?: React.ReactNode }) => {
 
-  const { options } = useOpenfortKit();
+  const { uiConfig: options } = useOpenfortKit();
   const { triggerResize } = useOpenfortKit();
 
   useEffect(() => {

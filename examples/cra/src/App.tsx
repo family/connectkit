@@ -1,4 +1,4 @@
-import { OpenfortKitButton } from '@openfort/openfort-kit';
+import { OpenfortKitButton } from '@openfort/react';
 import { Info } from './components/Info';
 
 function App() {

@@ -40,14 +40,14 @@ const EmailLogin: React.FC = () => {
   const [password, setPassword] = React.useState("");
 
   const { setRoute, log } = useOpenfortKit();
-  const { logInWithEmailPassword } = useOpenfort();
+  const { client } = useOpenfort();
 
   const [loginLoading, setLoginLoading] = React.useState(false);
   const [loginError, setLoginError] = React.useState<false | string>(false);
 
   const handleSubmit = async () => {
     setLoginLoading(true);
-    logInWithEmailPassword({
+    client.auth.logInWithEmailPassword({
       email,
       password
     }).catch((e) => {

@@ -35,7 +35,7 @@ const Wallets: React.FC = () => {
               <ModalBody>{locales.connectorsScreen_p}</ModalBody>
             </ModalContent>
             <InfoBoxButtons>
-              {!context.options?.hideQuestionMarkCTA && (
+              {!context.uiConfig?.hideQuestionMarkCTA && (
                 <Button
                   variant={'tertiary'}
                   onClick={() => context.setRoute(routes.ABOUT)}
@@ -43,7 +43,7 @@ const Wallets: React.FC = () => {
                   {locales.learnMore}
                 </Button>
               )}
-              {!context.options?.hideNoWalletCTA && (
+              {!context.uiConfig?.hideNoWalletCTA && (
                 <Button
                   variant={'tertiary'}
                   onClick={() => context.setRoute(routes.ONBOARDING)}

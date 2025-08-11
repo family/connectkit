@@ -61,9 +61,9 @@ const NetworkButton: React.FC<NetworkButtonProps & All> = ({
   const currentChain = chainConfigs.find((c) => c.id === chain?.id);
   return (
     <ConnectKitThemeProvider
-      theme={theme ?? context.theme}
+      theme={theme ?? context.uiConfig?.theme}
       mode={mode ?? context.mode}
-      customTheme={customTheme ?? context.customTheme}
+      customTheme={customTheme ?? context.uiConfig?.customTheme}
     >
       <AnimatePresence initial={false}>
         {!(hideIcon && hideName) && (isConnected || chain) && (

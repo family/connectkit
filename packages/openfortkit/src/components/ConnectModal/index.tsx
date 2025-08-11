@@ -45,7 +45,7 @@ const ConnectModal: React.FC<{
 
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(
-    context.options?.enforceSupportedChains &&
+    context.uiConfig?.enforceSupportedChains &&
     isConnected &&
     !chainIsSupported
   );
@@ -128,9 +128,9 @@ const ConnectModal: React.FC<{
   // if auth redirect
   useEffect(() => {
     const url = new URL(window.location.href);
-    const provider = url.searchParams.get("fort_auth_provider");
-    const emailVerification = url.searchParams.get("fort_email_verification");
-    const forgotPassword = url.searchParams.get("fort_forgot_password");
+    const provider = url.searchParams.get("openfortAuthProviderUI");
+    const emailVerification = url.searchParams.get("openfortEmailVerificationUI");
+    const forgotPassword = url.searchParams.get("openfortForgotPasswordUI");
 
     context.log("Checking for search parameters", url);
 

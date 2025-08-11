@@ -14,7 +14,7 @@ const states = {
 
 const ConnectWithOAuth: React.FC<{}> = ({ }) => {
   const { connector, setRoute, log } = useOpenfortKit();
-  const { initOAuth, getAccessToken, initLinkOAuth, storeCredentials, user } = useOpenfort();
+  const { client, user } = useOpenfort();
 
   const [status, setStatus] = useState(states.INIT);
 
@@ -23,7 +23,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
       if (connector.type !== "oauth") throw new Error("Invalid connector type");
 
       const url = new URL(window.location.href);
-      const hasProvider = !!url.searchParams.get("fort_auth_provider");
+      const hasProvider = !!url.searchParams.get("openfortAuthProviderUI");
       const provider = connector.id;
 
       switch (status) {
@@ -38,7 +38,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
 
           // Remove specified keys from the URL
           [
-            "fort_auth_provider",
+            "openfortAuthProviderUI",
             "refresh_token",
             "access_token",
             "player_id",
@@ -50,7 +50,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
             return;
           }
 
-          storeCredentials({
+          client.auth.storeCredentials({
             player,
             accessToken,
             refreshToken,
@@ -65,25 +65,25 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
           const queryParams = Object.fromEntries(
             [...url.searchParams.entries()].filter(([key]) =>
               [
-                "fort_auth_provider",
+                "openfortAuthProviderUI",
                 "refresh_token",
                 "access_token",
                 "player_id",
               ].includes(key)
             )
           );
-          queryParams["fort_auth_provider"] = provider;
+          queryParams["openfortAuthProviderUI"] = provider;
 
           try {
 
             if (user) {
-              const authToken = await getAccessToken();
+              const authToken = await client.getAccessToken();
               if (!authToken) {
                 console.error("No auth token found");
                 setRoute(routes.LOADING);
                 return;
               }
-              const linkResponse = await initLinkOAuth({
+              const linkResponse = await client.auth.initLinkOAuth({
                 authToken,
                 provider,
                 options: {
@@ -94,7 +94,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
               log(linkResponse);
               window.location.href = linkResponse.url;
             } else {
-              const r = await initOAuth({
+              const r = await client.auth.initOAuth({
                 provider,
                 options: {
                   redirectTo: cleanURL,

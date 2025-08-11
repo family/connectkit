@@ -3,8 +3,8 @@
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@radix-ui/react-select"
 import { ArrowRight, ExternalLink, LockIcon } from "lucide-react"
 
-import { RecoveryMethod, useLogout, useModal, useUser } from "@openfort/openfort-kit"
-import { Theme } from "@openfort/openfort-kit/build/types"
+import { RecoveryMethod, useSignOut, useUI, useUser } from "@openfort/react"
+import { Theme } from "@openfort/react/build/types"
 import { CaretDownIcon } from "@radix-ui/react-icons"
 
 import Button from "../Button"
@@ -19,8 +19,8 @@ type Props = {
 
 export const AsideMainContent = ({ setContent }: Props) => {
   const { user } = useUser();
-  const logout = useLogout();
-  const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();
+  const { signOut } = useSignOut();
+  const { openSwitchNetworks, open, close, openProviders, openWallets } = useUI();
   const { sampleTheme, setSampleTheme, recoveryMethod, setRecoveryMethod } = useSample();
 
   return (
@@ -98,7 +98,7 @@ export const AsideMainContent = ({ setContent }: Props) => {
       <div className="mb-6" >
         <h3 className="text-lg font-semibold mb-2">Open page</h3>
         <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
-          <Button onClick={() => setOpen(true)} variant="outline">Default page</Button>
+          <Button onClick={() => open()} variant="outline">Default page</Button>
           {user && (
             <>
               <Button onClick={() => openSwitchNetworks()} variant="outline">Switch networks</Button>
@@ -108,13 +108,13 @@ export const AsideMainContent = ({ setContent }: Props) => {
           <Button onClick={() => openWallets()} variant="outline">
             {!user ? "Wallets" : "Link wallets"}
           </Button>
-          <Button onClick={() => setOpen(false)}>Close modal</Button>
+          <Button onClick={() => close()}>Close modal</Button>
         </div>
       </div >
 
       {/* Logout Button */}
       <Button
-        onClick={() => logout()}
+        onClick={() => signOut()}
         disabled={!user}
         className="w-full bg-red-500 md:mt-auto"
       >

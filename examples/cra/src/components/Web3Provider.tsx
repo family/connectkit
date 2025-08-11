@@ -2,7 +2,7 @@ import React from 'react';
 
 import { WagmiProvider, createConfig } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
+import { AuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/react';
 
 const config = createConfig(
   getDefaultConfig({
@@ -21,15 +21,11 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           debugMode
           publishableKey={process.env.REACT_APP_OPENFORT_PUBLIC_KEY!}
 
-          walletConfig={{
-            // In this example, we require the user to link their wallet on sign up.
-            // We don't need an embedded signer for this example,
-            // we will be using the user wallet for signing.
+          // In this example, we require the user to link their wallet on sign up.
+          // We don't need an embedded signer for this example,
+          // we will be using the user wallet for signing.
 
-            linkWalletOnSignUp: true,
-          }}
-
-          options={{
+          uiConfig={{
             authProviders: [
               AuthProvider.GUEST,
               AuthProvider.EMAIL,

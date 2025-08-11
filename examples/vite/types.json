@@ -1,0 +1,2335 @@
+{
+	"schemaVersion": "2.0",
+	"id": 0,
+	"name": "@openfort/react",
+	"variant": "project",
+	"kind": 1,
+	"flags": {},
+	"children": [
+		{
+			"id": 20,
+			"name": "AuthProvider",
+			"variant": "declaration",
+			"kind": 8,
+			"flags": {},
+			"children": [
+				{
+					"id": 24,
+					"name": "EMAIL",
+					"variant": "declaration",
+					"kind": 16,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 28,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "literal",
+						"value": "email"
+					}
+				},
+				{
+					"id": 23,
+					"name": "FACEBOOK",
+					"variant": "declaration",
+					"kind": 16,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 27,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "literal",
+						"value": "facebook"
+					}
+				},
+				{
+					"id": 21,
+					"name": "GOOGLE",
+					"variant": "declaration",
+					"kind": 16,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 25,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "literal",
+						"value": "google"
+					}
+				},
+				{
+					"id": 26,
+					"name": "GUEST",
+					"variant": "declaration",
+					"kind": 16,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 30,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "literal",
+						"value": "guest"
+					}
+				},
+				{
+					"id": 22,
+					"name": "TWITTER",
+					"variant": "declaration",
+					"kind": 16,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 26,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "literal",
+						"value": "twitter"
+					}
+				},
+				{
+					"id": 25,
+					"name": "WALLET",
+					"variant": "declaration",
+					"kind": 16,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 29,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "literal",
+						"value": "wallet"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Enumeration Members",
+					"children": [
+						24,
+						23,
+						21,
+						26,
+						22,
+						25
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types.d.ts",
+					"line": 24,
+					"character": 20
+				}
+			]
+		},
+		{
+			"id": 38,
+			"name": "ConnectKitOptions",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "types.d.ts",
+					"line": 90,
+					"character": 12
+				}
+			],
+			"type": {
+				"type": "intersection",
+				"types": [
+					{
+						"type": "reflection",
+						"declaration": {
+							"id": 39,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"children": [
+								{
+									"id": 45,
+									"name": "avoidLayoutShift",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 96,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 51,
+									"name": "bufferPolyfill",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.)"
+											}
+										]
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 103,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 52,
+									"name": "customAvatar",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 104,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": {
+											"packageName": "@types/react",
+											"packagePath": "index.d.ts",
+											"qualifiedName": "React.FC"
+										},
+										"typeArguments": [
+											{
+												"type": "reference",
+												"target": {
+													"packageName": "@openfort/react",
+													"packagePath": "build/components/Common/Avatar/index.d.ts",
+													"qualifiedName": "CustomAvatarProps"
+												},
+												"name": "CustomAvatarProps",
+												"package": "@openfort/react"
+											}
+										],
+										"name": "React.FC",
+										"package": "@types/react"
+									}
+								},
+								{
+									"id": 50,
+									"name": "disclaimer",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 101,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"target": {
+													"packageName": "@types/react",
+													"packagePath": "index.d.ts",
+													"qualifiedName": "React.ReactNode"
+												},
+												"name": "ReactNode",
+												"package": "@types/react",
+												"qualifiedName": "React.ReactNode"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										]
+									}
+								},
+								{
+									"id": 46,
+									"name": "embedGoogleFonts",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 97,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 54,
+									"name": "enforceSupportedChains",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 106,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 41,
+									"name": "hideBalance",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 92,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 43,
+									"name": "hideRecentBadge",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 94,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 42,
+									"name": "hideTooltips",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 93,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 53,
+									"name": "initialChainId",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 105,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								},
+								{
+									"id": 55,
+									"name": "overlayBlur",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 107,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								},
+								{
+									"id": 49,
+									"name": "reducedMotion",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 100,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 40,
+									"name": "theme",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 91,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": {
+											"packageName": "@openfort/react",
+											"packagePath": "build/types.d.ts",
+											"qualifiedName": "Theme"
+										},
+										"name": "Theme",
+										"package": "@openfort/react"
+									}
+								},
+								{
+									"id": 47,
+									"name": "truncateLongENSAddress",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 98,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 44,
+									"name": "walletConnectCTA",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 95,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "literal",
+												"value": "link"
+											},
+											{
+												"type": "literal",
+												"value": "modal"
+											},
+											{
+												"type": "literal",
+												"value": "both"
+											}
+										]
+									}
+								},
+								{
+									"id": 48,
+									"name": "walletConnectName",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 99,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										45,
+										51,
+										52,
+										50,
+										46,
+										54,
+										41,
+										43,
+										42,
+										53,
+										55,
+										49,
+										40,
+										47,
+										44,
+										48
+									]
+								}
+							],
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 90,
+									"character": 32
+								}
+							]
+						}
+					},
+					{
+						"type": "reference",
+						"target": 29,
+						"name": "OpenfortOptions",
+						"package": "@openfort/react"
+					}
+				]
+			}
+		},
+		{
+			"id": 56,
+			"name": "ConnectKitOptionsExtended",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "types.d.ts",
+					"line": 109,
+					"character": 12
+				}
+			],
+			"type": {
+				"type": "intersection",
+				"types": [
+					{
+						"type": "reflection",
+						"declaration": {
+							"id": 57,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"children": [
+								{
+									"id": 66,
+									"name": "avoidLayoutShift",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 118,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 72,
+									"name": "bufferPolyfill",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 124,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 73,
+									"name": "customAvatar",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 125,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": {
+											"packageName": "@types/react",
+											"packagePath": "index.d.ts",
+											"qualifiedName": "React.FC"
+										},
+										"typeArguments": [
+											{
+												"type": "reference",
+												"target": {
+													"packageName": "@openfort/react",
+													"packagePath": "build/components/Common/Avatar/index.d.ts",
+													"qualifiedName": "CustomAvatarProps"
+												},
+												"name": "CustomAvatarProps",
+												"package": "@openfort/react"
+											}
+										],
+										"name": "React.FC",
+										"package": "@types/react"
+									}
+								},
+								{
+									"id": 78,
+									"name": "disableSiweRedirect",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 130,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 71,
+									"name": "disclaimer",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 123,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"target": {
+													"packageName": "@types/react",
+													"packagePath": "index.d.ts",
+													"qualifiedName": "React.ReactNode"
+												},
+												"name": "ReactNode",
+												"package": "@types/react",
+												"qualifiedName": "React.ReactNode"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										]
+									}
+								},
+								{
+									"id": 67,
+									"name": "embedGoogleFonts",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 119,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 75,
+									"name": "enforceSupportedChains",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 127,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 76,
+									"name": "ethereumOnboardingUrl",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 128,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 60,
+									"name": "hideBalance",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 112,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 63,
+									"name": "hideNoWalletCTA",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 115,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 62,
+									"name": "hideQuestionMarkCTA",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 114,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 64,
+									"name": "hideRecentBadge",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 116,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 61,
+									"name": "hideTooltips",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 113,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 74,
+									"name": "initialChainId",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 126,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								},
+								{
+									"id": 59,
+									"name": "language",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 111,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": {
+											"packageName": "@openfort/react",
+											"packagePath": "build/types.d.ts",
+											"qualifiedName": "Languages"
+										},
+										"name": "Languages",
+										"package": "@openfort/react"
+									}
+								},
+								{
+									"id": 79,
+									"name": "overlayBlur",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 131,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								},
+								{
+									"id": 70,
+									"name": "reducedMotion",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 122,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 58,
+									"name": "theme",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 110,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": {
+											"packageName": "@openfort/react",
+											"packagePath": "build/types.d.ts",
+											"qualifiedName": "Theme"
+										},
+										"name": "Theme",
+										"package": "@openfort/react"
+									}
+								},
+								{
+									"id": 68,
+									"name": "truncateLongENSAddress",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 120,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 65,
+									"name": "walletConnectCTA",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 117,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "literal",
+												"value": "link"
+											},
+											{
+												"type": "literal",
+												"value": "modal"
+											},
+											{
+												"type": "literal",
+												"value": "both"
+											}
+										]
+									}
+								},
+								{
+									"id": 69,
+									"name": "walletConnectName",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 121,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 77,
+									"name": "walletOnboardingUrl",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "types.d.ts",
+											"line": 129,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										66,
+										72,
+										73,
+										78,
+										71,
+										67,
+										75,
+										76,
+										60,
+										63,
+										62,
+										64,
+										61,
+										74,
+										59,
+										79,
+										70,
+										58,
+										68,
+										65,
+										69,
+										77
+									]
+								}
+							],
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 109,
+									"character": 40
+								}
+							]
+						}
+					},
+					{
+						"type": "reference",
+						"target": 29,
+						"name": "OpenfortOptions",
+						"package": "@openfort/react"
+					}
+				]
+			}
+		},
+		{
+			"id": 29,
+			"name": "OpenfortOptions",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"children": [
+				{
+					"id": 32,
+					"name": "authProviders",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 83,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "reference",
+							"target": 20,
+							"name": "AuthProvider",
+							"package": "@openfort/react"
+						}
+					}
+				},
+				{
+					"id": 31,
+					"name": "linkWalletOnSignUp",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 82,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 36,
+					"name": "logo",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 87,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "@types/react",
+							"packagePath": "index.d.ts",
+							"qualifiedName": "React.ReactNode"
+						},
+						"name": "React.ReactNode",
+						"package": "@types/react"
+					}
+				},
+				{
+					"id": 37,
+					"name": "openfortUrlOverrides",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 88,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "indexedAccess",
+						"indexType": {
+							"type": "literal",
+							"value": "overrides"
+						},
+						"objectType": {
+							"type": "reference",
+							"target": {
+								"packageName": "@openfort/react",
+								"packagePath": "build/openfort/OpenfortProvider.d.ts",
+								"qualifiedName": "OpenfortProviderProps"
+							},
+							"name": "OpenfortProviderProps",
+							"package": "@openfort/react"
+						}
+					}
+				},
+				{
+					"id": 35,
+					"name": "privacyPolicyUrl",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 86,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 33,
+					"name": "skipEmailVerification",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 84,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 34,
+					"name": "termsOfServiceUrl",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 85,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						32,
+						31,
+						36,
+						37,
+						35,
+						33,
+						34
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types.d.ts",
+					"line": 81,
+					"character": 12
+				}
+			]
+		},
+		{
+			"id": 28,
+			"name": "OpenfortWalletConfig",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "types.d.ts",
+					"line": 80,
+					"character": 12
+				}
+			],
+			"type": {
+				"type": "reference",
+				"target": {
+					"packageName": "@openfort/react",
+					"packagePath": "build/components/OpenfortKit/types.d.ts",
+					"qualifiedName": "EmbeddedSignerConfiguration"
+				},
+				"name": "EmbeddedSignerConfiguration",
+				"package": "@openfort/react"
+			}
+		},
+		{
+			"id": 1,
+			"name": "routes",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "types.d.ts",
+					"line": 5,
+					"character": 21
+				}
+			],
+			"type": {
+				"type": "reflection",
+				"declaration": {
+					"id": 2,
+					"name": "__type",
+					"variant": "declaration",
+					"kind": 65536,
+					"flags": {},
+					"children": [
+						{
+							"id": 13,
+							"name": "ABOUT",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 16,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "about"
+							}
+						},
+						{
+							"id": 16,
+							"name": "CONNECT",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 19,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "connect"
+							}
+						},
+						{
+							"id": 14,
+							"name": "CONNECTORS",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 17,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "connectors"
+							}
+						},
+						{
+							"id": 17,
+							"name": "DOWNLOAD",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 20,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "download"
+							}
+						},
+						{
+							"id": 7,
+							"name": "EMAIL_LOGIN",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 10,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "emailLogin"
+							}
+						},
+						{
+							"id": 8,
+							"name": "EMAIL_SIGNUP",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 11,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "emailSignup"
+							}
+						},
+						{
+							"id": 10,
+							"name": "EMAIL_VERIFICATION",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 13,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "emailVerification"
+							}
+						},
+						{
+							"id": 9,
+							"name": "FORGOT_PASSWORD",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 12,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "forgotPassword"
+							}
+						},
+						{
+							"id": 11,
+							"name": "LINK_EMAIL",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 14,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "linkEmail"
+							}
+						},
+						{
+							"id": 5,
+							"name": "LOADING",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 8,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "loading"
+							}
+						},
+						{
+							"id": 15,
+							"name": "MOBILECONNECTORS",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 18,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "mobileConnectors"
+							}
+						},
+						{
+							"id": 12,
+							"name": "ONBOARDING",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 15,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "onboarding"
+							}
+						},
+						{
+							"id": 18,
+							"name": "PROFILE",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 21,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "profile"
+							}
+						},
+						{
+							"id": 3,
+							"name": "PROVIDERS",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 6,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "providers"
+							}
+						},
+						{
+							"id": 6,
+							"name": "RECOVER",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 9,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "recover"
+							}
+						},
+						{
+							"id": 4,
+							"name": "SOCIAL_PROVIDERS",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 7,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "socialProviders"
+							}
+						},
+						{
+							"id": 19,
+							"name": "SWITCHNETWORKS",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isReadonly": true
+							},
+							"sources": [
+								{
+									"fileName": "types.d.ts",
+									"line": 22,
+									"character": 13
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": "switchNetworks"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								13,
+								16,
+								14,
+								17,
+								7,
+								8,
+								10,
+								9,
+								11,
+								5,
+								15,
+								12,
+								18,
+								3,
+								6,
+								4,
+								19
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "types.d.ts",
+							"line": 5,
+							"character": 29
+						}
+					]
+				}
+			}
+		},
+		{
+			"id": 27,
+			"name": "socialProviders",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "types.d.ts",
+					"line": 32,
+					"character": 21
+				}
+			],
+			"type": {
+				"type": "array",
+				"elementType": {
+					"type": "reference",
+					"target": 20,
+					"name": "AuthProvider",
+					"package": "@openfort/react"
+				}
+			}
+		}
+	],
+	"groups": [
+		{
+			"title": "Enumerations",
+			"children": [
+				20
+			]
+		},
+		{
+			"title": "Type Aliases",
+			"children": [
+				38,
+				56,
+				29,
+				28
+			]
+		},
+		{
+			"title": "Variables",
+			"children": [
+				1,
+				27
+			]
+		}
+	],
+	"packageName": "@openfort/react",
+	"readme": [
+		{
+			"kind": "text",
+			"text": "# OpenfortKit\n\nThe easiest way to integrate Openfort to your project, with built-in authentication and seamless wallet connectivity.\n\nIt offers a simple, customizable UI. Supports authentication providers like Google, X, or Facebook out of the box. Access your address through Openfort’s [invisible wallet](https://www.openfort.io/docs/products/embedded-wallet/javascript) or connect their own wallet provider effortlessly.\n\nDocs: https://www.openfort.io/docs/products/kit/react/quickstart\n\n## Features\n\n- 💡 TypeScript Ready — Get types straight out of the box.\n- 🌱 Ecosystem Standards — Uses top libraries such as [wagmi](https://github.com/wagmi-dev/wagmi).\n- 🖥️ Simple UX — Give users a simple, attractive experience.\n- 🎨 Beautiful Themes — Predesigned themes or full customization.\n\nand much more...\n\n## Quick Start\n\n### New app\n\nGet started with "
+		},
+		{
+			"kind": "code",
+			"text": "`create`"
+		},
+		{
+			"kind": "text",
+			"text": " Openfortkit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:\n\n#### npm\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\nnpx create openfortkit\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n#### yarn\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\nyarn create openfortkit\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n#### pnpm\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\npnpm create openfortkit\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n### Import "
+		},
+		{
+			"kind": "code",
+			"text": "`OpenfortKit`"
+		},
+		{
+			"kind": "text",
+			"text": " to your project\n\nAdd OpenfortKit to your already existing project.\n\n#### npm\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\nnpm install @openfort/react @tanstack/react-query wagmi viem\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n#### yarn\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\nyarn add @openfort/react @tanstack/react-query wagmi viem\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n#### pnpm\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\npnpm add @openfort/react @tanstack/react-query wagmi viem\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n## Documentation\n\nYou can find the full OpenfortKit documentation in the Family docs [here]().\n\n## Examples\n\nThere are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/openfort-kit/tree/main/examples):\n\n- [Create React App Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/cra)\n- [Next.js Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/nextjs)\n- [Vite Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/vite)\n\n### Running Examples Locally\n\nClone the FortKit project and install the necessary dependencies:\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\n$ git clone git@github.com:openfort-xyz/openfort-kit.git\n$ cd openfort-kit\n$ yarn install\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nand start the code bundler:\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\n$ yarn dev:kit\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nand then simply select the example you'd like to run:\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```sh\n$ yarn dev:vite # Vite\n$ yarn dev:nextjs # Next.js\n$ yarn dev:cra # Create React App\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n## License\n\nSee [LICENSE](https://github.com/openfort-xyz/openfort-kit/blob/main/LICENSE) for more information.\n\n## Credits\n\nOpenfortKit is a fork of [Connectkit](https://github.com/openfort-xyz/openfort-kit) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beautiful and open-source."
+		}
+	],
+	"symbolIdMap": {
+		"0": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": ""
+		},
+		"1": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "routes"
+		},
+		"2": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type"
+		},
+		"3": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.PROVIDERS"
+		},
+		"4": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.SOCIAL_PROVIDERS"
+		},
+		"5": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.LOADING"
+		},
+		"6": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.RECOVER"
+		},
+		"7": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.EMAIL_LOGIN"
+		},
+		"8": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.EMAIL_SIGNUP"
+		},
+		"9": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.FORGOT_PASSWORD"
+		},
+		"10": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.EMAIL_VERIFICATION"
+		},
+		"11": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.LINK_EMAIL"
+		},
+		"12": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.ONBOARDING"
+		},
+		"13": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.ABOUT"
+		},
+		"14": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.CONNECTORS"
+		},
+		"15": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.MOBILECONNECTORS"
+		},
+		"16": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.CONNECT"
+		},
+		"17": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.DOWNLOAD"
+		},
+		"18": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.PROFILE"
+		},
+		"19": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.SWITCHNETWORKS"
+		},
+		"20": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "AuthProvider"
+		},
+		"21": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "AuthProvider.GOOGLE"
+		},
+		"22": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "AuthProvider.TWITTER"
+		},
+		"23": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "AuthProvider.FACEBOOK"
+		},
+		"24": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "AuthProvider.EMAIL"
+		},
+		"25": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "AuthProvider.WALLET"
+		},
+		"26": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "AuthProvider.GUEST"
+		},
+		"27": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "socialProviders"
+		},
+		"28": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "OpenfortWalletConfig"
+		},
+		"29": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "OpenfortOptions"
+		},
+		"31": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.linkWalletOnSignUp"
+		},
+		"32": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.authProviders"
+		},
+		"33": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.skipEmailVerification"
+		},
+		"34": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.termsOfServiceUrl"
+		},
+		"35": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.privacyPolicyUrl"
+		},
+		"36": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.logo"
+		},
+		"37": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.openfortUrlOverrides"
+		},
+		"38": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "ConnectKitOptions"
+		},
+		"39": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type"
+		},
+		"40": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.theme"
+		},
+		"41": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.hideBalance"
+		},
+		"42": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.hideTooltips"
+		},
+		"43": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.hideRecentBadge"
+		},
+		"44": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.walletConnectCTA"
+		},
+		"45": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.avoidLayoutShift"
+		},
+		"46": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.embedGoogleFonts"
+		},
+		"47": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.truncateLongENSAddress"
+		},
+		"48": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.walletConnectName"
+		},
+		"49": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.reducedMotion"
+		},
+		"50": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.disclaimer"
+		},
+		"51": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.bufferPolyfill"
+		},
+		"52": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.customAvatar"
+		},
+		"53": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.initialChainId"
+		},
+		"54": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.enforceSupportedChains"
+		},
+		"55": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.overlayBlur"
+		},
+		"56": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "ConnectKitOptionsExtended"
+		},
+		"57": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type"
+		},
+		"58": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.theme"
+		},
+		"59": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.language"
+		},
+		"60": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.hideBalance"
+		},
+		"61": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.hideTooltips"
+		},
+		"62": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.hideQuestionMarkCTA"
+		},
+		"63": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.hideNoWalletCTA"
+		},
+		"64": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.hideRecentBadge"
+		},
+		"65": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.walletConnectCTA"
+		},
+		"66": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.avoidLayoutShift"
+		},
+		"67": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.embedGoogleFonts"
+		},
+		"68": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.truncateLongENSAddress"
+		},
+		"69": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.walletConnectName"
+		},
+		"70": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.reducedMotion"
+		},
+		"71": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.disclaimer"
+		},
+		"72": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.bufferPolyfill"
+		},
+		"73": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.customAvatar"
+		},
+		"74": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.initialChainId"
+		},
+		"75": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.enforceSupportedChains"
+		},
+		"76": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.ethereumOnboardingUrl"
+		},
+		"77": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.walletOnboardingUrl"
+		},
+		"78": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.disableSiweRedirect"
+		},
+		"79": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/types.d.ts",
+			"qualifiedName": "__type.overlayBlur"
+		}
+	},
+	"files": {
+		"entries": {
+			"1": "../../packages/openfortkit/build/components/OpenfortKit/types.d.ts",
+			"2": "../../packages/openfortkit/README.md",
+			"3": "../../packages/openfortkit"
+		},
+		"reflections": {
+			"1": 0,
+			"2": 0,
+			"3": 0
+		}
+	}
+}

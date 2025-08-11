@@ -1,7 +1,7 @@
 import { createElement, createContext, useContext, useState } from 'react';
 import { TestBenchProvider } from '../TestbenchProvider';
 
-import { getDefaultConfig, wallets } from '@openfort/openfort-kit';
+import { getDefaultConfig, wallets } from '@openfort/react';
 
 import { WagmiProvider, createConfig } from 'wagmi';
 import { defineChain, type Chain, http } from 'viem';

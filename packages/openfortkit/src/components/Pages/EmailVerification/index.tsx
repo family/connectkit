@@ -18,8 +18,8 @@ type VerificationResponse = {
 }
 
 const EmailVerification: React.FC = () => {
-  const { verifyEmail, requestEmailVerification } = useOpenfort();
-  const { setRoute, log, triggerResize } = useOpenfortKit();
+  const { client } = useOpenfort();
+  const { setRoute, log } = useOpenfortKit();
 
   const [loading, setLoading] = useState(true);
   const [shouldSendEmailVerification, setShouldSendEmailVerification] = useState<false | string>(false);
@@ -33,9 +33,9 @@ const EmailVerification: React.FC = () => {
     }
 
     const redirectUrl = new URL(window.location.origin + window.location.pathname);
-    redirectUrl.searchParams.append("fort_email_verification", "true");
+    redirectUrl.searchParams.append("openfortEmailVerificationUI", "true");
     redirectUrl.searchParams.append("email", email);
-    requestEmailVerification({
+    client.auth.requestEmailVerification({
       email,
       redirectUrl: redirectUrl.toString(),
     }).catch((e) => {
@@ -52,9 +52,9 @@ const EmailVerification: React.FC = () => {
   useEffect(() => {
     const fixedUrl = window.location.href.replace("?state=", "&state="); // redirectUrl is not working with query params
     const url = new URL(fixedUrl);
-    const fortEmailVerification = url.searchParams.get("fort_email_verification");
+    const openfortEmailVerificationUI = url.searchParams.get("openfortEmailVerificationUI");
 
-    if (!fortEmailVerification) {
+    if (!openfortEmailVerificationUI) {
       // Send email verification flow
       if (!emailInStorage) {
         setRoute(routes.EMAIL_LOGIN);
@@ -77,7 +77,7 @@ const EmailVerification: React.FC = () => {
     }
 
     const removeParams = () => {
-      ["state", "fort_email_verification", "email"].forEach((key) => url.searchParams.delete(key));
+      ["state", "openfortEmailVerificationUI", "email"].forEach((key) => url.searchParams.delete(key));
       window.history.replaceState({}, document.title, url.toString());
     }
 
@@ -87,24 +87,27 @@ const EmailVerification: React.FC = () => {
     }
 
     log("EmailVerification", state, email);
-    verifyEmail({
-      email,
-      state,
-    }).then(() => {
-      removeParams();
-      setLoading(false);
-      setVerificationResponse({
-        success: true,
-      });
-    }).catch((e) => {
-      log("Error verifying email", e);
-      setLoading(false);
+    (async () => {
+      try {
+        await client.auth.verifyEmail({
+          email,
+          state,
+        })
+        setVerificationResponse({
+          success: true,
+        });
+      } catch (e) {
+        setVerificationResponse({
+          success: false,
+          error: "There was an error verifying your email. Please try again.",
+        });
+        log("Error verifying email", e);
+      } finally {
+        removeParams();
+        setLoading(false);
+      }
+    })();
 
-      setVerificationResponse({
-        success: false,
-        error: "There was an error verifying your email. Please try again.",
-      });
-    })
   }, [])
 
 

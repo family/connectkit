@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { AuthProvider } from "@openfort/openfort-kit";
+import { AuthProvider } from "@openfort/react";
 import { EnvelopeOpenIcon } from "@radix-ui/react-icons";
 import { ArrowLeft, GripVertical, User2Icon } from "lucide-react";
 import { useEffect, useState } from "react";

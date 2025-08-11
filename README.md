@@ -6,7 +6,7 @@
       Website
     </a>
     <span> | </span>
-    <a href="https://www.openfort.io/docs/products/kit/react/quickstart">
+    <a href="https://www.openfort.io/docs/products/embedded-wallet/react/kit">
       Documentation
     </a>
     <span> | </span>
@@ -27,17 +27,17 @@
 
 # Openfort Kit
 
-[![Downloads](https://img.shields.io/npm/dm/@openfort/openfort-kit.svg)](https://www.npmjs.com/package/@openfort/openfort-kit)
+[![Downloads](https://img.shields.io/npm/dm/@openfort/react.svg)](https://www.npmjs.com/package/@openfort/react)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/kit/react/quickstart)
-[![Version](https://img.shields.io/npm/v/@openfort/openfort-js.svg)](https://www.npmjs.org/package/@openfort/openfort-js)
+[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/embedded-wallet/react/kit)
+[![Version](https://img.shields.io/npm/v/@openfort/react.svg)](https://www.npmjs.org/package/@openfort/react)
 
 
 The easiest way to integrate Openfort to your project, with built-in authentication and seamless wallet connectivity.
 
 It offers a simple, customizable UI. Supports authentication providers like Google, X, or Facebook out of the box. Access your address through Openfort’s [invisible wallet](https://www.openfort.io/docs/products/embedded-wallet/javascript) or connect their own wallet provider effortlessly.
 
-Docs: https://www.openfort.io/docs/products/kit/react/quickstart
+Docs: https://www.openfort.io/docs/products/embedded-wallet/react/kit
 
 ## Features
 
@@ -79,19 +79,19 @@ Add OpenfortKit to your already existing project.
 #### npm
 
 ```sh
-npm install @openfort/openfort-kit @tanstack/react-query wagmi viem
+npm install @openfort/react @tanstack/react-query wagmi viem
 ```
 
 #### yarn
 
 ```sh
-yarn add @openfort/openfort-kit @tanstack/react-query wagmi viem
+yarn add @openfort/react @tanstack/react-query wagmi viem
 ```
 
 #### pnpm
 
 ```sh
-pnpm add @openfort/openfort-kit @tanstack/react-query wagmi viem
+pnpm add @openfort/react @tanstack/react-query wagmi viem
 ```
 
 ## Documentation

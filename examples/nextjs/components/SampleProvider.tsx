@@ -1,5 +1,5 @@
-import { AuthProvider, RecoveryMethod } from '@openfort/openfort-kit';
-import { Theme } from '@openfort/openfort-kit/build/types';
+import { AuthProvider, RecoveryMethod } from '@openfort/react';
+import { Theme } from '@openfort/react/build/types';
 import React, { createContext, useState, ReactNode } from 'react';
 
 interface SampleContextProps {

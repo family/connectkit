@@ -7,8 +7,8 @@ import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfort } from '../../../openfort/useOpenfort';
 import { useWallets } from "../../../wallets/useWallets";
 import FitText from "../../Common/FitText";
-import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { routes } from "../../OpenfortKit/types";
+import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { ProviderIcon as ProviderIconContainer } from "../Providers/styles";
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from "./styles";
 
@@ -18,7 +18,7 @@ const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }
 
   const wallets = useWallets();
   const wallet = useMemo(() => {
-    return wallets.find(w => w.name?.toLowerCase() === provider.walletClientType);
+    return wallets.find(w => w.id?.toLowerCase() === provider.walletClientType);
   }, [provider])
 
   if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>

@@ -1,18 +1,19 @@
 "use client";
 
-import { useIsMounted, useLogout, useModal, useProviders, useStatus, useUser, useWallets } from "@openfort/openfort-kit";
+import { useIsMounted, useSignOut, useUI, useUser, useWallets } from "@openfort/react";
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WriteContract";
 
 export const Info = () => {
   const isMounted = useIsMounted();
   const account = useAccount();
-  const { user } = useUser()
-  const logout = useLogout()
   const { data: ensName } = useEnsName({ address: account.address })
-  const { linkedProviders, availableProviders } = useProviders()
-  const { wallets, setActiveWallet, currentWallet } = useWallets()
-  const { openSwitchNetworks, setOpen, openProviders, openWallets } = useModal();
+  const { user } = useUser()
+  const { signOut } = useSignOut()
+  const { wallets, setActiveWallet, activeWallet: currentWallet } = useWallets();
+  const { openSwitchNetworks, open, openProviders, openWallets } = useUI();
+
+  const linkedProviders = user?.linkedAccounts.map(provider => provider.connectorType) || [];
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;
@@ -23,7 +24,7 @@ export const Info = () => {
         <h2>MODAL</h2>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button
-            onClick={() => { setOpen(true) }}
+            onClick={() => { open() }}
           >
             open modal
           </button>
@@ -64,11 +65,8 @@ export const Info = () => {
         <p>
           <b>linked providers:</b> {linkedProviders.join(", ")}
         </p>
-        <p>
-          <b>not linked providers:</b> {availableProviders.join(", ")}
-        </p>
         <button
-          onClick={() => logout()}
+          onClick={() => signOut()}
         >
           Log out
         </button>

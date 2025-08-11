@@ -1,0 +1,539 @@
+{
+	"schemaVersion": "2.0",
+	"id": 0,
+	"name": "vite",
+	"variant": "project",
+	"kind": 1,
+	"flags": {},
+	"children": [
+		{
+			"id": 1,
+			"name": "OpenfortKitProviderProps",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "examples/vite/src/generate-types.ts",
+					"line": 4,
+					"character": 12
+				}
+			],
+			"type": {
+				"type": "indexedAccess",
+				"indexType": {
+					"type": "literal",
+					"value": 0
+				},
+				"objectType": {
+					"type": "reference",
+					"target": {
+						"packageName": "typescript",
+						"packagePath": "lib/lib.es5.d.ts",
+						"qualifiedName": "Parameters"
+					},
+					"typeArguments": [
+						{
+							"type": "query",
+							"queryType": {
+								"type": "reference",
+								"target": 13,
+								"name": "OpenfortKitProvider",
+								"package": "@openfort/react"
+							}
+						}
+					],
+					"name": "Parameters",
+					"package": "typescript"
+				}
+			}
+		},
+		{
+			"id": 13,
+			"name": "OpenfortKitProvider",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "OpenfortKitProvider component provides context and configuration for OpenfortKit.\nIt must be used within a WagmiProvider."
+					}
+				],
+				"blockTags": [
+					{
+						"tag": "@throws",
+						"content": [
+							{
+								"kind": "text",
+								"text": "Will throw an error if used outside of a WagmiProvider or if nested usages are detected."
+							}
+						]
+					}
+				]
+			},
+			"sources": [
+				{
+					"fileName": "packages/openfortkit/build/components/OpenfortKit/OpenfortKit.d.ts",
+					"line": 30,
+					"character": 21
+				}
+			],
+			"type": {
+				"type": "reflection",
+				"declaration": {
+					"id": 14,
+					"name": "__type",
+					"variant": "declaration",
+					"kind": 65536,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/openfortkit/build/components/OpenfortKit/OpenfortKit.d.ts",
+							"line": 30,
+							"character": 42
+						}
+					],
+					"signatures": [
+						{
+							"id": 15,
+							"name": "__type",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"parameters": [
+								{
+									"id": 16,
+									"name": "{ children, mode, customTheme, uiConfig, onConnect, onDisconnect, debugMode, publishableKey, walletConfig, }",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"target": {
+											"packageName": "@openfort/react",
+											"packagePath": "build/components/OpenfortKit/OpenfortKit.d.ts",
+											"qualifiedName": "OpenfortKitProviderProps"
+										},
+										"name": "OpenfortKitProviderProps",
+										"package": "@openfort/react"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"packageName": "@types/react",
+									"packagePath": "index.d.ts",
+									"qualifiedName": "React.FunctionComponentElement"
+								},
+								"typeArguments": [
+									{
+										"type": "reference",
+										"target": {
+											"packageName": "@types/react",
+											"packagePath": "index.d.ts",
+											"qualifiedName": "React.ProviderProps"
+										},
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "reference",
+														"target": {
+															"packageName": "@openfort/react",
+															"packagePath": "build/components/OpenfortKit/context.d.ts",
+															"qualifiedName": "ContextValue"
+														},
+														"name": "ContextValue",
+														"package": "@openfort/react"
+													},
+													{
+														"type": "literal",
+														"value": null
+													}
+												]
+											}
+										],
+										"name": "React.ProviderProps",
+										"package": "@types/react"
+									}
+								],
+								"name": "React.FunctionComponentElement",
+								"package": "@types/react"
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"id": 2,
+			"name": "useGuestAuth",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+					"line": 7,
+					"character": 21
+				}
+			],
+			"type": {
+				"type": "reflection",
+				"declaration": {
+					"id": 3,
+					"name": "__type",
+					"variant": "declaration",
+					"kind": 65536,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+							"line": 7,
+							"character": 35
+						}
+					],
+					"signatures": [
+						{
+							"id": 4,
+							"name": "__type",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 5,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 9,
+											"name": "error",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+													"line": 11,
+													"character": 4
+												}
+											],
+											"type": {
+												"type": "union",
+												"types": [
+													{
+														"type": "reference",
+														"target": {
+															"packageName": "@openfort/react",
+															"packagePath": "build/types.d.ts",
+															"qualifiedName": "OpenfortKitError"
+														},
+														"name": "OpenfortKitError",
+														"package": "@openfort/react"
+													},
+													{
+														"type": "reference",
+														"target": {
+															"packageName": "typescript",
+															"packagePath": "lib/lib.es5.d.ts",
+															"qualifiedName": "Error"
+														},
+														"name": "Error",
+														"package": "typescript"
+													},
+													{
+														"type": "literal",
+														"value": null
+													},
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													}
+												]
+											}
+										},
+										{
+											"id": 7,
+											"name": "isError",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+													"line": 9,
+													"character": 4
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										},
+										{
+											"id": 6,
+											"name": "isLoading",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+													"line": 8,
+													"character": 4
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										},
+										{
+											"id": 8,
+											"name": "isSuccess",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+													"line": 10,
+													"character": 4
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										},
+										{
+											"id": 10,
+											"name": "signUpGuest",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+													"line": 12,
+													"character": 4
+												}
+											],
+											"type": {
+												"type": "reflection",
+												"declaration": {
+													"id": 11,
+													"name": "__type",
+													"variant": "declaration",
+													"kind": 65536,
+													"flags": {},
+													"sources": [
+														{
+															"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+															"line": 12,
+															"character": 17
+														}
+													],
+													"signatures": [
+														{
+															"id": 12,
+															"name": "__type",
+															"variant": "signature",
+															"kind": 4096,
+															"flags": {},
+															"type": {
+																"type": "reference",
+																"target": {
+																	"packageName": "typescript",
+																	"packagePath": "lib/lib.es5.d.ts",
+																	"qualifiedName": "Promise"
+																},
+																"typeArguments": [
+																	{
+																		"type": "reference",
+																		"target": {
+																			"packageName": "@openfort/react",
+																			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+																			"qualifiedName": "GuestHookResult"
+																		},
+																		"name": "GuestHookResult",
+																		"package": "@openfort/react"
+																	}
+																],
+																"name": "Promise",
+																"package": "typescript"
+															}
+														}
+													]
+												}
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												9,
+												7,
+												6,
+												8,
+												10
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "packages/openfortkit/build/hooks/openfort/auth/useGuestAuth.d.ts",
+											"line": 7,
+											"character": 41
+										}
+									]
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	],
+	"groups": [
+		{
+			"title": "Type Aliases",
+			"children": [
+				1
+			]
+		},
+		{
+			"title": "Variables",
+			"children": [
+				13,
+				2
+			]
+		}
+	],
+	"packageName": "vite",
+	"readme": [
+		{
+			"kind": "text",
+			"text": "# React + TypeScript + Vite\n\nThis template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.\n\nCurrently, two official plugins are available:\n\n- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh\n- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh\n\n## Expanding the ESLint configuration\n\nIf you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```js\nexport default tseslint.config({\n  extends: [\n    // Remove ...tseslint.configs.recommended and replace with this\n    ...tseslint.configs.recommendedTypeChecked,\n    // Alternatively, use this for stricter rules\n    ...tseslint.configs.strictTypeChecked,\n    // Optionally, add this for stylistic rules\n    ...tseslint.configs.stylisticTypeChecked,\n  ],\n  languageOptions: {\n    // other options...\n    parserOptions: {\n      project: ['./tsconfig.node.json', './tsconfig.app.json'],\n      tsconfigRootDir: import.meta.dirname,\n    },\n  },\n})\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nYou can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```js\n// eslint.config.js\nimport reactX from 'eslint-plugin-react-x'\nimport reactDom from 'eslint-plugin-react-dom'\n\nexport default tseslint.config({\n  plugins: {\n    // Add the react-x and react-dom plugins\n    'react-x': reactX,\n    'react-dom': reactDom,\n  },\n  rules: {\n    // other rules...\n    // Enable its recommended typescript rules\n    ...reactX.configs['recommended-typescript'].rules,\n    ...reactDom.configs.recommended.rules,\n  },\n})\n```"
+		}
+	],
+	"symbolIdMap": {
+		"0": {
+			"packageName": "vite",
+			"packagePath": "src/generate-types.ts",
+			"qualifiedName": ""
+		},
+		"1": {
+			"packageName": "vite",
+			"packagePath": "src/generate-types.ts",
+			"qualifiedName": "OpenfortKitProviderProps"
+		},
+		"2": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "useGuestAuth"
+		},
+		"3": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type"
+		},
+		"4": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type"
+		},
+		"5": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type"
+		},
+		"6": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type.isLoading"
+		},
+		"7": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type.isError"
+		},
+		"8": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type.isSuccess"
+		},
+		"9": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type.error"
+		},
+		"10": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type.signUpGuest"
+		},
+		"11": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type"
+		},
+		"12": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
+			"qualifiedName": "__type"
+		},
+		"13": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/OpenfortKit.d.ts",
+			"qualifiedName": "OpenfortKitProvider"
+		},
+		"14": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/OpenfortKit.d.ts",
+			"qualifiedName": "__type"
+		},
+		"15": {
+			"packageName": "@openfort/react",
+			"packagePath": "build/components/OpenfortKit/OpenfortKit.d.ts",
+			"qualifiedName": "__type"
+		}
+	},
+	"files": {
+		"entries": {
+			"1": "src/generate-types.ts",
+			"2": "README.md",
+			"3": ""
+		},
+		"reflections": {
+			"1": 0,
+			"2": 0,
+			"3": 0
+		}
+	}
+}

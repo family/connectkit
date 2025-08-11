@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { OpenfortKitProvider } from '@openfort/openfort-kit';
+import { OpenfortKitProvider } from '@openfort/react';
 import { Web3Provider } from '../components/Web3Provider';
 import { useTestBench } from '../TestbenchProvider';
 

@@ -9,9 +9,9 @@ import Button from "../../Common/Button";
 import Loader from "../../Common/Loading";
 import { PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
+import { AuthProvider, routes, socialProviders } from "../../OpenfortKit/types";
 import { useOpenfortKit } from '../../OpenfortKit/useOpenfortKit';
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
-import { AuthProvider, routes, socialProviders } from "../../OpenfortKit/types";
 
 const ProviderButton: React.FC<{
   onClick: () => void;

@@ -139,7 +139,7 @@ const MobileConnectors: React.FC = () => {
             </WalletList>
           </ScrollArea>
         </ModalContent>
-        {context.options?.walletConnectCTA !== 'modal' && (
+        {context.uiConfig?.walletConnectCTA !== 'modal' && (
           <div
             style={{
               display: 'flex',

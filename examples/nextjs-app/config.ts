@@ -1,4 +1,4 @@
-import { getDefaultConfig } from '@openfort/openfort-kit';
+import { getDefaultConfig } from '@openfort/react';
 import { createConfig } from 'wagmi';
 import { beamTestnet, polygonAmoy, sepolia } from 'viem/chains';
 
