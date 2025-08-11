@@ -3,7 +3,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { BaseVariable } from '@/components/Variable/Variable';
 import { cn } from '@/lib/cn';
 import { useAppStore } from '@/lib/useAppStore';
-import { RecoveryMethod, useUser, useWallets } from '@openfort/openfort-kit';
+import { RecoveryMethod, useUser, useWallets } from '@openfort/react';
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router';
 import { ArrowUpRight } from 'lucide-react';
 import { PropsWithChildren, useMemo } from 'react';

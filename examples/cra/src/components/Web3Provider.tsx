@@ -2,7 +2,7 @@ import React from 'react';
 
 import { WagmiProvider, createConfig } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
+import { AuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/react';
 
 const config = createConfig(
   getDefaultConfig({

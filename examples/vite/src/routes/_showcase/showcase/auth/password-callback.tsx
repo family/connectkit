@@ -11,7 +11,7 @@ import { EyeIcon, EyeOffIcon, LockIcon } from "lucide-react"
 import { useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useEmailAuth } from '@openfort/openfort-kit'
+import { useEmailAuth } from '@openfort/react'
 
 export const Route = createFileRoute(
   '/_showcase/showcase/auth/password-callback',

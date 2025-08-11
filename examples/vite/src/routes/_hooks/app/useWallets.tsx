@@ -1,5 +1,5 @@
 import { HookVariable } from '@/components/Variable/HookVariable'
-import { embeddedWalletId, useWallets } from '@openfort/openfort-kit'
+import { embeddedWalletId, useWallets } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { Layout } from '../../../components/Layout'

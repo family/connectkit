@@ -1,7 +1,7 @@
 
 import { HookVariable } from '@/components/Variable/HookVariable';
 import { onSettledInputs, onSettledOptions } from '@/components/Variable/commonVariables';
-import { useSignOut } from '@openfort/openfort-kit';
+import { useSignOut } from '@openfort/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { Layout } from '../../../components/Layout';
 

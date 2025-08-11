@@ -1,5 +1,5 @@
 import { HookVariable } from '@/components/Variable/HookVariable'
-import { useStatus } from '@openfort/openfort-kit'
+import { useStatus } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { Layout } from '../../../components/Layout'
 

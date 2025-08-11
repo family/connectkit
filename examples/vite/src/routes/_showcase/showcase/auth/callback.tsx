@@ -2,7 +2,7 @@ import { DialogLayout } from '@/components/Showcase/auth/DialogLayout'
 import { Header } from '@/components/Showcase/ui/Header'
 import { InputMessage } from '@/components/Showcase/ui/InputMessage'
 import { useCommonEmail } from '@/components/Showcase/auth/useCommonEmail'
-import { useAuthCallback } from '@openfort/openfort-kit'
+import { useAuthCallback } from '@openfort/react'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_showcase/showcase/auth/callback')({

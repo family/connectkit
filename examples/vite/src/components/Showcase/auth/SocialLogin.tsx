@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/Showcase/ui/Button";
 import { ProviderLogo } from "@/components/Showcase/ui/ProviderLogo";
-import { AuthProvider, useOAuth } from "@openfort/openfort-kit";
+import { AuthProvider, useOAuth } from "@openfort/react";
 
 
 function getProviderName(provider: AuthProvider) {

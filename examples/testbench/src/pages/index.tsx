@@ -9,7 +9,7 @@ import {
   useChains,
   AuthProvider,
   useUI,
-} from '@openfort/openfort-kit';
+} from '@openfort/react';
 
 import {
   useAccount,

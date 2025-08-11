@@ -1,6 +1,6 @@
 import { ModeToggle } from '@/components/mode-toggle';
 import { Nav } from '@/components/Nav';
-import { OpenfortKitButton } from '@openfort/openfort-kit';
+import { OpenfortKitButton } from '@openfort/react';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import z from 'zod';
 

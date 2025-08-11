@@ -1,5 +1,5 @@
 import { Button } from "@/components/Showcase/ui/Button";
-import { useGuestAuth } from "@openfort/openfort-kit";
+import { useGuestAuth } from "@openfort/react";
 import { UserIcon } from "lucide-react";
 
 export function GuestLogin() {

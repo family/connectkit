@@ -1,6 +1,6 @@
 import { HookVariable } from '@/components/Variable/HookVariable';
 import { onSettledOptions, onSettledInputs } from '@/components/Variable/commonVariables';
-import { useWalletAuth } from '@openfort/openfort-kit';
+import { useWalletAuth } from '@openfort/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { Layout } from '../../../components/Layout';
 

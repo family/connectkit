@@ -1,6 +1,6 @@
 import { HookVariable } from '@/components/Variable/HookVariable';
 import { onSettledOptions, onSettledInputs } from '@/components/Variable/commonVariables';
-import { AuthProvider, useOAuth } from '@openfort/openfort-kit';
+import { AuthProvider, useOAuth } from '@openfort/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { FunctionInputType } from '../../../components/Form/Form';
 import { Layout } from '../../../components/Layout';

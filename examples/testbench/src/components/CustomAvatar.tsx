@@ -1,4 +1,4 @@
-import { Types } from '@openfort/openfort-kit';
+import { Types } from '@openfort/react';
 
 import { motion } from 'framer-motion';
 

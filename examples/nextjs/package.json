@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@openfort/openfort-kit": "workspace:packages/openfortkit",
     "@openfort/openfort-node": "^0.6.71",
+    "@openfort/react": "workspace:packages/openfortkit",
     "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/react-select": "^2.1.6",
     "@tanstack/react-query": "^5.17.15",

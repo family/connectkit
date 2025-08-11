@@ -2,7 +2,7 @@ import { DialogLayout } from '@/components/Showcase/auth/DialogLayout';
 import { Button } from '@/components/Showcase/ui/Button';
 import { Header } from '@/components/Showcase/ui/Header';
 import { InputMessage } from '@/components/Showcase/ui/InputMessage';
-import { useWalletAuth } from '@openfort/openfort-kit';
+import { useWalletAuth } from '@openfort/react';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 export const Route = createFileRoute(

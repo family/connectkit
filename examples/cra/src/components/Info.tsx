@@ -1,4 +1,4 @@
-import { useIsMounted, useUI, useSignOut, useUser, useWallets } from "@openfort/openfort-kit";
+import { useIsMounted, useUI, useSignOut, useUser, useWallets } from "@openfort/react";
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WriteContract";
 

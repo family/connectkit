@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
-    "@openfort/openfort-kit": "workspace:packages/openfortkit",
+    "@openfort/react": "workspace:packages/openfortkit",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.2.5",

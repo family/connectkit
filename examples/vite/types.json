@@ -1,7 +1,7 @@
 {
 	"schemaVersion": "2.0",
 	"id": 0,
-	"name": "@openfort/openfort-kit",
+	"name": "@openfort/react",
 	"variant": "project",
 	"kind": 1,
 	"flags": {},
@@ -242,12 +242,12 @@
 											{
 												"type": "reference",
 												"target": {
-													"packageName": "@openfort/openfort-kit",
+													"packageName": "@openfort/react",
 													"packagePath": "build/components/Common/Avatar/index.d.ts",
 													"qualifiedName": "CustomAvatarProps"
 												},
 												"name": "CustomAvatarProps",
-												"package": "@openfort/openfort-kit"
+												"package": "@openfort/react"
 											}
 										],
 										"name": "React.FC",
@@ -468,12 +468,12 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"packageName": "@openfort/openfort-kit",
+											"packageName": "@openfort/react",
 											"packagePath": "build/types.d.ts",
 											"qualifiedName": "Theme"
 										},
 										"name": "Theme",
-										"package": "@openfort/openfort-kit"
+										"package": "@openfort/react"
 									}
 								},
 								{
@@ -586,7 +586,7 @@
 						"type": "reference",
 						"target": 29,
 						"name": "OpenfortOptions",
-						"package": "@openfort/openfort-kit"
+						"package": "@openfort/react"
 					}
 				]
 			}
@@ -682,12 +682,12 @@
 											{
 												"type": "reference",
 												"target": {
-													"packageName": "@openfort/openfort-kit",
+													"packageName": "@openfort/react",
 													"packagePath": "build/components/Common/Avatar/index.d.ts",
 													"qualifiedName": "CustomAvatarProps"
 												},
 												"name": "CustomAvatarProps",
-												"package": "@openfort/openfort-kit"
+												"package": "@openfort/react"
 											}
 										],
 										"name": "React.FC",
@@ -948,12 +948,12 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"packageName": "@openfort/openfort-kit",
+											"packageName": "@openfort/react",
 											"packagePath": "build/types.d.ts",
 											"qualifiedName": "Languages"
 										},
 										"name": "Languages",
-										"package": "@openfort/openfort-kit"
+										"package": "@openfort/react"
 									}
 								},
 								{
@@ -1012,12 +1012,12 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"packageName": "@openfort/openfort-kit",
+											"packageName": "@openfort/react",
 											"packagePath": "build/types.d.ts",
 											"qualifiedName": "Theme"
 										},
 										"name": "Theme",
-										"package": "@openfort/openfort-kit"
+										"package": "@openfort/react"
 									}
 								},
 								{
@@ -1156,7 +1156,7 @@
 						"type": "reference",
 						"target": 29,
 						"name": "OpenfortOptions",
-						"package": "@openfort/openfort-kit"
+						"package": "@openfort/react"
 					}
 				]
 			}
@@ -1189,7 +1189,7 @@
 							"type": "reference",
 							"target": 20,
 							"name": "AuthProvider",
-							"package": "@openfort/openfort-kit"
+							"package": "@openfort/react"
 						}
 					}
 				},
@@ -1263,12 +1263,12 @@
 						"objectType": {
 							"type": "reference",
 							"target": {
-								"packageName": "@openfort/openfort-kit",
+								"packageName": "@openfort/react",
 								"packagePath": "build/openfort/OpenfortProvider.d.ts",
 								"qualifiedName": "OpenfortProviderProps"
 							},
 							"name": "OpenfortProviderProps",
-							"package": "@openfort/openfort-kit"
+							"package": "@openfort/react"
 						}
 					}
 				},
@@ -1371,12 +1371,12 @@
 			"type": {
 				"type": "reference",
 				"target": {
-					"packageName": "@openfort/openfort-kit",
+					"packageName": "@openfort/react",
 					"packagePath": "build/components/OpenfortKit/types.d.ts",
 					"qualifiedName": "EmbeddedSignerConfiguration"
 				},
 				"name": "EmbeddedSignerConfiguration",
-				"package": "@openfort/openfort-kit"
+				"package": "@openfort/react"
 			}
 		},
 		{
@@ -1799,7 +1799,7 @@
 					"type": "reference",
 					"target": 20,
 					"name": "AuthProvider",
-					"package": "@openfort/openfort-kit"
+					"package": "@openfort/react"
 				}
 			}
 		}
@@ -1828,7 +1828,7 @@
 			]
 		}
 	],
-	"packageName": "@openfort/openfort-kit",
+	"packageName": "@openfort/react",
 	"readme": [
 		{
 			"kind": "text",
@@ -1876,7 +1876,7 @@
 		},
 		{
 			"kind": "code",
-			"text": "```sh\nnpm install @openfort/openfort-kit @tanstack/react-query wagmi viem\n```"
+			"text": "```sh\nnpm install @openfort/react @tanstack/react-query wagmi viem\n```"
 		},
 		{
 			"kind": "text",
@@ -1884,7 +1884,7 @@
 		},
 		{
 			"kind": "code",
-			"text": "```sh\nyarn add @openfort/openfort-kit @tanstack/react-query wagmi viem\n```"
+			"text": "```sh\nyarn add @openfort/react @tanstack/react-query wagmi viem\n```"
 		},
 		{
 			"kind": "text",
@@ -1892,7 +1892,7 @@
 		},
 		{
 			"kind": "code",
-			"text": "```sh\npnpm add @openfort/openfort-kit @tanstack/react-query wagmi viem\n```"
+			"text": "```sh\npnpm add @openfort/react @tanstack/react-query wagmi viem\n```"
 		},
 		{
 			"kind": "text",
@@ -1925,397 +1925,397 @@
 	],
 	"symbolIdMap": {
 		"0": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": ""
 		},
 		"1": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "routes"
 		},
 		"2": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type"
 		},
 		"3": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.PROVIDERS"
 		},
 		"4": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.SOCIAL_PROVIDERS"
 		},
 		"5": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.LOADING"
 		},
 		"6": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.RECOVER"
 		},
 		"7": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.EMAIL_LOGIN"
 		},
 		"8": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.EMAIL_SIGNUP"
 		},
 		"9": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.FORGOT_PASSWORD"
 		},
 		"10": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.EMAIL_VERIFICATION"
 		},
 		"11": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.LINK_EMAIL"
 		},
 		"12": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.ONBOARDING"
 		},
 		"13": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.ABOUT"
 		},
 		"14": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.CONNECTORS"
 		},
 		"15": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.MOBILECONNECTORS"
 		},
 		"16": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.CONNECT"
 		},
 		"17": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.DOWNLOAD"
 		},
 		"18": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.PROFILE"
 		},
 		"19": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.SWITCHNETWORKS"
 		},
 		"20": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "AuthProvider"
 		},
 		"21": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "AuthProvider.GOOGLE"
 		},
 		"22": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "AuthProvider.TWITTER"
 		},
 		"23": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "AuthProvider.FACEBOOK"
 		},
 		"24": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "AuthProvider.EMAIL"
 		},
 		"25": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "AuthProvider.WALLET"
 		},
 		"26": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "AuthProvider.GUEST"
 		},
 		"27": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "socialProviders"
 		},
 		"28": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "OpenfortWalletConfig"
 		},
 		"29": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "OpenfortOptions"
 		},
 		"31": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.linkWalletOnSignUp"
 		},
 		"32": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.authProviders"
 		},
 		"33": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.skipEmailVerification"
 		},
 		"34": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.termsOfServiceUrl"
 		},
 		"35": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.privacyPolicyUrl"
 		},
 		"36": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.logo"
 		},
 		"37": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.openfortUrlOverrides"
 		},
 		"38": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "ConnectKitOptions"
 		},
 		"39": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type"
 		},
 		"40": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.theme"
 		},
 		"41": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.hideBalance"
 		},
 		"42": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.hideTooltips"
 		},
 		"43": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.hideRecentBadge"
 		},
 		"44": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.walletConnectCTA"
 		},
 		"45": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.avoidLayoutShift"
 		},
 		"46": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.embedGoogleFonts"
 		},
 		"47": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.truncateLongENSAddress"
 		},
 		"48": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.walletConnectName"
 		},
 		"49": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.reducedMotion"
 		},
 		"50": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.disclaimer"
 		},
 		"51": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.bufferPolyfill"
 		},
 		"52": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.customAvatar"
 		},
 		"53": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.initialChainId"
 		},
 		"54": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.enforceSupportedChains"
 		},
 		"55": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.overlayBlur"
 		},
 		"56": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "ConnectKitOptionsExtended"
 		},
 		"57": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type"
 		},
 		"58": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.theme"
 		},
 		"59": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.language"
 		},
 		"60": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.hideBalance"
 		},
 		"61": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.hideTooltips"
 		},
 		"62": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.hideQuestionMarkCTA"
 		},
 		"63": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.hideNoWalletCTA"
 		},
 		"64": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.hideRecentBadge"
 		},
 		"65": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.walletConnectCTA"
 		},
 		"66": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.avoidLayoutShift"
 		},
 		"67": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.embedGoogleFonts"
 		},
 		"68": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.truncateLongENSAddress"
 		},
 		"69": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.walletConnectName"
 		},
 		"70": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.reducedMotion"
 		},
 		"71": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.disclaimer"
 		},
 		"72": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.bufferPolyfill"
 		},
 		"73": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.customAvatar"
 		},
 		"74": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.initialChainId"
 		},
 		"75": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.enforceSupportedChains"
 		},
 		"76": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.ethereumOnboardingUrl"
 		},
 		"77": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.walletOnboardingUrl"
 		},
 		"78": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.disableSiweRedirect"
 		},
 		"79": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/types.d.ts",
 			"qualifiedName": "__type.overlayBlur"
 		}

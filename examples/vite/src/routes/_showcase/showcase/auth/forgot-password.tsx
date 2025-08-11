@@ -6,7 +6,7 @@ import { InputMessage } from "@/components/Showcase/ui/InputMessage"
 import { useCommonEmail } from "@/components/Showcase/auth/useCommonEmail"
 import { cn } from "@/lib/cn"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEmailAuth } from "@openfort/openfort-kit"
+import { useEmailAuth } from "@openfort/react"
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { MailIcon, Send } from "lucide-react"
 import { useForm } from "react-hook-form"

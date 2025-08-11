@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 
-import { OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
+import { OpenfortKitProvider, getDefaultConfig } from '@openfort/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';

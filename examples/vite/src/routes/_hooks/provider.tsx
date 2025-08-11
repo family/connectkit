@@ -1,4 +1,4 @@
-import { RecoveryMethod, Theme } from '@openfort/openfort-kit'
+import { RecoveryMethod, Theme } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { Layout } from '../../components/Layout'
 import { Variable } from '../../components/Variable/Variable'

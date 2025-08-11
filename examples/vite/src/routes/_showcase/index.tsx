@@ -5,7 +5,7 @@ import { GuestLogin } from '@/components/Showcase/auth/GuestLogin'
 import { SampleTooltipLink } from '@/components/Showcase/auth/SampleTooltipLink'
 import { SocialLogin } from '@/components/Showcase/auth/SocialLogin'
 import { Logo } from '@/components/ui/logo'
-import { AuthProvider, useStatus } from '@openfort/openfort-kit'
+import { AuthProvider, useStatus } from '@openfort/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Wallet2Icon } from 'lucide-react'
 

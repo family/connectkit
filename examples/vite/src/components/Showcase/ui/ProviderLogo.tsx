@@ -1,6 +1,6 @@
 import { Facebook, Google, Twitter } from "@/assets/logos";
 import { cn } from "@/lib/cn";
-import { AuthProvider } from "@openfort/openfort-kit";
+import { AuthProvider } from "@openfort/react";
 import { Globe } from "lucide-react";
 
 

@@ -3,7 +3,7 @@
 import { BookOpenText } from "lucide-react"
 import Button from "../components/Button"
 
-import { OpenfortKitButton, useUI, useUser, useWallets } from "@openfort/openfort-kit"
+import { OpenfortKitButton, useUI, useUser, useWallets } from "@openfort/react"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import { useAccount } from "wagmi"
 

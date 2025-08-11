@@ -39,7 +39,7 @@
 								"type": "reference",
 								"target": 13,
 								"name": "OpenfortKitProvider",
-								"package": "@openfort/openfort-kit"
+								"package": "@openfort/react"
 							}
 						}
 					],
@@ -114,12 +114,12 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"packageName": "@openfort/openfort-kit",
+											"packageName": "@openfort/react",
 											"packagePath": "build/components/OpenfortKit/OpenfortKit.d.ts",
 											"qualifiedName": "OpenfortKitProviderProps"
 										},
 										"name": "OpenfortKitProviderProps",
-										"package": "@openfort/openfort-kit"
+										"package": "@openfort/react"
 									}
 								}
 							],
@@ -145,12 +145,12 @@
 													{
 														"type": "reference",
 														"target": {
-															"packageName": "@openfort/openfort-kit",
+															"packageName": "@openfort/react",
 															"packagePath": "build/components/OpenfortKit/context.d.ts",
 															"qualifiedName": "ContextValue"
 														},
 														"name": "ContextValue",
-														"package": "@openfort/openfort-kit"
+														"package": "@openfort/react"
 													},
 													{
 														"type": "literal",
@@ -236,12 +236,12 @@
 													{
 														"type": "reference",
 														"target": {
-															"packageName": "@openfort/openfort-kit",
+															"packageName": "@openfort/react",
 															"packagePath": "build/types.d.ts",
 															"qualifiedName": "OpenfortKitError"
 														},
 														"name": "OpenfortKitError",
-														"package": "@openfort/openfort-kit"
+														"package": "@openfort/react"
 													},
 													{
 														"type": "reference",
@@ -364,12 +364,12 @@
 																	{
 																		"type": "reference",
 																		"target": {
-																			"packageName": "@openfort/openfort-kit",
+																			"packageName": "@openfort/react",
 																			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 																			"qualifiedName": "GuestHookResult"
 																		},
 																		"name": "GuestHookResult",
-																		"package": "@openfort/openfort-kit"
+																		"package": "@openfort/react"
 																	}
 																],
 																"name": "Promise",
@@ -454,72 +454,72 @@
 			"qualifiedName": "OpenfortKitProviderProps"
 		},
 		"2": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "useGuestAuth"
 		},
 		"3": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type"
 		},
 		"4": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type"
 		},
 		"5": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type"
 		},
 		"6": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type.isLoading"
 		},
 		"7": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type.isError"
 		},
 		"8": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type.isSuccess"
 		},
 		"9": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type.error"
 		},
 		"10": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type.signUpGuest"
 		},
 		"11": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type"
 		},
 		"12": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/hooks/openfort/auth/useGuestAuth.d.ts",
 			"qualifiedName": "__type"
 		},
 		"13": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/OpenfortKit.d.ts",
 			"qualifiedName": "OpenfortKitProvider"
 		},
 		"14": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/OpenfortKit.d.ts",
 			"qualifiedName": "__type"
 		},
 		"15": {
-			"packageName": "@openfort/openfort-kit",
+			"packageName": "@openfort/react",
 			"packagePath": "build/components/OpenfortKit/OpenfortKit.d.ts",
 			"qualifiedName": "__type"
 		}

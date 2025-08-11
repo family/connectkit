@@ -1,6 +1,6 @@
 import { onSettledInputs, onSettledOptions } from '@/components/Variable/commonVariables';
 import { HookVariable } from '@/components/Variable/HookVariable';
-import { useGuestAuth } from '@openfort/openfort-kit';
+import { useGuestAuth } from '@openfort/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { Layout } from '../../../components/Layout';
 

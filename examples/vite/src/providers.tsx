@@ -1,4 +1,4 @@
-import { OpenfortKitProvider, getDefaultConfig } from '@openfort/openfort-kit';
+import { OpenfortKitProvider, getDefaultConfig } from '@openfort/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { WagmiProvider, createConfig, http } from 'wagmi';

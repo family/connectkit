@@ -1,7 +1,7 @@
 import { SignaturesCard } from '@/components/Showcase/app/Signatures';
 import { SwitchChainCard } from '@/components/Showcase/app/SwitchChain';
 import { WriteContractCard } from '@/components/Showcase/app/WriteContract';
-import { useUser } from '@openfort/openfort-kit';
+import { useUser } from '@openfort/react';
 import { useAccount } from 'wagmi';
 
 export const App = () => {

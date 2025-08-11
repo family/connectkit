@@ -1,4 +1,4 @@
-import { AuthProvider, OpenfortKitProvider, RecoveryMethod } from "@openfort/openfort-kit";
+import { AuthProvider, OpenfortKitProvider, RecoveryMethod } from "@openfort/react";
 import { create } from "zustand";
 
 type EditingEntity = {
