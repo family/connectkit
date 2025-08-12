@@ -11,7 +11,7 @@ export function GuestLogin() {
         "Creating wallet..."
       ) : (
         <>
-          <UserIcon className='w-5 h-5 mr-2' />
+          <UserIcon className='w-4.5 h-4.5 mr-2' />
           Continue as guest
         </>
       )}

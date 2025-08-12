@@ -7,7 +7,7 @@ import { SocialLogin } from '@/components/Showcase/auth/SocialLogin'
 import { Logo } from '@/components/ui/logo'
 import { AuthProvider, useStatus } from '@openfort/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Wallet2Icon } from 'lucide-react'
+import { WalletIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/_showcase/')({
   component: RouteComponent,
@@ -79,7 +79,7 @@ function RouteComponent() {
                 fn='connectWallet'
               >
                 <Link className='btn btn-accent' to="/showcase/auth/connect-wallet" >
-                  <Wallet2Icon className='w-5 h-5' />
+                  <WalletIcon className='w-4.5 h-4.5' />
                   Continue with wallet
                 </Link>
               </SampleTooltipLink>

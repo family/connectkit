@@ -35,7 +35,7 @@ export function SocialLogin({ provider }: { provider: AuthProvider }) {
           "Redirecting..."
         ) : (
           <>
-            <ProviderLogo provider={provider} className="w-5 h-5 mr-2" />
+            <ProviderLogo provider={provider} className="w-4 h-4 mr-2" />
             Continue with {getProviderName(provider)}
           </>
         )
