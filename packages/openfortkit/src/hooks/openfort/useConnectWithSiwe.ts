@@ -70,7 +70,7 @@ export function useConnectWithSiwe() {
         onError && onError("Failed to connect with SIWE");
       }
     }
-  }, [client, user, updateUser, log]);
+  }, [client, user, updateUser, log, address, chainId, config, connector]);
 
   return connectWithSiwe;
 }

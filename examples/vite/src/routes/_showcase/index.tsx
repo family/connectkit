@@ -14,8 +14,9 @@ export const Route = createFileRoute('/_showcase/')({
 })
 
 function RouteComponent() {
-  const { isConnected } = useStatus();
+  const { isConnected, isLoading } = useStatus();
 
+  if (isLoading) return null;
   if (isConnected) {
     return (
       <App />
