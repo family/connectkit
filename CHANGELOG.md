@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.2] - 2025-08-11
+
+### Multi account
+
+- Adding multi account
+
 ## [0.0.1] - 2025-08-11
 
 ### Hooks
