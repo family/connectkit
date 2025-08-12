@@ -33,18 +33,14 @@
 [![Version](https://img.shields.io/npm/v/@openfort/react.svg)](https://www.npmjs.org/package/@openfort/react)
 
 
-The easiest way to integrate Openfort to your project, with built-in authentication and seamless wallet connectivity.
-
-It offers a simple, customizable UI. Supports authentication providers like Google, X, or Facebook out of the box. Access your address through Openfort’s [invisible wallet](https://www.openfort.io/docs/products/embedded-wallet/javascript) or connect their own wallet provider effortlessly.
-
-Docs: https://www.openfort.io/docs/products/embedded-wallet/react/kit
+The easiest way to use embedded wallets, with built-in authentication and payments capabilities.
 
 ## Features
 
 - 💡 TypeScript Ready — Get types straight out of the box.
-- 🌱 Ecosystem Standards — Uses top libraries such as [wagmi](https://github.com/wagmi-dev/wagmi).
-- 🖥️ Simple UX — Give users a simple, attractive experience.
-- 🎨 Beautiful Themes — Predesigned themes or full customization.
+- 🌱 Ecosystem Friendly — Uses top libraries such as [wagmi](https://github.com/wagmi-dev/wagmi) for hooks.
+- 🎨 Simple UI — Use prebuilt elements for authenticaiton and wallet connection.
+- 🖥️ React Hooks - To interact directly with embedded wallet capabilities.
 
 and much more...
 
