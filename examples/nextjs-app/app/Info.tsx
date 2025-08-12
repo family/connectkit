@@ -1,11 +1,11 @@
 "use client";
 
-import { useIsMounted, useSignOut, useUI, useUser, useWallets } from "@openfort/react";
+import { useSignOut, useUI, useUser, useWallets } from "@openfort/react";
+import { useEffect, useState } from "react";
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WriteContract";
 
 export const Info = () => {
-  const isMounted = useIsMounted();
   const account = useAccount();
   const { data: ensName } = useEnsName({ address: account.address })
   const { user } = useUser()
@@ -14,6 +14,11 @@ export const Info = () => {
   const { openSwitchNetworks, open, openProviders, openWallets } = useUI();
 
   const linkedProviders = user?.linkedAccounts.map(provider => provider.connectorType) || [];
+
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Avoid mismatch by rendering nothing during SSR
   if (!isMounted) return null;

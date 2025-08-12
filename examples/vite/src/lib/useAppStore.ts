@@ -57,7 +57,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortKitProvider>[0] = {
     getEncryptionSession: undefined, // Optional function to get the encryption session
     // shieldEncryptionKey: undefined, // Optional encryption key for the shield
 
-    createEncryptedSessionEndpoint: "http://localhost:3110/api/protected-create-encryption-session",
+    createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
   },
   onConnect: undefined,
   onDisconnect: undefined,

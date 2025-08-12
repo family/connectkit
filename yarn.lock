@@ -17344,7 +17344,7 @@ __metadata:
     tslib: ^1.9.3
     typescript: ^5.0.4
     typescript-plugin-styled-components: ^2.0.0
-    viem: ^2.33.0
+    viem: 2.33.0
     wagmi: ^2.16.0
   languageName: unknown
   linkType: soft
@@ -17453,9 +17453,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ox@npm:0.8.6":
-  version: 0.8.6
-  resolution: "ox@npm:0.8.6"
+"ox@npm:0.8.1":
+  version: 0.8.1
+  resolution: "ox@npm:0.8.1"
   dependencies:
     "@adraffy/ens-normalize": ^1.11.0
     "@noble/ciphers": ^1.3.0
@@ -17470,7 +17470,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: cefabd1b2f615e2e0600589a1d46e4f15b3f494d7347bcf96e7d3e388dcba36dd6e9b572650a4e7c0aeae1fd6796c02fb02f09db6c34f2f73606c8f174fef787
+  checksum: 0c8c3210c173f44f617055cfca34630dd74752f21f7f244d25095403aaebb748d53197f78ba24a830024dc4f7d8f2c7175230d2a7d95ae5826509571791a1763
   languageName: node
   linkType: hard
 
@@ -22851,9 +22851,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.33.0":
-  version: 2.33.3
-  resolution: "viem@npm:2.33.3"
+"viem@npm:2.33.0":
+  version: 2.33.0
+  resolution: "viem@npm:2.33.0"
   dependencies:
     "@noble/curves": 1.9.2
     "@noble/hashes": 1.8.0
@@ -22861,14 +22861,14 @@ __metadata:
     "@scure/bip39": 1.6.0
     abitype: 1.0.8
     isows: 1.0.7
-    ox: 0.8.6
+    ox: 0.8.1
     ws: 8.18.2
   peerDependencies:
     typescript: ">=5.0.4"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 1053dd69197f23773d1a57d0c652938e4bc53458b1c58409a0f955514b678e207740b8fa54dcf4a0621b6d5ade5e1b8f024b809bfd94488163e4d761bc7725e7
+  checksum: b104967ac1da74d946b7179d9ecb15514915acbec1a6e4598ab8a6a2583a17fb04419f4f607405033f3e0a79c435e5759896dafcc0b59e347770944f159eae44
   languageName: node
   linkType: hard
 
