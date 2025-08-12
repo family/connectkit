@@ -7,33 +7,19 @@ export const Route = createFileRoute('/_hooks/wallet/useWallet')({
   component: RouteComponent,
 })
 
-const useNoHook = () => {
-  return {}
+const useWalletWrapper = () => {
+  const wallet = useWallet()
+  return wallet ? wallet : {}
 }
 
 function RouteComponent() {
-  const wallet = useWallet()
-
   return (
     <Layout>
-      {
-        wallet ? (
-          <HookVariable
-            name='useWallet'
-            // @ts-expect-error No object params
-            hook={useWallet}
-            description='This hook provides access to the wallets available in the application.'
-          />
-        ) : (
-          <>
-            <HookVariable
-              name='useWallet'
-              hook={useNoHook}
-              description='This hook provides access to the wallets available in the application.'
-            />
-          </>
-        )
-      }
+      <HookVariable
+        name='useWallet'
+        hook={useWalletWrapper}
+        description='This hook provides access to the wallets available in the application.'
+      />
     </Layout>
   )
 }
