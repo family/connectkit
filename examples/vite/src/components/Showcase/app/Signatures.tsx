@@ -23,12 +23,12 @@ export const SignaturesCard = () => {
             const message = (e.target as HTMLFormElement).message.value
             signMessage({ message })
           }}
-
         >
           <label className={cn(
             "input w-full",
           )}>
             <input
+              name="message"
               type="username"
               placeholder="Enter a message to sign"
               className="grow peer"
@@ -36,9 +36,6 @@ export const SignaturesCard = () => {
           </label>
           <Button
             className='btn btn-accent w-full'
-            // onClick={() => signMessage({
-            //   message: 'This is a test message to sign',
-            // })}
           >
             Sign a message
           </Button>

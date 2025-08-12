@@ -16,7 +16,7 @@ export const InputMessage = ({ message, show, className, variant }: { message: s
         >
           <div className="mt-1">
             <span className={cn(
-              "text-sm whitespace-normal",
+              "text-sm whitespace-normal break-words",
               variant === "success" && "text-success",
               variant === "error" && "text-error",
               className
