@@ -1,14 +1,16 @@
-import { EmbeddedState, MissingRecoveryPasswordError, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from "@openfort/openfort-js";
+import { AccountTypeEnum, ChainTypeEnum, EmbeddedState, MissingRecoveryPasswordError, RecoveryMethod, ShieldAuthentication, ShieldAuthType } from "@openfort/openfort-js";
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Connector, useAccount, useCall, useChainId, useConnect, useDisconnect } from "wagmi";
-import { useOpenfortKit } from '../../components/Openfort/useOpenfortKit';
+import { Hex } from "viem";
+import { Connector, useAccount, useChainId, useConnect, useDisconnect } from "wagmi";
 import { AuthProvider, routes } from "../../components/Openfort/types";
+import { useOpenfortKit } from '../../components/Openfort/useOpenfortKit';
 import { embeddedWalletId } from "../../constants/openfort";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
-import { useWallets as useWagmiWallets, useWallet } from "../../wallets/useWallets";
-import { Hex } from "viem";
+import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../types";
+import { useWallets as useWagmiWallets } from "../../wallets/useWallets";
 import { BaseFlowState, mapStatus } from "./auth/status";
-import { OpenfortError, OpenfortErrorType } from "../../types";
+import { onError, onSuccess } from "./hookConsistency";
 
 export type UserWallet = {
   address?: `0x${string}`;
@@ -20,7 +22,10 @@ export type UserWallet = {
   isActive: boolean;
 }
 
-type SetActiveWalletOptions = {
+
+type SetActiveWalletResult = { error?: OpenfortError, wallet?: UserWallet }
+
+type SetActiveWalletOptions = ({
   showUI?: boolean;
   address?: Hex | undefined;
 } & ({
@@ -28,30 +33,36 @@ type SetActiveWalletOptions = {
 } | {
   connector: typeof embeddedWalletId;
   password?: string;
-})
+})) & OpenfortHookOptions<SetActiveWalletResult>
+
+type CreateWalletResult = SetActiveWalletResult
+
+type CreateWalletOptions = {
+  password?: string;
+} & OpenfortHookOptions<CreateWalletResult>
+
+type WalletOptions = OpenfortHookOptions<SetActiveWalletResult | CreateWalletResult>;
 
 const createOpenfortWallet = ({
-  connector,
-  isEmbedded,
   address,
+  isActive,
 }: {
-  connector: Connector | undefined;
-  isEmbedded: boolean;
-  address?: Hex | undefined;
+  isActive: boolean;
+  address: Hex | undefined;
 }): UserWallet => ({
   connectorType: "embedded",
   walletClientType: "openfort",
-  address: isEmbedded ? address : undefined,
+  address,
   id: embeddedWalletId,
   isAvailable: true,
-  isActive: isEmbedded && connector?.id === embeddedWalletId,
+  isActive,
 });
 
-export function useWallets() {
+export function useWallets(hookOptions: WalletOptions = {}) {
   const { user, embeddedState, client } = useOpenfortCore();
   const { walletConfig, log, setOpen, setRoute, setConnector, uiConfig } = useOpenfortKit();
   const { connector, isConnected, address } = useAccount();
-  const chain = useChainId();
+  const chainId = useChainId();
   const deviceWallets = useWagmiWallets(); // TODO: Map wallets object to be the same as wallets
   const { disconnect } = useDisconnect();
   const [status, setStatus] = useState<BaseFlowState>({
@@ -60,16 +71,21 @@ export function useWallets() {
   const [connectToConnector, setConnectToConnector] = useState<{ address?: Hex, connector: Connector } | undefined>(undefined);
   const { connect } = useConnect({
     mutation: {
-      onError: (error) => {
-        console.error("Error connecting ---", error);
+      onError: (e) => {
+        console.error("Error connecting ---", e);
+        const error = new OpenfortError("Failed to connect with wallet: ", OpenfortErrorType.AUTHENTICATION_ERROR, e)
         setStatus({
           status: 'error',
-          error: new OpenfortError("Failed to connect with wallet: ", OpenfortErrorType.AUTHENTICATION_ERROR, error),
+          error,
+        });
+        onError({
+          error,
+          options: hookOptions,
         });
       },
       onSuccess: (data) => {
         setConnectToConnector(undefined);
-        console.log("Connected with wallet", data, connectToConnector);
+        log("Connected with wallet", data, connectToConnector);
         if (connectToConnector?.address && !data.accounts.some((a) => a === connectToConnector.address)) {
           setStatus({
             status: 'error',
@@ -89,8 +105,38 @@ export function useWallets() {
   const usesEmbeddedWallet = user && walletConfig;
   const isEmbedded = embeddedState === EmbeddedState.READY;
 
+  const { data: embeddedWallets, refetch } = useQuery({
+    queryKey: ['openfortEmbeddedWalletList'],
+    queryFn: () => !!user ? client.embeddedWallet.list() : Promise.resolve([]),
+  })
+
+  useEffect(() => {
+    log("Refetching embedded wallets");
+    refetch();
+  }, [!!user, refetch]);
+
+  const getEncryptionSession = useCallback(async (): Promise<string> => {
+    if (!walletConfig || !walletConfig.createEncryptedSessionEndpoint) {
+      throw new Error("No createEncryptedSessionEndpoint set in walletConfig");
+    }
+
+    const resp = await fetch(walletConfig.createEncryptedSessionEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!resp.ok) {
+      throw new Error("Failed to create encryption session");
+    }
+
+    const respJSON = await resp.json();
+    return respJSON.session;
+  }, [walletConfig]);
+
   const wallets: UserWallet[] = useMemo(() => {
-    const linkedWallets: UserWallet[] = user ? user.linkedAccounts
+    const userWallets: UserWallet[] = user ? user.linkedAccounts
       .filter((a) => a.provider === AuthProvider.WALLET)
       .map((a) => {
         const wallet = deviceWallets.find((c) => c.connector.id === a.walletClientType);
@@ -104,17 +150,15 @@ export function useWallets() {
         }
       }) : []
 
-    // TODO: List user wallets with embeddedWallet.list
-    if (usesEmbeddedWallet) {
-      linkedWallets.push(createOpenfortWallet({
-        connector,
-        isEmbedded,
-        address
+    embeddedWallets?.forEach((wallet) => {
+      userWallets.push(createOpenfortWallet({
+        address: wallet.address as Hex,
+        isActive: wallet.address === address,
       }));
-    }
+    });
 
-    return linkedWallets;
-  }, [user, address, connector?.id]);
+    return userWallets;
+  }, [user, address, connector?.id, embeddedWallets]);
 
   const activeWallet = isConnected && connector ? wallets.find((w) => w.isActive) : undefined;
 
@@ -124,7 +168,7 @@ export function useWallets() {
   }, [connectToConnector])
 
   const setActiveWallet = useCallback(async (options: SetActiveWalletOptions | string):
-    Promise<{ error?: string, wallet?: UserWallet }> => {
+    Promise<SetActiveWalletResult> => {
     const optionsObject = typeof options === "string" ? { connector: options } : options;
 
     const { showUI } = optionsObject;
@@ -135,7 +179,7 @@ export function useWallets() {
       const wallet = deviceWallets.find(c => c.id === optionsObject.connector);
       if (!wallet) {
         log("Connector not found", connector);
-        return { error: "Connector not found" };
+        return { error: new OpenfortError("Connector not found", OpenfortErrorType.WALLET_ERROR) };
       }
       log("Connecting to", wallet.connector)
       connector = wallet.connector;
@@ -145,7 +189,7 @@ export function useWallets() {
 
     if (!connector) {
       log("Connector not found", deviceWallets, optionsObject.connector);
-      return { error: "Connector not found" };
+      return { error: new OpenfortError("Connector not found", OpenfortErrorType.WALLET_ERROR) };
     }
 
     if (activeWallet?.id === connector.id && address === optionsObject.address) {
@@ -176,7 +220,11 @@ export function useWallets() {
       const walletToConnect = wallets.find((w) => w.id == connector.id)
       if (!walletToConnect) {
         log("Wallet not found", connector);
-        return {};
+        return onError({
+          error: new OpenfortError("Wallet not found", OpenfortErrorType.AUTHENTICATION_ERROR),
+          options: optionsObject,
+          hookOptions
+        });
       }
 
       log("Connecting to wallet", walletToConnect);
@@ -199,45 +247,21 @@ export function useWallets() {
       return opts.connector === embeddedWalletId;
     }
 
-    const chainId = uiConfig?.initialChainId ?? chain;
-    console.log("Setting active wallet", { options: optionsObject, chainId });
+    log("Setting active wallet", { options: optionsObject, chainId });
 
     if (isOpenfortWallet(optionsObject)) {
-      const getEncryptionSession = async (): Promise<string> => {
-        if (!walletConfig || !walletConfig.createEncryptedSessionEndpoint) {
-          throw new Error("No createEncryptedSessionEndpoint set in walletConfig");
-        }
-
-        const resp = await fetch(walletConfig.createEncryptedSessionEndpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!resp.ok) {
-          throw new Error("Failed to create encryption session");
-        }
-
-        const respJSON = await resp.json();
-        return respJSON.session;
-      }
       setStatus({
         status: 'loading',
       });
 
       const { password } = optionsObject;
 
-      // -----
-      //
-      // HERE WOULD GO THE LOGIC TO CONNECT TO WALLET A OR B
-      //
-      // -----
-
       if (!walletConfig) {
-        return {
-          error: "Embedded signer not enabled",
-        }
+        return onError({
+          error: new OpenfortError("Embedded signer not enabled", OpenfortErrorType.WALLET_ERROR),
+          options: optionsObject,
+          hookOptions
+        });
       }
 
       log(`Handling recovery with Openfort: password=${password}, chainId=${chainId}`);
@@ -247,71 +271,94 @@ export function useWallets() {
           throw new Error("Openfort access token not found");
         }
 
-        if (!password) {
+        const shieldAuthentication: ShieldAuthentication = password ? {
+          auth: ShieldAuthType.OPENFORT,
+          token: accessToken,
+        } : {
+          auth: ShieldAuthType.OPENFORT,
+          token: accessToken,
+          encryptionSession: walletConfig.getEncryptionSession ?
+            await walletConfig.getEncryptionSession() :
+            await getEncryptionSession(),
+        };
 
-          const shieldAuth: ShieldAuthentication = {
-            auth: ShieldAuthType.OPENFORT,
-            token: accessToken,
-            encryptionSession: walletConfig.getEncryptionSession ?
-              await walletConfig.getEncryptionSession() :
-              await getEncryptionSession(),
-          };
-          log("Configuring embedded signer with automatic recovery");
-          await client.embeddedWallet.configure({
-            chainId,
-            recoveryParams: {
-              recoveryMethod: RecoveryMethod.AUTOMATIC,
-            },
-            shieldAuthentication: shieldAuth,
-          });
-        } else {
-          if (!password || password.length < 4) {
-            throw "Password recovery must be at least 4 characters";
+        const recoveryParams = password ? {
+          recoveryMethod: RecoveryMethod.PASSWORD,
+          password,
+        } : {
+          recoveryMethod: RecoveryMethod.AUTOMATIC,
+        } as const;
+
+        log("Recovery params", recoveryParams, optionsObject.address);
+
+        if (optionsObject.address) {
+          const walletId = embeddedWallets?.find((w) => w.address === optionsObject.address && w.chainId === chainId)?.id;
+          if (!walletId) {
+            return onError({
+              error: new OpenfortError("Embedded wallet not found for address", OpenfortErrorType.WALLET_ERROR),
+              options: optionsObject,
+              hookOptions
+            });
           }
-          const shieldAuth: ShieldAuthentication = {
-            auth: ShieldAuthType.OPENFORT,
-            token: accessToken,
-          };
-          await client.embeddedWallet.configure({
-            chainId,
-            recoveryParams: {
-              recoveryMethod: RecoveryMethod.PASSWORD,
+
+          await client.embeddedWallet.recover({
+            account: walletId,
+            shieldAuthentication,
+            recoveryParams,
+          })
+        } else {
+          if (!embeddedWallets || embeddedWallets.length === 0) {
+            await createWallet({
               password,
-            },
-            shieldAuthentication: shieldAuth,
-          });
+            });
+          } else {
+            await client.embeddedWallet.recover({
+              account: embeddedWallets[0].id,
+              shieldAuthentication,
+              recoveryParams,
+            });
+          }
         }
 
         setStatus({
           status: 'success',
         });
 
-        return {
-          wallet: createOpenfortWallet({
-            connector,
-            isEmbedded,
-            address,
-          }),
-        };
+        return onSuccess({
+          data: {
+            wallet: createOpenfortWallet({
+              address: optionsObject.address,
+              isActive: true,
+            }),
+          },
+          options: optionsObject,
+          hookOptions,
+        });
       } catch (err) {
         log('Error handling recovery with Openfort:', err);
         if (err instanceof MissingRecoveryPasswordError) {
-          return {
-            error: "Missing recovery password",
-          }
+          return onError({
+            error: new OpenfortError("Missing recovery password", OpenfortErrorType.WALLET_ERROR),
+            options: optionsObject,
+            hookOptions
+          });
         }
         if (typeof err === 'string') {
-          return {
-            error: err,
-          }
+          return onError({
+            error: new OpenfortError(err, OpenfortErrorType.WALLET_ERROR),
+            options: optionsObject,
+            hookOptions
+          });
         }
         // setStatus({
         //   status: 'error',
         //   error: new Error("Failed to connect with embedded wallet: " + err),
         // });
-        return {
-          error: "The recovery phrase you entered is incorrect.",
-        };
+        return onError({
+          error: new OpenfortError("The recovery phrase you entered is incorrect.", OpenfortErrorType.WALLET_ERROR),
+          options: optionsObject,
+          hookOptions
+        });
       }
 
     } else {
@@ -328,16 +375,77 @@ export function useWallets() {
 
   }, [wallets, setOpen, setRoute, setConnector, disconnect, log, isConnected, address, usesEmbeddedWallet, isEmbedded]);
 
-  const createWallet = useCallback(() => {
-    throw new Error("createWallet is not implemented in useWallets. Use setActiveWallet instead.");
-  }, [])
+  const createWallet = useCallback(async ({
+    password,
+    ...options
+  }: CreateWalletOptions = {}) => {
+    setStatus({
+      status: 'loading',
+    });
+
+    const accessToken = await client.getAccessToken();
+    if (!accessToken) {
+      return onError({
+        error: new OpenfortError("Openfort access token not found", OpenfortErrorType.WALLET_ERROR),
+        hookOptions,
+        options,
+      })
+    }
+    if (!walletConfig) {
+      return onError({
+        error: new OpenfortError("Embedded signer not enabled", OpenfortErrorType.WALLET_ERROR),
+        hookOptions,
+        options,
+      });
+    }
+
+    const shieldAuthentication: ShieldAuthentication = password ? {
+      auth: ShieldAuthType.OPENFORT,
+      token: accessToken,
+    } : {
+      auth: ShieldAuthType.OPENFORT,
+      token: accessToken,
+      encryptionSession: walletConfig.getEncryptionSession ?
+        await walletConfig.getEncryptionSession() :
+        await getEncryptionSession(),
+    };
+
+    const recoveryParams = password ? {
+      recoveryMethod: RecoveryMethod.PASSWORD,
+      password,
+    } : {
+      recoveryMethod: RecoveryMethod.AUTOMATIC,
+    } as const;
+
+    const wallet = await client.embeddedWallet.create({
+      chainId: uiConfig?.initialChainId ?? chainId,
+      accountType: AccountTypeEnum.SMART_ACCOUNT,
+      chainType: ChainTypeEnum.EVM,
+      recoveryParams,
+      shieldAuthentication
+    });
+
+    setStatus({
+      status: 'success',
+    });
+
+    refetch();
+    return onSuccess({
+      data: {
+        wallet: createOpenfortWallet({
+          address: wallet.address as Hex,
+          isActive: true,
+        })
+      }
+    });
+  }, [refetch, client, uiConfig, chainId]);
 
   return {
     wallets,
     availableWallets: deviceWallets,
     activeWallet,
     setActiveWallet,
-    // createWallet,
+    createWallet,
     ...mapStatus(status),
     exportPrivateKey: client.embeddedWallet.exportPrivateKey,
   }

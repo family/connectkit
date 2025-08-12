@@ -36,7 +36,7 @@ const Recover: React.FC = () => {
     setLoading(false);
 
     if (error) {
-      setRecoveryError(error || "There was an error recovering your account");
+      setRecoveryError(error.message || "There was an error recovering your account");
     } else {
       log("Recovery success");
     }
@@ -155,7 +155,8 @@ const AutomaticRecovery: React.FC = () => {
           connector: embeddedWalletId,
         })
 
-        if (response.error && response.error === "Missing recovery password") {
+        // TODO: Handle error properly
+        if (response.error && response.error.message === "Missing recovery password") {
           setHasRecoveryMethod(true);
         }
       }

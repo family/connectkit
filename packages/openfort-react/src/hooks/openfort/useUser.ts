@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
+import { useStatus } from "./useStatus";
 
 export function useUser() {
   const { user, client } = useOpenfortCore();
-
+  const { isAuthenticated } = useStatus();
 
   const getAccessTokenAndUpdate = useCallback(async () => {
     await client.validateAndRefreshToken();
@@ -12,9 +13,9 @@ export function useUser() {
   }, [client]);
 
   return {
-    isAuthenticated: !!user,
     user,
+    isAuthenticated,
     getAccessToken: getAccessTokenAndUpdate,
     validateAndRefreshToken: async () => await client.validateAndRefreshToken(),
   };
-}
+};

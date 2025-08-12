@@ -8,6 +8,7 @@ import { Logo } from '@/components/ui/logo'
 import { AuthProvider, useStatus } from '@openfort/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { WalletIcon } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export const Route = createFileRoute('/_showcase/')({
   component: RouteComponent,
@@ -16,8 +17,15 @@ export const Route = createFileRoute('/_showcase/')({
 function RouteComponent() {
   const { isConnected, isLoading } = useStatus();
 
+  const [hasConnected, setHasConnected] = useState(false)
+
+  useEffect(() => {
+    if (!isConnected) return;
+    setHasConnected(true);
+  }, [isConnected])
+
   if (isLoading) return null;
-  if (isConnected) {
+  if (isConnected || hasConnected) {
     return (
       <App />
     )

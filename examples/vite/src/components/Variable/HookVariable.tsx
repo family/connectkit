@@ -66,10 +66,10 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
             <div className="flex flex-col gap-2 group">
               {
                 Object.entries(opts ?? {})
-                  .map(([key, value]) => (
+                  .map(([key, value], i) => (
                     <BaseVariable
                       focusedVariable={params.focus}
-                      key={key}
+                      key={key + i}
                       name={key}
                       value={value}
                       depth={0}
@@ -119,9 +119,9 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
                 //   }
                 //   return a.localeCompare(b);
                 // })
-                .map(([key, value]) => (
+                .map(([key, value], i) => (
                   <BaseVariable
-                    key={key}
+                    key={key + i}
                     name={key}
                     value={value}
                     depth={0}

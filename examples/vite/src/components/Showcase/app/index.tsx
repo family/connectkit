@@ -1,5 +1,6 @@
 import { SignaturesCard } from '@/components/Showcase/app/Signatures';
 import { SwitchChainCard } from '@/components/Showcase/app/SwitchChain';
+import { WalletsCard } from '@/components/Showcase/app/Wallets';
 import { WriteContractCard } from '@/components/Showcase/app/WriteContract';
 import { SampleTooltipLink } from '@/components/Showcase/auth/SampleTooltipLink';
 import { Button } from '@/components/Showcase/ui/Button';
@@ -43,23 +44,7 @@ export const App = () => {
         <SignaturesCard />
         <WriteContractCard />
         <SwitchChainCard />
-        {/* <Card>
-          <CardHeader>
-            This is the header
-          </CardHeader>
-          <CardContent>
-            This is the content of the app showcase. You can add more components and functionality here.
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            This is the header
-          </CardHeader>
-          <CardContent>
-            This is the content of the app showcase. You can add more components and functionality here.
-          </CardContent>
-        </Card> */}
+        <WalletsCard />
       </div>
     </div >
   )

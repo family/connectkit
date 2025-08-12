@@ -1,8 +1,9 @@
 import { HookVariable } from '@/components/Variable/HookVariable'
 import { embeddedWalletId, useWallets } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Layout } from '../../../components/Layout'
+import { useAccount } from 'wagmi'
 
 export const Route = createFileRoute('/_hooks/wallet/useWallets')({
   component: RouteComponent,
@@ -10,11 +11,25 @@ export const Route = createFileRoute('/_hooks/wallet/useWallets')({
 
 function RouteComponent() {
   const wallets = useWallets()
-  const connectorOptions = wallets.wallets.map(wallet => wallet.id)
+  const connectorOptions = wallets.wallets.map(wallet => wallet.id).reduce((acc, id) => {
+    if (!acc.includes(id)) {
+      acc.push(id)
+    }
+    return acc
+  }, [] as string[])
+
   const [isOpenfortWallet, setIsOpenfortWallet] = useState(connectorOptions[0] === embeddedWalletId)
 
+  useEffect(() => {
+    setIsOpenfortWallet(connectorOptions[0] === embeddedWalletId);
+  }, [connectorOptions]);
+
+  const { address } = useAccount();
   return (
     <Layout>
+      address: {address}
+      connectorOptions[0]: {connectorOptions[0]}
+      embeddedWalletId: {embeddedWalletId}
       <HookVariable
         name='useWallets'
         hook={useWallets}
@@ -38,7 +53,6 @@ function RouteComponent() {
               },
               password: {
                 type: 'password',
-                required: isOpenfortWallet,
                 hidden: !isOpenfortWallet,
               },
               address: {
@@ -53,9 +67,8 @@ function RouteComponent() {
           createWallet: {
             description: 'Create a new wallet.',
             inputs: {
-              TODO: {
-                type: 'text',
-                required: true,
+              password: {
+                type: 'password',
               },
             },
           },
