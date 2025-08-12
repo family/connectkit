@@ -26,8 +26,10 @@ export const WriteContractCard = () => {
 
   const { data: hash, isPending, writeContract, error } = useWriteContract({
     mutation: {
-      onMutate: () => {
-        refetch()
+      onSuccess: () => {
+        setTimeout(() => {
+          refetch()
+        }, 100);
       }
     }
   })
