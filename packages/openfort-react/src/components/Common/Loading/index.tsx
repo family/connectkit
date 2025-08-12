@@ -55,6 +55,19 @@ const Loader = ({ reason, isLoading = true, icon }: { reason: string, isLoading?
     return () => triggerResize();
   }, []);
 
+  const renderLogo = () => {
+    if (icon) {
+      return icon;
+    }
+    if (options?.logo) {
+      if (typeof options.logo === 'string') {
+        return <img src={options.logo} alt="Logo" style={{ width: '100%' }} />;
+      }
+      return options.logo;
+    }
+    return <Logos.Openfort />;
+  }
+
   return (
     <>
       <ConnectingContainer>
@@ -70,7 +83,7 @@ const Loader = ({ reason, isLoading = true, icon }: { reason: string, isLoading?
                   width: '100%',
                 }}
               >
-                {icon || options?.logo || <Logos.Openfort />}
+                {renderLogo()}
               </div>
             }
             connecting={isLoading}

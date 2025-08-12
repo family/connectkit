@@ -29,7 +29,7 @@ function RouteComponent() {
           <Logo className="h-12 px-2" />
         </div>
         <p className="text-sm text-center text-muted-foreground mb-5">
-          Using openfort kit hooks to create a custom UI
+          Using openfort hooks to create a custom UI
         </p>
 
         {

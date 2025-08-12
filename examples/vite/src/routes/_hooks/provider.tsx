@@ -91,7 +91,74 @@ function RouteComponent() {
                 }
               })
             }
-          }
+          },
+          termsOfServiceUrl: {
+            type: 'text',
+            onEdit: (value) => {
+              setProviderOptions({
+                ...providerOptions,
+                uiConfig: {
+                  ...providerOptions.uiConfig,
+                  termsOfServiceUrl: value as string,
+                }
+              })
+            }
+          },
+          walletConnectName: {
+            type: 'text',
+            description: 'The name of the wallet connect session. This is used to identify the session in the wallet connect app.',
+            onEdit: (value) => {
+              setProviderOptions({
+                ...providerOptions,
+                uiConfig: {
+                  ...providerOptions.uiConfig,
+                  walletConnectName: value as string,
+                }
+              })
+            }
+          },
+          reducedMotion: {
+            type: 'boolean',
+            description: 'Whether to reduce motion in the UI. This is useful for users who prefer less motion in the UI.',
+            onEdit: (value) => {
+              setProviderOptions({
+                ...providerOptions,
+                uiConfig: {
+                  ...providerOptions.uiConfig,
+                  reducedMotion: Boolean(value),
+                }
+              })
+            }
+          },
+          logo: {
+            type: 'text',
+            typescriptType: 'React.ReactNode | string | undefined',
+            description: 'The URL or Component of the logo to use in the OpenfortKit components. This is optional.',
+            onEdit: (value) => {
+              setProviderOptions({
+                ...providerOptions,
+                uiConfig: {
+                  ...providerOptions.uiConfig,
+                  logo: value as string,
+                }
+              })
+            }
+          },
+          walletConnectCTA: {
+            type: 'select',
+            options: ['undefined', 'link', 'modal', 'both'],
+            description: 'The call to action text for the wallet connect button. This is used to prompt users to connect their wallet using WalletConnect.',
+            onEdit: (value) => {
+              setProviderOptions({
+                ...providerOptions,
+                uiConfig: {
+                  ...providerOptions.uiConfig,
+                  walletConnectCTA: value === "undefined" ? undefined : value as | 'link' | 'modal' | 'both',
+                }
+              })
+            }
+          },
+
         }}
       />
     </Layout>

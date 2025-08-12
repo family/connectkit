@@ -7,6 +7,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import clsx from "clsx";
 import { ChevronDown, SettingsIcon } from "lucide-react";
 import { FileRoutesByTo } from "../routeTree.gen";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export type NavRoute = {
   href?: keyof FileRoutesByTo;
@@ -123,16 +124,31 @@ export const Nav = ({ showLogo, children, overridePath }: { showLogo?: boolean; 
             {children}
             <div className='flex gap-4 border-l pl-4 items-center'>
               <ModeToggle className="scale-110" />
-              <div className=''>
-                <OpenfortKitButton />
-              </div>
+              <Tooltip delayDuration={500}>
+                <TooltipTrigger>
+
+                  <div className=''>
+                    <OpenfortKitButton />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs" side="bottom">
+                  <h3 className='text-base mb-1'>
+                    OpenfortButton
+                  </h3>
+                  This button allows you to connect your wallet and interact with the Openfort SDK.
+                  <p className="text-xs opacity-70 mt-2">
+                    {"<OpenfortButton />"}
+                  </p>
+
+                </TooltipContent>
+              </Tooltip>
               <Link to={"/provider"} className="btn btn-accent btn-sm btn-circle">
                 <SettingsIcon className="size-4.5" />
               </Link>
             </div>
           </div>
-        </div>
-      </nav>
+        </div >
+      </nav >
     </>
   )
 }

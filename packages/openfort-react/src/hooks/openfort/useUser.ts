@@ -12,6 +12,7 @@ export function useUser() {
   }, [client]);
 
   return {
+    isAuthenticated: !!user,
     user,
     getAccessToken: getAccessTokenAndUpdate,
     validateAndRefreshToken: async () => await client.validateAndRefreshToken(),
