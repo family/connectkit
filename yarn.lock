@@ -1625,27 +1625,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@base-org/account@npm:1.0.2":
-  version: 1.0.2
-  resolution: "@base-org/account@npm:1.0.2"
-  dependencies:
-    "@noble/hashes": 1.4.0
-    clsx: 1.2.1
-    eventemitter3: 5.0.1
-    idb-keyval: 6.2.1
-    ox: 0.6.9
-    preact: 10.24.2
-    viem: ^2.31.7
-    zustand: 5.0.3
-  peerDependencies:
-    wagmi: "*"
-  peerDependenciesMeta:
-    wagmi:
-      optional: true
-  checksum: 1e1099be58bf8a94ea820a191955c5a0ae4f6ae030835e8e46ee51d730abfb6f8301d0c67eb006f2cc8d09a0885df814927f78717e69af7afa69ca6cf8e923b9
-  languageName: node
-  linkType: hard
-
 "@base-org/account@npm:1.1.1":
   version: 1.1.1
   resolution: "@base-org/account@npm:1.1.1"
@@ -2863,6 +2842,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gemini-wallet/core@npm:0.1.1":
+  version: 0.1.1
+  resolution: "@gemini-wallet/core@npm:0.1.1"
+  dependencies:
+    "@metamask/rpc-errors": 7.0.2
+    eventemitter3: 5.0.1
+  peerDependencies:
+    viem: ">=2.0.0"
+  checksum: 66405450853b6cffaea5e0af8b7908249fa6ff179637aae1a5911067a5df2d86185b93629a9a1ee2d5ddd248bf9b940f37b6a351687db97d4772ffce317e6798
+  languageName: node
+  linkType: hard
+
 "@gerrit0/mini-shiki@npm:^3.9.0":
   version: 3.9.2
   resolution: "@gerrit0/mini-shiki@npm:3.9.2"
@@ -3561,6 +3552,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/rpc-errors@npm:7.0.2":
+  version: 7.0.2
+  resolution: "@metamask/rpc-errors@npm:7.0.2"
+  dependencies:
+    "@metamask/utils": ^11.0.1
+    fast-safe-stringify: ^2.0.6
+  checksum: 262a1ab57121e277eb979325d8e4335b9f4194c5acd0138ee0032db35b4e20ea0423badb5dad4bdf6abb85d22b476377f17911a54f82b3b1a2bdffc36654d028
+  languageName: node
+  linkType: hard
+
 "@metamask/rpc-errors@npm:^6.2.1":
   version: 6.4.0
   resolution: "@metamask/rpc-errors@npm:6.4.0"
@@ -3644,6 +3645,24 @@ __metadata:
   version: 3.2.1
   resolution: "@metamask/superstruct@npm:3.2.1"
   checksum: 194e4afc4df89f347e4dd16db8f8dfcbf7990ff82169c3bd43b98ecff2f1ef09488b987af612cc1ea2689826e8460bb2b01e1a3a340383420115b3a90aa68465
+  languageName: node
+  linkType: hard
+
+"@metamask/utils@npm:^11.0.1":
+  version: 11.4.2
+  resolution: "@metamask/utils@npm:11.4.2"
+  dependencies:
+    "@ethereumjs/tx": ^4.2.0
+    "@metamask/superstruct": ^3.1.0
+    "@noble/hashes": ^1.3.1
+    "@scure/base": ^1.1.3
+    "@types/debug": ^4.1.7
+    debug: ^4.3.4
+    lodash.memoize: ^4.1.2
+    pony-cause: ^2.1.10
+    semver: ^7.5.4
+    uuid: ^9.0.1
+  checksum: 11061a93f49684563a14caaaab2d8dbb969c907dbc24358cf188dd10ec00ac91e5d04369ef605e9d78e75f8ad53d9a0fbdb65f2325b12ef6c8db85bb46160dff
   languageName: node
   linkType: hard
 
@@ -3969,15 +3988,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/curves@npm:~1.8.1":
-  version: 1.8.2
-  resolution: "@noble/curves@npm:1.8.2"
-  dependencies:
-    "@noble/hashes": 1.7.2
-  checksum: f26fd77b4d78fe26dba2754cbcaddee5da23a711a0c9778ee57764eb0084282d97659d9b0a760718f42493adf68665dbffdca9d6213950f03f079d09c465c096
-  languageName: node
-  linkType: hard
-
 "@noble/hashes@npm:1.4.0, @noble/hashes@npm:~1.4.0":
   version: 1.4.0
   resolution: "@noble/hashes@npm:1.4.0"
@@ -3996,13 +4006,6 @@ __metadata:
   version: 1.7.1
   resolution: "@noble/hashes@npm:1.7.1"
   checksum: 4f1b56428a10323feef17e4f437c9093556cb18db06f94d254043fadb69c3da8475f96eb3f8322d41e8670117d7486475a8875e68265c2839f60fd03edd6a616
-  languageName: node
-  linkType: hard
-
-"@noble/hashes@npm:1.7.2, @noble/hashes@npm:~1.7.1":
-  version: 1.7.2
-  resolution: "@noble/hashes@npm:1.7.2"
-  checksum: f9e3c2e62c2850073f8d6ac30cc33b03a25cae859eb2209b33ae90ed3d1e003cb2a1ddacd2aacd6b7c98a5ad70795a234ccce04b0526657cd8020ce4ffdb491f
   languageName: node
   linkType: hard
 
@@ -5254,7 +5257,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scure/base@npm:^1.1.3, @scure/base@npm:~1.2.2, @scure/base@npm:~1.2.4, @scure/base@npm:~1.2.5":
+"@scure/base@npm:^1.1.3, @scure/base@npm:~1.2.5":
   version: 1.2.6
   resolution: "@scure/base@npm:1.2.6"
   checksum: 1058cb26d5e4c1c46c9cc0ae0b67cc66d306733baf35d6ebdd8ddaba242b80c3807b726e3b48cb0411bb95ec10d37764969063ea62188f86ae9315df8ea6b325
@@ -5279,17 +5282,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scure/bip32@npm:1.6.2":
-  version: 1.6.2
-  resolution: "@scure/bip32@npm:1.6.2"
-  dependencies:
-    "@noble/curves": ~1.8.1
-    "@noble/hashes": ~1.7.1
-    "@scure/base": ~1.2.2
-  checksum: e7586619f8a669e522267ce71a90b2d00c3a91da658f1f50e54072cf9f432ba26d2bb4d3d91a5d06932ab96612b8bd038bc31d885bbc048cebfb6509c4a790fc
-  languageName: node
-  linkType: hard
-
 "@scure/bip32@npm:1.7.0, @scure/bip32@npm:^1.5.0, @scure/bip32@npm:^1.7.0":
   version: 1.7.0
   resolution: "@scure/bip32@npm:1.7.0"
@@ -5308,16 +5300,6 @@ __metadata:
     "@noble/hashes": ~1.4.0
     "@scure/base": ~1.1.6
   checksum: dbb0b27df753eb6c6380010b25cc9a9ea31f9cb08864fc51e69e5880ff7e2b8f85b72caea1f1f28af165e83b72c48dd38617e43fc632779d025b50ba32ea759e
-  languageName: node
-  linkType: hard
-
-"@scure/bip39@npm:1.5.4":
-  version: 1.5.4
-  resolution: "@scure/bip39@npm:1.5.4"
-  dependencies:
-    "@noble/hashes": ~1.7.1
-    "@scure/base": ~1.2.4
-  checksum: 744f302559ad05ee6ea4928572ac8f0b5443e8068fd53234c9c2e158814e910a043c54f0688d05546decadd2ff66e0d0c76355d10e103a28cb8f44efe140857a
   languageName: node
   linkType: hard
 
@@ -7223,34 +7205,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/connectors@npm:5.9.0":
-  version: 5.9.0
-  resolution: "@wagmi/connectors@npm:5.9.0"
-  dependencies:
-    "@base-org/account": 1.0.2
-    "@coinbase/wallet-sdk": 4.3.6
-    "@metamask/sdk": 0.32.0
-    "@safe-global/safe-apps-provider": 0.18.6
-    "@safe-global/safe-apps-sdk": 9.1.0
-    "@walletconnect/ethereum-provider": 2.21.1
-    cbw-sdk: "npm:@coinbase/wallet-sdk@3.9.3"
-  peerDependencies:
-    "@wagmi/core": 2.18.0
-    typescript: ">=5.0.4"
-    viem: 2.x
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 27837c1a6763c0a8f9207a6bd4d75d2abbe92b2735773383c3e6350ef37ed9c3304e95ca6e8fabc4bca3dc3e5c2c0f79692eec9f663f0c1139bd38160988032c
-  languageName: node
-  linkType: hard
-
-"@wagmi/connectors@npm:5.9.2":
-  version: 5.9.2
-  resolution: "@wagmi/connectors@npm:5.9.2"
+"@wagmi/connectors@npm:5.9.3":
+  version: 5.9.3
+  resolution: "@wagmi/connectors@npm:5.9.3"
   dependencies:
     "@base-org/account": 1.1.1
     "@coinbase/wallet-sdk": 4.3.6
+    "@gemini-wallet/core": 0.1.1
     "@metamask/sdk": 0.32.0
     "@safe-global/safe-apps-provider": 0.18.6
     "@safe-global/safe-apps-sdk": 9.1.0
@@ -7263,27 +7224,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: c7c3e4d04924cd5aed278d4f48ac104d727d31afaafface61271b01b369e80602212455b3de998fdd8f8eec3a42c6cec93313983a6b7c3273c6f8dc6d1efc222
-  languageName: node
-  linkType: hard
-
-"@wagmi/core@npm:2.18.0":
-  version: 2.18.0
-  resolution: "@wagmi/core@npm:2.18.0"
-  dependencies:
-    eventemitter3: 5.0.1
-    mipd: 0.0.7
-    zustand: 5.0.0
-  peerDependencies:
-    "@tanstack/query-core": ">=5.0.0"
-    typescript: ">=5.0.4"
-    viem: 2.x
-  peerDependenciesMeta:
-    "@tanstack/query-core":
-      optional: true
-    typescript:
-      optional: true
-  checksum: b2ef4c2d1bf1dbbad5d216ab91c48a8b86ce5bff5cd75f5bab3b8a33a4618a4d826cedc671b790cc1c358fedf928c9989672cc4e867f306b8a29faba3fdc67c9
+  checksum: d96e0b4af25ac3351af1973ef2c329ad17611554ea0c4a5aa3a0168165caf094f4b77bd5f08f931cfd7f233bb998a44e77c040030a3ad85329421130b5519d3b
   languageName: node
   linkType: hard
 
@@ -9964,8 +9905,6 @@ __metadata:
     stream-http: ^3.2.0
     typescript: ^5.0.4
     url: ^0.11.4
-    viem: "*"
-    wagmi: "*"
     web-vitals: ^2.1.4
   languageName: unknown
   linkType: soft
@@ -14619,15 +14558,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isows@npm:1.0.6":
-  version: 1.0.6
-  resolution: "isows@npm:1.0.6"
-  peerDependencies:
-    ws: "*"
-  checksum: ab9e85b50bcc3d70aa5ec875aa2746c5daf9321cb376ed4e5434d3c2643c5d62b1f466d93a05cd2ad0ead5297224922748c31707cb4fbd68f5d05d0479dce99c
-  languageName: node
-  linkType: hard
-
 "isows@npm:1.0.7":
   version: 1.0.7
   resolution: "isows@npm:1.0.7"
@@ -16917,8 +16847,6 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^5.0.4
-    viem: "*"
-    wagmi: "*"
   languageName: unknown
   linkType: soft
 
@@ -16943,8 +16871,6 @@ __metadata:
     react-dom: ^18.2.0
     tailwindcss: ^3.4.1
     typescript: ^5.0.4
-    viem: "*"
-    wagmi: "*"
   languageName: unknown
   linkType: soft
 
@@ -17418,8 +17344,8 @@ __metadata:
     tslib: ^1.9.3
     typescript: ^5.0.4
     typescript-plugin-styled-components: ^2.0.0
-    viem: 2.33.0
-    wagmi: 2.16.0
+    viem: ^2.33.0
+    wagmi: ^2.16.0
   languageName: unknown
   linkType: soft
 
@@ -17507,26 +17433,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ox@npm:0.6.7":
-  version: 0.6.7
-  resolution: "ox@npm:0.6.7"
-  dependencies:
-    "@adraffy/ens-normalize": ^1.10.1
-    "@noble/curves": ^1.6.0
-    "@noble/hashes": ^1.5.0
-    "@scure/bip32": ^1.5.0
-    "@scure/bip39": ^1.4.0
-    abitype: ^1.0.6
-    eventemitter3: 5.0.1
-  peerDependencies:
-    typescript: ">=5.4.0"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 99acb683ff1cf78749f2b4230d3c208b8cdea0b3bf2bff0db564207917ae6833093b203cb7b9853fc8ec642ca0c8c87cd70a50eab9ff9944c55bf990436112b5
-  languageName: node
-  linkType: hard
-
 "ox@npm:0.6.9":
   version: 0.6.9
   resolution: "ox@npm:0.6.9"
@@ -17544,27 +17450,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 6f35c9710ab3edb8146f0d2a7c482517c8e1cb2adf0cfb7aba23a17209cf7171546ad017cce98dd9e0f60cee5d77ddaaa72961023e4456de093d985b5712c546
-  languageName: node
-  linkType: hard
-
-"ox@npm:0.8.1":
-  version: 0.8.1
-  resolution: "ox@npm:0.8.1"
-  dependencies:
-    "@adraffy/ens-normalize": ^1.11.0
-    "@noble/ciphers": ^1.3.0
-    "@noble/curves": ^1.9.1
-    "@noble/hashes": ^1.8.0
-    "@scure/bip32": ^1.7.0
-    "@scure/bip39": ^1.6.0
-    abitype: ^1.0.8
-    eventemitter3: 5.0.1
-  peerDependencies:
-    typescript: ">=5.4.0"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 0c8c3210c173f44f617055cfca34630dd74752f21f7f244d25095403aaebb748d53197f78ba24a830024dc4f7d8f2c7175230d2a7d95ae5826509571791a1763
   languageName: node
   linkType: hard
 
@@ -21797,8 +21682,6 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     typescript: ^5.0.4
-    viem: "*"
-    wagmi: "*"
   languageName: unknown
   linkType: soft
 
@@ -22968,7 +22851,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:*, viem@npm:>=2.29.0, viem@npm:^2.1.1, viem@npm:^2.27.2, viem@npm:^2.31.7":
+"viem@npm:^2.33.0":
   version: 2.33.3
   resolution: "viem@npm:2.33.3"
   dependencies:
@@ -22986,48 +22869,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 1053dd69197f23773d1a57d0c652938e4bc53458b1c58409a0f955514b678e207740b8fa54dcf4a0621b6d5ade5e1b8f024b809bfd94488163e4d761bc7725e7
-  languageName: node
-  linkType: hard
-
-"viem@npm:2.23.2":
-  version: 2.23.2
-  resolution: "viem@npm:2.23.2"
-  dependencies:
-    "@noble/curves": 1.8.1
-    "@noble/hashes": 1.7.1
-    "@scure/bip32": 1.6.2
-    "@scure/bip39": 1.5.4
-    abitype: 1.0.8
-    isows: 1.0.6
-    ox: 0.6.7
-    ws: 8.18.0
-  peerDependencies:
-    typescript: ">=5.0.4"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 4ee79122e4d484c3f5585ced9a2ddeaa935fd13779010ef8869c39c70f78eab2af0408c765543088e052fd8c3c46d8e79225d64b68563b096d8de558daf6d115
-  languageName: node
-  linkType: hard
-
-"viem@npm:2.33.0":
-  version: 2.33.0
-  resolution: "viem@npm:2.33.0"
-  dependencies:
-    "@noble/curves": 1.9.2
-    "@noble/hashes": 1.8.0
-    "@scure/bip32": 1.7.0
-    "@scure/bip39": 1.6.0
-    abitype: 1.0.8
-    isows: 1.0.7
-    ox: 0.8.1
-    ws: 8.18.2
-  peerDependencies:
-    typescript: ">=5.0.4"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: b104967ac1da74d946b7179d9ecb15514915acbec1a6e4598ab8a6a2583a17fb04419f4f607405033f3e0a79c435e5759896dafcc0b59e347770944f159eae44
   languageName: node
   linkType: hard
 
@@ -23138,10 +22979,8 @@ __metadata:
     typedoc-json-parser: ^10.2.0
     typescript: ~5.7.2
     typescript-eslint: ^8.24.1
-    viem: "*"
     vite: ^6.2.0
     vite-plugin-node-polyfills: ^0.23.0
-    wagmi: "*"
     zod: ^4.0.15
     zustand: ^5.0.7
   languageName: unknown
@@ -23186,11 +23025,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:*":
-  version: 2.16.2
-  resolution: "wagmi@npm:2.16.2"
+"wagmi@npm:^2.16.0":
+  version: 2.16.3
+  resolution: "wagmi@npm:2.16.3"
   dependencies:
-    "@wagmi/connectors": 5.9.2
+    "@wagmi/connectors": 5.9.3
     "@wagmi/core": 2.19.0
     use-sync-external-store: 1.4.0
   peerDependencies:
@@ -23201,26 +23040,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 313c2a374730cb340f7e693b0dc9db6bac5b2e77e06b4b645f3e243e3056bd323bd5f7dcae191101b6a69026ffea7e5d335fbf8b4eb432b2c6d4899d893ea380
-  languageName: node
-  linkType: hard
-
-"wagmi@npm:2.16.0":
-  version: 2.16.0
-  resolution: "wagmi@npm:2.16.0"
-  dependencies:
-    "@wagmi/connectors": 5.9.0
-    "@wagmi/core": 2.18.0
-    use-sync-external-store: 1.4.0
-  peerDependencies:
-    "@tanstack/react-query": ">=5.0.0"
-    react: ">=18"
-    typescript: ">=5.0.4"
-    viem: 2.x
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: d958afd32f161e478df4fae7bea642dfddaa7d2e5f9ea441576efce00a4fced135724fcd42bb29b6d1a617bc23e3ba69e36cc25246bcf3dae69844598616f072
+  checksum: 1214d263a5547368df8c1095364a60255d05f043e487d848c465106f6db4a41aca7752fd35ce3545351fcf2b76e5bb55b7d425159b4d2b5b61d6828395318e87
   languageName: node
   linkType: hard
 
