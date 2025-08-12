@@ -5,14 +5,14 @@ import { type ReactNode } from 'react';
 import { WagmiProvider } from 'wagmi';
 
 import { config } from '../config';
-import { AuthProvider, OpenfortKitProvider, RecoveryMethod } from '@openfort/react';
+import { AuthProvider, OpenfortProvider, RecoveryMethod } from '../../../packages/react/build';
 
 const queryClient = new QueryClient();
 export function Providers(props: { children: ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <OpenfortKitProvider
+        <OpenfortProvider
           debugMode
           publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
 
@@ -44,7 +44,7 @@ export function Providers(props: { children: ReactNode }) {
           }}
         >
           {props.children}
-        </OpenfortKitProvider>
+        </OpenfortProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );

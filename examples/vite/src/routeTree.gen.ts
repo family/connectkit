@@ -14,22 +14,21 @@ import { Route as HooksRouteImport } from './routes/_hooks'
 import { Route as ShowcaseIndexRouteImport } from './routes/_showcase/index'
 import { Route as HooksWagmiRouteImport } from './routes/_hooks/wagmi'
 import { Route as HooksProviderRouteImport } from './routes/_hooks/provider'
-import { Route as HooksAuthRouteImport } from './routes/_hooks/auth'
-import { Route as HooksAppRouteImport } from './routes/_hooks/app'
+import { Route as HooksWalletUseWalletsRouteImport } from './routes/_hooks/wallet/useWallets'
+import { Route as HooksWalletUseWalletRouteImport } from './routes/_hooks/wallet/useWallet'
 import { Route as HooksWagmiUseSwitchChainRouteImport } from './routes/_hooks/wagmi/useSwitchChain'
 import { Route as HooksWagmiUseDisconnectRouteImport } from './routes/_hooks/wagmi/useDisconnect'
 import { Route as HooksWagmiUseBalanceRouteImport } from './routes/_hooks/wagmi/useBalance'
 import { Route as HooksWagmiUseAccountRouteImport } from './routes/_hooks/wagmi/useAccount'
+import { Route as HooksUtilsUseUIRouteImport } from './routes/_hooks/utils/useUI'
+import { Route as HooksUtilsUseStatusRouteImport } from './routes/_hooks/utils/useStatus'
 import { Route as HooksAuthUseWalletAuthRouteImport } from './routes/_hooks/auth/useWalletAuth'
+import { Route as HooksAuthUseUserRouteImport } from './routes/_hooks/auth/useUser'
 import { Route as HooksAuthUseSignOutRouteImport } from './routes/_hooks/auth/useSignOut'
 import { Route as HooksAuthUseOauthRouteImport } from './routes/_hooks/auth/useOauth'
 import { Route as HooksAuthUseGuestAuthRouteImport } from './routes/_hooks/auth/useGuestAuth'
 import { Route as HooksAuthUseEmailAuthRouteImport } from './routes/_hooks/auth/useEmailAuth'
 import { Route as HooksAuthUseAuthCallbackRouteImport } from './routes/_hooks/auth/useAuthCallback'
-import { Route as HooksAppUseWalletsRouteImport } from './routes/_hooks/app/useWallets'
-import { Route as HooksAppUseUserRouteImport } from './routes/_hooks/app/useUser'
-import { Route as HooksAppUseUIRouteImport } from './routes/_hooks/app/useUI'
-import { Route as HooksAppUseStatusRouteImport } from './routes/_hooks/app/useStatus'
 import { Route as ShowcaseShowcaseAuthSignupRouteImport } from './routes/_showcase/showcase/auth/signup'
 import { Route as ShowcaseShowcaseAuthPasswordCallbackRouteImport } from './routes/_showcase/showcase/auth/password-callback'
 import { Route as ShowcaseShowcaseAuthLoginRouteImport } from './routes/_showcase/showcase/auth/login'
@@ -60,14 +59,14 @@ const HooksProviderRoute = HooksProviderRouteImport.update({
   path: '/provider',
   getParentRoute: () => HooksRoute,
 } as any)
-const HooksAuthRoute = HooksAuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const HooksWalletUseWalletsRoute = HooksWalletUseWalletsRouteImport.update({
+  id: '/wallet/useWallets',
+  path: '/wallet/useWallets',
   getParentRoute: () => HooksRoute,
 } as any)
-const HooksAppRoute = HooksAppRouteImport.update({
-  id: '/app',
-  path: '/app',
+const HooksWalletUseWalletRoute = HooksWalletUseWalletRouteImport.update({
+  id: '/wallet/useWallet',
+  path: '/wallet/useWallet',
   getParentRoute: () => HooksRoute,
 } as any)
 const HooksWagmiUseSwitchChainRoute =
@@ -91,57 +90,52 @@ const HooksWagmiUseAccountRoute = HooksWagmiUseAccountRouteImport.update({
   path: '/useAccount',
   getParentRoute: () => HooksWagmiRoute,
 } as any)
+const HooksUtilsUseUIRoute = HooksUtilsUseUIRouteImport.update({
+  id: '/utils/useUI',
+  path: '/utils/useUI',
+  getParentRoute: () => HooksRoute,
+} as any)
+const HooksUtilsUseStatusRoute = HooksUtilsUseStatusRouteImport.update({
+  id: '/utils/useStatus',
+  path: '/utils/useStatus',
+  getParentRoute: () => HooksRoute,
+} as any)
 const HooksAuthUseWalletAuthRoute = HooksAuthUseWalletAuthRouteImport.update({
-  id: '/useWalletAuth',
-  path: '/useWalletAuth',
-  getParentRoute: () => HooksAuthRoute,
+  id: '/auth/useWalletAuth',
+  path: '/auth/useWalletAuth',
+  getParentRoute: () => HooksRoute,
+} as any)
+const HooksAuthUseUserRoute = HooksAuthUseUserRouteImport.update({
+  id: '/auth/useUser',
+  path: '/auth/useUser',
+  getParentRoute: () => HooksRoute,
 } as any)
 const HooksAuthUseSignOutRoute = HooksAuthUseSignOutRouteImport.update({
-  id: '/useSignOut',
-  path: '/useSignOut',
-  getParentRoute: () => HooksAuthRoute,
+  id: '/auth/useSignOut',
+  path: '/auth/useSignOut',
+  getParentRoute: () => HooksRoute,
 } as any)
 const HooksAuthUseOauthRoute = HooksAuthUseOauthRouteImport.update({
-  id: '/useOauth',
-  path: '/useOauth',
-  getParentRoute: () => HooksAuthRoute,
+  id: '/auth/useOauth',
+  path: '/auth/useOauth',
+  getParentRoute: () => HooksRoute,
 } as any)
 const HooksAuthUseGuestAuthRoute = HooksAuthUseGuestAuthRouteImport.update({
-  id: '/useGuestAuth',
-  path: '/useGuestAuth',
-  getParentRoute: () => HooksAuthRoute,
+  id: '/auth/useGuestAuth',
+  path: '/auth/useGuestAuth',
+  getParentRoute: () => HooksRoute,
 } as any)
 const HooksAuthUseEmailAuthRoute = HooksAuthUseEmailAuthRouteImport.update({
-  id: '/useEmailAuth',
-  path: '/useEmailAuth',
-  getParentRoute: () => HooksAuthRoute,
+  id: '/auth/useEmailAuth',
+  path: '/auth/useEmailAuth',
+  getParentRoute: () => HooksRoute,
 } as any)
 const HooksAuthUseAuthCallbackRoute =
   HooksAuthUseAuthCallbackRouteImport.update({
-    id: '/useAuthCallback',
-    path: '/useAuthCallback',
-    getParentRoute: () => HooksAuthRoute,
+    id: '/auth/useAuthCallback',
+    path: '/auth/useAuthCallback',
+    getParentRoute: () => HooksRoute,
   } as any)
-const HooksAppUseWalletsRoute = HooksAppUseWalletsRouteImport.update({
-  id: '/useWallets',
-  path: '/useWallets',
-  getParentRoute: () => HooksAppRoute,
-} as any)
-const HooksAppUseUserRoute = HooksAppUseUserRouteImport.update({
-  id: '/useUser',
-  path: '/useUser',
-  getParentRoute: () => HooksAppRoute,
-} as any)
-const HooksAppUseUIRoute = HooksAppUseUIRouteImport.update({
-  id: '/useUI',
-  path: '/useUI',
-  getParentRoute: () => HooksAppRoute,
-} as any)
-const HooksAppUseStatusRoute = HooksAppUseStatusRouteImport.update({
-  id: '/useStatus',
-  path: '/useStatus',
-  getParentRoute: () => HooksAppRoute,
-} as any)
 const ShowcaseShowcaseAuthSignupRoute =
   ShowcaseShowcaseAuthSignupRouteImport.update({
     id: '/showcase/auth/signup',
@@ -180,25 +174,24 @@ const ShowcaseShowcaseAuthCallbackRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/app': typeof HooksAppRouteWithChildren
-  '/auth': typeof HooksAuthRouteWithChildren
   '/provider': typeof HooksProviderRoute
   '/wagmi': typeof HooksWagmiRouteWithChildren
   '/': typeof ShowcaseIndexRoute
-  '/app/useStatus': typeof HooksAppUseStatusRoute
-  '/app/useUI': typeof HooksAppUseUIRoute
-  '/app/useUser': typeof HooksAppUseUserRoute
-  '/app/useWallets': typeof HooksAppUseWalletsRoute
   '/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
   '/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
   '/auth/useGuestAuth': typeof HooksAuthUseGuestAuthRoute
   '/auth/useOauth': typeof HooksAuthUseOauthRoute
   '/auth/useSignOut': typeof HooksAuthUseSignOutRoute
+  '/auth/useUser': typeof HooksAuthUseUserRoute
   '/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
+  '/utils/useStatus': typeof HooksUtilsUseStatusRoute
+  '/utils/useUI': typeof HooksUtilsUseUIRoute
   '/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
   '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/wallet/useWallet': typeof HooksWalletUseWalletRoute
+  '/wallet/useWallets': typeof HooksWalletUseWalletsRoute
   '/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
   '/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
   '/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
@@ -207,25 +200,24 @@ export interface FileRoutesByFullPath {
   '/showcase/auth/signup': typeof ShowcaseShowcaseAuthSignupRoute
 }
 export interface FileRoutesByTo {
-  '/app': typeof HooksAppRouteWithChildren
-  '/auth': typeof HooksAuthRouteWithChildren
   '/provider': typeof HooksProviderRoute
   '/wagmi': typeof HooksWagmiRouteWithChildren
   '/': typeof ShowcaseIndexRoute
-  '/app/useStatus': typeof HooksAppUseStatusRoute
-  '/app/useUI': typeof HooksAppUseUIRoute
-  '/app/useUser': typeof HooksAppUseUserRoute
-  '/app/useWallets': typeof HooksAppUseWalletsRoute
   '/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
   '/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
   '/auth/useGuestAuth': typeof HooksAuthUseGuestAuthRoute
   '/auth/useOauth': typeof HooksAuthUseOauthRoute
   '/auth/useSignOut': typeof HooksAuthUseSignOutRoute
+  '/auth/useUser': typeof HooksAuthUseUserRoute
   '/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
+  '/utils/useStatus': typeof HooksUtilsUseStatusRoute
+  '/utils/useUI': typeof HooksUtilsUseUIRoute
   '/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
   '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/wallet/useWallet': typeof HooksWalletUseWalletRoute
+  '/wallet/useWallets': typeof HooksWalletUseWalletsRoute
   '/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
   '/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
   '/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
@@ -237,25 +229,24 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_hooks': typeof HooksRouteWithChildren
   '/_showcase': typeof ShowcaseRouteWithChildren
-  '/_hooks/app': typeof HooksAppRouteWithChildren
-  '/_hooks/auth': typeof HooksAuthRouteWithChildren
   '/_hooks/provider': typeof HooksProviderRoute
   '/_hooks/wagmi': typeof HooksWagmiRouteWithChildren
   '/_showcase/': typeof ShowcaseIndexRoute
-  '/_hooks/app/useStatus': typeof HooksAppUseStatusRoute
-  '/_hooks/app/useUI': typeof HooksAppUseUIRoute
-  '/_hooks/app/useUser': typeof HooksAppUseUserRoute
-  '/_hooks/app/useWallets': typeof HooksAppUseWalletsRoute
   '/_hooks/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
   '/_hooks/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
   '/_hooks/auth/useGuestAuth': typeof HooksAuthUseGuestAuthRoute
   '/_hooks/auth/useOauth': typeof HooksAuthUseOauthRoute
   '/_hooks/auth/useSignOut': typeof HooksAuthUseSignOutRoute
+  '/_hooks/auth/useUser': typeof HooksAuthUseUserRoute
   '/_hooks/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
+  '/_hooks/utils/useStatus': typeof HooksUtilsUseStatusRoute
+  '/_hooks/utils/useUI': typeof HooksUtilsUseUIRoute
   '/_hooks/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
   '/_hooks/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/_hooks/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/_hooks/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/_hooks/wallet/useWallet': typeof HooksWalletUseWalletRoute
+  '/_hooks/wallet/useWallets': typeof HooksWalletUseWalletsRoute
   '/_showcase/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
   '/_showcase/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
   '/_showcase/showcase/auth/forgot-password': typeof ShowcaseShowcaseAuthForgotPasswordRoute
@@ -266,25 +257,24 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/app'
-    | '/auth'
     | '/provider'
     | '/wagmi'
     | '/'
-    | '/app/useStatus'
-    | '/app/useUI'
-    | '/app/useUser'
-    | '/app/useWallets'
     | '/auth/useAuthCallback'
     | '/auth/useEmailAuth'
     | '/auth/useGuestAuth'
     | '/auth/useOauth'
     | '/auth/useSignOut'
+    | '/auth/useUser'
     | '/auth/useWalletAuth'
+    | '/utils/useStatus'
+    | '/utils/useUI'
     | '/wagmi/useAccount'
     | '/wagmi/useBalance'
     | '/wagmi/useDisconnect'
     | '/wagmi/useSwitchChain'
+    | '/wallet/useWallet'
+    | '/wallet/useWallets'
     | '/showcase/auth/callback'
     | '/showcase/auth/connect-wallet'
     | '/showcase/auth/forgot-password'
@@ -293,25 +283,24 @@ export interface FileRouteTypes {
     | '/showcase/auth/signup'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/app'
-    | '/auth'
     | '/provider'
     | '/wagmi'
     | '/'
-    | '/app/useStatus'
-    | '/app/useUI'
-    | '/app/useUser'
-    | '/app/useWallets'
     | '/auth/useAuthCallback'
     | '/auth/useEmailAuth'
     | '/auth/useGuestAuth'
     | '/auth/useOauth'
     | '/auth/useSignOut'
+    | '/auth/useUser'
     | '/auth/useWalletAuth'
+    | '/utils/useStatus'
+    | '/utils/useUI'
     | '/wagmi/useAccount'
     | '/wagmi/useBalance'
     | '/wagmi/useDisconnect'
     | '/wagmi/useSwitchChain'
+    | '/wallet/useWallet'
+    | '/wallet/useWallets'
     | '/showcase/auth/callback'
     | '/showcase/auth/connect-wallet'
     | '/showcase/auth/forgot-password'
@@ -322,25 +311,24 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_hooks'
     | '/_showcase'
-    | '/_hooks/app'
-    | '/_hooks/auth'
     | '/_hooks/provider'
     | '/_hooks/wagmi'
     | '/_showcase/'
-    | '/_hooks/app/useStatus'
-    | '/_hooks/app/useUI'
-    | '/_hooks/app/useUser'
-    | '/_hooks/app/useWallets'
     | '/_hooks/auth/useAuthCallback'
     | '/_hooks/auth/useEmailAuth'
     | '/_hooks/auth/useGuestAuth'
     | '/_hooks/auth/useOauth'
     | '/_hooks/auth/useSignOut'
+    | '/_hooks/auth/useUser'
     | '/_hooks/auth/useWalletAuth'
+    | '/_hooks/utils/useStatus'
+    | '/_hooks/utils/useUI'
     | '/_hooks/wagmi/useAccount'
     | '/_hooks/wagmi/useBalance'
     | '/_hooks/wagmi/useDisconnect'
     | '/_hooks/wagmi/useSwitchChain'
+    | '/_hooks/wallet/useWallet'
+    | '/_hooks/wallet/useWallets'
     | '/_showcase/showcase/auth/callback'
     | '/_showcase/showcase/auth/connect-wallet'
     | '/_showcase/showcase/auth/forgot-password'
@@ -391,18 +379,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HooksProviderRouteImport
       parentRoute: typeof HooksRoute
     }
-    '/_hooks/auth': {
-      id: '/_hooks/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof HooksAuthRouteImport
+    '/_hooks/wallet/useWallets': {
+      id: '/_hooks/wallet/useWallets'
+      path: '/wallet/useWallets'
+      fullPath: '/wallet/useWallets'
+      preLoaderRoute: typeof HooksWalletUseWalletsRouteImport
       parentRoute: typeof HooksRoute
     }
-    '/_hooks/app': {
-      id: '/_hooks/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof HooksAppRouteImport
+    '/_hooks/wallet/useWallet': {
+      id: '/_hooks/wallet/useWallet'
+      path: '/wallet/useWallet'
+      fullPath: '/wallet/useWallet'
+      preLoaderRoute: typeof HooksWalletUseWalletRouteImport
       parentRoute: typeof HooksRoute
     }
     '/_hooks/wagmi/useSwitchChain': {
@@ -433,75 +421,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HooksWagmiUseAccountRouteImport
       parentRoute: typeof HooksWagmiRoute
     }
+    '/_hooks/utils/useUI': {
+      id: '/_hooks/utils/useUI'
+      path: '/utils/useUI'
+      fullPath: '/utils/useUI'
+      preLoaderRoute: typeof HooksUtilsUseUIRouteImport
+      parentRoute: typeof HooksRoute
+    }
+    '/_hooks/utils/useStatus': {
+      id: '/_hooks/utils/useStatus'
+      path: '/utils/useStatus'
+      fullPath: '/utils/useStatus'
+      preLoaderRoute: typeof HooksUtilsUseStatusRouteImport
+      parentRoute: typeof HooksRoute
+    }
     '/_hooks/auth/useWalletAuth': {
       id: '/_hooks/auth/useWalletAuth'
-      path: '/useWalletAuth'
+      path: '/auth/useWalletAuth'
       fullPath: '/auth/useWalletAuth'
       preLoaderRoute: typeof HooksAuthUseWalletAuthRouteImport
-      parentRoute: typeof HooksAuthRoute
+      parentRoute: typeof HooksRoute
+    }
+    '/_hooks/auth/useUser': {
+      id: '/_hooks/auth/useUser'
+      path: '/auth/useUser'
+      fullPath: '/auth/useUser'
+      preLoaderRoute: typeof HooksAuthUseUserRouteImport
+      parentRoute: typeof HooksRoute
     }
     '/_hooks/auth/useSignOut': {
       id: '/_hooks/auth/useSignOut'
-      path: '/useSignOut'
+      path: '/auth/useSignOut'
       fullPath: '/auth/useSignOut'
       preLoaderRoute: typeof HooksAuthUseSignOutRouteImport
-      parentRoute: typeof HooksAuthRoute
+      parentRoute: typeof HooksRoute
     }
     '/_hooks/auth/useOauth': {
       id: '/_hooks/auth/useOauth'
-      path: '/useOauth'
+      path: '/auth/useOauth'
       fullPath: '/auth/useOauth'
       preLoaderRoute: typeof HooksAuthUseOauthRouteImport
-      parentRoute: typeof HooksAuthRoute
+      parentRoute: typeof HooksRoute
     }
     '/_hooks/auth/useGuestAuth': {
       id: '/_hooks/auth/useGuestAuth'
-      path: '/useGuestAuth'
+      path: '/auth/useGuestAuth'
       fullPath: '/auth/useGuestAuth'
       preLoaderRoute: typeof HooksAuthUseGuestAuthRouteImport
-      parentRoute: typeof HooksAuthRoute
+      parentRoute: typeof HooksRoute
     }
     '/_hooks/auth/useEmailAuth': {
       id: '/_hooks/auth/useEmailAuth'
-      path: '/useEmailAuth'
+      path: '/auth/useEmailAuth'
       fullPath: '/auth/useEmailAuth'
       preLoaderRoute: typeof HooksAuthUseEmailAuthRouteImport
-      parentRoute: typeof HooksAuthRoute
+      parentRoute: typeof HooksRoute
     }
     '/_hooks/auth/useAuthCallback': {
       id: '/_hooks/auth/useAuthCallback'
-      path: '/useAuthCallback'
+      path: '/auth/useAuthCallback'
       fullPath: '/auth/useAuthCallback'
       preLoaderRoute: typeof HooksAuthUseAuthCallbackRouteImport
-      parentRoute: typeof HooksAuthRoute
-    }
-    '/_hooks/app/useWallets': {
-      id: '/_hooks/app/useWallets'
-      path: '/useWallets'
-      fullPath: '/app/useWallets'
-      preLoaderRoute: typeof HooksAppUseWalletsRouteImport
-      parentRoute: typeof HooksAppRoute
-    }
-    '/_hooks/app/useUser': {
-      id: '/_hooks/app/useUser'
-      path: '/useUser'
-      fullPath: '/app/useUser'
-      preLoaderRoute: typeof HooksAppUseUserRouteImport
-      parentRoute: typeof HooksAppRoute
-    }
-    '/_hooks/app/useUI': {
-      id: '/_hooks/app/useUI'
-      path: '/useUI'
-      fullPath: '/app/useUI'
-      preLoaderRoute: typeof HooksAppUseUIRouteImport
-      parentRoute: typeof HooksAppRoute
-    }
-    '/_hooks/app/useStatus': {
-      id: '/_hooks/app/useStatus'
-      path: '/useStatus'
-      fullPath: '/app/useStatus'
-      preLoaderRoute: typeof HooksAppUseStatusRouteImport
-      parentRoute: typeof HooksAppRoute
+      parentRoute: typeof HooksRoute
     }
     '/_showcase/showcase/auth/signup': {
       id: '/_showcase/showcase/auth/signup'
@@ -548,46 +529,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface HooksAppRouteChildren {
-  HooksAppUseStatusRoute: typeof HooksAppUseStatusRoute
-  HooksAppUseUIRoute: typeof HooksAppUseUIRoute
-  HooksAppUseUserRoute: typeof HooksAppUseUserRoute
-  HooksAppUseWalletsRoute: typeof HooksAppUseWalletsRoute
-}
-
-const HooksAppRouteChildren: HooksAppRouteChildren = {
-  HooksAppUseStatusRoute: HooksAppUseStatusRoute,
-  HooksAppUseUIRoute: HooksAppUseUIRoute,
-  HooksAppUseUserRoute: HooksAppUseUserRoute,
-  HooksAppUseWalletsRoute: HooksAppUseWalletsRoute,
-}
-
-const HooksAppRouteWithChildren = HooksAppRoute._addFileChildren(
-  HooksAppRouteChildren,
-)
-
-interface HooksAuthRouteChildren {
-  HooksAuthUseAuthCallbackRoute: typeof HooksAuthUseAuthCallbackRoute
-  HooksAuthUseEmailAuthRoute: typeof HooksAuthUseEmailAuthRoute
-  HooksAuthUseGuestAuthRoute: typeof HooksAuthUseGuestAuthRoute
-  HooksAuthUseOauthRoute: typeof HooksAuthUseOauthRoute
-  HooksAuthUseSignOutRoute: typeof HooksAuthUseSignOutRoute
-  HooksAuthUseWalletAuthRoute: typeof HooksAuthUseWalletAuthRoute
-}
-
-const HooksAuthRouteChildren: HooksAuthRouteChildren = {
-  HooksAuthUseAuthCallbackRoute: HooksAuthUseAuthCallbackRoute,
-  HooksAuthUseEmailAuthRoute: HooksAuthUseEmailAuthRoute,
-  HooksAuthUseGuestAuthRoute: HooksAuthUseGuestAuthRoute,
-  HooksAuthUseOauthRoute: HooksAuthUseOauthRoute,
-  HooksAuthUseSignOutRoute: HooksAuthUseSignOutRoute,
-  HooksAuthUseWalletAuthRoute: HooksAuthUseWalletAuthRoute,
-}
-
-const HooksAuthRouteWithChildren = HooksAuthRoute._addFileChildren(
-  HooksAuthRouteChildren,
-)
-
 interface HooksWagmiRouteChildren {
   HooksWagmiUseAccountRoute: typeof HooksWagmiUseAccountRoute
   HooksWagmiUseBalanceRoute: typeof HooksWagmiUseBalanceRoute
@@ -607,17 +548,35 @@ const HooksWagmiRouteWithChildren = HooksWagmiRoute._addFileChildren(
 )
 
 interface HooksRouteChildren {
-  HooksAppRoute: typeof HooksAppRouteWithChildren
-  HooksAuthRoute: typeof HooksAuthRouteWithChildren
   HooksProviderRoute: typeof HooksProviderRoute
   HooksWagmiRoute: typeof HooksWagmiRouteWithChildren
+  HooksAuthUseAuthCallbackRoute: typeof HooksAuthUseAuthCallbackRoute
+  HooksAuthUseEmailAuthRoute: typeof HooksAuthUseEmailAuthRoute
+  HooksAuthUseGuestAuthRoute: typeof HooksAuthUseGuestAuthRoute
+  HooksAuthUseOauthRoute: typeof HooksAuthUseOauthRoute
+  HooksAuthUseSignOutRoute: typeof HooksAuthUseSignOutRoute
+  HooksAuthUseUserRoute: typeof HooksAuthUseUserRoute
+  HooksAuthUseWalletAuthRoute: typeof HooksAuthUseWalletAuthRoute
+  HooksUtilsUseStatusRoute: typeof HooksUtilsUseStatusRoute
+  HooksUtilsUseUIRoute: typeof HooksUtilsUseUIRoute
+  HooksWalletUseWalletRoute: typeof HooksWalletUseWalletRoute
+  HooksWalletUseWalletsRoute: typeof HooksWalletUseWalletsRoute
 }
 
 const HooksRouteChildren: HooksRouteChildren = {
-  HooksAppRoute: HooksAppRouteWithChildren,
-  HooksAuthRoute: HooksAuthRouteWithChildren,
   HooksProviderRoute: HooksProviderRoute,
   HooksWagmiRoute: HooksWagmiRouteWithChildren,
+  HooksAuthUseAuthCallbackRoute: HooksAuthUseAuthCallbackRoute,
+  HooksAuthUseEmailAuthRoute: HooksAuthUseEmailAuthRoute,
+  HooksAuthUseGuestAuthRoute: HooksAuthUseGuestAuthRoute,
+  HooksAuthUseOauthRoute: HooksAuthUseOauthRoute,
+  HooksAuthUseSignOutRoute: HooksAuthUseSignOutRoute,
+  HooksAuthUseUserRoute: HooksAuthUseUserRoute,
+  HooksAuthUseWalletAuthRoute: HooksAuthUseWalletAuthRoute,
+  HooksUtilsUseStatusRoute: HooksUtilsUseStatusRoute,
+  HooksUtilsUseUIRoute: HooksUtilsUseUIRoute,
+  HooksWalletUseWalletRoute: HooksWalletUseWalletRoute,
+  HooksWalletUseWalletsRoute: HooksWalletUseWalletsRoute,
 }
 
 const HooksRouteWithChildren = HooksRoute._addFileChildren(HooksRouteChildren)

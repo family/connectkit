@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 
-import { OpenfortKitProvider, getDefaultConfig } from '@openfort/react';
+import { OpenfortProvider, getDefaultConfig } from '../../../packages/react/build';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { WagmiProvider, createConfig } from 'wagmi';
@@ -26,7 +26,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <OpenfortKitProvider
+        <OpenfortProvider
 
           // Set the publishable key of your OpenfortKit account. This field is required.
           publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
@@ -92,7 +92,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           debugMode
         >
           {children}
-        </OpenfortKitProvider>
+        </OpenfortProvider>
       </QueryClientProvider>
     </WagmiProvider >
   );

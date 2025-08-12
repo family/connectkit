@@ -1,3 +1,3 @@
-export { useGuestAuth, OpenfortKitProvider } from "@openfort/react"
+export { useGuestAuth, OpenfortProvider } from "@openfort/react"
 
 

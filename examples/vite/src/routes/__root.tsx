@@ -1,7 +1,6 @@
-import { ModeToggle } from '@/components/mode-toggle';
 import { Nav } from '@/components/Nav';
-import { OpenfortKitButton } from '@openfort/react';
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { useStatus } from '@openfort/react';
+import { Outlet, createRootRoute, useLocation } from '@tanstack/react-router';
 import z from 'zod';
 
 export const Route = createRootRoute({
@@ -13,16 +12,11 @@ export const Route = createRootRoute({
 
 
 function RootComponent() {
+  const { isConnected } = useStatus();
+  const location = useLocation();
   return (
     <div className='flex flex-col min-h-screen w-[100vw]'>
-      <Nav showLogo>
-        <div className='flex gap-4 border-l pl-4'>
-          <ModeToggle className="scale-110" />
-          <div className=''>
-            <OpenfortKitButton />
-          </div>
-        </div>
-      </Nav>
+      <Nav showLogo={location.pathname !== "/" || isConnected} />
       <Outlet />
     </div>
   )

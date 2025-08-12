@@ -1,9 +1,0 @@
-{
-  "name": "OpenfortKit Testbench",
-  "description": "Testbench for OpenfortKit",
-  "iconPath": "app.png",
-  "providedBy": {
-    "name": "Family",
-    "url": "https://family.co"
-  }
-}

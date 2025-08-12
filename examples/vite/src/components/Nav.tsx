@@ -1,19 +1,19 @@
-import { Link, useLocation } from "@tanstack/react-router";
-import { FileRoutesByTo } from "../routeTree.gen";
-import clsx from "clsx";
+import { ModeToggle } from "@/components/mode-toggle";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/ui/logo";
 import { navRoutes } from "@/lib/navRoute";
-import { ArrowRightIcon, ChevronDown } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { OpenfortKitButton } from "@openfort/react";
+import { Link, useLocation } from "@tanstack/react-router";
+import clsx from "clsx";
+import { ChevronDown, SettingsIcon } from "lucide-react";
+import { FileRoutesByTo } from "../routeTree.gen";
 
 export type NavRoute = {
-  href: keyof FileRoutesByTo;
+  href?: keyof FileRoutesByTo;
   label: string;
   exact?: boolean;
   children?: NavRoute[];
 }
-
-
 
 export const Nav = ({ showLogo, children, overridePath }: { showLogo?: boolean; children?: React.ReactNode; overridePath?: string }) => {
   const location = useLocation();
@@ -23,7 +23,7 @@ export const Nav = ({ showLogo, children, overridePath }: { showLogo?: boolean; 
     if (item.exact) {
       return path === item.href
     }
-    return (!!item.href && path.includes(item.href));
+    return (!!item.href && path.includes(item.href)) || (item.children && item.children.some(child => isActive(child)));
   };
 
   return (
@@ -61,7 +61,7 @@ export const Nav = ({ showLogo, children, overridePath }: { showLogo?: boolean; 
                       {route.children.map((child) => (
                         <DropdownMenuItem key={child.href} asChild>
                           <Link
-                            to={child.href}
+                            to={child.href!}
                             className={clsx(
                               "cursor-pointer",
                               isActive(child) ? 'text-primary!' : 'text-gray-600 dark:text-gray-400',
@@ -108,7 +108,7 @@ export const Nav = ({ showLogo, children, overridePath }: { showLogo?: boolean; 
                   <>
                     <Link
                       key={`${route.href}-${i}`}
-                      to={route.href}
+                      to={route.href!}
                       className={
                         clsx(
                           'whitespace-nowrap hover:underline',
@@ -121,6 +121,15 @@ export const Nav = ({ showLogo, children, overridePath }: { showLogo?: boolean; 
               ))
             }
             {children}
+            <div className='flex gap-4 border-l pl-4 items-center'>
+              <ModeToggle className="scale-110" />
+              <div className=''>
+                <OpenfortKitButton />
+              </div>
+              <Link to={"/provider"} className="btn btn-accent btn-sm btn-circle">
+                <SettingsIcon className="size-4.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </nav>

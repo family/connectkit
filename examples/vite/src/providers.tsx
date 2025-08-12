@@ -1,4 +1,4 @@
-import { OpenfortKitProvider, getDefaultConfig } from '@openfort/react';
+import { OpenfortProvider, getDefaultConfig } from '@openfort/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { WagmiProvider, createConfig, http } from 'wagmi';
@@ -26,14 +26,14 @@ export function Providers({ children }: { children?: React.ReactNode }) {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <OpenfortKitProvider
+          <OpenfortProvider
             {...providerOptions}
             uiConfig={{
               ...providerOptions.uiConfig,
             }}
           >
             {children}
-          </OpenfortKitProvider>
+          </OpenfortProvider>
         </QueryClientProvider>
       </WagmiProvider>
     </ThemeProvider>

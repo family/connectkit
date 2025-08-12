@@ -2,7 +2,7 @@ import React from 'react';
 
 import { WagmiProvider, createConfig } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider, OpenfortKitProvider, getDefaultConfig } from '@openfort/react';
+import { AuthProvider, OpenfortProvider, getDefaultConfig } from '@openfort/react';
 
 const config = createConfig(
   getDefaultConfig({
@@ -17,7 +17,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <OpenfortKitProvider
+        <OpenfortProvider
           debugMode
           publishableKey={process.env.REACT_APP_OPENFORT_PUBLIC_KEY!}
 
@@ -37,7 +37,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
           }}
         >
           {children}
-        </OpenfortKitProvider>
+        </OpenfortProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );

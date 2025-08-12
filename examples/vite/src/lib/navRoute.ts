@@ -2,17 +2,6 @@ import { NavRoute } from "@/components/Nav";
 
 export const navRoutes: NavRoute[] = [
   {
-    href: '/',
-    label: 'Showcase',
-    exact: true,
-  },
-  {
-    href: '/provider',
-    label: 'Provider',
-    exact: true,
-  },
-  {
-    href: '/auth',
     label: 'Auth',
     children: [
       {
@@ -38,51 +27,42 @@ export const navRoutes: NavRoute[] = [
       {
         href: '/auth/useSignOut',
         label: 'useSignOut',
-      }
+      },
+      {
+        href: '/auth/useUser',
+        label: 'useUser',
+      },
     ]
   },
   {
-    href: '/app',
-    label: 'App',
-    children: [
+    label: 'Wallet',
+    children:[
       {
-        href: '/app/useUser',
-        label: 'useUser',
+        href: '/wallet/useWallet',
+        label: 'useWallet',
+        exact: true,
       },
       {
-        href: '/app/useWallets',
+        href: '/wallet/useWallets',
         label: 'useWallets',
       },
+    ]
+  },
+  {
+    label: 'Utils',
+    children: [
       {
-        href: '/app/useUI',
+        href: '/utils/useUI',
         label: 'useUI',
       },
       {
-        href: '/app/useStatus',
+        href: '/utils/useStatus',
         label: 'useStatus',
       },
-    ]
-  },
-  {
-    href: '/wagmi',
-    label: 'Wagmi Hooks',
-    children: [
       {
-        href: '/wagmi/useAccount',
-        label: 'useAccount',
-      },
-      {
-        href: '/wagmi/useBalance',
-        label: 'useBalance',
-      },
-      {
-        href: '/wagmi/useDisconnect',
-        label: 'useDisconnect',
-      },
-      {
-        href: '/wagmi/useSwitchChain',
-        label: 'useSwitchChain',
-      },
+        href: '/wagmi',
+        label: 'wagmi',
+      }
     ]
   },
 ]

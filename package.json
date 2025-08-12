@@ -2,7 +2,7 @@
   "name": "openfort-kit",
   "version": "0.0.0",
   "description": "The easiest way to integrate Openfort to your project.",
-  "main": "packages/openfortkit/src/index.ts",
+  "main": "packages/openfort-react/src/index.ts",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -15,7 +15,7 @@
     "dev:nextjs-app": "yarn workspace nextjs-app run dev",
     "dev:vite": "yarn workspace vite run dev",
     "dev:testbench": "yarn workspace testbench run dev",
-    "build": "node build.js && yarn workspace @openfort/react run build && cp README.md packages/openfortkit/README.md",
+    "build": "node build.js && yarn workspace @openfort/react run build && cp README.md packages/openfort-react/README.md",
     "build:cra": "yarn build && yarn workspace cra build",
     "build:nextjs": "yarn build && yarn workspace nextjs build",
     "build:nextjs-app": "yarn build && yarn workspace nextjs-app build",

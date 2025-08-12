@@ -1,6 +1,6 @@
 'use client';
 
-import { OpenfortKitButton, useUI, useStatus } from '@openfort/react';
+import { OpenfortKitButton, useUI, useStatus } from '../../../packages/react/build';
 import { useEffect, useState } from 'react';
 import { Info } from './Info';
 

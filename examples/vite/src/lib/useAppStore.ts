@@ -1,11 +1,11 @@
-import { AuthProvider, OpenfortKitProvider, RecoveryMethod } from "@openfort/react";
+import { AuthProvider, OpenfortProvider, RecoveryMethod } from "@openfort/react";
 import { create } from "zustand";
 
 type EditingEntity = {
   id: string,
 }
 
-const defaultProviderOptions: Parameters<typeof OpenfortKitProvider>[0] = {
+const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
 
   // Set the publishable key of your OpenfortKit account. This field is required.
   publishableKey: import.meta.env.VITE_PUBLISHABLE_KEY,
@@ -66,8 +66,8 @@ const defaultProviderOptions: Parameters<typeof OpenfortKitProvider>[0] = {
 }
 
 interface Store {
-  providerOptions: Parameters<typeof OpenfortKitProvider>[0],
-  setProviderOptions: (options: Parameters<typeof OpenfortKitProvider>[0]) => void,
+  providerOptions: Parameters<typeof OpenfortProvider>[0],
+  setProviderOptions: (options: Parameters<typeof OpenfortProvider>[0]) => void,
 
   editingEntity: EditingEntity | null,
   setEditingEntity: (entity: EditingEntity | null) => void,

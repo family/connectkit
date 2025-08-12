@@ -38,4 +38,4 @@ jobs:
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: packages/openfortkit
+        working-directory: packages/openfort-react

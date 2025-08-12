@@ -1,5 +1,5 @@
 # running the build command copies the root README.md to the connectkit directory for npm release
-packages/openfortkit/README.md
+packages/openfort-react/README.md
 
 # dependencies
 node_modules
