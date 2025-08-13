@@ -10,22 +10,18 @@
       Documentation
     </a>
     <span> | </span>
-    <a href="https://www.openfort.io/docs/reference/api/authentication">
-      API Docs
-    </a>
-    <span> | </span>
     <a href="https://x.com/openfort_hq">
       X
     </a>
-        <span> | </span>
-    <a href="https://create-next-app.openfort.xyz/">
+   <span> | </span>
+    <a href="https://playground.openfort.io/">
       Demo
     </a>
   </h4>
 </div>
 
 
-# Openfort Kit
+# Openfort React SDK
 
 [![Downloads](https://img.shields.io/npm/dm/@openfort/react.svg)](https://www.npmjs.com/package/@openfort/react)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -53,24 +49,24 @@ Get started with `create` Openfortkit + [wagmi](https://wagmi.sh/) + [viem](http
 #### npm
 
 ```sh
-npx create openfortkit
+npx create openfort
 ```
 
 #### yarn
 
 ```sh
-yarn create openfortkit
+yarn create openfort
 ```
 
 #### pnpm
 
 ```sh
-pnpm create openfortkit
+pnpm create openfort
 ```
 
-### Import `OpenfortKit` to your project
+### Import `Openfort` to your project
 
-Add OpenfortKit to your already existing project.
+Add Openfort to your already existing project.
 
 #### npm
 
@@ -90,25 +86,21 @@ yarn add @openfort/react @tanstack/react-query wagmi viem
 pnpm add @openfort/react @tanstack/react-query wagmi viem
 ```
 
-## Documentation
-
-You can find the full OpenfortKit documentation in the Family docs [here]().
-
 ## Examples
 
-There are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/openfort-kit/tree/main/examples):
+There are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/openfort-react/tree/main/examples):
 
-- [Create React App Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/cra)
-- [Next.js Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/nextjs)
-- [Vite Example (TypeScript)](https://github.com/openfort-xyz/openfort-kit/tree/main/examples/vite)
+- [Create React App Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/cra)
+- [Next.js Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/nextjs)
+- [Vite Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/vite)
 
 ### Running Examples Locally
 
-Clone the FortKit project and install the necessary dependencies:
+Clone the project and install the necessary dependencies:
 
 ```sh
 $ git clone git@github.com:openfort-xyz/openfort-kit.git
-$ cd openfort-kit
+$ cd openfort
 $ yarn install
 ```
 
