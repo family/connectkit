@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.3] - 2025-08-13
+
+### Multi account
+
+- Update some auth hooks
+- Update openfort-js version
+
 ## [0.0.2] - 2025-08-11
 
 ### Multi account
