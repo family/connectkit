@@ -4062,9 +4062,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/openfort-js@npm:^0.9.7":
-  version: 0.9.7
-  resolution: "@openfort/openfort-js@npm:0.9.7"
+"@openfort/openfort-js@npm:^0.9.8":
+  version: 0.9.8
+  resolution: "@openfort/openfort-js@npm:0.9.8"
   dependencies:
     "@ethersproject/abi": ^5.8.0
     "@ethersproject/bytes": ^5.8.0
@@ -4077,7 +4077,7 @@ __metadata:
     axios-retry: ^4.5.0
     eventemitter3: 5.0.1
     jose: ^5.2.2
-  checksum: 24c2e62ba13e0a9fbd17154b4d2457e429cdbfd386d5d382a907903fad3ae9ccf9dd418ed9584b498ab0c2ae7a906149a8c21032f1e98c026efb2ca30a3b2cb7
+  checksum: ca536eb36e28c98e5628f3ab4d46f2e93354a00cf3bae0a9b1142f03140ed8fc754eeef01c6bef67b88881f44060fe6a17781dfb254c3739e43cdbad08723bd9
   languageName: node
   linkType: hard
 
@@ -4102,7 +4102,7 @@ __metadata:
   resolution: "@openfort/react@workspace:packages/openfort-react"
   dependencies:
     "@eslint/js": ^9.21.0
-    "@openfort/openfort-js": ^0.9.7
+    "@openfort/openfort-js": ^0.9.8
     "@types/node": 18.7.18
     "@types/qrcode": ^1.4.2
     "@types/react": ^18.0.6
@@ -17118,7 +17118,7 @@ __metadata:
   resolution: "openfort-kit@workspace:."
   dependencies:
     "@changesets/cli": ^2.24.4
-    "@openfort/openfort-js": ^0.9.7
+    "@openfort/openfort-js": ^0.9.8
     "@rollup/plugin-node-resolve": ^13.1.3
     "@tanstack/react-query": ^5.17.15
     react: ^18.0.0
