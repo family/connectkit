@@ -23,11 +23,11 @@ type CallbackResult = (
   );
 
 type UseAuthCallbackOptions = {
-  automaticallyHandleCallback?: boolean;
+  enabled?: boolean;
 } & OpenfortHookOptions<CallbackResult> & CreateWalletPostAuthOptions;
 
 export const useAuthCallback = ({
-  automaticallyHandleCallback = true, // Automatically handle OAuth and email callback
+  enabled = true, // Automatically handle OAuth and email callback
   ...hookOptions
 }: UseAuthCallbackOptions = {}) => {
   const { log } = useOpenfortKit();
@@ -51,7 +51,7 @@ export const useAuthCallback = ({
   } = useOAuth();
 
   useEffect(() => {
-    if (!automaticallyHandleCallback) return;
+    if (!enabled) return;
 
     (async () => {
       // redirectUrl is not working with query params OF-1013
