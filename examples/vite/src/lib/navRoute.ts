@@ -2,7 +2,7 @@ import { NavRoute } from "@/components/Nav";
 
 export const navRoutes: NavRoute[] = [
   {
-    label: 'Auth',
+    label: 'Auth hooks',
     children: [
       {
         href: '/auth/useGuestAuth',
@@ -35,7 +35,7 @@ export const navRoutes: NavRoute[] = [
     ]
   },
   {
-    label: 'Wallet',
+    label: 'Wallet hooks',
     children:[
       {
         href: '/wallet/useWallet',

@@ -5,141 +5,50 @@ import { useOpenfortCore } from "../../../openfort/useOpenfort";
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
 import { onError, onSuccess } from "../hookConsistency";
 import { AuthProvider } from "../../../components/Openfort/types";
-import { useCreateWalletPostAuth } from "./useCreateWalletPostAuth";
-import { UserWallet } from "../useWallets";
-import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js';
+import { CreateWalletPostAuthOptions, useCreateWalletPostAuth } from "./useCreateWalletPostAuth";
+import { EmailVerificationResult, useEmailAuth } from "./useEmailAuth";
+import { StoreCredentialsResult, useOAuth } from "./useOAuth";
 
 
-type CallbackResult = StoreCredentialsResult | EmailVerificationResult;
-
-type EmailVerificationResult = {
-  type: "verifyEmail";
-  email?: string,
-  error?: OpenfortError
-}
-
-type StoreCredentialsResult = {
-  type: "storeCredentials";
-  user?: OpenfortUser;
-  wallet?: UserWallet;
-  error?: OpenfortError;
-}
-
-type VerifyEmailOptions = {
-  email: string;
-  state: string;
-} & OpenfortHookOptions<EmailVerificationResult>;
-
-type StoreCredentialsOptions = {
-  player: string;
-  accessToken: string;
-  refreshToken: string;
-} & OpenfortHookOptions<StoreCredentialsResult>;
+type CallbackResult = (
+  StoreCredentialsResult
+  & {
+    type: "storeCredentials";
+  }
+) | (
+    EmailVerificationResult
+    & {
+      type: "verifyEmail";
+    }
+  );
 
 type UseAuthCallbackOptions = {
   automaticallyHandleCallback?: boolean;
-} & OpenfortHookOptions<CallbackResult>;
+} & OpenfortHookOptions<CallbackResult> & CreateWalletPostAuthOptions;
 
 export const useAuthCallback = ({
   automaticallyHandleCallback = true, // Automatically handle OAuth and email callback
   ...hookOptions
 }: UseAuthCallbackOptions = {}) => {
   const { log } = useOpenfortKit();
-  const [status, setStatus] = useState<BaseFlowState>({
-    status: "idle",
-  });
-  const { client, updateUser } = useOpenfortCore();
+
   const [provider, setProvider] = useState<AuthProvider | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-  const { tryUseWallet } = useCreateWalletPostAuth();
+  const {
+    verifyEmail,
+    isSuccess: isEmailSuccess,
+    isLoading: isEmailLoading,
+    isError: isEmailError,
+    error: emailError,
+  } = useEmailAuth()
 
-  const verifyEmail = useCallback(async ({ email, state, ...options }: VerifyEmailOptions): Promise<EmailVerificationResult> => {
-    setStatus({
-      status: 'loading',
-    });
-    setEmail(email);
-
-    try {
-      await client.auth.verifyEmail({
-        email,
-        state,
-      })
-      setStatus({
-        status: 'success',
-      });
-
-      return onSuccess({
-        hookOptions,
-        options,
-        data: { email, type: "verifyEmail" },
-      });
-
-    } catch (e) {
-      const error = new OpenfortError("Failed to verify email", OpenfortErrorType.AUTHENTICATION_ERROR, { error: e });
-
-      setStatus({
-        status: 'error',
-        error,
-      });
-
-      log("Error verifying email", e);
-
-      onError({
-        hookOptions,
-        options,
-        error,
-      });
-
-      return { error, type: "verifyEmail" };
-    }
-  }, [client, log, hookOptions]);
-
-  const storeCredentials = useCallback(async ({
-    player,
-    accessToken,
-    refreshToken,
-    ...options
-  }: StoreCredentialsOptions): Promise<StoreCredentialsResult> => {
-    setStatus({
-      status: 'loading',
-    });
-
-    try {
-      await client.auth.storeCredentials({
-        player,
-        accessToken,
-        refreshToken,
-      });
-      setStatus({
-        status: 'success',
-      });
-
-      const user = await updateUser() || undefined;
-
-      const { wallet } = await tryUseWallet();
-
-      return onSuccess({
-        data: { user, wallet, type: "storeCredentials" },
-        hookOptions,
-        options,
-      });
-    } catch (e) {
-      const error = new OpenfortError("Failed to store credentials", OpenfortErrorType.AUTHENTICATION_ERROR, { error: e });
-
-      setStatus({
-        status: 'error',
-        error,
-      });
-      log("Error storing credentials", e);
-
-      onError({
-        hookOptions,
-        options,
-        error,
-      });
-      return { error, type: "storeCredentials" };
-    }
-  }, [client, log, hookOptions]);
+  const {
+    storeCredentials,
+    isSuccess: isOAuthSuccess,
+    isLoading: isOAuthLoading,
+    isError: isOAuthError,
+    error: oAuthError,
+  } = useOAuth();
 
   useEffect(() => {
     if (!automaticallyHandleCallback) return;
@@ -177,7 +86,26 @@ export const useAuthCallback = ({
         }
 
         log("EmailVerification", state, email);
-        await verifyEmail({ email, state });
+
+        const options: OpenfortHookOptions<Omit<CallbackResult, "type">> = {
+          onSuccess: (data) => {
+            hookOptions.onSuccess?.({
+              ...data,
+              type: "verifyEmail",
+            });
+          },
+          onSettled: (data, error) => {
+            hookOptions.onSettled?.({
+              ...data,
+              type: "verifyEmail",
+            }, error);
+          },
+          onError: hookOptions.onError,
+          throwOnError: hookOptions.throwOnError,
+        }
+
+        await verifyEmail({ email, state, ...options });
+        setEmail(email);
         removeParams();
       } else {
 
@@ -213,7 +141,24 @@ export const useAuthCallback = ({
 
         log("callback", { player, accessToken, refreshToken });
 
-        const { wallet, user, error, type } = await storeCredentials({ player, accessToken, refreshToken });
+        const options: OpenfortHookOptions<Omit<CallbackResult, "type">> = {
+          onSuccess: (data) => {
+            hookOptions.onSuccess?.({
+              ...data,
+              type: "storeCredentials",
+            });
+          },
+          onSettled: (data, error) => {
+            hookOptions.onSettled?.({
+              ...data,
+              type: "storeCredentials",
+            }, error);
+          },
+          onError: hookOptions.onError,
+          throwOnError: hookOptions.throwOnError,
+        }
+
+        await storeCredentials({ player, accessToken, refreshToken, ...options });
         removeParams();
       }
 
@@ -225,6 +170,9 @@ export const useAuthCallback = ({
     provider,
     verifyEmail,
     storeCredentials,
-    ...mapStatus(status),
+    isLoading: isEmailLoading || isOAuthLoading,
+    isError: isEmailError || isOAuthError,
+    isSuccess: isEmailSuccess || isOAuthSuccess,
+    error: emailError || oAuthError,
   };
 }

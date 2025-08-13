@@ -3,7 +3,6 @@ import { embeddedWalletId, useWallets } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { Layout } from '../../../components/Layout'
-import { useAccount } from 'wagmi'
 
 export const Route = createFileRoute('/_hooks/wallet/useWallets')({
   component: RouteComponent,
@@ -24,12 +23,8 @@ function RouteComponent() {
     setIsOpenfortWallet(connectorOptions[0] === embeddedWalletId);
   }, [connectorOptions]);
 
-  const { address } = useAccount();
   return (
     <Layout>
-      address: {address}
-      connectorOptions[0]: {connectorOptions[0]}
-      embeddedWalletId: {embeddedWalletId}
       <HookVariable
         name='useWallets'
         hook={useWallets}

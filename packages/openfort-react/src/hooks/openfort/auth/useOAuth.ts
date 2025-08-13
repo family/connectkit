@@ -6,6 +6,10 @@ import { BaseFlowState, mapStatus } from './status';
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types';
 import { buildCallbackUrl } from './requestEmailVerification';
 import { onError, onSuccess } from '../hookConsistency';
+import { CreateWalletPostAuthOptions, useCreateWalletPostAuth } from './useCreateWalletPostAuth';
+
+import { UserWallet } from "../useWallets";
+import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js';
 
 // TODO: Open auth in a new tab and use polling to check for completion
 export type InitializeOAuthOptions = {
@@ -13,13 +17,25 @@ export type InitializeOAuthOptions = {
   redirectTo?: string;
 } & OpenfortHookOptions;
 
-export type AuthHookOptions = {
-  redirectTo?: string;
-} & OpenfortHookOptions;
-
 export type InitOAuthReturnType = {
   error?: OpenfortError;
 }
+
+export type StoreCredentialsResult = {
+  // type: "storeCredentials";
+  user?: OpenfortUser;
+  wallet?: UserWallet;
+  error?: OpenfortError;
+}
+export type StoreCredentialsOptions = {
+  player: string;
+  accessToken: string;
+  refreshToken: string;
+} & OpenfortHookOptions<StoreCredentialsResult> & CreateWalletPostAuthOptions;
+
+export type AuthHookOptions = {
+  redirectTo?: string;
+} & OpenfortHookOptions<StoreCredentialsResult> & CreateWalletPostAuthOptions;
 
 const providerToAuthProvider: Partial<Record<AuthProvider, OAuthProvider>> = {
   // [OAuthProvider.APPLE]: AuthProvider.,
@@ -30,7 +46,6 @@ const providerToAuthProvider: Partial<Record<AuthProvider, OAuthProvider>> = {
   // [OAuthProvider.LINE]: AuthProvider.,
   [AuthProvider.TWITTER]: OAuthProvider.TWITTER,
 }
-
 
 function getOAuthProvider(provider: AuthProvider): OAuthProvider {
   if (!providerToAuthProvider[provider]) {
@@ -46,6 +61,56 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
   const [status, setStatus] = useState<BaseFlowState>({
     status: "idle",
   });
+
+  const { tryUseWallet } = useCreateWalletPostAuth();
+
+  const storeCredentials = useCallback(async ({
+    player,
+    accessToken,
+    refreshToken,
+    ...options
+  }: StoreCredentialsOptions): Promise<StoreCredentialsResult> => {
+    setStatus({
+      status: 'loading',
+    });
+
+    try {
+      await client.auth.storeCredentials({
+        player,
+        accessToken,
+        refreshToken,
+      });
+      setStatus({
+        status: 'success',
+      });
+
+      const user = await updateUser() || undefined;
+
+      const { wallet } = await tryUseWallet({
+        logoutOnError: options.logoutOnError || hookOptions.logoutOnError,
+        automaticRecovery: options.automaticRecovery || hookOptions.automaticRecovery,
+      });
+
+      return onSuccess({
+        data: { user, wallet, type: "storeCredentials" },
+        hookOptions,
+        options,
+      });
+    } catch (e) {
+      const error = new OpenfortError("Failed to store credentials", OpenfortErrorType.AUTHENTICATION_ERROR, { error: e });
+
+      setStatus({
+        status: 'error',
+        error,
+      });
+
+      return onError({
+        hookOptions,
+        options,
+        error,
+      });
+    }
+  }, [client, hookOptions]);
 
   const initOAuth = useCallback(async (options: InitializeOAuthOptions): Promise<InitOAuthReturnType> => {
     const authProvider = options.provider;
@@ -139,6 +204,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
   return {
     initOAuth,
     linkOauth,
+    storeCredentials,
     ...mapStatus(status),
   }
 }

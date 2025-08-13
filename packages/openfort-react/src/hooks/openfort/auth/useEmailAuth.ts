@@ -6,7 +6,7 @@ import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../
 import { buildCallbackUrl } from "./requestEmailVerification";
 import { BaseFlowState, mapStatus } from "./status";
 import { onError, onSuccess } from '../hookConsistency';
-import { useCreateWalletPostAuth } from './useCreateWalletPostAuth';
+import { CreateWalletPostAuthOptions, useCreateWalletPostAuth } from './useCreateWalletPostAuth';
 import { UserWallet } from '../useWallets';
 
 
@@ -21,14 +21,14 @@ export type SignInEmailOptions = {
   email: string;
   password: string;
   emailVerificationRedirectTo?: string;
-} & OpenfortHookOptions<EmailAuthResult>;
+} & OpenfortHookOptions<EmailAuthResult> & CreateWalletPostAuthOptions;
 
 export type SignUpEmailOptions = {
   email: string;
   password: string;
   name?: string;
   emailVerificationRedirectTo?: string;
-} & OpenfortHookOptions<EmailAuthResult>;
+} & OpenfortHookOptions<EmailAuthResult> & CreateWalletPostAuthOptions;
 
 export type RequestResetPasswordOptions = {
   email: string;
@@ -47,10 +47,19 @@ export type LinkEmailOptions = {
   emailVerificationRedirectTo?: string;
 } & OpenfortHookOptions<EmailAuthResult>;
 
+export type VerifyEmailOptions = {
+  email: string;
+  state: string;
+} & OpenfortHookOptions<EmailVerificationResult>;
+
+export type EmailVerificationResult = {
+  email?: string,
+  error?: OpenfortError
+}
+
 export type UseEmailHookOptions = {
   emailVerificationRedirectTo?: string;
-} & OpenfortHookOptions<EmailAuthResult>;
-
+} & OpenfortHookOptions<EmailAuthResult | EmailVerificationResult> & CreateWalletPostAuthOptions;
 
 export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const { log } = useOpenfortKit();
@@ -102,7 +111,10 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         })
       } else {
 
-        const { wallet } = await tryUseWallet();
+        const { wallet } = await tryUseWallet({
+          logoutOnError: options.logoutOnError || hookOptions.logoutOnError,
+          automaticRecovery: options.automaticRecovery || hookOptions.automaticRecovery,
+        });
 
         setStatus({
           status: 'success',
@@ -249,7 +261,10 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         });
       } else {
 
-        const { wallet } = await tryUseWallet();
+        const { wallet } = await tryUseWallet({
+          logoutOnError: options.logoutOnError || hookOptions.logoutOnError,
+          automaticRecovery: options.automaticRecovery || hookOptions.automaticRecovery,
+        });
 
         setStatus({
           status: 'success',
@@ -349,9 +364,50 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   }, [client, setStatus, updateUser, log, hookOptions]);
 
 
+  const verifyEmail = useCallback(async ({ email, state, ...options }: VerifyEmailOptions): Promise<EmailVerificationResult> => {
+    setStatus({
+      status: 'loading',
+    });
+
+    try {
+      await client.auth.verifyEmail({
+        email,
+        state,
+      })
+      setStatus({
+        status: 'success',
+      });
+
+      return onSuccess({
+        hookOptions,
+        options,
+        data: {
+          email,
+        },
+      });
+
+    } catch (e) {
+      const error = new OpenfortError("Failed to verify email", OpenfortErrorType.AUTHENTICATION_ERROR, { error: e });
+
+      setStatus({
+        status: 'error',
+        error,
+      });
+
+      log("Error verifying email", e);
+
+      return onError({
+        hookOptions,
+        options,
+        error,
+      });
+    }
+  }, [client, log, hookOptions]);
+
   return {
     signInEmail,
     signUpEmail,
+    verifyEmail,
     linkEmail,
     requestResetPassword,
     resetPassword,
