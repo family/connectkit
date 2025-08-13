@@ -219,6 +219,7 @@ export const OpenfortProvider = ({
           shieldConfiguration={walletConfig ? {
             shieldPublishableKey: walletConfig.shieldPublishableKey,
             shieldEncryptionKey: walletConfig.recoveryMethod === RecoveryMethod.PASSWORD ? walletConfig.shieldEncryptionKey : undefined,
+            debug: debugMode,
           } : undefined}
           overrides={opts.openfortUrlOverrides}
           debugMode={debugMode}

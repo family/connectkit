@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShowcaseRouteImport } from './routes/_showcase'
 import { Route as HooksRouteImport } from './routes/_hooks'
 import { Route as ShowcaseIndexRouteImport } from './routes/_showcase/index'
+import { Route as ShowcaseAuthRouteImport } from './routes/_showcase/auth'
 import { Route as HooksWagmiRouteImport } from './routes/_hooks/wagmi'
 import { Route as HooksProviderRouteImport } from './routes/_hooks/provider'
 import { Route as HooksWalletUseWalletsRouteImport } from './routes/_hooks/wallet/useWallets'
@@ -47,6 +48,11 @@ const HooksRoute = HooksRouteImport.update({
 const ShowcaseIndexRoute = ShowcaseIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => ShowcaseRoute,
+} as any)
+const ShowcaseAuthRoute = ShowcaseAuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => ShowcaseRoute,
 } as any)
 const HooksWagmiRoute = HooksWagmiRouteImport.update({
@@ -176,6 +182,7 @@ const ShowcaseShowcaseAuthCallbackRoute =
 export interface FileRoutesByFullPath {
   '/provider': typeof HooksProviderRoute
   '/wagmi': typeof HooksWagmiRouteWithChildren
+  '/auth': typeof ShowcaseAuthRoute
   '/': typeof ShowcaseIndexRoute
   '/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
   '/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/provider': typeof HooksProviderRoute
   '/wagmi': typeof HooksWagmiRouteWithChildren
+  '/auth': typeof ShowcaseAuthRoute
   '/': typeof ShowcaseIndexRoute
   '/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
   '/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/_showcase': typeof ShowcaseRouteWithChildren
   '/_hooks/provider': typeof HooksProviderRoute
   '/_hooks/wagmi': typeof HooksWagmiRouteWithChildren
+  '/_showcase/auth': typeof ShowcaseAuthRoute
   '/_showcase/': typeof ShowcaseIndexRoute
   '/_hooks/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
   '/_hooks/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
@@ -259,6 +268,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/provider'
     | '/wagmi'
+    | '/auth'
     | '/'
     | '/auth/useAuthCallback'
     | '/auth/useEmailAuth'
@@ -285,6 +295,7 @@ export interface FileRouteTypes {
   to:
     | '/provider'
     | '/wagmi'
+    | '/auth'
     | '/'
     | '/auth/useAuthCallback'
     | '/auth/useEmailAuth'
@@ -313,6 +324,7 @@ export interface FileRouteTypes {
     | '/_showcase'
     | '/_hooks/provider'
     | '/_hooks/wagmi'
+    | '/_showcase/auth'
     | '/_showcase/'
     | '/_hooks/auth/useAuthCallback'
     | '/_hooks/auth/useEmailAuth'
@@ -363,6 +375,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof ShowcaseIndexRouteImport
+      parentRoute: typeof ShowcaseRoute
+    }
+    '/_showcase/auth': {
+      id: '/_showcase/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof ShowcaseAuthRouteImport
       parentRoute: typeof ShowcaseRoute
     }
     '/_hooks/wagmi': {
@@ -582,6 +601,7 @@ const HooksRouteChildren: HooksRouteChildren = {
 const HooksRouteWithChildren = HooksRoute._addFileChildren(HooksRouteChildren)
 
 interface ShowcaseRouteChildren {
+  ShowcaseAuthRoute: typeof ShowcaseAuthRoute
   ShowcaseIndexRoute: typeof ShowcaseIndexRoute
   ShowcaseShowcaseAuthCallbackRoute: typeof ShowcaseShowcaseAuthCallbackRoute
   ShowcaseShowcaseAuthConnectWalletRoute: typeof ShowcaseShowcaseAuthConnectWalletRoute
@@ -592,6 +612,7 @@ interface ShowcaseRouteChildren {
 }
 
 const ShowcaseRouteChildren: ShowcaseRouteChildren = {
+  ShowcaseAuthRoute: ShowcaseAuthRoute,
   ShowcaseIndexRoute: ShowcaseIndexRoute,
   ShowcaseShowcaseAuthCallbackRoute: ShowcaseShowcaseAuthCallbackRoute,
   ShowcaseShowcaseAuthConnectWalletRoute:

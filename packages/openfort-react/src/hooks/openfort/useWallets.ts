@@ -9,7 +9,7 @@ import { embeddedWalletId } from "../../constants/openfort";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../types";
 import { useWallets as useWagmiWallets } from "../../wallets/useWallets";
-import { BaseFlowState, mapStatus } from "./auth/status";
+import { BaseFlowState } from "./auth/status";
 import { onError, onSuccess } from "./hookConsistency";
 
 export type UserWallet = {
@@ -19,7 +19,8 @@ export type UserWallet = {
   connector?: Connector;
   id: string;
   isAvailable: boolean;
-  isActive: boolean;
+  isActive?: boolean;
+  isConnecting?: boolean;
 }
 
 
@@ -45,9 +46,7 @@ type WalletOptions = OpenfortHookOptions<SetActiveWalletResult | CreateWalletRes
 
 const createOpenfortWallet = ({
   address,
-  isActive,
 }: {
-  isActive: boolean;
   address: Hex | undefined;
 }): UserWallet => ({
   connectorType: "embedded",
@@ -55,8 +54,24 @@ const createOpenfortWallet = ({
   address,
   id: embeddedWalletId,
   isAvailable: true,
-  isActive,
 });
+
+type WalletFlowStatus = BaseFlowState | {
+  status: "creating" | "connecting";
+  address?: Hex;
+  error?: never;
+}
+
+const mapStatus = (status: WalletFlowStatus) => {
+  return {
+    error: status.error,
+    isError: status.status === 'error',
+    isSuccess: status.status === 'success',
+    isCreating: status.status === 'creating',
+    isConnecting: status.status === 'connecting',
+  }
+}
+
 
 export function useWallets(hookOptions: WalletOptions = {}) {
   const { user, embeddedState, client } = useOpenfortCore();
@@ -65,7 +80,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   const chainId = useChainId();
   const deviceWallets = useWagmiWallets(); // TODO: Map wallets object to be the same as wallets
   const { disconnect } = useDisconnect();
-  const [status, setStatus] = useState<BaseFlowState>({
+  const [status, setStatus] = useState<WalletFlowStatus>({
     status: "idle",
   })
   const [connectToConnector, setConnectToConnector] = useState<{ address?: Hex, connector: Connector } | undefined>(undefined);
@@ -146,19 +161,20 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           walletClientType: a.walletClientType,
           id: wallet?.id || a.walletClientType || "unknown",
           isAvailable: !!wallet,
-          isActive: connector?.id === a.walletClientType && address === a.address,
         }
       }) : []
 
     embeddedWallets?.forEach((wallet) => {
+      // Remove duplicates (different chain ids)
+      if (userWallets.find(w => w.address === (wallet.address))) return;
+
       userWallets.push(createOpenfortWallet({
         address: wallet.address as Hex,
-        isActive: wallet.address === address,
       }));
     });
 
     return userWallets;
-  }, [user, address, connector?.id, embeddedWallets]);
+  }, [user?.linkedAccounts, embeddedWallets]);
 
   const activeWallet = isConnected && connector ? wallets.find((w) => w.isActive) : undefined;
 
@@ -251,7 +267,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
     if (isOpenfortWallet(optionsObject)) {
       setStatus({
-        status: 'loading',
+        status: 'connecting',
+        address: optionsObject.address,
       });
 
       const { password } = optionsObject;
@@ -264,12 +281,14 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         });
       }
 
-      log(`Handling recovery with Openfort: password=${password}, chainId=${chainId}`);
+      log(`Handling recovery with Openfort: ${password ? "with password" : "without password"}, chainId=${chainId}`);
       try {
         const accessToken = await client.getAccessToken();
         if (!accessToken) {
           throw new Error("Openfort access token not found");
         }
+
+        log("Access token");
 
         const shieldAuthentication: ShieldAuthentication = password ? {
           auth: ShieldAuthType.OPENFORT,
@@ -282,6 +301,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             await getEncryptionSession(),
         };
 
+        log("Shield authentication");
+
         const recoveryParams = password ? {
           recoveryMethod: RecoveryMethod.PASSWORD,
           password,
@@ -289,7 +310,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           recoveryMethod: RecoveryMethod.AUTOMATIC,
         } as const;
 
-        log("Recovery params", recoveryParams, optionsObject.address);
+        log("Recovery params", optionsObject.address);
 
         if (optionsObject.address) {
           const walletId = embeddedWallets?.find((w) => w.address === optionsObject.address && w.chainId === chainId)?.id;
@@ -328,7 +349,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           data: {
             wallet: createOpenfortWallet({
               address: optionsObject.address,
-              isActive: true,
             }),
           },
           options: optionsObject,
@@ -363,7 +383,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
     } else {
       setStatus({
-        status: 'loading',
+        status: 'connecting',
+        address: optionsObject.address,
       });
       setConnectToConnector({
         address: optionsObject.address,
@@ -380,8 +401,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     ...options
   }: CreateWalletOptions = {}) => {
     setStatus({
-      status: 'loading',
+      status: 'creating',
     });
+
+    log("Creating wallet", { password: !!password, options });
 
     const accessToken = await client.getAccessToken();
     if (!accessToken) {
@@ -399,10 +422,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       });
     }
 
-    const shieldAuthentication: ShieldAuthentication = password ? {
-      auth: ShieldAuthType.OPENFORT,
-      token: accessToken,
-    } : {
+    const shieldAuthentication: ShieldAuthentication = {
       auth: ShieldAuthType.OPENFORT,
       token: accessToken,
       encryptionSession: walletConfig.getEncryptionSession ?
@@ -434,14 +454,17 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       data: {
         wallet: createOpenfortWallet({
           address: wallet.address as Hex,
-          isActive: true,
         })
       }
     });
   }, [refetch, client, uiConfig, chainId]);
 
   return {
-    wallets,
+    wallets: wallets.map((w) => ({
+      ...w,
+      isConnecting: status.status === 'connecting' && status.address === w.address,
+      isActive: w.address === address && isConnected && connector?.id === w.id,
+    })),
     availableWallets: deviceWallets,
     activeWallet,
     setActiveWallet,

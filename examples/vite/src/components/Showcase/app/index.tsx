@@ -1,6 +1,6 @@
 import { SignaturesCard } from '@/components/Showcase/app/Signatures';
 import { SwitchChainCard } from '@/components/Showcase/app/SwitchChain';
-import { WalletsCard } from '@/components/Showcase/app/Wallets';
+import { SetActiveWalletsCard } from '@/components/Showcase/app/SetActiveWallets';
 import { WriteContractCard } from '@/components/Showcase/app/WriteContract';
 import { SampleTooltipLink } from '@/components/Showcase/auth/SampleTooltipLink';
 import { Button } from '@/components/Showcase/ui/Button';
@@ -44,7 +44,7 @@ export const App = () => {
         <SignaturesCard />
         <WriteContractCard />
         <SwitchChainCard />
-        <WalletsCard />
+        <SetActiveWalletsCard />
       </div>
     </div >
   )
