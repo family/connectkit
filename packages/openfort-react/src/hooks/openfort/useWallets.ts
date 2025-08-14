@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hex } from "viem";
 import { Connector, useAccount, useChainId, useConnect, useDisconnect } from "wagmi";
 import { AuthProvider, routes } from "../../components/Openfort/types";
-import { useOpenfortKit } from '../../components/Openfort/useOpenfortKit';
+import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { embeddedWalletId } from "../../constants/openfort";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../types";
@@ -13,7 +13,7 @@ import { BaseFlowState } from "./auth/status";
 import { onError, onSuccess } from "./hookConsistency";
 
 export type UserWallet = {
-  address?: `0x${string}`;
+  address?: Hex;
   connectorType?: string;
   walletClientType?: string;
   connector?: Connector;
@@ -42,6 +42,13 @@ type CreateWalletOptions = {
   password?: string;
 } & OpenfortHookOptions<CreateWalletResult>
 
+type RecoverEmbeddedWalletResult = SetActiveWalletResult
+
+type SetRecoveryOptions = {
+  recoveryMethod: RecoveryMethod;
+  recoveryPassword?: string;
+} & OpenfortHookOptions<CreateWalletResult>
+
 type WalletOptions = OpenfortHookOptions<SetActiveWalletResult | CreateWalletResult>;
 
 const createOpenfortWallet = ({
@@ -62,7 +69,7 @@ type WalletFlowStatus = BaseFlowState | {
   error?: never;
 }
 
-const mapStatus = (status: WalletFlowStatus) => {
+const mapWalletStatus = (status: WalletFlowStatus) => {
   return {
     error: status.error,
     isError: status.status === 'error',
@@ -75,7 +82,7 @@ const mapStatus = (status: WalletFlowStatus) => {
 
 export function useWallets(hookOptions: WalletOptions = {}) {
   const { user, embeddedState, client } = useOpenfortCore();
-  const { walletConfig, log, setOpen, setRoute, setConnector, uiConfig } = useOpenfortKit();
+  const { walletConfig, log, setOpen, setRoute, setConnector, uiConfig } = useOpenfort();
   const { connector, isConnected, address } = useAccount();
   const chainId = useChainId();
   const deviceWallets = useWagmiWallets(); // TODO: Map wallets object to be the same as wallets
@@ -150,7 +157,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     return respJSON.session;
   }, [walletConfig]);
 
-  const wallets: UserWallet[] = useMemo(() => {
+  const rawWallets: UserWallet[] = useMemo(() => {
     const userWallets: UserWallet[] = user ? user.linkedAccounts
       .filter((a) => a.provider === AuthProvider.WALLET)
       .map((a) => {
@@ -175,6 +182,17 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
     return userWallets;
   }, [user?.linkedAccounts, embeddedWallets]);
+
+  const wallets: UserWallet[] = useMemo(() => {
+    if (!isConnected || !address) return rawWallets;
+
+    console.log("Mapping wallets", { rawWallets, status, address, isConnected, connector });
+    return rawWallets.map((w) => ({
+      ...w,
+      isConnecting: status.status === 'connecting' && status.address === w.address,
+      isActive: w.address === address && isConnected && connector?.id === w.id,
+    }))
+  }, [rawWallets, status, address, isConnected, connector]);
 
   const activeWallet = isConnected && connector ? wallets.find((w) => w.isActive) : undefined;
 
@@ -459,19 +477,58 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     });
   }, [refetch, client, uiConfig, chainId]);
 
+  const setRecovery = useCallback(
+    async (params: SetRecoveryOptions): Promise<RecoverEmbeddedWalletResult> => {
+      try {
+        setStatus({
+          status: 'loading',
+        });
+
+        // Set embedded wallet recovery method
+        if (params.recoveryMethod === 'password') {
+          await client.embeddedWallet.setEmbeddedRecovery({
+            recoveryMethod: RecoveryMethod.PASSWORD,
+            recoveryPassword: params.recoveryPassword
+          });
+        } else {
+          await client.embeddedWallet.setEmbeddedRecovery({
+            recoveryMethod: RecoveryMethod.AUTOMATIC
+          });
+        }
+
+        // Get the updated embedded account
+        const embeddedAccount = await client.embeddedWallet.get();
+
+        setStatus({ status: 'success' });
+        return onSuccess({
+          hookOptions,
+          options: params,
+          data: {
+            wallet: createOpenfortWallet({
+              address: embeddedAccount.address as Hex,
+            }),
+          }
+        });
+      } catch (error) {
+        const errorObj = error instanceof Error ? error : new Error('Failed to set wallet recovery');
+        return onError({
+          hookOptions,
+          options: params,
+          error: new OpenfortError('Failed to set wallet recovery', OpenfortErrorType.WALLET_ERROR, { error: errorObj }),
+        });
+      }
+    },
+    [client, setStatus, hookOptions]
+  );
+
   return {
-    wallets: wallets.map((w) => ({
-      ...w,
-      isConnecting: status.status === 'connecting' && status.address === w.address,
-      isActive: w.address === address && isConnected && connector?.id === w.id,
-    })),
+    wallets,
     availableWallets: deviceWallets,
     activeWallet,
-    setActiveWallet,
+    setRecovery,
     createWallet,
-    ...mapStatus(status),
+    setActiveWallet,
+    ...mapWalletStatus(status),
     exportPrivateKey: client.embeddedWallet.exportPrivateKey,
   }
 }
-
-

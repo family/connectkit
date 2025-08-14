@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useOpenfortKit } from "../../../components/Openfort/useOpenfortKit";
+import { useOpenfort } from "../../../components/Openfort/useOpenfort";
 import { BaseFlowState, mapStatus } from "./status";
 import { useOpenfortCore } from "../../../openfort/useOpenfort";
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
@@ -30,7 +30,7 @@ export const useAuthCallback = ({
   enabled = true, // Automatically handle OAuth and email callback
   ...hookOptions
 }: UseAuthCallbackOptions = {}) => {
-  const { log } = useOpenfortKit();
+  const { log } = useOpenfort();
 
   const [provider, setProvider] = useState<AuthProvider | null>(null);
   const [email, setEmail] = useState<string | null>(null);

@@ -1,7 +1,11 @@
 import { BaseVariable, HookInput } from "@/components/Variable/Variable";
-import { onSettledInputs } from "@/components/Variable/commonVariables";
+import { commonVariables, onSettledInputs } from "@/components/Variable/commonVariables";
+import { MDiv } from "@/components/motion/motion";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/cn";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { CheckIcon, Code2Icon, CopyCheckIcon } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 
 
 export const HookVariable = <TOptions extends object, TResult extends object>({
@@ -26,10 +30,44 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
   const [opts, setOpts] = useState<TOptions>(defaultOptions);
 
   const values = hook(opts);
+
+  const sample = useMemo(() => {
+    let base = `${JSON.stringify(Object.keys(defaultOptions), null, 2)}`
+    base = base.replace("]", `  })
+  // ...
+}`)
+    while (base.includes('"')) {
+      base = base.replace('"', "")
+    }
+    while (base.includes(',')) {
+      base = base.replace(',', "")
+    }
+    base = base.replace('[', `import { ${name} } from "@openfort/react"
+
+function SampleComponent() {
+  const {
+    --${Object.keys(values).join(`
+    --`)}
+  } = ${name}({`)
+
+    for (const val in values) {
+      const replaced = variables?.[val]?.description || commonVariables[val as string]?.description
+      base = base.replace("--" + val, `${val},${(replaced ? ` // ${replaced}` : "")}`)
+    }
+
+    for (const opt in defaultOptions) {
+      const replaced = optionsVariables?.[opt]?.description || onSettledInputs[opt]?.description
+      base = base.replace(opt, `  ${opt},${replaced ? ` // ${replaced}` : ""}`)
+    }
+
+    base = base.replace("{  }", "");
+
+    return base;
+  }, [defaultOptions, name, optionsVariables, values, variables]);
+
   const params = useSearch({ strict: false });
   const navigate = useNavigate()
   useEffect(() => {
-
     if (params.focus) {
       return clearTimeout(setTimeout(() => {
         navigate({
@@ -45,10 +83,42 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
     }
   }, [params.focus, navigate]);
 
+  const [copied, setCopied] = useState(false);
+
   return (
     <div className="flex flex-col gap-2 font-mono text-sm">
       <h2 className="text-gray-700 dark:text-gray-300 font-medium text-xl">
         {name}
+        <Tooltip delayDuration={500}>
+          <TooltipTrigger asChild>
+            <button
+              className="btn btn-accent btn-sm btn-circle ml-2 size-7 relative"
+              onClick={() => {
+                navigator.clipboard.writeText(sample)
+                setCopied(true);
+                setTimeout(() => {
+                  setCopied(false);
+                }, 1500);
+              }}
+            >
+              <CheckIcon className={cn(
+                "absolute size-4.5 inline-block transition-opacity duration-300",
+                copied ? "opacity-100" : "opacity-0"
+              )}
+              />
+              <Code2Icon
+                className={cn(
+                  "absolute size-4.5 inline-block transition-opacity duration-300",
+                  copied ? "opacity-0" : "opacity-100"
+                )}
+              />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            Copy sample code
+          </TooltipContent>
+        </Tooltip>
+        <span className={cn("text-xs ml-1 transition-opacity duration-300", copied ? "opacity-100" : "opacity-0")}>Copied</span>
       </h2>
       {description && (
         <p className="text-sm text-gray-500 dark:text-gray-400">

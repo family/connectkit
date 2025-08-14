@@ -1,5 +1,6 @@
 import { Button } from "@/components/Showcase/ui/Button"
 import { InputMessage } from "@/components/Showcase/ui/InputMessage"
+import { TruncatedText } from "@/components/TruncatedText"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from "@/lib/cn"
 import { getAddress, parseAbi } from "viem"
@@ -52,8 +53,8 @@ export const WriteContractCard = () => {
         <CardDescription>
           Interact with smart contracts on the blockchain.
         </CardDescription>
-        <CardDescription className="truncate">
-          Contract Address: 0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac
+        <CardDescription>
+          Contract Address: <TruncatedText text="0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac" />
         </CardDescription>
         {!balanceError && (
 

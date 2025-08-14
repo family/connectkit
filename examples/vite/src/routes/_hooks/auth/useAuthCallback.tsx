@@ -16,11 +16,11 @@ function RouteComponent() {
         description='This hook handles the authentication callback after OAuth or email verification.'
         hook={useAuthCallback}
         defaultOptions={{
-          automaticallyHandleCallback: true,
+          enabled: true,
           ...onSettledOptions
         }}
         optionsVariables={{
-          automaticallyHandleCallback: {
+          enabled: {
             type: 'boolean',
             description: 'Whether to automatically handle the callback.',
           },

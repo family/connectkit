@@ -1,6 +1,6 @@
 'use client';
 
-import { OpenfortKitButton, useUI, useStatus } from '../../../packages/react/build';
+import { OpenfortButton, useUI, useStatus } from '../../../packages/react/build';
 import { useEffect, useState } from 'react';
 import { Info } from './Info';
 
@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="container">
-      <OpenfortKitButton
+      <OpenfortButton
         showBalance
       />
       <Info />

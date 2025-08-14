@@ -3,7 +3,7 @@
 // import { BookOpenText } from "lucide-react"
 // import Button from "../components/Button"
 
-// import { OpenfortKitButton, useUI, useUser, useWallets } from "@openfort/react"
+// import { OpenfortButton, useUI, useUser, useWallets } from "@openfort/react"
 // import { GitHubLogoIcon } from "@radix-ui/react-icons"
 // import { useAccount } from "wagmi"
 
@@ -103,7 +103,7 @@ export default function Page() {
   //     {/* Mobile Login Button */}
   //     <div className="md:hidden p-4">
   //       <div className="h-[80px] bg-gray-100 flex items-center justify-center rounded-lg border">
-  //         <OpenfortKitButton label="Login" />
+  //         <OpenfortButton label="Login" />
   //       </div>
   //     </div>
 
@@ -115,7 +115,7 @@ export default function Page() {
   //           {/* Login Button - Desktop only */}
   //           <div className="hidden md:block mb-6">
   //             <div className="h-[100px] bg-gray-100 flex items-center justify-center rounded-lg border">
-  //               <OpenfortKitButton label="Login" />
+  //               <OpenfortButton label="Login" />
   //             </div>
   //           </div>
 

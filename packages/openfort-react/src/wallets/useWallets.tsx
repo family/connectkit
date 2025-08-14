@@ -2,7 +2,7 @@ import { Connector } from 'wagmi';
 
 import { useConnectors } from '../hooks/useConnectors';
 import { walletConfigs, WalletConfigProps } from './walletConfigs';
-import { useOpenfortKit } from '../components/Openfort/useOpenfortKit';
+import { useOpenfort } from '../components/Openfort/useOpenfort';
 import { isCoinbaseWalletConnector, isInjectedConnector } from '../utils';
 
 export type WalletProps = {
@@ -19,7 +19,7 @@ export const useWallet = (id: string): WalletProps | null => {
 };
 export const useWallets = (): WalletProps[] => {
   const connectors = useConnectors();
-  const context = useOpenfortKit();
+  const context = useOpenfort();
 
   const wallets = connectors.map((connector): WalletProps => {
     // use overrides

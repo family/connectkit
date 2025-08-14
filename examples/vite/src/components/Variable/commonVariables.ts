@@ -40,6 +40,9 @@ export const commonVariables = {
     typescriptType: 'OpenfortError | null',
     description: 'The error object if an error occurred, otherwise null.',
   },
+  reset: {
+    description: 'Resets the state of the hook. (e.g. if isError resets to being without error)'
+  },
   isLoading: {
     typescriptType: 'boolean',
     description: 'Indicates if the hook is currently loading.',

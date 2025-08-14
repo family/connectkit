@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { Connector, useAccount, useDisconnect } from 'wagmi';
-import { useOpenfortKit } from '../../components/Openfort/useOpenfortKit';
+import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { useConnect } from '../useConnect';
 import { useWalletConnectConnector } from '../useConnectors';
 
@@ -14,7 +14,7 @@ export function useWalletConnectUri(
     enabled: true,
   }
 ) {
-  const { log } = useOpenfortKit();
+  const { log } = useOpenfort();
 
   const [uri, setUri] = useState<string | undefined>(undefined);
 

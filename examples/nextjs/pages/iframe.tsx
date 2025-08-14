@@ -1,6 +1,6 @@
 "use client"
 
-import { OpenfortKitButton } from "../../../packages/react/build";
+import { OpenfortButton } from "../../../packages/react/build";
 import { useEffect } from "react";
 import { useSample } from "../components/SampleProvider";
 
@@ -33,7 +33,7 @@ export default function Page() {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="relative inline-block">
-        <OpenfortKitButton label="Login" />
+        <OpenfortButton label="Login" />
         <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 text-sm text-white bg-gray-800 rounded-lg transition-opacity duration-300 w-max max-w-xs animate-bounce-subtle font-semibold">
           Try me!
           <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-800"></div>

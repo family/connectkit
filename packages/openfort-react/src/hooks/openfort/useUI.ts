@@ -1,4 +1,4 @@
-import { useOpenfortKit } from '../../components/Openfort/useOpenfortKit';
+import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { AuthProvider, routes } from "../../components/Openfort/types";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 import { useAccount } from 'wagmi';
@@ -33,7 +33,7 @@ type ValidRoutes = ModalRoutes;
 
 
 export function useUI() {
-  const { open, setOpen, setRoute, log } = useOpenfortKit();
+  const { open, setOpen, setRoute, log } = useOpenfort();
   const { isLoading, user, needsRecovery } = useOpenfortCore();
   const { isConnected } = useAccount();
 

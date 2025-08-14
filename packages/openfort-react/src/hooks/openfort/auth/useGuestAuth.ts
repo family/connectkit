@@ -13,7 +13,7 @@ export type GuestHookResult = {
   wallet?: UserWallet;
 };
 
-export type GuestHookOptions = OpenfortHookOptions<OpenfortUser> & CreateWalletPostAuthOptions;
+export type GuestHookOptions = OpenfortHookOptions<GuestHookResult> & CreateWalletPostAuthOptions;
 
 export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
 
@@ -43,13 +43,11 @@ export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
         status: 'success',
       });
 
-      onSuccess({
+      return onSuccess({
         hookOptions,
         options,
-        data: user,
+        data: { user, wallet },
       });
-
-      return { user, wallet };
     } catch (error) {
       const openfortError = new OpenfortError("Failed to signup guest", OpenfortErrorType.AUTHENTICATION_ERROR, { error });
 

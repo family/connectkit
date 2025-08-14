@@ -9,10 +9,10 @@ import {
   type UseConnectParameters,
   useConnect as wagmiUseConnect,
 } from 'wagmi';
-import { useOpenfortKit } from '../components/Openfort/useOpenfortKit';
+import { useOpenfort } from '../components/Openfort/useOpenfort';
 
 export function useConnect({ ...props }: UseConnectParameters = {}) {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
 
   const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
     ...props,

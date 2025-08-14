@@ -13,8 +13,8 @@ export {
 } from './components/Openfort/context';
 export {
   OpenfortProvider,
-} from './components/Openfort/OpenfortKit';
-export { OpenfortKitButton } from './components/ConnectButton';
+} from './components/Openfort/OpenfortProvider';
+export { OpenfortButton } from './components/ConnectButton';
 
 //export { default as NetworkButton } from './components/NetworkButton';
 //export { default as BalanceButton, Balance } from './components/BalanceButton';

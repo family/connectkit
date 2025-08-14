@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Connector, useAccount, useDisconnect } from "wagmi";
 import { BaseFlowState, mapStatus } from "./status";
 import { useConnect } from "../../useConnect";
-import { useOpenfortKit } from "../../../components/Openfort/useOpenfortKit";
+import { useOpenfort } from "../../../components/Openfort/useOpenfort";
 import { useOpenfortCore } from "../../../openfort/useOpenfort";
 import { useConnectWithSiwe } from "../useConnectWithSiwe";
 import { useWallets } from "../../../wallets/useWallets";
@@ -16,13 +16,12 @@ type ConnectWalletOptions = {
 
 export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
   const { updateUser } = useOpenfortCore();
-  const { log } = useOpenfortKit();
+  const { log } = useOpenfort();
   const siwe = useConnectWithSiwe()
   const availableWallets = useWallets(); // TODO: Use this to get the wallet client type
   const { disconnect } = useDisconnect();
   const [walletConnectingTo, setWalletConnectingTo] = useState<string | null>(null);
   const [shouldConnectWithSiwe, setShouldConnectWithSiwe] = useState(false);
-  const { address } = useAccount();
 
   const [status, setStatus] = useState<BaseFlowState>({
     status: "idle",

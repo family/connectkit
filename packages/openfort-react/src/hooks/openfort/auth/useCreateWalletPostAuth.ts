@@ -1,6 +1,6 @@
 import { RecoveryMethod } from "@openfort/openfort-js"
 import { useCallback } from "react"
-import { useOpenfortKit } from "../../../components/Openfort/useOpenfortKit"
+import { useOpenfort } from "../../../components/Openfort/useOpenfort"
 import { embeddedWalletId } from "../../../constants/openfort"
 import { useWallets } from "../useWallets"
 import { useSignOut } from "./useSignOut"
@@ -21,7 +21,7 @@ export type CreateWalletPostAuthOptions = {
 // this hook is used to create a wallet after the user has authenticated
 export const useCreateWalletPostAuth = () => {
   const { setActiveWallet } = useWallets()
-  const { walletConfig } = useOpenfortKit();
+  const { walletConfig } = useOpenfort();
   const { signOut } = useSignOut();
 
   const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, automaticRecovery = true }: CreateWalletPostAuthOptions) => {

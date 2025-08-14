@@ -13,9 +13,9 @@ import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js';
 
 // TODO: Open auth in a new tab and use polling to check for completion
 export type InitializeOAuthOptions = {
-  provider: AuthProvider,
+  provider: OAuthProvider,
   redirectTo?: string;
-} & OpenfortHookOptions;
+} & OpenfortHookOptions<InitOAuthReturnType>;
 
 export type InitOAuthReturnType = {
   error?: OpenfortError;
@@ -35,7 +35,7 @@ export type StoreCredentialsOptions = {
 
 export type AuthHookOptions = {
   redirectTo?: string;
-} & OpenfortHookOptions<StoreCredentialsResult> & CreateWalletPostAuthOptions;
+} & OpenfortHookOptions<StoreCredentialsResult | InitOAuthReturnType> & CreateWalletPostAuthOptions;
 
 const providerToAuthProvider: Partial<Record<AuthProvider, OAuthProvider>> = {
   // [OAuthProvider.APPLE]: AuthProvider.,
@@ -121,7 +121,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
       });
 
       await client.auth.initOAuth({
-        provider: getOAuthProvider(authProvider),
+        provider: authProvider,
         options: {
           redirectTo: buildCallbackUrl({
             provider: authProvider,
@@ -170,7 +170,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
 
       await client.auth.initLinkOAuth({
         authToken,
-        provider: getOAuthProvider(authProvider),
+        provider: authProvider,
         options: {
           redirectTo: buildCallbackUrl({
             provider: authProvider,

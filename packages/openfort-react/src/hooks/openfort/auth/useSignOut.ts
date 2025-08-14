@@ -3,7 +3,7 @@ import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import { BaseFlowState, mapStatus } from './status';
 import { useDisconnect } from 'wagmi';
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types';
-import { onSuccess } from '../hookConsistency';
+import { onError, onSuccess } from '../hookConsistency';
 
 export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
   const { client, updateUser, user } = useOpenfortCore();
@@ -33,14 +33,17 @@ export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
         options,
         data: {},
       });
-    } catch (error) {
-      const errorObj = error instanceof Error ? error : new Error('Failed to sign out');
-
+    } catch (e) {
+      const error = new OpenfortError('Failed to sign out', OpenfortErrorType.AUTHENTICATION_ERROR, { error: e })
       setStatus({
         status: 'error',
-        error: new OpenfortError('Failed to sign out', OpenfortErrorType.AUTHENTICATION_ERROR, { error }),
+        error,
       });
-      throw error;
+      return onError({
+        hookOptions,
+        options,
+        error,
+      });
     }
   }, [client, user, disconnect, updateUser, setStatus, hookOptions]);
 

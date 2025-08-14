@@ -1,6 +1,6 @@
 import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js';
 import { useCallback, useState } from "react";
-import { useOpenfortKit } from "../../../components/Openfort/useOpenfortKit";
+import { useOpenfort } from "../../../components/Openfort/useOpenfort";
 import { useOpenfortCore } from "../../../openfort/useOpenfort";
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
 import { buildCallbackUrl } from "./requestEmailVerification";
@@ -62,7 +62,7 @@ export type UseEmailHookOptions = {
 } & OpenfortHookOptions<EmailAuthResult | EmailVerificationResult> & CreateWalletPostAuthOptions;
 
 export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
-  const { log } = useOpenfortKit();
+  const { log } = useOpenfort();
   const { client, updateUser } = useOpenfortCore();
   const [requiresEmailVerification, setRequiresEmailVerification] = useState(false);
   const [status, setStatus] = useState<BaseFlowState>({
@@ -363,16 +363,15 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     }
   }, [client, setStatus, updateUser, log, hookOptions]);
 
-
-  const verifyEmail = useCallback(async ({ email, state, ...options }: VerifyEmailOptions): Promise<EmailVerificationResult> => {
+  const verifyEmail = useCallback(async (options: VerifyEmailOptions): Promise<EmailVerificationResult> => {
     setStatus({
       status: 'loading',
     });
 
     try {
       await client.auth.verifyEmail({
-        email,
-        state,
+        email: options.email,
+        state: options.state,
       })
       setStatus({
         status: 'success',
@@ -382,7 +381,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         hookOptions,
         options,
         data: {
-          email,
+          email: options.email,
         },
       });
 

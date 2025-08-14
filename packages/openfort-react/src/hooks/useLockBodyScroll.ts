@@ -1,5 +1,5 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
-import { useOpenfortKit } from '../components/Openfort/useOpenfortKit';
+import { useOpenfort } from '../components/Openfort/useOpenfort';
 
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -7,7 +7,7 @@ const useIsomorphicLayoutEffect =
 export default function useLockBodyScroll(initialLocked: boolean) {
   const [locked, setLocked] = useState(initialLocked);
 
-  const context = useOpenfortKit();
+  const context = useOpenfort();
 
   useIsomorphicLayoutEffect(() => {
     if (!locked) return;

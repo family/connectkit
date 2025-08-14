@@ -2,7 +2,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/ui/logo";
 import { navRoutes } from "@/lib/navRoute";
-import { OpenfortKitButton } from "@openfort/react";
+import { OpenfortButton } from "@openfort/react";
 import { Link, useLocation } from "@tanstack/react-router";
 import clsx from "clsx";
 import { ChevronDown, SettingsIcon } from "lucide-react";
@@ -128,7 +128,7 @@ export const Nav = ({ showLogo, children, overridePath }: { showLogo?: boolean; 
                 <TooltipTrigger>
 
                   <div className=''>
-                    <OpenfortKitButton />
+                    <OpenfortButton />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent className="max-w-xs" side="bottom">

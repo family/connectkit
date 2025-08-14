@@ -17,7 +17,7 @@ function RouteComponent() {
       <HookVariable
         name="useEmailAuth"
         hook={useEmailAuth}
-        description='This hook allows you to sign up or sign in with email and password, link'
+        description='This hook allows you to sign up or sign in with email and password, verify and link email'
         defaultOptions={{
           emailVerificationRedirectTo: location.origin + "/auth/useAuthCallback",
           ...onSettledOptions

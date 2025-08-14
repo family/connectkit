@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { useAccount, useChainId, useConfig } from "wagmi";
-import { useOpenfortKit } from '../../components/Openfort/useOpenfortKit';
+import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 import { createSIWEMessage } from "../../siwe/create-siwe-message";
 
@@ -9,11 +9,10 @@ import { useCallback } from "react";
 
 export function useConnectWithSiwe() {
   const { client, user, updateUser } = useOpenfortCore();
-  const { log } = useOpenfortKit();
-  const { address } = useAccount();
+  const { log } = useOpenfort();
+  const { address, connector } = useAccount();
   const chainId = useChainId();
   const config = useConfig();
-  const { connector } = useAccount()
 
   const connectWithSiwe = useCallback(async ({
     onError,

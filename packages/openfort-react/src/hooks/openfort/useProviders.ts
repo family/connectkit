@@ -1,10 +1,10 @@
-import { useOpenfortKit } from '../../components/Openfort/useOpenfortKit';
+import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { AuthProvider } from "../../components/Openfort/types";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 
 export function useProviders() {
   const { user } = useOpenfortCore();
-  const { uiConfig: options } = useOpenfortKit();
+  const { uiConfig: options } = useOpenfort();
 
   const allProviders = options?.authProviders || [];
   const providers: AuthProvider[] = allProviders.filter(p => p !== AuthProvider.GUEST) || [];
