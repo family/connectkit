@@ -25,7 +25,7 @@ export { default as ChainIcon } from './components/Common/Chain';
 export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
 
-export { useStatus, OpenfortKitStatus } from './hooks/openfort/useStatus';
+export { useStatus, OpenfortStatus } from './hooks/openfort/useStatus';
 export { useUser } from './hooks/openfort/useUser';
 
 export { useUI } from "./hooks/openfort/useUI";

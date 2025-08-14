@@ -2,7 +2,7 @@ import { EmbeddedState } from "@openfort/openfort-js";
 import { useAccount } from "wagmi";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 
-export enum OpenfortKitStatus {
+export enum OpenfortStatus {
   DISCONNECTED,
   NEEDS_RECOVERY,
   LOADING,
@@ -14,23 +14,23 @@ export function useStatus() {
   const { isConnected, isConnecting } = useAccount();
 
   const getStatus = () => {
-    if (embeddedState === EmbeddedState.READY) return OpenfortKitStatus.CONNECTED;
-    if (embeddedState === EmbeddedState.NONE) return OpenfortKitStatus.LOADING;
+    if (embeddedState === EmbeddedState.READY) return OpenfortStatus.CONNECTED;
+    if (embeddedState === EmbeddedState.NONE) return OpenfortStatus.LOADING;
 
-    // if (needsRecovery) return OpenfortKitStatus.NEEDS_RECOVERY;
+    // if (needsRecovery) return OpenfortStatus.NEEDS_RECOVERY;
     if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
-      if (isConnected) return OpenfortKitStatus.CONNECTED;
-      else return OpenfortKitStatus.NEEDS_RECOVERY;
+      if (isConnected) return OpenfortStatus.CONNECTED;
+      else return OpenfortStatus.NEEDS_RECOVERY;
     }
 
-    return OpenfortKitStatus.DISCONNECTED;
+    return OpenfortStatus.DISCONNECTED;
   }
   const status = getStatus();
 
   return {
-    isLoading: status === OpenfortKitStatus.LOADING,
-    isConnected: status === OpenfortKitStatus.CONNECTED,
-    isDisconnected: status === OpenfortKitStatus.DISCONNECTED,
+    isLoading: status === OpenfortStatus.LOADING,
+    isConnected: status === OpenfortStatus.CONNECTED,
+    isDisconnected: status === OpenfortStatus.DISCONNECTED,
     isConnecting: isConnecting || embeddedState === EmbeddedState.CREATING_ACCOUNT,
     isAuthenticated: embeddedState !== EmbeddedState.NONE && embeddedState !== EmbeddedState.UNAUTHENTICATED,
   }
