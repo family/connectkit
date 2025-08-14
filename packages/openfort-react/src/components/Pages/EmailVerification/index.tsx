@@ -5,7 +5,7 @@ import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import { TextLinkButton } from "../../Common/Button/styles";
 import Loader from "../../Common/Loading";
 import { ModalBody, ModalContent, ModalH1, PageContent } from "../../Common/Modal/styles";
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { routes } from "../../Openfort/types";
 import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
 import { emailToVerifyLocalStorageKey } from "../../../constants/openfort";
@@ -19,7 +19,7 @@ type VerificationResponse = {
 
 const EmailVerification: React.FC = () => {
   const { client } = useOpenfortCore();
-  const { setRoute, log } = useOpenfortKit();
+  const { setRoute, log } = useOpenfort();
 
   const [loading, setLoading] = useState(true);
   const [shouldSendEmailVerification, setShouldSendEmailVerification] = useState<false | string>(false);

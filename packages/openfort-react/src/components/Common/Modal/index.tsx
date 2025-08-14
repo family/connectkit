@@ -29,7 +29,7 @@ import {
 } from './styles';
 
 import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import { useTransition } from 'react-transition-state';
 import { useAccount, useSwitchChain } from 'wagmi';
@@ -198,7 +198,7 @@ const Modal: React.FC<ModalProps> = ({
   onBack,
   onInfo,
 }) => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const themeContext = useThemeContext();
   const mobile = isMobile();
 

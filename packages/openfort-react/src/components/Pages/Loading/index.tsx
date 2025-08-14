@@ -3,12 +3,12 @@ import { useAccount } from "wagmi";
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import Loader from "../../Common/Loading";
 import { PageContent } from "../../Common/Modal/styles";
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { routes } from "../../Openfort/types";
 
 
 const Loading: React.FC = () => {
-  const { setRoute, walletConfig } = useOpenfortKit();
+  const { setRoute, walletConfig } = useOpenfort();
   const { isLoading, user, needsRecovery } = useOpenfortCore();
   const { address } = useAccount();
   const [isFirstFrame, setIsFirstFrame] = React.useState(true);

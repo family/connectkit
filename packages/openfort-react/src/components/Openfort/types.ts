@@ -11,7 +11,7 @@ import {
 
 
 import { RecoveryMethod } from '@openfort/openfort-js';
-import { CoreOpenfortProviderProps } from '../../openfort/OpenfortProvider';
+import { CoreOpenfortProviderProps } from '../../openfort/CoreOpenfortProvider';
 
 export const routes = {
   PROVIDERS: 'providers',
@@ -130,7 +130,7 @@ export type OpenfortOptions = {
   privacyPolicyUrl?: string;
   logo?: React.ReactNode;
 
-  openfortUrlOverrides?: CoreOpenfortProviderProps['overrides'];
+  overrides?: CoreOpenfortProviderProps['overrides'];
 };
 
 export type ConnectUIOptions = {

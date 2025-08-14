@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useOpenfortKit } from '../Openfort/useOpenfortKit';
+import { useOpenfort } from '../Openfort/useOpenfort';
 
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
@@ -27,7 +27,7 @@ import { routes } from '../Openfort/types';
 const ConnectWithQRCode: React.FC<{
   switchConnectMethod: (id?: string) => void;
 }> = ({ switchConnectMethod }) => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
 
   const id = context.connector.id;
 
@@ -64,7 +64,7 @@ const ConnectWithQRCode: React.FC<{
 
   const connectWithSiwe = useConnectWithSiwe();
   const { isConnected } = useAccount();
-  const { log, setOpen } = useOpenfortKit();
+  const { log, setOpen } = useOpenfort();
   const { disconnect } = useDisconnect();
 
   const [isFirstFrame, setIsFirstFrame] = React.useState(true);

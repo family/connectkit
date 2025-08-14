@@ -12,7 +12,7 @@ import Loader from "../../Common/Loading";
 import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
 import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
 import { routes } from "../../Openfort/types";
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { useWallets } from "../../../hooks/openfort/useWallets";
 import { embeddedWalletId } from "../../../constants/openfort";
 
@@ -21,7 +21,7 @@ import { embeddedWalletId } from "../../../constants/openfort";
 const Recover: React.FC = () => {
   const [recoveryPhrase, setRecoveryPhrase] = React.useState("");
   const [recoveryError, setRecoveryError] = React.useState<false | string>(false);
-  const { triggerResize, uiConfig: options, log } = useOpenfortKit();
+  const { triggerResize, uiConfig: options, log } = useOpenfort();
   const chain = useChainId();
   const [loading, setLoading] = React.useState(false);
   const { setActiveWallet } = useWallets();
@@ -143,7 +143,7 @@ const Recover: React.FC = () => {
 const AutomaticRecovery: React.FC = () => {
   const { needsRecovery } = useOpenfortCore();
   const { setActiveWallet } = useWallets();
-  const { log } = useOpenfortKit();
+  const { log } = useOpenfort();
   const [hasRecoveryMethod, setHasRecoveryMethod] = React.useState(false);
 
   useEffect(() => {
@@ -175,7 +175,7 @@ const AutomaticRecovery: React.FC = () => {
 }
 
 const Connected: React.FC = () => {
-  const { setOpen } = useOpenfortKit();
+  const { setOpen } = useOpenfort();
 
   // hide on connect
   useEffect(() => {
@@ -196,7 +196,7 @@ const Connected: React.FC = () => {
 
 const CreateEmbeddedSigner: React.FC = () => {
   const { needsRecovery, user } = useOpenfortCore();
-  const { triggerResize, uiConfig, walletConfig, setRoute } = useOpenfortKit();
+  const { triggerResize, uiConfig, walletConfig, setRoute } = useOpenfort();
   const [loading, setLoading] = React.useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = React.useState(true);
   const { isConnected } = useAccount();

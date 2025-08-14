@@ -3,7 +3,7 @@ import { providersLogos } from "../../assets/logos";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 import Loader from "../Common/Loading";
 import { PageContent } from "../Common/Modal/styles";
-import { useOpenfortKit } from '../Openfort/useOpenfortKit';
+import { useOpenfort } from '../Openfort/useOpenfort';
 import { routes } from "../Openfort/types";
 
 const states = {
@@ -13,7 +13,7 @@ const states = {
 };
 
 const ConnectWithOAuth: React.FC<{}> = ({ }) => {
-  const { connector, setRoute, log } = useOpenfortKit();
+  const { connector, setRoute, log } = useOpenfort();
   const { client, user } = useOpenfortCore();
 
   const [status, setStatus] = useState(states.INIT);

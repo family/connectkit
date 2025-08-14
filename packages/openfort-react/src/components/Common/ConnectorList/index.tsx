@@ -1,4 +1,4 @@
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import {
   ConnectorButton,
@@ -26,7 +26,7 @@ import { WalletProps, useWallets } from '../../../wallets/useWallets';
 import { routes } from '../../Openfort/types';
 
 const ConnectorList = () => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const isMobile = useIsMobile();
 
   const wallets = useWallets();
@@ -83,7 +83,7 @@ const ConnectorItem = ({
   } = useWeb3();
   const uri = getUri();
   const isMobile = useIsMobile();
-  const context = useOpenfortKit();
+  const context = useOpenfort();
 
   const { connect } = useConnect();
 

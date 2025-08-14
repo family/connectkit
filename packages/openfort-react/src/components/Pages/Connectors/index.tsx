@@ -1,5 +1,5 @@
 import React from 'react';
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import {
   ModalBody,
@@ -19,7 +19,7 @@ import ConnectorList from '../../Common/ConnectorList';
 import { routes } from '../../Openfort/types';
 
 const Wallets: React.FC = () => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const locales = useLocales({});
 
   const isMobile = useIsMobile();

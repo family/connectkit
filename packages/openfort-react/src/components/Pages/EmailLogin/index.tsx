@@ -10,7 +10,7 @@ import { OrDivider } from "../../Common/Modal";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { TextContainer } from "../../ConnectButton/styles";
 import { routes } from '../../Openfort/types';
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { emailToVerifyLocalStorageKey } from '../../../constants/openfort';
 
 // TODO: Localize
@@ -39,7 +39,7 @@ const EmailLogin: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setRoute, log } = useOpenfortKit();
+  const { setRoute, log } = useOpenfort();
   const { client } = useOpenfortCore();
 
   const [loginLoading, setLoginLoading] = React.useState(false);

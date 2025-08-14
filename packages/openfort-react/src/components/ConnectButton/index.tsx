@@ -3,7 +3,7 @@ import { useAccount, useEnsName } from 'wagmi';
 import useIsMounted from '../../hooks/useIsMounted';
 import { truncateEthAddress, truncateUserId } from '../../utils';
 
-import { useOpenfortKit } from '../Openfort/useOpenfortKit';
+import { useOpenfort } from '../Openfort/useOpenfort';
 import {
   IconContainer,
   TextContainer,
@@ -121,7 +121,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   children,
 }) => {
   const isMounted = useIsMounted();
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const { open, close, isOpen } = useUI();
 
   const { address, isConnected, chain } = useAccount();
@@ -163,7 +163,7 @@ const ConnectButtonRenderer: React.FC<ConnectButtonRendererProps> = ({
   );
 };
 
-ConnectButtonRenderer.displayName = 'OpenfortKitButton.Custom';
+ConnectButtonRenderer.displayName = 'OpenfortButton.Custom';
 
 const ConnectedLabel = ({ separator }: { separator?: string }) => {
   const { user, isLoading } = useOpenfortCore();
@@ -177,7 +177,7 @@ const ConnectedLabel = ({ separator }: { separator?: string }) => {
   return "Loading...";
 }
 
-function OpenfortKitButtonInner({
+function OpenfortButtonInner({
   label,
   showAvatar,
   separator,
@@ -301,7 +301,7 @@ function OpenfortKitButtonInner({
   );
 }
 
-type OpenfortKitButtonProps = {
+type OpenfortButtonProps = {
   // Options
   label?: string;
   showBalance?: boolean;
@@ -316,7 +316,7 @@ type OpenfortKitButtonProps = {
   onClick?: (open: () => void) => void;
 };
 
-export function OpenfortKitButton({
+export function OpenfortButton({
   // Options
   label,
   showBalance = false,
@@ -329,10 +329,10 @@ export function OpenfortKitButton({
 
   // Events
   onClick,
-}: OpenfortKitButtonProps) {
+}: OpenfortButtonProps) {
   const isMounted = useIsMounted();
 
-  const context = useOpenfortKit();
+  const context = useOpenfort();
 
   const { address, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);
@@ -434,7 +434,7 @@ export function OpenfortKitButton({
               }
           }
         >
-          <OpenfortKitButtonInner
+          <OpenfortButtonInner
             separator={separator}
             showAvatar={showAvatar}
             label={label}
@@ -445,4 +445,4 @@ export function OpenfortKitButton({
   );
 }
 
-OpenfortKitButton.Custom = ConnectButtonRenderer;
+OpenfortButton.Custom = ConnectButtonRenderer;

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import Modal from '../Common/Modal';
-import { useOpenfortKit } from '../Openfort/useOpenfortKit';
+import { useOpenfort } from '../Openfort/useOpenfort';
 
 import About from '../Pages/About';
 import Connectors from '../Pages/Connectors';
@@ -38,7 +38,7 @@ const ConnectModal: React.FC<{
   customTheme?: CustomTheme;
   lang?: Languages;
 }> = ({ mode = 'auto', theme = 'auto', customTheme = customThemeDefault, lang = 'en-US' }) => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const { logout, user } = useOpenfortCore();
   const { isConnected, chain } = useAccount();
   const chainIsSupported = useChainIsSupported(chain?.id);

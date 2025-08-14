@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import useMeasure from 'react-use-measure';
 
@@ -33,7 +33,7 @@ const ChainSelectDropdown: React.FC<{
   offsetX?: number;
   offsetY?: number;
 }> = ({ children, open, onClose, offsetX = 0, offsetY = 8 }) => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const themeContext = useThemeContext();
 
   const locales = useLocales();

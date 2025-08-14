@@ -31,7 +31,7 @@ import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import { useWallet } from '../../../wallets/useWallets';
 import BrowserIcon from '../../Common/BrowserIcon';
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import CircleSpinner from './CircleSpinner';
 
 import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe';
@@ -81,7 +81,7 @@ const ConnectWithInjector: React.FC<{
   forceState?: typeof states;
 }> = ({ switchConnectMethod, forceState }) => {
   const openfort = useOpenfortCore();
-  const { log, setOpen } = useOpenfortKit();
+  const { log, setOpen } = useOpenfort();
   const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const connectWithSiwe = useConnectWithSiwe();
@@ -163,7 +163,7 @@ const ConnectWithInjector: React.FC<{
     },
   });
 
-  const { triggerResize, connector: c } = useOpenfortKit();
+  const { triggerResize, connector: c } = useOpenfort();
   const id = c.id;
   const wallet = useWallet(id);
 

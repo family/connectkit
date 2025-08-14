@@ -10,7 +10,7 @@ import Loader from "../../Common/Loading";
 import { PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
 import { AuthProvider, routes, socialProviders } from "../../Openfort/types";
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
 
 const ProviderButton: React.FC<{
@@ -38,7 +38,7 @@ const ProviderButton: React.FC<{
 
 const GuestButton: React.FC = () => {
   const { signUpGuest } = useOpenfortCore();
-  const { setRoute } = useOpenfortKit();
+  const { setRoute } = useOpenfort();
 
   const handleClick = () => {
     signUpGuest();
@@ -56,7 +56,7 @@ const GuestButton: React.FC = () => {
 }
 
 const WalletButton: React.FC = () => {
-  const { setRoute } = useOpenfortKit();
+  const { setRoute } = useOpenfort();
   return <ProviderButton
     onClick={() => setRoute(routes.CONNECTORS)}
     icon={<Logos.OtherWallets />}
@@ -66,7 +66,7 @@ const WalletButton: React.FC = () => {
 }
 
 const EmailButton: React.FC = () => {
-  const { setRoute } = useOpenfortKit();
+  const { setRoute } = useOpenfort();
   const { user } = useOpenfortCore();
 
   return <ProviderButton
@@ -78,7 +78,7 @@ const EmailButton: React.FC = () => {
 }
 
 const AuthProviderButton: React.FC<{ provider: OAuthProvider, title?: string, icon?: React.ReactNode }> = ({ provider, title = provider + " login", icon }) => {
-  const { setRoute, setConnector } = useOpenfortKit();
+  const { setRoute, setConnector } = useOpenfort();
 
   const handleClick = () => {
     setRoute(routes.CONNECT);
@@ -156,7 +156,7 @@ const AddressButNoUserCase: React.FC = () => {
 }
 
 const SocialProvidersButton = () => {
-  const { setRoute } = useOpenfortKit();
+  const { setRoute } = useOpenfort();
   return (
     <ProviderButton
       onClick={() => setRoute(routes.SOCIAL_PROVIDERS)}

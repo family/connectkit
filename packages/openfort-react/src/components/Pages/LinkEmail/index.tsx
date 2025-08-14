@@ -6,7 +6,7 @@ import FitText from "../../Common/FitText";
 import Input from "../../Common/Input";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { TextContainer } from "../../ConnectButton/styles";
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { routes } from '../../Openfort/types';
 
 // TODO: Localize
@@ -36,7 +36,7 @@ const LinkEmail: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setRoute, triggerResize, log } = useOpenfortKit();
+  const { setRoute, triggerResize, log } = useOpenfort();
   const { client, updateUser } = useOpenfortCore();
 
   const [loginLoading, setLoginLoading] = React.useState(false);

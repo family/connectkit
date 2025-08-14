@@ -4,14 +4,14 @@ import Button from "../../Common/Button";
 import FitText from "../../Common/FitText";
 import Input from "../../Common/Input";
 import { ModalBody, PageContent } from "../../Common/Modal/styles";
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { routes } from "../../Openfort/types";
 
 // TODO: Localize
 const RequestEmail: React.FC = () => {
   const [email, setEmail] = React.useState("");
 
-  const { log, triggerResize } = useOpenfortKit();
+  const { log, triggerResize } = useOpenfort();
   const { client } = useOpenfortCore();
 
   const [loading, setLoading] = React.useState(false);
@@ -111,7 +111,7 @@ const ResetPassword: React.FC = () => {
 
   const [password, setPassword] = React.useState("");
 
-  const { setRoute, triggerResize, log } = useOpenfortKit();
+  const { setRoute, triggerResize, log } = useOpenfort();
   const { client, updateUser } = useOpenfortCore();
 
   const [loading, setLoading] = React.useState(false);

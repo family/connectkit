@@ -4,7 +4,7 @@ import {
   nFormatter,
   truncateEthAddress
 } from '../../../utils';
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import {
   useAccount,
@@ -44,7 +44,7 @@ import { routes } from '../../Openfort/types';
 import { LinkedProviders } from './LinkedProviders';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const themeContext = useThemeContext();
 
   const locales = useLocales();

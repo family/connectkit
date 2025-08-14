@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import { flattenChildren, isMobile } from '../../../utils';
 
@@ -135,7 +135,7 @@ const ChevronDown = ({ ...props }) => (
 );
 
 const ChainSelector: React.FC = () => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const [isOpen, setIsOpen] = useState(false);
   const { chain } = useAccount();
   const { chains } = useSwitchChain();

@@ -1,7 +1,7 @@
 import { css, keyframes } from "styled-components";
 import styled from "../../../styles/styled";
 import { useEffect } from "react";
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { motion } from "framer-motion";
 import SquircleSpinner from "../SquircleSpinner";
 import Logos from "../../../assets/logos";
@@ -48,8 +48,8 @@ const ConnectingAnimation = styled(motion.div) <{
 
 const Loader = ({ reason, isLoading = true, icon }: { reason: string, isLoading?: boolean, icon?: React.ReactNode }) => {
 
-  const { uiConfig: options } = useOpenfortKit();
-  const { triggerResize } = useOpenfortKit();
+  const { uiConfig: options } = useOpenfort();
+  const { triggerResize } = useOpenfort();
 
   useEffect(() => {
     return () => triggerResize();

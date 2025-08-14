@@ -23,13 +23,13 @@ import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { OrDivider } from '../../Common/Modal';
 import useLocales from '../../../hooks/useLocales';
 import FitText from '../../Common/FitText';
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 
 const About: React.FC = () => {
   const locales = useLocales({
     //CONNECTORNAME: connector.name,
   });
-  const context = useOpenfortKit();
+  const context = useOpenfort();
 
   const ctaUrl =
     context.uiConfig?.ethereumOnboardingUrl ?? locales.aboutScreen_ctaUrl;

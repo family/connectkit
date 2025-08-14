@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import Logos from "../../../assets/logos";
 import styled from "../../../styles/styled";
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 
 const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
-  const { uiConfig: options } = useOpenfortKit();
+  const { uiConfig: options } = useOpenfort();
 
   return (
     <Container>

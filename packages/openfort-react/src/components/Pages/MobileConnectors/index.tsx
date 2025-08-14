@@ -9,7 +9,7 @@ import {
 
 import { PageContent, ModalContent } from '../../Common/Modal/styles';
 
-import { useOpenfortKit } from '../../Openfort/useOpenfortKit';
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
 import CopyToClipboard from '../../Common/CopyToClipboard';
 import useLocales from '../../../hooks/useLocales';
@@ -40,7 +40,7 @@ const MoreIcon = (
 );
 
 const MobileConnectors: React.FC = () => {
-  const context = useOpenfortKit();
+  const context = useOpenfort();
   const locales = useLocales();
 
   const {

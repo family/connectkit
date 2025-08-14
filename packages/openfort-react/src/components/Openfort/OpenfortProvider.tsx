@@ -5,10 +5,8 @@ import React, {
   useState
 } from 'react';
 
-import defaultTheme from '../../styles/defaultTheme';
 
 import { RecoveryMethod } from '@openfort/openfort-js';
-import { ThemeProvider } from 'styled-components';
 import { ValueOf } from 'viem/_types/types/utils';
 import { WagmiContext, useAccount } from 'wagmi';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
@@ -18,13 +16,13 @@ import {
 } from '../../hooks/useConnectCallback';
 import { useConnector } from '../../hooks/useConnectors';
 import { useThemeFont } from '../../hooks/useGoogleFont';
-import { CoreOpenfortProvider } from '../../openfort/OpenfortProvider';
+import { CoreOpenfortProvider } from '../../openfort/CoreOpenfortProvider';
+import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import { isFamily } from '../../utils/wallets';
 import ConnectKitModal from '../ConnectModal';
 import { Web3ContextProvider } from '../contexts/web3';
-import { OpenfortKitContext, ContextValue, ErrorMessage } from './context';
+import { ContextValue, ErrorMessage, OpenfortKitContext } from './context';
 import { AuthProvider, ConnectUIOptions, OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types';
-import { CustomTheme, Languages, Mode, Theme } from '../../types';
 
 type OpenfortProviderProps = {
   children?: React.ReactNode;
@@ -221,7 +219,7 @@ export const OpenfortProvider = ({
             shieldEncryptionKey: walletConfig.recoveryMethod === RecoveryMethod.PASSWORD ? walletConfig.shieldEncryptionKey : undefined,
             debug: debugMode,
           } : undefined}
-          overrides={opts.openfortUrlOverrides}
+          overrides={opts.overrides}
           debugMode={debugMode}
           onConnect={onConnect}
           onDisconnect={onDisconnect}
