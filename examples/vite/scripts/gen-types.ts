@@ -3,7 +3,7 @@
 // import fs from 'fs'
 
 // const project = new Project()
-// const source = project.addSourceFileAtPath('/Users/martimayoral/Documents/GitHub/fortkit/packages/openfort-react/build/components/OpenfortKit/types.d.ts')
+// const source = project.addSourceFileAtPath('/Users/martimayoral/Documents/GitHub/fortkit/packages/openfort-react/build/components/Openfort/types.d.ts')
 
 // const output = source.getVariableDeclarations().map((i) => ({
 //   name: i.getName(),

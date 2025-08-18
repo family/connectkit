@@ -20,7 +20,7 @@ export type All = {
   lang?: Languages;
 };
 
-export type { ConnectUIOptions as OpenfortKitOptions, OpenfortWalletConfig } from './components/Openfort/types';
+export type { ConnectUIOptions as OpenfortOptions, OpenfortWalletConfig } from './components/Openfort/types';
 export type { CustomAvatarProps } from './components/Common/Avatar';
 
 export enum OpenfortErrorType {

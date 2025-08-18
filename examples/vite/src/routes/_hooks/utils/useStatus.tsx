@@ -13,7 +13,7 @@ function RouteComponent() {
       <HookVariable
         name='useStatus'
         hook={useStatus}
-        description='This hook provides the current status of the OpenfortKit, including the user authentication state and UI state.'
+        description='This hook provides the current status of the Openfort, including the user authentication state and UI state.'
       />
     </Layout>
   )

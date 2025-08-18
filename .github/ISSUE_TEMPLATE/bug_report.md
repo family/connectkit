@@ -12,7 +12,7 @@ A clear and concise description of what the bug is.
 
 **To reproduce**
 
-A CodeSandbox (preferably) or specify which version of OpenfortKit you're using along with reproduction steps.
+A CodeSandbox (preferably) or specify which version of Openfort you're using along with reproduction steps.
 
 **Expected behavior**
 

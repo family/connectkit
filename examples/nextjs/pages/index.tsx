@@ -56,7 +56,7 @@ export default function Page() {
   //                 View Docs
   //               </Button>
   //             </a>
-  //             <a href="https://github.com/openfort-xyz/openfort-kit/tree/main/examples/nextjs" target="_blank">
+  //             <a href="https://github.com/openfort-xyz/openfort-react/tree/main/examples/nextjs" target="_blank">
   //               <Button variant="outline">
   //                 <GitHubLogoIcon className="h-5 w-5 mr-2" />
   //                 View on Github
@@ -84,7 +84,7 @@ export default function Page() {
   //                 View Docs
   //               </Button>
   //             </a>
-  //             <a href="https://github.com/openfort-xyz/openfort-kit/tree/main/examples/nextjs" target="_blank" className="block">
+  //             <a href="https://github.com/openfort-xyz/openfort-react/tree/main/examples/nextjs" target="_blank" className="block">
   //               <Button variant="outline" className="w-full">
   //                 <GitHubLogoIcon className="h-4 w-4 mr-2" />
   //                 View on Github

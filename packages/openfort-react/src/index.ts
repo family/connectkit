@@ -1,4 +1,4 @@
-export { OPENFORTKIT_VERSION } from './version';
+export { OPENFORT_VERSION } from './version';
 
 export * from './types';
 export { default as getDefaultConfig } from './defaultConfig';
@@ -9,7 +9,7 @@ export {
   AuthProvider,
 } from './components/Openfort/types';
 export {
-  OpenfortKitContext,
+  Openfortcontext,
 } from './components/Openfort/context';
 export {
   OpenfortProvider,

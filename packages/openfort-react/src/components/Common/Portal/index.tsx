@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { OPENFORTKIT_VERSION } from '../../../version';
+import { OPENFORT_VERSION } from '../../../version';
 
 const Portal = (props: any) => {
   props = {
-    selector: '__CONNECTKIT__',
+    selector: '__OPENFORT__',
     ...props,
   };
 
@@ -20,7 +20,7 @@ const Portal = (props: any) => {
     if (!ref.current) {
       const div = document.createElement('div');
       div.setAttribute('id', selector);
-      div.setAttribute('data-openfortkit', `${OPENFORTKIT_VERSION}`);
+      div.setAttribute('data-openfort-react', `${OPENFORT_VERSION}`);
       document.body.appendChild(div);
       ref.current = div;
     }

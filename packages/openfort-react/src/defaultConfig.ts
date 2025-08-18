@@ -24,7 +24,7 @@ type DefaultConfigProps = {
 } & Partial<CreateConfigParameters>;
 
 const defaultConfig = ({
-  appName = 'OpenfortKit',
+  appName = 'Openfort',
   appIcon,
   appDescription,
   appUrl,
@@ -55,7 +55,7 @@ const defaultConfig = ({
       coinbaseWalletPreference,
     });
 
-  // console.log("OPENFORTKIT CHAINS", chains, transports);
+  // console.log("OPENFORT CHAINS", chains, transports);
 
   const config: CreateConfigParameters<any, any> = {
     ...props,

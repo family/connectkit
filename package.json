@@ -1,5 +1,5 @@
 {
-  "name": "openfort-kit",
+  "name": "openfort-react",
   "version": "0.0.0",
   "description": "The easiest way to integrate Openfort to your project.",
   "main": "packages/openfort-react/src/index.ts",

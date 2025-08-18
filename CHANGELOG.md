@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file.
 
 - Add headless hooks
 - Configuration and API Updates
-- Rename @openfort/openfort-kit to @openfort/react
+- Rename @openfort/openfort-react to @openfort/react
 
 ## [0.0.15] - 2025-05-29
 

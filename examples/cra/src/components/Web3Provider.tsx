@@ -6,7 +6,7 @@ import { AuthProvider, OpenfortProvider, getDefaultConfig } from '@openfort/reac
 
 const config = createConfig(
   getDefaultConfig({
-    appName: 'OpenfortKit CRA demo',
+    appName: 'Openfort CRA demo',
     walletConnectProjectId: process.env.REACT_APP_WALLET_CONNECT_PROJECT_ID!,
   })
 );

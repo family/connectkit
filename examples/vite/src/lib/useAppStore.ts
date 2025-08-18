@@ -7,7 +7,7 @@ type EditingEntity = {
 
 const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
 
-  // Set the publishable key of your OpenfortKit account. This field is required.
+  // Set the publishable key of your Openfort account. This field is required.
   publishableKey: import.meta.env.VITE_PUBLISHABLE_KEY,
 
   uiConfig: {

@@ -8,7 +8,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 
 const config = createConfig(
   getDefaultConfig({
-    appName: 'OpenfortKit demo',
+    appName: 'Openfort demo',
     walletConnectProjectId: "fc3261354522f71e19adc4081a7e9f53",
     chains: [polygonAmoy, beamTestnet],
     transports: {

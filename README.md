@@ -44,7 +44,7 @@ and much more...
 
 ### New app
 
-Get started with `create` Openfortkit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
+Get started with `create` Openfort + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
 
 #### npm
 
@@ -99,7 +99,7 @@ There are various runnable examples included in this repository in the [examples
 Clone the project and install the necessary dependencies:
 
 ```sh
-$ git clone git@github.com:openfort-xyz/openfort-kit.git
+$ git clone git@github.com:openfort-xyz/openfort-react.git
 $ cd openfort
 $ yarn install
 ```
@@ -120,8 +120,8 @@ $ yarn dev:cra # Create React App
 
 ## License
 
-See [LICENSE](https://github.com/openfort-xyz/openfort-kit/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/openfort-xyz/openfort-react/blob/main/LICENSE) for more information.
 
 ## Credits
 
-OpenfortKit is a fork of [Connectkit](https://github.com/openfort-xyz/openfort-kit) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beautiful and open-source.
+Openfort is a fork of [Connectkit](https://github.com/openfort-xyz/openfort-react) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beautiful and open-source.

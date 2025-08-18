@@ -21,7 +21,7 @@ import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import { isFamily } from '../../utils/wallets';
 import ConnectKitModal from '../ConnectModal';
 import { Web3ContextProvider } from '../contexts/web3';
-import { ContextValue, ErrorMessage, OpenfortKitContext } from './context';
+import { ContextValue, ErrorMessage, Openfortcontext } from './context';
 import { AuthProvider, ConnectUIOptions, OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types';
 
 type OpenfortProviderProps = {
@@ -34,7 +34,7 @@ type OpenfortProviderProps = {
 } & useConnectCallbackProps;
 
 /**
- * OpenfortProvider component provides context and configuration for OpenfortKit.
+ * OpenfortProvider component provides context and configuration for Openfort.
  * It must be used within a WagmiProvider.
  *
  * @param {React.ReactNode} children - The child components to be wrapped by the provider.
@@ -65,7 +65,7 @@ export const OpenfortProvider = ({
 
   // Only allow for mounting OpenfortProvider once, so we avoid weird global
   // state collisions.
-  if (React.useContext(OpenfortKitContext)) {
+  if (React.useContext(Openfortcontext)) {
     throw new Error(
       'Multiple, nested usages of OpenfortProvider detected. Please use only one.'
     );
@@ -206,7 +206,7 @@ export const OpenfortProvider = ({
   };
 
   return createElement(
-    OpenfortKitContext.Provider,
+    Openfortcontext.Provider,
     { value },
     <>
       <Web3ContextProvider enabled={open}>

@@ -22,7 +22,7 @@ function RouteComponent() {
           mode: {
             type: 'select',
             typescriptType: "'auto' | 'dark' | 'light' | undefined",
-            description: 'The theme mode of the OpenfortKit provider. By default, it will use the system preference.',
+            description: 'The theme mode of the Openfort provider. By default, it will use the system preference.',
             options: ['undefined', 'auto', 'dark', 'light'],
             onEdit: (value) => {
               setProviderOptions({
@@ -35,12 +35,12 @@ function RouteComponent() {
             }
           },
           customTheme: {
-            description: `Custom theme for the OpenfortKit components. This field is optional. For example "customTheme: { '--ck-font-family': 'monospace' }"`,
+            description: `Custom theme for the Openfort components. This field is optional. For example "customTheme: { '--ck-font-family': 'monospace' }"`,
           },
           theme: {
             type: 'select',
             options: ["auto", "web95", "retro", "soft", "midnight", "minimal", "rounded", "nouns"],
-            description: 'The theme to use for the OpenfortKit components. This field is optional.',
+            description: 'The theme to use for the Openfort components. This field is optional.',
             onEdit: (value) => {
               console.log('Setting theme to:', value)
               setProviderOptions({
@@ -53,7 +53,7 @@ function RouteComponent() {
             }
           },
           publishableKey: {
-            description: 'The publishable key of your OpenfortKit account. This field is required.',
+            description: 'The publishable key of your Openfort account. This field is required.',
             onEdit: (value) => {
               setProviderOptions({
                 ...providerOptions,
@@ -72,10 +72,10 @@ function RouteComponent() {
             type: "boolean",
           },
           uiConfig: {
-            description: 'The configuration for the OpenfortKit UI components. This field is optional.',
+            description: 'The configuration for the Openfort UI components. This field is optional.',
           },
           walletConfig: {
-            description: 'The configuration for the OpenfortKit wallet components. If not set, users will need to connect their web3 wallets.',
+            description: 'The configuration for the Openfort wallet components. If not set, users will need to connect their web3 wallets.',
           },
           recoveryMethod: {
             description: 'The recovery method to use for the embedded wallet.',
@@ -133,7 +133,7 @@ function RouteComponent() {
           logo: {
             type: 'text',
             typescriptType: 'React.ReactNode | string | undefined',
-            description: 'The URL or Component of the logo to use in the OpenfortKit components. This is optional.',
+            description: 'The URL or Component of the logo to use in the Openfort components. This is optional.',
             onEdit: (value) => {
               setProviderOptions({
                 ...providerOptions,

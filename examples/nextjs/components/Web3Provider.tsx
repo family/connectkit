@@ -10,7 +10,7 @@ import { useSample } from './SampleProvider';
 
 const config = createConfig(
   getDefaultConfig({
-    appName: 'OpenfortKit Next.js demo',
+    appName: 'Openfort Next.js demo',
     chains: [beamTestnet, polygonAmoy],
 
     walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
@@ -28,7 +28,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
       <QueryClientProvider client={queryClient}>
         <OpenfortProvider
 
-          // Set the publishable key of your OpenfortKit account. This field is required.
+          // Set the publishable key of your Openfort account. This field is required.
           publishableKey={process.env.NEXT_PUBLIC_OPENFORT_PUBLIC_KEY!}
 
           // Set the wallet configuration. In this example, we will be using the embedded signer.
@@ -86,7 +86,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
               // "--ck-body-background": "#000000",
             },
 
-            // Set the theme of the OpenfortKit
+            // Set the theme of the Openfort
             theme: sampleTheme
           }}
           debugMode

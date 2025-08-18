@@ -81,7 +81,7 @@ if (darkMode) {
 }
 
 const defaultTheme: CustomTheme = {
-  openfortKit: {
+  openfort: {
     options: {
       iconStyle: 'light',
     },

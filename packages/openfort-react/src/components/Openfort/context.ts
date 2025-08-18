@@ -48,4 +48,4 @@ export type ContextValue = {
   walletConfig?: OpenfortWalletConfig;
 } & useConnectCallbackProps;
 
-export const OpenfortKitContext = createContext<ContextValue | null>(null);
+export const Openfortcontext = createContext<ContextValue | null>(null);

@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 
 import { Connector, useAccount } from 'wagmi';
 import { useConnect } from './../useConnect';
-import { useContext } from '../../components/OpenfortKit';
+import { useContext } from '../../components/Openfort';
 import { useCoinbaseWalletConnector } from './../useConnectors';
 import { useWallet } from '../../wallets/useWallets';
 

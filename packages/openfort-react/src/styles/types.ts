@@ -75,7 +75,7 @@ export type ThemeMode = {
   dark: Theme;
 };
 export type CustomTheme = {
-  openfortKit: {
+  openfort: {
     options?: {
       iconStyle?: 'light' | 'regular' | 'heavy';
     };

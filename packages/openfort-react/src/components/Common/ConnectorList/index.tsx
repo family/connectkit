@@ -49,7 +49,7 @@ const ConnectorList = () => {
   return (
     <ScrollArea mobileDirection={'horizontal'}>
       {walletsToDisplay.length === 0 && (
-        <Alert error>No connectors found in OpenfortKit config.</Alert>
+        <Alert error>No connectors found in Openfort config.</Alert>
       )}
       {walletsToDisplay.length > 0 && (
         <ConnectorsContainer
