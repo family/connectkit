@@ -34,6 +34,8 @@ type SetActiveWalletOptions = ({
 } | {
   connector: typeof embeddedWalletId;
   password?: string;
+} | {
+  connector: Connector;
 })) & OpenfortHookOptions<SetActiveWalletResult>
 
 type CreateWalletResult = SetActiveWalletResult
@@ -86,7 +88,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   const { connector, isConnected, address } = useAccount();
   const chainId = useChainId();
   const deviceWallets = useWagmiWallets(); // TODO: Map wallets object to be the same as wallets
-  const { disconnect } = useDisconnect();
+  const { disconnect, disconnectAsync } = useDisconnect();
   const [status, setStatus] = useState<WalletFlowStatus>({
     status: "idle",
   })
@@ -124,8 +126,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   });
 
 
-  const usesEmbeddedWallet = user && walletConfig;
-  const isEmbedded = embeddedState === EmbeddedState.READY;
 
   const { data: embeddedWallets, refetch } = useQuery({
     queryKey: ['openfortEmbeddedWalletList'],
@@ -218,7 +218,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       log("Connecting to", wallet.connector)
       connector = wallet.connector;
     } else {
-      connector = connector;
+      connector = optionsObject.connector;
     }
 
     if (!connector) {
@@ -231,24 +231,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       return { wallet: activeWallet };
     }
 
-
-    const hasDisconnected = new Promise<void>((resolve) => {
-      disconnect(undefined, {
-        onSuccess: () => {
-          resolve();
-        },
-        onError: (error) => {
-          console.error("Error disconnecting", error);
-          // setStatus({
-          //   status: 'error',
-          //   error: new Error("Failed to disconnect: " + error),
-          // });
-
-          resolve();
-        },
-      });
-    });
-    await hasDisconnected;
+    await disconnectAsync();
 
     if (showUI) {
       const walletToConnect = wallets.find((w) => w.id == connector.id)
@@ -328,7 +311,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           recoveryMethod: RecoveryMethod.AUTOMATIC,
         } as const;
 
+        // Ensure that the embedded wallet is listed
+        const embeddedWallets = await client.embeddedWallet.list();
         log("Recovery params", optionsObject.address);
+        log("Embedded wallets", embeddedWallets, chainId);
 
         if (optionsObject.address) {
           const walletId = embeddedWallets?.find((w) => w.address === optionsObject.address && w.chainId === chainId)?.id;
@@ -346,15 +332,16 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             recoveryParams,
           })
         } else {
-          if (!embeddedWallets || embeddedWallets.length === 0) {
-            await createWallet({
-              password,
-            });
-          } else {
+          // Check if the embedded wallet is already created in the current chain
+          if (embeddedWallets.some((w) => w.chainId === chainId)) {
             await client.embeddedWallet.recover({
               account: embeddedWallets[0].id,
               shieldAuthentication,
               recoveryParams,
+            });
+          } else {
+            await createWallet({
+              password,
             });
           }
         }
@@ -411,8 +398,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     }
 
     return {};
-
-  }, [wallets, setOpen, setRoute, setConnector, disconnect, log, isConnected, address, usesEmbeddedWallet, isEmbedded]);
+  }, [wallets, setOpen, setRoute, setConnector, disconnectAsync, log, address, client, walletConfig, chainId, refetch, hookOptions]);
 
   const createWallet = useCallback(async ({
     password,
