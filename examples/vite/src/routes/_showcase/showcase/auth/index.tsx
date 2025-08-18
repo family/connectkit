@@ -4,28 +4,16 @@ import { GuestLogin } from '@/components/Showcase/auth/GuestLogin'
 import { SampleTooltipLink } from '@/components/Showcase/auth/SampleTooltipLink'
 import { SocialLogin } from '@/components/Showcase/auth/SocialLogin'
 import { Logo } from '@/components/ui/logo'
-import { AuthProvider, useStatus } from '@openfort/react'
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { AuthProvider } from '@openfort/react'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { WalletIcon } from 'lucide-react'
-import { useEffect } from 'react'
 
-export const Route = createFileRoute('/_showcase/auth')({
+export const Route = createFileRoute('/_showcase/showcase/auth/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-
-  const { isConnected, isAuthenticated } = useStatus();
-  const nav = useNavigate();
-
-  useEffect(() => {
-    if (isAuthenticated && isConnected) {
-      nav({ to: "/" });
-    }
-  }, [isConnected, isAuthenticated, nav]);
-
   return (
-
     <DialogLayout>
       <div>
         <Logo className="h-12 px-2" />

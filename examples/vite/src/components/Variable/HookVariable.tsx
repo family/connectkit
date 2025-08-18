@@ -1,10 +1,9 @@
 import { BaseVariable, HookInput } from "@/components/Variable/Variable";
 import { commonVariables, onSettledInputs } from "@/components/Variable/commonVariables";
-import { MDiv } from "@/components/motion/motion";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { CheckIcon, Code2Icon, CopyCheckIcon } from "lucide-react";
+import { CheckIcon, Code2Icon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 
@@ -147,7 +146,7 @@ function SampleComponent() {
                       variables={{
                         [key]: {
                           ...(optionsVariables?.[key] ?? onSettledInputs[key] ?? {}),
-                          onEdit: (newValue: any) => {
+                          onEdit: (newValue: Record<string, unknown>) => {
                             setOpts((prev) => ({
                               ...prev,
                               [key]: newValue,

@@ -8,12 +8,12 @@ export const Route = createFileRoute('/_showcase/')({
 })
 
 function RouteComponent() {
-  const { isConnected, isLoading, isAuthenticated } = useStatus();
+  const { isLoading, isAuthenticated } = useStatus();
   const nav = useNavigate();
 
   useEffect(() => {
     if (!isAuthenticated && !isLoading) {
-      nav({ to: "/auth" });
+      nav({ to: "/showcase/auth" });
     }
   }, [isLoading, isAuthenticated, nav]);
 
