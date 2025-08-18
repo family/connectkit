@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.4] - 2025-08-13
+
+### Improvements
+
+- Internal naming
+- Fix active wallet issue
+
 ## [0.0.3] - 2025-08-13
 
 ### Hooks and update
