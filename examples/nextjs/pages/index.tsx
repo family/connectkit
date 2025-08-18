@@ -45,7 +45,7 @@ export default function Page() {
   //               </svg>
   //             </div>
   //             <span className="text-gray-300 hidden md:flex">-</span>
-  //             <p className="font-mono text-orange-600 font-medium">Openfort Kit</p>
+  //             <p className="font-mono text-orange-600 font-medium">Openfort</p>
   //           </div>
 
   //           {/* Desktop Navigation */}

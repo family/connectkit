@@ -131,7 +131,7 @@ const SidebarInfo = () => {
     <div className='p-4 space-y-4 overflow-y-auto h-full'>
       <div className='text-sm'>
         <p className='text-gray-500 dark:text-gray-400 mb-4'>
-          Openfort Playground is a demo application to showcase the Openfort Kit.
+          Openfort Playground is a demo application to showcase the Openfort.
         </p>
         <h3 className='text-lg font-semibold mb-2'>
           Relevant information

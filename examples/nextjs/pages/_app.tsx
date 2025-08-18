@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta charSet="utf-8" />
-        <title>Openfort Kit Sample</title>
+        <title>Openfort Sample</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
