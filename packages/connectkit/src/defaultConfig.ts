@@ -1,6 +1,6 @@
 import { http } from 'wagmi';
 import { type CreateConfigParameters } from '@wagmi/core';
-import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
+import { mainnet, polygon, optimism, arbitrum, rootstock } from 'wagmi/chains';
 import { CoinbaseWalletParameters } from 'wagmi/connectors';
 import { EthereumProviderOptions as FamilyOptions } from 'family';
 
@@ -34,7 +34,7 @@ const defaultConfig = ({
   appUrl,
   walletConnectProjectId,
   coinbaseWalletPreference,
-  chains = [mainnet, polygon, optimism, arbitrum],
+  chains = [mainnet, polygon, optimism, arbitrum, rootstock],
   client,
   enableFamily = true,
   familyOptions,
