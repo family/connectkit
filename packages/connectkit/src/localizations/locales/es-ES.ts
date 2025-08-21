@@ -1,6 +1,8 @@
 import { LocaleProps } from './';
+import enUS from './en-US';
 
 const esES: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Conecta una cartera',
   disconnect: 'Desconectar',
   connected: 'Conectado',

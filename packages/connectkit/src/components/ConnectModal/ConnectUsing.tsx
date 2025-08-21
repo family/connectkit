@@ -54,6 +54,7 @@ const ConnectUsing = () => {
             switchConnectMethod={(id?: string) => {
               //if (id) setId(id);
               setStatus(states.INJECTOR);
+              setTimeout(context.triggerResize, 10); // delay required here for modal to resize
             }}
           />
         </motion.div>
@@ -70,6 +71,7 @@ const ConnectUsing = () => {
             switchConnectMethod={(id?: string) => {
               //if (id) setId(id);
               setStatus(states.QRCODE);
+              setTimeout(context.triggerResize, 10); // delay required here for modal to resize
             }}
           />
         </motion.div>

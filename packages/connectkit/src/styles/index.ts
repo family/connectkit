@@ -31,7 +31,7 @@ const themeGlobals = {
       '--ck-graphic-scaniconwithlogos-04': '#F6F7F9',
 
       '--ck-chain-ethereum-01': '#25292E',
-      '--ck-chain-ethereum-02': '#fff',
+      '--ck-chain-ethereum-02': '#ffffff',
       '--ck-chain-ethereum-03': '#DFE0E0',
     },
     dark: {
@@ -90,22 +90,18 @@ const themeGlobals = {
     },
   },
   brand: {
+    '--ck-family-accounts-brand': '#0090ff',
     '--ck-family-brand': '#1A88F8',
     '--ck-brand-walletConnect': '#3B99FC',
     '--ck-brand-coinbaseWallet': '#0052FF',
-    '--ck-brand-metamask': '#f6851b',
-    '--ck-brand-metamask-01': '#F6851B',
-    '--ck-brand-metamask-02': '#E2761B',
-    '--ck-brand-metamask-03': '#CD6116',
-    '--ck-brand-metamask-04': '#161616',
-    '--ck-brand-metamask-05': '#763D16',
-    '--ck-brand-metamask-06': '#D7C1B3',
-    '--ck-brand-metamask-07': '#C0AD9E',
-    '--ck-brand-metamask-08': '#E4761B',
-    '--ck-brand-metamask-09': '#233447',
-    '--ck-brand-metamask-10': '#E4751F',
-    '--ck-brand-metamask-11': '#FEF5E7',
-    '--ck-brand-metamask-12': '#E3C8AB',
+    '--ck-brand-metamask': '#FF5C16',
+    '--ck-brand-metamask-bg': '#FFF2EB',
+    '--ck-brand-metamask-01': '#FF5C16',
+    '--ck-brand-metamask-02': '#E34807',
+    '--ck-brand-metamask-03': '#FF8D5D',
+    '--ck-brand-metamask-04': '#661800',
+    '--ck-brand-metamask-05': '#C0C4CD',
+    '--ck-brand-metamask-06': '#E7EBF6',
     '--ck-brand-trust-01': '#3375BB',
     '--ck-brand-trust-02': '#ffffff',
     '--ck-brand-trust-01b': '#ffffff', // dark Theme
@@ -170,11 +166,11 @@ const themes = {
   nouns: createCssColors(themeColors.nouns),
 };
 const globals = {
-  brand: createCssVars(themeGlobals.brand),
-  ensLight: createCssVars(themeGlobals.ens.light),
-  ensDark: createCssVars(themeGlobals.ens.dark),
-  graphicsLight: createCssVars(themeGlobals.graphics.light),
-  graphicsDark: createCssVars(themeGlobals.graphics.dark),
+  brand: createCssColors(themeGlobals.brand),
+  ensLight: createCssColors(themeGlobals.ens.light),
+  ensDark: createCssColors(themeGlobals.ens.dark),
+  graphicsLight: createCssColors(themeGlobals.graphics.light),
+  graphicsDark: createCssColors(themeGlobals.graphics.dark),
 };
 
 const globalsLight = css`
@@ -261,7 +257,6 @@ export const ResetContainer = styled(motion.div)<{
         `;
     }
   }}
-
 
   ${(props) => {
     if (
