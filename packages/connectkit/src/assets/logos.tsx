@@ -948,7 +948,6 @@ export default {
   PlaceHolder,
   Frame,
   Dawn,
-  InfinityWallet,
   Rabby,
   Fordefi,
   TokenPocket,
