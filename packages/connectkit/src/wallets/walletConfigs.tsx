@@ -277,18 +277,6 @@ export const walletConfigs: {
         : `https://link.trustwallet.com/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
-  infinityWallet: {
-    name: 'Infinity Wallet',
-    icon: <Logos.InfinityWallet />,
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/infinityWallet',
-      website: 'https://infinitywallet.io/download',
-      chrome: 'https://infinitywallet.io/download',
-      firefox: 'https://infinitywallet.io/download',
-      brave: 'https://infinitywallet.io/download',
-      edge: 'https://infinitywallet.io/download',
-    },
-  },
   imToken: {
     name: 'imToken',
     icon: <Logos.ImToken />,
