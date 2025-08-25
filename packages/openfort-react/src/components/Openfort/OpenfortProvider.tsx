@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 
-import { RecoveryMethod } from '@openfort/openfort-js';
+import { RecoveryMethod, SDKOverrides } from '@openfort/openfort-js';
 import { ValueOf } from 'viem/_types/types/utils';
 import { WagmiContext, useAccount } from 'wagmi';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
@@ -31,6 +31,7 @@ type OpenfortProviderProps = {
   publishableKey: string;
   uiConfig?: ConnectUIOptions;
   walletConfig?: OpenfortWalletConfig;
+  overrides?: SDKOverrides;
 } & useConnectCallbackProps;
 
 /**
@@ -57,6 +58,7 @@ export const OpenfortProvider = ({
 
   publishableKey,
   walletConfig,
+  overrides,
 }: OpenfortProviderProps) => {
   // OpenfortProvider must be within a WagmiProvider
   if (!React.useContext(WagmiContext)) {
@@ -189,7 +191,7 @@ export const OpenfortProvider = ({
     setConnector,
     onConnect,
     // Other configuration
-    uiConfig: opts,
+    overrides,
     errorMessage,
     debugMode,
     log,
@@ -219,7 +221,7 @@ export const OpenfortProvider = ({
             shieldEncryptionKey: walletConfig.recoveryMethod === RecoveryMethod.PASSWORD ? walletConfig.shieldEncryptionKey : undefined,
             debug: debugMode,
           } : undefined}
-          overrides={opts.overrides}
+          overrides={overrides}
           debugMode={debugMode}
           onConnect={onConnect}
           onDisconnect={onDisconnect}
