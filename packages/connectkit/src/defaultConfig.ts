@@ -1,7 +1,10 @@
 import { http } from 'wagmi';
 import { type CreateConfigParameters } from '@wagmi/core';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { CoinbaseWalletParameters } from 'wagmi/connectors';
+import {
+  BaseAccountParameters,
+  CoinbaseWalletParameters,
+} from 'wagmi/connectors';
 import { EthereumProviderOptions as FamilyOptions } from 'family';
 
 import defaultConnectors from './defaultConnectors';
@@ -22,6 +25,8 @@ type DefaultConfigProps = {
   walletConnectProjectId: string;
   // Coinbase Wallet preference
   coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
+  // Base account parameters (https://www.base.org/)
+  baseAccountParameters?: BaseAccountParameters;
   // Family options (https://app.family.co)
   enableFamily?: boolean;
   familyOptions?: FamilyOptions;
@@ -34,6 +39,7 @@ const defaultConfig = ({
   appUrl,
   walletConnectProjectId,
   coinbaseWalletPreference,
+  baseAccountParameters,
   chains = [mainnet, polygon, optimism, arbitrum],
   client,
   enableFamily = true,
@@ -59,6 +65,7 @@ const defaultConfig = ({
       },
       walletConnectProjectId,
       coinbaseWalletPreference,
+      baseAccountParameters,
       enableFamily,
       familyOptions,
     });

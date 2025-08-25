@@ -4,8 +4,10 @@ import {
   walletConnect,
   coinbaseWallet,
   CoinbaseWalletParameters,
+  baseAccount,
+  BaseAccountParameters,
   safe,
-} from '@wagmi/connectors';
+} from 'wagmi/connectors';
 
 import {
   EthereumProviderOptions as FamilyOptions,
@@ -21,6 +23,7 @@ type DefaultConnectorsProps = {
   };
   walletConnectProjectId?: string;
   coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
+  baseAccountParameters?: BaseAccountParameters;
   enableFamily?: boolean;
   familyOptions?: FamilyOptions;
 };
@@ -29,6 +32,7 @@ const defaultConnectors = ({
   app,
   walletConnectProjectId,
   coinbaseWalletPreference,
+  baseAccountParameters,
   enableFamily,
   familyOptions,
 }: DefaultConnectorsProps): CreateConnectorFn[] => {
@@ -57,6 +61,11 @@ const defaultConnectors = ({
       appLogoUrl: app.icon,
       overrideIsMetaMask: false,
       preference: coinbaseWalletPreference,
+    }),
+    baseAccount({
+      appName: app.name,
+      appLogoUrl: app.icon,
+      ...baseAccountParameters,
     })
   );
 
