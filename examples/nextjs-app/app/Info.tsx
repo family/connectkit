@@ -1,6 +1,6 @@
 "use client";
 
-import { useSignOut, useUI, useUser, useWallets } from "../../../packages/react/build";
+import { useSignOut, useUI, useUser, useWallets } from "@openfort/react";
 import { useEffect, useState } from "react";
 import { useAccount, useEnsName } from "wagmi";
 import { WriteContract } from "./WriteContract";

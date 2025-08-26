@@ -1,6 +1,6 @@
-import { getDefaultConfig } from '../../packages/react/build';
 import { createConfig } from 'wagmi';
 import { beamTestnet, polygonAmoy, sepolia } from 'viem/chains';
+import { getDefaultConfig } from '@openfort/react';
 
 export const config = createConfig(
   getDefaultConfig({

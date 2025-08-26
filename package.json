@@ -9,9 +9,10 @@
     "examples/*"
   ],
   "scripts": {
-    "dev:kit": "yarn workspace @openfort/react run dev",
+    "dev": "yarn workspace @openfort/react run dev",
     "dev:cra": "yarn workspace cra run dev",
     "dev:nextjs": "yarn workspace nextjs run dev",
+    "dev:firebase": "yarn workspace firebase run dev",
     "dev:nextjs-app": "yarn workspace nextjs-app run dev",
     "dev:vite": "yarn workspace vite run dev",
     "dev:testbench": "yarn workspace testbench run dev",
@@ -25,7 +26,7 @@
     "lint:ci": "yarn workspaces foreach -R run lint"
   },
   "devDependencies": {
-    "@openfort/openfort-js": "^0.9.8",
+    "@openfort/openfort-js": "^0.10.0",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@tanstack/react-query": "^5.17.15",
     "react": "^18.0.0",

@@ -109,7 +109,7 @@ export const OpenfortProvider = ({
 
   const opts: OpenfortUIOptionsExtended = Object.assign({}, defaultOptions, uiConfig);
 
-  if (opts.authProviders?.length === 0) {
+  if (!opts.authProviders || opts.authProviders.length === 0) {
     opts.authProviders = [
       AuthProvider.GUEST,
       AuthProvider.EMAIL,
@@ -190,8 +190,10 @@ export const OpenfortProvider = ({
     connector,
     setConnector,
     onConnect,
+    onDisconnect,
     // Other configuration
     overrides,
+    uiConfig: opts,
     errorMessage,
     debugMode,
     log,

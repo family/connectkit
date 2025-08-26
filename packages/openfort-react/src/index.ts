@@ -9,9 +9,6 @@ export {
   AuthProvider,
 } from './components/Openfort/types';
 export {
-  Openfortcontext,
-} from './components/Openfort/context';
-export {
   OpenfortProvider,
 } from './components/Openfort/OpenfortProvider';
 export { OpenfortButton } from './components/ConnectButton';

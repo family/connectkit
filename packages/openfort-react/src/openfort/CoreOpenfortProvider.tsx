@@ -1,11 +1,11 @@
-import { Openfort, AuthPlayerResponse, EmbeddedState, MissingRecoveryPasswordError, RecoveryMethod, ShieldAuthentication, ShieldAuthType, OpenfortConfiguration, OpenfortError } from '@openfort/openfort-js';
+import { AuthPlayerResponse, EmbeddedState, Openfort, OpenfortError, RecoveryMethod } from '@openfort/openfort-js';
 import React, { createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { polygonAmoy } from 'viem/chains';
 import { useAccount, useDisconnect } from 'wagmi';
 import { useOpenfort } from '../components/Openfort/useOpenfort';
 import { useConnect } from '../hooks/useConnect';
 import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback';
 import { Context } from './context';
-import { polygonAmoy } from 'viem/chains';
 import { createOpenfortClient, setDefaultClient } from './core';
 
 export type ContextValue = {
