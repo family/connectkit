@@ -1,6 +1,6 @@
 "use client"
 
-import { OpenfortButton } from "../../../packages/react/build";
+import { OpenfortButton } from "@openfort/react";
 import { useEffect } from "react";
 import { useSample } from "../components/SampleProvider";
 

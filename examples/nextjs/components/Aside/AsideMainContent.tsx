@@ -3,8 +3,8 @@
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@radix-ui/react-select"
 import { ArrowRight, ExternalLink, LockIcon } from "lucide-react"
 
-import { RecoveryMethod, useSignOut, useUI, useUser } from "../../../../packages/react/build"
-import { Theme } from "../../../../packages/react/build/types"
+import { RecoveryMethod, useSignOut, useUI, useUser } from "@openfort/react"
+import { Theme } from "@openfort/react"
 import { CaretDownIcon } from "@radix-ui/react-icons"
 
 import Button from "../Button"

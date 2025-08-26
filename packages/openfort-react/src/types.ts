@@ -58,3 +58,10 @@ export type OpenfortHookOptions<T = { error?: OpenfortError }> = {
   onSettled?: (data: T | undefined | null, error: OpenfortError | null) => void;
   throwOnError?: boolean;
 }
+
+// Re-export important types and enums from openfort-js
+export {
+  SDKOverrides,
+  RecoveryMethod,
+  ThirdPartyOAuthProvider,
+} from '@openfort/openfort-js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { OpenfortButton, useUI, useStatus } from '../../../packages/react/build';
+import { OpenfortButton, useUI, useStatus } from "@openfort/react";
 import { useEffect, useState } from 'react';
 import { Info } from './Info';
 

@@ -120,8 +120,7 @@ type PasswordRecoveryWalletConfig = {
 
 export type OpenfortWalletConfig = CommonWalletConfig & (AutomaticRecoveryWalletConfig | PasswordRecoveryWalletConfig);
 
-
-export type OpenfortOptions = {
+export type OpenfortUIOptions = {
   linkWalletOnSignUp?: boolean;
 
   authProviders?: AuthProvider[];
@@ -129,9 +128,11 @@ export type OpenfortOptions = {
   termsOfServiceUrl?: string;
   privacyPolicyUrl?: string;
   logo?: React.ReactNode;
-
-  overrides?: CoreOpenfortProviderProps['overrides'];
 };
+
+export type OpenfortSDKOptions = {
+  overrides?: CoreOpenfortProviderProps['overrides'];
+}
 
 export type ConnectUIOptions = {
   theme?: Theme;
@@ -160,7 +161,7 @@ export type ConnectUIOptions = {
   // disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
   overlayBlur?: number; // Blur the background when the modal is open
 
-} & OpenfortOptions;
+} & OpenfortUIOptions;
 
 export type OpenfortUIOptionsExtended = {
   theme: Theme;
@@ -187,4 +188,4 @@ export type OpenfortUIOptionsExtended = {
   walletOnboardingUrl?: string;
   disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
   overlayBlur?: number; // Blur the background when the modal is open
-} & OpenfortOptions;
+} & OpenfortUIOptions;

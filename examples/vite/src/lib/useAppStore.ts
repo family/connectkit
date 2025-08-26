@@ -34,7 +34,6 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     hideTooltips: undefined,
     initialChainId: undefined,
     logo: undefined,
-    openfortUrlOverrides: undefined,
     overlayBlur: undefined,
     privacyPolicyUrl: undefined,
     termsOfServiceUrl: undefined,
