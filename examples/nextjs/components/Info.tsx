@@ -9,7 +9,7 @@ export const Info = () => {
   const account = useAccount();
   const { data: ensName } = useEnsName({ address: account.address })
   const { user } = useUser()
-  const { signOuta: signOut } = useSignOut()
+  const { signOut } = useSignOut()
   const { wallets, setActiveWallet, activeWallet: currentWallet } = useWallets();
   const { openSwitchNetworks, open, openProviders, openWallets } = useUI();
 
