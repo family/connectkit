@@ -10,7 +10,7 @@ import {
 } from '../../types';
 
 
-import { RecoveryMethod } from '@openfort/openfort-js';
+import { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js';
 import { CoreOpenfortProviderProps } from '../../openfort/CoreOpenfortProvider';
 
 export const routes = {
@@ -67,6 +67,7 @@ type CommonWalletConfig = {
   shieldPublishableKey: string;
   /** Policy ID (pol_...) for the embedded signer */
   ethereumProviderPolicyId?: string;
+  accountType?: AccountTypeEnum;
   debug?: boolean;
 }
 

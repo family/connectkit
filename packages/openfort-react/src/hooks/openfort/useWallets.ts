@@ -1,5 +1,5 @@
-import { AccountTypeEnum, ChainTypeEnum, EmbeddedState, MissingRecoveryPasswordError, RecoveryMethod, RecoveryParams } from "@openfort/openfort-js";
-import { useQuery } from "@tanstack/react-query";
+import { AccountTypeEnum, ChainTypeEnum, MissingRecoveryPasswordError, RecoveryMethod, RecoveryParams } from "@openfort/openfort-js";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hex } from "viem";
 import { Connector, useAccount, useChainId, useConnect, useDisconnect } from "wagmi";
@@ -11,9 +11,10 @@ import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../typ
 import { useWallets as useWagmiWallets } from "../../wallets/useWallets";
 import { BaseFlowState } from "./auth/status";
 import { onError, onSuccess } from "./hookConsistency";
+import { useUser } from "./useUser";
 
 export type UserWallet = {
-  address?: Hex;
+  address: Hex;
   connectorType?: string;
   walletClientType?: string;
   connector?: Connector;
@@ -42,6 +43,7 @@ type CreateWalletResult = SetActiveWalletResult
 
 type CreateWalletOptions = {
   password?: string;
+  accountType?: AccountTypeEnum;
 } & OpenfortHookOptions<CreateWalletResult>
 
 type RecoverEmbeddedWalletResult = SetActiveWalletResult
@@ -56,7 +58,7 @@ type WalletOptions = OpenfortHookOptions<SetActiveWalletResult | CreateWalletRes
 const createOpenfortWallet = ({
   address,
 }: {
-  address: Hex | undefined;
+  address: Hex;
 }): UserWallet => ({
   connectorType: "embedded",
   walletClientType: "openfort",
@@ -83,7 +85,8 @@ const mapWalletStatus = (status: WalletFlowStatus) => {
 
 
 export function useWallets(hookOptions: WalletOptions = {}) {
-  const { user, embeddedState, client } = useOpenfortCore();
+  const { client } = useOpenfortCore();
+  const { user, isAuthenticated } = useUser();
   const { walletConfig, log, setOpen, setRoute, setConnector, uiConfig } = useOpenfort();
   const { connector, isConnected, address } = useAccount();
   const chainId = useChainId();
@@ -126,16 +129,17 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   });
 
 
-
-  const { data: embeddedWallets, refetch } = useQuery({
+  // will reset on logout
+  const { data: embeddedWallets, refetch, isPending: isLoadingWallets } = useQuery({
     queryKey: ['openfortEmbeddedWalletList'],
-    queryFn: () => !!user ? client.embeddedWallet.list() : Promise.resolve([]),
+    queryFn: () => client.embeddedWallet.list(),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   })
 
-  useEffect(() => {
-    log("Refetching embedded wallets");
-    refetch();
-  }, [!!user, refetch]);
+  // useEffect(() => {
+  //   queryClient.resetQueries({ queryKey: ['openfortEmbeddedWalletList'] })
+  // }, [!!user, refetch]);
 
   const getEncryptionSession = useCallback(async (): Promise<string> => {
     if (!walletConfig || !walletConfig.createEncryptedSessionEndpoint) {
@@ -184,9 +188,9 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   }, [user?.linkedAccounts, embeddedWallets]);
 
   const wallets: UserWallet[] = useMemo(() => {
-    if (!isConnected || !address) return rawWallets;
+    // if (!isConnected || !address) return rawWallets;
 
-    console.log("Mapping wallets", { rawWallets, status, address, isConnected, connector });
+    log("Mapping wallets", { rawWallets, status, address, isConnected, connector });
     return rawWallets.map((w) => ({
       ...w,
       isConnecting: status.status === 'connecting' && status.address === w.address,
@@ -299,8 +303,9 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         log("Recovery params", optionsObject.address);
         log("Embedded wallets", embeddedWallets, chainId);
 
-        if (optionsObject.address) {
-          const walletId = embeddedWallets?.find((w) => w.address === optionsObject.address && w.chainId === chainId)?.id;
+        let walletAddress = optionsObject.address;
+        if (walletAddress) {
+          const walletId = embeddedWallets?.find((w) => w.address === walletAddress && w.chainId === chainId)?.id;
           if (!walletId) {
             return onError({
               error: new OpenfortError("Embedded wallet not found for address", OpenfortErrorType.WALLET_ERROR),
@@ -316,14 +321,20 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         } else {
           // Check if the embedded wallet is already created in the current chain
           if (embeddedWallets.some((w) => w.chainId === chainId)) {
+            const walletToRecover = embeddedWallets.find((w) => w.chainId === chainId)!;
             await client.embeddedWallet.recover({
-              account: embeddedWallets[0].id,
+              account: walletToRecover.id,
               recoveryParams,
             });
+            walletAddress = walletToRecover.address as Hex;
           } else {
-            await createWallet({
+            const wallet = await createWallet({
               password,
             });
+            if (!wallet.wallet) {
+              return { error: wallet.error || new OpenfortError("Failed to create embedded wallet", OpenfortErrorType.WALLET_ERROR) };
+            }
+            walletAddress = wallet.wallet.address;
           }
         }
 
@@ -334,7 +345,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         return onSuccess({
           data: {
             wallet: createOpenfortWallet({
-              address: optionsObject.address,
+              address: walletAddress,
             }),
           },
           options: optionsObject,
@@ -384,7 +395,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   const createWallet = useCallback(async ({
     password,
     ...options
-  }: CreateWalletOptions = {}) => {
+  }: CreateWalletOptions = {}): Promise<CreateWalletResult> => {
     setStatus({
       status: 'creating',
     });
@@ -420,7 +431,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
     const wallet = await client.embeddedWallet.create({
       chainId: uiConfig?.initialChainId ?? chainId,
-      accountType: AccountTypeEnum.SMART_ACCOUNT,
+      accountType: options?.accountType || walletConfig?.accountType || AccountTypeEnum.SMART_ACCOUNT,
       chainType: ChainTypeEnum.EVM,
       recoveryParams,
     });
@@ -475,6 +486,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   );
 
   return {
+    hasWallet: wallets.length > 0,
+    isLoadingWallets,
     wallets,
     availableWallets: deviceWallets,
     activeWallet,
