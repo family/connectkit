@@ -22,6 +22,19 @@ const MintContract = () => {
     args: [address!],
   })
 
+  const { data: tokenSymbol } = useReadContract({
+    address: '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac',
+    abi: [
+      {
+        type: 'function',
+        name: 'symbol',
+        stateMutability: 'view',
+        outputs: [{ type: 'string' }],
+      },
+    ],
+    functionName: 'symbol',
+  })
+
   const { data: hash, isPending, writeContract, error } = useWriteContract({
     mutation: {
       onSuccess: () => {
@@ -47,7 +60,7 @@ const MintContract = () => {
   return (
     <div>
       <h2>Mint contract</h2>
-      <p className="mb-2 text-zinc-400 text-sm">Current balance: {balance?.toString()}</p>
+      <p className="mb-2 text-zinc-400 text-sm">Current balance: {balance?.toString()} {tokenSymbol as string || ""}</p>
       <form
         className="space-y-4"
         onSubmit={(e) => {

@@ -1,70 +1,15 @@
 import { useStatus } from "@openfort/react";
 import { useEffect, useState } from "react";
-import type { TabType } from "../tabs/types";
 import { Actions } from "./actions";
 import { Auth } from "./auth";
 import { Head } from "./head";
 import { Profile } from "./profile";
 import { Sign } from "./sign";
 import { Wallets } from "./wallets";
+import { DesktopTabGroup, MobileTabGroup, type TabType } from "../ui/Tabs";
+import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from "@heroicons/react/24/outline";
 
 
-type TabProps = {
-  onClick?: () => void;
-  isActive?: boolean;
-} & TabType;
-
-const Tab = ({ name, isActive, ...buttonProps }: TabProps) => {
-  return (
-    <button
-      className="relative h-8 mx-2.5 transition-colors cursor-pointer"
-      style={{
-        "--tab-bg-color": isActive ? "var(--color-zinc-800)" : "var(--color-zinc-700)",
-        opacity: isActive ? 1 : 0.6,
-      } as React.CSSProperties}
-      {...buttonProps}
-    >
-      <div className="absolute w-5 h-8 bg-(--tab-bg-color) rotate-20 transform origin-top-left top-1" />
-      <div className="absolute w-5 h-8 bg-(--tab-bg-color) -rotate-20 transform origin-top-right right-0 top-1" />
-      <div className="absolute inset-0 rounded-md bg-(--tab-bg-color)" />
-
-      <span
-        className={`${isActive ? "text-white" : "text-zinc-400"} whitespace-nowrap bg-(--tab-bg-color) z-10 relative mx-2 pb-4`}
-      >
-        {name}
-      </span>
-    </button>
-  )
-}
-
-interface TabGroupProps {
-  tabs: TabType[],
-  currentTab?: TabType,
-  setCurrentTab?: (tab: TabType) => void
-  showTabs?: boolean
-}
-
-const TabGroup = ({ tabs, currentTab, setCurrentTab, showTabs }: TabGroupProps) => {
-  return (
-    <div
-      className="absolute left-[100%] top-2 rotate-90 transform origin-top-left hidden xs:block"
-    >
-      <div
-        className="flex gap-2 transition-transform duration-500"
-        style={{ transform: showTabs ? "translateY(-100%)" : "translateY(10px)" }}
-      >
-        {tabs?.map((tab) => (
-          <Tab
-            key={tab.name}
-            onClick={() => setCurrentTab && setCurrentTab(tab)}
-            isActive={currentTab?.name === tab.name}
-            {...tab}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -80,7 +25,7 @@ const Layout = ({ children, step, tabs, currentTab, setCurrentTab, showTabs }: L
   return (
     <div className="min-h-screen min-w-screen bg-zinc-900 flex flex-col items-center justify-center">
       <div className="relative">
-        <TabGroup
+        <DesktopTabGroup
           tabs={tabs || []}
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}
@@ -109,19 +54,23 @@ export const Main = () => {
   const tabs: TabType[] = [
     {
       name: "Home",
-      component: <Profile />
+      component: <Profile />,
+      icon: HomeIcon,
     },
     {
       name: "Signatures",
-      component: <Sign />
+      component: <Sign />,
+      icon: PencilIcon
     },
     {
       name: "Actions",
-      component: <Actions />
+      component: <Actions />,
+      icon: PlayIcon,
     },
     {
       name: "Wallets",
-      component: <Wallets />
+      component: <Wallets />,
+      icon: WalletIcon,
     },
   ];
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0]);
@@ -159,6 +108,11 @@ export const Main = () => {
               <div className="w-full flex-1 flex">
                 {currentTab.component}
               </div>
+              <MobileTabGroup
+                tabs={tabs}
+                currentTab={currentTab}
+                setCurrentTab={setCurrentTab}
+              />
             </div>
           </div>
         )

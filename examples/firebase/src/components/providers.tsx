@@ -33,6 +33,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
             // With password recovery we can set the encryption key to encrypt the recovery data
             // This way we don't have a backend to store the recovery data
             shieldEncryptionKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY!,
+
+            ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID,
           }}
 
           thirdPartyAuth={{
