@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --breakpoint-xs: 34rem;
+
+  --animate-sheet-in: sheet-in 0.3s ease forwards;
+  --animate-sheet-out: sheet-out 0.3s ease forwards;
+
+  @keyframes sheet-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes sheet-out {
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  .layout-card-group {
+    @media (min-width: 34rem) {
+      @apply border border-zinc-700 rounded-lg shadow-lg shadow-white/10;
+    }
+
+    /* @media (max-width: 64rem) { */
+    @apply overflow-hidden;
+    /* } */
+  }
+
+  h1 {
+    @apply text-2xl font-bold mb-4
+  }
+
+  h2 {
+    @apply text-xl font-bold mb-2
+  }
+
+  .card {
+    @apply p-6 w-(--card-width) bg-zinc-800 flex justify-center flex-col;
+  }
+
+
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --color-primary: hsl(5, 97%, 57%);
+  --color-primary-foreground: #fff;
+  --color-primary-hover: hsl(5, 97%, 53%);
+
+  --card-group-width: 58rem;
+  --card-width: 29rem;
+  --card-group-height: 600px;
+
+
+  @media (max-width: calc(64rem - 1px)) {
+    --card-group-width: 29rem;
+  }
+
+  @media (max-width: calc(34rem - 1px)) {
+    --card-width: 100vw;
+    --card-group-width: 100vw;
+    --card-group-height: 100dvh;
+  }
+}
+
+.logo {
+  display: inline;
+  height: 7rem;
+  width: 7rem;
+  padding: 1em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 3em #FC3627);
+}
+
+.logo.firebase:hover {
+  filter: drop-shadow(0 0 3em #FF9100);
+}
+
+.wallet-option-group:hover .wallet-option {
+  color: var(--color-zinc-700);
+  border-color: var(--color-zinc-700);
+  background-color: var(--color-zinc-900);
+}
+
+.wallet-option-group:hover .wallet-option:hover {
+  color: var(--color-zinc-100);
+  border-color: var(--color-zinc-100);
+  background-color: var(--color-zinc-800);
+  filter: drop-shadow(0 0 1em #ffffff33);
+}
+
+.wallet-option {
+  padding: 1em;
+  text-decoration: none;
+  border-radius: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--color-zinc-100);
+  border: 1px solid var(--color-zinc-100);
+  background-color: var(--color-zinc-800);
+  transition: border-color 300ms, background-color 300ms, color 300ms, filter 300ms;
+
+  overflow: hidden;
+  min-width: 150px;
+  min-height: 190px;
+
+  .hover-description {
+    transition: transform 300ms, opacity 300ms;
+    height: 0;
+    transform: translate(0, -2rem);
+  }
+
+  svg {
+    height: 7rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    transition: height 300ms, transform 300ms;
+  }
+}
+
+
+.wallet-option:hover svg {
+  height: 5rem;
+  transform: translate(0, -1.5rem);
+}
+
+.wallet-option:not(:hover) .hover-description {
+  transform: translate(0, 1rem);
+  opacity: 0;
+}
+
+input {
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  color: white;
+  font-weight: 400;
+  background-color: var(--color-zinc-700);
+  border: none;
+  outline: none;
+  width: 100%;
+}

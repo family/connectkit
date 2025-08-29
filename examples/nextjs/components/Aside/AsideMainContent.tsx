@@ -19,7 +19,7 @@ type Props = {
 
 export const AsideMainContent = ({ setContent }: Props) => {
   const { user } = useUser();
-  const { signOut } = useSignOut();
+  const { signOuta: signOut } = useSignOut();
   const { openSwitchNetworks, open, close, openProviders, openWallets } = useUI();
   const { sampleTheme, setSampleTheme, recoveryMethod, setRecoveryMethod } = useSample();
 
