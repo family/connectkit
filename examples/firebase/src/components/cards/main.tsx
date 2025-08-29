@@ -1,13 +1,12 @@
 import { useStatus } from "@openfort/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { TabType } from "../tabs/types";
+import { Actions } from "./actions";
 import { Auth } from "./auth";
 import { Head } from "./head";
-import { Sample } from "./sample";
-import type { TabType } from "../tabs/types";
+import { Profile } from "./profile";
 import { Sign } from "./sign";
 import { Wallets } from "./wallets";
-import { Profile } from "./profile";
-import { Actions } from "./actions";
 
 
 type TabProps = {
@@ -125,15 +124,22 @@ export const Main = () => {
       component: <Wallets />
     },
   ];
-
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0]);
 
   console.log({ isAuthenticated, isConnected });
 
+  useEffect(() => {
+    console.log("Auth or connection status changed", { isAuthenticated, isConnected });
+    if (!isConnected) {
+      setCurrentTab(tabs[3]);
+    } else if (isAuthenticated && isConnected) {
+      setCurrentTab(tabs[0]);
+    }
+  }, [isAuthenticated, isConnected])
+
   if (isLoading) {
     return null;
   }
-
 
   return (
     <Layout
@@ -145,12 +151,16 @@ export const Main = () => {
     >
       <Head onStart={() => setStep(1)} />
       {
-        !isAuthenticated || !isConnected ? (
+        !isAuthenticated ? (
           <Auth />
         ) : (
-          <Sample
-            tab={currentTab}
-          />
+          <div className="block relative overflow-y-auto overflow-x-hidden">
+            <div className="card flex-col min-h-full">
+              <div className="w-full flex-1 flex">
+                {currentTab.component}
+              </div>
+            </div>
+          </div>
         )
       }
       <div className="card relative" />

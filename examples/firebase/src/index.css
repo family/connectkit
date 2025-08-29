@@ -48,18 +48,24 @@
   }
 
   h1 {
-    @apply text-2xl font-bold mb-4
+    @apply text-2xl font-bold
   }
 
   h2 {
-    @apply text-xl font-bold mb-2
+    @apply text-xl font-bold
   }
 
   .card {
     @apply p-6 w-(--card-width) bg-zinc-800 flex justify-center flex-col;
   }
 
+  .btn {
+    @apply flex items-center justify-center w-full py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-primary-hover transition-colors;
+  }
 
+  input {
+    @apply px-4 py-2 rounded-md bg-zinc-700 border-none outline-none w-full;
+  }
 }
 
 :root {
@@ -167,16 +173,4 @@
 .wallet-option:not(:hover) .hover-description {
   transform: translate(0, 1rem);
   opacity: 0;
-}
-
-input {
-  font-size: 1rem;
-  padding: 0.5em 1em;
-  border-radius: 10px;
-  color: white;
-  font-weight: 400;
-  background-color: var(--color-zinc-700);
-  border: none;
-  outline: none;
-  width: 100%;
 }

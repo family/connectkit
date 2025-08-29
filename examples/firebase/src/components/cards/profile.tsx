@@ -1,25 +1,74 @@
 import { useUser } from "@openfort/react";
 import { auth } from "../../lib/firebase";
+import { BookOpenIcon } from "@heroicons/react/24/outline";
+import githubLogo from '/githubLogo.svg';
 
 export const Profile = () => {
   const { user } = useUser();
   // const { signOut } = useSignOut();
+  const isLocal = window.location.hostname === "localhost";
 
   return (
-    <div className="flex flex-col flex-1">
-      <h2>
+    <div className="flex flex-col flex-1 gap-4">
+      <h1>
         Welcome, {user?.player?.name || user?.linkedAccounts[0].email}
-      </h2>
+      </h1>
+      <p className="text-zinc-400 text-sm">
+        This is a demo app using Firebase Authentication and Openfort.
+        <br />
+        You can sign messages and interact with smart contracts.
+      </p>
+      <p>
+
+        <div className="border border-zinc-700 rounded p-4">
+          <h2 className="mb-2">Get started</h2>
+          <p className="mb-2 text-zinc-400 text-sm">
+            Start by creating a wallet, minting some tokens and signing messages.
+          </p>
+          {
+            isLocal ? (
+              <>
+                <p className="mb-2 text-sm">
+                  Edit <code>src/components/main.tsx</code> to customize the app.
+                </p>
+              </>
+            ) : (
+              <>
+                <h2 className="mb-2">Production Mode</h2>
+                <p className="mb-2 text-zinc-400 text-sm">
+                  You are running this app in production mode. All features are available.
+                </p>
+              </>
+            )
+          }
+          <div className="flex gap-4 mt-4">
+            <a
+              href="https://github.com/openfort-xyz/openfort-react/tree/main/examples/firebase"
+              className="btn bg-inherit border border-zinc-600 hover:border-zinc-400 text-zinc-400 hover:text-white"
+            >
+              <img
+                src={githubLogo} className="w-5 h-5 mr-2"
+                alt="GitHub logo"
+              />
+              View on github
+            </a>
+            <button className="btn">
+              <BookOpenIcon className="h-5 w-5 mr-2" />
+              View docs
+            </button >
+          </div>
+        </div>
+
+      </p>
 
       <button
         onClick={() => {
-          // signOut();
           auth.signOut();
         }}
-        className="mt-auto w-full py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-primary-hover transition-colors"
+        className="btn mt-auto"
       >
         Sign Out
       </button>
-    </div>
+    </div >
   );
 }

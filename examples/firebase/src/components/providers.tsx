@@ -35,8 +35,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
             shieldEncryptionKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY!,
           }}
 
-          overrides={{
-            thirdPartyAuthProvider: ThirdPartyOAuthProvider.FIREBASE,
+          thirdPartyAuth={{
+            provider: ThirdPartyOAuthProvider.FIREBASE,
             getAccessToken: async () => {
               console.log("Getting access token...");
               return (await auth.currentUser?.getIdToken(/* forceRefresh */ false)) ?? null

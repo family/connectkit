@@ -9,11 +9,11 @@ export const TruncateData = ({ className, data }: { className?: string; data?: s
       <pre
         className="break-words whitespace-normal text-sm"
       >
-        {viewMore ? data : `${data.slice(0, 90)}...`}
+        {viewMore ? data : data.length > 90 ? `${data.slice(0, 90)}...` : data}
       </pre>
       {data.length > 90 && (
         <button
-          className="text-primary hover:text-primary-hover transition-colors hover:underline text-sm"
+          className="text-primary hover:text-primary-hover transition-colors hover:underline text-sm cursor-pointer"
           onClick={() => setViewMore(!viewMore)}
           type="button"
         >

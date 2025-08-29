@@ -8,7 +8,7 @@ function SignTypedData() {
 
   return (
     <div>
-      <h2>Sign Typed Data Message</h2>
+      <h2 className="mb-3">Sign Typed Data Message</h2>
 
       <form
         onSubmit={async (event) => {
@@ -44,12 +44,11 @@ function SignTypedData() {
               contents: "Hello, Bob!"
             }
           })
-        }
-        }
+        }}
       >
         <button
           type="submit"
-          className="w-full py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-primary-hover transition-colors"
+          className="btn"
         >
           Sign Message
         </button>
@@ -67,9 +66,9 @@ function SignMessage() {
 
   return (
     <div>
-      <h2>Sign Message</h2>
+      <h2 className="mb-3">Sign Message</h2>
       <form
-        className="space-y-4"
+        className="space-y-2"
         onSubmit={(event) => {
           event.preventDefault()
           const formData = new FormData(event.target as HTMLFormElement)
@@ -83,7 +82,7 @@ function SignMessage() {
         />
         <button
           type="submit"
-          className="w-full py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-primary-hover transition-colors"
+          className="btn"
         >
           Sign Message
         </button>
@@ -96,9 +95,17 @@ function SignMessage() {
 
 export const Sign = () => {
   return (
-    <div className="flex flex-col w-full space-y-6">
-      <SignMessage />
-      <SignTypedData />
-    </div>
+    <>
+      <div className="flex flex-col w-full">
+        <h1>Signatures</h1>
+        <p className="mb-4 text-sm text-zinc-400">
+          Sign messages and typed data with your connected wallet.
+        </p>
+        <div className="space-y-6">
+          <SignMessage />
+          <SignTypedData />
+        </div>
+      </div>
+    </>
   )
 }

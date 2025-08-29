@@ -47,7 +47,7 @@ const MintContract = () => {
   return (
     <div>
       <h2>Mint contract</h2>
-      <p className="mb-2 text-zinc-400">Current balance: {balance?.toString()}</p>
+      <p className="mb-2 text-zinc-400 text-sm">Current balance: {balance?.toString()}</p>
       <form
         className="space-y-4"
         onSubmit={(e) => {
@@ -63,7 +63,7 @@ const MintContract = () => {
           name="amount"
         />
         <button
-          className='w-full py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-primary-hover transition-colors'
+          className='btn'
           disabled={isPending || !address}
         >
           {
@@ -82,7 +82,8 @@ export const Actions = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <span className="mb-4 text-zinc-400">
+      <h1>Actions</h1>
+      <span className="mb-4 text-zinc-400 text-sm">
         Interact with smart contracts on the blockchain.
       </span>
       <MintContract />
