@@ -34,9 +34,8 @@ export const Profile = () => {
               </>
             ) : (
               <>
-                <h2 className="mb-2">Production Mode</h2>
-                <p className="mb-2 text-zinc-400 text-sm">
-                  You are running this app in production mode. All features are available.
+                <p className="mb-2 text-sm">
+                  Clone this project and test it yourself, it is open source!
                 </p>
               </>
             )
@@ -45,6 +44,8 @@ export const Profile = () => {
             <a
               href="https://github.com/openfort-xyz/openfort-react/tree/main/examples/firebase"
               className="btn bg-inherit border border-zinc-600 hover:border-zinc-400 text-zinc-400 hover:text-white"
+              target="_blank"
+              rel="noreferrer"
             >
               <img
                 src={githubLogo} className="w-5 h-5 mr-2"
@@ -52,10 +53,15 @@ export const Profile = () => {
               />
               View on github
             </a>
-            <button className="btn">
+            <a
+              href="https://www.openfort.io/docs/products/embedded-wallet/react"
+              target="_blank"
+              rel="noreferrer"
+              className="btn"
+            >
               <BookOpenIcon className="h-5 w-5 mr-2" />
               View docs
-            </button >
+            </a>
           </div>
         </div>
 
