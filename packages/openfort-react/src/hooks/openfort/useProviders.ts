@@ -6,7 +6,7 @@ import { OpenfortError, OpenfortErrorType } from '../../types';
 
 export function useProviders() {
   const { user } = useOpenfortCore();
-  const { uiConfig: options, overrides, setOpen } = useOpenfort();
+  const { uiConfig: options, thirdPartyAuth, setOpen } = useOpenfort();
 
   const allProviders = options?.authProviders || [];
   const providers: AuthProvider[] = allProviders.filter(p => p !== AuthProvider.GUEST) || [];
@@ -20,10 +20,10 @@ export function useProviders() {
     : providers;
 
   useEffect(() => {
-    if (overrides?.thirdPartyAuthProvider) {
+    if (thirdPartyAuth) {
       setOpen(false);
       console.error(new OpenfortError(
-        'When using third party auth providers. Openfort Auth providers are not available. Either remove the `thirdPartyAuthProvider` override or authenticate your users using Auth hooks.',
+        'When using external third party auth providers, openfort Auth providers are not available. Either remove the `thirdPartyAuth` or authenticate your users using Auth hooks.',
         OpenfortErrorType.CONFIGURATION_ERROR,
       ))
     }

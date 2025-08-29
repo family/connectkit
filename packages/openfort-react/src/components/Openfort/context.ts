@@ -9,7 +9,7 @@ import {
 } from '../../types';
 
 
-import { OAuthProvider, SDKOverrides } from '@openfort/openfort-js';
+import { OAuthProvider, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js';
 import { ValueOf } from 'viem/_types/types/utils';
 import {
   useConnectCallbackProps
@@ -47,6 +47,7 @@ export type ContextValue = {
   uiConfig?: OpenfortUIOptionsExtended;
   walletConfig?: OpenfortWalletConfig;
   overrides?: SDKOverrides;
+  thirdPartyAuth?: ThirdPartyAuthConfiguration;
 } & useConnectCallbackProps;
 
 export const Openfortcontext = createContext<ContextValue | null>(null);
