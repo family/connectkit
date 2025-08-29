@@ -32,6 +32,7 @@ export const Wallets = () => {
     // TODO: replace with actual wallet type (Password, Automatic, etc)
     const method: RecoveryMethod = RecoveryMethod.PASSWORD as RecoveryMethod;
 
+    console.log("Rendering wallet recovery method for wallet:", wallet, method);
     switch (method) { // TODO: replace with actual wallet type (Password, Automatic, etc)
       case RecoveryMethod.PASSWORD:
         Icon = KeyIcon;

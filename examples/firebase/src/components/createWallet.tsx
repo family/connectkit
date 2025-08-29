@@ -1,6 +1,5 @@
 import { FingerPrintIcon, KeyIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { Sheet } from "./ui/Sheet";
 import { CreateWalletPasswordSheet } from "./passwordRecovery";
 
 
