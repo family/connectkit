@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.5] - 2025-08-29
+
+### Improvements
+
+- Update openfort-js
+- Third party auth
+
 ## [0.0.4] - 2025-08-18
 
 ### Improvements
