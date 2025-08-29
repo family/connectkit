@@ -26,6 +26,7 @@ export type { CustomAvatarProps } from './components/Common/Avatar';
 export enum OpenfortErrorType {
   AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR",
   WALLET_ERROR = "WALLET_ERROR",
+  CONFIGURATION_ERROR = "CONFIGURATION_ERROR",
 }
 
 interface Data {

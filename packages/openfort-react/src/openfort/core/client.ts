@@ -13,18 +13,8 @@ import { Openfort as OpenfortClient, OpenfortSDKConfiguration } from '@openfort/
  *
  * const token = await client.getAccessToken();
  */
-export function createOpenfortClient({
-  baseConfiguration,
-  overrides,
-  shieldConfiguration,
-}: OpenfortSDKConfiguration): OpenfortClient {
-  return new OpenfortClient({
-    baseConfiguration,
-    overrides: {
-      ...overrides,
-    },
-    shieldConfiguration
-  });
+export function createOpenfortClient(config: OpenfortSDKConfiguration): OpenfortClient {
+  return new OpenfortClient(config);
 }
 
 /**

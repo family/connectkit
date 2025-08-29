@@ -57,7 +57,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
-    log('Creating Openfort instance.');
+    log('Creating Openfort instance.', openfortProps);
 
     if (!openfortProps.baseConfiguration.publishableKey)
       throw Error('CoreOpenfortProvider requires a publishableKey to be set in the baseConfiguration.');
@@ -119,6 +119,8 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
   const updateUser = useCallback(async (user?: AuthPlayerResponse, logoutOnError: boolean = false) => {
     if (!openfort) return null;
+    log("Updating user", { user, logoutOnError });
+
     if (user) {
       setUser(user);
       return user;
@@ -185,15 +187,19 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
         break;
       case EmbeddedState.READY:
-        if (!user)
-          updateUser(undefined, true);
-
-        // We cannot stop polling here because there is a bug on openfort-js
-        // that makes the embedded state to be stuck on CREATING_ACCOUNT
-        // stopPollingEmbeddedState();
-
+        (async () => {
+          for (let i = 0; i < 5; i++) {
+            log("Trying to update user...", i);
+            try {
+              const user = await updateUser(undefined, true);
+              if (user) break;
+            } catch (err) {
+              console.error("Error updating user, retrying...", err);
+            }
+            await new Promise((resolve) => setTimeout(resolve, 250));
+          }
+        })();
         break;
-
       default:
         throw new Error(`Unknown embedded state: ${embeddedState}`);
     }

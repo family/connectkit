@@ -1,10 +1,12 @@
-import { useOpenfort } from '../../components/Openfort/useOpenfort';
+import { useEffect } from 'react';
 import { AuthProvider } from "../../components/Openfort/types";
+import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { useOpenfortCore } from '../../openfort/useOpenfort';
+import { OpenfortError, OpenfortErrorType } from '../../types';
 
 export function useProviders() {
   const { user } = useOpenfortCore();
-  const { uiConfig: options } = useOpenfort();
+  const { uiConfig: options, thirdPartyAuth, setOpen } = useOpenfort();
 
   const allProviders = options?.authProviders || [];
   const providers: AuthProvider[] = allProviders.filter(p => p !== AuthProvider.GUEST) || [];
@@ -16,6 +18,16 @@ export function useProviders() {
       return !user.linkedAccounts?.find(a => a.provider === provider)
     })
     : providers;
+
+  useEffect(() => {
+    if (thirdPartyAuth) {
+      setOpen(false);
+      console.error(new OpenfortError(
+        'When using external third party auth providers, openfort Auth providers are not available. Either remove the `thirdPartyAuth` or authenticate your users using Auth hooks.',
+        OpenfortErrorType.CONFIGURATION_ERROR,
+      ))
+    }
+  }, [])
 
   return {
     availableProviders,

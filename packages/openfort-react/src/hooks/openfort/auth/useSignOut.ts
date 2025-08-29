@@ -4,6 +4,7 @@ import { BaseFlowState, mapStatus } from './status';
 import { useDisconnect } from 'wagmi';
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types';
 import { onError, onSuccess } from '../hookConsistency';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
   const { client, updateUser, user } = useOpenfortCore();
@@ -12,16 +13,16 @@ export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
   });
   const { disconnect } = useDisconnect();
 
+  const queryClient = useQueryClient();
 
   const signOut = useCallback(async (options: OpenfortHookOptions = {}) => {
-    if (!user)
-      return;
-
     setStatus({
       status: 'loading',
     });
     try {
+
       await client.auth.logout();
+      queryClient.resetQueries({ queryKey: ['openfortEmbeddedWalletList'] })
       disconnect();
       updateUser();
       setStatus({

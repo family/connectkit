@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 
-import { RecoveryMethod, SDKOverrides } from '@openfort/openfort-js';
+import { RecoveryMethod, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js';
 import { ValueOf } from 'viem/_types/types/utils';
 import { WagmiContext, useAccount } from 'wagmi';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
@@ -32,6 +32,7 @@ type OpenfortProviderProps = {
   uiConfig?: ConnectUIOptions;
   walletConfig?: OpenfortWalletConfig;
   overrides?: SDKOverrides;
+  thirdPartyAuth?: ThirdPartyAuthConfiguration;
 } & useConnectCallbackProps;
 
 /**
@@ -59,6 +60,7 @@ export const OpenfortProvider = ({
   publishableKey,
   walletConfig,
   overrides,
+  thirdPartyAuth,
 }: OpenfortProviderProps) => {
   // OpenfortProvider must be within a WagmiProvider
   if (!React.useContext(WagmiContext)) {
@@ -192,7 +194,6 @@ export const OpenfortProvider = ({
     onConnect,
     onDisconnect,
     // Other configuration
-    overrides,
     uiConfig: opts,
     errorMessage,
     debugMode,
@@ -207,6 +208,8 @@ export const OpenfortProvider = ({
     resize,
     triggerResize: () => onResize((prev) => prev + 1),
     walletConfig,
+    overrides,
+    thirdPartyAuth,
   };
 
   return createElement(
@@ -224,6 +227,7 @@ export const OpenfortProvider = ({
             debug: debugMode,
           } : undefined}
           overrides={overrides}
+          thirdPartyAuth={thirdPartyAuth}
           debugMode={debugMode}
           onConnect={onConnect}
           onDisconnect={onDisconnect}
@@ -240,7 +244,7 @@ export const OpenfortProvider = ({
           />
           {/* </ThemeProvider> */}
         </CoreOpenfortProvider>
-      </Web3ContextProvider>
+      </Web3ContextProvider >
     </>
   );
 };

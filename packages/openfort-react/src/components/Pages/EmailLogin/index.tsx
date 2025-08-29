@@ -55,7 +55,7 @@ const EmailLogin: React.FC = () => {
       setLoginLoading(false);
       setLoginError("Invalid email or password.");
     }).then((user) => {
-      // console.log("User", user);
+      // log("User", user);
       if (!user) {
         setLoginLoading(false);
         setLoginError("Invalid email or password.");
@@ -63,7 +63,7 @@ const EmailLogin: React.FC = () => {
       }
 
       if ("action" in user && user.action === AuthActionRequiredActions.ACTION_VERIFY_EMAIL) {
-        console.log("User needs to verify email");
+        log("User needs to verify email");
         localStorage.setItem(emailToVerifyLocalStorageKey, email);
         setRoute(routes.EMAIL_VERIFICATION);
       } else {
