@@ -22,7 +22,7 @@ export type CreateWalletPostAuthOptions = {
 };
 
 // this hook is used to create a wallet after the user has authenticated
-export const useCreateWalletPostAuth = () => {
+export const useConnectToWalletPostAuth = () => {
   const { createWallet, setActiveWallet } = useWallets()
   const { walletConfig } = useOpenfort();
   const { signOut } = useSignOut();

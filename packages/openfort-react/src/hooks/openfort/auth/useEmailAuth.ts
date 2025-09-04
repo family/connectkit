@@ -6,7 +6,7 @@ import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../
 import { buildCallbackUrl } from "./requestEmailVerification";
 import { BaseFlowState, mapStatus } from "./status";
 import { onError, onSuccess } from '../hookConsistency';
-import { CreateWalletPostAuthOptions, useCreateWalletPostAuth } from './useCreateWalletPostAuth';
+import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth';
 import { UserWallet } from '../useWallets';
 
 
@@ -75,7 +75,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     setRequiresEmailVerification(false);
   }, []);
 
-  const { tryUseWallet } = useCreateWalletPostAuth();
+  const { tryUseWallet } = useConnectToWalletPostAuth();
 
   const signInEmail = useCallback(async (options: SignInEmailOptions): Promise<EmailAuthResult> => {
     try {
