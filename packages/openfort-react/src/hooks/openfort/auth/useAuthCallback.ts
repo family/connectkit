@@ -5,7 +5,7 @@ import { useOpenfortCore } from "../../../openfort/useOpenfort";
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
 import { onError, onSuccess } from "../hookConsistency";
 import { AuthProvider } from "../../../components/Openfort/types";
-import { CreateWalletPostAuthOptions, useCreateWalletPostAuth } from "./useCreateWalletPostAuth";
+import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from "./useConnectToWalletPostAuth";
 import { EmailVerificationResult, useEmailAuth } from "./useEmailAuth";
 import { StoreCredentialsResult, useOAuth } from "./useOAuth";
 

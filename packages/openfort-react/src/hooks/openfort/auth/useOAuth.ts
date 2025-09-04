@@ -6,7 +6,7 @@ import { BaseFlowState, mapStatus } from './status';
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types';
 import { buildCallbackUrl } from './requestEmailVerification';
 import { onError, onSuccess } from '../hookConsistency';
-import { CreateWalletPostAuthOptions, useCreateWalletPostAuth } from './useCreateWalletPostAuth';
+import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth';
 
 import { UserWallet } from "../useWallets";
 import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js';
@@ -62,7 +62,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
     status: "idle",
   });
 
-  const { tryUseWallet } = useCreateWalletPostAuth();
+  const { tryUseWallet } = useConnectToWalletPostAuth();
 
   const storeCredentials = useCallback(async ({
     player,

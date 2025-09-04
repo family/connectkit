@@ -4,7 +4,7 @@ import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../
 import { BaseFlowState, mapStatus } from "./status";
 import { useOpenfortCore } from "../../../openfort/useOpenfort";
 import { onError, onSuccess } from "../hookConsistency";
-import { CreateWalletPostAuthOptions, useCreateWalletPostAuth } from "./useCreateWalletPostAuth";
+import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from "./useConnectToWalletPostAuth";
 import { UserWallet } from "../useWallets";
 
 export type GuestHookResult = {
@@ -21,7 +21,7 @@ export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
   const [status, setStatus] = useState<BaseFlowState>({
     status: "idle",
   });
-  const { tryUseWallet } = useCreateWalletPostAuth();
+  const { tryUseWallet } = useConnectToWalletPostAuth();
 
   const signUpGuest = useCallback(async (options: GuestHookOptions = {}): Promise<GuestHookResult> => {
     try {
