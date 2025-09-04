@@ -1,9 +1,11 @@
-import { RecoveryMethod } from "@openfort/openfort-js"
+import { EmbeddedAccount, RecoveryMethod } from "@openfort/openfort-js"
+import { useQueryClient } from "@tanstack/react-query"
 import { useCallback } from "react"
 import { useOpenfort } from "../../../components/Openfort/useOpenfort"
 import { embeddedWalletId } from "../../../constants/openfort"
-import { useWallets } from "../useWallets"
+import { UserWallet, useWallets } from "../useWallets"
 import { useSignOut } from "./useSignOut"
+import { useOpenfortCore } from "../../../openfort/useOpenfort"
 
 export type CreateWalletPostAuthOptions = {
   /**
@@ -21,25 +23,49 @@ export type CreateWalletPostAuthOptions = {
 
 // this hook is used to create a wallet after the user has authenticated
 export const useCreateWalletPostAuth = () => {
-  const { setActiveWallet, wallets } = useWallets()
+  const { createWallet, setActiveWallet } = useWallets()
   const { walletConfig } = useOpenfort();
   const { signOut } = useSignOut();
+  const queryClient = useQueryClient();
 
-  const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, automaticRecovery = true }: CreateWalletPostAuthOptions) => {
-    if (wallets.some(w => w.id === embeddedWalletId && w.recoveryMethod === RecoveryMethod.AUTOMATIC) || !automaticRecovery) {
+  const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, automaticRecovery = true }: CreateWalletPostAuthOptions): Promise<{ wallet?: UserWallet }> => {
+    console.log("tryUseWallet", { walletConfig, automaticRecovery });
+    if ((!walletConfig?.createEncryptedSessionEndpoint && !walletConfig?.getEncryptionSession) || !automaticRecovery) {
+      // If there is no encryption session, we cannot create a wallet
       return {};
     }
 
-    const wallet = await setActiveWallet({
-      connector: embeddedWalletId,
-    });
+    const wallets = await queryClient.ensureQueryData<EmbeddedAccount[]>({ queryKey: ['openfortEmbeddedWalletList'] });
 
-    if (wallet.error && signOutOnError) {
-      // If there was an error and we should log out, we can call the logout function
-      await signOut();
+    console.log("WALLETS", wallets);
+    let wallet: UserWallet | undefined;
+
+    if (wallets.length === 0) {
+      const createWalletResult = await createWallet();
+      if (createWalletResult.error && signOutOnError) {
+        console.error("Error creating wallet:", createWalletResult.error);
+        // If there was an error and we should log out, we can call the logout function
+        await signOut();
+        return {};
+      }
+      wallet = createWalletResult.wallet!;
     }
 
-    return wallet;
+    // Has a wallet with automatic recovery
+    if (wallets.some(w => w.recoveryMethod === RecoveryMethod.AUTOMATIC)) {
+      const setWalletResult = await setActiveWallet({
+        connector: embeddedWalletId,
+      });
+
+      if (!setWalletResult.wallet || (setWalletResult.error && signOutOnError)) {
+        console.error("Error recovering wallet:", setWalletResult.error);
+        // If there was an error and we should log out, we can call the logout function
+        await signOut();
+      }
+      wallet = setWalletResult.wallet!;
+    }
+
+    return { wallet };
   }, [walletConfig, setActiveWallet, signOut]);
 
   return {
