@@ -1,6 +1,7 @@
 import { AuthActionRequiredActions } from '@openfort/openfort-js';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import React from "react";
+import { emailToVerifyLocalStorageKey } from '../../../constants/openfort';
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import Button from "../../Common/Button";
 import { TextLinkButton } from "../../Common/Button/styles";
@@ -11,7 +12,6 @@ import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { TextContainer } from "../../ConnectButton/styles";
 import { routes } from '../../Openfort/types';
 import { useOpenfort } from '../../Openfort/useOpenfort';
-import { emailToVerifyLocalStorageKey } from '../../../constants/openfort';
 
 // TODO: Localize
 

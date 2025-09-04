@@ -1,9 +1,7 @@
 import { TruncatedText } from '@/components/TruncatedText';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { BaseVariable } from '@/components/Variable/Variable';
 import { cn } from '@/lib/cn';
-import { useAppStore } from '@/lib/useAppStore';
-import { RecoveryMethod, useUser, useWallets } from '@openfort/react';
+import { useUser, useWallets } from '@openfort/react';
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router';
 import { ArrowUpRight } from 'lucide-react';
 import { PropsWithChildren, useMemo } from 'react';
@@ -12,40 +10,6 @@ import { useAccount, useChainId, useChains } from 'wagmi';
 export const Route = createFileRoute('/_hooks')({
   component: RouteComponent,
 })
-
-
-const ConfigurationVariables = () => {
-
-  const { providerOptions, setProviderOptions } = useAppStore()
-  return (
-    <>
-      <BaseVariable
-        name='recoveryMethod'
-        value={providerOptions.walletConfig?.recoveryMethod || 'automatic'}
-
-        variables={{
-          recoveryMethod: {
-            description: 'The recovery method to use for the embedded wallet.',
-            type: 'select',
-            options: ['automatic', 'password'],
-            onEdit: (value) => {
-              setProviderOptions({
-                ...providerOptions,
-                walletConfig: {
-                  ...providerOptions.walletConfig,
-                  // @ts-expect-error ts is not aware of the walletConfig type
-                  recoveryMethod: value as RecoveryMethod,
-                }
-              })
-            }
-          }
-        }}
-      />
-    </>
-
-  )
-
-}
 
 const SidebarLink = ({ children, href, cta = "View in hook" }: PropsWithChildren<{ href: string, cta?: string }>) => {
   return (
@@ -102,7 +66,7 @@ const SidebarInfo = () => {
       return (
         <div className='text-sm flex flex-col gap-1'>
           <p className='text-gray-500 dark:text-gray-400 mb-2'>You are authenticated, but no wallet is connected.</p>
-          <SidebarLink href='/app/useWallets?focus=setActiveWallet'>
+          <SidebarLink href='/wallet/useWallets?focus=setActiveWallet'>
             Connect a wallet
           </SidebarLink>
           <SidebarLink href='/auth/useSignOut?focus=signOut'>
@@ -142,10 +106,10 @@ const SidebarInfo = () => {
           <SidebarLink href='/app/useUser?focus=user'>
             User linked accounts: <span className='text-gray-500 dark:text-gray-400'>{user ? (<>[{user.linkedAccounts.map(a => a.provider).join(",")}]</>) : "No user"}</span>
           </SidebarLink>
-          <SidebarLink href='/app/useWallets?focus=activeWallet'>
+          <SidebarLink href='/wallet/useWallets?focus=activeWallet'>
             Wallet address: <span className='text-gray-500 dark:text-gray-400'>{address ? <TruncatedText text={address} /> : "No wallet connected"}</span>
           </SidebarLink>
-          <SidebarLink href='/app/useWallets?focus=activeWallet'>
+          <SidebarLink href='/wallet/useWallets?focus=activeWallet'>
             Wallet ID: <span className='text-gray-500 dark:text-gray-400'>{activeWallet?.id || "No wallet connected"}</span>
           </SidebarLink>
           <SidebarLink href='/wagmi/useAccount?focus=chainId'>
@@ -154,12 +118,6 @@ const SidebarInfo = () => {
         </div>
       </div>
 
-      <div>
-        <h3 className='text-lg font-semibold mb-2'>
-          Common configuration
-        </h3>
-        <ConfigurationVariables />
-      </div>
       <div>
         <h3 className='text-lg font-semibold mb-1 relative'>
           Suggested actions

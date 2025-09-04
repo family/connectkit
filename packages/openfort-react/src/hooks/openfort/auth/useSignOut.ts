@@ -1,19 +1,14 @@
 import { useCallback, useState } from 'react';
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
-import { BaseFlowState, mapStatus } from './status';
-import { useDisconnect } from 'wagmi';
-import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types';
+import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from '../../../types';
 import { onError, onSuccess } from '../hookConsistency';
-import { useQueryClient } from '@tanstack/react-query';
+import { BaseFlowState, mapStatus } from './status';
 
 export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
-  const { client, updateUser, user } = useOpenfortCore();
+  const { logout } = useOpenfortCore();
   const [status, setStatus] = useState<BaseFlowState>({
     status: "idle",
   });
-  const { disconnect } = useDisconnect();
-
-  const queryClient = useQueryClient();
 
   const signOut = useCallback(async (options: OpenfortHookOptions = {}) => {
     setStatus({
@@ -21,10 +16,7 @@ export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
     });
     try {
 
-      await client.auth.logout();
-      queryClient.resetQueries({ queryKey: ['openfortEmbeddedWalletList'] })
-      disconnect();
-      updateUser();
+      logout();
       setStatus({
         status: 'success',
       });
@@ -46,7 +38,7 @@ export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
         error,
       });
     }
-  }, [client, user, disconnect, updateUser, setStatus, hookOptions]);
+  }, [logout, setStatus, hookOptions]);
 
   return {
     ...mapStatus(status),

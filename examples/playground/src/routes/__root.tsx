@@ -16,7 +16,7 @@ function RootComponent() {
   const location = useLocation();
   return (
     <div className='flex flex-col min-h-screen w-[100vw]'>
-      <Nav showLogo={location.pathname !== "/" || isConnected} />
+      <Nav showLogo={location.pathname !== "/showcase/auth" || isConnected} />
       <Outlet />
     </div>
   )

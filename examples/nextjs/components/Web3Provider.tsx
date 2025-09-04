@@ -36,9 +36,6 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
             shieldPublishableKey: process.env.NEXT_PUBLIC_SHIELD_API_KEY!,
 
-            // Set the recovery method you want to use, in this case we will use the password recovery method
-            recoveryMethod: recoveryMethod,
-
             // Your can customize the recovery method, either by setting the recovery method function or the endpoint
             getEncryptionSession: async () => {
               const res = await fetch('/api/protected-create-encryption-session', {
@@ -81,6 +78,11 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
             // Other useful options
             overlayBlur: 2.5,
             hideTooltips: true,
+
+            // Set the recovery method you want to use, in this case we will use the password recovery method
+            walletRecovery: {
+              defaultMethod: recoveryMethod,
+            },
 
             customTheme: {
               // "--ck-body-background": "#000000",

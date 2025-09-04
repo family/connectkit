@@ -7,6 +7,7 @@ import { useConnect } from '../hooks/useConnect';
 import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback';
 import { Context } from './context';
 import { createOpenfortClient, setDefaultClient } from './core';
+import { useQueryClient } from '@tanstack/react-query';
 
 export type ContextValue = {
   signUpGuest: () => Promise<void>;
@@ -50,10 +51,8 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   const { address } = useAccount();
   const [user, setUser] = useState<AuthPlayerResponse | null>(null);
 
-  const { disconnect } = useDisconnect();
+  const { disconnectAsync } = useDisconnect();
   const { walletConfig } = useOpenfort();
-
-  const automaticRecovery = walletConfig && walletConfig.recoveryMethod === RecoveryMethod.AUTOMATIC;
 
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
@@ -203,7 +202,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
       default:
         throw new Error(`Unknown embedded state: ${embeddedState}`);
     }
-  }, [embeddedState, openfort, automaticRecovery]);
+  }, [embeddedState, openfort]);
 
   useEffect(() => {
     // Connect to wagmi with Embedded signer
@@ -223,13 +222,15 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
   // ---- Auth functions ----
 
-  const logout = useCallback(() => {
+  const queryClient = useQueryClient();
+  const logout = useCallback(async () => {
     if (!openfort) return;
 
-    log('Logging out...');
-    openfort.auth.logout();
     setUser(null);
-    disconnect();
+    log('Logging out...');
+    await openfort.auth.logout();
+    await disconnectAsync();
+    queryClient.resetQueries({ queryKey: ['openfortEmbeddedWalletList'] })
     reset();
     startPollingEmbeddedState();
   }, [openfort]);
@@ -256,7 +257,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
         return true;
 
       case EmbeddedState.UNAUTHENTICATED:
-        if (user) return true; // If user is set in unauthenticated state, it means that the embedded state is not up to date, so we should wait
+        if (user) return true; // If user i<s set in unauthenticated state, it means that the embedded state is not up to date, so we should wait
         return false;
 
       case EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED:
@@ -277,10 +278,9 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     }
   }, [embeddedState, address, user]);
 
-  const needsRecovery =
-    !automaticRecovery && (
-      embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED
-    ) && (
+  const needsRecovery = (
+    embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED
+  ) && (
       !address
     );
 

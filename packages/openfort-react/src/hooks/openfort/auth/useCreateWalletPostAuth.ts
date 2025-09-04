@@ -13,19 +13,20 @@ export type CreateWalletPostAuthOptions = {
   logoutOnError?: boolean;
 
   /**
-   * 
+   * @default true
+   * It will automatically try to recover the first wallet with automatic recovery.
    */
   automaticRecovery?: boolean;
 };
 
 // this hook is used to create a wallet after the user has authenticated
 export const useCreateWalletPostAuth = () => {
-  const { setActiveWallet } = useWallets()
+  const { setActiveWallet, wallets } = useWallets()
   const { walletConfig } = useOpenfort();
   const { signOut } = useSignOut();
 
   const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, automaticRecovery = true }: CreateWalletPostAuthOptions) => {
-    if (!walletConfig || walletConfig.recoveryMethod !== RecoveryMethod.AUTOMATIC || !automaticRecovery) {
+    if (wallets.some(w => w.id === embeddedWalletId && w.recoveryMethod === RecoveryMethod.AUTOMATIC) || !automaticRecovery) {
       return {};
     }
 

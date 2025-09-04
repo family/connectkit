@@ -27,7 +27,7 @@ import ForgotPassword from '../Pages/ForgotPassword';
 import LinkEmail from '../Pages/LinkEmail';
 import Loading from '../Pages/Loading';
 import Providers from '../Pages/Providers';
-import CreateEmbeddedSigner from '../Pages/Recover';
+import RecoverPage from '../Pages/Recover';
 import SocialProviders from '../Pages/SoicalProviders';
 
 const customThemeDefault: object = {};
@@ -118,7 +118,7 @@ const ConnectModal: React.FC<{
     connect: <ConnectUsing />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
-    recover: <CreateEmbeddedSigner />,
+    recover: <RecoverPage />,
   };
 
   function hide() {

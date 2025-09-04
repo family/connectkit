@@ -79,9 +79,10 @@ export const OpenfortProvider = ({
   const chains = useChains();
 
   const injectedConnector = useConnector('injected');
+  const allowAutomaticRecovery = !!(walletConfig?.createEncryptedSessionEndpoint || walletConfig?.getEncryptionSession);
 
   // Default config options
-  const defaultOptions: OpenfortUIOptionsExtended = {
+  const defaultUIOptions: OpenfortUIOptionsExtended = {
     theme: 'auto',
     mode: 'auto',
     language: 'en-US',
@@ -104,24 +105,37 @@ export const OpenfortProvider = ({
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
     disableSiweRedirect: false,
-
-    // Openfort options
-    authProviders: [],
-  };
-
-  const opts: OpenfortUIOptionsExtended = Object.assign({}, defaultOptions, uiConfig);
-
-  if (!opts.authProviders || opts.authProviders.length === 0) {
-    opts.authProviders = [
+    walletRecovery: {
+      allowedMethods: [
+        RecoveryMethod.PASSWORD,
+        ...(allowAutomaticRecovery ? [RecoveryMethod.AUTOMATIC] : [])
+      ],
+      defaultMethod: allowAutomaticRecovery ? RecoveryMethod.AUTOMATIC : RecoveryMethod.PASSWORD,
+    },
+    authProviders: [
       AuthProvider.GUEST,
       AuthProvider.EMAIL,
       AuthProvider.WALLET,
-    ];
+    ],
+  };
+
+  const safeUiConfig: OpenfortUIOptionsExtended = Object.assign({}, defaultUIOptions, uiConfig);
+
+  if (!safeUiConfig.walletRecovery.allowedMethods) {
+    safeUiConfig.walletRecovery.allowedMethods = defaultUIOptions.walletRecovery.allowedMethods;
+  }
+  if (!safeUiConfig.walletRecovery.defaultMethod) {
+    safeUiConfig.walletRecovery.defaultMethod = defaultUIOptions.walletRecovery.defaultMethod;
+  }
+
+  if (safeUiConfig.walletRecovery.allowedMethods.includes(RecoveryMethod.AUTOMATIC) && !allowAutomaticRecovery) {
+    safeUiConfig.walletRecovery.allowedMethods = safeUiConfig.walletRecovery.allowedMethods.filter(m => m !== RecoveryMethod.AUTOMATIC);
+    console.warn("Automatic recovery method was removed from allowedMethods because no recovery options are configured in the walletConfig. Please provide either createEncryptedSessionEndpoint or getEncryptionSession to enable automatic recovery.");
   }
 
   if (typeof window !== 'undefined') {
     // Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.)
-    if (opts.bufferPolyfill) window.Buffer = window.Buffer ?? Buffer;
+    if (safeUiConfig.bufferPolyfill) window.Buffer = window.Buffer ?? Buffer;
 
     // Some bundlers may need `global` and `process.env` polyfills as well
     // Not implemented here to avoid unexpected behaviors, but leaving example here for future reference
@@ -131,8 +145,8 @@ export const OpenfortProvider = ({
      */
   }
 
-  const [ckTheme, setTheme] = useState<Theme>(uiConfig?.theme ?? defaultOptions.theme ?? "auto");
-  const [ckMode, setMode] = useState<Mode>(uiConfig?.mode ?? defaultOptions.mode ?? 'auto');
+  const [ckTheme, setTheme] = useState<Theme>(uiConfig?.theme ?? defaultUIOptions.theme ?? "auto");
+  const [ckMode, setMode] = useState<Mode>(uiConfig?.mode ?? defaultUIOptions.mode ?? 'auto');
   const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(
     uiConfig?.customTheme ?? {}
   );
@@ -147,11 +161,11 @@ export const OpenfortProvider = ({
   const [resize, onResize] = useState<number>(0);
 
   // Include Google Font that is needed for a themes
-  if (opts.embedGoogleFonts) useThemeFont(ckTheme);
+  if (safeUiConfig.embedGoogleFonts) useThemeFont(ckTheme);
 
   // Other Configuration
   useEffect(() => setTheme(uiConfig?.theme ?? 'auto'), [uiConfig?.theme]);
-  useEffect(() => setLang(opts.language || 'en-US'), [opts.language]);
+  useEffect(() => setLang(safeUiConfig.language || 'en-US'), [safeUiConfig.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
 
   // Check if chain is supported, elsewise redirect to switches page
@@ -159,7 +173,7 @@ export const OpenfortProvider = ({
   const isChainSupported = useChainIsSupported(chain?.id);
 
   useEffect(() => {
-    if (isConnected && opts.enforceSupportedChains && !isChainSupported) {
+    if (isConnected && safeUiConfig.enforceSupportedChains && !isChainSupported) {
       setOpen(true);
       setRoute(routes.SWITCHNETWORKS);
     }
@@ -194,7 +208,7 @@ export const OpenfortProvider = ({
     onConnect,
     onDisconnect,
     // Other configuration
-    uiConfig: opts,
+    uiConfig: safeUiConfig,
     errorMessage,
     debugMode,
     log,
@@ -223,7 +237,6 @@ export const OpenfortProvider = ({
           }}
           shieldConfiguration={walletConfig ? {
             shieldPublishableKey: walletConfig.shieldPublishableKey,
-            shieldEncryptionKey: walletConfig.recoveryMethod === RecoveryMethod.PASSWORD ? walletConfig.shieldEncryptionKey : undefined,
             debug: debugMode,
           } : undefined}
           overrides={overrides}
@@ -248,5 +261,3 @@ export const OpenfortProvider = ({
     </>
   );
 };
-
-
