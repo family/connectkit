@@ -189,7 +189,7 @@ const RecoverAutomaticWallet = ({ walletAddress }: { walletAddress: Hex }) => {
 
   return (
     <PageContent>
-      <Loader reason={`Recovering wallet ${walletAddress}...`} />
+      <Loader reason={`Recovering wallet...`} />
     </PageContent>
   )
 }
@@ -430,17 +430,15 @@ const ChooseRecoveryMethod = ({ onChangeMethod }: { onChangeMethod: (method: Rec
 }
 
 const RecoverWallet = ({ wallet }: { wallet: UserWallet }) => {
+  console.log("----RecoverWallet", wallet);
   switch (wallet.recoveryMethod) {
     case RecoveryMethod.PASSWORD:
       return <RecoverPasswordWallet wallet={wallet} />
     case RecoveryMethod.AUTOMATIC:
       return <RecoverAutomaticWallet walletAddress={wallet.address} />
     default:
-      return (
-        <PageContent>
-          Unsupported recovery method: {wallet.recoveryMethod}
-        </PageContent>
-      )
+      console.error("Unsupported recovery method: " + wallet.recoveryMethod + ", defaulting to automatic.");
+      return <RecoverAutomaticWallet walletAddress={wallet.address} />
   }
 }
 
@@ -513,6 +511,9 @@ const RecoverPage: React.FC = () => {
     return () => { clearTimeout(timeout); }
   }, [isLoadingWallets]);
 
+  const openfortWallets = useMemo(() => {
+    return wallets.filter((wallet) => wallet.id === embeddedWalletId);
+  }, [wallets]);
 
   // useEffect(() => {
   //   if (!user) return;
@@ -547,7 +548,7 @@ const RecoverPage: React.FC = () => {
     return <Connected />
   }
 
-  if (!wallets) {
+  if (!openfortWallets) {
     // Here wallets should be loaded, so if we don't have them something went wrong
     // TODO: add error logs
     return (
@@ -557,7 +558,7 @@ const RecoverPage: React.FC = () => {
     )
   }
 
-  if (wallets.length === 0) {
+  if (openfortWallets.length === 0) {
     return (
       <CreateWallet />
     )
@@ -565,7 +566,7 @@ const RecoverPage: React.FC = () => {
 
   // if (wallets.length === 1) {
   return (
-    <RecoverWallet wallet={wallets[0]} />
+    <RecoverWallet wallet={openfortWallets[0]} />
   )
   // }
 
