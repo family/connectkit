@@ -44,7 +44,6 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     linkWalletOnSignUp: undefined,
     walletRecovery: {
       defaultMethod: RecoveryMethod.PASSWORD,
-      allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC],
     }
   },
 
@@ -57,7 +56,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     debug: false,
     // getEncryptionSession: undefined, // Optional function to get the encryption session
 
-    createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
+    // createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
   },
   onConnect: undefined,
   onDisconnect: undefined,

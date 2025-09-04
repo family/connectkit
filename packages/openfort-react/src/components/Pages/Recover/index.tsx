@@ -271,12 +271,13 @@ const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (met
   const [recoveryPhrase, setRecoveryPhrase] = useState("");
   const [recoveryError, setRecoveryError] = useState<false | string>(false);
   const { triggerResize, uiConfig: options, log } = useOpenfort();
+  const [showPasswordIsTooWeakError, setShowPasswordIsTooWeakError] = useState(false);
   const [loading, setLoading] = useState(false);
   const { createWallet } = useWallets();
 
   const handleSubmit = async () => {
     if (getPasswordStrength(recoveryPhrase) < MEDIUM_SCORE_THRESHOLD) {
-      setRecoveryError("Please choose a stronger password");
+      setShowPasswordIsTooWeakError(true);
       return;
     }
 
@@ -350,56 +351,61 @@ const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (met
       <ModalHeading>Secure your wallet</ModalHeading>
       <ModalBody style={{ textAlign: "center" }}>
         <FitText>
-          Set a password to secure your wallet.
+          Set a password for your wallet.
         </FitText>
-        <TickList
-          items={[
-            "You will use this password to recover your wallet",
-            "Make sure it's strong and memorable",
-          ]}
-        />
 
-      </ModalBody>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <Input
-          value={recoveryPhrase}
-          onChange={(e) => setRecoveryPhrase(e.target.value)}
-          type="password"
-          placeholder="Enter your password"
-          autoComplete="off"
-        />
-
-        <PasswordStrengthIndicator
-          password={recoveryPhrase}
-        />
-
-        {recoveryError && (
-          <motion.div key={recoveryError} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <ModalBody style={{ height: 24, marginTop: 12 }} $error>
-              <FitText>
-                {recoveryError}
-              </FitText>
-            </ModalBody>
-          </motion.div>
-        )}
-
-        <Button
-          onClick={handleSubmit}
-          waiting={loading}
-          disabled={loading}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
         >
-          Create wallet
-        </Button>
-      </form>
-      <OtherMethod
-        currentMethod={RecoveryMethod.PASSWORD}
-        onChangeMethod={onChangeMethod}
-      />
+          <Input
+            value={recoveryPhrase}
+            onChange={(e) => {
+              if (showPasswordIsTooWeakError)
+                setShowPasswordIsTooWeakError(false);
+              setRecoveryPhrase(e.target.value);
+            }}
+            type="password"
+            placeholder="Enter your password"
+            autoComplete="off"
+          />
+
+          <PasswordStrengthIndicator
+            password={recoveryPhrase}
+            showPasswordIsTooWeakError={showPasswordIsTooWeakError}
+          />
+          <TickList
+            items={[
+              "You will use this password to access your wallet",
+              "Make sure it's strong and memorable",
+            ]}
+          />
+
+          {recoveryError && (
+            <motion.div key={recoveryError} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <ModalBody style={{ height: 24, marginTop: 12 }} $error>
+                <FitText>
+                  {recoveryError}
+                </FitText>
+              </ModalBody>
+            </motion.div>
+          )}
+
+          <Button
+            onClick={handleSubmit}
+            waiting={loading}
+            disabled={loading}
+          >
+            Create wallet
+          </Button>
+        </form>
+        <OtherMethod
+          currentMethod={RecoveryMethod.PASSWORD}
+          onChangeMethod={onChangeMethod}
+        />
+      </ModalBody>
     </PageContent >
   )
 }

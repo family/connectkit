@@ -10,6 +10,7 @@ const Container = styled.div`
   gap: 0.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  text-align: left;
 `;
 
 const BarWrapper = styled.div`
@@ -36,7 +37,12 @@ const LabelColor = styled.span<{ color: string }>`
   color: ${({ color }) => color};
 `;
 
-export const PasswordStrengthIndicator = ({ password }: { password: string }) => {
+const transition = {
+  duration: 0.4,
+  ease: [0.175, 0.885, 0.32, 0.98],
+};
+
+export const PasswordStrengthIndicator = ({ password, showPasswordIsTooWeakError }: { password: string, showPasswordIsTooWeakError: boolean }) => {
   const passwordStrength = getPasswordStrength(password); // should return a number between 0 and 1
   const label = getPasswordStrengthLabel(passwordStrength);
 
@@ -65,7 +71,32 @@ export const PasswordStrengthIndicator = ({ password }: { password: string }) =>
           transition={{ ease: "easeOut", duration: 0.5 }}
         />
       </BarWrapper>
-      <Label>Password strength: <LabelColor color={color}>{label}</LabelColor></Label>
-    </Container>
+
+      <div style={{ position: 'relative' }}>
+        <motion.div
+          initial={{ opacity: 1 }}
+          animate={{
+            opacity: showPasswordIsTooWeakError ? 0 : 1,
+            y: showPasswordIsTooWeakError ? 5 : 0
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          <Label>Password strength: <LabelColor color={color}>{label}</LabelColor></Label>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: showPasswordIsTooWeakError ? 1 : 0,
+            y: showPasswordIsTooWeakError ? 0 : -5
+          }}
+          transition={{ duration: 0.3 }}
+          style={{ color: '#ef4444', fontSize: '0.875rem', fontWeight: 500, position: 'absolute', top: '0' }}
+        >
+          Password is too weak
+        </motion.div>
+      </div>
+
+
+    </Container >
   );
 };

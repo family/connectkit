@@ -4,7 +4,8 @@ export const TickListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 `;
 
 export const TickItem = styled.li`
