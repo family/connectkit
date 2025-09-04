@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.6] - 2025-09-04
+
+### Improvements
+
+- Removed unnecessary shield keys
+- Updated password flow
+
 ## [0.0.5] - 2025-08-29
 
 ### Improvements
