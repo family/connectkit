@@ -430,7 +430,6 @@ const ChooseRecoveryMethod = ({ onChangeMethod }: { onChangeMethod: (method: Rec
 }
 
 const RecoverWallet = ({ wallet }: { wallet: UserWallet }) => {
-  console.log("----RecoverWallet", wallet);
   switch (wallet.recoveryMethod) {
     case RecoveryMethod.PASSWORD:
       return <RecoverPasswordWallet wallet={wallet} />
@@ -500,10 +499,8 @@ const RecoverPage: React.FC = () => {
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-    console.log("isLoadingWallets", isLoadingWallets);
     if (!isLoadingWallets) {
       timeout = setTimeout(() => {
-        console.log("isLoadingWallets Setting embedded signer loading to false");
         setEmbeddedSignerLoading(false);
         triggerResize();
       }, 500);
