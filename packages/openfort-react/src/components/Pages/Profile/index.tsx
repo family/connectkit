@@ -63,11 +63,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   });
 
   const [shouldDisconnect, setShouldDisconnect] = useState(false);
-  const { logout, user } = useOpenfortCore();
-
-  useEffect(() => {
-    // if (!isConnected) context.setOpen(false);
-  }, [isConnected]);
+  const { logout } = useOpenfortCore();
 
   useEffect(() => {
     if (!shouldDisconnect) return;

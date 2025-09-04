@@ -2,7 +2,7 @@
  * This provider is responsible for handling reusable web3 logic across the app.
  */
 
-import React from 'react';
+import { createContext, useContext } from 'react';
 
 import { Address, Chain } from 'viem';
 import { useAccount } from 'wagmi';
@@ -25,7 +25,7 @@ type Web3Context = {
   };
 };
 
-const Web3Context = React.createContext({
+const Web3Context = createContext({
   connect: {
     getUri: () => '',
   },
@@ -71,4 +71,4 @@ export const Web3ContextProvider = ({
   return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
 };
 
-export const useWeb3 = () => React.useContext(Web3Context);
+export const useWeb3 = () => useContext(Web3Context);

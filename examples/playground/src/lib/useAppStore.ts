@@ -42,19 +42,20 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     truncateLongENSAddress: undefined,
     walletConnectCTA: undefined,
     linkWalletOnSignUp: undefined,
+    walletRecovery: {
+      defaultMethod: RecoveryMethod.PASSWORD,
+      allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC],
+    }
   },
 
   // Set the wallet configuration. In this example, we will be using the embedded signer.
   walletConfig: {
     shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY,
 
-    recoveryMethod: RecoveryMethod.AUTOMATIC,
-
     ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID,
 
     debug: false,
-    getEncryptionSession: undefined, // Optional function to get the encryption session
-    // shieldEncryptionKey: undefined, // Optional encryption key for the shield
+    // getEncryptionSession: undefined, // Optional function to get the encryption session
 
     createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
   },

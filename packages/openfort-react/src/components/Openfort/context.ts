@@ -9,7 +9,7 @@ import {
 } from '../../types';
 
 
-import { OAuthProvider, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js';
+import { OAuthProvider, RecoveryMethod, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js';
 import { ValueOf } from 'viem/_types/types/utils';
 import {
   useConnectCallbackProps
@@ -44,7 +44,7 @@ export type ContextValue = {
   displayError: (message: string | React.ReactNode | null, code?: any) => void;
   resize: number;
   triggerResize: () => void;
-  uiConfig?: OpenfortUIOptionsExtended;
+  uiConfig: OpenfortUIOptionsExtended;
   walletConfig?: OpenfortWalletConfig;
   overrides?: SDKOverrides;
   thirdPartyAuth?: ThirdPartyAuthConfiguration;

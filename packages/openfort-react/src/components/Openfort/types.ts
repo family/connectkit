@@ -74,37 +74,14 @@ type CommonWalletConfig = {
 type EncryptionSession =
   | {
     /** Function to retrieve an encryption session using a session ID */
-    getEncryptionSession: () => Promise<string>;
+    getEncryptionSession?: () => Promise<string>;
     createEncryptedSessionEndpoint?: never;
   }
   | {
     /** API endpoint for creating an encrypted session */
     getEncryptionSession?: never;
-    createEncryptedSessionEndpoint: string;
+    createEncryptedSessionEndpoint?: string;
   };
-
-/**
- * Configuration for automatic recovery, which requires an encryption session.
- */
-type AutomaticRecoveryWalletConfig = {
-  /** Specifies that the recovery method is automatic */
-  recoveryMethod: RecoveryMethod.AUTOMATIC;
-} & EncryptionSession;
-
-type PasswordRecoveryWalletConfig = {
-  /** Specifies that the recovery method is password-based */
-  recoveryMethod: RecoveryMethod.PASSWORD;
-} & (
-    | (EncryptionSession & {
-      shieldEncryptionKey?: never;
-    })
-    | {
-      /** Required shield encryption key when no encryption session is used */
-      shieldEncryptionKey: string;
-      createEncryptedSessionEndpoint?: never;
-      getEncryptionSession?: never;
-    }
-  );
 
 /**
  * Configuration for automatic recovery.
@@ -119,12 +96,12 @@ type PasswordRecoveryWalletConfig = {
  * - `getEncryptionSession.` as a function that returns a promise.
  */
 
-export type OpenfortWalletConfig = CommonWalletConfig & (AutomaticRecoveryWalletConfig | PasswordRecoveryWalletConfig);
+export type OpenfortWalletConfig = CommonWalletConfig & EncryptionSession;
 
 export type OpenfortUIOptions = {
   linkWalletOnSignUp?: boolean;
 
-  authProviders?: AuthProvider[];
+  authProviders: AuthProvider[];
   skipEmailVerification?: boolean;
   termsOfServiceUrl?: string;
   privacyPolicyUrl?: string;
@@ -135,15 +112,17 @@ export type OpenfortSDKOptions = {
   overrides?: CoreOpenfortProviderProps['overrides'];
 }
 
+export type WalletRecoveryOptions = {
+  allowedMethods?: RecoveryMethod[];
+  defaultMethod?: RecoveryMethod;
+}
+
 export type ConnectUIOptions = {
   theme?: Theme;
   mode?: Mode;
   customTheme?: CustomTheme;
-  // language?: Languages;
   hideBalance?: boolean;
   hideTooltips?: boolean;
-  // hideQuestionMarkCTA?: boolean;
-  // hideNoWalletCTA?: boolean;
   hideRecentBadge?: boolean;
   walletConnectCTA?: 'link' | 'modal' | 'both';
   avoidLayoutShift?: boolean; // Avoids layout shift when the Openfort modal is open by adding padding to the body
@@ -157,12 +136,15 @@ export type ConnectUIOptions = {
   customAvatar?: React.FC<CustomAvatarProps>;
   initialChainId?: number;
   enforceSupportedChains?: boolean;
-  // ethereumOnboardingUrl?: string;
-  // walletOnboardingUrl?: string;
-  // disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
   overlayBlur?: number; // Blur the background when the modal is open
+  walletRecovery?: WalletRecoveryOptions;
 
-} & OpenfortUIOptions;
+} & Partial<OpenfortUIOptions>;
+
+type WalletRecoveryOptionsExtended = {
+  allowedMethods: RecoveryMethod[];
+  defaultMethod: RecoveryMethod;
+};
 
 export type OpenfortUIOptionsExtended = {
   theme: Theme;
@@ -189,4 +171,5 @@ export type OpenfortUIOptionsExtended = {
   walletOnboardingUrl?: string;
   disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
   overlayBlur?: number; // Blur the background when the modal is open
+  walletRecovery: WalletRecoveryOptionsExtended;
 } & OpenfortUIOptions;

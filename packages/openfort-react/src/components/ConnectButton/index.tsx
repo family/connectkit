@@ -172,7 +172,7 @@ const ConnectedLabel = ({ separator }: { separator?: string }) => {
   if (address && (user || isLoading)) return truncateEthAddress(address, separator)
 
   if (!user) return "Loading user...";
-  if (!address) return truncateUserId(user.id, separator);
+  if (!address) return "Not connected";
 
   return "Loading...";
 }

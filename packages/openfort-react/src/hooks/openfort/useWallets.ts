@@ -1,5 +1,5 @@
 import { AccountTypeEnum, ChainTypeEnum, MissingRecoveryPasswordError, RecoveryMethod, RecoveryParams } from "@openfort/openfort-js";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hex } from "viem";
 import { Connector, useAccount, useChainId, useConnect, useDisconnect } from "wagmi";
@@ -22,6 +22,7 @@ export type UserWallet = {
   isAvailable: boolean;
   isActive?: boolean;
   isConnecting?: boolean;
+  recoveryMethod?: RecoveryMethod;
 }
 
 
@@ -55,16 +56,19 @@ type SetRecoveryOptions = {
 
 type WalletOptions = OpenfortHookOptions<SetActiveWalletResult | CreateWalletResult>;
 
-const createOpenfortWallet = ({
+const parseOpenfortWallet = ({
   address,
+  recoveryMethod,
 }: {
   address: Hex;
+  recoveryMethod?: RecoveryMethod;
 }): UserWallet => ({
   connectorType: "embedded",
   walletClientType: "openfort",
   address,
   id: embeddedWalletId,
   isAvailable: true,
+  recoveryMethod,
 });
 
 type WalletFlowStatus = BaseFlowState | {
@@ -128,7 +132,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     }
   });
 
-
   // will reset on logout
   const { data: embeddedWallets, refetch, isPending: isLoadingWallets } = useQuery({
     queryKey: ['openfortEmbeddedWalletList'],
@@ -136,10 +139,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   })
-
-  // useEffect(() => {
-  //   queryClient.resetQueries({ queryKey: ['openfortEmbeddedWalletList'] })
-  // }, [!!user, refetch]);
 
   const getEncryptionSession = useCallback(async (): Promise<string> => {
     if (!walletConfig || !walletConfig.createEncryptedSessionEndpoint) {
@@ -179,8 +178,9 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       // Remove duplicates (different chain ids)
       if (userWallets.find(w => w.address === (wallet.address))) return;
 
-      userWallets.push(createOpenfortWallet({
+      userWallets.push(parseOpenfortWallet({
         address: wallet.address as Hex,
+        recoveryMethod: wallet.recoveryMethod,
       }));
     });
 
@@ -328,13 +328,12 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             });
             walletAddress = walletToRecover.address as Hex;
           } else {
-            const wallet = await createWallet({
-              password,
+            // Here it should check if there is a wallet that can recover in another chain and recover it in the current chain (its a different account so its not supported yet)
+            return onError({
+              error: new OpenfortError("No embedded wallet found for the current chain", OpenfortErrorType.WALLET_ERROR),
+              options: optionsObject,
+              hookOptions
             });
-            if (!wallet.wallet) {
-              return { error: wallet.error || new OpenfortError("Failed to create embedded wallet", OpenfortErrorType.WALLET_ERROR) };
-            }
-            walletAddress = wallet.wallet.address;
           }
         }
 
@@ -344,8 +343,9 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
         return onSuccess({
           data: {
-            wallet: createOpenfortWallet({
+            wallet: parseOpenfortWallet({
               address: walletAddress,
+              recoveryMethod: recoveryParams.recoveryMethod,
             }),
           },
           options: optionsObject,
@@ -455,8 +455,9 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       refetch();
       return onSuccess({
         data: {
-          wallet: createOpenfortWallet({
+          wallet: parseOpenfortWallet({
             address: wallet.address as Hex,
+            recoveryMethod: wallet.recoveryMethod,
           })
         }
       });
@@ -494,8 +495,9 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           hookOptions,
           options: params,
           data: {
-            wallet: createOpenfortWallet({
+            wallet: parseOpenfortWallet({
               address: embeddedAccount.address as Hex,
+              recoveryMethod: embeddedAccount.recoveryMethod,
             }),
           }
         });
