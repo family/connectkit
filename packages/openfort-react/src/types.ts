@@ -65,4 +65,5 @@ export {
   SDKOverrides,
   RecoveryMethod,
   ThirdPartyOAuthProvider,
+  OAuthProvider,
 } from '@openfort/openfort-js';

@@ -4,7 +4,7 @@ import { BaseFlowState, mapStatus } from "./status";
 import { useOpenfortCore } from "../../../openfort/useOpenfort";
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
 import { onError, onSuccess } from "../hookConsistency";
-import { AuthProvider } from "../../../components/Openfort/types";
+import { UIAuthProvider } from "../../../components/Openfort/types";
 import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from "./useConnectToWalletPostAuth";
 import { EmailVerificationResult, useEmailAuth } from "./useEmailAuth";
 import { StoreCredentialsResult, useOAuth } from "./useOAuth";
@@ -32,7 +32,7 @@ export const useAuthCallback = ({
 }: UseAuthCallbackOptions = {}) => {
   const { log } = useOpenfort();
 
-  const [provider, setProvider] = useState<AuthProvider | null>(null);
+  const [provider, setProvider] = useState<UIAuthProvider | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const {
     verifyEmail,
@@ -63,7 +63,7 @@ export const useAuthCallback = ({
         return;
       }
 
-      setProvider(openfortAuthProvider as AuthProvider);
+      setProvider(openfortAuthProvider as UIAuthProvider);
       if (openfortAuthProvider === "email") {
 
         // Verify email flow

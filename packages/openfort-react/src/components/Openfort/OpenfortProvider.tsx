@@ -22,7 +22,7 @@ import { isFamily } from '../../utils/wallets';
 import ConnectKitModal from '../ConnectModal';
 import { Web3ContextProvider } from '../contexts/web3';
 import { ContextValue, ErrorMessage, Openfortcontext } from './context';
-import { AuthProvider, ConnectUIOptions, OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types';
+import { UIAuthProvider, ConnectUIOptions, OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types';
 
 type OpenfortProviderProps = {
   children?: React.ReactNode;
@@ -113,9 +113,9 @@ export const OpenfortProvider = ({
       defaultMethod: allowAutomaticRecovery ? RecoveryMethod.AUTOMATIC : RecoveryMethod.PASSWORD,
     },
     authProviders: [
-      AuthProvider.GUEST,
-      AuthProvider.EMAIL,
-      AuthProvider.WALLET,
+      UIAuthProvider.GUEST,
+      UIAuthProvider.EMAIL,
+      UIAuthProvider.WALLET,
     ],
   };
 

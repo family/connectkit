@@ -6,7 +6,7 @@ export { default as getDefaultConnectors } from './defaultConnectors';
 export { wallets } from './wallets';
 
 export {
-  AuthProvider,
+  UIAuthProvider as AuthProvider,
 } from './components/Openfort/types';
 export {
   OpenfortProvider,

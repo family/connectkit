@@ -1,6 +1,5 @@
 import { OAuthProvider } from '@openfort/openfort-js';
 import { useCallback, useState } from "react";
-import { AuthProvider } from '../../../components/Openfort/types';
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import { BaseFlowState, mapStatus } from './status';
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types';
@@ -36,24 +35,6 @@ export type StoreCredentialsOptions = {
 export type AuthHookOptions = {
   redirectTo?: string;
 } & OpenfortHookOptions<StoreCredentialsResult | InitOAuthReturnType> & CreateWalletPostAuthOptions;
-
-const providerToAuthProvider: Partial<Record<AuthProvider, OAuthProvider>> = {
-  // [OAuthProvider.APPLE]: AuthProvider.,
-  // [OAuthProvider.DISCORD]: AuthProvider.,
-  // [OAuthProvider.EPIC_GAMES]: AuthProvider.,
-  [AuthProvider.FACEBOOK]: OAuthProvider.FACEBOOK,
-  [AuthProvider.GOOGLE]: OAuthProvider.GOOGLE,
-  // [OAuthProvider.LINE]: AuthProvider.,
-  [AuthProvider.TWITTER]: OAuthProvider.TWITTER,
-}
-
-function getOAuthProvider(provider: AuthProvider): OAuthProvider {
-  if (!providerToAuthProvider[provider]) {
-    throw new Error(`Unsupported OAuth provider: ${provider}`);
-  }
-
-  return providerToAuthProvider[provider];
-}
 
 export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
 
