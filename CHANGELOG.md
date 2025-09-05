@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Removed unnecessary shield keys
 - Updated password flow
+- Policy per chain instead
 
 ## [0.0.5] - 2025-08-29
 
