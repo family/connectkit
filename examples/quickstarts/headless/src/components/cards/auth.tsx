@@ -1,45 +1,60 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, type UserCredential } from "firebase/auth";
+import { OAuthProvider, useAuthCallback, useEmailAuth, useGuestAuth, useOAuth } from "@openfort/react";
 import React, { useState } from "react";
-import { auth } from "../../lib/firebase";
 
 const GoogleSignInButton: React.FC = () => {
   // Sign in with Google
-  const signInWithGoogle = async (): Promise<UserCredential> => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
-  };
+  const { initOAuth, isLoading } = useOAuth();
 
   return (
     <button
-      onClick={signInWithGoogle}
+      onClick={() => initOAuth({ provider: OAuthProvider.GOOGLE })}
       className="w-full py-2 px-4 border border-zinc-700 text-white rounded cursor-pointer transition-colors hover:bg-zinc-900/60"
     >
-      Continue with Google
+      {isLoading ? "Loading..." : "Continue with Google"}
+    </button>
+  );
+};
+
+const GuestSignInButton: React.FC = () => {
+  // Sign in with Google
+  const { signUpGuest, isLoading } = useGuestAuth();
+
+  return (
+    <button
+      onClick={() => signUpGuest()}
+      className="w-full py-2 px-4 border border-zinc-700 text-white rounded cursor-pointer transition-colors hover:bg-zinc-900/60"
+    >
+      {isLoading ? "Loading..." : "Continue as Guest"}
     </button>
   );
 };
 
 const EmailForm = ({ isLogin }: { isLogin: boolean }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { signInEmail, signUpEmail, error, isLoading } = useEmailAuth();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const email = (form.elements[0] as HTMLInputElement).value;
     const password = (form.elements[1] as HTMLInputElement).value;
-    try {
-      setLoading(true);
-      if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
+    if (isLogin) {
+      const { requiresEmailVerification } = await signInEmail({
+        email,
+        password
+      });
+
+      if (requiresEmailVerification) {
+        alert("User is not verified. Please check your email to verify your account.");
       }
-    } catch (error) {
-      console.error("Authentication error", error);
-      setError((error as Error).message);
-    } finally {
-      setLoading(false);
+    } else {
+      const { requiresEmailVerification } = await signUpEmail({
+        email,
+        password,
+      });
+
+      if (requiresEmailVerification) {
+        alert("Registration successful! Please check your email to verify your account.");
+      }
     }
   };
 
@@ -71,13 +86,13 @@ const EmailForm = ({ isLogin }: { isLogin: boolean }) => {
           required
         />
       </div>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-red-500 text-sm">{error.message}</p>}
 
       <button
         type="submit"
         className="btn mt-2"
       >
-        {loading ? "Loading..." : isLogin ? "Sign In" : "Sign Up"}
+        {isLoading ? "Loading..." : isLogin ? "Sign In" : "Sign Up"}
       </button>
     </form>
   )
@@ -85,6 +100,14 @@ const EmailForm = ({ isLogin }: { isLogin: boolean }) => {
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const { isLoading } = useAuthCallback({
+    onSuccess: () => { alert("Authentication verified!") },
+    onError: (e) => { alert("Authentication verification failed!" + e.message) },
+  });
+
+  if (isLoading) {
+    return <div>Verifying authentication...</div>;
+  }
 
   return (
     <div className="space-y-6">
@@ -102,12 +125,15 @@ const AuthForm = () => {
         </div>
         <div className="relative flex justify-center text-sm">
           <span className="bg-zinc-800 px-2">
-            Or continue with
+            or
           </span>
         </div>
       </div>
 
-      <GoogleSignInButton />
+      <div className="space-y-3">
+        <GuestSignInButton />
+        <GoogleSignInButton />
+      </div>
 
       <div className="text-left text-sm">
         {isLogin ? "Already have an account? " : "Don't have an account? "}

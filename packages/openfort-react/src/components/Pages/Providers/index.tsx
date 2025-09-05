@@ -9,7 +9,7 @@ import Button from "../../Common/Button";
 import Loader from "../../Common/Loading";
 import { PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
-import { AuthProvider, routes, socialProviders } from "../../Openfort/types";
+import { UIAuthProvider, routes, socialProviders } from "../../Openfort/types";
 import { useOpenfort } from '../../Openfort/useOpenfort';
 import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
 
@@ -95,15 +95,15 @@ const AuthProviderButton: React.FC<{ provider: OAuthProvider, title?: string, ic
   )
 }
 
-export const ProviderButtonSwitch: React.FC<{ provider: AuthProvider }> = ({ provider }) => {
+export const ProviderButtonSwitch: React.FC<{ provider: UIAuthProvider }> = ({ provider }) => {
   switch (provider) {
-    case AuthProvider.GUEST:
+    case UIAuthProvider.GUEST:
       return <GuestButton />;
-    case AuthProvider.WALLET:
+    case UIAuthProvider.WALLET:
       return <WalletButton />
-    case AuthProvider.EMAIL:
+    case UIAuthProvider.EMAIL:
       return <EmailButton />
-    case AuthProvider.GOOGLE:
+    case UIAuthProvider.GOOGLE:
       return (
         <AuthProviderButton
           provider={OAuthProvider.GOOGLE}
@@ -111,7 +111,7 @@ export const ProviderButtonSwitch: React.FC<{ provider: AuthProvider }> = ({ pro
           icon={providersLogos[provider]}
         />
       )
-    case AuthProvider.TWITTER:
+    case UIAuthProvider.TWITTER:
       return (
         <AuthProviderButton
           provider={OAuthProvider.TWITTER}
@@ -119,7 +119,7 @@ export const ProviderButtonSwitch: React.FC<{ provider: AuthProvider }> = ({ pro
           icon={providersLogos[provider]}
         />
       )
-    case AuthProvider.FACEBOOK:
+    case UIAuthProvider.FACEBOOK:
       return (
         <AuthProviderButton
           provider={OAuthProvider.FACEBOOK}

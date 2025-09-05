@@ -1,10 +1,8 @@
 import { KeyIcon, LockClosedIcon } from "@heroicons/react/24/outline";
-import { RecoveryMethod, useStatus, useUser, useWallets, type UserWallet } from "@openfort/react";
+import { RecoveryMethod, useSignOut, useStatus, useUser, useWallets, type UserWallet } from "@openfort/react";
 import { useState } from "react";
 import { CreateWallet, CreateWalletSheet } from "../createWallet";
 import { WalletRecoverPasswordSheet } from "../passwordRecovery";
-import { auth } from "../../lib/firebase";
-
 
 export const Wallets = () => {
   const { wallets, isLoadingWallets, hasWallet, setActiveWallet, isConnecting } = useWallets();
@@ -12,17 +10,19 @@ export const Wallets = () => {
   const { isConnected } = useStatus();
   const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false);
   const [walletToRecover, setWalletToRecover] = useState<UserWallet | null>(null);
+  const { signOut } = useSignOut();
 
   if (isLoadingWallets || (!user && isAuthenticated)) {
     return <div>Loading wallets...</div>
   }
   if (!hasWallet) {
     return (
-      <>
+      <div className="flex gap-2 flex-col w-full">
+        <h1>Create a wallet</h1>
         <p>You do not have any wallet yet.</p>
         {/* <p>Please create a wallet to continue.</p> */}
         <CreateWallet />
-      </>
+      </div>
     )
   }
 
@@ -127,7 +127,7 @@ export const Wallets = () => {
         !isConnected &&
         <button
           onClick={() => {
-            auth.signOut();
+            signOut();
           }}
           className="mt-auto btn"
         >

@@ -39,7 +39,7 @@ export const routes = {
   SWITCHNETWORKS: 'switchNetworks',
 } as const;
 
-export enum AuthProvider {
+export enum UIAuthProvider {
   GOOGLE = "google",
   TWITTER = "twitter",
   FACEBOOK = "facebook",
@@ -56,9 +56,9 @@ export enum AuthProvider {
 }
 
 export const socialProviders = [
-  AuthProvider.GOOGLE,
-  AuthProvider.TWITTER,
-  AuthProvider.FACEBOOK,
+  UIAuthProvider.GOOGLE,
+  UIAuthProvider.TWITTER,
+  UIAuthProvider.FACEBOOK,
 ]
 
 type PolicyConfig = string | Record<number, string>;
@@ -102,7 +102,7 @@ export type OpenfortWalletConfig = CommonWalletConfig & EncryptionSession;
 export type OpenfortUIOptions = {
   linkWalletOnSignUp?: boolean;
 
-  authProviders: AuthProvider[];
+  authProviders: UIAuthProvider[];
   skipEmailVerification?: boolean;
   termsOfServiceUrl?: string;
   privacyPolicyUrl?: string;

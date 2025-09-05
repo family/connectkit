@@ -115,8 +115,8 @@
   filter: drop-shadow(0 0 3em #FC3627);
 }
 
-.logo.firebase:hover {
-  filter: drop-shadow(0 0 3em #FF9100);
+.logo.sample-logo:hover {
+  filter: drop-shadow(0 0 3em var(--color-sample));
 }
 
 .wallet-option-group:hover .wallet-option {

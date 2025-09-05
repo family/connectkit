@@ -9,8 +9,6 @@ import { Wallets } from "./wallets";
 import { DesktopTabGroup, MobileTabGroup, type TabType } from "../ui/Tabs";
 import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from "@heroicons/react/24/outline";
 
-
-
 interface LayoutProps {
   children: React.ReactNode;
   step: number;
@@ -54,7 +52,12 @@ export const Main = () => {
   const tabs: TabType[] = [
     {
       name: "Home",
-      component: <Profile />,
+      component: (
+        <Profile
+          sampleGithubUrl="https://github.com/openfort-xyz/openfort-react/tree/main/examples/quickstarts/headless"
+          description="This is a demo app using Headless Wallet and Openfort."
+        />
+      ),
       icon: HomeIcon,
     },
     {
@@ -98,7 +101,14 @@ export const Main = () => {
       currentTab={currentTab}
       setCurrentTab={setCurrentTab}
     >
-      <Head onStart={() => setStep(1)} />
+      <Head
+        onStart={() => setStep(1)}
+        sample="React"
+        color='rgba(88, 196, 220, 1)'
+        logo="/reactLogo.svg"
+        href="https://react.dev/"
+        subtitle="Get started with headless wallet integration with Openfort Authentication"
+      />
       {
         !isAuthenticated ? (
           <Auth />

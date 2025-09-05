@@ -6,19 +6,21 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "examples/*"
+    "examples/**/*"
   ],
   "scripts": {
     "dev": "yarn workspace @openfort/react run dev",
     "dev:cra": "yarn workspace cra run dev",
     "dev:nextjs": "yarn workspace nextjs run dev",
     "dev:firebase": "yarn workspace firebase run dev",
+    "dev:headless": "yarn workspace headless run dev",
     "dev:nextjs-app": "yarn workspace nextjs-app run dev",
     "dev:playground": "yarn workspace playground run dev",
     "build": "node build.js && yarn workspace @openfort/react run build && cp README.md packages/openfort-react/README.md",
     "build:cra": "yarn build && yarn workspace cra build",
     "build:nextjs": "yarn build && yarn workspace nextjs build",
     "build:firebase": "yarn build && yarn workspace firebase build",
+    "build:headless": "yarn build && yarn workspace headless build",
     "build:nextjs-app": "yarn build && yarn workspace nextjs-app build",
     "build:playground": "yarn build && yarn workspace playground build",
     "build:ci": "yarn workspaces foreach -R run build",

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hex } from "viem";
 import { Connector, useAccount, useChainId, useConnect, useDisconnect } from "wagmi";
-import { AuthProvider, routes } from "../../components/Openfort/types";
+import { UIAuthProvider, routes } from "../../components/Openfort/types";
 import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { embeddedWalletId } from "../../constants/openfort";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
@@ -162,7 +162,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
   const rawWallets: UserWallet[] = useMemo(() => {
     const userWallets: UserWallet[] = user ? user.linkedAccounts
-      .filter((a) => a.provider === AuthProvider.WALLET)
+      .filter((a) => a.provider === UIAuthProvider.WALLET)
       .map((a) => {
         const wallet = deviceWallets.find((c) => c.connector.id === a.walletClientType);
         return {

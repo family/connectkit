@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { AuthProvider } from "../../components/Openfort/types";
+import { UIAuthProvider } from "../../components/Openfort/types";
 import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 import { OpenfortError, OpenfortErrorType } from '../../types';
@@ -9,12 +9,12 @@ export function useProviders() {
   const { uiConfig: options, thirdPartyAuth, setOpen } = useOpenfort();
 
   const allProviders = options?.authProviders || [];
-  const providers: AuthProvider[] = allProviders.filter(p => p !== AuthProvider.GUEST) || [];
+  const providers: UIAuthProvider[] = allProviders.filter(p => p !== UIAuthProvider.GUEST) || [];
 
   const linkedProviders = user ? providers.filter(p => user.linkedAccounts?.find(a => a.provider === p)) : [];
   const availableProviders = user ?
     providers.filter(provider => {
-      if (provider === AuthProvider.WALLET) return true; // Wallet is always available
+      if (provider === UIAuthProvider.WALLET) return true; // Wallet is always available
       return !user.linkedAccounts?.find(a => a.provider === provider)
     })
     : providers;

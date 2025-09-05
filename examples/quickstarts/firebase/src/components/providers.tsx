@@ -1,9 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createConfig, WagmiProvider } from 'wagmi';
 
-import { getDefaultConfig, OpenfortProvider, ThirdPartyOAuthProvider } from "@openfort/react";
+import { getDefaultConfig, OpenfortProvider } from "@openfort/react";
 import { beamTestnet, polygonAmoy, sepolia } from 'viem/chains';
-import { auth } from '../lib/firebase';
 
 
 export const config = createConfig(
@@ -27,14 +26,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
           walletConfig={{
             shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY!,
             ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID,
-          }}
-
-          thirdPartyAuth={{
-            provider: ThirdPartyOAuthProvider.FIREBASE,
-            getAccessToken: async () => {
-              console.log("Getting access token...");
-              return (await auth.currentUser?.getIdToken(/* forceRefresh */ false)) ?? null
-            },
           }}
         >
           <>
