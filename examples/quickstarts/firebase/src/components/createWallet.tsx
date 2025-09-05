@@ -2,19 +2,8 @@ import { FingerPrintIcon, KeyIcon, LockClosedIcon } from "@heroicons/react/24/ou
 import { useState } from "react";
 import { CreateWalletPasswordSheet } from "./passwordRecovery";
 
-
 export const CreateWalletSheet = ({ open, onClose }: { open: boolean, onClose: () => void }) => {
   return <CreateWalletPasswordSheet open={open} onClose={onClose} />;
-  // return (
-  //   <Sheet
-  //     open={open}
-  //     onClose={onClose}
-  //     title="Create Wallet"
-  //     description="Choose a recovery method to create your wallet."
-  //   >
-  //     <CreateWallet />
-  //   </Sheet>
-  // )
 }
 
 export const CreateWallet = () => {
@@ -25,6 +14,7 @@ export const CreateWallet = () => {
       <div className="flex flex-wrap gap-4 wallet-option-group mb-4">
         <button
           className="wallet-option cursor-pointer"
+          onClick={() => alert("Passkey recovery is not implemented in this demo.")}
         >
           <h4>Passkey</h4>
           <FingerPrintIcon />
@@ -32,9 +22,7 @@ export const CreateWallet = () => {
         </button>
         <button
           className="wallet-option cursor-pointer"
-        // onClick={() => createWallet({
-        //   password: "your-password"
-        // })}
+          onClick={() => alert("Automatic recovery is not implemented in this demo.")}
         >
           <h4>Automatic recovery</h4>
           <LockClosedIcon />

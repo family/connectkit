@@ -1,7 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import firebaseLogo from '/firebase.svg';
-import openfortLogo from '/openfort.svg';
-
 
 type RoutePoint = {
   x: number;
@@ -65,7 +62,7 @@ const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, bac
     const dotRadius = 1.5;
 
     const generateDots = (width: number, height: number) => {
-      const dots = [];
+      const dots: { x: number; y: number; radius: number; opacity: number }[] = [];
 
       for (let x = 0; x < width; x += gap) {
         for (let y = 0; y < height; y += gap) {
@@ -299,21 +296,42 @@ const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, bac
   );
 };
 
-export const Head = ({ onStart }: { onStart: () => void }) => {
+export const Head = ({
+  onStart,
+  sample,
+  color,
+  backgroundColor = color,
+  logo,
+  href,
+  subtitle,
+}: {
+  onStart: () => void
+  sample: string
+  color: string
+  backgroundColor?: string
+  logo: string
+  href: string
+  subtitle?: string
+}) => {
   return (
-    <div className='bg-zinc-900 w-(--card-width) flex flex-col items-center justify-center text-center relative '>
+    <div
+      className='bg-zinc-900 w-(--card-width) flex flex-col items-center justify-center text-center relative'
+      style={{ '--color-sample': backgroundColor } as React.CSSProperties}
+    >
       <div>
         <a href="https://openfort.io/" target="_blank">
-          <img src={openfortLogo} className="logo" alt="Openfort logo" />
+          <img src="/openfort.svg" className="logo" alt="Openfort logo" />
         </a>
-        <a href="https://firebase.google.com/" target="_blank">
-          <img src={firebaseLogo} className="logo firebase" alt="Firebase logo" />
+        <a href={href} target="_blank">
+          <img src={logo} className="logo sample-logo" alt={`${sample} logo`} />
         </a>
       </div>
       <h1 className="text-4xl font-bold mb-4">
-        <span style={{ color: '#FC3627' }}>Openfort</span> + <span style={{ color: '#FF9100' }}>Firebase</span>
+        <span style={{ color: '#FC3627' }}>Openfort</span> + <span style={{ color }}>{sample}</span>
       </h1>
-      <p className="mb-6 text-sm max-w-2/3">Example of integration of Openfort with Firebase Authentication</p>
+      {
+        subtitle && <p className="mb-6 text-sm max-w-2/3">{subtitle}</p>
+      }
       <button
         className="lg:hidden mt-4 px-6 py-2 border border-zinc-500 rounded hover:bg-zinc-500/10 transition-colors cursor-pointer"
         onClick={onStart}
@@ -322,8 +340,8 @@ export const Head = ({ onStart }: { onStart: () => void }) => {
       </button>
       <p className="absolute text-zinc-400 mb-6 text-sm bottom-0">Sign in to explore openfort capabilities.</p>
       <GlowCanvas
-        accentColor="rgba(252, 54, 39, 1)"
-        backgroundColor="rgb(255, 145, 0)"
+        accentColor={color}
+        backgroundColor={backgroundColor}
       />
     </div>
   )

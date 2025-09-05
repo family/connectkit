@@ -9,8 +9,6 @@ import { Wallets } from "./wallets";
 import { DesktopTabGroup, MobileTabGroup, type TabType } from "../ui/Tabs";
 import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from "@heroicons/react/24/outline";
 
-
-
 interface LayoutProps {
   children: React.ReactNode;
   step: number;
@@ -98,7 +96,15 @@ export const Main = () => {
       currentTab={currentTab}
       setCurrentTab={setCurrentTab}
     >
-      <Head onStart={() => setStep(1)} />
+      <Head
+        onStart={() => setStep(1)}
+        sample="Firebase"
+        color='rgb(255, 50, 0)'
+        backgroundColor='rgb(255, 145, 0)'
+        logo="/firebase.svg"
+        href="https://firebase.google.com/"
+        subtitle="Example of integration of Openfort with Firebase Authentication"
+      />
       {
         !isAuthenticated ? (
           <Auth />
