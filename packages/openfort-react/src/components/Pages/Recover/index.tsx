@@ -1,28 +1,26 @@
 import { EmbeddedState, RecoveryMethod } from "@openfort/openfort-js";
 import { motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from "react";
-import { useAccount, useChainId, useEnsName } from "wagmi";
-import { KeyIcon, LockIcon, ShieldIcon, TickIcon } from "../../../assets/icons";
-import wave from "../../../assets/wave";
+import { Hex } from "viem";
+import { useAccount, useEnsName } from "wagmi";
+import { KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
+import { embeddedWalletId } from "../../../constants/openfort";
+import { UserWallet, useWallets } from "../../../hooks/openfort/useWallets";
+import { useEnsFallbackConfig } from "../../../hooks/useEnsFallbackConfig";
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
+import { truncateEthAddress } from "../../../utils";
 import Button from "../../Common/Button";
+import CopyToClipboard from "../../Common/CopyToClipboard";
 import FitText from "../../Common/FitText";
 import Input from "../../Common/Input";
 import Loader from "../../Common/Loading";
 import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
-import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
-import { routes } from "../../Openfort/types";
-import { useOpenfort } from '../../Openfort/useOpenfort';
-import { UserWallet, useWallets } from "../../../hooks/openfort/useWallets";
-import { embeddedWalletId } from "../../../constants/openfort";
-import { PasswordStrengthIndicator } from "../../PasswordStrength/PasswordStrengthIndicator";
-import { Hex } from "viem";
 import TickList from "../../Common/TickList";
+import { FloatingGraphic } from "../../FloatingGraphic";
+import { useOpenfort } from '../../Openfort/useOpenfort';
 import { getPasswordStrength, MEDIUM_SCORE_THRESHOLD } from "../../PasswordStrength/password-utility";
+import { PasswordStrengthIndicator } from "../../PasswordStrength/PasswordStrengthIndicator";
 import { OtherMethodButton } from "./styles";
-import CopyToClipboard from "../../Common/CopyToClipboard";
-import { truncateEthAddress } from "../../../utils";
-import { useEnsFallbackConfig } from "../../../hooks/useEnsFallbackConfig";
 
 // TODO: Localize
 
@@ -65,54 +63,21 @@ const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
 
   return (
     <PageContent>
-      <Graphic $height="130px">
-        <LogoGroup>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic style={{ transform: "scale(1.2)" }}>
-                      <KeyIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic style={{ transform: "scale(0.75)" }}>
-                      <ShieldIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-          <Logo>
-          </Logo>
-          <Logo>
-          </Logo>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic style={{ transform: "scale(0.5)" }}>
-                      <LockIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-        </LogoGroup>
-        <GraphicBackground>{wave}</GraphicBackground>
-      </Graphic>
+      <FloatingGraphic
+        height="130px"
+        logoCenter={{
+          logo: <KeyIcon />,
+          size: "1.2",
+        }}
+        logoTopLeft={{
+          logo: <ShieldIcon />,
+          size: "0.75",
+        }}
+        logoBottomRight={{
+          logo: <LockIcon />,
+          size: "0.5",
+        }}
+      />
       <ModalHeading>Recover wallet</ModalHeading>
       <ModalBody style={{ textAlign: "center" }}>
         Please enter the recovery password to recover wallet{" "}
@@ -302,52 +267,21 @@ const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (met
 
   return (
     <PageContent>
-      <Graphic $height="80px">
-        <LogoGroup>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic style={{ transform: "scale(1.2)" }}>
-                      <KeyIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic style={{ transform: "scale(0.75)" }}>
-                      <ShieldIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-          <div></div>
-          <div></div>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic style={{ transform: "scale(0.5)" }}>
-                      <LockIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-        </LogoGroup>
-        <GraphicBackground>{wave}</GraphicBackground>
-      </Graphic>
+      <FloatingGraphic
+        height="80px"
+        logoCenter={{
+          logo: <KeyIcon />,
+          size: "1.2",
+        }}
+        logoTopLeft={{
+          logo: <ShieldIcon />,
+          size: "0.75",
+        }}
+        logoBottomRight={{
+          logo: <LockIcon />,
+          size: "0.5",
+        }}
+      />
       <ModalHeading>Secure your wallet</ModalHeading>
       <ModalBody style={{ textAlign: "center" }}>
         <FitText>

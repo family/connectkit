@@ -10,6 +10,7 @@ import { routes } from "../../Openfort/types";
 import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
 import { emailToVerifyLocalStorageKey } from "../../../constants/openfort";
 import Button from "../../Common/Button";
+import { FloatingGraphic } from "../../FloatingGraphic";
 
 // TODO: Localize
 type VerificationResponse = {
@@ -119,78 +120,26 @@ const EmailVerification: React.FC = () => {
     )
   }
 
-  return ( // TODO: Improve this page
+  return (
     <PageContent>
-      <Graphic>
-        <LogoGroup>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic>
-                      <EmailIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic>
-                      <EmailIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic>
-                      <EmailIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic>
-                      <EmailIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-          <Logo>
-            <LogoPosition>
-              <LogoInner>
-                <FloatWrapper>
-                  <RotateWrapper>
-                    <LogoGraphic>
-                      <EmailIcon />
-                    </LogoGraphic>
-                  </RotateWrapper>
-                </FloatWrapper>
-              </LogoInner>
-            </LogoPosition>
-          </Logo>
-        </LogoGroup>
-        <GraphicBackground>{wave}</GraphicBackground>
-      </Graphic>
+      <FloatingGraphic
+        height="190px"
+        logoCenter={{
+          logo: <EmailIcon />,
+        }}
+        logoTopLeft={{
+          logo: <EmailIcon />,
+        }}
+        logoBottomRight={{
+          logo: <EmailIcon />,
+        }}
+        logoTopRight={{
+          logo: <EmailIcon />,
+        }}
+        logoBottomLeft={{
+          logo: <EmailIcon />,
+        }}
+      />
       <ModalContent>
         {
           verificationResponse ? (
