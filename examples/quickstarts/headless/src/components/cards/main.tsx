@@ -52,7 +52,12 @@ export const Main = () => {
   const tabs: TabType[] = [
     {
       name: "Home",
-      component: <Profile />,
+      component: (
+        <Profile
+          sampleGithubUrl="https://github.com/openfort-xyz/openfort-react/tree/main/examples/quickstarts/headless"
+          description="This is a demo app using Headless Wallet and Openfort."
+        />
+      ),
       icon: HomeIcon,
     },
     {

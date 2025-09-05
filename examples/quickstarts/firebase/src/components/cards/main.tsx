@@ -52,7 +52,12 @@ export const Main = () => {
   const tabs: TabType[] = [
     {
       name: "Home",
-      component: <Profile />,
+      component: (
+        <Profile
+          sampleGithubUrl="https://github.com/openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase"
+          description="This is a demo app using Firebase Authentication and Openfort."
+        />
+      ),
       icon: HomeIcon,
     },
     {

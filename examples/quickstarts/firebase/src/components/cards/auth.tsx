@@ -102,7 +102,7 @@ const AuthForm = () => {
         </div>
         <div className="relative flex justify-center text-sm">
           <span className="bg-zinc-800 px-2">
-            Or continue with
+            or
           </span>
         </div>
       </div>

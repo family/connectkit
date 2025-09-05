@@ -1,8 +1,13 @@
 import { BookOpenIcon } from "@heroicons/react/24/outline";
 import { useSignOut, useUser } from "@openfort/react";
-import githubLogo from '/githubLogo.svg';
 
-export const Profile = () => {
+export const Profile = ({
+  sampleGithubUrl,
+  description,
+}: {
+  sampleGithubUrl: string;
+  description: string;
+}) => {
   const { user } = useUser();
   const isLocal = window.location.hostname === "localhost";
   const { signOut } = useSignOut();
@@ -13,7 +18,7 @@ export const Profile = () => {
         Welcome, {user?.player?.name || user?.linkedAccounts[0]?.email}
       </h1>
       <p className="text-zinc-400 text-sm">
-        This is a demo app using Firebase Authentication and Openfort.
+        {description}
         <br />
         You can sign messages and interact with smart contracts.
       </p>
@@ -41,13 +46,13 @@ export const Profile = () => {
           }
           <div className="flex gap-4 mt-4">
             <a
-              href="https://github.com/openfort-xyz/openfort-react/tree/main/examples/firebase"
+              href={sampleGithubUrl}
               className="btn bg-inherit border border-zinc-600 hover:border-zinc-400 text-zinc-400 hover:text-white"
               target="_blank"
               rel="noreferrer"
             >
               <img
-                src={githubLogo} className="w-5 h-5 mr-2"
+                src="/githubLogo.svg" className="w-5 h-5 mr-2"
                 alt="GitHub logo"
               />
               View on github

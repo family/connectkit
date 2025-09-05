@@ -38,15 +38,23 @@ const EmailForm = ({ isLogin }: { isLogin: boolean }) => {
     const email = (form.elements[0] as HTMLInputElement).value;
     const password = (form.elements[1] as HTMLInputElement).value;
     if (isLogin) {
-      await signInEmail({
+      const { requiresEmailVerification } = await signInEmail({
         email,
         password
       });
+
+      if (requiresEmailVerification) {
+        alert("User is not verified. Please check your email to verify your account.");
+      }
     } else {
-      await signUpEmail({
+      const { requiresEmailVerification } = await signUpEmail({
         email,
         password,
       });
+
+      if (requiresEmailVerification) {
+        alert("Registration successful! Please check your email to verify your account.");
+      }
     }
   };
 
@@ -92,7 +100,14 @@ const EmailForm = ({ isLogin }: { isLogin: boolean }) => {
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
-  useAuthCallback();
+  const { isLoading } = useAuthCallback({
+    onSuccess: () => { alert("Authentication verified!") },
+    onError: (e) => { alert("Authentication verification failed!" + e.message) },
+  });
+
+  if (isLoading) {
+    return <div>Verifying authentication...</div>;
+  }
 
   return (
     <div className="space-y-6">
@@ -110,14 +125,15 @@ const AuthForm = () => {
         </div>
         <div className="relative flex justify-center text-sm">
           <span className="bg-zinc-800 px-2">
-            Or continue with
+            or
           </span>
         </div>
       </div>
 
-      <GoogleSignInButton />
-
-      <GuestSignInButton />
+      <div className="space-y-3">
+        <GuestSignInButton />
+        <GoogleSignInButton />
+      </div>
 
       <div className="text-left text-sm">
         {isLogin ? "Already have an account? " : "Don't have an account? "}
