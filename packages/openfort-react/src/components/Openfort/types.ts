@@ -61,12 +61,13 @@ export const socialProviders = [
   AuthProvider.FACEBOOK,
 ]
 
+type PolicyConfig = string | Record<number, string>;
 
 type CommonWalletConfig = {
   /** Publishable key for the Shield API */
   shieldPublishableKey: string;
   /** Policy ID (pol_...) for the embedded signer */
-  ethereumProviderPolicyId?: string;
+  ethereumProviderPolicyId?: PolicyConfig;
   accountType?: AccountTypeEnum;
   debug?: boolean;
 }

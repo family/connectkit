@@ -1,7 +1,7 @@
 import { AuthPlayerResponse, EmbeddedState, Openfort, OpenfortError, RecoveryMethod } from '@openfort/openfort-js';
 import React, { createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { polygonAmoy } from 'viem/chains';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount, useChainId, useDisconnect } from 'wagmi';
 import { useOpenfort } from '../components/Openfort/useOpenfort';
 import { useConnect } from '../hooks/useConnect';
 import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback';
@@ -145,22 +145,33 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     }
   }, [openfort]);
 
-  useEffect(() => {
-    if (!openfort) return;
-    if (!walletConfig) return
+  const chainId = useChainId();
 
-    log("Getting ethereum provider");
-    openfort.embeddedWallet.getEthereumProvider(
-      walletConfig.ethereumProviderPolicyId ?
-        {
-          policy: walletConfig.ethereumProviderPolicyId,
-          chains: {
-            [polygonAmoy.id]: "https://rpc-amoy.polygon.technology",
-          }
-        }
-        : undefined,
-    );
-  }, [openfort])
+  useEffect(() => {
+    if (!openfort || !walletConfig) return;
+
+    log("Getting ethereum provider", chainId);
+
+    const resolvePolicy = () => {
+      const { ethereumProviderPolicyId } = walletConfig;
+
+      if (!ethereumProviderPolicyId) return undefined;
+
+      if (typeof ethereumProviderPolicyId === "string") {
+        return { policy: ethereumProviderPolicyId };
+      }
+
+      const policy = ethereumProviderPolicyId[chainId];
+      if (!policy) {
+        log(`No policy found for chainId ${chainId}.`);
+        return undefined;
+      }
+
+      return { policy };
+    };
+
+    openfort.embeddedWallet.getEthereumProvider(resolvePolicy());
+  }, [openfort, walletConfig, chainId]);
 
   const [isConnectedWithEmbeddedSigner, setIsConnectedWithEmbeddedSigner] = useState(false);
 
