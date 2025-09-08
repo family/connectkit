@@ -1,9 +1,9 @@
 import { EmbeddedState, RecoveryMethod } from "@openfort/openfort-js";
 import { motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from "react";
-import { Hex } from "viem";
+import { Hex, setErrorConfig } from "viem";
 import { useAccount, useEnsName } from "wagmi";
-import { KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
+import { FingerPrintIcon, KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
 import { embeddedWalletId } from "../../../constants/openfort";
 import { UserWallet, useWallets } from "../../../hooks/openfort/useWallets";
 import { useEnsFallbackConfig } from "../../../hooks/useEnsFallbackConfig";
@@ -232,6 +232,77 @@ const OtherMethod = ({ currentMethod, onChangeMethod }: { currentMethod: Recover
   )
 }
 
+const CreateWalletPasskeyRecovery = ({ onChangeMethod }: { onChangeMethod: (method: RecoveryMethod | "other") => void }) => {
+  const [recoveryError, setRecoveryError] = useState<false | string>(false);
+  const { triggerResize } = useOpenfort();
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setTimeout(() => {
+      setRecoveryError("Passkey recovery is not yet supported. Please choose another recovery method.");
+      setLoading(false);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    handleSubmit();
+  }, []);
+
+  useEffect(() => {
+    if (recoveryError)
+      triggerResize();
+  }, [recoveryError]);
+
+  return (
+    <PageContent>
+      <FloatingGraphic
+        height="80px"
+        logoCenter={{
+          logo: <FingerPrintIcon />,
+          size: "1.2",
+        }}
+        logoTopLeft={{
+          logo: <ShieldIcon />,
+          size: "0.75",
+        }}
+        logoBottomRight={{
+          logo: <LockIcon />,
+          size: "0.5",
+        }}
+      />
+      <ModalHeading>Secure your wallet</ModalHeading>
+      <ModalBody style={{ textAlign: "center" }}>
+        <FitText>
+          Use passkey to secure your wallet.
+        </FitText>
+
+        {recoveryError && (
+          <motion.div key={recoveryError} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <ModalBody style={{ height: 24, marginTop: 12 }} $error>
+              <FitText>
+                {recoveryError}
+              </FitText>
+            </ModalBody>
+          </motion.div>
+        )}
+
+        <Button
+          onClick={handleSubmit}
+          waiting={loading}
+          disabled={loading}
+        >
+          {loading ? "Setting up passkey..." : "Set up passkey"}
+        </Button>
+        <OtherMethod
+          currentMethod={RecoveryMethod.PASSWORD}
+          onChangeMethod={onChangeMethod}
+        />
+      </ModalBody>
+    </PageContent >
+  )
+}
+
 const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (method: RecoveryMethod | "other") => void }) => {
   const [recoveryPhrase, setRecoveryPhrase] = useState("");
   const [recoveryError, setRecoveryError] = useState<false | string>(false);
@@ -344,8 +415,6 @@ const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (met
   )
 }
 
-
-
 const ChooseRecoveryMethod = ({ onChangeMethod }: { onChangeMethod: (method: RecoveryMethod | "other") => void }) => {
   return (
     <PageContent>
@@ -356,9 +425,9 @@ const ChooseRecoveryMethod = ({ onChangeMethod }: { onChangeMethod: (method: Rec
       <Button onClick={() => onChangeMethod(RecoveryMethod.AUTOMATIC)}>
         Automatic
       </Button>
-      <Button onClick={() => { }}>
-        Passkey (coming soon)
-      </Button>
+      {/* <Button onClick={() => onChangeMethod(RecoveryMethod.PASSKEY)}>
+        Passkey
+      </Button> */}
     </PageContent>
   )
 }
@@ -379,6 +448,7 @@ const CreateWallet = () => {
   const { uiConfig } = useOpenfort();
   const [userSelectedMethod, setUserSelectedMethod] = useState<RecoveryMethod | "other" | null>(null);
 
+  return <CreateWalletPasskeyRecovery onChangeMethod={setUserSelectedMethod} />;
   if (userSelectedMethod) {
     switch (userSelectedMethod) {
       case RecoveryMethod.PASSWORD:
