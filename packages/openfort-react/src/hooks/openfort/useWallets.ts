@@ -286,6 +286,15 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         });
       }
 
+      const accessToken = await client.getAccessToken();
+      if (!accessToken) {
+        return onError({
+          error: new OpenfortError("Openfort access token not found", OpenfortErrorType.WALLET_ERROR),
+          hookOptions,
+          options: optionsObject,
+        })
+      }
+
       log(`Handling recovery with Openfort: ${password ? "with password" : "without password"}, chainId=${chainId}`);
       try {
         const recoveryParams: RecoveryParams = password ? {
@@ -294,7 +303,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         } : {
           recoveryMethod: RecoveryMethod.AUTOMATIC,
           encryptionSession: walletConfig.getEncryptionSession ?
-            await walletConfig.getEncryptionSession() :
+            await walletConfig.getEncryptionSession(accessToken) :
             await getEncryptionSession()
         };
 
@@ -437,7 +446,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       } : {
         recoveryMethod: RecoveryMethod.AUTOMATIC,
         encryptionSession: walletConfig.getEncryptionSession ?
-          await walletConfig.getEncryptionSession() :
+          await walletConfig.getEncryptionSession(accessToken) :
           await getEncryptionSession()
       };
 
