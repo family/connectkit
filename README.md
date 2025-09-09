@@ -29,7 +29,7 @@
 [![Version](https://img.shields.io/npm/v/@openfort/react.svg)](https://www.npmjs.org/package/@openfort/react)
 
 
-The easiest way to use embedded wallets, with built-in authentication and payments capabilities.
+The easiest way to use embedded wallets, with built-in authentication and payments capabilities in React.
 
 ## Features
 
