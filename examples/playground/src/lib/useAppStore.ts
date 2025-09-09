@@ -45,6 +45,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     linkWalletOnSignUp: undefined,
     walletRecovery: {
       defaultMethod: RecoveryMethod.PASSWORD,
+      allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
     }
   },
 

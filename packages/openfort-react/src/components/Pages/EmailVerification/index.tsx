@@ -115,7 +115,7 @@ const EmailVerification: React.FC = () => {
   if (loading) {
     return (
       <PageContent>
-        <Loader reason="Checking if account is verified" />
+        <Loader header="Checking if account is verified" />
       </PageContent >
     )
   }

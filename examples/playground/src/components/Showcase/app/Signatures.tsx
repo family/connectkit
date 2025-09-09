@@ -32,6 +32,7 @@ export const SignaturesCard = () => {
               type="username"
               placeholder="Enter a message to sign"
               className="grow peer"
+              defaultValue="Hello from Openfort!"
             />
           </label>
           <Button
@@ -40,7 +41,7 @@ export const SignaturesCard = () => {
             Sign a message
           </Button>
           <InputMessage
-            message={`Signed message: ${data}`}
+            message={`Signed message: ${data?.slice(0, 10)}...${data?.slice(-10)}`}
             show={!!data}
             variant='success'
           />

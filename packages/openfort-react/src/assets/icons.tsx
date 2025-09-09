@@ -356,11 +356,11 @@ export const EyeOffIcon = ({ ...props }) => (
 export const KeyIcon = ({ ...props }) => (
   <svg
     transform="matrix(1 0 0 1 0 0)"
-    width="197px"
-    height="197px"
+    width="24"
+    height="24"
     fill="none"
     stroke="#000000"
-    viewBox="-2.4 -2.4 28.8 28.8"
+    viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
@@ -397,13 +397,13 @@ export const LockIcon = ({ ...props }) => (
       d="m6 10v-2c0-0.34071 0.0284-0.67479 0.08296-1m11.917 3v-2c0-3.3137-2.6863-6-6-6-1.792 0-3.4006 0.78563-4.5 2.0313"
       stroke="currentColor"
       strokeLinecap="round"
-      strokeWidth={1.68}
+      strokeWidth={1.152}
     />
     <path
       d="m11 22h-3c-2.8284 0-4.2426 0-5.1213-0.8787s-0.87868-2.2929-0.87868-5.1213 0-4.2426 0.87868-5.1213 2.2929-0.8787 5.1213-0.8787h8c2.8284 0 4.2426 0 5.1213 0.8787s0.8787 2.2929 0.8787 5.1213 0 4.2426-0.8787 5.1213-2.2929 0.8787-5.1213 0.8787h-1"
       stroke="currentColor"
       strokeLinecap="round"
-      strokeWidth={1.68}
+      strokeWidth={1.152}
     />
   </svg>
 );

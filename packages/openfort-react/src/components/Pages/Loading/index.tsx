@@ -57,7 +57,7 @@ const Loading: React.FC = () => {
 
   return (
     <PageContent>
-      <Loader reason="Redirecting" />
+      <Loader header="Redirecting" />
     </PageContent>
   )
 }

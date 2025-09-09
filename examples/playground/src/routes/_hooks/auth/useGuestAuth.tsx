@@ -16,12 +16,29 @@ function RouteComponent() {
         name="useGuestAuth"
         description='This hook allows you to sign up as a guest user.'
 
-        defaultOptions={onSettledOptions}
+        defaultOptions={{
+          recoverWalletAutomatically: true,
+          ...onSettledOptions,
+        }}
+
+        optionsVariables={{
+          recoverWalletAutomatically: {
+            description: 'Whether to automatically recover the wallet of the user. Default is true.',
+            type: 'boolean',
+          },
+        }}
 
         variables={{
           signUpGuest: {
             description: 'Sign up as a guest user.',
-            inputs: onSettledInputs,
+            inputs: {
+              recoverWalletAutomatically: {
+                description: 'Whether to automatically recover the wallet of the user. Default is true.',
+                type: 'boolean',
+                defaultValue: "true",
+              },
+              ...onSettledInputs,
+            },
           }
         }}
       />

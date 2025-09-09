@@ -17,11 +17,15 @@
     @apply border border-zinc-600 px-1;
   }
 
+  select:has(option:checked[value="undefined"]) {
+    @apply text-zinc-400;
+  }
 }
 
 body {
   interpolate-size: allow-keywords;
 }
+
 
 @plugin "daisyui/theme" {
   name: "corporate";

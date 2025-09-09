@@ -60,7 +60,8 @@ const ConnectModal: React.FC<{
   const showBackButton =
     closeable &&
     !mainRoutes.includes(context.route)
-    || (closeable && context.route === routes.PROVIDERS && user);
+    || (closeable && context.route === routes.PROVIDERS && user)
+
 
   const showInfoButton = closeable && context.route !== routes.PROFILE;
 

@@ -117,7 +117,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
   return (
     <PageContent>
       <Loader
-        reason={`Connecting with ${connector.id}`}
+        header={`Connecting with ${connector.id}`}
         icon={providersLogos[connector.id]}
       />
     </PageContent>

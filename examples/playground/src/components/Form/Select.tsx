@@ -18,6 +18,7 @@ export const Select = ({
       className={cn(
         "w-full",
         props.className,
+        props.value === "undefined" && "text-blue-500",
       )}
     >
       {options?.map((option) => (

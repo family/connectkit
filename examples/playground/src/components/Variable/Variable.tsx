@@ -18,6 +18,7 @@ export type HookInput = {
   description?: string;
   typescriptType?: string;
   onEdit?: (value: any) => void;
+  override?: any;
 } & HookFunctions & FunctionInputTypeType;
 
 interface VariableProps {
@@ -243,7 +244,7 @@ export const BaseVariable = ({
       return (
         <div className='bg-background-100 border dark:border-zinc-700 p-4 pt-2 rounded-lg m-2 max-w-lg'>
           <Form
-            fn={value}
+            fn={variable.override ?? value}
             fnName={name}
             inputs={variable.inputs || {}}
             description={variable.description}

@@ -80,8 +80,8 @@ export const RetryButton = styled(motion.button)`
   z-index: 5;
   appearance: none;
   position: absolute;
-  right: 2px;
-  bottom: 2px;
+  right: 10px;
+  bottom: 10px;
   padding: 0;
   display: flex;
   align-items: center;
@@ -93,7 +93,7 @@ export const RetryButton = styled(motion.button)`
   overflow: hidden;
   background: none;
 
-  color: var(--ck-body-background);
+  color: var(--ck-body-background-secondary);
   transition: color 200ms ease;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 

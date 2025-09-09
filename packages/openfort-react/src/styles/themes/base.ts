@@ -168,7 +168,7 @@ export default {
 
     '--ck-copytoclipboard-stroke': '#555555',
 
-    '--ck-tooltip-background': '#2B2B2B',
+    '--ck-tooltip-background': '#323232ff',
     '--ck-tooltip-background-secondary': '#333333',
     '--ck-tooltip-color': '#999999',
     '--ck-tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',

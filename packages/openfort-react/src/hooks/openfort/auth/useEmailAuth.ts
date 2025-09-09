@@ -112,8 +112,8 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
       } else {
 
         const { wallet } = await tryUseWallet({
-          logoutOnError: options.logoutOnError || hookOptions.logoutOnError,
-          automaticRecovery: options.automaticRecovery || hookOptions.automaticRecovery,
+          logoutOnError: options.logoutOnError ?? hookOptions.logoutOnError,
+          recoverWalletAutomatically: options.recoverWalletAutomatically ?? hookOptions.recoverWalletAutomatically,
         });
 
         setStatus({
@@ -262,8 +262,8 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
       } else {
 
         const { wallet } = await tryUseWallet({
-          logoutOnError: options.logoutOnError || hookOptions.logoutOnError,
-          automaticRecovery: options.automaticRecovery || hookOptions.automaticRecovery,
+          logoutOnError: options.logoutOnError ?? hookOptions.logoutOnError,
+          recoverWalletAutomatically: options.recoverWalletAutomatically ?? hookOptions.recoverWalletAutomatically,
         });
 
         setStatus({
