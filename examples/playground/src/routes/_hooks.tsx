@@ -101,9 +101,9 @@ const SidebarInfo = () => {
           Relevant information
         </h3>
         <div className='flex flex-col gap-1'>
-          <SidebarLink href='/app/useUser?focus=user'>User ID: <span className='text-gray-500 dark:text-gray-400'>{user ? <TruncatedText text={user.id} /> : "No user"}</span>
+          <SidebarLink href='/auth/useUser?focus=user'>User ID: <span className='text-gray-500 dark:text-gray-400'>{user ? <TruncatedText text={user.id} /> : "No user"}</span>
           </SidebarLink>
-          <SidebarLink href='/app/useUser?focus=user'>
+          <SidebarLink href='/auth/useUser?focus=user'>
             User linked accounts: <span className='text-gray-500 dark:text-gray-400'>{user ? (<>[{user.linkedAccounts.map(a => a.provider).join(",")}]</>) : "No user"}</span>
           </SidebarLink>
           <SidebarLink href='/wallet/useWallets?focus=activeWallet'>

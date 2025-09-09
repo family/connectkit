@@ -1,8 +1,9 @@
 import { HookVariable } from '@/components/Variable/HookVariable'
-import { embeddedWalletId, useWallets } from '@openfort/react'
+import { embeddedWalletId, RecoveryMethod, useWallets } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Layout } from '../../../components/Layout'
+import { onSettledOptions } from '@/components/Variable/commonVariables'
 
 export const Route = createFileRoute('/_hooks/wallet/useWallets')({
   component: RouteComponent,
@@ -10,12 +11,14 @@ export const Route = createFileRoute('/_hooks/wallet/useWallets')({
 
 function RouteComponent() {
   const wallets = useWallets()
-  const connectorOptions = wallets.wallets.map(wallet => wallet.id).reduce((acc, id) => {
-    if (!acc.includes(id)) {
-      acc.push(id)
-    }
-    return acc
-  }, [] as string[])
+  const connectorOptions = useMemo(() => (
+    wallets.wallets.map(wallet => wallet.id).reduce((acc, id) => {
+      if (!acc.includes(id)) {
+        acc.push(id)
+      }
+      return acc
+    }, [] as string[])
+  ), [wallets.wallets])
 
   const [isOpenfortWallet, setIsOpenfortWallet] = useState(connectorOptions[0] === embeddedWalletId)
 
@@ -23,12 +26,20 @@ function RouteComponent() {
     setIsOpenfortWallet(connectorOptions[0] === embeddedWalletId);
   }, [connectorOptions]);
 
+
+  // wallets.setActiveWallet({
+  //   walletId,
+  //   recovery: {
+  //     password
+  //   }
+  // })
   return (
     <Layout>
       <HookVariable
         name='useWallets'
         hook={useWallets}
         description='This hook provides access to the wallets available in the application.'
+        defaultOptions={onSettledOptions}
         variables={{
           setActiveWallet: {
             description: 'Set the active wallet for the application.',
@@ -38,15 +49,21 @@ function RouteComponent() {
                 defaultValue: "false",
                 required: true,
               },
-              connector: {
+              walletId: {
                 type: 'select',
                 options: connectorOptions,
                 required: true,
                 onChange: (value) => {
+                  console.log("---", value);
                   setIsOpenfortWallet(value === embeddedWalletId);
                 }
               },
-              password: {
+              "recovery.recoveryMethod": {
+                type: 'select',
+                options: ["undefined", 'PASSWORD', 'PASSKEY', 'AUTOMATIC'],
+                hidden: !isOpenfortWallet,
+              },
+              "recovery.password": {
                 type: 'password',
                 hidden: !isOpenfortWallet,
               },
@@ -62,7 +79,11 @@ function RouteComponent() {
           createWallet: {
             description: 'Create a new wallet.',
             inputs: {
-              password: {
+              "recovery.recoveryMethod": {
+                type: 'select',
+                options: ["undefined", RecoveryMethod.PASSWORD, RecoveryMethod.PASSKEY, RecoveryMethod.AUTOMATIC],
+              },
+              "recovery.password": {
                 type: 'password',
               },
             },

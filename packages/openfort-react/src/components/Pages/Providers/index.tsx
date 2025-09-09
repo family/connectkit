@@ -150,7 +150,7 @@ const AddressButNoUserCase: React.FC = () => {
 
   return (
     <PageContent>
-      <Loader reason="Updating user" />
+      <Loader header="Updating user" />
     </PageContent>
   )
 }

@@ -18,7 +18,7 @@ export type CreateWalletPostAuthOptions = {
    * @default true
    * It will automatically try to recover the first wallet with automatic recovery.
    */
-  automaticRecovery?: boolean;
+  recoverWalletAutomatically?: boolean;
 };
 
 // this hook is used to create a wallet after the user has authenticated
@@ -28,16 +28,14 @@ export const useConnectToWalletPostAuth = () => {
   const { signOut } = useSignOut();
   const queryClient = useQueryClient();
 
-  const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, automaticRecovery = true }: CreateWalletPostAuthOptions): Promise<{ wallet?: UserWallet }> => {
-    console.log("tryUseWallet", { walletConfig, automaticRecovery });
-    if ((!walletConfig?.createEncryptedSessionEndpoint && !walletConfig?.getEncryptionSession) || !automaticRecovery) {
+  const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, recoverWalletAutomatically = true }: CreateWalletPostAuthOptions): Promise<{ wallet?: UserWallet }> => {
+    if ((!walletConfig?.createEncryptedSessionEndpoint && !walletConfig?.getEncryptionSession) || !recoverWalletAutomatically) {
       // If there is no encryption session, we cannot create a wallet
       return {};
     }
 
-    const wallets = await queryClient.ensureQueryData<EmbeddedAccount[]>({ queryKey: ['openfortEmbeddedWalletList'] });
+    const wallets = await queryClient.ensureQueryData<EmbeddedAccount[]>({ queryKey: ['openfortEmbeddedAccountsList'] });
 
-    console.log("WALLETS", wallets);
     let wallet: UserWallet | undefined;
 
     if (wallets.length === 0) {
@@ -54,7 +52,7 @@ export const useConnectToWalletPostAuth = () => {
     // Has a wallet with automatic recovery
     if (wallets.some(w => w.recoveryMethod === RecoveryMethod.AUTOMATIC)) {
       const setWalletResult = await setActiveWallet({
-        connector: embeddedWalletId,
+        walletId: embeddedWalletId,
       });
 
       if (!setWalletResult.wallet || (setWalletResult.error && signOutOnError)) {

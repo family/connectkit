@@ -37,7 +37,7 @@ const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0]
     case "facebook":
       return providersLogos[provider.provider]
     default:
-      return <FitText>{provider.provider.substring(0, 1).toUpperCase()}</FitText>;
+      return <FitText>{provider.provider.substring(0, 4).toUpperCase()}</FitText>;
   }
 }
 

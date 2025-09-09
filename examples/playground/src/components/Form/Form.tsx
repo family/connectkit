@@ -48,6 +48,7 @@ export const Form = <TOptions extends Record<string, any>, TResult = any>({
     Object.keys(options).forEach(key => {
       if (!(key in options)) return;
       if (options[key] === '') options[key] = undefined;
+      if (options[key] === 'undefined') options[key] = undefined;
       if (options[key] === 'true') options[key] = true;
       if (options[key] === 'false') options[key] = false;
       if (inputs && inputs[key]) {
@@ -70,10 +71,34 @@ export const Form = <TOptions extends Record<string, any>, TResult = any>({
         }
       }
     });
+
+
+    function expandKeys(obj: Record<string, any>) {
+      const result: Record<string, any> = {};
+
+      for (const [key, value] of Object.entries(obj)) {
+        const parts = key.split(".");
+        let current = result;
+
+        parts.forEach((part, idx) => {
+          if (idx === parts.length - 1) {
+            current[part] = value; // assign final value
+          } else {
+            current[part] = current[part] || {}; // ensure object exists
+            current = current[part];
+          }
+        });
+      }
+
+      return result;
+    }
+
+    const parsedOptions = expandKeys(options);
+
     try {
       setFunctionResult(null);
       setFunctionError(null);
-      const res = await fn(options as TOptions);
+      const res = await fn(parsedOptions as TOptions);
       setFunctionResult(res);
     } catch (error) {
       setFunctionError(error instanceof Error ? error.message : String(error));
@@ -90,6 +115,8 @@ export const Form = <TOptions extends Record<string, any>, TResult = any>({
     if (typeof val === 'string' && val.includes("Error:")) return 'error';
     return "string";
   };
+
+  const resultError = functionError ? { error: functionError } : (functionResult && typeof functionResult === 'object' && 'error' in functionResult ? functionResult : null);
 
   return (
     <form
@@ -149,14 +176,20 @@ export const Form = <TOptions extends Record<string, any>, TResult = any>({
         }
         {children}
 
-        {functionError && (
+        {resultError && (
           <div className="mt-2 p-2 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded">
             <div className="text-xs font-medium text-red-800 dark:text-red-200">Error:</div>
-            <div className="text-xs text-red-600 dark:text-red-300 font-mono">{functionError}</div>
+            <BaseVariable
+              name="return"
+              value={functionResult}
+              depth={1}
+              maxDepth={10}
+              defaultExpanded={1}
+            />
           </div>
         )}
 
-        {functionResult !== null && !functionError && (
+        {functionResult !== null && !resultError && (
           <div className="mt-2 p-2 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded">
             <div className="text-xs font-medium text-green-800 dark:text-green-200 mb-1">Result:</div>
             <BaseVariable

@@ -1,6 +1,6 @@
 {
   "name": "@openfort/react",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "Openfort (https://www.openfort.io)",
   "license": "BSD-2-Clause license",
   "description": "The easiest way to integrate Openfort to your project.",
@@ -38,7 +38,7 @@
     "react"
   ],
   "dependencies": {
-    "@openfort/openfort-js": "^0.10.8",
+    "@openfort/openfort-js": "^0.10.16",
     "buffer": "^6.0.3",
     "detect-browser": "^5.3.0",
     "fast-password-entropy": "^1.1.1",

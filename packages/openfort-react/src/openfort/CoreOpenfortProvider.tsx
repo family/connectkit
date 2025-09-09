@@ -1,4 +1,4 @@
-import { AuthPlayerResponse, EmbeddedState, Openfort, OpenfortError, RecoveryMethod } from '@openfort/openfort-js';
+import { AuthPlayerResponse, EmbeddedAccount, EmbeddedState, Openfort, OpenfortError, RecoveryMethod } from '@openfort/openfort-js';
 import React, { createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { polygonAmoy } from 'viem/chains';
 import { useAccount, useChainId, useDisconnect } from 'wagmi';
@@ -7,7 +7,7 @@ import { useConnect } from '../hooks/useConnect';
 import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback';
 import { Context } from './context';
 import { createOpenfortClient, setDefaultClient } from './core';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export type ContextValue = {
   signUpGuest: () => Promise<void>;
@@ -17,6 +17,9 @@ export type ContextValue = {
   needsRecovery: boolean;
   user: AuthPlayerResponse | null;
   updateUser: (user?: AuthPlayerResponse) => Promise<AuthPlayerResponse | null>;
+
+  embeddedAccounts?: EmbeddedAccount[];
+  isLoadingAccounts: boolean;
 
   logout: () => void;
 
@@ -61,20 +64,20 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     if (!openfortProps.baseConfiguration.publishableKey)
       throw Error('CoreOpenfortProvider requires a publishableKey to be set in the baseConfiguration.');
 
+
+    if (openfortProps.shieldConfiguration && !openfortProps.shieldConfiguration?.passkeyRpId && typeof window !== 'undefined') {
+      openfortProps.shieldConfiguration = {
+        passkeyRpId: window.location.hostname,
+        passkeyRpName: document.title || 'Openfort DApp',
+        ...openfortProps.shieldConfiguration,
+      };
+    }
+
     const newClient = createOpenfortClient(openfortProps);
 
     setDefaultClient(newClient);
     return newClient;
   }, []);
-
-  // Create or use provided client
-  // const client = useMemo(() => {
-  //   // return new Openfort(openfortProps)
-  //   const newClient = createOpenfortClient(openfortProps);
-
-  //   setDefaultClient(newClient);
-  //   return newClient;
-  // }, [openfortProps]);
 
   // ---- Embedded state ----
   const [embeddedState, setEmbeddedState] = useState<EmbeddedState>(EmbeddedState.NONE);
@@ -175,6 +178,14 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
   const [isConnectedWithEmbeddedSigner, setIsConnectedWithEmbeddedSigner] = useState(false);
 
+  // will reset on logout
+  const { data: embeddedAccounts, refetch: fetchEmbeddedAccounts, isPending: isLoadingAccounts } = useQuery({
+    queryKey: ['openfortEmbeddedAccountsList'],
+    queryFn: () => openfort.embeddedWallet.list(),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  })
+
   useEffect(() => {
     if (!openfort) return;
     // Poll embedded signer state
@@ -194,6 +205,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
           updateUser(undefined, true);
 
         setIsConnectedWithEmbeddedSigner(false);
+        fetchEmbeddedAccounts();
 
         break;
       case EmbeddedState.READY:
@@ -241,7 +253,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     log('Logging out...');
     await openfort.auth.logout();
     await disconnectAsync();
-    queryClient.resetQueries({ queryKey: ['openfortEmbeddedWalletList'] })
+    queryClient.resetQueries({ queryKey: ['openfortEmbeddedAccountsList'] })
     reset();
     startPollingEmbeddedState();
   }, [openfort]);
@@ -304,6 +316,9 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     needsRecovery,
     user,
     updateUser,
+
+    embeddedAccounts,
+    isLoadingAccounts,
 
     client: openfort,
   };

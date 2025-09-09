@@ -1,4 +1,4 @@
-import { useWallets, type UserWallet } from "@openfort/react";
+import { RecoveryMethod, useWallets, type UserWallet } from "@openfort/react";
 import { Sheet } from "./ui/Sheet"
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
@@ -25,7 +25,10 @@ export const CreateWalletPasswordSheet = ({ open, onClose }: CreateWalletPasswor
           const password = formData.get("password") as string;
 
           const { error } = await createWallet({
-            password,
+            recovery: {
+              recoveryMethod: RecoveryMethod.PASSWORD,
+              password,
+            }
           });
 
           if (!error) {
@@ -96,8 +99,11 @@ export const WalletRecoverPasswordSheet = ({ open, onClose, wallet }: WalletReco
           if (!wallet) throw new Error("No wallet to recover");
 
           setActiveWallet({
-            connector: "xyz.openfort",
-            password,
+            walletId: "xyz.openfort",
+            recovery: {
+              recoveryMethod: RecoveryMethod.PASSWORD,
+              password,
+            },
             address: wallet.address,
           });
         }}

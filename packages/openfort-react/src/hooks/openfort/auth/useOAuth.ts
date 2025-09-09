@@ -68,8 +68,8 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
       const user = await updateUser() || undefined;
 
       const { wallet } = await tryUseWallet({
-        logoutOnError: options.logoutOnError || hookOptions.logoutOnError,
-        automaticRecovery: options.automaticRecovery || hookOptions.automaticRecovery,
+        logoutOnError: options.logoutOnError ?? hookOptions.logoutOnError,
+        recoverWalletAutomatically: options.recoverWalletAutomatically ?? hookOptions.recoverWalletAutomatically,
       });
 
       return onSuccess({
