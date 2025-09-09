@@ -2,11 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.7] - 2025-09-09
+## [0.0.8] - 2025-09-09
 
 ### Improvements
 
 - Add passkeys
+
+## [0.0.7] - 2025-09-08
+
+### Feat
+
+- Add access token on getEncryptionSession
 
 ## [0.0.6] - 2025-09-04
 

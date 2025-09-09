@@ -75,7 +75,7 @@ type CommonWalletConfig = {
 type EncryptionSession =
   | {
     /** Function to retrieve an encryption session using a session ID */
-    getEncryptionSession?: () => Promise<string>;
+    getEncryptionSession?: (accessToken: string) => Promise<string>;
     createEncryptedSessionEndpoint?: never;
   }
   | {

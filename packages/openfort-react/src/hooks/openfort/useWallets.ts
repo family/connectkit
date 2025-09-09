@@ -167,10 +167,14 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     switch (recovery?.recoveryMethod) {
       case undefined:
       case RecoveryMethod.AUTOMATIC:
+        const accessToken = await client.getAccessToken();
+        if (!accessToken) {
+          throw new OpenfortError("Openfort access token not found", OpenfortErrorType.AUTHENTICATION_ERROR);
+        }
         return {
           recoveryMethod: RecoveryMethod.AUTOMATIC,
           encryptionSession: walletConfig?.getEncryptionSession ?
-            await walletConfig.getEncryptionSession() :
+            await walletConfig.getEncryptionSession(accessToken) :
             await getEncryptionSession()
         };
       case RecoveryMethod.PASSWORD:

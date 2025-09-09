@@ -6,7 +6,7 @@
       Website
     </a>
     <span> | </span>
-    <a href="https://www.openfort.io/docs/products/embedded-wallet/react/kit">
+    <a href="https://www.openfort.io/docs/products/embedded-wallet/react/">
       Documentation
     </a>
     <span> | </span>
@@ -25,11 +25,11 @@
 
 [![Downloads](https://img.shields.io/npm/dm/@openfort/react.svg)](https://www.npmjs.com/package/@openfort/react)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/embedded-wallet/react/kit)
+[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/embedded-wallet/react/)
 [![Version](https://img.shields.io/npm/v/@openfort/react.svg)](https://www.npmjs.org/package/@openfort/react)
 
 
-The easiest way to use embedded wallets, with built-in authentication and payments capabilities.
+The easiest way to use embedded wallets, with built-in authentication and payments capabilities in React.
 
 ## Features
 
