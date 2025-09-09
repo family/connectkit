@@ -29,7 +29,6 @@ export const useConnectToWalletPostAuth = () => {
   const queryClient = useQueryClient();
 
   const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, recoverWalletAutomatically = true }: CreateWalletPostAuthOptions): Promise<{ wallet?: UserWallet }> => {
-    console.log("tryUseWallet", { walletConfig, recoverWalletAutomatically });
     if ((!walletConfig?.createEncryptedSessionEndpoint && !walletConfig?.getEncryptionSession) || !recoverWalletAutomatically) {
       // If there is no encryption session, we cannot create a wallet
       return {};
@@ -37,7 +36,6 @@ export const useConnectToWalletPostAuth = () => {
 
     const wallets = await queryClient.ensureQueryData<EmbeddedAccount[]>({ queryKey: ['openfortEmbeddedAccountsList'] });
 
-    console.log("WALLETS", wallets);
     let wallet: UserWallet | undefined;
 
     if (wallets.length === 0) {
