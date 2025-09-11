@@ -95,6 +95,9 @@ export const isCoinbaseWalletConnector = (connectorId?: string) =>
 export const isLedgerConnector = (connectorId?: string) =>
   connectorId === 'ledger';
 
+export const isPortoConnector = (connectorId?: string) =>
+  connectorId === 'xyz.ithaca.porto';
+
 export const isSafeConnector = (connectorId?: string) => connectorId === 'safe';
 
 export const isInjectedConnector = (connectorId?: string) =>
