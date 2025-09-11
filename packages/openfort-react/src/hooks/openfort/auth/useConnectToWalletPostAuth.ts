@@ -5,7 +5,6 @@ import { useOpenfort } from "../../../components/Openfort/useOpenfort"
 import { embeddedWalletId } from "../../../constants/openfort"
 import { UserWallet, useWallets } from "../useWallets"
 import { useSignOut } from "./useSignOut"
-import { useOpenfortCore } from "../../../openfort/useOpenfort"
 
 export type CreateWalletPostAuthOptions = {
   /**

@@ -66,7 +66,7 @@ export const Wallets = () => {
         break;
       case RecoveryMethod.AUTOMATIC:
         setActiveWallet({
-          connector: "xyz.openfort",
+          walletId: "xyz.openfort",
           address: wallet.address,
         })
         break;
