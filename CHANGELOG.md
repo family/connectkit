@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.9] - 2025-09-15
+## [0.0.10] - 2025-09-15
 
 ### Feat
 
