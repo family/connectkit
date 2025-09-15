@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.9] - 2025-09-15
+
+### Feat
+
+- Openfort wallet return connector
+
 ## [0.0.9] - 2025-09-11
 
 ### Chore

@@ -238,7 +238,7 @@ export const SetActiveWalletsCard = () => {
                   </h3>
                   <pre className='flex text-xs flex-col gap-1'>
                     wallets[{i}] = {
-                      JSON.stringify(wallet, null, 2)
+                      JSON.stringify(wallet, (key, value) => (key === "connector" ? "[Connector object]" : value), 2)
                     }
                   </pre>
                   {
