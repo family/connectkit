@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.11] - 2025-09-22
+
+### Feat
+
+- Make walletConnectProjectId optional in defaultConfig
+
 ## [0.0.10] - 2025-09-15
 
 ### Feat
