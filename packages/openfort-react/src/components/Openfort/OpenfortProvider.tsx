@@ -165,6 +165,8 @@ export const OpenfortProvider = ({
 
   // Other Configuration
   useEffect(() => setTheme(uiConfig?.theme ?? 'auto'), [uiConfig?.theme]);
+  useEffect(() => setMode(uiConfig?.mode ?? 'auto'), [uiConfig?.mode]);
+  useEffect(() => setCustomTheme(uiConfig?.customTheme ?? {}), [uiConfig?.customTheme]);
   useEffect(() => setLang(safeUiConfig.language || 'en-US'), [safeUiConfig.language]);
   useEffect(() => setErrorMessage(null), [route, open]);
 
