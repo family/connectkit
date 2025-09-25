@@ -97,6 +97,54 @@ const mapWalletStatus = (status: WalletFlowStatus) => {
 }
 
 
+/**
+ * Hook for managing and interacting with user wallets
+ *
+ * This hook manages both embedded Openfort wallets and external wallets connected via Wagmi.
+ * It handles wallet creation, recovery, connection, and switching between different wallet types.
+ * The hook provides comprehensive wallet management functionality including creating embedded wallets,
+ * recovering existing ones, and managing wallet connections across multiple providers.
+ *
+ * @param hookOptions - Optional configuration with callback functions and wallet options
+ * @returns Current wallet state with management actions
+ *
+ * @example
+ * ```tsx
+ * const wallets = useWallets({
+ *   onCreateWalletSuccess: (result) => console.log('Wallet created:', result.wallet),
+ *   onCreateWalletError: (error) => console.error('Wallet creation failed:', error),
+ *   onSetActiveWalletSuccess: (result) => console.log('Wallet activated:', result.wallet),
+ * });
+ *
+ * // Check available wallets
+ * if (wallets.hasWallet) {
+ *   console.log('Available wallets:', wallets.wallets);
+ *   console.log('Active wallet:', wallets.activeWallet);
+ * }
+ *
+ * // Create a new embedded wallet with automatic recovery
+ * await wallets.createWallet({
+ *   recovery: { recoveryMethod: RecoveryMethod.AUTOMATIC },
+ *   accountType: AccountTypeEnum.SMART_ACCOUNT,
+ * });
+ *
+ * // Set active wallet by ID
+ * await wallets.setActiveWallet('embedded-wallet-id');
+ *
+ * // Set active wallet with custom recovery
+ * await wallets.setActiveWallet({
+ *   walletId: 'embedded-wallet-id',
+ *   recovery: { recoveryMethod: RecoveryMethod.PASSWORD, password: 'user-password' },
+ *   showUI: true,
+ * });
+ *
+ * // Set recovery method for existing wallet
+ * await wallets.setRecovery({
+ *   previousRecovery: { recoveryMethod: RecoveryMethod.AUTOMATIC },
+ *   newRecovery: { recoveryMethod: RecoveryMethod.PASSWORD, password: 'new-password' },
+ * });
+ * ```
+ */
 export function useWallets(hookOptions: WalletOptions = {}) {
   const { client, embeddedAccounts, isLoadingAccounts: isLoadingWallets } = useOpenfortCore();
   const { user } = useUser();
