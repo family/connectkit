@@ -10,13 +10,18 @@ Instead of cloning the entire repository, you can download just the example you 
 # Install gitpick globally
 npm install -g gitpick
 
-# Download a specific example (replace 'quickstarts/firebase' with your desired path)
+# Download a specific example
 gitpick openfort-xyz/openfort-react examples/quickstarts/firebase
+gitpick openfort-xyz/openfort-react examples/playground
 ```
 
 ## Available Examples
 
+### Quickstarts
 - **quickstarts/firebase** - Firebase integration quickstart
 - **quickstarts/headless** - Headless implementation quickstart
+
+### Playground
+- **playground** - Comprehensive example with UI components, routing, and advanced features
 
 Each example contains its own README with specific setup instructions.
