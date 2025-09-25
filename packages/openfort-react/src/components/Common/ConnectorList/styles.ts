@@ -12,6 +12,10 @@ export const ConnectorButton = styled(motion.button)`
   display: block;
   text-decoration: none;
 `;
+export const ConnectorAnchor = styled(motion.a)`
+  display: block;
+  text-decoration: none;
+`;
 export const ConnectorLabel = styled(motion.span)``;
 export const ConnectorIcon = styled(motion.div)``;
 

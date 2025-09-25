@@ -1,6 +1,7 @@
 import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import {
+  ConnectorAnchor,
   ConnectorButton,
   ConnectorIcon,
   ConnectorLabel,
@@ -128,28 +129,8 @@ const ConnectorItem = ({
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
-  return (
-    <ConnectorButton
-      type="button"
-      // as={deeplink ? 'a' : undefined}
-      // href={deeplink ? deeplink : undefined}
-      disabled={context.route !== routes.CONNECTORS}
-      onClick={
-        deeplink
-          ? undefined
-          : () => {
-            if (redirectToMoreWallets) {
-              context.setRoute(routes.MOBILECONNECTORS);
-            } else {
-              if (shouldConnectImmediately) {
-                connect({ connector: wallet?.connector });
-              }
-              context.setRoute(routes.CONNECT);
-              context.setConnector({ id: wallet.id });
-            }
-          }
-      }
-    >
+  const content = () => (
+    <>
       <ConnectorIcon
         data-small={wallet.iconShouldShrink}
         data-shape={wallet.iconShape}
@@ -165,6 +146,34 @@ const ConnectorItem = ({
           </RecentlyUsedTag>
         )}
       </ConnectorLabel>
+    </>
+  )
+
+  if (deeplink) {
+    <ConnectorAnchor
+      href={deeplink}
+    >
+      {content()}
+    </ConnectorAnchor>
+  }
+
+  return (
+    <ConnectorButton
+      type="button"
+      disabled={context.route !== routes.CONNECTORS}
+      onClick={() => {
+        if (redirectToMoreWallets) {
+          context.setRoute(routes.MOBILECONNECTORS);
+        } else {
+          if (shouldConnectImmediately) {
+            connect({ connector: wallet?.connector });
+          }
+          context.setRoute(routes.CONNECT);
+          context.setConnector({ id: wallet.id });
+        }
+      }}
+    >
+      {content()}
     </ConnectorButton>
   );
 };
