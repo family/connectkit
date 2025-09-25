@@ -1252,6 +1252,7 @@ export const providersLogos = {
   google: <Google />,
   twitter: <Twitter />,
   facebook: <Facebook />,
+  discord: <Discord />,
 }
 
 export default {

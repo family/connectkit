@@ -10,6 +10,7 @@ const states = {
   INIT: "init",
   REDIRECT: "redirect",
   CONNECTING: "connecting",
+  ERROR: "error"
 };
 
 const ConnectWithOAuth: React.FC<{}> = ({ }) => {
@@ -17,6 +18,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
   const { client, user } = useOpenfortCore();
 
   const [status, setStatus] = useState(states.INIT);
+  const [description, setDescription] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     (async () => {
@@ -108,6 +110,14 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
           catch (e) {
             console.error("Error during OAuth initialization:", e);
             setRoute(routes.CONNECT);
+            setStatus(states.ERROR);
+            if (e instanceof Error) {
+              if (e.message.includes("not enabled")) {
+                setDescription(`The ${provider} provider is not enabled. Please contact support.`);
+              } else {
+                setDescription("There was an error during authentication. Please try again.");
+              }
+            }
           }
           break;
       }
@@ -119,6 +129,12 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
       <Loader
         header={`Connecting with ${connector.id}`}
         icon={providersLogos[connector.id]}
+        isError={status === states.ERROR}
+        description={description}
+        onRetry={() => {
+          setStatus(states.INIT);
+          setDescription(undefined);
+        }}
       />
     </PageContent>
   )
