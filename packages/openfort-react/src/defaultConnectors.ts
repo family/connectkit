@@ -7,10 +7,6 @@ import {
   safe,
 } from '@wagmi/connectors';
 
-import {
-  EthereumProviderOptions as FamilyOptions,
-  familyAccountsConnector,
-} from 'family';
 
 type DefaultConnectorsProps = {
   app: {
@@ -21,24 +17,18 @@ type DefaultConnectorsProps = {
   };
   walletConnectProjectId?: string;
   coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
-  enableFamily?: boolean;
-  familyOptions?: FamilyOptions;
 };
 
 const defaultConnectors = ({
   app,
   walletConnectProjectId,
   coinbaseWalletPreference,
-  enableFamily,
-  familyOptions,
 }: DefaultConnectorsProps): CreateConnectorFn[] => {
   const hasAllAppData = app.name && app.icon && app.description && app.url;
   const shouldUseSafeConnector =
     !(typeof window === 'undefined') && window?.parent !== window;
 
-  const connectors: CreateConnectorFn[] = enableFamily
-    ? [familyAccountsConnector(familyOptions)]
-    : [];
+  const connectors: CreateConnectorFn[] = [];
 
   // If we're in an iframe, include the SafeConnector
   if (shouldUseSafeConnector) {
@@ -67,11 +57,11 @@ const defaultConnectors = ({
         projectId: walletConnectProjectId,
         metadata: hasAllAppData
           ? {
-              name: app.name,
-              description: app.description!,
-              url: app.url!,
-              icons: [app.icon!],
-            }
+            name: app.name,
+            description: app.description!,
+            url: app.url!,
+            icons: [app.icon!],
+          }
           : undefined,
       })
     );
