@@ -422,7 +422,7 @@ export function OpenfortButton({
               address &&
               (theme === 'retro' || context.uiConfig?.theme === 'retro')
               ? {
-                /** Special fix for the retro theme... not happy about this one */
+                /* Special fix for the retro theme... not happy about this one */
                 boxShadow:
                   'var(--ck-connectbutton-balance-connectbutton-box-shadow)',
                 borderRadius:

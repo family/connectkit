@@ -145,7 +145,9 @@ export default {
   '--ck-recent-badge-border-radius': '32px',
   '--ck-recent-badge-top-offset': '0px',
 
-  /** Graphics options for our themes, not to be exposed to devs */
+  /**
+   * Graphics options for our themes, not to be exposed to developers.
+   */
 
   '--ck-graphic-primary-color': '#333333',
   '--ck-graphic-primary-background': '#FFFFFF',

@@ -106,7 +106,7 @@ export const MetaMask = ({ background = false, ...props }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    {/**
+    {/*
     <defs>
       <linearGradient
         id="paint0_linear_967_843"

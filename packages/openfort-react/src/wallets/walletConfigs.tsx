@@ -2,9 +2,9 @@ import Logos from '../assets/logos';
 import { isAndroid } from '../utils';
 
 /**
- * EIP-6963: Multi Injected Provider Discovery
- * https://eips.ethereum.org/EIPS/eip-6963
+ * Wallet configuration metadata keyed by reverse-DNS identifiers.
  *
+ * Follows EIP-6963 Multi Injected Provider Discovery: https://eips.ethereum.org/EIPS/eip-6963.
  */
 export type WalletConfigProps = {
   // Wallets name

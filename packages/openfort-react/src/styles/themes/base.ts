@@ -1,6 +1,6 @@
 export default {
   light: {
-    /** Connect Wallet Button */
+    /** Connect Wallet button tokens. */
     '--ck-connectbutton-font-size': '15px',
     '--ck-connectbutton-color': '#373737',
     '--ck-connectbutton-background': '#F6F7F9',
@@ -25,7 +25,7 @@ export default {
     '--ck-connectbutton-balance-active-box-shadow':
       'inset 0 0 0 1px var(--ck-connectbutton-active-background)',
 
-    /** Primary Button */
+    /** Primary button tokens. */
     '--ck-primary-button-border-radius': '16px',
     '--ck-primary-button-color': '#373737',
     '--ck-primary-button-background': '#F6F7F9',
@@ -38,19 +38,19 @@ export default {
 
     //'--ck-primary-button-active-background': '#EAECF1',
 
-    /** Secondary Button */
+    /** Secondary button tokens. */
     '--ck-secondary-button-border-radius': '16px',
     '--ck-secondary-button-color': '#373737',
     '--ck-secondary-button-background': '#F6F7F9',
     //'--ck-secondary-button-box-shadow': '',
     //'--ck-secondary-button-font-weight': '',
 
-    /** Tertiary Button */
+    /** Tertiary button tokens. */
     '--ck-tertiary-button-background': '#FFFFFF',
 
     '--ck-secondary-button-hover-background': '#e0e4eb',
 
-    /** Modal */
+    /** Modal appearance tokens. */
     '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
     '--ck-overlay-background': 'rgba(71, 88, 107, 0.24)',
     '--ck-body-color': '#373737',
@@ -69,20 +69,20 @@ export default {
     '--ck-body-color-valid': '#32D74B',
     '--ck-siwe-border': '#F0F0F0',
 
-    /** Disclaimer */
+    /** Disclaimer section tokens. */
     //'--ck-body-disclaimer-background': '#E3D6C9',
     //'--ck-body-disclaimer-box-shadow': 'none',
     '--ck-body-disclaimer-color': '#AAAAAB',
     '--ck-body-disclaimer-link-color': '#838485',
     '--ck-body-disclaimer-link-hover-color': '#000000',
 
-    /** Tooltips */
+    /** Tooltip styling tokens. */
     '--ck-tooltip-background': '#ffffff',
     '--ck-tooltip-background-secondary': '#ffffff',
     '--ck-tooltip-color': '#999999',
     '--ck-tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
 
-    /** Network dropdown */
+    /** Network dropdown tokens. */
     '--ck-dropdown-button-color': '#999999',
     '--ck-dropdown-button-box-shadow':
       '0 0 0 1px rgba(0,0,0,0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
@@ -91,11 +91,11 @@ export default {
     '--ck-dropdown-button-hover-color': '#8B8B8B',
     '--ck-dropdown-button-hover-background': '#F5F7F9',
 
-    /** QR Code */
+    /** QR code styling tokens. */
     '--ck-qr-dot-color': '#000000',
     '--ck-qr-border-color': '#f7f6f8',
 
-    /** Misc. */
+    /** Miscellaneous token overrides. */
     '--ck-focus-color': '#1A88F8',
     '--ck-spinner-color': 'var(--ck-focus-color)',
     '--ck-copytoclipboard-stroke': '#CCCCCC',
@@ -141,7 +141,7 @@ export default {
 
     '--ck-secondary-button-hover-background': '#4D4D4D',
 
-    /** Tertiary Button */
+    /** Tertiary button tokens. */
     '--ck-tertiary-button-background': '#424242',
 
     '--ck-focus-color': '#1A88F8',
@@ -173,7 +173,7 @@ export default {
     '--ck-tooltip-color': '#999999',
     '--ck-tooltip-shadow': '0px 2px 10px rgba(0, 0, 0, 0.08)',
 
-    /** Network dropdown */
+    /** Network dropdown tokens. */
     '--ck-dropdown-button-color': '#6C7381',
 
     '--ck-spinner-color': 'var(--ck-focus-color)',
