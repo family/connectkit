@@ -7,12 +7,9 @@ This directory contains example implementations using Openfort React.
 Instead of cloning the entire repository, you can download just the example you need using [gitpick](https://github.com/JamieMason/gitpick):
 
 ```bash
-# Install gitpick globally
-npm install -g gitpick
-
 # Download a specific example
-gitpick openfort-xyz/openfort-react examples/quickstarts/firebase
-gitpick openfort-xyz/openfort-react examples/playground
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/playground
 ```
 
 ## Available Examples

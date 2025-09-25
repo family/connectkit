@@ -7,14 +7,11 @@ This directory contains quickstart examples for getting started with Openfort Re
 Instead of cloning the entire repository, you can download just the quickstart you need using [gitpick](https://github.com/JamieMason/gitpick):
 
 ```bash
-# Install gitpick globally
-npm install -g gitpick
-
 # Download the Firebase quickstart
-gitpick openfort-xyz/openfort-react examples/quickstarts/firebase
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase
 
 # Download the Headless quickstart
-gitpick openfort-xyz/openfort-react examples/quickstarts/headless
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/headless
 ```
 
 ## Available Quickstarts
