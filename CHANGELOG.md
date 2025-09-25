@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.12] - 2025-09-25
+
+### Fix
+
+- Fix logout handling to properly reset modal state and reload customTheme if changes
+
 ## [0.0.11] - 2025-09-22
 
 ### Feat
