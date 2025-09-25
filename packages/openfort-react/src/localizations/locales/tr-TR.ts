@@ -1,6 +1,8 @@
-import { LocaleProps } from '.';
+import { LocaleProps } from './';
+import enUS from './en-US';
 
 const trTR: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Cüzdan Bağla',
   disconnect: 'Bağlantıyı Kes',
   connected: 'Bağlandı',
@@ -16,7 +18,7 @@ const trTR: LocaleProps = {
   more: 'Daha Fazla',
   tryAgain: 'Tekrar Dene',
   tryAgainQuestion: 'Tekrar Dene?',
-  dontHaveTheApp: "Uygulaman yok mu?",
+  dontHaveTheApp: 'Uygulaman yok mu?',
   scanTheQRCode: 'Karekodu tarat',
   useWalletConnectModal: 'WalletConnect Modalini Kullan ',
   useModal: 'Modal Kullan',
@@ -74,7 +76,6 @@ const trTR: LocaleProps = {
 
   injectionScreen_unavailable_h1: `Desteklenmeyen Tarayıcı`,
   injectionScreen_unavailable_p: `{{ CONNECTORSHORTNAME }} cüzdanına bağlanmak için\n{{ SUGGESTEDEXTENSIONBROWSER }} üzerinde indirmen gerekiyor.`,
-
 
   injectionScreen_install_h1: `{{ CONNECTORNAME }} İndir`,
   injectionScreen_install_p: `{{ CONNECTORSHORTNAME }} cüzdanına bağlanmak için,\ntarayıcı eklentisini indir.`,

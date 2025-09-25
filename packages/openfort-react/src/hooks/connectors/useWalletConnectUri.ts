@@ -18,7 +18,7 @@ export function useWalletConnectUri(
 
   const [uri, setUri] = useState<string | undefined>(undefined);
 
-  const connector: Connector = useWalletConnectConnector();
+  const connector = useWalletConnectConnector();
 
   const { isConnected } = useAccount();
   const { connectAsync } = useConnect();

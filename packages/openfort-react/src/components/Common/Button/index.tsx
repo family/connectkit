@@ -43,7 +43,7 @@ const Button: React.FC<ButtonProps> = ({
       : flattenChildren(children).join(''); // Need to generate a string for the key so we can automatically animate between content
 
   const hrefUrl =
-    typeof href === 'string' ? href : flattenChildren(href).join(''); // Need to have a flat string for the href
+    href && (typeof href === 'string' ? href : flattenChildren(href).join('')); // Need to have a flat string for the href
 
   return (
     <ButtonContainer

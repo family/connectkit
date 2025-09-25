@@ -5,7 +5,8 @@ import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 
 import {
   detectBrowser,
-  isWalletConnectConnector
+  isFamilyAccountsConnector,
+  isWalletConnectConnector,
 } from '../../utils';
 
 import { OrDivider } from '../Common/Modal';
@@ -163,6 +164,14 @@ const ConnectWithQRCode: React.FC<{
         </div>
       )}
 
+      {isFamilyAccountsConnector(wallet.id) && (
+        <>
+          <OrDivider />
+          <Button onClick={() => switchConnectMethod(id)}>
+            {locales.loginWithEmailOrPhone}
+          </Button>
+        </>
+      )}
       {/*
       {hasExtensionInstalled && ( // Run the extension
         <Button

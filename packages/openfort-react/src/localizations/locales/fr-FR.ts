@@ -1,6 +1,8 @@
-import { LocaleProps } from '.';
+import { LocaleProps } from './';
+import enUS from './en-US';
 
 const frFR: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Connecter le portefeuille',
   disconnect: 'Déconnecter',
   connected: 'Connecté',
