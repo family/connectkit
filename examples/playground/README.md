@@ -2,6 +2,14 @@
 
 This is a comprehensive example application demonstrating Openfort React integration with various UI components, routing, and advanced features. It serves as both a playground for testing Openfort features and a reference implementation for building full-scale applications.
 
+## Quick Start
+
+Download this example using gitpick:
+
+```bash
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/playground openfort-playground && cd openfort-playground
+```
+
 ## Features
 
 - **Openfort React Integration**: Complete integration with authentication, wallet management, and user flows
