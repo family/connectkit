@@ -143,6 +143,14 @@ const mapWalletStatus = (status: WalletFlowStatus) => {
  *   previousRecovery: { recoveryMethod: RecoveryMethod.AUTOMATIC },
  *   newRecovery: { recoveryMethod: RecoveryMethod.PASSWORD, password: 'new-password' },
  * });
+ *
+ * // Export private key from embedded wallet (requires authentication)
+ * try {
+ *   const privateKey = await wallets.exportPrivateKey();
+ *   console.log('Private key exported:', privateKey);
+ * } catch (error) {
+ *   console.error('Failed to export private key:', error);
+ * }
  * ```
  */
 export function useWallets(hookOptions: WalletOptions = {}) {

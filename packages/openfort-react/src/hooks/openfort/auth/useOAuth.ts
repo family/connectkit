@@ -59,14 +59,14 @@ export type AuthHookOptions = {
  *
  * // Initialize OAuth with a provider
  * const handleGoogleAuth = async () => {
- *   await oauth.initializeOAuth({
+ *   await oauth.initOAuth({
  *     provider: OAuthProvider.GOOGLE,
  *     redirectTo: 'https://yourapp.com/auth/callback',
  *   });
  * };
  *
  * const handleDiscordAuth = async () => {
- *   await oauth.initializeOAuth({
+ *   await oauth.initOAuth({
  *     provider: OAuthProvider.DISCORD,
  *   });
  * };
@@ -77,6 +77,14 @@ export type AuthHookOptions = {
  *     player: 'player-id-from-callback',
  *     accessToken: 'access-token-from-callback',
  *     refreshToken: 'refresh-token-from-callback',
+ *   });
+ * };
+ *
+ * // Link OAuth provider to existing authenticated account
+ * const handleLinkOAuth = async () => {
+ *   await oauth.linkOauth({
+ *     provider: OAuthProvider.GOOGLE,
+ *     redirectTo: 'https://yourapp.com/auth/callback',
  *   });
  * };
  *
