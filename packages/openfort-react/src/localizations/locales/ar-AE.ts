@@ -1,6 +1,8 @@
-import { LocaleProps } from '.';
+import { LocaleProps } from './';
+import enUS from './en-US';
 
 const arAE: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'الاتصال بالمحفظة',
   disconnect: 'قطع الاتصال',
   connected: 'متصل',
@@ -16,7 +18,7 @@ const arAE: LocaleProps = {
   more: 'المزيد',
   tryAgain: 'حاول مجددًا',
   tryAgainQuestion: 'هل نحاول مرة أخرى؟',
-  dontHaveTheApp: "ليس لديك التطبيق؟",
+  dontHaveTheApp: 'ليس لديك التطبيق؟',
   scanTheQRCode: 'مسح رمز الاستجابة السريعة',
   useWalletConnectModal: 'استخدم نموذج ولِيت‌كنيكت',
   useModal: 'استخدم النموذج',

@@ -127,6 +127,14 @@ export const ProviderButtonSwitch: React.FC<{ provider: UIAuthProvider }> = ({ p
           icon={providersLogos[provider]}
         />
       )
+    case UIAuthProvider.DISCORD:
+      return (
+        <AuthProviderButton
+          provider={OAuthProvider.DISCORD}
+          title="Discord"
+          icon={providersLogos[provider]}
+        />
+      )
     default:
       throw new Error(`NOT IMPLEMENTED: ${provider}`);
   }

@@ -1,6 +1,8 @@
-import { LocaleProps } from '.';
+import { LocaleProps } from './';
+import enUS from './en-US';
 
 const eeEE: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Ühenda rahakott',
   disconnect: 'Katkesta ühendus',
   connected: 'Ühendatud',

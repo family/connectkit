@@ -9,6 +9,12 @@ const Shimmer = keyframes`
   100%{ transform: translate(100%) rotate(-80deg); }
 `;
 
+export const Container = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
 export const InfoBox = styled.div`
   padding: 24px 24px 28px;
   border-radius: var(--ck-tertiary-border-radius, 24px);

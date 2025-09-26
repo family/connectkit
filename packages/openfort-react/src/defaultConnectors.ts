@@ -7,6 +7,7 @@ import {
   safe,
 } from '@wagmi/connectors';
 
+
 type DefaultConnectorsProps = {
   app: {
     name: string;
@@ -56,11 +57,11 @@ const defaultConnectors = ({
         projectId: walletConnectProjectId,
         metadata: hasAllAppData
           ? {
-              name: app.name,
-              description: app.description!,
-              url: app.url!,
-              icons: [app.icon!],
-            }
+            name: app.name,
+            description: app.description!,
+            url: app.url!,
+            icons: [app.icon!],
+          }
           : undefined,
       })
     );

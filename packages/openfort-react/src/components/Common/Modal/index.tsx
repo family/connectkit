@@ -652,10 +652,16 @@ const Page: React.FC<PageProps> = ({
   );
 };
 
-export const OrDivider = ({ children }: { children?: React.ReactNode }) => {
+export const OrDivider = ({
+  children,
+  hideHr,
+}: {
+  children?: React.ReactNode;
+  hideHr?: boolean;
+}) => {
   const locales = useLocales();
   return (
-    <TextWithHr>
+    <TextWithHr $disableHr={hideHr}>
       <span>{children ?? locales.or}</span>
     </TextWithHr>
   );

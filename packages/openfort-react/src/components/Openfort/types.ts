@@ -44,7 +44,7 @@ export enum UIAuthProvider {
   TWITTER = "twitter",
   FACEBOOK = "facebook",
 
-  // DISCORD = "discord",
+  DISCORD = "discord",
   // EPIC_GAMES = "epic_games",
   // LINE = "line",
   // TELEGRAM = "telegram", // Telegram is not working yet
@@ -59,6 +59,7 @@ export const socialProviders = [
   UIAuthProvider.GOOGLE,
   UIAuthProvider.TWITTER,
   UIAuthProvider.FACEBOOK,
+  UIAuthProvider.DISCORD,
 ]
 
 type PolicyConfig = string | Record<number, string>;

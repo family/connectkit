@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.12] - 2025-09-25
+
+### Feat
+
+- Add DISCORD auth provider
+- Fix logout handling to properly reset modal state and reload customTheme if changes
+- Fix connectors on mobile
+- Improve error handling
+
 ## [0.0.11] - 2025-09-22
 
 ### Feat

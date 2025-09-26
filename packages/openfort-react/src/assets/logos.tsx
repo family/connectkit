@@ -1,4 +1,4 @@
-import { isFamily, isRainbow, isZerion } from '../utils/wallets';
+import { isArgent, isPhantom, isSafe } from '../utils/wallets';
 
 export const Mock = ({ ...props }) => (
   <svg
@@ -94,265 +94,44 @@ export const MetaMask = ({ background = false, ...props }) => (
     style={
       background
         ? {
-          background:
-            'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
+          background: 'var(--ck-brand-metamask-bg)',
           borderRadius: '27.5%',
         }
         : undefined
     }
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
+    width="88"
+    height="88"
+    viewBox="0 0 88 88"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    {/*
-    <defs>
-      <linearGradient
-        id="paint0_linear_967_843"
-        x1="16"
-        y1="0"
-        x2="16"
-        y2="32"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.130682" stopColor="var(--ck-brand-metamask-11)" />
-        <stop offset="1" stopColor="var(--ck-brand-metamask-12)" />
-      </linearGradient>
-    </defs>
-    <rect width="32" height="32" fill="url(#paint0_linear_967_843)" />
-     */}
     <path
-      d="M27.2684 4.03027L17.5018 11.2841L19.3079 7.00442L27.2684 4.03027Z"
+      d="M74.4066 73.7063L59.3305 69.249L47.9614 75.9975L40.0287 75.9941L28.6527 69.249L13.5835 73.7063L9 58.3408L13.584 41.2875L9 26.8697L13.584 9L37.1306 22.969H50.8595L74.4066 9L78.9906 26.8697L74.4066 41.2875L78.9906 58.3408L74.4066 73.7063Z"
+      fill="var(--ck-brand-metamask-01)"
+    />
+    <path
+      d="M13.587 9L37.1341 22.9788L36.198 32.5722L13.587 9ZM28.6567 58.3471L39.0172 66.1838L28.6567 69.2485V58.3471ZM38.189 45.3909L36.198 32.5791L23.452 41.2915L23.4451 41.288V41.2944L23.4846 50.2623L28.6532 45.3914L38.189 45.3909ZM74.4066 9L50.8595 22.9788L51.7927 32.5722L74.4066 9ZM59.3374 58.3471L48.9764 66.1838L59.3374 69.2485V58.3471ZM64.5455 41.2939V41.2875L64.5425 41.291L51.7961 32.5791L49.8051 45.3909H59.3369L64.509 50.2613L64.5455 41.2939Z"
+      fill="var(--ck-brand-metamask-01)"
+    />
+    <path
+      d="M28.6532 69.2485L13.584 73.7058L9 58.3471H28.6532V69.2485ZM38.1856 45.3875L41.0639 63.9097L37.0744 53.6109L23.4782 50.2613L28.6498 45.388L38.1856 45.3875ZM59.3369 69.2485L74.4066 73.7058L78.9906 58.3467H59.3369C59.3369 58.3471 59.3369 69.2485 59.3369 69.2485ZM49.8051 45.3875L46.9267 63.9097L50.9157 53.6109L64.513 50.2613L59.3379 45.388L49.8051 45.3875Z"
       fill="var(--ck-brand-metamask-02)"
-      stroke="var(--ck-brand-metamask-02)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <path
-      d="M4.7218 4.03027L14.4099 11.3528L12.6921 7.00442L4.7218 4.03027Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M23.7544 20.8438L21.1532 24.8289L26.7187 26.3602L28.3187 20.9321L23.7544 20.8438Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M3.69104 20.9321L5.28117 26.3602L10.8467 24.8289L8.24551 20.8438L3.69104 20.9321Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.5327 14.1108L8.98181 16.4568L14.5081 16.7022L14.3117 10.7637L10.5327 14.1108Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M21.4576 14.1111L17.6295 10.6953L17.5018 16.7025L23.0182 16.4571L21.4576 14.1111Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.8469 24.8292L14.1647 23.2096L11.2984 20.9717L10.8469 24.8292Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.8257 23.2096L21.1531 24.8292L20.6918 20.9717L17.8257 23.2096Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M21.1531 24.8296L17.8257 23.21L18.0906 25.3793L18.0612 26.2921L21.1531 24.8296Z"
-      fill="var(--ck-brand-metamask-06)"
-      stroke="var(--ck-brand-metamask-06)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.8469 24.8296L13.9388 26.2921L13.9192 25.3793L14.1647 23.21L10.8469 24.8296Z"
-      fill="var(--ck-brand-metamask-06)"
-      stroke="var(--ck-brand-metamask-06)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M13.9877 19.5389L11.2196 18.7242L13.1729 17.8311L13.9877 19.5389Z"
-      fill="var(--ck-brand-metamask-09)"
-      stroke="var(--ck-brand-metamask-09)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M18.0023 19.5389L18.8171 17.8311L20.7802 18.7242L18.0023 19.5389Z"
-      fill="var(--ck-brand-metamask-09)"
-      stroke="var(--ck-brand-metamask-09)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.8468 24.8289L11.3179 20.8438L8.24561 20.9321L10.8468 24.8289Z"
+      d="M9 58.3408L13.584 41.2876H23.4417L23.4777 50.2584L37.0754 53.6079L41.0644 63.9063L39.0137 66.174L28.6532 58.3374H9V58.3408ZM78.9906 58.3408L74.4066 41.2876H64.5485L64.5125 50.2584L50.9157 53.6079L46.9262 63.9063L48.9764 66.174L59.3374 58.3374H78.9906V58.3408ZM50.8595 22.969H37.1306L36.1985 32.5624L41.0649 63.896H46.9267L51.7961 32.5624L50.8595 22.969Z"
       fill="var(--ck-brand-metamask-03)"
-      stroke="var(--ck-brand-metamask-03)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <path
-      d="M20.6821 20.8438L21.1532 24.8289L23.7544 20.9321L20.6821 20.8438Z"
-      fill="var(--ck-brand-metamask-03)"
-      stroke="var(--ck-brand-metamask-03)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M23.0182 16.4565L17.5018 16.7019L18.0122 19.5387L18.827 17.8308L20.7902 18.7239L23.0182 16.4565Z"
-      fill="var(--ck-brand-metamask-03)"
-      stroke="var(--ck-brand-metamask-03)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M11.2198 18.7239L13.1829 17.8308L13.9878 19.5387L14.5081 16.7019L8.98181 16.4565L11.2198 18.7239Z"
-      fill="var(--ck-brand-metamask-03)"
-      stroke="var(--ck-brand-metamask-03)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M8.98181 16.4565L11.2983 20.9718L11.2198 18.7239L8.98181 16.4565Z"
-      fill="var(--ck-brand-metamask-10)"
-      stroke="var(--ck-brand-metamask-10)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M20.7901 18.7239L20.6919 20.9718L23.0181 16.4565L20.7901 18.7239Z"
-      fill="var(--ck-brand-metamask-10)"
-      stroke="var(--ck-brand-metamask-10)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M14.508 16.7021L13.9878 19.5389L14.6356 22.886L14.7828 18.4788L14.508 16.7021Z"
-      fill="var(--ck-brand-metamask-10)"
-      stroke="var(--ck-brand-metamask-10)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.5017 16.7021L17.2367 18.4689L17.3545 22.886L18.0121 19.5389L17.5017 16.7021Z"
-      fill="var(--ck-brand-metamask-10)"
-      stroke="var(--ck-brand-metamask-10)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M18.0121 19.5388L17.3545 22.886L17.8257 23.2099L20.6918 20.972L20.79 18.7241L18.0121 19.5388Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M11.2196 18.7241L11.2981 20.972L14.1644 23.2099L14.6355 22.886L13.9877 19.5388L11.2196 18.7241Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M18.0615 26.2917L18.0908 25.3788L17.8455 25.1628H14.145L13.9192 25.3788L13.9388 26.2917L10.8469 24.8291L11.9267 25.7126L14.1155 27.234H17.875L20.0736 25.7126L21.1533 24.8291L18.0615 26.2917Z"
-      fill="var(--ck-brand-metamask-07)"
-      stroke="var(--ck-brand-metamask-07)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.8258 23.2096L17.3546 22.8857H14.6357L14.1646 23.2096L13.9191 25.379L14.1449 25.163H17.8454L18.0907 25.379L17.8258 23.2096Z"
+      d="M13.584 9L9 26.8697L13.584 41.2875H23.4417L36.1945 32.5727L13.584 9ZM35.3368 49.1076H30.8711L28.4398 51.4743L37.0784 53.6006L35.3368 49.1042V49.1076ZM74.4066 9L78.9906 26.8697L74.4066 41.2875H64.5485L51.7961 32.5727L74.4066 9ZM52.6603 49.1076H57.1324L59.5637 51.4772L50.9152 53.6079L52.6603 49.1042V49.1076ZM47.958 69.8848L48.9769 66.1809L46.9262 63.9131H41.06L39.0098 66.1809L40.0282 69.8848"
       fill="var(--ck-brand-metamask-04)"
-      stroke="var(--ck-brand-metamask-04)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <path
-      d="M27.6806 11.7552L28.5149 7.75041L27.2683 4.03027L17.8257 11.0387L21.4575 14.1109L26.591 15.6128L27.7296 14.2876L27.2389 13.9342L28.0241 13.2178L27.4156 12.7465L28.2007 12.1478L27.6806 11.7552Z"
+      d="M47.958 69.8843V76.0005H40.0292V69.8843H47.958Z"
       fill="var(--ck-brand-metamask-05)"
-      stroke="var(--ck-brand-metamask-05)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <path
-      d="M3.48486 7.75041L4.3192 11.7552L3.78916 12.1478L4.57441 12.7465L3.97566 13.2178L4.7609 13.9342L4.27012 14.2876L5.39892 15.6128L10.5325 14.1109L14.1644 11.0387L4.72164 4.03027L3.48486 7.75041Z"
-      fill="var(--ck-brand-metamask-05)"
-      stroke="var(--ck-brand-metamask-05)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M26.591 15.6122L21.4575 14.1104L23.0181 16.4564L20.6919 20.9716L23.7544 20.9323H28.3186L26.591 15.6122Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.5326 14.1104L5.39897 15.6122L3.69104 20.9323H8.24551L11.2982 20.9716L8.98168 16.4564L10.5326 14.1104Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.5018 16.7018L17.8258 11.0381L19.3177 7.00391H12.6921L14.1645 11.0381L14.5081 16.7018L14.6258 18.4883L14.6356 22.8856H17.3546L17.3742 18.4883L17.5018 16.7018Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M28.6567 69.2421L40.0356 75.9971V69.8809L39.0167 66.1775L28.6567 69.2421ZM59.3374 69.2421L47.958 75.9971V69.8809L48.9769 66.1775L59.3374 69.2421Z"
+      fill="var(--ck-brand-metamask-06)"
     />
   </svg>
 );
@@ -380,6 +159,23 @@ export const Coinbase = ({ background = false, ...props }) => (
       clipRule="evenodd"
       d="M10.0001 17C13.8661 17 17.0001 13.866 17.0001 10C17.0001 6.13401 13.8661 3 10.0001 3C6.13413 3 3.00012 6.13401 3.00012 10C3.00012 13.866 6.13413 17 10.0001 17ZM8.25012 7.71429C7.95427 7.71429 7.71441 7.95414 7.71441 8.25V11.75C7.71441 12.0459 7.95427 12.2857 8.25012 12.2857H11.7501C12.046 12.2857 12.2858 12.0459 12.2858 11.75V8.25C12.2858 7.95414 12.046 7.71429 11.7501 7.71429H8.25012Z"
       fill="white"
+    />
+  </svg>
+);
+
+export const FamilyAccount = () => (
+  <svg
+    width="88"
+    height="88"
+    viewBox="0 0 88 88"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M69.3985 17.8729C71.1916 19.6658 72.1993 22.0974 72.2 24.633C72.2023 26.8681 71.4164 29.0324 69.9804 30.7453C68.5444 32.4582 66.5504 33.61 64.349 33.998V34.1876C66.5344 34.6137 68.5036 35.7864 69.9194 37.5047C71.3351 39.223 72.1093 41.3801 72.1093 43.6064C72.1093 45.8327 71.3351 47.9898 69.9194 49.7081C68.5036 51.4264 66.5344 52.5991 64.349 53.0252V53.2134C66.6856 53.6659 68.7701 54.972 70.1962 56.8773C71.6224 58.7825 72.2881 61.1504 72.0635 63.5196C71.839 65.8888 70.7404 68.0896 68.9817 69.6931C67.223 71.2966 64.9303 72.188 62.5502 72.1935C57.9579 72.1935 54.0768 68.8855 53.1774 64.5316H52.9408C52.512 66.6983 51.3421 68.6482 49.632 70.0464C47.9219 71.4445 45.7783 72.2037 43.5693 72.1935C38.977 72.1935 35.0959 68.8855 34.1965 64.5316H33.9599C33.6143 66.2325 32.8128 67.8076 31.641 69.0882C30.4693 70.3688 28.9715 71.3069 27.3077 71.8021C25.644 72.2973 23.8769 72.3309 22.1955 71.8995C20.5141 71.468 18.9816 70.5877 17.7619 69.3526C16.5423 68.1175 15.6813 66.5741 15.2711 64.8876C14.861 63.201 14.917 61.4347 15.4333 59.7776C15.9496 58.1204 16.9067 56.6347 18.2022 55.4795C19.4977 54.3242 21.083 53.5428 22.7884 53.2188V53.0306C20.603 52.6045 18.6337 51.4318 17.218 49.7135C15.8022 47.9952 15.0281 45.8381 15.0281 43.6118C15.0281 41.3854 15.8022 39.2284 17.218 37.5101C18.6337 35.7917 20.603 34.6191 22.7884 34.1929V34.0034C21.0847 33.6728 19.5027 32.8862 18.2109 31.7274C16.9192 30.5685 15.9661 29.081 15.4533 27.4232C14.9405 25.7655 14.8871 23.9996 15.299 22.3139C15.7108 20.6283 16.5723 19.0859 17.7918 17.8512C19.0112 16.6166 20.5429 15.7359 22.2235 15.3031C23.9041 14.8703 25.6706 14.9015 27.3348 15.3935C28.9991 15.8855 30.4986 16.8198 31.6736 18.0968C32.8486 19.3738 33.655 20.9457 34.007 22.6449H34.2436C34.6954 20.4915 35.8758 18.5596 37.5858 17.1748C39.2958 15.79 41.431 15.0369 43.6315 15.0425C45.832 15.048 47.9634 15.8118 49.6665 17.2052C51.3695 18.5985 52.5402 20.5363 52.9811 22.692H53.2178C54.1682 18.3381 57.9996 15.0246 62.6376 15.0717C65.1735 15.0724 67.6053 16.08 69.3985 17.8729ZM31.9823 29.5165C30.2472 29.5165 28.8497 30.9389 28.8758 32.6738C28.9236 35.8456 28.9876 40.7732 28.9876 44.421C28.9876 48.0656 28.9237 52.9878 28.8759 56.1599C28.8498 57.8992 30.2516 59.3256 31.9912 59.3256H55.6872C57.4267 59.3256 58.8286 57.8992 58.8024 56.1599C58.7546 52.9878 58.6908 48.0656 58.6908 44.421C58.6908 40.7732 58.7547 35.8456 58.8025 32.6738C58.8287 30.9389 57.433 29.5165 55.6979 29.5165L31.9823 29.5165Z"
+      fill="var(--ck-body-color)"
     />
   </svg>
 );
@@ -1261,12 +1057,12 @@ export const OtherWallets = ({ ...props }) => {
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
-    gap: 2,
+    gap: 3,
   };
   const row: React.CSSProperties = {
     position: 'relative',
     display: 'flex',
-    gap: 2,
+    gap: 3,
   };
   const cell: React.CSSProperties = {
     width: '50%',
@@ -1279,11 +1075,13 @@ export const OtherWallets = ({ ...props }) => {
         <div style={cell}>
           <WalletConnect background />
         </div>
-        <div style={cell}>{!isZerion() ? <Zerion /> : <Phantom />}</div>
+        <div style={cell}>{!isArgent() ? <Argent /> : <Rabby />}</div>
       </div>
       <div style={row}>
-        <div style={cell}>{!isFamily() ? <Family /> : <ImToken />}</div>
-        <div style={cell}>{!isRainbow() ? <Rainbow /> : <Trust />}</div>
+        <div style={cell}>
+          {!isPhantom() ? <Phantom background /> : <ImToken />}
+        </div>
+        <div style={cell}>{!isSafe() ? <Safe /> : <Trust />}</div>
       </div>
     </div>
   );
@@ -1454,6 +1252,7 @@ export const providersLogos = {
   google: <Google />,
   twitter: <Twitter />,
   facebook: <Facebook />,
+  discord: <Discord />,
 }
 
 export default {
@@ -1464,6 +1263,7 @@ export default {
   MetaMask,
   Coinbase,
   Family,
+  FamilyAccount,
   Trust,
   Argent,
   ImToken,

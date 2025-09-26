@@ -384,6 +384,7 @@ const ConnectWithInjector: React.FC<{
                   </ModalH1>
                   <ModalBody>{locales.injectionScreen_failed_p}</ModalBody>
                 </ModalContent>
+
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
                 {/* 
                 {wallet?.getWalletConnectDeeplink &&
@@ -409,10 +410,15 @@ const ConnectWithInjector: React.FC<{
                 exit={'exit'}
                 variants={contentVariants}
               >
-                <ModalContent style={{ paddingBottom: 28 }}>
+                <ModalContent
+                  style={{
+                    paddingBottom: 28,
+                  }}
+                >
                   <ModalH1>{locales.injectionScreen_rejected_h1}</ModalH1>
                   <ModalBody>{locales.injectionScreen_rejected_p}</ModalBody>
                 </ModalContent>
+
 
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
                 {/* 
@@ -456,7 +462,11 @@ const ConnectWithInjector: React.FC<{
                 exit={'exit'}
                 variants={contentVariants}
               >
-                <ModalContent style={{ paddingBottom: 28 }}>
+                <ModalContent
+                  style={{
+                    paddingBottom: 28,
+                  }}
+                >
                   <ModalH1>
                     {wallet.connector.id === 'injected'
                       ? locales.injectionScreen_connecting_injected_h1

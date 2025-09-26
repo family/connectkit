@@ -1,6 +1,7 @@
 import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import {
+  ConnectorAnchor,
   ConnectorButton,
   ConnectorIcon,
   ConnectorLabel,
@@ -20,10 +21,16 @@ import { useLastConnector } from '../../../hooks/useLastConnector';
 import {
   detectBrowser,
   isCoinbaseWalletConnector,
+  isPortoConnector,
   isWalletConnectConnector,
 } from '../../../utils';
 import { WalletProps, useWallets } from '../../../wallets/useWallets';
 import { routes } from '../../Openfort/types';
+import {
+  useFamilyAccountsConnector,
+  useFamilyConnector,
+} from '../../../hooks/useConnectors';
+import { isFamily } from '../../../utils/wallets';
 
 const ConnectorList = () => {
   const context = useOpenfort();
@@ -31,6 +38,17 @@ const ConnectorList = () => {
 
   const wallets = useWallets();
   const { lastConnectorId } = useLastConnector();
+  const familyConnector = useFamilyConnector();
+  const familyAccountsConnector = useFamilyAccountsConnector();
+
+  let filteredWallets = wallets.filter(
+    (wallet) => wallet.id !== familyAccountsConnector?.id
+  );
+  if (familyConnector && isFamily()) {
+    filteredWallets = filteredWallets.filter(
+      (wallet) => wallet.id !== familyConnector?.id
+    );
+  }
 
   const walletsToDisplay =
     context.uiConfig?.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
@@ -107,35 +125,16 @@ const ConnectorItem = ({
   // Safari requires opening popup on user gesture, so we connect immediately here
   const shouldConnectImmediately =
     (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
-    isCoinbaseWalletConnector(wallet.connector.id);
+    (isCoinbaseWalletConnector(wallet.connector.id) || isPortoConnector(wallet.connector.id));
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
-  return (
-    <ConnectorButton
-      type="button"
-      // as={deeplink ? 'a' : undefined}
-      // href={deeplink ? deeplink : undefined}
-      disabled={context.route !== routes.CONNECTORS}
-      onClick={
-        deeplink
-          ? undefined
-          : () => {
-            if (redirectToMoreWallets) {
-              context.setRoute(routes.MOBILECONNECTORS);
-            } else {
-              if (shouldConnectImmediately) {
-                connect({ connector: wallet?.connector });
-              }
-              context.setRoute(routes.CONNECT);
-              context.setConnector({ id: wallet.id });
-            }
-          }
-      }
-    >
+  const content = () => (
+    <>
       <ConnectorIcon
         data-small={wallet.iconShouldShrink}
         data-shape={wallet.iconShape}
+        data-background={redirectToMoreWallets}
       >
         {wallet.iconConnector ?? wallet.icon}
       </ConnectorIcon>
@@ -147,6 +146,34 @@ const ConnectorItem = ({
           </RecentlyUsedTag>
         )}
       </ConnectorLabel>
+    </>
+  )
+
+  if (deeplink) {
+    <ConnectorAnchor
+      href={deeplink}
+    >
+      {content()}
+    </ConnectorAnchor>
+  }
+
+  return (
+    <ConnectorButton
+      type="button"
+      disabled={context.route !== routes.CONNECTORS}
+      onClick={() => {
+        if (redirectToMoreWallets) {
+          context.setRoute(routes.MOBILECONNECTORS);
+        } else {
+          if (shouldConnectImmediately) {
+            connect({ connector: wallet?.connector });
+          }
+          context.setRoute(routes.CONNECT);
+          context.setConnector({ id: wallet.id });
+        }
+      }}
+    >
+      {content()}
     </ConnectorButton>
   );
 };

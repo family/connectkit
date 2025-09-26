@@ -1,6 +1,8 @@
-import { LocaleProps } from '.';
+import { LocaleProps } from './';
+import enUS from './en-US';
 
 const ruRU: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Подключить кошелек',
   disconnect: 'Отключить',
   connected: 'Подключена',

@@ -3,9 +3,10 @@ import Logos from '../assets/logos';
 
 import { useOpenfort } from '../components/Openfort/useOpenfort';
 
-import { getLocale } from '../localizations';
+import { getLocale } from './../localizations';
+import { LocaleProps } from '../localizations/locales';
 
-export default function useLocales(replacements?: any) {
+export default function useLocales(replacements?: any): LocaleProps {
   const context = useOpenfort();
   const language = context.uiConfig?.language ?? 'en-US';
 
@@ -15,16 +16,16 @@ export default function useLocales(replacements?: any) {
 
   if (!translations) {
     console.error(`Missing translations for: ${language}`);
-    return `Missing translations for: ${language}`;
+    throw new Error(`Missing translations for: ${language}`);
   }
 
-  const translated: any = {};
+  const translated = {};
   Object.keys(translations).map((key) => {
     const string = translations[key];
     return (translated[key] = localize(string, replacements));
   });
 
-  return translated;
+  return translated as LocaleProps;
 }
 
 const localize = (text: string, replacements?: any[string]) => {

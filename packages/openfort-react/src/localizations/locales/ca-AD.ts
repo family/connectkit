@@ -1,6 +1,8 @@
 import { LocaleProps } from '.';
+import enUS from './en-US';
 
 const caAD: LocaleProps = {
+  ...enUS, // fallback
   connectWallet: 'Connecta la cartera',
   disconnect: 'Desconnectar',
   connected: 'Connectat',

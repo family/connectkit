@@ -12,6 +12,10 @@ export const ConnectorButton = styled(motion.button)`
   display: block;
   text-decoration: none;
 `;
+export const ConnectorAnchor = styled(motion.a)`
+  display: block;
+  text-decoration: none;
+`;
 export const ConnectorLabel = styled(motion.span)``;
 export const ConnectorIcon = styled(motion.div)``;
 
@@ -211,6 +215,12 @@ const styles = {
       }
       &[data-shape='square'] {
         border-radius: 0;
+      }
+
+      &[data-background='true'] {
+        border-radius: 22.5%;
+        background: var(--ck-body-background-tertiary);
+        padding: 8%;
       }
     `,
   },
