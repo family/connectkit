@@ -50,7 +50,7 @@ type OpenfortProviderProps = {
  * import { WagmiConfig, createConfig } from 'wagmi';
  * import { OpenfortProvider } from '@openfort/openfort-react';
  *
- * const config = createConfig({ /* wagmi configuration */ });
+ * const config = createConfig({ YOU_WAGMI_CONFIG_HERE });
  *
  * export function App() {
  *   return (
