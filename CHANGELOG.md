@@ -2,12 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.13] - 2025-09-25
+## [0.0.13] - 2025-09-26
 
 ### Feat
 
 - Improve email login flow
 - Add APPLE Auth provider
+- Add type descriptions
 
 ## [0.0.12] - 2025-09-25
 
