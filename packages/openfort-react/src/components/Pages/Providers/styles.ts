@@ -1,14 +1,80 @@
+import { motion } from "framer-motion";
 import styled from "../../../styles/styled";
 import Button from "../../Common/Button";
 import { ButtonContainer, ButtonContainerInner, InnerContainer } from "../../Common/Button/styles";
+import { Input } from "../../Common/Input/styles";
+
+export const ProviderInputInner = styled.div`
+  border-radius: var(--ck-secondary-button-border-radius);
+  font-size: 1rem;
+  color: var(--ck-body-color);
+  transition: all 0.2s;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: var(--ck-secondary-button-box-shadow);
+  background: var(--ck-secondary-button-background);
+
+  padding-right: 20px;
+
+  &:focus-within {
+    box-shadow: var(--ck-secondary-button-hover-box-shadow);
+  }
+
+  input {
+    padding-left: 20px;
+    padding-right: 10px;
+
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+
+    ::placeholder {
+      color: var(--ck-body-color-muted);
+    }
+    
+    width: 100%;
+    height: 100%;
+  }
+`
+
+export const EmailInnerButton = styled(motion.button)`
+  color: var(--ck-body-action-color);
+  transition: background-color 200ms ease, transform 100ms ease, color 200ms ease, transition 200ms ease;
+  border-radius: 16px;
+  
+  svg {
+    display: block;
+    position: relative;
+    padding: 4px;
+  }
+
+  &:enabled {
+    cursor: pointer;
+    &:hover {
+      background: var(--ck-body-background-secondary);
+      color: var(--ck-body-action-hover-color);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+`
 
 export const ProvidersButton = styled.div`
-
   ${ButtonContainer} {
     height: 64px;
     font-size: 17px;
     font-weight: var(--ck-primary-button-font-weight, 500);
     line-height: 20px;
+  }
+
+  ${ProviderInputInner} {
+    height: 64px;
   }
 
   &:first-of-type {

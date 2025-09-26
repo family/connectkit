@@ -88,7 +88,6 @@ export const OpenfortProvider = ({
     );
   }
 
-
   const chains = useChains();
 
   const injectedConnector = useConnector('injected');
@@ -172,6 +171,7 @@ export const OpenfortProvider = ({
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>('');
 
   const [resize, onResize] = useState<number>(0);
+  const [emailInput, setEmailInput] = useState("");
 
   // Include Google Font that is needed for a themes
   if (safeUiConfig.embedGoogleFonts) useThemeFont(ckTheme);
@@ -227,6 +227,8 @@ export const OpenfortProvider = ({
     errorMessage,
     debugMode,
     log,
+    emailInput,
+    setEmailInput,
     displayError: (message: string | React.ReactNode | null, code?: any) => {
       setErrorMessage(message);
       console.log('---------OPENFORT DEBUG---------');

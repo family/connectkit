@@ -21,7 +21,6 @@ import { useOpenfortCore } from '../../openfort/useOpenfort';
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import { routes } from '../Openfort/types';
 import EmailLogin from '../Pages/EmailLogin';
-import EmailSignup from '../Pages/EmailSignup';
 import EmailVerification from '../Pages/EmailVerification';
 import ForgotPassword from '../Pages/ForgotPassword';
 import LinkEmail from '../Pages/LinkEmail';
@@ -106,7 +105,6 @@ const ConnectModal: React.FC<{
     socialProviders: <SocialProviders />,
 
     emailLogin: <EmailLogin />,
-    emailSignup: <EmailSignup />,
     forgotPassword: <ForgotPassword />,
     emailVerification: <EmailVerification />,
     linkEmail: <LinkEmail />,

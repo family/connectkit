@@ -1,9 +1,9 @@
 import { EmbeddedState, RecoveryMethod } from "@openfort/openfort-js";
 import { motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from "react";
-import { Hex, setErrorConfig } from "viem";
+import { Hex } from "viem";
 import { useAccount, useEnsName } from "wagmi";
-import { FingerPrintIcon, GuestIcon, KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
+import { FingerPrintIcon, KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
 import { embeddedWalletId } from "../../../constants/openfort";
 import { UserWallet, useWallets } from "../../../hooks/openfort/useWallets";
 import { useEnsFallbackConfig } from "../../../hooks/useEnsFallbackConfig";
@@ -14,14 +14,14 @@ import CopyToClipboard from "../../Common/CopyToClipboard";
 import FitText from "../../Common/FitText";
 import Input from "../../Common/Input";
 import Loader from "../../Common/Loading";
-import { BackButton, ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
+import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
 import TickList from "../../Common/TickList";
 import { FloatingGraphic } from "../../FloatingGraphic";
 import { useOpenfort } from '../../Openfort/useOpenfort';
 import { getPasswordStrength, MEDIUM_SCORE_THRESHOLD } from "../../PasswordStrength/password-utility";
 import { PasswordStrengthIndicator } from "../../PasswordStrength/PasswordStrengthIndicator";
-import { OtherMethodButton } from "./styles";
 import { ProviderIcon, ProviderLabel, ProvidersButton } from "../Providers/styles";
+import { OtherMethodButton } from "./styles";
 
 // TODO: Localize
 
@@ -165,9 +165,6 @@ const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
 
   return (
     <PageContent>
-      <BackButton
-        onClick={(() => setShouldRecoverWallet(false))}
-      />
       <Loader
         icon={<FingerPrintIcon />}
         isError={!!recoveryError}

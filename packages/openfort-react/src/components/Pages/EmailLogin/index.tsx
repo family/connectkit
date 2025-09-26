@@ -1,8 +1,6 @@
 import { AuthActionRequiredActions } from '@openfort/openfort-js';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import React from "react";
-import { emailToVerifyLocalStorageKey } from '../../../constants/openfort';
-import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import Button from "../../Common/Button";
 import { TextLinkButton } from "../../Common/Button/styles";
 import FitText from "../../Common/FitText";
@@ -12,6 +10,8 @@ import { ModalBody, PageContent } from "../../Common/Modal/styles";
 import { TextContainer } from "../../ConnectButton/styles";
 import { routes } from '../../Openfort/types';
 import { useOpenfort } from '../../Openfort/useOpenfort';
+import { FooterContainer } from './styles';
+import { useEmailAuth } from '../../../hooks/openfort/auth/useEmailAuth';
 
 // TODO: Localize
 
@@ -36,41 +36,67 @@ const textVariants: Variants = {
 };
 
 const EmailLogin: React.FC = () => {
-  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setRoute, log } = useOpenfort();
-  const { client } = useOpenfortCore();
+  const { setRoute, triggerResize, log, setEmailInput: setEmail, emailInput: email } = useOpenfort();
 
-  const [loginLoading, setLoginLoading] = React.useState(false);
-  const [loginError, setLoginError] = React.useState<false | string>(false);
+  const [isRegister, setIsRegister] = React.useState(false);
+
+  const { signUpEmail, signInEmail, error: loginError, isLoading: loginLoading } = useEmailAuth({
+    recoverWalletAutomatically: false
+  });
 
   const handleSubmit = async () => {
-    setLoginLoading(true);
-    client.auth.logInWithEmailPassword({
+    setIsRegister(false);
+    setTimeout(() => {
+      triggerResize();
+    });
+    const { error, requiresEmailVerification } = await signInEmail({
       email,
-      password
-    }).catch((e) => {
-      log("Login error:", e);
-      setLoginLoading(false);
-      setLoginError("Invalid email or password.");
-    }).then((user) => {
-      // log("User", user);
-      if (!user) {
-        setLoginLoading(false);
-        setLoginError("Invalid email or password.");
-        return;
-      }
+      password,
+    })
 
-      if ("action" in user && user.action === AuthActionRequiredActions.ACTION_VERIFY_EMAIL) {
-        log("User needs to verify email");
-        localStorage.setItem(emailToVerifyLocalStorageKey, email);
+    log("SIGN IN RESPONSE", { error, requiresEmailVerification });
+
+    if (!error) {
+      if (requiresEmailVerification) {
         setRoute(routes.EMAIL_VERIFICATION);
       } else {
         setRoute(routes.RECOVER);
       }
-    });
+    } else {
+      setTimeout(() => {
+        triggerResize();
+      }, 100);
+    }
   }
+
+
+  const handleSignUp = async () => {
+    setIsRegister(true);
+    setTimeout(() => {
+      triggerResize();
+    });
+    const { error, requiresEmailVerification } = await signUpEmail({
+      email,
+      password,
+    })
+
+    log("SIGN UP RESPONSE", { error, requiresEmailVerification });
+    if (!error) {
+      if (requiresEmailVerification) {
+        setRoute(routes.EMAIL_VERIFICATION);
+      } else {
+        setRoute(routes.RECOVER);
+      }
+    } else {
+      setTimeout(() => {
+        triggerResize();
+      }, 100);
+    }
+  }
+
+  const errorMessage = loginError ? loginError.message === "Unauthorized" ? "Invalid email or password" : null : null;
 
   return (
     <PageContent>
@@ -94,12 +120,12 @@ const EmailLogin: React.FC = () => {
           type="password"
           placeholder="Enter your password"
           disabled={loginLoading}
+          autoFocus
         />
 
         <ModalBody style={{ marginTop: 12 }} $error={!!loginError}>
           <AnimatePresence initial={false}>
             <motion.div
-              style={{ height: 24 }}
               key={loginError ? "error" : "no-error"}
               initial={'initial'}
               animate={'animate'}
@@ -110,9 +136,13 @@ const EmailLogin: React.FC = () => {
                 maxFontSize={80}
                 key={loginError ? "text-error" : "text-no-error"}
               >
-                <span style={{ color: "var(--color-error)", marginRight: "4px" }} >
-                  {loginError ? loginError : ""}
+                <span style={{ textAlign: "center", color: "var(--color-error)", marginRight: "4px" }} >
+                  {errorMessage}
                 </span>
+              </FitText>
+              <FitText
+                maxFontSize={80}
+              >
                 <TextLinkButton
                   type="button"
                   onClick={() => {
@@ -139,7 +169,9 @@ const EmailLogin: React.FC = () => {
                 exit={'exit'}
                 variants={textVariants}
               >
-                Logging in...
+                {
+                  isRegister ? 'Signing up...' : 'Logging in...'
+                }
               </TextContainer>
             ) : (
               <TextContainer
@@ -149,21 +181,21 @@ const EmailLogin: React.FC = () => {
                 exit={'exit'}
                 variants={textVariants}
               >
-                Log in
+                Sign in
               </TextContainer>
             )}
           </AnimatePresence>
         </Button>
       </form>
-      <div style={{ marginTop: 16 }}>
-        <OrDivider />
-      </div>
-      <Button
-        onClick={() => { setRoute(routes.EMAIL_SIGNUP) }}
-        disabled={loginLoading}
-      >
-        Sign up
-      </Button>
+      <FooterContainer>
+        or
+        <button
+          onClick={handleSignUp}
+          disabled={loginLoading}
+        >
+          Sign up
+        </button>
+      </FooterContainer>
     </PageContent >
   )
 }

@@ -9,9 +9,7 @@ import { routes } from "../../Openfort/types";
 
 // TODO: Localize
 const RequestEmail: React.FC = () => {
-  const [email, setEmail] = React.useState("");
-
-  const { log, triggerResize } = useOpenfort();
+  const { log, triggerResize, emailInput: email, setEmailInput: setEmail, setRoute } = useOpenfort();
   const { client } = useOpenfortCore();
 
   const [loading, setLoading] = React.useState(false);
@@ -51,6 +49,9 @@ const RequestEmail: React.FC = () => {
       redirectUrl: cleanURL + `?openfortForgotPasswordUI=true&email=${email}`,
     }).then(() => {
       setMessage("Reset email sent.");
+      setTimeout(() => {
+        setRoute(routes.EMAIL_LOGIN);
+      }, 1000);
       setLoading(false);
     }).catch((e) => {
       log(e);

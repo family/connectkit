@@ -10,7 +10,7 @@ import {
 } from '../../types';
 
 
-import { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js';
+import { AccountTypeEnum, RecoveryMethod, OAuthProvider, BasicAuthProvider } from '@openfort/openfort-js';
 import { CoreOpenfortProviderProps } from '../../openfort/CoreOpenfortProvider';
 
 export const routes = {
@@ -21,7 +21,6 @@ export const routes = {
   RECOVER: 'recover',
 
   EMAIL_LOGIN: 'emailLogin',
-  EMAIL_SIGNUP: 'emailSignup',
   FORGOT_PASSWORD: 'forgotPassword',
   EMAIL_VERIFICATION: 'emailVerification',
   LINK_EMAIL: 'linkEmail',
@@ -40,18 +39,19 @@ export const routes = {
 } as const;
 
 export enum UIAuthProvider {
-  GOOGLE = "google",
-  TWITTER = "twitter",
-  FACEBOOK = "facebook",
+  GOOGLE = OAuthProvider.GOOGLE,
+  TWITTER = OAuthProvider.TWITTER,
+  FACEBOOK = OAuthProvider.FACEBOOK,
 
-  DISCORD = "discord",
+  DISCORD = OAuthProvider.DISCORD,
   // EPIC_GAMES = "epic_games",
   // LINE = "line",
   // TELEGRAM = "telegram", // Telegram is not working yet
+  APPLE = OAuthProvider.APPLE,
 
   // Extended Providers
-  EMAIL = "email",
-  WALLET = "wallet",
+  EMAIL = BasicAuthProvider.EMAIL,
+  WALLET = BasicAuthProvider.WALLET,
   GUEST = "guest",
 }
 
@@ -60,6 +60,7 @@ export const socialProviders = [
   UIAuthProvider.TWITTER,
   UIAuthProvider.FACEBOOK,
   UIAuthProvider.DISCORD,
+  UIAuthProvider.APPLE,
 ]
 
 type PolicyConfig = string | Record<number, string>;
