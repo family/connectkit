@@ -84,6 +84,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
       });
       setRequiresEmailVerification(false);
 
+      if (!options.email || !options.password) {
+        const error = new OpenfortError("Email and password are required", OpenfortErrorType.VALIDATION_ERROR);
+        setStatus({
+          status: 'error',
+          error
+        });
+        return onError<EmailAuthResult>({
+          hookOptions,
+          options,
+          error,
+        });
+      }
+
       const result = await client.auth.logInWithEmailPassword({
         email: options.email,
         password: options.password,
@@ -228,6 +241,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
 
   const signUpEmail = useCallback(async (options: SignUpEmailOptions): Promise<EmailAuthResult> => {
     try {
+      if (!options.email || !options.password) {
+        const error = new OpenfortError("Email and password are required", OpenfortErrorType.VALIDATION_ERROR);
+        setStatus({
+          status: 'error',
+          error
+        });
+        return onError<EmailAuthResult>({
+          hookOptions,
+          options,
+          error,
+        });
+      }
+
       setStatus({
         status: 'loading',
       });

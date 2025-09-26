@@ -7,8 +7,6 @@ import Loader from "../../Common/Loading";
 import { ModalBody, ModalContent, ModalH1, PageContent } from "../../Common/Modal/styles";
 import { useOpenfort } from '../../Openfort/useOpenfort';
 import { routes } from "../../Openfort/types";
-import { FloatWrapper, Graphic, GraphicBackground, Logo, LogoGraphic, LogoGroup, LogoInner, LogoPosition, RotateWrapper } from "../../FloatingGraphic/styles";
-import { emailToVerifyLocalStorageKey } from "../../../constants/openfort";
 import Button from "../../Common/Button";
 import { FloatingGraphic } from "../../FloatingGraphic";
 
@@ -20,11 +18,10 @@ type VerificationResponse = {
 
 const EmailVerification: React.FC = () => {
   const { client } = useOpenfortCore();
-  const { setRoute, log } = useOpenfort();
+  const { setRoute, log, emailInput: emailInStorage } = useOpenfort();
 
   const [loading, setLoading] = useState(true);
   const [shouldSendEmailVerification, setShouldSendEmailVerification] = useState<false | string>(false);
-  const emailInStorage = useMemo(() => localStorage.getItem(emailToVerifyLocalStorageKey), [])
   const [verificationResponse, setVerificationResponse] = useState<VerificationResponse | null>(null);
 
   const sendEmailVerification = async (email: string) => {
@@ -63,7 +60,6 @@ const EmailVerification: React.FC = () => {
       }
 
       setShouldSendEmailVerification(emailInStorage);
-      localStorage.removeItem(emailToVerifyLocalStorageKey);
       setLoading(false);
       return;
     }

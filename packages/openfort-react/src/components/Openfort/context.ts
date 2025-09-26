@@ -48,6 +48,8 @@ export type ContextValue = {
   walletConfig?: OpenfortWalletConfig;
   overrides?: SDKOverrides;
   thirdPartyAuth?: ThirdPartyAuthConfiguration;
+  emailInput: string;
+  setEmailInput: React.Dispatch<React.SetStateAction<string>>;
 } & useConnectCallbackProps;
 
 export const Openfortcontext = createContext<ContextValue | null>(null);

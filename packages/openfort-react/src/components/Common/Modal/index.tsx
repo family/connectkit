@@ -328,9 +328,7 @@ const Modal: React.FC<ModalProps> = ({
       case routes.PROVIDERS:
         return "Connect";// TODO: Localize
       case routes.EMAIL_LOGIN:
-        return "Email Login";// TODO: Localize
-      case routes.EMAIL_SIGNUP:
-        return "Email Signup";// TODO: Localize
+        return "Continue with email";// TODO: Localize
       case routes.FORGOT_PASSWORD:
         return "Reset your password";// TODO: Localize
       case routes.EMAIL_VERIFICATION:

@@ -7,11 +7,14 @@ import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import Button from "../../Common/Button";
 import Loader from "../../Common/Loading";
-import { PageContent } from "../../Common/Modal/styles";
+import { BackButton, PageContent } from "../../Common/Modal/styles";
 import PoweredByFooter from "../../Common/PoweredByFooter";
 import { UIAuthProvider, routes, socialProviders } from "../../Openfort/types";
 import { useOpenfort } from '../../Openfort/useOpenfort';
-import { ProviderIcon, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
+import { EmailInnerButton, ProviderIcon, ProviderInputInner, ProviderLabel, ProvidersButton as ProvidersButtonStyle } from "./styles";
+import { Arrow, ArrowChevron, ArrowLine, ButtonContainerInner } from "../../Common/Button/styles";
+import { Input } from "../../Common/Input/styles";
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ProviderButton: React.FC<{
   onClick: () => void;
@@ -68,13 +71,90 @@ const WalletButton: React.FC = () => {
 const EmailButton: React.FC = () => {
   const { setRoute } = useOpenfort();
   const { user } = useOpenfortCore();
+  const { emailInput, setEmailInput } = useOpenfort();
 
-  return <ProviderButton
-    onClick={() => setRoute(user ? routes.LINK_EMAIL : routes.EMAIL_LOGIN)}
-    icon={<EmailIcon />}
-  >
-    Email
-  </ProviderButton>
+  const handleSubmit = (e: React.FormEvent | React.MouseEvent) => {
+    e.preventDefault();
+    setRoute(user ? routes.LINK_EMAIL : routes.EMAIL_LOGIN);
+  }
+
+  return (
+    <ProvidersButtonStyle>
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <ProviderInputInner>
+          <input
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+            type="email"
+            placeholder="Enter your email"
+            autoFocus
+            formNoValidate
+          />
+          <div
+            style={{ position: "relative" }}
+          >
+
+            <AnimatePresence initial={false}>
+              {
+                emailInput ? (
+                  <EmailInnerButton
+                    initial={{ x: -5, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -5, opacity: 0, position: "absolute" }}
+                    transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
+                    type="submit"
+                    key={emailInput ? "enabled" : "disabled"}
+                    aria-label="Submit email"
+                  >
+                    <ProviderIcon>
+                      <svg
+                        width="13"
+                        height="12"
+                        viewBox="0 0 13 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <line
+                          stroke="currentColor"
+                          x1="1"
+                          y1="6"
+                          x2="12"
+                          y2="6"
+                          strokeWidth="1"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          stroke="currentColor"
+                          d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
+                          strokeWidth="1"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </ProviderIcon>
+                  </EmailInnerButton>
+                ) : (
+                  <motion.div
+                    initial={{ x: 5, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: 5, opacity: 0, position: "absolute" }}
+                    transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
+                  >
+                    <ProviderIcon>
+                      <EmailIcon />
+                    </ProviderIcon>
+                  </motion.div>
+                )
+              }
+            </AnimatePresence>
+          </div>
+
+        </ProviderInputInner>
+      </form>
+    </ProvidersButtonStyle>
+  );
 }
 
 const AuthProviderButton: React.FC<{ provider: OAuthProvider, title?: string, icon?: React.ReactNode }> = ({ provider, title = provider + " login", icon }) => {
@@ -132,6 +212,14 @@ export const ProviderButtonSwitch: React.FC<{ provider: UIAuthProvider }> = ({ p
         <AuthProviderButton
           provider={OAuthProvider.DISCORD}
           title="Discord"
+          icon={providersLogos[provider]}
+        />
+      )
+    case UIAuthProvider.APPLE:
+      return (
+        <AuthProviderButton
+          provider={OAuthProvider.APPLE}
+          title="Apple"
           icon={providersLogos[provider]}
         />
       )
