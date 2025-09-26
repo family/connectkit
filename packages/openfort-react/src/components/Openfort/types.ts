@@ -65,9 +65,9 @@ export const socialProviders = [
 type PolicyConfig = string | Record<number, string>;
 
 type CommonWalletConfig = {
-  /** Publishable key for the Shield API */
+  /** Publishable key for the Shield API. */
   shieldPublishableKey: string;
-  /** Policy ID (pol_...) for the embedded signer */
+  /** Policy ID (pol_...) for the embedded signer. */
   ethereumProviderPolicyId?: PolicyConfig;
   accountType?: AccountTypeEnum;
   debug?: boolean;
@@ -75,29 +75,24 @@ type CommonWalletConfig = {
 
 type EncryptionSession =
   | {
-    /** Function to retrieve an encryption session using a session ID */
+    /** Function to retrieve an encryption session using a session ID. */
     getEncryptionSession?: (accessToken: string) => Promise<string>;
     createEncryptedSessionEndpoint?: never;
   }
   | {
-    /** API endpoint for creating an encrypted session */
+    /** API endpoint for creating an encrypted session. */
     getEncryptionSession?: never;
     createEncryptedSessionEndpoint?: string;
   };
 
 /**
- * Configuration for automatic recovery.
- * - An encryption session is required.
- * 
- * Configuration for password-based recovery.
- * - An encryption session, OR
- * - A `shieldEncryptionKey` without an encryption session.
- * 
- * Encryption session can be created using either:
- * - `createEncryptedSessionEndpoint` as a string, OR
- * - `getEncryptionSession.` as a function that returns a promise.
+ * Configuration for wallet recovery behaviour.
+ *
+ * @remarks
+ * Automatic recovery requires an encryption session, which may be supplied via
+ * the `createEncryptedSessionEndpoint` endpoint or the `getEncryptionSession` callback.
+ * Password-based and passkey-based recovery methods do not require encryption sessions.
  */
-
 export type OpenfortWalletConfig = CommonWalletConfig & EncryptionSession;
 
 export type OpenfortUIOptions = {
@@ -127,18 +122,21 @@ export type ConnectUIOptions = {
   hideTooltips?: boolean;
   hideRecentBadge?: boolean;
   walletConnectCTA?: 'link' | 'modal' | 'both';
-  avoidLayoutShift?: boolean; // Avoids layout shift when the Openfort modal is open by adding padding to the body
-  embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
+  /** Avoids layout shift when the Openfort modal is open by adding padding to the body. */
+  avoidLayoutShift?: boolean;
+  /** Automatically embeds the Google font of the current theme. Does not work with custom themes. */
+  embedGoogleFonts?: boolean;
   truncateLongENSAddress?: boolean;
   walletConnectName?: string;
   reducedMotion?: boolean;
   disclaimer?: ReactNode | string;
-  /** Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.) */
+  /** Buffer polyfill, needed for bundlers that do not provide Node polyfills (e.g. CRA, Vite, etc.). */
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
   initialChainId?: number;
   enforceSupportedChains?: boolean;
-  overlayBlur?: number; // Blur the background when the modal is open
+  /** Blur intensity applied to the background when the modal is open. */
+  overlayBlur?: number;
   walletRecovery?: WalletRecoveryOptions;
 
 } & Partial<OpenfortUIOptions>;
@@ -159,19 +157,24 @@ export type OpenfortUIOptionsExtended = {
   hideNoWalletCTA?: boolean;
   hideRecentBadge?: boolean;
   walletConnectCTA?: 'link' | 'modal' | 'both';
-  avoidLayoutShift?: boolean; // Avoids layout shift when the Openfort modal is open by adding padding to the body
-  embedGoogleFonts?: boolean; // Automatically embeds Google Font of the current theme. Does not work with custom themes
+  /** Avoids layout shift when the Openfort modal is open by adding padding to the body. */
+  avoidLayoutShift?: boolean;
+  /** Automatically embeds the Google font of the current theme. Does not work with custom themes. */
+  embedGoogleFonts?: boolean;
   truncateLongENSAddress?: boolean;
   walletConnectName?: string;
   reducedMotion?: boolean;
   disclaimer?: ReactNode | string;
+  /** Buffer polyfill, needed for bundlers that do not provide Node polyfills (e.g. CRA, Vite, etc.). */
   bufferPolyfill?: boolean;
   customAvatar?: React.FC<CustomAvatarProps>;
   initialChainId?: number;
   enforceSupportedChains?: boolean;
   ethereumOnboardingUrl?: string;
   walletOnboardingUrl?: string;
-  disableSiweRedirect?: boolean; // Disable redirect to SIWE page after a wallet is connected
-  overlayBlur?: number; // Blur the background when the modal is open
+  /** Disable redirect to the SIWE page after a wallet is connected. */
+  disableSiweRedirect?: boolean;
+  /** Blur intensity applied to the background when the modal is open. */
+  overlayBlur?: number;
   walletRecovery: WalletRecoveryOptionsExtended;
 } & OpenfortUIOptions;

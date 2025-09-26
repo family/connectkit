@@ -95,8 +95,10 @@ export default {
 
   '--ck-recent-badge-top-offset': '0px',
 
-  /** Graphics options for our themes, not to be exposed to devs */
   /**
+   * Graphics options for our themes, not to be exposed to developers.
+   */
+  /*
   '--ck-graphic-primary-color': '#111111',
   '--ck-graphic-primary-background': '#ffffff',
   '--ck-graphic-primary-box-shadow': 'inset 0 0 0 1px #EBEBEB',

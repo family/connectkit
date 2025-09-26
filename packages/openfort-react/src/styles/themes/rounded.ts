@@ -115,7 +115,9 @@ export default {
   '--ck-recent-badge-box-shadow': 'inset 0 0 0 2px currentColor',
   '--ck-recent-badge-top-offset': '0px',
 
-  /** Graphics options for our themes, not to be exposed to devs */
+  /**
+   * Graphics options for our themes, not to be exposed to developers.
+   */
   /*
   '--ck-graphic-primary-color': '#6C7381',
   '--ck-graphic-primary-background': '#ffffff',

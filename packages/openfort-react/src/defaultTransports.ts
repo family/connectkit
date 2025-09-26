@@ -1,9 +1,9 @@
 /**
- * TODO: Automate transports based on configured chains
+ * Helpers for constructing default Wagmi transports for supported chains.
  *
- * Developers using this causes loss of granular control over a dapps transports,
- * but for simple use cases, it's nice to have and saves a lot of boilerplate.
- *
+ * These utilities favour convenience over granular control, making them suitable for
+ * straightforward integrations where automatically configuring transports is preferable to
+ * repeating boilerplate in every application.
  */
 
 import { fallback, http, webSocket } from 'wagmi';
@@ -13,6 +13,17 @@ import { type HttpTransport, type WebSocketTransport } from 'viem';
 
 import { chainConfigs } from './constants/chainConfigs';
 
+/**
+ * Builds a transport based on the configured provider and chain.
+ *
+ * @param params - Provider information used to construct the transport.
+ * @param params.chain - Wagmi chain to resolve RPC endpoints for.
+ * @param params.provider - RPC provider strategy used to fetch chain URLs.
+ * @param params.apiKey - Service specific API key appended to generated URLs.
+ * @returns A configured HTTP or WebSocket transport for the provider, or a default HTTP transport when no matching endpoint exists.
+ *
+ * @internal
+ */
 const createTransport = ({
   chain,
   provider = 'public',
@@ -41,12 +52,35 @@ const createTransport = ({
   return http();
 };
 
+/**
+ * Options for {@link getDefaultTransports}.
+ */
 type GetDefaultTransportsProps = {
   chains?: CreateConfigParameters['chains'];
   alchemyId?: string;
   infuraId?: string;
 };
 
+/**
+ * Creates a map of Wagmi transports for the provided chains.
+ *
+ * @param props - Configuration for the generated transports.
+ * @param props.chains - Chains that require transports. Defaults to popular EVM chains.
+ * @param props.alchemyId - Alchemy API key used to prioritise Alchemy transports when available.
+ * @param props.infuraId - Infura API key used to prioritise Infura transports when available.
+ * @returns A record mapping chain identifiers to their fallback transport configuration.
+ *
+ * @example
+ * ```ts
+ * import { createConfig } from 'wagmi';
+ * import { getDefaultTransports } from '@openfort/openfort-react';
+ *
+ * const config = createConfig({
+ *   chains: [mainnet],
+ *   transports: getDefaultTransports({ alchemyId: process.env.ALCHEMY_ID ?? '' }),
+ * });
+ * ```
+ */
 export const getDefaultTransports = ({
   chains = [mainnet, polygon, optimism, arbitrum],
   alchemyId,

@@ -1,5 +1,5 @@
 /**
- * TODO: Move hex colors into css variables for p3 support
+ * TODO: Move hex colours into CSS variables for P3 support.
  */
 
 const Chrome = (

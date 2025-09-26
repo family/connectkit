@@ -1,5 +1,12 @@
 /**
- * This provider is responsible for handling reusable web3 logic across the app.
+ * Provides reusable Web3 state and helpers to descendant components.
+ *
+ * @example
+ * ```tsx
+ * <Web3ContextProvider>
+ *   <WalletSelector />
+ * </Web3ContextProvider>
+ * ```
  */
 
 import { createContext, useContext } from 'react';
@@ -71,4 +78,14 @@ export const Web3ContextProvider = ({
   return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
 };
 
+/**
+ * React hook to access the {@link Web3Context} values.
+ *
+ * @returns Shared Web3 utilities exposed by the provider.
+ *
+ * @example
+ * ```ts
+ * const { account } = useWeb3();
+ * ```
+ */
 export const useWeb3 = () => useContext(Web3Context);
