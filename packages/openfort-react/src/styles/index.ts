@@ -132,7 +132,7 @@ const themeColors = {
 };
 
 /**
- * Automatically use Display-P3 colour space when it is available.
+ * Generates CSS custom property declarations from the given theme map.
  */
 //  TODO: Don't use :any type
 const createCssVars = (scheme: any, important?: boolean) => {
@@ -143,6 +143,12 @@ const createCssVars = (scheme: any, important?: boolean) => {
   })}
   `;
 };
+/**
+ * Expands a theme colour map into CSS custom properties, using Display-P3 values when supported.
+ *
+ * @param scheme - Map of CSS custom property names to hex colour values.
+ * @param override - When `true`, appends `!important` to each declaration.
+ */
 const createCssColors = (scheme: any, override?: boolean) => {
   const important = override ? ' !important' : '';
   return css`

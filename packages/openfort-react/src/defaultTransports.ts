@@ -20,7 +20,7 @@ import { chainConfigs } from './constants/chainConfigs';
  * @param params.chain - Wagmi chain to resolve RPC endpoints for.
  * @param params.provider - RPC provider strategy used to fetch chain URLs.
  * @param params.apiKey - Service specific API key appended to generated URLs.
- * @returns A configured HTTP or WebSocket transport matching the provider.
+ * @returns A configured HTTP or WebSocket transport for the provider, or a default HTTP transport when no matching endpoint exists.
  *
  * @internal
  */
