@@ -89,9 +89,9 @@ type EncryptionSession =
  * Configuration for wallet recovery behaviour.
  *
  * @remarks
- * Automatic recovery requires an encryption session. Password-based recovery can use either
- * an encryption session or a `shieldEncryptionKey`. Encryption sessions may be supplied via
+ * Automatic recovery requires an encryption session, which may be supplied via
  * the `createEncryptedSessionEndpoint` endpoint or the `getEncryptionSession` callback.
+ * Password-based and passkey-based recovery methods do not require encryption sessions.
  */
 export type OpenfortWalletConfig = CommonWalletConfig & EncryptionSession;
 
