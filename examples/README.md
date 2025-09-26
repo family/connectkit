@@ -8,8 +8,9 @@ Instead of cloning the entire repository, you can download just the example you 
 
 ```bash
 # Download a specific example
-npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase
-npx gitpick openfort-xyz/openfort-react/tree/main/examples/playground
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase openfort-firebase && cd openfort-firebase
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/headless openfort-headless && cd openfort-headless
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/playground openfort-playground && cd openfort-playground
 ```
 
 ## Available Examples
