@@ -36,19 +36,32 @@ type OpenfortProviderProps = {
 } & useConnectCallbackProps;
 
 /**
- * OpenfortProvider component provides context and configuration for Openfort.
- * It must be used within a WagmiProvider.
+ * Provides Openfort configuration and context to descendant components.
  *
- * @param {React.ReactNode} children - The child components to be wrapped by the provider.
- * @param {string} [theme='auto'] - The theme to be used, default is 'auto'.
- * @param {string} [mode='auto'] - The mode to be used, default is 'auto'.
- * @param {CustomTheme} [customTheme] - Custom theme configuration.
- * @param {ConnectUIOptions} [options] - Additional configuration options.
- * @param {Function} [onConnect] - Callback function to be called on connect.
- * @param {Function} [onDisconnect] - Callback function to be called on disconnect.
- * @param {boolean} [debugMode=false] - Enable or disable debug mode, default is false.
- * @param {OpenfortOptions} [openfortOptions] - Options for Openfort integration.
- * @throws Will throw an error if used outside of a WagmiProvider or if nested usages are detected.
+ * The provider must be rendered within a {@link WagmiContext} and should only be mounted once
+ * to avoid conflicting global state. See {@link OpenfortProviderProps} for the supported options.
+ *
+ * @param props - Provider configuration including callbacks, UI options and the wrapped children.
+ * @returns A React element that sets up the Openfort context.
+ * @throws If the component is rendered outside of a Wagmi provider or mounted multiple times.
+ *
+ * @example
+ * ```tsx
+ * import { WagmiConfig, createConfig } from 'wagmi';
+ * import { OpenfortProvider } from '@openfort/openfort-react';
+ *
+ * const config = createConfig({ /* wagmi configuration */ });
+ *
+ * export function App() {
+ *   return (
+ *     <WagmiConfig config={config}>
+ *       <OpenfortProvider publishableKey={process.env.NEXT_PUBLIC_PUBLISHABLE_KEY!}>
+ *         <YourApp />
+ *       </OpenfortProvider>
+ *     </WagmiConfig>
+ *   );
+ * }
+ * ```
  */
 export const OpenfortProvider = ({
   children,

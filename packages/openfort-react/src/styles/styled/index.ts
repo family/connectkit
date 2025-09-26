@@ -1,12 +1,10 @@
 /**
+ * Workaround to expose the correct styled-components export in ESM builds.
  *
- * IMPORTANT NOTE: This file is a workaround for the following issue:
- *
- * When using rollup with styled-components to build into an ES module, styled components decides to move all of it’s DOM elements into "styled.default" rather than just within "styled"
- *
- * We're unsure as to why this issue occurs, if you have any ideas or a better solution please let us know by opening a discussion on our GitHub repo:
- * https://github.com/openfort-xyz/openfort-react/discussions/new
- *
+ * When using Rollup with styled-components, the DOM helpers may be assigned to `styled.default`
+ * instead of `styled`. This proxy ensures consumers can import `styled` without needing to know
+ * about the bundler quirk. Please open a discussion on GitHub if you have a more robust fix:
+ * https://github.com/openfort-xyz/openfort-react/discussions/new.
  */
 
 import styled from 'styled-components';

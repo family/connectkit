@@ -232,7 +232,7 @@ const ConnectWithInjector: React.FC<{
     };
   }, []);
 
-  /** Timeout functionality if necessary
+  /* Timeout functionality if necessary
   let expiryTimeout: any;
   useEffect(() => {
     if (status === states.EXPIRING) {
@@ -548,7 +548,7 @@ const ConnectWithInjector: React.FC<{
                       <ModalH1>{locales.injectionScreen_install_h1}</ModalH1>
                       <ModalBody>{locales.injectionScreen_install_p}</ModalBody>
                     </ModalContent>
-                    {/**
+                    {/*
                     {(wallet.getWalletConnectDeeplink &&
                     (!wallet.isInstalled && extensionUrl)) && <OrDivider />}
 

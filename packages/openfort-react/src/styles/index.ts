@@ -7,7 +7,7 @@ import { hexToP3 } from '../utils/p3';
 import predefinedThemes from './themes';
 
 /**
- * Theme variables for the modal
+ * Theme variables for the modal.
  */
 const themeGlobals = {
   default: {
@@ -132,7 +132,7 @@ const themeColors = {
 };
 
 /**
- *  Automatically use p3 if available
+ * Automatically use Display-P3 colour space when it is available.
  */
 //  TODO: Don't use :any type
 const createCssVars = (scheme: any, important?: boolean) => {

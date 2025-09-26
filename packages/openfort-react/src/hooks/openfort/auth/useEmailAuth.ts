@@ -61,6 +61,77 @@ export type UseEmailHookOptions = {
   emailVerificationRedirectTo?: string;
 } & OpenfortHookOptions<EmailAuthResult | EmailVerificationResult> & CreateWalletPostAuthOptions;
 
+/**
+ * Hook for email-based authentication operations
+ *
+ * This hook manages email authentication flows including sign-in, sign-up, password reset,
+ * email verification, and email linking. It handles both password and passwordless authentication
+ * and automatically manages wallet connection after successful authentication.
+ *
+ * @param hookOptions - Optional configuration with callback functions and authentication options
+ * @returns Current authentication state with email auth actions
+ *
+ * @example
+ * ```tsx
+ * const emailAuth = useEmailAuth({
+ *   onSignInEmailSuccess: (result) => console.log('Signed in:', result.user),
+ *   onSignInEmailError: (error) => console.error('Sign-in failed:', error),
+ *   emailVerificationRedirectTo: 'https://yourapp.com/verify',
+ *   recoverWalletAutomatically: true,
+ * });
+ *
+ * // Sign up with email and password
+ * await emailAuth.signUpEmail({
+ *   email: 'user@example.com',
+ *   password: 'securePassword123',
+ *   name: 'John Doe',
+ * });
+ *
+ * // Sign in with email and password
+ * await emailAuth.signInEmail({
+ *   email: 'user@example.com',
+ *   password: 'securePassword123',
+ * });
+ *
+ * // Request password reset
+ * await emailAuth.requestResetPassword({
+ *   email: 'user@example.com',
+ * });
+ *
+ * // Reset password with state token
+ * await emailAuth.resetPassword({
+ *   email: 'user@example.com',
+ *   password: 'newPassword123',
+ *   state: 'reset-token-from-email',
+ * });
+ *
+ * // Verify email with state token
+ * await emailAuth.verifyEmail({
+ *   email: 'user@example.com',
+ *   state: 'verification-token-from-email',
+ * });
+ *
+ * // Link email to existing authenticated account
+ * await emailAuth.linkEmail({
+ *   email: 'secondary@example.com',
+ *   password: 'password123',
+ * });
+ *
+ * // Check authentication state
+ * if (emailAuth.isLoading) {
+ *   console.log('Processing authentication...');
+ * } else if (emailAuth.isError) {
+ *   console.error('Authentication error:', emailAuth.error);
+ * } else if (emailAuth.isSuccess) {
+ *   console.log('Authentication successful');
+ * }
+ *
+ * // Handle email verification requirement
+ * if (emailAuth.requiresEmailVerification) {
+ *   console.log('Please check your email to verify your account');
+ * }
+ * ```
+ */
 export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const { log } = useOpenfort();
   const { client, updateUser } = useOpenfortCore();

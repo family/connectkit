@@ -6,21 +6,42 @@ import { embeddedWalletId } from "../../../constants/openfort"
 import { UserWallet, useWallets } from "../useWallets"
 import { useSignOut } from "./useSignOut"
 
+/**
+ * Options that control the behaviour of {@link useConnectToWalletPostAuth} when attempting to
+ * recover or create an embedded wallet after authentication.
+ */
 export type CreateWalletPostAuthOptions = {
   /**
-   * @default true
-   * It will log out the user if there is an error while trying to create a wallet (automatic recovery).
+   * Whether the user should be signed out if automatic wallet creation fails.
+   *
+   * @defaultValue true
    */
   logoutOnError?: boolean;
 
   /**
-   * @default true
-   * It will automatically try to recover the first wallet with automatic recovery.
+   * Whether the hook should automatically attempt to recover an existing wallet that
+   * supports automatic recovery.
+   *
+   * @defaultValue true
    */
   recoverWalletAutomatically?: boolean;
 };
 
-// this hook is used to create a wallet after the user has authenticated
+/**
+ * React hook that attempts to recover or create an embedded wallet once a user has authenticated.
+ *
+ * @returns Helpers that execute the post-authentication wallet connection flow.
+ *
+ * @example
+ * ```ts
+ * const { tryUseWallet } = useConnectToWalletPostAuth();
+ *
+ * const result = await tryUseWallet({ recoverWalletAutomatically: false });
+ * if (!result.wallet) {
+ *   console.warn('No embedded wallet available after authentication');
+ * }
+ * ```
+ */
 export const useConnectToWalletPostAuth = () => {
   const { createWallet, setActiveWallet } = useWallets()
   const { walletConfig } = useOpenfort();
