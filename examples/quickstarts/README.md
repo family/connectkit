@@ -8,10 +8,10 @@ Instead of cloning the entire repository, you can download just the quickstart y
 
 ```bash
 # Download the Firebase quickstart
-npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase openfort-firebase && cd openfort-firebase
 
 # Download the Headless quickstart
-npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/headless
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/headless openfort-headless && cd openfort-headless
 ```
 
 ## Available Quickstarts
