@@ -14,6 +14,7 @@ export const ProviderInputInner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 12px;
 
   box-shadow: var(--ck-secondary-button-box-shadow);
   background: var(--ck-secondary-button-background);
@@ -78,7 +79,7 @@ export const ProvidersButton = styled.div`
   }
 
   &:first-of-type {
-    ${ButtonContainer} {
+    ${ButtonContainer}, ${ProviderInputInner} {
       margin-top: 0;
     }
   }

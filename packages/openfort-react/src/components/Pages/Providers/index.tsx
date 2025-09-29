@@ -90,7 +90,6 @@ const EmailButton: React.FC = () => {
             onChange={(e) => setEmailInput(e.target.value)}
             type="email"
             placeholder="Enter your email"
-            autoFocus
             formNoValidate
           />
           <div
