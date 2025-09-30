@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.17] - 2025-09-30
+
+### Feat
+
+- Update openfort-js
+- Add recoverWalletAutomaticallyAfterAuth to provider
+- Fix onsuccess create wallet callback
+
 ## [0.0.16] - 2025-09-30
 
 ### Fix
