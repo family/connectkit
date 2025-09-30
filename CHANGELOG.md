@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.15] - 2025-09-39
+
+### Feat
+
+- Improve mobile dApp experience
+- Tooltip color gets text color from variable
+- Link email flow improved
+
 ## [0.0.14] - 2025-09-29
 
 ### Fix

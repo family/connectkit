@@ -60,9 +60,7 @@ export const walletConfigs: {
       ios: 'https://apps.apple.com/app/argent/id1358741926',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://argent.link/app/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://argent.link/app/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   'coinbaseWallet, coinbaseWalletSDK': {
@@ -124,9 +122,7 @@ export const walletConfigs: {
       ios: 'https://family.co/download',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `familywallet://wc?uri=${encodeURIComponent(uri)}`;
+      return `familywallet://wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   familyAccountsProvider: {
@@ -165,7 +161,7 @@ export const walletConfigs: {
         'https://chrome.google.com/webstore/detail/frontier-wallet/kppfdiipphfccemcignhifpjkapfbihd',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid() ? uri : `frontier://wc?uri=${encodeURIComponent(uri)}`;
+      return `frontier://wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   injected: {
@@ -191,9 +187,7 @@ export const walletConfigs: {
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   'app.phantom': {
@@ -216,11 +210,7 @@ export const walletConfigs: {
       brave: 'https://rainbow.me/extension?utm_source=connectkit',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://rnbwapp.com/wc?uri=${encodeURIComponent(
-            uri
-          )}&connector=connectkit`;
+      return `https://rnbwapp.com/wc?uri=${encodeURIComponent(uri)}&connector=connectkit`;
     },
   },
   'io.rabby': {
@@ -242,9 +232,7 @@ export const walletConfigs: {
       android: 'https://play.google.com/store/apps/details?id=io.gnosis.safe',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://gnosis-safe.io/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://gnosis-safe.io/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   'xyz.talisman': {
@@ -272,9 +260,7 @@ export const walletConfigs: {
       ios: 'https://apps.apple.com/app/trust-crypto-bitcoin-wallet/id1288339409',
     },
     getWalletConnectDeeplink(uri) {
-      return isAndroid()
-        ? uri
-        : `https://link.trustwallet.com/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://link.trustwallet.com/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   infinityWallet: {
@@ -312,9 +298,7 @@ export const walletConfigs: {
         'https://play.google.com/store/apps/details?id=io.horizontalsystems.bankwallet',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://unstoppable.money/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://unstoppable.money/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   onto: {
@@ -328,9 +312,7 @@ export const walletConfigs: {
       website: 'https://onto.app/en/download/',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://onto.app/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://onto.app/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   steak: {
@@ -344,9 +326,7 @@ export const walletConfigs: {
       website: 'https://steakwallet.fi/download',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://links.steakwallet.fi/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://links.steakwallet.fi/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   ledger: {
@@ -360,9 +340,7 @@ export const walletConfigs: {
       ios: 'https://apps.apple.com/app/ledger-live-web3-wallet/id1361671700',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `ledgerlive://wc?uri=${encodeURIComponent(uri)}`;
+      return `ledgerlive://wc?uri=${encodeURIComponent(uri)}`;
     },
     shouldDeeplinkDesktop: true,
   },
@@ -377,9 +355,7 @@ export const walletConfigs: {
       website: 'https://zerion.io/',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://app.zerion.io/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://app.zerion.io/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   slope: {
@@ -394,9 +370,7 @@ export const walletConfigs: {
       website: 'https://slope.finance/',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `https://slope.finance/app/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://slope.finance/app/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   tokenPocket: {

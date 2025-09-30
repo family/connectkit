@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   WalletList,
@@ -21,6 +21,7 @@ import {
   WalletConfigProps,
   walletConfigs,
 } from '../../../wallets/walletConfigs';
+import { routes } from '../../Openfort/types';
 
 const MoreIcon = (
   <svg
@@ -60,10 +61,9 @@ const MobileConnectors: React.FC = () => {
       return true;
     }) ?? [];
 
-  const connectWallet = (wallet: WalletConfigProps) => {
-    const uri = wallet.getWalletConnectDeeplink?.(wcUri!);
-    if (uri) window.location.href = uri;
-    //if (uri) window.open(uri, '_blank');
+  const connectWallet = (walletId: string) => {
+    context.setRoute(routes.CONNECT_WITH_MOBILE);
+    context.setConnector({ id: walletId });
   };
 
   return (
@@ -96,7 +96,7 @@ const MobileConnectors: React.FC = () => {
                   return (
                     <WalletItem
                       key={i}
-                      onClick={() => connectWallet(wallet)}
+                      onClick={() => connectWallet(walletId)}
                       style={{
                         animationDelay: `${i * 50}ms`,
                       }}

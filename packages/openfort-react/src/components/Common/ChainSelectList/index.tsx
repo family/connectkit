@@ -111,7 +111,7 @@ const ChainSelectList = ({
                     color:
                       ch.id === chain?.id
                         ? 'var(--ck-dropdown-active-color, inherit)'
-                        : 'inherit',
+                        : 'var(--ck-dropdown-color, inherit)'
                   }}
                 >
                   <ChainLogoContainer>
