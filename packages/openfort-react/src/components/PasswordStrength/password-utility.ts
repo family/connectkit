@@ -36,9 +36,19 @@ const SPECIAL_CHARACTERS = '!@#$%^&()\\-*+.';
 const VALID_PASSWORD_CHARACTERS = `a-zA-Z0-9${SPECIAL_CHARACTERS}`;
 
 /**
+ * Escape regex metacharacters for safe use inside a character class.
+ */
+function escapeForCharClass(str) {
+    return str.replace(/[-\\^]/g, '\\$&');
+    // escapes -, \, and ^ (the only risky chars in [])
+}
+
+/**
  * Regular expression to match special characters.
  */
-const SPECIAL_CHARACTER_REGEX = new RegExp(`[${SPECIAL_CHARACTERS}]`);
+const SPECIAL_CHARACTER_REGEX = new RegExp(
+    `[${escapeForCharClass(SPECIAL_CHARACTERS)}]`
+);
 
 /**
  * Regular expression to match valid password characters.
