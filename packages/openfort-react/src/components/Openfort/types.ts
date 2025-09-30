@@ -72,6 +72,7 @@ type CommonWalletConfig = {
   ethereumProviderPolicyId?: PolicyConfig;
   accountType?: AccountTypeEnum;
   debug?: boolean;
+  recoverWalletAutomaticallyAfterAuth?: boolean;
 }
 
 type EncryptionSession =
