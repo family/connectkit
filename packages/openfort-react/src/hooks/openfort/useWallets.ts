@@ -578,6 +578,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
       queryClient.invalidateQueries({ queryKey: ['openfortEmbeddedAccountsList'] })
       return onSuccess({
+        hookOptions,
+        options,
         data: {
           wallet: parseEmbeddedAccount(embeddedAccount, openfortConnector)
         }
