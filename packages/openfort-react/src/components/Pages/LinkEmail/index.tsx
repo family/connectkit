@@ -33,10 +33,9 @@ const textVariants: Variants = {
 };
 
 const LinkEmail: React.FC = () => {
-  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setRoute, triggerResize, log } = useOpenfort();
+  const { setRoute, triggerResize, log, emailInput: email, setEmailInput: setEmail } = useOpenfort();
   const { client, updateUser } = useOpenfortCore();
 
   const [loginLoading, setLoginLoading] = React.useState(false);
@@ -66,6 +65,7 @@ const LinkEmail: React.FC = () => {
     }).then(() => {
       updateUser()
         .then(() => {
+          setEmail("");
           setRoute(routes.PROFILE);
         })
     });
