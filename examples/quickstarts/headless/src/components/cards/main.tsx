@@ -1,13 +1,13 @@
+import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from "@heroicons/react/24/outline";
 import { useStatus } from "@openfort/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { DesktopTabGroup, MobileTabGroup, type TabType } from "../ui/Tabs";
 import { Actions } from "./actions";
 import { Auth } from "./auth";
 import { Head } from "./head";
 import { Profile } from "./profile";
 import { Sign } from "./sign";
 import { Wallets } from "./wallets";
-import { DesktopTabGroup, MobileTabGroup, type TabType } from "../ui/Tabs";
-import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from "@heroicons/react/24/outline";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -77,17 +77,6 @@ export const Main = () => {
     },
   ];
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0]);
-
-  console.log({ isAuthenticated, isConnected });
-
-  useEffect(() => {
-    console.log("Auth or connection status changed", { isAuthenticated, isConnected });
-    if (!isConnected) {
-      setCurrentTab(tabs[3]);
-    } else if (isAuthenticated && isConnected) {
-      setCurrentTab(tabs[0]);
-    }
-  }, [isAuthenticated, isConnected])
 
   if (isLoading) {
     return null;

@@ -1,4 +1,4 @@
-import { KeyIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import { FingerPrintIcon, KeyIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import { RecoveryMethod, useSignOut, useStatus, useUser, useWallets, type UserWallet } from "@openfort/react";
 import { useState } from "react";
 import { CreateWallet, CreateWalletSheet } from "../createWallet";
@@ -20,7 +20,6 @@ export const Wallets = () => {
       <div className="flex gap-2 flex-col w-full">
         <h1>Create a wallet</h1>
         <p>You do not have any wallet yet.</p>
-        {/* <p>Please create a wallet to continue.</p> */}
         <CreateWallet />
       </div>
     )
@@ -29,11 +28,9 @@ export const Wallets = () => {
   const renderWalletRecovery = (wallet: UserWallet) => {
     let Icon = LockClosedIcon;
     let text = "Unknown";
-    // TODO: replace with actual wallet type (Password, Automatic, etc)
-    const method: RecoveryMethod = RecoveryMethod.PASSWORD as RecoveryMethod;
+    const method = wallet.recoveryMethod;
 
-    console.log("Rendering wallet recovery method for wallet:", wallet, method);
-    switch (method) { // TODO: replace with actual wallet type (Password, Automatic, etc)
+    switch (method) {
       case RecoveryMethod.PASSWORD:
         Icon = KeyIcon;
         text = "Password";
@@ -42,9 +39,10 @@ export const Wallets = () => {
         Icon = LockClosedIcon;
         text = "Automatic";
         break;
-      // case RecoveryMethod.:
-      //   Icon = FingerPrintIcon;
-      //   break;
+      case RecoveryMethod.PASSKEY:
+        Icon = FingerPrintIcon;
+        text = "Passkey";
+        break;
     }
 
     return (
@@ -57,19 +55,15 @@ export const Wallets = () => {
 
   const handleWalletClick = (wallet: UserWallet) => {
     if (wallet.isActive || isConnecting) return;
-    // TODO: replace with actual wallet type (Password, Automatic, etc)
-    const method: RecoveryMethod = RecoveryMethod.PASSWORD as RecoveryMethod;
+    const method = wallet.recoveryMethod;
+    if (method === RecoveryMethod.PASSWORD) {
+      setWalletToRecover(wallet);
 
-    switch (method) { // TODO: replace with actual wallet type (Password, Automatic, etc)
-      case RecoveryMethod.PASSWORD:
-        setWalletToRecover(wallet);
-        break;
-      case RecoveryMethod.AUTOMATIC:
-        setActiveWallet({
-          walletId: "xyz.openfort",
-          address: wallet.address,
-        })
-        break;
+    } else {
+      setActiveWallet({
+        walletId: "xyz.openfort",
+        address: wallet.address,
+      })
     }
   }
 
@@ -79,7 +73,7 @@ export const Wallets = () => {
       <p className="mb-4 text-sm text-zinc-400">
         Select a wallet to connect to your account.
       </p>
-      <div className="space-y-4">
+      <div className="space-y-4 pb-4">
         <h2>Your Wallets</h2>
         <div className="flex flex-col space-y-2">
           {wallets.map((wallet) => (
@@ -115,7 +109,7 @@ export const Wallets = () => {
       </div>
       <WalletRecoverPasswordSheet
         wallet={walletToRecover}
-        open={!!walletToRecover} // TODO: open based on wallet type
+        open={!!walletToRecover}
         onClose={() => setWalletToRecover(null)}
       />
       <CreateWalletSheet
