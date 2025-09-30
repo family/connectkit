@@ -48,7 +48,10 @@ export const useConnectToWalletPostAuth = () => {
   const { signOut } = useSignOut();
   const queryClient = useQueryClient();
 
-  const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, recoverWalletAutomatically = true }: CreateWalletPostAuthOptions): Promise<{ wallet?: UserWallet }> => {
+  const tryUseWallet = useCallback(async ({ logoutOnError: signOutOnError = true, recoverWalletAutomatically }: CreateWalletPostAuthOptions): Promise<{ wallet?: UserWallet }> => {
+    if (walletConfig?.recoverWalletAutomaticallyAfterAuth === false && recoverWalletAutomatically === undefined) { return {}; }
+
+    if (recoverWalletAutomatically === undefined) { recoverWalletAutomatically = true; }
     if ((!walletConfig?.createEncryptedSessionEndpoint && !walletConfig?.getEncryptionSession) || !recoverWalletAutomatically) {
       // If there is no encryption session, we cannot create a wallet
       return {};
@@ -70,7 +73,7 @@ export const useConnectToWalletPostAuth = () => {
     }
 
     // Has a wallet with automatic recovery
-    if (wallets.some(w => w.recoveryMethod === RecoveryMethod.AUTOMATIC)) {
+    if (wallets.some(w => w.recoveryMethod === RecoveryMethod.AUTOMATIC || w.recoveryMethod === RecoveryMethod.PASSKEY)) {
       const setWalletResult = await setActiveWallet({
         walletId: embeddedWalletId,
       });

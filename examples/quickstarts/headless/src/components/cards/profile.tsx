@@ -1,5 +1,7 @@
 import { BookOpenIcon } from "@heroicons/react/24/outline";
 import { useSignOut, useUser } from "@openfort/react";
+import { useAccount } from "wagmi";
+import { Wallets } from "./wallets";
 
 export const Profile = ({
   sampleGithubUrl,
@@ -11,6 +13,12 @@ export const Profile = ({
   const { user } = useUser();
   const isLocal = window.location.hostname === "localhost";
   const { signOut } = useSignOut();
+
+  const { isConnected } = useAccount();
+
+  if (!isConnected) {
+    return <Wallets />;
+  }
 
   return (
     <div className="flex flex-col flex-1 gap-4">

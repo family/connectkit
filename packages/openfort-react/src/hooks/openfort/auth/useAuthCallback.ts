@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
-import { useOpenfort } from "../../../components/Openfort/useOpenfort";
-import { BaseFlowState, mapStatus } from "./status";
-import { useOpenfortCore } from "../../../openfort/useOpenfort";
-import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
-import { onError, onSuccess } from "../hookConsistency";
+import { useEffect, useState } from "react";
 import { UIAuthProvider } from "../../../components/Openfort/types";
-import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from "./useConnectToWalletPostAuth";
+import { useOpenfort } from "../../../components/Openfort/useOpenfort";
+import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../../types";
+import { onError } from "../hookConsistency";
+import { CreateWalletPostAuthOptions } from "./useConnectToWalletPostAuth";
 import { EmailVerificationResult, useEmailAuth } from "./useEmailAuth";
 import { StoreCredentialsResult, useOAuth } from "./useOAuth";
 

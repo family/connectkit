@@ -1,6 +1,8 @@
-import { useUser } from "@openfort/react";
-import { auth } from "../../lib/firebase";
 import { BookOpenIcon } from "@heroicons/react/24/outline";
+import { useUser } from "@openfort/react";
+import { useAccount } from "wagmi";
+import { auth } from "../../lib/firebase";
+import { Wallets } from "./wallets";
 
 export const Profile = ({
   sampleGithubUrl,
@@ -11,6 +13,12 @@ export const Profile = ({
 }) => {
   const { user } = useUser();
   const isLocal = window.location.hostname === "localhost";
+
+  const { isConnected } = useAccount();
+
+  if (!isConnected) {
+    return <Wallets />;
+  }
 
   return (
     <div className="flex flex-col flex-1 gap-4">

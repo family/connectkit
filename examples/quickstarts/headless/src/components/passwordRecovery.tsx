@@ -5,8 +5,9 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 type CreateWalletPasswordSheetProps = {
   open: boolean,
   onClose: () => void
+  onCreateWallet?: () => void
 };
-export const CreateWalletPasswordSheet = ({ open, onClose }: CreateWalletPasswordSheetProps) => {
+export const CreateWalletPasswordSheet = ({ open, onClose, onCreateWallet }: CreateWalletPasswordSheetProps) => {
   const { createWallet, error, isCreating, reset } = useWallets();
 
   return (
@@ -16,7 +17,6 @@ export const CreateWalletPasswordSheet = ({ open, onClose }: CreateWalletPasswor
       title="Enter Password"
       description="Please enter the password of your wallet."
     >
-
       <form
         className="flex-1 w-full flex flex-col justify-center max-w-md mx-auto"
         onSubmit={async (e) => {
@@ -25,13 +25,14 @@ export const CreateWalletPasswordSheet = ({ open, onClose }: CreateWalletPasswor
           const password = formData.get("password") as string;
 
           const { error } = await createWallet({
-            recovery:{
+            recovery: {
               recoveryMethod: RecoveryMethod.PASSWORD,
               password
             }
           });
 
           if (!error) {
+            onCreateWallet?.();
             onClose();
           }
         }}
@@ -100,7 +101,7 @@ export const WalletRecoverPasswordSheet = ({ open, onClose, wallet }: WalletReco
 
           setActiveWallet({
             walletId: "xyz.openfort",
-            recovery:{
+            recovery: {
               recoveryMethod: RecoveryMethod.PASSWORD,
               password
             },
