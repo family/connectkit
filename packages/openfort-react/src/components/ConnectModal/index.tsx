@@ -28,6 +28,7 @@ import Loading from '../Pages/Loading';
 import Providers from '../Pages/Providers';
 import RecoverPage from '../Pages/Recover';
 import SocialProviders from '../Pages/SoicalProviders';
+import ConnectWithMobile from './ConnectWithMobile';
 
 const customThemeDefault: object = {};
 
@@ -118,6 +119,7 @@ const ConnectModal: React.FC<{
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     recover: <RecoverPage />,
+    connectWithMobile: <ConnectWithMobile />,
   };
 
   function hide() {

@@ -1,12 +1,11 @@
 import { useOpenfort } from '../../Openfort/useOpenfort';
 
 import {
-  ConnectorAnchor,
   ConnectorButton,
   ConnectorIcon,
   ConnectorLabel,
   ConnectorsContainer,
-  RecentlyUsedTag,
+  RecentlyUsedTag
 } from './styles';
 
 import { useWeb3 } from '../../contexts/web3';
@@ -17,6 +16,10 @@ import { ScrollArea } from '../ScrollArea';
 
 import { embeddedWalletId } from '../../../constants/openfort';
 import { useConnect } from '../../../hooks/useConnect';
+import {
+  useFamilyAccountsConnector,
+  useFamilyConnector,
+} from '../../../hooks/useConnectors';
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import {
   detectBrowser,
@@ -24,13 +27,9 @@ import {
   isPortoConnector,
   isWalletConnectConnector,
 } from '../../../utils';
+import { isFamily } from '../../../utils/wallets';
 import { WalletProps, useWallets } from '../../../wallets/useWallets';
 import { routes } from '../../Openfort/types';
-import {
-  useFamilyAccountsConnector,
-  useFamilyConnector,
-} from '../../../hooks/useConnectors';
-import { isFamily } from '../../../utils/wallets';
 
 const ConnectorList = () => {
   const context = useOpenfort();
@@ -42,7 +41,7 @@ const ConnectorList = () => {
   const familyAccountsConnector = useFamilyAccountsConnector();
 
   let filteredWallets = wallets.filter(
-    (wallet) => wallet.id !== familyAccountsConnector?.id
+    (wallet) => wallet.id !== familyAccountsConnector?.id && wallet.id !== embeddedWalletId
   );
   if (familyConnector && isFamily()) {
     filteredWallets = filteredWallets.filter(
@@ -66,15 +65,15 @@ const ConnectorList = () => {
 
   return (
     <ScrollArea mobileDirection={'horizontal'}>
-      {walletsToDisplay.length === 0 && (
+      {filteredWallets.length === 0 && (
         <Alert error>No connectors found in Openfort config.</Alert>
       )}
-      {walletsToDisplay.length > 0 && (
+      {filteredWallets.length > 0 && (
         <ConnectorsContainer
           $mobile={isMobile}
           $totalResults={walletsToDisplay.length}
         >
-          {walletsToDisplay.map((wallet) =>
+          {filteredWallets.map((wallet) =>
             <ConnectorItem
               key={wallet.id}
               wallet={wallet}
@@ -99,7 +98,7 @@ const ConnectorItem = ({
   const {
     connect: { getUri },
   } = useWeb3();
-  const uri = getUri();
+  const wcUri = getUri();
   const isMobile = useIsMobile();
   const context = useOpenfort();
 
@@ -118,7 +117,7 @@ const ConnectorItem = ({
   let deeplink =
     (!wallet.isInstalled && isMobile) ||
       (wallet.shouldDeeplinkDesktop && !isMobile)
-      ? wallet.getWalletConnectDeeplink?.(uri ?? '')
+      ? wallet.getWalletConnectDeeplink?.(wcUri ?? '')
       : undefined;
 
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
@@ -149,19 +148,17 @@ const ConnectorItem = ({
     </>
   )
 
-  if (deeplink) {
-    <ConnectorAnchor
-      href={deeplink}
-    >
-      {content()}
-    </ConnectorAnchor>
-  }
-
   return (
     <ConnectorButton
       type="button"
       disabled={context.route !== routes.CONNECTORS}
       onClick={() => {
+        if (isMobile && deeplink) {
+          context.setRoute(routes.CONNECT_WITH_MOBILE);
+          context.setConnector({ id: wallet.id });
+          return;
+        }
+
         if (redirectToMoreWallets) {
           context.setRoute(routes.MOBILECONNECTORS);
         } else {

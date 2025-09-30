@@ -30,7 +30,7 @@ export const routes = {
 
   CONNECTORS: 'connectors',
   MOBILECONNECTORS: 'mobileConnectors',
-
+  CONNECT_WITH_MOBILE: 'connectWithMobile',
 
   CONNECT: 'connect',
   DOWNLOAD: 'download',

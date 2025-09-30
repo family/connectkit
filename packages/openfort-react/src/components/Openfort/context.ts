@@ -35,7 +35,7 @@ export type ContextValue = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   route: ValueOf<typeof routes>;
-  setRoute: React.Dispatch<React.SetStateAction<ValueOf<typeof routes>>>;
+  setRoute: (r: ValueOf<typeof routes>) => void;
   connector: Connector;
   setConnector: React.Dispatch<React.SetStateAction<Connector>>;
   errorMessage: ErrorMessage;
