@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.14] - 2025-09-29
+
+### Fix
+
+- Fixed email provider if it's not the first one
+- Get wallets no longer has limit of 10 wallets
+
 ## [0.0.13] - 2025-09-26
 
 ### Feat

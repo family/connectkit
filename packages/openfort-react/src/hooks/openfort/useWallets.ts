@@ -403,7 +403,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       try {
         const embeddedAccounts = await queryClient.ensureQueryData<EmbeddedAccount[]>({
           queryKey: ['openfortEmbeddedAccountsList'],
-          queryFn: () => client.embeddedWallet.list()
+          queryFn: () => client.embeddedWallet.list({ limit: 100 })
         });
         let walletAddress = optionsObject.address;
 

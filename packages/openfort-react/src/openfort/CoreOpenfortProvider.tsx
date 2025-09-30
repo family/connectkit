@@ -181,7 +181,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   // will reset on logout
   const { data: embeddedAccounts, refetch: fetchEmbeddedAccounts, isPending: isLoadingAccounts } = useQuery({
     queryKey: ['openfortEmbeddedAccountsList'],
-    queryFn: () => openfort.embeddedWallet.list(),
+    queryFn: () => openfort.embeddedWallet.list({ limit: 100 }),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   })
