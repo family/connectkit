@@ -97,7 +97,7 @@ const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, bac
           ctx.beginPath();
           ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
 
-          let opacityFactor = 1 - distance / 100;
+          const opacityFactor = 1 - distance / 100;
 
           ctx.fillStyle = withOpacity(accentColor, opacityFactor);
           ctx.fill();
@@ -212,7 +212,7 @@ const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, bac
         if (elapsed <= 0) return;
 
         const duration = route.end.delay - route.start.delay; // animation duration
-        let progress = Math.min(elapsed / duration, 1); // normal progress
+        const progress = Math.min(elapsed / duration, 1); // normal progress
 
         // Fade from end to start after the line is fully drawn
         let startProgress = 0; // the starting point along the line
@@ -286,6 +286,7 @@ const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, bac
       document.removeEventListener("mousemove", handleMouseMove);
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dimensions]);
 
   return (

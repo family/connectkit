@@ -22,22 +22,27 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/playground openfort-p
 ## Getting Started
 
 1. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 2. **Environment setup**:
+
    ```bash
    cp .env.local.example .env.local
    ```
+
    Then fill in your Openfort configuration in `.env.local`.
 
 3. **Start development server**:
+
    ```bash
    npm run dev
    ```
 
 4. **Build for production**:
+
    ```bash
    npm run build
    ```

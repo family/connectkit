@@ -1,5 +1,5 @@
 {
-  "name": "firebase",
+  "name": "quickstart-firebase",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@openfort/react": "workspace:packages/openfort-react",
+    "@openfort/react": "^0.0.17",
     "@tailwindcss/vite": "^4.1.12",
-    "firebase": "^12.1.0",
+    "@tanstack/react-query": "^5.90.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwindcss": "^4.1.12"
+    "tailwindcss": "^4.1.12",
+    "viem": "2.33.0",
+    "wagmi": "^2.16.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
