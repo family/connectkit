@@ -26,7 +26,7 @@ export const CreateWallet = ({
 }) => {
   const [passwordSheetOpen, setPasswordSheetOpen] = useState(false);
 
-  const { isCreating, createWallet } = useWallets({
+  const { isCreating, createWallet, error } = useWallets({
     onSuccess: () => {
       onWalletCreated?.();
     }
@@ -38,7 +38,7 @@ export const CreateWallet = ({
 
   return (
     <>
-      <div className="flex flex-wrap gap-4 wallet-option-group mb-4">
+      <div className="flex flex-col gap-4 wallet-option-group mb-4">
         <button
           className="wallet-option cursor-pointer"
           onClick={() => createWallet({
@@ -47,9 +47,11 @@ export const CreateWallet = ({
             }
           })}
         >
-          <h4>Passkey</h4>
           <FingerPrintIcon />
-          <p className="text-sm hover-description">Secure your wallet with biometric authentication.</p>
+          <div className="flex flex-col text-start">
+            <h4>Passkey</h4>
+            <p className="text-sm hover-description">Secure your wallet with biometric authentication.</p>
+          </div>
         </button>
         <button
           className="wallet-option cursor-pointer"
@@ -59,19 +61,24 @@ export const CreateWallet = ({
             }
           })}
         >
-          <h4>Automatic recovery</h4>
           <LockClosedIcon />
-          <p className="text-sm hover-description">Uses encryption session to recover your wallet.</p>
+          <div className="flex flex-col text-start">
+            <h4>Automatic recovery</h4>
+            <p className="text-sm hover-description">Uses encryption session to recover your wallet.</p>
+          </div>
         </button>
         <button
           className="wallet-option cursor-pointer"
           onClick={() => setPasswordSheetOpen(true)}
         >
-          <h4>Password</h4>
           <KeyIcon />
-          <p className="text-sm hover-description">Create a strong password to secure your wallet.</p>
+          <div className="flex flex-col text-start">
+            <h4>Password</h4>
+            <p className="text-sm hover-description">Create a strong password to secure your wallet.</p>
+          </div>
         </button>
       </div>
+      {error && <p className="text-red-500 text-sm">Error: {error.message}</p>}
       <p className="mb-4 text-xs text-zinc-400">
         Disclaimer: This is a demo of Openfort recovery methods. In production, it's best to choose one method for a smoother user experience.
       </p>
