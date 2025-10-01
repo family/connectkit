@@ -78,7 +78,7 @@ export const CreateWallet = ({
           </div>
         </button>
       </div>
-      {error && <p className="text-red-500 text-sm">Error: {error.message}</p>}
+      {error && <p className="text-red-500 text-sm mb-2">Error: {error.message}</p>}
       <p className="mb-4 text-xs text-zinc-400">
         Disclaimer: This is a demo of Openfort recovery methods. In production, it's best to choose one method for a smoother user experience.
       </p>
