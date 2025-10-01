@@ -19,7 +19,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <QueryClientProvider client={queryClient}>
         <OpenfortProvider
           debugMode
-          publishableKey={import.meta.env.VITE_PUBLISHABLE_KEY!}
+          publishableKey={import.meta.env.VITE_OPENFORT_PUBLISHABLE_KEY!}
 
           // Set the wallet configuration. In this example, we will be using the embedded signer.
           walletConfig={{
