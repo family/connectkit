@@ -263,13 +263,13 @@ const OtherMethod = ({ currentMethod, onChangeMethod }: { currentMethod: Recover
     let text: string;
     switch (method) {
       case RecoveryMethod.PASSWORD:
-        text = "Use password recovery";
+        text = "Use password recovery instead";
         break;
       case RecoveryMethod.AUTOMATIC:
         text = "Skip for now";
         break;
       case RecoveryMethod.PASSKEY:
-        text = "Use passkey recovery";
+        text = "Use passkey recovery instead";
         break;
       default:
         text = method;
@@ -339,9 +339,12 @@ const CreateWalletPasskeyRecovery = ({ onChangeMethod }: { onChangeMethod: (meth
         description={recoveryError ? "There was an error creating your passkey. Please try again." : undefined}
         onRetry={() => setShouldCreateWallet(true)}
       />
+      <OtherMethod
+        currentMethod={RecoveryMethod.PASSKEY}
+        onChangeMethod={onChangeMethod}
+      />
     </PageContent>
   )
-
 }
 
 const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (method: RecoveryMethod | "other") => void }) => {

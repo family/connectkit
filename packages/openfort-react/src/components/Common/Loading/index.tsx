@@ -11,13 +11,13 @@ import { RetryButton, RetryIconContainer } from "../../ConnectModal/ConnectWithI
 import Tooltip from "../Tooltip";
 import useLocales from "../../../hooks/useLocales";
 
-const TextWrapper = styled.div`
+const LoadingTextWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 12px;
-  padding: 0 8px 32px;
+  padding: 0 8px 16px;
   text-align: center;
 `;
 
@@ -161,7 +161,7 @@ const Loader = ({
         </ConnectingAnimation>
 
       </ConnectingContainer>
-      <TextWrapper>
+      <LoadingTextWrapper>
         {
           isLoading && (
             <>
@@ -190,7 +190,7 @@ const Loader = ({
           </>
         )}
 
-      </TextWrapper>
+      </LoadingTextWrapper>
     </>
   );
 }
