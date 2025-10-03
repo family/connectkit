@@ -644,6 +644,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     createWallet,
     setActiveWallet,
     ...mapWalletStatus(status),
-    exportPrivateKey: client.embeddedWallet.exportPrivateKey,
+    exportPrivateKey: () => client.embeddedWallet.exportPrivateKey(),
   }
 }
