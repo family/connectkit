@@ -2,13 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.21] - 2025-10-03
+
+### Feat
+
+- UI: Fix wording in mobile connect modal
+- UI: Fix loading text position in loading component
+
 ## [0.0.20] - 2025-10-03
 
 ### Feat
 
 - UI: When there are more than 4 providers, show remaining + "More" button instead of just "More"
-- UI: Fix wording in mobile connect modal
-- UI: Fix loading text position in loading component
 
 ## [0.0.19] - 2025-10-03
 
