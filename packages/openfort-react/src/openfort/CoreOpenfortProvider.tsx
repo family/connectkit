@@ -1,4 +1,4 @@
-import { AuthPlayerResponse, EmbeddedAccount, EmbeddedState, Openfort, OpenfortError, RecoveryMethod } from '@openfort/openfort-js';
+import { AccountTypeEnum, AuthPlayerResponse, EmbeddedAccount, EmbeddedState, Openfort, OpenfortError, RecoveryMethod } from '@openfort/openfort-js';
 import React, { createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { polygonAmoy } from 'viem/chains';
 import { useAccount, useChainId, useDisconnect } from 'wagmi';
@@ -181,7 +181,12 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   // will reset on logout
   const { data: embeddedAccounts, refetch: fetchEmbeddedAccounts, isPending: isLoadingAccounts } = useQuery({
     queryKey: ['openfortEmbeddedAccountsList'],
-    queryFn: () => openfort.embeddedWallet.list({ limit: 100 }),
+    queryFn: () => openfort.embeddedWallet.list({
+      limit: 100,
+      // If its EOA we want all accounts, otherwise we want only smart accounts
+      accountType: walletConfig?.accountType === AccountTypeEnum.EOA ?
+        undefined : AccountTypeEnum.SMART_ACCOUNT
+    }),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   })

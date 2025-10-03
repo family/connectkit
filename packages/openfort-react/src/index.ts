@@ -30,7 +30,7 @@ export { useUI } from "./hooks/openfort/useUI";
 export { useWallets, UserWallet } from "./hooks/openfort/useWallets";
 export { useWallet } from "./hooks/openfort/useWallet";
 
-export { RecoveryMethod, AuthPlayerResponse, RecoveryParams } from "@openfort/openfort-js";
+export { RecoveryMethod, AuthPlayerResponse, RecoveryParams, AccountTypeEnum } from "@openfort/openfort-js";
 
 export { useOpenfortCore as useOpenfort } from './openfort/useOpenfort';
 export { useConnectWithSiwe } from './hooks/openfort/useConnectWithSiwe';

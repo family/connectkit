@@ -160,26 +160,28 @@ const ChainSelector: React.FC = () => {
           open={!mobile && isOpen}
           onClose={() => setIsOpen(false)}
         >
-          <SwitchChainButton
-            aria-label={flattenChildren(locales.switchNetworks).toString()}
-            disabled={disabled}
-            onClick={() => {
-              if (mobile) {
-                context.setRoute(routes.SWITCHNETWORKS);
-              } else {
-                setIsOpen(!isOpen);
-              }
-            }}
-          >
-            {disabled ? (
-              <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
+          {chain && (
+            <SwitchChainButton
+              aria-label={flattenChildren(locales.switchNetworks).toString()}
+              disabled={disabled}
+              onClick={() => {
+                if (mobile) {
+                  context.setRoute(routes.SWITCHNETWORKS);
+                } else {
+                  setIsOpen(!isOpen);
+                }
+              }}
+            >
+              {disabled ? (
+                <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
+                  <Chain id={chain?.id} />
+                </Tooltip>
+              ) : (
                 <Chain id={chain?.id} />
-              </Tooltip>
-            ) : (
-              <Chain id={chain?.id} />
-            )}
-            {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
-          </SwitchChainButton>
+              )}
+              {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
+            </SwitchChainButton>
+          )}
         </ChainSelectDropdown>
       </Container>
     </>

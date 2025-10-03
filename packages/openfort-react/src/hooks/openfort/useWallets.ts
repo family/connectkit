@@ -403,7 +403,12 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       try {
         const embeddedAccounts = await queryClient.ensureQueryData<EmbeddedAccount[]>({
           queryKey: ['openfortEmbeddedAccountsList'],
-          queryFn: () => client.embeddedWallet.list({ limit: 100 })
+          queryFn: () => client.embeddedWallet.list({
+            limit: 100,
+            // If its EOA we want all accounts, otherwise we want only smart accounts
+            accountType: walletConfig?.accountType === AccountTypeEnum.EOA ?
+              undefined : AccountTypeEnum.SMART_ACCOUNT
+          }),
         });
         let walletAddress = optionsObject.address;
 
@@ -412,7 +417,13 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         let embeddedAccount: EmbeddedAccount | undefined;
 
         if (walletAddress) {
-          const accountToRecover = embeddedAccounts.find(w => w.address === walletAddress && w.chainId === chainId);
+          const accountToRecover = embeddedAccounts.find(w => {
+            if (walletConfig?.accountType === AccountTypeEnum.EOA) {
+              return w.address === walletAddress;
+            } else {
+              return w.address === walletAddress && w.chainId === chainId
+            }
+          });
           if (!accountToRecover) {
             // TODO: Connect to wallet in the other chain and then switch chain
             return onError({
