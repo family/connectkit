@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
-import { providersLogos } from "../../assets/logos";
-import { useOpenfortCore } from '../../openfort/useOpenfort';
-import Loader from "../Common/Loading";
-import { PageContent } from "../Common/Modal/styles";
-import { useOpenfort } from '../Openfort/useOpenfort';
-import { routes } from "../Openfort/types";
-import { useWallet } from "../../wallets/useWallets";
-import { WalletConfigProps, walletConfigs } from "../../wallets/walletConfigs";
-import { useWeb3 } from "../contexts/web3";
 import { useAccount } from "wagmi";
-import { useOnUserReturn } from "../../utils/useOnUserReturn";
 import { useConnectWithSiwe } from "../../hooks/openfort/useConnectWithSiwe";
+import styled from "../../styles/styled";
+import { isAndroid } from "../../utils";
+import { useOnUserReturn } from "../../utils/useOnUserReturn";
+import { useWallet } from "../../wallets/useWallets";
+import { walletConfigs } from "../../wallets/walletConfigs";
 import Button from "../Common/Button";
 import FitText from "../Common/FitText";
-import { isAndroid } from "../../utils";
-import styled from "../../styles/styled";
+import Loader from "../Common/Loading";
+import { PageContent } from "../Common/Modal/styles";
+import { useWeb3 } from "../contexts/web3";
+import { routes } from "../Openfort/types";
+import { useOpenfort } from '../Openfort/useOpenfort';
 
 const states = {
   INIT: "init",
@@ -146,7 +144,7 @@ const ConnectWithMobile: React.FC<{}> = ({ }) => {
       }
       <DownloadFooter>
         <FitText>
-          Dont have {connector.id.split(",")[0]} installed?{' '}
+          Don't have {wallet.name ?? connector.id.split(",")[0]} installed?{' '}
           <a
             style={{ marginLeft: 5 }}
             href={isAndroid() ? wallet?.downloadUrls?.android : wallet?.downloadUrls?.ios}
