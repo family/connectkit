@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.20] - 2025-10-03
+
+### Feat
+
+- UI: When there are more than 4 providers, show remaining + "More" button instead of just "More"
+
 ## [0.0.19] - 2025-10-03
 
 ### Fix

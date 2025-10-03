@@ -1,5 +1,5 @@
 import { OAuthProvider } from "@openfort/openfort-js";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useAccount, useDisconnect } from "wagmi";
 import { EmailIcon, GuestIcon, } from "../../../assets/icons";
 import Logos, { OtherSocials, providersLogos } from "../../../assets/logos";
@@ -264,24 +264,20 @@ const SocialProvidersButton = () => {
 
 
 const Providers: React.FC = () => {
-  const maxProviders = 4
 
   const { user } = useOpenfortCore();
   const { address } = useAccount();
-  const { allProviders, availableProviders } = useProviders();
+  const { mainProviders, hasExcessProviders } = useProviders();
+
 
   if (address && !user) {
     return <AddressButNoUserCase />
   }
 
-  const activeProviders = user ? availableProviders : allProviders;
-  const hasExcessProviders = activeProviders.length > maxProviders
-  const filteredProviders = hasExcessProviders ? activeProviders.filter((p) => !socialProviders.includes(p)) : activeProviders;
-
   return (
     <PageContent>
       {
-        (filteredProviders).map((auth) => (
+        (mainProviders).map((auth) => (
           <ProviderButtonSwitch key={auth} provider={auth} />
         ))
       }
