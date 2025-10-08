@@ -64,6 +64,14 @@ export function useAuthorization() {
       }
 
       const authorization = parameters;
+
+      if (!authorization.contractAddress) {
+        throw new OpenfortError(
+          'Authorization is missing the contract address to sign.',
+          OpenfortErrorType.VALIDATION_ERROR,
+        );
+      }
+
       const hash = hashAuthorization(authorization);
 
       try {
@@ -73,17 +81,9 @@ export function useAuthorization() {
         });
 
         const { r, s, v, yParity } = parseSignature(signature as Hex);
-        const address = authorization.contractAddress ?? authorization.address;
-
-        if (!address) {
-          throw new OpenfortError(
-            'Authorization is missing an address to sign for.',
-            OpenfortErrorType.VALIDATION_ERROR,
-          );
-        }
 
         return {
-          address,
+          address: authorization.contractAddress,
           chainId: authorization.chainId,
           nonce: authorization.nonce,
           r,
