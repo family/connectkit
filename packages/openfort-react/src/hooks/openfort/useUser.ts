@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 import { EmbeddedState } from "@openfort/openfort-js";
+import { handleOAuthConfigError } from '../../utils/oauthErrorHandler';
 
 /**
  * Hook for accessing current user information and authentication state
@@ -50,15 +51,29 @@ export function useUser() {
   const { user, client, embeddedState } = useOpenfortCore();
 
   const getAccessTokenAndUpdate = useCallback(async () => {
-    await client.validateAndRefreshToken();
-    const token = await client.getAccessToken();
-    return token;
+    try {
+      await client.validateAndRefreshToken();
+      const token = await client.getAccessToken();
+      return token;
+    } catch (error: any) {
+      handleOAuthConfigError(error);
+      throw error;
+    }
+  }, [client]);
+
+  const validateAndRefresh = useCallback(async () => {
+    try {
+      await client.validateAndRefreshToken();
+    } catch (error: any) {
+      handleOAuthConfigError(error);
+      throw error;
+    }
   }, [client]);
 
   return {
     user,
     isAuthenticated: embeddedState !== EmbeddedState.NONE && embeddedState !== EmbeddedState.UNAUTHENTICATED,
     getAccessToken: getAccessTokenAndUpdate,
-    validateAndRefreshToken: async () => await client.validateAndRefreshToken(),
+    validateAndRefreshToken: validateAndRefresh,
   };
 };
