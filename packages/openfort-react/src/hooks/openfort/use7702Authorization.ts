@@ -31,9 +31,9 @@ export type SignAuthorizationOptions = {
  * @example
  * ```ts
  * import { prepareAuthorization } from 'viem/actions';
- * import { useAuthorization } from '@openfort/openfort-react';
+ * import { use7702Authorization } from '@openfort/openfort-react';
  *
- * const { signAuthorization } = useAuthorization();
+ * const { signAuthorization } = use7702Authorization();
  *
  * const authorization = await prepareAuthorization(pimlicoClient, {
  *   account: eoaAccount.address,
@@ -45,7 +45,7 @@ export type SignAuthorizationOptions = {
  * });
  * ```
  */
-export function useAuthorization() {
+export function use7702Authorization() {
   const { client } = useOpenfortCore();
 
   const signAuthorization = useCallback(
