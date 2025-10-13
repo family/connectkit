@@ -2250,6 +2250,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openfort/openfort-js@npm:^0.10.23":
+  version: 0.10.23
+  resolution: "@openfort/openfort-js@npm:0.10.23"
+  dependencies:
+    "@ethersproject/abi": ^5.8.0
+    "@ethersproject/bytes": ^5.8.0
+    "@ethersproject/hash": ^5.8.0
+    "@ethersproject/providers": ^5.8.0
+    "@openfort/shield-js": ^0.1.27
+    "@sentry/browser": ^9.15.0
+    "@sentry/core": ^9.15.0
+    axios: ^1.8.2
+    eventemitter3: 5.0.1
+    human-id: ^4.1.1
+    jose: ^5.2.2
+  checksum: bf5fd122a9a2b307e3cf0bc138a416ca48ae9cb1a3b83f668ac4d38259789c7f7d0ed55e8687ddfe2a5ded536c202fbfb1752d9307d19193ee2eca8bec2661f7
+  languageName: node
+  linkType: hard
+
 "@openfort/react@npm:^0.0.17":
   version: 0.0.17
   resolution: "@openfort/react@npm:0.0.17"
@@ -2280,7 +2299,7 @@ __metadata:
   resolution: "@openfort/react@workspace:packages/openfort-react"
   dependencies:
     "@eslint/js": ^9.21.0
-    "@openfort/openfort-js": ^0.10.21
+    "@openfort/openfort-js": ^0.10.23
     "@types/node": 18.7.18
     "@types/qrcode": ^1.4.2
     "@types/react": ^18.0.6
@@ -2317,6 +2336,16 @@ __metadata:
     axios: 1.11.0
     axios-retry: 4.5.0
   checksum: 3de97330d60a85e02e010e6dd1e8bc97b680d352abf1419a6a95223b62f2ae8f7001b0e47bcc322bee37b0440eaee32b29706f77ed29627ad639ba09be28e851
+  languageName: node
+  linkType: hard
+
+"@openfort/shield-js@npm:^0.1.27":
+  version: 0.1.29
+  resolution: "@openfort/shield-js@npm:0.1.29"
+  dependencies:
+    axios: 1.12.2
+    axios-retry: 4.5.0
+  checksum: 0fe46994b48062eed1675e6c2abd279f069ab2318408675e0830988d5d3dfb9c1ca44f68df2e62b8b6c6b789f744ee0f252b4581e960f1b1e5816189f431e2ec
   languageName: node
   linkType: hard
 
@@ -5011,7 +5040,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.8.2":
+"axios@npm:1.12.2, axios@npm:^1.8.2":
   version: 1.12.2
   resolution: "axios@npm:1.12.2"
   dependencies:
