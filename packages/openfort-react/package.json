@@ -38,7 +38,7 @@
     "react"
   ],
   "dependencies": {
-    "@openfort/openfort-js": "^0.10.21",
+    "@openfort/openfort-js": "^0.10.24",
     "buffer": "^6.0.3",
     "detect-browser": "^5.3.0",
     "fast-password-entropy": "^1.1.1",
