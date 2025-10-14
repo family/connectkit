@@ -5,6 +5,7 @@ import { EmailIcon, GuestIcon, } from "../../../assets/icons";
 import Logos, { OtherSocials, providersLogos } from "../../../assets/logos";
 import { useProviders } from "../../../hooks/openfort/useProviders";
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
+import { logger } from "../../../utils/logger";
 import Button from "../../Common/Button";
 import Loader from "../../Common/Loading";
 import { BackButton, PageContent } from "../../Common/Modal/styles";
@@ -239,7 +240,7 @@ const AddressButNoUserCase: React.FC = () => {
           disconnect();
       })
       .catch(() => {
-        console.error("Failed to update user");
+        logger.error("Failed to update user");
       })
   }, [])
 

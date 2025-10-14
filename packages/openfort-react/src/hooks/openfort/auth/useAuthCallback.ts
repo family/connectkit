@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { UIAuthProvider } from "../../../components/Openfort/types";
 import { useOpenfort } from "../../../components/Openfort/useOpenfort";
 import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../../types";
+import { logger } from "../../../utils/logger";
 import { onError } from "../hookConsistency";
 import { CreateWalletPostAuthOptions } from "./useConnectToWalletPostAuth";
 import { EmailVerificationResult, useEmailAuth } from "./useEmailAuth";
@@ -132,7 +133,7 @@ export const useAuthCallback = ({
         const email = url.searchParams.get("email");
 
         if (!state || !email) {
-          console.error("No state or email found in URL");
+          logger.error("No state or email found in URL");
           onError({
             hookOptions,
             options: {},
@@ -175,7 +176,7 @@ export const useAuthCallback = ({
         const refreshToken = url.searchParams.get("refresh_token");
 
         if (!player || !accessToken || !refreshToken) {
-          console.error(`Missing player id or access token or refresh token`, {
+          logger.error(`Missing player id or access token or refresh token`, {
             player,
             accessToken: accessToken ? accessToken.substring(0, 10) + "..." : accessToken,
             refreshToken,

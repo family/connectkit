@@ -7,6 +7,7 @@ import { useOpenfortCore } from "../../../openfort/useOpenfort";
 import { useConnectWithSiwe } from "../useConnectWithSiwe";
 import { useWallets } from "../../../wallets/useWallets";
 import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
+import { logger } from "../../../utils/logger";
 import { onError, onSuccess } from "../hookConsistency";
 
 
@@ -192,7 +193,7 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
           resolve();
         },
         onError: (e) => {
-          console.error("Error disconnecting", e);
+          logger.error("Error disconnecting", e);
 
           const error = new OpenfortError("Failed to disconnect", OpenfortErrorType.AUTHENTICATION_ERROR, { error: e });
           handleError(error);
@@ -209,7 +210,7 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
       });
       log("Connected to wallet!!!", connector.id);
     } catch (error) {
-      console.error("Error connecting", error);
+      logger.error("Error connecting", error);
       handleError(new OpenfortError("Failed to connect", OpenfortErrorType.AUTHENTICATION_ERROR, { error }));
     }
   }, [siwe, disconnect, updateUser, availableWallets, log, setStatus, hookOptions]);

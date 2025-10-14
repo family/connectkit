@@ -8,6 +8,7 @@ import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnect
 import { Context } from './context';
 import { createOpenfortClient, setDefaultClient } from './core';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { logger, createDebugLogger } from '../utils/logger';
 
 export type ContextValue = {
   signUpGuest: () => Promise<void>;
@@ -48,7 +49,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     ...openfortProps
   }
 ) => {
-  const log = debugMode ? console.log : () => { };
+  const log = createDebugLogger(debugMode);
 
   const { connectors, connect, reset } = useConnect();
   const { address } = useAccount();
@@ -82,19 +83,27 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   // ---- Embedded state ----
   const [embeddedState, setEmbeddedState] = useState<EmbeddedState>(EmbeddedState.NONE);
   const pollingRef = useRef<NodeJS.Timeout | null>(null);
+  const previousEmbeddedState = useRef<EmbeddedState>(EmbeddedState.NONE);
 
   const pollEmbeddedState = useCallback(async () => {
     if (!openfort) return;
 
     try {
       const state = await openfort.embeddedWallet.getEmbeddedState();
-      log("Polling embedded state", state);
       setEmbeddedState(state);
     } catch (error) {
-      console.error('Error checking embedded state with Openfort:', error);
+      logger.error('Error checking embedded state with Openfort:', error);
       if (pollingRef.current) clearInterval(pollingRef.current);
     }
   }, [openfort]);
+
+  // Only log embedded state when it changes
+  useEffect(() => {
+    if (previousEmbeddedState.current !== embeddedState) {
+      log("Embedded state changed:", EmbeddedState[embeddedState]);
+      previousEmbeddedState.current = embeddedState;
+    }
+  }, [embeddedState, log]);
 
   const startPollingEmbeddedState = useCallback(() => {
 
@@ -221,7 +230,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
               const user = await updateUser(undefined, true);
               if (user) break;
             } catch (err) {
-              console.error("Error updating user, retrying...", err);
+              logger.error("Error updating user, retrying...", err);
             }
             await new Promise((resolve) => setTimeout(resolve, 250));
           }
@@ -271,7 +280,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
       const res = await openfort.auth.signUpGuest();
       log('Signed up as guest:', res);
     } catch (error) {
-      console.error('Error logging in as guest:', error);
+      logger.error('Error logging in as guest:', error);
     }
   }, [openfort]);
 

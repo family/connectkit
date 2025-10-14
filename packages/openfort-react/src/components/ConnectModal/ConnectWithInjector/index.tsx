@@ -28,6 +28,7 @@ import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons';
 import { useConnect } from '../../../hooks/useConnect';
 import useLocales from '../../../hooks/useLocales';
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
+import { logger } from '../../../utils/logger';
 import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import { useWallet } from '../../../wallets/useWallets';
 import BrowserIcon from '../../Common/BrowserIcon';
@@ -96,7 +97,7 @@ const ConnectWithInjector: React.FC<{
         }
       },
       onError(err?: any) {
-        console.error(err);
+        logger.error(err);
       },
       onSettled(data?: any, error?: any) {
         log(`onSettled - data: ${data}, error: ${error}`, data);
@@ -132,7 +133,8 @@ const ConnectWithInjector: React.FC<{
         } else if (data) {
           if (!wallet) {
             setStatus(states.FAILED);
-            throw console.error('No wallet found');
+            logger.error('No wallet found');
+            throw new Error('No wallet found');
           }
 
           // If already has linked account, don't link again
@@ -145,7 +147,7 @@ const ConnectWithInjector: React.FC<{
             // connectorType: wallet.connector.id,
             // walletClientType: wallet.connector.name.toLowerCase(),
             onError: (error, status) => {
-              console.error(error);
+              logger.error(error);
               disconnect();
               if (status === 409) {
                 setStatus(states.DUPLICATED);
