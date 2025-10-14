@@ -2230,26 +2230,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/openfort-js@npm:^0.10.21":
-  version: 0.10.21
-  resolution: "@openfort/openfort-js@npm:0.10.21"
-  dependencies:
-    "@ethersproject/abi": ^5.8.0
-    "@ethersproject/bytes": ^5.8.0
-    "@ethersproject/hash": ^5.8.0
-    "@ethersproject/providers": ^5.8.0
-    "@openfort/shield-js": ^0.1.14
-    "@sentry/browser": ^9.15.0
-    "@sentry/core": ^9.15.0
-    axios: ^1.8.2
-    axios-retry: ^4.5.0
-    eventemitter3: 5.0.1
-    human-id: ^4.1.1
-    jose: ^5.2.2
-  checksum: 4340e2da76c30f7fd1d077e602b799c2bda122012e936df034ad0c5ca72f4531973e3752c2ba4e32792d736b9423fd9ba80d6f54675d34f043a9ffef3242ecf8
-  languageName: node
-  linkType: hard
-
 "@openfort/openfort-js@npm:^0.10.24":
   version: 0.10.24
   resolution: "@openfort/openfort-js@npm:0.10.24"
@@ -2271,32 +2251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/react@npm:^0.0.17":
-  version: 0.0.17
-  resolution: "@openfort/react@npm:0.0.17"
-  dependencies:
-    "@openfort/openfort-js": ^0.10.21
-    buffer: ^6.0.3
-    detect-browser: ^5.3.0
-    fast-password-entropy: ^1.1.1
-    framer-motion: ^6.3.11
-    qrcode: ^1.5.0
-    react-is: ^19.1.0
-    react-transition-state: ^1.1.4
-    react-use-measure: ^2.1.1
-    resize-observer-polyfill: ^1.5.1
-    styled-components: ^5.3.5
-  peerDependencies:
-    "@tanstack/react-query": ">=5.0.0"
-    react: 17.x || 18.x || 19.x
-    react-dom: 17.x || 18.x || 19.x
-    viem: 2.x
-    wagmi: 2.x
-  checksum: 73ec7fc5f5718896a1b59db48339798080a593b5dbb5b25c4463c6091751970f3085e0150e0f56a886c2adbea74cab022286d973d940f62c08e7602f5f6af460
-  languageName: node
-  linkType: hard
-
-"@openfort/react@workspace:packages/openfort-react":
+"@openfort/react@^0.0.22, @openfort/react@workspace:packages/openfort-react":
   version: 0.0.0-use.local
   resolution: "@openfort/react@workspace:packages/openfort-react"
   dependencies:
@@ -2330,16 +2285,6 @@ __metadata:
     wagmi: 2.x
   languageName: unknown
   linkType: soft
-
-"@openfort/shield-js@npm:^0.1.14":
-  version: 0.1.27
-  resolution: "@openfort/shield-js@npm:0.1.27"
-  dependencies:
-    axios: 1.11.0
-    axios-retry: 4.5.0
-  checksum: 3de97330d60a85e02e010e6dd1e8bc97b680d352abf1419a6a95223b62f2ae8f7001b0e47bcc322bee37b0440eaee32b29706f77ed29627ad639ba09be28e851
-  languageName: node
-  linkType: hard
 
 "@openfort/shield-js@npm:^0.1.27":
   version: 0.1.29
@@ -5020,7 +4965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios-retry@npm:4.5.0, axios-retry@npm:^4.5.0":
+"axios-retry@npm:4.5.0":
   version: 4.5.0
   resolution: "axios-retry@npm:4.5.0"
   dependencies:
@@ -5028,17 +4973,6 @@ __metadata:
   peerDependencies:
     axios: 0.x || 1.x
   checksum: ec831e566ed3a55d3c3c927c1d42c52f2c2f1a8ea99ff8521d3675c6313f8c77f704c7186299fda08b7dc0f771a2c5471e72d279789d5aade65ec3755ab3a1ff
-  languageName: node
-  linkType: hard
-
-"axios@npm:1.11.0":
-  version: 1.11.0
-  resolution: "axios@npm:1.11.0"
-  dependencies:
-    follow-redirects: ^1.15.6
-    form-data: ^4.0.4
-    proxy-from-env: ^1.1.0
-  checksum: 0a33dc600b588bfd3111b198d5985527ed89f722817455d7cdb66c1d055e5f8859cc2bebb7320888957fc8458ebe77d5f83af02af9cd260217c91c4e92b6dfb6
   languageName: node
   linkType: hard
 
@@ -10386,7 +10320,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.17
+    "@openfort/react": ^0.0.22
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10413,7 +10347,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.17
+    "@openfort/react": ^0.0.22
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10440,7 +10374,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.17
+    "@openfort/react": ^0.0.22
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
