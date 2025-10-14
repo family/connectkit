@@ -108,12 +108,10 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   const startPollingEmbeddedState = useCallback(() => {
 
     if (!!pollingRef.current) return;
-    log("Starting polling embedded state", pollingRef.current, !!pollingRef.current);
     pollingRef.current = setInterval(pollEmbeddedState, 300);
   }, [pollEmbeddedState]);
 
   const stopPollingEmbeddedState = useCallback(() => {
-    log("Stopping polling embedded state");
     clearInterval(pollingRef.current || undefined);
     pollingRef.current = null;
   }, []);
@@ -203,8 +201,6 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   useEffect(() => {
     if (!openfort) return;
     // Poll embedded signer state
-
-    log("Embedded state update", embeddedState);
 
     switch (embeddedState) {
       case EmbeddedState.NONE:
