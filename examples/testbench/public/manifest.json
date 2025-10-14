@@ -1,9 +1,0 @@
-{
-  "name": "ConnectKit Testbench",
-  "description": "Testbench for ConnectKit",
-  "iconPath": "app.png",
-  "providedBy": {
-    "name": "Family",
-    "url": "https://family.co"
-  }
-}

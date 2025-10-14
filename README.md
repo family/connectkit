@@ -1,83 +1,113 @@
-<a href="https://docs.family.co/connectkit">
-  <img width="1080" alt="connectkit" src="https://github.com/family/connectkit/assets/1930210/87c2e868-3228-44b8-82c3-a38adf6d1bbf">
-</a>
+![openfort_kit_8d6f715e38](https://github.com/user-attachments/assets/e652c9d8-c2ff-4f13-b046-405338fdea01)
+
+<div align="center">
+  <h4>
+    <a href="https://www.openfort.io/">
+      Website
+    </a>
+    <span> | </span>
+    <a href="https://www.openfort.io/docs/products/embedded-wallet/react/">
+      Documentation
+    </a>
+    <span> | </span>
+    <a href="https://x.com/openfort_hq">
+      X
+    </a>
+   <span> | </span>
+    <a href="https://playground.openfort.io/">
+      Demo
+    </a>
+  </h4>
+</div>
 
 
+# Openfort React SDK
 
-# ConnectKit
+[![Downloads](https://img.shields.io/npm/dm/@openfort/react.svg)](https://www.npmjs.com/package/@openfort/react)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/embedded-wallet/react/)
+[![Version](https://img.shields.io/npm/v/@openfort/react.svg)](https://www.npmjs.org/package/@openfort/react)
 
-ConnectKit is a powerful [React](https://reactjs.org/) component library for connecting a wallet to your dApp. It supports the most popular connectors and chains out of the box and provides a beautiful, seamless experience.
+
+The easiest way to use embedded wallets, with built-in authentication and payments capabilities in React.
 
 ## Features
 
 - 💡 TypeScript Ready — Get types straight out of the box.
-- 🌱 Ecosystem Standards — Uses top libraries such as [wagmi](https://github.com/wagmi-dev/wagmi).
-- 🖥️ Simple UX — Give users a simple, attractive experience.
-- 🎨 Beautiful Themes — Predesigned themes or full customization.
+- 🌱 Ecosystem Friendly — Uses top libraries such as [wagmi](https://github.com/wagmi-dev/wagmi) for hooks.
+- 🎨 Simple UI — Use prebuilt elements for authenticaiton and wallet connection.
+- 🖥️ React Hooks - To interact directly with embedded wallet capabilities.
 
 and much more...
 
 ## Quick Start
 
-Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
+### New app
+
+Get started with `create` Openfort + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
 
 #### npm
 
 ```sh
-npx create-react-app my-app --template cra-template-connectkit
+npx create openfort
 ```
 
 #### yarn
 
 ```sh
-yarn create react-app my-app --template cra-template-connectkit
+yarn create openfort
 ```
 
 #### pnpm
 
 ```sh
-pnpm dlx create-react-app ./my-app --template cra-template-connectkit
+pnpm create openfort
 ```
 
-## Documentation
+### Import `Openfort` to your project
 
-You can find the full ConnectKit documentation in the Family docs [here](https://docs.family.co/connectkit).
+Add Openfort to your already existing project.
 
-## API Reference
+#### npm
 
-You can find the full API Reference in the Family docs [here](https://docs.family.co/connectkit/api-reference).
+```sh
+npm install @openfort/react @tanstack/react-query wagmi viem
+```
+
+#### yarn
+
+```sh
+yarn add @openfort/react @tanstack/react-query wagmi viem
+```
+
+#### pnpm
+
+```sh
+pnpm add @openfort/react @tanstack/react-query wagmi viem
+```
 
 ## Examples
 
-There are various runnable examples included in this repository in the [examples folder](https://github.com/family/connectkit/tree/main/examples):
+There are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/openfort-react/tree/main/examples):
 
-- [Create React App Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/cra)
-- [Next.js Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/nextjs)
-- [Vite Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/vite)
-
-### Try in CodeSandbox
-
-You can try out some ConnectKit examples directly in your browser through CodeSandbox:
-
-- [Create React App Example (TypeScript)](https://codesandbox.io/s/5rhqm0?file=/README.md)
-- [Next.js (TypeScript)](https://codesandbox.io/s/qnvyqe?file=/README.md)
-- [Vite Example (TypeScript)](https://codesandbox.io/s/4jtssh?file=/README.md)
+- [Create React App Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/cra)
+- [Next.js Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/nextjs)
+- [Vite Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/vite)
 
 ### Running Examples Locally
 
-Clone the ConnectKit project and install the necessary dependencies:
+Clone the project and install the necessary dependencies:
 
 ```sh
-$ git clone git@github.com:family/connectkit.git
-$ cd connectkit
+$ git clone git@github.com:openfort-xyz/openfort-react.git
+$ cd openfort
 $ yarn install
 ```
 
 and start the code bundler:
 
 ```sh
-$ yarn dev:connectkit
-$ yarn dev:connectkit-next-siwe
+$ yarn dev:kit
 ```
 
 and then simply select the example you'd like to run:
@@ -85,18 +115,13 @@ and then simply select the example you'd like to run:
 ```sh
 $ yarn dev:vite # Vite
 $ yarn dev:nextjs # Next.js
-$ yarn dev:nextjs-siwe # Next.js with SIWE
 $ yarn dev:cra # Create React App
 ```
 
-## Contribute
-
-Before starting on anything, please have a read through our [Contribution Guidelines](https://github.com/family/connectkit/blob/main/CONTRIBUTING.md).
-
-## Twitter
-
-Follow [@family](https://twitter.com/family) on Twitter for the latest updates on ConnectKit.
-
 ## License
 
-See [LICENSE](https://github.com/family/connectkit/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/openfort-xyz/openfort-react/blob/main/LICENSE) for more information.
+
+## Credits
+
+Openfort is a fork of [Connectkit](https://github.com/openfort-xyz/openfort-react) developed by [Family](https://family.co). We're grateful to them for making Connectkit fast, beautiful and open-source.

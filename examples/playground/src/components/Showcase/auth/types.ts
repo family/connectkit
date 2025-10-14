@@ -1,0 +1,22 @@
+
+export type Provider =
+  | 'email'
+  | 'wallet'
+  | 'google'
+  | 'twitter'
+  | 'facebook'
+  | 'discord'
+  | 'epic_games'
+  | 'line'
+  | 'microsoft'
+  | 'accelbyte'
+  | 'firebase'
+  | 'lootlocker'
+  | 'playfab'
+  | 'supabase'
+  | 'custom'
+  | 'oidc'
+  | 'apple_native'
+  | 'google_native'
+  | 'apple'
+

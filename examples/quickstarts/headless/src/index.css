@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --breakpoint-xs: 34rem;
+
+  --animate-sheet-in: sheet-in 0.3s ease forwards;
+  --animate-sheet-out: sheet-out 0.3s ease forwards;
+
+  @keyframes sheet-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes sheet-out {
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  .layout-card-group {
+    @media (min-width: 34rem) {
+      @apply border border-zinc-700 rounded-lg shadow-lg shadow-white/10;
+    }
+
+    /* @media (max-width: 64rem) { */
+    @apply overflow-hidden;
+    /* } */
+  }
+
+  h1 {
+    @apply text-2xl font-bold
+  }
+
+  h2 {
+    @apply text-xl font-bold
+  }
+
+  .card {
+    @apply p-6 w-(--card-width) bg-zinc-800 flex justify-center flex-col;
+  }
+
+  .btn {
+    @apply flex items-center justify-center w-full py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-primary-hover transition-colors;
+  }
+
+  input {
+    @apply px-4 py-2 rounded-md bg-zinc-700 border-none outline-none w-full;
+  }
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --color-primary: hsl(5, 97%, 57%);
+  --color-primary-foreground: #fff;
+  --color-primary-hover: hsl(5, 97%, 53%);
+
+  --card-group-width: 58rem;
+  --card-width: 29rem;
+  --card-group-height: 600px;
+
+
+  @media (max-width: calc(64rem - 1px)) {
+    --card-group-width: 29rem;
+  }
+
+  @media (max-width: calc(34rem - 1px)) {
+    --card-width: 100vw;
+    --card-group-width: 100vw;
+    --card-group-height: 100dvh;
+  }
+}
+
+.logo {
+  display: inline;
+  height: 7rem;
+  width: 7rem;
+  padding: 1em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 3em #FC3627);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logo.sample-logo {
+  animation: spin 20s linear infinite;
+}
+
+.logo.sample-logo:hover {
+  filter: drop-shadow(0 0 3em var(--color-sample));
+}
+
+.wallet-option-group:hover .wallet-option {
+  color: var(--color-zinc-700);
+  border-color: var(--color-zinc-700);
+  background-color: var(--color-zinc-900);
+}
+
+.wallet-option-group:hover .wallet-option:hover {
+  color: var(--color-zinc-100);
+  border-color: var(--color-zinc-100);
+  background-color: var(--color-zinc-800);
+  filter: drop-shadow(0 0 1em #ffffff33);
+}
+
+.wallet-option {
+  padding: 1em;
+  text-decoration: none;
+  border-radius: 10px;
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  color: var(--color-zinc-100);
+  border: 1px solid var(--color-zinc-100);
+  background-color: var(--color-zinc-800);
+  transition: border-color 300ms, background-color 300ms, color 300ms, filter 300ms;
+
+  overflow: hidden;
+
+  width: 100%;
+  min-height: 2rem;
+
+  .hover-description {
+    transition: transform 300ms, max-height 500ms, opacity 300ms;
+
+    max-height: 2.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    margin: 0;
+    margin-right: 1rem;
+  }
+
+  svg {
+    height: 50px;
+  }
+}
+
+.wallet-option:not(:hover) .hover-description {
+  max-height: 0;
+  opacity: 0;
+}
