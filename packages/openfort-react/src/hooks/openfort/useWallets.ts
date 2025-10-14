@@ -270,7 +270,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           recoveryMethod: RecoveryMethod.PASSKEY,
           passkeyInfo: {
             passkeyId,
-            passkeyEnv: passkeyEnv as string,
           },
         }
       default:
