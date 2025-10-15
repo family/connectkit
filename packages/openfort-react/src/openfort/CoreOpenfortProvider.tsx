@@ -5,6 +5,7 @@ import { useAccount, useChainId, useDisconnect } from 'wagmi';
 import { useOpenfort } from '../components/Openfort/useOpenfort';
 import { useConnect } from '../hooks/useConnect';
 import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback';
+import { WalletFlowStatus } from '../hooks/openfort/useWallets';
 import { Context } from './context';
 import { createOpenfortClient, setDefaultClient } from './core';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -23,6 +24,9 @@ export type ContextValue = {
   isLoadingAccounts: boolean;
 
   logout: () => void;
+
+  walletStatus: WalletFlowStatus;
+  setWalletStatus: (status: WalletFlowStatus) => void;
 
   client: Openfort;
 };
@@ -52,6 +56,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   const { connectors, connect, reset } = useConnect();
   const { address } = useAccount();
   const [user, setUser] = useState<AuthPlayerResponse | null>(null);
+  const [walletStatus, setWalletStatus] = useState<WalletFlowStatus>({ status: "idle" });
 
   const { disconnectAsync } = useDisconnect();
   const { walletConfig } = useOpenfort();
@@ -258,6 +263,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     if (!openfort) return;
 
     setUser(null);
+    setWalletStatus({ status: "idle" });
     logger.log('Logging out...');
     await openfort.auth.logout();
     await disconnectAsync();
@@ -327,6 +333,9 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
     embeddedAccounts,
     isLoadingAccounts,
+
+    walletStatus,
+    setWalletStatus,
 
     client: openfort,
   };

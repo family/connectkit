@@ -1,5 +1,5 @@
 import { App } from '@/components/Showcase/app'
-import { useStatus } from '@openfort/react'
+import { useUser } from '@openfort/react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
@@ -8,16 +8,14 @@ export const Route = createFileRoute('/_showcase/')({
 })
 
 function RouteComponent() {
-  const { isLoading, isAuthenticated } = useStatus();
+  const { isAuthenticated } = useUser();
   const nav = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated && !isLoading) {
+    if (!isAuthenticated ) {
       nav({ to: "/showcase/auth" });
     }
-  }, [isLoading, isAuthenticated, nav]);
-
-  if (isLoading) return null;
+  }, [isAuthenticated, nav]);
 
   if (isAuthenticated) {
     return (

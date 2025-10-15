@@ -1,10 +1,13 @@
 import { getAddress, parseAbi } from "viem";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import { TruncateData } from "../ui/TruncateData";
+import { useWallets } from "@openfort/react";
 
 const MintContract = () => {
 
   const { address } = useAccount()
+  const wallWallets = useWallets()
+  console.log({ wallWallets })
 
 
   const { data: balance, refetch, error: balanceError } = useReadContract({

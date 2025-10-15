@@ -1,8 +1,9 @@
 import { Nav } from '@/components/Nav';
 import { useAppStore } from '@/lib/useAppStore';
-import { Theme, useStatus } from '@openfort/react';
+import { Theme } from '@openfort/react';
 import { Outlet, createRootRoute, useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { useAccount } from 'wagmi';
 import z from 'zod';
 
 export const Route = createRootRoute({
@@ -26,7 +27,7 @@ const themes: Theme[] = [
 let themeIndex = 0;
 
 function RootComponent() {
-  const { isConnected } = useStatus();
+  const { isConnected } = useAccount();
   const location = useLocation();
 
   const { setProviderOptions, providerOptions } = useAppStore();

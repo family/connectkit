@@ -1,5 +1,4 @@
 import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from "@heroicons/react/24/outline";
-import { useStatus } from "@openfort/react";
 import { useState } from "react";
 import { DesktopTabGroup, MobileTabGroup, type TabType } from "../ui/Tabs";
 import { Actions } from "./actions";
@@ -8,6 +7,7 @@ import { Head } from "./head";
 import { Profile } from "./profile";
 import { Sign } from "./sign";
 import { Wallets } from "./wallets";
+import { useUser } from "@openfort/react";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -46,7 +46,7 @@ const Layout = ({ children, step, tabs, currentTab, setCurrentTab, showTabs }: L
 
 
 export const Main = () => {
-  const { isAuthenticated, isLoading, isConnected } = useStatus();
+  const { isAuthenticated } = useUser();
   const [step, setStep] = useState(0);
 
   const tabs: TabType[] = [
@@ -78,14 +78,10 @@ export const Main = () => {
   ];
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0]);
 
-  if (isLoading) {
-    return null;
-  }
-
   return (
     <Layout
       step={step}
-      showTabs={!!isAuthenticated && !!isConnected}
+      showTabs={!!isAuthenticated}
       tabs={tabs}
       currentTab={currentTab}
       setCurrentTab={setCurrentTab}

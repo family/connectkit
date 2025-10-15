@@ -1,21 +1,24 @@
 import { FingerPrintIcon, KeyIcon, LockClosedIcon } from "@heroicons/react/24/outline";
-import { RecoveryMethod, useSignOut, useStatus, useUser, useWallets, type UserWallet } from "@openfort/react";
+import { RecoveryMethod, useSignOut, useUser, useWallets, type UserWallet } from "@openfort/react";
 import { useState } from "react";
 import { CreateWallet, CreateWalletSheet } from "../createWallet";
 import { WalletRecoverPasswordSheet } from "../passwordRecovery";
+import { useAccount } from "wagmi";
 
 export const Wallets = () => {
-  const { wallets, isLoadingWallets, hasWallet, setActiveWallet, isConnecting } = useWallets();
+  const { wallets, isLoadingWallets,activeWallet, availableWallets,setActiveWallet, isConnecting } = useWallets();
   const { user, isAuthenticated } = useUser();
-  const { isConnected } = useStatus();
+  const { isConnected } = useAccount();
   const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false);
   const [walletToRecover, setWalletToRecover] = useState<UserWallet | null>(null);
   const { signOut } = useSignOut();
 
+    
+  if(!activeWallet && isConnecting) return <div>recovering ...</div>
   if (isLoadingWallets || (!user && isAuthenticated)) {
     return <div>Loading wallets...</div>
   }
-  if (!hasWallet) {
+  if (availableWallets.length ===0) {
     return (
       <div className="flex gap-2 flex-col w-full">
         <h1>Create a wallet</h1>
