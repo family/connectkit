@@ -451,34 +451,40 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             recoveryParams,
           })
         } else {
-
+          let accountToRecover
           // Check if the embedded wallet is already created in the current chain
-          if (embeddedAccounts.some((w) => w.chainId === chainId)) {
-            const accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId)!;
-            log("Found embedded wallet to recover (without walletAddress)", accountToRecover);
-
-            const recovery: WalletRecovery = {
-              recoveryMethod: accountToRecover.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
-              password: optionsObject.recovery?.password,
+          if (walletConfig?.accountType === AccountTypeEnum.EOA) {
+            accountToRecover = embeddedAccounts.find((w) => w.accountType === AccountTypeEnum.EOA);
+            if (!accountToRecover) {
+              return onError({
+                error: new OpenfortError("No embedded wallet found with type EOA", OpenfortErrorType.WALLET_ERROR),
+                options: optionsObject,
+                hookOptions
+              });
             }
-            const recoveryParams = await parseWalletRecovery(recovery, embeddedAccounts, walletAddress);
-
-            embeddedAccount = await client.embeddedWallet.recover({
-              account: accountToRecover.id,
-              recoveryParams,
-            });
-            walletAddress = accountToRecover.address as Hex;
           } else {
-            log("No embedded wallet found for the current chain");
-
-            // Here it should check if there is a wallet that can recover in another chain and recover it in the current chain (its a different account so its not supported yet)
-            // TODO: Connect to wallet in the other chain and then switch chain
-            return onError({
-              error: new OpenfortError("No embedded wallet found for the current chain", OpenfortErrorType.WALLET_ERROR),
-              options: optionsObject,
-              hookOptions
-            });
+            const accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId);
+            if (!accountToRecover) {
+              // Here it should check if there is a wallet that can recover in another chain and recover it in the current chain (its a different account so its not supported yet)
+              // TODO: Connect to wallet in the other chain and then switch chain
+              return onError({
+                error: new OpenfortError("No embedded wallet found for the current chain", OpenfortErrorType.WALLET_ERROR),
+                options: optionsObject,
+                hookOptions
+              });
+            }
           }
+          log("Found embedded wallet to recover (without walletAddress)", accountToRecover);
+          const recovery: WalletRecovery = {
+            recoveryMethod: accountToRecover.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
+            password: optionsObject.recovery?.password,
+          }
+          const recoveryParams = await parseWalletRecovery(recovery, embeddedAccounts, walletAddress);
+          embeddedAccount = await client.embeddedWallet.recover({
+            account: accountToRecover.id,
+            recoveryParams,
+          });
+          walletAddress = accountToRecover.address as Hex;
         }
 
         if (!embeddedAccount) {
