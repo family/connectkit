@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.23] - 2025-10-15
+
+### Fix
+
+- EOA wallet auto recovery
+
 ## [0.0.22] - 2025-10-14
 
 ### Chore
