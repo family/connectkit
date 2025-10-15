@@ -323,27 +323,29 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     const optionsObject: SetActiveWalletOptions = typeof options === "string" ? { walletId: options } : options;
 
     const { showUI } = optionsObject;
+    const isEmbeddedWalletRequest = optionsObject.walletId === embeddedWalletId;
 
     let connector: Connector | null = null;
 
     if (typeof optionsObject.walletId === 'string') {
       const wallet = availableWallets.find(c => c.id === optionsObject.walletId);
-      if (!wallet) {
-        log("Connector not found", connector);
+      if (wallet) {
+        log("Connecting to", wallet.connector)
+        connector = wallet.connector;
+      } else if (!isEmbeddedWalletRequest) {
+        log("Connector not found", availableWallets, optionsObject.walletId);
         return { error: new OpenfortError("Connector not found", OpenfortErrorType.WALLET_ERROR) };
       }
-      log("Connecting to", wallet.connector)
-      connector = wallet.connector;
     } else {
       connector = optionsObject.walletId;
     }
 
-    if (!connector) {
+    if (!connector && !isEmbeddedWalletRequest) {
       log("Connector not found", availableWallets, optionsObject.walletId);
       return { error: new OpenfortError("Connector not found", OpenfortErrorType.WALLET_ERROR) };
     }
 
-    if (activeWallet?.id === connector.id && address === optionsObject.address) {
+    if (connector && activeWallet?.id === connector.id && address === optionsObject.address) {
       log(`Already connected to ${connector.id} with address ${address}, skipping connection`);
       return { wallet: activeWallet };
     }
@@ -351,6 +353,23 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     await disconnectAsync();
 
     if (showUI) {
+      if (isEmbeddedWalletRequest) {
+        setTimeout(() => {
+          setRoute(routes.RECOVER);
+          setOpen(true);
+        });
+        return {};
+      }
+
+      if (!connector) {
+        log("Connector not available for wallet", optionsObject.walletId);
+        return onError({
+          error: new OpenfortError("Wallet not found", OpenfortErrorType.AUTHENTICATION_ERROR),
+          options: optionsObject,
+          hookOptions
+        });
+      }
+
       const walletToConnect = wallets.find((w) => w.id == connector.id)
       if (!walletToConnect) {
         log("Wallet not found", connector);
@@ -362,28 +381,15 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       }
 
       log("Connecting to wallet", walletToConnect);
-      if (connector.id === embeddedWalletId) {
-        setTimeout(() => {
-          setRoute(routes.RECOVER);
-          setOpen(true);
-        });
-      } else {
-        setRoute(routes.CONNECT);
-        setConnector({ id: connector.id });
-        setOpen(true);
-      }
+      setRoute(routes.CONNECT);
+      setConnector({ id: connector.id });
+      setOpen(true);
       return {};
-    }
-
-    function isOpenfortWallet(
-      opts: SetActiveWalletOptions
-    ) {
-      return opts.walletId === embeddedWalletId;
     }
 
     log("Setting active wallet", { options: optionsObject, chainId });
 
-    if (isOpenfortWallet(optionsObject)) {
+    if (isEmbeddedWalletRequest) {
       setStatus({
         status: 'connecting',
         address: optionsObject.address,
@@ -451,20 +457,47 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             recoveryParams,
           })
         } else {
-          let accountToRecover
-          // Check if the embedded wallet is already created in the current chain
           if (walletConfig?.accountType === AccountTypeEnum.EOA) {
-            accountToRecover = embeddedAccounts.find((w) => w.accountType === AccountTypeEnum.EOA);
+            // For EOAs, chain is not relevant; recover the first available EOA account
+            const accountToRecover = embeddedAccounts[0];
             if (!accountToRecover) {
               return onError({
-                error: new OpenfortError("No embedded wallet found with type EOA", OpenfortErrorType.WALLET_ERROR),
+                error: new OpenfortError("No embedded EOA wallet available to recover", OpenfortErrorType.WALLET_ERROR),
                 options: optionsObject,
                 hookOptions
               });
             }
+            log("Recovering EOA embedded wallet (without walletAddress)", accountToRecover);
+            const recovery: WalletRecovery = {
+              recoveryMethod: accountToRecover.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
+              password: optionsObject.recovery?.password,
+            }
+            const recoveryParams = await parseWalletRecovery(recovery, embeddedAccounts, accountToRecover.address as Hex);
+            embeddedAccount = await client.embeddedWallet.recover({
+              account: accountToRecover.id,
+              recoveryParams,
+            });
+            walletAddress = accountToRecover.address as Hex;
           } else {
-            const accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId);
-            if (!accountToRecover) {
+            // Smart Accounts: must match current chain
+            if (embeddedAccounts.some((w) => w.chainId === chainId)) {
+              const accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId)!;
+              log("Found embedded wallet to recover (without walletAddress)", accountToRecover);
+
+              const recovery: WalletRecovery = {
+                recoveryMethod: accountToRecover.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
+                password: optionsObject.recovery?.password,
+              }
+              const recoveryParams = await parseWalletRecovery(recovery, embeddedAccounts, walletAddress);
+
+              embeddedAccount = await client.embeddedWallet.recover({
+                account: accountToRecover.id,
+                recoveryParams,
+              });
+              walletAddress = accountToRecover.address as Hex;
+            } else {
+              log("No embedded wallet found for the current chain");
+
               // Here it should check if there is a wallet that can recover in another chain and recover it in the current chain (its a different account so its not supported yet)
               // TODO: Connect to wallet in the other chain and then switch chain
               return onError({
@@ -473,11 +506,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
                 hookOptions
               });
             }
-          }
-          log("Found embedded wallet to recover (without walletAddress)", accountToRecover);
-          const recovery: WalletRecovery = {
-            recoveryMethod: accountToRecover.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
-            password: optionsObject.recovery?.password,
           }
           const recoveryParams = await parseWalletRecovery(recovery, embeddedAccounts, walletAddress);
           embeddedAccount = await client.embeddedWallet.recover({
@@ -541,6 +569,12 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         status: 'connecting',
         address: optionsObject.address,
       });
+      if (!connector) {
+        log("Connector not available for wallet", optionsObject.walletId);
+        return {
+          error: new OpenfortError("Connector not found", OpenfortErrorType.WALLET_ERROR),
+        };
+      }
       setConnectToConnector({
         address: optionsObject.address,
         connector,
