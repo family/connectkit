@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
-import { useStatus } from "./useStatus";
+import { EmbeddedState } from "@openfort/openfort-js";
 
 /**
  * Hook for accessing current user information and authentication state
@@ -47,8 +47,7 @@ import { useStatus } from "./useStatus";
  * ```
  */
 export function useUser() {
-  const { user, client } = useOpenfortCore();
-  const { isAuthenticated } = useStatus();
+  const { user, client, embeddedState } = useOpenfortCore();
 
   const getAccessTokenAndUpdate = useCallback(async () => {
     await client.validateAndRefreshToken();
@@ -58,7 +57,7 @@ export function useUser() {
 
   return {
     user,
-    isAuthenticated,
+    isAuthenticated: embeddedState !== EmbeddedState.NONE && embeddedState !== EmbeddedState.UNAUTHENTICATED,
     getAccessToken: getAccessTokenAndUpdate,
     validateAndRefreshToken: async () => await client.validateAndRefreshToken(),
   };

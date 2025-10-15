@@ -6,7 +6,7 @@ import { Connector, useAccount, useChainId, useConnect, useDisconnect } from "wa
 import { UIAuthProvider, routes } from "../../components/Openfort/types";
 import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { embeddedWalletId } from "../../constants/openfort";
-import { useOpenfortCore } from '../../openfort/useOpenfort';
+import { useOpenfortCore, useWalletStatus } from '../../openfort/useOpenfort';
 import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../types";
 import { useWallets as useWagmiWallets } from "../../wallets/useWallets";
 import { BaseFlowState } from "./auth/status";
@@ -80,13 +80,13 @@ const parseEmbeddedAccount = (embeddedAccount: EmbeddedAccount, connector: Conne
   connector,
 });
 
-type WalletFlowStatus = BaseFlowState | {
+export type WalletFlowStatus = BaseFlowState | {
   status: "creating" | "connecting";
   address?: Hex;
   error?: never;
 }
 
-const mapWalletStatus = (status: WalletFlowStatus) => {
+export const mapWalletStatus = (status: WalletFlowStatus) => {
   return {
     error: status.error,
     isError: status.status === 'error',
@@ -115,12 +115,6 @@ const mapWalletStatus = (status: WalletFlowStatus) => {
  *   onCreateWalletError: (error) => console.error('Wallet creation failed:', error),
  *   onSetActiveWalletSuccess: (result) => console.log('Wallet activated:', result.wallet),
  * });
- *
- * // Check available wallets
- * if (wallets.hasWallet) {
- *   console.log('Available wallets:', wallets.wallets);
- *   console.log('Active wallet:', wallets.activeWallet);
- * }
  *
  * // Create a new embedded wallet with automatic recovery
  * await wallets.createWallet({
@@ -161,9 +155,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   const chainId = useChainId();
   const availableWallets = useWagmiWallets(); // TODO: Map wallets object to be the same as wallets
   const { disconnect, disconnectAsync } = useDisconnect();
-  const [status, setStatus] = useState<WalletFlowStatus>({
-    status: "idle",
-  })
+  const [status, setStatus] = useWalletStatus();
   const [connectToConnector, setConnectToConnector] = useState<{ address?: Hex, connector: Connector } | undefined>(undefined);
   const { connect } = useConnect({
     mutation: {
@@ -182,7 +174,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       onSuccess: (data) => {
         setConnectToConnector(undefined);
         log("Connected with wallet", data, connectToConnector);
-        if (connectToConnector?.address && !data.accounts.some((a) => a === connectToConnector.address)) {
+        if (connectToConnector?.address && !data.accounts.some((a) => a.toLowerCase() === connectToConnector.address?.toLowerCase())) {
           setStatus({
             status: 'error',
             error: new OpenfortError("Failed to connect with wallet: Address mismatch", OpenfortErrorType.AUTHENTICATION_ERROR),
@@ -257,12 +249,11 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           }
         }
 
-        const details = embeddedAccounts.find(w => w.address === walletAddress && w.recoveryMethod === RecoveryMethod.PASSKEY)?.recoveryMethodDetails;
+        const details = embeddedAccounts.find(w => w.address.toLowerCase() === walletAddress?.toLowerCase() && w.recoveryMethod === RecoveryMethod.PASSKEY)?.recoveryMethodDetails;
 
         const passkeyId = details?.passkeyId;
-        const passkeyEnv = details?.passkeyEnv;
 
-        if (!passkeyId || !passkeyEnv) {
+        if (!passkeyId) {
           throw new OpenfortError("No passkey details found for the wallet", OpenfortErrorType.VALIDATION_ERROR);
         }
 
@@ -294,7 +285,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
     embeddedAccounts?.forEach((embeddedAccount) => {
       // Remove duplicates (different chain ids)
-      if (userWallets.find(w => w.address === (embeddedAccount.address))) return;
+      if (userWallets.find(w => w.address.toLowerCase() === embeddedAccount.address.toLowerCase())) return;
 
       userWallets.push(parseEmbeddedAccount(embeddedAccount, openfortConnector));
     });
@@ -306,11 +297,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     // log("Mapping wallets", { rawWallets, status, address, isConnected, connector: connector?.id });
     return rawWallets.map((w) => ({
       ...w,
-      isConnecting: status.status === 'connecting' && status.address === w.address,
-      isActive: w.address === address && isConnected && connector?.id === w.id,
+      isConnecting: status.status === 'connecting' && status.address?.toLowerCase() === w.address.toLowerCase(),
+      isActive: w.address.toLowerCase() === address?.toLowerCase() && isConnected && connector?.id === w.id,
     }))
   }, [rawWallets.length, status.status, address, isConnected, connector?.id]);
-
   const activeWallet = isConnected && connector ? wallets.find((w) => w.isActive) : undefined;
 
   useEffect(() => {
@@ -343,7 +333,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       return { error: new OpenfortError("Connector not found", OpenfortErrorType.WALLET_ERROR) };
     }
 
-    if (activeWallet?.id === connector.id && address === optionsObject.address) {
+    if (activeWallet?.id === connector.id && address?.toLowerCase() === optionsObject.address?.toLowerCase()) {
       log(`Already connected to ${connector.id} with address ${address}, skipping connection`);
       return { wallet: activeWallet };
     }
@@ -416,11 +406,12 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         let embeddedAccount: EmbeddedAccount | undefined;
 
         if (walletAddress) {
+          const addressToMatch = walletAddress.toLowerCase();
           const accountToRecover = embeddedAccounts.find(w => {
             if (walletConfig?.accountType === AccountTypeEnum.EOA) {
-              return w.address === walletAddress;
+              return w.address.toLowerCase() === addressToMatch;
             } else {
-              return w.address === walletAddress && w.chainId === chainId
+              return w.address.toLowerCase() === addressToMatch && w.chainId === chainId
             }
           });
           if (!accountToRecover) {
@@ -435,7 +426,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           if (optionsObject.recovery?.recoveryMethod && accountToRecover.recoveryMethod && optionsObject.recovery.recoveryMethod !== accountToRecover.recoveryMethod) {
             log("Recovery method does not match", optionsObject.recovery.recoveryMethod, accountToRecover.recoveryMethod);
             return onError({
-              error: new OpenfortError("The recovery phrase you entered is incorrect and does not match the wallet's recovery method", OpenfortErrorType.WALLET_ERROR),
+              error: new OpenfortError("The recovery method you entered is incorrect and does not match the wallet's recovery method", OpenfortErrorType.WALLET_ERROR),
               options: optionsObject,
               hookOptions
             });
@@ -474,6 +465,17 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               });
             }
           }
+          log("Found embedded wallet to recover (without walletAddress)", accountToRecover);
+          const recovery: WalletRecovery = {
+            recoveryMethod: accountToRecover.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
+            password: optionsObject.recovery?.password,
+          }
+          const recoveryParams = await parseWalletRecovery(recovery, embeddedAccounts, walletAddress);
+          embeddedAccount = await client.embeddedWallet.recover({
+            account: accountToRecover.id,
+            recoveryParams,
+          });
+          walletAddress = accountToRecover.address as Hex;
         }
 
         if (!embeddedAccount) {
@@ -639,7 +641,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   );
 
   return {
-    hasWallet: wallets.length > 0,
     isLoadingWallets,
     wallets,
     availableWallets,

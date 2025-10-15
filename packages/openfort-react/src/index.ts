@@ -22,15 +22,13 @@ export { default as ChainIcon } from './components/Common/Chain';
 export { useChains } from './hooks/useChains';
 export { useChainIsSupported } from './hooks/useChainIsSupported';
 
-export { useStatus, OpenfortStatus } from './hooks/openfort/useStatus';
 export { useUser } from './hooks/openfort/useUser';
 
 export { useUI } from "./hooks/openfort/useUI";
 
 export { useWallets, UserWallet } from "./hooks/openfort/useWallets";
-export { useWallet } from "./hooks/openfort/useWallet";
 
-export { RecoveryMethod, AuthPlayerResponse, RecoveryParams, AccountTypeEnum } from "@openfort/openfort-js";
+export { RecoveryMethod, AuthPlayerResponse, RecoveryParams, AccountTypeEnum, openfortEvents, OpenfortEventMap, OpenfortEvents, AuthResponse, EmbeddedAccount, SignedMessagePayload, AuthInitPayload } from "@openfort/openfort-js";
 
 export { useOpenfortCore as useOpenfort } from './openfort/useOpenfort';
 export { useConnectWithSiwe } from './hooks/openfort/useConnectWithSiwe';
