@@ -8,7 +8,3 @@ export const logger = {
   debug: (...args: any[]) => console.debug(PREFIX, ...args),
 };
 
-export const createDebugLogger = (debugMode?: boolean) => {
-  return debugMode ? logger.log : () => { };
-};
-

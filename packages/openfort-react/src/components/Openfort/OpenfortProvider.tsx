@@ -19,7 +19,7 @@ import { useThemeFont } from '../../hooks/useGoogleFont';
 import { CoreOpenfortProvider } from '../../openfort/CoreOpenfortProvider';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import { isFamily } from '../../utils/wallets';
-import { logger, createDebugLogger } from '../../utils/logger';
+import { logger } from '../../utils/logger';
 import ConnectKitModal from '../ConnectModal';
 import { Web3ContextProvider } from '../contexts/web3';
 import { ContextValue, ErrorMessage, Openfortcontext } from './context';
@@ -202,10 +202,8 @@ export const OpenfortProvider = ({
     }
   }, [injectedConnector]);
 
-  const log = createDebugLogger(debugMode);
-
   useEffect(() => {
-    log("ROUTE", route)
+    logger.log("ROUTE", route)
   }, [route]);
 
   const value: ContextValue = {
@@ -227,7 +225,7 @@ export const OpenfortProvider = ({
     uiConfig: safeUiConfig,
     errorMessage,
     debugMode,
-    log,
+    log: logger.log,
     emailInput,
     setEmailInput,
     displayError: (message: string | React.ReactNode | null, code?: any) => {

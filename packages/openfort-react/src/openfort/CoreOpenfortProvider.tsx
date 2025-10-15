@@ -8,7 +8,7 @@ import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnect
 import { Context } from './context';
 import { createOpenfortClient, setDefaultClient } from './core';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { logger, createDebugLogger } from '../utils/logger';
+import { logger } from '../utils/logger';
 
 export type ContextValue = {
   signUpGuest: () => Promise<void>;
@@ -49,8 +49,6 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     ...openfortProps
   }
 ) => {
-  const log = createDebugLogger(debugMode);
-
   const { connectors, connect, reset } = useConnect();
   const { address } = useAccount();
   const [user, setUser] = useState<AuthPlayerResponse | null>(null);
@@ -60,7 +58,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
-    log('Creating Openfort instance.', openfortProps);
+    logger.log('Creating Openfort instance.', openfortProps);
 
     if (!openfortProps.baseConfiguration.publishableKey)
       throw Error('CoreOpenfortProvider requires a publishableKey to be set in the baseConfiguration.');
@@ -100,10 +98,10 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   // Only log embedded state when it changes
   useEffect(() => {
     if (previousEmbeddedState.current !== embeddedState) {
-      log("Embedded state changed:", EmbeddedState[embeddedState]);
+      logger.log("Embedded state changed:", EmbeddedState[embeddedState]);
       previousEmbeddedState.current = embeddedState;
     }
-  }, [embeddedState, log]);
+  }, [embeddedState]);
 
   const startPollingEmbeddedState = useCallback(() => {
 
@@ -128,7 +126,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
   const updateUser = useCallback(async (user?: AuthPlayerResponse, logoutOnError: boolean = false) => {
     if (!openfort) return null;
-    log("Updating user", { user, logoutOnError });
+    logger.log("Updating user", { user, logoutOnError });
 
     if (user) {
       setUser(user);
@@ -137,18 +135,18 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
     try {
       const user = await openfort.user.get()
-      log("Getting user");
+      logger.log("Getting user");
       setUser(user);
       return user;
     } catch (err: OpenfortError | any) {
-      log("Error getting user", err);
+      logger.log("Error getting user", err);
       if (!logoutOnError) return null;
 
       if (err?.response?.status === 404) {
-        log("User not found, logging out");
+        logger.log("User not found, logging out");
         logout();
       } else if (err?.response?.status === 401) {
-        log("User not authenticated, logging out");
+        logger.log("User not authenticated, logging out");
         logout();
       }
       return null;
@@ -160,7 +158,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   useEffect(() => {
     if (!openfort || !walletConfig) return;
 
-    log("Getting ethereum provider", chainId);
+    logger.log("Getting ethereum provider", chainId);
 
     const resolvePolicy = () => {
       const { ethereumProviderPolicyId } = walletConfig;
@@ -173,7 +171,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
       const policy = ethereumProviderPolicyId[chainId];
       if (!policy) {
-        log(`No policy found for chainId ${chainId}.`);
+        logger.log(`No policy found for chainId ${chainId}.`);
         return undefined;
       }
 
@@ -221,7 +219,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
       case EmbeddedState.READY:
         (async () => {
           for (let i = 0; i < 5; i++) {
-            log("Trying to update user...", i);
+            logger.log("Trying to update user...", i);
             try {
               const user = await updateUser(undefined, true);
               if (user) break;
@@ -246,7 +244,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     const connector = connectors.find((connector) => connector.name === "Openfort")
     if (!connector) return
 
-    log("Connecting to wagmi with Openfort");
+    logger.log("Connecting to wagmi with Openfort");
     setIsConnectedWithEmbeddedSigner(true);
     connect({ connector });
   }, [connectors, embeddedState, address, user]);
@@ -260,7 +258,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     if (!openfort) return;
 
     setUser(null);
-    log('Logging out...');
+    logger.log('Logging out...');
     await openfort.auth.logout();
     await disconnectAsync();
     queryClient.resetQueries({ queryKey: ['openfortEmbeddedAccountsList'] })
@@ -272,9 +270,9 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     if (!openfort) return;
 
     try {
-      log('Signing up as guest...');
+      logger.log('Signing up as guest...');
       const res = await openfort.auth.signUpGuest();
-      log('Signed up as guest:', res);
+      logger.log('Signed up as guest:', res);
     } catch (error) {
       logger.error('Error logging in as guest:', error);
     }
