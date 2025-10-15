@@ -2,14 +2,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createConfig, WagmiProvider } from 'wagmi';
 
 import { getDefaultConfig, OpenfortProvider, ThirdPartyOAuthProvider } from "@openfort/react";
-import { beamTestnet, polygonAmoy, sepolia } from 'viem/chains';
+import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { auth } from '../lib/firebase';
 
 
 export const config = createConfig(
   getDefaultConfig({
     appName: 'Openfort Next.js demo',
-    chains: [beamTestnet, polygonAmoy, sepolia], // The chains you want to support
+    chains: [beamTestnet, polygonAmoy], // The chains you want to support
     walletConnectProjectId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID, // The WalletConnect Project ID
   })
 );

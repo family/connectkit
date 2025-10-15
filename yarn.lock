@@ -2230,27 +2230,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/openfort-js@npm:^0.10.24":
-  version: 0.10.25
-  resolution: "@openfort/openfort-js@npm:0.10.25"
-  dependencies:
-    "@ethersproject/abi": ^5.8.0
-    "@ethersproject/bytes": ^5.8.0
-    "@ethersproject/hash": ^5.8.0
-    "@ethersproject/keccak256": ^5.8.0
-    "@ethersproject/providers": ^5.8.0
-    "@ethersproject/transactions": ^5.8.0
-    "@openfort/shield-js": ^0.1.27
-    "@sentry/browser": ^9.15.0
-    "@sentry/core": ^9.15.0
-    axios: ^1.8.2
-    eventemitter3: 5.0.1
-    human-id: ^4.1.1
-    jose: ^5.2.2
-  checksum: 4d0f5c4f8b54fb62e0c5a00c10f4973cbca923ee0502d1f591b00e8b7f8fcbcce57041f6c12bcb50b608c5b7901b62360faff2bb2e21a9d486db322a6645a7dc
-  languageName: node
-  linkType: hard
-
 "@openfort/openfort-js@npm:^0.10.26":
   version: 0.10.26
   resolution: "@openfort/openfort-js@npm:0.10.26"
@@ -2272,32 +2251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/react@npm:^0.0.23":
-  version: 0.0.23
-  resolution: "@openfort/react@npm:0.0.23"
-  dependencies:
-    "@openfort/openfort-js": ^0.10.24
-    buffer: ^6.0.3
-    detect-browser: ^5.3.0
-    fast-password-entropy: ^1.1.1
-    framer-motion: ^6.3.11
-    qrcode: ^1.5.0
-    react-is: ^19.1.0
-    react-transition-state: ^1.1.4
-    react-use-measure: ^2.1.1
-    resize-observer-polyfill: ^1.5.1
-    styled-components: ^5.3.5
-  peerDependencies:
-    "@tanstack/react-query": ">=5.0.0"
-    react: 17.x || 18.x || 19.x
-    react-dom: 17.x || 18.x || 19.x
-    viem: 2.x
-    wagmi: 2.x
-  checksum: d25694c1847a69dc13b0a6e75a3055bb3f36d0450b86a2a9a3b56aa8c208ae624c13c7225a2e2ec89669eb83187968078feb7d9484557aa4e50750f32ba91f1a
-  languageName: node
-  linkType: hard
-
-"@openfort/react@workspace:packages/openfort-react":
+"@openfort/react@^0.0.24, @openfort/react@workspace:packages/openfort-react":
   version: 0.0.0-use.local
   resolution: "@openfort/react@workspace:packages/openfort-react"
   dependencies:
@@ -10366,7 +10320,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.23
+    "@openfort/react": ^0.0.24
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10393,7 +10347,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.23
+    "@openfort/react": ^0.0.24
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10408,7 +10362,7 @@ __metadata:
     tailwindcss: ^4.1.12
     typescript: ~5.8.3
     typescript-eslint: ^8.39.1
-    viem: ^2.22.0
+    viem: 2.33.0
     vite: ^6.2.0
     wagmi: ^2.17.5
   languageName: unknown
@@ -10420,7 +10374,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.23
+    "@openfort/react": ^0.0.24
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10435,7 +10389,7 @@ __metadata:
     tailwindcss: ^4.1.12
     typescript: ~5.8.3
     typescript-eslint: ^8.39.1
-    viem: ^2.22.0
+    viem: ^2.33.0
     vite: ^6.2.0
     wagmi: ^2.17.5
   languageName: unknown
@@ -12600,7 +12554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:>=2.29.0, viem@npm:^2.1.1, viem@npm:^2.22.0, viem@npm:^2.27.2, viem@npm:^2.31.7":
+"viem@npm:>=2.29.0, viem@npm:^2.1.1, viem@npm:^2.27.2, viem@npm:^2.31.7":
   version: 2.37.9
   resolution: "viem@npm:2.37.9"
   dependencies:
@@ -12618,6 +12572,27 @@ __metadata:
     typescript:
       optional: true
   checksum: 4c7ba35a556a36a1a25a7af0bfbb5f2f499b67fa37ccc25e397eee78bd9766b1261d551be7d2687bc917ac167ca55a970ade20486cf9cc215754572f83240a28
+  languageName: node
+  linkType: hard
+
+"viem@npm:^2.33.0":
+  version: 2.38.2
+  resolution: "viem@npm:2.38.2"
+  dependencies:
+    "@noble/curves": 1.9.1
+    "@noble/hashes": 1.8.0
+    "@scure/bip32": 1.7.0
+    "@scure/bip39": 1.6.0
+    abitype: 1.1.0
+    isows: 1.0.7
+    ox: 0.9.6
+    ws: 8.18.3
+  peerDependencies:
+    typescript: ">=5.0.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 7737a6f0c7682970a14adee816ec8d1c7540a93036c70828c945373160bd23e0c7e60de2b612e30539b245d7adff1d79f5751373ef71fd8597c6331be2cc8421
   languageName: node
   linkType: hard
 
