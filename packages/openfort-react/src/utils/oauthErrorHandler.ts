@@ -26,11 +26,8 @@ export function handleOAuthConfigError(error: any): void {
       `3. Enable "${provider}" in the Third Party Authentication section\n` +
       `4. Configure the required fields:\n` +
       `   ${hint}\n` +
-      `5. Click "Save"\n` +
-      `6. Ensure your thirdPartyAuth prop includes:\n` +
-      `   - provider: ThirdPartyOAuthProvider.${provider.toUpperCase()}\n` +
-      `   - getAccessToken: async function that returns the ${provider} access token\n\n` +
-      `See: https://www.openfort.io/docs/guides/auth/third-party-authentication`
+      `5. Click "Save"\n\n` +
+      `See: https://www.openfort.io/docs/configuration/external-auth`
     );
   }
 }
