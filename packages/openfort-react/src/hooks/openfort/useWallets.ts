@@ -507,6 +507,12 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               });
             }
           }
+          const recoveryParams = await parseWalletRecovery(recovery, embeddedAccounts, walletAddress);
+          embeddedAccount = await client.embeddedWallet.recover({
+            account: accountToRecover.id,
+            recoveryParams,
+          });
+          walletAddress = accountToRecover.address as Hex;
         }
 
         if (!embeddedAccount) {

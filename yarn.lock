@@ -2251,7 +2251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/react@^0.0.22, @openfort/react@workspace:packages/openfort-react":
+"@openfort/react@^0.0.23, @openfort/react@workspace:packages/openfort-react":
   version: 0.0.0-use.local
   resolution: "@openfort/react@workspace:packages/openfort-react"
   dependencies:
@@ -10320,7 +10320,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.22
+    "@openfort/react": ^0.0.23
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10347,7 +10347,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.22
+    "@openfort/react": ^0.0.23
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10374,7 +10374,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.22
+    "@openfort/react": ^0.0.23
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
