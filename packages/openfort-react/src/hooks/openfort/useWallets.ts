@@ -474,17 +474,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               });
             }
           }
-          log("Found embedded wallet to recover (without walletAddress)", accountToRecover);
-          const recovery: WalletRecovery = {
-            recoveryMethod: accountToRecover.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
-            password: optionsObject.recovery?.password,
-          }
-          const recoveryParams = await parseWalletRecovery(recovery, embeddedAccounts, walletAddress);
-          embeddedAccount = await client.embeddedWallet.recover({
-            account: accountToRecover.id,
-            recoveryParams,
-          });
-          walletAddress = accountToRecover.address as Hex;
         }
 
         if (!embeddedAccount) {

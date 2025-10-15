@@ -34,6 +34,11 @@ export { RecoveryMethod, AuthPlayerResponse, RecoveryParams, AccountTypeEnum } f
 
 export { useOpenfortCore as useOpenfort } from './openfort/useOpenfort';
 export { useConnectWithSiwe } from './hooks/openfort/useConnectWithSiwe';
+export {
+  use7702Authorization,
+  type SignAuthorizationParameters,
+  type SignAuthorizationReturnType,
+} from './hooks/openfort/use7702Authorization';
 
 export { embeddedWalletId } from './constants/openfort';
 export { useEmailAuth } from './hooks/openfort/auth/useEmailAuth';
