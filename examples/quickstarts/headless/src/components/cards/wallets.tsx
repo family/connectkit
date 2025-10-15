@@ -6,7 +6,7 @@ import { WalletRecoverPasswordSheet } from "../passwordRecovery";
 import { useAccount } from "wagmi";
 
 export const Wallets = () => {
-  const { wallets, isLoadingWallets, availableWallets,setActiveWallet, isConnecting } = useWallets();
+  const { wallets, isLoadingWallets,activeWallet, availableWallets,setActiveWallet, isConnecting } = useWallets();
   const { user, isAuthenticated } = useUser();
   const { isConnected } = useAccount();
   const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false);
@@ -14,7 +14,7 @@ export const Wallets = () => {
   const { signOut } = useSignOut();
 
     
-  if(isConnecting) return <div>recovering maybe...</div>
+  if(!activeWallet && isConnecting) return <div>recovering ...</div>
   if (isLoadingWallets || (!user && isAuthenticated)) {
     return <div>Loading wallets...</div>
   }

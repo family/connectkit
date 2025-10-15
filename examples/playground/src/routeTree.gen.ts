@@ -22,7 +22,6 @@ import { Route as HooksWagmiUseDisconnectRouteImport } from './routes/_hooks/wag
 import { Route as HooksWagmiUseBalanceRouteImport } from './routes/_hooks/wagmi/useBalance'
 import { Route as HooksWagmiUseAccountRouteImport } from './routes/_hooks/wagmi/useAccount'
 import { Route as HooksUtilsUseUIRouteImport } from './routes/_hooks/utils/useUI'
-import { Route as HooksUtilsUseStatusRouteImport } from './routes/_hooks/utils/useStatus'
 import { Route as HooksAuthUseWalletAuthRouteImport } from './routes/_hooks/auth/useWalletAuth'
 import { Route as HooksAuthUseUserRouteImport } from './routes/_hooks/auth/useUser'
 import { Route as HooksAuthUseSignOutRouteImport } from './routes/_hooks/auth/useSignOut'
@@ -100,11 +99,6 @@ const HooksWagmiUseAccountRoute = HooksWagmiUseAccountRouteImport.update({
 const HooksUtilsUseUIRoute = HooksUtilsUseUIRouteImport.update({
   id: '/utils/useUI',
   path: '/utils/useUI',
-  getParentRoute: () => HooksRoute,
-} as any)
-const HooksUtilsUseStatusRoute = HooksUtilsUseStatusRouteImport.update({
-  id: '/utils/useStatus',
-  path: '/utils/useStatus',
   getParentRoute: () => HooksRoute,
 } as any)
 const HooksAuthUseWalletAuthRoute = HooksAuthUseWalletAuthRouteImport.update({
@@ -197,7 +191,6 @@ export interface FileRoutesByFullPath {
   '/auth/useSignOut': typeof HooksAuthUseSignOutRoute
   '/auth/useUser': typeof HooksAuthUseUserRoute
   '/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
-  '/utils/useStatus': typeof HooksUtilsUseStatusRoute
   '/utils/useUI': typeof HooksUtilsUseUIRoute
   '/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
   '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
@@ -225,7 +218,6 @@ export interface FileRoutesByTo {
   '/auth/useSignOut': typeof HooksAuthUseSignOutRoute
   '/auth/useUser': typeof HooksAuthUseUserRoute
   '/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
-  '/utils/useStatus': typeof HooksUtilsUseStatusRoute
   '/utils/useUI': typeof HooksUtilsUseUIRoute
   '/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
   '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
@@ -255,7 +247,6 @@ export interface FileRoutesById {
   '/_hooks/auth/useSignOut': typeof HooksAuthUseSignOutRoute
   '/_hooks/auth/useUser': typeof HooksAuthUseUserRoute
   '/_hooks/auth/useWalletAuth': typeof HooksAuthUseWalletAuthRoute
-  '/_hooks/utils/useStatus': typeof HooksUtilsUseStatusRoute
   '/_hooks/utils/useUI': typeof HooksUtilsUseUIRoute
   '/_hooks/wagmi/useAccount': typeof HooksWagmiUseAccountRoute
   '/_hooks/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
@@ -285,7 +276,6 @@ export interface FileRouteTypes {
     | '/auth/useSignOut'
     | '/auth/useUser'
     | '/auth/useWalletAuth'
-    | '/utils/useStatus'
     | '/utils/useUI'
     | '/wagmi/useAccount'
     | '/wagmi/useBalance'
@@ -313,7 +303,6 @@ export interface FileRouteTypes {
     | '/auth/useSignOut'
     | '/auth/useUser'
     | '/auth/useWalletAuth'
-    | '/utils/useStatus'
     | '/utils/useUI'
     | '/wagmi/useAccount'
     | '/wagmi/useBalance'
@@ -342,7 +331,6 @@ export interface FileRouteTypes {
     | '/_hooks/auth/useSignOut'
     | '/_hooks/auth/useUser'
     | '/_hooks/auth/useWalletAuth'
-    | '/_hooks/utils/useStatus'
     | '/_hooks/utils/useUI'
     | '/_hooks/wagmi/useAccount'
     | '/_hooks/wagmi/useBalance'
@@ -456,13 +444,6 @@ declare module '@tanstack/react-router' {
       path: '/utils/useUI'
       fullPath: '/utils/useUI'
       preLoaderRoute: typeof HooksUtilsUseUIRouteImport
-      parentRoute: typeof HooksRoute
-    }
-    '/_hooks/utils/useStatus': {
-      id: '/_hooks/utils/useStatus'
-      path: '/utils/useStatus'
-      fullPath: '/utils/useStatus'
-      preLoaderRoute: typeof HooksUtilsUseStatusRouteImport
       parentRoute: typeof HooksRoute
     }
     '/_hooks/auth/useWalletAuth': {
@@ -594,7 +575,6 @@ interface HooksRouteChildren {
   HooksAuthUseSignOutRoute: typeof HooksAuthUseSignOutRoute
   HooksAuthUseUserRoute: typeof HooksAuthUseUserRoute
   HooksAuthUseWalletAuthRoute: typeof HooksAuthUseWalletAuthRoute
-  HooksUtilsUseStatusRoute: typeof HooksUtilsUseStatusRoute
   HooksUtilsUseUIRoute: typeof HooksUtilsUseUIRoute
   HooksWalletUseWalletRoute: typeof HooksWalletUseWalletRoute
   HooksWalletUseWalletsRoute: typeof HooksWalletUseWalletsRoute
@@ -610,7 +590,6 @@ const HooksRouteChildren: HooksRouteChildren = {
   HooksAuthUseSignOutRoute: HooksAuthUseSignOutRoute,
   HooksAuthUseUserRoute: HooksAuthUseUserRoute,
   HooksAuthUseWalletAuthRoute: HooksAuthUseWalletAuthRoute,
-  HooksUtilsUseStatusRoute: HooksUtilsUseStatusRoute,
   HooksUtilsUseUIRoute: HooksUtilsUseUIRoute,
   HooksWalletUseWalletRoute: HooksWalletUseWalletRoute,
   HooksWalletUseWalletsRoute: HooksWalletUseWalletsRoute,
