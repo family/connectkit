@@ -5,6 +5,7 @@ import { useOpenfort } from '../components/Openfort/useOpenfort';
 
 import { getLocale } from './../localizations';
 import { LocaleProps } from '../localizations/locales';
+import { logger } from '../utils/logger';
 
 export default function useLocales(replacements?: any): LocaleProps {
   const context = useOpenfort();
@@ -15,7 +16,7 @@ export default function useLocales(replacements?: any): LocaleProps {
   }, [language]);
 
   if (!translations) {
-    console.error(`Missing translations for: ${language}`);
+    logger.error(`Missing translations for: ${language}`);
     throw new Error(`Missing translations for: ${language}`);
   }
 

@@ -9,6 +9,7 @@ import { UserWallet, useWallets } from "../../../hooks/openfort/useWallets";
 import { useEnsFallbackConfig } from "../../../hooks/useEnsFallbackConfig";
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
 import { truncateEthAddress } from "../../../utils";
+import { logger } from "../../../utils/logger";
 import Button from "../../Common/Button";
 import CopyToClipboard from "../../Common/CopyToClipboard";
 import FitText from "../../Common/FitText";
@@ -489,7 +490,7 @@ const RecoverWallet = ({ wallet }: { wallet: UserWallet }) => {
     case RecoveryMethod.PASSKEY:
       return <RecoverPasskeyWallet wallet={wallet} />
     default:
-      console.error("Unsupported recovery method: " + wallet.recoveryMethod + ", defaulting to automatic.");
+      logger.error("Unsupported recovery method: " + wallet.recoveryMethod + ", defaulting to automatic.");
       return <RecoverAutomaticWallet walletAddress={wallet.address} />
   }
 }
@@ -577,7 +578,7 @@ const CreateWallet = () => {
     case "other":
       return <ChooseRecoveryMethod onChangeMethod={setUserSelectedMethod} />
     default:
-      console.error("Unsupported recovery method: " + userSelectedMethod + uiConfig.walletRecovery.defaultMethod);
+      logger.error("Unsupported recovery method: " + userSelectedMethod + uiConfig.walletRecovery.defaultMethod);
       return null;
   }
 }

@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { useCallback } from "react"
 import { useOpenfort } from "../../../components/Openfort/useOpenfort"
 import { embeddedWalletId } from "../../../constants/openfort"
+import { logger } from "../../../utils/logger"
 import { UserWallet, useWallets } from "../useWallets"
 import { useSignOut } from "./useSignOut"
 
@@ -64,7 +65,7 @@ export const useConnectToWalletPostAuth = () => {
     if (wallets.length === 0) {
       const createWalletResult = await createWallet();
       if (createWalletResult.error && signOutOnError) {
-        console.error("Error creating wallet:", createWalletResult.error);
+        logger.error("Error creating wallet:", createWalletResult.error);
         // If there was an error and we should log out, we can call the logout function
         await signOut();
         return {};
@@ -79,7 +80,7 @@ export const useConnectToWalletPostAuth = () => {
       });
 
       if (!setWalletResult.wallet || (setWalletResult.error && signOutOnError)) {
-        console.error("Error recovering wallet:", setWalletResult.error);
+        logger.error("Error recovering wallet:", setWalletResult.error);
         // If there was an error and we should log out, we can call the logout function
         await signOut();
       }

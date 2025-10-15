@@ -19,6 +19,7 @@ import { useThemeFont } from '../../hooks/useGoogleFont';
 import { CoreOpenfortProvider } from '../../openfort/CoreOpenfortProvider';
 import { CustomTheme, Languages, Mode, Theme } from '../../types';
 import { isFamily } from '../../utils/wallets';
+import { logger } from '../../utils/logger';
 import ConnectKitModal from '../ConnectModal';
 import { Web3ContextProvider } from '../contexts/web3';
 import { ContextValue, ErrorMessage, Openfortcontext } from './context';
@@ -142,7 +143,7 @@ export const OpenfortProvider = ({
 
   if (safeUiConfig.walletRecovery.allowedMethods.includes(RecoveryMethod.AUTOMATIC) && !allowAutomaticRecovery) {
     safeUiConfig.walletRecovery.allowedMethods = safeUiConfig.walletRecovery.allowedMethods.filter(m => m !== RecoveryMethod.AUTOMATIC);
-    console.warn("Automatic recovery method was removed from allowedMethods because no recovery options are configured in the walletConfig. Please provide either createEncryptedSessionEndpoint or getEncryptionSession to enable automatic recovery.");
+    logger.warn("Automatic recovery method was removed from allowedMethods because no recovery options are configured in the walletConfig. Please provide either createEncryptedSessionEndpoint or getEncryptionSession to enable automatic recovery.");
   }
 
   if (typeof window !== 'undefined') {
@@ -201,10 +202,8 @@ export const OpenfortProvider = ({
     }
   }, [injectedConnector]);
 
-  const log = debugMode ? console.log : () => { };
-
   useEffect(() => {
-    log("ROUTE", route)
+    logger.log("ROUTE", route)
   }, [route]);
 
   const value: ContextValue = {
@@ -226,15 +225,15 @@ export const OpenfortProvider = ({
     uiConfig: safeUiConfig,
     errorMessage,
     debugMode,
-    log,
+    log: logger.log,
     emailInput,
     setEmailInput,
     displayError: (message: string | React.ReactNode | null, code?: any) => {
       setErrorMessage(message);
-      console.log('---------OPENFORT DEBUG---------');
-      console.log(message);
+      logger.log('---------OPENFORT DEBUG---------');
+      logger.log(message);
       if (code) console.table(code);
-      console.log('---------/OPENFORT DEBUG---------');
+      logger.log('---------/OPENFORT DEBUG---------');
     },
     resize,
     triggerResize: () => onResize((prev) => prev + 1),

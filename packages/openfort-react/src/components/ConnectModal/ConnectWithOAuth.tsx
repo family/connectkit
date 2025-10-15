@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { providersLogos } from "../../assets/logos";
 import { useOpenfortCore } from '../../openfort/useOpenfort';
+import { logger } from "../../utils/logger";
 import Loader from "../Common/Loading";
 import { PageContent } from "../Common/Modal/styles";
 import { useOpenfort } from '../Openfort/useOpenfort';
@@ -48,7 +49,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
           window.history.replaceState({}, document.title, url.toString());
 
           if (!player || !accessToken || !refreshToken) {
-            console.error(`Missing player id or access token or refresh token: player=${player}, accessToken=${accessToken ? accessToken.substring(0, 10) + "..." : accessToken}, refreshToken=${refreshToken}`);
+            logger.error(`Missing player id or access token or refresh token: player=${player}, accessToken=${accessToken ? accessToken.substring(0, 10) + "..." : accessToken}, refreshToken=${refreshToken}`);
             return;
           }
 
@@ -81,7 +82,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
             if (user) {
               const authToken = await client.getAccessToken();
               if (!authToken) {
-                console.error("No auth token found");
+                logger.error("No auth token found");
                 setRoute(routes.LOADING);
                 return;
               }
@@ -108,7 +109,7 @@ const ConnectWithOAuth: React.FC<{}> = ({ }) => {
             }
           }
           catch (e) {
-            console.error("Error during OAuth initialization:", e);
+            logger.error("Error during OAuth initialization:", e);
             setRoute(routes.CONNECT);
             setStatus(states.ERROR);
             if (e instanceof Error) {
