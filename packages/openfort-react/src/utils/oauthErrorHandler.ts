@@ -30,7 +30,7 @@ export function handleOAuthConfigError(error: any): void {
       `6. Ensure your thirdPartyAuth prop includes:\n` +
       `   - provider: ThirdPartyOAuthProvider.${provider.toUpperCase()}\n` +
       `   - getAccessToken: async function that returns the ${provider} access token\n\n` +
-      `See: https://www.openfort.xyz/docs/guides/auth/third-party-authentication`
+      `See: https://www.openfort.io/docs/guides/auth/third-party-authentication`
     );
   }
 }

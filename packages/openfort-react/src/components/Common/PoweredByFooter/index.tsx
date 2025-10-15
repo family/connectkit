@@ -17,11 +17,11 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
           ) : (
             <div>
               By logging in, you agree to our <a
-                href={options?.termsOfServiceUrl ?? "https://www.openfort.xyz/terms"}
+                href={options?.termsOfServiceUrl ?? "https://www.openfort.io/terms"}
                 target="_blank"
                 rel="noopener noreferrer"
               >Terms of Service</a> & <a
-                href={options?.privacyPolicyUrl ?? "https://www.openfort.xyz/privacy"}
+                href={options?.privacyPolicyUrl ?? "https://www.openfort.io/privacy"}
                 target="_blank"
                 rel="noopener noreferrer"
               >Privacy Policy</a>.
@@ -32,7 +32,7 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
       <TextButton
         onClick={() => {
           window.open(
-            "https://www.openfort.xyz/",
+            "https://www.openfort.io/",
             "_blank",
           );
         }}
