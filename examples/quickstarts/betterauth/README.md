@@ -7,7 +7,7 @@ Better Auth authentication integration example with Openfort React and Vite.js.
 Use Openfort CLI to create a new project from this example:
 
 ```bash
-npm create openfort@latest -t betterauth
+yarn create openfort -t betterauth
 ```
 
 Or, if you prefer, you can download this example using gitpick:
@@ -21,7 +21,7 @@ npx gitpick openfort-xyz/quickstarts/tree/main/react/betterauth openfort-bettera
 1. **Install dependencies**:
 
    ```bash
-   npm install
+   yarn install
    ```
 
 2. **Configure environment**:
@@ -37,7 +37,7 @@ npx gitpick openfort-xyz/quickstarts/tree/main/react/betterauth openfort-bettera
 4. **Start development server**:
 
    ```bash
-   npm run dev
+   yarn dev
    ```
 
 ## Features

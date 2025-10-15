@@ -15,7 +15,7 @@ This project uses Better Auth for authentication with a separate backend server.
 ### 1. Install Dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
 ### 2. Configure Environment Variables
@@ -75,19 +75,19 @@ You have two options:
 
 **Option A: Run both frontend and backend together (recommended)**
 ```bash
-npm run dev:all
+yarn dev:all
 ```
 
 **Option B: Run them separately**
 
 Terminal 1 (Backend):
 ```bash
-npm run dev:server
+yarn dev:server
 ```
 
 Terminal 2 (Frontend):
 ```bash
-npm run dev
+yarn dev
 ```
 
 ### 6. Access the Application

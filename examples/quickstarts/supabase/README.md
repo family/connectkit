@@ -7,7 +7,7 @@ Supabase authentication integration example with Openfort React and Vite.js.
 Use Openfort CLI to create a new project from this example:
 
 ```bash
-npm create openfort@latest -t supabase
+yarn create openfort -t supabase
 ```
 
 Or, if you prefer, you can download this example using gitpick:
@@ -21,7 +21,7 @@ npx gitpick openfort-xyz/quickstarts/tree/main/react/supabase openfort-supabase 
 1. **Install dependencies**:
 
    ```bash
-   npm install
+   yarn install
    ```
 
 2. **Configure environment**:
@@ -30,7 +30,7 @@ npx gitpick openfort-xyz/quickstarts/tree/main/react/supabase openfort-supabase 
 3. **Start development server**:
 
    ```bash
-   npm run dev
+   yarn dev
    ```
 
 ## Features
