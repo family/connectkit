@@ -2251,32 +2251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/react@npm:^0.0.22":
-  version: 0.0.22
-  resolution: "@openfort/react@npm:0.0.22"
-  dependencies:
-    "@openfort/openfort-js": ^0.10.24
-    buffer: ^6.0.3
-    detect-browser: ^5.3.0
-    fast-password-entropy: ^1.1.1
-    framer-motion: ^6.3.11
-    qrcode: ^1.5.0
-    react-is: ^19.1.0
-    react-transition-state: ^1.1.4
-    react-use-measure: ^2.1.1
-    resize-observer-polyfill: ^1.5.1
-    styled-components: ^5.3.5
-  peerDependencies:
-    "@tanstack/react-query": ">=5.0.0"
-    react: 17.x || 18.x || 19.x
-    react-dom: 17.x || 18.x || 19.x
-    viem: 2.x
-    wagmi: 2.x
-  checksum: cc99a734d0e299d16d54968e2094ceccf7bece88805b4be9ad58b26e93149ff68a280f7c12eb84d6ffa60f566ad8055e21f4325daa250d03df56711ff2ab64a5
-  languageName: node
-  linkType: hard
-
-"@openfort/react@workspace:packages/openfort-react":
+"@openfort/react@^0.0.23, @openfort/react@workspace:packages/openfort-react":
   version: 0.0.0-use.local
   resolution: "@openfort/react@workspace:packages/openfort-react"
   dependencies:
@@ -10345,7 +10320,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.22
+    "@openfort/react": ^0.0.23
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10372,7 +10347,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.22
+    "@openfort/react": ^0.0.23
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10399,7 +10374,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.22
+    "@openfort/react": ^0.0.23
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
