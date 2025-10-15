@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Main } from './components/cards/main'
-import { auth } from './lib/firebase'
+import { auth } from './integrations/firebase'
 import { useSignOut, useUser } from '@openfort/react'
 
 function App() {
