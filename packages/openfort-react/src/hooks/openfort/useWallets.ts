@@ -8,6 +8,7 @@ import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { embeddedWalletId } from "../../constants/openfort";
 import { useOpenfortCore, useWalletStatus } from '../../openfort/useOpenfort';
 import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../types";
+import { logger } from "../../utils/logger";
 import { useWallets as useWagmiWallets } from "../../wallets/useWallets";
 import { BaseFlowState } from "./auth/status";
 import { onError, onSuccess } from "./hookConsistency";
@@ -160,7 +161,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   const { connect } = useConnect({
     mutation: {
       onError: (e) => {
-        console.error("Error connecting ---", e);
+        logger.error("Error connecting ---", e);
         const error = new OpenfortError("Failed to connect with wallet: ", OpenfortErrorType.AUTHENTICATION_ERROR, e)
         setStatus({
           status: 'error',

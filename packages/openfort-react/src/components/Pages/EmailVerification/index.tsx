@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { EmailIcon } from "../../../assets/icons";
 import wave from "../../../assets/wave";
 import { useOpenfortCore } from '../../../openfort/useOpenfort';
+import { logger } from "../../../utils/logger";
 import { TextLinkButton } from "../../Common/Button/styles";
 import Loader from "../../Common/Loading";
 import { ModalBody, ModalContent, ModalH1, PageContent } from "../../Common/Modal/styles";
@@ -69,7 +70,7 @@ const EmailVerification: React.FC = () => {
     const email = url.searchParams.get("email");
 
     if (!state) {
-      console.error("No state found in URL");
+      logger.error("No state found in URL");
       return;
     }
 
