@@ -13,7 +13,7 @@ yarn create openfort -t supabase
 Or, if you prefer, you can download this example using gitpick:
 
 ```bash
-npx gitpick openfort-xyz/openfort-react/tree/main/react/examples/quickstarts/supabase openfort-supabase && cd openfort-supabase
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/supabase openfort-supabase && cd openfort-supabase
 ```
 
 ## Setup
