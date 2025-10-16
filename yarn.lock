@@ -2777,7 +2777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/openfort-js@npm:^0.10.26, @openfort/openfort-js@npm:^0.10.27":
+"@openfort/openfort-js@npm:^0.10.27":
   version: 0.10.27
   resolution: "@openfort/openfort-js@npm:0.10.27"
   dependencies:
@@ -2799,32 +2799,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/react@npm:^0.0.24":
-  version: 0.0.24
-  resolution: "@openfort/react@npm:0.0.24"
-  dependencies:
-    "@openfort/openfort-js": ^0.10.26
-    buffer: ^6.0.3
-    detect-browser: ^5.3.0
-    fast-password-entropy: ^1.1.1
-    framer-motion: ^6.3.11
-    qrcode: ^1.5.0
-    react-is: ^19.1.0
-    react-transition-state: ^1.1.4
-    react-use-measure: ^2.1.1
-    resize-observer-polyfill: ^1.5.1
-    styled-components: ^5.3.5
-  peerDependencies:
-    "@tanstack/react-query": ">=5.0.0"
-    react: 17.x || 18.x || 19.x
-    react-dom: 17.x || 18.x || 19.x
-    viem: 2.x
-    wagmi: 2.x
-  checksum: d3dba0704285c63ee1f29eb67f75fe0bd1552ebd6b1ebad6a315bc5f34ac24d19efac8403aa47d9c321facc78bb4204baa15bb2dfc3ad699ed9cf29f38947972
-  languageName: node
-  linkType: hard
-
-"@openfort/react@workspace:packages/openfort-react":
+"@openfort/react@^0.0.25, @openfort/react@workspace:packages/openfort-react":
   version: 0.0.0-use.local
   resolution: "@openfort/react@workspace:packages/openfort-react"
   dependencies:
@@ -10982,7 +10957,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.24
+    "@openfort/react": ^0.0.25
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -10998,9 +10973,9 @@ __metadata:
     tailwindcss: ^4.1.12
     typescript: ~5.8.3
     typescript-eslint: ^8.39.1
-    viem: 2.33.0
+    viem: 2.38.2
     vite: ^6.2.0
-    wagmi: ^2.16.0
+    wagmi: ^2.17.5
   languageName: unknown
   linkType: soft
 
@@ -11010,7 +10985,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.24
+    "@openfort/react": ^0.0.25
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -11025,7 +11000,7 @@ __metadata:
     tailwindcss: ^4.1.12
     typescript: ~5.8.3
     typescript-eslint: ^8.39.1
-    viem: 2.33.0
+    viem: 2.38.2
     vite: ^6.2.0
     wagmi: ^2.17.5
   languageName: unknown
@@ -11037,7 +11012,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.24
+    "@openfort/react": ^0.0.25
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
@@ -11052,7 +11027,7 @@ __metadata:
     tailwindcss: ^4.1.12
     typescript: ~5.8.3
     typescript-eslint: ^8.39.1
-    viem: ^2.33.0
+    viem: 2.38.2
     vite: ^6.2.0
     wagmi: ^2.17.5
   languageName: unknown

@@ -45,7 +45,7 @@ const MintContract = () => {
           refetch()
         }, 100);
       },
-      onSettled: (data, error) => {
+      onSettled: (data: unknown, error: Error | null) => {
         console.log('Settled', { data, error });
       }
     }
