@@ -149,7 +149,7 @@ npx localtunnel --port 3000
 ngrok http 3000
 ```
 
-Copy the generated public URL (e.g., `https://your-tunnel-url.loca.lt`) and configure it in your [Openfort Dashboard](https://dashboard.openfort.xyz/):
+Copy the generated public URL (e.g., `https://your-tunnel-url.loca.lt`) and configure it in your [Openfort Dashboard](https://dashboard.openfort.io/):
 
 1. Navigate to **Configuration > Providers**
 2. Enable the **Custom** authentication provider
