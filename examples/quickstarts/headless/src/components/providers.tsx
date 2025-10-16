@@ -24,7 +24,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
           // Set the wallet configuration. In this example, we will be using the embedded signer.
           walletConfig={{
-            accountType: AccountTypeEnum.EOA,
             shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY!, // The public key for your Openfort Shield account get it from https://dashboard.openfort.io
             ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID, // The policy ID for sponsoring transactions
             createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT, // The endpoint to create an encryption session for automatic wallet recovery
