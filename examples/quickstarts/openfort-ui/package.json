@@ -13,7 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "@openfort/react": "^0.0.25",
     "@tailwindcss/vite": "^4.1.12",
-    "@tanstack/react-query": "^5.45.1",
+    "@tanstack/react-query": ">=5.45.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^4.1.12",

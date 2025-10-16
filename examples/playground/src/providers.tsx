@@ -1,6 +1,6 @@
 import { OpenfortProvider, getDefaultConfig } from '@openfort/react';
-import { QueryClientProvider, useQueryClient } from '@tanstack/react-query';
-import React from 'react';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { WagmiProvider, createConfig, http } from 'wagmi';
 import { polygonAmoy, beamTestnet } from 'wagmi/chains';
 import { useAppStore } from './lib/useAppStore';
@@ -21,7 +21,7 @@ const config = createConfig(
 
 export function Providers({ children }: { children?: React.ReactNode }) {
   const { providerOptions } = useAppStore()
-  const queryClient = useQueryClient();
+  const [queryClient] = useState(() => new QueryClient())
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <WagmiProvider config={config}>

@@ -4297,7 +4297,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.45.1":
+"@tanstack/react-query@npm:>=5.45.1, @tanstack/react-query@npm:^5.45.1":
   version: 5.90.4
   resolution: "@tanstack/react-query@npm:5.90.4"
   dependencies:
@@ -10959,7 +10959,7 @@ __metadata:
     "@heroicons/react": ^2.2.0
     "@openfort/react": ^0.0.25
     "@tailwindcss/vite": ^4.1.12
-    "@tanstack/react-query": ^5.45.1
+    "@tanstack/react-query": ">=5.45.1"
     "@types/react": ^19.1.10
     "@types/react-dom": ^19.1.7
     "@vitejs/plugin-react": ^4.3.4
@@ -10987,7 +10987,7 @@ __metadata:
     "@heroicons/react": ^2.2.0
     "@openfort/react": ^0.0.25
     "@tailwindcss/vite": ^4.1.12
-    "@tanstack/react-query": ^5.45.1
+    "@tanstack/react-query": ">=5.45.1"
     "@types/react": ^19.1.10
     "@types/react-dom": ^19.1.7
     "@vitejs/plugin-react": ^4.3.4
@@ -11014,7 +11014,7 @@ __metadata:
     "@heroicons/react": ^2.2.0
     "@openfort/react": ^0.0.25
     "@tailwindcss/vite": ^4.1.12
-    "@tanstack/react-query": ^5.45.1
+    "@tanstack/react-query": ">=5.45.1"
     "@types/react": ^19.1.10
     "@types/react-dom": ^19.1.7
     "@vitejs/plugin-react": ^4.3.4
