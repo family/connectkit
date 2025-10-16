@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -23,5 +32,14 @@ dist-ssr
 *.sln
 *.sw?
 
-# Better auth
+# Environment variables
+.env
+.env.local
+.env*.local
+
+# Database
 *.db
+*.db-*
+
+# Better Auth migrations
+better-auth_migrations/

@@ -1,49 +1,19 @@
 {
-  "name": "quickstart-betterauth",
+  "name": "openfort-betterauth",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "dev:server": "tsx watch server/index.ts",
-    "dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@heroicons/react": "^2.2.0",
-    "@openfort/react": "^0.0.25",
-    "@tailwindcss/vite": "^4.1.12",
-    "@tanstack/react-query": "^5.90.2",
-    "better-auth": "^1.2.2",
-    "better-sqlite3": "^11.7.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^4.21.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^4.1.12",
-    "viem": "2.38.2",
-    "wagmi": "^2.17.5"
+    "dev": "concurrently \"yarn workspace @openfort-betterauth/web dev\" \"yarn workspace @openfort-betterauth/server dev\"",
+    "build": "yarn workspace @openfort-betterauth/web build && yarn workspace @openfort-betterauth/server build",
+    "check": "biome check --write --unsafe",
+    "format": "biome format --write ."
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "@types/better-sqlite3": "^7.6.12",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.10.5",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-react": "^4.3.4",
-    "concurrently": "^9.1.2",
-    "eslint": "^9.33.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.3.0",
-    "tsx": "^4.19.2",
-    "typescript": "~5.8.3",
-    "typescript-eslint": "^8.39.1",
-    "vite": "^6.2.0"
+    "@biomejs/biome": "^1.9.4",
+    "concurrently": "^9.1.2"
   }
 }
