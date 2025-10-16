@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import { createConfig, WagmiProvider } from 'wagmi';
 
 import { getDefaultConfig, OpenfortProvider, ThirdPartyOAuthProvider } from "@openfort/react";
@@ -14,8 +14,8 @@ export const config = createConfig(
   })
 );
 
-const queryClient = new QueryClient();
 export function Providers({ children }: { children: React.ReactNode }) {
+  const queryClient = useQueryClient();
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
