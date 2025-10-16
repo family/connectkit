@@ -6,10 +6,10 @@ This directory contains quickstart examples for getting started with Openfort Re
 
 | Quickstart | Description |
 |------------|-------------|
-| [openfort-ui](./openfort-ui) | Implementation using openfort UI components |
+| [wallet connector](./openfort-ui) | Implementation using openfort UI components |
 | [headless](./headless) | Minimal headless implementation without UI framework |
 | [firebase](./firebase) | Firebase authentication integration with Openfort React |
-| [Supabase](./supabase) | Supabase authentication integration with Openfort React |
-| [BetterAuth](./betterauth) | BetterAuth authentication integration with Openfort React |
+| [supabase](./supabase) | Supabase authentication integration with Openfort React |
+| [better-auth](./betterauth) | BetterAuth authentication integration with Openfort React |
 
 Each quickstart is a complete, minimal example that you can use as a starting point for your project.
