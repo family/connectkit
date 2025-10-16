@@ -415,6 +415,97 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@biomejs/biome@npm:^1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/biome@npm:1.9.4"
+  dependencies:
+    "@biomejs/cli-darwin-arm64": 1.9.4
+    "@biomejs/cli-darwin-x64": 1.9.4
+    "@biomejs/cli-linux-arm64": 1.9.4
+    "@biomejs/cli-linux-arm64-musl": 1.9.4
+    "@biomejs/cli-linux-x64": 1.9.4
+    "@biomejs/cli-linux-x64-musl": 1.9.4
+    "@biomejs/cli-win32-arm64": 1.9.4
+    "@biomejs/cli-win32-x64": 1.9.4
+  dependenciesMeta:
+    "@biomejs/cli-darwin-arm64":
+      optional: true
+    "@biomejs/cli-darwin-x64":
+      optional: true
+    "@biomejs/cli-linux-arm64":
+      optional: true
+    "@biomejs/cli-linux-arm64-musl":
+      optional: true
+    "@biomejs/cli-linux-x64":
+      optional: true
+    "@biomejs/cli-linux-x64-musl":
+      optional: true
+    "@biomejs/cli-win32-arm64":
+      optional: true
+    "@biomejs/cli-win32-x64":
+      optional: true
+  bin:
+    biome: bin/biome
+  checksum: 0bb448d9cf07c76556e0af62cec4262ccdf2d2800a472459c0666c180fdb74ac602a5d87325e926e860cc41c34166fca27f753afc24b2264317f2f29861005b5
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-darwin-arm64@npm:1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/cli-darwin-arm64@npm:1.9.4"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-darwin-x64@npm:1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/cli-darwin-x64@npm:1.9.4"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-linux-arm64-musl@npm:1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/cli-linux-arm64-musl@npm:1.9.4"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-linux-arm64@npm:1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/cli-linux-arm64@npm:1.9.4"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-linux-x64-musl@npm:1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/cli-linux-x64-musl@npm:1.9.4"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-linux-x64@npm:1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/cli-linux-x64@npm:1.9.4"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-win32-arm64@npm:1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/cli-win32-arm64@npm:1.9.4"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-win32-x64@npm:1.9.4":
+  version: 1.9.4
+  resolution: "@biomejs/cli-win32-x64@npm:1.9.4"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@bundled-es-modules/cookie@npm:^2.0.1":
   version: 2.0.1
   resolution: "@bundled-es-modules/cookie@npm:2.0.1"
@@ -2829,7 +2920,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/openfort-js@npm:^0.10.27":
+"@openfort-betterauth/server@workspace:examples/quickstarts/betterauth/apps/server":
+  version: 0.0.0-use.local
+  resolution: "@openfort-betterauth/server@workspace:examples/quickstarts/betterauth/apps/server"
+  dependencies:
+    "@openfort/openfort-node": ^0.6.73
+    "@types/better-sqlite3": ^7.6.12
+    "@types/cors": ^2.8.17
+    "@types/express": ^5.0.0
+    "@types/node": ^22.10.5
+    better-auth: ^1.2.2
+    better-sqlite3: ^12.4.1
+    cors: ^2.8.5
+    dotenv: ^17.2.3
+    express: ^4.21.2
+    tsx: ^4.19.2
+    typescript: ~5.8.3
+  languageName: unknown
+  linkType: soft
+
+"@openfort-betterauth/web@workspace:examples/quickstarts/betterauth/apps/web":
+  version: 0.0.0-use.local
+  resolution: "@openfort-betterauth/web@workspace:examples/quickstarts/betterauth/apps/web"
+  dependencies:
+    "@heroicons/react": ^2.2.0
+    "@openfort/react": ^0.0.17
+    "@tailwindcss/vite": ^4.1.12
+    "@tanstack/react-query": ^5.90.2
+    "@types/node": ^22.10.5
+    "@types/react": ^19.1.10
+    "@types/react-dom": ^19.1.7
+    "@vitejs/plugin-react": ^4.3.4
+    better-auth: ^1.2.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    tailwindcss: ^4.1.12
+    typescript: ~5.8.3
+    viem: 2.38.2
+    vite: ^6.2.0
+    wagmi: ^2.17.5
+  languageName: unknown
+  linkType: soft
+
+"@openfort/openfort-js@npm:^0.10.21, @openfort/openfort-js@npm:^0.10.27":
   version: 0.10.27
   resolution: "@openfort/openfort-js@npm:0.10.27"
   dependencies:
@@ -2848,6 +2981,19 @@ __metadata:
     human-id: ^4.1.1
     jose: ^5.2.2
   checksum: 453e8ad8434a5f51fbd4cc9eb2b7148d3689cc9f728ba7f05335cb3fa7cb6fb16426dd23f3a028421a07ece124cdf19a6f1a9fe7df549e6f86204867235f2fd6
+  languageName: node
+  linkType: hard
+
+"@openfort/openfort-node@npm:^0.6.73":
+  version: 0.6.74
+  resolution: "@openfort/openfort-node@npm:0.6.74"
+  dependencies:
+    "@openfort/shield-js": ^0.1.29
+    "@types/node": "*"
+    "@types/node-fetch": ^2.5.7
+    form-data: ^2.5.0
+    node-fetch: ^2.6.0
+  checksum: 5fdd680460e89b581989ecd530277c58d067ebef64464e977b3c58f565f649f83b3c06c7f35ba4b999d278ccbeff2a69da1515921e81a643a1e4e6d8e3dbc92c
   languageName: node
   linkType: hard
 
@@ -2885,6 +3031,31 @@ __metadata:
     wagmi: 2.x
   languageName: unknown
   linkType: soft
+
+"@openfort/react@npm:^0.0.17":
+  version: 0.0.17
+  resolution: "@openfort/react@npm:0.0.17"
+  dependencies:
+    "@openfort/openfort-js": ^0.10.21
+    buffer: ^6.0.3
+    detect-browser: ^5.3.0
+    fast-password-entropy: ^1.1.1
+    framer-motion: ^6.3.11
+    qrcode: ^1.5.0
+    react-is: ^19.1.0
+    react-transition-state: ^1.1.4
+    react-use-measure: ^2.1.1
+    resize-observer-polyfill: ^1.5.1
+    styled-components: ^5.3.5
+  peerDependencies:
+    "@tanstack/react-query": ">=5.0.0"
+    react: 17.x || 18.x || 19.x
+    react-dom: 17.x || 18.x || 19.x
+    viem: 2.x
+    wagmi: 2.x
+  checksum: 73ec7fc5f5718896a1b59db48339798080a593b5dbb5b25c4463c6091751970f3085e0150e0f56a886c2adbea74cab022286d973d940f62c08e7602f5f6af460
+  languageName: node
+  linkType: hard
 
 "@openfort/shield-js@npm:^0.1.29":
   version: 0.1.29
@@ -4973,6 +5144,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node-fetch@npm:^2.5.7":
+  version: 2.6.13
+  resolution: "@types/node-fetch@npm:2.6.13"
+  dependencies:
+    "@types/node": "*"
+    form-data: ^4.0.4
+  checksum: e4b4db3a8c23309dadf0beb87e88882af1157f0c08b7b76027ac40add6ed363c924e2fa275f42ae45eacf776b25ed439d14400d9d6372eb39634dd4c7e7e1ad8
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 24.6.0
   resolution: "@types/node@npm:24.6.0"
@@ -6196,14 +6377,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"better-sqlite3@npm:^11.7.0":
-  version: 11.10.0
-  resolution: "better-sqlite3@npm:11.10.0"
+"better-sqlite3@npm:^12.4.1":
+  version: 12.4.1
+  resolution: "better-sqlite3@npm:12.4.1"
   dependencies:
     bindings: ^1.5.0
     node-gyp: latest
     prebuild-install: ^7.1.1
-  checksum: 4ee0d0f4eee88028f82a2ac104411c72ca6672e1046bbab11844090f719aa2ca2eff167440952310875cef8ae0ec9e3e30e2e94a212933b6e37372375b317357
+  checksum: 39141f425a661fcb6ad413c791132c58463026f30d652a672ed9e0fa9fd286021826c0d2c3700762d6bafcccef8de5af1f0fb79eb8c2f31f005f7f0b47069292
   languageName: node
   linkType: hard
 
@@ -8524,6 +8705,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"form-data@npm:^2.5.0":
+  version: 2.5.5
+  resolution: "form-data@npm:2.5.5"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    es-set-tostringtag: ^2.1.0
+    hasown: ^2.0.2
+    mime-types: ^2.1.35
+    safe-buffer: ^5.2.1
+  checksum: ba6d8467f959c9bf36a52e423256c1e8055a8e650416760f54fa5db261529c3de698a4ce8378dd4fdb71b44be190906d6b73446556cc74e58de8bda01d09e9e7
+  languageName: node
+  linkType: hard
+
 "form-data@npm:^4.0.4":
   version: 4.0.4
   resolution: "form-data@npm:4.0.4"
@@ -10310,7 +10505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-types@npm:^2.1.12, mime-types@npm:~2.1.24, mime-types@npm:~2.1.34":
+"mime-types@npm:^2.1.12, mime-types@npm:^2.1.35, mime-types@npm:~2.1.24, mime-types@npm:~2.1.34":
   version: 2.1.35
   resolution: "mime-types@npm:2.1.35"
   dependencies:
@@ -10669,7 +10864,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.7.0":
+"node-fetch@npm:^2.6.0, node-fetch@npm:^2.7.0":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
   dependencies:
@@ -10965,6 +11160,15 @@ __metadata:
   checksum: feec0f25d708aaacc086dafd3e21001329b47984f30e24877b34d053fbccd52f3b3a19b1715fda2ed5afaca7056872576eed7de8f64855d2472507dc6df626ca
   languageName: node
   linkType: hard
+
+"openfort-betterauth@workspace:examples/quickstarts/betterauth":
+  version: 0.0.0-use.local
+  resolution: "openfort-betterauth@workspace:examples/quickstarts/betterauth"
+  dependencies:
+    "@biomejs/biome": ^1.9.4
+    concurrently: ^9.1.2
+  languageName: unknown
+  linkType: soft
 
 "openfort-react@workspace:.":
   version: 0.0.0-use.local
@@ -11890,44 +12094,6 @@ __metadata:
   checksum: 7bc32b99354a1aa46c089d2a82b63489961002bb1d654cee3e6d2d8778197b68c2d854fd23d8422436ee1fdfd0abaddc4d4da120afe700ade68bd357815b26fd
   languageName: node
   linkType: hard
-
-"quickstart-betterauth@workspace:examples/quickstarts/betterauth":
-  version: 0.0.0-use.local
-  resolution: "quickstart-betterauth@workspace:examples/quickstarts/betterauth"
-  dependencies:
-    "@eslint/js": ^9.33.0
-    "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.25
-    "@tailwindcss/vite": ^4.1.12
-    "@tanstack/react-query": ^5.90.2
-    "@types/better-sqlite3": ^7.6.12
-    "@types/cors": ^2.8.17
-    "@types/express": ^5.0.0
-    "@types/node": ^22.10.5
-    "@types/react": ^19.1.10
-    "@types/react-dom": ^19.1.7
-    "@vitejs/plugin-react": ^4.3.4
-    better-auth: ^1.2.2
-    better-sqlite3: ^11.7.0
-    concurrently: ^9.1.2
-    cors: ^2.8.5
-    dotenv: ^17.2.3
-    eslint: ^9.33.0
-    eslint-plugin-react-hooks: ^5.2.0
-    eslint-plugin-react-refresh: ^0.4.20
-    express: ^4.21.2
-    globals: ^16.3.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    tailwindcss: ^4.1.12
-    tsx: ^4.19.2
-    typescript: ~5.8.3
-    typescript-eslint: ^8.39.1
-    viem: 2.38.2
-    vite: ^6.2.0
-    wagmi: ^2.17.5
-  languageName: unknown
-  linkType: soft
 
 "quickstart-firebase@workspace:examples/quickstarts/firebase":
   version: 0.0.0-use.local
