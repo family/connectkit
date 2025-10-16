@@ -10,6 +10,7 @@ import { Context } from './context';
 import { createOpenfortClient, setDefaultClient } from './core';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { logger } from '../utils/logger';
+import { handleOAuthConfigError } from '../utils/oauthErrorHandler';
 
 export type ContextValue = {
   signUpGuest: () => Promise<void>;
@@ -191,14 +192,22 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   // will reset on logout
   const { data: embeddedAccounts, refetch: fetchEmbeddedAccounts, isPending: isLoadingAccounts } = useQuery({
     queryKey: ['openfortEmbeddedAccountsList'],
-    queryFn: () => openfort.embeddedWallet.list({
-      limit: 100,
-      // If its EOA we want all accounts, otherwise we want only smart accounts
-      accountType: walletConfig?.accountType === AccountTypeEnum.EOA ?
-        undefined : AccountTypeEnum.SMART_ACCOUNT
-    }),
+    queryFn: async () => {
+      try {
+        return await openfort.embeddedWallet.list({
+          limit: 100,
+          // If its EOA we want all accounts, otherwise we want only smart accounts
+          accountType: walletConfig?.accountType === AccountTypeEnum.EOA ?
+            undefined : AccountTypeEnum.SMART_ACCOUNT
+        });
+      } catch (error: any) {
+        handleOAuthConfigError(error);
+        throw error;
+      }
+    },
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    retry: false,
   })
 
   useEffect(() => {
