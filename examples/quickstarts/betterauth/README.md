@@ -13,7 +13,7 @@ yarn create openfort -t betterauth
 Or, if you prefer, you can download this example using gitpick:
 
 ```bash
-npx gitpick openfort-xyz/quickstarts/tree/main/react/betterauth openfort-betterauth && cd openfort-betterauth
+npx gitpick openfort-xyz/quickstarts/tree/main/react/quickstarts/betterauth openfort-betterauth && cd openfort-betterauth
 ```
 
 ## Setup
