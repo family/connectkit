@@ -13,7 +13,7 @@ yarn create openfort -t firebase
 Or, if you prefer, you can download this example using gitpick:
 
 ```bash
-npx gitpick openfort-xyz/openfort-react/tree/main/react/examples/quickstarts/firebase openfort-firebase && cd openfort-firebase
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase openfort-firebase && cd openfort-firebase
 ```
 
 ## Setup
