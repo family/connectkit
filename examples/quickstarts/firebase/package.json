@@ -14,6 +14,7 @@
     "@openfort/react": "^0.0.24",
     "@tailwindcss/vite": "^4.1.12",
     "@tanstack/react-query": "^5.90.2",
+    "firebase": "^11.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^4.1.12",

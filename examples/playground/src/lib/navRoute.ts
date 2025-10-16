@@ -36,12 +36,7 @@ export const navRoutes: NavRoute[] = [
   },
   {
     label: 'Wallet hooks',
-    children:[
-      {
-        href: '/wallet/useWallet',
-        label: 'useWallet',
-        exact: true,
-      },
+    children: [
       {
         href: '/wallet/useWallets',
         label: 'useWallets',
@@ -54,10 +49,6 @@ export const navRoutes: NavRoute[] = [
       {
         href: '/utils/useUI',
         label: 'useUI',
-      },
-      {
-        href: '/utils/useStatus',
-        label: 'useStatus',
       },
       {
         href: '/wagmi',
