@@ -21,7 +21,7 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/headless 
 1. **Install dependencies**:
 
    ```bash
-   npm install
+   yarn install
    ```
 
 2. **Configure environment**:
@@ -30,7 +30,7 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/headless 
 3. **Start development server**:
 
    ```bash
-   npm run dev
+   yarn dev
    ```
 
 ## Features

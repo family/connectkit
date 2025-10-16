@@ -1,12 +1,9 @@
 import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { DesktopTabGroup, MobileTabGroup, type TabType } from "../ui/Tabs";
-import { Actions } from "./actions";
-import { Auth } from "./auth";
+import { FirebaseAuthCard } from "../../integrations/firebase";
+import { ActionsCard, SignCard, UserProfileCard, WalletListCard } from "../../ui/openfort";
 import { Head } from "./head";
-import { Profile } from "./profile";
-import { Sign } from "./sign";
-import { Wallets } from "./wallets";
 import { useUser } from "@openfort/react";
 import { useAccount } from "wagmi";
 
@@ -55,8 +52,8 @@ export const Main = () => {
     {
       name: "Home",
       component: (
-        <Profile
-          sampleGithubUrl="https://github.com/openfort-xyz/openfort-react/tree/main/examples/quickstarts/firebase"
+        <UserProfileCard
+          sampleGithubUrl="https://github.com/openfort-xyz/quickstarts/tree/main/react/firebase"
           description="This is a demo app using Firebase Authentication and Openfort."
         />
       ),
@@ -64,17 +61,17 @@ export const Main = () => {
     },
     {
       name: "Signatures",
-      component: <Sign />,
+      component: <SignCard />,
       icon: PencilIcon
     },
     {
       name: "Actions",
-      component: <Actions />,
+      component: <ActionsCard />,
       icon: PlayIcon,
     },
     {
       name: "Wallets",
-      component: <Wallets />,
+      component: <WalletListCard />,
       icon: WalletIcon,
     },
   ];
@@ -99,7 +96,7 @@ export const Main = () => {
       />
       {
         !isAuthenticated ? (
-          <Auth />
+          <FirebaseAuthCard />
         ) : (
           <div className="block relative overflow-y-auto overflow-x-hidden">
             <div className="card flex-col min-h-full">
