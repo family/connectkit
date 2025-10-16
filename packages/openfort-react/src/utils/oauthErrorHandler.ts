@@ -10,9 +10,13 @@ export function handleOAuthConfigError(error: any): void {
 
     // Provider-specific configuration hints
     const configHints: Record<string, string> = {
+      playfab: '- PlayFab title ID: Your PlayFab title ID',
+      firebase: '- Firebase project ID: Your Firebase project ID (e.g., test-d3dd3)',
       supabase: '- Supabase url: Your Supabase project URL (e.g., https://xxxxx.supabase.co)\n   - Supabase key: Your Supabase anon/public key',
-      firebase: '- Firebase configuration details',
-      custom: '- Provider-specific configuration fields',
+      lootlocker: '- Enable LootLocker authentication in your Openfort dashboard',
+      oidc: '- JWKS URL: URL to JSON Web Key Set for OIDC provider\n   - Verifiable Public Key: PEM encoded public key to verify JWT tokens (if JWKS URL not provided)\n   - Audience: Expected audience value in the ID token',
+      custom: '- Authentication URL: Your custom authentication endpoint (e.g., https://your-domain.com/api/openfort/verify)\n' +
+             '   - Headers: Comma-separated list of headers to include (e.g., X-Openfort-Secret: your-shared-secret)',
     };
 
     const hint = configHints[providerLower] || configHints.custom;
