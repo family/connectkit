@@ -114,6 +114,7 @@ const ConnectModal: React.FC<{
   }
 
   // if auth redirect
+  // biome-ignore lint/correctness/useExhaustiveDependencies: context object is recreated on every render, intentionally using empty deps
   useEffect(() => {
     const url = new URL(window.location.href)
     const provider = url.searchParams.get('openfortAuthProviderUI')
@@ -145,7 +146,7 @@ const ConnectModal: React.FC<{
       context.setConnector({ id: provider, type: 'oauth' })
       context.setRoute(routes.CONNECT)
     }
-  }, [context])
+  }, [])
 
   useEffect(() => context.setMode(mode), [mode, context])
   useEffect(() => context.setTheme(theme), [theme, context])

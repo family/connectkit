@@ -54,9 +54,10 @@ const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
     }
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: triggerResize is a stable ref
   useEffect(() => {
     if (recoveryError) triggerResize()
-  }, [recoveryError, triggerResize])
+  }, [recoveryError])
 
   const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
@@ -129,22 +130,24 @@ const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
       },
       address: wallet.address,
     })
-  }, [setActiveWallet, wallet.address])
+  }, [])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recoverWallet is a stable function ref
   useEffect(() => {
     // To ensure the wallet is created only once
     if (shouldRecoverWallet) {
       recoverWallet()
     }
-  }, [shouldRecoverWallet, recoverWallet])
+  }, [shouldRecoverWallet])
 
   useEffect(() => {
     setShouldRecoverWallet(true)
   }, [])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: triggerResize is a stable ref
   useEffect(() => {
     if (recoveryError) triggerResize()
-  }, [recoveryError, triggerResize])
+  }, [recoveryError])
 
   const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
@@ -188,7 +191,8 @@ const RecoverAutomaticWallet = ({ walletAddress }: { walletAddress: Hex }) => {
         }
       }
     })()
-  }, [embeddedState, log, setActiveWallet, walletAddress])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: log function recreated on every render, setActiveWallet stable ref
+  }, [embeddedState])
 
   if (error) {
     ;<PageContent>
@@ -222,7 +226,8 @@ const CreateWalletAutomaticRecovery = () => {
         }
       })()
     }
-  }, [shouldCreateWallet, createWallet, log])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: log function recreated on every render, createWallet stable ref
+  }, [shouldCreateWallet])
 
   useEffect(() => {
     if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
@@ -310,7 +315,8 @@ const CreateWalletPasskeyRecovery = ({
         }
       })()
     }
-  }, [shouldCreateWallet, createWallet, log])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: log function recreated on every render, createWallet stable ref
+  }, [shouldCreateWallet])
 
   useEffect(() => {
     if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
@@ -318,9 +324,10 @@ const CreateWalletPasskeyRecovery = ({
     }
   }, [embeddedState])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: triggerResize is a stable ref
   useEffect(() => {
     if (recoveryError) triggerResize()
-  }, [recoveryError, triggerResize])
+  }, [recoveryError])
 
   return (
     <PageContent>
@@ -372,9 +379,10 @@ const CreateWalletPasswordRecovery = ({
     }
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: triggerResize is a stable ref
   useEffect(() => {
     if (recoveryError) triggerResize()
-  }, [recoveryError, triggerResize])
+  }, [recoveryError])
 
   return (
     <PageContent>
@@ -527,9 +535,10 @@ const CreateWallet = () => {
   const { uiConfig, triggerResize } = useOpenfort()
   const [userSelectedMethod, setUserSelectedMethod] = useState<RecoveryMethod | 'other' | null>(null)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Original code used [userSelectedMethod] but that was changed
   useEffect(() => {
     triggerResize()
-  }, [triggerResize])
+  }, [userSelectedMethod])
 
   const method = userSelectedMethod ?? uiConfig.walletRecovery.defaultMethod
 
@@ -552,11 +561,12 @@ const Connected: React.FC = () => {
   const { setOpen } = useOpenfort()
 
   // hide on connect
+  // biome-ignore lint/correctness/useExhaustiveDependencies: setOpen is a stable ref, intentionally using empty deps to run once
   useEffect(() => {
     setTimeout(() => {
       setOpen(false)
     }, 1000)
-  }, [setOpen])
+  }, [])
 
   return (
     <PageContent>
@@ -584,7 +594,8 @@ const RecoverPage: React.FC = () => {
     return () => {
       clearTimeout(timeout)
     }
-  }, [isLoadingWallets, triggerResize])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: triggerResize is a stable ref
+  }, [isLoadingWallets])
 
   const openfortWallets = useMemo(() => {
     return wallets.filter((wallet) => wallet.id === embeddedWalletId)

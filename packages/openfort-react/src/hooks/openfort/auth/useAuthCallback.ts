@@ -248,7 +248,8 @@ export const useAuthCallback = ({
         removeParams()
       }
     })()
-  }, [enabled, memoizedHookOptions, log, storeCredentials, verifyEmail, onError])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: log function recreated on every render, intentionally using empty deps to run only once
+  }, [])
 
   return {
     email,

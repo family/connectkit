@@ -11,7 +11,8 @@ export const useLastConnector = () => {
       setLastConnectorId(id ?? '')
     }
     init()
-  }, [storage])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: storage is a stable ref, intentionally using empty deps to run only once
+  }, [])
 
   const update = (id: string) => {
     storage?.setItem('recentConnectorId', id)

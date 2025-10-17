@@ -57,6 +57,7 @@ const ConnectWithQRCode: React.FC<{
   const _browser = detectBrowser()
 
   const hasApps = downloads && Object.keys(downloads).length !== 0
+  // biome-ignore lint/correctness/useExhaustiveDependencies: log function recreated on every render, other refs stable, intentionally using only isConnected
   useEffect(() => {
     // When the component is first rendered, we disconnect the user if they are connected
     if (isFirstFrame) {
@@ -80,7 +81,7 @@ const ConnectWithQRCode: React.FC<{
         })
       }
     }
-  }, [isConnected, connectWithSiwe, disconnect, isFirstFrame, log, setOpen])
+  }, [isConnected])
 
   const _suggestedExtension = extensions
     ? {

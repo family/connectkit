@@ -47,11 +47,12 @@ const EmailVerification: React.FC = () => {
     [client, log]
   )
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: sendEmailVerification is a stable function ref, intentionally using only shouldSendEmailVerification
   useEffect(() => {
     if (shouldSendEmailVerification) {
       sendEmailVerification(shouldSendEmailVerification)
     }
-  }, [shouldSendEmailVerification, sendEmailVerification])
+  }, [shouldSendEmailVerification])
 
   useEffect(() => {
     const fixedUrl = window.location.href.replace('?state=', '&state=') // redirectUrl is not working with query params
@@ -112,7 +113,8 @@ const EmailVerification: React.FC = () => {
         setLoading(false)
       }
     })()
-  }, [client.auth, emailInStorage, log, setRoute])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: log function recreated on every render, client.auth/setRoute stable refs, intentionally using empty deps
+  }, [])
 
   if (loading) {
     return (

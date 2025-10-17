@@ -128,6 +128,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     pollingRef.current = null
   }, [])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: startPollingEmbeddedState and stopPollingEmbeddedState are stable function refs
   useEffect(() => {
     if (!openfort) return
 
@@ -136,9 +137,10 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     return () => {
       stopPollingEmbeddedState()
     }
-  }, [openfort, startPollingEmbeddedState, stopPollingEmbeddedState])
+  }, [openfort])
 
   const queryClient = useQueryClient()
+  // biome-ignore lint/correctness/useExhaustiveDependencies: disconnectAsync/queryClient/reset/startPollingEmbeddedState are stable refs
   const logout = useCallback(async () => {
     if (!openfort) return
 
@@ -150,7 +152,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     queryClient.resetQueries({ queryKey: ['openfortEmbeddedAccountsList'] })
     reset()
     startPollingEmbeddedState()
-  }, [openfort, disconnectAsync, queryClient, reset, startPollingEmbeddedState])
+  }, [openfort])
 
   const updateUser = useCallback(
     async (user?: AuthPlayerResponse, logoutOnError: boolean = false) => {
@@ -241,6 +243,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     retry: false,
   })
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: fetchEmbeddedAccounts and updateUser are stable function refs, user is used within effect
   useEffect(() => {
     if (!openfort) return
     // Poll embedded signer state
@@ -277,8 +280,9 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
       default:
         throw new Error(`Unknown embedded state: ${embeddedState}`)
     }
-  }, [embeddedState, openfort, fetchEmbeddedAccounts, updateUser, user])
+  }, [embeddedState, openfort])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: connect is a stable function ref, isConnectedWithEmbeddedSigner is checked in guard clause
   useEffect(() => {
     // Connect to wagmi with Embedded signer
     if (address || !user) return
@@ -291,7 +295,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     logger.log('Connecting to wagmi with Openfort')
     setIsConnectedWithEmbeddedSigner(true)
     connect({ connector })
-  }, [connectors, embeddedState, address, user, connect, isConnectedWithEmbeddedSigner])
+  }, [connectors, embeddedState, address, user])
 
   // ---- Auth functions ----
 

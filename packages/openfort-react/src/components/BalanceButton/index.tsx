@@ -60,9 +60,10 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
     chainId: chain?.id,
   })
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: queryClient is a stable ref
   useEffect(() => {
     if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey })
-  }, [blockNumber, queryKey, queryClient])
+  }, [blockNumber, queryKey])
 
   const currentChain = chainConfigs.find((c) => c.id === chain?.id)
   const state = `${

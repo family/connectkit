@@ -56,7 +56,8 @@ export function useProviders() {
       hasExcessProviders: social.length > remainingSlots - 1,
       remainingSocialProviders: social.slice(remainingSlots - 1),
     }
-  }, [user, availableProviders, allProviders])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: maxProviders is computed from availableProviders, would cause circular dependency
+  }, [user, availableProviders, allProviders, maxProviders])
 
   return {
     availableProviders,

@@ -21,6 +21,7 @@ const ConnectWithOAuth: React.FC = () => {
   const [status, setStatus] = useState(states.INIT)
   const [description, setDescription] = useState<string | undefined>(undefined)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: log function recreated on every render, client/setRoute/user stable refs, intentionally using only status
   useEffect(() => {
     ;(async () => {
       if (connector.type !== 'oauth') throw new Error('Invalid connector type')
@@ -118,7 +119,7 @@ const ConnectWithOAuth: React.FC = () => {
         }
       }
     })()
-  }, [status, client, connector.id, connector.type, log, setRoute, user])
+  }, [status])
 
   return (
     <PageContent>

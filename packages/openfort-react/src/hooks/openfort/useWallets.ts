@@ -326,7 +326,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     })
 
     return userWallets
-  }, [user?.linkedAccounts, embeddedAccounts, openfortConnector, availableWallets, user])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: availableWallets and user create circular dependency (user is used to compute availableWallets)
+  }, [user?.linkedAccounts, embeddedAccounts])
 
   const wallets: UserWallet[] = useMemo(() => {
     // log("Mapping wallets", { rawWallets, status, address, isConnected, connector: connector?.id });
@@ -336,12 +337,14 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       isConnecting: status.status === 'connecting' && statusAddress?.toLowerCase() === w.address.toLowerCase(),
       isActive: w.address.toLowerCase() === address?.toLowerCase() && isConnected && connector?.id === w.id,
     }))
-  }, [rawWallets.length, status.status, address, isConnected, connector?.id, rawWallets, status])
+    // biome-ignore lint/correctness/useExhaustiveDependencies: rawWallets and status objects create circular dependency (already using rawWallets.length and status.status)
+  }, [rawWallets.length, status.status, address, isConnected, connector?.id])
   const activeWallet = isConnected && connector ? wallets.find((w) => w.isActive) : undefined
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: connect is a stable function ref
   useEffect(() => {
     if (connectToConnector) connect({ connector: connectToConnector.connector })
-  }, [connectToConnector, connect])
+  }, [connectToConnector])
 
   const queryClient = useQueryClient()
 

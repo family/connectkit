@@ -52,9 +52,10 @@ export default function useLockBodyScroll(initialLocked: boolean) {
     }
   }, [locked])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: locked is state that changes, intentionally only watching initialLocked
   useEffect(() => {
     if (locked !== initialLocked) setLocked(initialLocked)
-  }, [initialLocked, locked])
+  }, [initialLocked])
 
   return [locked, setLocked]
 }
