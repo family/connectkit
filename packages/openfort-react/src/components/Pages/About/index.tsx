@@ -117,10 +117,19 @@ const About: React.FC = () => {
     }
   }, [onScroll, onTouchEnd, onTouchMove])
 
-  const graphics: React.ReactNode[] = [
-    <SlideOne key="slide-one" layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
-    <SlideTwo key="slide-two" layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
-    <SlideThree key="slide-three" layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
+  const graphics: { id: string; component: React.ReactNode }[] = [
+    {
+      id: 'slide-one',
+      component: <SlideOne layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
+    },
+    {
+      id: 'slide-two',
+      component: <SlideTwo layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
+    },
+    {
+      id: 'slide-three',
+      component: <SlideThree layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
+    },
   ]
 
   const mobileGraphics: React.ReactNode[] = [
@@ -140,31 +149,46 @@ const About: React.FC = () => {
     }
   })()
 
-  const slides: React.ReactNode[] = [
-    <>
-      <ModalH1 style={{ height: 24 }} $small>
-        <FitText>{locales.aboutScreen_a_h1}</FitText>
-      </ModalH1>
-      <ModalBody style={{ height: slideHeight }}>
-        <FitText>{locales.aboutScreen_a_p}</FitText>
-      </ModalBody>
-    </>,
-    <>
-      <ModalH1 style={{ height: 24 }} $small>
-        <FitText>{locales.aboutScreen_b_h1}</FitText>
-      </ModalH1>
-      <ModalBody style={{ height: slideHeight }}>
-        <FitText>{locales.aboutScreen_b_p}</FitText>
-      </ModalBody>
-    </>,
-    <>
-      <ModalH1 style={{ height: 24 }} $small>
-        <FitText>{locales.aboutScreen_c_h1}</FitText>
-      </ModalH1>
-      <ModalBody style={{ height: slideHeight }}>
-        <FitText>{locales.aboutScreen_c_p}</FitText>
-      </ModalBody>
-    </>,
+  const slides: { id: string; component: React.ReactNode }[] = [
+    {
+      id: 'about-slide-a',
+      component: (
+        <>
+          <ModalH1 style={{ height: 24 }} $small>
+            <FitText>{locales.aboutScreen_a_h1}</FitText>
+          </ModalH1>
+          <ModalBody style={{ height: slideHeight }}>
+            <FitText>{locales.aboutScreen_a_p}</FitText>
+          </ModalBody>
+        </>
+      ),
+    },
+    {
+      id: 'about-slide-b',
+      component: (
+        <>
+          <ModalH1 style={{ height: 24 }} $small>
+            <FitText>{locales.aboutScreen_b_h1}</FitText>
+          </ModalH1>
+          <ModalBody style={{ height: slideHeight }}>
+            <FitText>{locales.aboutScreen_b_p}</FitText>
+          </ModalBody>
+        </>
+      ),
+    },
+    {
+      id: 'about-slide-c',
+      component: (
+        <>
+          <ModalH1 style={{ height: 24 }} $small>
+            <FitText>{locales.aboutScreen_c_h1}</FitText>
+          </ModalH1>
+          <ModalBody style={{ height: slideHeight }}>
+            <FitText>{locales.aboutScreen_c_p}</FitText>
+          </ModalBody>
+        </>
+      ),
+    },
   ]
 
   return (
@@ -181,8 +205,8 @@ const About: React.FC = () => {
               {graphics.map(
                 (g, i) =>
                   slider === i && (
-                    <ImageContainerInner key={i} style={{ position: 'absolute' }}>
-                      {g}
+                    <ImageContainerInner key={g.id} style={{ position: 'absolute' }}>
+                      {g.component}
                     </ImageContainerInner>
                   )
               )}
@@ -192,7 +216,7 @@ const About: React.FC = () => {
         <Slides ref={sliderRef}>
           <AnimatePresence>
             {slides.map((s, i) => (
-              <Slide key={i} $active={slider === i}>
+              <Slide key={s.id} $active={slider === i}>
                 <MobileImageContainer>
                   <MotionConfig
                     transition={{
@@ -202,7 +226,7 @@ const About: React.FC = () => {
                     <ImageContainerInner>{mobileGraphics[i]}</ImageContainerInner>
                   </MotionConfig>
                 </MobileImageContainer>
-                <ModalContent style={{ gap: 8, paddingBottom: 0 }}>{s}</ModalContent>
+                <ModalContent style={{ gap: 8, paddingBottom: 0 }}>{s.component}</ModalContent>
               </Slide>
             ))}
           </AnimatePresence>
@@ -210,9 +234,9 @@ const About: React.FC = () => {
       </Slider>
       <OrDivider>
         <Dots>
-          {slides.map((_s, i) => (
+          {slides.map((s, i) => (
             <Dot
-              key={i}
+              key={s.id}
               $active={slider === i}
               onClick={() => {
                 didInteract()

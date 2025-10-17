@@ -102,6 +102,7 @@ export function QRCode({
             ) {
               dots.push(
                 <circle
+                  // biome-ignore lint/suspicious/noArrayIndexKey: i and j represent stable matrix coordinates in QR code, not arbitrary array positions
                   key={`circle-${i}-${j}`}
                   cx={i * cellSize + cellSize / 2}
                   cy={j * cellSize + cellSize / 2}

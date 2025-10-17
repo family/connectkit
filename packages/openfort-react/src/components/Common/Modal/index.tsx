@@ -101,6 +101,7 @@ const CloseIcon = ({ ...props }) => (
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    role="img"
     aria-label="Close"
     {...props}
   >
@@ -114,6 +115,7 @@ const BackIcon = ({ ...props }) => (
     viewBox="0 0 9 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    role="img"
     aria-label="Back"
     {...props}
   >
@@ -239,7 +241,7 @@ const Modal: React.FC<ModalProps> = ({
     })
   }, [])
 
-  let blockTimeout: ReturnType<typeof setTimeout>
+  const blockTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
   const contentRef = useCallback(
     (node: any) => {
       if (!node) return
@@ -247,8 +249,8 @@ const Modal: React.FC<ModalProps> = ({
 
       // Avoid transition mixups
       setInTransition(inTransition !== undefined)
-      clearTimeout(blockTimeout)
-      blockTimeout = setTimeout(() => setInTransition(false), 360)
+      clearTimeout(blockTimeoutRef.current)
+      blockTimeoutRef.current = setTimeout(() => setInTransition(false), 360)
 
       // Calculate new content bounds
       updateBounds(node)

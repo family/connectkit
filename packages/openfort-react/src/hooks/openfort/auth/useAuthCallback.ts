@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { UIAuthProvider } from '../../../components/Openfort/types'
 import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { logger } from '../../../utils/logger'
-import { onError } from '../hookConsistency'
 import type { CreateWalletPostAuthOptions } from './useConnectToWalletPostAuth'
 import { type EmailVerificationResult, useEmailAuth } from './useEmailAuth'
 import { type StoreCredentialsResult, useOAuth } from './useOAuth'
@@ -108,6 +107,29 @@ export const useAuthCallback = ({
     error: oAuthError,
   } = useOAuth()
 
+  // Extract individual properties from hookOptions to avoid exhaustive dependencies issues
+  const { onSuccess, onError: hookOnError, onSettled, throwOnError } = hookOptions
+
+  // Memoize hookOptions to avoid dependency issues
+  const memoizedHookOptions = useMemo(
+    () => ({ onSuccess, onError: hookOnError, onSettled, throwOnError }),
+    [onSuccess, hookOnError, onSettled, throwOnError]
+  )
+
+  // Create onError callback that uses the hook options
+  const onError = useCallback(
+    (params: { hookOptions: OpenfortHookOptions<any>; options: any; error: OpenfortError }) => {
+      const { error } = params
+      if (params.hookOptions.onError) {
+        params.hookOptions.onError(error)
+      }
+      if (params.hookOptions.throwOnError) {
+        throw error
+      }
+    },
+    []
+  )
+
   useEffect(() => {
     if (!enabled) return
 
@@ -130,7 +152,7 @@ export const useAuthCallback = ({
         if (!state || !email) {
           logger.error('No state or email found in URL')
           onError({
-            hookOptions,
+            hookOptions: memoizedHookOptions,
             options: {},
             error: new OpenfortError('No state or email found in URL', OpenfortErrorType.AUTHENTICATION_ERROR),
           })
@@ -148,13 +170,13 @@ export const useAuthCallback = ({
 
         const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {
-            hookOptions.onSuccess?.({
+            memoizedHookOptions.onSuccess?.({
               ...data,
               type: 'verifyEmail',
             })
           },
           onSettled: (data, error) => {
-            hookOptions.onSettled?.(
+            memoizedHookOptions.onSettled?.(
               {
                 ...data,
                 type: 'verifyEmail',
@@ -162,8 +184,8 @@ export const useAuthCallback = ({
               error
             )
           },
-          onError: hookOptions.onError,
-          throwOnError: hookOptions.throwOnError,
+          onError: memoizedHookOptions.onError,
+          throwOnError: memoizedHookOptions.throwOnError,
         }
 
         await verifyEmail({ email, state, ...options })
@@ -182,7 +204,7 @@ export const useAuthCallback = ({
             fixedUrl,
           })
           onError({
-            hookOptions,
+            hookOptions: memoizedHookOptions,
             options: {},
             error: new OpenfortError(
               'Missing player id or access token or refresh token',
@@ -204,13 +226,13 @@ export const useAuthCallback = ({
 
         const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {
-            hookOptions.onSuccess?.({
+            memoizedHookOptions.onSuccess?.({
               ...data,
               type: 'storeCredentials',
             })
           },
           onSettled: (data, error) => {
-            hookOptions.onSettled?.(
+            memoizedHookOptions.onSettled?.(
               {
                 ...data,
                 type: 'storeCredentials',
@@ -218,15 +240,15 @@ export const useAuthCallback = ({
               error
             )
           },
-          onError: hookOptions.onError,
-          throwOnError: hookOptions.throwOnError,
+          onError: memoizedHookOptions.onError,
+          throwOnError: memoizedHookOptions.throwOnError,
         }
 
         await storeCredentials({ player, accessToken, refreshToken, ...options })
         removeParams()
       }
     })()
-  }, [enabled, hookOptions, log, storeCredentials, verifyEmail])
+  }, [enabled, memoizedHookOptions, log, storeCredentials, verifyEmail, onError])
 
   return {
     email,

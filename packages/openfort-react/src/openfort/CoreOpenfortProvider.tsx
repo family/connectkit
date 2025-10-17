@@ -68,6 +68,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   const { walletConfig } = useOpenfort()
 
   // ---- Openfort instance ----
+  // biome-ignore lint/correctness/useExhaustiveDependencies: openfortProps is a complex object from props and should only trigger re-creation when the publishableKey changes to avoid unnecessary re-instantiation
   const openfort = useMemo(() => {
     logger.log('Creating Openfort instance.', openfortProps)
 
@@ -90,7 +91,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
     setDefaultClient(newClient)
     return newClient
-  }, [openfortProps])
+  }, [openfortProps.baseConfiguration.publishableKey])
 
   // ---- Embedded state ----
   const [embeddedState, setEmbeddedState] = useState<EmbeddedState>(EmbeddedState.NONE)
