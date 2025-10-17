@@ -1,30 +1,25 @@
-import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from '@heroicons/react/24/outline';
-import { useStatus } from '@openfort/react';
-import { useState } from 'react';
-import { BetterAuthCard } from '../../integrations/betterauth';
-import { ActionsCard, SignCard, UserProfileCard, WalletListCard } from '../../ui/openfort';
-import { DesktopTabGroup, MobileTabGroup, type TabType } from '../ui/Tabs';
-import { Head } from './head';
+import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from '@heroicons/react/24/outline'
+import { useStatus } from '@openfort/react'
+import { useState } from 'react'
+import { BetterAuthCard } from '../../integrations/betterauth'
+import { ActionsCard, SignCard, UserProfileCard, WalletListCard } from '../../ui/openfort'
+import { DesktopTabGroup, MobileTabGroup, type TabType } from '../ui/Tabs'
+import { Head } from './head'
 
 interface LayoutProps {
-  children: React.ReactNode;
-  step: number;
-  tabs?: TabType[];
-  currentTab?: TabType;
-  setCurrentTab?: (tab: TabType) => void;
-  showTabs?: boolean;
+  children: React.ReactNode
+  step: number
+  tabs?: TabType[]
+  currentTab?: TabType
+  setCurrentTab?: (tab: TabType) => void
+  showTabs?: boolean
 }
 
 const Layout = ({ children, step, tabs, currentTab, setCurrentTab, showTabs }: LayoutProps) => {
   return (
     <div className="min-h-screen min-w-screen bg-zinc-900 flex flex-col items-center justify-center">
       <div className="relative">
-        <DesktopTabGroup
-          tabs={tabs || []}
-          currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
-          showTabs={showTabs}
-        />
+        <DesktopTabGroup tabs={tabs || []} currentTab={currentTab} setCurrentTab={setCurrentTab} showTabs={showTabs} />
         <div className="w-(--card-group-width) layout-card-group">
           <div
             className="h-(--card-group-height) grid grid-flow-col auto-cols-max transition-transform duration-500"
@@ -35,12 +30,12 @@ const Layout = ({ children, step, tabs, currentTab, setCurrentTab, showTabs }: L
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const Main = () => {
-  const { isAuthenticated, isLoading, isConnected } = useStatus();
-  const [step, setStep] = useState(0);
+  const { isAuthenticated, isLoading, isConnected } = useStatus()
+  const [step, setStep] = useState(0)
 
   const tabs: TabType[] = [
     {
@@ -68,11 +63,11 @@ export const Main = () => {
       component: <WalletListCard />,
       icon: WalletIcon,
     },
-  ];
-  const [currentTab, setCurrentTab] = useState<TabType>(tabs[0]);
+  ]
+  const [currentTab, setCurrentTab] = useState<TabType>(tabs[0])
 
   if (isLoading) {
-    return null;
+    return null
   }
 
   return (
@@ -104,5 +99,5 @@ export const Main = () => {
       )}
       <div className="card relative" />
     </Layout>
-  );
-};
+  )
+}

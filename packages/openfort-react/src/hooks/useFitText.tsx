@@ -1,24 +1,18 @@
 // https://github.com/saltycrane/use-fit-text
 
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
-import ResizeObserver from 'resize-observer-polyfill';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import ResizeObserver from 'resize-observer-polyfill'
 
-export type TLogLevel = 'debug' | 'info' | 'warn' | 'error' | 'none';
+export type TLogLevel = 'debug' | 'info' | 'warn' | 'error' | 'none'
 
 export type TOptions = {
-  logLevel?: TLogLevel;
-  maxFontSize?: number;
-  minFontSize?: number;
-  onFinish?: (fontSize: number) => void;
-  onStart?: () => void;
-  resolution?: number;
-};
+  logLevel?: TLogLevel
+  maxFontSize?: number
+  minFontSize?: number
+  onFinish?: (fontSize: number) => void
+  onStart?: () => void
+  resolution?: number
+}
 
 const LOG_LEVEL: Record<TLogLevel, number> = {
   debug: 10,
@@ -26,16 +20,14 @@ const LOG_LEVEL: Record<TLogLevel, number> = {
   warn: 30,
   error: 40,
   none: 100,
-};
+}
 
 // Suppress `useLayoutEffect` warning when rendering on the server
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
 const useIsoLayoutEffect =
-  typeof window !== 'undefined' &&
-  window.document &&
-  window.document.createElement !== undefined
+  typeof window !== 'undefined' && window.document && window.document.createElement !== undefined
     ? useLayoutEffect
-    : useEffect;
+    : useEffect
 
 const useFitText = ({
   logLevel: logLevelOption = 'info',
@@ -45,7 +37,7 @@ const useFitText = ({
   onStart,
   resolution = 5,
 }: TOptions = {}) => {
-  const logLevel = LOG_LEVEL[logLevelOption];
+  const logLevel = LOG_LEVEL[logLevelOption]
 
   const initState = useCallback(() => {
     return {
@@ -54,26 +46,26 @@ const useFitText = ({
       fontSizePrev: minFontSize,
       fontSizeMax: maxFontSize,
       fontSizeMin: minFontSize,
-    };
-  }, [maxFontSize, minFontSize]);
+    }
+  }, [maxFontSize, minFontSize])
 
-  const ref = useRef<HTMLDivElement>(null);
-  const innerHtmlPrevRef = useRef<string | null>();
-  const isCalculatingRef = useRef(false);
-  const [state, setState] = useState(initState);
-  const { calcKey, fontSize, fontSizeMax, fontSizeMin, fontSizePrev } = state;
+  const ref = useRef<HTMLDivElement>(null)
+  const innerHtmlPrevRef = useRef<string | null>()
+  const isCalculatingRef = useRef(false)
+  const [state, setState] = useState(initState)
+  const { calcKey, fontSize, fontSizeMax, fontSizeMin, fontSizePrev } = state
 
   // Montior div size changes and recalculate on resize
-  let animationFrameId: number | null = null;
+  let animationFrameId: number | null = null
   const [ro] = useState(
     () =>
       new ResizeObserver(() => {
         animationFrameId = window.requestAnimationFrame(() => {
           if (isCalculatingRef.current) {
-            return;
+            return
           }
-          onStart && onStart();
-          isCalculatingRef.current = true;
+          onStart?.()
+          isCalculatingRef.current = true
           // `calcKey` is used in the dependencies array of
           // `useIsoLayoutEffect` below. It is incremented so that the font size
           // will be recalculated even if the previous state didn't change (e.g.
@@ -81,35 +73,35 @@ const useFitText = ({
           setState({
             ...initState(),
             calcKey: calcKey + 1,
-          });
-        });
+          })
+        })
       })
-  );
+  )
 
   useEffect(() => {
     if (ref.current) {
-      ro.observe(ref.current);
+      ro.observe(ref.current)
     }
     return () => {
-      animationFrameId && window.cancelAnimationFrame(animationFrameId);
-      ro.disconnect();
-    };
-  }, [animationFrameId, ro]);
+      animationFrameId && window.cancelAnimationFrame(animationFrameId)
+      ro.disconnect()
+    }
+  }, [animationFrameId, ro])
 
   // Recalculate when the div contents change
-  const innerHtml = ref.current && ref.current.innerHTML;
+  const innerHtml = ref.current?.innerHTML
   useEffect(() => {
-    if (calcKey === 0 || isCalculatingRef.current) return;
+    if (calcKey === 0 || isCalculatingRef.current) return
 
     if (innerHtml !== innerHtmlPrevRef.current) {
-      onStart && onStart();
+      onStart?.()
       setState({
         ...initState(),
         calcKey: calcKey + 1,
-      });
+      })
     }
-    innerHtmlPrevRef.current = innerHtml;
-  }, [calcKey, initState, innerHtml, onStart]);
+    innerHtmlPrevRef.current = innerHtml
+  }, [calcKey, initState, innerHtml, onStart])
 
   // Check overflow and resize font
   useIsoLayoutEffect(() => {
@@ -117,26 +109,22 @@ const useFitText = ({
     // above in the `ResizeObserver` callback. This avoids an extra resize
     // on initialization.
     if (calcKey === 0) {
-      return;
+      return
     }
 
-    const isWithinResolution = Math.abs(fontSize - fontSizePrev) <= resolution;
+    const isWithinResolution = Math.abs(fontSize - fontSizePrev) <= resolution
     const isOverflow =
       !!ref.current &&
-      (ref.current.scrollHeight > ref.current.offsetHeight ||
-        ref.current.scrollWidth > ref.current.offsetWidth);
-    const isFailed = isOverflow && fontSize === fontSizePrev;
-    const isAsc = fontSize > fontSizePrev;
+      (ref.current.scrollHeight > ref.current.offsetHeight || ref.current.scrollWidth > ref.current.offsetWidth)
+    const isFailed = isOverflow && fontSize === fontSizePrev
+    const isAsc = fontSize > fontSizePrev
 
     // Return if the font size has been adjusted "enough" (change within `resolution`)
     // reduce font size by one increment if it's overflowing.
     if (isWithinResolution) {
       if (isFailed) {
-        isCalculatingRef.current = false;
+        isCalculatingRef.current = false
         if (logLevel <= LOG_LEVEL.info) {
-          console.info(
-            `[use-fit-text] reached \`minFontSize = ${minFontSize}\` without fitting text`
-          );
         }
       } else if (isOverflow) {
         setState({
@@ -145,24 +133,24 @@ const useFitText = ({
           fontSizeMin,
           fontSizePrev,
           calcKey,
-        });
+        })
       } else {
-        isCalculatingRef.current = false;
-        onFinish && onFinish(fontSize);
+        isCalculatingRef.current = false
+        onFinish?.(fontSize)
       }
-      return;
+      return
     }
 
     // Binary search to adjust font size
-    let delta: number;
-    let newMax = fontSizeMax;
-    let newMin = fontSizeMin;
+    let delta: number
+    let newMax = fontSizeMax
+    let newMin = fontSizeMin
     if (isOverflow) {
-      delta = isAsc ? fontSizePrev - fontSize : fontSizeMin - fontSize;
-      newMax = Math.min(fontSizeMax, fontSize);
+      delta = isAsc ? fontSizePrev - fontSize : fontSizeMin - fontSize
+      newMax = Math.min(fontSizeMax, fontSize)
     } else {
-      delta = isAsc ? fontSizeMax - fontSize : fontSizePrev - fontSize;
-      newMin = Math.max(fontSizeMin, fontSize);
+      delta = isAsc ? fontSizeMax - fontSize : fontSizePrev - fontSize
+      newMin = Math.max(fontSizeMin, fontSize)
     }
     setState({
       calcKey,
@@ -170,19 +158,10 @@ const useFitText = ({
       fontSizeMax: newMax,
       fontSizeMin: newMin,
       fontSizePrev: fontSize,
-    });
-  }, [
-    calcKey,
-    fontSize,
-    fontSizeMax,
-    fontSizeMin,
-    fontSizePrev,
-    onFinish,
-    ref,
-    resolution,
-  ]);
+    })
+  }, [calcKey, fontSize, fontSizeMax, fontSizeMin, fontSizePrev, onFinish, ref, resolution])
 
-  return { fontSize, ref };
-};
+  return { fontSize, ref }
+}
 
-export default useFitText;
+export default useFitText

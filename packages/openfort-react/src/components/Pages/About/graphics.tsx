@@ -1,6 +1,6 @@
-import { motion, EasingFunction } from 'framer-motion';
-import styled from '../../../styles/styled';
-import { keyframes } from 'styled-components';
+import { type EasingFunction, motion } from 'framer-motion'
+import { keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 export type Easing =
   | [number, number, number, number]
@@ -15,22 +15,22 @@ export type Easing =
   | 'backOut'
   | 'backInOut'
   | 'anticipate'
-  | EasingFunction;
+  | EasingFunction
 
-const pulseAnim = { scale: [0.9, 1.25, 1.6], opacity: [0, 0.11, 0] };
-const pulseTransition = { ease: 'linear', duration: 2, repeat: Infinity };
+const pulseAnim = { scale: [0.9, 1.25, 1.6], opacity: [0, 0.11, 0] }
+const pulseTransition = { ease: 'linear', duration: 2, repeat: Infinity }
 
 const Center = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translateY(-50%) translateX(-50%);
-`;
+`
 
 const spin = keyframes`
   from{ transform: rotate(0deg); }
   to{ transform: rotate(360deg); }
-`;
+`
 const SpinContainer = styled(motion.div)`
   z-index: -1;
   position: absolute;
@@ -38,7 +38,7 @@ const SpinContainer = styled(motion.div)`
   overflow: hidden;
   border-radius: 100%;
   animation: ${spin} 16s linear infinite;
-`;
+`
 
 const BgLighten = styled(motion.div)`
   overflow: hidden;
@@ -47,13 +47,13 @@ const BgLighten = styled(motion.div)`
   position: absolute;
   inset: 0;
   background: rgba(255, 255, 255, 0.1);
-`;
+`
 const MainCircle = styled(motion.div)`
   z-index: 2;
   position: relative;
   border-radius: 50%;
   background: var(--ck-body-background);
-`;
+`
 
 const MainCircleInner = styled(motion.div)`
   position: absolute;
@@ -62,16 +62,10 @@ const MainCircleInner = styled(motion.div)`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-`;
+`
 
 const Compass = (
-  <svg
-    width="34"
-    height="34"
-    viewBox="0 0 34 34"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M17 34C26.3 34 34 26.2833 34 17C34 7.7 26.2833 0 16.9833 0C7.7 0 0 7.7 0 17C0 26.2833 7.71667 34 17 34ZM9.83333 25.6833C8.68333 26.2333 7.8 25.3333 8.33333 24.2L13.1667 14.3333C13.45 13.75 13.8167 13.3833 14.35 13.1333L24.1833 8.33333C25.4 7.75 26.25 8.65 25.6833 9.81667L20.8833 19.6667C20.6167 20.2 20.2333 20.6 19.6833 20.85L9.83333 25.6833ZM17.0167 19.1333C18.1833 19.1333 19.1333 18.1833 19.1333 17.0167C19.1333 15.85 18.1833 14.9167 17.0167 14.9167C15.8667 14.9167 14.9167 15.85 14.9167 17.0167C14.9167 18.1833 15.8667 19.1333 17.0167 19.1333Z"
       fill="var(--ck-graphic-compass-color, var(--ck-body-color))"
@@ -81,29 +75,16 @@ const Compass = (
       fill="url(#ck-compass-gradient)"
     />
     <defs>
-      <linearGradient
-        id="ck-compass-gradient"
-        x1="17"
-        y1="0"
-        x2="17"
-        y2="34"
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="ck-compass-gradient" x1="17" y1="0" x2="17" y2="34" gradientUnits="userSpaceOnUse">
         <stop stopColor="rgba(0,0,0,0)" />
         <stop offset="1" stopColor="rgba(0,0,0,0.05)" />
       </linearGradient>
     </defs>
   </svg>
-);
+)
 
 const Wallet = ({ inverted = false }) => (
-  <svg
-    width="58"
-    height="50"
-    viewBox="0 0 58 50"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="58" height="50" viewBox="0 0 58 50" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -124,46 +105,25 @@ const Wallet = ({ inverted = false }) => (
         gradientUnits="userSpaceOnUse"
       >
         <stop
-          stopColor={
-            inverted
-              ? 'var(--ck-body-color-muted)'
-              : 'var(--ck-body-background-transparent, transparent)'
-          }
+          stopColor={inverted ? 'var(--ck-body-color-muted)' : 'var(--ck-body-background-transparent, transparent)'}
         />
-        <stop
-          offset="1"
-          stopColor={
-            inverted ? 'var(--ck-body-color)' : 'var(--ck-body-background)'
-          }
-        />
+        <stop offset="1" stopColor={inverted ? 'var(--ck-body-color)' : 'var(--ck-body-background)'} />
       </linearGradient>
     </defs>
   </svg>
-);
+)
 
 const Send = (
-  <svg
-    width="41"
-    height="41"
-    viewBox="0 0 41 41"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M35.4446 0.839914L2.14484 10.7065C0.0395033 11.3303 -0.632966 13.9786 0.919705 15.5313L7.9624 22.574C9.47585 24.0874 11.8661 24.273 13.5951 23.0114L25.2866 14.4797C25.5558 14.2832 25.9281 14.3121 26.1638 14.5478C26.3998 14.7838 26.4285 15.1567 26.2313 15.426L17.6874 27.0937C16.4213 28.8228 16.6052 31.2168 18.1206 32.7322L25.1811 39.7926C26.7337 41.3453 29.382 40.6728 30.0058 38.5675L39.8724 5.2677C40.6753 2.55794 38.1544 0.037024 35.4446 0.839914Z"
       fill="var(--ck-graphic-secondary-color, white)"
     />
   </svg>
-);
+)
 
 const Receive = (
-  <svg
-    width="38"
-    height="44"
-    viewBox="0 0 38 44"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="38" height="44" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -171,19 +131,12 @@ const Receive = (
       fill="var(--ck-graphic-secondary-color, white)"
     />
   </svg>
-);
+)
 
 const Key = ({ ...props }) => {
-  const id = props?.id ?? '';
+  const id = props?.id ?? ''
   return (
-    <svg
-      {...props}
-      width="81"
-      height="81"
-      viewBox="0 0 81 81"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg {...props} width="81" height="81" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -237,17 +190,11 @@ const Key = ({ ...props }) => {
         </radialGradient>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 const VitalikAddress = (
-  <svg
-    width="131"
-    height="14"
-    viewBox="0 0 131 14"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="131" height="14" viewBox="0 0 131 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M5.74805 13.2549C8.86816 13.2549 10.7227 10.6973 10.7227 6.63672C10.7227 2.57617 8.85059 0.0625 5.74805 0.0625C2.63672 0.0625 0.755859 2.59375 0.755859 6.64551C0.755859 10.7148 2.61914 13.2549 5.74805 13.2549ZM5.74805 11.4004C4.02539 11.4004 3.04102 9.64258 3.04102 6.63672C3.04102 3.68359 4.04297 1.91699 5.74805 1.91699C7.44434 1.91699 8.4375 3.6748 8.4375 6.64551C8.4375 9.65137 7.46191 11.4004 5.74805 11.4004Z"
       fill="var(--ck-body-color)"
@@ -305,13 +252,13 @@ const VitalikAddress = (
       fill="var(--ck-body-color)"
     />
   </svg>
-);
+)
 
 type Slide = {
-  layoutId?: string;
-  duration: number;
-  ease: Easing;
-};
+  layoutId?: string
+  duration: number
+  ease: Easing
+}
 
 export const SlideOne = ({ layoutId }: Slide) => {
   return (
@@ -336,8 +283,7 @@ export const SlideOne = ({ layoutId }: Slide) => {
           height: 76,
           background: 'var(--ck-graphic-secondary-background, #6366F1)',
           borderRadius: '50%',
-          boxShadow:
-            'var(--ck-graphic-secondary-box-shadow, 0px 2px 10px rgba(99, 102, 241, 0.3))',
+          boxShadow: 'var(--ck-graphic-secondary-box-shadow, 0px 2px 10px rgba(99, 102, 241, 0.3))',
         }}
       >
         {Receive}
@@ -356,10 +302,8 @@ export const SlideOne = ({ layoutId }: Slide) => {
         <MainCircleInner
           key={'SlideOneInner'}
           style={{
-            background:
-              'var(--ck-graphic-primary-background, var(--ck-body-background))',
-            boxShadow:
-              'var(--ck-graphic-primary-box-shadow, 0px 3px 15px rgba(0, 0, 0, 0.1))',
+            background: 'var(--ck-graphic-primary-background, var(--ck-body-background))',
+            boxShadow: 'var(--ck-graphic-primary-box-shadow, 0px 3px 15px rgba(0, 0, 0, 0.1))',
           }}
           initial={{
             opacity: 0,
@@ -385,8 +329,7 @@ export const SlideOne = ({ layoutId }: Slide) => {
           height: 76,
           background: 'var(--ck-graphic-secondary-background, #3897FB)',
           borderRadius: '50%',
-          boxShadow:
-            'var(--ck-graphic-secondary-box-shadow, 0px 2px 10px rgba(56, 151, 251, 0.3))',
+          boxShadow: 'var(--ck-graphic-secondary-box-shadow, 0px 2px 10px rgba(56, 151, 251, 0.3))',
         }}
       >
         <Center>
@@ -394,337 +337,288 @@ export const SlideOne = ({ layoutId }: Slide) => {
         </Center>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
 export const SlideTwo = ({ layoutId }: Slide) => {
   return (
-    <>
-      <div
+    <div
+      style={{
+        position: 'relative',
+        left: -14,
+      }}
+    >
+      <MainCircle
+        key={layoutId}
+        layoutId={layoutId}
         style={{
-          position: 'relative',
-          left: -14,
+          zIndex: 10,
+          position: 'absolute',
+          left: 15,
+          top: 12,
+          width: 32,
+          height: 32,
         }}
       >
-        <MainCircle
-          key={layoutId}
-          layoutId={layoutId}
+        <MainCircleInner
+          key={'SlideTwoInner'}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           style={{
-            zIndex: 10,
-            position: 'absolute',
-            left: 15,
-            top: 12,
-            width: 32,
-            height: 32,
+            background: 'var(--ck-graphic-primary-background, var(--ck-body-background))',
+            boxShadow: 'var(--ck-graphic-primary-box-shadow, 0px 2px 5px rgba(37, 41, 46, 0.16))',
           }}
         >
-          <MainCircleInner
-            key={'SlideTwoInner'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              background:
-                'var(--ck-graphic-primary-background, var(--ck-body-background))',
-              boxShadow:
-                'var(--ck-graphic-primary-box-shadow, 0px 2px 5px rgba(37, 41, 46, 0.16))',
-            }}
-          >
-            <Center>
-              <Wallet />
-            </Center>
-          </MainCircleInner>
-        </MainCircle>
-        <motion.div
-          initial={{ scale: 0.2 }}
-          animate={{ scale: 1 }}
-          exit={{ scale: 0.2 }}
-          style={{
-            zIndex: 7,
-            position: 'relative',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '21px 56px',
-            paddingRight: 52,
-            background:
-              'var(--ck-graphic-primary-background, var(--ck-body-background))',
-            boxShadow:
-              'var(--ck-graphic-primary-box-shadow, 0px 2px 9px rgba(0, 0, 0, 0.07))',
-            borderRadius: 'var(--ck-border-radius, 16px)',
-          }}
-        >
-          <BgLighten />
-          <div style={{ position: 'relative', zIndex: 2, top: 1, left: 1 }}>
-            {VitalikAddress}
-          </div>
-        </motion.div>
-        <motion.div
-          style={{
-            zIndex: 8,
-            position: 'absolute',
-            top: -16,
-            right: -28,
-          }}
-          initial={{ rotate: 90, x: -70, scale: 0.4 }}
-          animate={{ rotate: 0, x: 0, scale: 1 }}
-          exit={{ rotate: 0, x: -70, scale: 0.4 }}
-        >
-          <Key id={layoutId} />
-        </motion.div>
-      </div>
-    </>
-  );
-};
+          <Center>
+            <Wallet />
+          </Center>
+        </MainCircleInner>
+      </MainCircle>
+      <motion.div
+        initial={{ scale: 0.2 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0.2 }}
+        style={{
+          zIndex: 7,
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '21px 56px',
+          paddingRight: 52,
+          background: 'var(--ck-graphic-primary-background, var(--ck-body-background))',
+          boxShadow: 'var(--ck-graphic-primary-box-shadow, 0px 2px 9px rgba(0, 0, 0, 0.07))',
+          borderRadius: 'var(--ck-border-radius, 16px)',
+        }}
+      >
+        <BgLighten />
+        <div style={{ position: 'relative', zIndex: 2, top: 1, left: 1 }}>{VitalikAddress}</div>
+      </motion.div>
+      <motion.div
+        style={{
+          zIndex: 8,
+          position: 'absolute',
+          top: -16,
+          right: -28,
+        }}
+        initial={{ rotate: 90, x: -70, scale: 0.4 }}
+        animate={{ rotate: 0, x: 0, scale: 1 }}
+        exit={{ rotate: 0, x: -70, scale: 0.4 }}
+      >
+        <Key id={layoutId} />
+      </motion.div>
+    </div>
+  )
+}
 
 export const SlideThree = ({ layoutId }: Slide) => {
-  const id = Math.random(); // OLD_TODO: Better unique ID handling
+  const id = Math.random() // OLD_TODO: Better unique ID handling
   return (
-    <>
-      <motion.div
-        key={'SlideThree'}
+    <motion.div
+      key={'SlideThree'}
+      style={{
+        position: 'relative',
+      }}
+    >
+      <MainCircle
+        key={layoutId}
+        layoutId={layoutId}
+        initial={{ rotate: 80 }}
         style={{
+          zIndex: 10,
           position: 'relative',
+          width: 128,
+          height: 128,
         }}
       >
-        <MainCircle
-          key={layoutId}
-          layoutId={layoutId}
-          initial={{ rotate: 80 }}
+        <MainCircleInner
+          key={'SlideThreeInner'}
+          initial={{ opacity: 0, rotate: 100 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           style={{
-            zIndex: 10,
-            position: 'relative',
-            width: 128,
-            height: 128,
-          }}
-        >
-          <MainCircleInner
-            key={'SlideThreeInner'}
-            initial={{ opacity: 0, rotate: 100 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              overflow: 'hidden',
-              background: `var(--ck-graphic-globe-background, radial-gradient(
+            overflow: 'hidden',
+            background: `var(--ck-graphic-globe-background, radial-gradient(
               82.42% 82.42% at 50% 86.72%,
               rgba(255, 255, 255, 0.2) 0%,
               rgba(0, 0, 0, 0) 100%
             ),
             linear-gradient(180deg, #3897FB 0%, #5004F1 100%))`,
-              boxShadow:
-                'var(--ck-graphic-globe-box-shadow, 0px -6px 20px rgba(56, 151, 251, 0.23))',
-            }}
-          >
-            <SpinContainer
-              style={
-                !Boolean(layoutId)
-                  ? {
-                    animationPlayState: 'paused',
-                  }
-                  : undefined
-              }
-            >
-              <svg
-                width="128"
-                height="128"
-                viewBox="0 0 128 128"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g>
-                  <circle
-                    cx="30"
-                    cy="141"
-                    r="64"
-                    stroke={`url(#networkRadialA-${id})`}
-                    strokeWidth="3"
-                  />
-                  <circle
-                    cx="78.8515"
-                    cy="131.123"
-                    r="54.1005"
-                    transform="rotate(-37.4016 78.8515 131.123)"
-                    stroke={`url(#networkRadialB-${id})`}
-                    strokeWidth="3"
-                  />
-                  <circle
-                    cx="63.6053"
-                    cy="2.12794"
-                    r="50.8338"
-                    transform="rotate(134.702 63.6053 2.12794)"
-                    stroke={`url(#networkRadialC-${id})`}
-                    strokeWidth="3"
-                  />
-                  <circle
-                    cx="126.658"
-                    cy="56.6577"
-                    r="50.3433"
-                    transform="rotate(-105 126.658 56.6577)"
-                    stroke={`url(#networkRadialD-${id})`}
-                    strokeWidth="3"
-                  />
-                  <circle
-                    cx="13.6619"
-                    cy="18.9603"
-                    r="46.0247"
-                    transform="rotate(107.362 13.6619 18.9603)"
-                    stroke={`url(#networkRadialE-${id})`}
-                    strokeWidth="3"
-                  />
-                </g>
-                <defs>
-                  <radialGradient
-                    id={`networkRadialA-${id}`}
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="userSpaceOnUse"
-                    gradientTransform="translate(60.5 84) rotate(104.668) scale(77.0097)"
-                  >
-                    <stop stopColor="var(--ck-graphic-globe-lines, white)" />
-                    <stop
-                      offset="1"
-                      stopColor="var(--ck-graphic-globe-lines, white)"
-                      stopOpacity="0"
-                    />
-                  </radialGradient>
-                  <radialGradient
-                    id={`networkRadialB-${id}`}
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="userSpaceOnUse"
-                    gradientTransform="translate(96.1805 81.6717) rotate(97.125) scale(64.7443)"
-                  >
-                    <stop stopColor="var(--ck-graphic-globe-lines, white)" />
-                    <stop
-                      offset="1"
-                      stopColor="var(--ck-graphic-globe-lines, white)"
-                      stopOpacity="0"
-                    />
-                  </radialGradient>
-                  <radialGradient
-                    id={`networkRadialC-${id}`}
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="userSpaceOnUse"
-                    gradientTransform="translate(96.3816 -36.4455) rotate(114.614) scale(57.7177)"
-                  >
-                    <stop stopColor="var(--ck-graphic-globe-lines, white)" />
-                    <stop
-                      offset="1"
-                      stopColor="var(--ck-graphic-globe-lines, white)"
-                      stopOpacity="0"
-                    />
-                  </radialGradient>
-                  <radialGradient
-                    id={`networkRadialD-${id}`}
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="userSpaceOnUse"
-                    gradientTransform="translate(137.86 7.73234) rotate(92.3288) scale(62.743)"
-                  >
-                    <stop stopColor="var(--ck-graphic-globe-lines, white)" />
-                    <stop
-                      offset="1"
-                      stopColor="var(--ck-graphic-globe-lines, white)"
-                      stopOpacity="0"
-                    />
-                  </radialGradient>
-                  <radialGradient
-                    id={`networkRadialE-${id}`}
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="userSpaceOnUse"
-                    gradientTransform="translate(35.3203 -21.566) rotate(104.513) scale(54.8617)"
-                  >
-                    <stop stopColor="var(--ck-graphic-globe-lines, white)" />
-                    <stop
-                      offset="1"
-                      stopColor="var(--ck-graphic-globe-lines, white)"
-                      stopOpacity="0"
-                    />
-                  </radialGradient>
-                </defs>
-              </svg>
-            </SpinContainer>
-          </MainCircleInner>
-          <motion.div exit={{ opacity: 0 }}>
-            <motion.div
-              key="pulseA"
-              initial={!Boolean(layoutId) ? { scale: 1.1 } : undefined}
-              animate={Boolean(layoutId) ? pulseAnim : undefined}
-              transition={{ ...pulseTransition }}
-              style={{
-                position: 'absolute',
-                inset: 0,
-                borderRadius: '50%',
-                boxShadow:
-                  '0 0 0 2px var(--ck-graphic-globe-lines, rgba(126, 112, 243, 1))',
-              }}
-            />
-            <motion.div
-              key="pulseB"
-              initial={
-                !Boolean(layoutId) ? { scale: 1.2, opacity: 0.25 } : undefined
-              }
-              animate={Boolean(layoutId) ? pulseAnim : undefined}
-              transition={{ ...pulseTransition, delay: 0.5 }}
-              style={{
-                position: 'absolute',
-                inset: 0,
-                borderRadius: '50%',
-                boxShadow:
-                  '0 0 0 2px var(--ck-graphic-globe-lines, rgba(126, 112, 243, 1))',
-              }}
-            />
-          </motion.div>
-        </MainCircle>
-
-        <motion.div
-          initial={{ rotate: -20, scale: 0.1, y: -10, x: -10 }}
-          animate={{ rotate: 0, scale: 1, y: 0, x: 0 }}
-          exit={{ zIndex: 3, scale: 0.2, y: -25, x: 15 }}
-          style={{
-            zIndex: 12,
-            borderRadius: '50%',
-            position: 'absolute',
-            bottom: -4,
-            right: -4,
-            width: 54,
-            height: 54,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 13,
-            background:
-              'var(--ck-graphic-compass-background, var(--ck-body-background))',
-            boxShadow:
-              'var(--ck-graphic-compass-box-shadow, 0px 2px 9px rgba(0, 0, 0, 0.15))',
+            boxShadow: 'var(--ck-graphic-globe-box-shadow, 0px -6px 20px rgba(56, 151, 251, 0.23))',
           }}
         >
-          <BgLighten />
-          <motion.div
-            style={{ zIndex: 2, position: 'absolute' }}
-            initial={{ rotate: -170 }}
-            animate={{ rotate: 0 }}
-            exit={{
-              rotate: -180,
-              transition: { duration: 0 }, // needed to avoid AnimatePresence taking too long to unmount the animation which causes issues on page close
-            }}
-            transition={{
-              type: 'spring',
-              stiffness: 6,
-              damping: 0.9,
-              mass: 0.2,
-            }}
+          <SpinContainer
+            style={
+              !layoutId
+                ? {
+                    animationPlayState: 'paused',
+                  }
+                : undefined
+            }
           >
-            {Compass}
-          </motion.div>
+            <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <circle cx="30" cy="141" r="64" stroke={`url(#networkRadialA-${id})`} strokeWidth="3" />
+                <circle
+                  cx="78.8515"
+                  cy="131.123"
+                  r="54.1005"
+                  transform="rotate(-37.4016 78.8515 131.123)"
+                  stroke={`url(#networkRadialB-${id})`}
+                  strokeWidth="3"
+                />
+                <circle
+                  cx="63.6053"
+                  cy="2.12794"
+                  r="50.8338"
+                  transform="rotate(134.702 63.6053 2.12794)"
+                  stroke={`url(#networkRadialC-${id})`}
+                  strokeWidth="3"
+                />
+                <circle
+                  cx="126.658"
+                  cy="56.6577"
+                  r="50.3433"
+                  transform="rotate(-105 126.658 56.6577)"
+                  stroke={`url(#networkRadialD-${id})`}
+                  strokeWidth="3"
+                />
+                <circle
+                  cx="13.6619"
+                  cy="18.9603"
+                  r="46.0247"
+                  transform="rotate(107.362 13.6619 18.9603)"
+                  stroke={`url(#networkRadialE-${id})`}
+                  strokeWidth="3"
+                />
+              </g>
+              <defs>
+                <radialGradient
+                  id={`networkRadialA-${id}`}
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(60.5 84) rotate(104.668) scale(77.0097)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop offset="1" stopColor="var(--ck-graphic-globe-lines, white)" stopOpacity="0" />
+                </radialGradient>
+                <radialGradient
+                  id={`networkRadialB-${id}`}
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(96.1805 81.6717) rotate(97.125) scale(64.7443)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop offset="1" stopColor="var(--ck-graphic-globe-lines, white)" stopOpacity="0" />
+                </radialGradient>
+                <radialGradient
+                  id={`networkRadialC-${id}`}
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(96.3816 -36.4455) rotate(114.614) scale(57.7177)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop offset="1" stopColor="var(--ck-graphic-globe-lines, white)" stopOpacity="0" />
+                </radialGradient>
+                <radialGradient
+                  id={`networkRadialD-${id}`}
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(137.86 7.73234) rotate(92.3288) scale(62.743)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop offset="1" stopColor="var(--ck-graphic-globe-lines, white)" stopOpacity="0" />
+                </radialGradient>
+                <radialGradient
+                  id={`networkRadialE-${id}`}
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(35.3203 -21.566) rotate(104.513) scale(54.8617)"
+                >
+                  <stop stopColor="var(--ck-graphic-globe-lines, white)" />
+                  <stop offset="1" stopColor="var(--ck-graphic-globe-lines, white)" stopOpacity="0" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </SpinContainer>
+        </MainCircleInner>
+        <motion.div exit={{ opacity: 0 }}>
+          <motion.div
+            key="pulseA"
+            initial={!layoutId ? { scale: 1.1 } : undefined}
+            animate={layoutId ? pulseAnim : undefined}
+            transition={{ ...pulseTransition }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: '50%',
+              boxShadow: '0 0 0 2px var(--ck-graphic-globe-lines, rgba(126, 112, 243, 1))',
+            }}
+          />
+          <motion.div
+            key="pulseB"
+            initial={!layoutId ? { scale: 1.2, opacity: 0.25 } : undefined}
+            animate={layoutId ? pulseAnim : undefined}
+            transition={{ ...pulseTransition, delay: 0.5 }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: '50%',
+              boxShadow: '0 0 0 2px var(--ck-graphic-globe-lines, rgba(126, 112, 243, 1))',
+            }}
+          />
+        </motion.div>
+      </MainCircle>
+
+      <motion.div
+        initial={{ rotate: -20, scale: 0.1, y: -10, x: -10 }}
+        animate={{ rotate: 0, scale: 1, y: 0, x: 0 }}
+        exit={{ zIndex: 3, scale: 0.2, y: -25, x: 15 }}
+        style={{
+          zIndex: 12,
+          borderRadius: '50%',
+          position: 'absolute',
+          bottom: -4,
+          right: -4,
+          width: 54,
+          height: 54,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 13,
+          background: 'var(--ck-graphic-compass-background, var(--ck-body-background))',
+          boxShadow: 'var(--ck-graphic-compass-box-shadow, 0px 2px 9px rgba(0, 0, 0, 0.15))',
+        }}
+      >
+        <BgLighten />
+        <motion.div
+          style={{ zIndex: 2, position: 'absolute' }}
+          initial={{ rotate: -170 }}
+          animate={{ rotate: 0 }}
+          exit={{
+            rotate: -180,
+            transition: { duration: 0 }, // needed to avoid AnimatePresence taking too long to unmount the animation which causes issues on page close
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 6,
+            damping: 0.9,
+            mass: 0.2,
+          }}
+        >
+          {Compass}
         </motion.div>
       </motion.div>
-    </>
-  );
-};
+    </motion.div>
+  )
+}

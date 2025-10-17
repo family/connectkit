@@ -15,9 +15,7 @@ const DesktopTab = ({ name, isActive, ...buttonProps }: TabProps) => {
       className="relative h-8 mx-2.5 transition-colors cursor-pointer"
       style={
         {
-          '--tab-bg-color': isActive
-            ? 'var(--color-zinc-800)'
-            : 'var(--color-zinc-700)',
+          '--tab-bg-color': isActive ? 'var(--color-zinc-800)' : 'var(--color-zinc-700)',
           opacity: isActive ? 1 : 0.6,
         } as React.CSSProperties
       }
@@ -43,12 +41,7 @@ type TabGroupProps = {
   showTabs?: boolean
 }
 
-export const DesktopTabGroup = ({
-  tabs,
-  currentTab,
-  setCurrentTab,
-  showTabs,
-}: TabGroupProps) => {
+export const DesktopTabGroup = ({ tabs, currentTab, setCurrentTab, showTabs }: TabGroupProps) => {
   return (
     <div className="absolute left-[100%] top-2 rotate-90 transform origin-top-left hidden xs:block">
       <div
@@ -70,32 +63,16 @@ export const DesktopTabGroup = ({
   )
 }
 
-const MobileTab = ({
-  name,
-  isActive,
-  icon: Icon,
-  ...buttonProps
-}: TabProps) => {
+const MobileTab = ({ name, isActive, icon: Icon, ...buttonProps }: TabProps) => {
   return (
-    <button
-      className="relative h-8 mx-2.5 transition-colors cursor-pointer"
-      {...buttonProps}
-    >
+    <button className="relative h-8 mx-2.5 transition-colors cursor-pointer" {...buttonProps}>
       <Icon className="h-5 w-5 mx-auto mb-1" />
-      <span
-        className={`${isActive ? 'text-white' : 'text-zinc-400'} whitespace-nowrap`}
-      >
-        {name}
-      </span>
+      <span className={`${isActive ? 'text-white' : 'text-zinc-400'} whitespace-nowrap`}>{name}</span>
     </button>
   )
 }
 
-export const MobileTabGroup = ({
-  tabs,
-  currentTab,
-  setCurrentTab,
-}: TabGroupProps) => {
+export const MobileTabGroup = ({ tabs, currentTab, setCurrentTab }: TabGroupProps) => {
   return (
     <div className="mt-auto xs:hidden flex pt-6 pb-2 items-end justify-between text-zinc-400 text-sm">
       {tabs?.map((tab) => (

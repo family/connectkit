@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import styled from '../styles/styled';
-import Logos from './logos';
+import { motion } from 'framer-motion'
+import type React from 'react'
+import styled from '../styles/styled'
+import Logos from './logos'
 
 const IconContainer = styled(motion.div)`
   position: relative;
@@ -17,7 +17,7 @@ const IconContainer = styled(motion.div)`
     max-width: 100%;
     height: auto;
   }
-`;
+`
 
 const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
   const logoList = [
@@ -27,17 +27,10 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
     <Logos.ImToken />,
     <Logos.Argent />,
     <Logos.Trust />,
-  ];
+  ]
   return (
     <IconContainer>
-      <svg
-        aria-hidden="true"
-        width="47"
-        height="52"
-        viewBox="0 0 47 52"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg aria-hidden="true" width="47" height="52" viewBox="0 0 47 52" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g mask="url(#gradient-mask)">
           <path
             d="M7 14.5C7 11.4624 9.46243 9 12.5 9H31.5C34.5376 9 37 11.4624 37 14.5V47H7V14.5Z"
@@ -50,36 +43,24 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
           ) : (
             <>
               <foreignObject x="12" y="15" width="9" height="9" rx="2.5">
-                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>
-                  {logoList[0]}
-                </div>
+                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>{logoList[0]}</div>
               </foreignObject>
               <foreignObject x="23" y="15" width="9" height="9" rx="2.5">
-                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>
-                  {logoList[1]}
-                </div>
+                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>{logoList[1]}</div>
               </foreignObject>
               <foreignObject x="12" y="26" width="9" height="9" rx="2.5">
                 <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>
-                  <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>
-                    {logoList[2]}
-                  </div>
+                  <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>{logoList[2]}</div>
                 </div>
               </foreignObject>
               <foreignObject x="23" y="26" width="9" height="9" rx="2.5">
-                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>
-                  {logoList[3]}
-                </div>
+                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>{logoList[3]}</div>
               </foreignObject>
               <foreignObject x="12" y="37" width="9" height="9" rx="2.5">
-                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>
-                  {logoList[4]}
-                </div>
+                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>{logoList[4]}</div>
               </foreignObject>
               <foreignObject x="23" y="37" width="9" height="9" rx="2.5">
-                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>
-                  {logoList[5]}
-                </div>
+                <div style={{ overflow: 'hidden', borderRadius: 2.5 }}>{logoList[5]}</div>
               </foreignObject>
             </>
           )}
@@ -92,13 +73,7 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
             d="M15 10H29C29 11.1046 28.1046 12 27 12H17C15.8954 12 15 11.1046 15 10Z"
             fill="var(--ck-graphic-scaniconwithlogos-01)"
           />
-          <rect
-            x="1"
-            y="47"
-            width="43"
-            height="5"
-            fill="var(--ck-tooltip-background)"
-          />
+          <rect x="1" y="47" width="43" height="5" fill="var(--ck-tooltip-background)" />
           <rect
             x="22"
             y="1"
@@ -109,38 +84,10 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
             stroke="var(--ck-tooltip-background)"
             strokeWidth="2"
           />
-          <rect
-            x="34.5"
-            y="10"
-            width="2.5"
-            height="2.5"
-            rx="0.75"
-            fill="#373737"
-          />
-          <rect
-            x="31"
-            y="10"
-            width="2.5"
-            height="2.5"
-            rx="0.75"
-            fill="#373737"
-          />
-          <rect
-            x="31"
-            y="13.5"
-            width="2.5"
-            height="2.5"
-            rx="0.75"
-            fill="#373737"
-          />
-          <rect
-            x="34.5"
-            y="13.5"
-            width="2.5"
-            height="2.5"
-            rx="0.75"
-            fill="#373737"
-          />
+          <rect x="34.5" y="10" width="2.5" height="2.5" rx="0.75" fill="#373737" />
+          <rect x="31" y="10" width="2.5" height="2.5" rx="0.75" fill="#373737" />
+          <rect x="31" y="13.5" width="2.5" height="2.5" rx="0.75" fill="#373737" />
+          <rect x="34.5" y="13.5" width="2.5" height="2.5" rx="0.75" fill="#373737" />
           <path
             d="M28.5 10.5V9C28.5 8.17157 29.1716 7.5 30 7.5H31.5"
             stroke="#373737"
@@ -180,36 +127,20 @@ const ScanIconWithLogos: React.FC<{ logo?: React.ReactNode }> = ({ logo }) => {
             gradientUnits="userSpaceOnUse"
           >
             <stop stopColor="var(--ck-graphic-scaniconwithlogos-01)" />
-            <stop
-              offset="1"
-              stopColor="var(--ck-graphic-scaniconwithlogos-02)"
-            />
+            <stop offset="1" stopColor="var(--ck-graphic-scaniconwithlogos-02)" />
           </linearGradient>
 
-          <linearGradient
-            id="linear-gradient-mask"
-            x1="47"
-            y1="42"
-            x2="47"
-            y2="47"
-            gradientUnits="userSpaceOnUse"
-          >
+          <linearGradient id="linear-gradient-mask" x1="47" y1="42" x2="47" y2="47" gradientUnits="userSpaceOnUse">
             <stop stopColor="white" />
             <stop offset="1" stopColor="black" stopOpacity="0" />
           </linearGradient>
 
           <mask id="gradient-mask">
-            <rect
-              x="0"
-              y="0"
-              width="47"
-              height="52"
-              fill="url(#linear-gradient-mask)"
-            />
+            <rect x="0" y="0" width="47" height="52" fill="url(#linear-gradient-mask)" />
           </mask>
         </defs>
       </svg>
     </IconContainer>
-  );
-};
-export default ScanIconWithLogos;
+  )
+}
+export default ScanIconWithLogos

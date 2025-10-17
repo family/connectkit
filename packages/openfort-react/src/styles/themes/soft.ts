@@ -5,12 +5,10 @@ export default {
   '--ck-connectbutton-border-radius': '12px',
   '--ck-connectbutton-color': '#414451',
   '--ck-connectbutton-background': '#ffffff',
-  '--ck-connectbutton-box-shadow':
-    'inset 0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-box-shadow': 'inset 0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-hover-background': '#F6F7F9',
-  '--ck-connectbutton-hover-box-shadow':
-    'inset 0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-hover-box-shadow': 'inset 0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-balance-color': '#373737',
   '--ck-connectbutton-balance-background': '#F6F7F9',
@@ -21,22 +19,18 @@ export default {
   '--ck-primary-button-border-radius': '12px',
   '--ck-primary-button-color': '#414451',
   '--ck-primary-button-background': '#ffffff',
-  '--ck-primary-button-box-shadow':
-    '0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-primary-button-box-shadow': '0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-primary-button-hover-background': '#F6F7F9',
-  '--ck-primary-button-hover-box-shadow':
-    '0 0 0 1px #D9DBDD, 0px 0 0 rgba(0, 0, 0, 0.02)',
+  '--ck-primary-button-hover-box-shadow': '0 0 0 1px #D9DBDD, 0px 0 0 rgba(0, 0, 0, 0.02)',
 
   '--ck-secondary-button-border-radius': '12px',
   '--ck-secondary-button-color': '#414451',
   '--ck-secondary-button-background': '#ffffff',
-  '--ck-secondary-button-box-shadow':
-    '0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-secondary-button-box-shadow': '0 0 0 1px #E9EAEC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-secondary-button-hover-background': '#F6F7F9',
-  '--ck-secondary-button-hover-box-shadow':
-    '0 0 0 1px #D9DBDD, 0px 0 0 rgba(0, 0, 0, 0.02)',
+  '--ck-secondary-button-hover-box-shadow': '0 0 0 1px #D9DBDD, 0px 0 0 rgba(0, 0, 0, 0.02)',
 
   '--ck-focus-color': '#1A88F8',
   '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
@@ -72,8 +66,7 @@ export default {
   '--ck-spinner-color': 'var(--ck-focus-color)',
 
   '--ck-dropdown-button-color': '#999999',
-  '--ck-dropdown-button-box-shadow':
-    '0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
+  '--ck-dropdown-button-box-shadow': '0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
   '--ck-dropdown-button-background': '#fff',
 
   '--ck-dropdown-button-hover-color': '#8B8B8B',
@@ -92,4 +85,4 @@ export default {
   '--ck-qr-border-color': '#E9EAEC',
 
   '--ck-siwe-border': '#EAEBED',
-};
+}

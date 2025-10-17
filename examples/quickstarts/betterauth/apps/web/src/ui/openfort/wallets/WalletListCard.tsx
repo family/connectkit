@@ -1,35 +1,28 @@
-import { FingerPrintIcon, KeyIcon, LockClosedIcon } from '@heroicons/react/24/outline';
-import {
-  RecoveryMethod,
-  type UserWallet,
-  useSignOut,
-  useStatus,
-  useUser,
-  useWallets,
-} from '@openfort/react';
-import { useState } from 'react';
+import { FingerPrintIcon, KeyIcon, LockClosedIcon } from '@heroicons/react/24/outline'
+import { RecoveryMethod, type UserWallet, useSignOut, useStatus, useUser, useWallets } from '@openfort/react'
+import { useState } from 'react'
 
-import { signOut as betterAuthSignOut } from '../../../integrations/betterauth';
-import { CreateWallet, CreateWalletSheet } from './WalletCreation';
-import { WalletRecoverPasswordSheet } from './WalletPasswordSheets';
+import { signOut as betterAuthSignOut } from '../../../integrations/betterauth'
+import { CreateWallet, CreateWalletSheet } from './WalletCreation'
+import { WalletRecoverPasswordSheet } from './WalletPasswordSheets'
 
 function WalletRecoveryBadge({ wallet }: { wallet: UserWallet }) {
-  let Icon = LockClosedIcon;
-  let label = 'Unknown';
+  let Icon = LockClosedIcon
+  let label = 'Unknown'
 
   switch (wallet.recoveryMethod) {
     case RecoveryMethod.PASSWORD:
-      Icon = KeyIcon;
-      label = 'Password';
-      break;
+      Icon = KeyIcon
+      label = 'Password'
+      break
     case RecoveryMethod.AUTOMATIC:
-      Icon = LockClosedIcon;
-      label = 'Automatic';
-      break;
+      Icon = LockClosedIcon
+      label = 'Automatic'
+      break
     case RecoveryMethod.PASSKEY:
-      Icon = FingerPrintIcon;
-      label = 'Passkey';
-      break;
+      Icon = FingerPrintIcon
+      label = 'Passkey'
+      break
   }
 
   return (
@@ -37,20 +30,20 @@ function WalletRecoveryBadge({ wallet }: { wallet: UserWallet }) {
       <span>{label}</span>
       <Icon className="h-5 w-5 ml-2" />
     </div>
-  );
+  )
 }
 
 export function WalletListCard() {
-  const { wallets, isLoadingWallets, hasWallet, setActiveWallet, isConnecting } = useWallets();
-  const { user, isAuthenticated } = useUser();
-  const { isConnected } = useStatus();
-  const { signOut } = useSignOut();
+  const { wallets, isLoadingWallets, hasWallet, setActiveWallet, isConnecting } = useWallets()
+  const { user, isAuthenticated } = useUser()
+  const { isConnected } = useStatus()
+  const { signOut } = useSignOut()
 
-  const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false);
-  const [walletToRecover, setWalletToRecover] = useState<UserWallet | null>(null);
+  const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false)
+  const [walletToRecover, setWalletToRecover] = useState<UserWallet | null>(null)
 
   if (isLoadingWallets || (!user && isAuthenticated)) {
-    return <div>Loading wallets...</div>;
+    return <div>Loading wallets...</div>
   }
 
   if (!hasWallet) {
@@ -60,22 +53,22 @@ export function WalletListCard() {
         <p>You do not have any wallet yet.</p>
         <CreateWallet />
       </div>
-    );
+    )
   }
 
   const handleWalletClick = (wallet: UserWallet) => {
-    if (wallet.isActive || isConnecting) return;
+    if (wallet.isActive || isConnecting) return
 
     if (wallet.recoveryMethod === RecoveryMethod.PASSWORD) {
-      setWalletToRecover(wallet);
-      return;
+      setWalletToRecover(wallet)
+      return
     }
 
     setActiveWallet({
       walletId: 'xyz.openfort',
       address: wallet.address,
-    });
-  };
+    })
+  }
 
   return (
     <div className="flex flex-col w-full">
@@ -123,19 +116,16 @@ export function WalletListCard() {
         onClose={() => setWalletToRecover(null)}
       />
 
-      <CreateWalletSheet
-        open={createWalletSheetOpen}
-        onClose={() => setCreateWalletSheetOpen(false)}
-      />
+      <CreateWalletSheet open={createWalletSheetOpen} onClose={() => setCreateWalletSheetOpen(false)} />
 
       {!isConnected && (
         <button
           type="button"
           onClick={async () => {
             await betterAuthSignOut().catch((error) => {
-              console.error('Better Auth - Failed to sign out', error);
-            });
-            await signOut();
+              console.error('Better Auth - Failed to sign out', error)
+            })
+            await signOut()
           }}
           className="mt-auto btn"
         >
@@ -143,5 +133,5 @@ export function WalletListCard() {
         </button>
       )}
     </div>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { betterAuth } from 'better-auth';
-import Database from 'better-sqlite3';
-import { config } from 'dotenv';
+import { betterAuth } from 'better-auth'
+import Database from 'better-sqlite3'
+import { config } from 'dotenv'
 
-config();
+config()
 
 export const auth = betterAuth({
   database: new Database('./auth.db'),
@@ -16,4 +16,4 @@ export const auth = betterAuth({
     },
   },
   trustedOrigins: process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:3000'],
-});
+})

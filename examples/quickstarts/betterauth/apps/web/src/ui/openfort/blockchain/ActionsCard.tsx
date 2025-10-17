@@ -1,12 +1,12 @@
-import { getAddress, parseAbi } from 'viem';
-import { useAccount, useReadContract, useWriteContract } from 'wagmi';
+import { getAddress, parseAbi } from 'viem'
+import { useAccount, useReadContract, useWriteContract } from 'wagmi'
 
-import { TruncateData } from '../../../components/ui/TruncateData';
+import { TruncateData } from '../../../components/ui/TruncateData'
 
-const ERC20_ADDRESS = '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac';
+const ERC20_ADDRESS = '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac'
 
 function MintContract() {
-  const { address } = useAccount();
+  const { address } = useAccount()
 
   const {
     data: balance,
@@ -25,7 +25,7 @@ function MintContract() {
     ],
     functionName: 'balanceOf',
     args: address ? [address] : undefined,
-  });
+  })
 
   const { data: tokenSymbol } = useReadContract({
     address: ERC20_ADDRESS,
@@ -38,7 +38,7 @@ function MintContract() {
       },
     ],
     functionName: 'symbol',
-  });
+  })
 
   const {
     data: hash,
@@ -49,24 +49,24 @@ function MintContract() {
     mutation: {
       onSuccess: () => {
         setTimeout(() => {
-          refetch();
-        }, 100);
+          refetch()
+        }, 100)
       },
       onSettled: (data, settledError) => {
-        console.log('Settled', { data, error: settledError });
+        console.log('Settled', { data, error: settledError })
       },
     },
-  });
+  })
 
   async function submit({ amount }: { amount: string }) {
-    if (!address) return;
+    if (!address) return
 
     writeContract({
       address: getAddress(ERC20_ADDRESS),
       abi: parseAbi(['function mint(address to, uint256 amount)']),
       functionName: 'mint',
       args: [address, BigInt(amount)],
-    });
+    })
   }
 
   return (
@@ -78,17 +78,12 @@ function MintContract() {
       <form
         className="space-y-4"
         onSubmit={(event) => {
-          event.preventDefault();
-          const amount = (event.target as HTMLFormElement).amount.value;
-          submit({ amount });
+          event.preventDefault()
+          const amount = (event.target as HTMLFormElement).amount.value
+          submit({ amount })
         }}
       >
-        <input
-          type="number"
-          placeholder="Enter amount to mint"
-          className="grow peer"
-          name="amount"
-        />
+        <input type="number" placeholder="Enter amount to mint" className="grow peer" name="amount" />
         <button type="submit" className="btn" disabled={isPending || !address}>
           {isPending ? 'Minting...' : 'Mint Tokens'}
         </button>
@@ -97,17 +92,15 @@ function MintContract() {
       <TruncateData data={error?.message} className="text-red-400" />
       <TruncateData data={balanceError?.message} className="text-red-400" />
     </div>
-  );
+  )
 }
 
 export function ActionsCard() {
   return (
     <div className="flex flex-col w-full">
       <h1>Actions</h1>
-      <span className="mb-4 text-zinc-400 text-sm">
-        Interact with smart contracts on the blockchain.
-      </span>
+      <span className="mb-4 text-zinc-400 text-sm">Interact with smart contracts on the blockchain.</span>
       <MintContract />
     </div>
-  );
+  )
 }

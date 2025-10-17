@@ -1,13 +1,13 @@
-import { css, keyframes } from 'styled-components';
-import styled from '../../../styles/styled';
+import { css, keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 export const ScrollContainer = styled.div`
   position: relative;
-`;
+`
 const fadeIn = keyframes`
 0%{ opacity:0; }
 100%{ opacity:1; }
-`;
+`
 
 export const MoreIndicator = styled.div`
   z-index: 9;
@@ -54,16 +54,15 @@ export const MoreIndicator = styled.div`
     opacity: 0;
     pointer-events: none;
   }
-`;
+`
 
 export const ScrollAreaContainer = styled.div<{
-  $mobile?: boolean;
-  $height?: number;
-  $backgroundColor?: string;
-  $mobileDirection?: 'horizontal' | 'vertical';
+  $mobile?: boolean
+  $height?: number
+  $backgroundColor?: string
+  $mobileDirection?: 'horizontal' | 'vertical'
 }>`
-  --bg: ${({ $backgroundColor }) =>
-    $backgroundColor || 'var(--ck-body-background)'};
+  --bg: ${({ $backgroundColor }) => $backgroundColor || 'var(--ck-body-background)'};
   --fade-height: 1px;
   position: relative;
   z-index: 1;
@@ -171,4 +170,4 @@ export const ScrollAreaContainer = styled.div<{
   &::-webkit-scrollbar-thumb:hover {
     background: var(--ck-body-color-muted-hover);
   }
-`;
+`

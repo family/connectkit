@@ -8,17 +8,15 @@ export const Route = createFileRoute('/_showcase/showcase/auth')({
 })
 
 function RouteComponent() {
-  const  {isConnected}= useAccount()
-  const { isAuthenticated } = useUser();
-  const nav = useNavigate();
+  const { isConnected } = useAccount()
+  const { isAuthenticated } = useUser()
+  const nav = useNavigate()
 
   useEffect(() => {
     if (isAuthenticated && isConnected) {
-      nav({ to: "/" });
+      nav({ to: '/' })
     }
-  }, [isConnected, isAuthenticated, nav]);
+  }, [isConnected, isAuthenticated, nav])
 
-  return (
-    <Outlet />
-  )
+  return <Outlet />
 }

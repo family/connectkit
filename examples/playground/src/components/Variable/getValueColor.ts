@@ -1,5 +1,3 @@
-
-
 const borderValueColor = {
   string: 'border-green-600',
   number: 'border-blue-600',
@@ -23,6 +21,6 @@ const textValueColor = {
 }
 
 export const getValueColor = (valueType: string, applyTo: 'text' | 'border'): string => {
-  const colorMap = applyTo === 'text' ? textValueColor : borderValueColor;
-  return colorMap[valueType] || colorMap.default;
-};
+  const colorMap = applyTo === 'text' ? textValueColor : borderValueColor
+  return colorMap[valueType] || colorMap.default
+}

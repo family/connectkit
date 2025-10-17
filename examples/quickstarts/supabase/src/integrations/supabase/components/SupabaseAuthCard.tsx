@@ -37,13 +37,7 @@ function GoogleSignInButton({ onError }: { onError: (error: string) => void }) {
   )
 }
 
-function EmailPasswordForm({
-  isLogin,
-  onError,
-}: {
-  isLogin: boolean
-  onError: (error: string) => void
-}) {
+function EmailPasswordForm({ isLogin, onError }: { isLogin: boolean; onError: (error: string) => void }) {
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -79,39 +73,19 @@ function EmailPasswordForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 mb-4">
-      <label
-        className="block text-left text-sm font-medium mb-1"
-        htmlFor="email"
-      >
+      <label className="block text-left text-sm font-medium mb-1" htmlFor="email">
         Email
       </label>
-      <input
-        id="email"
-        type="email"
-        placeholder="Enter your email address"
-        required
-      />
+      <input id="email" type="email" placeholder="Enter your email address" required />
 
       <div>
-        <label
-          className="block text-left text-sm font-medium mb-1"
-          htmlFor="password"
-        >
+        <label className="block text-left text-sm font-medium mb-1" htmlFor="password">
           Password
         </label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Enter your password"
-          required
-        />
+        <input id="password" type="password" placeholder="Enter your password" required />
       </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="btn mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
+      <button type="submit" disabled={loading} className="btn mt-2 disabled:opacity-50 disabled:cursor-not-allowed">
         {loading ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up'}
       </button>
     </form>
@@ -136,9 +110,7 @@ export function SupabaseAuthCard() {
       </div>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-500 px-4 py-3 rounded text-sm">
-          {error}
-        </div>
+        <div className="bg-red-500/10 border border-red-500/50 text-red-500 px-4 py-3 rounded text-sm">{error}</div>
       )}
 
       <EmailPasswordForm isLogin={isLogin} onError={setError} />
@@ -156,10 +128,7 @@ export function SupabaseAuthCard() {
 
       <div className="text-left text-sm">
         {isLogin ? 'Already have an account? ' : "Don't have an account? "}
-        <button
-          onClick={handleToggleMode}
-          className="text-primary hover:underline cursor-pointer font-medium"
-        >
+        <button onClick={handleToggleMode} className="text-primary hover:underline cursor-pointer font-medium">
           {isLogin ? 'Sign Up' : 'Sign In'}
         </button>
       </div>

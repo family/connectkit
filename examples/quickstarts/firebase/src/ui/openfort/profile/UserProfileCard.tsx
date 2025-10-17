@@ -1,22 +1,22 @@
-import { BookOpenIcon } from "@heroicons/react/24/outline";
-import { useUser } from "@openfort/react";
-import { useAccount } from "wagmi";
+import { BookOpenIcon } from '@heroicons/react/24/outline'
+import { useUser } from '@openfort/react'
+import { useAccount } from 'wagmi'
 
-import { auth } from "../../../integrations/firebase";
-import { WalletListCard } from "../wallets/WalletListCard";
+import { auth } from '../../../integrations/firebase'
+import { WalletListCard } from '../wallets/WalletListCard'
 
 type UserProfileCardProps = {
-  sampleGithubUrl: string;
-  description: string;
-};
+  sampleGithubUrl: string
+  description: string
+}
 
 export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCardProps) {
-  const { user } = useUser();
-  const { isConnected } = useAccount();
-  const isLocal = window.location.hostname === "localhost";
+  const { user } = useUser()
+  const { isConnected } = useAccount()
+  const isLocal = window.location.hostname === 'localhost'
 
   if (!isConnected) {
-    return <WalletListCard />;
+    return <WalletListCard />
   }
 
   return (
@@ -30,7 +30,9 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
 
       <div className="border border-zinc-700 rounded p-4">
         <h2 className="mb-2">Get started</h2>
-        <p className="mb-2 text-zinc-400 text-sm">Start by creating a wallet, minting some tokens and signing messages.</p>
+        <p className="mb-2 text-zinc-400 text-sm">
+          Start by creating a wallet, minting some tokens and signing messages.
+        </p>
         {isLocal ? (
           <p className="mb-2 text-sm">
             Edit <code>src/components/cards/main.tsx</code> to customize the app.
@@ -62,12 +64,12 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
 
       <button
         onClick={() => {
-          auth.signOut();
+          auth.signOut()
         }}
         className="btn mt-auto"
       >
         Sign Out
       </button>
     </div>
-  );
+  )
 }

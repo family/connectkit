@@ -14,16 +14,13 @@ export default {
 
     '--ck-connectbutton-balance-color': '#373737',
     '--ck-connectbutton-balance-background': '#fff',
-    '--ck-connectbutton-balance-box-shadow':
-      'inset 0 0 0 1px var(--ck-connectbutton-background)',
+    '--ck-connectbutton-balance-box-shadow': 'inset 0 0 0 1px var(--ck-connectbutton-background)',
 
     '--ck-connectbutton-balance-hover-background': '#F6F7F9',
-    '--ck-connectbutton-balance-hover-box-shadow':
-      'inset 0 0 0 1px var(--ck-connectbutton-hover-background)',
+    '--ck-connectbutton-balance-hover-box-shadow': 'inset 0 0 0 1px var(--ck-connectbutton-hover-background)',
 
     '--ck-connectbutton-balance-active-background': '#F0F2F5',
-    '--ck-connectbutton-balance-active-box-shadow':
-      'inset 0 0 0 1px var(--ck-connectbutton-active-background)',
+    '--ck-connectbutton-balance-active-box-shadow': 'inset 0 0 0 1px var(--ck-connectbutton-active-background)',
 
     /** Primary button tokens. */
     '--ck-primary-button-border-radius': '16px',
@@ -84,8 +81,7 @@ export default {
 
     /** Network dropdown tokens. */
     '--ck-dropdown-button-color': '#999999',
-    '--ck-dropdown-button-box-shadow':
-      '0 0 0 1px rgba(0,0,0,0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
+    '--ck-dropdown-button-box-shadow': '0 0 0 1px rgba(0,0,0,0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
     '--ck-dropdown-button-background': '#fff',
 
     '--ck-dropdown-button-hover-color': '#8B8B8B',
@@ -112,16 +108,13 @@ export default {
 
     '--ck-connectbutton-balance-color': '#fff',
     '--ck-connectbutton-balance-background': '#282828',
-    '--ck-connectbutton-balance-box-shadow':
-      'inset 0 0 0 1px var(--ck-connectbutton-background)',
+    '--ck-connectbutton-balance-box-shadow': 'inset 0 0 0 1px var(--ck-connectbutton-background)',
 
     '--ck-connectbutton-balance-hover-background': '#383838',
-    '--ck-connectbutton-balance-hover-box-shadow':
-      'inset 0 0 0 1px var(--ck-connectbutton-hover-background)',
+    '--ck-connectbutton-balance-hover-box-shadow': 'inset 0 0 0 1px var(--ck-connectbutton-hover-background)',
 
     '--ck-connectbutton-balance-active-background': '#404040',
-    '--ck-connectbutton-balance-active-box-shadow':
-      'inset 0 0 0 1px var(--ck-connectbutton-active-background)',
+    '--ck-connectbutton-balance-active-box-shadow': 'inset 0 0 0 1px var(--ck-connectbutton-active-background)',
 
     '--ck-primary-button-color': '#ffffff',
     '--ck-primary-button-background': '#383838',
@@ -181,4 +174,4 @@ export default {
     '--ck-qr-dot-color': '#ffffff',
     '--ck-qr-border-color': '#3d3d3d',
   },
-};
+}

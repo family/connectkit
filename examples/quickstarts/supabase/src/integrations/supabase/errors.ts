@@ -10,16 +10,14 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
   email_not_confirmed: 'Please verify your email address before signing in.',
   user_not_found: 'No account found with this email.',
   user_already_exists: 'An account with this email already exists.',
-  weak_password:
-    'Password is too weak. Please use a stronger password (at least 6 characters).',
+  weak_password: 'Password is too weak. Please use a stronger password (at least 6 characters).',
   email_exists: 'An account with this email already exists.',
   invalid_email: 'Invalid email address.',
   user_banned: 'This account has been banned.',
 
   // OAuth errors
   oauth_provider_not_supported: 'This sign-in method is not supported.',
-  provider_email_needs_verification:
-    'Please verify your email with the provider.',
+  provider_email_needs_verification: 'Please verify your email with the provider.',
 
   // Network errors
   network_error: 'Network error. Please check your connection and try again.',
@@ -48,9 +46,7 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
 export function getSupabaseErrorMessage(error: unknown): string {
   // Check if it's a Supabase AuthError
   if (error instanceof AuthError) {
-    const message =
-      AUTH_ERROR_MESSAGES[error.message] ||
-      AUTH_ERROR_MESSAGES[error.status?.toString() || '']
+    const message = AUTH_ERROR_MESSAGES[error.message] || AUTH_ERROR_MESSAGES[error.status?.toString() || '']
     if (message) {
       return message
     }
@@ -144,45 +140,21 @@ export function logSupabaseError(error: unknown, context?: string): void {
     return
   }
 
-  const errorPrefix = context
-    ? `🔷 Supabase Auth Error (${context})`
-    : '🔷 Supabase Auth Error'
-
-  console.group(
-    `%c${errorPrefix}`,
-    'color: #3ecf8e; font-weight: bold; font-size: 14px;',
-  )
+  const _errorPrefix = context ? `🔷 Supabase Auth Error (${context})` : '🔷 Supabase Auth Error'
 
   // Log the error message and status
-  console.error(
-    `%cError: ${error.message}`,
-    'color: #ff6b6b; font-weight: bold;',
-  )
+  console.error(`%cError: ${error.message}`, 'color: #ff6b6b; font-weight: bold;')
   if (error.status) {
     console.error(`%cStatus Code: ${error.status}`, 'color: #ff6b6b;')
   }
 
   // Log user-friendly message
-  const userMessage = AUTH_ERROR_MESSAGES[error.message] || error.message
-  console.info(
-    `%cUser Message: ${userMessage}`,
-    'color: #ffd93d; font-style: italic;',
-  )
+  const _userMessage = AUTH_ERROR_MESSAGES[error.message] || error.message
 
   // Log developer solutions if available
   const solutions = DEVELOPER_SOLUTIONS[error.message]
   if (solutions) {
-    console.group('%c💡 How to Fix This:', 'color: #6bcf7f; font-weight: bold;')
-    solutions.forEach((solution) => {
-      console.info(`%c${solution}`, 'color: #6bcf7f;')
-    })
-    console.groupEnd()
+    solutions.forEach((_solution) => {})
   }
-
-  // Log full error object for debugging
-  console.group('%c📋 Full Error Details:', 'color: #a29bfe;')
   console.log(error)
-  console.groupEnd()
-
-  console.groupEnd()
 }

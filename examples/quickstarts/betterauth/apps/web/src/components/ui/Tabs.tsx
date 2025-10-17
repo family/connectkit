@@ -1,13 +1,13 @@
 export type TabType = {
-  name: string;
-  component: React.ReactNode;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-};
+  name: string
+  component: React.ReactNode
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+}
 
 type TabProps = {
-  onClick?: () => void;
-  isActive?: boolean;
-} & TabType;
+  onClick?: () => void
+  isActive?: boolean
+} & TabType
 
 const DesktopTab = ({ name, isActive, ...buttonProps }: TabProps) => {
   return (
@@ -31,15 +31,15 @@ const DesktopTab = ({ name, isActive, ...buttonProps }: TabProps) => {
         {name}
       </span>
     </button>
-  );
-};
+  )
+}
 
 type TabGroupProps = {
-  tabs: TabType[];
-  currentTab?: TabType;
-  setCurrentTab?: (tab: TabType) => void;
-  showTabs?: boolean;
-};
+  tabs: TabType[]
+  currentTab?: TabType
+  setCurrentTab?: (tab: TabType) => void
+  showTabs?: boolean
+}
 
 export const DesktopTabGroup = ({ tabs, currentTab, setCurrentTab, showTabs }: TabGroupProps) => {
   return (
@@ -58,19 +58,17 @@ export const DesktopTabGroup = ({ tabs, currentTab, setCurrentTab, showTabs }: T
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const MobileTab = ({ name, isActive, icon: Icon, ...buttonProps }: TabProps) => {
   return (
     <button className="relative h-8 mx-2.5 transition-colors cursor-pointer" {...buttonProps}>
       <Icon className="h-5 w-5 mx-auto mb-1" />
-      <span className={`${isActive ? 'text-white' : 'text-zinc-400'} whitespace-nowrap`}>
-        {name}
-      </span>
+      <span className={`${isActive ? 'text-white' : 'text-zinc-400'} whitespace-nowrap`}>{name}</span>
     </button>
-  );
-};
+  )
+}
 
 export const MobileTabGroup = ({ tabs, currentTab, setCurrentTab }: TabGroupProps) => {
   return (
@@ -84,5 +82,5 @@ export const MobileTabGroup = ({ tabs, currentTab, setCurrentTab }: TabGroupProp
         />
       ))}
     </div>
-  );
-};
+  )
+}

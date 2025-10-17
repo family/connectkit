@@ -10,10 +10,7 @@ type UserProfileCardProps = {
   description: string
 }
 
-export function UserProfileCard({
-  sampleGithubUrl,
-  description,
-}: UserProfileCardProps) {
+export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCardProps) {
   const { user } = useUser()
   const { isConnected } = useAccount()
   const isLocal = window.location.hostname === 'localhost'
@@ -38,13 +35,10 @@ export function UserProfileCard({
         </p>
         {isLocal ? (
           <p className="mb-2 text-sm">
-            Edit <code>src/components/cards/main.tsx</code> to customize the
-            app.
+            Edit <code>src/components/cards/main.tsx</code> to customize the app.
           </p>
         ) : (
-          <p className="mb-2 text-sm">
-            Clone this project and test it yourself, it is open source!
-          </p>
+          <p className="mb-2 text-sm">Clone this project and test it yourself, it is open source!</p>
         )}
         <div className="flex gap-4 mt-4">
           <a
@@ -53,11 +47,7 @@ export function UserProfileCard({
             target="_blank"
             rel="noreferrer"
           >
-            <img
-              src="/githubLogo.svg"
-              className="w-5 h-5 mr-2"
-              alt="GitHub logo"
-            />
+            <img src="/githubLogo.svg" className="w-5 h-5 mr-2" alt="GitHub logo" />
             View on github
           </a>
           <a

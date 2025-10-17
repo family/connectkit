@@ -1,78 +1,78 @@
-import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
-import { useConnectWithSiwe } from "../../hooks/openfort/useConnectWithSiwe";
-import styled from "../../styles/styled";
-import { isAndroid } from "../../utils";
-import { useOnUserReturn } from "../../utils/useOnUserReturn";
-import { useWallet } from "../../wallets/useWallets";
-import { walletConfigs } from "../../wallets/walletConfigs";
-import Button from "../Common/Button";
-import FitText from "../Common/FitText";
-import Loader from "../Common/Loading";
-import { PageContent } from "../Common/Modal/styles";
-import { useWeb3 } from "../contexts/web3";
-import { routes } from "../Openfort/types";
-import { useOpenfort } from '../Openfort/useOpenfort';
+import { useEffect, useState } from 'react'
+import { useAccount } from 'wagmi'
+import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
+import styled from '../../styles/styled'
+import { isAndroid } from '../../utils'
+import { useOnUserReturn } from '../../utils/useOnUserReturn'
+import { useWallet } from '../../wallets/useWallets'
+import { walletConfigs } from '../../wallets/walletConfigs'
+import Button from '../Common/Button'
+import FitText from '../Common/FitText'
+import Loader from '../Common/Loading'
+import { PageContent } from '../Common/Modal/styles'
+import { useWeb3 } from '../contexts/web3'
+import { routes } from '../Openfort/types'
+import { useOpenfort } from '../Openfort/useOpenfort'
 
 const states = {
-  INIT: "init",
-  REDIRECT: "redirect",
-  CONNECTING: "connecting",
-  ERROR: "error",
-};
+  INIT: 'init',
+  REDIRECT: 'redirect',
+  CONNECTING: 'connecting',
+  ERROR: 'error',
+}
 
 const DownloadFooter = styled.div`
   margin-top: 30px;
   color: var(--ck-body-color-muted);
-`;
+`
 
-const ConnectWithMobile: React.FC<{}> = ({ }) => {
-  const { connector, setRoute } = useOpenfort();
+const ConnectWithMobile: React.FC<{}> = ({}) => {
+  const { connector, setRoute } = useOpenfort()
 
-  const wallet = useWallet(connector.id) || walletConfigs[connector.id];
+  const wallet = useWallet(connector.id) || walletConfigs[connector.id]
 
-  const [status, setStatus] = useState(states.INIT);
-  const [description, setDescription] = useState<string | undefined>(undefined);
+  const [status, setStatus] = useState(states.INIT)
+  const [description, setDescription] = useState<string | undefined>(undefined)
 
   const {
     connect: { getUri },
-  } = useWeb3();
-  const wcUri = getUri();
+  } = useWeb3()
+  const wcUri = getUri()
 
-  const [hasReturned, setHasReturned] = useState(false);
-  const { isConnected } = useAccount();
-  const [shouldRedirectToWalletApp, setShouldRedirectToWalletApp] = useState(false);
+  const [hasReturned, setHasReturned] = useState(false)
+  const { isConnected } = useAccount()
+  const [shouldRedirectToWalletApp, setShouldRedirectToWalletApp] = useState(false)
 
   const siwe = useConnectWithSiwe()
 
   const openApp = (url?: string) => {
-    const uri = wallet?.getWalletConnectDeeplink?.(url ?? "");
+    const uri = wallet?.getWalletConnectDeeplink?.(url ?? '')
     if (uri) {
       if (url) {
-        window.location.href = uri;
+        window.location.href = uri
       } else {
-        window.location.href = uri.replace("?uri=", "");
+        window.location.href = uri.replace('?uri=', '')
       }
     } else {
-      setStatus(states.ERROR);
-      setDescription("Wallet does not support deeplink");
+      setStatus(states.ERROR)
+      setDescription('Wallet does not support deeplink')
     }
   }
 
   useOnUserReturn(() => {
     setTimeout(() => {
-      setHasReturned(true);
-    }, 250);
+      setHasReturned(true)
+    }, 250)
   })
 
   useEffect(() => {
     if (hasReturned) {
-      setHasReturned(false);
+      setHasReturned(false)
       if (isConnected) {
-        setStatus(states.CONNECTING);
+        setStatus(states.CONNECTING)
       } else {
-        setStatus(states.ERROR);
-        setDescription("Connection failed or cancelled");
+        setStatus(states.ERROR)
+        setDescription('Connection failed or cancelled')
       }
     }
   }, [hasReturned, isConnected])
@@ -80,71 +80,68 @@ const ConnectWithMobile: React.FC<{}> = ({ }) => {
   useEffect(() => {
     switch (status) {
       case states.INIT:
-        openApp(wcUri!);
-        break;
+        openApp(wcUri!)
+        break
       case states.CONNECTING:
-        setDescription("Requesting signature...");
+        setDescription('Requesting signature...')
         siwe({
           onConnect: () => {
-            setRoute(routes.PROFILE);
+            setRoute(routes.PROFILE)
           },
           onError: (error) => {
-            setStatus(states.ERROR);
-            setDescription(error || "Connection failed");
-          }
-        });
+            setStatus(states.ERROR)
+            setDescription(error || 'Connection failed')
+          },
+        })
         setTimeout(() => {
-          setShouldRedirectToWalletApp(true);
-        }, 1500);
-        break;
+          setShouldRedirectToWalletApp(true)
+        }, 1500)
+        break
     }
-  }, [status]);
-
+  }, [status, openApp, setRoute, siwe, wcUri])
 
   useEffect(() => {
     if (shouldRedirectToWalletApp && status === states.CONNECTING) {
-      openApp();
+      openApp()
     }
-  }, [shouldRedirectToWalletApp, status]);
+  }, [shouldRedirectToWalletApp, status, openApp])
 
   return (
     <PageContent>
       <Loader
-        header={`Connecting with ${connector.id.split(",")[0]}`}
+        header={`Connecting with ${connector.id.split(',')[0]}`}
         icon={wallet?.icon}
         isError={status === states.ERROR}
         description={description}
         onRetry={() => {
           if (isConnected) {
-            setStatus(states.CONNECTING);
-            return;
+            setStatus(states.CONNECTING)
+            return
           }
-          setStatus(states.INIT);
-          setDescription("");
+          setStatus(states.INIT)
+          setDescription('')
         }}
       />
-      {
-        isConnected ? (
-          <Button
-            onClick={() => {
-              openApp();
-            }}
-          >
-            Sign in App
-          </Button>
-        ) : (
-          <Button
-            onClick={() => {
-              openApp(wcUri!);
-            }}
-          >
-            Sign in App
-          </Button>
-        )
-      }
+      {isConnected ? (
+        <Button
+          onClick={() => {
+            openApp()
+          }}
+        >
+          Sign in App
+        </Button>
+      ) : (
+        <Button
+          onClick={() => {
+            openApp(wcUri!)
+          }}
+        >
+          Sign in App
+        </Button>
+      )}
       <DownloadFooter>
         <FitText>
-          Don't have {wallet.name ?? connector.id.split(",")[0]} installed?{' '}
+          Don't have {wallet.name ?? connector.id.split(',')[0]} installed?{' '}
           <a
             style={{ marginLeft: 5 }}
             href={isAndroid() ? wallet?.downloadUrls?.android : wallet?.downloadUrls?.ios}
@@ -159,4 +156,4 @@ const ConnectWithMobile: React.FC<{}> = ({ }) => {
   )
 }
 
-export default ConnectWithMobile;
+export default ConnectWithMobile

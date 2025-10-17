@@ -1,28 +1,29 @@
-import { FunctionInputTypeType } from "@/components/Form/Form";
-import { Input } from "@/components/Form/Input";
-import { Select } from "@/components/Form/Select";
+import type { FunctionInputTypeType } from '@/components/Form/Form'
+import { Input } from '@/components/Form/Input'
+import { Select } from '@/components/Form/Select'
 
-export type InputAnyType = (FunctionInputTypeType) & {
-  required?: boolean;
-  defaultValue?: string;
-  placeholder?: string;
-  onChange?: (value: string) => void;
-  name?: string;
+export type InputAnyType = FunctionInputTypeType & {
+  required?: boolean
+  defaultValue?: string
+  placeholder?: string
+  onChange?: (value: string) => void
+  name?: string
 }
 
-type InputAnyProps = InputAnyType & Omit<React.PropsWithChildren<React.HTMLProps<HTMLInputElement | HTMLSelectElement>>, 'onChange'>;
+type InputAnyProps = InputAnyType &
+  Omit<React.PropsWithChildren<React.HTMLProps<HTMLInputElement | HTMLSelectElement>>, 'onChange'>
 
 export const InputAny = (input: InputAnyProps) => {
-  const { name } = input;
+  const { name } = input
   if (!input || !input.type) {
-    return null; // or handle the case where input is not defined
+    return null // or handle the case where input is not defined
   }
 
   switch (input.type) {
     case 'select':
       return (
         <Select
-          {...input as React.HTMLProps<HTMLSelectElement>}
+          {...(input as React.HTMLProps<HTMLSelectElement>)}
           key={name}
           name={name}
           required={input.required}
@@ -30,13 +31,12 @@ export const InputAny = (input: InputAnyProps) => {
           placeholder={input.placeholder}
           options={input.options}
           onChange={(e) => input.onChange?.(e.currentTarget.value)}
-
         />
-      );
+      )
     case 'boolean':
       return (
         <Select
-          {...input as React.HTMLProps<HTMLSelectElement>}
+          {...(input as React.HTMLProps<HTMLSelectElement>)}
           key={name}
           name={name}
           required={input.required}
@@ -45,11 +45,11 @@ export const InputAny = (input: InputAnyProps) => {
           options={['true', 'false']}
           onChange={(e) => input.onChange?.(e.currentTarget.value)}
         />
-      );
+      )
     case 'function':
       return (
         <Select
-          {...input as React.HTMLProps<HTMLSelectElement>}
+          {...(input as React.HTMLProps<HTMLSelectElement>)}
           key={name}
           name={name}
           required={input.required}
@@ -62,7 +62,7 @@ export const InputAny = (input: InputAnyProps) => {
     default:
       return (
         <Input
-          {...input as React.HTMLProps<HTMLInputElement>}
+          {...(input as React.HTMLProps<HTMLInputElement>)}
           key={name}
           name={name}
           type={input.type}
@@ -71,6 +71,6 @@ export const InputAny = (input: InputAnyProps) => {
           placeholder={input.placeholder}
           onChange={(e) => input.onChange?.(e.currentTarget.value)}
         />
-      );
+      )
   }
 }

@@ -24,13 +24,7 @@ function withOpacity(color: string, opacity: number) {
   throw new Error(`Unsupported color format: ${color}`)
 }
 
-const GlowCanvas = ({
-  accentColor,
-  backgroundColor,
-}: {
-  accentColor: string
-  backgroundColor: string
-}) => {
+const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string; backgroundColor: string }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mousePosRef = useRef<{ x: number; y: number } | null>(null)
   const animationRef = useRef<number | null>(null)
@@ -68,8 +62,7 @@ const GlowCanvas = ({
     const dotRadius = 1.5
 
     const generateDots = (width: number, height: number) => {
-      const dots: { x: number; y: number; radius: number; opacity: number }[] =
-        []
+      const dots: { x: number; y: number; radius: number; opacity: number }[] = []
 
       for (let x = 0; x < width; x += gap) {
         for (let y = 0; y < height; y += gap) {
@@ -225,10 +218,7 @@ const GlowCanvas = ({
         let startProgress = 0 // the starting point along the line
         const outDelay = route.outDelay || 0
         if (elapsed > duration + outDelay) {
-          const fadeProgress = Math.min(
-            (elapsed - (duration + outDelay)) / duration,
-            1,
-          )
+          const fadeProgress = Math.min((elapsed - (duration + outDelay)) / duration, 1)
           startProgress = fadeProgress // move the start point forward
         }
 
@@ -238,9 +228,7 @@ const GlowCanvas = ({
 
         for (let x = 0; x < dimensions.width; x += gap) {
           for (let y = 0; y < dimensions.height; y += gap) {
-            const t =
-              ((x - route.start.x) * dx + (y - route.start.y) * dy) /
-              (dx * dx + dy * dy)
+            const t = ((x - route.start.x) * dx + (y - route.start.y) * dy) / (dx * dx + dy * dy)
             if (t < startProgress || t > progress) continue // only show dots in the visible segment
 
             const closestX = route.start.x + dx * t
@@ -252,10 +240,7 @@ const GlowCanvas = ({
               ctx.arc(x, y, dotRadius, 0, Math.PI * 2)
 
               // Fade in: opacity goes from 0 → 1 as `progress` grows
-              const opacity = Math.min(
-                1,
-                Math.max(0, Math.min(t - startProgress, progress - t) * 5),
-              )
+              const opacity = Math.min(1, Math.max(0, Math.min(t - startProgress, progress - t) * 5))
               ctx.fillStyle = withOpacity(route.color, opacity)
 
               ctx.fill()
@@ -303,12 +288,7 @@ const GlowCanvas = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dimensions, accentColor, backgroundColor, color])
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-    />
-  )
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 }
 
 export const Head = ({
@@ -342,8 +322,7 @@ export const Head = ({
         </a>
       </div>
       <h1 className="text-4xl font-bold mb-4">
-        <span style={{ color: '#FC3627' }}>Openfort</span> +{' '}
-        <span style={{ color }}>{sample}</span>
+        <span style={{ color: '#FC3627' }}>Openfort</span> + <span style={{ color }}>{sample}</span>
       </h1>
       {subtitle && <p className="mb-6 text-sm max-w-2/3">{subtitle}</p>}
       <button
@@ -352,9 +331,7 @@ export const Head = ({
       >
         Click here to Start
       </button>
-      <p className="absolute text-zinc-400 mb-6 text-sm bottom-0">
-        Sign in to explore openfort capabilities.
-      </p>
+      <p className="absolute text-zinc-400 mb-6 text-sm bottom-0">Sign in to explore openfort capabilities.</p>
       <GlowCanvas accentColor={color} backgroundColor={backgroundColor} />
     </div>
   )

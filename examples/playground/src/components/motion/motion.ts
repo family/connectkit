@@ -1,5 +1,4 @@
-
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
 
 export const MButton = motion.button
 export const MDiv = motion.div

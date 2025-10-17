@@ -1,4 +1,4 @@
-import { FirebaseError } from "firebase/app";
+import { FirebaseError } from 'firebase/app'
 
 /**
  * Firebase Auth error codes mapped to user-friendly messages
@@ -6,7 +6,8 @@ import { FirebaseError } from "firebase/app";
  */
 export const AUTH_ERROR_MESSAGES: Record<string, string> = {
   // Operation errors
-  'auth/operation-not-allowed': 'This sign-in method is not enabled. Please contact support or enable it in Firebase Console.',
+  'auth/operation-not-allowed':
+    'This sign-in method is not enabled. Please contact support or enable it in Firebase Console.',
   'auth/operation-not-supported-in-this-environment': 'This operation is not supported in this environment.',
 
   // Popup errors
@@ -22,7 +23,8 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'auth/email-already-in-use': 'An account with this email already exists.',
   'auth/weak-password': 'Password is too weak. Please use a stronger password (at least 6 characters).',
   'auth/invalid-credential': 'Invalid credentials. Please check your email and password.',
-  'auth/account-exists-with-different-credential': 'An account already exists with the same email but different sign-in credentials.',
+  'auth/account-exists-with-different-credential':
+    'An account already exists with the same email but different sign-in credentials.',
 
   // Network errors
   'auth/network-request-failed': 'Network error. Please check your connection and try again.',
@@ -41,7 +43,7 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'auth/unauthorized-domain': 'This domain is not authorized for OAuth operations.',
   'auth/missing-email': 'Email address is required.',
   'auth/internal-error': 'An internal error occurred. Please try again.',
-};
+}
 
 /**
  * Converts a Firebase error to a user-friendly error message
@@ -51,22 +53,22 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
 export function getFirebaseErrorMessage(error: unknown): string {
   // Check if it's a Firebase error
   if (error instanceof FirebaseError) {
-    const message = AUTH_ERROR_MESSAGES[error.code];
+    const message = AUTH_ERROR_MESSAGES[error.code]
     if (message) {
-      return message;
+      return message
     }
 
     // If we don't have a specific message, return the Firebase error message
-    return error.message || 'An error occurred during authentication.';
+    return error.message || 'An error occurred during authentication.'
   }
 
   // Handle generic Error objects
   if (error instanceof Error) {
-    return error.message;
+    return error.message
   }
 
   // Fallback for unknown error types
-  return 'An unexpected error occurred. Please try again.';
+  return 'An unexpected error occurred. Please try again.'
 }
 
 /**
@@ -75,7 +77,7 @@ export function getFirebaseErrorMessage(error: unknown): string {
  * @returns True if the error is an operation-not-allowed error
  */
 export function isOperationNotAllowedError(error: unknown): boolean {
-  return error instanceof FirebaseError && error.code === 'auth/operation-not-allowed';
+  return error instanceof FirebaseError && error.code === 'auth/operation-not-allowed'
 }
 
 /**
@@ -85,15 +87,12 @@ export function isOperationNotAllowedError(error: unknown): boolean {
  */
 export function isNetworkError(error: unknown): boolean {
   if (!(error instanceof FirebaseError)) {
-    return false;
+    return false
   }
 
-  const networkErrorCodes = [
-    'auth/network-request-failed',
-    'auth/timeout',
-  ];
+  const networkErrorCodes = ['auth/network-request-failed', 'auth/timeout']
 
-  return networkErrorCodes.includes(error.code);
+  return networkErrorCodes.includes(error.code)
 }
 
 /**
@@ -103,15 +102,12 @@ export function isNetworkError(error: unknown): boolean {
  */
 export function isUserCancellationError(error: unknown): boolean {
   if (!(error instanceof FirebaseError)) {
-    return false;
+    return false
   }
 
-  const cancellationErrorCodes = [
-    'auth/popup-closed-by-user',
-    'auth/cancelled-popup-request',
-  ];
+  const cancellationErrorCodes = ['auth/popup-closed-by-user', 'auth/cancelled-popup-request']
 
-  return cancellationErrorCodes.includes(error.code);
+  return cancellationErrorCodes.includes(error.code)
 }
 
 /**
@@ -122,7 +118,7 @@ const DEVELOPER_SOLUTIONS: Record<string, string[]> = {
     '1. Go to Firebase Console: https://console.firebase.google.com/',
     '2. Select your project',
     '3. Navigate to Authentication > Sign-in method',
-    '4. Enable the authentication provider you\'re trying to use (Google, Email/Password, etc.)',
+    "4. Enable the authentication provider you're trying to use (Google, Email/Password, etc.)",
     '5. For Google Sign-in: Add a support email and save',
     '6. Refresh your application and try again',
   ],
@@ -133,8 +129,8 @@ const DEVELOPER_SOLUTIONS: Record<string, string[]> = {
   ],
   'auth/unauthorized-domain': [
     '1. Go to Firebase Console > Authentication > Settings',
-    '2. Add your domain to \"Authorized domains\"',
-    '3. For local development, ensure \"localhost\" is added',
+    '2. Add your domain to "Authorized domains"',
+    '3. For local development, ensure "localhost" is added',
     '4. Save changes and try again',
   ],
   'auth/invalid-api-key': [
@@ -149,7 +145,7 @@ const DEVELOPER_SOLUTIONS: Record<string, string[]> = {
     '3. Check for CORS issues in browser console',
     '4. Ensure your API key and project configuration are correct',
   ],
-};
+}
 
 /**
  * Logs a Firebase error with actionable developer guidance
@@ -158,36 +154,23 @@ const DEVELOPER_SOLUTIONS: Record<string, string[]> = {
  */
 export function logFirebaseError(error: unknown, context?: string): void {
   if (!(error instanceof FirebaseError)) {
-    console.error(context ? `${context}:` : 'Error:', error);
-    return;
+    console.error(context ? `${context}:` : 'Error:', error)
+    return
   }
 
-  const errorPrefix = context ? `🔥 Firebase Auth Error (${context})` : '🔥 Firebase Auth Error';
-
-  console.group(`%c${errorPrefix}`, 'color: #ff6b6b; font-weight: bold; font-size: 14px;');
+  const _errorPrefix = context ? `🔥 Firebase Auth Error (${context})` : '🔥 Firebase Auth Error'
 
   // Log the error code and message
-  console.error(`%cError Code: ${error.code}`, 'color: #ff6b6b; font-weight: bold;');
-  console.error(`%cError Message: ${error.message}`, 'color: #ff6b6b;');
+  console.error(`%cError Code: ${error.code}`, 'color: #ff6b6b; font-weight: bold;')
+  console.error(`%cError Message: ${error.message}`, 'color: #ff6b6b;')
 
   // Log user-friendly message
-  const userMessage = AUTH_ERROR_MESSAGES[error.code] || error.message;
-  console.info(`%cUser Message: ${userMessage}`, 'color: #ffd93d; font-style: italic;');
+  const _userMessage = AUTH_ERROR_MESSAGES[error.code] || error.message
 
   // Log developer solutions if available
-  const solutions = DEVELOPER_SOLUTIONS[error.code];
+  const solutions = DEVELOPER_SOLUTIONS[error.code]
   if (solutions) {
-    console.group('%c💡 How to Fix This:', 'color: #6bcf7f; font-weight: bold;');
-    solutions.forEach((solution) => {
-      console.info(`%c${solution}`, 'color: #6bcf7f;');
-    });
-    console.groupEnd();
+    solutions.forEach((_solution) => {})
   }
-
-  // Log full error object for debugging
-  console.group('%c📋 Full Error Details:', 'color: #a29bfe;');
-  console.log(error);
-  console.groupEnd();
-
-  console.groupEnd();
+  console.log(error)
 }

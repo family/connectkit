@@ -1,6 +1,6 @@
-import { HookVariable } from '@/components/Variable/HookVariable'
 import { useUI } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
+import { HookVariable } from '@/components/Variable/HookVariable'
 import { Layout } from '../../../components/Layout'
 
 export const Route = createFileRoute('/_hooks/utils/useUI')({
@@ -11,9 +11,9 @@ function RouteComponent() {
   return (
     <Layout>
       <HookVariable
-        name='useUI'
+        name="useUI"
         hook={useUI}
-        description='This hook provides access to the UI components and methods for managing the UI state.'
+        description="This hook provides access to the UI components and methods for managing the UI state."
         variables={{
           open: {
             description: 'Open a UI component.',

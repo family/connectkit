@@ -17,9 +17,7 @@ function App() {
         console.log('onAuthStateChange - User is signed in:', session.user)
         getAccessToken()
       } else if (event === 'SIGNED_OUT') {
-        console.log(
-          'onAuthStateChange - User signed out, cleaning up Openfort session',
-        )
+        console.log('onAuthStateChange - User signed out, cleaning up Openfort session')
         signOut()
       } else {
         console.log('onAuthStateChange - No active session')

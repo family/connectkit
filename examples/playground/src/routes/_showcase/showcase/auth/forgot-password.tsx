@@ -1,40 +1,33 @@
-import { MDiv } from "@/components/motion/motion"
-import { DialogLayout } from "@/components/Showcase/auth/DialogLayout"
-import { Button } from "@/components/Showcase/ui/Button"
-import { Header } from "@/components/Showcase/ui/Header"
-import { InputMessage } from "@/components/Showcase/ui/InputMessage"
-import { useCommonEmail } from "@/components/Showcase/auth/useCommonEmail"
-import { cn } from "@/lib/cn"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useEmailAuth } from "@openfort/react"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEmailAuth } from '@openfort/react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { MailIcon, Send } from "lucide-react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { MailIcon, Send } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { MDiv } from '@/components/motion/motion'
+import { DialogLayout } from '@/components/Showcase/auth/DialogLayout'
+import { useCommonEmail } from '@/components/Showcase/auth/useCommonEmail'
+import { Button } from '@/components/Showcase/ui/Button'
+import { Header } from '@/components/Showcase/ui/Header'
+import { InputMessage } from '@/components/Showcase/ui/InputMessage'
+import { cn } from '@/lib/cn'
 
-export const Route = createFileRoute(
-  '/_showcase/showcase/auth/forgot-password',
-)({
+export const Route = createFileRoute('/_showcase/showcase/auth/forgot-password')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
   const nav = useNavigate()
-  const { email, setEmail } = useCommonEmail();
+  const { email, setEmail } = useCommonEmail()
 
-  const {
-    requestResetPassword,
-    error,
-    isLoading,
-    isSuccess,
-  } = useEmailAuth({
-    emailVerificationRedirectTo: "/showcase/auth/password-callback",
+  const { requestResetPassword, error, isLoading, isSuccess } = useEmailAuth({
+    emailVerificationRedirectTo: '/showcase/auth/password-callback',
   })
 
   // Create a dynamic schema based on password policy
   const createFormSchema = () => {
     return z.object({
-      email: z.email({ message: "Please enter a valid email address" }),
+      email: z.email({ message: 'Please enter a valid email address' }),
     })
   }
 
@@ -47,7 +40,7 @@ function RouteComponent() {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    mode: "onSubmit",
+    mode: 'onSubmit',
   })
 
   const onSubmit = async (data: FormValues) => {
@@ -58,28 +51,21 @@ function RouteComponent() {
 
   return (
     <DialogLayout>
-      <Header onBack={() => nav({ to: "/" })} title="Forgot password" />
+      <Header onBack={() => nav({ to: '/' })} title="Forgot password" />
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full space-y-3"
-        noValidate
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-3" noValidate>
         <div className="text-center text-sm text-base-content/50">
           Enter your email address and we will send you a link to reset your password
         </div>
 
         <div>
-          <label className={cn(
-            "input w-full",
-            errors.email && "input-error"
-          )}>
+          <label className={cn('input w-full', errors.email && 'input-error')}>
             <MailIcon size={16} className="" />
             <input
               type="email"
               placeholder="Email"
               className="grow peer"
-              {...register("email")}
+              {...register('email')}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value)
@@ -88,8 +74,8 @@ function RouteComponent() {
             />
             <Button
               className={cn(
-                "text-xs group-focus-within:text-base-content/50 text-base-content/20 hover:text-base-content transition-all duration-200",
-                isLoading && "pointer-events-none translate-x-3 -translate-y-3 scale-0 duration-1000"
+                'text-xs group-focus-within:text-base-content/50 text-base-content/20 hover:text-base-content transition-all duration-200',
+                isLoading && 'pointer-events-none translate-x-3 -translate-y-3 scale-0 duration-1000'
               )}
             >
               <MDiv
@@ -101,8 +87,8 @@ function RouteComponent() {
                   transition: {
                     duration: 1.3,
                     repeat: Infinity,
-                    repeatType: "loop"
-                  }
+                    repeatType: 'loop',
+                  },
                 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -110,24 +96,11 @@ function RouteComponent() {
               </MDiv>
             </Button>
           </label>
-          <InputMessage
-            message={errors.email?.message || ""}
-            show={!!errors.email}
-            variant="error"
-          />
-          <InputMessage
-            message={error?.message || ""}
-            show={!!error}
-            variant="error"
-          />
-          <InputMessage
-            message={"Email sent successfully"}
-            show={!!isSuccess}
-            variant="success"
-          />
+          <InputMessage message={errors.email?.message || ''} show={!!errors.email} variant="error" />
+          <InputMessage message={error?.message || ''} show={!!error} variant="error" />
+          <InputMessage message={'Email sent successfully'} show={!!isSuccess} variant="success" />
         </div>
       </form>
-
-    </DialogLayout >
+    </DialogLayout>
   )
 }

@@ -34,7 +34,7 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
   signup_disabled: 'Sign up is currently disabled.',
   email_provider_disabled: 'Email sign-in is currently disabled.',
   validation_failed: 'Validation failed. Please check your input.',
-};
+}
 
 /**
  * Converts a Better Auth error to a user-friendly error message
@@ -44,21 +44,21 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
 export function getBetterAuthErrorMessage(error: unknown): string {
   // Handle Error objects with a message property
   if (error && typeof error === 'object' && 'message' in error) {
-    const errorMessage = (error as { message: string }).message;
-    const message = AUTH_ERROR_MESSAGES[errorMessage];
+    const errorMessage = (error as { message: string }).message
+    const message = AUTH_ERROR_MESSAGES[errorMessage]
     if (message) {
-      return message;
+      return message
     }
-    return errorMessage || 'An error occurred during authentication.';
+    return errorMessage || 'An error occurred during authentication.'
   }
 
   // Handle generic Error objects
   if (error instanceof Error) {
-    return error.message;
+    return error.message
   }
 
   // Fallback for unknown error types
-  return 'An unexpected error occurred. Please try again.';
+  return 'An unexpected error occurred. Please try again.'
 }
 
 /**
@@ -68,11 +68,11 @@ export function getBetterAuthErrorMessage(error: unknown): string {
  */
 export function isNetworkError(error: unknown): boolean {
   if (!(error && typeof error === 'object' && 'message' in error)) {
-    return false;
+    return false
   }
 
-  const errorMessage = (error as { message: string }).message;
-  return errorMessage === 'network_error' || errorMessage.includes('network');
+  const errorMessage = (error as { message: string }).message
+  return errorMessage === 'network_error' || errorMessage.includes('network')
 }
 
 /**
@@ -82,11 +82,11 @@ export function isNetworkError(error: unknown): boolean {
  */
 export function isRateLimitError(error: unknown): boolean {
   if (!(error && typeof error === 'object' && 'message' in error)) {
-    return false;
+    return false
   }
 
-  const errorMessage = (error as { message: string }).message;
-  return errorMessage.includes('rate_limit');
+  const errorMessage = (error as { message: string }).message
+  return errorMessage.includes('rate_limit')
 }
 
 /**
@@ -124,7 +124,7 @@ const DEVELOPER_SOLUTIONS: Record<string, string[]> = {
     '3. Consider implementing client-side rate limiting',
     '4. Review your authentication flow for unnecessary requests',
   ],
-};
+}
 
 /**
  * Logs a Better Auth error with actionable developer guidance
@@ -132,36 +132,24 @@ const DEVELOPER_SOLUTIONS: Record<string, string[]> = {
  * @param context - Additional context about where the error occurred
  */
 export function logBetterAuthError(error: unknown, context?: string): void {
-  const errorPrefix = context ? `🔷 Better Auth Error (${context})` : '🔷 Better Auth Error';
-
-  console.group(`%c${errorPrefix}`, 'color: #3ecf8e; font-weight: bold; font-size: 14px;');
+  const _errorPrefix = context ? `🔷 Better Auth Error (${context})` : '🔷 Better Auth Error'
 
   // Log the error message
   if (error && typeof error === 'object' && 'message' in error) {
-    const errorMessage = (error as { message: string }).message;
-    console.error(`%cError: ${errorMessage}`, 'color: #ff6b6b; font-weight: bold;');
+    const errorMessage = (error as { message: string }).message
+    console.error(`%cError: ${errorMessage}`, 'color: #ff6b6b; font-weight: bold;')
 
     // Log user-friendly message
-    const userMessage = AUTH_ERROR_MESSAGES[errorMessage] || errorMessage;
-    console.info(`%cUser Message: ${userMessage}`, 'color: #ffd93d; font-style: italic;');
+    const _userMessage = AUTH_ERROR_MESSAGES[errorMessage] || errorMessage
 
     // Log developer solutions if available
-    const solutions = DEVELOPER_SOLUTIONS[errorMessage];
+    const solutions = DEVELOPER_SOLUTIONS[errorMessage]
     if (solutions) {
-      console.group('%c💡 How to Fix This:', 'color: #6bcf7f; font-weight: bold;');
-      for (const solution of solutions) {
-        console.info(`%c${solution}`, 'color: #6bcf7f;');
+      for (const _solution of solutions) {
       }
-      console.groupEnd();
     }
   } else {
-    console.error('%cError:', 'color: #ff6b6b; font-weight: bold;', error);
+    console.error('%cError:', 'color: #ff6b6b; font-weight: bold;', error)
   }
-
-  // Log full error object for debugging
-  console.group('%c📋 Full Error Details:', 'color: #a29bfe;');
-  console.log(error);
-  console.groupEnd();
-
-  console.groupEnd();
+  console.log(error)
 }

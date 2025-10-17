@@ -9,28 +9,27 @@
  * ```
  */
 
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react'
 
-import { Address, Chain } from 'viem';
-import { useAccount } from 'wagmi';
-
-import { useChains } from '../../../hooks/useChains';
-import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri';
-import { useChainIsSupported } from '../../../hooks/useChainIsSupported';
+import type { Address, Chain } from 'viem'
+import { useAccount } from 'wagmi'
+import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri'
+import { useChainIsSupported } from '../../../hooks/useChainIsSupported'
+import { useChains } from '../../../hooks/useChains'
 
 type Web3Context = {
   connect: {
-    getUri: (id?: string) => string;
-  };
+    getUri: (id?: string) => string
+  }
   dapp: {
-    chains: Chain[];
-  };
+    chains: Chain[]
+  }
   account?: {
-    chain: Chain;
-    chainIsSupported: boolean;
-    address: Address;
-  };
-};
+    chain: Chain
+    chainIsSupported: boolean
+    address: Address
+  }
+}
 
 const Web3Context = createContext({
   connect: {
@@ -40,27 +39,21 @@ const Web3Context = createContext({
     chains: [],
   },
   account: undefined,
-} as Web3Context);
+} as Web3Context)
 
-export const Web3ContextProvider = ({
-  enabled,
-  children,
-}: {
-  enabled?: boolean;
-  children: React.ReactNode;
-}) => {
+export const Web3ContextProvider = ({ enabled, children }: { enabled?: boolean; children: React.ReactNode }) => {
   const { uri: walletConnectUri } = useWalletConnectUri({
     enabled,
-  });
+  })
 
-  const { address: currentAddress, chain } = useAccount();
-  const chainIsSupported = useChainIsSupported(chain?.id);
-  const chains = useChains();
+  const { address: currentAddress, chain } = useAccount()
+  const chainIsSupported = useChainIsSupported(chain?.id)
+  const chains = useChains()
 
   const value = {
     connect: {
-      getUri: (id?: string) => {
-        return walletConnectUri;
+      getUri: (_id?: string) => {
+        return walletConnectUri
       },
     },
     dapp: {
@@ -68,15 +61,15 @@ export const Web3ContextProvider = ({
     },
     account: currentAddress
       ? {
-        chain,
-        chainIsSupported,
-        address: currentAddress,
-      }
+          chain,
+          chainIsSupported,
+          address: currentAddress,
+        }
       : undefined,
-  } as Web3Context;
+  } as Web3Context
 
-  return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
-};
+  return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>
+}
 
 /**
  * React hook to access the {@link Web3Context} values.
@@ -88,4 +81,4 @@ export const Web3ContextProvider = ({
  * const { account } = useWeb3();
  * ```
  */
-export const useWeb3 = () => useContext(Web3Context);
+export const useWeb3 = () => useContext(Web3Context)

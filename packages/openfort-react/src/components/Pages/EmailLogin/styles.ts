@@ -1,4 +1,4 @@
-import styled from "../../../styles/styled";
+import styled from '../../../styles/styled'
 
 export const FooterContainer = styled.span`
   padding: 12px 4px 0px 0px;
@@ -18,4 +18,4 @@ export const FooterContainer = styled.span`
       color: var(--ck-body-disclaimer-link-hover-color, inherit);
     }
   }
-`;
+`

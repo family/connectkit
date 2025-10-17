@@ -1,22 +1,22 @@
-import { BookOpenIcon } from '@heroicons/react/24/outline';
-import { useUser } from '@openfort/react';
-import { useAccount } from 'wagmi';
+import { BookOpenIcon } from '@heroicons/react/24/outline'
+import { useUser } from '@openfort/react'
+import { useAccount } from 'wagmi'
 
-import { signOut } from '../../../integrations/betterauth';
-import { WalletListCard } from '../wallets/WalletListCard';
+import { signOut } from '../../../integrations/betterauth'
+import { WalletListCard } from '../wallets/WalletListCard'
 
 type UserProfileCardProps = {
-  sampleGithubUrl: string;
-  description: string;
-};
+  sampleGithubUrl: string
+  description: string
+}
 
 export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCardProps) {
-  const { user } = useUser();
-  const { isConnected } = useAccount();
-  const isLocal = window.location.hostname === 'localhost';
+  const { user } = useUser()
+  const { isConnected } = useAccount()
+  const isLocal = window.location.hostname === 'localhost'
 
   if (!isConnected) {
-    return <WalletListCard />;
+    return <WalletListCard />
   }
 
   return (
@@ -38,9 +38,7 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
             Edit <code>src/components/cards/main.tsx</code> to customize the app.
           </p>
         ) : (
-          <p className="mb-2 text-sm">
-            Clone this project and test it yourself, it is open source!
-          </p>
+          <p className="mb-2 text-sm">Clone this project and test it yourself, it is open source!</p>
         )}
         <div className="flex gap-4 mt-4">
           <a
@@ -67,12 +65,12 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
       <button
         type="button"
         onClick={async () => {
-          await signOut();
+          await signOut()
         }}
         className="btn mt-auto"
       >
         Sign Out
       </button>
     </div>
-  );
+  )
 }

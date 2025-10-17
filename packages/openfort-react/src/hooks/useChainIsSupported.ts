@@ -1,4 +1,4 @@
-import { useConfig } from 'wagmi';
+import { useConfig } from 'wagmi'
 
 /**
  * Hook for checking if a blockchain chain is supported.
@@ -24,7 +24,7 @@ import { useConfig } from 'wagmi';
  * ```
  */
 export function useChainIsSupported(chainId?: number): boolean {
-  const { chains } = useConfig();
-  if (chainId === undefined || chainId === null) return false;
-  return chains.some((x) => x.id === chainId);
+  const { chains } = useConfig()
+  if (chainId === undefined || chainId === null) return false
+  return chains.some((x) => x.id === chainId)
 }

@@ -1,23 +1,23 @@
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import { RecoveryMethod, useWallets, type UserWallet } from "@openfort/react";
+import { CheckCircleIcon } from '@heroicons/react/24/outline'
+import { RecoveryMethod, type UserWallet, useWallets } from '@openfort/react'
 
-import { Sheet } from "../../../components/ui/Sheet";
+import { Sheet } from '../../../components/ui/Sheet'
 
 type CreateWalletPasswordSheetProps = {
-  open: boolean;
-  onClose: () => void;
-  onCreateWallet?: () => void;
-};
+  open: boolean
+  onClose: () => void
+  onCreateWallet?: () => void
+}
 
 export function CreateWalletPasswordSheet({ open, onClose, onCreateWallet }: CreateWalletPasswordSheetProps) {
-  const { createWallet, error, isCreating, reset } = useWallets();
+  const { createWallet, error, isCreating, reset } = useWallets()
 
   return (
     <Sheet
       open={open}
       onClose={() => {
-        onClose();
-        reset();
+        onClose()
+        reset()
       }}
       title="Enter Password"
       description="Please enter the password of your wallet."
@@ -25,20 +25,20 @@ export function CreateWalletPasswordSheet({ open, onClose, onCreateWallet }: Cre
       <form
         className="flex-1 w-full flex flex-col justify-center max-w-md mx-auto"
         onSubmit={async (event) => {
-          event.preventDefault();
-          const formData = new FormData(event.target as HTMLFormElement);
-          const password = formData.get("password") as string;
+          event.preventDefault()
+          const formData = new FormData(event.target as HTMLFormElement)
+          const password = formData.get('password') as string
 
           const { error: walletError } = await createWallet({
             recovery: {
               recoveryMethod: RecoveryMethod.PASSWORD,
               password,
             },
-          });
+          })
 
           if (!walletError) {
-            onCreateWallet?.();
-            onClose();
+            onCreateWallet?.()
+            onClose()
           }
         }}
       >
@@ -59,29 +59,33 @@ export function CreateWalletPasswordSheet({ open, onClose, onCreateWallet }: Cre
           className="w-full mt-2 p-2 border border-gray-300 rounded"
         />
         {error && <span className="text-red-500 text-sm mt-2">{error?.message}</span>}
-        <button className="mt-4 w-full bg-zinc-700 text-white p-2 rounded cursor-pointer" type="submit" disabled={isCreating}>
-          {isCreating ? "Creating wallet..." : "Create Wallet"}
+        <button
+          className="mt-4 w-full bg-zinc-700 text-white p-2 rounded cursor-pointer"
+          type="submit"
+          disabled={isCreating}
+        >
+          {isCreating ? 'Creating wallet...' : 'Create Wallet'}
         </button>
       </form>
     </Sheet>
-  );
+  )
 }
 
 type WalletRecoverPasswordSheetProps = {
-  open: boolean;
-  onClose: () => void;
-  wallet: UserWallet | null;
-};
+  open: boolean
+  onClose: () => void
+  wallet: UserWallet | null
+}
 
 export function WalletRecoverPasswordSheet({ open, onClose, wallet }: WalletRecoverPasswordSheetProps) {
-  const { setActiveWallet, error, isConnecting, reset } = useWallets();
+  const { setActiveWallet, error, isConnecting, reset } = useWallets()
 
   return (
     <Sheet
       open={open}
       onClose={() => {
-        onClose();
-        reset();
+        onClose()
+        reset()
       }}
       title="Enter Password"
       description="Please enter the password of your wallet."
@@ -89,19 +93,19 @@ export function WalletRecoverPasswordSheet({ open, onClose, wallet }: WalletReco
       <form
         className="w-full flex-1 flex flex-col justify-center"
         onSubmit={(event) => {
-          event.preventDefault();
-          const formData = new FormData(event.target as HTMLFormElement);
-          const password = formData.get("password") as string;
-          if (!wallet) throw new Error("No wallet to recover");
+          event.preventDefault()
+          const formData = new FormData(event.target as HTMLFormElement)
+          const password = formData.get('password') as string
+          if (!wallet) throw new Error('No wallet to recover')
 
           setActiveWallet({
-            walletId: "xyz.openfort",
+            walletId: 'xyz.openfort',
             recovery: {
               recoveryMethod: RecoveryMethod.PASSWORD,
               password,
             },
             address: wallet.address,
-          });
+          })
         }}
       >
         {wallet && (
@@ -116,10 +120,14 @@ export function WalletRecoverPasswordSheet({ open, onClose, wallet }: WalletReco
           className="w-full mt-2 p-2 border border-gray-300 rounded"
         />
         {error && <span className="text-red-500 text-sm mt-2">{error?.message}</span>}
-        <button className="mt-4 w-full bg-zinc-700 text-white p-2 rounded cursor-pointer" type="submit" disabled={isConnecting}>
-          {isConnecting ? "Recovering..." : "Recover Wallet"}
+        <button
+          className="mt-4 w-full bg-zinc-700 text-white p-2 rounded cursor-pointer"
+          type="submit"
+          disabled={isConnecting}
+        >
+          {isConnecting ? 'Recovering...' : 'Recover Wallet'}
         </button>
       </form>
     </Sheet>
-  );
+  )
 }

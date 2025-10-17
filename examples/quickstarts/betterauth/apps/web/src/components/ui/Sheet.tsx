@@ -1,22 +1,22 @@
-import { ChevronLeftIcon } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline'
+import { useEffect, useState } from 'react'
 
 type SheetProps = {
-  open: boolean;
-  onClose: () => void;
-  title: string;
-  description: string;
-  children: React.ReactNode;
-};
+  open: boolean
+  onClose: () => void
+  title: string
+  description: string
+  children: React.ReactNode
+}
 
 const SheetInner = ({ onClose, title, description, children }: SheetProps) => {
-  const [isClosing, setIsClosing] = useState(false);
+  const [isClosing, setIsClosing] = useState(false)
   useEffect(() => {
     if (isClosing) {
-      const timer = setTimeout(onClose, 300);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(onClose, 300)
+      return () => clearTimeout(timer)
     }
-  }, [isClosing, onClose]);
+  }, [isClosing, onClose])
 
   return (
     <div
@@ -38,11 +38,11 @@ const SheetInner = ({ onClose, title, description, children }: SheetProps) => {
       </div>
       {children}
     </div>
-  );
-};
+  )
+}
 
 export const Sheet = (props: SheetProps) => {
-  if (!props.open) return null;
+  if (!props.open) return null
 
-  return <SheetInner {...props} />;
-};
+  return <SheetInner {...props} />
+}

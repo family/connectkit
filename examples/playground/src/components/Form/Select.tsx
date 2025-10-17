@@ -1,27 +1,17 @@
-import { cn } from "../../lib/cn";
+import { cn } from '../../lib/cn'
 
 type SelectProps = {
-  options: (string | { label: string; value: any })[];
+  options: (string | { label: string; value: any })[]
 } & React.PropsWithChildren<React.HTMLProps<HTMLSelectElement>>
 
-export const Select = ({
-  options,
-  ...props
-}: SelectProps) => {
+export const Select = ({ options, ...props }: SelectProps) => {
   if (!options || options.length === 0) {
-    return null; // or handle the case where no options are provided
+    return null // or handle the case where no options are provided
   }
 
   return (
-    <select
-      {...props}
-      className={cn(
-        "w-full",
-        props.className,
-        props.value === "undefined" && "text-blue-500",
-      )}
-    >
-      {options?.map((option) => (
+    <select {...props} className={cn('w-full', props.className, props.value === 'undefined' && 'text-blue-500')}>
+      {options?.map((option) =>
         typeof option === 'object' ? (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -31,7 +21,7 @@ export const Select = ({
             {option}
           </option>
         )
-      ))}
+      )}
       {props.children}
     </select>
   )

@@ -1,7 +1,7 @@
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import typescript from 'rollup-plugin-typescript2';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external'
+import typescript from 'rollup-plugin-typescript2'
 
-import packageJson from './package.json';
+import packageJson from './package.json'
 
 export default [
   {
@@ -20,4 +20,4 @@ export default [
       }),
     ],
   },
-];
+]

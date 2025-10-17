@@ -1,80 +1,83 @@
-import React, { useEffect } from "react";
-import { useOpenfortCore } from '../../../openfort/useOpenfort';
-import Button from "../../Common/Button";
-import FitText from "../../Common/FitText";
-import Input from "../../Common/Input";
-import { ModalBody, PageContent } from "../../Common/Modal/styles";
-import { useOpenfort } from '../../Openfort/useOpenfort';
-import { routes } from "../../Openfort/types";
+import React, { useEffect } from 'react'
+import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import Button from '../../Common/Button'
+import FitText from '../../Common/FitText'
+import Input from '../../Common/Input'
+import { ModalBody, PageContent } from '../../Common/Modal/styles'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
 // TODO: Localize
 const RequestEmail: React.FC = () => {
-  const { log, triggerResize, emailInput: email, setEmailInput: setEmail, setRoute } = useOpenfort();
-  const { client } = useOpenfortCore();
+  const { log, triggerResize, emailInput: email, setEmailInput: setEmail, setRoute } = useOpenfort()
+  const { client } = useOpenfortCore()
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false)
 
-  const [message, setMessage] = React.useState<string>("");
-  const [error, setError] = React.useState<string>("");
+  const [message, setMessage] = React.useState<string>('')
+  const [error, setError] = React.useState<string>('')
 
   useEffect(() => {
-    triggerResize();
-  }, [!error]);
+    triggerResize()
+  }, [triggerResize])
 
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        setMessage("");
-      }, 5000);
+        setMessage('')
+      }, 5000)
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer)
     }
-  }, [message]);
+  }, [message])
 
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
-        setError("");
-      }, 5000);
+        setError('')
+      }, 5000)
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer)
     }
-  }, [error]);
+  }, [error])
 
   const handleSubmit = async () => {
-    const cleanURL = window.location.origin + window.location.pathname;
-    setLoading(true);
-    client.auth.requestResetPassword({
-      email,
-      redirectUrl: cleanURL + `?openfortForgotPasswordUI=true&email=${email}`,
-    }).then(() => {
-      setMessage("Reset email sent.");
-      setTimeout(() => {
-        setRoute(routes.EMAIL_LOGIN);
-      }, 1000);
-      setLoading(false);
-    }).catch((e) => {
-      log(e);
-      const code = e?.response?.status;
-      switch (code) {
-        case 400:
-          setError("Email not verified.");
-          break;
-        default:
-          setError("Error sending reset email.");
-          break;
-      }
+    const cleanURL = window.location.origin + window.location.pathname
+    setLoading(true)
+    client.auth
+      .requestResetPassword({
+        email,
+        redirectUrl: `${cleanURL}?openfortForgotPasswordUI=true&email=${email}`,
+      })
+      .then(() => {
+        setMessage('Reset email sent.')
+        setTimeout(() => {
+          setRoute(routes.EMAIL_LOGIN)
+        }, 1000)
+        setLoading(false)
+      })
+      .catch((e) => {
+        log(e)
+        const code = e?.response?.status
+        switch (code) {
+          case 400:
+            setError('Email not verified.')
+            break
+          default:
+            setError('Error sending reset email.')
+            break
+        }
 
-      setLoading(false);
-    })
+        setLoading(false)
+      })
   }
 
   return (
     <PageContent>
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
+          e.preventDefault()
+          handleSubmit()
         }}
       >
         <Input
@@ -85,78 +88,70 @@ const RequestEmail: React.FC = () => {
           placeholder="Enter your email"
           disabled={loading}
         />
-        {
-          error && (
-            <ModalBody style={{ marginTop: 12 }} $error>
-              <FitText>
-                {error}
-              </FitText>
-            </ModalBody>
-          )
-        }
-        <Button
-          onClick={handleSubmit}
-          disabled={loading || !!message}
-          waiting={loading}
-        >
-          {message ? message : "Send reset email"}
+        {error && (
+          <ModalBody style={{ marginTop: 12 }} $error>
+            <FitText>{error}</FitText>
+          </ModalBody>
+        )}
+        <Button onClick={handleSubmit} disabled={loading || !!message} waiting={loading}>
+          {message ? message : 'Send reset email'}
         </Button>
       </form>
-    </PageContent >
+    </PageContent>
   )
 }
 
 const ResetPassword: React.FC = () => {
-  const fixedUrl = window.location.href.replace("?state=", "&state="); // redirectUrl is not working with query params
-  const url = new URL(fixedUrl);
+  const fixedUrl = window.location.href.replace('?state=', '&state=') // redirectUrl is not working with query params
+  const url = new URL(fixedUrl)
 
-  const [password, setPassword] = React.useState("");
+  const [password, setPassword] = React.useState('')
 
-  const { setRoute, triggerResize, log } = useOpenfort();
-  const { client, updateUser } = useOpenfortCore();
+  const { setRoute, triggerResize, log } = useOpenfort()
+  const { client, updateUser } = useOpenfortCore()
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false)
 
-  const email = url.searchParams.get("email")
+  const email = url.searchParams.get('email')
 
   const handleSubmit = async () => {
-    setLoading(true);
+    setLoading(true)
 
-    const state = url.searchParams.get("state");
+    const state = url.searchParams.get('state')
     if (!email || !state) {
-      log("No email or state found");
-      setLoading(false);
-      return;
+      log('No email or state found')
+      setLoading(false)
+      return
     }
 
     try {
       await client.auth.resetPassword({
         password: password,
         email,
-        state
-      });
+        state,
+      })
 
       await client.auth.logInWithEmailPassword({
         email,
-        password
-      });
+        password,
+      })
 
-      const user = await updateUser();
+      const user = await updateUser()
 
-      if (!user) throw new Error("No user found");
+      if (!user) throw new Error('No user found')
 
-      ["openfortForgotPasswordUI", "state", "email"].forEach((param) => {
-        url.searchParams.delete(param);
-      });
+      ;['openfortForgotPasswordUI', 'state', 'email'].forEach((param) => {
+        url.searchParams.delete(param)
+      })
 
-      window.history.replaceState({}, document.title, url.toString());
+      window.history.replaceState({}, document.title, url.toString())
 
-      setRoute(routes.RECOVER);
+      setRoute(routes.RECOVER)
     } catch (e) {
-      log("Reset password error", e);
+      log('Reset password error', e)
 
-      setLoading(false);
-      triggerResize();
+      setLoading(false)
+      triggerResize()
     }
   }
 
@@ -164,13 +159,11 @@ const ResetPassword: React.FC = () => {
     <PageContent>
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
+          e.preventDefault()
+          handleSubmit()
         }}
       >
-        <FitText>
-          {email ? `Reset password for ${email}` : "Reset password"}
-        </FitText>
+        <FitText>{email ? `Reset password for ${email}` : 'Reset password'}</FitText>
         <Input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -178,29 +171,20 @@ const ResetPassword: React.FC = () => {
           placeholder="Enter your new password"
           disabled={loading}
         />
-        <Button
-          onClick={handleSubmit}
-          disabled={loading}
-          waiting={loading}
-        >
+        <Button onClick={handleSubmit} disabled={loading} waiting={loading}>
           Reset password
         </Button>
       </form>
-    </PageContent >
+    </PageContent>
   )
 }
 
 const ForgotPassword: React.FC = () => {
+  const url = new URL(window.location.href)
+  const isRequestingEmail = !url.searchParams.get('openfortForgotPasswordUI')
 
-  const url = new URL(window.location.href);
-  const isRequestingEmail = !url.searchParams.get("openfortForgotPasswordUI");
-
-  if (isRequestingEmail)
-    return <RequestEmail />
-  else
-    return <ResetPassword />
+  if (isRequestingEmail) return <RequestEmail />
+  else return <ResetPassword />
 }
 
-
-
-export default ForgotPassword;
+export default ForgotPassword

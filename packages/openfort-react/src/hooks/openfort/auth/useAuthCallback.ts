@@ -1,29 +1,25 @@
-import { useEffect, useState } from "react";
-import { UIAuthProvider } from "../../../components/Openfort/types";
-import { useOpenfort } from "../../../components/Openfort/useOpenfort";
-import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from "../../../types";
-import { logger } from "../../../utils/logger";
-import { onError } from "../hookConsistency";
-import { CreateWalletPostAuthOptions } from "./useConnectToWalletPostAuth";
-import { EmailVerificationResult, useEmailAuth } from "./useEmailAuth";
-import { StoreCredentialsResult, useOAuth } from "./useOAuth";
+import { useEffect, useState } from 'react'
+import type { UIAuthProvider } from '../../../components/Openfort/types'
+import { useOpenfort } from '../../../components/Openfort/useOpenfort'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { logger } from '../../../utils/logger'
+import { onError } from '../hookConsistency'
+import type { CreateWalletPostAuthOptions } from './useConnectToWalletPostAuth'
+import { type EmailVerificationResult, useEmailAuth } from './useEmailAuth'
+import { type StoreCredentialsResult, useOAuth } from './useOAuth'
 
-
-type CallbackResult = (
-  StoreCredentialsResult
-  & {
-    type: "storeCredentials";
-  }
-) | (
-    EmailVerificationResult
-    & {
-      type: "verifyEmail";
-    }
-  );
+type CallbackResult =
+  | (StoreCredentialsResult & {
+      type: 'storeCredentials'
+    })
+  | (EmailVerificationResult & {
+      type: 'verifyEmail'
+    })
 
 type UseAuthCallbackOptions = {
-  enabled?: boolean;
-} & OpenfortHookOptions<CallbackResult> & CreateWalletPostAuthOptions;
+  enabled?: boolean
+} & OpenfortHookOptions<CallbackResult> &
+  CreateWalletPostAuthOptions
 
 /**
  * Hook for handling authentication callbacks from OAuth providers and email verification
@@ -92,10 +88,10 @@ export const useAuthCallback = ({
   enabled = true, // Automatically handle OAuth and email callback
   ...hookOptions
 }: UseAuthCallbackOptions = {}) => {
-  const { log } = useOpenfort();
+  const { log } = useOpenfort()
 
-  const [provider, setProvider] = useState<UIAuthProvider | null>(null);
-  const [email, setEmail] = useState<string | null>(null);
+  const [provider, setProvider] = useState<UIAuthProvider | null>(null)
+  const [email, setEmail] = useState<string | null>(null)
   const {
     verifyEmail,
     isSuccess: isEmailSuccess,
@@ -110,122 +106,125 @@ export const useAuthCallback = ({
     isLoading: isOAuthLoading,
     isError: isOAuthError,
     error: oAuthError,
-  } = useOAuth();
+  } = useOAuth()
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) return
 
-    (async () => {
+    ;(async () => {
       // redirectUrl is not working with query params OF-1013
-      const fixedUrl = window.location.href.replaceAll("?", "&").replace("&", "?");
-      const url = new URL(fixedUrl);
-      const openfortAuthProvider = url.searchParams.get("openfortAuthProvider");
+      const fixedUrl = window.location.href.replaceAll('?', '&').replace('&', '?')
+      const url = new URL(fixedUrl)
+      const openfortAuthProvider = url.searchParams.get('openfortAuthProvider')
 
       if (!openfortAuthProvider) {
-        return;
+        return
       }
 
-      setProvider(openfortAuthProvider as UIAuthProvider);
-      if (openfortAuthProvider === "email") {
-
+      setProvider(openfortAuthProvider as UIAuthProvider)
+      if (openfortAuthProvider === 'email') {
         // Verify email flow
-        const state = url.searchParams.get("state");
-        const email = url.searchParams.get("email");
+        const state = url.searchParams.get('state')
+        const email = url.searchParams.get('email')
 
         if (!state || !email) {
-          logger.error("No state or email found in URL");
+          logger.error('No state or email found in URL')
           onError({
             hookOptions,
             options: {},
-            error: new OpenfortError("No state or email found in URL", OpenfortErrorType.AUTHENTICATION_ERROR),
-          });
-          return;
+            error: new OpenfortError('No state or email found in URL', OpenfortErrorType.AUTHENTICATION_ERROR),
+          })
+          return
         }
 
         const removeParams = () => {
-          ["state", "openfortAuthProvider", "email"].forEach((key) => url.searchParams.delete(key));
-          window.history.replaceState({}, document.title, url.toString());
+          ;['state', 'openfortAuthProvider', 'email'].forEach((key) => url.searchParams.delete(key))
+          window.history.replaceState({}, document.title, url.toString())
         }
 
-        log("EmailVerification", state, email);
+        log('EmailVerification', state, email)
 
-        const options: OpenfortHookOptions<Omit<CallbackResult, "type">> = {
+        const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {
             hookOptions.onSuccess?.({
               ...data,
-              type: "verifyEmail",
-            });
+              type: 'verifyEmail',
+            })
           },
           onSettled: (data, error) => {
-            hookOptions.onSettled?.({
-              ...data,
-              type: "verifyEmail",
-            }, error);
+            hookOptions.onSettled?.(
+              {
+                ...data,
+                type: 'verifyEmail',
+              },
+              error
+            )
           },
           onError: hookOptions.onError,
           throwOnError: hookOptions.throwOnError,
         }
 
-        await verifyEmail({ email, state, ...options });
-        setEmail(email);
-        removeParams();
+        await verifyEmail({ email, state, ...options })
+        setEmail(email)
+        removeParams()
       } else {
-
-        const player = url.searchParams.get("player_id");
-        const accessToken = url.searchParams.get("access_token");
-        const refreshToken = url.searchParams.get("refresh_token");
+        const player = url.searchParams.get('player_id')
+        const accessToken = url.searchParams.get('access_token')
+        const refreshToken = url.searchParams.get('refresh_token')
 
         if (!player || !accessToken || !refreshToken) {
           logger.error(`Missing player id or access token or refresh token`, {
             player,
-            accessToken: accessToken ? accessToken.substring(0, 10) + "..." : accessToken,
+            accessToken: accessToken ? `${accessToken.substring(0, 10)}...` : accessToken,
             refreshToken,
-            fixedUrl
-          });
+            fixedUrl,
+          })
           onError({
             hookOptions,
             options: {},
-            error: new OpenfortError("Missing player id or access token or refresh token", OpenfortErrorType.AUTHENTICATION_ERROR),
-          });
+            error: new OpenfortError(
+              'Missing player id or access token or refresh token',
+              OpenfortErrorType.AUTHENTICATION_ERROR
+            ),
+          })
 
-          return;
+          return
         }
 
         const removeParams = () => {
-          [
-            "openfortAuthProvider",
-            "refresh_token",
-            "access_token",
-            "player_id",
-          ].forEach((key) => url.searchParams.delete(key));
-          window.history.replaceState({}, document.title, url.toString());
+          ;['openfortAuthProvider', 'refresh_token', 'access_token', 'player_id'].forEach((key) =>
+            url.searchParams.delete(key)
+          )
+          window.history.replaceState({}, document.title, url.toString())
         }
 
-        log("callback", { player, accessToken, refreshToken });
+        log('callback', { player, accessToken, refreshToken })
 
-        const options: OpenfortHookOptions<Omit<CallbackResult, "type">> = {
+        const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {
             hookOptions.onSuccess?.({
               ...data,
-              type: "storeCredentials",
-            });
+              type: 'storeCredentials',
+            })
           },
           onSettled: (data, error) => {
-            hookOptions.onSettled?.({
-              ...data,
-              type: "storeCredentials",
-            }, error);
+            hookOptions.onSettled?.(
+              {
+                ...data,
+                type: 'storeCredentials',
+              },
+              error
+            )
           },
           onError: hookOptions.onError,
           throwOnError: hookOptions.throwOnError,
         }
 
-        await storeCredentials({ player, accessToken, refreshToken, ...options });
-        removeParams();
+        await storeCredentials({ player, accessToken, refreshToken, ...options })
+        removeParams()
       }
-
-    })();
-  }, []);
+    })()
+  }, [enabled, hookOptions, log, storeCredentials, verifyEmail])
 
   return {
     email,
@@ -236,5 +235,5 @@ export const useAuthCallback = ({
     isError: isEmailError || isOAuthError,
     isSuccess: isEmailSuccess || isOAuthSuccess,
     error: emailError || oAuthError,
-  };
+  }
 }

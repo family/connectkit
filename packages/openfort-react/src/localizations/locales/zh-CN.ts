@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import type { LocaleProps } from './'
+import enUS from './en-US'
 
 const zhCN: LocaleProps = {
   ...enUS, // fallback
@@ -101,8 +101,7 @@ const zhCN: LocaleProps = {
 
   switchNetworkScreen_heading: '切换网络',
 
-  signInWithEthereumScreen_tooltip:
-    '您尚未登录到此应用。\n请选择**使用以太坊登录**以继续。',
+  signInWithEthereumScreen_tooltip: '您尚未登录到此应用。\n请选择**使用以太坊登录**以继续。',
   signInWithEthereumScreen_signedOut_heading: '使用以太坊登录',
   signInWithEthereumScreen_signedOut_h1: '此应用希望验证您是 此钱包的所有者。',
   signInWithEthereumScreen_signedOut_p: `请签署钱包中的消息请求 以继续。`,
@@ -112,6 +111,6 @@ const zhCN: LocaleProps = {
   signInWithEthereumScreen_signedIn_h1: '您已成功验证自己 是此钱包的所有者。',
   signInWithEthereumScreen_signedIn_p: `登出后，将来您还需要 再次进行身份验证。`,
   signInWithEthereumScreen_signedIn_button: '登出',
-};
+}
 
-export default zhCN;
+export default zhCN

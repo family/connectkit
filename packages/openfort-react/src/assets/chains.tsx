@@ -1,6 +1,6 @@
 type Logo = {
-  testnet?: boolean;
-};
+  testnet?: boolean
+}
 
 const KnownChain = ({ testnet, ...props }: Logo) => (
   <svg
@@ -12,9 +12,7 @@ const KnownChain = ({ testnet, ...props }: Logo) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : 'black',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : 'black',
     }}
   >
     <path
@@ -55,18 +53,18 @@ const KnownChain = ({ testnet, ...props }: Logo) => (
       </linearGradient>
     </defs>
   </svg>
-);
+)
 const UnknownChain = ({ testnet, ...props }: Logo) => {
-  return <KnownChain testnet {...props} />;
-};
+  return <KnownChain testnet {...props} />
+}
 
 export const Ethereum = ({ testnet, ...props }: Logo) => {
-  let bg = 'var(--ck-chain-ethereum-01, #25292E)';
-  let fill = 'var(--ck-chain-ethereum-02, #ffffff)';
+  let bg = 'var(--ck-chain-ethereum-01, #25292E)'
+  let fill = 'var(--ck-chain-ethereum-02, #ffffff)'
 
   if (testnet) {
-    bg = 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)';
-    fill = '#fff';
+    bg = 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
+    fill = '#fff'
   }
 
   return (
@@ -82,31 +80,19 @@ export const Ethereum = ({ testnet, ...props }: Logo) => {
         background: bg,
       }}
     >
-      <path
-        d="M21.9967 6.99621L21.7955 7.67987V27.5163L21.9967 27.7171L31.2044 22.2744L21.9967 6.99621Z"
-        fill={fill}
-      />
-      <path
-        d="M21.9957 6.99621L12.7878 22.2744L21.9957 27.7171V18.0891V6.99621Z"
-        fill={fill}
-      />
+      <path d="M21.9967 6.99621L21.7955 7.67987V27.5163L21.9967 27.7171L31.2044 22.2744L21.9967 6.99621Z" fill={fill} />
+      <path d="M21.9957 6.99621L12.7878 22.2744L21.9957 27.7171V18.0891V6.99621Z" fill={fill} />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M21.9959 36.9996L21.9959 36.9997V36.9995L31.2091 24.0243L21.9959 29.4642L12.788 24.0243L21.9957 36.9993L21.9958 36.9997L21.9959 36.9996Z"
         fill={fill}
       />
-      <path
-        d="M21.996 27.7181L31.2037 22.2753L21.996 18.09V27.7181Z"
-        fill={fill}
-      />
-      <path
-        d="M12.7878 22.2753L21.9957 27.7181V18.09L12.7878 22.2753Z"
-        fill={fill}
-      />
+      <path d="M21.996 27.7181L31.2037 22.2753L21.996 18.09V27.7181Z" fill={fill} />
+      <path d="M12.7878 22.2753L21.9957 27.7181V18.09L12.7878 22.2753Z" fill={fill} />
     </svg>
-  );
-};
+  )
+}
 
 export const LensChain = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -117,9 +103,7 @@ export const LensChain = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#2C2D30',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#2C2D30',
     }}
   >
     <path
@@ -127,7 +111,7 @@ export const LensChain = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="white"
     />
   </svg>
-);
+)
 
 export const Polygon = ({ testnet, ...props }: Logo) => (
   <svg
@@ -139,9 +123,7 @@ export const Polygon = ({ testnet, ...props }: Logo) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#6F41D8',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#6F41D8',
     }}
   >
     <path
@@ -149,7 +131,7 @@ export const Polygon = ({ testnet, ...props }: Logo) => (
       fill="white"
     />
   </svg>
-);
+)
 export const Optimism = ({ testnet, ...props }: Logo) => (
   <svg
     {...props}
@@ -160,9 +142,7 @@ export const Optimism = ({ testnet, ...props }: Logo) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#FF0420',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#FF0420',
     }}
   >
     <path
@@ -183,11 +163,11 @@ export const Optimism = ({ testnet, ...props }: Logo) => (
       fill="#FF0420"
     />
   </svg>
-);
+)
 
 export const Arbitrum = ({ testnet, ...props }: Logo) => {
-  const fill = testnet ? '#ffffff' : '#28A0F0';
-  const outlineFill = testnet ? '#ffffff' : '#96BEDC';
+  const fill = testnet ? '#ffffff' : '#28A0F0'
+  const outlineFill = testnet ? '#ffffff' : '#96BEDC'
   return (
     <svg
       {...props}
@@ -198,9 +178,7 @@ export const Arbitrum = ({ testnet, ...props }: Logo) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{
-        background: testnet
-          ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-          : '#2C364F',
+        background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#2C364F',
       }}
     >
       {!testnet && (
@@ -209,10 +187,7 @@ export const Arbitrum = ({ testnet, ...props }: Logo) => {
           fill={'#2D374B'}
         />
       )}
-      <path
-        d="M22.0924 26.8832L26.7385 34.1751L31.0302 31.6879L24.9286 22.0705L22.0924 26.8832Z"
-        fill={fill}
-      />
+      <path d="M22.0924 26.8832L26.7385 34.1751L31.0302 31.6879L24.9286 22.0705L22.0924 26.8832Z" fill={fill} />
       <path
         d="M34.9387 28.7627L34.9356 26.7698L28.2684 16.3856L25.7949 20.5828L32.2312 30.992L34.5584 29.6435C34.7866 29.4582 34.9248 29.1861 34.9393 28.8926L34.9387 28.7627Z"
         fill={fill}
@@ -230,8 +205,8 @@ export const Arbitrum = ({ testnet, ...props }: Logo) => {
         fill={outlineFill}
       />
     </svg>
-  );
-};
+  )
+}
 
 export const Telos = ({ testnet, ...props }: Logo) => (
   <svg
@@ -243,9 +218,7 @@ export const Telos = ({ testnet, ...props }: Logo) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#571AFF',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#571AFF',
     }}
   >
     <path
@@ -255,7 +228,7 @@ export const Telos = ({ testnet, ...props }: Logo) => (
       fill="#F7F5FC"
     />
   </svg>
-);
+)
 
 const Aurora = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -267,9 +240,7 @@ const Aurora = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#6CD544',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#6CD544',
     }}
   >
     <path
@@ -277,7 +248,7 @@ const Aurora = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="white"
     />
   </svg>
-);
+)
 
 const Avalanche = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -289,9 +260,7 @@ const Avalanche = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#E84142',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#E84142',
     }}
   >
     <path
@@ -303,7 +272,7 @@ const Avalanche = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="white"
     />
   </svg>
-);
+)
 
 const Celo = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -315,9 +284,7 @@ const Celo = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#FCFE72',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#FCFE72',
     }}
   >
     <path
@@ -325,7 +292,7 @@ const Celo = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill={testnet ? '#ffffff' : 'black'}
     />
   </svg>
-);
+)
 
 const Gnosis = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -337,9 +304,7 @@ const Gnosis = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#009CB4',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#009CB4',
     }}
   >
     <path
@@ -349,7 +314,7 @@ const Gnosis = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="white"
     />
   </svg>
-);
+)
 
 const Evmos = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -361,9 +326,7 @@ const Evmos = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#2D2A25',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#2D2A25',
     }}
   >
     <path
@@ -371,7 +334,7 @@ const Evmos = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="#FAF1E4"
     />
   </svg>
-);
+)
 
 const BinanceSmartChain = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -383,9 +346,7 @@ const BinanceSmartChain = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#16181A',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#16181A',
     }}
   >
     <path
@@ -409,7 +370,7 @@ const BinanceSmartChain = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill={testnet ? '#fff' : '#F3BA2F'}
     />
   </svg>
-);
+)
 
 const Canto = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -421,9 +382,7 @@ const Canto = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : 'white',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : 'white',
     }}
   >
     <path
@@ -433,7 +392,7 @@ const Canto = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="#06FC99"
     />
   </svg>
-);
+)
 
 const Fantom = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -445,9 +404,7 @@ const Fantom = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#0911EF',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#0911EF',
     }}
   >
     <path
@@ -455,7 +412,7 @@ const Fantom = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="white"
     />
   </svg>
-);
+)
 
 const Filecoin = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -467,9 +424,7 @@ const Filecoin = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#0090FF',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#0090FF',
     }}
   >
     <path
@@ -479,7 +434,7 @@ const Filecoin = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="white"
     />
   </svg>
-);
+)
 
 const IoTeX = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -491,124 +446,38 @@ const IoTeX = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#00D4D5',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#00D4D5',
     }}
   >
-    <path
-      d="M23.7136 6.875V14.3784L30.2284 10.6315L23.7136 6.875Z"
-      fill="white"
-    />
-    <path
-      opacity="0.9"
-      d="M30.2284 10.6316V18.135L36.7418 14.3785L30.2284 10.6316Z"
-      fill="white"
-    />
+    <path d="M23.7136 6.875V14.3784L30.2284 10.6315L23.7136 6.875Z" fill="white" />
+    <path opacity="0.9" d="M30.2284 10.6316V18.135L36.7418 14.3785L30.2284 10.6316Z" fill="white" />
     <path
       opacity="0.8"
       d="M23.7136 14.3784V21.8818L30.2284 18.1349L23.7136 14.3784ZM30.2284 18.1349V25.6383L36.7417 21.8818L30.2284 18.1349Z"
       fill="white"
     />
-    <path
-      opacity="0.8"
-      d="M23.7136 21.8817V29.385L30.2284 25.6382L23.7136 21.8817Z"
-      fill="white"
-    />
-    <path
-      d="M30.2284 25.6382V33.1416L36.7418 29.3851L30.2284 25.6382Z"
-      fill="white"
-    />
-    <path
-      opacity="0.4"
-      d="M6.87537 14.1253V21.6287L13.3901 17.8722L6.87537 14.1253Z"
-      fill="white"
-    />
-    <path
-      opacity="0.2"
-      d="M15.0938 16.9153V24.4186L21.5975 20.6718L15.0938 16.9153Z"
-      fill="white"
-    />
-    <path
-      opacity="0.3"
-      d="M10.2648 21.6604V29.1638L16.7781 25.4073L10.2648 21.6604Z"
-      fill="white"
-    />
-    <path
-      opacity="0.9"
-      d="M14.5575 27.3226V34.826L21.0612 31.0695L14.5575 27.3226Z"
-      fill="white"
-    />
-    <path
-      opacity="0.7"
-      d="M23.66 30.5525V38.0572L30.1637 34.2993L23.66 30.5525Z"
-      fill="white"
-    />
-    <path
-      opacity="0.9"
-      d="M16.1786 13.2097V20.7145L22.6824 16.9676L16.1786 13.2097Z"
-      fill="white"
-    />
-    <path
-      opacity="0.8"
-      d="M23.7136 6.875V14.3784L17.1989 10.6315L23.7136 6.875Z"
-      fill="white"
-    />
-    <path
-      opacity="0.6"
-      d="M16.1786 10.0649V17.5669L9.66248 13.8104L16.1786 10.0649Z"
-      fill="white"
-    />
-    <path
-      opacity="0.6"
-      d="M22.6934 13.7775V21.2823L16.1786 17.5244L22.6934 13.7775Z"
-      fill="white"
-    />
-    <path
-      opacity="0.95"
-      d="M15.0635 16.9153V24.4186L8.54877 20.6718L15.0635 16.9153Z"
-      fill="white"
-    />
-    <path
-      opacity="0.6"
-      d="M23.7136 21.8817V29.385L17.2099 25.6382L23.7136 21.8817Z"
-      fill="white"
-    />
-    <path
-      opacity="0.55"
-      d="M10.2648 23.6295V31.1328L3.75 27.375L10.2648 23.6295Z"
-      fill="white"
-    />
-    <path
-      d="M36.7418 14.3784V21.8818L30.2284 18.1349L36.7418 14.3784Z"
-      fill="white"
-    />
-    <path
-      opacity="0.95"
-      d="M30.2284 18.1362V25.6382L23.7136 21.8817L30.2284 18.1362Z"
-      fill="white"
-    />
-    <path
-      opacity="0.9"
-      d="M36.7418 21.8817V29.385L30.2284 25.6382L36.7418 21.8817Z"
-      fill="white"
-    />
-    <path
-      opacity="0.7"
-      d="M30.2284 25.6382V33.1416L23.7136 29.3851L30.2284 25.6382Z"
-      fill="white"
-    />
-    <path
-      opacity="0.4"
-      d="M22.2712 28.7651V36.2684L15.7579 32.5216L22.2712 28.7651Z"
-      fill="white"
-    />
-    <path
-      d="M30.2284 10.6316V18.135L23.7136 14.3785L30.2284 10.6316Z"
-      fill="white"
-    />
+    <path opacity="0.8" d="M23.7136 21.8817V29.385L30.2284 25.6382L23.7136 21.8817Z" fill="white" />
+    <path d="M30.2284 25.6382V33.1416L36.7418 29.3851L30.2284 25.6382Z" fill="white" />
+    <path opacity="0.4" d="M6.87537 14.1253V21.6287L13.3901 17.8722L6.87537 14.1253Z" fill="white" />
+    <path opacity="0.2" d="M15.0938 16.9153V24.4186L21.5975 20.6718L15.0938 16.9153Z" fill="white" />
+    <path opacity="0.3" d="M10.2648 21.6604V29.1638L16.7781 25.4073L10.2648 21.6604Z" fill="white" />
+    <path opacity="0.9" d="M14.5575 27.3226V34.826L21.0612 31.0695L14.5575 27.3226Z" fill="white" />
+    <path opacity="0.7" d="M23.66 30.5525V38.0572L30.1637 34.2993L23.66 30.5525Z" fill="white" />
+    <path opacity="0.9" d="M16.1786 13.2097V20.7145L22.6824 16.9676L16.1786 13.2097Z" fill="white" />
+    <path opacity="0.8" d="M23.7136 6.875V14.3784L17.1989 10.6315L23.7136 6.875Z" fill="white" />
+    <path opacity="0.6" d="M16.1786 10.0649V17.5669L9.66248 13.8104L16.1786 10.0649Z" fill="white" />
+    <path opacity="0.6" d="M22.6934 13.7775V21.2823L16.1786 17.5244L22.6934 13.7775Z" fill="white" />
+    <path opacity="0.95" d="M15.0635 16.9153V24.4186L8.54877 20.6718L15.0635 16.9153Z" fill="white" />
+    <path opacity="0.6" d="M23.7136 21.8817V29.385L17.2099 25.6382L23.7136 21.8817Z" fill="white" />
+    <path opacity="0.55" d="M10.2648 23.6295V31.1328L3.75 27.375L10.2648 23.6295Z" fill="white" />
+    <path d="M36.7418 14.3784V21.8818L30.2284 18.1349L36.7418 14.3784Z" fill="white" />
+    <path opacity="0.95" d="M30.2284 18.1362V25.6382L23.7136 21.8817L30.2284 18.1362Z" fill="white" />
+    <path opacity="0.9" d="M36.7418 21.8817V29.385L30.2284 25.6382L36.7418 21.8817Z" fill="white" />
+    <path opacity="0.7" d="M30.2284 25.6382V33.1416L23.7136 29.3851L30.2284 25.6382Z" fill="white" />
+    <path opacity="0.4" d="M22.2712 28.7651V36.2684L15.7579 32.5216L22.2712 28.7651Z" fill="white" />
+    <path d="M30.2284 10.6316V18.135L23.7136 14.3785L30.2284 10.6316Z" fill="white" />
   </svg>
-);
+)
 
 const Metis = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -620,9 +489,7 @@ const Metis = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#2F3140',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#2F3140',
     }}
   >
     <path
@@ -630,7 +497,7 @@ const Metis = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill={testnet ? '#ffffff' : '#00DACC'}
     />
   </svg>
-);
+)
 
 const Base = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
@@ -641,9 +508,7 @@ const Base = ({ testnet, ...props }: { testnet?: boolean }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      background: testnet
-        ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)'
-        : '#0052FF',
+      background: testnet ? 'linear-gradient(180deg, #8995A9 0%, #424D5F 99.48%)' : '#0052FF',
     }}
   >
     <path
@@ -651,7 +516,7 @@ const Base = ({ testnet, ...props }: { testnet?: boolean }) => (
       fill="white"
     />
   </svg>
-);
+)
 const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
     {...props}
@@ -681,10 +546,7 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
       />
     </mask>
     <g mask="url(#ck_zora_mask_a)">
-      <path
-        d="M51.4558 -9.56445H-6.78906V48.6804H51.4558V-9.56445Z"
-        fill="#A1723A"
-      />
+      <path d="M51.4558 -9.56445H-6.78906V48.6804H51.4558V-9.56445Z" fill="#A1723A" />
       <g filter="url(#ck_zora_filter_a)">
         <path
           d="M23.6807 43.0752C36.6464 43.0752 47.157 32.5675 47.157 19.6058C47.157 6.64397 36.6464 -3.86365 23.6807 -3.86365C10.7152 -3.86365 0.20459 6.64397 0.20459 19.6058C0.20459 32.5675 10.7152 43.0752 23.6807 43.0752Z"
@@ -734,16 +596,8 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
         colorInterpolationFilters="sRGB"
       >
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation="2.72108"
-          result="effect1_foregroundBlur_3914_1946"
-        />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="2.72108" result="effect1_foregroundBlur_3914_1946" />
       </filter>
       <filter
         id="ck_zora_filter_b"
@@ -755,16 +609,8 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
         colorInterpolationFilters="sRGB"
       >
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation="5.44218"
-          result="effect1_foregroundBlur_3914_1946"
-        />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="5.44218" result="effect1_foregroundBlur_3914_1946" />
       </filter>
       <filter
         id="ck_zora_filter_c"
@@ -776,16 +622,8 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
         colorInterpolationFilters="sRGB"
       >
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation="2.04082"
-          result="effect1_foregroundBlur_3914_1946"
-        />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="2.04082" result="effect1_foregroundBlur_3914_1946" />
       </filter>
       <filter
         id="ck_zora_filter_d"
@@ -797,16 +635,8 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
         colorInterpolationFilters="sRGB"
       >
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation="4.08163"
-          result="effect1_foregroundBlur_3914_1946"
-        />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="4.08163" result="effect1_foregroundBlur_3914_1946" />
       </filter>
       <filter
         id="ck_zora_filter_e"
@@ -818,16 +648,8 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
         colorInterpolationFilters="sRGB"
       >
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation="2.72108"
-          result="effect1_foregroundBlur_3914_1946"
-        />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="2.72108" result="effect1_foregroundBlur_3914_1946" />
       </filter>
       <filter
         id="ck_zora_filter_f"
@@ -839,16 +661,8 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
         colorInterpolationFilters="sRGB"
       >
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation="2.04082"
-          result="effect1_foregroundBlur_3914_1946"
-        />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="2.04082" result="effect1_foregroundBlur_3914_1946" />
       </filter>
       <radialGradient
         id="paint0_radial_3914_1946"
@@ -875,7 +689,7 @@ const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
       </radialGradient>
     </defs>
   </svg>
-);
+)
 
 export default {
   UnknownChain,
@@ -903,4 +717,4 @@ export default {
   Metis,
   IoTeX,
   Zora,
-};
+}

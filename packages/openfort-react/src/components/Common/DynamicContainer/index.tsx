@@ -1,12 +1,9 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
+import type React from 'react'
 
-type DynamicContainerProps = { id: string; children?: React.ReactNode };
+type DynamicContainerProps = { id: string; children?: React.ReactNode }
 
-const DynamicContainer: React.FC<DynamicContainerProps> = ({
-  id,
-  children,
-}) => {
+const DynamicContainer: React.FC<DynamicContainerProps> = ({ id, children }) => {
   return (
     <div style={{ position: 'relative' }}>
       <motion.div
@@ -19,6 +16,6 @@ const DynamicContainer: React.FC<DynamicContainerProps> = ({
         {children}
       </motion.div>
     </div>
-  );
-};
-export default DynamicContainer;
+  )
+}
+export default DynamicContainer

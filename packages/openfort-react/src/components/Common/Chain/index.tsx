@@ -1,26 +1,13 @@
-import React from 'react';
-
-import {
-  ChainContainer,
-  LoadingContainer,
-  LogoContainer,
-  Unsupported,
-} from './styles';
-import { AnimatePresence } from 'framer-motion';
-import { chainConfigs } from '../../../constants/chainConfigs';
-import Chains from '../../../assets/chains';
-import useIsMounted from '../../../hooks/useIsMounted';
-import { useChainIsSupported } from '../../../hooks/useChainIsSupported';
+import { AnimatePresence } from 'framer-motion'
+import type React from 'react'
+import Chains from '../../../assets/chains'
+import { chainConfigs } from '../../../constants/chainConfigs'
+import { useChainIsSupported } from '../../../hooks/useChainIsSupported'
+import useIsMounted from '../../../hooks/useIsMounted'
+import { ChainContainer, LoadingContainer, LogoContainer, Unsupported } from './styles'
 
 const Spinner = (
-  <svg
-    aria-hidden="true"
-    width="36"
-    height="36"
-    viewBox="0 0 36 36"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -37,99 +24,77 @@ const Spinner = (
         y2="33.7485"
         gradientUnits="userSpaceOnUse"
       >
-        <stop
-          stopColor="var(--ck-connectbutton-balance-color,currentColor)"
-          stopOpacity="0.7"
-        />
-        <stop
-          offset="1"
-          stopColor="var(--ck-connectbutton-balance-color,currentColor)"
-          stopOpacity="0"
-        />
+        <stop stopColor="var(--ck-connectbutton-balance-color,currentColor)" stopOpacity="0.7" />
+        <stop offset="1" stopColor="var(--ck-connectbutton-balance-color,currentColor)" stopOpacity="0" />
       </linearGradient>
     </defs>
   </svg>
-);
+)
 
 const Chain: React.FC<{
-  id?: number;
-  unsupported?: boolean;
-  radius?: number | string;
-  size?: number | string;
-}> = ({
-  id,
-  unsupported: controlledUnsupported,
-  radius = '50%',
-  size = 24,
-}) => {
-    const isChainSupported = useChainIsSupported(id);
-    const unsupported = controlledUnsupported ?? !isChainSupported;
+  id?: number
+  unsupported?: boolean
+  radius?: number | string
+  size?: number | string
+}> = ({ id, unsupported: controlledUnsupported, radius = '50%', size = 24 }) => {
+  const isChainSupported = useChainIsSupported(id)
+  const unsupported = controlledUnsupported ?? !isChainSupported
 
-    const chain = chainConfigs.find((c) => c.id === id);
-    const isMounted = useIsMounted();
-    if (!isMounted)
-      return (
-        <div
-          style={{
-            width: size,
-            height: size,
-          }}
-        />
-      );
-
+  const chain = chainConfigs.find((c) => c.id === id)
+  const isMounted = useIsMounted()
+  if (!isMounted)
     return (
-      <ChainContainer size={size} radius={radius}>
-        <AnimatePresence initial={false}>
-          {unsupported && (
-            <Unsupported
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <svg
-                width="13"
-                height="12"
-                viewBox="0 0 13 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.61317 11.2501H9.46246C10.6009 11.2501 11.3256 10.3506 11.3256 9.3549C11.3256 9.05145 11.255 8.73244 11.0881 8.43303L7.65903 2.14708C7.659 2.14702 7.65897 2.14696 7.65893 2.1469C7.65889 2.14682 7.65884 2.14673 7.65879 2.14664C7.31045 1.50746 6.6741 1.17871 6.04 1.17871C5.41478 1.17871 4.763 1.50043 4.41518 2.14968L0.993416 8.43476C0.828865 8.72426 0.75 9.04297 0.75 9.3549C0.75 10.3506 1.47471 11.2501 2.61317 11.2501Z"
-                  fill="currentColor"
-                  stroke="var(--ck-body-background, #fff)"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M6.03258 7.43916C5.77502 7.43916 5.63096 7.29153 5.62223 7.02311L5.55675 4.96973C5.54802 4.69684 5.74446 4.5 6.02821 4.5C6.3076 4.5 6.51277 4.70131 6.50404 4.9742L6.43856 7.01864C6.42546 7.29153 6.2814 7.43916 6.03258 7.43916ZM6.03258 9.11676C5.7401 9.11676 5.5 8.9065 5.5 8.60677C5.5 8.30704 5.7401 8.09678 6.03258 8.09678C6.32506 8.09678 6.56515 8.30256 6.56515 8.60677C6.56515 8.91097 6.32069 9.11676 6.03258 9.11676Z"
-                  fill="white"
-                />
-              </svg>
-            </Unsupported>
-          )}
-          {id ? (
-            <LogoContainer
-              key={`${chain?.id}-${chain?.name}-${id}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {chain?.logo ?? <Chains.UnknownChain />}
-            </LogoContainer>
-          ) : (
-            <LoadingContainer
-              key="loading"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {Spinner}
-            </LoadingContainer>
-          )}
-        </AnimatePresence>
-      </ChainContainer>
-    );
-  };
+      <div
+        style={{
+          width: size,
+          height: size,
+        }}
+      />
+    )
 
-export default Chain;
+  return (
+    <ChainContainer size={size} radius={radius}>
+      <AnimatePresence initial={false}>
+        {unsupported && (
+          <Unsupported initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M2.61317 11.2501H9.46246C10.6009 11.2501 11.3256 10.3506 11.3256 9.3549C11.3256 9.05145 11.255 8.73244 11.0881 8.43303L7.65903 2.14708C7.659 2.14702 7.65897 2.14696 7.65893 2.1469C7.65889 2.14682 7.65884 2.14673 7.65879 2.14664C7.31045 1.50746 6.6741 1.17871 6.04 1.17871C5.41478 1.17871 4.763 1.50043 4.41518 2.14968L0.993416 8.43476C0.828865 8.72426 0.75 9.04297 0.75 9.3549C0.75 10.3506 1.47471 11.2501 2.61317 11.2501Z"
+                fill="currentColor"
+                stroke="var(--ck-body-background, #fff)"
+                strokeWidth="1.5"
+              />
+              <path
+                d="M6.03258 7.43916C5.77502 7.43916 5.63096 7.29153 5.62223 7.02311L5.55675 4.96973C5.54802 4.69684 5.74446 4.5 6.02821 4.5C6.3076 4.5 6.51277 4.70131 6.50404 4.9742L6.43856 7.01864C6.42546 7.29153 6.2814 7.43916 6.03258 7.43916ZM6.03258 9.11676C5.7401 9.11676 5.5 8.9065 5.5 8.60677C5.5 8.30704 5.7401 8.09678 6.03258 8.09678C6.32506 8.09678 6.56515 8.30256 6.56515 8.60677C6.56515 8.91097 6.32069 9.11676 6.03258 9.11676Z"
+                fill="white"
+              />
+            </svg>
+          </Unsupported>
+        )}
+        {id ? (
+          <LogoContainer
+            key={`${chain?.id}-${chain?.name}-${id}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {chain?.logo ?? <Chains.UnknownChain />}
+          </LogoContainer>
+        ) : (
+          <LoadingContainer
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {Spinner}
+          </LoadingContainer>
+        )}
+      </AnimatePresence>
+    </ChainContainer>
+  )
+}
+
+export default Chain

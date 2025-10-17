@@ -1,33 +1,25 @@
-import React, { useState } from 'react';
-import { All } from '../../types';
+import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useState } from 'react'
 
-import { AnimatePresence } from 'framer-motion';
-
-import { useAccount } from 'wagmi';
-import useIsMounted from '../../hooks/useIsMounted';
-
-import Chain from '../Common/Chain';
-import DynamicContainer from '../Common/DynamicContainer';
-import { chainConfigs } from '../../constants/chainConfigs';
-import ThemedButton from '../Common/ThemedButton';
-import ChainSelectDropdown from '../Common/ChainSelectDropdown';
-import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import { motion } from 'framer-motion';
-import styled from '../../styles/styled';
-import { useOpenfort } from '../Openfort/useOpenfort';
+import { useAccount } from 'wagmi'
+import { chainConfigs } from '../../constants/chainConfigs'
+import useIsMounted from '../../hooks/useIsMounted'
+import styled from '../../styles/styled'
+import type { All } from '../../types'
+import Chain from '../Common/Chain'
+import ChainSelectDropdown from '../Common/ChainSelectDropdown'
+import DynamicContainer from '../Common/DynamicContainer'
+import ThemedButton from '../Common/ThemedButton'
+import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider'
+import { useOpenfort } from '../Openfort/useOpenfort'
 
 const Container = styled(motion.div)`
   position: relative;
-`;
+`
 
 const ArrowIcon = (
-  <svg
-    width="10"
-    height="7"
-    viewBox="0 0 10 7"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -35,30 +27,24 @@ const ArrowIcon = (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 type NetworkButtonProps = {
-  hideIcon?: boolean;
-  hideName?: boolean;
-};
+  hideIcon?: boolean
+  hideName?: boolean
+}
 
-const NetworkButton: React.FC<NetworkButtonProps & All> = ({
-  theme,
-  mode,
-  customTheme,
-  hideIcon,
-  hideName,
-}) => {
-  const context = useOpenfort();
-  const isMounted = useIsMounted();
+const NetworkButton: React.FC<NetworkButtonProps & All> = ({ theme, mode, customTheme, hideIcon, hideName }) => {
+  const context = useOpenfort()
+  const isMounted = useIsMounted()
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
-  const { isConnected, chain } = useAccount();
+  const { isConnected, chain } = useAccount()
 
-  if (!isMounted) return null;
+  if (!isMounted) return null
 
-  const currentChain = chainConfigs.find((c) => c.id === chain?.id);
+  const currentChain = chainConfigs.find((c) => c.id === chain?.id)
   return (
     <ConnectKitThemeProvider
       theme={theme ?? context.uiConfig?.theme}
@@ -74,12 +60,7 @@ const NetworkButton: React.FC<NetworkButtonProps & All> = ({
             transition={{ duration: 0.2, ease: 'linear' }}
           >
             <ChainSelectDropdown open={open} onClose={() => setOpen(false)}>
-              <ThemedButton
-                theme={theme}
-                mode={mode}
-                customTheme={customTheme}
-                onClick={() => setOpen(true)}
-              >
+              <ThemedButton theme={theme} mode={mode} customTheme={customTheme} onClick={() => setOpen(true)}>
                 <div
                   style={{
                     display: 'flex',
@@ -102,9 +83,7 @@ const NetworkButton: React.FC<NetworkButtonProps & All> = ({
                       </div>
                     )}
                   </AnimatePresence>
-                  <div style={{ minWidth: 10, transform: 'translateY(1px)' }}>
-                    {ArrowIcon}
-                  </div>
+                  <div style={{ minWidth: 10, transform: 'translateY(1px)' }}>{ArrowIcon}</div>
                 </div>
               </ThemedButton>
             </ChainSelectDropdown>
@@ -112,6 +91,6 @@ const NetworkButton: React.FC<NetworkButtonProps & All> = ({
         )}
       </AnimatePresence>
     </ConnectKitThemeProvider>
-  );
-};
-export default NetworkButton;
+  )
+}
+export default NetworkButton

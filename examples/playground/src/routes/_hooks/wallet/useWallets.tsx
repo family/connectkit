@@ -1,9 +1,9 @@
-import { HookVariable } from '@/components/Variable/HookVariable'
 import { embeddedWalletId, RecoveryMethod, useWallets } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useMemo, useState } from 'react'
-import { Layout } from '../../../components/Layout'
 import { onSettledOptions } from '@/components/Variable/commonVariables'
+import { HookVariable } from '@/components/Variable/HookVariable'
+import { Layout } from '../../../components/Layout'
 
 export const Route = createFileRoute('/_hooks/wallet/useWallets')({
   component: RouteComponent,
@@ -11,21 +11,24 @@ export const Route = createFileRoute('/_hooks/wallet/useWallets')({
 
 function RouteComponent() {
   const wallets = useWallets()
-  const connectorOptions = useMemo(() => (
-    wallets.wallets.map(wallet => wallet.id).reduce((acc, id) => {
-      if (!acc.includes(id)) {
-        acc.push(id)
-      }
-      return acc
-    }, [] as string[])
-  ), [wallets.wallets])
+  const connectorOptions = useMemo(
+    () =>
+      wallets.wallets
+        .map((wallet) => wallet.id)
+        .reduce((acc, id) => {
+          if (!acc.includes(id)) {
+            acc.push(id)
+          }
+          return acc
+        }, [] as string[]),
+    [wallets.wallets]
+  )
 
   const [isOpenfortWallet, setIsOpenfortWallet] = useState(connectorOptions[0] === embeddedWalletId)
 
   useEffect(() => {
-    setIsOpenfortWallet(connectorOptions[0] === embeddedWalletId);
-  }, [connectorOptions]);
-
+    setIsOpenfortWallet(connectorOptions[0] === embeddedWalletId)
+  }, [connectorOptions])
 
   // wallets.setActiveWallet({
   //   walletId,
@@ -36,9 +39,9 @@ function RouteComponent() {
   return (
     <Layout>
       <HookVariable
-        name='useWallets'
+        name="useWallets"
         hook={useWallets}
-        description='This hook provides access to the wallets available in the application.'
+        description="This hook provides access to the wallets available in the application."
         defaultOptions={onSettledOptions}
         variables={{
           setActiveWallet: {
@@ -46,7 +49,7 @@ function RouteComponent() {
             inputs: {
               showUI: {
                 type: 'boolean',
-                defaultValue: "false",
+                defaultValue: 'false',
                 required: true,
               },
               walletId: {
@@ -54,16 +57,16 @@ function RouteComponent() {
                 options: connectorOptions,
                 required: true,
                 onChange: (value) => {
-                  console.log("---", value);
-                  setIsOpenfortWallet(value === embeddedWalletId);
-                }
+                  console.log('---', value)
+                  setIsOpenfortWallet(value === embeddedWalletId)
+                },
               },
-              "recovery.recoveryMethod": {
+              'recovery.recoveryMethod': {
                 type: 'select',
-                options: ["undefined", 'PASSWORD', 'PASSKEY', 'AUTOMATIC'],
+                options: ['undefined', 'PASSWORD', 'PASSKEY', 'AUTOMATIC'],
                 hidden: !isOpenfortWallet,
               },
-              "recovery.password": {
+              'recovery.password': {
                 type: 'password',
                 hidden: !isOpenfortWallet,
               },
@@ -71,7 +74,7 @@ function RouteComponent() {
                 type: 'text',
                 placeholder: '0x1234...',
               },
-            }
+            },
           },
           exportPrivateKey: {
             description: 'Export the private key of the active wallet.',
@@ -79,11 +82,11 @@ function RouteComponent() {
           createWallet: {
             description: 'Create a new wallet.',
             inputs: {
-              "recovery.recoveryMethod": {
+              'recovery.recoveryMethod': {
                 type: 'select',
-                options: ["undefined", RecoveryMethod.PASSWORD, RecoveryMethod.PASSKEY, RecoveryMethod.AUTOMATIC],
+                options: ['undefined', RecoveryMethod.PASSWORD, RecoveryMethod.PASSKEY, RecoveryMethod.AUTOMATIC],
               },
-              "recovery.password": {
+              'recovery.password': {
                 type: 'password',
               },
             },

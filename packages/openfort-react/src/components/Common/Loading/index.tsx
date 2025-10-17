@@ -1,15 +1,15 @@
-import { css, keyframes } from "styled-components";
-import styled from "../../../styles/styled";
-import { useEffect } from "react";
-import { useOpenfort } from '../../Openfort/useOpenfort';
-import { AnimatePresence, motion } from "framer-motion";
-import SquircleSpinner from "../SquircleSpinner";
-import Logos from "../../../assets/logos";
-import { ModalBody, ModalContent, ModalH1 } from "../Modal/styles";
-import { RetryIconCircle, TickIcon } from "../../../assets/icons";
-import { RetryButton, RetryIconContainer } from "../../ConnectModal/ConnectWithInjector/styles";
-import Tooltip from "../Tooltip";
-import useLocales from "../../../hooks/useLocales";
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect } from 'react'
+import { css, keyframes } from 'styled-components'
+import { RetryIconCircle, TickIcon } from '../../../assets/icons'
+import Logos from '../../../assets/logos'
+import useLocales from '../../../hooks/useLocales'
+import styled from '../../../styles/styled'
+import { RetryButton, RetryIconContainer } from '../../ConnectModal/ConnectWithInjector/styles'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import { ModalBody, ModalH1 } from '../Modal/styles'
+import SquircleSpinner from '../SquircleSpinner'
+import Tooltip from '../Tooltip'
 
 const LoadingTextWrapper = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ const LoadingTextWrapper = styled.div`
   gap: 12px;
   padding: 0 8px 16px;
   text-align: center;
-`;
+`
 
 const ConnectingContainer = styled(motion.div)`
 display: flex;
@@ -27,23 +27,23 @@ align-items: center;
 justify-content: center;
 margin: 10px auto 16px;
 height: 120px;
-`;
+`
 
-const dist = 2;
+const dist = 2
 const shakeKeyframes = keyframes`
   0%{ transform:none; }
   25%{ transform:translateX(${dist}px); }
   50%{ transform:translateX(-${dist}px); }
   75%{ transform:translateX(${dist}px); }
   100%{ transform:none; }
-`;
+`
 const outlineKeyframes = keyframes`
   0%{ opacity:0; }
   100%{ opacity:1; }
-`;
-const ConnectingAnimation = styled(motion.div) <{
-  $color: string | undefined;
-  $shake: boolean;
+`
+const ConnectingAnimation = styled(motion.div)<{
+  $color: string | undefined
+  $shake: boolean
 }>`
   position: relative;
   user-select: none;
@@ -56,7 +56,8 @@ const ConnectingAnimation = styled(motion.div) <{
     opacity: 0;
     background: ${(props) => props.$color};
   }
-  ${(props) => !!props.$color &&
+  ${(props) =>
+    !!props.$color &&
     css`
     &:before {
       opacity: 1;
@@ -70,16 +71,16 @@ const ConnectingAnimation = styled(motion.div) <{
         animation: ${outlineKeyframes} 220ms ease-out both;
       }
     `}
-`;
+`
 
 type LoaderProps = {
-  header: string,
-  description?: string | undefined,
-  isLoading?: boolean,
-  icon?: React.ReactNode,
-  isError?: boolean,
-  isSuccess?: boolean,
-  onRetry?: () => void,
+  header: string
+  description?: string | undefined
+  isLoading?: boolean
+  icon?: React.ReactNode
+  isError?: boolean
+  isSuccess?: boolean
+  onRetry?: () => void
 }
 
 const Loader = ({
@@ -91,26 +92,25 @@ const Loader = ({
   isLoading = !isError && !isSuccess,
   onRetry,
 }: LoaderProps) => {
-
-  const { uiConfig: options } = useOpenfort();
-  const { triggerResize } = useOpenfort();
-  const locales = useLocales();
+  const { uiConfig: options } = useOpenfort()
+  const { triggerResize } = useOpenfort()
+  const locales = useLocales()
 
   useEffect(() => {
-    return () => triggerResize();
-  }, []);
+    return () => triggerResize()
+  }, [triggerResize])
 
   const renderLogo = () => {
     if (icon) {
-      return icon;
+      return icon
     }
     if (options?.logo) {
       if (typeof options.logo === 'string') {
-        return <img src={options.logo} alt="Logo" style={{ width: '100%' }} />;
+        return <img src={options.logo} alt="Logo" style={{ width: '100%' }} />
       }
-      return options.logo;
+      return options.logo
     }
-    return <Logos.Openfort />;
+    return <Logos.Openfort />
   }
 
   return (
@@ -121,7 +121,7 @@ const Loader = ({
           $shake={isError}
         >
           <AnimatePresence>
-            {(isError && onRetry) && (
+            {isError && onRetry && (
               <RetryButton
                 aria-label="Retry"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -132,11 +132,7 @@ const Loader = ({
                 onClick={onRetry}
               >
                 <RetryIconContainer>
-                  <Tooltip
-                    open={isError}
-                    message={locales.tryAgainQuestion}
-                    xOffset={-6}
-                  >
+                  <Tooltip open={isError} message={locales.tryAgainQuestion} xOffset={-6}>
                     <RetryIconCircle />
                   </Tooltip>
                 </RetryIconContainer>
@@ -159,19 +155,14 @@ const Loader = ({
             connecting={isLoading}
           />
         </ConnectingAnimation>
-
       </ConnectingContainer>
       <LoadingTextWrapper>
-        {
-          isLoading && (
-            <>
-              <ModalH1>
-                Loading, please wait
-              </ModalH1>
-              <ModalBody>{description ?? header}</ModalBody>
-            </>
-          )
-        }
+        {isLoading && (
+          <>
+            <ModalH1>Loading, please wait</ModalH1>
+            <ModalBody>{description ?? header}</ModalBody>
+          </>
+        )}
         {isSuccess && (
           <>
             <ModalH1 $valid>
@@ -183,16 +174,13 @@ const Loader = ({
 
         {isError && (
           <>
-            <ModalH1 $error>
-              {header}
-            </ModalH1>
+            <ModalH1 $error>{header}</ModalH1>
             <ModalBody>{description}</ModalBody>
           </>
         )}
-
       </LoadingTextWrapper>
     </>
-  );
+  )
 }
 
-export default Loader;
+export default Loader

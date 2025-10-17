@@ -1,4 +1,3 @@
-
 export type Provider =
   | 'email'
   | 'wallet'
@@ -19,4 +18,3 @@ export type Provider =
   | 'apple_native'
   | 'google_native'
   | 'apple'
-

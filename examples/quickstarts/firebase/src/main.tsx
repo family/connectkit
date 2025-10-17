@@ -9,5 +9,5 @@ createRoot(document.getElementById('root')!).render(
     <OpenfortProviders>
       <App />
     </OpenfortProviders>
-  </StrictMode>,
+  </StrictMode>
 )

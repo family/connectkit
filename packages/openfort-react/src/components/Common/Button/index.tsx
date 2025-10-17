@@ -1,26 +1,26 @@
-import React from 'react';
-import { ButtonProps } from './types';
+import { AnimatePresence } from 'framer-motion'
+import type React from 'react'
+import { flattenChildren } from '../../../utils'
+import FitText from '../FitText'
+import { Spinner } from '../Spinner'
 import {
-  ButtonContainer,
-  InnerContainer,
-  IconContainer,
   Arrow,
-  ArrowLine,
   ArrowChevron,
+  ArrowLine,
+  ButtonContainer,
+  ButtonContainerInner,
   DownloadArrow,
   DownloadArrowInner,
-  ButtonContainerInner,
+  IconContainer,
+  InnerContainer,
   SpinnerContainer,
-} from './styles';
-import { AnimatePresence } from 'framer-motion';
-import { flattenChildren } from '../../../utils';
-import FitText from '../FitText';
-import { Spinner } from '../Spinner';
+} from './styles'
+import type { ButtonProps } from './types'
 
 const transition = {
   duration: 0.4,
   ease: [0.175, 0.885, 0.32, 0.98],
-};
+}
 
 const Button: React.FC<ButtonProps> = ({
   className,
@@ -37,20 +37,16 @@ const Button: React.FC<ButtonProps> = ({
   style,
   onClick,
 }) => {
-  const key =
-    typeof children === 'string'
-      ? children
-      : flattenChildren(children).join(''); // Need to generate a string for the key so we can automatically animate between content
+  const key = typeof children === 'string' ? children : flattenChildren(children).join('') // Need to generate a string for the key so we can automatically animate between content
 
-  const hrefUrl =
-    href && (typeof href === 'string' ? href : flattenChildren(href).join('')); // Need to have a flat string for the href
+  const hrefUrl = href && (typeof href === 'string' ? href : flattenChildren(href).join('')) // Need to have a flat string for the href
 
   return (
     <ButtonContainer
       className={className}
       as={href ? 'a' : undefined}
       onClick={(event: any) => {
-        if (!disabled && onClick) onClick(event);
+        if (!disabled && onClick) onClick(event)
       }}
       href={href && hrefUrl}
       target={href && '_blank'}
@@ -80,19 +76,11 @@ const Button: React.FC<ButtonProps> = ({
             delay: 0.2,
           }}
         >
-          {icon && iconPosition === 'left' && (
-            <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>
-          )}
+          {icon && iconPosition === 'left' && <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>}
           {download && (
             <DownloadArrow>
               <DownloadArrowInner>
-                <Arrow
-                  width="13"
-                  height="12"
-                  viewBox="0 0 13 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <ArrowLine
                     stroke="currentColor"
                     x1="1"
@@ -115,26 +103,10 @@ const Button: React.FC<ButtonProps> = ({
           <InnerContainer style={{ paddingLeft: arrow ? 6 : 0 }}>
             <FitText>{children}</FitText>
           </InnerContainer>
-          {icon && iconPosition === 'right' && (
-            <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>
-          )}
+          {icon && iconPosition === 'right' && <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>}
           {arrow && (
-            <Arrow
-              width="13"
-              height="12"
-              viewBox="0 0 13 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <ArrowLine
-                stroke="currentColor"
-                x1="1"
-                y1="6"
-                x2="12"
-                y2="6"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
+            <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ArrowLine stroke="currentColor" x1="1" y1="6" x2="12" y2="6" strokeWidth="2" strokeLinecap="round" />
               <ArrowChevron
                 stroke="currentColor"
                 d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
@@ -151,6 +123,6 @@ const Button: React.FC<ButtonProps> = ({
         )}
       </AnimatePresence>
     </ButtonContainer>
-  );
-};
-export default Button;
+  )
+}
+export default Button

@@ -6,7 +6,6 @@
 @plugin "daisyui";
 
 @layer base {
-
   button,
   a {
     @apply text-blue-500 hover:text-blue-700 cursor-pointer;
@@ -25,7 +24,6 @@
 body {
   interpolate-size: allow-keywords;
 }
-
 
 @plugin "daisyui/theme" {
   name: "corporate";
@@ -309,4 +307,5 @@ body {
 
 .animate-child-in>*:nth-child(9) {
   animation-delay: calc(8 * var(--delay));
+}
 }

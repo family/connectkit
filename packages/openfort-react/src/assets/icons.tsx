@@ -1,12 +1,5 @@
 export const Scan = ({ ...props }) => (
-  <svg
-    aria-hidden="true"
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -15,9 +8,9 @@ export const Scan = ({ ...props }) => (
       fillOpacity="0.3"
     />
   </svg>
-);
+)
 
-export const Download = ({ ...props }) => <svg />;
+export const Download = ({ ...props }) => <svg />
 
 export const ExternalLinkIcon = ({ ...props }) => (
   <svg
@@ -48,7 +41,7 @@ export const ExternalLinkIcon = ({ ...props }) => (
       fillOpacity={0.3}
     />
   </svg>
-);
+)
 
 export const AlertIcon = ({ ...props }) => {
   return (
@@ -72,8 +65,8 @@ export const AlertIcon = ({ ...props }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const DisconnectIcon = ({ ...props }) => {
   return (
@@ -98,8 +91,8 @@ export const DisconnectIcon = ({ ...props }) => {
         fillOpacity="0.4"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const TickIcon = ({ ...props }) => {
   return (
@@ -119,8 +112,8 @@ export const TickIcon = ({ ...props }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const RetryIconCircle = ({ ...props }) => {
   return (
@@ -140,8 +133,8 @@ export const RetryIconCircle = ({ ...props }) => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const RetryIcon = ({ ...props }) => (
   <svg
@@ -153,13 +146,7 @@ export const RetryIcon = ({ ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path
-      d="M14.5 2V6H10.5"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <path d="M14.5 2V6H10.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     <path
       d="M14 5.66537L10.9899 2.75871C10.0931 1.83853 8.92897 1.24216 7.6729 1.05947C6.41683 0.876774 5.13688 1.11765 4.02592 1.7458C2.91497 2.37395 2.0332 3.35534 1.5135 4.54208C0.993792 5.72883 0.864305 7.05663 1.14455 8.3254C1.42479 9.59418 2.09958 10.7352 3.06724 11.5765C4.03489 12.4178 5.24298 12.9138 6.50946 12.9898C7.77594 13.0657 9.03219 12.7176 10.0889 11.9977C10.4765 11.7337 10.8295 11.4249 11.142 11.0792"
       stroke="currentColor"
@@ -168,7 +155,7 @@ export const RetryIcon = ({ ...props }) => (
       strokeLinejoin="round"
     />
   </svg>
-);
+)
 
 export const CopyToClipboardIcon = ({ ...props }) => (
   <svg
@@ -185,15 +172,7 @@ export const CopyToClipboardIcon = ({ ...props }) => (
       stroke="var(--ck-body-color-muted)"
       strokeWidth="2"
     />
-    <rect
-      x="10"
-      y="10"
-      width="9"
-      height="9"
-      rx="2"
-      stroke="var(--ck-body-color-muted)"
-      strokeWidth="2"
-    />
+    <rect x="10" y="10" width="9" height="9" rx="2" stroke="var(--ck-body-color-muted)" strokeWidth="2" />
     <path
       d="M1 3L3 5L7 1"
       stroke="var(--ck-body-color)"
@@ -202,7 +181,7 @@ export const CopyToClipboardIcon = ({ ...props }) => (
       strokeLinejoin="round"
     />
   </svg>
-);
+)
 
 export const AuthIcon = ({ ...props }) => (
   <div
@@ -223,14 +202,7 @@ export const AuthIcon = ({ ...props }) => (
       ...props?.style,
     }}
   >
-    <svg
-      aria-hidden="true"
-      width="6"
-      height="6"
-      viewBox="0 0 6 6"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg aria-hidden="true" width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M0.75 3L2.25 4.5L5.25 1.5"
         stroke="white"
@@ -240,20 +212,11 @@ export const AuthIcon = ({ ...props }) => (
       />
     </svg>
   </div>
-);
+)
 
 export const EmailIcon = ({ ...props }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 256 256"
-    width="256"
-    height="256"
-  >
-    <rect
-      width="256"
-      height="256"
-      fill="none"
-    />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+    <rect width="256" height="256" fill="none" />
     <path
       d="M32,96V200a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V96L128,32Z"
       fill="none"
@@ -271,20 +234,11 @@ export const EmailIcon = ({ ...props }) => (
       strokeWidth="16"
     />
   </svg>
-);
+)
 
 export const GuestIcon = ({ ...props }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 256 256"
-    width="256"
-    height="256"
-  >
-    <rect
-      width="256"
-      height="256"
-      fill="none"
-    />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+    <rect width="256" height="256" fill="none" />
     <circle
       cx="128"
       cy="96"
@@ -304,17 +258,10 @@ export const GuestIcon = ({ ...props }) => (
       strokeWidth="16"
     />
   </svg>
-);
+)
 
 export const EyeIcon = ({ ...props }) => (
-  <svg
-    width="800"
-    height="800"
-    fill="none"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+  <svg width="800" height="800" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="m15.001 12c0 1.6569-1.3431 3-3 3-1.6568 0-3-1.3431-3-3s1.3432-3 3-3c1.6569 0 3 1.3431 3 3z"
       stroke="currentColor"
@@ -330,18 +277,10 @@ export const EyeIcon = ({ ...props }) => (
       strokeWidth={2}
     />
   </svg>
-);
-
+)
 
 export const EyeOffIcon = ({ ...props }) => (
-  <svg
-    width="800"
-    height="800"
-    fill="none"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+  <svg width="800" height="800" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="m2.999 3 18 18m-11.156-11.086c-0.52264 0.53996-0.84428 1.2756-0.84428 2.0864 0 1.6569 1.3432 3 3 3 0.8225 0 1.5677-0.331 2.1096-0.867m-7.6096-7.4858c-1.8993 1.2532-3.346 3.1368-4.042 5.3528 1.2742 4.0571 5.0646 7 9.5422 7 1.9889 0 3.8422-0.5806 5.3996-1.5816m-6.3998-12.369c0.329-0.03266 0.6627-0.04939 1.0002-0.04939 4.4777 0 8.268 2.9429 9.5422 7-0.2807 0.894-0.6837 1.7338-1.1892 2.5"
       stroke="currentColor"
@@ -350,8 +289,7 @@ export const EyeOffIcon = ({ ...props }) => (
       strokeWidth={2}
     />
   </svg>
-);
-
+)
 
 export const KeyIcon = ({ ...props }) => (
   <svg
@@ -372,27 +310,13 @@ export const KeyIcon = ({ ...props }) => (
       strokeWidth={1.152}
     />
   </svg>
-);
+)
 
 export const LockIcon = ({ ...props }) => (
-  <svg
-    fill="none"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="m9 16c0 0.5523-0.44772 1-1 1s-1-0.4477-1-1 0.44772-1 1-1 1 0.4477 1 1z"
-      fill="currentColor"
-    />
-    <path
-      d="m13 16c0 0.5523-0.4477 1-1 1s-1-0.4477-1-1 0.4477-1 1-1 1 0.4477 1 1z"
-      fill="currentColor"
-    />
-    <path
-      d="m17 16c0 0.5523-0.4477 1-1 1s-1-0.4477-1-1 0.4477-1 1-1 1 0.4477 1 1z"
-      fill="currentColor"
-    />
+  <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="m9 16c0 0.5523-0.44772 1-1 1s-1-0.4477-1-1 0.44772-1 1-1 1 0.4477 1 1z" fill="currentColor" />
+    <path d="m13 16c0 0.5523-0.4477 1-1 1s-1-0.4477-1-1 0.4477-1 1-1 1 0.4477 1 1z" fill="currentColor" />
+    <path d="m17 16c0 0.5523-0.4477 1-1 1s-1-0.4477-1-1 0.4477-1 1-1 1 0.4477 1 1z" fill="currentColor" />
     <path
       d="m6 10v-2c0-0.34071 0.0284-0.67479 0.08296-1m11.917 3v-2c0-3.3137-2.6863-6-6-6-1.792 0-3.4006 0.78563-4.5 2.0313"
       stroke="currentColor"
@@ -406,16 +330,10 @@ export const LockIcon = ({ ...props }) => (
       strokeWidth={1.152}
     />
   </svg>
-);
-
+)
 
 export const ShieldIcon = ({ ...props }) => (
-  <svg
-    fill="none"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+  <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="m9 12 2 2 4-4m5 2c0 4.4611-5.46 7.6937-7.3586 8.683-0.2053 0.107-0.308 0.1605-0.4504 0.1882-0.111 0.0216-0.271 0.0216-0.382 0-0.1424-0.0277-0.2451-0.0812-0.4504-0.1882-1.8986-0.9893-7.3586-4.2219-7.3586-8.683v-3.7824c0-0.79951 0-1.1993 0.13076-1.5429 0.11551-0.30357 0.30322-0.57443 0.5469-0.78918 0.27584-0.24309 0.65014-0.38345 1.3987-0.66418l5.3618-2.0107c0.2079-0.07796 0.3118-0.11694 0.4188-0.1324 0.0948-0.0137 0.1912-0.0137 0.286 0 0.107 0.01546 0.2109 0.05444 0.4188 0.1324l5.3618 2.0107c0.7486 0.28073 1.1229 0.42109 1.3987 0.66418 0.2437 0.21475 0.4314 0.48561 0.5469 0.78918 0.1308 0.34363 0.1308 0.74338 0.1308 1.5429v3.7824z"
       stroke="currentColor"
@@ -424,7 +342,7 @@ export const ShieldIcon = ({ ...props }) => (
       strokeWidth={1.2}
     />
   </svg>
-);
+)
 
 export const FingerPrintIcon = ({ ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...props}>
@@ -486,4 +404,4 @@ export const FingerPrintIcon = ({ ...props }) => (
       strokeWidth={10}
     />
   </svg>
-);
+)

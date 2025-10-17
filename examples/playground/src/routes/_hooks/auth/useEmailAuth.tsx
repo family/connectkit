@@ -1,35 +1,30 @@
-import { HookVariable } from '@/components/Variable/HookVariable';
-import { onSettledOptions, onSettledInputs } from '@/components/Variable/commonVariables';
-import { useEmailAuth } from '@openfort/react';
-import { createFileRoute } from '@tanstack/react-router';
-import { Layout } from '../../../components/Layout';
+import { useEmailAuth } from '@openfort/react'
+import { createFileRoute } from '@tanstack/react-router'
+import { onSettledInputs, onSettledOptions } from '@/components/Variable/commonVariables'
+import { HookVariable } from '@/components/Variable/HookVariable'
+import { Layout } from '../../../components/Layout'
 
 export const Route = createFileRoute('/_hooks/auth/useEmailAuth')({
   component: RouteComponent,
 })
 
-
 function RouteComponent() {
-
   return (
     <Layout>
-
       <HookVariable
         name="useEmailAuth"
         hook={useEmailAuth}
-        description='This hook allows you to sign up or sign in with email and password, verify and link email'
+        description="This hook allows you to sign up or sign in with email and password, verify and link email"
         defaultOptions={{
-          emailVerificationRedirectTo: location.origin + "/auth/useAuthCallback",
-          ...onSettledOptions
+          emailVerificationRedirectTo: `${location.origin}/auth/useAuthCallback`,
+          ...onSettledOptions,
         }}
-
         optionsVariables={{
           emailVerificationRedirectTo: {
             type: 'text',
             description: 'The URL to redirect to after email verification.',
           },
         }}
-
         variables={{
           signInEmail: {
             inputs: {
@@ -96,7 +91,7 @@ function RouteComponent() {
               },
               ...onSettledInputs,
             },
-            description: 'Request a password reset link to be sent to the user\'s email.',
+            description: "Request a password reset link to be sent to the user's email.",
           },
           resetPassword: {
             inputs: {
@@ -117,11 +112,10 @@ function RouteComponent() {
               },
               ...onSettledInputs,
             },
-            description: 'Reset the user\'s password using a reset link.',
-          }
+            description: "Reset the user's password using a reset link.",
+          },
         }}
       />
-
     </Layout>
   )
 }

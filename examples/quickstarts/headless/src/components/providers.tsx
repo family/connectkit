@@ -1,18 +1,16 @@
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { createConfig, WagmiProvider } from 'wagmi';
-
-import { getDefaultConfig, OpenfortProvider } from "@openfort/react";
-import { beamTestnet, polygonAmoy } from 'viem/chains';
-import { useState } from 'react';
-
+import { getDefaultConfig, OpenfortProvider } from '@openfort/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useState } from 'react'
+import { beamTestnet, polygonAmoy } from 'viem/chains'
+import { createConfig, WagmiProvider } from 'wagmi'
 
 export const config = createConfig(
   getDefaultConfig({
     appName: 'Openfort Next.js demo',
-    chains: [polygonAmoy,beamTestnet], // The chains you want to support
+    chains: [polygonAmoy, beamTestnet], // The chains you want to support
     walletConnectProjectId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID, // The WalletConnect Project ID
   })
-);
+)
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient())
@@ -22,7 +20,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <OpenfortProvider
           debugMode
           publishableKey={import.meta.env.VITE_OPENFORT_PUBLISHABLE_KEY!}
-
           // Set the wallet configuration. In this example, we will be using the embedded signer.
           walletConfig={{
             shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY!, // The public key for your Openfort Shield account get it from https://dashboard.openfort.io
@@ -31,11 +28,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
             recoverWalletAutomaticallyAfterAuth: true, // We will manually call create/setActive wallet after auth
           }}
         >
-          <>
-            {children}
-          </>
+          {children}
         </OpenfortProvider>
       </QueryClientProvider>
     </WagmiProvider>
-  );
+  )
 }

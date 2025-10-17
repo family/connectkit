@@ -1,8 +1,8 @@
-import styled from '../../../styles/styled';
-import { css, keyframes } from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
+import { css, keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
-import { ModalContent } from '../../Common/Modal/styles';
+import { ModalContent } from '../../Common/Modal/styles'
 
 export const Content = styled(motion.div)`
   display: flex;
@@ -15,27 +15,27 @@ export const Content = styled(motion.div)`
     padding: 0 8px 32px;
     gap: 12px;
   }
-`;
+`
 
-const dist = 2;
+const dist = 2
 const shakeKeyframes = keyframes`
   0%{ transform:none; }
   25%{ transform:translateX(${dist}px); }
   50%{ transform:translateX(-${dist}px); }
   75%{ transform:translateX(${dist}px); }
   100%{ transform:none; }
-`;
+`
 const outlineKeyframes = keyframes`
   0%{ opacity:1; }
   100%{ opacity:0; }
-`;
+`
 export const Container = styled(motion.div)`
   /*
   background: var(
     --ck-body-background
   ); // To stop the overlay issue during transition for the squircle spinner
   */
-`;
+`
 export const ConnectingContainer = styled(motion.div)`
   display: flex;
   align-items: center;
@@ -43,10 +43,10 @@ export const ConnectingContainer = styled(motion.div)`
   margin: 10px auto 16px;
   height: 120px;
   //transform: scale(1.001); // fixes shifting issue between states
-`;
-export const ConnectingAnimation = styled(motion.div) <{
-  $shake: boolean;
-  $circle: boolean;
+`
+export const ConnectingAnimation = styled(motion.div)<{
+  $shake: boolean
+  $circle: boolean
 }>`
   user-select: none;
   position: relative;
@@ -58,8 +58,8 @@ export const ConnectingAnimation = styled(motion.div) <{
     opacity: 0;
     background: var(--ck-body-color-danger);
     ${(props) =>
-    props.$circle &&
-    css`
+      props.$circle &&
+      css`
         inset: -5px;
         border-radius: 50%;
         background: none;
@@ -74,7 +74,7 @@ export const ConnectingAnimation = styled(motion.div) <{
         animation: ${outlineKeyframes} 220ms ease-out 750ms both;
       }
     `}
-`;
+`
 
 export const RetryButton = styled(motion.button)`
   z-index: 5;
@@ -110,7 +110,7 @@ export const RetryButton = styled(motion.button)`
   &:hover:before {
     opacity: 0.1;
   }
-`;
+`
 export const RetryIconContainer = styled(motion.div)`
   position: absolute;
   inset: 0;
@@ -135,4 +135,4 @@ export const RetryIconContainer = styled(motion.div)`
     width: 100%;
     height: 100%;
   }
-`;
+`

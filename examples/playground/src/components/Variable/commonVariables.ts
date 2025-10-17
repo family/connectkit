@@ -1,5 +1,5 @@
-import { FunctionInputType } from "@/components/Form/Form";
-import { HookInput } from "@/components/Variable/Variable";
+import type { FunctionInputType } from '@/components/Form/Form'
+import type { HookInput } from '@/components/Variable/Variable'
 
 export const onSettledInputs: Record<string, HookInput | FunctionInputType> = {
   throwOnError: {
@@ -22,17 +22,14 @@ export const onSettledInputs: Record<string, HookInput | FunctionInputType> = {
     typescriptType: '(data: any, error: OpenfortError) => void',
     description: 'Callback function to execute when the operation is settled (either success or error).',
   },
-};
+}
 
 export const onSettledOptions = {
   throwOnError: false,
   onSuccess: undefined,
   onError: undefined,
   onSettled: undefined,
-};
-
-
-
+}
 
 export const commonVariables = {
   ...onSettledInputs,
@@ -41,7 +38,7 @@ export const commonVariables = {
     description: 'The error object if an error occurred, otherwise null.',
   },
   reset: {
-    description: 'Resets the state of the hook. (e.g. if isError resets to being without error)'
+    description: 'Resets the state of the hook. (e.g. if isError resets to being without error)',
   },
   isLoading: {
     typescriptType: 'boolean',
@@ -55,5 +52,4 @@ export const commonVariables = {
     typescriptType: 'boolean',
     description: 'Indicates if the hook has successfully completed.',
   },
-
 }

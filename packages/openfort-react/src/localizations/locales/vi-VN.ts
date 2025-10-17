@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import type { LocaleProps } from './'
+import enUS from './en-US'
 
 const viVN: LocaleProps = {
   ...enUS, // fallback
@@ -101,12 +101,10 @@ const viVN: LocaleProps = {
 
   switchNetworkScreen_heading: 'Đổi mạng',
 
-  signInWithEthereumScreen_tooltip:
-    'Bạn chưa đăng nhập vào ứng dụng.\n**Đăng nhập qua Ethereum** để tiếp tục.',
+  signInWithEthereumScreen_tooltip: 'Bạn chưa đăng nhập vào ứng dụng.\n**Đăng nhập qua Ethereum** để tiếp tục.',
 
   signInWithEthereumScreen_signedOut_heading: 'Đăng nhập qua Ethereum',
-  signInWithEthereumScreen_signedOut_h1:
-    'Ứng dụng này muốn xác nhận bạn \n là chủ sở hữu của ví.',
+  signInWithEthereumScreen_signedOut_h1: 'Ứng dụng này muốn xác nhận bạn \n là chủ sở hữu của ví.',
   signInWithEthereumScreen_signedOut_p: `Vui lòng ký tin nhắn yêu cầu \n trên ví của bạn để tiếp tục.`,
   signInWithEthereumScreen_signedOut_button: 'Đăng nhập',
 
@@ -114,6 +112,6 @@ const viVN: LocaleProps = {
   signInWithEthereumScreen_signedIn_h1: 'Bạn đã xác nhận thành công.',
   signInWithEthereumScreen_signedIn_p: `Sau khi Đăng xuất bạn sẽ cần \n xác nhận lại trong làn tiếp theo.`,
   signInWithEthereumScreen_signedIn_button: 'Đăng xuất',
-};
+}
 
-export default viVN;
+export default viVN

@@ -1,10 +1,10 @@
-import { useChainId, useSignMessage, useSignTypedData } from "wagmi";
+import { useChainId, useSignMessage, useSignTypedData } from 'wagmi'
 
-import { TruncateData } from "../../../components/ui/TruncateData";
+import { TruncateData } from '../../../components/ui/TruncateData'
 
 function SignTypedData() {
-  const { signTypedData, error, data } = useSignTypedData();
-  const chainId = useChainId();
+  const { signTypedData, error, data } = useSignTypedData()
+  const chainId = useChainId()
 
   return (
     <div>
@@ -12,38 +12,38 @@ function SignTypedData() {
 
       <form
         onSubmit={async (event) => {
-          event.preventDefault();
+          event.preventDefault()
           signTypedData({
             domain: {
-              name: "Ether Mail",
-              version: "1",
+              name: 'Ether Mail',
+              version: '1',
               chainId,
-              verifyingContract: "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
+              verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
             },
             types: {
               Person: [
-                { name: "name", type: "string" },
-                { name: "wallet", type: "address" },
+                { name: 'name', type: 'string' },
+                { name: 'wallet', type: 'address' },
               ],
               Mail: [
-                { name: "from", type: "Person" },
-                { name: "to", type: "Person" },
-                { name: "contents", type: "string" },
+                { name: 'from', type: 'Person' },
+                { name: 'to', type: 'Person' },
+                { name: 'contents', type: 'string' },
               ],
             },
-            primaryType: "Mail",
+            primaryType: 'Mail',
             message: {
               from: {
-                name: "Cow",
-                wallet: "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826",
+                name: 'Cow',
+                wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
               },
               to: {
-                name: "Bob",
-                wallet: "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+                name: 'Bob',
+                wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
               },
-              contents: "Hello, Bob!",
+              contents: 'Hello, Bob!',
             },
-          });
+          })
         }}
       >
         <button type="submit" className="btn">
@@ -54,11 +54,11 @@ function SignTypedData() {
       <TruncateData data={data} />
       <TruncateData data={error?.message} className="text-red-500" />
     </div>
-  );
+  )
 }
 
 function SignMessage() {
-  const { data, signMessage, error } = useSignMessage();
+  const { data, signMessage, error } = useSignMessage()
 
   return (
     <div>
@@ -66,9 +66,9 @@ function SignMessage() {
       <form
         className="space-y-2"
         onSubmit={(event) => {
-          event.preventDefault();
-          const formData = new FormData(event.target as HTMLFormElement);
-          signMessage({ message: formData.get("message") as string });
+          event.preventDefault()
+          const formData = new FormData(event.target as HTMLFormElement)
+          signMessage({ message: formData.get('message') as string })
         }}
       >
         <input name="message" placeholder="Message to sign" />
@@ -79,7 +79,7 @@ function SignMessage() {
       <TruncateData data={error?.message} className="text-red-500" />
       <TruncateData data={data} />
     </div>
-  );
+  )
 }
 
 export function SignCard() {
@@ -92,5 +92,5 @@ export function SignCard() {
         <SignTypedData />
       </div>
     </div>
-  );
+  )
 }

@@ -1,27 +1,23 @@
-import { CheckCircleIcon } from '@heroicons/react/24/outline';
-import { RecoveryMethod, type UserWallet, useWallets } from '@openfort/react';
+import { CheckCircleIcon } from '@heroicons/react/24/outline'
+import { RecoveryMethod, type UserWallet, useWallets } from '@openfort/react'
 
-import { Sheet } from '../../../components/ui/Sheet';
+import { Sheet } from '../../../components/ui/Sheet'
 
 type CreateWalletPasswordSheetProps = {
-  open: boolean;
-  onClose: () => void;
-  onCreateWallet?: () => void;
-};
+  open: boolean
+  onClose: () => void
+  onCreateWallet?: () => void
+}
 
-export function CreateWalletPasswordSheet({
-  open,
-  onClose,
-  onCreateWallet,
-}: CreateWalletPasswordSheetProps) {
-  const { createWallet, error, isCreating, reset } = useWallets();
+export function CreateWalletPasswordSheet({ open, onClose, onCreateWallet }: CreateWalletPasswordSheetProps) {
+  const { createWallet, error, isCreating, reset } = useWallets()
 
   return (
     <Sheet
       open={open}
       onClose={() => {
-        onClose();
-        reset();
+        onClose()
+        reset()
       }}
       title="Enter Password"
       description="Please enter the password of your wallet."
@@ -29,20 +25,20 @@ export function CreateWalletPasswordSheet({
       <form
         className="flex-1 w-full flex flex-col justify-center max-w-md mx-auto"
         onSubmit={async (event) => {
-          event.preventDefault();
-          const formData = new FormData(event.target as HTMLFormElement);
-          const password = formData.get('password') as string;
+          event.preventDefault()
+          const formData = new FormData(event.target as HTMLFormElement)
+          const password = formData.get('password') as string
 
           const { error: walletError } = await createWallet({
             recovery: {
               recoveryMethod: RecoveryMethod.PASSWORD,
               password,
             },
-          });
+          })
 
           if (!walletError) {
-            onCreateWallet?.();
-            onClose();
+            onCreateWallet?.()
+            onClose()
           }
         }}
       >
@@ -72,28 +68,24 @@ export function CreateWalletPasswordSheet({
         </button>
       </form>
     </Sheet>
-  );
+  )
 }
 
 type WalletRecoverPasswordSheetProps = {
-  open: boolean;
-  onClose: () => void;
-  wallet: UserWallet | null;
-};
+  open: boolean
+  onClose: () => void
+  wallet: UserWallet | null
+}
 
-export function WalletRecoverPasswordSheet({
-  open,
-  onClose,
-  wallet,
-}: WalletRecoverPasswordSheetProps) {
-  const { setActiveWallet, error, isConnecting, reset } = useWallets();
+export function WalletRecoverPasswordSheet({ open, onClose, wallet }: WalletRecoverPasswordSheetProps) {
+  const { setActiveWallet, error, isConnecting, reset } = useWallets()
 
   return (
     <Sheet
       open={open}
       onClose={() => {
-        onClose();
-        reset();
+        onClose()
+        reset()
       }}
       title="Enter Password"
       description="Please enter the password of your wallet."
@@ -101,10 +93,10 @@ export function WalletRecoverPasswordSheet({
       <form
         className="w-full flex-1 flex flex-col justify-center"
         onSubmit={(event) => {
-          event.preventDefault();
-          const formData = new FormData(event.target as HTMLFormElement);
-          const password = formData.get('password') as string;
-          if (!wallet) throw new Error('No wallet to recover');
+          event.preventDefault()
+          const formData = new FormData(event.target as HTMLFormElement)
+          const password = formData.get('password') as string
+          if (!wallet) throw new Error('No wallet to recover')
 
           setActiveWallet({
             walletId: 'xyz.openfort',
@@ -113,7 +105,7 @@ export function WalletRecoverPasswordSheet({
               password,
             },
             address: wallet.address,
-          });
+          })
         }}
       >
         {wallet && (
@@ -137,5 +129,5 @@ export function WalletRecoverPasswordSheet({
         </button>
       </form>
     </Sheet>
-  );
+  )
 }

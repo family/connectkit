@@ -1,8 +1,6 @@
-import { motion } from "framer-motion";
-import styled from "../../../styles/styled";
-import Button from "../../Common/Button";
-import { ButtonContainer, ButtonContainerInner, InnerContainer } from "../../Common/Button/styles";
-import { Input } from "../../Common/Input/styles";
+import { motion } from 'framer-motion'
+import styled from '../../../styles/styled'
+import { ButtonContainer, ButtonContainerInner, InnerContainer } from '../../Common/Button/styles'
 
 export const ProviderInputInner = styled.div`
   border-radius: var(--ck-secondary-button-border-radius);

@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion';
-import styled from '../../../styles/styled';
-import { css } from 'styled-components';
-import defaultTheme from '../../../constants/defaultTheme';
+import { motion } from 'framer-motion'
+import { css } from 'styled-components'
+import defaultTheme from '../../../constants/defaultTheme'
+import styled from '../../../styles/styled'
 
-const imageHeight = 208;
+const imageHeight = 208
 
 export const ImageContainer = styled.div`
   pointer-events: none;
@@ -19,8 +19,8 @@ export const ImageContainer = styled.div`
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     display: none;
   }
-`;
-export const ImageContainerInner = styled(motion.div)``;
+`
+export const ImageContainerInner = styled(motion.div)``
 
 export const MobileImageContainer = styled.div`
   pointer-events: none;
@@ -36,13 +36,13 @@ export const MobileImageContainer = styled.div`
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     display: flex;
   }
-`;
+`
 
 export const Slides = styled.div`
   position: relative;
-`;
+`
 
-export const Slide = styled(motion.div) <{ $active?: boolean }>`
+export const Slide = styled(motion.div)<{ $active?: boolean }>`
   scroll-snap-type: x mandatory;
   position: relative;
   bottom: 0;
@@ -63,7 +63,7 @@ export const Slide = styled(motion.div) <{ $active?: boolean }>`
       transition-duration: 300ms;
       transition-delay: 0ms;
     `}
-`;
+`
 export const Slider = styled.div`
   --background: var(--ck-body-background-secondary);
   --background-transparent: var(--ck-body-background-transparent, transparent);
@@ -95,7 +95,7 @@ export const Slider = styled.div`
       scroll-snap-align: start;
     }
   }
-`;
+`
 
 export const Dots = styled.div`
   position: relative;
@@ -103,7 +103,7 @@ export const Dots = styled.div`
   display: flex;
   justify-content: center;
   pointer-events: auto;
-`;
+`
 export const Dot = styled.button<{ $active: boolean }>`
   display: flex;
   align-items: center;
@@ -135,7 +135,7 @@ export const Dot = styled.button<{ $active: boolean }>`
           }
         `
       : !props.disabled &&
-      css`
+        css`
           cursor: pointer;
           &:hover:before {
             transform: scaleY(3.5);
@@ -143,4 +143,4 @@ export const Dot = styled.button<{ $active: boolean }>`
           &:active:before {
           }
         `}
-`;
+`

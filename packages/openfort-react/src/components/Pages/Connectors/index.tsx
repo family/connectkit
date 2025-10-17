@@ -1,35 +1,24 @@
-import React, { useEffect } from 'react';
-import { useOpenfort } from '../../Openfort/useOpenfort';
-
-import {
-  ModalBody,
-  ModalContent,
-  ModalH1,
-  PageContent
-} from '../../Common/Modal/styles';
-import {
-  InfoBox,
-  InfoBoxButtons
-} from './styles';
-
-import useIsMobile from '../../../hooks/useIsMobile';
-import useLocales from '../../../hooks/useLocales';
-import Button from '../../Common/Button';
-import ConnectorList from '../../Common/ConnectorList';
-import { routes } from '../../Openfort/types';
+import type React from 'react'
+import useIsMobile from '../../../hooks/useIsMobile'
+import useLocales from '../../../hooks/useLocales'
+import Button from '../../Common/Button'
+import ConnectorList from '../../Common/ConnectorList'
+import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import { InfoBox, InfoBoxButtons } from './styles'
 
 const Wallets: React.FC = () => {
-  const context = useOpenfort();
-  const locales = useLocales({});
+  const context = useOpenfort()
+  const locales = useLocales({})
 
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile()
 
   return (
     <PageContent style={{ width: 312 }}>
       <ConnectorList />
       {isMobile ? (
-        <>
-          <InfoBox>
+        <InfoBox>
             <ModalContent style={{ padding: 0, textAlign: 'left' }}>
               <ModalH1 $small>{locales.connectorsScreen_h1}</ModalH1>
               <ModalBody>{locales.connectorsScreen_p}</ModalBody>
@@ -53,19 +42,7 @@ const Wallets: React.FC = () => {
               )}
             </InfoBoxButtons>
           </InfoBox>
-        </>
       ) : (
-        <>
-          {/* {!context.options?.hideNoWalletCTA && (
-            <LearnMoreContainer>
-              <LearnMoreButton
-                onClick={() => context.setRoute(routes.ONBOARDING)}
-              >
-                <WalletIcon /> {locales.connectorsScreen_newcomer}
-              </LearnMoreButton>
-            </LearnMoreContainer>
-          )} */}
-        </>
       )}
       {/* {context.options?.disclaimer && (
         <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
@@ -74,6 +51,6 @@ const Wallets: React.FC = () => {
       )} */}
     </PageContent>
   );
-};
+}
 
-export default Wallets;
+export default Wallets

@@ -1,5 +1,5 @@
-import styled from '../../../styles/styled';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
+import styled from '../../../styles/styled'
 
 export const LogoContainer = styled(motion.div)`
   z-index: 4;
@@ -10,7 +10,7 @@ export const LogoContainer = styled(motion.div)`
     position: relative;
     display: block;
   }
-`;
+`
 export const Logo = styled(motion.div)`
   z-index: 2;
   position: absolute;
@@ -25,13 +25,13 @@ export const Logo = styled(motion.div)`
     width: 100%;
     height: 100%;
   }
-`;
+`
 
 export const SpinnerContainer = styled(motion.div)`
   position: absolute;
   inset: 1px;
   overflow: hidden;
-`;
+`
 export const Spinner = styled(motion.div)`
   pointer-events: none;
   user-select: none;
@@ -61,4 +61,4 @@ export const Spinner = styled(motion.div)`
       transform: rotate(360deg);
     }
   }
-`;
+`

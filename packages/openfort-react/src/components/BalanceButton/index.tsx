@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { All } from '../../types';
-import { useQueryClient } from '@tanstack/react-query';
-
-import styled from '../../styles/styled';
-import { keyframes } from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
-
-import { useAccount, useBalance, useBlockNumber } from 'wagmi';
-import useIsMounted from '../../hooks/useIsMounted';
-
-import Chain from '../Common/Chain';
-import { chainConfigs } from '../../constants/chainConfigs';
-import ThemedButton from '../Common/ThemedButton';
-import { nFormatter } from '../../utils';
-import { useChains } from '../../hooks/useChains';
-import { useChainIsSupported } from '../../hooks/useChainIsSupported';
+import { useQueryClient } from '@tanstack/react-query'
+import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useState } from 'react'
+import { keyframes } from 'styled-components'
+import { useAccount, useBalance, useBlockNumber } from 'wagmi'
+import { chainConfigs } from '../../constants/chainConfigs'
+import { useChainIsSupported } from '../../hooks/useChainIsSupported'
+import { useChains } from '../../hooks/useChains'
+import useIsMounted from '../../hooks/useIsMounted'
+import styled from '../../styles/styled'
+import type { All } from '../../types'
+import { nFormatter } from '../../utils'
+import Chain from '../Common/Chain'
+import ThemedButton from '../Common/ThemedButton'
 
 const Container = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-`;
+`
 const PlaceholderKeyframes = keyframes`
   0%,100%{ opacity: 0.1; transform: scale(0.75); }
   50%{ opacity: 0.75; transform: scale(1.2) }
-`;
+`
 const PulseContainer = styled.div`
   pointer-events: none;
   user-select: none;
@@ -40,41 +38,42 @@ const PulseContainer = styled.div`
     background: currentColor;
     animation: ${PlaceholderKeyframes} 1000ms ease infinite both;
   }
-`;
+`
 
 type BalanceProps = {
-  hideIcon?: boolean;
-  hideSymbol?: boolean;
-};
+  hideIcon?: boolean
+  hideSymbol?: boolean
+}
 
 export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
-  const isMounted = useIsMounted();
-  const [isInitial, setIsInitial] = useState(true);
+  const isMounted = useIsMounted()
+  const [isInitial, setIsInitial] = useState(true)
 
-  const { address, chain } = useAccount();
-  const chains = useChains();
-  const isChainSupported = useChainIsSupported(chain?.id);
+  const { address, chain } = useAccount()
+  const _chains = useChains()
+  const isChainSupported = useChainIsSupported(chain?.id)
 
-  const queryClient = useQueryClient();
-  const { data: blockNumber } = useBlockNumber({ watch: true });
+  const queryClient = useQueryClient()
+  const { data: blockNumber } = useBlockNumber({ watch: true })
   const { data: balance, queryKey } = useBalance({
     address,
     chainId: chain?.id,
-  });
+  })
 
   useEffect(() => {
-    if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey });
-  }, [blockNumber, queryKey]);
+    if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey })
+  }, [blockNumber, queryKey, queryClient])
 
-  const currentChain = chainConfigs.find((c) => c.id === chain?.id);
-  const state = `${!isMounted || balance?.formatted === undefined
+  const currentChain = chainConfigs.find((c) => c.id === chain?.id)
+  const state = `${
+    !isMounted || balance?.formatted === undefined
       ? `balance-loading`
       : `balance-${currentChain?.id}-${balance?.formatted}`
-    }`;
+  }`
 
   useEffect(() => {
-    setIsInitial(false);
-  }, []);
+    setIsInitial(false)
+  }, [])
 
   return (
     <div style={{ position: 'relative' }}>
@@ -84,8 +83,8 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
           initial={
             balance?.formatted !== undefined && isInitial
               ? {
-                opacity: 1,
-              }
+                  opacity: 1,
+                }
               : { opacity: 0, position: 'absolute', top: 0, left: 0, bottom: 0 }
           }
           animate={{ opacity: 1, position: 'relative' }}
@@ -121,9 +120,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
           ) : (
             <Container>
               {!hideIcon && <Chain id={chain?.id} />}
-              <span style={{ minWidth: 32 }}>
-                {nFormatter(Number(balance?.formatted))}
-              </span>
+              <span style={{ minWidth: 32 }}>{nFormatter(Number(balance?.formatted))}</span>
               {!hideSymbol && ` ${balance?.symbol}`}
             </Container>
           )}
@@ -153,26 +150,14 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
         {!hideSymbol && ` ${balance?.symbol}`}
       </Container> */}
     </div>
-  );
-};
+  )
+}
 
-const BalanceButton: React.FC<All & BalanceProps> = ({
-  theme,
-  mode,
-  customTheme,
-  hideIcon,
-  hideSymbol,
-}) => {
+const BalanceButton: React.FC<All & BalanceProps> = ({ theme, mode, customTheme, hideIcon, hideSymbol }) => {
   return (
-    <ThemedButton
-      duration={0.4}
-      variant={'secondary'}
-      theme={theme}
-      mode={mode}
-      customTheme={customTheme}
-    >
+    <ThemedButton duration={0.4} variant={'secondary'} theme={theme} mode={mode} customTheme={customTheme}>
       <Balance hideIcon={hideIcon} hideSymbol={hideSymbol} />
     </ThemedButton>
-  );
-};
-export default BalanceButton;
+  )
+}
+export default BalanceButton

@@ -1,70 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Container,
-  WalletList,
-  WalletItem,
-  WalletIcon,
-  WalletLabel,
-} from './styles';
-
-import { PageContent, ModalContent } from '../../Common/Modal/styles';
-
-import { useOpenfort } from '../../Openfort/useOpenfort';
-import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal';
-import CopyToClipboard from '../../Common/CopyToClipboard';
-import useLocales from '../../../hooks/useLocales';
-import { Spinner } from '../../Common/Spinner';
-import { ScrollArea } from '../../Common/ScrollArea';
-import { useWeb3 } from '../../contexts/web3';
-import { useWallets } from '../../../wallets/useWallets';
-import {
-  WalletConfigProps,
-  walletConfigs,
-} from '../../../wallets/walletConfigs';
-import { routes } from '../../Openfort/types';
+import type React from 'react'
+import useLocales from '../../../hooks/useLocales'
+import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
+import { useWallets } from '../../../wallets/useWallets'
+import { walletConfigs } from '../../../wallets/walletConfigs'
+import CopyToClipboard from '../../Common/CopyToClipboard'
+import { ModalContent, PageContent } from '../../Common/Modal/styles'
+import { ScrollArea } from '../../Common/ScrollArea'
+import { Spinner } from '../../Common/Spinner'
+import { useWeb3 } from '../../contexts/web3'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import { Container, WalletIcon, WalletItem, WalletLabel, WalletList } from './styles'
 
 const MoreIcon = (
-  <svg
-    width="60"
-    height="60"
-    viewBox="0 0 60 60"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M30 42V19M19 30.5H42"
-      stroke="var(--ck-body-color-muted)"
-      strokeWidth="3"
-      strokeLinecap="round"
-    />
+  <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 42V19M19 30.5H42" stroke="var(--ck-body-color-muted)" strokeWidth="3" strokeLinecap="round" />
   </svg>
-);
+)
 
 const MobileConnectors: React.FC = () => {
-  const context = useOpenfort();
-  const locales = useLocales();
+  const context = useOpenfort()
+  const locales = useLocales()
 
   const {
     connect: { getUri },
-  } = useWeb3();
-  const wcUri = getUri();
+  } = useWeb3()
+  const wcUri = getUri()
 
-  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
-  const wallets = useWallets();
+  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal()
+  const wallets = useWallets()
 
   // filter out installed wallets
   const walletsIdsToDisplay =
     Object.keys(walletConfigs).filter((walletId) => {
-      const wallet = walletConfigs[walletId];
-      if (wallets.find((w) => w.connector.id === walletId)) return false;
-      if (!wallet.getWalletConnectDeeplink) return false;
-      return true;
-    }) ?? [];
+      const wallet = walletConfigs[walletId]
+      if (wallets.find((w) => w.connector.id === walletId)) return false
+      if (!wallet.getWalletConnectDeeplink) return false
+      return true
+    }) ?? []
 
   const connectWallet = (walletId: string) => {
-    context.setRoute(routes.CONNECT_WITH_MOBILE);
-    context.setConnector({ id: walletId });
-  };
+    context.setRoute(routes.CONNECT_WITH_MOBILE)
+    context.setConnector({ id: walletId })
+  }
 
   return (
     <PageContent style={{ width: 312 }}>
@@ -76,23 +54,17 @@ const MobileConnectors: React.FC = () => {
                 .sort(
                   // sort by name
                   (a, b) => {
-                    const walletA = walletConfigs[a];
-                    const walletB = walletConfigs[b];
-                    const nameA = walletA.name ?? walletA.shortName ?? a;
-                    const nameB = walletB.name ?? walletB.shortName ?? b;
-                    return nameA.localeCompare(nameB);
+                    const walletA = walletConfigs[a]
+                    const walletB = walletConfigs[b]
+                    const nameA = walletA.name ?? walletA.shortName ?? a
+                    const nameB = walletB.name ?? walletB.shortName ?? b
+                    return nameA.localeCompare(nameB)
                   }
                 )
-                .filter(
-                  (walletId) =>
-                    !(
-                      walletId === 'coinbaseWallet' ||
-                      walletId === 'com.coinbase.wallet'
-                    )
-                )
+                .filter((walletId) => !(walletId === 'coinbaseWallet' || walletId === 'com.coinbase.wallet'))
                 .map((walletId, i) => {
-                  const wallet = walletConfigs[walletId];
-                  const { name, shortName, iconConnector, icon } = wallet;
+                  const wallet = walletConfigs[walletId]
+                  const { name, shortName, iconConnector, icon } = wallet
                   return (
                     <WalletItem
                       key={i}
@@ -101,17 +73,13 @@ const MobileConnectors: React.FC = () => {
                         animationDelay: `${i * 50}ms`,
                       }}
                     >
-                      <WalletIcon $outline={true}>
-                        {iconConnector ?? icon}
-                      </WalletIcon>
+                      <WalletIcon $outline={true}>{iconConnector ?? icon}</WalletIcon>
                       <WalletLabel>{shortName ?? name}</WalletLabel>
                     </WalletItem>
-                  );
+                  )
                 })}
               <WalletItem onClick={openW3M} $waiting={isOpenW3M}>
-                <WalletIcon
-                  style={{ background: 'var(--ck-body-background-secondary)' }}
-                >
+                <WalletIcon style={{ background: 'var(--ck-body-background-secondary)' }}>
                   {isOpenW3M ? (
                     <div
                       style={{
@@ -156,7 +124,7 @@ const MobileConnectors: React.FC = () => {
         )}
       </Container>
     </PageContent>
-  );
-};
+  )
+}
 
-export default MobileConnectors;
+export default MobileConnectors
