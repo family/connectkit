@@ -4,14 +4,6 @@ Implementation using openfort UI components.
 
 ## Quick Start
 
-Use Openfort CLI to create a new project from this example:
-
-```bash
-npx create openfort -t openfort-ui
-```
-
-Or, if you prefer, you can download this example using gitpick:
-
 ```bash
 npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/openfort-ui openfort-ui && cd openfort-ui
 ```
