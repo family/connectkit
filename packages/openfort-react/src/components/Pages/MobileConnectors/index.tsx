@@ -67,7 +67,7 @@ const MobileConnectors: React.FC = () => {
                   const { name, shortName, iconConnector, icon } = wallet
                   return (
                     <WalletItem
-                      key={i}
+                      key={walletId}
                       onClick={() => connectWallet(walletId)}
                       style={{
                         animationDelay: `${i * 50}ms`,

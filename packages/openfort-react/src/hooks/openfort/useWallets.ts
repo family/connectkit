@@ -342,6 +342,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     if (connectToConnector) connect({ connector: connectToConnector.connector })
   }, [connectToConnector, connect])
 
+  const queryClient = useQueryClient()
+
   const setActiveWallet = useCallback(
     async (options: SetActiveWalletOptions | string): Promise<SetActiveWalletResult> => {
       const optionsObject: SetActiveWalletOptions = typeof options === 'string' ? { walletId: options } : options
@@ -610,7 +612,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     ]
   )
 
-  const queryClient = useQueryClient()
   const createWallet = useCallback(
     async ({ recovery, ...options }: CreateWalletOptions = {}): Promise<CreateWalletResult> => {
       setStatus({

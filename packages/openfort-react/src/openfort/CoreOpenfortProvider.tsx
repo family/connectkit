@@ -137,6 +137,20 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
     }
   }, [openfort, startPollingEmbeddedState, stopPollingEmbeddedState])
 
+  const queryClient = useQueryClient()
+  const logout = useCallback(async () => {
+    if (!openfort) return
+
+    setUser(null)
+    setWalletStatus({ status: 'idle' })
+    logger.log('Logging out...')
+    await openfort.auth.logout()
+    await disconnectAsync()
+    queryClient.resetQueries({ queryKey: ['openfortEmbeddedAccountsList'] })
+    reset()
+    startPollingEmbeddedState()
+  }, [openfort, disconnectAsync, queryClient, reset, startPollingEmbeddedState])
+
   const updateUser = useCallback(
     async (user?: AuthPlayerResponse, logoutOnError: boolean = false) => {
       if (!openfort) return null
@@ -276,20 +290,6 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   }, [connectors, embeddedState, address, user, connect, isConnectedWithEmbeddedSigner])
 
   // ---- Auth functions ----
-
-  const queryClient = useQueryClient()
-  const logout = useCallback(async () => {
-    if (!openfort) return
-
-    setUser(null)
-    setWalletStatus({ status: 'idle' })
-    logger.log('Logging out...')
-    await openfort.auth.logout()
-    await disconnectAsync()
-    queryClient.resetQueries({ queryKey: ['openfortEmbeddedAccountsList'] })
-    reset()
-    startPollingEmbeddedState()
-  }, [openfort, disconnectAsync, queryClient, reset, startPollingEmbeddedState])
 
   const signUpGuest = useCallback(async () => {
     if (!openfort) return

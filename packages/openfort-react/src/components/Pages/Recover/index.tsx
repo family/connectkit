@@ -1,7 +1,7 @@
 import { EmbeddedState, RecoveryMethod } from '@openfort/openfort-js'
 import { motion } from 'framer-motion'
 import type React from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { Hex } from 'viem'
 import { useAccount, useEnsName } from 'wagmi'
 import { FingerPrintIcon, KeyIcon, LockIcon, ShieldIcon } from '../../../assets/icons'
@@ -121,7 +121,7 @@ const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
   const { setActiveWallet, error: recoveryError } = useWallets()
   const [shouldRecoverWallet, setShouldRecoverWallet] = useState(false)
 
-  const recoverWallet = async () => {
+  const recoverWallet = useCallback(async () => {
     setActiveWallet({
       walletId: embeddedWalletId,
       recovery: {
@@ -129,7 +129,7 @@ const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
       },
       address: wallet.address,
     })
-  }
+  }, [setActiveWallet, wallet.address])
 
   useEffect(() => {
     // To ensure the wallet is created only once

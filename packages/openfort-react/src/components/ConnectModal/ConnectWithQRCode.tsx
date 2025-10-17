@@ -44,9 +44,8 @@ const ConnectWithQRCode: React.FC<{
 
   const [isFirstFrame, setIsFirstFrame] = React.useState(true)
 
-  if (!wallet) return <>Wallet not found {context.connector.id}</>
-
   const downloads = wallet?.downloadUrls
+
   const extensions = {
     chrome: downloads?.chrome,
     firefox: downloads?.firefox,
@@ -92,6 +91,8 @@ const ConnectWithQRCode: React.FC<{
     : undefined
 
   const showAdditionalOptions = isWalletConnectConnector(id)
+
+  if (!wallet) return <>Wallet not found {context.connector.id}</>
 
   return (
     <PageContent>

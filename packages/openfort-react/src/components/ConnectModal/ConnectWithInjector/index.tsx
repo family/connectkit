@@ -1,6 +1,6 @@
 import { AnimatePresence, type Variants } from 'framer-motion'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useAccount, useDisconnect } from 'wagmi'
 import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons'
 import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe'
@@ -70,7 +70,7 @@ const contentVariants: Variants = {
 const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void
   forceState?: typeof states
-}> = ({ switchConnectMethod, forceState }) => {
+}> = ({ forceState }) => {
   const openfort = useOpenfortCore()
   const { log, setOpen } = useOpenfort()
   const { isConnected } = useAccount()
@@ -198,7 +198,7 @@ const ConnectWithInjector: React.FC<{
     SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label ?? 'your browser',
   })
 
-  const runConnect = async () => {
+  const runConnect = useCallback(async () => {
     if (wallet?.isInstalled && wallet?.connector) {
       // Disconnect if already connected
       if (isConnected) disconnect()
@@ -207,18 +207,17 @@ const ConnectWithInjector: React.FC<{
     } else {
       setStatus(states.UNAVAILABLE)
     }
-  }
+  }, [wallet, isConnected, disconnect, connect])
 
-  let connectTimeout: any
   useEffect(() => {
     if (status === states.UNAVAILABLE) return
 
     // UX: Give user time to see the UI before opening the extension
-    connectTimeout = setTimeout(runConnect, 600)
+    const connectTimeout = setTimeout(runConnect, 600)
     return () => {
       clearTimeout(connectTimeout)
     }
-  }, [])
+  }, [status, runConnect])
 
   /* Timeout functionality if necessary
   let expiryTimeout: any;
@@ -309,7 +308,7 @@ const ConnectWithInjector: React.FC<{
                       {walletInfo.icon}
                     </div>
                   ) : (
-                    <>{walletInfo.icon}</>
+                    walletInfo.icon
                   )
                 }
                 smallLogo={walletInfo.iconShouldShrink}
@@ -330,7 +329,7 @@ const ConnectWithInjector: React.FC<{
                       {walletInfo.icon}
                     </div>
                   ) : (
-                    <>{walletInfo.icon}</>
+                    walletInfo.icon
                   )
                 }
                 connecting={status === states.CONNECTING}

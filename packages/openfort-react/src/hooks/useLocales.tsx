@@ -21,9 +21,9 @@ export default function useLocales(replacements?: any): LocaleProps {
   }
 
   const translated = {}
-  Object.keys(translations).map((key) => {
+  Object.keys(translations).forEach((key) => {
     const string = translations[key]
-    return (translated[key] = localize(string, replacements))
+    translated[key] = localize(string, replacements)
   })
 
   return translated as LocaleProps
@@ -45,7 +45,7 @@ const replaceMarkdown = (markdownText: string) => {
   text = text.split('\n')
   text = text.map((t: string, i: number) => {
     return (
-      <React.Fragment key={i}>
+      <React.Fragment key={`line-${i}-${t.substring(0, 10)}`}>
         {wrapTags(t)}
         {i < text.length - 1 && <br />}
       </React.Fragment>
@@ -60,7 +60,8 @@ const wrapTags = (text: string) => {
   const result = textArray.map((str, i) => {
     if (/(\*\*.*\*\*)/g.test(str)) {
       // use `replace` instead of `replaceAll` to support Node 14
-      return <strong key={i}>{str.replace(/\*\*/g, '')}</strong>
+      const content = str.replace(/\*\*/g, '')
+      return <strong key={`bold-${i}-${content.substring(0, 10)}`}>{content}</strong>
     }
     return `${str}`
   })

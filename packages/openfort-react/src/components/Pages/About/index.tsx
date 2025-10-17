@@ -1,6 +1,6 @@
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import type React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useLocales from '../../../hooks/useLocales'
 
 import Button from '../../Common/Button'
@@ -71,8 +71,13 @@ const About: React.FC = () => {
     }
   }
 
+  const didInteract = useCallback(() => {
+    interacted.current = true
+    clearTimeout(interval)
+  }, [interval])
+
   // This event should not fire on mobile
-  const onScroll = () => {
+  const onScroll = useCallback(() => {
     if (!sliderRef.current) return
 
     const { offsetWidth: width, scrollLeft: x } = sliderRef.current
@@ -86,19 +91,17 @@ const About: React.FC = () => {
       const currentSlide = Math.round(x / width)
       setSlider(currentSlide)
     }
-  }
-  const onTouchMove = () => {
+  }, [])
+
+  const onTouchMove = useCallback(() => {
     didInteract()
-  }
-  const onTouchEnd = () => {
+  }, [didInteract])
+
+  const onTouchEnd = useCallback(() => {
     const { offsetWidth: width, scrollLeft: x } = sliderRef.current
     const currentSlide = Math.round(x / width)
     setSlider(currentSlide)
-  }
-  const didInteract = () => {
-    interacted.current = true
-    clearTimeout(interval)
-  }
+  }, [])
 
   const sliderRef = useRef<any>(null)
   useEffect(() => {
@@ -115,15 +118,15 @@ const About: React.FC = () => {
   }, [onScroll, onTouchEnd, onTouchMove])
 
   const graphics: React.ReactNode[] = [
-    <SlideOne layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
-    <SlideTwo layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
-    <SlideThree layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
+    <SlideOne key="slide-one" layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
+    <SlideTwo key="slide-two" layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
+    <SlideThree key="slide-three" layoutId={'graphicCircle'} duration={animationDuration} ease={animationEase} />,
   ]
 
   const mobileGraphics: React.ReactNode[] = [
-    <SlideOne duration={animationDuration} ease={animationEase} />,
-    <SlideTwo duration={animationDuration} ease={animationEase} />,
-    <SlideThree duration={animationDuration} ease={animationEase} />,
+    <SlideOne key="mobile-slide-one" duration={animationDuration} ease={animationEase} />,
+    <SlideTwo key="mobile-slide-two" duration={animationDuration} ease={animationEase} />,
+    <SlideThree key="mobile-slide-three" duration={animationDuration} ease={animationEase} />,
   ]
 
   // Adjust height of ModalBody to fit content based on language

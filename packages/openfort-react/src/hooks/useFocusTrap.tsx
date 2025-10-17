@@ -1,13 +1,13 @@
 // Based on https://hiddedevries.nl/en/blog/2017-01-29-using-javascript-to-trap-focus-in-an-element
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 const KEYCODE_TAB = 9
 
 function useFocusTrap() {
   const elRef = useRef<any>(null)
 
-  function handleFocus(e: any) {
+  const handleFocus = useCallback((e: any) => {
     if (!elRef.current) return
     var focusableEls = elRef.current.querySelectorAll(`
         a[href]:not(:disabled),
@@ -38,7 +38,7 @@ function useFocusTrap() {
         e.preventDefault()
       }
     }
-  }
+  }, [])
 
   useEffect(() => {
     if (elRef.current) {

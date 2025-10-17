@@ -2,7 +2,6 @@ import { AnimatePresence, motion, type Variants } from 'framer-motion'
 import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTransition } from 'react-transition-state'
-import { useAccount, useSwitchChain } from 'wagmi'
 import { AuthIcon } from '../../../assets/icons'
 import FocusTrap from '../../../hooks/useFocusTrap'
 import useLocales from '../../../hooks/useLocales'
@@ -217,7 +216,7 @@ const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     setOpen(open)
     if (open) setInTransition(undefined)
-  }, [open])
+  }, [open, setOpen])
 
   const [dimensions, setDimensions] = useState<{
     width: string | undefined
@@ -229,7 +228,7 @@ const Modal: React.FC<ModalProps> = ({
   const [inTransition, setInTransition] = useState<boolean | undefined>(undefined)
 
   // Calculate new content bounds
-  const updateBounds = (node: any) => {
+  const updateBounds = useCallback((node: any) => {
     const bounds = {
       width: node?.offsetWidth,
       height: node?.offsetHeight,
@@ -238,7 +237,7 @@ const Modal: React.FC<ModalProps> = ({
       width: `${bounds?.width}px`,
       height: `${bounds?.height}px`,
     })
-  }
+  }, [])
 
   let blockTimeout: ReturnType<typeof setTimeout>
   const contentRef = useCallback(
@@ -254,17 +253,13 @@ const Modal: React.FC<ModalProps> = ({
       // Calculate new content bounds
       updateBounds(node)
     },
-    [open, inTransition]
+    [inTransition, updateBounds]
   )
-
-  // Update layout on chain/network switch to avoid clipping
-  const { chain } = useAccount()
-  const { switchChain } = useSwitchChain()
 
   const ref = useRef<any>(null)
   useEffect(() => {
     if (ref.current) updateBounds(ref.current)
-  }, [chain, switchChain, mobile, context.uiConfig, context.resize])
+  }, [updateBounds])
 
   useEffect(() => {
     if (!mounted) {
@@ -405,17 +400,31 @@ const Modal: React.FC<ModalProps> = ({
                   transition={{ duration: 0.2, ease: 'easeInOut' }}
                 >
                   <span>{context.errorMessage}</span>
-                  <div
+                  <button
+                    type="button"
                     onClick={() => context.displayError(null)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        context.displayError(null)
+                      }
+                    }}
                     style={{
                       position: 'absolute',
                       right: 24,
                       top: 24,
                       cursor: 'pointer',
+                      background: 'none',
+                      border: 'none',
+                      padding: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
+                    aria-label="Close error message"
                   >
                     <CloseIcon />
-                  </div>
+                  </button>
                 </ErrorMessage>
               )}
             </AnimatePresence>
@@ -535,21 +544,14 @@ const Modal: React.FC<ModalProps> = ({
   )
   return (
     <>
-      {mounted && (
-        <>
-          {positionInside ? (
-            Content
-          ) : (
-            <>
-              {
-                <Portal>
-                  <FocusTrap>{Content}</FocusTrap>
-                </Portal>
-              }
-            </>
-          )}
-        </>
-      )}
+      {mounted &&
+        (positionInside ? (
+          Content
+        ) : (
+          <Portal>
+            <FocusTrap>{Content}</FocusTrap>
+          </Portal>
+        ))}
     </>
   )
 }
@@ -564,7 +566,7 @@ type PageProps = {
   exitAnim?: string
 }
 
-const Page: React.FC<PageProps> = ({ children, open, initial, prevDepth, currentDepth, enterAnim, exitAnim }) => {
+const Page: React.FC<PageProps> = ({ children, open, initial, enterAnim, exitAnim }) => {
   const [state, setOpen] = useTransition({
     timeout: 400,
     preEnter: true,
@@ -577,7 +579,7 @@ const Page: React.FC<PageProps> = ({ children, open, initial, prevDepth, current
 
   useEffect(() => {
     setOpen(open)
-  }, [open])
+  }, [open, setOpen])
 
   if (!mounted) return null
 

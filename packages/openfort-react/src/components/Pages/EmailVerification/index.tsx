@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { EmailIcon } from '../../../assets/icons'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
@@ -25,24 +25,27 @@ const EmailVerification: React.FC = () => {
   const [shouldSendEmailVerification, setShouldSendEmailVerification] = useState<false | string>(false)
   const [verificationResponse, setVerificationResponse] = useState<VerificationResponse | null>(null)
 
-  const sendEmailVerification = async (email: string) => {
-    if (!email) {
-      log('No linked account found')
-      return
-    }
+  const sendEmailVerification = useCallback(
+    async (email: string) => {
+      if (!email) {
+        log('No linked account found')
+        return
+      }
 
-    const redirectUrl = new URL(window.location.origin + window.location.pathname)
-    redirectUrl.searchParams.append('openfortEmailVerificationUI', 'true')
-    redirectUrl.searchParams.append('email', email)
-    client.auth
-      .requestEmailVerification({
-        email,
-        redirectUrl: redirectUrl.toString(),
-      })
-      .catch((e) => {
-        log('Error requesting email verification', e)
-      })
-  }
+      const redirectUrl = new URL(window.location.origin + window.location.pathname)
+      redirectUrl.searchParams.append('openfortEmailVerificationUI', 'true')
+      redirectUrl.searchParams.append('email', email)
+      client.auth
+        .requestEmailVerification({
+          email,
+          redirectUrl: redirectUrl.toString(),
+        })
+        .catch((e) => {
+          log('Error requesting email verification', e)
+        })
+    },
+    [client, log]
+  )
 
   useEffect(() => {
     if (shouldSendEmailVerification) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
 import styled from '../../styles/styled'
@@ -45,19 +45,22 @@ const ConnectWithMobile: React.FC = () => {
 
   const siwe = useConnectWithSiwe()
 
-  const openApp = (url?: string) => {
-    const uri = wallet?.getWalletConnectDeeplink?.(url ?? '')
-    if (uri) {
-      if (url) {
-        window.location.href = uri
+  const openApp = useCallback(
+    (url?: string) => {
+      const uri = wallet?.getWalletConnectDeeplink?.(url ?? '')
+      if (uri) {
+        if (url) {
+          window.location.href = uri
+        } else {
+          window.location.href = uri.replace('?uri=', '')
+        }
       } else {
-        window.location.href = uri.replace('?uri=', '')
+        setStatus(states.ERROR)
+        setDescription('Wallet does not support deeplink')
       }
-    } else {
-      setStatus(states.ERROR)
-      setDescription('Wallet does not support deeplink')
-    }
-  }
+    },
+    [wallet]
+  )
 
   useOnUserReturn(() => {
     setTimeout(() => {

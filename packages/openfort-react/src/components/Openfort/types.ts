@@ -1,4 +1,4 @@
-import { type AccountTypeEnum, BasicAuthProvider, OAuthProvider, type RecoveryMethod } from '@openfort/openfort-js'
+import type { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
 import type { ReactNode } from 'react'
 import type { CoreOpenfortProviderProps } from '../../openfort/CoreOpenfortProvider'
@@ -30,19 +30,19 @@ export const routes = {
 } as const
 
 export enum UIAuthProvider {
-  GOOGLE = OAuthProvider.GOOGLE,
-  TWITTER = OAuthProvider.TWITTER,
-  FACEBOOK = OAuthProvider.FACEBOOK,
+  GOOGLE = 'google',
+  TWITTER = 'twitter',
+  FACEBOOK = 'facebook',
 
-  DISCORD = OAuthProvider.DISCORD,
+  DISCORD = 'discord',
   // EPIC_GAMES = "epic_games",
   // LINE = "line",
   // TELEGRAM = "telegram", // Telegram is not working yet
-  APPLE = OAuthProvider.APPLE,
+  APPLE = 'apple',
 
   // Extended Providers
-  EMAIL = BasicAuthProvider.EMAIL,
-  WALLET = BasicAuthProvider.WALLET,
+  EMAIL = 'email',
+  WALLET = 'wallet',
   GUEST = 'guest',
 }
 
