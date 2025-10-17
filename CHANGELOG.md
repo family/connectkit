@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.26] - 2025-10-17
+
+### Feat
+
+- Fix bug in recover wallet
+
 ## [0.0.25] - 2025-10-16
 
 ### Feat

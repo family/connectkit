@@ -443,7 +443,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             recoveryParams,
           })
         } else {
-          let accountToRecover
+          let accountToRecover: EmbeddedAccount | undefined;
           // Check if the embedded wallet is already created in the current chain
           if (walletConfig?.accountType === AccountTypeEnum.EOA) {
             accountToRecover = embeddedAccounts.find((w) => w.accountType === AccountTypeEnum.EOA);
@@ -455,7 +455,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               });
             }
           } else {
-            const accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId);
+            accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId);
             if (!accountToRecover) {
               // Here it should check if there is a wallet that can recover in another chain and recover it in the current chain (its a different account so its not supported yet)
               // TODO: Connect to wallet in the other chain and then switch chain
