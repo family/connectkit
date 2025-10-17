@@ -131,7 +131,11 @@ export function SupabaseAuthCard() {
 
       <div className="text-left text-sm">
         {isLogin ? 'Already have an account? ' : "Don't have an account? "}
-        <button onClick={handleToggleMode} className="text-primary hover:underline cursor-pointer font-medium">
+        <button
+          type="button"
+          onClick={handleToggleMode}
+          className="text-primary hover:underline cursor-pointer font-medium"
+        >
           {isLogin ? 'Sign Up' : 'Sign In'}
         </button>
       </div>
