@@ -39,17 +39,16 @@ body {
 }
 
 .input-error {
-  @apply border-error
+  @apply border-error;
 }
 
 .input {
-  @apply focus-within:outline-0
+  @apply focus-within:outline-0;
 }
 
 .btn-ghost {
-  @apply !bg-transparent border-none !shadow-none hover:bg-transparent
+  @apply !bg-transparent border-none !shadow-none hover:bg-transparent;
 }
-
 
 /* Default (light mode) */
 ::-webkit-scrollbar {
@@ -207,7 +206,7 @@ body {
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.21 0.006 285.885);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: #FC3627;
+  --primary: #fc3627;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
@@ -234,13 +233,11 @@ body {
   --sidebar-ring: oklch(0.552 0.016 285.938);
   --tooltip: oklch(0.985 0 0);
   --tooltip-foreground: oklch(0.141 0.005 285.823);
-
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-
   }
 
   /* body {
@@ -248,11 +245,10 @@ body {
   } */
 }
 
-
 @keyframes FadeIn {
   0% {
     opacity: 0;
-    transform: scale(.1);
+    transform: scale(0.1);
   }
 
   85% {
@@ -265,44 +261,44 @@ body {
   }
 }
 
-.animate-child-in>* {
-  animation: FadeIn .3s linear;
+.animate-child-in > * {
+  animation: FadeIn 0.3s linear;
   animation-fill-mode: both;
-  --delay: .05s;
+  --delay: 0.05s;
 }
 
-.animate-child-in>*:nth-child(1) {
+.animate-child-in > *:nth-child(1) {
   animation-delay: calc(0 * var(--delay));
 }
 
-.animate-child-in>*:nth-child(2) {
+.animate-child-in > *:nth-child(2) {
   animation-delay: calc(1 * var(--delay));
 }
 
-.animate-child-in>*:nth-child(3) {
+.animate-child-in > *:nth-child(3) {
   animation-delay: calc(2 * var(--delay));
 }
 
-.animate-child-in>*:nth-child(4) {
+.animate-child-in > *:nth-child(4) {
   animation-delay: calc(3 * var(--delay));
 }
 
-.animate-child-in>*:nth-child(5) {
+.animate-child-in > *:nth-child(5) {
   animation-delay: calc(4 * var(--delay));
 }
 
-.animate-child-in>*:nth-child(6) {
+.animate-child-in > *:nth-child(6) {
   animation-delay: calc(5 * var(--delay));
 }
 
-.animate-child-in>*:nth-child(7) {
+.animate-child-in > *:nth-child(7) {
   animation-delay: calc(6 * var(--delay));
 }
 
-.animate-child-in>*:nth-child(8) {
+.animate-child-in > *:nth-child(8) {
   animation-delay: calc(7 * var(--delay));
 }
 
-.animate-child-in>*:nth-child(9) {
+.animate-child-in > *:nth-child(9) {
   animation-delay: calc(8 * var(--delay));
 }

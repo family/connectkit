@@ -17,7 +17,7 @@ const Wallets: React.FC = () => {
   return (
     <PageContent style={{ width: 312 }}>
       <ConnectorList />
-      {isMobile ? (
+      {isMobile && (
         <InfoBox>
             <ModalContent style={{ padding: 0, textAlign: 'left' }}>
               <ModalH1 $small>{locales.connectorsScreen_h1}</ModalH1>
@@ -42,7 +42,6 @@ const Wallets: React.FC = () => {
               )}
             </InfoBoxButtons>
           </InfoBox>
-      ) : (
       )}
       {/* {context.options?.disclaimer && (
         <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>

@@ -47,11 +47,11 @@
   }
 
   h1 {
-    @apply text-2xl font-bold
+    @apply text-2xl font-bold;
   }
 
   h2 {
-    @apply text-xl font-bold
+    @apply text-xl font-bold;
   }
 
   .card {
@@ -89,7 +89,6 @@
   --card-width: 29rem;
   --card-group-height: 600px;
 
-
   @media (max-width: calc(64rem - 1px)) {
     --card-group-width: 29rem;
   }
@@ -111,7 +110,7 @@
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 3em #FC3627);
+  filter: drop-shadow(0 0 3em #fc3627);
 }
 
 @keyframes spin {
@@ -156,7 +155,11 @@
   color: var(--color-zinc-100);
   border: 1px solid var(--color-zinc-100);
   background-color: var(--color-zinc-800);
-  transition: border-color 300ms, background-color 300ms, color 300ms, filter 300ms;
+  transition:
+    border-color 300ms,
+    background-color 300ms,
+    color 300ms,
+    filter 300ms;
 
   overflow: hidden;
 
@@ -164,7 +167,10 @@
   min-height: 2rem;
 
   .hover-description {
-    transition: transform 300ms, max-height 500ms, opacity 300ms;
+    transition:
+      transform 300ms,
+      max-height 500ms,
+      opacity 300ms;
 
     max-height: 2.5rem;
   }

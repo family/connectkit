@@ -79,6 +79,7 @@ export function WalletListCard() {
         <div className="flex flex-col space-y-2">
           {wallets.map((wallet) => (
             <button
+              type="button"
               key={wallet.id + wallet.address}
               className="px-4 py-3 border data-[active=true]:border-zinc-300 border-zinc-700 rounded data-[active=false]:cursor-pointer data-[active=false]:hover:bg-zinc-700/20 hover:border-zinc-300 transition-colors flex-1 text-sm"
               onClick={() => handleWalletClick(wallet)}
@@ -99,6 +100,7 @@ export function WalletListCard() {
           ))}
 
           <button
+            type="button"
             className="p-3 border border-zinc-700 rounded cursor-pointer hover:bg-zinc-700/20 hover:border-zinc-300 transition-colors flex-1"
             onClick={() => setCreateWalletSheetOpen(true)}
           >
@@ -117,6 +119,7 @@ export function WalletListCard() {
 
       {!isConnected && (
         <button
+          type="button"
           onClick={() => {
             signOut()
           }}

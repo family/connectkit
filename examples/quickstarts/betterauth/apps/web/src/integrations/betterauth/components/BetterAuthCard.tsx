@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 import { authClient } from '../client'
 import { getBetterAuthErrorMessage, logBetterAuthError } from '../errors'
@@ -37,6 +37,8 @@ function GoogleSignInButton({ onError }: { onError: (error: string) => void }) {
 
 function EmailPasswordForm({ isLogin, onError }: { isLogin: boolean; onError: (error: string) => void }) {
   const [loading, setLoading] = useState(false)
+  const emailId = useId()
+  const passwordId = useId()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -72,16 +74,16 @@ function EmailPasswordForm({ isLogin, onError }: { isLogin: boolean; onError: (e
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 mb-4">
-      <label className="block text-left text-sm font-medium mb-1" htmlFor="email">
+      <label className="block text-left text-sm font-medium mb-1" htmlFor={emailId}>
         Email
       </label>
-      <input id="email" type="email" placeholder="Enter your email address" required />
+      <input id={emailId} type="email" placeholder="Enter your email address" required />
 
       <div>
-        <label className="block text-left text-sm font-medium mb-1" htmlFor="password">
+        <label className="block text-left text-sm font-medium mb-1" htmlFor={passwordId}>
           Password
         </label>
-        <input id="password" type="password" placeholder="Enter your password" required />
+        <input id={passwordId} type="password" placeholder="Enter your password" required />
       </div>
 
       <button type="submit" disabled={loading} className="btn mt-2 disabled:opacity-50 disabled:cursor-not-allowed">

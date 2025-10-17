@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
 import { beamTestnet, polygonAmoy } from 'viem/chains'
 import { createConfig, WagmiProvider } from 'wagmi'
-import { auth } from '../integrations/firebase'
+import { auth } from '../integrations/firebase/client'
 
 export const config = createConfig(
   getDefaultConfig({
