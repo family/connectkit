@@ -2,6 +2,12 @@
 
 A clean, production-ready example of integrating [Openfort](https://www.openfort.io/) wallet infrastructure with [Better Auth](https://www.better-auth.com/) for seamless Web3 authentication.
 
+## Quick Start
+
+```bash
+npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/betterauth openfort-betterauth && cd openfort-betterauth
+```
+
 ## Overview
 
 This monorepo demonstrates how to build a modern authentication system that combines:
