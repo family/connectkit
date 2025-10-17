@@ -25,7 +25,35 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/supabase 
 
    See [`.env.example`](.env.example) for all required variables and [AGENTS.md](AGENTS.md#environment-configuration) for details on where to obtain each value.
 
-3. **Start development server**:
+3. **Configure Supabase Authentication**:
+
+   By default, Supabase only enables **Email authentication** which requires **email verification** for security. To use this example, you must configure authentication providers:
+
+   **Email Authentication (Default)**
+   - Already enabled by default in new Supabase projects
+   - Requires users to verify their email before signing in
+   - Users will receive a verification email after signup
+
+   **Google OAuth (Recommended)**
+   - Go to [Supabase Dashboard](https://app.supabase.com/)
+   - Select your project
+   - Navigate to **Authentication** > **Providers**
+   - Find **Google** in the provider list and click to configure
+   - Enable the Google provider
+   - Add your Google OAuth credentials:
+     - **Client ID** (from [Google Cloud Console](https://console.cloud.google.com/))
+     - **Client Secret**
+   - Add authorized redirect URIs:
+     - Development: `http://localhost:5173` (or your dev server URL)
+     - Production: Your production URL
+   - Save changes
+
+   **Email Templates (Optional)**
+   - Navigate to **Authentication** > **Email Templates**
+   - Customize the "Confirm signup" email template
+   - Ensure the confirmation URL points to your application URL
+
+4. **Start development server**:
 
    ```bash
    yarn dev

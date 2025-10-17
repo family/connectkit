@@ -12,7 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@openfort/react": "^0.0.26",
-    "@supabase/supabase-js": "^2.47.10",
+    "@supabase/supabase-js": "^2.75.1",
     "@tailwindcss/vite": "^4.1.12",
     "@tanstack/react-query": "^5.90.2",
     "react": "^18.2.0",

@@ -38,6 +38,14 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
   signup_disabled: 'Sign up is currently disabled.',
   email_provider_disabled: 'Email sign-in is currently disabled.',
   validation_failed: 'Validation failed. Please check your input.',
+
+  // Email verification errors
+  email_confirmation_required:
+    'Please check your email and click the verification link to continue.',
+  verification_link_expired:
+    'Verification link has expired. Please request a new one.',
+  verification_failed:
+    'Email verification failed. Please try signing up again.',
 }
 
 /**

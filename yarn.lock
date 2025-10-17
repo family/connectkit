@@ -4585,21 +4585,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/auth-js@npm:2.75.0":
-  version: 2.75.0
-  resolution: "@supabase/auth-js@npm:2.75.0"
+"@supabase/auth-js@npm:2.75.1":
+  version: 2.75.1
+  resolution: "@supabase/auth-js@npm:2.75.1"
   dependencies:
     "@supabase/node-fetch": 2.6.15
-  checksum: 10acc115f544ad2545dba5463c499ade710d08540ae5a7248a4736a294f316db826e7eeaa5b6e9d0154e3964150413bbc6517acfaf5dbc78a98f625b401bf6fb
+  checksum: 9ac7eea9a2ac0410d8859295942cf859a9258dfb9aaa20b3c228d824ee0c425f6ce68664baf6c3077f785d0c85a7d94146f095a81d164e1aa1a92b3044353091
   languageName: node
   linkType: hard
 
-"@supabase/functions-js@npm:2.75.0":
-  version: 2.75.0
-  resolution: "@supabase/functions-js@npm:2.75.0"
+"@supabase/functions-js@npm:2.75.1":
+  version: 2.75.1
+  resolution: "@supabase/functions-js@npm:2.75.1"
   dependencies:
     "@supabase/node-fetch": 2.6.15
-  checksum: fde2c305bfb7552b7331a2d421676c2531e44383945a7b1bfad537fef61c0386eb775406846693199800f353848b38a90a274863c647ab89b1af3d2570bc981c
+  checksum: f5055934462600630116bad829bde332b389afc4f8817619cb9e8e8e482f86faa778ace2c32817785e661afce5fd5a49dfbdae9c900c655a64f1bab8ff7dc666
   languageName: node
   linkType: hard
 
@@ -4612,47 +4612,47 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/postgrest-js@npm:2.75.0":
-  version: 2.75.0
-  resolution: "@supabase/postgrest-js@npm:2.75.0"
+"@supabase/postgrest-js@npm:2.75.1":
+  version: 2.75.1
+  resolution: "@supabase/postgrest-js@npm:2.75.1"
   dependencies:
     "@supabase/node-fetch": 2.6.15
-  checksum: fc3cffb021b931d34b48216bb13acfe10e00526e501e1308b34a84b1e7a06b1a9bffc72b10bd55ad0d447fec077f477a3fd0a9b59d3dde6a3fec29e63801ad10
+  checksum: f9c4c9d920e84a95cc327fbdc912ef17a1760672e4258e97fddb1edcca638aed862402c94a228b40c81e034bc860476e844657f9ff36bdc581204b866d044dcc
   languageName: node
   linkType: hard
 
-"@supabase/realtime-js@npm:2.75.0":
-  version: 2.75.0
-  resolution: "@supabase/realtime-js@npm:2.75.0"
+"@supabase/realtime-js@npm:2.75.1":
+  version: 2.75.1
+  resolution: "@supabase/realtime-js@npm:2.75.1"
   dependencies:
     "@supabase/node-fetch": 2.6.15
     "@types/phoenix": ^1.6.6
     "@types/ws": ^8.18.1
     ws: ^8.18.2
-  checksum: 3b59bfbd5ff89074c48369594ebe61e28eb8afba6d25434cfa1ad44f5fe06daa6505ddfa66b50169d7795d7c1c461a77c467c76ccd7cad2f0bd2cddcc1045c0c
+  checksum: cacd466e40e6a9119850b3ac77197c1fe9243138c610339a3cb75e5dea8e8ec71a9e31232d73c96c01315189a7f7f154b7f4c0c1f7bd000ee16729af1010d8da
   languageName: node
   linkType: hard
 
-"@supabase/storage-js@npm:2.75.0":
-  version: 2.75.0
-  resolution: "@supabase/storage-js@npm:2.75.0"
+"@supabase/storage-js@npm:2.75.1":
+  version: 2.75.1
+  resolution: "@supabase/storage-js@npm:2.75.1"
   dependencies:
     "@supabase/node-fetch": 2.6.15
-  checksum: bd6360917020d9b3c883ddabbbb3c31ab63c10adce2ce39a8173b2f4ce4ceb80e78e3d728aaf881d699c05af217d0ec5985656e87b179f88f552cf1606a0d035
+  checksum: d520dbf053816b11641655867e4f2ba05bec20bc563bd13b3ea58b0080c5d840c8e1ee365c9991f81d3e2802a4d6f5955e2a20b2a761bd89d302cb9bcd2fc8f5
   languageName: node
   linkType: hard
 
-"@supabase/supabase-js@npm:^2.47.10":
-  version: 2.75.0
-  resolution: "@supabase/supabase-js@npm:2.75.0"
+"@supabase/supabase-js@npm:^2.75.1":
+  version: 2.75.1
+  resolution: "@supabase/supabase-js@npm:2.75.1"
   dependencies:
-    "@supabase/auth-js": 2.75.0
-    "@supabase/functions-js": 2.75.0
+    "@supabase/auth-js": 2.75.1
+    "@supabase/functions-js": 2.75.1
     "@supabase/node-fetch": 2.6.15
-    "@supabase/postgrest-js": 2.75.0
-    "@supabase/realtime-js": 2.75.0
-    "@supabase/storage-js": 2.75.0
-  checksum: a9dfc4e4ba9fee197d3ed6e616abc61fd34043310155ee79a4391b27f170584b5551f9b7105761eda06b24900a42bfce8da431e6a91261e714c41344378c0e98
+    "@supabase/postgrest-js": 2.75.1
+    "@supabase/realtime-js": 2.75.1
+    "@supabase/storage-js": 2.75.1
+  checksum: 17c3a36297c10dd1f1b0c7d6ca915e230709ce722ce6ff0cd823e0b580d2e5557f9c9444168fbfcc3cd9e388aa58b4914f4379976276a996d4083f7132cf3aca
   languageName: node
   linkType: hard
 
@@ -12250,7 +12250,7 @@ __metadata:
     "@biomejs/biome": 2.2.6
     "@heroicons/react": ^2.2.0
     "@openfort/react": ^0.0.26
-    "@supabase/supabase-js": ^2.47.10
+    "@supabase/supabase-js": ^2.75.1
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/react": ^19.1.10
