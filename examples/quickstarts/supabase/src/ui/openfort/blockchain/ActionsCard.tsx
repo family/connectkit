@@ -82,7 +82,7 @@ function MintContract() {
         }}
       >
         <input type="number" placeholder="Enter amount to mint" className="grow peer" name="amount" />
-        <button className="btn" disabled={isPending || !address}>
+        <button type="submit" className="btn" disabled={isPending || !address}>
           {isPending ? 'Minting...' : 'Mint Tokens'}
         </button>
       </form>

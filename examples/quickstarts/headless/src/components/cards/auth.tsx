@@ -8,6 +8,7 @@ const GoogleSignInButton: React.FC = () => {
 
   return (
     <button
+      type="button"
       onClick={() => initOAuth({ provider: OAuthProvider.GOOGLE })}
       className="w-full py-2 px-4 border border-zinc-700 text-white rounded cursor-pointer transition-colors hover:bg-zinc-900/60"
     >
@@ -22,6 +23,7 @@ const GuestSignInButton: React.FC = () => {
 
   return (
     <button
+      type="button"
       onClick={() => signUpGuest()}
       className="w-full py-2 px-4 border border-zinc-700 text-white rounded cursor-pointer transition-colors hover:bg-zinc-900/60"
     >
@@ -122,6 +124,7 @@ const AuthForm = () => {
       <div className="text-left text-sm">
         {isLogin ? 'Already have an account? ' : "Don't have an account? "}
         <button
+          type="button"
           onClick={() => setIsLogin(!isLogin)}
           className="text-primary hover:underline cursor-pointer font-medium"
         >

@@ -63,6 +63,7 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
       </div>
 
       <button
+        type="button"
         onClick={async () => {
           await supabase.auth.signOut()
         }}

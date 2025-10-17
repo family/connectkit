@@ -40,6 +40,7 @@ export const CreateWallet = ({ onWalletCreated }: { onWalletCreated?: () => void
     <>
       <div className="flex flex-col gap-4 wallet-option-group mb-4">
         <button
+          type="button"
           className="wallet-option cursor-pointer"
           onClick={() =>
             createWallet({
@@ -56,6 +57,7 @@ export const CreateWallet = ({ onWalletCreated }: { onWalletCreated?: () => void
           </div>
         </button>
         <button
+          type="button"
           className="wallet-option cursor-pointer"
           onClick={() =>
             createWallet({
@@ -71,7 +73,7 @@ export const CreateWallet = ({ onWalletCreated }: { onWalletCreated?: () => void
             <p className="text-sm hover-description">Uses encryption session to recover your wallet.</p>
           </div>
         </button>
-        <button className="wallet-option cursor-pointer" onClick={() => setPasswordSheetOpen(true)}>
+        <button type="button" className="wallet-option cursor-pointer" onClick={() => setPasswordSheetOpen(true)}>
           <KeyIcon />
           <div className="flex flex-col text-start">
             <h4>Password</h4>

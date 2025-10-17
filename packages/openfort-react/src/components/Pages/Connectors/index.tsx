@@ -19,29 +19,23 @@ const Wallets: React.FC = () => {
       <ConnectorList />
       {isMobile && (
         <InfoBox>
-            <ModalContent style={{ padding: 0, textAlign: 'left' }}>
-              <ModalH1 $small>{locales.connectorsScreen_h1}</ModalH1>
-              <ModalBody>{locales.connectorsScreen_p}</ModalBody>
-            </ModalContent>
-            <InfoBoxButtons>
-              {!context.uiConfig?.hideQuestionMarkCTA && (
-                <Button
-                  variant={'tertiary'}
-                  onClick={() => context.setRoute(routes.ABOUT)}
-                >
-                  {locales.learnMore}
-                </Button>
-              )}
-              {!context.uiConfig?.hideNoWalletCTA && (
-                <Button
-                  variant={'tertiary'}
-                  onClick={() => context.setRoute(routes.ONBOARDING)}
-                >
-                  {locales.getWallet}
-                </Button>
-              )}
-            </InfoBoxButtons>
-          </InfoBox>
+          <ModalContent style={{ padding: 0, textAlign: 'left' }}>
+            <ModalH1 $small>{locales.connectorsScreen_h1}</ModalH1>
+            <ModalBody>{locales.connectorsScreen_p}</ModalBody>
+          </ModalContent>
+          <InfoBoxButtons>
+            {!context.uiConfig?.hideQuestionMarkCTA && (
+              <Button variant={'tertiary'} onClick={() => context.setRoute(routes.ABOUT)}>
+                {locales.learnMore}
+              </Button>
+            )}
+            {!context.uiConfig?.hideNoWalletCTA && (
+              <Button variant={'tertiary'} onClick={() => context.setRoute(routes.ONBOARDING)}>
+                {locales.getWallet}
+              </Button>
+            )}
+          </InfoBoxButtons>
+        </InfoBox>
       )}
       {/* {context.options?.disclaimer && (
         <Disclaimer style={{ visibility: 'hidden', pointerEvents: 'none' }}>
@@ -49,7 +43,7 @@ const Wallets: React.FC = () => {
         </Disclaimer>
       )} */}
     </PageContent>
-  );
+  )
 }
 
 export default Wallets

@@ -4,7 +4,6 @@ import {
   type EmbeddedAccount,
   EmbeddedState,
   type Openfort,
-  type OpenfortError,
 } from '@openfort/openfort-js'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type React from 'react'

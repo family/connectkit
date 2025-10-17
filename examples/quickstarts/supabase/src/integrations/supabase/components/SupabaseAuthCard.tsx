@@ -28,6 +28,7 @@ function GoogleSignInButton({ onError }: { onError: (error: string) => void }) {
 
   return (
     <button
+      type="button"
       onClick={signInWithGoogle}
       disabled={loading}
       className="w-full py-2 px-4 border border-zinc-700 text-white rounded cursor-pointer transition-colors hover:bg-zinc-900/60 disabled:opacity-50 disabled:cursor-not-allowed"

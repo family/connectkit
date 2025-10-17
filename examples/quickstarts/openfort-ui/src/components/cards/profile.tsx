@@ -59,6 +59,7 @@ export const Profile = ({ sampleGithubUrl, description }: { sampleGithubUrl: str
       </p>
 
       <button
+        type="button"
         onClick={() => {
           signOut()
         }}

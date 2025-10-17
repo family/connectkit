@@ -326,6 +326,7 @@ export const Head = ({
       </h1>
       {subtitle && <p className="mb-6 text-sm max-w-2/3">{subtitle}</p>}
       <button
+        type="button"
         className="lg:hidden mt-4 px-6 py-2 border border-zinc-500 rounded hover:bg-zinc-500/10 transition-colors cursor-pointer"
         onClick={onStart}
       >

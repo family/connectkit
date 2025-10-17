@@ -25,6 +25,7 @@ const SheetInner = ({ onClose, title, description, children }: SheetProps) => {
     >
       <div className="flex items-center gap-2 mb-4">
         <button
+          type="button"
           className="rounded p-2 hover:text-white transition-colors cursor-pointer"
           onClick={() => setIsClosing(true)}
         >
