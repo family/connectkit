@@ -201,7 +201,7 @@ const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     setOpen(open)
     if (open) setInTransition(undefined)
-  }, [open])
+  }, [open, setOpen])
 
   const [dimensions, setDimensions] = useState<{
     width: string | undefined
@@ -213,7 +213,7 @@ const Modal: React.FC<ModalProps> = ({
   const [inTransition, setInTransition] = useState<boolean | undefined>(undefined)
 
   // Calculate new content bounds
-  const updateBounds = (node: any) => {
+  const updateBounds = useCallback((node: any) => {
     const bounds = {
       width: node?.offsetWidth,
       height: node?.offsetHeight,
@@ -222,9 +222,9 @@ const Modal: React.FC<ModalProps> = ({
       width: `${bounds?.width}px`,
       height: `${bounds?.height}px`,
     })
-  }
+  }, [])
 
-  let blockTimeout: ReturnType<typeof setTimeout>
+  const blockTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
   const contentRef = useCallback(
     (node: any) => {
       if (!node) return
@@ -232,13 +232,13 @@ const Modal: React.FC<ModalProps> = ({
 
       // Avoid transition mixups
       setInTransition(inTransition === undefined ? false : true)
-      clearTimeout(blockTimeout)
-      blockTimeout = setTimeout(() => setInTransition(false), 360)
+      clearTimeout(blockTimeoutRef.current)
+      blockTimeoutRef.current = setTimeout(() => setInTransition(false), 360)
 
       // Calculate new content bounds
       updateBounds(node)
     },
-    [open, inTransition]
+    [inTransition, updateBounds]
   )
 
   // Update layout on chain/network switch to avoid clipping
@@ -248,7 +248,7 @@ const Modal: React.FC<ModalProps> = ({
   const ref = useRef<any>(null)
   useEffect(() => {
     if (ref.current) updateBounds(ref.current)
-  }, [chain, switchChain, mobile, context.uiConfig, context.resize])
+  }, [updateBounds])
 
   useEffect(() => {
     if (!mounted) {
@@ -561,7 +561,7 @@ const Page: React.FC<PageProps> = ({ children, open, initial, prevDepth, current
 
   useEffect(() => {
     setOpen(open)
-  }, [open])
+  }, [open, setOpen])
 
   if (!mounted) return null
 

@@ -1,6 +1,6 @@
 import { AnimatePresence, type Variants } from 'framer-motion'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAccount, useDisconnect } from 'wagmi'
 import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons'
 import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe'
@@ -198,7 +198,7 @@ const ConnectWithInjector: React.FC<{
     SUGGESTEDEXTENSIONBROWSER: suggestedExtension?.label ?? 'your browser',
   })
 
-  const runConnect = async () => {
+  const runConnect = useCallback(async () => {
     if (wallet?.isInstalled && wallet?.connector) {
       // Disconnect if already connected
       if (isConnected) disconnect()
@@ -207,18 +207,18 @@ const ConnectWithInjector: React.FC<{
     } else {
       setStatus(states.UNAVAILABLE)
     }
-  }
+  }, [wallet, isConnected, disconnect, connect])
 
-  let connectTimeout: any
+  const connectTimeoutRef = useRef<any>()
   useEffect(() => {
     if (status === states.UNAVAILABLE) return
 
     // UX: Give user time to see the UI before opening the extension
-    connectTimeout = setTimeout(runConnect, 600)
+    connectTimeoutRef.current = setTimeout(runConnect, 600)
     return () => {
-      clearTimeout(connectTimeout)
+      clearTimeout(connectTimeoutRef.current)
     }
-  }, [])
+  }, [status, runConnect])
 
   /* Timeout functionality if necessary
   let expiryTimeout: any;

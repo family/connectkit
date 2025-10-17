@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { UIAuthProvider } from '../../../components/Openfort/types'
 import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
@@ -108,6 +108,24 @@ export const useAuthCallback = ({
     error: oAuthError,
   } = useOAuth()
 
+  // Extract callback functions for stable references
+  const onSuccessCallback = hookOptions.onSuccess
+  const onErrorCallback = hookOptions.onError
+  const onSettledCallback = hookOptions.onSettled
+  const throwOnError = hookOptions.throwOnError
+  const recoverWalletAutomatically = hookOptions.recoverWalletAutomatically
+  const shieldOptions = hookOptions.shieldOptions
+
+  // Memoize hookOptions to avoid re-creating on every render
+  const memoizedHookOptions = useMemo(() => ({
+    onSuccess: onSuccessCallback,
+    onError: onErrorCallback,
+    onSettled: onSettledCallback,
+    throwOnError,
+    recoverWalletAutomatically,
+    shieldOptions,
+  }), [onSuccessCallback, onErrorCallback, onSettledCallback, throwOnError, recoverWalletAutomatically, shieldOptions])
+
   useEffect(() => {
     if (!enabled) return
 
@@ -130,7 +148,7 @@ export const useAuthCallback = ({
         if (!state || !email) {
           logger.error('No state or email found in URL')
           onError({
-            hookOptions,
+            hookOptions: memoizedHookOptions,
             options: {},
             error: new OpenfortError('No state or email found in URL', OpenfortErrorType.AUTHENTICATION_ERROR),
           })
@@ -146,13 +164,13 @@ export const useAuthCallback = ({
 
         const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {
-            hookOptions.onSuccess?.({
+            memoizedHookOptions.onSuccess?.({
               ...data,
               type: 'verifyEmail',
             })
           },
           onSettled: (data, error) => {
-            hookOptions.onSettled?.(
+            memoizedHookOptions.onSettled?.(
               {
                 ...data,
                 type: 'verifyEmail',
@@ -160,8 +178,8 @@ export const useAuthCallback = ({
               error
             )
           },
-          onError: hookOptions.onError,
-          throwOnError: hookOptions.throwOnError,
+          onError: memoizedHookOptions.onError,
+          throwOnError: memoizedHookOptions.throwOnError,
         }
 
         await verifyEmail({ email, state, ...options })
@@ -180,7 +198,7 @@ export const useAuthCallback = ({
             fixedUrl,
           })
           onError({
-            hookOptions,
+            hookOptions: memoizedHookOptions,
             options: {},
             error: new OpenfortError(
               'Missing player id or access token or refresh token',
@@ -202,13 +220,13 @@ export const useAuthCallback = ({
 
         const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {
-            hookOptions.onSuccess?.({
+            memoizedHookOptions.onSuccess?.({
               ...data,
               type: 'storeCredentials',
             })
           },
           onSettled: (data, error) => {
-            hookOptions.onSettled?.(
+            memoizedHookOptions.onSettled?.(
               {
                 ...data,
                 type: 'storeCredentials',
@@ -216,15 +234,15 @@ export const useAuthCallback = ({
               error
             )
           },
-          onError: hookOptions.onError,
-          throwOnError: hookOptions.throwOnError,
+          onError: memoizedHookOptions.onError,
+          throwOnError: memoizedHookOptions.throwOnError,
         }
 
         await storeCredentials({ player, accessToken, refreshToken, ...options })
         removeParams()
       }
     })()
-  }, [enabled, hookOptions, log, storeCredentials, verifyEmail])
+  }, [enabled, memoizedHookOptions, log, storeCredentials, verifyEmail])
 
   return {
     email,
