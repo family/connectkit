@@ -13,7 +13,7 @@
   "scripts": {
     "preinstall": "pnpx only-allow pnpm",
     "postinstall": "git config --unset core.hooksPath 2>/dev/null || true && simple-git-hooks",
-    "check": "biome check --write --unsafe",
+    "check": "biome check --write",
     "check:types": "tsc --noEmit",
     "check:unused": "knip",
     "changeset": "changeset",
