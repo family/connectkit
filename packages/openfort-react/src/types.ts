@@ -54,6 +54,7 @@ export type OpenfortHookOptions<T = { error?: OpenfortError }> = {
 }
 
 // Re-export important types and enums from openfort-js
+// biome-ignore lint/performance/noBarrelFile: Types file needs to re-export upstream types for convenience
 export {
   OAuthProvider,
   RecoveryMethod,

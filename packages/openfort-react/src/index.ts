@@ -1,3 +1,4 @@
+// biome-ignore lint/performance/noBarrelFile: This is the main package entry point
 export {
   AccountTypeEnum,
   AuthInitPayload,
@@ -41,6 +42,7 @@ export { useChainIsSupported } from './hooks/useChainIsSupported'
 // Hooks
 export { useChains } from './hooks/useChains'
 export { useOpenfortCore as useOpenfort } from './openfort/useOpenfort'
+// biome-ignore lint/performance/noReExportAll: Main package entry point needs to export all types
 export * from './types'
 export { OPENFORT_VERSION } from './version'
 export { wallets } from './wallets'
