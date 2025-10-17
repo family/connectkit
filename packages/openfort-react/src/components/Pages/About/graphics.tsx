@@ -133,10 +133,18 @@ const Receive = (
   </svg>
 )
 
-const Key = ({ ...props }) => {
+const Key = ({ ..._props }) => {
   const id = props?.id ?? ''
   return (
-    <svg aria-hidden="true" {...props} width="81" height="81" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      aria-hidden="true"
+      {...props}
+      width="81"
+      height="81"
+      viewBox="0 0 81 81"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -456,7 +464,14 @@ export const SlideThree = ({ layoutId }: Slide) => {
                 : undefined
             }
           >
-            <svg aria-hidden="true" width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              aria-hidden="true"
+              width="128"
+              height="128"
+              viewBox="0 0 128 128"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <g>
                 <circle cx="30" cy="141" r="64" stroke={`url(#networkRadialA-${id})`} strokeWidth="3" />
                 <circle

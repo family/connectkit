@@ -1,4 +1,4 @@
-export const Scan = ({ ...props }) => (
+export const Scan = ({ ..._props }) => (
   <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
@@ -10,9 +10,9 @@ export const Scan = ({ ...props }) => (
   </svg>
 )
 
-export const Download = ({ ...props }) => <svg aria-hidden="true" />
+export const Download = ({ ..._props }) => <svg aria-hidden="true" />
 
-export const ExternalLinkIcon = ({ ...props }) => (
+export const ExternalLinkIcon = ({ ..._props }) => (
   <svg
     aria-hidden="true"
     width="16"
@@ -43,7 +43,7 @@ export const ExternalLinkIcon = ({ ...props }) => (
   </svg>
 )
 
-export const AlertIcon = ({ ...props }) => {
+export const AlertIcon = ({ ..._props }) => {
   return (
     <svg
       aria-hidden="true"
@@ -68,7 +68,7 @@ export const AlertIcon = ({ ...props }) => {
   )
 }
 
-export const DisconnectIcon = ({ ...props }) => {
+export const DisconnectIcon = ({ ..._props }) => {
   return (
     <svg
       aria-hidden="true"
@@ -94,7 +94,7 @@ export const DisconnectIcon = ({ ...props }) => {
   )
 }
 
-export const TickIcon = ({ ...props }) => {
+export const TickIcon = ({ ..._props }) => {
   return (
     <svg
       aria-hidden="true"
@@ -115,7 +115,7 @@ export const TickIcon = ({ ...props }) => {
   )
 }
 
-export const RetryIconCircle = ({ ...props }) => {
+export const RetryIconCircle = ({ ..._props }) => {
   return (
     <svg
       aria-hidden="true"
@@ -136,7 +136,7 @@ export const RetryIconCircle = ({ ...props }) => {
   )
 }
 
-export const RetryIcon = ({ ...props }) => (
+export const RetryIcon = ({ ..._props }) => (
   <svg
     aria-hidden="true"
     width="16"
@@ -157,7 +157,7 @@ export const RetryIcon = ({ ...props }) => (
   </svg>
 )
 
-export const CopyToClipboardIcon = ({ ...props }) => (
+export const CopyToClipboardIcon = ({ ..._props }) => (
   <svg
     aria-hidden="true"
     width="24"
@@ -183,7 +183,7 @@ export const CopyToClipboardIcon = ({ ...props }) => (
   </svg>
 )
 
-export const AuthIcon = ({ ...props }) => (
+export const AuthIcon = ({ ..._props }) => (
   <div
     {...props}
     style={{
@@ -214,7 +214,7 @@ export const AuthIcon = ({ ...props }) => (
   </div>
 )
 
-export const EmailIcon = ({ ...props }) => (
+export const EmailIcon = ({ ..._props }) => (
   <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
     <rect width="256" height="256" fill="none" />
     <path
@@ -236,7 +236,7 @@ export const EmailIcon = ({ ...props }) => (
   </svg>
 )
 
-export const GuestIcon = ({ ...props }) => (
+export const GuestIcon = ({ ..._props }) => (
   <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
     <rect width="256" height="256" fill="none" />
     <circle
@@ -260,8 +260,16 @@ export const GuestIcon = ({ ...props }) => (
   </svg>
 )
 
-export const EyeIcon = ({ ...props }) => (
-  <svg aria-hidden="true" width="800" height="800" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+export const EyeIcon = ({ ..._props }) => (
+  <svg
+    aria-hidden="true"
+    width="800"
+    height="800"
+    fill="none"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="m15.001 12c0 1.6569-1.3431 3-3 3-1.6568 0-3-1.3431-3-3s1.3432-3 3-3c1.6569 0 3 1.3431 3 3z"
       stroke="currentColor"
@@ -279,8 +287,16 @@ export const EyeIcon = ({ ...props }) => (
   </svg>
 )
 
-export const EyeOffIcon = ({ ...props }) => (
-  <svg aria-hidden="true" width="800" height="800" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+export const EyeOffIcon = ({ ..._props }) => (
+  <svg
+    aria-hidden="true"
+    width="800"
+    height="800"
+    fill="none"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="m2.999 3 18 18m-11.156-11.086c-0.52264 0.53996-0.84428 1.2756-0.84428 2.0864 0 1.6569 1.3432 3 3 3 0.8225 0 1.5677-0.331 2.1096-0.867m-7.6096-7.4858c-1.8993 1.2532-3.346 3.1368-4.042 5.3528 1.2742 4.0571 5.0646 7 9.5422 7 1.9889 0 3.8422-0.5806 5.3996-1.5816m-6.3998-12.369c0.329-0.03266 0.6627-0.04939 1.0002-0.04939 4.4777 0 8.268 2.9429 9.5422 7-0.2807 0.894-0.6837 1.7338-1.1892 2.5"
       stroke="currentColor"
@@ -291,8 +307,10 @@ export const EyeOffIcon = ({ ...props }) => (
   </svg>
 )
 
-export const KeyIcon = ({ ...props }) => (
-  <svg aria-hidden="true" transform="matrix(1 0 0 1 0 0)"
+export const KeyIcon = ({ ..._props }) => (
+  <svg
+    aria-hidden="true"
+    transform="matrix(1 0 0 1 0 0)"
     width="24"
     height="24"
     fill="none"
@@ -311,7 +329,7 @@ export const KeyIcon = ({ ...props }) => (
   </svg>
 )
 
-export const LockIcon = ({ ...props }) => (
+export const LockIcon = ({ ..._props }) => (
   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="m9 16c0 0.5523-0.44772 1-1 1s-1-0.4477-1-1 0.44772-1 1-1 1 0.4477 1 1z" fill="currentColor" />
     <path d="m13 16c0 0.5523-0.4477 1-1 1s-1-0.4477-1-1 0.4477-1 1-1 1 0.4477 1 1z" fill="currentColor" />
@@ -331,7 +349,7 @@ export const LockIcon = ({ ...props }) => (
   </svg>
 )
 
-export const ShieldIcon = ({ ...props }) => (
+export const ShieldIcon = ({ ..._props }) => (
   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="m9 12 2 2 4-4m5 2c0 4.4611-5.46 7.6937-7.3586 8.683-0.2053 0.107-0.308 0.1605-0.4504 0.1882-0.111 0.0216-0.271 0.0216-0.382 0-0.1424-0.0277-0.2451-0.0812-0.4504-0.1882-1.8986-0.9893-7.3586-4.2219-7.3586-8.683v-3.7824c0-0.79951 0-1.1993 0.13076-1.5429 0.11551-0.30357 0.30322-0.57443 0.5469-0.78918 0.27584-0.24309 0.65014-0.38345 1.3987-0.66418l5.3618-2.0107c0.2079-0.07796 0.3118-0.11694 0.4188-0.1324 0.0948-0.0137 0.1912-0.0137 0.286 0 0.107 0.01546 0.2109 0.05444 0.4188 0.1324l5.3618 2.0107c0.7486 0.28073 1.1229 0.42109 1.3987 0.66418 0.2437 0.21475 0.4314 0.48561 0.5469 0.78918 0.1308 0.34363 0.1308 0.74338 0.1308 1.5429v3.7824z"
@@ -343,7 +361,7 @@ export const ShieldIcon = ({ ...props }) => (
   </svg>
 )
 
-export const FingerPrintIcon = ({ ...props }) => (
+export const FingerPrintIcon = ({ ..._props }) => (
   <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...props}>
     <rect width={256} height={256} fill="none" />
     <path
