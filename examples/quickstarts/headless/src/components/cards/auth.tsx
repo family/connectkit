@@ -1,6 +1,6 @@
 import { OAuthProvider, useAuthCallback, useEmailAuth, useGuestAuth, useOAuth } from '@openfort/react'
 import type React from 'react'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 const GoogleSignInButton: React.FC = () => {
   // Sign in with Google
@@ -34,6 +34,8 @@ const GuestSignInButton: React.FC = () => {
 
 const EmailForm = ({ isLogin }: { isLogin: boolean }) => {
   const { signInEmail, signUpEmail, error, isLoading } = useEmailAuth()
+  const emailId = useId()
+  const passwordId = useId()
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -63,15 +65,15 @@ const EmailForm = ({ isLogin }: { isLogin: boolean }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 mb-4">
-      <label className="block text-left text-sm font-medium mb-1" htmlFor="email">
+      <label className="block text-left text-sm font-medium mb-1" htmlFor={emailId}>
         Email
       </label>
-      <input id="email" type="email" placeholder="Enter your email address" required />
+      <input id={emailId} type="email" placeholder="Enter your email address" required />
       <div>
-        <label className="block text-left text-sm font-medium mb-1" htmlFor="password">
+        <label className="block text-left text-sm font-medium mb-1" htmlFor={passwordId}>
           Password
         </label>
-        <input id="password" type="password" placeholder="Enter your password" required />
+        <input id={passwordId} type="password" placeholder="Enter your password" required />
       </div>
       {error && <p className="text-red-500 text-sm">{error.message}</p>}
 
