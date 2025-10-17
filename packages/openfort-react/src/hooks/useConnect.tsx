@@ -11,10 +11,30 @@
  * ```
  */
 
-import { type Connector, type CreateConnectorFn, type UseConnectParameters, useConnect as wagmiUseConnect } from 'wagmi'
+import {
+  type Connector,
+  type CreateConnectorFn,
+  type UseConnectParameters,
+  type UseConnectReturnType,
+  useConnect as wagmiUseConnect,
+} from 'wagmi'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
 
-export function useConnect({ ...props }: UseConnectParameters = {}) {
+export function useConnect({ ...props }: UseConnectParameters = {}): Omit<
+  UseConnectReturnType,
+  'connect' | 'connectAsync'
+> & {
+  connect: (params: {
+    connector: CreateConnectorFn | Connector
+    chainId?: number
+    mutation?: UseConnectParameters['mutation']
+  }) => void
+  connectAsync: (params: {
+    connector: CreateConnectorFn | Connector
+    chainId?: number
+    mutation?: UseConnectParameters['mutation']
+  }) => ReturnType<UseConnectReturnType['connectAsync']>
+} {
   const context = useOpenfort()
 
   const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({

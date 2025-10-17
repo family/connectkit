@@ -11,5 +11,5 @@ const ensFallbackConfig = createConfig({
 })
 
 export function useEnsFallbackConfig(): Config | undefined {
-  return !useChainIsSupported(1) ? ensFallbackConfig : undefined
+  return !useChainIsSupported(1) ? (ensFallbackConfig as Config) : undefined
 }

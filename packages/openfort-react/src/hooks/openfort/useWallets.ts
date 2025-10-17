@@ -330,12 +330,13 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
   const wallets: UserWallet[] = useMemo(() => {
     // log("Mapping wallets", { rawWallets, status, address, isConnected, connector: connector?.id });
+    const statusAddress = 'address' in status ? status.address : undefined
     return rawWallets.map((w) => ({
       ...w,
-      isConnecting: status.status === 'connecting' && status.address?.toLowerCase() === w.address.toLowerCase(),
+      isConnecting: status.status === 'connecting' && statusAddress?.toLowerCase() === w.address.toLowerCase(),
       isActive: w.address.toLowerCase() === address?.toLowerCase() && isConnected && connector?.id === w.id,
     }))
-  }, [rawWallets.length, status.status, address, isConnected, connector?.id, rawWallets, status.address])
+  }, [rawWallets.length, status.status, address, isConnected, connector?.id, rawWallets, status])
   const activeWallet = isConnected && connector ? wallets.find((w) => w.isActive) : undefined
 
   useEffect(() => {
@@ -489,7 +490,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               recoveryParams,
             })
           } else {
-            let accountToRecover: AuthPlayerResponse['accounts'][0] | undefined
+            let accountToRecover: EmbeddedAccount | undefined
             // Check if the embedded wallet is already created in the current chain
             if (walletConfig?.accountType === AccountTypeEnum.EOA) {
               accountToRecover = embeddedAccounts.find((w) => w.accountType === AccountTypeEnum.EOA)
@@ -501,7 +502,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
                 })
               }
             } else {
-              const accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId)
+              accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId)
               if (!accountToRecover) {
                 // Here it should check if there is a wallet that can recover in another chain and recover it in the current chain (its a different account so its not supported yet)
                 // TODO: Connect to wallet in the other chain and then switch chain

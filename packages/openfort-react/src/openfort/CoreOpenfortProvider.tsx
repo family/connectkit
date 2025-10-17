@@ -171,12 +171,15 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
         logger.log('Error getting user', err)
         if (!logoutOnError) return null
 
-        if (err?.response?.status === 404) {
-          logger.log('User not found, logging out')
-          logout()
-        } else if (err?.response?.status === 401) {
-          logger.log('User not authenticated, logging out')
-          logout()
+        if (err && typeof err === 'object' && 'response' in err) {
+          const error = err as { response?: { status?: number } }
+          if (error.response?.status === 404) {
+            logger.log('User not found, logging out')
+            logout()
+          } else if (error.response?.status === 401) {
+            logger.log('User not authenticated, logging out')
+            logout()
+          }
         }
         return null
       }

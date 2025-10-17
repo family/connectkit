@@ -28,7 +28,7 @@ const About: React.FC = () => {
   const animationDuration = 600
   const autoplayDelay = 5100
 
-  let interval: ReturnType<typeof setTimeout>
+  let interval: ReturnType<typeof setTimeout> | undefined
   useEffect(() => {
     //interval = setTimeout(nextSlide, autoplayDelay);
 

@@ -638,7 +638,7 @@ export const SlideThree = ({ layoutId }: Slide) => {
             mass: 0.2,
           }}
         >
-          {Compass}
+          <Compass />
         </motion.div>
       </motion.div>
     </motion.div>
