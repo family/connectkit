@@ -146,30 +146,27 @@
     background-color 300ms,
     color 300ms,
     filter 300ms;
-
   overflow: hidden;
-
   width: 100%;
   min-height: 2rem;
+}
 
-  .hover-description {
-    transition:
-      transform 300ms,
-      max-height 500ms,
-      opacity 300ms;
+.wallet-option .hover-description {
+  transition:
+    transform 300ms,
+    max-height 500ms,
+    opacity 300ms;
+  max-height: 2.5rem;
+}
 
-    max-height: 2.5rem;
-  }
+.wallet-option .hover-description h4 {
+  font-size: 1.25rem;
+  margin: 0;
+  margin-right: 1rem;
+}
 
-  h4 {
-    font-size: 1.25rem;
-    margin: 0;
-    margin-right: 1rem;
-  }
-
-  svg {
-    height: 50px;
-  }
+.wallet-option .hover-description svg {
+  height: 50px;
 }
 
 .wallet-option:not(:hover) .hover-description {
