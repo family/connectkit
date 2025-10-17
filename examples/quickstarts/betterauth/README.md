@@ -77,7 +77,6 @@ apps/
 | **Backend**  | `apps/server/.env`    | `BETTER_AUTH_*`, `GOOGLE_*`, `OPENFORT_SECRET_KEY`, etc. | Server secrets       |
 | **Frontend** | `apps/web/.env.local` | `VITE_*`                                                 | Public client config |
 
-✅ **Zero duplication** • Each variable exists in exactly ONE place
 
 #### a) Backend Setup
 
