@@ -24,6 +24,7 @@ export function useWalletConnectUri(
   const { connectAsync } = useConnect()
   const { disconnect } = useDisconnect()
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Intentionally excluding 'log' to prevent infinite loop caused by log function recreation on every render
   useEffect(() => {
     if (!enabled) return
 
@@ -95,7 +96,7 @@ export function useWalletConnectUri(
         }
       }
     }
-  }, [enabled, connector, isConnected, connectAsync, disconnect, log, uri])
+  }, [enabled, connector, isConnected, connectAsync, disconnect, uri])
 
   return {
     uri,
