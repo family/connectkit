@@ -180,7 +180,7 @@ const EmailLogin: React.FC = () => {
       </form>
       <FooterContainer>
         or
-        <button onClick={handleSignUp} disabled={loginLoading}>
+        <button type="button" onClick={handleSignUp} disabled={loginLoading}>
           Sign up
         </button>
       </FooterContainer>

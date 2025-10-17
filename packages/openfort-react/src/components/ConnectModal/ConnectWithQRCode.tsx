@@ -37,6 +37,13 @@ const ConnectWithQRCode: React.FC<{
     CONNECTORNAME: wallet?.name,
   })
 
+  const connectWithSiwe = useConnectWithSiwe()
+  const { isConnected } = useAccount()
+  const { log, setOpen } = useOpenfort()
+  const { disconnect } = useDisconnect()
+
+  const [isFirstFrame, setIsFirstFrame] = React.useState(true)
+
   if (!wallet) return <>Wallet not found {context.connector.id}</>
 
   const downloads = wallet?.downloadUrls
@@ -51,13 +58,6 @@ const ConnectWithQRCode: React.FC<{
   const _browser = detectBrowser()
 
   const hasApps = downloads && Object.keys(downloads).length !== 0
-
-  const connectWithSiwe = useConnectWithSiwe()
-  const { isConnected } = useAccount()
-  const { log, setOpen } = useOpenfort()
-  const { disconnect } = useDisconnect()
-
-  const [isFirstFrame, setIsFirstFrame] = React.useState(true)
   useEffect(() => {
     // When the component is first rendered, we disconnect the user if they are connected
     if (isFirstFrame) {

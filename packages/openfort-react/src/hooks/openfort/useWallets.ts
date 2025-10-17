@@ -487,7 +487,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               recoveryParams,
             })
           } else {
-            let accountToRecover
+            let accountToRecover: AuthPlayerResponse['accounts'][0] | undefined
             // Check if the embedded wallet is already created in the current chain
             if (walletConfig?.accountType === AccountTypeEnum.EOA) {
               accountToRecover = embeddedAccounts.find((w) => w.accountType === AccountTypeEnum.EOA)

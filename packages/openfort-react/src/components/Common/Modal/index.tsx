@@ -34,7 +34,7 @@ import {
   TextWithHr,
 } from './styles'
 
-const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
+const _ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
     {isSignedIn ? (
       <AuthIcon
@@ -96,12 +96,28 @@ const InfoIcon = ({ ...props }) => (
   </svg>
 )
 const CloseIcon = ({ ...props }) => (
-  <motion.svg width={14} height={14} viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <motion.svg
+    width={14}
+    height={14}
+    viewBox="0 0 14 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="Close"
+    {...props}
+  >
     <path d="M1 13L13 1M1 1L13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </motion.svg>
 )
 const BackIcon = ({ ...props }) => (
-  <motion.svg width={9} height={16} viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <motion.svg
+    width={9}
+    height={16}
+    viewBox="0 0 9 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="Back"
+    {...props}
+  >
     <path d="M8 1L1 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </motion.svg>
 )
@@ -194,9 +210,9 @@ const Modal: React.FC<ModalProps> = ({
   const currentDepth = context.route === routes.PROVIDERS ? 0 : context.route === routes.DOWNLOAD ? 2 : 1
 
   const prevDepth = usePrevious(currentDepth, currentDepth)
-  if (!positionInside) useLockBodyScroll(mounted)
+  useLockBodyScroll(!positionInside && mounted)
 
-  const prevPage = usePrevious(pageId, pageId)
+  const _prevPage = usePrevious(pageId, pageId)
 
   useEffect(() => {
     setOpen(open)
@@ -231,7 +247,7 @@ const Modal: React.FC<ModalProps> = ({
       ref.current = node
 
       // Avoid transition mixups
-      setInTransition(inTransition === undefined ? false : true)
+      setInTransition(inTransition !== undefined)
       clearTimeout(blockTimeout)
       blockTimeout = setTimeout(() => setInTransition(false), 360)
 

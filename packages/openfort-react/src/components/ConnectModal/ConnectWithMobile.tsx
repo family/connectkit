@@ -26,7 +26,7 @@ const DownloadFooter = styled.div`
   color: var(--ck-body-color-muted);
 `
 
-const ConnectWithMobile: React.FC<{}> = ({}) => {
+const ConnectWithMobile: React.FC = () => {
   const { connector, setRoute } = useOpenfort()
 
   const wallet = useWallet(connector.id) || walletConfigs[connector.id]

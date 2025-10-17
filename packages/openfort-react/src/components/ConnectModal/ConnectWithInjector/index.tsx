@@ -172,7 +172,7 @@ const ConnectWithInjector: React.FC<{
   const [showTryAgainTooltip, setShowTryAgainTooltip] = useState(false)
 
   const expiryDefault = 9 // Starting at 10 causes layout shifting, better to start at 9
-  const [expiryTimer, setExpiryTimer] = useState<number>(expiryDefault)
+  const [_expiryTimer, _setExpiryTimer] = useState<number>(expiryDefault)
 
   const browser = detectBrowser()
 

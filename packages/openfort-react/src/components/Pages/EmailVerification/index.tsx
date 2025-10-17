@@ -77,7 +77,9 @@ const EmailVerification: React.FC = () => {
     }
 
     const removeParams = () => {
-      ;['state', 'openfortEmailVerificationUI', 'email'].forEach((key) => url.searchParams.delete(key))
+      for (const key of ['state', 'openfortEmailVerificationUI', 'email']) {
+        url.searchParams.delete(key)
+      }
       window.history.replaceState({}, document.title, url.toString())
     }
 

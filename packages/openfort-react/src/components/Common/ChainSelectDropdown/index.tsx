@@ -79,21 +79,13 @@ const ChainSelectDropdown: React.FC<{
   }, [open, onClose])
 
   const targetRef = useRef<any>(null)
-  const innerRef = useCallback(
-    (node: any) => {
-      if (!node) return
-      targetRef.current = node
-      refresh()
-    },
-    [refresh]
-  )
   const [ref, bounds] = useMeasure({
     debounce: 120, // waits until modal transition has finished before measuring
     offsetSize: true,
     scroll: true,
   })
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     if (
       !targetRef.current ||
       bounds.top + bounds.bottom + bounds.left + bounds.right + bounds.height + bounds.width === 0
@@ -125,7 +117,16 @@ const ChainSelectDropdown: React.FC<{
       y: y,
     });
     */
-  }
+  }, [bounds, offsetX, offsetY])
+
+  const innerRef = useCallback(
+    (node: any) => {
+      if (!node) return
+      targetRef.current = node
+      refresh()
+    },
+    [refresh]
+  )
 
   const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
   useIsomorphicLayoutEffect(refresh, [targetRef.current, bounds, open])

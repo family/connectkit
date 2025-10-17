@@ -31,7 +31,7 @@ export function useGoogleFont(font: string) {
 }
 
 // OLD_TODO: This could be dynamic if theming wasn't set up as css variables
-export function useThemeFont(theme: Theme) {
+export function useThemeFont(theme: Theme | null) {
   const themeFonts: any = {
     web95: 'Lato',
     retro: 'Nunito',
@@ -39,6 +39,6 @@ export function useThemeFont(theme: Theme) {
     minimal: 'Inter',
     rounded: 'Nunito',
   }
-  const font: string = themeFonts[theme] ?? null
-  useGoogleFont(font ?? '')
+  const font: string = theme ? (themeFonts[theme] ?? '') : ''
+  useGoogleFont(font)
 }

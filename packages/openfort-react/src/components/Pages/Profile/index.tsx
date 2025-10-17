@@ -33,7 +33,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
 
   const locales = useLocales()
 
-  const { address, isConnected, connector, chain } = useAccount()
+  const { address, connector, chain } = useAccount()
   const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,

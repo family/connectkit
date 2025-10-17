@@ -13,8 +13,6 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message, open, xOffset = 0,
   const context = useOpenfort()
   const themeContext = useThemeContext()
 
-  if (context.uiConfig?.hideTooltips) return <>{children}</>
-
   const [isOpen, setIsOpen] = useState(false)
   const [outOfBounds, setOutOfBounds] = useState(false)
   const [size, setSize] = useState<TooltipSizeProps>('small')
@@ -65,6 +63,8 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message, open, xOffset = 0,
   useEffect(() => {
     setIsOpen(!!open)
   }, [open])
+
+  if (context.uiConfig?.hideTooltips) return <>{children}</>
 
   return (
     <>

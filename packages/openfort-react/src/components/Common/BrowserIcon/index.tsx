@@ -7,7 +7,7 @@ import type { BrowserIconProps } from './types'
 const BrowserIcon = React.forwardRef(({ browser }: BrowserIconProps, _ref: React.Ref<HTMLElement>) => {
   const currentBrowser = browser ?? detectBrowser()
 
-  let icon
+  let icon: React.ReactNode = null
   switch (currentBrowser) {
     case 'chrome':
       icon = browsers.Chrome
@@ -22,7 +22,7 @@ const BrowserIcon = React.forwardRef(({ browser }: BrowserIconProps, _ref: React
       //   icon = browsers.Brave;
       break
   }
-  if (!icon) return <></>
+  if (!icon) return null
   return <BrowserIconContainer>{icon}</BrowserIconContainer>
 })
 BrowserIcon.displayName = 'BrowserIcon'
