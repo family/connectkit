@@ -140,7 +140,7 @@ const Receive = (
   </svg>
 )
 
-const Key = ({ ..._props }) => {
+const Key = ({ ...props }) => {
   const id = props?.id ?? ''
   return (
     <svg

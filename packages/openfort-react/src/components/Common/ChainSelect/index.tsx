@@ -109,7 +109,7 @@ const SwitchChainButton = styled(motion.button)`
         `}
 `
 
-const ChevronDown = ({ ..._props }) => (
+const ChevronDown = ({ ...props }) => (
   <svg
     aria-hidden="true"
     width="11"

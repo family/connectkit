@@ -3,7 +3,7 @@ import { EyeIcon, EyeOffIcon } from '../../../assets/icons'
 import { IconButton, InputContainer, Input as StyledInput } from './styles'
 import type { InputProps } from './types'
 
-const PasswordInput: React.FC<InputProps> = ({ ..._props }) => {
+const PasswordInput: React.FC<InputProps> = ({ ...props }) => {
   const [showPassword, setShowPassword] = React.useState(false)
 
   return (
@@ -20,7 +20,7 @@ const PasswordInput: React.FC<InputProps> = ({ ..._props }) => {
   )
 }
 
-const Input: React.FC<InputProps> = ({ ..._props }) => {
+const Input: React.FC<InputProps> = ({ ...props }) => {
   if (props.type === 'password') return <PasswordInput {...props} />
 
   return (

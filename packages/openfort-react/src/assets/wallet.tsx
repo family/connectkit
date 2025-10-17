@@ -1,4 +1,4 @@
-export default ({ ..._props }) => {
+export default ({ ...props }) => {
   return (
     <svg
       aria-hidden="true"
