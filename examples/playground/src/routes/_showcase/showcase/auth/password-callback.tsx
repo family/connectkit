@@ -25,7 +25,7 @@ function RouteComponent() {
     state: string | undefined
   }
 
-  const { error, isLoading, isSuccess, resetPassword } = useEmailAuth()
+  const { error, isLoading, resetPassword } = useEmailAuth()
   // Create a dynamic schema based on password policy
   const createFormSchema = () => {
     return z.object({

@@ -38,10 +38,14 @@ const getObjectKeys = (obj: unknown): string[] => {
   const keys = new Set<string>()
 
   // Get own enumerable properties
-  Object.keys(obj).forEach((key) => keys.add(key))
+  Object.keys(obj).forEach((key) => {
+    keys.add(key)
+  })
 
   // Get non-enumerable properties
-  Object.getOwnPropertyNames(obj).forEach((key) => keys.add(key))
+  Object.getOwnPropertyNames(obj).forEach((key) => {
+    keys.add(key)
+  })
 
   // Get symbol properties
   Object.getOwnPropertySymbols(obj).forEach((sym) => {
@@ -84,9 +88,9 @@ const formatValue = (val: any, valueType: string, _name: string) => {
     case 'array':
       return `Array(${val.length})`
     case 'object': {
-      const constructor = val.constructor?.name || 'Object'
+      const constructorName = val.constructor?.name || 'Object'
       const keys = getObjectKeys(val)
-      return `${constructor} {${keys.length} ${keys.length === 1 ? 'property' : 'properties'}}`
+      return `${constructorName} {${keys.length} ${keys.length === 1 ? 'property' : 'properties'}}`
     }
     case 'date':
       return val.toISOString()
@@ -341,17 +345,10 @@ export const BaseVariable = ({
   // Expandable objects/arrays
   return (
     <div className={cn(className, focusedVariable === name ? 'animate-focus' : '')}>
-      <div
-        className="flex items-center gap-1 cursor-pointer group/parent rounded"
-        role="button"
-        tabIndex={0}
+      <button
+        className="flex items-center gap-1 cursor-pointer group/parent rounded bg-transparent border-none"
+        type="button"
         onClick={() => setIsExpanded(!isExpanded)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            setIsExpanded(!isExpanded)
-          }
-        }}
       >
         <ChevronRight
           size={14}
@@ -366,7 +363,7 @@ export const BaseVariable = ({
         <span className={cn('font-mono text-sm', getValueColor(actualType, 'text'))}>
           {formatValue(value, actualType, name)}
         </span>
-      </div>
+      </button>
       {renderExpandedContent()}
     </div>
   )

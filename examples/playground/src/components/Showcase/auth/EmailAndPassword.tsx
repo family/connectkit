@@ -131,16 +131,17 @@ export function EmailPasswordForm({ isSignUp = false }: { isSignUp?: boolean }) 
         />
       </div>
       {!isSignUp && (
-        <label className="label flex justify-between">
-          <a
+        <div className="label flex justify-between">
+          <button
             onClick={() => {
               nav({ to: '/showcase/auth/forgot-password' })
             }}
             className="label-text-alt text-sm link link-primary transition-colors duration-200"
+            type="button"
           >
             Forgot password?
-          </a>
-        </label>
+          </button>
+        </div>
       )}
 
       <Button className="btn btn-accent w-full" type="submit" disabled={isLoading}>

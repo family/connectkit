@@ -21,5 +21,5 @@ function RouteComponent() {
     return <App />
   }
 
-  return <></>
+  return null
 }

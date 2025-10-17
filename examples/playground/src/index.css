@@ -127,32 +127,30 @@ body {
   --color-tooltip: var(--tooltip);
   --color-tooltip-foreground: var(--tooltip-foreground);
 
-
   --animate-focus: focus 2s ease-in-out forwards;
+}
 
-  @keyframes focus {
+@keyframes focus {
+  0%,
+  40% {
+    opacity: 1;
+  }
 
-    0%,
-    40% {
-      opacity: 1;
-    }
+  20%,
+  60% {
+    opacity: 0.5;
+  }
 
-    20%,
-    60% {
-      opacity: 0.5;
-    }
+  40%,
+  80% {
+    opacity: 1;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
 
-    0%,
-    80% {
-      opacity: 1;
-      outline: 2px solid var(--color-primary);
-      outline-offset: 4px;
-      border-radius: 2px;
-    }
-
-    100% {
-      outline: inherit;
-    }
+  100% {
+    outline: inherit;
   }
 }
 
@@ -307,5 +305,4 @@ body {
 
 .animate-child-in>*:nth-child(9) {
   animation-delay: calc(8 * var(--delay));
-}
 }
