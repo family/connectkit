@@ -1583,7 +1583,7 @@ __metadata:
   resolution: "@openfort-betterauth/web@workspace:apps/web"
   dependencies:
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.17
+    "@openfort/react": ^0.0.26
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ^5.90.2
     "@types/node": ^22.10.5
@@ -1601,7 +1601,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openfort/openfort-js@npm:^0.10.21":
+"@openfort/openfort-js@npm:^0.10.27":
   version: 0.10.27
   resolution: "@openfort/openfort-js@npm:0.10.27"
   dependencies:
@@ -1636,11 +1636,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/react@npm:^0.0.17":
-  version: 0.0.17
-  resolution: "@openfort/react@npm:0.0.17"
+"@openfort/react@npm:^0.0.26":
+  version: 0.0.26
+  resolution: "@openfort/react@npm:0.0.26"
   dependencies:
-    "@openfort/openfort-js": ^0.10.21
+    "@openfort/openfort-js": ^0.10.27
     buffer: ^6.0.3
     detect-browser: ^5.3.0
     fast-password-entropy: ^1.1.1
@@ -1657,7 +1657,7 @@ __metadata:
     react-dom: 17.x || 18.x || 19.x
     viem: 2.x
     wagmi: 2.x
-  checksum: 73ec7fc5f5718896a1b59db48339798080a593b5dbb5b25c4463c6091751970f3085e0150e0f56a886c2adbea74cab022286d973d940f62c08e7602f5f6af460
+  checksum: d1212de97178caef4fdddad8d2c95a7316b528e4426e24cc714cbfcd79ecf5c822a041e1c903a11911421b728c31d554eb2d477935a71b48eb008e98c1308c23
   languageName: node
   linkType: hard
 

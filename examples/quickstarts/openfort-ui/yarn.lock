@@ -1584,9 +1584,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/react@npm:^0.0.25":
-  version: 0.0.25
-  resolution: "@openfort/react@npm:0.0.25"
+"@openfort/react@npm:^0.0.26":
+  version: 0.0.26
+  resolution: "@openfort/react@npm:0.0.26"
   dependencies:
     "@openfort/openfort-js": ^0.10.27
     buffer: ^6.0.3
@@ -1605,7 +1605,7 @@ __metadata:
     react-dom: 17.x || 18.x || 19.x
     viem: 2.x
     wagmi: 2.x
-  checksum: 962c8a8e3ed00e419ec2151fae7f0945bfed00c46b1ef81a6e45612f9194c45d701c2db997b02d0f6f2880e9c5a4a0d3ed4eee1c7a416bf16606d9503008a579
+  checksum: d1212de97178caef4fdddad8d2c95a7316b528e4426e24cc714cbfcd79ecf5c822a041e1c903a11911421b728c31d554eb2d477935a71b48eb008e98c1308c23
   languageName: node
   linkType: hard
 
@@ -6239,7 +6239,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.25
+    "@openfort/react": ^0.0.26
     "@tailwindcss/vite": ^4.1.12
     "@tanstack/react-query": ">=5.45.1"
     "@types/react": ^19.1.10

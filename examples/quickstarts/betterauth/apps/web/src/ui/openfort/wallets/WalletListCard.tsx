@@ -3,7 +3,6 @@ import {
   RecoveryMethod,
   type UserWallet,
   useSignOut,
-  useStatus,
   useUser,
   useWallets,
 } from '@openfort/react';
@@ -12,6 +11,7 @@ import { useState } from 'react';
 import { signOut as betterAuthSignOut } from '../../../integrations/betterauth';
 import { CreateWallet, CreateWalletSheet } from './WalletCreation';
 import { WalletRecoverPasswordSheet } from './WalletPasswordSheets';
+import { useAccount } from 'wagmi';
 
 function WalletRecoveryBadge({ wallet }: { wallet: UserWallet }) {
   let Icon = LockClosedIcon;
@@ -41,9 +41,9 @@ function WalletRecoveryBadge({ wallet }: { wallet: UserWallet }) {
 }
 
 export function WalletListCard() {
-  const { wallets, isLoadingWallets, hasWallet, setActiveWallet, isConnecting } = useWallets();
+  const { wallets, isLoadingWallets, availableWallets, setActiveWallet, isConnecting } = useWallets();
   const { user, isAuthenticated } = useUser();
-  const { isConnected } = useStatus();
+  const { isConnected } = useAccount();
   const { signOut } = useSignOut();
 
   const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false);
@@ -53,7 +53,7 @@ export function WalletListCard() {
     return <div>Loading wallets...</div>;
   }
 
-  if (!hasWallet) {
+  if (availableWallets.length === 0) {
     return (
       <div className="flex gap-2 flex-col w-full">
         <h1>Create a wallet</h1>
