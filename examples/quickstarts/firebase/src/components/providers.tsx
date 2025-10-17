@@ -3,7 +3,7 @@ import { createConfig, WagmiProvider } from 'wagmi';
 
 import { getDefaultConfig, OpenfortProvider, ThirdPartyOAuthProvider } from "@openfort/react";
 import { beamTestnet, polygonAmoy } from 'viem/chains';
-import { auth } from '../lib/firebase';
+import { auth } from '../integrations/firebase';
 import { useState } from 'react';
 
 
