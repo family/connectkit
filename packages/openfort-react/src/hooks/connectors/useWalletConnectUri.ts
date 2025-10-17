@@ -96,7 +96,7 @@ export function useWalletConnectUri(
         }
       }
     }
-  }, [enabled, connector, isConnected])
+  }, [enabled, isConnected])
 
   return {
     uri,
