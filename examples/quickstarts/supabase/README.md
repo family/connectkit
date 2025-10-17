@@ -25,7 +25,13 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/supabase 
    ```
 
 2. **Configure environment**:
-   Create a `.env.local` file with your Openfort and Supabase configuration.
+   Copy `.env.example` to `.env.local` and fill in your values:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   See [`.env.example`](.env.example) for all required variables and [AGENTS.md](AGENTS.md#environment-configuration) for details on where to obtain each value.
 
 3. **Start development server**:
 

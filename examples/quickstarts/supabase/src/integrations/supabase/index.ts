@@ -1,3 +1,3 @@
-export * from "./client";
-export * from "./errors";
-export { SupabaseAuthCard } from "./components/SupabaseAuthCard";
+export * from './client'
+export { SupabaseAuthCard } from './components/SupabaseAuthCard'
+export * from './errors'

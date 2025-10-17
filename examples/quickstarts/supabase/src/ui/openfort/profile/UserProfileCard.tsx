@@ -1,22 +1,25 @@
-import { BookOpenIcon } from "@heroicons/react/24/outline";
-import { useUser } from "@openfort/react";
-import { useAccount } from "wagmi";
+import { BookOpenIcon } from '@heroicons/react/24/outline'
+import { useUser } from '@openfort/react'
+import { useAccount } from 'wagmi'
 
-import { supabase } from "../../../integrations/supabase";
-import { WalletListCard } from "../wallets/WalletListCard";
+import { supabase } from '../../../integrations/supabase'
+import { WalletListCard } from '../wallets/WalletListCard'
 
 type UserProfileCardProps = {
-  sampleGithubUrl: string;
-  description: string;
-};
+  sampleGithubUrl: string
+  description: string
+}
 
-export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCardProps) {
-  const { user } = useUser();
-  const { isConnected } = useAccount();
-  const isLocal = window.location.hostname === "localhost";
+export function UserProfileCard({
+  sampleGithubUrl,
+  description,
+}: UserProfileCardProps) {
+  const { user } = useUser()
+  const { isConnected } = useAccount()
+  const isLocal = window.location.hostname === 'localhost'
 
   if (!isConnected) {
-    return <WalletListCard />;
+    return <WalletListCard />
   }
 
   return (
@@ -30,13 +33,18 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
 
       <div className="border border-zinc-700 rounded p-4">
         <h2 className="mb-2">Get started</h2>
-        <p className="mb-2 text-zinc-400 text-sm">Start by creating a wallet, minting some tokens and signing messages.</p>
+        <p className="mb-2 text-zinc-400 text-sm">
+          Start by creating a wallet, minting some tokens and signing messages.
+        </p>
         {isLocal ? (
           <p className="mb-2 text-sm">
-            Edit <code>src/components/cards/main.tsx</code> to customize the app.
+            Edit <code>src/components/cards/main.tsx</code> to customize the
+            app.
           </p>
         ) : (
-          <p className="mb-2 text-sm">Clone this project and test it yourself, it is open source!</p>
+          <p className="mb-2 text-sm">
+            Clone this project and test it yourself, it is open source!
+          </p>
         )}
         <div className="flex gap-4 mt-4">
           <a
@@ -45,7 +53,11 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
             target="_blank"
             rel="noreferrer"
           >
-            <img src="/githubLogo.svg" className="w-5 h-5 mr-2" alt="GitHub logo" />
+            <img
+              src="/githubLogo.svg"
+              className="w-5 h-5 mr-2"
+              alt="GitHub logo"
+            />
             View on github
           </a>
           <a
@@ -62,12 +74,12 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
 
       <button
         onClick={async () => {
-          await supabase.auth.signOut();
+          await supabase.auth.signOut()
         }}
         className="btn mt-auto"
       >
         Sign Out
       </button>
     </div>
-  );
+  )
 }

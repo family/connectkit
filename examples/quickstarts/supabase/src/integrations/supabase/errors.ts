@@ -6,36 +6,38 @@ import { AuthError } from '@supabase/supabase-js'
  */
 export const AUTH_ERROR_MESSAGES: Record<string, string> = {
   // Email/Password errors
-  'invalid_credentials': 'Invalid email or password.',
-  'email_not_confirmed': 'Please verify your email address before signing in.',
-  'user_not_found': 'No account found with this email.',
-  'user_already_exists': 'An account with this email already exists.',
-  'weak_password': 'Password is too weak. Please use a stronger password (at least 6 characters).',
-  'email_exists': 'An account with this email already exists.',
-  'invalid_email': 'Invalid email address.',
-  'user_banned': 'This account has been banned.',
+  invalid_credentials: 'Invalid email or password.',
+  email_not_confirmed: 'Please verify your email address before signing in.',
+  user_not_found: 'No account found with this email.',
+  user_already_exists: 'An account with this email already exists.',
+  weak_password:
+    'Password is too weak. Please use a stronger password (at least 6 characters).',
+  email_exists: 'An account with this email already exists.',
+  invalid_email: 'Invalid email address.',
+  user_banned: 'This account has been banned.',
 
   // OAuth errors
-  'oauth_provider_not_supported': 'This sign-in method is not supported.',
-  'provider_email_needs_verification': 'Please verify your email with the provider.',
+  oauth_provider_not_supported: 'This sign-in method is not supported.',
+  provider_email_needs_verification:
+    'Please verify your email with the provider.',
 
   // Network errors
-  'network_error': 'Network error. Please check your connection and try again.',
-  'timeout': 'Request timed out. Please try again.',
+  network_error: 'Network error. Please check your connection and try again.',
+  timeout: 'Request timed out. Please try again.',
 
   // Rate limiting
-  'over_email_send_rate_limit': 'Too many emails sent. Please try again later.',
-  'over_request_rate_limit': 'Too many requests. Please try again later.',
+  over_email_send_rate_limit: 'Too many emails sent. Please try again later.',
+  over_request_rate_limit: 'Too many requests. Please try again later.',
 
   // Token errors
-  'invalid_token': 'Invalid or expired token.',
-  'expired_token': 'Session expired. Please sign in again.',
-  'refresh_token_not_found': 'Session expired. Please sign in again.',
+  invalid_token: 'Invalid or expired token.',
+  expired_token: 'Session expired. Please sign in again.',
+  refresh_token_not_found: 'Session expired. Please sign in again.',
 
   // Other common errors
-  'signup_disabled': 'Sign up is currently disabled.',
-  'email_provider_disabled': 'Email sign-in is currently disabled.',
-  'validation_failed': 'Validation failed. Please check your input.',
+  signup_disabled: 'Sign up is currently disabled.',
+  email_provider_disabled: 'Email sign-in is currently disabled.',
+  validation_failed: 'Validation failed. Please check your input.',
 }
 
 /**
@@ -46,7 +48,9 @@ export const AUTH_ERROR_MESSAGES: Record<string, string> = {
 export function getSupabaseErrorMessage(error: unknown): string {
   // Check if it's a Supabase AuthError
   if (error instanceof AuthError) {
-    const message = AUTH_ERROR_MESSAGES[error.message] || AUTH_ERROR_MESSAGES[error.status?.toString() || '']
+    const message =
+      AUTH_ERROR_MESSAGES[error.message] ||
+      AUTH_ERROR_MESSAGES[error.status?.toString() || '']
     if (message) {
       return message
     }
@@ -94,7 +98,7 @@ export function isRateLimitError(error: unknown): boolean {
  * Developer solutions for common Supabase errors
  */
 const DEVELOPER_SOLUTIONS: Record<string, string[]> = {
-  'email_provider_disabled': [
+  email_provider_disabled: [
     '1. Go to Supabase Dashboard: https://app.supabase.com/',
     '2. Select your project',
     '3. Navigate to Authentication > Providers',
@@ -102,26 +106,26 @@ const DEVELOPER_SOLUTIONS: Record<string, string[]> = {
     '5. Configure email settings if needed',
     '6. Save changes and try again',
   ],
-  'oauth_provider_not_supported': [
+  oauth_provider_not_supported: [
     '1. Go to Supabase Dashboard > Authentication > Providers',
     '2. Enable the OAuth provider you want to use (Google, GitHub, etc.)',
     '3. Configure the provider with client ID and secret',
     '4. Add redirect URLs',
     '5. Save changes and try again',
   ],
-  'network_error': [
+  network_error: [
     '1. Check your internet connection',
     '2. Verify Supabase service status: https://status.supabase.com/',
     '3. Check for CORS issues in browser console',
     '4. Ensure your Supabase URL and anon key are correct',
   ],
-  'invalid_token': [
+  invalid_token: [
     '1. Check your .env file for correct VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY values',
     '2. Verify credentials in Supabase Dashboard > Settings > API',
     '3. Ensure the keys match your Supabase project',
     '4. Restart your development server after updating .env',
   ],
-  'over_request_rate_limit': [
+  over_request_rate_limit: [
     '1. Wait a few minutes before trying again',
     '2. Check if you have rate limiting configured in Supabase Dashboard',
     '3. Consider implementing client-side rate limiting',
@@ -140,19 +144,30 @@ export function logSupabaseError(error: unknown, context?: string): void {
     return
   }
 
-  const errorPrefix = context ? `🔷 Supabase Auth Error (${context})` : '🔷 Supabase Auth Error'
+  const errorPrefix = context
+    ? `🔷 Supabase Auth Error (${context})`
+    : '🔷 Supabase Auth Error'
 
-  console.group(`%c${errorPrefix}`, 'color: #3ecf8e; font-weight: bold; font-size: 14px;')
+  console.group(
+    `%c${errorPrefix}`,
+    'color: #3ecf8e; font-weight: bold; font-size: 14px;',
+  )
 
   // Log the error message and status
-  console.error(`%cError: ${error.message}`, 'color: #ff6b6b; font-weight: bold;')
+  console.error(
+    `%cError: ${error.message}`,
+    'color: #ff6b6b; font-weight: bold;',
+  )
   if (error.status) {
     console.error(`%cStatus Code: ${error.status}`, 'color: #ff6b6b;')
   }
 
   // Log user-friendly message
   const userMessage = AUTH_ERROR_MESSAGES[error.message] || error.message
-  console.info(`%cUser Message: ${userMessage}`, 'color: #ffd93d; font-style: italic;')
+  console.info(
+    `%cUser Message: ${userMessage}`,
+    'color: #ffd93d; font-style: italic;',
+  )
 
   // Log developer solutions if available
   const solutions = DEVELOPER_SOLUTIONS[error.message]

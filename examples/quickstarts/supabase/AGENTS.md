@@ -95,11 +95,16 @@ VITE_SHIELD_PUBLISHABLE_KEY=sk_test_...
 VITE_POLICY_ID=pol_...
 VITE_CREATE_ENCRYPTED_SESSION_BASE_URL=http://localhost:5000
 VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT=/api/shield-session
+VITE_WALLET_CONNECT_PROJECT_ID=YOUR_WALLET_CONNECT_PROJECT_ID
 VITE_SUPABASE_URL=https://YOUR_PROJECT_ID.supabase.co
 VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 ```
 
 See [.env.example](.env.example) for complete configuration.
+
+### Development Server Configuration
+
+The Vite development server automatically proxies Shield session requests to your backend server (configured in [vite.config.ts](vite.config.ts:13-17)). This allows the frontend to communicate with your Shield authentication backend without CORS issues during development.
 
 ## Extending the Agents
 
