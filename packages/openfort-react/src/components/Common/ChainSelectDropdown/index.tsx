@@ -79,13 +79,21 @@ const ChainSelectDropdown: React.FC<{
   }, [open, onClose])
 
   const targetRef = useRef<any>(null)
+  const innerRef = useCallback(
+    (node: any) => {
+      if (!node) return
+      targetRef.current = node
+      refresh()
+    },
+    [refresh]
+  )
   const [ref, bounds] = useMeasure({
     debounce: 120, // waits until modal transition has finished before measuring
     offsetSize: true,
     scroll: true,
   })
 
-  const refresh = useCallback(() => {
+  const refresh = () => {
     if (
       !targetRef.current ||
       bounds.top + bounds.bottom + bounds.left + bounds.right + bounds.height + bounds.width === 0
@@ -117,31 +125,24 @@ const ChainSelectDropdown: React.FC<{
       y: y,
     });
     */
-  }, [bounds, offsetX, offsetY])
-
-  const innerRef = useCallback(
-    (node: any) => {
-      if (!node) return
-      targetRef.current = node
-      refresh()
-    },
-    [refresh]
-  )
+  }
 
   const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
-  useIsomorphicLayoutEffect(refresh, [open])
+  useIsomorphicLayoutEffect(refresh, [targetRef.current, bounds, open])
 
   useEffect(refresh, [])
 
+  const onScroll = onClose
+  const onResize = onClose
   useEffect(() => {
     refresh()
-    window.addEventListener('scroll', onClose)
-    window.addEventListener('resize', onClose)
+    window.addEventListener('scroll', onScroll)
+    window.addEventListener('resize', onResize)
     return () => {
-      window.removeEventListener('scroll', onClose)
-      window.removeEventListener('resize', onClose)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
     }
-  }, [onClose, refresh])
+  }, [onResize, onScroll, refresh])
 
   return (
     <>

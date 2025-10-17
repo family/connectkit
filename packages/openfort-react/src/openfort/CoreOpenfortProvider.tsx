@@ -67,43 +67,30 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   const { disconnectAsync } = useDisconnect()
   const { walletConfig } = useOpenfort()
 
-  // Extract configuration props for stable references
-  const baseConfiguration = openfortProps.baseConfiguration
-  const shieldConfiguration = openfortProps.shieldConfiguration
-  const oauthConfiguration = openfortProps.oauthConfiguration
-
-  // Memoize openfortProps to prevent unnecessary re-creation
-  const memoizedOpenfortProps = useMemo(() => ({
-    baseConfiguration,
-    shieldConfiguration,
-    oauthConfiguration,
-  }), [baseConfiguration, shieldConfiguration, oauthConfiguration])
-
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
-    logger.log('Creating Openfort instance.', memoizedOpenfortProps)
+    logger.log('Creating Openfort instance.', openfortProps)
 
-    if (!memoizedOpenfortProps.baseConfiguration.publishableKey)
+    if (!openfortProps.baseConfiguration.publishableKey)
       throw Error('CoreOpenfortProvider requires a publishableKey to be set in the baseConfiguration.')
 
-    const finalShieldConfiguration = memoizedOpenfortProps.shieldConfiguration && 
-      !memoizedOpenfortProps.shieldConfiguration?.passkeyRpId &&
+    if (
+      openfortProps.shieldConfiguration &&
+      !openfortProps.shieldConfiguration?.passkeyRpId &&
       typeof window !== 'undefined'
-      ? {
-          passkeyRpId: window.location.hostname,
-          passkeyRpName: document.title || 'Openfort DApp',
-          ...memoizedOpenfortProps.shieldConfiguration,
-        }
-      : memoizedOpenfortProps.shieldConfiguration
+    ) {
+      openfortProps.shieldConfiguration = {
+        passkeyRpId: window.location.hostname,
+        passkeyRpName: document.title || 'Openfort DApp',
+        ...openfortProps.shieldConfiguration,
+      }
+    }
 
-    const newClient = createOpenfortClient({
-      ...memoizedOpenfortProps,
-      shieldConfiguration: finalShieldConfiguration,
-    })
+    const newClient = createOpenfortClient(openfortProps)
 
     setDefaultClient(newClient)
     return newClient
-  }, [memoizedOpenfortProps])
+  }, [openfortProps])
 
   // ---- Embedded state ----
   const [embeddedState, setEmbeddedState] = useState<EmbeddedState>(EmbeddedState.NONE)

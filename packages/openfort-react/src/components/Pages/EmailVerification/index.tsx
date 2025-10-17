@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { EmailIcon } from '../../../assets/icons'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
@@ -25,7 +25,7 @@ const EmailVerification: React.FC = () => {
   const [shouldSendEmailVerification, setShouldSendEmailVerification] = useState<false | string>(false)
   const [verificationResponse, setVerificationResponse] = useState<VerificationResponse | null>(null)
 
-  const sendEmailVerification = useCallback(async (email: string) => {
+  const sendEmailVerification = async (email: string) => {
     if (!email) {
       log('No linked account found')
       return
@@ -42,7 +42,7 @@ const EmailVerification: React.FC = () => {
       .catch((e) => {
         log('Error requesting email verification', e)
       })
-  }, [client.auth, log])
+  }
 
   useEffect(() => {
     if (shouldSendEmailVerification) {

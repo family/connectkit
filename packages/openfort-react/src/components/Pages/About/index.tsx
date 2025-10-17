@@ -1,6 +1,6 @@
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import type React from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useLocales from '../../../hooks/useLocales'
 
 import Button from '../../Common/Button'
@@ -28,12 +28,12 @@ const About: React.FC = () => {
   const animationDuration = 600
   const autoplayDelay = 5100
 
-  const intervalRef = useRef<ReturnType<typeof setTimeout>>()
+  let interval: ReturnType<typeof setTimeout>
   useEffect(() => {
-    //intervalRef.current = setTimeout(nextSlide, autoplayDelay);
+    //interval = setTimeout(nextSlide, autoplayDelay);
 
-    return () => clearInterval(intervalRef.current)
-  }, [])
+    return () => clearInterval(interval)
+  }, [interval])
 
   const isSwipe = () => {
     if (sliderRef.current) {
@@ -60,7 +60,7 @@ const About: React.FC = () => {
       scrollToSlide(index)
       return index
     })
-    intervalRef.current = setTimeout(_nextSlide, autoplayDelay)
+    interval = setTimeout(_nextSlide, autoplayDelay)
   }
 
   const scrollToSlide = (index: number) => {
@@ -71,13 +71,8 @@ const About: React.FC = () => {
     }
   }
 
-  const didInteract = useCallback(() => {
-    interacted.current = true
-    clearTimeout(intervalRef.current)
-  }, [])
-
   // This event should not fire on mobile
-  const onScroll = useCallback(() => {
+  const onScroll = () => {
     if (!sliderRef.current) return
 
     const { offsetWidth: width, scrollLeft: x } = sliderRef.current
@@ -91,17 +86,19 @@ const About: React.FC = () => {
       const currentSlide = Math.round(x / width)
       setSlider(currentSlide)
     }
-  }, [])
-
-  const onTouchMove = useCallback(() => {
+  }
+  const onTouchMove = () => {
     didInteract()
-  }, [didInteract])
-
-  const onTouchEnd = useCallback(() => {
+  }
+  const onTouchEnd = () => {
     const { offsetWidth: width, scrollLeft: x } = sliderRef.current
     const currentSlide = Math.round(x / width)
     setSlider(currentSlide)
-  }, [])
+  }
+  const didInteract = () => {
+    interacted.current = true
+    clearTimeout(interval)
+  }
 
   const sliderRef = useRef<any>(null)
   useEffect(() => {
