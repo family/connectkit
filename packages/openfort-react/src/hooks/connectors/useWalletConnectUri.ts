@@ -24,7 +24,7 @@ export function useWalletConnectUri(
   const { connectAsync } = useConnect()
   const { disconnect } = useDisconnect()
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Intentionally excluding 'log' to prevent infinite loop caused by log function recreation on every render
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Original dependencies intentionally limited to prevent infinite loop. Added dependencies (connectAsync, disconnect, log, uri) in commit 8602301 caused infinite re-renders.
   useEffect(() => {
     if (!enabled) return
 
@@ -96,7 +96,7 @@ export function useWalletConnectUri(
         }
       }
     }
-  }, [enabled, connector, isConnected, connectAsync, disconnect, uri])
+  }, [enabled, connector, isConnected])
 
   return {
     uri,
