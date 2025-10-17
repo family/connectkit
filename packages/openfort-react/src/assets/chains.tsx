@@ -95,8 +95,7 @@ export const Ethereum = ({ testnet, ...props }: Logo) => {
 }
 
 export const LensChain = ({ testnet, ...props }: { testnet?: boolean }) => (
-  <svg
-    {...props}
+  <svg aria-hidden="true" {...props}
     width="44"
     height="44"
     viewBox="0 0 44 44"
@@ -500,8 +499,7 @@ const Metis = ({ testnet, ...props }: { testnet?: boolean }) => (
 )
 
 const Base = ({ testnet, ...props }: { testnet?: boolean }) => (
-  <svg
-    {...props}
+  <svg aria-hidden="true" {...props}
     width="44"
     height="44"
     viewBox="0 0 44 44"
@@ -518,8 +516,7 @@ const Base = ({ testnet, ...props }: { testnet?: boolean }) => (
   </svg>
 )
 const Zora = ({ testnet, ...props }: { testnet?: boolean }) => (
-  <svg
-    {...props}
+  <svg aria-hidden="true" {...props}
     width="44"
     height="44"
     viewBox="0 0 44 44"

@@ -119,8 +119,7 @@ export function QRCode({
   }, [ecl, size, uri, image, imageBackground, logoSize])
 
   return (
-    <svg
-      height={size}
+    <svg aria-hidden="true" height={size}
       width={size}
       viewBox={`0 0 ${size} ${size}`}
       style={{

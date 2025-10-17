@@ -13,7 +13,7 @@ import { useOpenfort } from '../../Openfort/useOpenfort'
 import { Container, WalletIcon, WalletItem, WalletLabel, WalletList } from './styles'
 
 const MoreIcon = (
-  <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg aria-hidden="true" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M30 42V19M19 30.5H42" stroke="var(--ck-body-color-muted)" strokeWidth="3" strokeLinecap="round" />
   </svg>
 )

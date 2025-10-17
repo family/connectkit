@@ -96,7 +96,7 @@ const EmailButton: React.FC = () => {
                   aria-label="Submit email"
                 >
                   <ProviderIcon>
-                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg aria-hidden="true" width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <line stroke="currentColor" x1="1" y1="6" x2="12" y2="6" strokeWidth="1" strokeLinecap="round" />
                       <path
                         stroke="currentColor"
