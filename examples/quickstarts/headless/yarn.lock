@@ -1562,9 +1562,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfort/openfort-js@npm:^0.10.24":
-  version: 0.10.25
-  resolution: "@openfort/openfort-js@npm:0.10.25"
+"@openfort/openfort-js@npm:^0.10.27":
+  version: 0.10.27
+  resolution: "@openfort/openfort-js@npm:0.10.27"
   dependencies:
     "@ethersproject/abi": ^5.8.0
     "@ethersproject/bytes": ^5.8.0
@@ -1572,22 +1572,23 @@ __metadata:
     "@ethersproject/keccak256": ^5.8.0
     "@ethersproject/providers": ^5.8.0
     "@ethersproject/transactions": ^5.8.0
-    "@openfort/shield-js": ^0.1.27
+    "@openfort/shield-js": ^0.1.29
     "@sentry/browser": ^9.15.0
     "@sentry/core": ^9.15.0
-    axios: ^1.8.2
+    axios: ^1.12.2
+    axios-retry: ^4.5.0
     eventemitter3: 5.0.1
     human-id: ^4.1.1
     jose: ^5.2.2
-  checksum: 4d0f5c4f8b54fb62e0c5a00c10f4973cbca923ee0502d1f591b00e8b7f8fcbcce57041f6c12bcb50b608c5b7901b62360faff2bb2e21a9d486db322a6645a7dc
+  checksum: 453e8ad8434a5f51fbd4cc9eb2b7148d3689cc9f728ba7f05335cb3fa7cb6fb16426dd23f3a028421a07ece124cdf19a6f1a9fe7df549e6f86204867235f2fd6
   languageName: node
   linkType: hard
 
-"@openfort/react@npm:^0.0.23":
-  version: 0.0.23
-  resolution: "@openfort/react@npm:0.0.23"
+"@openfort/react@npm:^0.0.25":
+  version: 0.0.25
+  resolution: "@openfort/react@npm:0.0.25"
   dependencies:
-    "@openfort/openfort-js": ^0.10.24
+    "@openfort/openfort-js": ^0.10.27
     buffer: ^6.0.3
     detect-browser: ^5.3.0
     fast-password-entropy: ^1.1.1
@@ -1604,11 +1605,11 @@ __metadata:
     react-dom: 17.x || 18.x || 19.x
     viem: 2.x
     wagmi: 2.x
-  checksum: d25694c1847a69dc13b0a6e75a3055bb3f36d0450b86a2a9a3b56aa8c208ae624c13c7225a2e2ec89669eb83187968078feb7d9484557aa4e50750f32ba91f1a
+  checksum: 962c8a8e3ed00e419ec2151fae7f0945bfed00c46b1ef81a6e45612f9194c45d701c2db997b02d0f6f2880e9c5a4a0d3ed4eee1c7a416bf16606d9503008a579
   languageName: node
   linkType: hard
 
-"@openfort/shield-js@npm:^0.1.27":
+"@openfort/shield-js@npm:^0.1.29":
   version: 0.1.29
   resolution: "@openfort/shield-js@npm:0.1.29"
   dependencies:
@@ -2253,21 +2254,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.90.3":
-  version: 5.90.3
-  resolution: "@tanstack/query-core@npm:5.90.3"
-  checksum: 2b4a95ee452be0460c81e01df30dccc6d9c60b3a69a285e284af538f100e24b6c34f34b9911d8a2c2380c370245680b7c7294933b33d293fccd4b9293e8e1e37
+"@tanstack/query-core@npm:5.90.5":
+  version: 5.90.5
+  resolution: "@tanstack/query-core@npm:5.90.5"
+  checksum: e707343dfa96f7d062269c6ce3ebe7bf624c64ce653e40212fe124962a34be2f9787e451ea5b61c073e53bddad02503294094be19f23c4636d72626eeb40b5e2
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.90.2":
-  version: 5.90.3
-  resolution: "@tanstack/react-query@npm:5.90.3"
+"@tanstack/react-query@npm:>=5.45.1":
+  version: 5.90.5
+  resolution: "@tanstack/react-query@npm:5.90.5"
   dependencies:
-    "@tanstack/query-core": 5.90.3
+    "@tanstack/query-core": 5.90.5
   peerDependencies:
     react: ^18 || ^19
-  checksum: 9d8ca66d3388368cff4c4bcb34aab38ee395c6e0eeec0b0ecb901fb2d7d5486ac440f3b1356914fabe1fb057f8fb3674d6ce74f45907765a707fdd54f3291ac6
+  checksum: 4a0fce820142aa55d3918b234da7680bfd8ed9c3a0ddc6c7e3ee529728ce97dbd113fefa40a952159c42c90eda8dcedc38cd85e1b06f08b309f60909066ee9a1
   languageName: node
   linkType: hard
 
@@ -3163,7 +3164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios-retry@npm:4.5.0":
+"axios-retry@npm:4.5.0, axios-retry@npm:^4.5.0":
   version: 4.5.0
   resolution: "axios-retry@npm:4.5.0"
   dependencies:
@@ -3174,7 +3175,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.12.2, axios@npm:^1.8.2":
+"axios@npm:1.12.2, axios@npm:^1.12.2":
   version: 1.12.2
   resolution: "axios@npm:1.12.2"
   dependencies:
@@ -6238,9 +6239,9 @@ __metadata:
   dependencies:
     "@eslint/js": ^9.33.0
     "@heroicons/react": ^2.2.0
-    "@openfort/react": ^0.0.23
+    "@openfort/react": ^0.0.25
     "@tailwindcss/vite": ^4.1.12
-    "@tanstack/react-query": ^5.90.2
+    "@tanstack/react-query": ">=5.45.1"
     "@types/react": ^19.1.10
     "@types/react-dom": ^19.1.7
     "@vitejs/plugin-react": ^4.3.4
@@ -6253,7 +6254,7 @@ __metadata:
     tailwindcss: ^4.1.12
     typescript: ~5.8.3
     typescript-eslint: ^8.39.1
-    viem: ^2.22.0
+    viem: 2.38.2
     vite: ^6.2.0
     wagmi: ^2.17.5
   languageName: unknown
@@ -7276,7 +7277,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:>=2.29.0, viem@npm:^2.1.1, viem@npm:^2.22.0, viem@npm:^2.27.2, viem@npm:^2.31.7":
+"viem@npm:2.38.2, viem@npm:>=2.29.0, viem@npm:^2.1.1, viem@npm:^2.27.2, viem@npm:^2.31.7":
   version: 2.38.2
   resolution: "viem@npm:2.38.2"
   dependencies:

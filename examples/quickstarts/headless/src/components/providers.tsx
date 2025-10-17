@@ -1,7 +1,7 @@
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { createConfig, WagmiProvider } from 'wagmi';
 
-import { getDefaultConfig, OpenfortProvider, AccountTypeEnum } from "@openfort/react";
+import { getDefaultConfig, OpenfortProvider } from "@openfort/react";
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { useState } from 'react';
 
