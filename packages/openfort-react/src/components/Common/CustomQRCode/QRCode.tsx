@@ -128,6 +128,7 @@ export function QRCode({
         height: size,
       }}
     >
+      <title>QR Code</title>
       <rect fill="transparent" height={size} width={size} />
       {dots}
     </svg>

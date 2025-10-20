@@ -5,6 +5,7 @@ import { MoreIndicator, ScrollAreaContainer, ScrollContainer } from './styles'
 
 const ArrowDown = () => (
   <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>Scroll down arrow</title>
     <path
       d="M5.49438 1L5.49438 11M5.49438 11L9.5 7M5.49438 11L1.5 7"
       stroke="currentColor"
