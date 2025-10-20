@@ -30,7 +30,7 @@ import { OtherMethodButton } from './styles'
 const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
   const [recoveryPhrase, setRecoveryPhrase] = useState('')
   const [recoveryError, setRecoveryError] = useState<false | string>(false)
-  const { triggerResize, uiConfig: options, log } = useOpenfort()
+  const { triggerResize, log } = useOpenfort()
   const [loading, setLoading] = useState(false)
   const { setActiveWallet } = useWallets()
 
@@ -117,8 +117,8 @@ const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
 }
 
 const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
-  const { triggerResize, uiConfig: options, log } = useOpenfort()
-  const { setActiveWallet, error: recoveryError, isConnecting: loading } = useWallets()
+  const { triggerResize } = useOpenfort()
+  const { setActiveWallet, error: recoveryError } = useWallets()
   const [shouldRecoverWallet, setShouldRecoverWallet] = useState(false)
 
   const recoverWallet = async () => {
@@ -343,7 +343,7 @@ const CreateWalletPasswordRecovery = ({
 }) => {
   const [recoveryPhrase, setRecoveryPhrase] = useState('')
   const [recoveryError, setRecoveryError] = useState<false | string>(false)
-  const { triggerResize, uiConfig: options, log } = useOpenfort()
+  const { triggerResize, log } = useOpenfort()
   const [showPasswordIsTooWeakError, setShowPasswordIsTooWeakError] = useState(false)
   const [loading, setLoading] = useState(false)
   const { createWallet } = useWallets()
@@ -566,8 +566,8 @@ const Connected: React.FC = () => {
 }
 
 const RecoverPage: React.FC = () => {
-  const { needsRecovery, user } = useOpenfortCore()
-  const { triggerResize, uiConfig, walletConfig, setRoute } = useOpenfort()
+  const { user } = useOpenfortCore()
+  const { triggerResize } = useOpenfort()
   const { wallets, isLoadingWallets } = useWallets()
   // const [loading, setLoading] = useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = useState(true)
