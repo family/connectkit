@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.27] - 2025-10-20
+
+### Fix
+
+- Fix wallet connect
+
 ## [0.0.26] - 2025-10-17
 
 ### Feat
