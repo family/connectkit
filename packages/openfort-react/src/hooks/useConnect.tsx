@@ -11,7 +11,13 @@
  * ```
  */
 
-import { type Connector, type CreateConnectorFn, type UseConnectParameters, type UseConnectReturnType, useConnect as wagmiUseConnect } from 'wagmi'
+import {
+  type Connector,
+  type CreateConnectorFn,
+  type UseConnectParameters,
+  type UseConnectReturnType,
+  useConnect as wagmiUseConnect,
+} from 'wagmi'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
 
 type CustomConnectParams = {
