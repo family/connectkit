@@ -27,11 +27,21 @@ const DownloadFooter = styled.div`
 `;
 
 const ConnectWithMobile: React.FC<{}> = ({ }) => {
-  const { connector, setRoute } = useOpenfort();
+  const { connector, setRoute, log } = useOpenfort();
 
-  const wallet = useWallet(connector.id) || walletConfigs[connector.id];
+  const walletId = Object.keys(walletConfigs).find(
+    // where id is comma seperated list
+    (id) =>
+      id
+        .split(',')
+        .map((i) => i.trim())
+        .indexOf(connector.id) !== -1
+  );
 
-  const [status, setStatus] = useState(states.INIT);
+  const wallet = useWallet(connector.id) || (walletId && walletConfigs[walletId]) || {};
+  const { isConnected } = useAccount();
+
+  const [status, setStatus] = useState(isConnected ? states.INIT : states.CONNECTING);
   const [description, setDescription] = useState<string | undefined>(undefined);
 
   const {
@@ -40,13 +50,12 @@ const ConnectWithMobile: React.FC<{}> = ({ }) => {
   const wcUri = getUri();
 
   const [hasReturned, setHasReturned] = useState(false);
-  const { isConnected } = useAccount();
-  const [shouldRedirectToWalletApp, setShouldRedirectToWalletApp] = useState(false);
 
   const siwe = useConnectWithSiwe()
 
   const openApp = (url?: string) => {
     const uri = wallet?.getWalletConnectDeeplink?.(url ?? "");
+    log("Opening wallet app with uri", { uri, url, wallet, walletId, walletConfigs, connectorId: connector.id });
     if (uri) {
       if (url) {
         window.location.href = uri;
@@ -83,8 +92,9 @@ const ConnectWithMobile: React.FC<{}> = ({ }) => {
         openApp(wcUri!);
         break;
       case states.CONNECTING:
-        setDescription("Requesting signature...");
+        setDescription("Requesting signature to verify wallet...");
         siwe({
+          walletClientType: walletId,
           onConnect: () => {
             setRoute(routes.PROFILE);
           },
@@ -93,19 +103,9 @@ const ConnectWithMobile: React.FC<{}> = ({ }) => {
             setDescription(error || "Connection failed");
           }
         });
-        setTimeout(() => {
-          setShouldRedirectToWalletApp(true);
-        }, 1500);
         break;
     }
   }, [status]);
-
-
-  useEffect(() => {
-    if (shouldRedirectToWalletApp && status === states.CONNECTING) {
-      openApp();
-    }
-  }, [shouldRedirectToWalletApp, status]);
 
   return (
     <PageContent>
@@ -115,11 +115,7 @@ const ConnectWithMobile: React.FC<{}> = ({ }) => {
         isError={status === states.ERROR}
         description={description}
         onRetry={() => {
-          if (isConnected) {
-            setStatus(states.CONNECTING);
-            return;
-          }
-          setStatus(states.INIT);
+          setStatus(isConnected ? states.CONNECTING : states.INIT);
           setDescription("");
         }}
       />

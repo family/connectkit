@@ -169,7 +169,7 @@ export const walletConfigs: {
     shortName: 'Browser',
     icon: <Logos.Injected />,
   },
-  'metaMask, metaMask-io, io.metamask, io.metamask.mobile, metaMaskSDK': {
+  'metaMask, MetaMask, metaMask-io, io.metamask, io.metamask.mobile, metaMaskSDK': {
     name: 'MetaMask',
     icon: <Logos.MetaMask />,
     iconConnector: <Logos.MetaMask />,

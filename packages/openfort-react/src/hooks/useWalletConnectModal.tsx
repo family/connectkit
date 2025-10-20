@@ -38,16 +38,27 @@ export function useWalletConnectModal() {
             await connectAsync({ connector: connector });
           } catch (err) {
             log('WalletConnect', err);
+            return {
+              error: 'Connection failed',
+            }
           }
+
           setIsOpen(false);
 
           // remove modal styling
           document.head.removeChild(w3mcss);
+          return {};
         } catch (err) {
           log('Could not get WalletConnect provider', err);
+          return {
+            error: 'Could not get WalletConnect provider',
+          }
         }
       } else {
-        log('No WalletConnect connector available');
+        log('Configuration error: Please provide a WalletConnect Project ID in your wagmi config.');
+        return {
+          error: 'Configuration error: Please provide a WalletConnect Project ID in your wagmi config.',
+        };
       }
     },
   };
