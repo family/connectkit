@@ -13,8 +13,7 @@
     "enabled": true,
     "formatWithErrors": true,
     "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 100
+    "indentWidth": 2
   },
   "linter": {
     "enabled": true,
@@ -33,26 +32,24 @@
       },
       "suspicious": {
         "recommended": true,
-        "noUnknownAtRules": "off",
-        "noExplicitAny": "warn"
+        "noUnknownAtRules": "off"
       },
       "style": {
         "recommended": true,
         "noDescendingSpecificity": "off",
-        "noNonNullAssertion": "warn"
+        "noNonNullAssertion": "off"
       }
     }
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "trailingCommas": "es5",
       "semicolons": "asNeeded"
     }
   },
   "overrides": [
     {
-      "includes": ["apps/**/*.tsx", "apps/**/*.ts"],
+      "includes": ["**/*.tsx", "**/*.ts", "**/*.jsx", "**/*.js"],
       "linter": {
         "rules": {
           "correctness": {

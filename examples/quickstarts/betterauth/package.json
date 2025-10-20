@@ -7,13 +7,14 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "concurrently \"yarn workspace @openfort-betterauth/web dev\" \"yarn workspace @openfort-betterauth/server dev\"",
-    "build": "yarn workspace @openfort-betterauth/web build && yarn workspace @openfort-betterauth/server build",
+    "dev": "concurrently \"pnpm --filter @openfort-betterauth/web dev\" \"pnpm --filter @openfort-betterauth/server dev\"",
+    "build": "pnpm --filter @openfort-betterauth/web build && pnpm --filter @openfort-betterauth/server build",
     "check": "biome check --write --unsafe",
     "format": "biome format --write ."
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.2.6",
     "concurrently": "^9.1.2"
-  }
+  },
+  "packageManager": "pnpm@10.16.1"
 }
