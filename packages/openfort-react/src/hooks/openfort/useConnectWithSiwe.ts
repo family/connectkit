@@ -1,13 +1,10 @@
+import { signMessage, switchChain } from '@wagmi/core'
 import { AxiosError } from 'axios'
+import { useCallback } from 'react'
 import { useAccount, useChainId, useConfig, usePublicClient } from 'wagmi'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { createSIWEMessage } from '../../siwe/create-siwe-message'
-
-import { signMessage, switchChain } from '@wagmi/core'
-import { useCallback } from 'react'
-import { isMobile } from '../../utils'
-import { useWallet } from '../../wallets/useWallets'
 
 // This hook assumes wagmi is already connected to a wallet
 // It will use the connected wallet to sign the SIWE message and authenticate with Openfort
@@ -37,7 +34,7 @@ export function useConnectWithSiwe() {
 
       if (!address || !connectorType || !walletClientType) {
         log('No address found', { address, connectorType, walletClientType })
-        onError && onError('No address found')
+        onError?.('No address found')
         return
       }
 
@@ -78,7 +75,7 @@ export function useConnectWithSiwe() {
 
         await updateUser()
 
-        onConnect && onConnect()
+        onConnect?.()
       } catch (err) {
         log('Failed to connect with SIWE', err)
         if (!onError) return

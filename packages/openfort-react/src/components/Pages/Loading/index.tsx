@@ -3,8 +3,8 @@ import { useAccount } from 'wagmi'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import Loader from '../../Common/Loading'
 import { PageContent } from '../../Common/Modal/styles'
-import { useOpenfort } from '../../Openfort/useOpenfort'
 import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
 const Loading: React.FC = () => {
   const { setRoute, walletConfig } = useOpenfort()

@@ -1,7 +1,6 @@
-import styled from '../../../styles/styled'
-import { css, keyframes } from 'styled-components'
-
 import { motion } from 'framer-motion'
+import { css, keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 const Shimmer = keyframes`
   0%{ transform: translate(-100%) rotate(-45deg); }

@@ -1,5 +1,5 @@
 import type { Config } from '@wagmi/core'
-import { http, createConfig } from 'wagmi'
+import { createConfig, http } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { useChainIsSupported } from './useChainIsSupported'
 

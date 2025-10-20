@@ -1,11 +1,11 @@
+import type { AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
-import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
-import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types'
-import { BaseFlowState, mapStatus } from './status'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
-import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
-import { UserWallet } from '../useWallets'
+import type { UserWallet } from '../useWallets'
+import { type BaseFlowState, mapStatus } from './status'
+import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
 
 export type GuestHookResult = {
   error?: OpenfortError

@@ -1,8 +1,8 @@
-import styled from './styled'
-import { css } from 'styled-components'
 import { motion } from 'framer-motion'
-import { CustomTheme } from '../types'
+import { css } from 'styled-components'
+import type { CustomTheme } from '../types'
 import { hexToP3 } from '../utils/p3'
+import styled from './styled'
 
 import predefinedThemes from './themes'
 

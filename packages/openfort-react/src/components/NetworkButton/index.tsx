@@ -1,19 +1,17 @@
-import React, { useState } from 'react'
-import { All } from '../../types'
-
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useState } from 'react'
 
 import { useAccount } from 'wagmi'
-import useIsMounted from '../../hooks/useIsMounted'
-
-import Chain from '../Common/Chain'
-import DynamicContainer from '../Common/DynamicContainer'
 import { chainConfigs } from '../../constants/chainConfigs'
-import ThemedButton from '../Common/ThemedButton'
-import ChainSelectDropdown from '../Common/ChainSelectDropdown'
-import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider'
-import { motion } from 'framer-motion'
+import useIsMounted from '../../hooks/useIsMounted'
 import styled from '../../styles/styled'
+import type { All } from '../../types'
+import Chain from '../Common/Chain'
+import ChainSelectDropdown from '../Common/ChainSelectDropdown'
+import DynamicContainer from '../Common/DynamicContainer'
+import ThemedButton from '../Common/ThemedButton'
+import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider'
 import { useOpenfort } from '../Openfort/useOpenfort'
 
 const Container = styled(motion.div)`

@@ -11,12 +11,11 @@
 
 import { createContext, useContext } from 'react'
 
-import { Address, Chain } from 'viem'
+import type { Address, Chain } from 'viem'
 import { useAccount } from 'wagmi'
-
-import { useChains } from '../../../hooks/useChains'
 import { useWalletConnectUri } from '../../../hooks/connectors/useWalletConnectUri'
 import { useChainIsSupported } from '../../../hooks/useChainIsSupported'
+import { useChains } from '../../../hooks/useChains'
 
 type Web3Context = {
   connect: {

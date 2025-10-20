@@ -1,7 +1,7 @@
-import { keyframes } from 'styled-components'
-import styled from '../../../styles/styled'
 import { motion } from 'framer-motion'
+import { keyframes } from 'styled-components'
 import defaultTheme from '../../../constants/defaultTheme'
+import styled from '../../../styles/styled'
 import Button from '../../Common/Button'
 import { InnerContainer } from '../../Common/Button/styles'
 

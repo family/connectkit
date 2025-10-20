@@ -1,16 +1,16 @@
-import React from 'react'
+import type React from 'react'
+import wave from '../../assets/wave'
 import {
   FloatWrapper,
   Graphic,
+  GraphicBackground,
   Logo,
+  LogoGraphic as LogoGraphicInner,
   LogoGroup,
   LogoInner,
   LogoPosition,
   RotateWrapper,
-  LogoGraphic as LogoGraphicInner,
-  GraphicBackground,
 } from './styles'
-import wave from '../../assets/wave'
 
 type LogoGraphicProps = {
   size?: string

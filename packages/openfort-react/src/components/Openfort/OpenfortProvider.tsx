@@ -1,22 +1,27 @@
+import { RecoveryMethod, type SDKOverrides, type ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import { Buffer } from 'buffer'
 import React, { createElement, useEffect, useState } from 'react'
-
-import { RecoveryMethod, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
-import { ValueOf } from 'viem/_types/types/utils'
-import { WagmiContext, useAccount } from 'wagmi'
+import type { ValueOf } from 'viem/_types/types/utils'
+import { useAccount, WagmiContext } from 'wagmi'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
 import { useChains } from '../../hooks/useChains'
-import { useConnectCallbackProps } from '../../hooks/useConnectCallback'
+import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
 import { useConnector } from '../../hooks/useConnectors'
 import { useThemeFont } from '../../hooks/useGoogleFont'
 import { CoreOpenfortProvider } from '../../openfort/CoreOpenfortProvider'
-import { CustomTheme, Languages, Mode, Theme } from '../../types'
-import { isFamily } from '../../utils/wallets'
+import type { CustomTheme, Languages, Mode, Theme } from '../../types'
 import { logger } from '../../utils/logger'
+import { isFamily } from '../../utils/wallets'
 import ConnectKitModal from '../ConnectModal'
 import { Web3ContextProvider } from '../contexts/web3'
-import { ContextValue, ErrorMessage, Openfortcontext } from './context'
-import { UIAuthProvider, ConnectUIOptions, OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types'
+import { type ContextValue, type ErrorMessage, Openfortcontext } from './context'
+import {
+  type ConnectUIOptions,
+  type OpenfortUIOptionsExtended,
+  type OpenfortWalletConfig,
+  routes,
+  UIAuthProvider,
+} from './types'
 
 type OpenfortProviderProps = {
   children?: React.ReactNode

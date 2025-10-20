@@ -1,14 +1,13 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { useOpenfort } from '../../Openfort/useOpenfort'
-import useMeasure from 'react-use-measure'
-
-import { TooltipProps, TooltipSizeProps } from './types'
-import { TooltipWindow, TooltipContainer, TooltipTail } from './styles'
-
 import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import useMeasure from 'react-use-measure'
 import { ResetContainer } from '../../../styles'
-import Portal from '../Portal'
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import Portal from '../Portal'
+import { TooltipContainer, TooltipTail, TooltipWindow } from './styles'
+import type { TooltipProps, TooltipSizeProps } from './types'
 
 const Tooltip: React.FC<TooltipProps> = ({ children, message, open, xOffset = 0, yOffset = 0, delay }) => {
   const context = useOpenfort()

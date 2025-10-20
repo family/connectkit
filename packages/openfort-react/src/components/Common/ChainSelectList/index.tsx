@@ -1,26 +1,23 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import { useAccount, useSwitchChain } from 'wagmi'
+import ChainIcons from '../../../assets/chains'
 import { chainConfigs } from '../../../constants/chainConfigs'
-
+import useLocales from '../../../hooks/useLocales'
+import { isCoinbaseWalletConnector, isMobile } from '../../../utils'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import Alert from '../Alert'
 import {
-  SwitchNetworksContainer,
   ChainButton,
-  ChainButtonContainer,
   ChainButtonBg,
+  ChainButtonContainer,
   ChainButtonStatus,
   ChainButtons,
   ChainIcon,
   ChainLogoContainer,
   ChainLogoSpinner,
+  SwitchNetworksContainer,
 } from './styles'
-import Alert from '../Alert'
-
-import { AnimatePresence, motion } from 'framer-motion'
-import { isCoinbaseWalletConnector, isMobile } from '../../../utils'
-
-import ChainIcons from '../../../assets/chains'
-import useLocales from '../../../hooks/useLocales'
-import { useOpenfort } from '../../Openfort/useOpenfort'
 
 const Spinner = (
   <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">

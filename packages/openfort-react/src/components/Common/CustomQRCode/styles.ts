@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import styled from '../../../styles/styled'
 import { css, keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 export const QRCodeContainer = styled(motion.div)`
   z-index: 3;

@@ -1,4 +1,4 @@
-import { Openfort as OpenfortClient, OpenfortSDKConfiguration } from '@openfort/openfort-js'
+import { Openfort as OpenfortClient, type OpenfortSDKConfiguration } from '@openfort/openfort-js'
 
 /**
  * Creates a new {@link OpenfortClient} instance.

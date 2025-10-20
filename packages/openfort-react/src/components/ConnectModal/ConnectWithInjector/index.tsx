@@ -1,8 +1,17 @@
-import { AnimatePresence, Variants } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
-import { ConnectingAnimation, ConnectingContainer, Container, Content, RetryButton, RetryIconContainer } from './styles'
-
+import { AnimatePresence, type Variants } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useState } from 'react'
+import { useAccount, useDisconnect } from 'wagmi'
+import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons'
+import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe'
+import { useConnect } from '../../../hooks/useConnect'
+import useLocales from '../../../hooks/useLocales'
+import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { detectBrowser, isWalletConnectConnector } from '../../../utils'
+import { logger } from '../../../utils/logger'
+import { useWallet } from '../../../wallets/useWallets'
 import Alert from '../../Common/Alert'
+import BrowserIcon from '../../Common/BrowserIcon'
 import Button from '../../Common/Button'
 import {
   ModalBody,
@@ -12,23 +21,11 @@ import {
   ModalHeading,
   PageContent,
 } from '../../Common/Modal/styles'
-import Tooltip from '../../Common/Tooltip'
-
 import SquircleSpinner from '../../Common/SquircleSpinner'
-
-import { useAccount, useDisconnect } from 'wagmi'
-import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons'
-import { useConnect } from '../../../hooks/useConnect'
-import useLocales from '../../../hooks/useLocales'
-import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { logger } from '../../../utils/logger'
-import { detectBrowser, isWalletConnectConnector } from '../../../utils'
-import { useWallet } from '../../../wallets/useWallets'
-import BrowserIcon from '../../Common/BrowserIcon'
+import Tooltip from '../../Common/Tooltip'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import CircleSpinner from './CircleSpinner'
-
-import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe'
+import { ConnectingAnimation, ConnectingContainer, Container, Content, RetryButton, RetryIconContainer } from './styles'
 
 export const states = {
   CONNECTED: 'connected',

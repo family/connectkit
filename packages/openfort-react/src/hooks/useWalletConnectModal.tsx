@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Connector, CreateConnectorFn } from 'wagmi'
+import type { Connector, CreateConnectorFn } from 'wagmi'
 import { walletConnect } from 'wagmi/connectors'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
 

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Connector, useAccount, useDisconnect } from 'wagmi'
+import { type Connector, useAccount, useDisconnect } from 'wagmi'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { useConnect } from '../useConnect'
 import { useWalletConnectConnector } from '../useConnectors'

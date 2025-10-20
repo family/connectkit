@@ -1,6 +1,6 @@
-import styled from '../../../styles/styled'
-import { css, keyframes } from 'styled-components'
 import { motion } from 'framer-motion'
+import { css, keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 import { ModalContent } from '../../Common/Modal/styles'
 

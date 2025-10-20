@@ -1,4 +1,4 @@
-import { LocaleProps } from './'
+import type { LocaleProps } from './'
 import enUS from './en-US'
 
 const faIR: LocaleProps = {

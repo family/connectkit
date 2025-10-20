@@ -1,21 +1,18 @@
-import { useOpenfort } from '../../Openfort/useOpenfort'
-
-import { ConnectorButton, ConnectorIcon, ConnectorLabel, ConnectorsContainer, RecentlyUsedTag } from './styles'
-
-import { useWeb3 } from '../../contexts/web3'
-
-import useIsMobile from '../../../hooks/useIsMobile'
-import Alert from '../Alert'
-import { ScrollArea } from '../ScrollArea'
-
 import { embeddedWalletId } from '../../../constants/openfort'
 import { useConnect } from '../../../hooks/useConnect'
 import { useFamilyAccountsConnector, useFamilyConnector } from '../../../hooks/useConnectors'
+
+import useIsMobile from '../../../hooks/useIsMobile'
 import { useLastConnector } from '../../../hooks/useLastConnector'
 import { detectBrowser, isCoinbaseWalletConnector, isPortoConnector, isWalletConnectConnector } from '../../../utils'
 import { isFamily } from '../../../utils/wallets'
-import { WalletProps, useWallets } from '../../../wallets/useWallets'
+import { useWallets, type WalletProps } from '../../../wallets/useWallets'
+import { useWeb3 } from '../../contexts/web3'
 import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import Alert from '../Alert'
+import { ScrollArea } from '../ScrollArea'
+import { ConnectorButton, ConnectorIcon, ConnectorLabel, ConnectorsContainer, RecentlyUsedTag } from './styles'
 
 const ConnectorList = () => {
   const context = useOpenfort()

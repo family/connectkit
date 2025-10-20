@@ -1,4 +1,4 @@
-import { LocaleProps } from './'
+import type { LocaleProps } from './'
 import enUS from './en-US'
 
 const trTR: LocaleProps = {
@@ -42,7 +42,7 @@ const trTR: LocaleProps = {
   warnings_chainUnsupportedResolve: `Devam etmek için ağ değiştir veya bağlantıyı kes.`,
 
   onboardingScreen_heading: `Cüzdan Al`,
-  onboardingScreen_h1: `Web3\'ü keşfetmeye başla`,
+  onboardingScreen_h1: `Web3'ü keşfetmeye başla`,
   onboardingScreen_p: `Cüzdanınız, Web3'ü keşfetmeyi mümkün kılan sihirli teknoloji olan Ethereum'a açılan kapıdır.`,
   onboardingScreen_ctaText: `İlk Cüzdanını Seç`,
   onboardingScreen_ctaUrl: `https://ethereum.org/tr/wallets/find-wallet/`,

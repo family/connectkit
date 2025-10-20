@@ -1,12 +1,9 @@
 import React from 'react'
-
-import { PageContent, ModalBody, ModalContent } from '../../Common/Modal/styles'
-
-import CustomQRCode from '../../Common/CustomQRCode'
-
 import useLocales from '../../../hooks/useLocales'
-import { useOpenfort } from '../../Openfort/useOpenfort'
 import { useWallet } from '../../../wallets/useWallets'
+import CustomQRCode from '../../Common/CustomQRCode'
+import { ModalBody, ModalContent, PageContent } from '../../Common/Modal/styles'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
 const DownloadApp = () => {
   const context = useOpenfort()

@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { ImageContainer, ImageContainerInner, MobileImageContainer, Slider, Slides, Slide, Dots, Dot } from './styles'
-
-import { PageContent, ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
+import { AnimatePresence, MotionConfig } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useRef, useState } from 'react'
+import useLocales from '../../../hooks/useLocales'
 
 import Button from '../../Common/Button'
-import { Easing, SlideOne, SlideThree, SlideTwo } from './graphics'
-import { AnimatePresence, MotionConfig } from 'framer-motion'
-import { OrDivider } from '../../Common/Modal'
-import useLocales from '../../../hooks/useLocales'
 import FitText from '../../Common/FitText'
+import { OrDivider } from '../../Common/Modal'
+import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { type Easing, SlideOne, SlideThree, SlideTwo } from './graphics'
+import { Dot, Dots, ImageContainer, ImageContainerInner, MobileImageContainer, Slide, Slider, Slides } from './styles'
 
 const About: React.FC = () => {
   const locales = useLocales({

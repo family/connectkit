@@ -1,7 +1,7 @@
-import styled from '../../../styles/styled'
-import { keyframes } from 'styled-components'
 import { motion } from 'framer-motion'
+import { keyframes } from 'styled-components'
 import defaultTheme from '../../../constants/defaultTheme'
+import styled from '../../../styles/styled'
 
 export const ErrorMessage = styled(motion.div)`
   z-index: -1;

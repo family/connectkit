@@ -1,4 +1,4 @@
 import { createContext } from 'react'
-import { ContextValue } from './CoreOpenfortProvider'
+import type { ContextValue } from './CoreOpenfortProvider'
 
 export const Context = createContext<ContextValue | null>(null)

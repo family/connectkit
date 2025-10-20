@@ -1,10 +1,15 @@
-import React, { createContext } from 'react'
-import { CustomTheme, Languages, Mode, Theme } from '../../types'
-
-import { OAuthProvider, RecoveryMethod, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
-import { ValueOf } from 'viem/_types/types/utils'
-import { useConnectCallbackProps } from '../../hooks/useConnectCallback'
-import { OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types'
+import {
+  type OAuthProvider,
+  RecoveryMethod,
+  type SDKOverrides,
+  type ThirdPartyAuthConfiguration,
+} from '@openfort/openfort-js'
+import type React from 'react'
+import { createContext } from 'react'
+import type { ValueOf } from 'viem/_types/types/utils'
+import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
+import type { CustomTheme, Languages, Mode, Theme } from '../../types'
+import type { OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types'
 
 type Connector =
   | {

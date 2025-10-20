@@ -1,5 +1,7 @@
 import { OAuthProvider } from '@openfort/openfort-js'
-import React, { useEffect, useMemo } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useMemo } from 'react'
 import { useAccount, useDisconnect } from 'wagmi'
 import { EmailIcon, GuestIcon } from '../../../assets/icons'
 import Logos, { OtherSocials, providersLogos } from '../../../assets/logos'
@@ -7,10 +9,12 @@ import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
+import { Arrow, ArrowChevron, ArrowLine, ButtonContainerInner } from '../../Common/Button/styles'
+import { Input } from '../../Common/Input/styles'
 import Loader from '../../Common/Loading'
 import { BackButton, PageContent } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
-import { UIAuthProvider, routes, socialProviders } from '../../Openfort/types'
+import { routes, socialProviders, UIAuthProvider } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import {
   EmailInnerButton,
@@ -19,9 +23,6 @@ import {
   ProviderLabel,
   ProvidersButton as ProvidersButtonStyle,
 } from './styles'
-import { Arrow, ArrowChevron, ArrowLine, ButtonContainerInner } from '../../Common/Button/styles'
-import { Input } from '../../Common/Input/styles'
-import { motion, AnimatePresence } from 'framer-motion'
 
 const ProviderButton: React.FC<{
   onClick: () => void

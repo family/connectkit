@@ -1,4 +1,4 @@
-import { Languages as Lang } from './localizations'
+import type { Languages as Lang } from './localizations'
 export type Languages = Lang
 
 export type Theme = 'auto' | 'web95' | 'retro' | 'soft' | 'midnight' | 'minimal' | 'rounded' | 'nouns'
@@ -12,8 +12,8 @@ export type All = {
   lang?: Languages
 }
 
-export type { ConnectUIOptions as OpenfortOptions, OpenfortWalletConfig } from './components/Openfort/types'
 export type { CustomAvatarProps } from './components/Common/Avatar'
+export type { ConnectUIOptions as OpenfortOptions, OpenfortWalletConfig } from './components/Openfort/types'
 
 export enum OpenfortErrorType {
   AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR',
@@ -55,8 +55,8 @@ export type OpenfortHookOptions<T = { error?: OpenfortError }> = {
 
 // Re-export important types and enums from openfort-js
 export {
-  SDKOverrides,
-  RecoveryMethod,
-  ThirdPartyOAuthProvider,
   OAuthProvider,
+  RecoveryMethod,
+  SDKOverrides,
+  ThirdPartyOAuthProvider,
 } from '@openfort/openfort-js'

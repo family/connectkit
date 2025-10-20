@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { parseSignature, type AuthorizationRequest, type SignedAuthorization, type Hex } from 'viem'
+import { type AuthorizationRequest, type Hex, parseSignature, type SignedAuthorization } from 'viem'
 import { hashAuthorization } from 'viem/utils'
 
 import { useOpenfortCore } from '../../openfort/useOpenfort'

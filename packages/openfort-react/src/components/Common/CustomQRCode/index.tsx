@@ -1,11 +1,10 @@
-import { CustomQRCodeProps } from './types'
-import { QRCodeContainer, LogoContainer, LogoIcon, QRPlaceholder, QRCodeContent } from './styles'
+import { AnimatePresence, motion } from 'framer-motion'
+import useWindowSize from '../../../hooks/useWindowSize'
 
 import Tooltip from '../Tooltip'
-import { AnimatePresence, motion } from 'framer-motion'
-
 import { QRCode } from './QRCode'
-import useWindowSize from '../../../hooks/useWindowSize'
+import { LogoContainer, LogoIcon, QRCodeContainer, QRCodeContent, QRPlaceholder } from './styles'
+import type { CustomQRCodeProps } from './types'
 
 function CustomQRCode({ value, image, imageBackground, imagePosition = 'center', tooltipMessage }: CustomQRCodeProps) {
   const windowSize = useWindowSize()

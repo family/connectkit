@@ -1,4 +1,4 @@
-import { Chain } from 'viem'
+import type { Chain } from 'viem'
 import { useConfig } from 'wagmi'
 
 /**

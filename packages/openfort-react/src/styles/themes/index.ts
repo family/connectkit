@@ -1,10 +1,10 @@
 import base from './base'
-import web95 from './web95'
-import retro from './retro'
-import soft from './soft'
 import midnight from './midnight'
 import minimal from './minimal'
-import rounded from './rounded'
 import nouns from './nouns'
+import retro from './retro'
+import rounded from './rounded'
+import soft from './soft'
+import web95 from './web95'
 
 export default { base, web95, retro, soft, midnight, minimal, rounded, nouns }

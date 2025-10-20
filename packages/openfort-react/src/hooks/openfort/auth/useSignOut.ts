@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from '../../../types'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
-import { BaseFlowState, mapStatus } from './status'
+import { type BaseFlowState, mapStatus } from './status'
 
 /**
  * Hook for user sign out operations

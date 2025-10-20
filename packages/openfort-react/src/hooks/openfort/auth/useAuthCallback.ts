@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { UIAuthProvider } from '../../../components/Openfort/types'
+import type { UIAuthProvider } from '../../../components/Openfort/types'
 import { useOpenfort } from '../../../components/Openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from '../../../types'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { logger } from '../../../utils/logger'
 import { onError } from '../hookConsistency'
-import { CreateWalletPostAuthOptions } from './useConnectToWalletPostAuth'
-import { EmailVerificationResult, useEmailAuth } from './useEmailAuth'
-import { StoreCredentialsResult, useOAuth } from './useOAuth'
+import type { CreateWalletPostAuthOptions } from './useConnectToWalletPostAuth'
+import { type EmailVerificationResult, useEmailAuth } from './useEmailAuth'
+import { type StoreCredentialsResult, useOAuth } from './useOAuth'
 
 type CallbackResult =
   | (StoreCredentialsResult & {

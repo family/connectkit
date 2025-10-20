@@ -11,7 +11,7 @@
  * ```
  */
 
-import { Connector, CreateConnectorFn, type UseConnectParameters, useConnect as wagmiUseConnect } from 'wagmi'
+import { type Connector, type CreateConnectorFn, type UseConnectParameters, useConnect as wagmiUseConnect } from 'wagmi'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
 
 export function useConnect({ ...props }: UseConnectParameters = {}) {

@@ -1,24 +1,25 @@
 import {
   AccountTypeEnum,
-  AuthPlayerResponse,
-  EmbeddedAccount,
+  type AuthPlayerResponse,
+  type EmbeddedAccount,
   EmbeddedState,
-  Openfort,
-  OpenfortError,
+  type Openfort,
+  type OpenfortError,
   RecoveryMethod,
 } from '@openfort/openfort-js'
-import React, { createElement, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import type React from 'react'
+import { createElement, type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { polygonAmoy } from 'viem/chains'
 import { useAccount, useChainId, useDisconnect } from 'wagmi'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
+import type { WalletFlowStatus } from '../hooks/openfort/useWallets'
 import { useConnect } from '../hooks/useConnect'
-import { useConnectCallback, useConnectCallbackProps } from '../hooks/useConnectCallback'
-import { WalletFlowStatus } from '../hooks/openfort/useWallets'
-import { Context } from './context'
-import { createOpenfortClient, setDefaultClient } from './core'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useConnectCallback, type useConnectCallbackProps } from '../hooks/useConnectCallback'
 import { logger } from '../utils/logger'
 import { handleOAuthConfigError } from '../utils/oauthErrorHandler'
+import { Context } from './context'
+import { createOpenfortClient, setDefaultClient } from './core'
 
 export type ContextValue = {
   signUpGuest: () => Promise<void>
@@ -120,7 +121,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   }, [embeddedState])
 
   const startPollingEmbeddedState = useCallback(() => {
-    if (!!pollingRef.current) return
+    if (pollingRef.current) return
     pollingRef.current = setInterval(pollEmbeddedState, 300)
   }, [pollEmbeddedState])
 

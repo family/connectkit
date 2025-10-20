@@ -1,7 +1,7 @@
-import styled from '../../../styles/styled'
 import { motion } from 'framer-motion'
-import defaultTheme from '../../../constants/defaultTheme'
 import { css } from 'styled-components'
+import defaultTheme from '../../../constants/defaultTheme'
+import styled from '../../../styles/styled'
 
 export const AlertContainer = styled(motion.div)<{ $error?: boolean }>`
   display: flex;

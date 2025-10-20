@@ -1,4 +1,4 @@
-import { OpenfortError } from '../../../types'
+import type { OpenfortError } from '../../../types'
 
 export type BaseFlowState =
   | {

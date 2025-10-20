@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
+import { useMemo } from 'react'
 import styled from '../../styles/styled'
 import { getPasswordStrength, getPasswordStrengthLabel, PasswordStrengthLabel } from './password-utility'
-import { useMemo } from 'react'
 
 const Container = styled.div`
   display: flex;

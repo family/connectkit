@@ -1,6 +1,7 @@
 import { AuthActionRequiredActions } from '@openfort/openfort-js'
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { AnimatePresence, motion, type Variants } from 'framer-motion'
 import React from 'react'
+import { useEmailAuth } from '../../../hooks/openfort/auth/useEmailAuth'
 import Button from '../../Common/Button'
 import { TextLinkButton } from '../../Common/Button/styles'
 import FitText from '../../Common/FitText'
@@ -11,7 +12,6 @@ import { TextContainer } from '../../ConnectButton/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { FooterContainer } from './styles'
-import { useEmailAuth } from '../../../hooks/openfort/auth/useEmailAuth'
 
 // TODO: Localize
 

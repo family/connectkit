@@ -1,9 +1,8 @@
-import { Connector } from 'wagmi'
-
-import { useConnectors } from '../hooks/useConnectors'
-import { walletConfigs, WalletConfigProps } from './walletConfigs'
+import type { Connector } from 'wagmi'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
+import { useConnectors } from '../hooks/useConnectors'
 import { isCoinbaseWalletConnector, isInjectedConnector } from '../utils'
+import { type WalletConfigProps, walletConfigs } from './walletConfigs'
 
 export type WalletProps = {
   id: string

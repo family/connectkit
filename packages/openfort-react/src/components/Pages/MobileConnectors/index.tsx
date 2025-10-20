@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { Container, WalletList, WalletItem, WalletIcon, WalletLabel } from './styles'
-
-import { PageContent, ModalContent } from '../../Common/Modal/styles'
-
-import { useOpenfort } from '../../Openfort/useOpenfort'
-import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
-import CopyToClipboard from '../../Common/CopyToClipboard'
+import type React from 'react'
+import { useEffect, useState } from 'react'
 import useLocales from '../../../hooks/useLocales'
-import { Spinner } from '../../Common/Spinner'
-import { ScrollArea } from '../../Common/ScrollArea'
-import { useWeb3 } from '../../contexts/web3'
+import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
 import { useWallets } from '../../../wallets/useWallets'
 import { WalletConfigProps, walletConfigs } from '../../../wallets/walletConfigs'
+import CopyToClipboard from '../../Common/CopyToClipboard'
+import { ModalContent, PageContent } from '../../Common/Modal/styles'
+import { ScrollArea } from '../../Common/ScrollArea'
+import { Spinner } from '../../Common/Spinner'
+import { useWeb3 } from '../../contexts/web3'
 import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import { Container, WalletIcon, WalletItem, WalletLabel, WalletList } from './styles'
 
 const MoreIcon = (
   <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,19 +1,17 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { useOpenfort } from '../../Openfort/useOpenfort'
+import { AnimatePresence } from 'framer-motion'
+import type React from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import useMeasure from 'react-use-measure'
-
-import ChainSelectList from '../ChainSelectList'
-
-import Portal from '../Portal'
-import { ResetContainer } from '../../../styles'
-import { DropdownWindow, DropdownOverlay, DropdownContainer, DropdownHeading } from './styles'
-
-import { AnimatePresence } from 'framer-motion'
-import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
 import FocusTrap from '../../../hooks/useFocusTrap'
-import useLockBodyScroll from '../../../hooks/useLockBodyScroll'
 import useLocales from '../../../hooks/useLocales'
+import useLockBodyScroll from '../../../hooks/useLockBodyScroll'
+import { ResetContainer } from '../../../styles'
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import ChainSelectList from '../ChainSelectList'
+import Portal from '../Portal'
+import { DropdownContainer, DropdownHeading, DropdownOverlay, DropdownWindow } from './styles'
 
 const ChainSelectDropdown: React.FC<{
   children?: React.ReactNode
@@ -103,8 +101,8 @@ const ChainSelectDropdown: React.FC<{
       return
     }
 
-    let x = bounds.left + offsetX
-    let y = bounds.top + bounds.height + offsetY
+    const x = bounds.left + offsetX
+    const y = bounds.top + bounds.height + offsetY
 
     targetRef.current.style.left = `${x}px`
     targetRef.current.style.top = `${y}px`

@@ -1,5 +1,5 @@
 import React, { createContext, createElement } from 'react'
-import { CustomTheme, Mode, Theme } from '../../types'
+import type { CustomTheme, Mode, Theme } from '../../types'
 
 type ContextValue = {
   theme?: Theme

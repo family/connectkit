@@ -1,4 +1,4 @@
-import { Theme, ThemeMode, CustomTheme } from './types'
+import { type CustomTheme, type Theme, ThemeMode } from './types'
 
 const defaultLightTheme: Theme = {
   font: {
@@ -72,7 +72,7 @@ const userPrefersDarkMode = () => {
     });
     */
 }
-let darkMode = userPrefersDarkMode()
+const darkMode = userPrefersDarkMode()
 
 if (darkMode) {
 }

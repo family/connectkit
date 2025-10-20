@@ -1,15 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import type React from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { EmailIcon } from '../../../assets/icons'
 import wave from '../../../assets/wave'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
+import Button from '../../Common/Button'
 import { TextLinkButton } from '../../Common/Button/styles'
 import Loader from '../../Common/Loading'
 import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
-import { useOpenfort } from '../../Openfort/useOpenfort'
-import { routes } from '../../Openfort/types'
-import Button from '../../Common/Button'
 import { FloatingGraphic } from '../../FloatingGraphic'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
 // TODO: Localize
 type VerificationResponse = {

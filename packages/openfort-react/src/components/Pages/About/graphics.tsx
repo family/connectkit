@@ -1,6 +1,6 @@
-import { motion, EasingFunction } from 'framer-motion'
-import styled from '../../../styles/styled'
+import { type EasingFunction, motion } from 'framer-motion'
 import { keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 export type Easing =
   | [number, number, number, number]
@@ -452,7 +452,7 @@ export const SlideThree = ({ layoutId }: Slide) => {
           >
             <SpinContainer
               style={
-                !Boolean(layoutId)
+                !layoutId
                   ? {
                       animationPlayState: 'paused',
                     }
@@ -558,8 +558,8 @@ export const SlideThree = ({ layoutId }: Slide) => {
           <motion.div exit={{ opacity: 0 }}>
             <motion.div
               key="pulseA"
-              initial={!Boolean(layoutId) ? { scale: 1.1 } : undefined}
-              animate={Boolean(layoutId) ? pulseAnim : undefined}
+              initial={!layoutId ? { scale: 1.1 } : undefined}
+              animate={layoutId ? pulseAnim : undefined}
               transition={{ ...pulseTransition }}
               style={{
                 position: 'absolute',
@@ -570,8 +570,8 @@ export const SlideThree = ({ layoutId }: Slide) => {
             />
             <motion.div
               key="pulseB"
-              initial={!Boolean(layoutId) ? { scale: 1.2, opacity: 0.25 } : undefined}
-              animate={Boolean(layoutId) ? pulseAnim : undefined}
+              initial={!layoutId ? { scale: 1.2, opacity: 0.25 } : undefined}
+              animate={layoutId ? pulseAnim : undefined}
               transition={{ ...pulseTransition, delay: 0.5 }}
               style={{
                 position: 'absolute',

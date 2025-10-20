@@ -1,15 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-
-import { useOpenfort } from '../Openfort/useOpenfort'
 import { useWallet } from '../../wallets/useWallets'
-
-import ConnectWithInjector from './ConnectWithInjector'
-import ConnectWithQRCode from './ConnectWithQRCode'
-
-import { contentVariants } from '../Common/Modal'
 import Alert from '../Common/Alert'
+import { contentVariants } from '../Common/Modal'
+import { useOpenfort } from '../Openfort/useOpenfort'
+import ConnectWithInjector from './ConnectWithInjector'
 import ConnectWithOAuth from './ConnectWithOAuth'
+import ConnectWithQRCode from './ConnectWithQRCode'
 
 const states = {
   QRCODE: 'qrcode',

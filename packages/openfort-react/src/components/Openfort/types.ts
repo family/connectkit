@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react'
-import { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
-
-import { AccountTypeEnum, RecoveryMethod, OAuthProvider, BasicAuthProvider } from '@openfort/openfort-js'
-import { CoreOpenfortProviderProps } from '../../openfort/CoreOpenfortProvider'
+import { type AccountTypeEnum, BasicAuthProvider, OAuthProvider, type RecoveryMethod } from '@openfort/openfort-js'
+import type React from 'react'
+import type { ReactNode } from 'react'
+import type { CoreOpenfortProviderProps } from '../../openfort/CoreOpenfortProvider'
+import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
 
 export const routes = {
   PROVIDERS: 'providers',

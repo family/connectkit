@@ -1,6 +1,6 @@
-import React from 'react'
-import { detect } from 'detect-browser'
 import { AuthPlayerResponse } from '@openfort/openfort-js'
+import { detect } from 'detect-browser'
+import React from 'react'
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/
 
@@ -44,9 +44,7 @@ const nFormatter = (num: number, digits: number = 2) => {
   var item = lookup
     .slice()
     .reverse()
-    .find(function (item) {
-      return num >= item.value
-    })
+    .find((item) => num >= item.value)
   return item ? (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol : '0'
 }
 

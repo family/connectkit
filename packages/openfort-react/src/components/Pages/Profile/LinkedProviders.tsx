@@ -1,4 +1,4 @@
-import { AuthPlayerResponse } from '@openfort/openfort-js'
+import type { AuthPlayerResponse } from '@openfort/openfort-js'
 import { useMemo } from 'react'
 import { EmailIcon } from '../../../assets/icons'
 import Logos, { providersLogos } from '../../../assets/logos'

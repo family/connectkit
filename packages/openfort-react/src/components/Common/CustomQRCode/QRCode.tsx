@@ -1,5 +1,6 @@
 import QRCodeUtil from 'qrcode'
-import React, { ReactElement, useMemo } from 'react'
+import type React from 'react'
+import { type ReactElement, useMemo } from 'react'
 
 const generateMatrix = (value: string, errorCorrectionLevel: QRCodeUtil.QRCodeErrorCorrectionLevel) => {
   const arr = Array.prototype.slice.call(QRCodeUtil.create(value, { errorCorrectionLevel }).modules.data, 0)
@@ -34,7 +35,7 @@ export function QRCode({
     const dots: ReactElement[] = []
     const matrix = generateMatrix(uri, ecl)
     const cellSize = size / matrix.length
-    let qrList = [
+    const qrList = [
       { x: 0, y: 0 },
       { x: 1, y: 0 },
       { x: 0, y: 1 },

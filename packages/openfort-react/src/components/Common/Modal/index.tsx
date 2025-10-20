@@ -1,12 +1,22 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-
-import { AnimatePresence, motion, Variants } from 'framer-motion'
-
+import { AnimatePresence, motion, type Variants } from 'framer-motion'
+import type React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTransition } from 'react-transition-state'
+import { useAccount, useSwitchChain } from 'wagmi'
+import { AuthIcon } from '../../../assets/icons'
+import FocusTrap from '../../../hooks/useFocusTrap'
+import useLocales from '../../../hooks/useLocales'
+import useLockBodyScroll from '../../../hooks/useLockBodyScroll'
+import usePrevious from '../../../hooks/usePrevious'
 import { ResetContainer } from '../../../styles'
-import Portal from '../Portal'
-
+import type { CustomTheme } from '../../../types'
 import { flattenChildren, isMobile, isWalletConnectConnector } from '../../../utils'
-
+import { useWallet } from '../../../wallets/useWallets'
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import FitText from '../FitText'
+import Portal from '../Portal'
 import {
   BackButton,
   BackgroundOverlay,
@@ -23,21 +33,6 @@ import {
   PageContents,
   TextWithHr,
 } from './styles'
-
-import useLockBodyScroll from '../../../hooks/useLockBodyScroll'
-import { useOpenfort } from '../../Openfort/useOpenfort'
-
-import { useTransition } from 'react-transition-state'
-import { useAccount, useSwitchChain } from 'wagmi'
-import { AuthIcon } from '../../../assets/icons'
-import FocusTrap from '../../../hooks/useFocusTrap'
-import useLocales from '../../../hooks/useLocales'
-import usePrevious from '../../../hooks/usePrevious'
-import { CustomTheme } from '../../../types'
-import { useWallet } from '../../../wallets/useWallets'
-import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
-import { routes } from '../../Openfort/types'
-import FitText from '../FitText'
 
 const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import styled from '../../../styles/styled'
 import { keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 const Spin = keyframes`
   0%{ transform: rotate(0deg); }

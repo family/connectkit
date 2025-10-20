@@ -15,18 +15,18 @@ export type Languages =
   | 'vi-VN'
 
 import { default as arAE } from './locales/ar-AE'
-import { default as enUS } from './locales/en-US'
+import { default as caAD } from './locales/ca-AD'
 import { default as eeEE } from './locales/ee-EE'
+import { default as enUS } from './locales/en-US'
 import { default as esES } from './locales/es-ES'
 import { default as faIR } from './locales/fa-IR'
 import { default as frFR } from './locales/fr-FR'
 import { default as jaJP } from './locales/ja-JP'
 import { default as ptBR } from './locales/pt-BR'
 import { default as ruRU } from './locales/ru-RU'
-import { default as zhCN } from './locales/zh-CN'
-import { default as caAD } from './locales/ca-AD'
 import { default as trTR } from './locales/tr-TR'
 import { default as viVN } from './locales/vi-VN'
+import { default as zhCN } from './locales/zh-CN'
 
 // OLD_TODO: tree-shaking
 export const getLocale = (lang: Languages) => {

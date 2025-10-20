@@ -4,8 +4,8 @@ import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
 import { ModalBody, PageContent } from '../../Common/Modal/styles'
-import { useOpenfort } from '../../Openfort/useOpenfort'
 import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
 // TODO: Localize
 const RequestEmail: React.FC = () => {

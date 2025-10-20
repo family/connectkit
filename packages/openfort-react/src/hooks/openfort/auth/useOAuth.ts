@@ -1,14 +1,12 @@
-import { OAuthProvider } from '@openfort/openfort-js'
+import type { OAuthProvider, AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { BaseFlowState, mapStatus } from './status'
-import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types'
-import { buildCallbackUrl } from './requestEmailVerification'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
-import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
-
-import { UserWallet } from '../useWallets'
-import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
+import type { UserWallet } from '../useWallets'
+import { buildCallbackUrl } from './requestEmailVerification'
+import { type BaseFlowState, mapStatus } from './status'
+import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
 
 // TODO: Open auth in a new tab and use polling to check for completion
 export type InitializeOAuthOptions = {

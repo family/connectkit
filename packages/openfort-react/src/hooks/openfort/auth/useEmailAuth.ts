@@ -1,13 +1,13 @@
-import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
+import type { AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
 import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types'
-import { buildCallbackUrl } from './requestEmailVerification'
-import { BaseFlowState, mapStatus } from './status'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
-import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
-import { UserWallet } from '../useWallets'
+import type { UserWallet } from '../useWallets'
+import { buildCallbackUrl } from './requestEmailVerification'
+import { type BaseFlowState, mapStatus } from './status'
+import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
 
 export type EmailAuthResult = {
   error?: OpenfortError

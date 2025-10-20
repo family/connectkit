@@ -1,9 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { isSafeConnector, nFormatter, truncateEthAddress } from '../../../utils'
-import { useOpenfort } from '../../Openfort/useOpenfort'
-
+import { AnimatePresence } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useState } from 'react'
 import { useAccount, useBalance, useEnsName } from 'wagmi'
-
+import { DisconnectIcon } from '../../../assets/icons'
+import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
+import useLocales from '../../../hooks/useLocales'
+import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { isSafeConnector, nFormatter, truncateEthAddress } from '../../../utils'
+import Avatar from '../../Common/Avatar'
+import Button from '../../Common/Button'
+import ChainSelector from '../../Common/ChainSelect'
+import CopyToClipboard from '../../Common/CopyToClipboard'
+import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
+import PoweredByFooter from '../../Common/PoweredByFooter'
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import { LinkedProviders } from './LinkedProviders'
 import {
   AvatarContainer,
   AvatarInner,
@@ -13,22 +26,6 @@ import {
   LoadingBalance,
   Unsupported,
 } from './styles'
-
-import Avatar from '../../Common/Avatar'
-import Button from '../../Common/Button'
-import ChainSelector from '../../Common/ChainSelect'
-import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
-
-import { AnimatePresence } from 'framer-motion'
-import { DisconnectIcon } from '../../../assets/icons'
-import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
-import useLocales from '../../../hooks/useLocales'
-import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import CopyToClipboard from '../../Common/CopyToClipboard'
-import PoweredByFooter from '../../Common/PoweredByFooter'
-import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
-import { routes } from '../../Openfort/types'
-import { LinkedProviders } from './LinkedProviders'
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useOpenfort()

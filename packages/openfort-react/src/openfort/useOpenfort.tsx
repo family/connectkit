@@ -1,6 +1,6 @@
 import React from 'react'
+import type { WalletFlowStatus } from '../hooks/openfort/useWallets'
 import { Context } from './context'
-import { WalletFlowStatus } from '../hooks/openfort/useWallets'
 
 export const useOpenfortCore = () => {
   const context = React.useContext(Context)

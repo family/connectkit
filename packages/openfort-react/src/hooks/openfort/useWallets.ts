@@ -1,23 +1,23 @@
 import {
   AccountTypeEnum,
   ChainTypeEnum,
-  EmbeddedAccount,
+  type EmbeddedAccount,
   MissingRecoveryPasswordError,
   RecoveryMethod,
-  RecoveryParams,
+  type RecoveryParams,
 } from '@openfort/openfort-js'
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Hex } from 'viem'
-import { Connector, useAccount, useChainId, useConnect, useDisconnect } from 'wagmi'
-import { UIAuthProvider, routes } from '../../components/Openfort/types'
+import type { Hex } from 'viem'
+import { type Connector, useAccount, useChainId, useConnect, useDisconnect } from 'wagmi'
+import { routes, UIAuthProvider } from '../../components/Openfort/types'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { embeddedWalletId } from '../../constants/openfort'
 import { useOpenfortCore, useWalletStatus } from '../../openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from '../../types'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
 import { logger } from '../../utils/logger'
 import { useWallets as useWagmiWallets } from '../../wallets/useWallets'
-import { BaseFlowState } from './auth/status'
+import type { BaseFlowState } from './auth/status'
 import { onError, onSuccess } from './hookConsistency'
 import { useUser } from './useUser'
 
@@ -240,7 +240,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       ): Promise<RecoveryParams> {
         switch (recovery?.recoveryMethod) {
           case undefined:
-          case RecoveryMethod.AUTOMATIC:
+          case RecoveryMethod.AUTOMATIC: {
             const accessToken = await client.getAccessToken()
             if (!accessToken) {
               throw new OpenfortError('Openfort access token not found', OpenfortErrorType.AUTHENTICATION_ERROR)
@@ -251,6 +251,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
                 ? await walletConfig.getEncryptionSession(accessToken)
                 : await getEncryptionSession(),
             }
+          }
           case RecoveryMethod.PASSWORD:
             if (!recovery.password) {
               throw new OpenfortError('Please enter your password', OpenfortErrorType.VALIDATION_ERROR)
@@ -259,7 +260,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               recoveryMethod: RecoveryMethod.PASSWORD,
               password: recovery.password,
             }
-          case RecoveryMethod.PASSKEY:
+          case RecoveryMethod.PASSKEY: {
             if (!embeddedAccounts) {
               return {
                 recoveryMethod: RecoveryMethod.PASSKEY,
@@ -292,6 +293,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
                 passkeyId,
               },
             }
+          }
           default:
             throw new OpenfortError('Invalid recovery method', OpenfortErrorType.VALIDATION_ERROR)
         }

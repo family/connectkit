@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { PageContent } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'

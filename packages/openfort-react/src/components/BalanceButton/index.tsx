@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { All } from '../../types'
 import { useQueryClient } from '@tanstack/react-query'
-
-import styled from '../../styles/styled'
+import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useState } from 'react'
 import { keyframes } from 'styled-components'
-import { motion, AnimatePresence } from 'framer-motion'
-
 import { useAccount, useBalance, useBlockNumber } from 'wagmi'
-import useIsMounted from '../../hooks/useIsMounted'
-
-import Chain from '../Common/Chain'
 import { chainConfigs } from '../../constants/chainConfigs'
-import ThemedButton from '../Common/ThemedButton'
-import { nFormatter } from '../../utils'
-import { useChains } from '../../hooks/useChains'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
+import { useChains } from '../../hooks/useChains'
+import useIsMounted from '../../hooks/useIsMounted'
+import styled from '../../styles/styled'
+import type { All } from '../../types'
+import { nFormatter } from '../../utils'
+import Chain from '../Common/Chain'
+import ThemedButton from '../Common/ThemedButton'
 
 const Container = styled(motion.div)`
   display: flex;

@@ -6,10 +6,10 @@
  * repeating boilerplate in every application.
  */
 
+import type { CreateConfigParameters } from '@wagmi/core'
+import type { HttpTransport, WebSocketTransport } from 'viem'
 import { fallback, http, webSocket } from 'wagmi'
-import { type CreateConfigParameters } from '@wagmi/core'
-import { type Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
-import { type HttpTransport, type WebSocketTransport } from 'viem'
+import { arbitrum, type Chain, mainnet, optimism, polygon } from 'wagmi/chains'
 
 import { chainConfigs } from './constants/chainConfigs'
 

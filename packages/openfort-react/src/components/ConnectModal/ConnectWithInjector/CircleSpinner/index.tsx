@@ -1,7 +1,6 @@
-import { LogoContainer, Logo, Spinner, SpinnerContainer, ExpiringSpinner } from './styles'
-
 import { AnimatePresence } from 'framer-motion'
-import React from 'react'
+import type React from 'react'
+import { ExpiringSpinner, Logo, LogoContainer, Spinner, SpinnerContainer } from './styles'
 
 const CircleSpinner = ({
   logo,

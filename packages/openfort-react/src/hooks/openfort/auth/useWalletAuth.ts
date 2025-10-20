@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Connector, useAccount, useDisconnect } from 'wagmi'
-import { BaseFlowState, mapStatus } from './status'
-import { useConnect } from '../../useConnect'
+import { type Connector, useAccount, useDisconnect } from 'wagmi'
 import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { useConnectWithSiwe } from '../useConnectWithSiwe'
-import { useWallets } from '../../../wallets/useWallets'
-import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { logger } from '../../../utils/logger'
+import { useWallets } from '../../../wallets/useWallets'
+import { useConnect } from '../../useConnect'
 import { onError, onSuccess } from '../hookConsistency'
+import { useConnectWithSiwe } from '../useConnectWithSiwe'
+import { type BaseFlowState, mapStatus } from './status'
 
 type ConnectWalletOptions = {
   connector: Connector | string

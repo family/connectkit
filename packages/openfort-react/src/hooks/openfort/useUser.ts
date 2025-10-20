@@ -1,6 +1,6 @@
+import { EmbeddedState } from '@openfort/openfort-js'
 import { useCallback } from 'react'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
-import { EmbeddedState } from '@openfort/openfort-js'
 import { handleOAuthConfigError } from '../../utils/oauthErrorHandler'
 
 /**

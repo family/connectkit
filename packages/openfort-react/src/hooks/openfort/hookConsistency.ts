@@ -1,4 +1,4 @@
-import { OpenfortHookOptions, OpenfortError } from '../../types'
+import type { OpenfortError, OpenfortHookOptions } from '../../types'
 
 export const onSuccess = <T>({
   hookOptions,

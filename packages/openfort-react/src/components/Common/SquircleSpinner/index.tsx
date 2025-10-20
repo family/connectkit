@@ -1,5 +1,5 @@
-import { LogoContainer, Logo, Spinner, SpinnerContainer } from './styles'
 import { AnimatePresence } from 'framer-motion'
+import { Logo, LogoContainer, Spinner, SpinnerContainer } from './styles'
 
 const SquircleSpinner = ({ logo, connecting = true }: { logo?: React.ReactNode; connecting?: boolean }) => {
   return (

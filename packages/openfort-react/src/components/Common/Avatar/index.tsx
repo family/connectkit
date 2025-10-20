@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
-
-import { EnsAvatar, ImageContainer } from './styles'
-
-import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi'
+import type React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { normalize } from 'viem/ens'
+
+import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi'
+import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
+import useIsMounted from '../../../hooks/useIsMounted'
 import { ResetContainer } from '../../../styles'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import useIsMounted from '../../../hooks/useIsMounted'
-import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
+import { EnsAvatar, ImageContainer } from './styles'
 
 type Hash = `0x${string}`
 

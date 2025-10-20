@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Theme } from '../types'
+import type { Theme } from '../types'
 
 export function useGoogleFont(font: string) {
   useEffect(() => {

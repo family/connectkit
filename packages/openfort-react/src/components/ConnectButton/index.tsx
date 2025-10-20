@@ -1,24 +1,22 @@
-import React from 'react'
+import { AnimatePresence, motion, type Variants } from 'framer-motion'
+import type React from 'react'
+import type { Chain } from 'viem'
 import { useAccount, useEnsName } from 'wagmi'
-import useIsMounted from '../../hooks/useIsMounted'
-import { truncateEthAddress, truncateUserId } from '../../utils'
-
-import { useOpenfort } from '../Openfort/useOpenfort'
-import { IconContainer, TextContainer, UnsupportedNetworkContainer } from './styles'
-
-import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { Chain } from 'viem'
+import { useUI } from '../../hooks/openfort/useUI'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
 import { useEnsFallbackConfig } from '../../hooks/useEnsFallbackConfig'
+import useIsMounted from '../../hooks/useIsMounted'
 import useLocales from '../../hooks/useLocales'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { ResetContainer } from '../../styles'
-import { CustomTheme, Mode, Theme } from '../../types'
+import type { CustomTheme, Mode, Theme } from '../../types'
+import { truncateEthAddress, truncateUserId } from '../../utils'
 import { Balance } from '../BalanceButton'
 import Avatar from '../Common/Avatar'
 import ThemedButton, { ThemeContainer } from '../Common/ThemedButton'
 import { routes } from '../Openfort/types'
-import { useUI } from '../../hooks/openfort/useUI'
+import { useOpenfort } from '../Openfort/useOpenfort'
+import { IconContainer, TextContainer, UnsupportedNetworkContainer } from './styles'
 
 const contentVariants: Variants = {
   initial: {

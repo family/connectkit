@@ -1,11 +1,10 @@
-import React from 'react'
-
-import { ChainContainer, LoadingContainer, LogoContainer, Unsupported } from './styles'
 import { AnimatePresence } from 'framer-motion'
-import { chainConfigs } from '../../../constants/chainConfigs'
+import type React from 'react'
 import Chains from '../../../assets/chains'
-import useIsMounted from '../../../hooks/useIsMounted'
+import { chainConfigs } from '../../../constants/chainConfigs'
 import { useChainIsSupported } from '../../../hooks/useChainIsSupported'
+import useIsMounted from '../../../hooks/useIsMounted'
+import { ChainContainer, LoadingContainer, LogoContainer, Unsupported } from './styles'
 
 const Spinner = (
   <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">

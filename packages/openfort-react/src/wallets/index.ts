@@ -1,5 +1,5 @@
-import { CreateConnectorFn } from 'wagmi'
 import { injected } from '@wagmi/connectors'
+import type { CreateConnectorFn } from 'wagmi'
 
 import { walletConfigs } from './walletConfigs'
 

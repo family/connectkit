@@ -1,6 +1,6 @@
 // Based on https://hiddedevries.nl/en/blog/2017-01-29-using-javascript-to-trap-focus-in-an-element
 
-import React, { useRef, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const KEYCODE_TAB = 9
 

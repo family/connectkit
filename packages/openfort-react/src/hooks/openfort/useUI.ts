@@ -1,7 +1,7 @@
-import { useOpenfort } from '../../components/Openfort/useOpenfort'
-import { UIAuthProvider, routes } from '../../components/Openfort/types'
-import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { useAccount } from 'wagmi'
+import { routes, UIAuthProvider } from '../../components/Openfort/types'
+import { useOpenfort } from '../../components/Openfort/useOpenfort'
+import { useOpenfortCore } from '../../openfort/useOpenfort'
 
 type ModalRoutes = (typeof routes)[keyof typeof routes]
 

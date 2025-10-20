@@ -1,10 +1,10 @@
-import { EmbeddedAccount, RecoveryMethod } from '@openfort/openfort-js'
+import { type EmbeddedAccount, RecoveryMethod } from '@openfort/openfort-js'
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { embeddedWalletId } from '../../../constants/openfort'
 import { logger } from '../../../utils/logger'
-import { UserWallet, useWallets } from '../useWallets'
+import { type UserWallet, useWallets } from '../useWallets'
 import { useSignOut } from './useSignOut'
 
 /**

@@ -1,25 +1,20 @@
 import React, { useEffect } from 'react'
-import { useOpenfort } from '../Openfort/useOpenfort'
-
-import { useWalletConnectModal } from '../../hooks/useWalletConnectModal'
-
-import { detectBrowser, isFamilyAccountsConnector, isWalletConnectConnector } from '../../utils'
-
-import { OrDivider } from '../Common/Modal'
-import { ModalContent, PageContent } from '../Common/Modal/styles'
-
-import ScanIconWithLogos from '../../assets/ScanIconWithLogos'
+import { useAccount, useDisconnect } from 'wagmi'
 import { ExternalLinkIcon } from '../../assets/icons'
+import ScanIconWithLogos from '../../assets/ScanIconWithLogos'
+import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
 import useLocales from '../../hooks/useLocales'
+import { useWalletConnectModal } from '../../hooks/useWalletConnectModal'
+import { detectBrowser, isFamilyAccountsConnector, isWalletConnectConnector } from '../../utils'
+import { useWallet } from '../../wallets/useWallets'
 import Button from '../Common/Button'
 import CopyToClipboard from '../Common/CopyToClipboard'
 import CustomQRCode from '../Common/CustomQRCode'
-
-import { useAccount, useDisconnect } from 'wagmi'
-import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
-import { useWallet } from '../../wallets/useWallets'
+import { OrDivider } from '../Common/Modal'
+import { ModalContent, PageContent } from '../Common/Modal/styles'
 import { useWeb3 } from '../contexts/web3'
 import { routes } from '../Openfort/types'
+import { useOpenfort } from '../Openfort/useOpenfort'
 
 const ConnectWithQRCode: React.FC<{
   switchConnectMethod: (id?: string) => void

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import styled from '../../../styles/styled'
+import type React from 'react'
+import { useState } from 'react'
 import { css } from 'styled-components'
-
-import CopyToClipboardIcon from './CopyToClipboardIcon'
+import styled from '../../../styles/styled'
 import Button from '../Button'
+import CopyToClipboardIcon from './CopyToClipboardIcon'
 
 const Container = styled.div<{ $disabled?: boolean }>`
   --color: var(--ck-copytoclipboard-stroke);

@@ -4,8 +4,8 @@ import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { logger } from '../../utils/logger'
 import Loader from '../Common/Loading'
 import { PageContent } from '../Common/Modal/styles'
-import { useOpenfort } from '../Openfort/useOpenfort'
 import { routes } from '../Openfort/types'
+import { useOpenfort } from '../Openfort/useOpenfort'
 
 const states = {
   INIT: 'init',
@@ -34,7 +34,7 @@ const ConnectWithOAuth: React.FC<{}> = ({}) => {
           if (hasProvider) setStatus(states.CONNECTING)
           else setTimeout(() => setStatus(states.REDIRECT), 150) // UX: wait a bit before redirecting
           break
-        case states.CONNECTING:
+        case states.CONNECTING: {
           const player = url.searchParams.get('player_id')
           const accessToken = url.searchParams.get('access_token')
           const refreshToken = url.searchParams.get('refresh_token')
@@ -59,7 +59,8 @@ const ConnectWithOAuth: React.FC<{}> = ({}) => {
           })
 
           setRoute(routes.LOADING)
-        case states.REDIRECT:
+        }
+        case states.REDIRECT: {
           if (hasProvider) return
 
           const cleanURL = window.location.origin + window.location.pathname
@@ -113,6 +114,7 @@ const ConnectWithOAuth: React.FC<{}> = ({}) => {
             }
           }
           break
+        }
       }
     })()
   }, [status])
