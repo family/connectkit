@@ -33,7 +33,7 @@
         "useExhaustiveDependencies": "off"
       },
       "performance": {
-        "noBarrelFile": "error",
+        "noBarrelFile": "off",
         "noReExportAll": "error",
         "noDelete": "off"
       },
