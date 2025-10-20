@@ -45,7 +45,7 @@ const replaceMarkdown = (markdownText: string) => {
   text = text.split('\n')
   text = text.map((t: string, i: number) => {
     return (
-      <React.Fragment key={i}>
+      <React.Fragment key={`line-${i}-${t.substring(0, 20)}`}>
         {wrapTags(t)}
         {i < text.length - 1 && <br />}
       </React.Fragment>
@@ -60,7 +60,7 @@ const wrapTags = (text: string) => {
   const result = textArray.map((str, i) => {
     if (/(\*\*.*\*\*)/g.test(str)) {
       // use `replace` instead of `replaceAll` to support Node 14
-      return <strong key={i}>{str.replace(/\*\*/g, '')}</strong>
+      return <strong key={`bold-${i}-${str.substring(0, 10)}`}>{str.replace(/\*\*/g, '')}</strong>
     }
     return `${str}`
   })

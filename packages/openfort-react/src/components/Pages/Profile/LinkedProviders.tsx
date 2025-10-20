@@ -78,8 +78,11 @@ export const LinkedProviders: React.FC = () => {
     <>
       <ProvidersHeader>Linked providers</ProvidersHeader>
       <LinkedProviderContainer>
-        {user.linkedAccounts.map((provider, i) => (
-          <LinkedProvider key={provider.provider + i} provider={provider} />
+        {user.linkedAccounts.map((provider) => (
+          <LinkedProvider
+            key={`${provider.provider}-${provider.address || provider.email || 'unknown'}`}
+            provider={provider}
+          />
         ))}
         <AddLinkedProviderButton />
       </LinkedProviderContainer>

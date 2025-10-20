@@ -4,8 +4,8 @@ import { TickIconWrapper, TickItem, TickListContainer } from './styles'
 const TickList = ({ items }: { items: string[] }) => {
   return (
     <TickListContainer>
-      {items.map((item, index) => (
-        <TickItem key={index}>
+      {items.map((item) => (
+        <TickItem key={item}>
           <TickIconWrapper>
             <TickIcon />
           </TickIconWrapper>

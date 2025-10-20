@@ -102,7 +102,8 @@ export function QRCode({
             ) {
               dots.push(
                 <circle
-                  key={`circle-${i}-${j}`}
+                  // biome-ignore lint/suspicious/noArrayIndexKey: i and j represent stable matrix coordinates
+                  key={`qr-dot-${i}-${j}`}
                   cx={i * cellSize + cellSize / 2}
                   cy={j * cellSize + cellSize / 2}
                   fill="var(--ck-qr-dot-color)"
