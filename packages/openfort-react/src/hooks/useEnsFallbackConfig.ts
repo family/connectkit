@@ -3,7 +3,7 @@ import { createConfig, http } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { useChainIsSupported } from './useChainIsSupported'
 
-const ensFallbackConfig = createConfig({
+const ensFallbackConfig: Config = createConfig({
   chains: [mainnet],
   transports: {
     [mainnet.id]: http(),
