@@ -52,12 +52,6 @@ Get started with `create` Openfort + [wagmi](https://wagmi.sh/) + [viem](https:/
 npx create openfort
 ```
 
-#### yarn
-
-```sh
-yarn create openfort
-```
-
 #### pnpm
 
 ```sh
@@ -72,12 +66,6 @@ Add Openfort to your already existing project.
 
 ```sh
 npm install @openfort/react @tanstack/react-query wagmi viem
-```
-
-#### yarn
-
-```sh
-yarn add @openfort/react @tanstack/react-query wagmi viem
 ```
 
 #### pnpm
@@ -101,21 +89,21 @@ Clone the project and install the necessary dependencies:
 ```sh
 $ git clone git@github.com:openfort-xyz/openfort-react.git
 $ cd openfort
-$ yarn install
+$ pnpm install
 ```
 
 and start the code bundler:
 
 ```sh
-$ yarn dev:kit
+$ pnpm dev:kit
 ```
 
 and then simply select the example you'd like to run:
 
 ```sh
-$ yarn dev:vite # Vite
-$ yarn dev:nextjs # Next.js
-$ yarn dev:cra # Create React App
+$ pnpm dev:vite # Vite
+$ pnpm dev:nextjs # Next.js
+$ pnpm dev:cra # Create React App
 ```
 
 ## License
