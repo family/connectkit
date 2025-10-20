@@ -1,10 +1,10 @@
 import { AxiosError } from "axios";
-import { useAccount, useChainId, useConfig } from "wagmi";
+import { useAccount, useChainId, useConfig, usePublicClient } from "wagmi";
 import { useOpenfort } from '../../components/Openfort/useOpenfort';
 import { useOpenfortCore } from '../../openfort/useOpenfort';
 import { createSIWEMessage } from "../../siwe/create-siwe-message";
 
-import { signMessage } from '@wagmi/core';
+import { signMessage, switchChain } from '@wagmi/core';
 import { useCallback } from "react";
 import { isMobile } from "../../utils";
 import { useWallet } from "../../wallets/useWallets";
@@ -15,20 +15,24 @@ import { useWallet } from "../../wallets/useWallets";
 export function useConnectWithSiwe() {
   const { client, user, updateUser } = useOpenfortCore();
   const { log } = useOpenfort();
-  const { address, connector } = useAccount();
+  const { address, connector, chainId: accountChainId } = useAccount();
   const chainId = useChainId();
   const config = useConfig();
-  const wallet = useWallet(connector?.id || "");
+  const publicClient = usePublicClient();
 
   const connectWithSiwe = useCallback(async ({
     onError,
     onConnect,
+    connectorType: propsConnectorType,
+    walletClientType: propsWalletClientType,
   }: {
+    connectorType?: string,
+    walletClientType?: string,
     onError?: (error: string, status?: number) => void,
     onConnect?: () => void,
   } = {}) => {
-    const connectorType = connector?.type;
-    const walletClientType = connector?.id;
+    const connectorType = propsConnectorType ?? connector?.type;
+    const walletClientType = propsWalletClientType ?? connector?.id;
 
     if (!address || !connectorType || !walletClientType) {
       log("No address found", { address, connectorType, walletClientType });
@@ -37,7 +41,14 @@ export function useConnectWithSiwe() {
     }
 
     try {
+      if (accountChainId !== chainId) {
+        switchChain(config, {
+          chainId,
+        })
+      }
+
       const { nonce } = await client.auth.initSIWE({ address });
+
       const SIWEMessage = createSIWEMessage(address, nonce, chainId);
 
       const signature = await signMessage(config, { message: SIWEMessage });
@@ -79,7 +90,7 @@ export function useConnectWithSiwe() {
       } else if (message.includes("Invalid signature")) {
         message = "Invalid signature. Please try again.";
       } else if (message.includes("An error occurred when attempting to switch chain")) {
-        message = "Failed to switch chain. Please switch your wallet to the correct network and try again.";
+        message = `Failed to switch chain. Please switch your wallet to ${publicClient?.chain?.name ?? "the correct network"} and try again.`;
       } else {
         message = "Failed to connect with SIWE.";
       }
