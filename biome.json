@@ -12,7 +12,8 @@
       "!**/.next",
       "!**/coverage",
       "!**/node_modules",
-      "!packages/openfort-react/src/assets"
+      "!packages/openfort-react/src/assets",
+      "!examples/playground/src/assets"
     ],
     "ignoreUnknown": true
   },
