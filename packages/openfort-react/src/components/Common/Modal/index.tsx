@@ -196,7 +196,7 @@ const Modal: React.FC<ModalProps> = ({
   const currentDepth = context.route === routes.PROVIDERS ? 0 : context.route === routes.DOWNLOAD ? 2 : 1
 
   const prevDepth = usePrevious(currentDepth, currentDepth)
-  if (!positionInside) useLockBodyScroll(mounted)
+  useLockBodyScroll(!positionInside ? mounted : false)
 
   const _prevPage = usePrevious(pageId, pageId)
 

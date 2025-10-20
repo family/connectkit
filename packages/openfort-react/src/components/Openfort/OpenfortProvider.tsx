@@ -166,7 +166,7 @@ export const OpenfortProvider = ({
   const [emailInput, setEmailInput] = useState('')
 
   // Include Google Font that is needed for a themes
-  if (safeUiConfig.embedGoogleFonts) useThemeFont(ckTheme)
+  useThemeFont(safeUiConfig.embedGoogleFonts ? ckTheme : ('' as Theme))
 
   // Other Configuration
   useEffect(() => setTheme(uiConfig?.theme ?? 'auto'), [uiConfig?.theme])

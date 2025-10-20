@@ -37,21 +37,6 @@ const ConnectWithQRCode: React.FC<{
     CONNECTORNAME: wallet?.name,
   })
 
-  if (!wallet) return <>Wallet not found {context.connector.id}</>
-
-  const downloads = wallet?.downloadUrls
-  const extensions = {
-    chrome: downloads?.chrome,
-    firefox: downloads?.firefox,
-    brave: downloads?.brave,
-    edge: downloads?.edge,
-    safari: downloads?.safari,
-  }
-
-  const _browser = detectBrowser()
-
-  const hasApps = downloads && Object.keys(downloads).length !== 0
-
   const connectWithSiwe = useConnectWithSiwe()
   const { isConnected } = useAccount()
   const { log, setOpen } = useOpenfort()
@@ -82,6 +67,21 @@ const ConnectWithQRCode: React.FC<{
       }
     }
   }, [isConnected])
+
+  if (!wallet) return <>Wallet not found {context.connector.id}</>
+
+  const downloads = wallet?.downloadUrls
+  const extensions = {
+    chrome: downloads?.chrome,
+    firefox: downloads?.firefox,
+    brave: downloads?.brave,
+    edge: downloads?.edge,
+    safari: downloads?.safari,
+  }
+
+  const _browser = detectBrowser()
+
+  const hasApps = downloads && Object.keys(downloads).length !== 0
 
   const _suggestedExtension = extensions
     ? {

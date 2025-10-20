@@ -13,12 +13,12 @@ import { ProviderIcon as ProviderIconContainer } from '../Providers/styles'
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from './styles'
 
 const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
-  if (provider.walletClientType === 'walletconnect') return <Logos.WalletConnect />
-
   const wallets = useWallets()
   const wallet = useMemo(() => {
     return wallets.find((w) => w.id?.toLowerCase() === provider.walletClientType)
   }, [provider])
+
+  if (provider.walletClientType === 'walletconnect') return <Logos.WalletConnect />
 
   if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>
 
