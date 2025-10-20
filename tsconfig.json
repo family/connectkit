@@ -1,7 +1,4 @@
 {
   "files": [],
-  "references": [
-    { "path": "./packages/openfort-react" }
-  ]
+  "references": [{ "path": "./packages/openfort-react" }]
 }
-

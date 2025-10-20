@@ -51,7 +51,7 @@ const ChainSelectList = ({ variant }: { variant?: 'primary' | 'secondary' }) => 
   const locales = useLocales({})
   const mobile = isMobile()
 
-  // @ts-ignore - SwitchChainErrorType doesn't expose 'code' property but it exists at runtime
+  // biome-ignore lint/suspicious/noExplicitAny: SwitchChainErrorType doesn't expose 'code' property but it exists at runtime
   const isError = error?.['code'] === 4902 // Wallet cannot switch networks
   const disabled = isError || !switchChain
 
