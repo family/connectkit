@@ -8,4 +8,7 @@
  */
 
 import styled from 'styled-components'
-export default typeof styled.div === 'function' ? styled : (styled.default as typeof styled)
+
+type StyledWithDefault = typeof styled & { default?: typeof styled }
+
+export default typeof styled.div === 'function' ? styled : ((styled as StyledWithDefault).default as typeof styled)
