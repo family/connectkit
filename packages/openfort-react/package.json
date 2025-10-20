@@ -26,7 +26,8 @@
     "start": "rollup --config rollup.config.dev.js -w",
     "dev": "rollup --config rollup.config.dev.js -w",
     "build": "rollup --config rollup.config.prod.js",
-    "lint": "eslint src --ext .ts"
+    "check": "biome check --write --unsafe",
+    "format": "biome format --write ."
   },
   "keywords": [
     "ens",
@@ -58,16 +59,12 @@
     "wagmi": "2.x"
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
+    "@biomejs/biome": "^2.2.6",
     "@types/node": "18.7.18",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
-    "eslint": "^9.21.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "typescript": "^5.0.4",
-    "typescript-eslint": "^8.24.1"
+    "typescript": "^5.0.4"
   }
 }
