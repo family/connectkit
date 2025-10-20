@@ -71,9 +71,9 @@ function SampleComponent() {
       return clearTimeout(setTimeout(() => {
         navigate({
           to: '.',
-          search: (prev) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { focus, ...rest } = prev
+        search: (prev) => {
+          // biome-ignore lint/correctness/noUnusedVariables: focus is intentionally destructured to exclude it
+          const { focus, ...rest } = prev
             return rest
           },
           replace: true,

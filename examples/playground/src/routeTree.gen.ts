@@ -1,4 +1,4 @@
-/* eslint-disable */
+// biome-ignore format: auto-generated file by TanStack Router
 
 // @ts-nocheck
 
