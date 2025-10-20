@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { useAccount, useSwitchChain } from 'wagmi'
 import ChainIcons from '../../../assets/chains'
 import { chainConfigs } from '../../../constants/chainConfigs'
@@ -19,29 +19,32 @@ import {
   SwitchNetworksContainer,
 } from './styles'
 
-const Spinner = (
-  <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M2 16.75C2.69036 16.75 3.25 17.3096 3.25 18V19C3.25 26.5939 9.40609 32.75 17 32.75V35.25C8.02537 35.25 0.75 27.9746 0.75 19V18C0.75 17.3096 1.30964 16.75 2 16.75Z"
-      fill="url(#paint0_linear_1288_18701)"
-    />
-    <defs>
-      <linearGradient
-        id="paint0_linear_1288_18701"
-        x1="2"
-        y1="19.4884"
-        x2="16.8752"
-        y2="33.7485"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="var(--ck-spinner-color)" />
-        <stop offset="1" stopColor="var(--ck-spinner-color)" stopOpacity="0" />
-      </linearGradient>
-    </defs>
-  </svg>
-)
+const Spinner = () => {
+  const id = useId()
+  return (
+    <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2 16.75C2.69036 16.75 3.25 17.3096 3.25 18V19C3.25 26.5939 9.40609 32.75 17 32.75V35.25C8.02537 35.25 0.75 27.9746 0.75 19V18C0.75 17.3096 1.30964 16.75 2 16.75Z"
+        fill={`url(#paint0_linear_${id})`}
+      />
+      <defs>
+        <linearGradient
+          id={`paint0_linear_${id}`}
+          x1="2"
+          y1="19.4884"
+          x2="16.8752"
+          y2="33.7485"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="var(--ck-spinner-color)" />
+          <stop offset="1" stopColor="var(--ck-spinner-color)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
 
 const ChainSelectList = ({ variant }: { variant?: 'primary' | 'secondary' }) => {
   const { connector, chain } = useAccount()
@@ -118,7 +121,7 @@ const ChainSelectList = ({ variant }: { variant?: 'primary' | 'secondary' }) => 
                             : { opacity: 1 }
                         }
                       >
-                        {Spinner}
+                        <Spinner />
                       </motion.div>
                     </ChainLogoSpinner>
                     <ChainIcon>{ch.logo ?? <ChainIcons.UnknownChain />}</ChainIcon>

@@ -1,4 +1,5 @@
 import { type EasingFunction, motion } from 'framer-motion'
+import { useId } from 'react'
 import { keyframes } from 'styled-components'
 import styled from '../../../styles/styled'
 
@@ -64,54 +65,60 @@ const MainCircleInner = styled(motion.div)`
   border-radius: 50%;
 `
 
-const Compass = (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M17 34C26.3 34 34 26.2833 34 17C34 7.7 26.2833 0 16.9833 0C7.7 0 0 7.7 0 17C0 26.2833 7.71667 34 17 34ZM9.83333 25.6833C8.68333 26.2333 7.8 25.3333 8.33333 24.2L13.1667 14.3333C13.45 13.75 13.8167 13.3833 14.35 13.1333L24.1833 8.33333C25.4 7.75 26.25 8.65 25.6833 9.81667L20.8833 19.6667C20.6167 20.2 20.2333 20.6 19.6833 20.85L9.83333 25.6833ZM17.0167 19.1333C18.1833 19.1333 19.1333 18.1833 19.1333 17.0167C19.1333 15.85 18.1833 14.9167 17.0167 14.9167C15.8667 14.9167 14.9167 15.85 14.9167 17.0167C14.9167 18.1833 15.8667 19.1333 17.0167 19.1333Z"
-      fill="var(--ck-graphic-compass-color, var(--ck-body-color))"
-    />
-    <path
-      d="M17 34C26.3 34 34 26.2833 34 17C34 7.7 26.2833 0 16.9833 0C7.7 0 0 7.7 0 17C0 26.2833 7.71667 34 17 34ZM9.83333 25.6833C8.68333 26.2333 7.8 25.3333 8.33333 24.2L13.1667 14.3333C13.45 13.75 13.8167 13.3833 14.35 13.1333L24.1833 8.33333C25.4 7.75 26.25 8.65 25.6833 9.81667L20.8833 19.6667C20.6167 20.2 20.2333 20.6 19.6833 20.85L9.83333 25.6833ZM17.0167 19.1333C18.1833 19.1333 19.1333 18.1833 19.1333 17.0167C19.1333 15.85 18.1833 14.9167 17.0167 14.9167C15.8667 14.9167 14.9167 15.85 14.9167 17.0167C14.9167 18.1833 15.8667 19.1333 17.0167 19.1333Z"
-      fill="url(#ck-compass-gradient)"
-    />
-    <defs>
-      <linearGradient id="ck-compass-gradient" x1="17" y1="0" x2="17" y2="34" gradientUnits="userSpaceOnUse">
-        <stop stopColor="rgba(0,0,0,0)" />
-        <stop offset="1" stopColor="rgba(0,0,0,0.05)" />
-      </linearGradient>
-    </defs>
-  </svg>
-)
+const Compass = () => {
+  const id = useId()
+  return (
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M17 34C26.3 34 34 26.2833 34 17C34 7.7 26.2833 0 16.9833 0C7.7 0 0 7.7 0 17C0 26.2833 7.71667 34 17 34ZM9.83333 25.6833C8.68333 26.2333 7.8 25.3333 8.33333 24.2L13.1667 14.3333C13.45 13.75 13.8167 13.3833 14.35 13.1333L24.1833 8.33333C25.4 7.75 26.25 8.65 25.6833 9.81667L20.8833 19.6667C20.6167 20.2 20.2333 20.6 19.6833 20.85L9.83333 25.6833ZM17.0167 19.1333C18.1833 19.1333 19.1333 18.1833 19.1333 17.0167C19.1333 15.85 18.1833 14.9167 17.0167 14.9167C15.8667 14.9167 14.9167 15.85 14.9167 17.0167C14.9167 18.1833 15.8667 19.1333 17.0167 19.1333Z"
+        fill="var(--ck-graphic-compass-color, var(--ck-body-color))"
+      />
+      <path
+        d="M17 34C26.3 34 34 26.2833 34 17C34 7.7 26.2833 0 16.9833 0C7.7 0 0 7.7 0 17C0 26.2833 7.71667 34 17 34ZM9.83333 25.6833C8.68333 26.2333 7.8 25.3333 8.33333 24.2L13.1667 14.3333C13.45 13.75 13.8167 13.3833 14.35 13.1333L24.1833 8.33333C25.4 7.75 26.25 8.65 25.6833 9.81667L20.8833 19.6667C20.6167 20.2 20.2333 20.6 19.6833 20.85L9.83333 25.6833ZM17.0167 19.1333C18.1833 19.1333 19.1333 18.1833 19.1333 17.0167C19.1333 15.85 18.1833 14.9167 17.0167 14.9167C15.8667 14.9167 14.9167 15.85 14.9167 17.0167C14.9167 18.1833 15.8667 19.1333 17.0167 19.1333Z"
+        fill={`url(#ck-compass-gradient-${id})`}
+      />
+      <defs>
+        <linearGradient id={`ck-compass-gradient-${id}`} x1="17" y1="0" x2="17" y2="34" gradientUnits="userSpaceOnUse">
+          <stop stopColor="rgba(0,0,0,0)" />
+          <stop offset="1" stopColor="rgba(0,0,0,0.05)" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
 
-const Wallet = ({ inverted = false }) => (
-  <svg width="58" height="50" viewBox="0 0 58 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M57.9332 20.3335V42.1113C57.9332 46.4069 54.451 49.8891 50.1555 49.8891H8.15546C3.85991 49.8891 0.377686 46.4069 0.377686 42.1113V25.0002V7.8891C0.377686 3.59355 3.85991 0.111328 8.15546 0.111328H47.0444C48.7626 0.111328 50.1555 1.50422 50.1555 3.22244C50.1555 4.94066 48.7626 6.33355 47.0443 6.33355H9.71102C7.9928 6.33355 6.59991 7.72644 6.59991 9.44466C6.59991 11.1629 7.9928 12.5558 9.71102 12.5558H50.1555C54.451 12.5558 57.9332 16.038 57.9332 20.3335ZM46.2667 34.3337C48.4145 34.3337 50.1556 32.5926 50.1556 30.4448C50.1556 28.297 48.4145 26.5559 46.2667 26.5559C44.1189 26.5559 42.3778 28.297 42.3778 30.4448C42.3778 32.5926 44.1189 34.3337 46.2667 34.3337Z"
-      fill={
-        inverted
-          ? 'var(--ck-graphic-primary-color, var(--ck-body-background))'
-          : 'var(--ck-graphic-primary-color, var(--ck-body-color))'
-      }
-    />
-    <defs>
-      <linearGradient
-        id="paint0_linear_2501_7732"
-        x1="29.1555"
-        y1="0.111328"
-        x2="29.1555"
-        y2="49.8891"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop
-          stopColor={inverted ? 'var(--ck-body-color-muted)' : 'var(--ck-body-background-transparent, transparent)'}
-        />
-        <stop offset="1" stopColor={inverted ? 'var(--ck-body-color)' : 'var(--ck-body-background)'} />
-      </linearGradient>
-    </defs>
-  </svg>
-)
+const Wallet = ({ inverted = false }: { inverted?: boolean }) => {
+  const id = useId()
+  return (
+    <svg width="58" height="50" viewBox="0 0 58 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M57.9332 20.3335V42.1113C57.9332 46.4069 54.451 49.8891 50.1555 49.8891H8.15546C3.85991 49.8891 0.377686 46.4069 0.377686 42.1113V25.0002V7.8891C0.377686 3.59355 3.85991 0.111328 8.15546 0.111328H47.0444C48.7626 0.111328 50.1555 1.50422 50.1555 3.22244C50.1555 4.94066 48.7626 6.33355 47.0443 6.33355H9.71102C7.9928 6.33355 6.59991 7.72644 6.59991 9.44466C6.59991 11.1629 7.9928 12.5558 9.71102 12.5558H50.1555C54.451 12.5558 57.9332 16.038 57.9332 20.3335ZM46.2667 34.3337C48.4145 34.3337 50.1556 32.5926 50.1556 30.4448C50.1556 28.297 48.4145 26.5559 46.2667 26.5559C44.1189 26.5559 42.3778 28.297 42.3778 30.4448C42.3778 32.5926 44.1189 34.3337 46.2667 34.3337Z"
+        fill={
+          inverted
+            ? 'var(--ck-graphic-primary-color, var(--ck-body-background))'
+            : 'var(--ck-graphic-primary-color, var(--ck-body-color))'
+        }
+      />
+      <defs>
+        <linearGradient
+          id={`paint0_linear_${id}`}
+          x1="29.1555"
+          y1="0.111328"
+          x2="29.1555"
+          y2="49.8891"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop
+            stopColor={inverted ? 'var(--ck-body-color-muted)' : 'var(--ck-body-background-transparent, transparent)'}
+          />
+          <stop offset="1" stopColor={inverted ? 'var(--ck-body-color)' : 'var(--ck-body-background)'} />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
 
 const Send = (
   <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -616,7 +623,7 @@ export const SlideThree = ({ layoutId }: Slide) => {
             mass: 0.2,
           }}
         >
-          {Compass}
+          <Compass />
         </motion.div>
       </motion.div>
     </motion.div>

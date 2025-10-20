@@ -1,5 +1,6 @@
 import { AnimatePresence } from 'framer-motion'
 import type React from 'react'
+import { useId } from 'react'
 import { ExpiringSpinner, Logo, LogoContainer, Spinner, SpinnerContainer } from './styles'
 
 const CircleSpinner = ({
@@ -15,6 +16,7 @@ const CircleSpinner = ({
   unavailable?: boolean
   countdown?: boolean
 }) => {
+  const id = useId()
   return (
     <LogoContainer transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}>
       <Logo $small={!unavailable && smallLogo} style={unavailable ? { borderRadius: 0 } : undefined}>
@@ -44,14 +46,14 @@ const CircleSpinner = ({
               >
                 <path
                   d="M52 100C24.3858 100 2 77.6142 2 50"
-                  stroke="url(#paint0_linear_1943_4139)"
+                  stroke={`url(#paint0_linear_${id})`}
                   strokeWidth="3.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
                 <defs>
                   <linearGradient
-                    id="paint0_linear_1943_4139"
+                    id={`paint0_linear_${id}`}
                     x1="2"
                     y1="48.5"
                     x2="53"
