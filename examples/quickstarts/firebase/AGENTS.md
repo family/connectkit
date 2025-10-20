@@ -4,7 +4,19 @@ This document outlines the integration patterns and autonomous components in the
 
 ## Overview
 
-This project demonstrates how Firebase authentication integrates with Openfort's wallet infrastructure, creating a seamless Web3 authentication experience.
+This project demonstrates how Firebase authentication integrates with Openfort's wallet infrastructure, creating a seamless Web3 authentication experience using Vite.js and React 18.
+
+## Architecture Overview
+
+The codebase is organized into distinct layers for maximum modularity:
+
+- **`src/integrations/firebase/`** – Firebase client bootstrap, auth error helpers, and the `FirebaseAuthCard` UI
+- **`src/integrations/openfort/`** – Openfort provider wiring, Wagmi configuration, and shared hooks/logic
+- **`src/ui/openfort/`** – Openfort-specific UI primitives (wallet flows, blockchain cards, profile surfaces)
+- **`src/components/cards/`** – Layout shell (`Main`) and hero (`Head`) that orchestrate Firebase and Openfort modules
+- **`src/components/ui/`** – Reusable UI primitives shared by both integrations
+
+Each integration exposes components and utilities through its `index.ts`, making it easy to swap in custom implementations or restyle specific pieces without touching the underlying wiring.
 
 ## Integration Agents
 
@@ -115,8 +127,8 @@ See [.env.example](.env.example) for complete configuration.
 
 1. Create new action component in `src/ui/openfort/blockchain/`
 2. Implement transaction logic using Openfort SDK
-3. Add action card to `ActionsCard.tsx` or create standalone card
-4. Update `Main.tsx` to include new action in layout
+3. Extend `ActionsCard` or `SignCard` to demonstrate additional smart-contract interactions
+4. Update [src/components/cards/main.tsx](src/components/cards/main.tsx) to include new action in layout
 
 ### Custom User Flows
 
@@ -124,6 +136,13 @@ Modify the orchestration in [src/components/cards/main.tsx](src/components/cards
 - Reorder component display
 - Add conditional rendering based on auth state
 - Integrate additional third-party services
+- Hide or show Openfort/Firebase features per user journey
+
+### Customizing Authentication Experience
+
+1. Replace `FirebaseAuthCard` with your own brand-aware auth experience
+2. Keep the Openfort wallet flow intact while updating auth UI
+3. Maintain the integration layer in `src/integrations/firebase/` for easy swapping
 
 ## Testing Agent Behavior
 
@@ -136,10 +155,12 @@ When testing integration flows:
 
 ## Architecture Benefits
 
-- **Modularity**: Each integration is self-contained and swappable
+- **Modularity**: Each integration is self-contained and swappable via clean `index.ts` exports
 - **Type Safety**: Full TypeScript support across all agents
 - **Error Resilience**: Graceful degradation and user-friendly error messages
-- **Extensibility**: Easy to add new providers or blockchain actions
+- **Extensibility**: Easy to add new providers or blockchain actions without touching core wiring
+- **Clear Separation**: Distinct layers for integrations, UI primitives, and orchestration
+- **Easy Customization**: Replace or restyle individual components while maintaining functionality
 
 ## Related Documentation
 
