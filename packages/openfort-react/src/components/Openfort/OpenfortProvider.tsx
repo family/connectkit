@@ -223,8 +223,7 @@ export const OpenfortProvider = ({
       setErrorMessage(message)
       logger.log('---------OPENFORT DEBUG---------')
       logger.log(message)
-      if (code) console.table(code)
-      logger.log('---------/OPENFORT DEBUG---------')
+      if (code) logger.log('---------/OPENFORT DEBUG---------')
     },
     resize,
     triggerResize: () => onResize((prev) => prev + 1),
@@ -236,34 +235,32 @@ export const OpenfortProvider = ({
   return createElement(
     Openfortcontext.Provider,
     { value },
-    <>
-      <Web3ContextProvider enabled={open}>
-        <CoreOpenfortProvider
-          baseConfiguration={{
-            publishableKey,
-          }}
-          shieldConfiguration={
-            walletConfig
-              ? {
-                  shieldPublishableKey: walletConfig.shieldPublishableKey,
-                  debug: debugMode,
-                }
-              : undefined
-          }
-          overrides={overrides}
-          thirdPartyAuth={thirdPartyAuth}
-          debugMode={debugMode}
-          onConnect={onConnect}
-          onDisconnect={onDisconnect}
-        >
-          {/* <ThemeProvider
+    <Web3ContextProvider enabled={open}>
+      <CoreOpenfortProvider
+        baseConfiguration={{
+          publishableKey,
+        }}
+        shieldConfiguration={
+          walletConfig
+            ? {
+                shieldPublishableKey: walletConfig.shieldPublishableKey,
+                debug: debugMode,
+              }
+            : undefined
+        }
+        overrides={overrides}
+        thirdPartyAuth={thirdPartyAuth}
+        debugMode={debugMode}
+        onConnect={onConnect}
+        onDisconnect={onDisconnect}
+      >
+        {/* <ThemeProvider
             theme={defaultTheme}
           > */}
-          {children}
-          <ConnectKitModal lang={ckLang} theme={ckTheme} mode={uiConfig?.mode ?? ckMode} customTheme={ckCustomTheme} />
-          {/* </ThemeProvider> */}
-        </CoreOpenfortProvider>
-      </Web3ContextProvider>
-    </>
+        {children}
+        <ConnectKitModal lang={ckLang} theme={ckTheme} mode={uiConfig?.mode ?? ckMode} customTheme={ckCustomTheme} />
+        {/* </ThemeProvider> */}
+      </CoreOpenfortProvider>
+    </Web3ContextProvider>
   )
 }

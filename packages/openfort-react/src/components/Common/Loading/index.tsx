@@ -7,7 +7,7 @@ import useLocales from '../../../hooks/useLocales'
 import styled from '../../../styles/styled'
 import { RetryButton, RetryIconContainer } from '../../ConnectModal/ConnectWithInjector/styles'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import { ModalBody, ModalContent, ModalH1 } from '../Modal/styles'
+import { ModalBody, ModalH1 } from '../Modal/styles'
 import SquircleSpinner from '../SquircleSpinner'
 import Tooltip from '../Tooltip'
 

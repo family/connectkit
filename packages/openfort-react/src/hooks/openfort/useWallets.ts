@@ -375,7 +375,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       await disconnectAsync()
 
       if (showUI) {
-        const walletToConnect = wallets.find((w) => w.id == connector.id)
+        const walletToConnect = wallets.find((w) => w.id === connector.id)
         if (!walletToConnect) {
           log('Wallet not found', connector)
           return onError({

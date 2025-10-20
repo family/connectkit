@@ -1,9 +1,4 @@
-import {
-  type OAuthProvider,
-  RecoveryMethod,
-  type SDKOverrides,
-  type ThirdPartyAuthConfiguration,
-} from '@openfort/openfort-js'
+import type { OAuthProvider, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import type React from 'react'
 import { createContext } from 'react'
 import type { ValueOf } from 'viem/_types/types/utils'

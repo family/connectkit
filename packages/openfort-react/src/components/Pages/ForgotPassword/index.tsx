@@ -47,7 +47,7 @@ const RequestEmail: React.FC = () => {
     client.auth
       .requestResetPassword({
         email,
-        redirectUrl: cleanURL + `?openfortForgotPasswordUI=true&email=${email}`,
+        redirectUrl: `${cleanURL}?openfortForgotPasswordUI=true&email=${email}`,
       })
       .then(() => {
         setMessage('Reset email sent.')

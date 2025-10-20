@@ -1,7 +1,7 @@
 import { OAuthProvider } from '@openfort/openfort-js'
 import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useAccount, useDisconnect } from 'wagmi'
 import { EmailIcon, GuestIcon } from '../../../assets/icons'
 import Logos, { OtherSocials, providersLogos } from '../../../assets/logos'
@@ -9,12 +9,10 @@ import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
-import { Arrow, ArrowChevron, ArrowLine, ButtonContainerInner } from '../../Common/Button/styles'
-import { Input } from '../../Common/Input/styles'
 import Loader from '../../Common/Loading'
-import { BackButton, PageContent } from '../../Common/Modal/styles'
+import { PageContent } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
-import { routes, socialProviders, UIAuthProvider } from '../../Openfort/types'
+import { routes, UIAuthProvider } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import {
   EmailInnerButton,
@@ -131,7 +129,7 @@ const EmailButton: React.FC = () => {
 
 const AuthProviderButton: React.FC<{ provider: OAuthProvider; title?: string; icon?: React.ReactNode }> = ({
   provider,
-  title = provider + ' login',
+  title = `${provider} login`,
   icon,
 }) => {
   const { setRoute, setConnector } = useOpenfort()

@@ -11,7 +11,7 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
       {showDisclaimer && (
         <Disclaimer>
           {options?.disclaimer ? (
-            <>{options.disclaimer}</>
+            options.disclaimer
           ) : (
             <div>
               By logging in, you agree to our{' '}

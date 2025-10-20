@@ -8,10 +8,7 @@ declare global {
 export const isWalletInstalled = (name: string) => {
   if (typeof window === 'undefined') return false
   const { ethereum } = window
-  return !!(
-    ethereum?.[`is${name}`] ||
-    (ethereum?.providers && ethereum?.providers.find((provider) => provider?.[`is${name}`]))
-  )
+  return !!(ethereum?.[`is${name}`] || ethereum?.providers?.find((provider) => provider?.[`is${name}`]))
 }
 
 export const isMetaMask = () => isWalletInstalled('MetaMask')

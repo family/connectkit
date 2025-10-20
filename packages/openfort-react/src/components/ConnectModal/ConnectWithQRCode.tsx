@@ -48,7 +48,7 @@ const ConnectWithQRCode: React.FC<{
     safari: downloads?.safari,
   }
 
-  const browser = detectBrowser()
+  const _browser = detectBrowser()
 
   const hasApps = downloads && Object.keys(downloads).length !== 0
 
@@ -83,7 +83,7 @@ const ConnectWithQRCode: React.FC<{
     }
   }, [isConnected])
 
-  const suggestedExtension = extensions
+  const _suggestedExtension = extensions
     ? {
         name: Object.keys(extensions)[0],
         label: Object.keys(extensions)[0]?.charAt(0).toUpperCase() + Object.keys(extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
@@ -163,12 +163,11 @@ const ConnectWithQRCode: React.FC<{
       */}
 
       {hasApps && (
-        <>
-          <Button
-            onClick={() => {
-              context.setRoute(routes.DOWNLOAD)
-            }}
-            /*
+        <Button
+          onClick={() => {
+            context.setRoute(routes.DOWNLOAD)
+          }}
+          /*
             icon={
               <div style={{ background: connectorInfo?.icon }}>
                 {connectorInfo?.logos.default}
@@ -176,11 +175,10 @@ const ConnectWithQRCode: React.FC<{
             }
             roundedIcon
             */
-            download
-          >
-            {locales.getWalletName}
-          </Button>
-        </>
+          download
+        >
+          {locales.getWalletName}
+        </Button>
       )}
       {/*
         {suggestedExtension && (

@@ -11,7 +11,7 @@ const LazyImage: React.FC<{
   const [loaded, setLoaded] = useState(true)
 
   useEffect(() => {
-    if (!(imageRef.current && imageRef.current.complete && imageRef.current.naturalHeight !== 0)) {
+    if (!(imageRef.current?.complete && imageRef.current.naturalHeight !== 0)) {
       setLoaded(false)
     }
   }, [src])

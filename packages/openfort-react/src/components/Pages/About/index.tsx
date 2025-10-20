@@ -19,7 +19,7 @@ const About: React.FC = () => {
 
   const ctaUrl = context.uiConfig?.ethereumOnboardingUrl ?? locales.aboutScreen_ctaUrl
 
-  const [ready, setReady] = useState(true)
+  const [_ready, setReady] = useState(true)
   const [slider, setSlider] = useState(0)
   const interacted = useRef(false)
   const scrollPos = useRef(0)
@@ -52,7 +52,7 @@ const About: React.FC = () => {
     }
   }
 
-  const nextSlide = () => {
+  const _nextSlide = () => {
     if (interacted.current) return
 
     setSlider((prevSlider) => {
@@ -60,7 +60,7 @@ const About: React.FC = () => {
       scrollToSlide(index)
       return index
     })
-    interval = setTimeout(nextSlide, autoplayDelay)
+    interval = setTimeout(_nextSlide, autoplayDelay)
   }
 
   const scrollToSlide = (index: number) => {
@@ -207,7 +207,7 @@ const About: React.FC = () => {
       </Slider>
       <OrDivider>
         <Dots>
-          {slides.map((s, i) => (
+          {slides.map((_s, i) => (
             <Dot
               key={i}
               $active={slider === i}

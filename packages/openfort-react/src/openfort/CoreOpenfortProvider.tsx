@@ -5,12 +5,10 @@ import {
   EmbeddedState,
   type Openfort,
   type OpenfortError,
-  RecoveryMethod,
 } from '@openfort/openfort-js'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type React from 'react'
 import { createElement, type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { polygonAmoy } from 'viem/chains'
 import { useAccount, useChainId, useDisconnect } from 'wagmi'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
 import type { WalletFlowStatus } from '../hooks/openfort/useWallets'

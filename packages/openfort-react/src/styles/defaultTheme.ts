@@ -1,4 +1,4 @@
-import { type CustomTheme, type Theme, ThemeMode } from './types'
+import type { CustomTheme, Theme } from './types'
 
 const defaultLightTheme: Theme = {
   font: {
@@ -63,7 +63,7 @@ const parseTheme = (theme: Theme) => {
 
 const userPrefersDarkMode = () => {
   if (typeof window === 'undefined') return false
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches
   /*
   window
     .matchMedia('(prefers-color-scheme: dark)')

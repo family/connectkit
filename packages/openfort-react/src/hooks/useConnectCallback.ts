@@ -1,6 +1,6 @@
 import type { AuthPlayerResponse } from '@openfort/openfort-js'
 import { useEffect, useState } from 'react'
-import { useAccount, useAccountEffect } from 'wagmi'
+import { useAccount } from 'wagmi'
 import { useOpenfortCore } from '../openfort/useOpenfort'
 import useIsMounted from './useIsMounted'
 

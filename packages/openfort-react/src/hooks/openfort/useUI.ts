@@ -1,5 +1,5 @@
 import { useAccount } from 'wagmi'
-import { routes, UIAuthProvider } from '../../components/Openfort/types'
+import { routes } from '../../components/Openfort/types'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
 

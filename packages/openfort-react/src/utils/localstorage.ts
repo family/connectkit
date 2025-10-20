@@ -30,7 +30,7 @@ export const save = (storageKey: string, data: any[]) => {
   try {
     localStorage.setItem(storageKey, JSON.stringify(data))
     return get(storageKey)
-  } catch (e) {
+  } catch (_e) {
     return []
   }
 }
@@ -51,7 +51,7 @@ export const get = (storageKey: string) => {
     const data = localStorage.getItem(storageKey)
     if (data) return JSON.parse(data)
     return []
-  } catch (e) {
+  } catch (_e) {
     // error parsing data, reset
     save(storageKey, [])
     return []

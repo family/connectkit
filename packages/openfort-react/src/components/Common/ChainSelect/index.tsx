@@ -142,34 +142,32 @@ const ChainSelector: React.FC = () => {
   const disabled = chains.length <= 1
 
   return (
-    <>
-      <Container>
-        <ChainSelectDropdown offsetX={-12} open={!mobile && isOpen} onClose={() => setIsOpen(false)}>
-          {chain && (
-            <SwitchChainButton
-              aria-label={flattenChildren(locales.switchNetworks).toString()}
-              disabled={disabled}
-              onClick={() => {
-                if (mobile) {
-                  context.setRoute(routes.SWITCHNETWORKS)
-                } else {
-                  setIsOpen(!isOpen)
-                }
-              }}
-            >
-              {disabled ? (
-                <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
-                  <Chain id={chain?.id} />
-                </Tooltip>
-              ) : (
+    <Container>
+      <ChainSelectDropdown offsetX={-12} open={!mobile && isOpen} onClose={() => setIsOpen(false)}>
+        {chain && (
+          <SwitchChainButton
+            aria-label={flattenChildren(locales.switchNetworks).toString()}
+            disabled={disabled}
+            onClick={() => {
+              if (mobile) {
+                context.setRoute(routes.SWITCHNETWORKS)
+              } else {
+                setIsOpen(!isOpen)
+              }
+            }}
+          >
+            {disabled ? (
+              <Tooltip message={locales.chainNetwork} xOffset={-6} delay={0.01}>
                 <Chain id={chain?.id} />
-              )}
-              {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
-            </SwitchChainButton>
-          )}
-        </ChainSelectDropdown>
-      </Container>
-    </>
+              </Tooltip>
+            ) : (
+              <Chain id={chain?.id} />
+            )}
+            {!disabled && <ChevronDown style={{ top: 1, left: -3 }} />}
+          </SwitchChainButton>
+        )}
+      </ChainSelectDropdown>
+    </Container>
   )
 }
 

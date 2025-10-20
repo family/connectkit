@@ -175,7 +175,7 @@ export const useAuthCallback = ({
         if (!player || !accessToken || !refreshToken) {
           logger.error(`Missing player id or access token or refresh token`, {
             player,
-            accessToken: accessToken ? accessToken.substring(0, 10) + '...' : accessToken,
+            accessToken: accessToken ? `${accessToken.substring(0, 10)}...` : accessToken,
             refreshToken,
             fixedUrl,
           })

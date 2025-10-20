@@ -55,7 +55,7 @@ const Avatar: React.FC<{
   }
 
   useEffect(() => {
-    if (!(imageRef.current && imageRef.current.complete && imageRef.current.naturalHeight !== 0)) {
+    if (!(imageRef.current?.complete && imageRef.current.naturalHeight !== 0)) {
       setLoaded(false)
     }
   }, [ensAvatar])

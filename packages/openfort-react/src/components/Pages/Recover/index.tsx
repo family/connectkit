@@ -460,7 +460,7 @@ const RecoverWallet = ({ wallet }: { wallet: UserWallet }) => {
     case RecoveryMethod.PASSKEY:
       return <RecoverPasskeyWallet wallet={wallet} />
     default:
-      logger.error('Unsupported recovery method: ' + wallet.recoveryMethod + ', defaulting to automatic.')
+      logger.error(`Unsupported recovery method: ${wallet.recoveryMethod}, defaulting to automatic.`)
       return <RecoverAutomaticWallet walletAddress={wallet.address} />
   }
 }
@@ -543,7 +543,7 @@ const CreateWallet = () => {
     case 'other':
       return <ChooseRecoveryMethod onChangeMethod={setUserSelectedMethod} />
     default:
-      logger.error('Unsupported recovery method: ' + userSelectedMethod + uiConfig.walletRecovery.defaultMethod)
+      logger.error(`Unsupported recovery method: ${userSelectedMethod}${uiConfig.walletRecovery.defaultMethod}`)
       return null
   }
 }

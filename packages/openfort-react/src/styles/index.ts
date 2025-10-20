@@ -134,7 +134,7 @@ const themeColors = {
  * Generates CSS custom property declarations from the given theme map.
  */
 //  TODO: Don't use :any type
-const createCssVars = (scheme: any, important?: boolean) => {
+const createCssVars = (scheme: any, _important?: boolean) => {
   return css`
     ${Object.keys(scheme).map((key) => {
       const value = scheme[key]
@@ -253,7 +253,7 @@ export const ResetContainer = styled(motion.div)<{
     }
   }}
 
-  ${(props) => {
+  ${(_props) => {
     switch (mode) {
       case 'light':
         return globalsLight
@@ -271,8 +271,7 @@ export const ResetContainer = styled(motion.div)<{
 
   ${(props) => {
     if (
-      props.$customTheme &&
-      props.$customTheme['--ck-accent-color'] &&
+      props.$customTheme?.['--ck-accent-color'] &&
       ['light', 'dark', 'auto', '', undefined].includes(props.$useTheme)
     ) {
       const accentColor = props.$customTheme['--ck-accent-color']

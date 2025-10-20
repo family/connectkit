@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { type Connector, useAccount, useDisconnect } from 'wagmi'
+import { type Connector, useDisconnect } from 'wagmi'
 import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'

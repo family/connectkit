@@ -28,7 +28,7 @@ export const ConnectKitThemeProvider: React.FC<ConnectKitThemeProviderProps> = (
     customTheme,
   }
 
-  return createElement(Context.Provider, { value }, <>{children}</>)
+  return createElement(Context.Provider, { value }, children)
 }
 
 export const useThemeContext = () => {

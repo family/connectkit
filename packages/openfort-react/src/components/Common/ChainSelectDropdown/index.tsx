@@ -25,7 +25,7 @@ const ChainSelectDropdown: React.FC<{
 
   const locales = useLocales()
 
-  const [offset, setOffset] = useState({ x: 0, y: 0 })
+  const [offset, _setOffset] = useState({ x: 0, y: 0 })
 
   useLockBodyScroll(open)
 

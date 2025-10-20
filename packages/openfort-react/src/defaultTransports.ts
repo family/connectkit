@@ -87,7 +87,7 @@ export const getDefaultTransports = ({
   infuraId,
 }: GetDefaultTransportsProps): CreateConfigParameters['transports'] => {
   const transports: CreateConfigParameters['transports'] = {}
-  Object.keys(chains).forEach((key, index) => {
+  Object.keys(chains).forEach((_key, index) => {
     const chain = chains[index]
     const urls: (HttpTransport | WebSocketTransport)[] = []
     if (alchemyId) urls.push(createTransport({ chain, provider: 'alchemy', apiKey: alchemyId }))

@@ -14,7 +14,7 @@ const Portal = (props: any) => {
   const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
-    const selectorPrefixed = '#' + selector.replace(/^#/, '')
+    const selectorPrefixed = `#${selector.replace(/^#/, '')}`
     ref.current = document.querySelector(selectorPrefixed)
 
     if (!ref.current) {

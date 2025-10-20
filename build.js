@@ -5,7 +5,7 @@
  * up to date with the version number in the package.json file.
  */
 
-const fs = require('fs')
+const fs = require('node:fs')
 const config = require('./packages/openfort-react/package.json')
 
 const file = fs.readFileSync('packages/openfort-react/src/version.ts', 'utf8')

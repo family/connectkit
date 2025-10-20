@@ -1,4 +1,3 @@
-import React from 'react'
 import useLocales from '../../../hooks/useLocales'
 import { useWallet } from '../../../wallets/useWallets'
 import CustomQRCode from '../../Common/CustomQRCode'

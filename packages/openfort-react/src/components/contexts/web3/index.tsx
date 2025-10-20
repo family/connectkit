@@ -52,7 +52,7 @@ export const Web3ContextProvider = ({ enabled, children }: { enabled?: boolean; 
 
   const value = {
     connect: {
-      getUri: (id?: string) => {
+      getUri: (_id?: string) => {
         return walletConnectUri
       },
     },

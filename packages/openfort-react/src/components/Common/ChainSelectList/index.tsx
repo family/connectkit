@@ -51,7 +51,7 @@ const ChainSelectList = ({ variant }: { variant?: 'primary' | 'secondary' }) => 
   const locales = useLocales({})
   const mobile = isMobile()
 
-  const isError = error?.['code'] === 4902 // Wallet cannot switch networks
+  const isError = error?.code === 4902 // Wallet cannot switch networks
   const disabled = isError || !switchChain
 
   const handleSwitchNetwork = (chainId: number) => {

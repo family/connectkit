@@ -1,5 +1,4 @@
 import Logos from '../assets/logos'
-import { isAndroid } from '../utils'
 
 /**
  * Wallet configuration metadata keyed by reverse-DNS identifiers.

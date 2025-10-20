@@ -50,7 +50,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
   const [isInitial, setIsInitial] = useState(true)
 
   const { address, chain } = useAccount()
-  const chains = useChains()
+  const _chains = useChains()
   const isChainSupported = useChainIsSupported(chain?.id)
 
   const queryClient = useQueryClient()

@@ -21,12 +21,12 @@ export default function useLockBodyScroll(initialLocked: boolean) {
 
     const style = getComputedStyle(document.body)
     const offsetX =
-      parseInt(style.marginRight) +
-      parseInt(style.paddingRight) +
-      parseInt(style.borderRight) +
-      parseInt(style.marginLeft) +
-      parseInt(style.paddingLeft) +
-      parseInt(style.borderLeft)
+      parseInt(style.marginRight, 10) +
+      parseInt(style.paddingRight, 10) +
+      parseInt(style.borderRight, 10) +
+      parseInt(style.marginLeft, 10) +
+      parseInt(style.paddingLeft, 10) +
+      parseInt(style.borderLeft, 10)
 
     const scrollBarWidth = window.innerWidth - document.body.offsetWidth - offsetX
     document.documentElement.style.setProperty('--ck-scrollbar-width', `${scrollBarWidth}px`)

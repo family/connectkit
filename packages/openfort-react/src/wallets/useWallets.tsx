@@ -74,12 +74,12 @@ export const useWallets = (): WalletProps[] => {
       })
       // remove wallet with id coinbaseWalletSDK if wallet with id 'com.coinbase.wallet' exists
       .filter(
-        (wallet, index, self) =>
+        (wallet, _index, self) =>
           !(wallet.id === 'coinbaseWalletSDK' && self.find((w) => w.id === 'com.coinbase.wallet'))
       )
       // remove wallet with id io.metamask if wallet with id 'metaMask' exists
       .filter(
-        (wallet, index, self) =>
+        (wallet, _index, self) =>
           !(
             (wallet.id === 'metaMaskSDK' || wallet.id === 'metaMask') &&
             self.find((w) => w.id === 'io.metamask' || w.id === 'io.metamask.mobile')

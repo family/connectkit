@@ -1,6 +1,6 @@
 // Based on https://hiddedevries.nl/en/blog/2017-01-29-using-javascript-to-trap-focus-in-an-element
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 const KEYCODE_TAB = 9
 
@@ -63,9 +63,5 @@ export default function FocusTrap(props: any) {
     elRef.current.focus({ preventScroll: true })
   }, [])
 
-  return (
-    <div ref={elRef} tabIndex={0}>
-      {props.children}
-    </div>
-  )
+  return <div ref={elRef}>{props.children}</div>
 }

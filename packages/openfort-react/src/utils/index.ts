@@ -1,4 +1,3 @@
-import { AuthPlayerResponse } from '@openfort/openfort-js'
 import { detect } from 'detect-browser'
 import React from 'react'
 
@@ -15,7 +14,7 @@ const truncateEthAddress = (address?: string, separator: string = '••••'
 
 const truncateENSAddress = (ensName: string, maxLength: number) => {
   if (ensName.length > maxLength) {
-    return ensName.replace('.eth', '').slice(0, maxLength) + '...'
+    return `${ensName.replace('.eth', '').slice(0, maxLength)}...`
   } else {
     return ensName
   }

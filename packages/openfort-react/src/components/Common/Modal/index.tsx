@@ -34,7 +34,7 @@ import {
   TextWithHr,
 } from './styles'
 
-const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
+const _ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
     {isSignedIn ? (
       <AuthIcon
@@ -196,7 +196,7 @@ const Modal: React.FC<ModalProps> = ({
   const prevDepth = usePrevious(currentDepth, currentDepth)
   if (!positionInside) useLockBodyScroll(mounted)
 
-  const prevPage = usePrevious(pageId, pageId)
+  const _prevPage = usePrevious(pageId, pageId)
 
   useEffect(() => {
     setOpen(open)
@@ -231,7 +231,7 @@ const Modal: React.FC<ModalProps> = ({
       ref.current = node
 
       // Avoid transition mixups
-      setInTransition(inTransition === undefined ? false : true)
+      setInTransition(inTransition !== undefined)
       clearTimeout(blockTimeout)
       blockTimeout = setTimeout(() => setInTransition(false), 360)
 
@@ -519,21 +519,14 @@ const Modal: React.FC<ModalProps> = ({
   )
   return (
     <>
-      {mounted && (
-        <>
-          {positionInside ? (
-            Content
-          ) : (
-            <>
-              {
-                <Portal>
-                  <FocusTrap>{Content}</FocusTrap>
-                </Portal>
-              }
-            </>
-          )}
-        </>
-      )}
+      {mounted &&
+        (positionInside ? (
+          Content
+        ) : (
+          <Portal>
+            <FocusTrap>{Content}</FocusTrap>
+          </Portal>
+        ))}
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 export default function usePrevious(value: any, initial?: any) {
   const ref = useRef({ target: value, previous: initial })

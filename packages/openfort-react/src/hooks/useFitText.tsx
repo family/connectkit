@@ -64,7 +64,7 @@ const useFitText = ({
           if (isCalculatingRef.current) {
             return
           }
-          onStart && onStart()
+          onStart?.()
           isCalculatingRef.current = true
           // `calcKey` is used in the dependencies array of
           // `useIsoLayoutEffect` below. It is incremented so that the font size
@@ -89,12 +89,12 @@ const useFitText = ({
   }, [animationFrameId, ro])
 
   // Recalculate when the div contents change
-  const innerHtml = ref.current && ref.current.innerHTML
+  const innerHtml = ref.current?.innerHTML
   useEffect(() => {
     if (calcKey === 0 || isCalculatingRef.current) return
 
     if (innerHtml !== innerHtmlPrevRef.current) {
-      onStart && onStart()
+      onStart?.()
       setState({
         ...initState(),
         calcKey: calcKey + 1,
@@ -125,7 +125,6 @@ const useFitText = ({
       if (isFailed) {
         isCalculatingRef.current = false
         if (logLevel <= LOG_LEVEL.info) {
-          console.info(`[use-fit-text] reached \`minFontSize = ${minFontSize}\` without fitting text`)
         }
       } else if (isOverflow) {
         setState({
@@ -137,7 +136,7 @@ const useFitText = ({
         })
       } else {
         isCalculatingRef.current = false
-        onFinish && onFinish(fontSize)
+        onFinish?.(fontSize)
       }
       return
     }

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 import styled from '../../styles/styled'
-import { getPasswordStrength, getPasswordStrengthLabel, PasswordStrengthLabel } from './password-utility'
+import { getPasswordStrength, getPasswordStrengthLabel } from './password-utility'
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const LabelColor = styled.span<{ color: string }>`
   color: ${({ color }) => color};
 `
 
-const transition = {
+const _transition = {
   duration: 0.4,
   ease: [0.175, 0.885, 0.32, 0.98],
 }

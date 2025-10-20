@@ -47,7 +47,7 @@ const ConnectWithOAuth: React.FC<{}> = ({}) => {
 
           if (!player || !accessToken || !refreshToken) {
             logger.error(
-              `Missing player id or access token or refresh token: player=${player}, accessToken=${accessToken ? accessToken.substring(0, 10) + '...' : accessToken}, refreshToken=${refreshToken}`
+              `Missing player id or access token or refresh token: player=${player}, accessToken=${accessToken ? `${accessToken.substring(0, 10)}...` : accessToken}, refreshToken=${refreshToken}`
             )
             return
           }
@@ -70,7 +70,7 @@ const ConnectWithOAuth: React.FC<{}> = ({}) => {
               ['openfortAuthProviderUI', 'refresh_token', 'access_token', 'player_id'].includes(key)
             )
           )
-          queryParams['openfortAuthProviderUI'] = provider
+          queryParams.openfortAuthProviderUI = provider
 
           try {
             if (user) {
