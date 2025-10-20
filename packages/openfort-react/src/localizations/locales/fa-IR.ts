@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import { LocaleProps } from './'
+import enUS from './en-US'
 
 const faIR: LocaleProps = {
   ...enUS, // fallback
@@ -105,16 +105,14 @@ const faIR: LocaleProps = {
     'شما در حال حاضر به این برنامه وارد نشده‌اید.\n**با اتریوم وارد شوید** تا ادامه دهید.',
 
   signInWithEthereumScreen_signedOut_heading: 'با اتریوم وارد شوید',
-  signInWithEthereumScreen_signedOut_h1:
-    'این برنامه می‌خواهد هویت شما \n به عنوان صاحب این کیف پول را تأیید کند.',
+  signInWithEthereumScreen_signedOut_h1: 'این برنامه می‌خواهد هویت شما \n به عنوان صاحب این کیف پول را تأیید کند.',
   signInWithEthereumScreen_signedOut_p: `لطفاً درخواست پیام را در کیف پول خود تأیید کنید تا ادامه دهید.`,
   signInWithEthereumScreen_signedOut_button: 'با اتریوم وارد شوید',
 
   signInWithEthereumScreen_signedIn_heading: 'با اتریوم وارد شده‌اید',
-  signInWithEthereumScreen_signedIn_h1:
-    'شما به عنوان صاحب این کیف پول هویت خود را با موفقیت تأیید کرده‌اید.',
+  signInWithEthereumScreen_signedIn_h1: 'شما به عنوان صاحب این کیف پول هویت خود را با موفقیت تأیید کرده‌اید.',
   signInWithEthereumScreen_signedIn_p: `خروج از حساب کاربری شما در آینده نیاز به تأیید دوباره دارد.`,
   signInWithEthereumScreen_signedIn_button: 'خروج',
-};
+}
 
-export default faIR;
+export default faIR

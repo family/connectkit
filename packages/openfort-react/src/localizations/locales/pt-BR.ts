@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import { LocaleProps } from './'
+import enUS from './en-US'
 
 const ptBR: LocaleProps = {
   ...enUS, // fallback
@@ -112,10 +112,9 @@ const ptBR: LocaleProps = {
   signInWithEthereumScreen_signedOut_button: 'Entrar',
 
   signInWithEthereumScreen_signedIn_heading: 'Conectado com Ethereum',
-  signInWithEthereumScreen_signedIn_h1:
-    'Você se verificou com sucesso \n como o proprietário desta carteira',
+  signInWithEthereumScreen_signedIn_h1: 'Você se verificou com sucesso \n como o proprietário desta carteira',
   signInWithEthereumScreen_signedIn_p: `Se sair, será necessário que você \n autentique novamente no futuro.`,
   signInWithEthereumScreen_signedIn_button: 'Sair',
-};
+}
 
-export default ptBR;
+export default ptBR

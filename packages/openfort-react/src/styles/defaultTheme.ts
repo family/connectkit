@@ -1,4 +1,4 @@
-import { Theme, ThemeMode, CustomTheme } from './types';
+import { Theme, ThemeMode, CustomTheme } from './types'
 
 const defaultLightTheme: Theme = {
   font: {
@@ -54,19 +54,16 @@ const defaultLightTheme: Theme = {
   qrCode: {
     accentColor: '#F7F6F8',
   },
-};
+}
 
 // parse into css variables so we can use p3 colors
 const parseTheme = (theme: Theme) => {
-  return theme;
-};
+  return theme
+}
 
 const userPrefersDarkMode = () => {
-  if (typeof window === 'undefined') return false;
-  return (
-    window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-  );
+  if (typeof window === 'undefined') return false
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
   /*
   window
     .matchMedia('(prefers-color-scheme: dark)')
@@ -74,8 +71,8 @@ const userPrefersDarkMode = () => {
       userPrefersDarkMode = event.matches;
     });
     */
-};
-let darkMode = userPrefersDarkMode();
+}
+let darkMode = userPrefersDarkMode()
 
 if (darkMode) {
 }
@@ -92,5 +89,5 @@ const defaultTheme: CustomTheme = {
       dark: parseTheme(defaultLightTheme),
     },
   },
-};
-export default defaultTheme;
+}
+export default defaultTheme

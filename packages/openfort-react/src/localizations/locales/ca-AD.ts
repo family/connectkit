@@ -1,5 +1,5 @@
-import { LocaleProps } from '.';
-import enUS from './en-US';
+import { LocaleProps } from '.'
+import enUS from './en-US'
 
 const caAD: LocaleProps = {
   ...enUS, // fallback
@@ -102,7 +102,8 @@ const caAD: LocaleProps = {
 
   switchNetworkScreen_heading: 'Canvi de xarxa',
 
-  signInWithEthereumScreen_tooltip: 'No has iniciat sessió en aquesta aplicació.\n**Inicia sessió amb Ethereum** per continuar.',
+  signInWithEthereumScreen_tooltip:
+    'No has iniciat sessió en aquesta aplicació.\n**Inicia sessió amb Ethereum** per continuar.',
 
   signInWithEthereumScreen_signedOut_heading: 'Inicia sessió amb Ethereum',
   signInWithEthereumScreen_signedOut_h1: "Aquesta aplicació vol verificar que ets el propietari d'aquesta cartera.",
@@ -113,6 +114,6 @@ const caAD: LocaleProps = {
   signInWithEthereumScreen_signedIn_h1: "T'has verificat correctament com a propietari d'aquesta cartera.",
   signInWithEthereumScreen_signedIn_p: `Si tanques la sessió, hauràs de tornar a autenticar-te més endavant.`,
   signInWithEthereumScreen_signedIn_button: 'Tanca sessió',
-};
+}
 
-export default caAD;
+export default caAD

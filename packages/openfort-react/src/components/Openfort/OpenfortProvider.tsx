@@ -1,40 +1,33 @@
-import { Buffer } from 'buffer';
-import React, {
-  createElement,
-  useEffect,
-  useState
-} from 'react';
+import { Buffer } from 'buffer'
+import React, { createElement, useEffect, useState } from 'react'
 
-
-import { RecoveryMethod, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js';
-import { ValueOf } from 'viem/_types/types/utils';
-import { WagmiContext, useAccount } from 'wagmi';
-import { useChainIsSupported } from '../../hooks/useChainIsSupported';
-import { useChains } from '../../hooks/useChains';
-import {
-  useConnectCallbackProps
-} from '../../hooks/useConnectCallback';
-import { useConnector } from '../../hooks/useConnectors';
-import { useThemeFont } from '../../hooks/useGoogleFont';
-import { CoreOpenfortProvider } from '../../openfort/CoreOpenfortProvider';
-import { CustomTheme, Languages, Mode, Theme } from '../../types';
-import { isFamily } from '../../utils/wallets';
-import { logger } from '../../utils/logger';
-import ConnectKitModal from '../ConnectModal';
-import { Web3ContextProvider } from '../contexts/web3';
-import { ContextValue, ErrorMessage, Openfortcontext } from './context';
-import { UIAuthProvider, ConnectUIOptions, OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types';
+import { RecoveryMethod, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
+import { ValueOf } from 'viem/_types/types/utils'
+import { WagmiContext, useAccount } from 'wagmi'
+import { useChainIsSupported } from '../../hooks/useChainIsSupported'
+import { useChains } from '../../hooks/useChains'
+import { useConnectCallbackProps } from '../../hooks/useConnectCallback'
+import { useConnector } from '../../hooks/useConnectors'
+import { useThemeFont } from '../../hooks/useGoogleFont'
+import { CoreOpenfortProvider } from '../../openfort/CoreOpenfortProvider'
+import { CustomTheme, Languages, Mode, Theme } from '../../types'
+import { isFamily } from '../../utils/wallets'
+import { logger } from '../../utils/logger'
+import ConnectKitModal from '../ConnectModal'
+import { Web3ContextProvider } from '../contexts/web3'
+import { ContextValue, ErrorMessage, Openfortcontext } from './context'
+import { UIAuthProvider, ConnectUIOptions, OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types'
 
 type OpenfortProviderProps = {
-  children?: React.ReactNode;
-  debugMode?: boolean;
+  children?: React.ReactNode
+  debugMode?: boolean
 
-  publishableKey: string;
-  uiConfig?: ConnectUIOptions;
-  walletConfig?: OpenfortWalletConfig;
-  overrides?: SDKOverrides;
-  thirdPartyAuth?: ThirdPartyAuthConfiguration;
-} & useConnectCallbackProps;
+  publishableKey: string
+  uiConfig?: ConnectUIOptions
+  walletConfig?: OpenfortWalletConfig
+  overrides?: SDKOverrides
+  thirdPartyAuth?: ThirdPartyAuthConfiguration
+} & useConnectCallbackProps
 
 /**
  * Provides Openfort configuration and context to descendant components.
@@ -78,21 +71,19 @@ export const OpenfortProvider = ({
 }: OpenfortProviderProps) => {
   // OpenfortProvider must be within a WagmiProvider
   if (!React.useContext(WagmiContext)) {
-    throw Error('OpenfortProvider must be within a WagmiProvider');
+    throw Error('OpenfortProvider must be within a WagmiProvider')
   }
 
   // Only allow for mounting OpenfortProvider once, so we avoid weird global
   // state collisions.
   if (React.useContext(Openfortcontext)) {
-    throw new Error(
-      'Multiple, nested usages of OpenfortProvider detected. Please use only one.'
-    );
+    throw new Error('Multiple, nested usages of OpenfortProvider detected. Please use only one.')
   }
 
-  const chains = useChains();
+  const chains = useChains()
 
-  const injectedConnector = useConnector('injected');
-  const allowAutomaticRecovery = !!(walletConfig?.createEncryptedSessionEndpoint || walletConfig?.getEncryptionSession);
+  const injectedConnector = useConnector('injected')
+  const allowAutomaticRecovery = !!(walletConfig?.createEncryptedSessionEndpoint || walletConfig?.getEncryptionSession)
 
   // Default config options
   const defaultUIOptions: OpenfortUIOptionsExtended = {
@@ -119,36 +110,33 @@ export const OpenfortProvider = ({
     walletOnboardingUrl: undefined,
     disableSiweRedirect: false,
     walletRecovery: {
-      allowedMethods: [
-        RecoveryMethod.PASSWORD,
-        ...(allowAutomaticRecovery ? [RecoveryMethod.AUTOMATIC] : [])
-      ],
+      allowedMethods: [RecoveryMethod.PASSWORD, ...(allowAutomaticRecovery ? [RecoveryMethod.AUTOMATIC] : [])],
       defaultMethod: allowAutomaticRecovery ? RecoveryMethod.AUTOMATIC : RecoveryMethod.PASSWORD,
     },
-    authProviders: [
-      UIAuthProvider.GUEST,
-      UIAuthProvider.EMAIL,
-      UIAuthProvider.WALLET,
-    ],
-  };
+    authProviders: [UIAuthProvider.GUEST, UIAuthProvider.EMAIL, UIAuthProvider.WALLET],
+  }
 
-  const safeUiConfig: OpenfortUIOptionsExtended = Object.assign({}, defaultUIOptions, uiConfig);
+  const safeUiConfig: OpenfortUIOptionsExtended = Object.assign({}, defaultUIOptions, uiConfig)
 
   if (!safeUiConfig.walletRecovery.allowedMethods) {
-    safeUiConfig.walletRecovery.allowedMethods = defaultUIOptions.walletRecovery.allowedMethods;
+    safeUiConfig.walletRecovery.allowedMethods = defaultUIOptions.walletRecovery.allowedMethods
   }
   if (!safeUiConfig.walletRecovery.defaultMethod) {
-    safeUiConfig.walletRecovery.defaultMethod = defaultUIOptions.walletRecovery.defaultMethod;
+    safeUiConfig.walletRecovery.defaultMethod = defaultUIOptions.walletRecovery.defaultMethod
   }
 
   if (safeUiConfig.walletRecovery.allowedMethods.includes(RecoveryMethod.AUTOMATIC) && !allowAutomaticRecovery) {
-    safeUiConfig.walletRecovery.allowedMethods = safeUiConfig.walletRecovery.allowedMethods.filter(m => m !== RecoveryMethod.AUTOMATIC);
-    logger.warn("Automatic recovery method was removed from allowedMethods because no recovery options are configured in the walletConfig. Please provide either createEncryptedSessionEndpoint or getEncryptionSession to enable automatic recovery.");
+    safeUiConfig.walletRecovery.allowedMethods = safeUiConfig.walletRecovery.allowedMethods.filter(
+      (m) => m !== RecoveryMethod.AUTOMATIC
+    )
+    logger.warn(
+      'Automatic recovery method was removed from allowedMethods because no recovery options are configured in the walletConfig. Please provide either createEncryptedSessionEndpoint or getEncryptionSession to enable automatic recovery.'
+    )
   }
 
   if (typeof window !== 'undefined') {
     // Buffer Polyfill, needed for bundlers that don't provide Node polyfills (e.g CRA, Vite, etc.)
-    if (safeUiConfig.bufferPolyfill) window.Buffer = window.Buffer ?? Buffer;
+    if (safeUiConfig.bufferPolyfill) window.Buffer = window.Buffer ?? Buffer
 
     // Some bundlers may need `global` and `process.env` polyfills as well
     // Not implemented here to avoid unexpected behaviors, but leaving example here for future reference
@@ -158,53 +146,51 @@ export const OpenfortProvider = ({
      */
   }
 
-  const [ckTheme, setTheme] = useState<Theme>(uiConfig?.theme ?? defaultUIOptions.theme ?? "auto");
-  const [ckMode, setMode] = useState<Mode>(uiConfig?.mode ?? defaultUIOptions.mode ?? 'auto');
-  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(
-    uiConfig?.customTheme ?? {}
-  );
-  const [ckLang, setLang] = useState<Languages>('en-US');
-  const [open, setOpen] = useState<boolean>(false);
+  const [ckTheme, setTheme] = useState<Theme>(uiConfig?.theme ?? defaultUIOptions.theme ?? 'auto')
+  const [ckMode, setMode] = useState<Mode>(uiConfig?.mode ?? defaultUIOptions.mode ?? 'auto')
+  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(uiConfig?.customTheme ?? {})
+  const [ckLang, setLang] = useState<Languages>('en-US')
+  const [open, setOpen] = useState<boolean>(false)
   const [connector, setConnector] = useState<ContextValue['connector']>({
     id: '',
-  });
-  const [route, setRoute] = useState<ValueOf<typeof routes>>(routes.LOADING);
-  const [errorMessage, setErrorMessage] = useState<ErrorMessage>('');
+  })
+  const [route, setRoute] = useState<ValueOf<typeof routes>>(routes.LOADING)
+  const [errorMessage, setErrorMessage] = useState<ErrorMessage>('')
 
-  const [resize, onResize] = useState<number>(0);
-  const [emailInput, setEmailInput] = useState("");
+  const [resize, onResize] = useState<number>(0)
+  const [emailInput, setEmailInput] = useState('')
 
   // Include Google Font that is needed for a themes
-  if (safeUiConfig.embedGoogleFonts) useThemeFont(ckTheme);
+  if (safeUiConfig.embedGoogleFonts) useThemeFont(ckTheme)
 
   // Other Configuration
-  useEffect(() => setTheme(uiConfig?.theme ?? 'auto'), [uiConfig?.theme]);
-  useEffect(() => setMode(uiConfig?.mode ?? 'auto'), [uiConfig?.mode]);
-  useEffect(() => setCustomTheme(uiConfig?.customTheme ?? {}), [uiConfig?.customTheme]);
-  useEffect(() => setLang(safeUiConfig.language || 'en-US'), [safeUiConfig.language]);
-  useEffect(() => setErrorMessage(null), [route, open]);
+  useEffect(() => setTheme(uiConfig?.theme ?? 'auto'), [uiConfig?.theme])
+  useEffect(() => setMode(uiConfig?.mode ?? 'auto'), [uiConfig?.mode])
+  useEffect(() => setCustomTheme(uiConfig?.customTheme ?? {}), [uiConfig?.customTheme])
+  useEffect(() => setLang(safeUiConfig.language || 'en-US'), [safeUiConfig.language])
+  useEffect(() => setErrorMessage(null), [route, open])
 
   // Check if chain is supported, elsewise redirect to switches page
-  const { chain, isConnected } = useAccount();
-  const isChainSupported = useChainIsSupported(chain?.id);
+  const { chain, isConnected } = useAccount()
+  const isChainSupported = useChainIsSupported(chain?.id)
 
   useEffect(() => {
     if (isConnected && safeUiConfig.enforceSupportedChains && !isChainSupported) {
-      setOpen(true);
-      setRoute(routes.SWITCHNETWORKS);
+      setOpen(true)
+      setRoute(routes.SWITCHNETWORKS)
     }
-  }, [isConnected, isChainSupported, chain, route, open]);
+  }, [isConnected, isChainSupported, chain, route, open])
 
   // Autoconnect to Family wallet if available
   useEffect(() => {
     if (isFamily()) {
-      injectedConnector?.connect();
+      injectedConnector?.connect()
     }
-  }, [injectedConnector]);
+  }, [injectedConnector])
 
   useEffect(() => {
-    logger.log("ROUTE", route)
-  }, [route]);
+    logger.log('ROUTE', route)
+  }, [route])
 
   const value: ContextValue = {
     setTheme,
@@ -229,18 +215,18 @@ export const OpenfortProvider = ({
     emailInput,
     setEmailInput,
     displayError: (message: string | React.ReactNode | null, code?: any) => {
-      setErrorMessage(message);
-      logger.log('---------OPENFORT DEBUG---------');
-      logger.log(message);
-      if (code) console.table(code);
-      logger.log('---------/OPENFORT DEBUG---------');
+      setErrorMessage(message)
+      logger.log('---------OPENFORT DEBUG---------')
+      logger.log(message)
+      if (code) console.table(code)
+      logger.log('---------/OPENFORT DEBUG---------')
     },
     resize,
     triggerResize: () => onResize((prev) => prev + 1),
     walletConfig,
     overrides,
     thirdPartyAuth,
-  };
+  }
 
   return createElement(
     Openfortcontext.Provider,
@@ -251,10 +237,14 @@ export const OpenfortProvider = ({
           baseConfiguration={{
             publishableKey,
           }}
-          shieldConfiguration={walletConfig ? {
-            shieldPublishableKey: walletConfig.shieldPublishableKey,
-            debug: debugMode,
-          } : undefined}
+          shieldConfiguration={
+            walletConfig
+              ? {
+                  shieldPublishableKey: walletConfig.shieldPublishableKey,
+                  debug: debugMode,
+                }
+              : undefined
+          }
           overrides={overrides}
           thirdPartyAuth={thirdPartyAuth}
           debugMode={debugMode}
@@ -265,15 +255,10 @@ export const OpenfortProvider = ({
             theme={defaultTheme}
           > */}
           {children}
-          <ConnectKitModal
-            lang={ckLang}
-            theme={ckTheme}
-            mode={uiConfig?.mode ?? ckMode}
-            customTheme={ckCustomTheme}
-          />
+          <ConnectKitModal lang={ckLang} theme={ckTheme} mode={uiConfig?.mode ?? ckMode} customTheme={ckCustomTheme} />
           {/* </ThemeProvider> */}
         </CoreOpenfortProvider>
-      </Web3ContextProvider >
+      </Web3ContextProvider>
     </>
-  );
-};
+  )
+}

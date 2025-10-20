@@ -8,25 +8,20 @@ export default {
   '--ck-connectbutton-border-radius': '14px',
   '--ck-connectbutton-color': '#000000',
   '--ck-connectbutton-background': '#ffffff',
-  '--ck-connectbutton-box-shadow':
-    'inset 0 0 0 2px #DFE4EC, 0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-box-shadow': 'inset 0 0 0 2px #DFE4EC, 0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-hover-background': '#F9FAFB',
 
   '--ck-connectbutton-balance-color': '#414451',
   '--ck-connectbutton-balance-background': '#F9FAFB',
-  '--ck-connectbutton-balance-box-shadow':
-    '0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-balance-box-shadow': '0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-balance-hover-background': '#F5F7F9',
-  '--ck-connectbutton-balance-hover-box-shadow':
-    '0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
-  '--ck-connectbutton-balance-active-box-shadow':
-    '0 0 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-balance-hover-box-shadow': '0 2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-balance-active-box-shadow': '0 0 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-connectbutton-active-background': '#F5F7F9',
-  '--ck-connectbutton-active-box-shadow':
-    'inset 0 0 0 2px #CFD7E2, 0 0px 0 0 #CFD7E2, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-connectbutton-active-box-shadow': 'inset 0 0 0 2px #CFD7E2, 0 0px 0 0 #CFD7E2, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-primary-button-border-radius': '18px',
   '--ck-primary-button-color': '#000000',
@@ -60,8 +55,7 @@ export default {
   '--ck-body-background-secondary-hover-outline': '#4282FF',
   '--ck-body-background-tertiary': '#ffffff',
   '--ck-tertiary-border-radius': '22px',
-  '--ck-tertiary-box-shadow':
-    'inset 0 0 0 2px #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-tertiary-box-shadow': 'inset 0 0 0 2px #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
   '--ck-body-action-color': '#93989F',
   '--ck-body-divider': '#DFE4EC',
@@ -85,8 +79,7 @@ export default {
   '--ck-spinner-color': 'var(--ck-focus-color)',
 
   '--ck-dropdown-button-color': '#999999',
-  '--ck-dropdown-button-box-shadow':
-    '0 0 0 2px #DFE4EC,  0 2px 0 2px #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
+  '--ck-dropdown-button-box-shadow': '0 0 0 2px #DFE4EC,  0 2px 0 2px #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
   '--ck-dropdown-button-background': '#fff',
 
   '--ck-dropdown-button-hover-color': '#8B8B8B',
@@ -138,4 +131,4 @@ export default {
   */
 
   '--ck-siwe-border': '#DFE4EC',
-};
+}

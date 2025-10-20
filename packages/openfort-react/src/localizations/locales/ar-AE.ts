@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import { LocaleProps } from './'
+import enUS from './en-US'
 
 const arAE: LocaleProps = {
   ...enUS, // fallback
@@ -107,16 +107,14 @@ const arAE: LocaleProps = {
     'أنت غير مسجل الدخول حاليًا إلى هذا التطبيق.\n**سجل الدخول باستخدام إثيريوم** للمتابعة.',
 
   signInWithEthereumScreen_signedOut_heading: 'سجل الدخول باستخدام إثيريوم',
-  signInWithEthereumScreen_signedOut_h1:
-    'يود هذا التطبيق التحقق منك \n كصاحب لهذه المحفظة.',
+  signInWithEthereumScreen_signedOut_h1: 'يود هذا التطبيق التحقق منك \n كصاحب لهذه المحفظة.',
   signInWithEthereumScreen_signedOut_p: `يرجى تأكيد طلب الرسالة في محفظتك للمتابعة.`,
   signInWithEthereumScreen_signedOut_button: 'سجل الدخول',
 
   signInWithEthereumScreen_signedIn_heading: 'تم تسجيل الدخول باستخدام إثيريوم',
-  signInWithEthereumScreen_signedIn_h1:
-    'لقد قمت بتأكيد نفسك كصاحب لهذه المحفظة بنجاح.',
+  signInWithEthereumScreen_signedIn_h1: 'لقد قمت بتأكيد نفسك كصاحب لهذه المحفظة بنجاح.',
   signInWithEthereumScreen_signedIn_p: `سيتطلب تسجيل الخروج منك إعادة المصادقة مرة أخرى في المستقبل.`,
   signInWithEthereumScreen_signedIn_button: 'تسجيل الخروج',
-};
+}
 
-export default arAE;
+export default arAE

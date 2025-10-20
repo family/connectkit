@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Graphic,
   LogoGroup,
@@ -9,27 +9,21 @@ import {
   LogoGraphic,
   GraphicBackground,
   RotateWrapper,
-} from '../../FloatingGraphic/styles';
+} from '../../FloatingGraphic/styles'
 
-import {
-  PageContent,
-  ModalBody,
-  ModalContent,
-  ModalH1,
-} from '../../Common/Modal/styles';
-import Logos from '../../../assets/logos';
-import wave from '../../../assets/wave';
+import { PageContent, ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
+import Logos from '../../../assets/logos'
+import wave from '../../../assets/wave'
 
-import Button from '../../Common/Button';
-import useLocales from '../../../hooks/useLocales';
-import { useOpenfort } from '../../Openfort/useOpenfort';
+import Button from '../../Common/Button'
+import useLocales from '../../../hooks/useLocales'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
 const Introduction: React.FC = () => {
-  const context = useOpenfort();
-  const locales = useLocales({});
+  const context = useOpenfort()
+  const locales = useLocales({})
 
-  const ctaUrl =
-    context.uiConfig?.walletOnboardingUrl ?? locales.onboardingScreen_ctaUrl;
+  const ctaUrl = context.uiConfig?.walletOnboardingUrl ?? locales.onboardingScreen_ctaUrl
   return (
     <PageContent>
       <Graphic>
@@ -110,7 +104,7 @@ const Introduction: React.FC = () => {
         {locales.onboardingScreen_ctaText}
       </Button>
     </PageContent>
-  );
-};
+  )
+}
 
-export default Introduction;
+export default Introduction

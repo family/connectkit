@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useOpenfort } from '../../Openfort/useOpenfort';
+import React, { useEffect, useState } from 'react'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
-import { flattenChildren, isMobile } from '../../../utils';
+import { flattenChildren, isMobile } from '../../../utils'
 
-import defaultTheme from '../../../constants/defaultTheme';
+import defaultTheme from '../../../constants/defaultTheme'
 
-import { motion } from 'framer-motion';
-import { css } from 'styled-components';
-import styled from '../../../styles/styled';
+import { motion } from 'framer-motion'
+import { css } from 'styled-components'
+import styled from '../../../styles/styled'
 
-import useLocales from '../../../hooks/useLocales';
-import Chain from '../Chain';
-import ChainSelectDropdown from '../ChainSelectDropdown';
-import Tooltip from '../Tooltip';
+import useLocales from '../../../hooks/useLocales'
+import Chain from '../Chain'
+import ChainSelectDropdown from '../ChainSelectDropdown'
+import Tooltip from '../Tooltip'
 
-import { useAccount, useSwitchChain } from 'wagmi';
-import { routes } from '../../Openfort/types';
+import { useAccount, useSwitchChain } from 'wagmi'
+import { routes } from '../../Openfort/types'
 
-const Container = styled(motion.div)``;
+const Container = styled(motion.div)``
 
 const SwitchChainButton = styled(motion.button)`
   --color: var(
@@ -97,8 +97,7 @@ const SwitchChainButton = styled(motion.button)`
       : css`
           cursor: pointer;
 
-          @media only screen and (min-width: ${defaultTheme.mobileWidth +
-        1}px) {
+          @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
             &:hover,
             &:focus-visible {
               color: var(--hover-color);
@@ -112,7 +111,7 @@ const SwitchChainButton = styled(motion.button)`
             }
           }
         `}
-`;
+`
 
 const ChevronDown = ({ ...props }) => (
   <svg
@@ -124,51 +123,41 @@ const ChevronDown = ({ ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path
-      d="M1.5 1L5.5 5L9.5 1"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <path d="M1.5 1L5.5 5L9.5 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
-);
+)
 
 const ChainSelector: React.FC = () => {
-  const context = useOpenfort();
-  const [isOpen, setIsOpen] = useState(false);
-  const { chain } = useAccount();
-  const { chains } = useSwitchChain();
+  const context = useOpenfort()
+  const [isOpen, setIsOpen] = useState(false)
+  const { chain } = useAccount()
+  const { chains } = useSwitchChain()
 
   const locales = useLocales({
     CHAIN: chain?.name,
-  });
+  })
 
-  const mobile = isMobile() || window?.innerWidth < defaultTheme.mobileWidth;
+  const mobile = isMobile() || window?.innerWidth < defaultTheme.mobileWidth
 
   useEffect(() => {
-    if (!context.open) setIsOpen(false);
-  }, [context.open]);
+    if (!context.open) setIsOpen(false)
+  }, [context.open])
 
-  const disabled = chains.length <= 1;
+  const disabled = chains.length <= 1
 
   return (
     <>
       <Container>
-        <ChainSelectDropdown
-          offsetX={-12}
-          open={!mobile && isOpen}
-          onClose={() => setIsOpen(false)}
-        >
+        <ChainSelectDropdown offsetX={-12} open={!mobile && isOpen} onClose={() => setIsOpen(false)}>
           {chain && (
             <SwitchChainButton
               aria-label={flattenChildren(locales.switchNetworks).toString()}
               disabled={disabled}
               onClick={() => {
                 if (mobile) {
-                  context.setRoute(routes.SWITCHNETWORKS);
+                  context.setRoute(routes.SWITCHNETWORKS)
                 } else {
-                  setIsOpen(!isOpen);
+                  setIsOpen(!isOpen)
                 }
               }}
             >
@@ -185,7 +174,7 @@ const ChainSelector: React.FC = () => {
         </ChainSelectDropdown>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default ChainSelector;
+export default ChainSelector

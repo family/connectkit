@@ -1,10 +1,10 @@
-import { css } from 'styled-components';
-import styled from '../../../styles/styled';
-import { motion } from 'framer-motion';
+import { css } from 'styled-components'
+import styled from '../../../styles/styled'
+import { motion } from 'framer-motion'
 
-import { CopyToClipboardIcon as Icon } from '../../../assets/icons';
+import { CopyToClipboardIcon as Icon } from '../../../assets/icons'
 
-const IconContainer = styled(motion.div) <{ $clipboard?: boolean }>`
+const IconContainer = styled(motion.div)<{ $clipboard?: boolean }>`
   transition: all 220ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
   display: flex;
   align-items: center;
@@ -62,15 +62,9 @@ const IconContainer = styled(motion.div) <{ $clipboard?: boolean }>`
           &:hover:active {
           }
         `}
-`;
+`
 
-const CopyToClipboardIcon = ({
-  copied,
-  small,
-}: {
-  copied?: boolean;
-  small?: boolean;
-}) => (
+const CopyToClipboardIcon = ({ copied, small }: { copied?: boolean; small?: boolean }) => (
   <IconContainer $clipboard={copied}>
     <Icon
       style={{
@@ -79,5 +73,5 @@ const CopyToClipboardIcon = ({
       }}
     />
   </IconContainer>
-);
-export default CopyToClipboardIcon;
+)
+export default CopyToClipboardIcon

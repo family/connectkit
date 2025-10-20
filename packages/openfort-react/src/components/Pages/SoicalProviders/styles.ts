@@ -1,6 +1,6 @@
-import styled from "../../../styles/styled";
-import Button from "../../Common/Button";
-import { ButtonContainer, ButtonContainerInner, InnerContainer } from "../../Common/Button/styles";
+import styled from '../../../styles/styled'
+import Button from '../../Common/Button'
+import { ButtonContainer, ButtonContainerInner, InnerContainer } from '../../Common/Button/styles'
 
 export const ProvidersButton = styled.div`
 

@@ -1,23 +1,23 @@
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
 export function useOnUserReturn(callback: () => void) {
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        callback();
+      if (document.visibilityState === 'visible') {
+        callback()
       }
-    };
+    }
 
     const handleFocus = () => {
-      callback();
-    };
+      callback()
+    }
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("focus", handleFocus);
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    window.addEventListener('focus', handleFocus)
 
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, [callback]);
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      window.removeEventListener('focus', handleFocus)
+    }
+  }, [callback])
 }

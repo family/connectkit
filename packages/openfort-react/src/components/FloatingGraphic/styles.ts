@@ -1,9 +1,9 @@
-import { keyframes } from 'styled-components';
-import styled from '../../styles/styled';
-import { motion } from 'framer-motion';
-import defaultTheme from '../../constants/defaultTheme';
+import { keyframes } from 'styled-components'
+import styled from '../../styles/styled'
+import { motion } from 'framer-motion'
+import defaultTheme from '../../constants/defaultTheme'
 
-export const Graphic = styled(motion.div) <{ $height?: string }>`
+export const Graphic = styled(motion.div)<{ $height?: string }>`
   position: relative;
   margin: 16px auto 20px;
   height: ${({ $height }) => $height ?? '190px'};
@@ -15,12 +15,12 @@ export const Graphic = styled(motion.div) <{ $height?: string }>`
     max-width: 100%;
     margin-bottom: 32px;
   }
-`;
+`
 export const LogoGroup = styled(motion.div)`
   position: absolute;
   inset: 0;
   z-index: 2;
-`;
+`
 const graphicIn = keyframes`
   0%{
     opacity:0;
@@ -30,7 +30,7 @@ const graphicIn = keyframes`
     opacity:1;
     transform:none;
   }
-`;
+`
 export const GraphicBackground = styled(motion.div)`
   z-index: 1;
   position: absolute;
@@ -58,7 +58,7 @@ export const GraphicBackground = styled(motion.div)`
   @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
     animation: none;
   }
-`;
+`
 
 const logoIn = keyframes`
   0%{
@@ -69,16 +69,16 @@ const logoIn = keyframes`
     opacity:1;
     transform:none;
   }
-`;
+`
 export const LogoPosition = styled(motion.div)`
   position: absolute;
   inset: 0;
   animation: cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
   animation-delay: inherit;
-`;
+`
 export const LogoInner = styled(motion.div)`
   position: absolute;
-`;
+`
 export const LogoGraphic = styled(motion.div)`
   position: relative;
   overflow: hidden;
@@ -92,27 +92,27 @@ export const LogoGraphic = styled(motion.div)`
     width: 100%;
     height: 100%;
   }
-`;
+`
 const float = keyframes`
   0%,100%{ transform:none; }
   50%{ transform: translateY(-10%) }
-`;
+`
 export const FloatWrapper = styled(motion.div)`
   position: relative;
   animation: cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
   animation-name: ${float};
   animation-duration: 3600ms;
-`;
+`
 const rotate = keyframes`
   0%,100%{ transform:rotate(-3deg); }
   50%{ transform:rotate(3deg); }
-`;
+`
 export const RotateWrapper = styled(motion.div)`
   position: relative;
   animation: cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
   animation-name: ${rotate};
   animation-duration: 3200ms;
-`;
+`
 export const Logo = styled(motion.div)`
   position: absolute;
   inset: 0;
@@ -167,4 +167,4 @@ export const Logo = styled(motion.div)`
   &:nth-child(5) ${LogoPosition} {
     transform: translate(76%, 80%);
   }
-`;
+`

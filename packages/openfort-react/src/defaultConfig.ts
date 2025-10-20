@@ -1,27 +1,27 @@
-import { http } from 'wagmi';
-import { type CreateConfigParameters } from '@wagmi/core';
-import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { CoinbaseWalletParameters } from 'wagmi/connectors';
+import { http } from 'wagmi'
+import { type CreateConfigParameters } from '@wagmi/core'
+import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
+import { CoinbaseWalletParameters } from 'wagmi/connectors'
 
-import defaultConnectors from './defaultConnectors';
+import defaultConnectors from './defaultConnectors'
 
 // OLD_TODO: Move these to a provider rather than global variable
-let globalAppName: string;
-let globalAppIcon: string;
-export const getAppName = () => globalAppName;
-export const getAppIcon = () => globalAppIcon;
+let globalAppName: string
+let globalAppIcon: string
+export const getAppName = () => globalAppName
+export const getAppIcon = () => globalAppIcon
 
 type DefaultConfigProps = {
-  appName: string;
-  appIcon?: string;
-  appDescription?: string;
-  appUrl?: string;
+  appName: string
+  appIcon?: string
+  appDescription?: string
+  appUrl?: string
 
   // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
-  walletConnectProjectId?: string;
+  walletConnectProjectId?: string
   // Coinbase Wallet preference
-  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
-} & Partial<CreateConfigParameters>;
+  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference']
+} & Partial<CreateConfigParameters>
 
 const defaultConfig = ({
   appName = 'Openfort',
@@ -34,13 +34,12 @@ const defaultConfig = ({
   client,
   ...props
 }: DefaultConfigProps): CreateConfigParameters => {
-  globalAppName = appName;
-  if (appIcon) globalAppIcon = appIcon;
+  globalAppName = appName
+  if (appIcon) globalAppIcon = appIcon
 
   // OLD_TODO: nice to have, automate transports based on chains, but for now just provide public if not provided
   const transports: CreateConfigParameters['transports'] =
-    props?.transports ??
-    Object.fromEntries(chains.map((chain) => [chain.id, http()]));
+    props?.transports ?? Object.fromEntries(chains.map((chain) => [chain.id, http()]))
 
   const connectors: CreateConfigParameters['connectors'] =
     props?.connectors ??
@@ -53,7 +52,7 @@ const defaultConfig = ({
       },
       walletConnectProjectId,
       coinbaseWalletPreference,
-    });
+    })
 
   // console.log("OPENFORT CHAINS", chains, transports);
 
@@ -62,9 +61,9 @@ const defaultConfig = ({
     chains,
     connectors,
     transports,
-  };
+  }
 
-  return config;
-};
+  return config
+}
 
-export default defaultConfig;
+export default defaultConfig

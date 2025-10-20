@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import { LocaleProps } from './'
+import enUS from './en-US'
 
 const esES: LocaleProps = {
   ...enUS, // fallback
@@ -104,16 +104,14 @@ const esES: LocaleProps = {
   signInWithEthereumScreen_tooltip:
     'No has iniciado sesión en esta aplicación.\n**Inicia sesión con Ethereum** para continuar.',
   signInWithEthereumScreen_signedOut_heading: 'Inicia sesión con Ethereum',
-  signInWithEthereumScreen_signedOut_h1:
-    'Esta aplicación desea verificar que eres el propietario de esta cartera.',
+  signInWithEthereumScreen_signedOut_h1: 'Esta aplicación desea verificar que eres el propietario de esta cartera.',
   signInWithEthereumScreen_signedOut_p: `Firma la solicitud de mensaje en tu cartera para continuar.`,
   signInWithEthereumScreen_signedOut_button: 'Iniciar sesión',
 
   signInWithEthereumScreen_signedIn_heading: 'Sesión iniciada con Ethereum',
-  signInWithEthereumScreen_signedIn_h1:
-    'Te has verificado correctamente como propietario de esta cartera.',
+  signInWithEthereumScreen_signedIn_h1: 'Te has verificado correctamente como propietario de esta cartera.',
   signInWithEthereumScreen_signedIn_p: `Si cierras la sesión, tendrás que volver a autenticarte más adelante.`,
   signInWithEthereumScreen_signedIn_button: 'Cerrar sesión',
-};
+}
 
-export default esES;
+export default esES

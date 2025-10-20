@@ -1,4 +1,4 @@
-import styled from '../../../styles/styled';
+import styled from '../../../styles/styled'
 
 export const TickListContainer = styled.ul`
   display: flex;
@@ -6,7 +6,7 @@ export const TickListContainer = styled.ul`
   gap: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
-`;
+`
 
 export const TickItem = styled.li`
   display: flex;
@@ -15,7 +15,7 @@ export const TickItem = styled.li`
   gap: 8px;
   font-size: 16px;
   line-height: 24px;
-`;
+`
 
 export const TickIconWrapper = styled.span`
   display: flex;
@@ -24,4 +24,4 @@ export const TickIconWrapper = styled.span`
   width: 16px;
   height: 16px;
   flex-shrink: 0;
-`;
+`

@@ -1,13 +1,7 @@
-import {
-  LogoContainer,
-  Logo,
-  Spinner,
-  SpinnerContainer,
-  ExpiringSpinner,
-} from './styles';
+import { LogoContainer, Logo, Spinner, SpinnerContainer, ExpiringSpinner } from './styles'
 
-import { AnimatePresence } from 'framer-motion';
-import React from 'react';
+import { AnimatePresence } from 'framer-motion'
+import React from 'react'
 
 const CircleSpinner = ({
   logo,
@@ -16,20 +10,15 @@ const CircleSpinner = ({
   unavailable = false,
   countdown = false,
 }: {
-  logo?: React.ReactNode;
-  smallLogo?: boolean;
-  connecting?: boolean;
-  unavailable?: boolean;
-  countdown?: boolean;
+  logo?: React.ReactNode
+  smallLogo?: boolean
+  connecting?: boolean
+  unavailable?: boolean
+  countdown?: boolean
 }) => {
   return (
-    <LogoContainer
-      transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
-    >
-      <Logo
-        $small={!unavailable && smallLogo}
-        style={unavailable ? { borderRadius: 0 } : undefined}
-      >
+    <LogoContainer transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}>
+      <Logo $small={!unavailable && smallLogo} style={unavailable ? { borderRadius: 0 } : undefined}>
         {logo}
       </Logo>
       <SpinnerContainer>
@@ -71,11 +60,7 @@ const CircleSpinner = ({
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stopColor="var(--ck-spinner-color)" />
-                    <stop
-                      offset="1"
-                      stopColor="var(--ck-spinner-color)"
-                      stopOpacity="0"
-                    />
+                    <stop offset="1" stopColor="var(--ck-spinner-color)" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -96,7 +81,7 @@ const CircleSpinner = ({
         </AnimatePresence>
       </SpinnerContainer>
     </LogoContainer>
-  );
-};
+  )
+}
 
-export default CircleSpinner;
+export default CircleSpinner

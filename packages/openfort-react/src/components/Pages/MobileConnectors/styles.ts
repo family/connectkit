@@ -1,11 +1,11 @@
-import { css, keyframes } from 'styled-components';
-import styled from '../../../styles/styled';
+import { css, keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 export const WalletItem = styled.div<{ $waiting?: boolean }>`
   text-align: center;
   transition: opacity 100ms ease;
   opacity: ${(props) => (props.$waiting ? 0.4 : 1)};
-`;
+`
 export const WalletIcon = styled.div<{ $outline?: boolean }>`
   z-index: 9;
   position: relative;
@@ -32,19 +32,19 @@ export const WalletIcon = styled.div<{ $outline?: boolean }>`
     width: 100%;
     height: auto;
   }
-`;
+`
 export const WalletLabel = styled.div`
   color: var(--ck-body-color);
   font-size: 13px;
   line-height: 15px;
   font-weight: 500;
   opacity: 0.75;
-`;
+`
 
 const PulseKeyframes = keyframes`
   0%,100% { opacity:1; }
   50% { opacity:0.5; }
-`;
+`
 
 export const WalletList = styled.div<{ $disabled?: boolean }>`
   display: grid;
@@ -62,5 +62,5 @@ export const WalletList = styled.div<{ $disabled?: boolean }>`
         animation: ${PulseKeyframes} 1s infinite ease-in-out;
       }
     `}
-`;
-export const Container = styled.div``;
+`
+export const Container = styled.div``

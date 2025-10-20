@@ -1,26 +1,14 @@
-import { CustomQRCodeProps } from './types';
-import {
-  QRCodeContainer,
-  LogoContainer,
-  LogoIcon,
-  QRPlaceholder,
-  QRCodeContent,
-} from './styles';
+import { CustomQRCodeProps } from './types'
+import { QRCodeContainer, LogoContainer, LogoIcon, QRPlaceholder, QRCodeContent } from './styles'
 
-import Tooltip from '../Tooltip';
-import { AnimatePresence, motion } from 'framer-motion';
+import Tooltip from '../Tooltip'
+import { AnimatePresence, motion } from 'framer-motion'
 
-import { QRCode } from './QRCode';
-import useWindowSize from '../../../hooks/useWindowSize';
+import { QRCode } from './QRCode'
+import useWindowSize from '../../../hooks/useWindowSize'
 
-function CustomQRCode({
-  value,
-  image,
-  imageBackground,
-  imagePosition = 'center',
-  tooltipMessage,
-}: CustomQRCodeProps) {
-  const windowSize = useWindowSize();
+function CustomQRCode({ value, image, imageBackground, imagePosition = 'center', tooltipMessage }: CustomQRCodeProps) {
+  const windowSize = useWindowSize()
 
   const Logo =
     windowSize.width > 920 && tooltipMessage ? (
@@ -29,7 +17,7 @@ function CustomQRCode({
       </Tooltip>
     ) : (
       image
-    );
+    )
 
   return (
     <QRCodeContainer>
@@ -39,8 +27,7 @@ function CustomQRCode({
             <LogoIcon
               $wcLogo={imagePosition !== 'center'}
               style={{
-                background:
-                  imagePosition === 'center' ? imageBackground : undefined,
+                background: imagePosition === 'center' ? imageBackground : undefined,
               }}
             >
               {Logo}
@@ -59,12 +46,7 @@ function CustomQRCode({
                 duration: 0.2,
               }}
             >
-              <QRCode
-                uri={value}
-                size={288}
-                ecl="M"
-                clearArea={!!(imagePosition === 'center' && image)}
-              />
+              <QRCode uri={value} size={288} ecl="M" clearArea={!!(imagePosition === 'center' && image)} />
             </motion.div>
           ) : (
             <QRPlaceholder
@@ -84,8 +66,8 @@ function CustomQRCode({
         </AnimatePresence>
       </QRCodeContent>
     </QRCodeContainer>
-  );
+  )
 }
-CustomQRCode.displayName = 'CustomQRCode';
+CustomQRCode.displayName = 'CustomQRCode'
 
-export default CustomQRCode;
+export default CustomQRCode

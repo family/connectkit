@@ -1,3 +1,3 @@
 export type BrowserIconProps = {
-  browser?: string; // empty string will display current browser
-};
+  browser?: string // empty string will display current browser
+}

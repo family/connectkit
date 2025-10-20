@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import { LocaleProps } from './'
+import enUS from './en-US'
 
 const trTR: LocaleProps = {
   ...enUS, // fallback
@@ -101,20 +101,17 @@ const trTR: LocaleProps = {
 
   switchNetworkScreen_heading: 'Ağ Değiştir',
 
-  signInWithEthereumScreen_tooltip:
-    'Bu uygulamada oturum açmadınız.\n Devam etmek için **Ethereum İle Giriş Yap**.',
+  signInWithEthereumScreen_tooltip: 'Bu uygulamada oturum açmadınız.\n Devam etmek için **Ethereum İle Giriş Yap**.',
 
   signInWithEthereumScreen_signedOut_heading: 'Ethereum İle Giriş Yap',
-  signInWithEthereumScreen_signedOut_h1:
-    'Bu uygulama seni \n bu cüzdanın sahibi olarak doğrulamak istiyor.',
+  signInWithEthereumScreen_signedOut_h1: 'Bu uygulama seni \n bu cüzdanın sahibi olarak doğrulamak istiyor.',
   signInWithEthereumScreen_signedOut_p: `Devam etmek için \n cüzdanınızdaki isteği onaylayın.`,
   signInWithEthereumScreen_signedOut_button: 'Giriş Yap',
 
   signInWithEthereumScreen_signedIn_heading: 'Ethereum İle Giriş Yapıldı',
-  signInWithEthereumScreen_signedIn_h1:
-    'Bu cüzdanın sahibi olduğunu \n başarıyla onayladın.',
+  signInWithEthereumScreen_signedIn_h1: 'Bu cüzdanın sahibi olduğunu \n başarıyla onayladın.',
   signInWithEthereumScreen_signedIn_p: `Çıkış yaparsan ileride \n tekrar giriş yapman gerekecek. `,
   signInWithEthereumScreen_signedIn_button: 'Çıkış Yap',
-};
+}
 
-export default trTR;
+export default trTR

@@ -1,56 +1,45 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
-import { useOpenfort } from '../../Openfort/useOpenfort';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
-import useMeasure from 'react-use-measure';
+import useMeasure from 'react-use-measure'
 
-import ChainSelectList from '../ChainSelectList';
+import ChainSelectList from '../ChainSelectList'
 
-import Portal from '../Portal';
-import { ResetContainer } from '../../../styles';
-import {
-  DropdownWindow,
-  DropdownOverlay,
-  DropdownContainer,
-  DropdownHeading,
-} from './styles';
+import Portal from '../Portal'
+import { ResetContainer } from '../../../styles'
+import { DropdownWindow, DropdownOverlay, DropdownContainer, DropdownHeading } from './styles'
 
-import { AnimatePresence } from 'framer-motion';
-import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import FocusTrap from '../../../hooks/useFocusTrap';
-import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
-import useLocales from '../../../hooks/useLocales';
+import { AnimatePresence } from 'framer-motion'
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
+import FocusTrap from '../../../hooks/useFocusTrap'
+import useLockBodyScroll from '../../../hooks/useLockBodyScroll'
+import useLocales from '../../../hooks/useLocales'
 
 const ChainSelectDropdown: React.FC<{
-  children?: React.ReactNode;
-  open: boolean;
-  onClose: () => void;
-  offsetX?: number;
-  offsetY?: number;
+  children?: React.ReactNode
+  open: boolean
+  onClose: () => void
+  offsetX?: number
+  offsetY?: number
 }> = ({ children, open, onClose, offsetX = 0, offsetY = 8 }) => {
-  const context = useOpenfort();
-  const themeContext = useThemeContext();
+  const context = useOpenfort()
+  const themeContext = useThemeContext()
 
-  const locales = useLocales();
+  const locales = useLocales()
 
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [offset, setOffset] = useState({ x: 0, y: 0 })
 
-  useLockBodyScroll(open);
+  useLockBodyScroll(open)
 
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const listener = (e: KeyboardEvent) => {
-      if (!open) return;
-      if (e.key === 'Escape') onClose();
+      if (!open) return
+      if (e.key === 'Escape') onClose()
 
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        if (!contentRef.current) return;
-        e.preventDefault();
+        if (!contentRef.current) return
+        e.preventDefault()
 
         const focusableEls: any = contentRef.current?.querySelectorAll(`
             a[href]:not(:disabled),
@@ -62,69 +51,63 @@ const ChainSelectDropdown: React.FC<{
             select:not(:disabled)
           `),
           firstFocusableEl: any = focusableEls[0],
-          lastFocusableEl: any = focusableEls[focusableEls.length - 1];
+          lastFocusableEl: any = focusableEls[focusableEls.length - 1]
 
         if (e.key === 'ArrowUp') {
           if (document.activeElement === firstFocusableEl) {
-            lastFocusableEl.focus();
+            lastFocusableEl.focus()
           } else {
-            let focusItem: any = document?.activeElement?.previousSibling;
-            if (!focusItem) focusItem = lastFocusableEl;
-            while (focusItem.disabled) focusItem = focusItem.previousSibling;
-            focusItem.focus();
+            let focusItem: any = document?.activeElement?.previousSibling
+            if (!focusItem) focusItem = lastFocusableEl
+            while (focusItem.disabled) focusItem = focusItem.previousSibling
+            focusItem.focus()
           }
         } else {
           if (document.activeElement === lastFocusableEl) {
-            firstFocusableEl.focus();
+            firstFocusableEl.focus()
           } else {
-            let focusItem: any = document?.activeElement?.nextSibling;
-            if (!focusItem) focusItem = firstFocusableEl;
-            while (focusItem.disabled) focusItem = focusItem.nextSibling;
-            focusItem.focus();
+            let focusItem: any = document?.activeElement?.nextSibling
+            if (!focusItem) focusItem = firstFocusableEl
+            while (focusItem.disabled) focusItem = focusItem.nextSibling
+            focusItem.focus()
           }
         }
       }
-    };
-    document.addEventListener('keydown', listener);
+    }
+    document.addEventListener('keydown', listener)
     return () => {
-      document.removeEventListener('keydown', listener);
-    };
-  }, [open]);
+      document.removeEventListener('keydown', listener)
+    }
+  }, [open])
 
-  const targetRef = useRef<any>(null);
+  const targetRef = useRef<any>(null)
   const innerRef = useCallback(
     (node: any) => {
-      if (!node) return;
-      targetRef.current = node;
-      refresh();
+      if (!node) return
+      targetRef.current = node
+      refresh()
     },
     [open]
-  );
+  )
   const [ref, bounds] = useMeasure({
     debounce: 120, // waits until modal transition has finished before measuring
     offsetSize: true,
     scroll: true,
-  });
+  })
 
   const refresh = () => {
     if (
       !targetRef.current ||
-      bounds.top +
-      bounds.bottom +
-      bounds.left +
-      bounds.right +
-      bounds.height +
-      bounds.width ===
-      0
+      bounds.top + bounds.bottom + bounds.left + bounds.right + bounds.height + bounds.width === 0
     ) {
-      return;
+      return
     }
 
-    let x = bounds.left + offsetX;
-    let y = bounds.top + bounds.height + offsetY;
+    let x = bounds.left + offsetX
+    let y = bounds.top + bounds.height + offsetY
 
-    targetRef.current.style.left = `${x}px`;
-    targetRef.current.style.top = `${y}px`;
+    targetRef.current.style.left = `${x}px`
+    targetRef.current.style.top = `${y}px`
 
     /*
     const contentRect = targetRef.current.getBoundingClientRect();
@@ -144,25 +127,24 @@ const ChainSelectDropdown: React.FC<{
       y: y,
     });
     */
-  };
+  }
 
-  const useIsomorphicLayoutEffect =
-    typeof window !== 'undefined' ? useLayoutEffect : useEffect;
-  useIsomorphicLayoutEffect(refresh, [targetRef.current, bounds, open]);
+  const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+  useIsomorphicLayoutEffect(refresh, [targetRef.current, bounds, open])
 
-  useEffect(refresh, [open, targetRef.current]);
+  useEffect(refresh, [open, targetRef.current])
 
-  const onScroll = onClose;
-  const onResize = onClose;
+  const onScroll = onClose
+  const onResize = onClose
   useEffect(() => {
-    refresh();
-    window.addEventListener('scroll', onScroll);
-    window.addEventListener('resize', onResize);
+    refresh()
+    window.addEventListener('scroll', onScroll)
+    window.addEventListener('resize', onResize)
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
-    };
-  }, []);
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
 
   return (
     <>
@@ -224,7 +206,7 @@ const ChainSelectDropdown: React.FC<{
         )}
       </AnimatePresence>
     </>
-  );
-};
+  )
+}
 
-export default ChainSelectDropdown;
+export default ChainSelectDropdown

@@ -1,14 +1,14 @@
-import { motion } from 'framer-motion';
-import styled from '../../../styles/styled';
-import { TooltipSizeProps } from './types';
+import { motion } from 'framer-motion'
+import styled from '../../../styles/styled'
+import { TooltipSizeProps } from './types'
 
 export const TooltipWindow = styled(motion.div)`
   z-index: 2147483647;
   position: fixed;
   inset: 0;
   pointer-events: none;
-`;
-export const TooltipContainer = styled(motion.div) <{ $size: TooltipSizeProps }>`
+`
+export const TooltipContainer = styled(motion.div)<{ $size: TooltipSizeProps }>`
   --shadow: var(--ck-tooltip-shadow);
   z-index: 2147483647;
   position: absolute;
@@ -54,9 +54,9 @@ export const TooltipContainer = styled(motion.div) <{ $size: TooltipSizeProps }>
       transform: translate(0.5px, -1px) scale(1.75);
     }
   }
-`;
+`
 
-export const TooltipTail = styled(motion.div) <{ $size: TooltipSizeProps }>`
+export const TooltipTail = styled(motion.div)<{ $size: TooltipSizeProps }>`
   z-index: 2;
   position: absolute;
   display: flex;
@@ -77,4 +77,4 @@ export const TooltipTail = styled(motion.div) <{ $size: TooltipSizeProps }>`
     background: var(--ck-tooltip-background);
     border-radius: ${(props) => (props.$size === 'small' ? 2 : 3)}px 0 0 0;
   }
-`;
+`

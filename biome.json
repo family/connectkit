@@ -50,11 +50,7 @@
         "noConsole": {
           "level": "error",
           "options": {
-            "allow": [
-              "log",
-              "warn",
-              "error"
-            ]
+            "allow": ["log", "warn", "error"]
           }
         }
       }

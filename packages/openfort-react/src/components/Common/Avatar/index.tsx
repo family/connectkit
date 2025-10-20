@@ -1,73 +1,66 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
 
-import { EnsAvatar, ImageContainer } from './styles';
+import { EnsAvatar, ImageContainer } from './styles'
 
-import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi';
-import { normalize } from 'viem/ens';
-import { ResetContainer } from '../../../styles';
-import { useOpenfort } from '../../Openfort/useOpenfort';
-import useIsMounted from '../../../hooks/useIsMounted';
-import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
+import { useEnsName, useEnsAvatar, useEnsAddress } from 'wagmi'
+import { normalize } from 'viem/ens'
+import { ResetContainer } from '../../../styles'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import useIsMounted from '../../../hooks/useIsMounted'
+import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
 
-type Hash = `0x${string}`;
+type Hash = `0x${string}`
 
 export type CustomAvatarProps = {
-  address?: Hash | undefined;
-  ensName?: string | undefined;
-  ensImage?: string;
-  size: number;
-  radius: number;
-};
+  address?: Hash | undefined
+  ensName?: string | undefined
+  ensImage?: string
+  size: number
+  radius: number
+}
 
 const Avatar: React.FC<{
-  address?: Hash | undefined;
-  name?: string | undefined;
-  size?: number;
-  radius?: number;
+  address?: Hash | undefined
+  name?: string | undefined
+  size?: number
+  radius?: number
 }> = ({ address, name, size = 96, radius = 96 }) => {
-  const isMounted = useIsMounted();
-  const context = useOpenfort();
+  const isMounted = useIsMounted()
+  const context = useOpenfort()
 
-  const imageRef = useRef<any>(null);
-  const [loaded, setLoaded] = useState(true);
+  const imageRef = useRef<any>(null)
+  const [loaded, setLoaded] = useState(true)
 
-  const ensFallbackConfig = useEnsFallbackConfig();
+  const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensAddress } = useEnsAddress({
     chainId: 1,
     name: name,
     config: ensFallbackConfig,
-  });
+  })
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address ?? ensAddress ?? undefined,
     config: ensFallbackConfig,
-  });
+  })
   const { data: ensAvatar } = useEnsAvatar({
     chainId: 1,
     name: normalize(ensName ?? ''),
     config: ensFallbackConfig,
-  });
+  })
 
   const ens = {
     address: ensAddress ?? address,
     name: ensName ?? name,
     avatar: ensAvatar ?? undefined,
-  };
+  }
 
   useEffect(() => {
-    if (
-      !(
-        imageRef.current &&
-        imageRef.current.complete &&
-        imageRef.current.naturalHeight !== 0
-      )
-    ) {
-      setLoaded(false);
+    if (!(imageRef.current && imageRef.current.complete && imageRef.current.naturalHeight !== 0)) {
+      setLoaded(false)
     }
-  }, [ensAvatar]);
+  }, [ensAvatar])
 
-  if (!isMounted)
-    return <div style={{ width: size, height: size, borderRadius: radius }} />;
+  if (!isMounted) return <div style={{ width: size, height: size, borderRadius: radius }} />
 
   if (context.uiConfig?.customAvatar)
     return (
@@ -87,14 +80,14 @@ const Avatar: React.FC<{
           radius,
         })}
       </div>
-    );
+    )
 
   if (!ens.name || !ens.avatar)
     return (
       <ResetContainer style={{ pointerEvents: 'none' }}>
         <EnsAvatar $size={size} $seed={ens.address} $radius={radius} />
       </ResetContainer>
-    );
+    )
   return (
     <ResetContainer style={{ pointerEvents: 'none' }}>
       <EnsAvatar $size={size} $seed={ens.address} $radius={radius}>
@@ -107,7 +100,7 @@ const Avatar: React.FC<{
         />
       </EnsAvatar>
     </ResetContainer>
-  );
-};
+  )
+}
 
-export default Avatar;
+export default Avatar

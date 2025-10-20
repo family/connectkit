@@ -6,12 +6,12 @@
  * repeating boilerplate in every application.
  */
 
-import { fallback, http, webSocket } from 'wagmi';
-import { type CreateConfigParameters } from '@wagmi/core';
-import { type Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { type HttpTransport, type WebSocketTransport } from 'viem';
+import { fallback, http, webSocket } from 'wagmi'
+import { type CreateConfigParameters } from '@wagmi/core'
+import { type Chain, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
+import { type HttpTransport, type WebSocketTransport } from 'viem'
 
-import { chainConfigs } from './constants/chainConfigs';
+import { chainConfigs } from './constants/chainConfigs'
 
 /**
  * Builds a transport based on the configured provider and chain.
@@ -29,37 +29,37 @@ const createTransport = ({
   provider = 'public',
   apiKey,
 }: {
-  chain: Chain;
-  provider: 'alchemy' | 'infura' | 'public';
-  apiKey: string;
+  chain: Chain
+  provider: 'alchemy' | 'infura' | 'public'
+  apiKey: string
 }): HttpTransport | WebSocketTransport => {
-  const supportedChain = chainConfigs.find((c) => c.id === chain.id);
+  const supportedChain = chainConfigs.find((c) => c.id === chain.id)
   if (supportedChain?.rpcUrls) {
     if (provider === 'alchemy') {
       if (supportedChain.rpcUrls?.alchemy?.http) {
-        return http(supportedChain.rpcUrls?.alchemy?.http + apiKey);
+        return http(supportedChain.rpcUrls?.alchemy?.http + apiKey)
       } else {
-        return webSocket(supportedChain.rpcUrls?.alchemy?.webSocket + apiKey);
+        return webSocket(supportedChain.rpcUrls?.alchemy?.webSocket + apiKey)
       }
     } else if (provider === 'infura') {
       if (supportedChain.rpcUrls?.infura?.http) {
-        return http(supportedChain.rpcUrls?.infura?.http + apiKey);
+        return http(supportedChain.rpcUrls?.infura?.http + apiKey)
       } else {
-        return webSocket(supportedChain.rpcUrls?.infura?.webSocket + apiKey);
+        return webSocket(supportedChain.rpcUrls?.infura?.webSocket + apiKey)
       }
     }
   }
-  return http();
-};
+  return http()
+}
 
 /**
  * Options for {@link getDefaultTransports}.
  */
 type GetDefaultTransportsProps = {
-  chains?: CreateConfigParameters['chains'];
-  alchemyId?: string;
-  infuraId?: string;
-};
+  chains?: CreateConfigParameters['chains']
+  alchemyId?: string
+  infuraId?: string
+}
 
 /**
  * Creates a map of Wagmi transports for the provided chains.
@@ -86,23 +86,17 @@ export const getDefaultTransports = ({
   alchemyId,
   infuraId,
 }: GetDefaultTransportsProps): CreateConfigParameters['transports'] => {
-  const transports: CreateConfigParameters['transports'] = {};
+  const transports: CreateConfigParameters['transports'] = {}
   Object.keys(chains).forEach((key, index) => {
-    const chain = chains[index];
-    const urls: (HttpTransport | WebSocketTransport)[] = [];
-    if (alchemyId)
-      urls.push(
-        createTransport({ chain, provider: 'alchemy', apiKey: alchemyId })
-      );
-    if (infuraId)
-      urls.push(
-        createTransport({ chain, provider: 'infura', apiKey: infuraId })
-      );
+    const chain = chains[index]
+    const urls: (HttpTransport | WebSocketTransport)[] = []
+    if (alchemyId) urls.push(createTransport({ chain, provider: 'alchemy', apiKey: alchemyId }))
+    if (infuraId) urls.push(createTransport({ chain, provider: 'infura', apiKey: infuraId }))
 
-    urls.push(http());
+    urls.push(http())
 
-    transports[chain.id] = fallback(urls);
-  });
+    transports[chain.id] = fallback(urls)
+  })
 
-  return transports;
-};
+  return transports
+}

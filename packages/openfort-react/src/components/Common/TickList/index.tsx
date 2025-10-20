@@ -1,9 +1,7 @@
-import { TickIcon } from '../../../assets/icons';
-import { TickIconWrapper, TickItem, TickListContainer } from './styles';
+import { TickIcon } from '../../../assets/icons'
+import { TickIconWrapper, TickItem, TickListContainer } from './styles'
 
-const TickList = ({ items }: {
-  items: string[]
-}) => {
+const TickList = ({ items }: { items: string[] }) => {
   return (
     <TickListContainer>
       {items.map((item, index) => (
@@ -16,7 +14,7 @@ const TickList = ({ items }: {
       ))}
     </TickListContainer>
   )
-};
-TickList.displayName = 'TickList';
+}
+TickList.displayName = 'TickList'
 
-export default TickList;
+export default TickList

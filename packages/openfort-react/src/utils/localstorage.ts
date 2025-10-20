@@ -10,11 +10,9 @@ const randomID = () => {
   // https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
   // Until then, use this fallback
   return (
-    Date.now().toString(36) +
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
-  );
-};
+    Date.now().toString(36) + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+  )
+}
 
 /**
  * Persists an array of values to `localStorage` under the provided key.
@@ -30,12 +28,12 @@ const randomID = () => {
  */
 export const save = (storageKey: string, data: any[]) => {
   try {
-    localStorage.setItem(storageKey, JSON.stringify(data));
-    return get(storageKey);
+    localStorage.setItem(storageKey, JSON.stringify(data))
+    return get(storageKey)
   } catch (e) {
-    return [];
+    return []
   }
-};
+}
 
 /**
  * Reads and deserialises items from `localStorage`.
@@ -50,15 +48,15 @@ export const save = (storageKey: string, data: any[]) => {
  */
 export const get = (storageKey: string) => {
   try {
-    const data = localStorage.getItem(storageKey);
-    if (data) return JSON.parse(data);
-    return [];
+    const data = localStorage.getItem(storageKey)
+    if (data) return JSON.parse(data)
+    return []
   } catch (e) {
     // error parsing data, reset
-    save(storageKey, []);
-    return [];
+    save(storageKey, [])
+    return []
   }
-};
+}
 
 /**
  * Adds a new item to the stored array and records metadata for future removal.
@@ -73,7 +71,7 @@ export const get = (storageKey: string) => {
  * ```
  */
 export const add = (storageKey: string, item: any) => {
-  const data = get(storageKey);
+  const data = get(storageKey)
   const newData = [
     {
       ...item,
@@ -81,10 +79,10 @@ export const add = (storageKey: string, item: any) => {
       timestamp: new Date(),
     },
     ...data,
-  ];
-  save(storageKey, newData);
-  return get(storageKey);
-};
+  ]
+  save(storageKey, newData)
+  return get(storageKey)
+}
 
 /**
  * Removes an existing item from the stored array.
@@ -99,11 +97,11 @@ export const add = (storageKey: string, item: any) => {
  * ```
  */
 export const remove = (storageKey: string, item: any) => {
-  const data = get(storageKey);
-  const newData = data.filter((i: any) => i.ckStoreKey !== item.ckStoreKey);
-  save(storageKey, newData);
-  return get(storageKey);
-};
+  const data = get(storageKey)
+  const newData = data.filter((i: any) => i.ckStoreKey !== item.ckStoreKey)
+  save(storageKey, newData)
+  return get(storageKey)
+}
 
 /**
  * Clears all stored items for the provided key.
@@ -117,6 +115,6 @@ export const remove = (storageKey: string, item: any) => {
  * ```
  */
 export const clear = (storageKey: string) => {
-  save(storageKey, []);
-  return get(storageKey);
-};
+  save(storageKey, [])
+  return get(storageKey)
+}

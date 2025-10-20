@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
-import styled from '../../../styles/styled';
-import { css, keyframes } from 'styled-components';
+import { motion } from 'framer-motion'
+import styled from '../../../styles/styled'
+import { css, keyframes } from 'styled-components'
 
 type ChainContainerProps = {
-  size?: number | string;
-  radius?: number | string;
-};
+  size?: number | string
+  radius?: number | string
+}
 
 export const ChainContainer = styled.div<ChainContainerProps>`
   --bg: transparent;
@@ -48,7 +48,7 @@ export const ChainContainer = styled.div<ChainContainerProps>`
     align-items: center;
     justify-content: center;
   }
-`;
+`
 
 export const LogoContainer = styled(motion.div)`
   display: block;
@@ -65,12 +65,12 @@ export const LogoContainer = styled(motion.div)`
     width: 100%;
     height: auto;
   }
-`;
+`
 
 const Spin = keyframes`
   0%{ transform: rotate(0deg); }
   100%{ transform: rotate(360deg); }
-`;
+`
 export const LoadingContainer = styled(motion.div)`
   position: absolute;
   inset: 0;
@@ -80,7 +80,7 @@ export const LoadingContainer = styled(motion.div)`
     position: absolute;
     inset: 0;
   }
-`;
+`
 
 export const Unsupported = styled(motion.div)`
   z-index: 2;
@@ -98,4 +98,4 @@ export const Unsupported = styled(motion.div)`
     top: -30%;
     right: -30%;
   }
-`;
+`

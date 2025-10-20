@@ -1,19 +1,23 @@
-import React from 'react';
-import useFitText from '../../../hooks/useFitText';
+import React from 'react'
+import useFitText from '../../../hooks/useFitText'
 
-const FitText = ({ children, maxFontSize = 100, minFontSize = 70 }: {
+const FitText = ({
+  children,
+  maxFontSize = 100,
+  minFontSize = 70,
+}: {
   children: React.ReactNode
   maxFontSize?: number
   minFontSize?: number
 }) => {
-  const [ready, setReady] = React.useState(false);
+  const [ready, setReady] = React.useState(false)
   const { fontSize, ref: textRef } = useFitText({
     logLevel: 'none',
     maxFontSize,
     minFontSize,
     onStart: () => setReady(true),
     onFinish: () => setReady(true),
-  });
+  })
   return (
     <div
       ref={textRef}
@@ -29,8 +33,8 @@ const FitText = ({ children, maxFontSize = 100, minFontSize = 70 }: {
     >
       {children}
     </div>
-  );
-};
-FitText.displayName = 'FitText';
+  )
+}
+FitText.displayName = 'FitText'
 
-export default FitText;
+export default FitText

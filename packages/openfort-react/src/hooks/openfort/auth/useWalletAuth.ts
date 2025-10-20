@@ -1,84 +1,89 @@
-import { useCallback, useEffect, useState } from "react";
-import { Connector, useAccount, useDisconnect } from "wagmi";
-import { BaseFlowState, mapStatus } from "./status";
-import { useConnect } from "../../useConnect";
-import { useOpenfort } from "../../../components/Openfort/useOpenfort";
-import { useOpenfortCore } from "../../../openfort/useOpenfort";
-import { useConnectWithSiwe } from "../useConnectWithSiwe";
-import { useWallets } from "../../../wallets/useWallets";
-import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
-import { logger } from "../../../utils/logger";
-import { onError, onSuccess } from "../hookConsistency";
-
+import { useCallback, useEffect, useState } from 'react'
+import { Connector, useAccount, useDisconnect } from 'wagmi'
+import { BaseFlowState, mapStatus } from './status'
+import { useConnect } from '../../useConnect'
+import { useOpenfort } from '../../../components/Openfort/useOpenfort'
+import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { useConnectWithSiwe } from '../useConnectWithSiwe'
+import { useWallets } from '../../../wallets/useWallets'
+import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from '../../../types'
+import { logger } from '../../../utils/logger'
+import { onError, onSuccess } from '../hookConsistency'
 
 type ConnectWalletOptions = {
-  connector: Connector | string;
-}; // onConnect is handled by the hookOptions because useConnect needs to finish the connection process
+  connector: Connector | string
+} // onConnect is handled by the hookOptions because useConnect needs to finish the connection process
 
 export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
-  const { updateUser } = useOpenfortCore();
-  const { log } = useOpenfort();
+  const { updateUser } = useOpenfortCore()
+  const { log } = useOpenfort()
   const siwe = useConnectWithSiwe()
-  const availableWallets = useWallets(); // TODO: Use this to get the wallet client type
-  const { disconnect } = useDisconnect();
-  const [walletConnectingTo, setWalletConnectingTo] = useState<string | null>(null);
-  const [shouldConnectWithSiwe, setShouldConnectWithSiwe] = useState(false);
+  const availableWallets = useWallets() // TODO: Use this to get the wallet client type
+  const { disconnect } = useDisconnect()
+  const [walletConnectingTo, setWalletConnectingTo] = useState<string | null>(null)
+  const [shouldConnectWithSiwe, setShouldConnectWithSiwe] = useState(false)
 
   const [status, setStatus] = useState<BaseFlowState>({
-    status: "idle",
-  });
+    status: 'idle',
+  })
 
-  const handleError = useCallback((error: OpenfortError) => {
-    setWalletConnectingTo(null);
-    setStatus({
-      status: 'error',
-      error,
-    });
-    return onError({
-      error,
-      options: hookOptions,
-    });
-  }, [hookOptions]);
+  const handleError = useCallback(
+    (error: OpenfortError) => {
+      setWalletConnectingTo(null)
+      setStatus({
+        status: 'error',
+        error,
+      })
+      return onError({
+        error,
+        options: hookOptions,
+      })
+    },
+    [hookOptions]
+  )
 
   const { connectAsync } = useConnect({
     mutation: {
       onError: (e) => {
-        const error = new OpenfortError("Failed to connect with wallet", OpenfortErrorType.AUTHENTICATION_ERROR, { error: e });
-        handleError(error);
+        const error = new OpenfortError('Failed to connect with wallet', OpenfortErrorType.AUTHENTICATION_ERROR, {
+          error: e,
+        })
+        handleError(error)
       },
       onSuccess: () => {
-        setShouldConnectWithSiwe(true);
-      }
-    }
-  });
+        setShouldConnectWithSiwe(true)
+      },
+    },
+  })
 
   useEffect(() => {
     // Ensure it has been connected with a wallet before connecting with SIWE
-    if (!shouldConnectWithSiwe) return;
+    if (!shouldConnectWithSiwe) return
 
-    setShouldConnectWithSiwe(false);
+    setShouldConnectWithSiwe(false)
 
     siwe({
       onError: (e) => {
-        log("Error connecting with SIWE", e);
-        disconnect();
-        const error = new OpenfortError("Failed to connect with siwe", OpenfortErrorType.AUTHENTICATION_ERROR, { error: e });
-        handleError(error);
+        log('Error connecting with SIWE', e)
+        disconnect()
+        const error = new OpenfortError('Failed to connect with siwe', OpenfortErrorType.AUTHENTICATION_ERROR, {
+          error: e,
+        })
+        handleError(error)
       },
       onConnect: () => {
-        log("Successfully connected with SIWE");
+        log('Successfully connected with SIWE')
         setStatus({
           status: 'success',
-        });
-        updateUser();
+        })
+        updateUser()
         onSuccess({
           hookOptions,
           data: {},
-        });
+        })
       },
-    });
-  }, [shouldConnectWithSiwe, siwe, updateUser, log]);
-
+    })
+  }, [shouldConnectWithSiwe, siwe, updateUser, log])
 
   // const generateSiweMessage = useCallback(
   //   async (args) => {
@@ -100,7 +105,6 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
   //         type: 'siwe',
   //       });
 
-
   //       return siweMessage;
   //     } catch (error) {
   //       const errorObj = error instanceof Error ? error : new Error('Failed to generate SIWE message');
@@ -114,7 +118,6 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
   //   },
   //   [client, setStatus]
   // );
-
 
   // const initSiwe = useCallback(
   //   async (opts: {
@@ -164,56 +167,60 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
   //   [client, setStatus, updateUser]
   // );
 
+  const connectWallet = useCallback(
+    async (options: ConnectWalletOptions) => {
+      setStatus({
+        status: 'loading',
+      })
+      let connector: Connector | null = null
 
-  const connectWallet = useCallback(async (options: ConnectWalletOptions) => {
-    setStatus({
-      status: 'loading',
-    });
-    let connector: Connector | null = null;
-
-    if (typeof options.connector === 'string') {
-      const wallet = availableWallets.find(c => c.id === options.connector);
-      if (wallet) {
-        connector = wallet.connector;
+      if (typeof options.connector === 'string') {
+        const wallet = availableWallets.find((c) => c.id === options.connector)
+        if (wallet) {
+          connector = wallet.connector
+        }
+      } else {
+        connector = options.connector
       }
-    } else {
-      connector = options.connector;
-    }
 
-    if (!connector) {
-      log("Connector not found", connector);
-      return handleError(new OpenfortError("Connector not found", OpenfortErrorType.AUTHENTICATION_ERROR));
-    }
+      if (!connector) {
+        log('Connector not found', connector)
+        return handleError(new OpenfortError('Connector not found', OpenfortErrorType.AUTHENTICATION_ERROR))
+      }
 
-    setWalletConnectingTo(connector.id);
+      setWalletConnectingTo(connector.id)
 
-    const hasDisconnected = new Promise<void>((resolve) => {
-      disconnect(undefined, {
-        onSuccess: () => {
-          resolve();
-        },
-        onError: (e) => {
-          logger.error("Error disconnecting", e);
+      const hasDisconnected = new Promise<void>((resolve) => {
+        disconnect(undefined, {
+          onSuccess: () => {
+            resolve()
+          },
+          onError: (e) => {
+            logger.error('Error disconnecting', e)
 
-          const error = new OpenfortError("Failed to disconnect", OpenfortErrorType.AUTHENTICATION_ERROR, { error: e });
-          handleError(error);
+            const error = new OpenfortError('Failed to disconnect', OpenfortErrorType.AUTHENTICATION_ERROR, {
+              error: e,
+            })
+            handleError(error)
 
-          resolve();
-        },
-      });
-    });
-    await hasDisconnected;
+            resolve()
+          },
+        })
+      })
+      await hasDisconnected
 
-    try {
-      await connectAsync({
-        connector,
-      });
-      log("Connected to wallet!!!", connector.id);
-    } catch (error) {
-      logger.error("Error connecting", error);
-      handleError(new OpenfortError("Failed to connect", OpenfortErrorType.AUTHENTICATION_ERROR, { error }));
-    }
-  }, [siwe, disconnect, updateUser, availableWallets, log, setStatus, hookOptions]);
+      try {
+        await connectAsync({
+          connector,
+        })
+        log('Connected to wallet!!!', connector.id)
+      } catch (error) {
+        logger.error('Error connecting', error)
+        handleError(new OpenfortError('Failed to connect', OpenfortErrorType.AUTHENTICATION_ERROR, { error }))
+      }
+    },
+    [siwe, disconnect, updateUser, availableWallets, log, setStatus, hookOptions]
+  )
 
   return {
     walletConnectingTo,
@@ -223,5 +230,5 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
     ...mapStatus(status),
     // generateSiweMessage,
     // initSiwe,
-  };
+  }
 }

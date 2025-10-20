@@ -71,8 +71,7 @@ export default {
   '--ck-spinner-color': 'var(--ck-focus-color)',
 
   '--ck-dropdown-button-color': '#999999',
-  '--ck-dropdown-button-box-shadow':
-    '0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
+  '--ck-dropdown-button-box-shadow': '0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
   '--ck-dropdown-button-background': '#fff',
 
   '--ck-dropdown-button-hover-color': '#8B8B8B',
@@ -80,8 +79,7 @@ export default {
   '--ck-dropdown-button-hover-box-shadow': '0px 0px 7px rgba(0, 0, 0, 0.05)',
 
   '--ck-dropdown-color': '#757A8E',
-  '--ck-dropdown-box-shadow':
-    '0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
+  '--ck-dropdown-box-shadow': '0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
 
   '--ck-alert-color': '#9196A1',
   '--ck-alert-background': '#F6F8FA',
@@ -100,7 +98,6 @@ export default {
 
   '--ck-graphic-primary-background': '#fff',
   '--ck-graphic-compass-background': '#fff',
-  '--ck-graphic-primary-box-shadow':
-    '0px 2.94737px 14.7368px rgba(0, 0, 0, 0.1)',
+  '--ck-graphic-primary-box-shadow': '0px 2.94737px 14.7368px rgba(0, 0, 0, 0.1)',
   '--ck-graphic-compass-box-shadow': '0px 2px 9px rgba(0, 0, 0, 0.15)',
-};
+}

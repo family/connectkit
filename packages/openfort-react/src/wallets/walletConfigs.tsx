@@ -1,5 +1,5 @@
-import Logos from '../assets/logos';
-import { isAndroid } from '../utils';
+import Logos from '../assets/logos'
+import { isAndroid } from '../utils'
 
 /**
  * Wallet configuration metadata keyed by reverse-DNS identifiers.
@@ -8,44 +8,44 @@ import { isAndroid } from '../utils';
  */
 export type WalletConfigProps = {
   // Wallets name
-  name?: string;
+  name?: string
   // Wallets short name. Defaults to `name`
-  shortName?: string;
+  shortName?: string
   // Icon to display in the modal
-  icon?: string | React.ReactNode;
+  icon?: string | React.ReactNode
   // Icon to use on the wallet list button. If not provided, `icon` will be used
-  iconConnector?: React.ReactNode;
+  iconConnector?: React.ReactNode
   // Defaults to `'circle'`, but some icons look better as squircle (e.g. if they have a background)
-  iconShape?: 'squircle' | 'circle' | 'square';
+  iconShape?: 'squircle' | 'circle' | 'square'
   // Defaults to `false`, but some icons don't have a background and look better if they shrink to fit the container
-  iconShouldShrink?: boolean;
+  iconShouldShrink?: boolean
   // Links to download the wallet
   downloadUrls?: {
     // Download redirect, hosted by Family.co
     // This URL redirects to the correct download URL based on the user's device
     // Note: this will eventually be automated by the below data
-    download?: string;
+    download?: string
     // wallet's website
-    website?: string;
+    website?: string
     // app downloads
-    desktop?: string;
-    android?: string;
-    ios?: string;
+    desktop?: string
+    android?: string
+    ios?: string
     // browser extensions
-    chrome?: string;
-    firefox?: string;
-    brave?: string;
-    edge?: string;
-    safari?: string;
-  };
+    chrome?: string
+    firefox?: string
+    brave?: string
+    edge?: string
+    safari?: string
+  }
   // Create URI for QR code, where uri is encoded data from WalletConnect
-  getWalletConnectDeeplink?: (uri: string) => string;
-  shouldDeeplinkDesktop?: boolean;
-};
+  getWalletConnectDeeplink?: (uri: string) => string
+  shouldDeeplinkDesktop?: boolean
+}
 
 // Organised in alphabetical order by key
 export const walletConfigs: {
-  [rdns: string]: WalletConfigProps; // for multiple cases seperate rdns by comma
+  [rdns: string]: WalletConfigProps // for multiple cases seperate rdns by comma
 } = {
   mock: {
     icon: <Logos.Mock />,
@@ -55,12 +55,11 @@ export const walletConfigs: {
     icon: <Logos.Argent />,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/argent',
-      android:
-        'https://play.google.com/store/apps/details?id=im.argent.contractwalletclient',
+      android: 'https://play.google.com/store/apps/details?id=im.argent.contractwalletclient',
       ios: 'https://apps.apple.com/app/argent/id1358741926',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://argent.link/app/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://argent.link/app/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   'coinbaseWallet, coinbaseWalletSDK': {
@@ -73,11 +72,10 @@ export const walletConfigs: {
       website: 'https://www.coinbase.com/wallet/getting-started-extension',
       android: 'https://play.google.com/store/apps/details?id=org.toshi',
       ios: 'https://apps.apple.com/app/coinbase-wallet-store-crypto/id1278383455',
-      chrome:
-        'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
+      chrome: 'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   'com.coinbase.wallet': {
@@ -90,11 +88,10 @@ export const walletConfigs: {
       website: 'https://www.coinbase.com/wallet/getting-started-extension',
       android: 'https://play.google.com/store/apps/details?id=org.toshi',
       ios: 'https://apps.apple.com/app/coinbase-wallet-store-crypto/id1278383455',
-      chrome:
-        'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
+      chrome: 'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   'com.crypto.wallet': {
@@ -105,8 +102,7 @@ export const walletConfigs: {
     name: 'Dawn Wallet',
     shortName: 'Dawn',
     downloadUrls: {
-      download:
-        'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
+      download: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
       website: 'https://www.dawnwallet.xyz/',
       ios: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
     },
@@ -122,7 +118,7 @@ export const walletConfigs: {
       ios: 'https://family.co/download',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `familywallet://wc?uri=${encodeURIComponent(uri)}`;
+      return `familywallet://wc?uri=${encodeURIComponent(uri)}`
     },
   },
   familyAccountsProvider: {
@@ -139,11 +135,9 @@ export const walletConfigs: {
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/frame',
       website: 'https://frame.sh',
-      chrome:
-        'https://chrome.google.com/webstore/detail/frame-companion/ldcoohedfbjoobcadoglnnmmfbdlmmhf',
+      chrome: 'https://chrome.google.com/webstore/detail/frame-companion/ldcoohedfbjoobcadoglnnmmfbdlmmhf',
       firefox: 'https://addons.mozilla.org/en-US/firefox/addon/frame-extension',
-      brave:
-        'https://chrome.google.com/webstore/detail/frame-companion/ldcoohedfbjoobcadoglnnmmfbdlmmhf',
+      brave: 'https://chrome.google.com/webstore/detail/frame-companion/ldcoohedfbjoobcadoglnnmmfbdlmmhf',
     },
     getWalletConnectDeeplink: (uri: string) => uri,
   },
@@ -154,14 +148,12 @@ export const walletConfigs: {
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/frontier',
       ios: 'https://apps.apple.com/app/frontier-crypto-defi-wallet/id1482380988',
-      android:
-        'https://play.google.com/store/apps/details?id=com.frontierwallet',
+      android: 'https://play.google.com/store/apps/details?id=com.frontierwallet',
       website: 'https://frontier.xyz/',
-      chrome:
-        'https://chrome.google.com/webstore/detail/frontier-wallet/kppfdiipphfccemcignhifpjkapfbihd',
+      chrome: 'https://chrome.google.com/webstore/detail/frontier-wallet/kppfdiipphfccemcignhifpjkapfbihd',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `frontier://wc?uri=${encodeURIComponent(uri)}`;
+      return `frontier://wc?uri=${encodeURIComponent(uri)}`
     },
   },
   injected: {
@@ -179,15 +171,13 @@ export const walletConfigs: {
       website: 'https://metamask.io/download/',
       android: 'https://play.google.com/store/apps/details?id=io.metamask',
       ios: 'https://apps.apple.com/app/metamask/id1438144202',
-      chrome:
-        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      chrome: 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
       firefox: 'https://addons.mozilla.org/firefox/addon/ether-metamask/',
-      brave:
-        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      brave: 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
       edge: 'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   'app.phantom': {
@@ -210,7 +200,7 @@ export const walletConfigs: {
       brave: 'https://rainbow.me/extension?utm_source=connectkit',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://rnbwapp.com/wc?uri=${encodeURIComponent(uri)}&connector=connectkit`;
+      return `https://rnbwapp.com/wc?uri=${encodeURIComponent(uri)}&connector=connectkit`
     },
   },
   'io.rabby': {
@@ -218,8 +208,7 @@ export const walletConfigs: {
     shortName: 'Rabby',
     downloadUrls: {
       website: 'https://rabby.io',
-      chrome:
-        'https://chrome.google.com/webstore/detail/rabby-wallet/acmacodkjbdgmoleebolmdjonilkdbch',
+      chrome: 'https://chrome.google.com/webstore/detail/rabby-wallet/acmacodkjbdgmoleebolmdjonilkdbch',
     },
   },
   safe: {
@@ -232,7 +221,7 @@ export const walletConfigs: {
       android: 'https://play.google.com/store/apps/details?id=io.gnosis.safe',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://gnosis-safe.io/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://gnosis-safe.io/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   'xyz.talisman': {
@@ -242,10 +231,8 @@ export const walletConfigs: {
     downloadUrls: {
       download: 'https://talisman.xyz/download',
       website: 'https://talisman.xyz',
-      chrome:
-        'https://chrome.google.com/webstore/detail/talisman-polkadot-wallet/fijngjgcjhjmmpcmkeiomlglpeiijkld',
-      firefox:
-        'https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension/',
+      chrome: 'https://chrome.google.com/webstore/detail/talisman-polkadot-wallet/fijngjgcjhjmmpcmkeiomlglpeiijkld',
+      firefox: 'https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension/',
     },
   },
   'com.trustwallet.app': {
@@ -255,12 +242,11 @@ export const walletConfigs: {
     iconShouldShrink: true,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/trust',
-      android:
-        'https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp',
+      android: 'https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp',
       ios: 'https://apps.apple.com/app/trust-crypto-bitcoin-wallet/id1288339409',
     },
     getWalletConnectDeeplink(uri) {
-      return `https://link.trustwallet.com/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://link.trustwallet.com/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   infinityWallet: {
@@ -285,7 +271,7 @@ export const walletConfigs: {
       ios: 'https://itunes.apple.com/us/app/imtoken2/id1384798940',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `imtokenv2://wc?uri=${encodeURIComponent(uri)}`;
+      return `imtokenv2://wc?uri=${encodeURIComponent(uri)}`
     },
   },
   unstoppable: {
@@ -294,11 +280,10 @@ export const walletConfigs: {
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/unstoppable',
       ios: 'https://apps.apple.com/app/bank-bitcoin-wallet/id1447619907',
-      android:
-        'https://play.google.com/store/apps/details?id=io.horizontalsystems.bankwallet',
+      android: 'https://play.google.com/store/apps/details?id=io.horizontalsystems.bankwallet',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://unstoppable.money/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://unstoppable.money/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   onto: {
@@ -307,12 +292,11 @@ export const walletConfigs: {
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/onto',
       ios: 'https://apps.apple.com/app/onto-an-ontology-dapp/id1436009823',
-      android:
-        'https://play.google.com/store/apps/details?id=com.github.ontio.onto',
+      android: 'https://play.google.com/store/apps/details?id=com.github.ontio.onto',
       website: 'https://onto.app/en/download/',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://onto.app/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://onto.app/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   steak: {
@@ -320,13 +304,12 @@ export const walletConfigs: {
     icon: <Logos.Steak />,
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/steak',
-      android:
-        'https://play.google.com/store/apps/details?id=fi.steakwallet.app',
+      android: 'https://play.google.com/store/apps/details?id=fi.steakwallet.app',
       ios: 'https://apps.apple.com/app/steakwallet/id1569375204',
       website: 'https://steakwallet.fi/download',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://links.steakwallet.fi/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://links.steakwallet.fi/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   ledger: {
@@ -340,7 +323,7 @@ export const walletConfigs: {
       ios: 'https://apps.apple.com/app/ledger-live-web3-wallet/id1361671700',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `ledgerlive://wc?uri=${encodeURIComponent(uri)}`;
+      return `ledgerlive://wc?uri=${encodeURIComponent(uri)}`
     },
     shouldDeeplinkDesktop: true,
   },
@@ -350,12 +333,11 @@ export const walletConfigs: {
     downloadUrls: {
       download: 'https://connect.family.co/v0/download/zerion',
       ios: 'https://apps.apple.com/app/apple-store/id1456732565',
-      android:
-        'https://play.google.com/store/apps/details?id=io.zerion.android',
+      android: 'https://play.google.com/store/apps/details?id=io.zerion.android',
       website: 'https://zerion.io/',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://app.zerion.io/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://app.zerion.io/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   slope: {
@@ -365,12 +347,11 @@ export const walletConfigs: {
       download: 'https://connect.family.co/v0/download/slope',
       ios: 'https://apps.apple.com/app/slope-wallet/id1574624530',
       android: 'https://play.google.com/store/apps/details?id=com.wd.wallet',
-      chrome:
-        'https://chrome.google.com/webstore/detail/slope-wallet/pocmplpaccanhmnllbbkpgfliimjljgo',
+      chrome: 'https://chrome.google.com/webstore/detail/slope-wallet/pocmplpaccanhmnllbbkpgfliimjljgo',
       website: 'https://slope.finance/',
     },
     getWalletConnectDeeplink: (uri: string) => {
-      return `https://slope.finance/app/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://slope.finance/app/wc?uri=${encodeURIComponent(uri)}`
     },
   },
   tokenPocket: {
@@ -379,11 +360,9 @@ export const walletConfigs: {
     downloadUrls: {
       website: 'https://www.tokenpocket.pro/en/download/app',
       download: 'https://www.tokenpocket.pro/en/download/app',
-      android:
-        'https://play.google.com/store/apps/details?id=vip.mytokenpocket',
+      android: 'https://play.google.com/store/apps/details?id=vip.mytokenpocket',
       ios: 'https://apps.apple.com/us/app/tp-global-wallet/id6444625622',
-      chrome:
-        'https://chrome.google.com/webstore/detail/tokenpocket/mfgccjchihfkkindfppnaooecgfneiii',
+      chrome: 'https://chrome.google.com/webstore/detail/tokenpocket/mfgccjchihfkkindfppnaooecgfneiii',
     },
   },
   talisman: {
@@ -392,10 +371,8 @@ export const walletConfigs: {
     downloadUrls: {
       download: 'https://talisman.xyz/download',
       website: 'https://talisman.xyz',
-      chrome:
-        'https://chrome.google.com/webstore/detail/talisman-polkadot-wallet/fijngjgcjhjmmpcmkeiomlglpeiijkld',
-      firefox:
-        'https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension/',
+      chrome: 'https://chrome.google.com/webstore/detail/talisman-polkadot-wallet/fijngjgcjhjmmpcmkeiomlglpeiijkld',
+      firefox: 'https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension/',
     },
   },
   walletConnect: {
@@ -406,4 +383,4 @@ export const walletConfigs: {
     iconShape: 'square',
     getWalletConnectDeeplink: (uri: string) => uri,
   },
-} as const;
+} as const

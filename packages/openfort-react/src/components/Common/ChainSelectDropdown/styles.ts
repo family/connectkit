@@ -1,15 +1,15 @@
-import styled from '../../../styles/styled';
-import { motion } from 'framer-motion';
+import styled from '../../../styles/styled'
+import { motion } from 'framer-motion'
 
 export const DropdownWindow = styled(motion.div)`
   z-index: 2147483647;
   position: fixed;
   inset: 0;
-`;
+`
 export const DropdownOverlay = styled(motion.div)`
   position: absolute;
   inset: 0;
-`;
+`
 export const DropdownContainer = styled(motion.div)`
   --shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
   --background: var(--ck-dropdown-background, var(--ck-tooltip-background));
@@ -33,7 +33,7 @@ export const DropdownContainer = styled(motion.div)`
     var(--ck-tooltip-shadow, var(--shadow))
   );
   border-radius: var(--border-radius);
-`;
+`
 export const DropdownHeading = styled(motion.div)`
   padding: 0 0 6px;
   font-size: 14px;
@@ -41,4 +41,4 @@ export const DropdownHeading = styled(motion.div)`
   font-weight: 400;
   user-select: none;
   color: var(--ck-dropdown-color, var(--ck-tooltip-color));
-`;
+`

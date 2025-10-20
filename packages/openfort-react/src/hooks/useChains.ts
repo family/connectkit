@@ -1,5 +1,5 @@
-import { Chain } from 'viem';
-import { useConfig } from 'wagmi';
+import { Chain } from 'viem'
+import { useConfig } from 'wagmi'
 
 /**
  * Hook for accessing configured blockchain chains
@@ -41,7 +41,7 @@ import { useConfig } from 'wagmi';
  * ```
  */
 export function useChains() {
-  const wagmi = useConfig();
-  const chains = wagmi?.chains ?? [];
-  return chains.map((c) => c) as Chain[];
+  const wagmi = useConfig()
+  const chains = wagmi?.chains ?? []
+  return chains.map((c) => c) as Chain[]
 }

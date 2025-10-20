@@ -1,27 +1,25 @@
-import { type Connector, useConnectors as useWagmiConnectors } from 'wagmi';
+import { type Connector, useConnectors as useWagmiConnectors } from 'wagmi'
 
 export function useConnectors() {
-  const connectors = useWagmiConnectors();
-  return connectors ?? [];
+  const connectors = useWagmiConnectors()
+  return connectors ?? []
 }
 
 export function useConnector(id: string, uuid?: string) {
-  const connectors = useConnectors();
+  const connectors = useConnectors()
   if (id === 'injected' && uuid) {
-    return connectors.find((c) => c.id === id && c.name === uuid) as Connector;
+    return connectors.find((c) => c.id === id && c.name === uuid) as Connector
   } else if (id === 'injected') {
-    return connectors.find(
-      (c) => c.id === id && c.name.includes('Injected')
-    ) as Connector;
+    return connectors.find((c) => c.id === id && c.name.includes('Injected')) as Connector
   }
-  return connectors.find((c) => c.id === id);
+  return connectors.find((c) => c.id === id)
 }
 
 export function useFamilyAccountsConnector() {
-  return useConnector('familyAccountsProvider');
+  return useConnector('familyAccountsProvider')
 }
 export function useFamilyConnector() {
-  return useConnector('co.family.wallet');
+  return useConnector('co.family.wallet')
 }
 
 export function useInjectedConnector(uuid?: string) {
@@ -38,7 +36,7 @@ export function useInjectedConnector(uuid?: string) {
       })`,
   }
   */
-  return useConnector('injected', uuid);
+  return useConnector('injected', uuid)
 }
 export function useWalletConnectConnector() {
   /*
@@ -48,7 +46,7 @@ export function useWalletConnectConnector() {
     showQrModal: false,
   }
   */
-  return useConnector('walletConnect');
+  return useConnector('walletConnect')
 }
 export function useCoinbaseWalletConnector() {
   /*
@@ -56,7 +54,7 @@ export function useCoinbaseWalletConnector() {
     headlessMode: true,
   }
   */
-  return useConnector('coinbaseWalletSDK');
+  return useConnector('coinbaseWalletSDK')
 }
 export function useMetaMaskConnector() {
   /*
@@ -66,5 +64,5 @@ export function useMetaMaskConnector() {
     UNSTABLE_shimOnConnectSelectAccount: true,
   }
   */
-  return useConnector('metaMask');
+  return useConnector('metaMask')
 }

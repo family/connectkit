@@ -1,1 +1,1 @@
-export const embeddedWalletId = 'xyz.openfort';
+export const embeddedWalletId = 'xyz.openfort'

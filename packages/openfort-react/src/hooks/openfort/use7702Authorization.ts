@@ -1,23 +1,18 @@
-import { useCallback } from 'react';
-import {
-  parseSignature,
-  type AuthorizationRequest,
-  type SignedAuthorization,
-  type Hex,
-} from 'viem';
-import { hashAuthorization } from 'viem/utils';
+import { useCallback } from 'react'
+import { parseSignature, type AuthorizationRequest, type SignedAuthorization, type Hex } from 'viem'
+import { hashAuthorization } from 'viem/utils'
 
-import { useOpenfortCore } from '../../openfort/useOpenfort';
-import { OpenfortError, OpenfortErrorType } from '../../types';
+import { useOpenfortCore } from '../../openfort/useOpenfort'
+import { OpenfortError, OpenfortErrorType } from '../../types'
 
-export type SignAuthorizationParameters = AuthorizationRequest;
+export type SignAuthorizationParameters = AuthorizationRequest
 
-export type SignAuthorizationReturnType = SignedAuthorization;
+export type SignAuthorizationReturnType = SignedAuthorization
 
 export type SignAuthorizationOptions = {
-  hashMessage: boolean;
-  arrayifyMessage: boolean;
-};
+  hashMessage: boolean
+  arrayifyMessage: boolean
+}
 
 /**
  * Hook for signing EIP-7702 wallet authorizations
@@ -46,7 +41,7 @@ export type SignAuthorizationOptions = {
  * ```
  */
 export function use7702Authorization() {
-  const { client } = useOpenfortCore();
+  const { client } = useOpenfortCore()
 
   const signAuthorization = useCallback(
     async (
@@ -54,33 +49,30 @@ export function use7702Authorization() {
       options: SignAuthorizationOptions = {
         hashMessage: false,
         arrayifyMessage: false,
-      },
+      }
     ): Promise<SignAuthorizationReturnType> => {
       if (!client) {
-        throw new OpenfortError(
-          'Openfort client is not initialized.',
-          OpenfortErrorType.CONFIGURATION_ERROR,
-        );
+        throw new OpenfortError('Openfort client is not initialized.', OpenfortErrorType.CONFIGURATION_ERROR)
       }
 
-      const authorization = parameters;
+      const authorization = parameters
 
       if (!authorization.contractAddress) {
         throw new OpenfortError(
           'Authorization is missing the contract address to sign.',
-          OpenfortErrorType.VALIDATION_ERROR,
-        );
+          OpenfortErrorType.VALIDATION_ERROR
+        )
       }
 
-      const hash = hashAuthorization(authorization);
+      const hash = hashAuthorization(authorization)
 
       try {
         const signature = await client.embeddedWallet.signMessage(hash, {
           hashMessage: options.hashMessage,
           arrayifyMessage: options.arrayifyMessage,
-        });
+        })
 
-        const { r, s, v, yParity } = parseSignature(signature as Hex);
+        const { r, s, v, yParity } = parseSignature(signature as Hex)
 
         return {
           address: authorization.contractAddress,
@@ -90,17 +82,13 @@ export function use7702Authorization() {
           s,
           v,
           yParity,
-        } as SignAuthorizationReturnType;
+        } as SignAuthorizationReturnType
       } catch (error) {
-        throw new OpenfortError(
-          'Failed to sign authorization.',
-          OpenfortErrorType.WALLET_ERROR,
-          { error },
-        );
+        throw new OpenfortError('Failed to sign authorization.', OpenfortErrorType.WALLET_ERROR, { error })
       }
     },
-    [client],
-  );
+    [client]
+  )
 
-  return { signAuthorization };
+  return { signAuthorization }
 }

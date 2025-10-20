@@ -1,5 +1,5 @@
-import { AlertProps } from './types';
-import { AlertContainer, IconContainer } from './styles';
+import { AlertProps } from './types'
+import { AlertContainer, IconContainer } from './styles'
 
 const Alert = ({ children, error, icon }: AlertProps) => {
   return (
@@ -7,8 +7,8 @@ const Alert = ({ children, error, icon }: AlertProps) => {
       {icon && <IconContainer>{icon}</IconContainer>}
       <div>{children}</div>
     </AlertContainer>
-  );
-};
-Alert.displayName = 'Alert';
+  )
+}
+Alert.displayName = 'Alert'
 
-export default Alert;
+export default Alert

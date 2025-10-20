@@ -1,56 +1,54 @@
-import { motion } from "framer-motion";
-import Logos from "../../../assets/logos";
-import styled from "../../../styles/styled";
-import { useOpenfort } from '../../Openfort/useOpenfort';
+import { motion } from 'framer-motion'
+import Logos from '../../../assets/logos'
+import styled from '../../../styles/styled'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
 const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
-  const { uiConfig: options } = useOpenfort();
+  const { uiConfig: options } = useOpenfort()
 
   return (
     <Container>
       {showDisclaimer && (
         <Disclaimer>
           {options?.disclaimer ? (
-            <>
-              {options.disclaimer}
-            </>
+            <>{options.disclaimer}</>
           ) : (
             <div>
-              By logging in, you agree to our <a
-                href={options?.termsOfServiceUrl ?? "https://www.openfort.io/terms"}
+              By logging in, you agree to our{' '}
+              <a
+                href={options?.termsOfServiceUrl ?? 'https://www.openfort.io/terms'}
                 target="_blank"
                 rel="noopener noreferrer"
-              >Terms of Service</a> & <a
-                href={options?.privacyPolicyUrl ?? "https://www.openfort.io/privacy"}
+              >
+                Terms of Service
+              </a>{' '}
+              &{' '}
+              <a
+                href={options?.privacyPolicyUrl ?? 'https://www.openfort.io/privacy'}
                 target="_blank"
                 rel="noopener noreferrer"
-              >Privacy Policy</a>.
+              >
+                Privacy Policy
+              </a>
+              .
             </div>
           )}
         </Disclaimer>
       )}
       <TextButton
         onClick={() => {
-          window.open(
-            "https://www.openfort.io/",
-            "_blank",
-          );
+          window.open('https://www.openfort.io/', '_blank')
         }}
       >
-        <span>
-          Powered by
-        </span>
+        <span>Powered by</span>
         <IconContainer>
           <Logos.Openfort />
         </IconContainer>
-        <span>
-          Openfort
-        </span>
+        <span>Openfort</span>
       </TextButton>
     </Container>
-  );
-};
-
+  )
+}
 
 export const Disclaimer = styled(motion.div)`
   padding: 8px 50px 0px 50px;
@@ -72,7 +70,7 @@ export const Disclaimer = styled(motion.div)`
       color: var(--ck-body-disclaimer-link-hover-color, inherit);
     }
   }
-`;
+`
 
 const IconContainer = styled.div`
   width: 20px;
@@ -106,7 +104,7 @@ const Container = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 const TextButton = styled(motion.button)`
   appearance: none;
@@ -141,6 +139,6 @@ const TextButton = styled(motion.button)`
     opacity: 1;
     transition: opacity 300ms ease;
   }
-`;
+`
 
-export default PoweredByFooter;
+export default PoweredByFooter

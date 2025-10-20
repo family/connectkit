@@ -1,23 +1,23 @@
-import styled from '../../../styles/styled';
-import { css, keyframes } from 'styled-components';
+import styled from '../../../styles/styled'
+import { css, keyframes } from 'styled-components'
 
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
 
 const Shimmer = keyframes`
   0%{ transform: translate(-100%) rotate(-45deg); }
   100%{ transform: translate(100%) rotate(-80deg); }
-`;
+`
 
 export const ConnectorButton = styled(motion.button)`
   display: block;
   text-decoration: none;
-`;
+`
 export const ConnectorAnchor = styled(motion.a)`
   display: block;
   text-decoration: none;
-`;
-export const ConnectorLabel = styled(motion.span)``;
-export const ConnectorIcon = styled(motion.div)``;
+`
+export const ConnectorLabel = styled(motion.span)``
+export const ConnectorIcon = styled(motion.div)``
 
 // This is a bit of a hack to not share styles between mobile and desktop
 const styles = {
@@ -224,7 +224,7 @@ const styles = {
       }
     `,
   },
-};
+}
 
 export const RecentlyUsedTag = styled(motion.span)`
   position: relative;
@@ -270,12 +270,12 @@ export const RecentlyUsedTag = styled(motion.span)`
     );
     animation: ${Shimmer} 2s linear infinite;
   }
-`;
+`
 
 export const ConnectorsContainer = styled.div<{
-  $mobile?: boolean;
-  $disabled?: boolean;
-  $totalResults?: number;
+  $mobile?: boolean
+  $disabled?: boolean
+  $totalResults?: number
 }>`
   transition: opacity 300ms ease;
   min-width: fit-content;
@@ -329,4 +329,4 @@ export const ConnectorsContainer = styled.div<{
             }
           }
         `}
-`;
+`

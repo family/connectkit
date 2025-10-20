@@ -1,80 +1,74 @@
-import React, { useEffect } from 'react';
-import { useOpenfort } from '../Openfort/useOpenfort';
+import React, { useEffect } from 'react'
+import { useOpenfort } from '../Openfort/useOpenfort'
 
-import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
+import { useWalletConnectModal } from '../../hooks/useWalletConnectModal'
 
-import {
-  detectBrowser,
-  isFamilyAccountsConnector,
-  isWalletConnectConnector,
-} from '../../utils';
+import { detectBrowser, isFamilyAccountsConnector, isWalletConnectConnector } from '../../utils'
 
-import { OrDivider } from '../Common/Modal';
-import { ModalContent, PageContent } from '../Common/Modal/styles';
+import { OrDivider } from '../Common/Modal'
+import { ModalContent, PageContent } from '../Common/Modal/styles'
 
-import ScanIconWithLogos from '../../assets/ScanIconWithLogos';
-import { ExternalLinkIcon } from '../../assets/icons';
-import useLocales from '../../hooks/useLocales';
-import Button from '../Common/Button';
-import CopyToClipboard from '../Common/CopyToClipboard';
-import CustomQRCode from '../Common/CustomQRCode';
+import ScanIconWithLogos from '../../assets/ScanIconWithLogos'
+import { ExternalLinkIcon } from '../../assets/icons'
+import useLocales from '../../hooks/useLocales'
+import Button from '../Common/Button'
+import CopyToClipboard from '../Common/CopyToClipboard'
+import CustomQRCode from '../Common/CustomQRCode'
 
-import { useAccount, useDisconnect } from 'wagmi';
-import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe';
-import { useWallet } from '../../wallets/useWallets';
-import { useWeb3 } from '../contexts/web3';
-import { routes } from '../Openfort/types';
+import { useAccount, useDisconnect } from 'wagmi'
+import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
+import { useWallet } from '../../wallets/useWallets'
+import { useWeb3 } from '../contexts/web3'
+import { routes } from '../Openfort/types'
 
 const ConnectWithQRCode: React.FC<{
-  switchConnectMethod: (id?: string) => void;
+  switchConnectMethod: (id?: string) => void
 }> = ({ switchConnectMethod }) => {
-  const context = useOpenfort();
+  const context = useOpenfort()
 
-  const id = context.connector.id;
+  const id = context.connector.id
 
-  const wallet = useWallet(context.connector.id);
+  const wallet = useWallet(context.connector.id)
 
-  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal();
+  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal()
   const {
     connect: { getUri },
-  } = useWeb3();
+  } = useWeb3()
 
-  const wcUri = getUri(id);
-  const uri = wcUri
-    ? wallet?.getWalletConnectDeeplink?.(wcUri) ?? wcUri
-    : undefined;
+  const wcUri = getUri(id)
+  const uri = wcUri ? (wallet?.getWalletConnectDeeplink?.(wcUri) ?? wcUri) : undefined
 
   const locales = useLocales({
     CONNECTORNAME: wallet?.name,
-  });
+  })
 
-  if (!wallet) return <>Wallet not found {context.connector.id}</>;
+  if (!wallet) return <>Wallet not found {context.connector.id}</>
 
-  const downloads = wallet?.downloadUrls;
+  const downloads = wallet?.downloadUrls
   const extensions = {
     chrome: downloads?.chrome,
     firefox: downloads?.firefox,
     brave: downloads?.brave,
     edge: downloads?.edge,
     safari: downloads?.safari,
-  };
+  }
 
-  const browser = detectBrowser();
+  const browser = detectBrowser()
 
-  const hasApps = downloads && Object.keys(downloads).length !== 0;
+  const hasApps = downloads && Object.keys(downloads).length !== 0
 
-  const connectWithSiwe = useConnectWithSiwe();
-  const { isConnected } = useAccount();
-  const { log, setOpen } = useOpenfort();
-  const { disconnect } = useDisconnect();
+  const connectWithSiwe = useConnectWithSiwe()
+  const { isConnected } = useAccount()
+  const { log, setOpen } = useOpenfort()
+  const { disconnect } = useDisconnect()
 
-  const [isFirstFrame, setIsFirstFrame] = React.useState(true);
+  const [isFirstFrame, setIsFirstFrame] = React.useState(true)
   useEffect(() => {
     // When the component is first rendered, we disconnect the user if they are connected
     if (isFirstFrame) {
-      setIsFirstFrame(false);
+      setIsFirstFrame(false)
       if (isConnected) {
-        disconnect();
+        disconnect()
       }
     } else {
       // When connected with WalletConnect, we connect with SIWE
@@ -83,28 +77,26 @@ const ConnectWithQRCode: React.FC<{
           // connectorType: 'walletConnect',
           // walletClientType: 'walletConnect',
           onError: (error) => {
-            log(error);
-            disconnect();
+            log(error)
+            disconnect()
           },
           onConnect: () => {
-            setOpen(false);
+            setOpen(false)
           },
-        });
+        })
       }
     }
-  }, [isConnected]);
+  }, [isConnected])
 
   const suggestedExtension = extensions
     ? {
-      name: Object.keys(extensions)[0],
-      label:
-        Object.keys(extensions)[0]?.charAt(0).toUpperCase() +
-        Object.keys(extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
-      url: extensions[Object.keys(extensions)[0]],
-    }
-    : undefined;
+        name: Object.keys(extensions)[0],
+        label: Object.keys(extensions)[0]?.charAt(0).toUpperCase() + Object.keys(extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
+        url: extensions[Object.keys(extensions)[0]],
+      }
+    : undefined
 
-  const showAdditionalOptions = isWalletConnectConnector(id);
+  const showAdditionalOptions = isWalletConnectConnector(id)
 
   return (
     <PageContent>
@@ -126,11 +118,7 @@ const ConnectWithQRCode: React.FC<{
             )
           }
         />
-        {showAdditionalOptions ? (
-          <OrDivider />
-        ) : (
-          hasApps && <OrDivider>{locales.dontHaveTheApp}</OrDivider>
-        )}
+        {showAdditionalOptions ? <OrDivider /> : hasApps && <OrDivider>{locales.dontHaveTheApp}</OrDivider>}
       </ModalContent>
 
       {showAdditionalOptions && ( // for walletConnect
@@ -144,21 +132,12 @@ const ConnectWithQRCode: React.FC<{
         >
           {context.uiConfig?.walletConnectCTA !== 'modal' && (
             <CopyToClipboard variant="button" string={uri}>
-              {context.uiConfig?.walletConnectCTA === 'link'
-                ? locales.copyToClipboard
-                : locales.copyCode}
+              {context.uiConfig?.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
             </CopyToClipboard>
           )}
           {context.uiConfig?.walletConnectCTA !== 'link' && (
-            <Button
-              icon={<ExternalLinkIcon />}
-              onClick={openW3M}
-              disabled={isOpenW3M}
-              waiting={isOpenW3M}
-            >
-              {context.uiConfig?.walletConnectCTA === 'modal'
-                ? locales.useWalletConnectModal
-                : locales.useModal}
+            <Button icon={<ExternalLinkIcon />} onClick={openW3M} disabled={isOpenW3M} waiting={isOpenW3M}>
+              {context.uiConfig?.walletConnectCTA === 'modal' ? locales.useWalletConnectModal : locales.useModal}
             </Button>
           )}
         </div>
@@ -167,9 +146,7 @@ const ConnectWithQRCode: React.FC<{
       {isFamilyAccountsConnector(wallet.id) && (
         <>
           <OrDivider />
-          <Button onClick={() => switchConnectMethod(id)}>
-            {locales.loginWithEmailOrPhone}
-          </Button>
+          <Button onClick={() => switchConnectMethod(id)}>{locales.loginWithEmailOrPhone}</Button>
         </>
       )}
       {/*
@@ -194,7 +171,7 @@ const ConnectWithQRCode: React.FC<{
         <>
           <Button
             onClick={() => {
-              context.setRoute(routes.DOWNLOAD);
+              context.setRoute(routes.DOWNLOAD)
             }}
             /*
             icon={
@@ -221,7 +198,7 @@ const ConnectWithQRCode: React.FC<{
         }
         */}
     </PageContent>
-  );
-};
+  )
+}
 
-export default ConnectWithQRCode;
+export default ConnectWithQRCode
