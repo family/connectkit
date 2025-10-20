@@ -3,7 +3,6 @@
   "files": {
     "includes": [
       "packages/**",
-      "examples/**",
       "*.js",
       "*.ts",
       "*.json",
@@ -13,7 +12,7 @@
       "!**/coverage",
       "!**/node_modules",
       "!packages/openfort-react/src/assets",
-      "!examples/playground/src/assets"
+      "!examples"
     ],
     "ignoreUnknown": true
   },

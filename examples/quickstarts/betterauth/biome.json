@@ -1,5 +1,6 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "root": true,
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -7,18 +8,23 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": [
-      "node_modules",
-      "dist",
-      "build",
-      ".next",
-      ".turbo",
-      "*.min.js",
-      "*.css",
-      "tsconfig*.json",
-      "**/.env*",
-      ".pnp.*",
-      ".yarn"
+    "includes": [
+      "**/*.js",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.jsx",
+      "**/*.json",
+      "!node_modules",
+      "!dist",
+      "!build",
+      "!.next",
+      "!.turbo",
+      "!*.min.js",
+      "!*.css",
+      "!tsconfig*.json",
+      "!**/.env*",
+      "!.pnp.*",
+      "!.yarn"
     ]
   },
   "formatter": {
@@ -26,9 +32,6 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 100
-  },
-  "organizeImports": {
-    "enabled": true
   },
   "linter": {
     "enabled": true,
@@ -46,6 +49,14 @@
     "formatter": {
       "quoteStyle": "single",
       "trailingCommas": "es5"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
     }
   }
 }
