@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.28] - 2025-10-22
+## [0.0.29] - 2025-10-22
+
+### Feat
+
+- update useWallets to include accounts when returning a wallet
+
+## [0.0.28] - 2025-10-21
 
 ### Chore
 
