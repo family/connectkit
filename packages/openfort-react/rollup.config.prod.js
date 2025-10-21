@@ -1,7 +1,8 @@
+import { readFileSync } from 'node:fs'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import typescript from 'rollup-plugin-typescript2'
 
-import packageJson from './package.json'
+const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'))
 
 export default [
   {
