@@ -50,6 +50,10 @@ const EmailLogin: React.FC = () => {
   })
 
   const handleSubmit = async () => {
+    if (isRegister) {
+      return handleSignUp()
+    }
+    
     setIsRegister(false)
     setTimeout(() => {
       triggerResize()
@@ -96,6 +100,10 @@ const EmailLogin: React.FC = () => {
         triggerResize()
       }, 100)
     }
+  }
+
+  const handleToggle = () => {
+    setIsRegister((prev) => !prev)
   }
 
   const errorMessage = loginError ? (loginError.message === 'Unauthorized' ? 'Invalid email or password' : null) : null
@@ -164,6 +172,16 @@ const EmailLogin: React.FC = () => {
               >
                 {isRegister ? 'Signing up...' : 'Logging in...'}
               </TextContainer>
+            ) : isRegister ? (
+              <TextContainer
+                key="connectedText"
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
+                variants={textVariants}
+              >
+                Sign up
+              </TextContainer>
             ) : (
               <TextContainer
                 key="connectedText"
@@ -180,8 +198,8 @@ const EmailLogin: React.FC = () => {
       </form>
       <FooterContainer>
         or
-        <button type="button" onClick={handleSignUp} disabled={loginLoading}>
-          Sign up
+        <button type="button" onClick={handleToggle} disabled={loginLoading}>
+          {isRegister ? 'Sign in' : 'Sign up'}
         </button>
       </FooterContainer>
     </PageContent>
