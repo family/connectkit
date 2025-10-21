@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.28] - 2025-10-22
+
+### Chore
+
+- change internal configuration
+
 ## [0.0.27] - 2025-10-20
 
 ### Fix
