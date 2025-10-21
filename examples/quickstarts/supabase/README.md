@@ -13,7 +13,7 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/supabase 
 1. **Install dependencies**:
 
    ```bash
-   yarn install
+   pnpm install
    ```
 
 2. **Configure environment**:
@@ -56,7 +56,14 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/quickstarts/supabase 
 4. **Start development server**:
 
    ```bash
-   yarn dev
+   pnpm dev
+   ```
+
+5. **Check & format (optional)**:
+
+   ```bash
+   pnpm check
+   pnpm format
    ```
 
 ## Features

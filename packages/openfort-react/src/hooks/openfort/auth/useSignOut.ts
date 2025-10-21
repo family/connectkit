@@ -1,8 +1,8 @@
-import { useCallback, useState } from 'react';
-import { useOpenfortCore } from '../../../openfort/useOpenfort';
-import { OpenfortError, OpenfortErrorType, OpenfortHookOptions } from '../../../types';
-import { onError, onSuccess } from '../hookConsistency';
-import { BaseFlowState, mapStatus } from './status';
+import { useCallback, useState } from 'react'
+import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { onError, onSuccess } from '../hookConsistency'
+import { type BaseFlowState, mapStatus } from './status'
 
 /**
  * Hook for user sign out operations
@@ -62,43 +62,45 @@ import { BaseFlowState, mapStatus } from './status';
  * ```
  */
 export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
-  const { logout } = useOpenfortCore();
+  const { logout } = useOpenfortCore()
   const [status, setStatus] = useState<BaseFlowState>({
-    status: "idle",
-  });
+    status: 'idle',
+  })
 
-  const signOut = useCallback(async (options: OpenfortHookOptions = {}) => {
-    setStatus({
-      status: 'loading',
-    });
-    try {
-
-      logout();
+  const signOut = useCallback(
+    async (options: OpenfortHookOptions = {}) => {
       setStatus({
-        status: 'success',
-      });
+        status: 'loading',
+      })
+      try {
+        logout()
+        setStatus({
+          status: 'success',
+        })
 
-      return onSuccess({
-        hookOptions,
-        options,
-        data: {},
-      });
-    } catch (e) {
-      const error = new OpenfortError('Failed to sign out', OpenfortErrorType.AUTHENTICATION_ERROR, { error: e })
-      setStatus({
-        status: 'error',
-        error,
-      });
-      return onError({
-        hookOptions,
-        options,
-        error,
-      });
-    }
-  }, [logout, setStatus, hookOptions]);
+        return onSuccess({
+          hookOptions,
+          options,
+          data: {},
+        })
+      } catch (e) {
+        const error = new OpenfortError('Failed to sign out', OpenfortErrorType.AUTHENTICATION_ERROR, { error: e })
+        setStatus({
+          status: 'error',
+          error,
+        })
+        return onError({
+          hookOptions,
+          options,
+          error,
+        })
+      }
+    },
+    [logout, setStatus, hookOptions]
+  )
 
   return {
     ...mapStatus(status),
     signOut,
-  };
+  }
 }

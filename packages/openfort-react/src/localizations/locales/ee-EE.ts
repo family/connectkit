@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import type { LocaleProps } from './'
+import enUS from './en-US'
 
 const eeEE: LocaleProps = {
   ...enUS, // fallback
@@ -101,20 +101,17 @@ const eeEE: LocaleProps = {
 
   switchNetworkScreen_heading: 'Võrkude vahetamine',
 
-  signInWithEthereumScreen_tooltip:
-    'Te pole selle rakendusse sisse logitud.\n**Logi sisse Ethereumiga** jätkamiseks.',
+  signInWithEthereumScreen_tooltip: 'Te pole selle rakendusse sisse logitud.\n**Logi sisse Ethereumiga** jätkamiseks.',
 
   signInWithEthereumScreen_signedOut_heading: 'Logi sisse Ethereumiga',
-  signInWithEthereumScreen_signedOut_h1:
-    'See rakendus soovib teid autentida \n selle rahakoti omanikuna.',
+  signInWithEthereumScreen_signedOut_h1: 'See rakendus soovib teid autentida \n selle rahakoti omanikuna.',
   signInWithEthereumScreen_signedOut_p: `Jätkamiseks allkirjastage sõnumipäring \n oma rahakotis.`,
   signInWithEthereumScreen_signedOut_button: 'Logi sisse',
 
   signInWithEthereumScreen_signedIn_heading: 'Logi välja',
-  signInWithEthereumScreen_signedIn_h1:
-    'Olete edukalt autentinud end \n selle rahakoti omanikuna.',
+  signInWithEthereumScreen_signedIn_h1: 'Olete edukalt autentinud end \n selle rahakoti omanikuna.',
   signInWithEthereumScreen_signedIn_p: `Välja logimine nõuab tulevikus \n uuesti autentimist.`,
   signInWithEthereumScreen_signedIn_button: 'Logi välja',
-};
+}
 
-export default eeEE;
+export default eeEE

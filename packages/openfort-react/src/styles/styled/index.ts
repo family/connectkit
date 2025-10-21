@@ -7,5 +7,8 @@
  * https://github.com/openfort-xyz/openfort-react/discussions/new.
  */
 
-import styled from 'styled-components';
-export default typeof styled.div === 'function' ? styled : styled['default'] as typeof styled;
+import styled from 'styled-components'
+
+type StyledWithDefault = typeof styled & { default?: typeof styled }
+
+export default typeof styled.div === 'function' ? styled : ((styled as StyledWithDefault).default as typeof styled)

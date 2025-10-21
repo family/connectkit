@@ -1,19 +1,19 @@
-import { useCallback, useState } from "react";
-import { type AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js';
-import { OpenfortHookOptions, OpenfortError, OpenfortErrorType } from "../../../types";
-import { BaseFlowState, mapStatus } from "./status";
-import { useOpenfortCore } from "../../../openfort/useOpenfort";
-import { onError, onSuccess } from "../hookConsistency";
-import { CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from "./useConnectToWalletPostAuth";
-import { UserWallet } from "../useWallets";
+import type { AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
+import { useCallback, useState } from 'react'
+import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { onError, onSuccess } from '../hookConsistency'
+import type { UserWallet } from '../useWallets'
+import { type BaseFlowState, mapStatus } from './status'
+import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
 
-export type GuestHookResult = {
-  error?: OpenfortError;
-  user?: OpenfortUser;
-  wallet?: UserWallet;
-};
+type GuestHookResult = {
+  error?: OpenfortError
+  user?: OpenfortUser
+  wallet?: UserWallet
+}
 
-export type GuestHookOptions = OpenfortHookOptions<GuestHookResult> & CreateWalletPostAuthOptions;
+type GuestHookOptions = OpenfortHookOptions<GuestHookResult> & CreateWalletPostAuthOptions
 
 /**
  * Hook for guest authentication operations
@@ -75,53 +75,57 @@ export type GuestHookOptions = OpenfortHookOptions<GuestHookResult> & CreateWall
  * ```
  */
 export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
-
-  const { client, updateUser } = useOpenfortCore();
+  const { client, updateUser } = useOpenfortCore()
   const [status, setStatus] = useState<BaseFlowState>({
-    status: "idle",
-  });
-  const { tryUseWallet } = useConnectToWalletPostAuth();
+    status: 'idle',
+  })
+  const { tryUseWallet } = useConnectToWalletPostAuth()
 
-  const signUpGuest = useCallback(async (options: GuestHookOptions = {}): Promise<GuestHookResult> => {
-    try {
-      setStatus({
-        status: 'loading',
-      });
+  const signUpGuest = useCallback(
+    async (options: GuestHookOptions = {}): Promise<GuestHookResult> => {
+      try {
+        setStatus({
+          status: 'loading',
+        })
 
-      const result = await client.auth.signUpGuest();
+        const result = await client.auth.signUpGuest()
 
-      const user = result.player;
-      await updateUser(user);
+        const user = result.player
+        await updateUser(user)
 
-      const { wallet } = await tryUseWallet({
-        logoutOnError: options.logoutOnError ?? hookOptions.logoutOnError,
-        recoverWalletAutomatically: options.recoverWalletAutomatically ?? hookOptions.recoverWalletAutomatically,
-      });
+        const { wallet } = await tryUseWallet({
+          logoutOnError: options.logoutOnError ?? hookOptions.logoutOnError,
+          recoverWalletAutomatically: options.recoverWalletAutomatically ?? hookOptions.recoverWalletAutomatically,
+        })
 
-      setStatus({
-        status: 'success',
-      });
+        setStatus({
+          status: 'success',
+        })
 
-      return onSuccess({
-        hookOptions,
-        options,
-        data: { user, wallet },
-      });
-    } catch (error) {
-      const openfortError = new OpenfortError("Failed to signup guest", OpenfortErrorType.AUTHENTICATION_ERROR, { error });
+        return onSuccess({
+          hookOptions,
+          options,
+          data: { user, wallet },
+        })
+      } catch (error) {
+        const openfortError = new OpenfortError('Failed to signup guest', OpenfortErrorType.AUTHENTICATION_ERROR, {
+          error,
+        })
 
-      setStatus({
-        status: 'error',
-        error: openfortError,
-      });
+        setStatus({
+          status: 'error',
+          error: openfortError,
+        })
 
-      return onError({
-        hookOptions,
-        options,
-        error: openfortError,
-      });
-    }
-  }, [client, setStatus, updateUser, hookOptions]);
+        return onError({
+          hookOptions,
+          options,
+          error: openfortError,
+        })
+      }
+    },
+    [client, setStatus, updateUser, hookOptions]
+  )
 
   return {
     signUpGuest,

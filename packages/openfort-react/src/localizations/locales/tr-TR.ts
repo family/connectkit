@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import type { LocaleProps } from './'
+import enUS from './en-US'
 
 const trTR: LocaleProps = {
   ...enUS, // fallback
@@ -42,7 +42,7 @@ const trTR: LocaleProps = {
   warnings_chainUnsupportedResolve: `Devam etmek için ağ değiştir veya bağlantıyı kes.`,
 
   onboardingScreen_heading: `Cüzdan Al`,
-  onboardingScreen_h1: `Web3\'ü keşfetmeye başla`,
+  onboardingScreen_h1: `Web3'ü keşfetmeye başla`,
   onboardingScreen_p: `Cüzdanınız, Web3'ü keşfetmeyi mümkün kılan sihirli teknoloji olan Ethereum'a açılan kapıdır.`,
   onboardingScreen_ctaText: `İlk Cüzdanını Seç`,
   onboardingScreen_ctaUrl: `https://ethereum.org/tr/wallets/find-wallet/`,
@@ -101,20 +101,17 @@ const trTR: LocaleProps = {
 
   switchNetworkScreen_heading: 'Ağ Değiştir',
 
-  signInWithEthereumScreen_tooltip:
-    'Bu uygulamada oturum açmadınız.\n Devam etmek için **Ethereum İle Giriş Yap**.',
+  signInWithEthereumScreen_tooltip: 'Bu uygulamada oturum açmadınız.\n Devam etmek için **Ethereum İle Giriş Yap**.',
 
   signInWithEthereumScreen_signedOut_heading: 'Ethereum İle Giriş Yap',
-  signInWithEthereumScreen_signedOut_h1:
-    'Bu uygulama seni \n bu cüzdanın sahibi olarak doğrulamak istiyor.',
+  signInWithEthereumScreen_signedOut_h1: 'Bu uygulama seni \n bu cüzdanın sahibi olarak doğrulamak istiyor.',
   signInWithEthereumScreen_signedOut_p: `Devam etmek için \n cüzdanınızdaki isteği onaylayın.`,
   signInWithEthereumScreen_signedOut_button: 'Giriş Yap',
 
   signInWithEthereumScreen_signedIn_heading: 'Ethereum İle Giriş Yapıldı',
-  signInWithEthereumScreen_signedIn_h1:
-    'Bu cüzdanın sahibi olduğunu \n başarıyla onayladın.',
+  signInWithEthereumScreen_signedIn_h1: 'Bu cüzdanın sahibi olduğunu \n başarıyla onayladın.',
   signInWithEthereumScreen_signedIn_p: `Çıkış yaparsan ileride \n tekrar giriş yapman gerekecek. `,
   signInWithEthereumScreen_signedIn_button: 'Çıkış Yap',
-};
+}
 
-export default trTR;
+export default trTR

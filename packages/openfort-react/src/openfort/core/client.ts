@@ -1,5 +1,4 @@
-import { Openfort as OpenfortClient, OpenfortSDKConfiguration } from '@openfort/openfort-js';
-
+import { Openfort as OpenfortClient, type OpenfortSDKConfiguration } from '@openfort/openfort-js'
 
 /**
  * Creates a new {@link OpenfortClient} instance.
@@ -17,7 +16,7 @@ import { Openfort as OpenfortClient, OpenfortSDKConfiguration } from '@openfort/
  * ```
  */
 export function createOpenfortClient(config: OpenfortSDKConfiguration): OpenfortClient {
-  return new OpenfortClient(config);
+  return new OpenfortClient(config)
 }
 
 /**
@@ -25,7 +24,7 @@ export function createOpenfortClient(config: OpenfortSDKConfiguration): Openfort
  *
  * Applications should generally create their own client instances using {@link createOpenfortClient}.
  */
-let defaultClient: OpenfortClient | null = null;
+let defaultClient: OpenfortClient | null = null
 
 /**
  * Gets or initialises the shared {@link OpenfortClient} instance.
@@ -40,16 +39,16 @@ let defaultClient: OpenfortClient | null = null;
  * const client = getDefaultClient();
  * ```
  */
-export function getDefaultClient(options?: OpenfortSDKConfiguration): OpenfortClient {
+function _getDefaultClient(options?: OpenfortSDKConfiguration): OpenfortClient {
   if (!defaultClient && options) {
-    defaultClient = new OpenfortClient(options);
+    defaultClient = new OpenfortClient(options)
   }
 
   if (!defaultClient) {
-    throw new Error('Openfort client not initialized. Make sure to wrap your app with OpenfortProvider.');
+    throw new Error('Openfort client not initialized. Make sure to wrap your app with OpenfortProvider.')
   }
 
-  return defaultClient;
+  return defaultClient
 }
 
 /**
@@ -64,5 +63,5 @@ export function getDefaultClient(options?: OpenfortSDKConfiguration): OpenfortCl
  * ```
  */
 export function setDefaultClient(client: OpenfortClient): void {
-  defaultClient = client;
+  defaultClient = client
 }

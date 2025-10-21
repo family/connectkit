@@ -1,8 +1,8 @@
-import { AuthPlayerResponse } from '@openfort/openfort-js';
-import { useEffect, useState } from 'react';
-import { useAccount, useAccountEffect } from 'wagmi';
-import { useOpenfortCore } from '../openfort/useOpenfort';
-import useIsMounted from './useIsMounted';
+import type { AuthPlayerResponse } from '@openfort/openfort-js'
+import { useEffect, useState } from 'react'
+import { useAccount } from 'wagmi'
+import { useOpenfortCore } from '../openfort/useOpenfort'
+import useIsMounted from './useIsMounted'
 
 export type useConnectCallbackProps = {
   onConnect?: ({
@@ -10,28 +10,25 @@ export type useConnectCallbackProps = {
     connectorId,
     user,
   }: {
-    address?: string;
-    connectorId?: string;
-    user?: AuthPlayerResponse;
-  }) => void;
-  onDisconnect?: () => void;
-};
+    address?: string
+    connectorId?: string
+    user?: AuthPlayerResponse
+  }) => void
+  onDisconnect?: () => void
+}
 
-export const useConnectCallback = ({
-  onConnect,
-  onDisconnect,
-}: useConnectCallbackProps) => {
-  const { user } = useOpenfortCore();
-  const { address, connector } = useAccount();
-  const hasAddress = !!address;
-  const [isConnected, setIsConnected] = useState(false);
-  const isMounted = useIsMounted();
+export const useConnectCallback = ({ onConnect, onDisconnect }: useConnectCallbackProps) => {
+  const { user } = useOpenfortCore()
+  const { address, connector } = useAccount()
+  const hasAddress = !!address
+  const [isConnected, setIsConnected] = useState(false)
+  const isMounted = useIsMounted()
 
   useEffect(() => {
     if (hasAddress && user) {
-      setIsConnected(true);
+      setIsConnected(true)
     } else {
-      setIsConnected(false);
+      setIsConnected(false)
     }
   }, [user, hasAddress])
 
@@ -43,10 +40,9 @@ export const useConnectCallback = ({
         address: address,
         connectorId: connector?.id,
         user: user || undefined,
-      });
+      })
     } else {
-      onDisconnect?.();
+      onDisconnect?.()
     }
-  }, [isConnected]);
-
-};
+  }, [isConnected])
+}

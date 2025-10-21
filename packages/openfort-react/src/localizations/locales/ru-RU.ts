@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import type { LocaleProps } from './'
+import enUS from './en-US'
 
 const ruRU: LocaleProps = {
   ...enUS, // fallback
@@ -101,20 +101,17 @@ const ruRU: LocaleProps = {
 
   switchNetworkScreen_heading: 'Переключение сетей',
 
-  signInWithEthereumScreen_tooltip:
-    'Вы не вошли в это приложение.\n**Войдите с помощью Ethereum**, чтобы продолжить.',
+  signInWithEthereumScreen_tooltip: 'Вы не вошли в это приложение.\n**Войдите с помощью Ethereum**, чтобы продолжить.',
 
   signInWithEthereumScreen_signedOut_heading: 'Войти с помощью Ethereum',
-  signInWithEthereumScreen_signedOut_h1:
-    'Это приложение хочет подтвердить вас \n в качестве владельца этого кошелька.',
+  signInWithEthereumScreen_signedOut_h1: 'Это приложение хочет подтвердить вас \n в качестве владельца этого кошелька.',
   signInWithEthereumScreen_signedOut_p: `Пожалуйста, подпишите запрос на сообщение \n в своем кошельке, чтобы продолжить.`,
   signInWithEthereumScreen_signedOut_button: 'Войти',
 
   signInWithEthereumScreen_signedIn_heading: 'Вошли с помощью Ethereum',
-  signInWithEthereumScreen_signedIn_h1:
-    'Вы успешно подтвердили себя \n в качестве владельца этого кошелька.',
+  signInWithEthereumScreen_signedIn_h1: 'Вы успешно подтвердили себя \n в качестве владельца этого кошелька.',
   signInWithEthereumScreen_signedIn_p: `Выйти потребуется \n повторная аутентификация в будущем.`,
   signInWithEthereumScreen_signedIn_button: 'Выйти',
-};
+}
 
-export default ruRU;
+export default ruRU

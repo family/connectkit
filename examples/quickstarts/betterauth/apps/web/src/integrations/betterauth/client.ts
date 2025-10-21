@@ -8,4 +8,4 @@ export const authClient = createAuthClient({
   basePath: betterAuthBasePath,
 });
 
-export const { signIn, signUp, signOut, useSession } = authClient;
+export const {   signOut, useSession } = authClient;

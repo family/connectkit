@@ -21,7 +21,7 @@ const WalletRecoveryIcon = ({ recovery }: { recovery: RecoveryMethod | undefined
   }
 }
 
-export const CreateWalletButton = () => {
+const CreateWalletButton = () => {
   const { isCreating, createWallet, error } = useWallets()
   const [chooseCreateMethodOpen, setChooseCreateMethodOpen] = useState(false)
   const [creatingMethod, setCreatingMethod] = useState<RecoveryMethod | null>(null)

@@ -1,40 +1,41 @@
-import { EmbeddedState, RecoveryMethod } from "@openfort/openfort-js";
-import { motion } from 'framer-motion';
-import React, { useEffect, useMemo, useState } from "react";
-import { Hex } from "viem";
-import { useAccount, useEnsName } from "wagmi";
-import { FingerPrintIcon, KeyIcon, LockIcon, ShieldIcon } from "../../../assets/icons";
-import { embeddedWalletId } from "../../../constants/openfort";
-import { UserWallet, useWallets } from "../../../hooks/openfort/useWallets";
-import { useEnsFallbackConfig } from "../../../hooks/useEnsFallbackConfig";
-import { useOpenfortCore } from '../../../openfort/useOpenfort';
-import { truncateEthAddress } from "../../../utils";
-import { logger } from "../../../utils/logger";
-import Button from "../../Common/Button";
-import CopyToClipboard from "../../Common/CopyToClipboard";
-import FitText from "../../Common/FitText";
-import Input from "../../Common/Input";
-import Loader from "../../Common/Loading";
-import { ModalBody, ModalHeading, PageContent } from "../../Common/Modal/styles";
-import TickList from "../../Common/TickList";
-import { FloatingGraphic } from "../../FloatingGraphic";
-import { useOpenfort } from '../../Openfort/useOpenfort';
-import { getPasswordStrength, MEDIUM_SCORE_THRESHOLD } from "../../PasswordStrength/password-utility";
-import { PasswordStrengthIndicator } from "../../PasswordStrength/PasswordStrengthIndicator";
-import { ProviderIcon, ProviderLabel, ProvidersButton } from "../Providers/styles";
-import { OtherMethodButton } from "./styles";
+import { EmbeddedState, RecoveryMethod } from '@openfort/openfort-js'
+import { motion } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import type { Hex } from 'viem'
+import { useAccount, useEnsName } from 'wagmi'
+import { FingerPrintIcon, KeyIcon, LockIcon, ShieldIcon } from '../../../assets/icons'
+import { embeddedWalletId } from '../../../constants/openfort'
+import { type UserWallet, useWallets } from '../../../hooks/openfort/useWallets'
+import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
+import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { truncateEthAddress } from '../../../utils'
+import { logger } from '../../../utils/logger'
+import Button from '../../Common/Button'
+import CopyToClipboard from '../../Common/CopyToClipboard'
+import FitText from '../../Common/FitText'
+import Input from '../../Common/Input'
+import Loader from '../../Common/Loading'
+import { ModalBody, ModalHeading, PageContent } from '../../Common/Modal/styles'
+import TickList from '../../Common/TickList'
+import { FloatingGraphic } from '../../FloatingGraphic'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PasswordStrengthIndicator } from '../../PasswordStrength/PasswordStrengthIndicator'
+import { getPasswordStrength, MEDIUM_SCORE_THRESHOLD } from '../../PasswordStrength/password-utility'
+import { ProviderIcon, ProviderLabel, ProvidersButton } from '../Providers/styles'
+import { OtherMethodButton } from './styles'
 
 // TODO: Localize
 
 const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
-  const [recoveryPhrase, setRecoveryPhrase] = useState("");
-  const [recoveryError, setRecoveryError] = useState<false | string>(false);
-  const { triggerResize, uiConfig: options, log } = useOpenfort();
-  const [loading, setLoading] = useState(false);
-  const { setActiveWallet } = useWallets();
+  const [recoveryPhrase, setRecoveryPhrase] = useState('')
+  const [recoveryError, setRecoveryError] = useState<false | string>(false)
+  const { triggerResize, log } = useOpenfort()
+  const [loading, setLoading] = useState(false)
+  const { setActiveWallet } = useWallets()
 
   const handleSubmit = async () => {
-    setLoading(true);
+    setLoading(true)
 
     const { error } = await setActiveWallet({
       walletId: embeddedWalletId,
@@ -44,26 +45,25 @@ const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
       },
       address: wallet.address,
     })
-    setLoading(false);
+    setLoading(false)
 
     if (error) {
-      setRecoveryError(error.message || "There was an error recovering your account");
+      setRecoveryError(error.message || 'There was an error recovering your account')
     } else {
-      log("Recovery success");
+      log('Recovery success')
     }
-  };
+  }
 
   useEffect(() => {
-    if (recoveryError)
-      triggerResize();
-  }, [recoveryError]);
+    if (recoveryError) triggerResize()
+  }, [recoveryError])
 
-  const ensFallbackConfig = useEnsFallbackConfig();
+  const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: wallet.address,
     config: ensFallbackConfig,
-  });
+  })
 
   return (
     <PageContent>
@@ -71,28 +71,26 @@ const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
         height="130px"
         logoCenter={{
           logo: <KeyIcon />,
-          size: "1.2",
+          size: '1.2',
         }}
         logoTopLeft={{
           logo: <ShieldIcon />,
-          size: "0.75",
+          size: '0.75',
         }}
         logoBottomRight={{
           logo: <LockIcon />,
-          size: "0.5",
+          size: '0.5',
         }}
       />
       <ModalHeading>Recover wallet</ModalHeading>
-      <ModalBody style={{ textAlign: "center" }}>
-        Please enter the recovery password to recover wallet{" "}
-        <CopyToClipboard string={wallet.address}>
-          {ensName ?? truncateEthAddress(wallet.address)}
-        </CopyToClipboard>
+      <ModalBody style={{ textAlign: 'center' }}>
+        Please enter the recovery password to recover wallet{' '}
+        <CopyToClipboard string={wallet.address}>{ensName ?? truncateEthAddress(wallet.address)}</CopyToClipboard>
       </ModalBody>
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
+          e.preventDefault()
+          handleSubmit()
         }}
       >
         <Input
@@ -106,28 +104,22 @@ const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
         {recoveryError && (
           <motion.div key={recoveryError} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <ModalBody style={{ height: 24, marginTop: 12 }} $error>
-              <FitText>
-                {recoveryError}
-              </FitText>
+              <FitText>{recoveryError}</FitText>
             </ModalBody>
           </motion.div>
         )}
-        <Button
-          onClick={handleSubmit}
-          waiting={loading}
-          disabled={loading}
-        >
+        <Button onClick={handleSubmit} waiting={loading} disabled={loading}>
           Recover wallet
         </Button>
       </form>
-    </PageContent >
+    </PageContent>
   )
 }
 
 const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
-  const { triggerResize, uiConfig: options, log } = useOpenfort();
-  const { setActiveWallet, error: recoveryError, isConnecting: loading } = useWallets();
-  const [shouldRecoverWallet, setShouldRecoverWallet] = useState(false);
+  const { triggerResize } = useOpenfort()
+  const { setActiveWallet, error: recoveryError } = useWallets()
+  const [shouldRecoverWallet, setShouldRecoverWallet] = useState(false)
 
   const recoverWallet = async () => {
     setActiveWallet({
@@ -137,40 +129,38 @@ const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
       },
       address: wallet.address,
     })
-  };
+  }
 
   useEffect(() => {
     // To ensure the wallet is created only once
     if (shouldRecoverWallet) {
-      recoverWallet();
+      recoverWallet()
     }
-  }, [shouldRecoverWallet]);
-
-
-  useEffect(() => {
-    setShouldRecoverWallet(true);
-  }, []);
+  }, [shouldRecoverWallet])
 
   useEffect(() => {
-    if (recoveryError)
-      triggerResize();
-  }, [recoveryError]);
+    setShouldRecoverWallet(true)
+  }, [])
 
-  const ensFallbackConfig = useEnsFallbackConfig();
+  useEffect(() => {
+    if (recoveryError) triggerResize()
+  }, [recoveryError])
+
+  const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: wallet.address,
     config: ensFallbackConfig,
-  });
-  const walletDisplay = ensName ?? truncateEthAddress(wallet.address);
+  })
+  const walletDisplay = ensName ?? truncateEthAddress(wallet.address)
 
   return (
     <PageContent>
       <Loader
         icon={<FingerPrintIcon />}
         isError={!!recoveryError}
-        header={recoveryError ? "Invalid passkey." : `Recovering wallet ${walletDisplay} with passkey...`}
-        description={recoveryError ? "There was an error creating your passkey. Please try again." : undefined}
+        header={recoveryError ? 'Invalid passkey.' : `Recovering wallet ${walletDisplay} with passkey...`}
+        description={recoveryError ? 'There was an error creating your passkey. Please try again.' : undefined}
         onRetry={() => recoverWallet()}
       />
     </PageContent>
@@ -178,34 +168,32 @@ const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
 }
 
 const RecoverAutomaticWallet = ({ walletAddress }: { walletAddress: Hex }) => {
-  const { embeddedState } = useOpenfortCore();
-  const { setActiveWallet } = useWallets();
-  const { log } = useOpenfort();
-  const [error, setError] = useState<false | string>(false);
+  const { embeddedState } = useOpenfortCore()
+  const { setActiveWallet } = useWallets()
+  const { log } = useOpenfort()
+  const [error, setError] = useState<false | string>(false)
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
-        log("Automatically recovering wallet", walletAddress);
+        log('Automatically recovering wallet', walletAddress)
 
         const response = await setActiveWallet({
           walletId: embeddedWalletId,
         })
 
         if (response.error) {
-          setError(response.error.message || "There was an error recovering your account");
-          log("Error recovering wallet", response.error);
+          setError(response.error.message || 'There was an error recovering your account')
+          log('Error recovering wallet', response.error)
         }
       }
-    })();
-  }, [embeddedState]);
+    })()
+  }, [embeddedState])
 
   if (error) {
-    <PageContent>
-      <ModalBody style={{ textAlign: "center" }} $error>
-        <FitText>
-          {error}
-        </FitText>
+    ;<PageContent>
+      <ModalBody style={{ textAlign: 'center' }} $error>
+        <FitText>{error}</FitText>
       </ModalBody>
     </PageContent>
   }
@@ -218,29 +206,29 @@ const RecoverAutomaticWallet = ({ walletAddress }: { walletAddress: Hex }) => {
 }
 
 const CreateWalletAutomaticRecovery = () => {
-  const { embeddedState } = useOpenfortCore();
-  const { createWallet } = useWallets();
-  const [shouldCreateWallet, setShouldCreateWallet] = useState(false);
-  const { log } = useOpenfort();
+  const { embeddedState } = useOpenfortCore()
+  const { createWallet } = useWallets()
+  const [shouldCreateWallet, setShouldCreateWallet] = useState(false)
+  const { log } = useOpenfort()
 
   useEffect(() => {
     // To ensure the wallet is created only once
     if (shouldCreateWallet) {
-      (async () => {
-        log("Creating wallet Automatic recover");
+      ;(async () => {
+        log('Creating wallet Automatic recover')
         const response = await createWallet()
         if (response.error) {
-          log("Error creating wallet", response.error);
+          log('Error creating wallet', response.error)
         }
-      })();
+      })()
     }
-  }, [shouldCreateWallet]);
+  }, [shouldCreateWallet])
 
   useEffect(() => {
     if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
-      setShouldCreateWallet(true);
+      setShouldCreateWallet(true)
     }
-  }, [embeddedState]);
+  }, [embeddedState])
 
   return (
     <PageContent>
@@ -249,120 +237,124 @@ const CreateWalletAutomaticRecovery = () => {
   )
 }
 
-const OtherMethod = ({ currentMethod, onChangeMethod }: { currentMethod: RecoveryMethod, onChangeMethod: (method: RecoveryMethod | "other") => void }) => {
-  const { uiConfig } = useOpenfort();
+const OtherMethod = ({
+  currentMethod,
+  onChangeMethod,
+}: {
+  currentMethod: RecoveryMethod
+  onChangeMethod: (method: RecoveryMethod | 'other') => void
+}) => {
+  const { uiConfig } = useOpenfort()
   const otherMethods = useMemo(() => {
-    const allowedMethods = uiConfig.walletRecovery.allowedMethods;
-    const otherMethods = allowedMethods.filter((method) => method !== currentMethod);
-    return otherMethods;
-  }, [uiConfig, currentMethod]);
+    const allowedMethods = uiConfig.walletRecovery.allowedMethods
+    const otherMethods = allowedMethods.filter((method) => method !== currentMethod)
+    return otherMethods
+  }, [uiConfig, currentMethod])
 
-  if (otherMethods.length === 0) return null;
+  if (otherMethods.length === 0) return null
 
   if (otherMethods.length === 1) {
-    const method = otherMethods[0];
-    let text: string;
+    const method = otherMethods[0]
+    let text: string
     switch (method) {
       case RecoveryMethod.PASSWORD:
-        text = "Use password recovery instead";
-        break;
+        text = 'Use password recovery instead'
+        break
       case RecoveryMethod.AUTOMATIC:
-        text = "Skip for now";
-        break;
+        text = 'Skip for now'
+        break
       case RecoveryMethod.PASSKEY:
-        text = "Use passkey recovery instead";
-        break;
+        text = 'Use passkey recovery instead'
+        break
       default:
-        text = method;
+        text = method
     }
     return (
-      <OtherMethodButton onClick={() => {
-        onChangeMethod(method);
-      }}>
+      <OtherMethodButton
+        onClick={() => {
+          onChangeMethod(method)
+        }}
+      >
         {text}
       </OtherMethodButton>
-    );
+    )
   }
 
-  return (
-    <OtherMethodButton
-      onClick={() => onChangeMethod("other")}
-    >
-      Choose another recovery method
-    </OtherMethodButton>
-  )
+  return <OtherMethodButton onClick={() => onChangeMethod('other')}>Choose another recovery method</OtherMethodButton>
 }
 
-
-const CreateWalletPasskeyRecovery = ({ onChangeMethod }: { onChangeMethod: (method: RecoveryMethod | "other") => void }) => {
-  const { triggerResize } = useOpenfort();
-  const { createWallet, error: recoveryError } = useWallets();
-  const [shouldCreateWallet, setShouldCreateWallet] = useState(false);
-  const { log } = useOpenfort();
-  const { embeddedState } = useOpenfortCore();
+const CreateWalletPasskeyRecovery = ({
+  onChangeMethod,
+}: {
+  onChangeMethod: (method: RecoveryMethod | 'other') => void
+}) => {
+  const { triggerResize } = useOpenfort()
+  const { createWallet, error: recoveryError } = useWallets()
+  const [shouldCreateWallet, setShouldCreateWallet] = useState(false)
+  const { log } = useOpenfort()
+  const { embeddedState } = useOpenfortCore()
 
   useEffect(() => {
     // To ensure the wallet is created only once
     if (shouldCreateWallet) {
-      (async () => {
-        log("Creating wallet passkey recovery");
+      ;(async () => {
+        log('Creating wallet passkey recovery')
         const response = await createWallet({
           recovery: {
             recoveryMethod: RecoveryMethod.PASSKEY,
-          }
+          },
         })
         if (response.error) {
-          log("Error creating wallet", response.error);
-          setShouldCreateWallet(false);
+          log('Error creating wallet', response.error)
+          setShouldCreateWallet(false)
         }
-      })();
+      })()
     }
-  }, [shouldCreateWallet]);
+  }, [shouldCreateWallet])
 
   useEffect(() => {
     if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
-      setShouldCreateWallet(true);
+      setShouldCreateWallet(true)
     }
-  }, [embeddedState]);
+  }, [embeddedState])
 
   useEffect(() => {
-    if (recoveryError)
-      triggerResize();
-  }, [recoveryError]);
-
+    if (recoveryError) triggerResize()
+  }, [recoveryError])
 
   return (
     <PageContent>
       <Loader
         icon={<FingerPrintIcon />}
         isError={!!recoveryError}
-        header={recoveryError ? "Invalid passkey." : "Creating wallet with passkey..."}
-        description={recoveryError ? "There was an error creating your passkey. Please try again." : undefined}
+        header={recoveryError ? 'Invalid passkey.' : 'Creating wallet with passkey...'}
+        description={recoveryError ? 'There was an error creating your passkey. Please try again.' : undefined}
         onRetry={() => setShouldCreateWallet(true)}
       />
-      <OtherMethod
-        currentMethod={RecoveryMethod.PASSKEY}
-        onChangeMethod={onChangeMethod}
-      />
+      <OtherMethod currentMethod={RecoveryMethod.PASSKEY} onChangeMethod={onChangeMethod} />
     </PageContent>
   )
 }
 
-const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (method: RecoveryMethod | "other") => void }) => {
-  const [recoveryPhrase, setRecoveryPhrase] = useState("");
-  const [recoveryError, setRecoveryError] = useState<false | string>(false);
-  const { triggerResize, uiConfig: options, log } = useOpenfort();
-  const [showPasswordIsTooWeakError, setShowPasswordIsTooWeakError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { createWallet } = useWallets();
+const CreateWalletPasswordRecovery = ({
+  onChangeMethod,
+}: {
+  onChangeMethod: (method: RecoveryMethod | 'other') => void
+}) => {
+  const [recoveryPhrase, setRecoveryPhrase] = useState('')
+  const [recoveryError, setRecoveryError] = useState<false | string>(false)
+  const { triggerResize, log } = useOpenfort()
+  const [showPasswordIsTooWeakError, setShowPasswordIsTooWeakError] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const { createWallet } = useWallets()
 
   const handleSubmit = async () => {
     if (getPasswordStrength(recoveryPhrase) < MEDIUM_SCORE_THRESHOLD) {
-      setShowPasswordIsTooWeakError(true);
-      return;
+      setShowPasswordIsTooWeakError(true)
+      return
     }
 
-    setLoading(true);
+    setLoading(true)
 
     const { error } = await createWallet({
       recovery: {
@@ -371,19 +363,18 @@ const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (met
       },
     })
 
-    setLoading(false);
+    setLoading(false)
 
     if (error) {
-      setRecoveryError(error.message || "There was an error recovering your account");
+      setRecoveryError(error.message || 'There was an error recovering your account')
     } else {
-      log("Recovery success");
+      log('Recovery success')
     }
-  };
+  }
 
   useEffect(() => {
-    if (recoveryError)
-      triggerResize();
-  }, [recoveryError]);
+    if (recoveryError) triggerResize()
+  }, [recoveryError])
 
   return (
     <PageContent>
@@ -391,35 +382,32 @@ const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (met
         height="80px"
         logoCenter={{
           logo: <KeyIcon />,
-          size: "1.2",
+          size: '1.2',
         }}
         logoTopLeft={{
           logo: <ShieldIcon />,
-          size: "0.75",
+          size: '0.75',
         }}
         logoBottomRight={{
           logo: <LockIcon />,
-          size: "0.5",
+          size: '0.5',
         }}
       />
       <ModalHeading>Secure your wallet</ModalHeading>
-      <ModalBody style={{ textAlign: "center" }}>
-        <FitText>
-          Set a password for your wallet.
-        </FitText>
+      <ModalBody style={{ textAlign: 'center' }}>
+        <FitText>Set a password for your wallet.</FitText>
 
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
+            e.preventDefault()
+            handleSubmit()
           }}
         >
           <Input
             value={recoveryPhrase}
             onChange={(e) => {
-              if (showPasswordIsTooWeakError)
-                setShowPasswordIsTooWeakError(false);
-              setRecoveryPhrase(e.target.value);
+              if (showPasswordIsTooWeakError) setShowPasswordIsTooWeakError(false)
+              setRecoveryPhrase(e.target.value)
             }}
             type="password"
             placeholder="Enter your password"
@@ -431,52 +419,34 @@ const CreateWalletPasswordRecovery = ({ onChangeMethod }: { onChangeMethod: (met
             showPasswordIsTooWeakError={showPasswordIsTooWeakError}
           />
           <TickList
-            items={[
-              "You will use this password to access your wallet",
-              "Make sure it's strong and memorable",
-            ]}
+            items={['You will use this password to access your wallet', "Make sure it's strong and memorable"]}
           />
 
           {recoveryError && (
             <motion.div key={recoveryError} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <ModalBody style={{ height: 24, marginTop: 12 }} $error>
-                <FitText>
-                  {recoveryError}
-                </FitText>
+                <FitText>{recoveryError}</FitText>
               </ModalBody>
             </motion.div>
           )}
 
-          <Button
-            onClick={handleSubmit}
-            waiting={loading}
-            disabled={loading}
-          >
+          <Button onClick={handleSubmit} waiting={loading} disabled={loading}>
             Create wallet
           </Button>
         </form>
-        <OtherMethod
-          currentMethod={RecoveryMethod.PASSWORD}
-          onChangeMethod={onChangeMethod}
-        />
+        <OtherMethod currentMethod={RecoveryMethod.PASSWORD} onChangeMethod={onChangeMethod} />
       </ModalBody>
-    </PageContent >
+    </PageContent>
   )
 }
 
-const ChooseRecoveryMethod = ({ onChangeMethod }: { onChangeMethod: (method: RecoveryMethod | "other") => void }) => {
+const ChooseRecoveryMethod = ({ onChangeMethod }: { onChangeMethod: (method: RecoveryMethod | 'other') => void }) => {
   return (
     <PageContent>
       <ModalHeading>Choose a recovery method</ModalHeading>
-      <Button onClick={() => onChangeMethod(RecoveryMethod.PASSWORD)}>
-        Password
-      </Button>
-      <Button onClick={() => onChangeMethod(RecoveryMethod.AUTOMATIC)}>
-        Automatic
-      </Button>
-      <Button onClick={() => onChangeMethod(RecoveryMethod.PASSKEY)}>
-        Passkey
-      </Button>
+      <Button onClick={() => onChangeMethod(RecoveryMethod.PASSWORD)}>Password</Button>
+      <Button onClick={() => onChangeMethod(RecoveryMethod.AUTOMATIC)}>Automatic</Button>
+      <Button onClick={() => onChangeMethod(RecoveryMethod.PASSKEY)}>Passkey</Button>
     </PageContent>
   )
 }
@@ -490,7 +460,7 @@ const RecoverWallet = ({ wallet }: { wallet: UserWallet }) => {
     case RecoveryMethod.PASSKEY:
       return <RecoverPasskeyWallet wallet={wallet} />
     default:
-      logger.error("Unsupported recovery method: " + wallet.recoveryMethod + ", defaulting to automatic.");
+      logger.error(`Unsupported recovery method: ${wallet.recoveryMethod}, defaulting to automatic.`)
       return <RecoverAutomaticWallet walletAddress={wallet.address} />
   }
 }
@@ -508,15 +478,14 @@ const WalletRecoveryIcon = ({ recovery }: { recovery: RecoveryMethod | undefined
   }
 }
 
-const SelectWalletButton = ({ wallet, onSelect }: { wallet: UserWallet, onSelect: (wallet: UserWallet) => void }) => {
-
-  const ensFallbackConfig = useEnsFallbackConfig();
+const SelectWalletButton = ({ wallet, onSelect }: { wallet: UserWallet; onSelect: (wallet: UserWallet) => void }) => {
+  const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: wallet.address,
     config: ensFallbackConfig,
-  });
-  const walletDisplay = ensName ?? truncateEthAddress(wallet.address);
+  })
+  const walletDisplay = ensName ?? truncateEthAddress(wallet.address)
 
   // <Button
   //   onClick={() => onSelect(wallet)}
@@ -527,12 +496,8 @@ const SelectWalletButton = ({ wallet, onSelect }: { wallet: UserWallet, onSelect
 
   return (
     <ProvidersButton>
-      <Button
-        onClick={() => onSelect(wallet)}
-      >
-        <ProviderLabel>
-          {walletDisplay}
-        </ProviderLabel>
+      <Button onClick={() => onSelect(wallet)}>
+        <ProviderLabel>{walletDisplay}</ProviderLabel>
         <ProviderIcon>
           <WalletRecoveryIcon recovery={wallet.recoveryMethod} />
         </ProviderIcon>
@@ -542,7 +507,7 @@ const SelectWalletButton = ({ wallet, onSelect }: { wallet: UserWallet, onSelect
 }
 
 const SelectWalletToRecover = ({ wallets }: { wallets: UserWallet[] }) => {
-  const [selectedWallet, setSelectedWallet] = useState<UserWallet | null>(null);
+  const [selectedWallet, setSelectedWallet] = useState<UserWallet | null>(null)
 
   if (selectedWallet) {
     return <RecoverWallet wallet={selectedWallet} />
@@ -559,14 +524,14 @@ const SelectWalletToRecover = ({ wallets }: { wallets: UserWallet[] }) => {
 }
 
 const CreateWallet = () => {
-  const { uiConfig, triggerResize } = useOpenfort();
-  const [userSelectedMethod, setUserSelectedMethod] = useState<RecoveryMethod | "other" | null>(null);
+  const { uiConfig, triggerResize } = useOpenfort()
+  const [userSelectedMethod, setUserSelectedMethod] = useState<RecoveryMethod | 'other' | null>(null)
 
   useEffect(() => {
-    triggerResize();
+    triggerResize()
   }, [userSelectedMethod])
 
-  const method = userSelectedMethod ?? uiConfig.walletRecovery.defaultMethod;
+  const method = userSelectedMethod ?? uiConfig.walletRecovery.defaultMethod
 
   switch (method) {
     case RecoveryMethod.PASSWORD:
@@ -575,57 +540,55 @@ const CreateWallet = () => {
       return <CreateWalletAutomaticRecovery />
     case RecoveryMethod.PASSKEY:
       return <CreateWalletPasskeyRecovery onChangeMethod={setUserSelectedMethod} />
-    case "other":
+    case 'other':
       return <ChooseRecoveryMethod onChangeMethod={setUserSelectedMethod} />
     default:
-      logger.error("Unsupported recovery method: " + userSelectedMethod + uiConfig.walletRecovery.defaultMethod);
-      return null;
+      logger.error(`Unsupported recovery method: ${userSelectedMethod}${uiConfig.walletRecovery.defaultMethod}`)
+      return null
   }
 }
 
 const Connected: React.FC = () => {
-  const { setOpen } = useOpenfort();
+  const { setOpen } = useOpenfort()
 
   // hide on connect
   useEffect(() => {
     setTimeout(() => {
-      setOpen(false);
-    }, 1000);
-  }, []);
+      setOpen(false)
+    }, 1000)
+  }, [])
 
   return (
     <PageContent>
-      <Loader
-        isLoading={false}
-        isSuccess={true}
-        header="Connected"
-      />
+      <Loader isLoading={false} isSuccess={true} header="Connected" />
     </PageContent>
   )
 }
 
 const RecoverPage: React.FC = () => {
-  const { needsRecovery, user } = useOpenfortCore();
-  const { triggerResize, uiConfig, walletConfig, setRoute } = useOpenfort();
-  const { wallets, isLoadingWallets } = useWallets();
+  const { user } = useOpenfortCore()
+  const { triggerResize } = useOpenfort()
+  const { wallets, isLoadingWallets } = useWallets()
   // const [loading, setLoading] = useState(true);
-  const [embeddedSignerLoading, setEmbeddedSignerLoading] = useState(true);
-  const { isConnected } = useAccount();
+  const [embeddedSignerLoading, setEmbeddedSignerLoading] = useState(true)
+  const { isConnected } = useAccount()
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: NodeJS.Timeout
     if (!isLoadingWallets) {
       timeout = setTimeout(() => {
-        setEmbeddedSignerLoading(false);
-        triggerResize();
-      }, 500);
+        setEmbeddedSignerLoading(false)
+        triggerResize()
+      }, 500)
     }
-    return () => { clearTimeout(timeout); }
-  }, [isLoadingWallets]);
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [isLoadingWallets])
 
   const openfortWallets = useMemo(() => {
-    return wallets.filter((wallet) => wallet.id === embeddedWalletId);
-  }, [wallets]);
+    return wallets.filter((wallet) => wallet.id === embeddedWalletId)
+  }, [wallets])
 
   // useEffect(() => {
   //   if (!user) return;
@@ -646,8 +609,6 @@ const RecoverPage: React.FC = () => {
   //   setLoading(false);
   // }, [user])
 
-
-
   if (embeddedSignerLoading) {
     return (
       <PageContent>
@@ -663,28 +624,18 @@ const RecoverPage: React.FC = () => {
   if (!openfortWallets) {
     // Here wallets should be loaded, so if we don't have them something went wrong
     // TODO: add error logs
-    return (
-      <PageContent>
-        An unexpected error occurred. Please try again later.
-      </PageContent>
-    )
+    return <PageContent>An unexpected error occurred. Please try again later.</PageContent>
   }
 
   if (openfortWallets.length === 0) {
-    return (
-      <CreateWallet />
-    )
+    return <CreateWallet />
   }
 
   if (wallets.length === 1) {
-    return (
-      <RecoverWallet wallet={openfortWallets[0]} />
-    )
+    return <RecoverWallet wallet={openfortWallets[0]} />
   }
 
-  return (
-    <SelectWalletToRecover wallets={openfortWallets} />
-  )
+  return <SelectWalletToRecover wallets={openfortWallets} />
 
   // if (walletConfig && walletConfig.recoveryMethod === RecoveryMethod.AUTOMATIC) {
   //   return <AutomaticRecovery />
@@ -701,4 +652,4 @@ const RecoverPage: React.FC = () => {
   // }
 }
 
-export default RecoverPage;
+export default RecoverPage

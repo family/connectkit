@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import type { LocaleProps } from './'
+import enUS from './en-US'
 
 const jaJP: LocaleProps = {
   ...enUS, // fallback
@@ -110,10 +110,9 @@ const jaJP: LocaleProps = {
   signInWithEthereumScreen_signedOut_button: 'サインイン',
 
   signInWithEthereumScreen_signedIn_heading: 'イーサリアムでサインインしました',
-  signInWithEthereumScreen_signedIn_h1:
-    'このウォレットの所有者であることが 正常に確認されました。',
+  signInWithEthereumScreen_signedIn_h1: 'このウォレットの所有者であることが 正常に確認されました。',
   signInWithEthereumScreen_signedIn_p: `サインアウトすると、今後 再度認証する必要があります。`,
   signInWithEthereumScreen_signedIn_button: 'サインアウト',
-};
+}
 
-export default jaJP;
+export default jaJP

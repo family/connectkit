@@ -1,11 +1,13 @@
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import typescript from 'rollup-plugin-typescript2';
-import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
-import packageJson from './package.json';
+import { readFileSync } from 'node:fs'
+import peerDepsExternal from 'rollup-plugin-peer-deps-external'
+import typescript from 'rollup-plugin-typescript2'
+import { createTransformer as createStyledComponentsTransformer } from 'typescript-plugin-styled-components'
+
+const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'))
 
 const styledComponentsTransformer = createStyledComponentsTransformer({
   displayName: true,
-});
+})
 
 export default [
   {
@@ -31,4 +33,4 @@ export default [
       }),
     ],
   },
-];
+]

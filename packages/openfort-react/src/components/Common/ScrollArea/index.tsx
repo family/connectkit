@@ -1,15 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { MoreIndicator, ScrollAreaContainer, ScrollContainer } from './styles';
-import useIsMobile from '../../../hooks/useIsMobile';
+import type React from 'react'
+import { useEffect, useRef } from 'react'
+import useIsMobile from '../../../hooks/useIsMobile'
+import { MoreIndicator, ScrollAreaContainer, ScrollContainer } from './styles'
 
 const ArrowDown = () => (
-  <svg
-    width="11"
-    height="12"
-    viewBox="0 0 11 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>Scroll down arrow</title>
     <path
       d="M5.49438 1L5.49438 11M5.49438 11L9.5 7M5.49438 11L1.5 7"
       stroke="currentColor"
@@ -18,73 +14,63 @@ const ArrowDown = () => (
       strokeLinejoin="round"
     />
   </svg>
-);
+)
 export const ScrollArea = ({
   children,
   height,
   backgroundColor,
   mobileDirection,
 }: {
-  children: React.ReactNode;
-  height?: number;
-  backgroundColor?: string;
-  mobileDirection?: 'horizontal' | 'vertical';
+  children: React.ReactNode
+  height?: number
+  backgroundColor?: string
+  mobileDirection?: 'horizontal' | 'vertical'
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const moreRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null)
+  const moreRef = useRef<HTMLDivElement>(null)
 
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile()
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const el = ref.current
+    if (!el) return
 
     // if ref is not scrollable, hide the more indicator
     if (el.scrollHeight > el.clientHeight) {
       if (moreRef.current) {
-        moreRef.current.classList.remove('hide');
+        moreRef.current.classList.remove('hide')
       }
     }
 
     const handleScroll = (e: any) => {
-      const {
-        scrollTop,
-        scrollHeight,
-        clientHeight,
-        scrollLeft,
-        scrollWidth,
-        clientWidth,
-      } = e.target;
+      const { scrollTop, scrollHeight, clientHeight, scrollLeft, scrollWidth, clientWidth } = e.target
 
       if (moreRef.current) {
         if (scrollTop > 0) {
-          moreRef.current.classList.add('hide');
+          moreRef.current.classList.add('hide')
         }
       }
 
       if (scrollTop === 0 && scrollLeft === 0) {
-        el.classList.add('scroll-start');
+        el.classList.add('scroll-start')
       } else {
-        el.classList.remove('scroll-start');
+        el.classList.remove('scroll-start')
       }
 
-      if (
-        scrollHeight - scrollTop === clientHeight &&
-        scrollWidth - scrollLeft === clientWidth
-      ) {
-        el.classList.add('scroll-end');
+      if (scrollHeight - scrollTop === clientHeight && scrollWidth - scrollLeft === clientWidth) {
+        el.classList.add('scroll-end')
       } else {
-        el.classList.remove('scroll-end');
+        el.classList.remove('scroll-end')
       }
-    };
+    }
 
-    el.addEventListener('scroll', handleScroll);
-    handleScroll({ target: el });
+    el.addEventListener('scroll', handleScroll)
+    handleScroll({ target: el })
 
     return () => {
-      el.removeEventListener('scroll', handleScroll);
-    };
-  }, [ref.current]);
+      el.removeEventListener('scroll', handleScroll)
+    }
+  }, [ref.current])
 
   return (
     <ScrollContainer>
@@ -105,7 +91,7 @@ export const ScrollArea = ({
             ref.current.scrollTo({
               top: ref.current.scrollHeight,
               behavior: 'smooth',
-            });
+            })
           }
         }}
       >
@@ -114,5 +100,5 @@ export const ScrollArea = ({
         </span>
       </MoreIndicator>
     </ScrollContainer>
-  );
-};
+  )
+}

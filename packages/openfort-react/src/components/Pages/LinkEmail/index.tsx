@@ -1,13 +1,13 @@
-import { AnimatePresence, Variants } from 'framer-motion';
-import React from "react";
-import { useOpenfortCore } from '../../../openfort/useOpenfort';
-import Button from "../../Common/Button";
-import FitText from "../../Common/FitText";
-import Input from "../../Common/Input";
-import { ModalBody, PageContent } from "../../Common/Modal/styles";
-import { TextContainer } from "../../ConnectButton/styles";
-import { useOpenfort } from '../../Openfort/useOpenfort';
-import { routes } from '../../Openfort/types';
+import { AnimatePresence, type Variants } from 'framer-motion'
+import React from 'react'
+import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import Button from '../../Common/Button'
+import FitText from '../../Common/FitText'
+import Input from '../../Common/Input'
+import { ModalBody, PageContent } from '../../Common/Modal/styles'
+import { TextContainer } from '../../ConnectButton/styles'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 
 // TODO: Localize
 
@@ -30,53 +30,55 @@ const textVariants: Variants = {
       ease: [0.25, 1, 0.5, 1],
     },
   },
-};
+}
 
 const LinkEmail: React.FC = () => {
-  const [password, setPassword] = React.useState("");
+  const [password, setPassword] = React.useState('')
 
-  const { setRoute, triggerResize, log, emailInput: email, setEmailInput: setEmail } = useOpenfort();
-  const { client, updateUser } = useOpenfortCore();
+  const { setRoute, triggerResize, log, emailInput: email, setEmailInput: setEmail } = useOpenfort()
+  const { client, updateUser } = useOpenfortCore()
 
-  const [loginLoading, setLoginLoading] = React.useState(false);
-  const [loginError, setLoginError] = React.useState<false | string>(false);
+  const [loginLoading, setLoginLoading] = React.useState(false)
+  const [loginError, setLoginError] = React.useState<false | string>(false)
 
   const handleSubmit = async () => {
-    setLoginLoading(true);
+    setLoginLoading(true)
 
-    await client.validateAndRefreshToken();
-    const authToken = await client.getAccessToken();
+    await client.validateAndRefreshToken()
+    const authToken = await client.getAccessToken()
     if (!authToken) {
-      log("No token found");
-      setLoginLoading(false);
-      setLoginError("No token found.");
-      triggerResize();
-      return;
+      log('No token found')
+      setLoginLoading(false)
+      setLoginError('No token found.')
+      triggerResize()
+      return
     }
-    client.auth.linkEmailPassword({
-      email,
-      password,
-      authToken,
-    }).catch((e) => {
-      log("Link error:", e);
-      setLoginLoading(false);
-      setLoginError("Could not link email.");
-      triggerResize();
-    }).then(() => {
-      updateUser()
-        .then(() => {
-          setEmail("");
-          setRoute(routes.PROFILE);
+    client.auth
+      .linkEmailPassword({
+        email,
+        password,
+        authToken,
+      })
+      .catch((e) => {
+        log('Link error:', e)
+        setLoginLoading(false)
+        setLoginError('Could not link email.')
+        triggerResize()
+      })
+      .then(() => {
+        updateUser().then(() => {
+          setEmail('')
+          setRoute(routes.PROFILE)
         })
-    });
+      })
   }
 
   return (
     <PageContent>
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
+          e.preventDefault()
+          handleSubmit()
         }}
       >
         <Input
@@ -97,17 +99,11 @@ const LinkEmail: React.FC = () => {
 
         {loginError && (
           <ModalBody style={{ height: 24, marginTop: 12 }} $error>
-            <FitText>
-              {loginError}
-            </FitText>
+            <FitText>{loginError}</FitText>
           </ModalBody>
         )}
 
-        <Button
-          onClick={handleSubmit}
-          disabled={loginLoading}
-          waiting={loginLoading}
-        >
+        <Button onClick={handleSubmit} disabled={loginLoading} waiting={loginLoading}>
           <AnimatePresence initial={false}>
             {loginLoading ? (
               <TextContainer
@@ -133,8 +129,8 @@ const LinkEmail: React.FC = () => {
           </AnimatePresence>
         </Button>
       </form>
-    </PageContent >
+    </PageContent>
   )
 }
 
-export default LinkEmail;
+export default LinkEmail

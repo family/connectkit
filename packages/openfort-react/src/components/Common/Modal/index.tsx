@@ -1,16 +1,22 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-
-import { AnimatePresence, motion, Variants } from 'framer-motion';
-
-import { ResetContainer } from '../../../styles';
-import Portal from '../Portal';
-
-import {
-  flattenChildren,
-  isMobile,
-  isWalletConnectConnector,
-} from '../../../utils';
-
+import { AnimatePresence, motion, type Variants } from 'framer-motion'
+import type React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTransition } from 'react-transition-state'
+import { useAccount, useSwitchChain } from 'wagmi'
+import { AuthIcon } from '../../../assets/icons'
+import FocusTrap from '../../../hooks/useFocusTrap'
+import useLocales from '../../../hooks/useLocales'
+import useLockBodyScroll from '../../../hooks/useLockBodyScroll'
+import usePrevious from '../../../hooks/usePrevious'
+import { ResetContainer } from '../../../styles'
+import type { CustomTheme } from '../../../types'
+import { flattenChildren, isMobile, isWalletConnectConnector } from '../../../utils'
+import { useWallet } from '../../../wallets/useWallets'
+import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import FitText from '../FitText'
+import Portal from '../Portal'
 import {
   BackButton,
   BackgroundOverlay,
@@ -25,25 +31,10 @@ import {
   ModalHeading,
   PageContainer,
   PageContents,
-  TextWithHr
-} from './styles';
+  TextWithHr,
+} from './styles'
 
-import useLockBodyScroll from '../../../hooks/useLockBodyScroll';
-import { useOpenfort } from '../../Openfort/useOpenfort';
-
-import { useTransition } from 'react-transition-state';
-import { useAccount, useSwitchChain } from 'wagmi';
-import { AuthIcon } from '../../../assets/icons';
-import FocusTrap from '../../../hooks/useFocusTrap';
-import useLocales from '../../../hooks/useLocales';
-import usePrevious from '../../../hooks/usePrevious';
-import { CustomTheme } from '../../../types';
-import { useWallet } from '../../../wallets/useWallets';
-import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
-import { routes } from '../../Openfort/types';
-import FitText from '../FitText';
-
-const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
+const _ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
   <div style={{ position: 'relative' }}>
     {isSignedIn ? (
       <AuthIcon
@@ -85,7 +76,7 @@ const ProfileIcon = ({ isSignedIn }: { isSignedIn?: boolean }) => (
       <circle cx="10" cy="8" r="3" stroke="currentColor" strokeWidth="2" />
     </svg>
   </div>
-);
+)
 const InfoIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
@@ -103,44 +94,21 @@ const InfoIcon = ({ ...props }) => (
       fill="currentColor"
     />
   </svg>
-);
+)
 const CloseIcon = ({ ...props }) => (
-  <motion.svg
-    width={14}
-    height={14}
-    viewBox="0 0 14 14"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M1 13L13 1M1 1L13 13"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
+  <motion.svg width={14} height={14} viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <title>Close</title>
+    <path d="M1 13L13 1M1 1L13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </motion.svg>
-);
+)
 const BackIcon = ({ ...props }) => (
-  <motion.svg
-    width={9}
-    height={16}
-    viewBox="0 0 9 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M8 1L1 8L8 15"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+  <motion.svg width={9} height={16} viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <title>Back</title>
+    <path d="M8 1L1 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </motion.svg>
-);
+)
 
-const contentTransitionDuration = 0.22;
+const contentTransitionDuration = 0.22
 
 export const contentVariants: Variants = {
   initial: {
@@ -169,24 +137,24 @@ export const contentVariants: Variants = {
       ease: [0.26, 0.08, 0.25, 1],
     },
   },
-};
+}
 
 type ModalProps = {
-  open?: boolean;
-  pages: any;
-  pageId: string;
-  positionInside?: boolean;
-  inline?: boolean;
-  onClose?: () => void;
-  onBack?: () => void;
-  onInfo?: () => void;
+  open?: boolean
+  pages: any
+  pageId: string
+  positionInside?: boolean
+  inline?: boolean
+  onClose?: () => void
+  onBack?: () => void
+  onInfo?: () => void
 
   demo?: {
-    theme: string;
-    mode?: string;
-    customTheme: CustomTheme;
-  };
-};
+    theme: string
+    mode?: string
+    customTheme: CustomTheme
+  }
+}
 const Modal: React.FC<ModalProps> = ({
   open,
   pages,
@@ -198,11 +166,11 @@ const Modal: React.FC<ModalProps> = ({
   onBack,
   onInfo,
 }) => {
-  const context = useOpenfort();
-  const themeContext = useThemeContext();
-  const mobile = isMobile();
+  const context = useOpenfort()
+  const themeContext = useThemeContext()
+  const mobile = isMobile()
 
-  const wallet = useWallet(context.connector?.id);
+  const wallet = useWallet(context.connector?.id)
 
   const walletInfo = {
     name: wallet?.name,
@@ -210,155 +178,148 @@ const Modal: React.FC<ModalProps> = ({
     icon: wallet?.iconConnector ?? wallet?.icon,
     iconShape: wallet?.iconShape ?? 'circle',
     iconShouldShrink: wallet?.iconShouldShrink,
-  };
+  }
 
   const locales = useLocales({
     CONNECTORNAME: walletInfo?.name,
-  });
+  })
 
   const [state, setOpen] = useTransition({
     timeout: mobile ? 160 : 160, // different animations, 10ms extra to avoid final-frame drops
     preEnter: true,
     mountOnEnter: true,
     unmountOnExit: true,
-  });
-  const mounted = !(state === 'exited' || state === 'unmounted');
-  const rendered = state === 'preEnter' || state !== 'exiting';
+  })
+  const mounted = !(state === 'exited' || state === 'unmounted')
+  const rendered = state === 'preEnter' || state !== 'exiting'
 
-  const currentDepth =
-    context.route === routes.PROVIDERS
-      ? 0
-      : context.route === routes.DOWNLOAD
-        ? 2
-        : 1;
+  const currentDepth = context.route === routes.PROVIDERS ? 0 : context.route === routes.DOWNLOAD ? 2 : 1
 
-  const prevDepth = usePrevious(currentDepth, currentDepth);
-  if (!positionInside) useLockBodyScroll(mounted);
+  const prevDepth = usePrevious(currentDepth, currentDepth)
+  useLockBodyScroll(!positionInside ? mounted : false)
 
-  const prevPage = usePrevious(pageId, pageId);
+  const _prevPage = usePrevious(pageId, pageId)
 
   useEffect(() => {
-    setOpen(open);
-    if (open) setInTransition(undefined);
-  }, [open]);
+    setOpen(open)
+    if (open) setInTransition(undefined)
+  }, [open])
 
   const [dimensions, setDimensions] = useState<{
-    width: string | undefined;
-    height: string | undefined;
+    width: string | undefined
+    height: string | undefined
   }>({
     width: undefined,
     height: undefined,
-  });
-  const [inTransition, setInTransition] = useState<boolean | undefined>(
-    undefined
-  );
+  })
+  const [inTransition, setInTransition] = useState<boolean | undefined>(undefined)
 
   // Calculate new content bounds
   const updateBounds = (node: any) => {
     const bounds = {
       width: node?.offsetWidth,
       height: node?.offsetHeight,
-    };
+    }
     setDimensions({
       width: `${bounds?.width}px`,
       height: `${bounds?.height}px`,
-    });
-  };
+    })
+  }
 
-  let blockTimeout: ReturnType<typeof setTimeout>;
+  let blockTimeout: ReturnType<typeof setTimeout>
   const contentRef = useCallback(
     (node: any) => {
-      if (!node) return;
-      ref.current = node;
+      if (!node) return
+      ref.current = node
 
       // Avoid transition mixups
-      setInTransition(inTransition === undefined ? false : true);
-      clearTimeout(blockTimeout);
-      blockTimeout = setTimeout(() => setInTransition(false), 360);
+      setInTransition(inTransition !== undefined)
+      clearTimeout(blockTimeout)
+      blockTimeout = setTimeout(() => setInTransition(false), 360)
 
       // Calculate new content bounds
-      updateBounds(node);
+      updateBounds(node)
     },
     [open, inTransition]
-  );
+  )
 
   // Update layout on chain/network switch to avoid clipping
-  const { chain } = useAccount();
-  const { switchChain } = useSwitchChain();
+  const { chain } = useAccount()
+  const { switchChain } = useSwitchChain()
 
-  const ref = useRef<any>(null);
+  const ref = useRef<any>(null)
   useEffect(() => {
-    if (ref.current) updateBounds(ref.current);
-  }, [chain, switchChain, mobile, context.uiConfig, context.resize]);
+    if (ref.current) updateBounds(ref.current)
+  }, [chain, switchChain, mobile, context.uiConfig, context.resize])
 
   useEffect(() => {
     if (!mounted) {
       setDimensions({
         width: undefined,
         height: undefined,
-      });
-      return;
+      })
+      return
     }
 
     const listener = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && onClose) onClose();
-    };
-    document.addEventListener('keydown', listener);
+      if (e.key === 'Escape' && onClose) onClose()
+    }
+    document.addEventListener('keydown', listener)
     return () => {
-      document.removeEventListener('keydown', listener);
-    };
-  }, [mounted, onClose]);
+      document.removeEventListener('keydown', listener)
+    }
+  }, [mounted, onClose])
 
   const dimensionsCSS = {
     '--height': dimensions.height,
     '--width': dimensions.width,
-  } as React.CSSProperties;
+  } as React.CSSProperties
 
   function shouldUseQrcode() {
-    if (!wallet) return false; // Fail states are shown in the injector flow
+    if (!wallet) return false // Fail states are shown in the injector flow
 
-    const useInjector = !wallet.getWalletConnectDeeplink || wallet.isInstalled;
-    return !useInjector;
+    const useInjector = !wallet.getWalletConnectDeeplink || wallet.isInstalled
+    return !useInjector
   }
 
   function getHeading() {
     switch (context.route) {
       case routes.ABOUT:
-        return locales.aboutScreen_heading;
+        return locales.aboutScreen_heading
       case routes.PROVIDERS:
-        return "Connect";// TODO: Localize
+        return 'Connect' // TODO: Localize
       case routes.EMAIL_LOGIN:
-        return "Continue with email";// TODO: Localize
+        return 'Continue with email' // TODO: Localize
       case routes.FORGOT_PASSWORD:
-        return "Reset your password";// TODO: Localize
+        return 'Reset your password' // TODO: Localize
       case routes.EMAIL_VERIFICATION:
-        return "Email Verification"; // TODO: Localize
+        return 'Email Verification' // TODO: Localize
       case routes.SOCIAL_PROVIDERS:
-        return "Other socials"; // TODO: Localize
+        return 'Other socials' // TODO: Localize
       case routes.LINK_EMAIL:
-        return "Link your email";// TODO: Localize
+        return 'Link your email' // TODO: Localize
       case routes.CONNECT:
         if (shouldUseQrcode()) {
           return isWalletConnectConnector(wallet?.connector?.id)
             ? locales.scanScreen_heading
-            : locales.scanScreen_heading_withConnector;
+            : locales.scanScreen_heading_withConnector
         } else {
-          return walletInfo?.name;
+          return walletInfo?.name
         }
       case routes.CONNECTORS:
-        return locales.connectorsScreen_heading;
+        return locales.connectorsScreen_heading
       case routes.MOBILECONNECTORS:
-        return locales.mobileConnectorsScreen_heading;
+        return locales.mobileConnectorsScreen_heading
       case routes.DOWNLOAD:
-        return locales.downloadAppScreen_heading;
+        return locales.downloadAppScreen_heading
       case routes.ONBOARDING:
-        return locales.onboardingScreen_heading;
+        return locales.onboardingScreen_heading
       case routes.PROFILE:
-        return locales.profileScreen_heading;
+        return locales.profileScreen_heading
       case routes.SWITCHNETWORKS:
-        return locales.switchNetworkScreen_heading;
+        return locales.switchNetworkScreen_heading
       default:
-        return '';
+        return ''
     }
   }
 
@@ -375,20 +336,14 @@ const Modal: React.FC<ModalProps> = ({
           position: positionInside ? 'absolute' : undefined,
         }}
       >
-        {!inline && (
-          <BackgroundOverlay
-            $active={rendered}
-            onClick={onClose}
-            $blur={context.uiConfig?.overlayBlur}
-          />
-        )}
+        {!inline && <BackgroundOverlay $active={rendered} onClick={onClose} $blur={context.uiConfig?.overlayBlur} />}
         <Container
           style={dimensionsCSS}
           initial={false}
-        // transition={{
-        //   ease: [0.2555, 0.1111, 0.2555, 1.0001],
-        //   duration: !positionInside && state !== 'entered' ? 0 : 0.24,
-        // }}
+          // transition={{
+          //   ease: [0.2555, 0.1111, 0.2555, 1.0001],
+          //   duration: !positionInside && state !== 'entered' ? 0 : 0.24,
+          // }}
         >
           <div
             style={{
@@ -436,26 +391,29 @@ const Modal: React.FC<ModalProps> = ({
                   transition={{ duration: 0.2, ease: 'easeInOut' }}
                 >
                   <span>{context.errorMessage}</span>
-                  <div
+                  <button
+                    type="button"
+                    aria-label={flattenChildren(locales.close).toString()}
                     onClick={() => context.displayError(null)}
                     style={{
                       position: 'absolute',
                       right: 24,
                       top: 24,
                       cursor: 'pointer',
+                      background: 'transparent',
+                      border: 'none',
+                      padding: 0,
+                      display: 'flex',
                     }}
                   >
                     <CloseIcon />
-                  </div>
+                  </button>
                 </ErrorMessage>
               )}
             </AnimatePresence>
             <ControllerContainer>
               {onClose && (
-                <CloseButton
-                  aria-label={flattenChildren(locales.close).toString()}
-                  onClick={onClose}
-                >
+                <CloseButton aria-label={flattenChildren(locales.close).toString()} onClick={onClose}>
                   <CloseIcon />
                 </CloseButton>
               )}
@@ -490,9 +448,7 @@ const Modal: React.FC<ModalProps> = ({
                     !context.uiConfig?.hideQuestionMarkCTA && (
                       <InfoButton
                         disabled={inTransition}
-                        aria-label={flattenChildren(
-                          locales.moreInformation
-                        ).toString()}
+                        aria-label={flattenChildren(locales.moreInformation).toString()}
                         key="infoButton"
                         onClick={onInfo}
                         initial={{ opacity: 0 }}
@@ -524,7 +480,7 @@ const Modal: React.FC<ModalProps> = ({
                     //alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  key={`${context.route}-${"signedIn"}`}
+                  key={`${context.route}-${'signedIn'}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -540,7 +496,7 @@ const Modal: React.FC<ModalProps> = ({
 
             <InnerContainer>
               {Object.keys(pages).map((key) => {
-                const page = pages[key];
+                const page = pages[key]
                 return (
                   // OLD_TODO: We may need to use the follow check avoid unnecessary computations, but this causes a bug where the content flashes
                   // (key === pageId || key === prevPage) && (
@@ -548,95 +504,65 @@ const Modal: React.FC<ModalProps> = ({
                     key={key}
                     open={key === pageId}
                     initial={!positionInside && state !== 'entered'}
-                    enterAnim={
-                      key === pageId
-                        ? currentDepth > prevDepth
-                          ? 'active-scale-up'
-                          : 'active'
-                        : ''
-                    }
-                    exitAnim={
-                      key !== pageId
-                        ? currentDepth < prevDepth
-                          ? 'exit-scale-down'
-                          : 'exit'
-                        : ''
-                    }
+                    enterAnim={key === pageId ? (currentDepth > prevDepth ? 'active-scale-up' : 'active') : ''}
+                    exitAnim={key !== pageId ? (currentDepth < prevDepth ? 'exit-scale-down' : 'exit') : ''}
                   >
                     <PageContents
                       key={`inner-${key}`}
                       ref={contentRef}
                       style={{
-                        pointerEvents:
-                          key === pageId && rendered ? 'auto' : 'none',
+                        pointerEvents: key === pageId && rendered ? 'auto' : 'none',
                       }}
                     >
                       {page}
                     </PageContents>
                   </Page>
-                );
+                )
               })}
             </InnerContainer>
           </BoxContainer>
         </Container>
       </ModalContainer>
     </ResetContainer>
-  );
+  )
   return (
     <>
-      {mounted && (
-        <>
-          {positionInside ? (
-            Content
-          ) : (
-            <>
-              {
-                <Portal>
-                  <FocusTrap>{Content}</FocusTrap>
-                </Portal>
-              }
-            </>
-          )}
-        </>
-      )}
+      {mounted &&
+        (positionInside ? (
+          Content
+        ) : (
+          <Portal>
+            <FocusTrap>{Content}</FocusTrap>
+          </Portal>
+        ))}
     </>
-  );
-};
+  )
+}
 
 type PageProps = {
-  children?: React.ReactNode;
-  open?: boolean;
-  initial: boolean;
-  prevDepth?: number;
-  currentDepth?: number;
-  enterAnim?: string;
-  exitAnim?: string;
-};
+  children?: React.ReactNode
+  open?: boolean
+  initial: boolean
+  enterAnim?: string
+  exitAnim?: string
+}
 
-const Page: React.FC<PageProps> = ({
-  children,
-  open,
-  initial,
-  prevDepth,
-  currentDepth,
-  enterAnim,
-  exitAnim,
-}) => {
+const Page: React.FC<PageProps> = ({ children, open, initial, enterAnim, exitAnim }) => {
   const [state, setOpen] = useTransition({
     timeout: 400,
     preEnter: true,
     initialEntered: open,
     mountOnEnter: true,
     unmountOnExit: true,
-  });
-  const mounted = !(state === 'exited' || state === 'unmounted');
-  const rendered = state === 'preEnter' || state !== 'exiting';
+  })
+  const mounted = !(state === 'exited' || state === 'unmounted')
+  const rendered = state === 'preEnter' || state !== 'exiting'
 
   useEffect(() => {
-    setOpen(open);
-  }, [open]);
+    setOpen(open)
+  }, [open])
 
-  if (!mounted) return null;
+  if (!mounted) return null
 
   return (
     <PageContainer
@@ -648,22 +574,16 @@ const Page: React.FC<PageProps> = ({
     >
       {children}
     </PageContainer>
-  );
-};
+  )
+}
 
-export const OrDivider = ({
-  children,
-  hideHr,
-}: {
-  children?: React.ReactNode;
-  hideHr?: boolean;
-}) => {
-  const locales = useLocales();
+export const OrDivider = ({ children, hideHr }: { children?: React.ReactNode; hideHr?: boolean }) => {
+  const locales = useLocales()
   return (
     <TextWithHr $disableHr={hideHr}>
       <span>{children ?? locales.or}</span>
     </TextWithHr>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

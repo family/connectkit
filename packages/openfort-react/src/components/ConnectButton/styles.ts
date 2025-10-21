@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import styled from '../../styles/styled';
+import { motion } from 'framer-motion'
+import styled from '../../styles/styled'
 
 export const TextContainer = styled(motion.div)`
   top: 0;
@@ -9,9 +9,9 @@ export const TextContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-`;
+`
 
-export const ChainContainer = styled(motion.div)`
+const _ChainContainer = styled(motion.div)`
   position: relative;
   width: 24px;
   height: 24px;
@@ -20,7 +20,7 @@ export const ChainContainer = styled(motion.div)`
   svg {
     display: block;
   }
-`;
+`
 export const IconContainer = styled(motion.div)`
   pointer-events: none;
   user-select: none;
@@ -28,7 +28,7 @@ export const IconContainer = styled(motion.div)`
   width: 24px;
   height: 24px;
   margin-right: 8px;
-`;
+`
 
 export const UnsupportedNetworkContainer = styled(motion.div)`
   z-index: 1;
@@ -46,4 +46,4 @@ export const UnsupportedNetworkContainer = styled(motion.div)`
     position: relative;
     top: -1px;
   }
-`;
+`

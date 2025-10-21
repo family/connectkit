@@ -5,7 +5,7 @@ import { WagmiProvider, createConfig } from 'wagmi';
 
 import { authClient } from '../betterauth';
 
-export const wagmiConfig = createConfig(
+const wagmiConfig = createConfig(
   getDefaultConfig({
     appName: 'Openfort React demo',
     chains: [beamTestnet, polygonAmoy, sepolia], // Supported chains

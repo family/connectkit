@@ -39,8 +39,7 @@ export default {
   '--ck-body-divider-box-shadow': '0px 1px 0px #FBFBF8',
 
   // Primary button
-  '--ck-primary-button-background':
-    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+  '--ck-primary-button-background': 'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
   '--ck-primary-button-box-shadow':
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
   '--ck-primary-button-border-radius': '6px',
@@ -69,24 +68,20 @@ export default {
   '--ck-secondary-button-border-radius': '6px',
   '--ck-secondary-button-box-shadow':
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 0px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-  '--ck-secondary-button-background':
-    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+  '--ck-secondary-button-background': 'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
 
   // Secondary button hover
   '--ck-secondary-button-hover-box-shadow':
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
   '--ck-body-background-secondary': 'rgba(0, 0, 0, 0.1)',
-  '--ck-body-background-tertiary':
-    'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
+  '--ck-body-background-tertiary': 'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
   '--ck-tertiary-border-radius': '0px',
-  '--ck-tertiary-box-shadow':
-    'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF',
+  '--ck-tertiary-box-shadow': 'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF',
   '--ck-body-button-text-align': 'left',
   '--ck-body-button-box-shadow': '0 2px 4px rgba(0, 0, 0, 0.05 )',
 
-  '--ck-body-disclaimer-background':
-    'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
+  '--ck-body-disclaimer-background': 'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
   '--ck-body-disclaimer-box-shadow': `
     inset 0px -3px 0px #0F37A9,
     inset -2px 0px 0px #0F37A9,
@@ -107,22 +102,18 @@ export default {
 
   '--ck-copytoclipboard-stroke': 'rgba(55, 55, 55, 0.4)',
 
-  '--ck-tooltip-background':
-    'linear-gradient(270deg, #F7F3E6 7.69%, #F5F7DA 100%)',
+  '--ck-tooltip-background': 'linear-gradient(270deg, #F7F3E6 7.69%, #F5F7DA 100%)',
   '--ck-tooltip-background-secondary': '#f6f7f9',
   '--ck-tooltip-color': '#000000',
-  '--ck-tooltip-shadow':
-    ' 0 0 0 1.5px #2b2622, 0px 2px 10px rgba(0, 0, 0, 0.08)',
+  '--ck-tooltip-shadow': ' 0 0 0 1.5px #2b2622, 0px 2px 10px rgba(0, 0, 0, 0.08)',
 
   '--ck-spinner-color': 'var(--ck-focus-color)',
 
   '--ck-dropdown-button-color': '#999999',
   '--ck-dropdown-button-box-shadow':
     '0 0 0 1px #A0A0A0, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
-  '--ck-dropdown-button-background':
-    'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
-  '--ck-dropdown-button-hover-background':
-    'linear-gradient(0deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+  '--ck-dropdown-button-background': 'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+  '--ck-dropdown-button-hover-background': 'linear-gradient(0deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
 
   '--ck-dropdown-pending-color': '#ACA899',
   '--ck-dropdown-active-color': '#FFFFFF',
@@ -132,14 +123,12 @@ export default {
   '--ck-dropdown-active-inset': '-12px',
   '--ck-dropdown-color': '#ACA899',
   '--ck-dropdown-background': '#FFFFFF',
-  '--ck-dropdown-box-shadow':
-    'inset 0 0 0 1px #ACA899, 2px 2px 7px rgba(0, 0, 0, 0.15)',
+  '--ck-dropdown-box-shadow': 'inset 0 0 0 1px #ACA899, 2px 2px 7px rgba(0, 0, 0, 0.15)',
   '--ck-dropdown-border-radius': '0',
 
   '--ck-alert-color': '#ACA899',
   '--ck-alert-background': 'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
-  '--ck-alert-box-shadow':
-    'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF',
+  '--ck-alert-box-shadow': 'inset 0 0 0 1px #919B9C, 1px 1px 2px rgba(0, 0, 0, 0.15), inset -2px -2px 0px #FFFFFF',
   '--ck-alert-border-radius': '0',
 
   '--ck-recent-badge-border-radius': '32px',
@@ -172,4 +161,4 @@ export default {
     */
 
   '--ck-siwe-border': '#919B9C',
-};
+}

@@ -1,10 +1,10 @@
-import styled from './styled';
-import { css } from 'styled-components';
-import { motion } from 'framer-motion';
-import { CustomTheme } from '../types';
-import { hexToP3 } from '../utils/p3';
+import { motion } from 'framer-motion'
+import { css } from 'styled-components'
+import type { CustomTheme } from '../types'
+import { hexToP3 } from '../utils/p3'
+import styled from './styled'
 
-import predefinedThemes from './themes';
+import predefinedThemes from './themes'
 
 /**
  * Theme variables for the modal.
@@ -48,7 +48,6 @@ const themeGlobals = {
       '--ck-graphic-scaniconwithlogos-02': '#696969',
       '--ck-graphic-scaniconwithlogos-03': '#F8D74A',
       '--ck-graphic-scaniconwithlogos-04': '#3D3D3D',
-
 
       '--ck-body-color-danger': '#FF4E4E',
       '--ck-body-color-valid': '#32D74B',
@@ -118,7 +117,7 @@ const themeGlobals = {
     '--ck-brand-safe': '#12FF80',
     '--ck-brand-dawn': '#000000',
   },
-};
+}
 const themeColors = {
   light: predefinedThemes.base.light,
   dark: predefinedThemes.base.dark,
@@ -129,20 +128,20 @@ const themeColors = {
   minimal: predefinedThemes.minimal,
   rounded: predefinedThemes.rounded,
   nouns: predefinedThemes.nouns,
-};
+}
 
 /**
  * Generates CSS custom property declarations from the given theme map.
  */
 //  TODO: Don't use :any type
-const createCssVars = (scheme: any, important?: boolean) => {
+const createCssVars = (scheme: any, _important?: boolean) => {
   return css`
     ${Object.keys(scheme).map((key) => {
-    const value = scheme[key];
-    return value && `${key}:${value};`;
-  })}
-  `;
-};
+      const value = scheme[key]
+      return value && `${key}:${value};`
+    })}
+  `
+}
 /**
  * Expands a theme colour map into CSS custom properties, using Display-P3 values when supported.
  *
@@ -150,20 +149,20 @@ const createCssVars = (scheme: any, important?: boolean) => {
  * @param override - When `true`, appends `!important` to each declaration.
  */
 const createCssColors = (scheme: any, override?: boolean) => {
-  const important = override ? ' !important' : '';
+  const important = override ? ' !important' : ''
   return css`
     ${Object.keys(scheme).map((key) => {
-    const value = scheme[key];
-    return value && `${key}:${value}${important};`;
-  })}
+      const value = scheme[key]
+      return value && `${key}:${value}${important};`
+    })}
     @supports (color: color(display-p3 1 1 1)) {
       ${Object.keys(scheme).map((key) => {
-    const value = scheme[key];
-    return `${key}:${hexToP3(value)}${important};`;
-  })}
+        const value = scheme[key]
+        return `${key}:${hexToP3(value)}${important};`
+      })}
     }
-  `;
-};
+  `
+}
 
 const themes = {
   default: createCssVars(themeGlobals.default),
@@ -176,25 +175,25 @@ const themes = {
   minimal: createCssColors(themeColors.minimal),
   rounded: createCssColors(themeColors.rounded),
   nouns: createCssColors(themeColors.nouns),
-};
+}
 const globals = {
   brand: createCssColors(themeGlobals.brand),
   ensLight: createCssColors(themeGlobals.ens.light),
   ensDark: createCssColors(themeGlobals.ens.dark),
   graphicsLight: createCssColors(themeGlobals.graphics.light),
   graphicsDark: createCssColors(themeGlobals.graphics.dark),
-};
+}
 
 const globalsLight = css`
   ${globals.brand}
   ${globals.ensLight}
   ${globals.graphicsLight}
-`;
+`
 const globalsDark = css`
   ${globals.brand}
   ${globals.ensDark}
   ${globals.graphicsDark}
-`;
+`
 
 /*
  *  Reset stylings to avoid conflicting with the parent websites styling
@@ -203,44 +202,44 @@ const globalsDark = css`
 // OLD_TODO: Think more about how to reset our components as to not be affected by external stylings
 // OLD_TODO: Merge theme objects instead of overriding
 
-let mode = 'auto';
-export const ResetContainer = styled(motion.div) <{
-  $useTheme?: string;
-  $useMode?: string;
-  $customTheme?: CustomTheme;
+let mode = 'auto'
+export const ResetContainer = styled(motion.div)<{
+  $useTheme?: string
+  $useMode?: string
+  $customTheme?: CustomTheme
 }>`
   ${themes.default}
 
   ${(props) => {
     switch (props.$useTheme) {
       case 'web95':
-        mode = 'light';
-        return themes.web95;
+        mode = 'light'
+        return themes.web95
       case 'retro':
-        mode = 'light';
-        return themes.retro;
+        mode = 'light'
+        return themes.retro
       case 'soft':
-        mode = 'light';
-        return themes.soft;
+        mode = 'light'
+        return themes.soft
       case 'midnight':
-        mode = 'dark';
-        return themes.midnight;
+        mode = 'dark'
+        return themes.midnight
       case 'minimal':
-        mode = 'light';
-        return themes.minimal;
+        mode = 'light'
+        return themes.minimal
       case 'rounded':
-        mode = 'light';
-        return themes.rounded;
+        mode = 'light'
+        return themes.rounded
       case 'nouns':
-        mode = 'light';
-        return themes.nouns;
+        mode = 'light'
+        return themes.nouns
       default:
         if (props.$useMode === 'light') {
-          mode = 'light';
-          return themes.light;
+          mode = 'light'
+          return themes.light
         } else if (props.$useMode === 'dark') {
-          mode = 'dark';
-          return themes.dark;
+          mode = 'dark'
+          return themes.dark
         } else {
           return css`
             @media (prefers-color-scheme: light) {
@@ -249,36 +248,34 @@ export const ResetContainer = styled(motion.div) <{
             @media (prefers-color-scheme: dark) {
               ${themes.dark}
             }
-          `;
+          `
         }
     }
   }}
 
-  ${(props) => {
+  ${(_props) => {
     switch (mode) {
       case 'light':
-        return globalsLight;
+        return globalsLight
       case 'dark':
-        return globalsDark;
+        return globalsDark
       default:
         return css`
           ${globalsLight}
           @media (prefers-color-scheme: dark) {
             ${globalsDark}
           }
-        `;
+        `
     }
   }}
 
   ${(props) => {
     if (
-      props.$customTheme &&
-      props.$customTheme['--ck-accent-color'] &&
+      props.$customTheme?.['--ck-accent-color'] &&
       ['light', 'dark', 'auto', '', undefined].includes(props.$useTheme)
     ) {
-      const accentColor = props.$customTheme['--ck-accent-color'];
-      const accentTextColor =
-        props.$customTheme['--ck-accent-text-color'] ?? '#ffffff';
+      const accentColor = props.$customTheme['--ck-accent-color']
+      const accentTextColor = props.$customTheme['--ck-accent-text-color'] ?? '#ffffff'
       return {
         '--ck-accent-color': accentColor,
         '--ck-accent-text-color': accentTextColor,
@@ -294,10 +291,10 @@ export const ResetContainer = styled(motion.div) <{
         '--ck-secondary-button-color': accentTextColor,
         '--ck-button-primary-color': accentTextColor,
         '--ck-focus-color': accentColor,
-      };
+      }
     }
     if (props.$customTheme) {
-      return createCssColors(props.$customTheme, true);
+      return createCssColors(props.$customTheme, true)
     }
   }}
 
@@ -346,4 +343,4 @@ export const ResetContainer = styled(motion.div) <{
   button:focus-visible {
     outline: 2px solid var(--ck-focus-color);
   }
-`;
+`

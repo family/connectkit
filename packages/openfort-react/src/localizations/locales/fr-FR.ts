@@ -1,5 +1,5 @@
-import { LocaleProps } from './';
-import enUS from './en-US';
+import type { LocaleProps } from './'
+import enUS from './en-US'
 
 const frFR: LocaleProps = {
   ...enUS, // fallback
@@ -114,6 +114,6 @@ const frFR: LocaleProps = {
     'Vous avez réussi à vous identifier en tant que propriétaire de ce portefeuille.',
   signInWithEthereumScreen_signedIn_p: `La déconnexion vous obligera à vous authentifier à nouveau à l'avenir.`,
   signInWithEthereumScreen_signedIn_button: 'Se déconnecter',
-};
+}
 
-export default frFR;
+export default frFR

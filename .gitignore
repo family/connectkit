@@ -5,6 +5,7 @@ packages/openfort-react/README.md
 node_modules
 /.pnp
 .pnp.js
+.pnpm-store
 
 # testing
 /coverage
@@ -23,8 +24,4 @@ package.tgz
 .env.production.local
 
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.yarn/
-.yarn/cache
-.yarn/install-state.gz
+pnpm-debug.log*

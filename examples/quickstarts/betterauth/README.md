@@ -18,7 +18,7 @@ This monorepo demonstrates how to build a modern authentication system that comb
 ## Prerequisites
 
 - **Node.js** 18+
-- **yarn** or npm
+- **pnpm**
 - **Openfort account** - [Sign up here](https://dashboard.openfort.io/)
 - **Google OAuth credentials** (optional, for social login)
 
@@ -28,7 +28,7 @@ This monorepo demonstrates how to build a modern authentication system that comb
 
 ```bash
 # 1. Install dependencies
-yarn install
+pnpm install
 
 # 2. Configure backend
 cd apps/server
@@ -46,7 +46,7 @@ npx @better-auth/cli migrate
 
 # 5. Start both apps
 cd ../..
-yarn dev
+pnpm dev
 ```
 
 ---
@@ -54,7 +54,7 @@ yarn dev
 ### 1. Install Dependencies
 
 ```bash
-yarn install
+pnpm install
 ```
 
 ### 2. Configure Environment Variables
@@ -166,17 +166,17 @@ Copy the generated public URL (e.g., `https://your-tunnel-url.loca.lt`) and conf
 Run both frontend and backend concurrently:
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 Or run them separately:
 
 ```bash
 # Terminal 1 - Backend
-yarn workspace @openfort-betterauth/server dev
+pnpm --filter @openfort-betterauth/server dev
 
 # Terminal 2 - Frontend
-yarn workspace @openfort-betterauth/web dev
+pnpm --filter @openfort-betterauth/web dev
 ```
 
 ### 6. Access the Application
@@ -298,7 +298,7 @@ openfort-betterauth/
 - Openfort Node SDK
 
 ### Development Tools
-- Yarn workspaces
+- pnpm workspace
 - Biome (linting & formatting)
 - concurrently
 
@@ -306,12 +306,12 @@ openfort-betterauth/
 
 ```bash
 # Development
-yarn dev              # Run both apps concurrently
-yarn build            # Build both apps
+pnpm dev              # Run both apps concurrently
+pnpm build            # Build both apps
 
 # Code Quality
-yarn check            # Check code with Biome
-yarn format           # Format code
+pnpm check            # Check code with Biome
+pnpm format           # Format code
 ```
 
 ## Customization

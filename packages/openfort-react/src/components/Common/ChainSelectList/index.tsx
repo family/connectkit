@@ -1,102 +1,84 @@
-import { useState } from 'react';
-import { useAccount, useSwitchChain } from 'wagmi';
-import { chainConfigs } from '../../../constants/chainConfigs';
-
+import { AnimatePresence, motion } from 'framer-motion'
+import { useId, useState } from 'react'
+import { useAccount, useSwitchChain } from 'wagmi'
+import ChainIcons from '../../../assets/chains'
+import { chainConfigs } from '../../../constants/chainConfigs'
+import useLocales from '../../../hooks/useLocales'
+import { isCoinbaseWalletConnector, isMobile } from '../../../utils'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import Alert from '../Alert'
 import {
-  SwitchNetworksContainer,
   ChainButton,
-  ChainButtonContainer,
   ChainButtonBg,
+  ChainButtonContainer,
   ChainButtonStatus,
   ChainButtons,
   ChainIcon,
   ChainLogoContainer,
   ChainLogoSpinner,
-} from './styles';
-import Alert from '../Alert';
+  SwitchNetworksContainer,
+} from './styles'
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { isCoinbaseWalletConnector, isMobile } from '../../../utils';
+const Spinner = () => {
+  const id = useId()
+  return (
+    <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2 16.75C2.69036 16.75 3.25 17.3096 3.25 18V19C3.25 26.5939 9.40609 32.75 17 32.75V35.25C8.02537 35.25 0.75 27.9746 0.75 19V18C0.75 17.3096 1.30964 16.75 2 16.75Z"
+        fill={`url(#paint0_linear_${id})`}
+      />
+      <defs>
+        <linearGradient
+          id={`paint0_linear_${id}`}
+          x1="2"
+          y1="19.4884"
+          x2="16.8752"
+          y2="33.7485"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="var(--ck-spinner-color)" />
+          <stop offset="1" stopColor="var(--ck-spinner-color)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
 
-import ChainIcons from '../../../assets/chains';
-import useLocales from '../../../hooks/useLocales';
-import { useOpenfort } from '../../Openfort/useOpenfort';
+const ChainSelectList = ({ variant }: { variant?: 'primary' | 'secondary' }) => {
+  const { connector, chain } = useAccount()
+  const { chains, isPending, switchChain, error } = useSwitchChain()
+  const [pendingChainId, setPendingChainId] = useState<number | undefined>(undefined)
 
-const Spinner = (
-  <svg
-    aria-hidden="true"
-    width="36"
-    height="36"
-    viewBox="0 0 36 36"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M2 16.75C2.69036 16.75 3.25 17.3096 3.25 18V19C3.25 26.5939 9.40609 32.75 17 32.75V35.25C8.02537 35.25 0.75 27.9746 0.75 19V18C0.75 17.3096 1.30964 16.75 2 16.75Z"
-      fill="url(#paint0_linear_1288_18701)"
-    />
-    <defs>
-      <linearGradient
-        id="paint0_linear_1288_18701"
-        x1="2"
-        y1="19.4884"
-        x2="16.8752"
-        y2="33.7485"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="var(--ck-spinner-color)" />
-        <stop offset="1" stopColor="var(--ck-spinner-color)" stopOpacity="0" />
-      </linearGradient>
-    </defs>
-  </svg>
-);
+  const locales = useLocales({})
+  const mobile = isMobile()
 
-const ChainSelectList = ({
-  variant,
-}: {
-  variant?: 'primary' | 'secondary';
-}) => {
-  const { connector, chain } = useAccount();
-  const { chains, isPending, switchChain, error } = useSwitchChain();
-  const [pendingChainId, setPendingChainId] = useState<number | undefined>(
-    undefined
-  );
-
-  const locales = useLocales({});
-  const mobile = isMobile();
-
-  const isError = error?.['code'] === 4902; // Wallet cannot switch networks
-  const disabled = isError || !switchChain;
+  // biome-ignore lint/complexity/useLiteralKeys: SwitchChainErrorType doesn't expose 'code' property but it exists at runtime
+  const isError = error?.['code'] === 4902 // Wallet cannot switch networks
+  const disabled = isError || !switchChain
 
   const handleSwitchNetwork = (chainId: number) => {
     if (switchChain) {
-      setPendingChainId(chainId);
-      switchChain({ chainId });
+      setPendingChainId(chainId)
+      switchChain({ chainId })
     }
-  };
+  }
 
-  const { triggerResize } = useOpenfort();
+  const { triggerResize } = useOpenfort()
 
   return (
-    <SwitchNetworksContainer
-      style={{ marginBottom: switchChain !== undefined ? -8 : 0 }}
-    >
+    <SwitchNetworksContainer style={{ marginBottom: switchChain !== undefined ? -8 : 0 }}>
       <ChainButtonContainer>
         <ChainButtons>
           {chains.map((x) => {
-            const c = chainConfigs.find((ch) => ch.id === x.id);
-            const ch = { ...c, ...x };
+            const c = chainConfigs.find((ch) => ch.id === x.id)
+            const ch = { ...c, ...x }
             return (
               <ChainButton
                 key={`${ch?.id}-${ch?.name}`}
                 $variant={variant}
-                disabled={
-                  disabled ||
-                  ch.id === chain?.id ||
-                  (isPending && pendingChainId === ch.id)
-                }
+                disabled={disabled || ch.id === chain?.id || (isPending && pendingChainId === ch.id)}
                 onClick={() => handleSwitchNetwork?.(ch.id)}
                 style={{
                   opacity: disabled && ch.id !== chain?.id ? 0.4 : undefined,
@@ -111,7 +93,7 @@ const ChainSelectList = ({
                     color:
                       ch.id === chain?.id
                         ? 'var(--ck-dropdown-active-color, inherit)'
-                        : 'var(--ck-dropdown-color, inherit)'
+                        : 'var(--ck-dropdown-color, inherit)',
                   }}
                 >
                   <ChainLogoContainer>
@@ -130,24 +112,19 @@ const ChainSelectList = ({
                         key={`${ch?.id}-${ch?.name}`}
                         animate={
                           // UI fix for Coinbase Wallet on mobile does not remove isPending on rejection event
-                          mobile &&
-                            isCoinbaseWalletConnector(connector?.id) &&
-                            isPending &&
-                            pendingChainId === ch.id
+                          mobile && isCoinbaseWalletConnector(connector?.id) && isPending && pendingChainId === ch.id
                             ? {
-                              opacity: [1, 0],
+                                opacity: [1, 0],
 
-                              transition: { delay: 4, duration: 3 },
-                            }
+                                transition: { delay: 4, duration: 3 },
+                              }
                             : { opacity: 1 }
                         }
                       >
-                        {Spinner}
+                        <Spinner />
                       </motion.div>
                     </ChainLogoSpinner>
-                    <ChainIcon>
-                      {ch.logo ?? <ChainIcons.UnknownChain />}
-                    </ChainIcon>
+                    <ChainIcon>{ch.logo ?? <ChainIcons.UnknownChain />}</ChainIcon>
                   </ChainLogoContainer>
                   {ch.name}
                 </span>
@@ -158,8 +135,7 @@ const ChainSelectList = ({
                         <motion.span
                           key={'connectedText'}
                           style={{
-                            color:
-                              'var(--ck-dropdown-active-color, var(--ck-focus-color))',
+                            color: 'var(--ck-dropdown-active-color, var(--ck-focus-color))',
                             display: 'block',
                             position: 'relative',
                           }}
@@ -241,7 +217,7 @@ const ChainSelectList = ({
                   )
                 )}
               </ChainButton>
-            );
+            )
           })}
         </ChainButtons>
       </ChainButtonContainer>
@@ -260,15 +236,14 @@ const ChainSelectList = ({
           >
             <div style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Alert>
-                {locales.warnings_walletSwitchingUnsupported}{' '}
-                {locales.warnings_walletSwitchingUnsupportedResolve}
+                {locales.warnings_walletSwitchingUnsupported} {locales.warnings_walletSwitchingUnsupportedResolve}
               </Alert>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </SwitchNetworksContainer>
-  );
-};
+  )
+}
 
-export default ChainSelectList;
+export default ChainSelectList

@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import styled from '../../../styles/styled';
+import { motion } from 'framer-motion'
+import styled from '../../../styles/styled'
 
-export const Container = styled(motion.div) <{
-  $variant?: string;
+export const Container = styled(motion.div)<{
+  $variant?: string
 }>`
   display: flex;
   align-items: center;
@@ -97,7 +97,7 @@ export const Container = styled(motion.div) <{
       var(--hover-border-radius)
     );
   }
-`;
+`
 
 export const ThemeContainer = styled.button`
   all: initial;
@@ -149,4 +149,4 @@ export const ThemeContainer = styled.button`
   &:focus-visible {
     outline: 2px solid var(--ck-family-brand);
   }
-`;
+`

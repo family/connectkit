@@ -5,7 +5,7 @@ import { getDefaultConfig, OpenfortProvider, type Theme } from "@openfort/react"
 import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { useState } from 'react';
 
-export const config = createConfig(
+const config = createConfig(
   getDefaultConfig({
     appName: 'Openfort Next.js demo',
     chains: [beamTestnet, polygonAmoy], // The chains you want to support

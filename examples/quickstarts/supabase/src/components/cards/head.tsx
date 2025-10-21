@@ -300,7 +300,7 @@ const GlowCanvas = ({
       document.removeEventListener('mousemove', handleMouseMove)
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // biome-ignore lint/correctness/useExhaustiveDependencies: animation effect depends on dimensions and theme colors only
   }, [dimensions, accentColor, backgroundColor, color])
 
   return (

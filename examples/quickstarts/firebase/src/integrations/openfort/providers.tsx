@@ -5,7 +5,7 @@ import { beamTestnet, polygonAmoy, sepolia } from "viem/chains";
 
 import { auth } from "../firebase";
 
-export const wagmiConfig = createConfig(
+const wagmiConfig = createConfig(
   getDefaultConfig({
     appName: "Openfort React demo",
     chains: [beamTestnet, polygonAmoy, sepolia], // Supported chains

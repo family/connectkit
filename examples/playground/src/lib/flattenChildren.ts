@@ -6,7 +6,7 @@ export function flattenChildren(children: React.ReactNode): ReactChildArray {
   return childrenArray.reduce((flatChildren: ReactChildArray, child) => {
     if ((child as React.ReactElement<unknown>).type === React.Fragment) {
       return flatChildren.concat(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // biome-ignore lint/suspicious/noExplicitAny: React.Fragment children props require any type
         flattenChildren((child as React.ReactElement<any>).props.children),
       );
     }

@@ -1,1 +1,1 @@
-export { OpenfortProviders, wagmiConfig } from './providers'
+export { OpenfortProviders,  } from './providers'

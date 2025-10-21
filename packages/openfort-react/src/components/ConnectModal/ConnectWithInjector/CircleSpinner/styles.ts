@@ -1,6 +1,6 @@
-import styled from '../../../../styles/styled';
-import { css } from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
+import { css } from 'styled-components'
+import styled from '../../../../styles/styled'
 
 export const LogoContainer = styled(motion.div)`
   z-index: 4;
@@ -12,8 +12,8 @@ export const LogoContainer = styled(motion.div)`
     position: relative;
     display: block;
   }
-`;
-export const Logo = styled(motion.div) <{ $small?: boolean }>`
+`
+export const Logo = styled(motion.div)<{ $small?: boolean }>`
   z-index: 2;
   position: absolute;
   overflow: hidden;
@@ -31,18 +31,18 @@ export const Logo = styled(motion.div) <{ $small?: boolean }>`
     width: 100%;
     height: 100%;
     ${(props) =>
-    props.$small &&
-    css`
+      props.$small &&
+      css`
         width: 85%;
         height: 85%;
       `}
   }
-`;
+`
 
 export const SpinnerContainer = styled(motion.div)`
   position: absolute;
   inset: -5px;
-`;
+`
 export const ExpiringSpinner = styled(motion.div)`
   pointer-events: none;
   user-select: none;
@@ -90,7 +90,7 @@ export const ExpiringSpinner = styled(motion.div)`
       transform: rotate(0deg);
     }
   }
-`;
+`
 export const Spinner = styled(motion.div)`
   pointer-events: none;
   user-select: none;
@@ -114,4 +114,4 @@ export const Spinner = styled(motion.div)`
       transform: rotate(360deg);
     }
   }
-`;
+`

@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import styled from '../../../styles/styled';
-import { css, keyframes } from 'styled-components';
+import { motion } from 'framer-motion'
+import { css, keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 export const QRCodeContainer = styled(motion.div)`
   z-index: 3;
@@ -22,7 +22,7 @@ export const QRCodeContainer = styled(motion.div)`
     width: 100%;
     height: auto;
   }
-`;
+`
 export const QRCodeContent = styled(motion.div)`
   position: absolute;
   inset: 13px;
@@ -30,11 +30,11 @@ export const QRCodeContent = styled(motion.div)`
     width: 100% !important;
     height: auto !important;
   }
-`;
-export const PlaceholderKeyframes = keyframes`
+`
+const PlaceholderKeyframes = keyframes`
   0%{ background-position: 100% 0; }
   100%{ background-position: -100% 0; }
-`;
+`
 export const QRPlaceholder = styled(motion.div)`
   --color: var(--ck-qr-dot-color);
   --bg: var(--ck-qr-background, var(--ck-body-background));
@@ -105,7 +105,7 @@ export const QRPlaceholder = styled(motion.div)`
     background-size: 200% 100%;
     animation: ${PlaceholderKeyframes} 1000ms linear infinite both;
   }
-`;
+`
 
 export const LogoContainer = styled(motion.div)`
   z-index: 6;
@@ -115,8 +115,8 @@ export const LogoContainer = styled(motion.div)`
   width: 100%;
   height: 100%;
   transform: translateY(50%) scale(0.9999); // Shifting fix
-`;
-export const LogoIcon = styled(motion.div) <{ $wcLogo?: boolean }>`
+`
+export const LogoIcon = styled(motion.div)<{ $wcLogo?: boolean }>`
   z-index: 6;
   position: absolute;
   left: 50%;
@@ -151,4 +151,4 @@ export const LogoIcon = styled(motion.div) <{ $wcLogo?: boolean }>`
             box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
           }
         `}
-`;
+`

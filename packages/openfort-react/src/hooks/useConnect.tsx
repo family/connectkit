@@ -12,15 +12,27 @@
  */
 
 import {
-  Connector,
-  CreateConnectorFn,
+  type Connector,
+  type CreateConnectorFn,
   type UseConnectParameters,
+  type UseConnectReturnType,
   useConnect as wagmiUseConnect,
-} from 'wagmi';
-import { useOpenfort } from '../components/Openfort/useOpenfort';
+} from 'wagmi'
+import { useOpenfort } from '../components/Openfort/useOpenfort'
 
-export function useConnect({ ...props }: UseConnectParameters = {}) {
-  const context = useOpenfort();
+type CustomConnectParams = {
+  connector: CreateConnectorFn | Connector
+  chainId?: number
+  mutation?: UseConnectParameters['mutation']
+}
+
+type CustomUseConnectReturnType = Omit<UseConnectReturnType, 'connect' | 'connectAsync'> & {
+  connect: (params: CustomConnectParams) => void
+  connectAsync: (params: CustomConnectParams) => Promise<unknown>
+}
+
+export function useConnect({ ...props }: UseConnectParameters = {}): CustomUseConnectReturnType {
+  const context = useOpenfort()
 
   const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
     ...props,
@@ -29,14 +41,14 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
       onError(err) {
         if (err.message) {
           if (err.message !== 'User rejected request') {
-            context.log(err.message, err);
+            context.log(err.message, err)
           }
         } else {
-          context.log(`Could not connect.`, err);
+          context.log(`Could not connect.`, err)
         }
       },
     },
-  });
+  })
 
   return {
     connect: ({
@@ -44,9 +56,9 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
       chainId,
       mutation,
     }: {
-      connector: CreateConnectorFn | Connector;
-      chainId?: number;
-      mutation?: UseConnectParameters['mutation'];
+      connector: CreateConnectorFn | Connector
+      chainId?: number
+      mutation?: UseConnectParameters['mutation']
     }) => {
       return connect(
         {
@@ -54,16 +66,16 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
           chainId: chainId ?? context.uiConfig?.initialChainId,
         },
         mutation
-      );
+      )
     },
     connectAsync: async ({
       connector,
       chainId,
       mutation,
     }: {
-      connector: CreateConnectorFn | Connector;
-      chainId?: number;
-      mutation?: UseConnectParameters['mutation'];
+      connector: CreateConnectorFn | Connector
+      chainId?: number
+      mutation?: UseConnectParameters['mutation']
     }) => {
       return connectAsync(
         {
@@ -71,9 +83,9 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
           chainId: chainId ?? context.uiConfig?.initialChainId,
         },
         mutation
-      );
+      )
     },
     connectors,
     ...rest,
-  };
+  }
 }

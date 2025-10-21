@@ -1,6 +1,6 @@
-import styled from '../../../styles/styled';
-import { css } from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
+import { css } from 'styled-components'
+import styled from '../../../styles/styled'
 
 function addressToNumber(address: string) {
   return (
@@ -10,13 +10,13 @@ function addressToNumber(address: string) {
       .reduce((a, b) => a + b) %
       100) /
     100
-  );
+  )
 }
 
-export const EnsAvatar = styled(motion.div) <{
-  $seed?: string;
-  $size?: number;
-  $radius?: number;
+export const EnsAvatar = styled(motion.div)<{
+  $seed?: string
+  $size?: number
+  $radius?: number
 }>`
   will-change: transform; // Needed for Safari
   pointer-events: none;
@@ -38,8 +38,8 @@ export const EnsAvatar = styled(motion.div) <{
   }
   ${(props) => {
     if (props.$seed) {
-      const id = Math.ceil(addressToNumber(props.$seed) * 8);
-      const ensColor = `0${id === 0 ? 1 : id}`; // No zero ID in ENS color list.. 🤷‍♀️
+      const id = Math.ceil(addressToNumber(props.$seed) * 8)
+      const ensColor = `0${id === 0 ? 1 : id}` // No zero ID in ENS color list.. 🤷‍♀️
       return css`
         background: var(--ck-ens-${ensColor}-start);
         background: linear-gradient(
@@ -47,12 +47,12 @@ export const EnsAvatar = styled(motion.div) <{
           var(--ck-ens-${ensColor}-start) 0%,
           var(--ck-ens-${ensColor}-stop) 100%
         );
-      `;
+      `
     }
   }}
-`;
+`
 
-export const ImageContainer = styled(motion.img) <{ $loaded: boolean }>`
+export const ImageContainer = styled(motion.img)<{ $loaded: boolean }>`
   display: block;
   position: relative;
   width: 100%;
@@ -61,4 +61,4 @@ export const ImageContainer = styled(motion.img) <{ $loaded: boolean }>`
   will-change: opacity; // Needed for Safari
   transition: opacity 500ms ease;
   transform: scale(1.01); // fixes background color bleeding
-`;
+`

@@ -4,46 +4,74 @@
   "description": "The easiest way to integrate Openfort to your project.",
   "main": "packages/openfort-react/src/index.ts",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "examples/**/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/**",
+      "examples/**"
+    ]
+  },
   "scripts": {
-    "dev": "yarn workspace @openfort/react run dev",
-    "dev:firebase": "yarn workspace quickstart-firebase run dev",
-    "dev:headless": "yarn workspace quickstart-headless run dev",
-    "dev:openfort-ui": "yarn workspace quickstart-openfort-ui run dev",
-    "dev:playground": "yarn workspace playground run dev",
-    "build": "node build.js && yarn workspace @openfort/react run build && cp README.md packages/openfort-react/README.md",
-    "build:firebase": "yarn build && yarn workspace quickstart-firebase build",
-    "build:headless": "yarn build && yarn workspace quickstart-headless build",
-    "build:openfort-ui": "yarn build && yarn workspace quickstart-openfort-ui build",
-    "build:playground": "yarn build && yarn workspace playground build",
-    "build:ci": "yarn workspaces foreach -R run build",
-    "lint:ci": "yarn workspaces foreach -R run lint"
+    "preinstall": "pnpx only-allow pnpm",
+    "postinstall": "git config --unset core.hooksPath 2>/dev/null || true && simple-git-hooks",
+    "check": "biome check --write",
+    "check:types": "tsc --noEmit",
+    "check:unused": "knip",
+    "changeset": "changeset",
+    "changeset:version": "pnpm install --lockfile-only && changeset version",
+    "changeset:publish": "pnpm build && changeset publish",
+    "changeset:prepublish": "pnpm build",
+    "dev": "pnpm --filter @openfort/react dev",
+    "dev:firebase": "pnpm --filter quickstart-firebase dev",
+    "dev:headless": "pnpm --filter quickstart-headless dev",
+    "dev:openfort-ui": "pnpm --filter quickstart-openfort-ui dev",
+    "dev:playground": "pnpm --filter playground dev",
+    "build": "node build.js && pnpm --filter @openfort/react build && cp README.md packages/openfort-react/README.md",
+    "build:firebase": "pnpm build && pnpm --filter quickstart-firebase build",
+    "build:headless": "pnpm build && pnpm --filter quickstart-headless build",
+    "build:openfort-ui": "pnpm build && pnpm --filter quickstart-openfort-ui build",
+    "build:playground": "pnpm build && pnpm --filter playground build",
+    "build:ci": "pnpm -r run build"
   },
   "devDependencies": {
-    "@openfort/openfort-js": "^0.10.27",
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "@tanstack/react-query": "^5.45.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "@biomejs/biome": "^2.2.4",
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.7",
     "rollup": "^2.67.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.36.0",
-    "rollup-plugin-visualizer": "^5.5.4",
-    "tslib": "^1.9.3",
-    "typescript": "^5.0.4",
+    "knip": "^5.64.0",
+    "simple-git-hooks": "^2.13.1",
     "typescript-plugin-styled-components": "^2.0.0",
-    "viem": "2.33.0",
-    "wagmi": "^2.16.0"
+    "typescript": "^5.0.4"
   },
-  "packageManager": "yarn@3.2.0",
-  "resolutions": {
-    "viem": "2.33.0"
+  "packageManager": "pnpm@10.16.1",
+  "pnpm": {
+    "overrides": {
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0"
+    }
   },
-  "dependencies": {
-    "@changesets/cli": "^2.24.4"
+  "knip": {
+    "ignore": [
+      ".github/**",
+      "**/build/**",
+      "**/dist/**",
+      "**/.next/**",
+      "**/coverage/**",
+      "**/node_modules/**",
+      "packages/openfort-react/rollup.config.dev.js",
+      "packages/openfort-react/rollup.config.prod.js",
+      "**/*.gen.ts"
+    ],
+    "ignoreDependencies": [
+      "rollup-plugin-peer-deps-external",
+      "rollup-plugin-typescript2",
+      "typescript-plugin-styled-components",
+      "tailwindcss",
+      "tw-animate-css",
+      "daisyui",
+      "buffer"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm check"
   }
 }

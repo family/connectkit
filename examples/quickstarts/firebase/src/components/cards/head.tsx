@@ -284,10 +284,10 @@ const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, bac
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dimensions]);
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+  };
+  // biome-ignore lint/correctness/useExhaustiveDependencies: animation effect depends on dimensions only
+}, [dimensions]);
 
   return (
     <canvas

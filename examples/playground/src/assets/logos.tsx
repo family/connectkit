@@ -57,7 +57,7 @@ export const Twitter = ({ ...props }) => (
   </svg>
 );
 
-export const Discord = ({ ...props }) => (
+const Discord = ({ ...props }) => (
   <svg
     width="800px"
     height="800px"
@@ -78,7 +78,7 @@ export const Discord = ({ ...props }) => (
   </svg>
 );
 
-export const Openfort = () => (
+const Openfort = () => (
   <svg
     viewBox="0 0 22 24"
     width="22"
@@ -92,7 +92,7 @@ export const Openfort = () => (
   </svg>
 );
 
-export const EpicGames = ({ ...props }) => (
+const EpicGames = ({ ...props }) => (
   <svg
     width={50}
     height={60}
@@ -114,7 +114,7 @@ export const EpicGames = ({ ...props }) => (
   </svg>
 );
 
-export const Line = ({ ...props }) => (
+const Line = ({ ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     x="0px"
@@ -130,7 +130,7 @@ export const Line = ({ ...props }) => (
     />
   </svg>
 );
-export const Apple = ({ ...props }) => (
+const Apple = ({ ...props }) => (
   <svg
     viewBox="0 0 842.32 1000"
     xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@ export const Apple = ({ ...props }) => (
 );
 
 
-export const OtherSocials = ({ ...props }) => {
+const OtherSocials = ({ ...props }) => {
   const column: React.CSSProperties = {
     position: 'relative',
     display: 'flex',

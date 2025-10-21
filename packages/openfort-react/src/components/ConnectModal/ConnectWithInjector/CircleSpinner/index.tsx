@@ -1,13 +1,7 @@
-import {
-  LogoContainer,
-  Logo,
-  Spinner,
-  SpinnerContainer,
-  ExpiringSpinner,
-} from './styles';
-
-import { AnimatePresence } from 'framer-motion';
-import React from 'react';
+import { AnimatePresence } from 'framer-motion'
+import type React from 'react'
+import { useId } from 'react'
+import { ExpiringSpinner, Logo, LogoContainer, Spinner, SpinnerContainer } from './styles'
 
 const CircleSpinner = ({
   logo,
@@ -16,20 +10,16 @@ const CircleSpinner = ({
   unavailable = false,
   countdown = false,
 }: {
-  logo?: React.ReactNode;
-  smallLogo?: boolean;
-  connecting?: boolean;
-  unavailable?: boolean;
-  countdown?: boolean;
+  logo?: React.ReactNode
+  smallLogo?: boolean
+  connecting?: boolean
+  unavailable?: boolean
+  countdown?: boolean
 }) => {
+  const id = useId()
   return (
-    <LogoContainer
-      transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}
-    >
-      <Logo
-        $small={!unavailable && smallLogo}
-        style={unavailable ? { borderRadius: 0 } : undefined}
-      >
+    <LogoContainer transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 0.98] }}>
+      <Logo $small={!unavailable && smallLogo} style={unavailable ? { borderRadius: 0 } : undefined}>
         {logo}
       </Logo>
       <SpinnerContainer>
@@ -56,14 +46,14 @@ const CircleSpinner = ({
               >
                 <path
                   d="M52 100C24.3858 100 2 77.6142 2 50"
-                  stroke="url(#paint0_linear_1943_4139)"
+                  stroke={`url(#paint0_linear_${id})`}
                   strokeWidth="3.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
                 <defs>
                   <linearGradient
-                    id="paint0_linear_1943_4139"
+                    id={`paint0_linear_${id}`}
                     x1="2"
                     y1="48.5"
                     x2="53"
@@ -71,11 +61,7 @@ const CircleSpinner = ({
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stopColor="var(--ck-spinner-color)" />
-                    <stop
-                      offset="1"
-                      stopColor="var(--ck-spinner-color)"
-                      stopOpacity="0"
-                    />
+                    <stop offset="1" stopColor="var(--ck-spinner-color)" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -96,7 +82,7 @@ const CircleSpinner = ({
         </AnimatePresence>
       </SpinnerContainer>
     </LogoContainer>
-  );
-};
+  )
+}
 
-export default CircleSpinner;
+export default CircleSpinner

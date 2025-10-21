@@ -1,22 +1,22 @@
-import { ReactNode } from 'react';
-import Logos from '../assets/chains';
+import type { ReactNode } from 'react'
+import Logos from '../assets/chains'
 
 type Chain = {
-  id: number;
-  name: string;
-  logo: ReactNode;
+  id: number
+  name: string
+  logo: ReactNode
   rpcUrls?: {
     // https://github.com/wevm/viem/tree/1.x.x/src/chains/definitions
     alchemy?: {
-      http?: string[];
-      webSocket?: string[];
-    };
+      http?: string[]
+      webSocket?: string[]
+    }
     infura?: {
-      http?: string[];
-      webSocket?: string[];
-    };
-  };
-};
+      http?: string[]
+      webSocket?: string[]
+    }
+  }
+}
 
 // Note: these rpcUrls are incomplete, and are subject to change from their respective providers
 // More RPC URLs can be found: https://chainid.network/chains.json
@@ -328,4 +328,4 @@ export const chainConfigs: Chain[] = [
     name: 'Zora Goerli Testnet',
     logo: <Logos.Zora testnet />,
   },
-];
+]

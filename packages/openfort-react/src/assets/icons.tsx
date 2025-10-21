@@ -1,4 +1,4 @@
-export const Scan = ({ ...props }) => (
+const Scan = ({ ...props }) => (
   <svg
     aria-hidden="true"
     width="16"
@@ -17,7 +17,7 @@ export const Scan = ({ ...props }) => (
   </svg>
 );
 
-export const Download = ({ ...props }) => <svg />;
+const Download = ({ ...props }) => <svg />;
 
 export const ExternalLinkIcon = ({ ...props }) => (
   <svg
@@ -143,7 +143,7 @@ export const RetryIconCircle = ({ ...props }) => {
   );
 };
 
-export const RetryIcon = ({ ...props }) => (
+const RetryIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
     width="16"

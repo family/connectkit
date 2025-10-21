@@ -24,7 +24,7 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/playground openfort-p
 1. **Install dependencies**:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. **Environment setup**:
@@ -38,13 +38,20 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/playground openfort-p
 3. **Start development server**:
 
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
 4. **Build for production**:
 
    ```bash
-   npm run build
+   pnpm build
+   ```
+
+5. **Check & format (optional)**:
+
+   ```bash
+   pnpm check
+   pnpm format
    ```
 
 ## Project Structure
@@ -57,11 +64,12 @@ npx gitpick openfort-xyz/openfort-react/tree/main/examples/playground openfort-p
 
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run lint` - Run ESLint
-- `npm run preview` - Preview production build
-- `npm run shadcn` - Add shadcn/ui components
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm check` - Run Biome lint & checks
+- `pnpm format` - Format source with Biome
+- `pnpm preview` - Preview production build
+- `pnpm shadcn` - Add shadcn/ui components
 
 ## Openfort Integration
 
@@ -73,48 +81,32 @@ This playground demonstrates various Openfort React features:
 - Account recovery flows
 - Custom UI components with Openfort hooks
 
-## Expanding the ESLint configuration
+## Biome configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This example ships with a `biome.json` that mirrors the root project defaults:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Recommended lint rules with accessibility and React-specific adjustments
+- Two-space formatting with single quotes and automatic import organization
+- An override that warns when React hooks are missing dependencies
+
+To extend the configuration:
+
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.6/schema.json",
+  "overrides": [
+    {
+      "includes": ["src/**/*.ts", "src/**/*.tsx"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "useExhaustiveDependencies": "error"
+          }
+        }
+      }
+    }
+  ]
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+See [Biome docs](https://biomejs.dev/) for the full list of available rules and formatter options.

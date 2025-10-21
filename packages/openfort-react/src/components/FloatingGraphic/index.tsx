@@ -1,22 +1,30 @@
-import React from "react"
-import { FloatWrapper, Graphic, Logo, LogoGroup, LogoInner, LogoPosition, RotateWrapper, LogoGraphic as LogoGraphicInner, GraphicBackground } from "./styles"
-import wave from "../../assets/wave"
+import type React from 'react'
+import wave from '../../assets/wave'
+import {
+  FloatWrapper,
+  Graphic,
+  GraphicBackground,
+  Logo,
+  LogoGraphic as LogoGraphicInner,
+  LogoGroup,
+  LogoInner,
+  LogoPosition,
+  RotateWrapper,
+} from './styles'
 
 type LogoGraphicProps = {
   size?: string
   logo: React.ReactNode
 }
 
-export const LogoGraphic = ({ size = "100%", logo }: LogoGraphicProps) => {
+const LogoGraphic = ({ size = '100%', logo }: LogoGraphicProps) => {
   return (
     <Logo>
       <LogoPosition>
         <LogoInner>
           <FloatWrapper>
             <RotateWrapper>
-              <LogoGraphicInner style={{ transform: `scale(${size})` }}>
-                {logo}
-              </LogoGraphicInner>
+              <LogoGraphicInner style={{ transform: `scale(${size})` }}>{logo}</LogoGraphicInner>
             </RotateWrapper>
           </FloatWrapper>
         </LogoInner>
@@ -26,12 +34,12 @@ export const LogoGraphic = ({ size = "100%", logo }: LogoGraphicProps) => {
 }
 
 export const FloatingGraphic = ({
-  height = "130px",
+  height = '130px',
   logoCenter,
   logoTopRight,
   logoTopLeft,
   logoBottomRight,
-  logoBottomLeft
+  logoBottomLeft,
 }: {
   height?: string
   logoCenter: LogoGraphicProps

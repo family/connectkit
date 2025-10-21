@@ -6,7 +6,7 @@ import { beamTestnet, polygonAmoy } from 'viem/chains';
 import { useState } from 'react';
 
 
-export const config = createConfig(
+const config = createConfig(
   getDefaultConfig({
     appName: 'Openfort Next.js demo',
     chains: [polygonAmoy,beamTestnet], // The chains you want to support

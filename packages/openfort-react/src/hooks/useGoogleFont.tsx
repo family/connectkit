@@ -1,33 +1,33 @@
-import { useEffect } from 'react';
-import { Theme } from '../types';
+import { useEffect } from 'react'
+import type { Theme } from '../types'
 
-export function useGoogleFont(font: string) {
+function useGoogleFont(font: string) {
   useEffect(() => {
-    if (!font) return;
-    font = font.replace(/ /g, '+');
+    if (!font) return
+    font = font.replace(/ /g, '+')
 
-    const googleapis = document.createElement('link');
-    googleapis.href = `https://fonts.googleapis.com`;
-    googleapis.rel = 'preconnect';
+    const googleapis = document.createElement('link')
+    googleapis.href = `https://fonts.googleapis.com`
+    googleapis.rel = 'preconnect'
 
-    const gstatic = document.createElement('link');
-    gstatic.href = `https://fonts.gstatic.com`;
-    gstatic.rel = 'preconnect';
-    gstatic.crossOrigin = 'true';
+    const gstatic = document.createElement('link')
+    gstatic.href = `https://fonts.gstatic.com`
+    gstatic.rel = 'preconnect'
+    gstatic.crossOrigin = 'true'
 
-    const link = document.createElement('link');
-    link.href = `https://fonts.googleapis.com/css2?family=${font}:wght@400;500;600&display=swap`;
-    link.rel = 'stylesheet';
+    const link = document.createElement('link')
+    link.href = `https://fonts.googleapis.com/css2?family=${font}:wght@400;500;600&display=swap`
+    link.rel = 'stylesheet'
 
-    document.head.appendChild(googleapis);
-    document.head.appendChild(gstatic);
-    document.head.appendChild(link);
+    document.head.appendChild(googleapis)
+    document.head.appendChild(gstatic)
+    document.head.appendChild(link)
     return () => {
-      document.head.removeChild(googleapis);
-      document.head.removeChild(gstatic);
-      document.head.removeChild(link);
-    };
-  }, [font]);
+      document.head.removeChild(googleapis)
+      document.head.removeChild(gstatic)
+      document.head.removeChild(link)
+    }
+  }, [font])
 }
 
 // OLD_TODO: This could be dynamic if theming wasn't set up as css variables
@@ -38,7 +38,7 @@ export function useThemeFont(theme: Theme) {
     midnight: 'Inter',
     minimal: 'Inter',
     rounded: 'Nunito',
-  };
-  const font: string = themeFonts[theme] ?? null;
-  useGoogleFont(font ?? '');
+  }
+  const font: string = themeFonts[theme] ?? null
+  useGoogleFont(font ?? '')
 }

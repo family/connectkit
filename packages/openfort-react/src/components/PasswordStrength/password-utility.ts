@@ -4,7 +4,7 @@
  * Provides functions for password strength calculation, passphrase generation, and password validation.
  */
 
-import calculateEntropy from 'fast-password-entropy';
+import calculateEntropy from 'fast-password-entropy'
 
 // ============================================================================
 // Constants and Regular Expressions
@@ -13,67 +13,65 @@ import calculateEntropy from 'fast-password-entropy';
 /**
  * Regular expression to match lowercase letters.
  */
-const LOWERCASE_REGEX = /[a-z]/;
+const LOWERCASE_REGEX = /[a-z]/
 
 /**
  * Regular expression to match uppercase letters.
  */
-const UPPERCASE_REGEX = /[A-Z]/;
+const UPPERCASE_REGEX = /[A-Z]/
 
 /**
  * Regular expression to match digits.
  */
-const DIGIT_REGEX = /[0-9]/;
+const DIGIT_REGEX = /[0-9]/
 
 /**
  * Special characters allowed in passwords.
  */
-const SPECIAL_CHARACTERS = '!@#$%^&()\\-*+.';
+const SPECIAL_CHARACTERS = '!@#$%^&()\\-*+.'
 
 /**
  * All valid password characters.
  */
-const VALID_PASSWORD_CHARACTERS = `a-zA-Z0-9${SPECIAL_CHARACTERS}`;
+const VALID_PASSWORD_CHARACTERS = `a-zA-Z0-9${SPECIAL_CHARACTERS}`
 
 /**
  * Escape regex metacharacters for safe use inside a character class.
  */
 function escapeForCharClass(str) {
-    return str.replace(/[-\\^]/g, '\\$&');
-    // escapes -, \, and ^ (the only risky chars in [])
+  return str.replace(/[-\\^]/g, '\\$&')
+  // escapes -, \, and ^ (the only risky chars in [])
 }
 
 /**
  * Regular expression to match special characters.
  */
-const SPECIAL_CHARACTER_REGEX = new RegExp(
-    `[${escapeForCharClass(SPECIAL_CHARACTERS)}]`
-);
+const SPECIAL_CHARACTER_REGEX = new RegExp(`[${escapeForCharClass(SPECIAL_CHARACTERS)}]`)
 
 /**
  * Regular expression to match valid password characters.
  */
-const VALID_CHARACTER_REGEX = new RegExp(`[${VALID_PASSWORD_CHARACTERS}]`);
+const VALID_CHARACTER_REGEX = new RegExp(`[${VALID_PASSWORD_CHARACTERS}]`)
 
 /**
  * Maximum entropy score for normalization.
  */
-const MAX_ENTROPY_SCORE = 95;
+const MAX_ENTROPY_SCORE = 95
 
 /**
  * Minimum password length for security.
  */
-const MIN_PASSWORD_LENGTH = 8;
+const MIN_PASSWORD_LENGTH = 8
 
 /**
  * Weight for diversity score in overall strength calculation.
  */
-const DIVERSITY_WEIGHT = 0.3;
-const ENTROPY_WEIGHT = 0.7;
+const DIVERSITY_WEIGHT = 0.3
+const ENTROPY_WEIGHT = 0.7
 
-export const MEDIUM_SCORE_THRESHOLD = 0.5;
-export const STRONG_SCORE_THRESHOLD = 0.75;
-export const VERY_STRONG_SCORE_THRESHOLD = 0.9;
+export const MEDIUM_SCORE_THRESHOLD = 0.5
+const STRONG_SCORE_THRESHOLD = 0.75
+const VERY_STRONG_SCORE_THRESHOLD = 0.9
 
 // ============================================================================
 // Types
@@ -82,14 +80,14 @@ export const VERY_STRONG_SCORE_THRESHOLD = 0.9;
 /**
  * Password strength levels.
  */
-export type PasswordStrengthLabel = 'Weak' | 'Medium' | 'Strong' | 'Very Strong';
+type PasswordStrengthLabel = 'Weak' | 'Medium' | 'Strong' | 'Very Strong'
 
 /**
  * Password summary information.
  */
-export interface PasswordSummary {
-    value: number;
-    label: PasswordStrengthLabel;
+interface PasswordSummary {
+  value: number
+  label: PasswordStrengthLabel
 }
 
 // ============================================================================
@@ -110,13 +108,13 @@ export interface PasswordSummary {
  * // invalid === ['$', 'SPACE']
  * ```
  */
-export function getInvalidCharacters(text: string = ''): string[] {
-    const invalidChars = text
-        .split('')
-        .filter(char => !VALID_CHARACTER_REGEX.test(char))
-        .map(char => char.replace(' ', 'SPACE'));
+function _getInvalidCharacters(text: string = ''): string[] {
+  const invalidChars = text
+    .split('')
+    .filter((char) => !VALID_CHARACTER_REGEX.test(char))
+    .map((char) => char.replace(' ', 'SPACE'))
 
-    return [...new Set(invalidChars)];
+  return [...new Set(invalidChars)]
 }
 
 /**
@@ -132,15 +130,15 @@ export function getInvalidCharacters(text: string = ''): string[] {
  * ```
  */
 export function getPasswordStrengthLabel(score: number): PasswordStrengthLabel {
-    if (score > VERY_STRONG_SCORE_THRESHOLD) {
-        return 'Very Strong';
-    } else if (score > STRONG_SCORE_THRESHOLD) {
-        return 'Strong';
-    } else if (score > MEDIUM_SCORE_THRESHOLD) {
-        return 'Medium';
-    } else {
-        return 'Weak';
-    }
+  if (score > VERY_STRONG_SCORE_THRESHOLD) {
+    return 'Very Strong'
+  } else if (score > STRONG_SCORE_THRESHOLD) {
+    return 'Strong'
+  } else if (score > MEDIUM_SCORE_THRESHOLD) {
+    return 'Medium'
+  } else {
+    return 'Weak'
+  }
 }
 
 /**
@@ -156,31 +154,31 @@ export function getPasswordStrengthLabel(score: number): PasswordStrengthLabel {
  * const diversity = calculatePasswordDiversityScore('Password123!');
  * ```
  */
-export function calculatePasswordDiversityScore(password: string): number {
-    // Passwords shorter than minimum length get a score of 0
-    if (password.length < MIN_PASSWORD_LENGTH) {
-        return 0;
-    }
+function calculatePasswordDiversityScore(password: string): number {
+  // Passwords shorter than minimum length get a score of 0
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    return 0
+  }
 
-    let characterTypesUsed = 0;
+  let characterTypesUsed = 0
 
-    if (LOWERCASE_REGEX.test(password)) {
-        characterTypesUsed += 1;
-    }
+  if (LOWERCASE_REGEX.test(password)) {
+    characterTypesUsed += 1
+  }
 
-    if (UPPERCASE_REGEX.test(password)) {
-        characterTypesUsed += 1;
-    }
+  if (UPPERCASE_REGEX.test(password)) {
+    characterTypesUsed += 1
+  }
 
-    if (DIGIT_REGEX.test(password)) {
-        characterTypesUsed += 1;
-    }
+  if (DIGIT_REGEX.test(password)) {
+    characterTypesUsed += 1
+  }
 
-    if (SPECIAL_CHARACTER_REGEX.test(password)) {
-        characterTypesUsed += 1;
-    }
+  if (SPECIAL_CHARACTER_REGEX.test(password)) {
+    characterTypesUsed += 1
+  }
 
-    return Math.max(0, Math.min(1, characterTypesUsed / 4));
+  return Math.max(0, Math.min(1, characterTypesUsed / 4))
 }
 
 /**
@@ -195,13 +193,10 @@ export function calculatePasswordDiversityScore(password: string): number {
  * ```
  */
 export function getPasswordStrength(password: string = ''): number {
-    const diversityScore = calculatePasswordDiversityScore(password);
-    const entropyScore = calculateEntropy(password) / MAX_ENTROPY_SCORE;
+  const diversityScore = calculatePasswordDiversityScore(password)
+  const entropyScore = calculateEntropy(password) / MAX_ENTROPY_SCORE
 
-    return Math.min((
-        diversityScore * DIVERSITY_WEIGHT +
-        entropyScore * ENTROPY_WEIGHT
-    ), 1);
+  return Math.min(diversityScore * DIVERSITY_WEIGHT + entropyScore * ENTROPY_WEIGHT, 1)
 }
 
 /**
@@ -216,11 +211,11 @@ export function getPasswordStrength(password: string = ''): number {
  * // summary === { value: 0.74, label: 'Strong' }
  * ```
  */
-export function getPasswordSummary(password: string = ''): PasswordSummary {
-    const strengthValue = getPasswordStrength(password);
+function _getPasswordSummary(password: string = ''): PasswordSummary {
+  const strengthValue = getPasswordStrength(password)
 
-    return {
-        value: strengthValue,
-        label: getPasswordStrengthLabel(strengthValue),
-    };
+  return {
+    value: strengthValue,
+    label: getPasswordStrengthLabel(strengthValue),
+  }
 }

@@ -193,7 +193,7 @@ When testing integration flows:
 - **Type Safety**: Full TypeScript support across frontend and backend
 - **Error Resilience**: Graceful degradation and user-friendly error messages
 - **Extensibility**: Easy to add new providers or blockchain actions
-- **Workspace Architecture**: Clean monorepo structure with Yarn workspaces
+- **Workspace Architecture**: Clean monorepo structure with pnpm workspaces
 
 ## Related Documentation
 
