@@ -60,7 +60,7 @@ const UnknownChain = ({ testnet, ...props }: Logo) => {
   return <KnownChain testnet {...props} />;
 };
 
-export const Ethereum = ({ testnet, ...props }: Logo) => {
+const Ethereum = ({ testnet, ...props }: Logo) => {
   let bg = 'var(--ck-chain-ethereum-01, #25292E)';
   let fill = 'var(--ck-chain-ethereum-02, #ffffff)';
 
@@ -108,7 +108,7 @@ export const Ethereum = ({ testnet, ...props }: Logo) => {
   );
 };
 
-export const LensChain = ({ testnet, ...props }: { testnet?: boolean }) => (
+const LensChain = ({ testnet, ...props }: { testnet?: boolean }) => (
   <svg
     {...props}
     width="44"
@@ -129,7 +129,7 @@ export const LensChain = ({ testnet, ...props }: { testnet?: boolean }) => (
   </svg>
 );
 
-export const Polygon = ({ testnet, ...props }: Logo) => (
+const Polygon = ({ testnet, ...props }: Logo) => (
   <svg
     {...props}
     aria-hidden="true"
@@ -150,7 +150,7 @@ export const Polygon = ({ testnet, ...props }: Logo) => (
     />
   </svg>
 );
-export const Optimism = ({ testnet, ...props }: Logo) => (
+const Optimism = ({ testnet, ...props }: Logo) => (
   <svg
     {...props}
     aria-hidden="true"
@@ -185,7 +185,7 @@ export const Optimism = ({ testnet, ...props }: Logo) => (
   </svg>
 );
 
-export const Arbitrum = ({ testnet, ...props }: Logo) => {
+const Arbitrum = ({ testnet, ...props }: Logo) => {
   const fill = testnet ? '#ffffff' : '#28A0F0';
   const outlineFill = testnet ? '#ffffff' : '#96BEDC';
   return (
@@ -233,7 +233,7 @@ export const Arbitrum = ({ testnet, ...props }: Logo) => {
   );
 };
 
-export const Telos = ({ testnet, ...props }: Logo) => (
+const Telos = ({ testnet, ...props }: Logo) => (
   <svg
     {...props}
     aria-hidden="true"

@@ -9,21 +9,21 @@ import { buildCallbackUrl } from './requestEmailVerification'
 import { type BaseFlowState, mapStatus } from './status'
 import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
 
-export type EmailAuthResult = {
+type EmailAuthResult = {
   error?: OpenfortError
   user?: OpenfortUser
   wallet?: UserWallet
   requiresEmailVerification?: boolean
 }
 
-export type SignInEmailOptions = {
+type SignInEmailOptions = {
   email: string
   password: string
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult> &
   CreateWalletPostAuthOptions
 
-export type SignUpEmailOptions = {
+type SignUpEmailOptions = {
   email: string
   password: string
   name?: string
@@ -31,24 +31,24 @@ export type SignUpEmailOptions = {
 } & OpenfortHookOptions<EmailAuthResult> &
   CreateWalletPostAuthOptions
 
-export type RequestResetPasswordOptions = {
+type RequestResetPasswordOptions = {
   email: string
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult>
 
-export type ResetPasswordOptions = {
+type ResetPasswordOptions = {
   email: string
   password: string
   state: string
 } & OpenfortHookOptions<EmailAuthResult>
 
-export type LinkEmailOptions = {
+type LinkEmailOptions = {
   email: string
   password: string
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult>
 
-export type VerifyEmailOptions = {
+type VerifyEmailOptions = {
   email: string
   state: string
 } & OpenfortHookOptions<EmailVerificationResult>
@@ -58,7 +58,7 @@ export type EmailVerificationResult = {
   error?: OpenfortError
 }
 
-export type UseEmailHookOptions = {
+type UseEmailHookOptions = {
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult | EmailVerificationResult> &
   CreateWalletPostAuthOptions

@@ -17,7 +17,7 @@ type LogoGraphicProps = {
   logo: React.ReactNode
 }
 
-export const LogoGraphic = ({ size = '100%', logo }: LogoGraphicProps) => {
+const LogoGraphic = ({ size = '100%', logo }: LogoGraphicProps) => {
   return (
     <Logo>
       <LogoPosition>

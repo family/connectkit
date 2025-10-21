@@ -5,31 +5,31 @@ declare global {
   }
 }
 
-export const isWalletInstalled = (name: string) => {
+const isWalletInstalled = (name: string) => {
   if (typeof window === 'undefined') return false
   const { ethereum } = window
   return !!(ethereum?.[`is${name}`] || ethereum?.providers?.find((provider) => provider?.[`is${name}`]))
 }
 
-export const isMetaMask = () => isWalletInstalled('MetaMask')
-export const isCoinbaseWallet = () => isWalletInstalled('CoinbaseWallet')
+const isMetaMask = () => isWalletInstalled('MetaMask')
+const isCoinbaseWallet = () => isWalletInstalled('CoinbaseWallet')
 export const isFamily = () => isWalletInstalled('Family')
-export const isBrave = () => isWalletInstalled('BraveWallet')
-export const isTokenary = () => isWalletInstalled('Tokenary')
-export const isDawn = () => isWalletInstalled('Dawn')
-export const isFrame = () => isWalletInstalled('Frame')
+const isBrave = () => isWalletInstalled('BraveWallet')
+const isTokenary = () => isWalletInstalled('Tokenary')
+const isDawn = () => isWalletInstalled('Dawn')
+const isFrame = () => isWalletInstalled('Frame')
 export const isPhantom = () => isWalletInstalled('Phantom')
-export const isInfinityWallet = () => isWalletInstalled('InfinityWallet')
-export const isRabby = () => isWalletInstalled('Rabby')
+const isInfinityWallet = () => isWalletInstalled('InfinityWallet')
+const isRabby = () => isWalletInstalled('Rabby')
 export const isArgent = () => isWalletInstalled('Argent')
-export const isFrontier = () => isWalletInstalled('Frontier')
-export const isTrust = () => {
+const isFrontier = () => isWalletInstalled('Frontier')
+const isTrust = () => {
   if (typeof window === 'undefined') return false
   return isWalletInstalled('Trust') || window?.trustWallet?.isTrust || window?.trustwallet?.isTrust
 }
-export const isTokenPocket = () => isWalletInstalled('TokenPocket')
-export const isTalisman = () => isWalletInstalled('Talisman')
-export const isFordefi = () => isWalletInstalled('Fordefi')
-export const isRainbow = () => isWalletInstalled('Rainbow')
-export const isZerion = () => isWalletInstalled('Zerion')
+const isTokenPocket = () => isWalletInstalled('TokenPocket')
+const isTalisman = () => isWalletInstalled('Talisman')
+const isFordefi = () => isWalletInstalled('Fordefi')
+const isRainbow = () => isWalletInstalled('Rainbow')
+const isZerion = () => isWalletInstalled('Zerion')
 export const isSafe = () => isWalletInstalled('Safe')

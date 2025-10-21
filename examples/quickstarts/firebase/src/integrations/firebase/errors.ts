@@ -4,7 +4,7 @@ import { FirebaseError } from "firebase/app";
  * Firebase Auth error codes mapped to user-friendly messages
  * @see https://firebase.google.com/docs/reference/js/auth#autherrorcodes
  */
-export const AUTH_ERROR_MESSAGES: Record<string, string> = {
+const AUTH_ERROR_MESSAGES: Record<string, string> = {
   // Operation errors
   'auth/operation-not-allowed': 'This sign-in method is not enabled. Please contact support or enable it in Firebase Console.',
   'auth/operation-not-supported-in-this-environment': 'This operation is not supported in this environment.',
@@ -74,7 +74,7 @@ export function getFirebaseErrorMessage(error: unknown): string {
  * @param error - The error to check
  * @returns True if the error is an operation-not-allowed error
  */
-export function isOperationNotAllowedError(error: unknown): boolean {
+function isOperationNotAllowedError(error: unknown): boolean {
   return error instanceof FirebaseError && error.code === 'auth/operation-not-allowed';
 }
 
@@ -83,7 +83,7 @@ export function isOperationNotAllowedError(error: unknown): boolean {
  * @param error - The error to check
  * @returns True if the error is network-related
  */
-export function isNetworkError(error: unknown): boolean {
+function isNetworkError(error: unknown): boolean {
   if (!(error instanceof FirebaseError)) {
     return false;
   }
@@ -101,7 +101,7 @@ export function isNetworkError(error: unknown): boolean {
  * @param error - The error to check
  * @returns True if the error is due to user cancellation
  */
-export function isUserCancellationError(error: unknown): boolean {
+function isUserCancellationError(error: unknown): boolean {
   if (!(error instanceof FirebaseError)) {
     return false;
   }

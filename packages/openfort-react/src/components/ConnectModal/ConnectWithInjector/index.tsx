@@ -27,7 +27,7 @@ import { useOpenfort } from '../../Openfort/useOpenfort'
 import CircleSpinner from './CircleSpinner'
 import { ConnectingAnimation, ConnectingContainer, Container, Content, RetryButton, RetryIconContainer } from './styles'
 
-export const states = {
+const states = {
   CONNECTED: 'connected',
   CONNECTING: 'connecting',
   EXPIRING: 'expiring',

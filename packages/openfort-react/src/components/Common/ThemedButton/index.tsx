@@ -13,7 +13,7 @@ type ThemedButtonProps = {
   onClick?: () => void
 }
 
-export const PlaceholderButton = () => {
+const PlaceholderButton = () => {
   return <div style={{ height: 40 }} />
 }
 

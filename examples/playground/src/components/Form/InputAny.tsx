@@ -2,7 +2,7 @@ import { FunctionInputTypeType } from "@/components/Form/Form";
 import { Input } from "@/components/Form/Input";
 import { Select } from "@/components/Form/Select";
 
-export type InputAnyType = (FunctionInputTypeType) & {
+type InputAnyType = (FunctionInputTypeType) & {
   required?: boolean;
   defaultValue?: string;
   placeholder?: string;

@@ -2,7 +2,7 @@
  * Better Auth error codes mapped to user-friendly messages
  * @see https://www.better-auth.com/docs
  */
-export const AUTH_ERROR_MESSAGES: Record<string, string> = {
+const AUTH_ERROR_MESSAGES: Record<string, string> = {
   // Email/Password errors
   invalid_credentials: 'Invalid email or password.',
   email_not_verified: 'Please verify your email address before signing in.',
@@ -66,7 +66,7 @@ export function getBetterAuthErrorMessage(error: unknown): string {
  * @param error - The error to check
  * @returns True if the error is network-related
  */
-export function isNetworkError(error: unknown): boolean {
+function isNetworkError(error: unknown): boolean {
   if (!(error && typeof error === 'object' && 'message' in error)) {
     return false;
   }
@@ -80,7 +80,7 @@ export function isNetworkError(error: unknown): boolean {
  * @param error - The error to check
  * @returns True if the error is due to rate limiting
  */
-export function isRateLimitError(error: unknown): boolean {
+function isRateLimitError(error: unknown): boolean {
   if (!(error && typeof error === 'object' && 'message' in error)) {
     return false;
   }

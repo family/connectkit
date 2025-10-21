@@ -56,7 +56,7 @@ export type OpenfortHookOptions<T = { error?: OpenfortError }> = {
 // Re-export important types and enums from openfort-js
 export {
   OAuthProvider,
-  RecoveryMethod,
+  
   SDKOverrides,
   ThirdPartyOAuthProvider,
 } from '@openfort/openfort-js'

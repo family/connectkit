@@ -50,7 +50,7 @@ const PoweredByFooter = ({ showDisclaimer }: { showDisclaimer?: boolean }) => {
   )
 }
 
-export const Disclaimer = styled(motion.div)`
+const Disclaimer = styled(motion.div)`
   padding: 8px 50px 0px 50px;
   display: flex;
   align-items: center;

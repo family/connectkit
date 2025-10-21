@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { Theme } from '../types'
 
-export function useGoogleFont(font: string) {
+function useGoogleFont(font: string) {
   useEffect(() => {
     if (!font) return
     font = font.replace(/ /g, '+')

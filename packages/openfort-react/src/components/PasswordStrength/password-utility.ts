@@ -70,8 +70,8 @@ const DIVERSITY_WEIGHT = 0.3
 const ENTROPY_WEIGHT = 0.7
 
 export const MEDIUM_SCORE_THRESHOLD = 0.5
-export const STRONG_SCORE_THRESHOLD = 0.75
-export const VERY_STRONG_SCORE_THRESHOLD = 0.9
+const STRONG_SCORE_THRESHOLD = 0.75
+const VERY_STRONG_SCORE_THRESHOLD = 0.9
 
 // ============================================================================
 // Types
@@ -80,12 +80,12 @@ export const VERY_STRONG_SCORE_THRESHOLD = 0.9
 /**
  * Password strength levels.
  */
-export type PasswordStrengthLabel = 'Weak' | 'Medium' | 'Strong' | 'Very Strong'
+type PasswordStrengthLabel = 'Weak' | 'Medium' | 'Strong' | 'Very Strong'
 
 /**
  * Password summary information.
  */
-export interface PasswordSummary {
+interface PasswordSummary {
   value: number
   label: PasswordStrengthLabel
 }
@@ -108,7 +108,7 @@ export interface PasswordSummary {
  * // invalid === ['$', 'SPACE']
  * ```
  */
-export function getInvalidCharacters(text: string = ''): string[] {
+function getInvalidCharacters(text: string = ''): string[] {
   const invalidChars = text
     .split('')
     .filter((char) => !VALID_CHARACTER_REGEX.test(char))
@@ -154,7 +154,7 @@ export function getPasswordStrengthLabel(score: number): PasswordStrengthLabel {
  * const diversity = calculatePasswordDiversityScore('Password123!');
  * ```
  */
-export function calculatePasswordDiversityScore(password: string): number {
+function calculatePasswordDiversityScore(password: string): number {
   // Passwords shorter than minimum length get a score of 0
   if (password.length < MIN_PASSWORD_LENGTH) {
     return 0
@@ -211,7 +211,7 @@ export function getPasswordStrength(password: string = ''): number {
  * // summary === { value: 0.74, label: 'Strong' }
  * ```
  */
-export function getPasswordSummary(password: string = ''): PasswordSummary {
+function getPasswordSummary(password: string = ''): PasswordSummary {
   const strengthValue = getPasswordStrength(password)
 
   return {

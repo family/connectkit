@@ -2,9 +2,9 @@ import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip
 import { cn } from "@/lib/cn";
 import { forwardRef, type ComponentType } from "react";
 
-export type CustomTruncatedTextContentProps = { displayText: string, className?: string };
+type CustomTruncatedTextContentProps = { displayText: string, className?: string };
 
-export type TruncatedTextProps = {
+type TruncatedTextProps = {
   text: string;
   displayText?: string;
   startChars?: number;

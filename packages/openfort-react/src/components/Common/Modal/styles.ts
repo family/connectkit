@@ -196,7 +196,7 @@ export const ModalBody = styled.div<{
   }
 `
 
-export const ModalBodySmall = styled.div`
+const ModalBodySmall = styled.div`
   padding: 0 12px;
   font-size: 13px;
   font-weight: 400;
@@ -420,7 +420,7 @@ export const CloseButton = styled(motion.button)`
   }
 `
 
-export const SiweButton = styled(motion.button)`
+const SiweButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
   inset: 0;
@@ -600,7 +600,7 @@ export const Container = styled(motion.div)`
   }
 `
 
-export const Disclaimer = styled(motion.div)`
+const Disclaimer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -628,7 +628,7 @@ export const Disclaimer = styled(motion.div)`
   }
 `
 
-export const DisclaimerBackground = styled(motion.div)`
+const DisclaimerBackground = styled(motion.div)`
   pointer-events: all;
   z-index: 9;
   position: absolute;
@@ -660,7 +660,7 @@ export const DisclaimerBackground = styled(motion.div)`
   }
 `
 
-export const SignInTooltip = styled(motion.div)`
+const SignInTooltip = styled(motion.div)`
   z-index: 2;
   position: absolute;
   top: 100%;

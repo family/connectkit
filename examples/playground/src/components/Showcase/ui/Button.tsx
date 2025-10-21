@@ -8,7 +8,7 @@ const transition = {
   ease: [0.175, 0.885, 0.32, 0.98],
 } as const;
 
-export type ButtonProps = {
+type ButtonProps = {
   className?: string;
   children?: React.ReactNode;
   disabled?: boolean;

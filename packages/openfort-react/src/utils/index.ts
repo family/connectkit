@@ -84,13 +84,13 @@ export const isWalletConnectConnector = (connectorId?: string) => connectorId ==
 
 export const isFamilyAccountsConnector = (connectorId?: string) => connectorId === 'familyAccountsProvider'
 
-export const isFamilyConnector = (connectorId?: string) => connectorId === 'co.family.wallet'
+const isFamilyConnector = (connectorId?: string) => connectorId === 'co.family.wallet'
 
-export const isMetaMaskConnector = (connectorId?: string) => connectorId === 'metaMaskSDK'
+const isMetaMaskConnector = (connectorId?: string) => connectorId === 'metaMaskSDK'
 
 export const isCoinbaseWalletConnector = (connectorId?: string) => connectorId === 'coinbaseWalletSDK'
 
-export const isLedgerConnector = (connectorId?: string) => connectorId === 'ledger'
+const isLedgerConnector = (connectorId?: string) => connectorId === 'ledger'
 
 export const isPortoConnector = (connectorId?: string) => connectorId === 'xyz.ithaca.porto'
 
@@ -101,11 +101,11 @@ export const isInjectedConnector = (connectorId?: string) => connectorId === 'in
 export {
   nFormatter,
   truncateEthAddress,
-  truncateENSAddress,
-  truncateUserId,
+  
+  
   isMobile,
   isAndroid,
   detectBrowser,
-  detectOS,
+  
   flattenChildren,
 }

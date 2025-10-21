@@ -41,7 +41,7 @@ export type UserWallet = {
   salt?: string
 }
 
-export type WalletRecovery = {
+type WalletRecovery = {
   recoveryMethod: RecoveryMethod
   password?: string
 }
@@ -96,7 +96,7 @@ export type WalletFlowStatus =
       error?: never
     }
 
-export const mapWalletStatus = (status: WalletFlowStatus) => {
+const mapWalletStatus = (status: WalletFlowStatus) => {
   return {
     error: status.error,
     isError: status.status === 'error',

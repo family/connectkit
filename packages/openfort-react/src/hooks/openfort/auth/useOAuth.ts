@@ -9,12 +9,12 @@ import { type BaseFlowState, mapStatus } from './status'
 import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
 
 // TODO: Open auth in a new tab and use polling to check for completion
-export type InitializeOAuthOptions = {
+type InitializeOAuthOptions = {
   provider: OAuthProvider
   redirectTo?: string
 } & OpenfortHookOptions<InitOAuthReturnType>
 
-export type InitOAuthReturnType = {
+type InitOAuthReturnType = {
   error?: OpenfortError
 }
 
@@ -24,14 +24,14 @@ export type StoreCredentialsResult = {
   wallet?: UserWallet
   error?: OpenfortError
 }
-export type StoreCredentialsOptions = {
+type StoreCredentialsOptions = {
   player: string
   accessToken: string
   refreshToken: string
 } & OpenfortHookOptions<StoreCredentialsResult> &
   CreateWalletPostAuthOptions
 
-export type AuthHookOptions = {
+type AuthHookOptions = {
   redirectTo?: string
 } & OpenfortHookOptions<StoreCredentialsResult | InitOAuthReturnType> &
   CreateWalletPostAuthOptions

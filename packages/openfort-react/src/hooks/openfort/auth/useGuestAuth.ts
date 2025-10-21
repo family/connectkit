@@ -7,13 +7,13 @@ import type { UserWallet } from '../useWallets'
 import { type BaseFlowState, mapStatus } from './status'
 import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
 
-export type GuestHookResult = {
+type GuestHookResult = {
   error?: OpenfortError
   user?: OpenfortUser
   wallet?: UserWallet
 }
 
-export type GuestHookOptions = OpenfortHookOptions<GuestHookResult> & CreateWalletPostAuthOptions
+type GuestHookOptions = OpenfortHookOptions<GuestHookResult> & CreateWalletPostAuthOptions
 
 /**
  * Hook for guest authentication operations

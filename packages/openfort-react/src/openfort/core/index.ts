@@ -1,2 +1,2 @@
 // Client creation and configuration
-export { createOpenfortClient, getDefaultClient, setDefaultClient } from './client'
+export { createOpenfortClient,  setDefaultClient } from './client'

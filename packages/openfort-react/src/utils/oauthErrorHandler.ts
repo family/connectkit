@@ -38,6 +38,6 @@ export function handleOAuthConfigError(error: any): void {
   }
 }
 
-export function isOAuthConfigError(error: any): boolean {
+function isOAuthConfigError(error: any): boolean {
   return error?.message?.includes('OAuth Config with provider') && error?.message?.includes('not found')
 }

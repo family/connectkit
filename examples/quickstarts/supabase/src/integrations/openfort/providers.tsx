@@ -9,7 +9,7 @@ import { createConfig, WagmiProvider } from 'wagmi'
 
 import { supabase } from '../supabase'
 
-export const wagmiConfig = createConfig(
+const wagmiConfig = createConfig(
   getDefaultConfig({
     appName: 'Openfort React demo',
     chains: [beamTestnet, polygonAmoy, sepolia], // Supported chains

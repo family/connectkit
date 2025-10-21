@@ -9,7 +9,7 @@ export type SignAuthorizationParameters = AuthorizationRequest
 
 export type SignAuthorizationReturnType = SignedAuthorization
 
-export type SignAuthorizationOptions = {
+type SignAuthorizationOptions = {
   hashMessage: boolean
   arrayifyMessage: boolean
 }

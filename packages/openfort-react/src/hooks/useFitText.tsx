@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
-export type TLogLevel = 'debug' | 'info' | 'warn' | 'error' | 'none'
+type TLogLevel = 'debug' | 'info' | 'warn' | 'error' | 'none'
 
-export type TOptions = {
+type TOptions = {
   logLevel?: TLogLevel
   maxFontSize?: number
   minFontSize?: number

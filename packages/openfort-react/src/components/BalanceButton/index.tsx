@@ -160,4 +160,3 @@ const BalanceButton: React.FC<All & BalanceProps> = ({ theme, mode, customTheme,
     </ThemedButton>
   )
 }
-export default BalanceButton

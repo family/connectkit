@@ -58,7 +58,8 @@
       "**/coverage/**",
       "**/node_modules/**",
       "packages/openfort-react/rollup.config.dev.js",
-      "packages/openfort-react/rollup.config.prod.js"
+      "packages/openfort-react/rollup.config.prod.js",
+      "**/*.gen.ts"
     ],
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",

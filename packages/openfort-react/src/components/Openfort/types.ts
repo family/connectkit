@@ -88,7 +88,7 @@ type EncryptionSession =
  */
 export type OpenfortWalletConfig = CommonWalletConfig & EncryptionSession
 
-export type OpenfortUIOptions = {
+type OpenfortUIOptions = {
   linkWalletOnSignUp?: boolean
 
   authProviders: UIAuthProvider[]
@@ -98,11 +98,11 @@ export type OpenfortUIOptions = {
   logo?: React.ReactNode
 }
 
-export type OpenfortSDKOptions = {
+type OpenfortSDKOptions = {
   overrides?: CoreOpenfortProviderProps['overrides']
 }
 
-export type WalletRecoveryOptions = {
+type WalletRecoveryOptions = {
   allowedMethods?: RecoveryMethod[]
   defaultMethod?: RecoveryMethod
 }
