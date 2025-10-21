@@ -64,10 +64,14 @@
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",
       "rollup-plugin-typescript2",
-      "typescript-plugin-styled-components"
+      "typescript-plugin-styled-components",
+      "tailwindcss",
+      "tw-animate-css",
+      "daisyui",
+      "buffer"
     ]
   },
   "simple-git-hooks": {
-    "pre-commit": "echo 'TODO: Run pnpm check' && exit 0"
+    "pre-commit": "pnpm check"
   }
 }
