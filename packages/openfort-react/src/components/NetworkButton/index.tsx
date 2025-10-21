@@ -20,6 +20,7 @@ const Container = styled(motion.div)`
 
 const ArrowIcon = (
   <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>Toggle network list</title>
     <path
       fillRule="evenodd"
       clipRule="evenodd"

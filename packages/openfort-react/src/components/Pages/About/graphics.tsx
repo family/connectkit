@@ -69,6 +69,7 @@ const Compass = () => {
   const id = useId()
   return (
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <title>Compass graphic</title>
       <path
         d="M17 34C26.3 34 34 26.2833 34 17C34 7.7 26.2833 0 16.9833 0C7.7 0 0 7.7 0 17C0 26.2833 7.71667 34 17 34ZM9.83333 25.6833C8.68333 26.2333 7.8 25.3333 8.33333 24.2L13.1667 14.3333C13.45 13.75 13.8167 13.3833 14.35 13.1333L24.1833 8.33333C25.4 7.75 26.25 8.65 25.6833 9.81667L20.8833 19.6667C20.6167 20.2 20.2333 20.6 19.6833 20.85L9.83333 25.6833ZM17.0167 19.1333C18.1833 19.1333 19.1333 18.1833 19.1333 17.0167C19.1333 15.85 18.1833 14.9167 17.0167 14.9167C15.8667 14.9167 14.9167 15.85 14.9167 17.0167C14.9167 18.1833 15.8667 19.1333 17.0167 19.1333Z"
         fill="var(--ck-graphic-compass-color, var(--ck-body-color))"
@@ -91,6 +92,7 @@ const Wallet = ({ inverted = false }: { inverted?: boolean }) => {
   const id = useId()
   return (
     <svg width="58" height="50" viewBox="0 0 58 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <title>Wallet graphic</title>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -122,6 +124,7 @@ const Wallet = ({ inverted = false }: { inverted?: boolean }) => {
 
 const Send = (
   <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>Send icon</title>
     <path
       d="M35.4446 0.839914L2.14484 10.7065C0.0395033 11.3303 -0.632966 13.9786 0.919705 15.5313L7.9624 22.574C9.47585 24.0874 11.8661 24.273 13.5951 23.0114L25.2866 14.4797C25.5558 14.2832 25.9281 14.3121 26.1638 14.5478C26.3998 14.7838 26.4285 15.1567 26.2313 15.426L17.6874 27.0937C16.4213 28.8228 16.6052 31.2168 18.1206 32.7322L25.1811 39.7926C26.7337 41.3453 29.382 40.6728 30.0058 38.5675L39.8724 5.2677C40.6753 2.55794 38.1544 0.037024 35.4446 0.839914Z"
       fill="var(--ck-graphic-secondary-color, white)"
@@ -131,6 +134,7 @@ const Send = (
 
 const Receive = (
   <svg width="38" height="44" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>Receive icon</title>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -144,6 +148,7 @@ const Key = ({ ...props }) => {
   const id = props?.id ?? ''
   return (
     <svg {...props} width="81" height="81" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <title>Key graphic</title>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -202,6 +207,7 @@ const Key = ({ ...props }) => {
 
 const VitalikAddress = (
   <svg width="131" height="14" viewBox="0 0 131 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>Vitalik address graphic</title>
     <path
       d="M5.74805 13.2549C8.86816 13.2549 10.7227 10.6973 10.7227 6.63672C10.7227 2.57617 8.85059 0.0625 5.74805 0.0625C2.63672 0.0625 0.755859 2.59375 0.755859 6.64551C0.755859 10.7148 2.61914 13.2549 5.74805 13.2549ZM5.74805 11.4004C4.02539 11.4004 3.04102 9.64258 3.04102 6.63672C3.04102 3.68359 4.04297 1.91699 5.74805 1.91699C7.44434 1.91699 8.4375 3.6748 8.4375 6.64551C8.4375 9.65137 7.46191 11.4004 5.74805 11.4004Z"
       fill="var(--ck-body-color)"
@@ -464,6 +470,7 @@ export const SlideThree = ({ layoutId }: Slide) => {
             }
           >
             <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <title>Network rings graphic</title>
               <g>
                 <circle cx="30" cy="141" r="64" stroke={`url(#networkRadialA-${id})`} strokeWidth="3" />
                 <circle

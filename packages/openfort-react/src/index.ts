@@ -11,13 +11,10 @@ export {
   RecoveryParams,
   SignedMessagePayload,
 } from '@openfort/openfort-js'
-//export { default as NetworkButton } from './components/NetworkButton';
-//export { default as BalanceButton, Balance } from './components/BalanceButton';
 export { default as Avatar } from './components/Common/Avatar'
 export { default as ChainIcon } from './components/Common/Chain'
 export { OpenfortButton } from './components/ConnectButton'
 export { OpenfortProvider } from './components/Openfort/OpenfortProvider'
-
 export { UIAuthProvider as AuthProvider } from './components/Openfort/types'
 export { embeddedWalletId } from './constants/openfort'
 export { default as getDefaultConfig } from './defaultConfig'
@@ -38,9 +35,26 @@ export { useUI } from './hooks/openfort/useUI'
 export { useUser } from './hooks/openfort/useUser'
 export { UserWallet, useWallets } from './hooks/openfort/useWallets'
 export { useChainIsSupported } from './hooks/useChainIsSupported'
-// Hooks
 export { useChains } from './hooks/useChains'
 export { useOpenfortCore as useOpenfort } from './openfort/useOpenfort'
-export * from './types'
+export type {
+  All,
+  CustomAvatarProps,
+  CustomTheme,
+  Languages,
+  Mode,
+  OpenfortHookOptions,
+  OpenfortOptions,
+  OpenfortWalletConfig,
+  Theme,
+} from './types'
+export {
+  OAuthProvider,
+  OpenfortError,
+  OpenfortErrorType,
+  RecoveryMethod,
+  SDKOverrides,
+  ThirdPartyOAuthProvider,
+} from './types'
 export { OPENFORT_VERSION } from './version'
 export { wallets } from './wallets'

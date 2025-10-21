@@ -14,7 +14,7 @@ const states = {
   ERROR: 'error',
 }
 
-const ConnectWithOAuth: React.FC<{}> = ({}) => {
+const ConnectWithOAuth: React.FC = () => {
   const { connector, setRoute, log } = useOpenfort()
   const { client, user } = useOpenfortCore()
 
@@ -40,9 +40,9 @@ const ConnectWithOAuth: React.FC<{}> = ({}) => {
           const refreshToken = url.searchParams.get('refresh_token')
 
           // Remove specified keys from the URL
-          ;['openfortAuthProviderUI', 'refresh_token', 'access_token', 'player_id'].forEach((key) =>
+          ;['openfortAuthProviderUI', 'refresh_token', 'access_token', 'player_id'].forEach((key) => {
             url.searchParams.delete(key)
-          )
+          })
           window.history.replaceState({}, document.title, url.toString())
 
           if (!player || !accessToken || !refreshToken) {
@@ -59,6 +59,7 @@ const ConnectWithOAuth: React.FC<{}> = ({}) => {
           })
 
           setRoute(routes.LOADING)
+          break
         }
         case states.REDIRECT: {
           if (hasProvider) return

@@ -20,10 +20,10 @@ export default function useLocales(replacements?: any): LocaleProps {
     throw new Error(`Missing translations for: ${language}`)
   }
 
-  const translated = {}
-  Object.keys(translations).map((key) => {
+  const translated: Record<string, unknown> = {}
+  Object.keys(translations).forEach((key) => {
     const string = translations[key]
-    return (translated[key] = localize(string, replacements))
+    translated[key] = localize(string, replacements)
   })
 
   return translated as LocaleProps

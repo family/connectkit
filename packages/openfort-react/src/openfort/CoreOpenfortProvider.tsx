@@ -4,7 +4,6 @@ import {
   type EmbeddedAccount,
   EmbeddedState,
   type Openfort,
-  type OpenfortError,
 } from '@openfort/openfort-js'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type React from 'react'
@@ -153,7 +152,7 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
         logger.log('Getting user')
         setUser(user)
         return user
-      } catch (err: OpenfortError | any) {
+      } catch (err: any) {
         logger.log('Error getting user', err)
         if (!logoutOnError) return null
 

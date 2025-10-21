@@ -391,17 +391,23 @@ const Modal: React.FC<ModalProps> = ({
                   transition={{ duration: 0.2, ease: 'easeInOut' }}
                 >
                   <span>{context.errorMessage}</span>
-                  <div
+                  <button
+                    type="button"
+                    aria-label={flattenChildren(locales.close).toString()}
                     onClick={() => context.displayError(null)}
                     style={{
                       position: 'absolute',
                       right: 24,
                       top: 24,
                       cursor: 'pointer',
+                      background: 'transparent',
+                      border: 'none',
+                      padding: 0,
+                      display: 'flex',
                     }}
                   >
                     <CloseIcon />
-                  </div>
+                  </button>
                 </ErrorMessage>
               )}
             </AnimatePresence>
@@ -537,13 +543,11 @@ type PageProps = {
   children?: React.ReactNode
   open?: boolean
   initial: boolean
-  prevDepth?: number
-  currentDepth?: number
   enterAnim?: string
   exitAnim?: string
 }
 
-const Page: React.FC<PageProps> = ({ children, open, initial, prevDepth, currentDepth, enterAnim, exitAnim }) => {
+const Page: React.FC<PageProps> = ({ children, open, initial, enterAnim, exitAnim }) => {
   const [state, setOpen] = useTransition({
     timeout: 400,
     preEnter: true,

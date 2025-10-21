@@ -138,7 +138,9 @@ export const useAuthCallback = ({
         }
 
         const removeParams = () => {
-          ;['state', 'openfortAuthProvider', 'email'].forEach((key) => url.searchParams.delete(key))
+          ;['state', 'openfortAuthProvider', 'email'].forEach((key) => {
+            url.searchParams.delete(key)
+          })
           window.history.replaceState({}, document.title, url.toString())
         }
 
@@ -192,9 +194,9 @@ export const useAuthCallback = ({
         }
 
         const removeParams = () => {
-          ;['openfortAuthProvider', 'refresh_token', 'access_token', 'player_id'].forEach((key) =>
+          ;['openfortAuthProvider', 'refresh_token', 'access_token', 'player_id'].forEach((key) => {
             url.searchParams.delete(key)
-          )
+          })
           window.history.replaceState({}, document.title, url.toString())
         }
 
