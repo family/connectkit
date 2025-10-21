@@ -48,7 +48,7 @@
     "tw-animate-css": "^1.3.6",
     "typedoc": "^0.28.9",
     "typescript": "~5.7.2",
-    "vite": "^6.2.0",
+    "vite": "^6.4.1",
     "vite-plugin-node-polyfills": "^0.23.0"
   },
   "packageManager": "pnpm@10.16.1"
