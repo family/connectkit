@@ -11,7 +11,6 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@openfort/react": "^0.0.26",
-    "@tailwindcss/vite": "^4.1.12",
     "@tanstack/react-query": "^5.90.2",
     "better-auth": "^1.2.2",
     "react": "^18.2.0",
@@ -22,6 +21,8 @@
   "devDependencies": {
     "@types/node": "^22.10.5",
     "@types/react": "^19.1.10",
+    "@tailwindcss/vite": "^4.1.15",
+    "tailwindcss": "^4.1.15",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^4.3.4",
     "typescript": "~5.8.3",

@@ -10,8 +10,7 @@ export default defineConfig({
   plugins: [
     tanstackRouter({ 
       target: 'react', 
-      autoCodeSplitting: true,
-      disableLogging: true
+      autoCodeSplitting: true
     }),
     tailwindcss(),
     react(),
