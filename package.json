@@ -68,7 +68,9 @@
       "**/dist/**",
       "**/.next/**",
       "**/coverage/**",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "packages/openfort-react/rollup.config.dev.js",
+      "packages/openfort-react/rollup.config.prod.js"
     ],
     "ignoreBinaries": [
       "pnpm",
