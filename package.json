@@ -51,16 +51,14 @@
     "tslib": "^1.9.3",
     "typescript": "^5.0.4",
     "typescript-plugin-styled-components": "^2.0.0",
-    "viem": "2.33.0",
-    "wagmi": "^2.16.0"
+    "viem": "^2.38.3",
+    "wagmi": "^2.18.1"
   },
   "packageManager": "pnpm@10.16.1",
   "pnpm": {
     "overrides": {
       "react": "^18.0.0",
-      "react-dom": "^18.0.0",
-      "viem": "2.33.0",
-      "wagmi": "^2.16.0"
+      "react-dom": "^18.0.0"
     }
   },
   "knip": {
