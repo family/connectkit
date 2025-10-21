@@ -70,6 +70,7 @@ const contentVariants: Variants = {
 const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void
   forceState?: typeof states
+  // biome-ignore lint/correctness/noUnusedFunctionParameters: switchConnectMethod is part of the component interface but not used in current implementation
 }> = ({ switchConnectMethod, forceState }) => {
   const openfort = useOpenfortCore()
   const { log, setOpen } = useOpenfort()
