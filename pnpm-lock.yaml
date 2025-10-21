@@ -55,8 +55,8 @@ importers:
         specifier: ^5.2.1
         version: 5.2.2(react-hook-form@7.65.0(react@18.3.1))
       '@openfort/react':
-        specifier: workspace:*
-        version: link:../../packages/openfort-react
+        specifier: ^0.0.27
+        version: 0.0.27(@babel/core@7.28.4)(@tanstack/react-query@5.90.3(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.3(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.1(@tanstack/query-core@5.90.3)(@tanstack/react-query@5.90.3(react@18.3.1))(@types/react@18.3.26)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(viem@2.38.3(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.15
         version: 2.1.16(@types/react-dom@18.3.7(@types/react@18.3.26))(@types/react@18.3.26)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1640,6 +1640,16 @@ packages:
 
   '@openfort/react@0.0.26':
     resolution: {integrity: sha512-pEkmczXXm59mB8DpeMMFsoyz7tmLzL01WaLzaslNtyl798Kr09f03nhWslxp4P7EbbawWWsZIGfMPJ7inqTyPw==}
+    engines: {node: '>=12.4'}
+    peerDependencies:
+      '@tanstack/react-query': '>=5.0.0'
+      react: ^18.0.0
+      react-dom: ^18.0.0
+      viem: 2.x
+      wagmi: 2.x
+
+  '@openfort/react@0.0.27':
+    resolution: {integrity: sha512-cVVaXGW6Gr7nVCZHrZq3ZX4rZEKaXQcPVeQFxE8wkfuOsBaBg+NYV8JiGhrZWOPVbYnuBnTduxHy7/3jbZFikA==}
     engines: {node: '>=12.4'}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -7887,6 +7897,30 @@ snapshots:
       styled-components: 5.3.11(react-dom@18.3.1(react@18.3.1))(react-is@19.2.0)(react@18.3.1)
       viem: 2.38.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12)
       wagmi: 2.18.1(@tanstack/query-core@5.90.3)(@tanstack/react-query@5.90.3(react@18.3.1))(@types/react@19.2.2)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - bufferutil
+      - debug
+      - utf-8-validate
+
+  '@openfort/react@0.0.27(@babel/core@7.28.4)(@tanstack/react-query@5.90.3(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.3(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.1(@tanstack/query-core@5.90.3)(@tanstack/react-query@5.90.3(react@18.3.1))(@types/react@18.3.26)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(viem@2.38.3(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))':
+    dependencies:
+      '@openfort/openfort-js': 0.10.27(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@tanstack/react-query': 5.90.3(react@18.3.1)
+      buffer: 6.0.3
+      detect-browser: 5.3.0
+      fast-password-entropy: 1.1.1
+      framer-motion: 6.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      qrcode: 1.5.4
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-is: 19.2.0
+      react-transition-state: 1.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-use-measure: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      resize-observer-polyfill: 1.5.1
+      styled-components: 5.3.11(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react-is@19.2.0)(react@18.3.1)
+      viem: 2.38.3(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@4.1.12)
+      wagmi: 2.18.1(@tanstack/query-core@5.90.3)(@tanstack/react-query@5.90.3(react@18.3.1))(@types/react@18.3.26)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(viem@2.38.3(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12)
     transitivePeerDependencies:
       - '@babel/core'
       - bufferutil
