@@ -53,7 +53,7 @@ const EmailLogin: React.FC = () => {
     if (isRegister) {
       return handleSignUp()
     }
-    
+
     setIsRegister(false)
     setTimeout(() => {
       triggerResize()
