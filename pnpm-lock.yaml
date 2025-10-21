@@ -63,6 +63,9 @@ importers:
       '@tanstack/router-plugin':
         specifier: ^1.130.8
         version: 1.133.3(@tanstack/react-router@1.133.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.4.1(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -454,6 +457,9 @@ importers:
       axios:
         specifier: ^1.7.7
         version: 1.12.2
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
       detect-browser:
         specifier: ^5.3.0
         version: 5.3.0
@@ -520,10 +526,10 @@ importers:
         version: 2.22.1(@tanstack/query-core@5.90.3)(@types/react@18.3.26)(react@18.3.1)(typescript@5.8.3)(use-sync-external-store@1.6.0(react@18.3.1))(viem@2.38.3(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))
       rollup-plugin-peer-deps-external:
         specifier: ^2.2.4
-        version: 2.2.4(rollup@4.52.4)
+        version: 2.2.4(rollup@2.79.2)
       rollup-plugin-typescript2:
         specifier: ^0.36.0
-        version: 0.36.0(rollup@4.52.4)(typescript@5.8.3)
+        version: 0.36.0(rollup@2.79.2)(typescript@5.8.3)
       typescript:
         specifier: ^5.0.4
         version: 5.8.3
@@ -13531,16 +13537,16 @@ snapshots:
       hash-base: 3.1.2
       inherits: 2.0.4
 
-  rollup-plugin-peer-deps-external@2.2.4(rollup@4.52.4):
+  rollup-plugin-peer-deps-external@2.2.4(rollup@2.79.2):
     dependencies:
-      rollup: 4.52.4
+      rollup: 2.79.2
 
-  rollup-plugin-typescript2@0.36.0(rollup@4.52.4)(typescript@5.8.3):
+  rollup-plugin-typescript2@0.36.0(rollup@2.79.2)(typescript@5.8.3):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       find-cache-dir: 3.3.2
       fs-extra: 10.1.0
-      rollup: 4.52.4
+      rollup: 2.79.2
       semver: 7.7.3
       tslib: 2.8.1
       typescript: 5.8.3

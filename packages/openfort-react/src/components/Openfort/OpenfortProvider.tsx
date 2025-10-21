@@ -1,4 +1,4 @@
-import { Buffer } from 'node:buffer'
+import { Buffer } from 'buffer'
 import { RecoveryMethod, type SDKOverrides, type ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import React, { createElement, useEffect, useState } from 'react'
 import type { ValueOf } from 'viem/_types/types/utils'

@@ -8,13 +8,15 @@ import path from "path"
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    tanstackRouter({ 
-      target: 'react', 
+    tanstackRouter({
+      target: 'react',
       autoCodeSplitting: true
     }),
     tailwindcss(),
     react(),
-    nodePolyfills()
+    nodePolyfills({
+      exclude: ['buffer']
+    })
   ],
   resolve: {
     alias: {
