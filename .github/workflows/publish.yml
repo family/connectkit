@@ -1,5 +1,5 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+# This workflow runs when a release is created
+# It builds and publishes the package to NPM
 
 name: Publish to NPM
 
@@ -8,9 +8,10 @@ on:
     types: [created]
 
 jobs:
-  Publish:
+  publish:
     name: Publish Workflow
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -18,21 +19,24 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Prepare Pnpm
-        run: corepack prepare pnpm@7.0.0 --activate
+      - name: Use latest stable pnpm
+        run: corepack prepare pnpm@latest --activate
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      - name: Build
+      - name: Build packages
         run: pnpm build
 
-      - name: Configure npm for Authentication
+      - name: Configure npm authentication
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
-      - name: Release
-        run: npm publish --access public
+      - name: Publish package
+        working-directory: packages/openfort-react
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: packages/openfort-react
+        run: |
+          pnpm publish --access public --no-git-checks
