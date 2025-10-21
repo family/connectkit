@@ -18,11 +18,11 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Prepare Yarn
-        run: corepack prepare yarn@3.2.0 --activate
+      - name: Prepare Pnpm
+        run: corepack prepare pnpm@7.0.0 --activate
 
       - name: Install dependencies
-        run: pnpm install --immutable
+        run: pnpm install
 
       - name: Build
         run: pnpm build
