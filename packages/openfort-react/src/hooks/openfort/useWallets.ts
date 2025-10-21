@@ -21,6 +21,11 @@ import type { BaseFlowState } from './auth/status'
 import { onError, onSuccess } from './hookConsistency'
 import { useUser } from './useUser'
 
+type SimpleAccount = {
+  chainId?: number
+  id: string
+}
+
 export type UserWallet = {
   address: Hex
   connectorType?: string
@@ -32,6 +37,7 @@ export type UserWallet = {
   isConnecting?: boolean
 
   // From openfort embedded wallet
+  accounts: SimpleAccount[]
   recoveryMethod?: RecoveryMethod
   accountId?: string
   accountType?: AccountTypeEnum
@@ -71,22 +77,51 @@ type SetRecoveryOptions = {
 
 type WalletOptions = OpenfortHookOptions<SetActiveWalletResult | CreateWalletResult>
 
-const parseEmbeddedAccount = (embeddedAccount: EmbeddedAccount, connector: Connector | undefined): UserWallet => ({
-  connectorType: 'embedded',
-  walletClientType: 'openfort',
-  address: embeddedAccount.address as Hex,
-  id: embeddedWalletId,
-  isAvailable: true,
-  recoveryMethod: embeddedAccount.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
+// get accounts from the same address and chain type
+const getSimpleAccounts = ({
+  address,
+  embeddedAccounts,
+}: {
+  address: Hex
+  embeddedAccounts: EmbeddedAccount[]
+}): SimpleAccount[] => {
+  return embeddedAccounts
+    .filter((acc) => acc.address.toLowerCase() === address.toLowerCase())
+    .map((acc) => ({
+      chainId: acc.chainId,
+      id: acc.id,
+    }))
+}
 
-  accountId: embeddedAccount.id,
-  accountType: embeddedAccount.accountType,
-  ownerAddress: embeddedAccount.ownerAddress as Hex,
-  implementationType: embeddedAccount.implementationType,
-  salt: embeddedAccount.salt,
-  createdAt: embeddedAccount.createdAt,
+const parseEmbeddedAccount = ({
+  embeddedAccount,
   connector,
-})
+  simpleAccounts,
+  chainId,
+}: {
+  embeddedAccount: EmbeddedAccount
+  connector: Connector | undefined
+  simpleAccounts: SimpleAccount[]
+  chainId: number
+}): UserWallet => {
+  return {
+    connectorType: 'embedded',
+    walletClientType: 'openfort',
+    address: embeddedAccount.address as Hex,
+    id: embeddedWalletId,
+    isAvailable: true,
+    recoveryMethod: embeddedAccount.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
+
+    accounts: simpleAccounts,
+    accountId: simpleAccounts.find((acc) => acc.chainId === chainId)?.id,
+    accountType: embeddedAccount.accountType,
+    ownerAddress: embeddedAccount.ownerAddress as Hex,
+    implementationType: embeddedAccount.implementationType,
+    salt: embeddedAccount.salt,
+    createdAt: embeddedAccount.createdAt,
+    connector,
+  }
+}
 
 export type WalletFlowStatus =
   | BaseFlowState
@@ -306,8 +341,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       ? user.linkedAccounts
           .filter((a) => a.provider === UIAuthProvider.WALLET)
           .map((a) => {
+            // For connector wallets (e.g. Metamask, Rabby, etc.)
             const wallet = availableWallets.find((c) => c.connector.id === a.walletClientType)
             return {
+              accounts: [],
               address: a.address as `0x${string}`,
               connectorType: a.connectorType,
               walletClientType: a.walletClientType,
@@ -322,7 +359,17 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       // Remove duplicates (different chain ids)
       if (userWallets.find((w) => w.address.toLowerCase() === embeddedAccount.address.toLowerCase())) return
 
-      userWallets.push(parseEmbeddedAccount(embeddedAccount, openfortConnector))
+      userWallets.push(
+        parseEmbeddedAccount({
+          embeddedAccount,
+          connector: openfortConnector,
+          simpleAccounts: getSimpleAccounts({
+            address: embeddedAccount.address as Hex,
+            embeddedAccounts,
+          }),
+          chainId,
+        })
+      )
     })
 
     return userWallets
@@ -540,7 +587,15 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
           return onSuccess({
             data: {
-              wallet: parseEmbeddedAccount(embeddedAccount, openfortConnector),
+              wallet: parseEmbeddedAccount({
+                embeddedAccount,
+                connector: openfortConnector,
+                simpleAccounts: getSimpleAccounts({
+                  address: embeddedAccount.address as Hex,
+                  embeddedAccounts,
+                }),
+                chainId,
+              }),
             },
             options: optionsObject,
             hookOptions,
@@ -648,7 +703,17 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           hookOptions,
           options,
           data: {
-            wallet: parseEmbeddedAccount(embeddedAccount, openfortConnector),
+            wallet: parseEmbeddedAccount({
+              embeddedAccount,
+              connector: openfortConnector,
+              simpleAccounts: [],
+              // TODO: Update simple accounts after creating the wallet
+              // simpleAccounts: getSimpleAccounts({
+              //   address: embeddedAccount.address as Hex,
+              //   embeddedAccounts,
+              // }),
+              chainId,
+            }),
           },
         })
       } catch (e) {
@@ -686,7 +751,17 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           hookOptions,
           options: params,
           data: {
-            wallet: parseEmbeddedAccount(embeddedAccount, openfortConnector),
+            wallet: parseEmbeddedAccount({
+              embeddedAccount,
+              connector: openfortConnector,
+              simpleAccounts: [],
+              // TODO: Update simple accounts after creating the wallet
+              // simpleAccounts: getSimpleAccounts({
+              //   address: embeddedAccount.address as Hex,
+              //   embeddedAccounts,
+              // }),
+              chainId,
+            }),
           },
         })
       } catch (error) {
