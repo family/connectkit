@@ -108,7 +108,7 @@ interface PasswordSummary {
  * // invalid === ['$', 'SPACE']
  * ```
  */
-function getInvalidCharacters(text: string = ''): string[] {
+function _getInvalidCharacters(text: string = ''): string[] {
   const invalidChars = text
     .split('')
     .filter((char) => !VALID_CHARACTER_REGEX.test(char))
@@ -211,7 +211,7 @@ export function getPasswordStrength(password: string = ''): number {
  * // summary === { value: 0.74, label: 'Strong' }
  * ```
  */
-function getPasswordSummary(password: string = ''): PasswordSummary {
+function _getPasswordSummary(password: string = ''): PasswordSummary {
   const strengthValue = getPasswordStrength(password)
 
   return {

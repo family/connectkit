@@ -22,7 +22,7 @@ export function useFamilyConnector() {
   return useConnector('co.family.wallet')
 }
 
-function useInjectedConnector(uuid?: string) {
+function _useInjectedConnector(uuid?: string) {
   /*
   options: {
     shimDisconnect: true,
@@ -48,7 +48,7 @@ export function useWalletConnectConnector() {
   */
   return useConnector('walletConnect')
 }
-function useCoinbaseWalletConnector() {
+function _useCoinbaseWalletConnector() {
   /*
   options: {
     headlessMode: true,
@@ -56,7 +56,7 @@ function useCoinbaseWalletConnector() {
   */
   return useConnector('coinbaseWalletSDK')
 }
-function useMetaMaskConnector() {
+function _useMetaMaskConnector() {
   /*
   options: {
     shimDisconnect: true,

@@ -9,7 +9,7 @@ import defaultConnectors from './defaultConnectors'
 let globalAppName: string
 let globalAppIcon: string
 export const getAppName = () => globalAppName
-const getAppIcon = () => globalAppIcon
+const _getAppIcon = () => globalAppIcon
 
 type DefaultConfigProps = {
   appName: string

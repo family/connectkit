@@ -11,7 +11,7 @@ export const ConnectorButton = styled(motion.button)`
   display: block;
   text-decoration: none;
 `
-const ConnectorAnchor = styled(motion.a)`
+const _ConnectorAnchor = styled(motion.a)`
   display: block;
   text-decoration: none;
 `

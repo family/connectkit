@@ -11,7 +11,7 @@ export const TextContainer = styled(motion.div)`
   white-space: nowrap;
 `
 
-const ChainContainer = styled(motion.div)`
+const _ChainContainer = styled(motion.div)`
   position: relative;
   width: 24px;
   height: 24px;

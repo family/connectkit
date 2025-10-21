@@ -12,7 +12,7 @@ const truncateEthAddress = (address?: string, separator: string = '••••'
   return `${match[1]}${separator}${match[2]}`
 }
 
-const truncateENSAddress = (ensName: string, maxLength: number) => {
+const _truncateENSAddress = (ensName: string, maxLength: number) => {
   if (ensName.length > maxLength) {
     return `${ensName.replace('.eth', '').slice(0, maxLength)}...`
   } else {
@@ -20,7 +20,7 @@ const truncateENSAddress = (ensName: string, maxLength: number) => {
   }
 }
 
-const truncateUserId = (playerId?: string, separator: string = '••••') => {
+const _truncateUserId = (playerId?: string, separator: string = '••••') => {
   if (!playerId) return ''
   const match = playerId.match(playerRegex)
   if (!match) return playerId
@@ -84,13 +84,13 @@ export const isWalletConnectConnector = (connectorId?: string) => connectorId ==
 
 export const isFamilyAccountsConnector = (connectorId?: string) => connectorId === 'familyAccountsProvider'
 
-const isFamilyConnector = (connectorId?: string) => connectorId === 'co.family.wallet'
+const _isFamilyConnector = (connectorId?: string) => connectorId === 'co.family.wallet'
 
-const isMetaMaskConnector = (connectorId?: string) => connectorId === 'metaMaskSDK'
+const _isMetaMaskConnector = (connectorId?: string) => connectorId === 'metaMaskSDK'
 
 export const isCoinbaseWalletConnector = (connectorId?: string) => connectorId === 'coinbaseWalletSDK'
 
-const isLedgerConnector = (connectorId?: string) => connectorId === 'ledger'
+const _isLedgerConnector = (connectorId?: string) => connectorId === 'ledger'
 
 export const isPortoConnector = (connectorId?: string) => connectorId === 'xyz.ithaca.porto'
 
@@ -98,14 +98,4 @@ export const isSafeConnector = (connectorId?: string) => connectorId === 'safe'
 
 export const isInjectedConnector = (connectorId?: string) => connectorId === 'injected'
 
-export {
-  nFormatter,
-  truncateEthAddress,
-  
-  
-  isMobile,
-  isAndroid,
-  detectBrowser,
-  
-  flattenChildren,
-}
+export { nFormatter, truncateEthAddress, isMobile, isAndroid, detectBrowser, flattenChildren }

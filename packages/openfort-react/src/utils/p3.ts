@@ -11,7 +11,7 @@ export const hexToP3 = (hex: string) => {
   return `color(display-p3 ${values.r / 255} ${values.g / 255} ${values.b / 255})`
 }
 
-const p3Hex = (hex: string, property: string) => {
+const _p3Hex = (hex: string, property: string) => {
   const isSafari = true
   const p3 = hexToP3(hex)
   if (!p3 || !isSafari) {

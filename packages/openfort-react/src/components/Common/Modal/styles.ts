@@ -196,7 +196,7 @@ export const ModalBody = styled.div<{
   }
 `
 
-const ModalBodySmall = styled.div`
+const _ModalBodySmall = styled.div`
   padding: 0 12px;
   font-size: 13px;
   font-weight: 400;
@@ -420,7 +420,7 @@ export const CloseButton = styled(motion.button)`
   }
 `
 
-const SiweButton = styled(motion.button)`
+const _SiweButton = styled(motion.button)`
   z-index: 3;
   position: absolute;
   inset: 0;
@@ -628,7 +628,7 @@ const Disclaimer = styled(motion.div)`
   }
 `
 
-const DisclaimerBackground = styled(motion.div)`
+const _DisclaimerBackground = styled(motion.div)`
   pointer-events: all;
   z-index: 9;
   position: absolute;
@@ -660,7 +660,7 @@ const DisclaimerBackground = styled(motion.div)`
   }
 `
 
-const SignInTooltip = styled(motion.div)`
+const _SignInTooltip = styled(motion.div)`
   z-index: 2;
   position: absolute;
   top: 100%;

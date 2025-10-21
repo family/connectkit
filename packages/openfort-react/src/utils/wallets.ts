@@ -11,25 +11,25 @@ const isWalletInstalled = (name: string) => {
   return !!(ethereum?.[`is${name}`] || ethereum?.providers?.find((provider) => provider?.[`is${name}`]))
 }
 
-const isMetaMask = () => isWalletInstalled('MetaMask')
-const isCoinbaseWallet = () => isWalletInstalled('CoinbaseWallet')
+const _isMetaMask = () => isWalletInstalled('MetaMask')
+const _isCoinbaseWallet = () => isWalletInstalled('CoinbaseWallet')
 export const isFamily = () => isWalletInstalled('Family')
-const isBrave = () => isWalletInstalled('BraveWallet')
-const isTokenary = () => isWalletInstalled('Tokenary')
-const isDawn = () => isWalletInstalled('Dawn')
-const isFrame = () => isWalletInstalled('Frame')
+const _isBrave = () => isWalletInstalled('BraveWallet')
+const _isTokenary = () => isWalletInstalled('Tokenary')
+const _isDawn = () => isWalletInstalled('Dawn')
+const _isFrame = () => isWalletInstalled('Frame')
 export const isPhantom = () => isWalletInstalled('Phantom')
-const isInfinityWallet = () => isWalletInstalled('InfinityWallet')
-const isRabby = () => isWalletInstalled('Rabby')
+const _isInfinityWallet = () => isWalletInstalled('InfinityWallet')
+const _isRabby = () => isWalletInstalled('Rabby')
 export const isArgent = () => isWalletInstalled('Argent')
-const isFrontier = () => isWalletInstalled('Frontier')
-const isTrust = () => {
+const _isFrontier = () => isWalletInstalled('Frontier')
+const _isTrust = () => {
   if (typeof window === 'undefined') return false
   return isWalletInstalled('Trust') || window?.trustWallet?.isTrust || window?.trustwallet?.isTrust
 }
-const isTokenPocket = () => isWalletInstalled('TokenPocket')
-const isTalisman = () => isWalletInstalled('Talisman')
-const isFordefi = () => isWalletInstalled('Fordefi')
-const isRainbow = () => isWalletInstalled('Rainbow')
-const isZerion = () => isWalletInstalled('Zerion')
+const _isTokenPocket = () => isWalletInstalled('TokenPocket')
+const _isTalisman = () => isWalletInstalled('Talisman')
+const _isFordefi = () => isWalletInstalled('Fordefi')
+const _isRainbow = () => isWalletInstalled('Rainbow')
+const _isZerion = () => isWalletInstalled('Zerion')
 export const isSafe = () => isWalletInstalled('Safe')

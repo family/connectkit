@@ -1,7 +1,6 @@
 import type { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
 import type { ReactNode } from 'react'
-import type { CoreOpenfortProviderProps } from '../../openfort/CoreOpenfortProvider'
 import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
 
 export const routes = {
@@ -96,10 +95,6 @@ type OpenfortUIOptions = {
   termsOfServiceUrl?: string
   privacyPolicyUrl?: string
   logo?: React.ReactNode
-}
-
-type OpenfortSDKOptions = {
-  overrides?: CoreOpenfortProviderProps['overrides']
 }
 
 type WalletRecoveryOptions = {

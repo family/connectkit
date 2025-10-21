@@ -153,7 +153,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
   )
 }
 
-const BalanceButton: React.FC<All & BalanceProps> = ({ theme, mode, customTheme, hideIcon, hideSymbol }) => {
+const _BalanceButton: React.FC<All & BalanceProps> = ({ theme, mode, customTheme, hideIcon, hideSymbol }) => {
   return (
     <ThemedButton duration={0.4} variant={'secondary'} theme={theme} mode={mode} customTheme={customTheme}>
       <Balance hideIcon={hideIcon} hideSymbol={hideSymbol} />
