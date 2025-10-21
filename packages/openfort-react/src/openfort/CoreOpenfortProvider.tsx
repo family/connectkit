@@ -47,7 +47,7 @@ const ConnectCallback = ({ onConnect, onDisconnect }: useConnectCallbackProps) =
   return null
 }
 
-export type CoreOpenfortProviderProps = {
+type CoreOpenfortProviderProps = {
   debugMode?: boolean
 } & ConstructorParameters<typeof Openfort>[0] &
   useConnectCallbackProps
