@@ -1,10 +1,11 @@
 import { HomeIcon, PencilIcon, PlayIcon, WalletIcon } from '@heroicons/react/24/outline';
-import { useStatus } from '@openfort/react';
 import { useState } from 'react';
 import { BetterAuthCard } from '../../integrations/betterauth';
 import { ActionsCard, SignCard, UserProfileCard, WalletListCard } from '../../ui/openfort';
 import { DesktopTabGroup, MobileTabGroup, type TabType } from '../ui/Tabs';
 import { Head } from './head';
+import { useUser } from '@openfort/react';
+import { useAccount } from 'wagmi';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -39,7 +40,8 @@ const Layout = ({ children, step, tabs, currentTab, setCurrentTab, showTabs }: L
 };
 
 export const Main = () => {
-  const { isAuthenticated, isLoading, isConnected } = useStatus();
+  const { isAuthenticated } = useUser();
+  const {isConnected} = useAccount()
   const [step, setStep] = useState(0);
 
   const tabs: TabType[] = [
@@ -70,11 +72,6 @@ export const Main = () => {
     },
   ];
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0]);
-
-  if (isLoading) {
-    return null;
-  }
-
   return (
     <Layout
       step={step}
