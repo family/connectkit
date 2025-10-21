@@ -62,7 +62,8 @@
     ],
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",
-      "rollup-plugin-typescript2"
+      "rollup-plugin-typescript2",
+      "typescript-plugin-styled-components"
     ]
   },
   "simple-git-hooks": {
