@@ -52,7 +52,6 @@ export {
   OAuthProvider,
   OpenfortError,
   OpenfortErrorType,
-  RecoveryMethod,
   SDKOverrides,
   ThirdPartyOAuthProvider,
 } from './types'
