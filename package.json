@@ -59,17 +59,10 @@
       "packages/openfort-react/rollup.config.dev.js",
       "packages/openfort-react/rollup.config.prod.js"
     ],
-    "ignoreBinaries": [
-      "pnpm",
-      "simple-git-hooks"
-    ],
     "ignoreDependencies": [
-      "@biomejs/biome",
-      "@changesets/changelog-github",
-      "@changesets/cli",
-      "knip",
-      "simple-git-hooks",
-      "typescript"
+      "rollup-plugin-peer-deps-external",
+      "rollup-plugin-typescript2",
+      "typescript-plugin-styled-components"
     ]
   },
   "simple-git-hooks": {

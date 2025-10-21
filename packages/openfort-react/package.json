@@ -70,6 +70,9 @@
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
     "axios": "^1.7.7",
-    "typescript": "^5.0.4"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.0.4",
+    "typescript-plugin-styled-components": "^3.0.0"
   }
 }
