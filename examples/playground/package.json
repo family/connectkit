@@ -41,7 +41,6 @@
     "@vitejs/plugin-react": "^4.3.4",
     "shadcn": "latest",
     "tsx": "^4.20.3",
-    "tw-animate-css": "^1.3.6",
     "typedoc": "^0.28.9",
     "typescript": "~5.7.2",
     "vite": "^6.4.1",
