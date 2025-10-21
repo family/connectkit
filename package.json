@@ -72,7 +72,11 @@
       "tailwindcss",
       "tw-animate-css",
       "daisyui",
-      "buffer"
+      "buffer",
+      "@wagmi/connectors",
+      "@wagmi/core",
+      "viem",
+      "wagmi"
     ]
   },
   "simple-git-hooks": {
