@@ -39,6 +39,7 @@
     "rollup": "^2.67.1",
     "knip": "^5.64.0",
     "simple-git-hooks": "^2.13.1",
+    "typescript-plugin-styled-components": "^2.0.0",
     "typescript": "^5.0.4"
   },
   "packageManager": "pnpm@10.16.1",
@@ -61,8 +62,7 @@
     ],
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",
-      "rollup-plugin-typescript2",
-      "typescript-plugin-styled-components"
+      "rollup-plugin-typescript2"
     ]
   },
   "simple-git-hooks": {

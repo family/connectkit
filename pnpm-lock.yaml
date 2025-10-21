@@ -33,6 +33,9 @@ importers:
       typescript:
         specifier: ^5.0.4
         version: 5.8.3
+      typescript-plugin-styled-components:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.8.3)
 
   examples/playground:
     dependencies:
@@ -500,9 +503,6 @@ importers:
       typescript:
         specifier: ^5.0.4
         version: 5.8.3
-      typescript-plugin-styled-components:
-        specifier: ^3.0.0
-        version: 3.0.0(typescript@5.8.3)
 
 packages:
 
@@ -5563,10 +5563,10 @@ packages:
     peerDependencies:
       typescript: 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x || 5.6.x || 5.7.x || 5.8.x || 5.9.x
 
-  typescript-plugin-styled-components@3.0.0:
-    resolution: {integrity: sha512-QWlhTl6NqsFxtJyxn7pJjm3RhgzXSByUftZ3AoQClrMMpa4yAaHuJKTN1gFpH3Ti+Rwm56fNUfG9pXSBU+WW3A==}
+  typescript-plugin-styled-components@2.0.0:
+    resolution: {integrity: sha512-Wu7F96dwuphgiACHfu63vTbRRg6tkPwLnpFJwdxM70Y0PLfeKLRnvs2Yo5MAySMwE120ODMKk9W4TtJgY1ZumA==}
     peerDependencies:
-      typescript: ~4.8 || 5
+      typescript: ^4.0
 
   typescript@5.7.3:
     resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
@@ -14138,7 +14138,7 @@ snapshots:
       typescript: 5.7.3
       yaml: 2.8.1
 
-  typescript-plugin-styled-components@3.0.0(typescript@5.8.3):
+  typescript-plugin-styled-components@2.0.0(typescript@5.8.3):
     dependencies:
       typescript: 5.8.3
 
