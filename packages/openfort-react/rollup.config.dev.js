@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import typescript from 'rollup-plugin-typescript2'
-import createStyledComponentsTransformer from 'typescript-plugin-styled-components'
+import { createTransformer as createStyledComponentsTransformer } from 'typescript-plugin-styled-components'
 
 const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'))
 

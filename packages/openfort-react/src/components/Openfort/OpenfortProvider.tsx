@@ -1,5 +1,5 @@
+import { Buffer } from 'node:buffer'
 import { RecoveryMethod, type SDKOverrides, type ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
-import { Buffer } from 'buffer'
 import React, { createElement, useEffect, useState } from 'react'
 import type { ValueOf } from 'viem/_types/types/utils'
 import { useAccount, WagmiContext } from 'wagmi'

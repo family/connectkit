@@ -52,9 +52,9 @@
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {
+    "@tanstack/react-query": ">=5.0.0",
     "@wagmi/connectors": "6.x",
     "@wagmi/core": "2.x",
-    "@tanstack/react-query": ">=5.0.0",
     "react": "17.x || 18.x || 19.x",
     "react-dom": "17.x || 18.x || 19.x",
     "viem": "2.x",
@@ -62,16 +62,17 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
-    "@wagmi/connectors": "^6.0.1",
-    "@wagmi/core": "^2.22.1",
     "@types/node": "18.7.18",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
+    "@wagmi/connectors": "^6.0.1",
+    "@wagmi/core": "^2.22.1",
     "axios": "^1.7.7",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "typescript-plugin-styled-components": "^2.0.0"
   }
 }
