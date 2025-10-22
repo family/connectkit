@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.30
+
+### Patch Changes
+
+- [#50](https://github.com/openfort-xyz/openfort-react/pull/50) [`c477d8b`](https://github.com/openfort-xyz/openfort-react/commit/c477d8b4903aa9a5370646409c8ddbd953d55dc4) Thanks [@martimayoral](https://github.com/martimayoral)! - add contributing and update internal configuration
+
 ## [0.0.29] - 2025-10-22
 
 ### Feat
