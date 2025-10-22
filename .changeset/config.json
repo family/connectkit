@@ -9,6 +9,16 @@
   "snapshot": {
     "prereleaseTemplate": "{tag}-{datetime}"
   },
+  "ignore": [
+    "playground",
+    "openfort-betterauth",
+    "@openfort-betterauth/server",
+    "@openfort-betterauth/web",
+    "quickstart-firebase",
+    "quickstart-headless",
+    "quickstart-openfort-ui",
+    "quickstart-supabase"
+  ],
   "commit": false,
   "access": "public",
   "baseBranch": "main",
