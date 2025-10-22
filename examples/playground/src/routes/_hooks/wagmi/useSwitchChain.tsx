@@ -1,8 +1,8 @@
+import { createFileRoute } from '@tanstack/react-router'
+import { useChainId, useSwitchChain } from 'wagmi'
 import { Layout } from '@/components/Layout'
 import { HookVariable } from '@/components/Variable/HookVariable'
 import { BaseVariable } from '@/components/Variable/Variable'
-import { createFileRoute } from '@tanstack/react-router'
-import { useChainId, useSwitchChain } from 'wagmi'
 
 export const Route = createFileRoute('/_hooks/wagmi/useSwitchChain')({
   component: RouteComponent,
@@ -14,11 +14,10 @@ function RouteComponent() {
 
   return (
     <Layout>
-
       <HookVariable
-        name='useSwitchChain'
+        name="useSwitchChain"
         hook={useSwitchChain}
-        description='This hook switches the wallet of the user.'
+        description="This hook switches the wallet of the user."
         variables={{
           switchChain: {
             description: 'Switch the wallet to a different chain.',
@@ -36,8 +35,8 @@ function RouteComponent() {
           },
         }}
       />
-      <div className='border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2'>
-        <BaseVariable name='Current chainId (from useChainId)' value={chainId} />
+      <div className="border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2">
+        <BaseVariable name="Current chainId (from useChainId)" value={chainId} />
       </div>
     </Layout>
   )

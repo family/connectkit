@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
+import { useUI } from '../useUI'
 import type { UserWallet } from '../useWallets'
 import { buildCallbackUrl } from './requestEmailVerification'
 import { type BaseFlowState, mapStatus } from './status'
@@ -115,6 +116,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
   const [status, setStatus] = useState<BaseFlowState>({
     status: 'idle',
   })
+  const { isOpen } = useUI()
 
   const { tryUseWallet } = useConnectToWalletPostAuth()
 
@@ -186,6 +188,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
             redirectTo: buildCallbackUrl({
               provider: authProvider,
               callbackUrl: hookOptions?.redirectTo ?? options?.redirectTo,
+              isOpen,
             }),
           },
         })
@@ -212,7 +215,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
         })
       }
     },
-    [client, setStatus, updateUser, hookOptions]
+    [client, setStatus, updateUser, hookOptions, isOpen]
   )
 
   const linkOauth = useCallback(
@@ -237,6 +240,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
             redirectTo: buildCallbackUrl({
               provider: authProvider,
               callbackUrl: options?.redirectTo ?? hookOptions?.redirectTo,
+              isOpen,
             }),
           },
         })
@@ -261,7 +265,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
         })
       }
     },
-    [client, setStatus, updateUser, hookOptions]
+    [client, setStatus, updateUser, hookOptions, isOpen]
   )
 
   return {

@@ -35,9 +35,7 @@ const textVariants: Variants = {
 
 const EmailLogin: React.FC = () => {
   const [password, setPassword] = React.useState('')
-
   const { setRoute, triggerResize, log, setEmailInput: setEmail, emailInput: email } = useOpenfort()
-
   const [isRegister, setIsRegister] = React.useState(false)
 
   const {
@@ -106,7 +104,11 @@ const EmailLogin: React.FC = () => {
     setIsRegister((prev) => !prev)
   }
 
-  const errorMessage = loginError ? (loginError.message === 'Unauthorized' ? 'Invalid email or password' : null) : null
+  const errorMessage = loginError
+    ? loginError.message === 'Unauthorized'
+      ? 'Invalid email or password'
+      : loginError.message
+    : null
 
   return (
     <PageContent>
@@ -115,6 +117,7 @@ const EmailLogin: React.FC = () => {
           e.preventDefault()
           handleSubmit()
         }}
+        noValidate
       >
         <Input
           style={{ marginTop: 0 }}

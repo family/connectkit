@@ -4,6 +4,7 @@ import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
+import { useUI } from '../useUI'
 import type { UserWallet } from '../useWallets'
 import { buildCallbackUrl } from './requestEmailVerification'
 import { type BaseFlowState, mapStatus } from './status'
@@ -62,6 +63,11 @@ type UseEmailHookOptions = {
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult | EmailVerificationResult> &
   CreateWalletPostAuthOptions
+
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
 
 /**
  * Hook for email-based authentication operations
@@ -137,6 +143,7 @@ type UseEmailHookOptions = {
 export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const { log } = useOpenfort()
   const { client, updateUser } = useOpenfortCore()
+  const { isOpen } = useUI()
   const [requiresEmailVerification, setRequiresEmailVerification] = useState(false)
   const [status, setStatus] = useState<BaseFlowState>({
     status: 'idle',
@@ -171,6 +178,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           })
         }
 
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         const result = await client.auth.logInWithEmailPassword({
           email: options.email,
           password: options.password,
@@ -187,6 +207,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
               email: options.email,
               callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
               provider: 'email',
+              isOpen,
             }),
           })
 
@@ -240,6 +261,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const requestResetPassword = useCallback(
     async (options: RequestResetPasswordOptions): Promise<EmailAuthResult> => {
       try {
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         setStatus({
           status: 'loading',
         })
@@ -251,6 +285,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
             email: options.email,
             callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
             provider: 'password',
+            isOpen,
           }),
         })
 
@@ -286,6 +321,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const resetPassword = useCallback(
     async (options: ResetPasswordOptions): Promise<EmailAuthResult> => {
       try {
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         setStatus({
           status: 'loading',
         })
@@ -342,6 +390,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           })
         }
 
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         setStatus({
           status: 'loading',
         })
@@ -364,6 +425,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
               email: options.email,
               callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
               provider: 'email',
+              isOpen,
             }),
           })
 
@@ -409,12 +471,25 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         })
       }
     },
-    [client, setStatus, updateUser, hookOptions]
+    [client, setStatus, updateUser, hookOptions, isOpen]
   )
 
   const linkEmail = useCallback(
     async (options: LinkEmailOptions): Promise<EmailAuthResult> => {
       try {
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         await client.validateAndRefreshToken()
         const authToken = await client.getAccessToken()
         if (!authToken) {
@@ -449,6 +524,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
               email: options.email,
               callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
               provider: 'email',
+              isOpen,
             }),
           })
 
@@ -481,7 +557,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         })
       }
     },
-    [client, setStatus, updateUser, log, hookOptions]
+    [client, setStatus, updateUser, log, hookOptions, isOpen]
   )
 
   const verifyEmail = useCallback(
@@ -491,6 +567,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
       })
 
       try {
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         await client.auth.verifyEmail({
           email: options.email,
           state: options.state,

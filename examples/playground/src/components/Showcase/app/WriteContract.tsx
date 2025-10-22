@@ -1,16 +1,19 @@
-import { Button } from "@/components/Showcase/ui/Button"
-import { InputMessage } from "@/components/Showcase/ui/InputMessage"
-import { TruncatedText } from "@/components/TruncatedText"
+import { getAddress, parseAbi } from 'viem'
+import { useAccount, useReadContract, useWriteContract } from 'wagmi'
+import { Button } from '@/components/Showcase/ui/Button'
+import { InputMessage } from '@/components/Showcase/ui/InputMessage'
+import { TruncatedText } from '@/components/TruncatedText'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { cn } from "@/lib/cn"
-import { getAddress, parseAbi } from "viem"
-import { useAccount, useReadContract, useWriteContract } from "wagmi"
+import { cn } from '@/lib/cn'
 
 export const WriteContractCard = () => {
   const { address } = useAccount()
 
-
-  const { data: balance, refetch, error: balanceError } = useReadContract({
+  const {
+    data: balance,
+    refetch,
+    error: balanceError,
+  } = useReadContract({
     address: '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac',
     abi: [
       {
@@ -25,14 +28,19 @@ export const WriteContractCard = () => {
     args: [address!],
   })
 
-  const { data: hash, isPending, writeContract, error } = useWriteContract({
+  const {
+    data: hash,
+    isPending,
+    writeContract,
+    error,
+  } = useWriteContract({
     mutation: {
       onSuccess: () => {
         setTimeout(() => {
           refetch()
-        }, 100);
-      }
-    }
+        }, 100)
+      },
+    },
   })
 
   async function submit({ amount }: { amount: string }) {
@@ -47,21 +55,12 @@ export const WriteContractCard = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          Write Contract
-        </CardTitle>
-        <CardDescription>
-          Interact with smart contracts on the blockchain.
-        </CardDescription>
+        <CardTitle>Write Contract</CardTitle>
+        <CardDescription>Interact with smart contracts on the blockchain.</CardDescription>
         <CardDescription>
           Contract Address: <TruncatedText text="0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac" />
         </CardDescription>
-        {!balanceError && (
-
-          <CardDescription>
-            Balance: {balance?.toString() || 0}
-          </CardDescription>
-        )}
+        {!balanceError && <CardDescription>Balance: {balance?.toString() || 0}</CardDescription>}
       </CardHeader>
       <CardContent>
         <form
@@ -72,34 +71,14 @@ export const WriteContractCard = () => {
             submit({ amount })
           }}
         >
-          <label className={cn(
-            "input w-full",
-          )}>
-            <input
-              type="number"
-              placeholder="Enter amount to mint"
-              className="grow peer"
-              name="amount"
-            />
+          <label className={cn('input w-full')}>
+            <input type="number" placeholder="Enter amount to mint" className="grow peer" name="amount" />
           </label>
-          <Button
-            className='btn btn-accent w-full'
-            disabled={isPending || !address}
-          >
-            {
-              isPending ? 'Minting...' : 'Mint Tokens'
-            }
+          <Button className="btn btn-accent w-full" disabled={isPending || !address}>
+            {isPending ? 'Minting...' : 'Mint Tokens'}
           </Button>
-          <InputMessage
-            message={`Transaction hash: ${hash}`}
-            show={!!hash}
-            variant='success'
-          />
-          <InputMessage
-            message={`Error: ${error?.message}`}
-            show={!!error}
-            variant='error'
-          />
+          <InputMessage message={`Transaction hash: ${hash}`} show={!!hash} variant="success" />
+          <InputMessage message={`Error: ${error?.message}`} show={!!error} variant="error" />
         </form>
       </CardContent>
     </Card>

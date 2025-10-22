@@ -1,6 +1,5 @@
-
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { getValueColor } from '@/components/Variable/getValueColor';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { getValueColor } from '@/components/Variable/getValueColor'
 
 export const VariableTooltip = ({
   name,
@@ -8,19 +7,16 @@ export const VariableTooltip = ({
   actualType = 'string',
   children,
 }: {
-  name: string;
+  name: string
   variable?: {
-    typescriptType?: string;
-    description?: string;
-  };
-  actualType?: string;
-  children?: React.ReactNode;
+    typescriptType?: string
+    description?: string
+  }
+  actualType?: string
+  children?: React.ReactNode
 }) => (
   <Tooltip delayDuration={500}>
-    <TooltipTrigger
-      className="relative cursor-help whitespace-nowrap"
-      onClick={(e) => e.preventDefault()}
-    >
+    <TooltipTrigger className="relative cursor-help whitespace-nowrap" onClick={(e) => e.preventDefault()}>
       {name}
       <span
         // Underline
@@ -29,22 +25,13 @@ export const VariableTooltip = ({
       :
     </TooltipTrigger>
     <TooltipContent>
-      <div className='overflow-y-auto text-sm max-h-40 max-w-xs overflow-x-hidden overflow-y-auto'>
-        <span className=' font-mono'>
-          {name}:
-          {" "}
-        </span>
+      <div className="overflow-y-auto text-sm max-h-40 max-w-xs overflow-x-hidden overflow-y-auto">
+        <span className=" font-mono">{name}: </span>
         <span className={getValueColor(actualType, 'text')}>
           {variable?.typescriptType ? variable.typescriptType : actualType}
         </span>
-        {variable?.description && (
-          <div className='mt-2 text-zinc-500'>
-            {variable.description}
-          </div>
-        )}
-        <div>
-          {children}
-        </div>
+        {variable?.description && <div className="mt-2 text-zinc-500">{variable.description}</div>}
+        <div>{children}</div>
       </div>
     </TooltipContent>
   </Tooltip>

@@ -1,8 +1,8 @@
-import { useSignMessage } from "wagmi"
+import { useSignMessage } from 'wagmi'
+import { Button } from '@/components/Showcase/ui/Button'
+import { InputMessage } from '@/components/Showcase/ui/InputMessage'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from "@/components/Showcase/ui/Button"
-import { InputMessage } from "@/components/Showcase/ui/InputMessage"
-import { cn } from "@/lib/cn"
+import { cn } from '@/lib/cn'
 
 export const SignaturesCard = () => {
   const { data, signMessage } = useSignMessage()
@@ -24,9 +24,7 @@ export const SignaturesCard = () => {
             signMessage({ message })
           }}
         >
-          <label className={cn(
-            "input w-full",
-          )}>
+          <label className={cn('input w-full')}>
             <input
               name="message"
               type="username"
@@ -35,15 +33,11 @@ export const SignaturesCard = () => {
               defaultValue="Hello from Openfort!"
             />
           </label>
-          <Button
-            className='btn btn-accent w-full'
-          >
-            Sign a message
-          </Button>
+          <Button className="btn btn-accent w-full">Sign a message</Button>
           <InputMessage
             message={`Signed message: ${data?.slice(0, 10)}...${data?.slice(-10)}`}
             show={!!data}
-            variant='success'
+            variant="success"
           />
         </form>
       </CardContent>

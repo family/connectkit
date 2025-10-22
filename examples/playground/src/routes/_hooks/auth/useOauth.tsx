@@ -1,9 +1,9 @@
-import { HookVariable } from '@/components/Variable/HookVariable';
-import { onSettledOptions, onSettledInputs } from '@/components/Variable/commonVariables';
-import { AuthProvider, useOAuth } from '@openfort/react';
-import { createFileRoute } from '@tanstack/react-router';
-import { FunctionInputType } from '../../../components/Form/Form';
-import { Layout } from '../../../components/Layout';
+import { AuthProvider, useOAuth } from '@openfort/react'
+import { createFileRoute } from '@tanstack/react-router'
+import { onSettledInputs, onSettledOptions } from '@/components/Variable/commonVariables'
+import { HookVariable } from '@/components/Variable/HookVariable'
+import type { FunctionInputType } from '../../../components/Form/Form'
+import { Layout } from '../../../components/Layout'
 
 export const Route = createFileRoute('/_hooks/auth/useOauth')({
   component: RouteComponent,
@@ -20,19 +20,18 @@ function RouteComponent() {
       type: 'text',
     },
     ...onSettledInputs,
-  };
+  }
 
   return (
     <Layout>
       <HookVariable
         name="useOAuth"
-        description='This hook allows you to initiate OAuth authentication with various providers.'
+        description="This hook allows you to initiate OAuth authentication with various providers."
         hook={useOAuth}
         defaultOptions={{
           redirectTo: '/auth/useAuthCallback', // Default redirect after OAuth flow
           ...onSettledOptions,
         }}
-
         variables={{
           initOAuth: {
             description: 'Initialize OAuth flow.',
@@ -41,7 +40,7 @@ function RouteComponent() {
           linkOauth: {
             description: 'Link OAuth to an existing user.',
             inputs: inputs,
-          }
+          },
         }}
       />
     </Layout>

@@ -22,33 +22,7 @@ const EmailVerification: React.FC = () => {
   const { setRoute, log, emailInput: emailInStorage } = useOpenfort()
 
   const [loading, setLoading] = useState(true)
-  const [shouldSendEmailVerification, setShouldSendEmailVerification] = useState<false | string>(false)
   const [verificationResponse, setVerificationResponse] = useState<VerificationResponse | null>(null)
-
-  const sendEmailVerification = async (email: string) => {
-    if (!email) {
-      log('No linked account found')
-      return
-    }
-
-    const redirectUrl = new URL(window.location.origin + window.location.pathname)
-    redirectUrl.searchParams.append('openfortEmailVerificationUI', 'true')
-    redirectUrl.searchParams.append('email', email)
-    client.auth
-      .requestEmailVerification({
-        email,
-        redirectUrl: redirectUrl.toString(),
-      })
-      .catch((e) => {
-        log('Error requesting email verification', e)
-      })
-  }
-
-  useEffect(() => {
-    if (shouldSendEmailVerification) {
-      sendEmailVerification(shouldSendEmailVerification)
-    }
-  }, [shouldSendEmailVerification])
 
   useEffect(() => {
     const fixedUrl = window.location.href.replace('?state=', '&state=') // redirectUrl is not working with query params
@@ -62,7 +36,6 @@ const EmailVerification: React.FC = () => {
         return
       }
 
-      setShouldSendEmailVerification(emailInStorage)
       setLoading(false)
       return
     }
@@ -169,7 +142,7 @@ const EmailVerification: React.FC = () => {
                 setRoute(routes.EMAIL_LOGIN)
               }}
             >
-              Use another email
+              Go back to login
             </TextLinkButton>
           </>
         )}

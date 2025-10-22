@@ -1,20 +1,22 @@
-import { CommonEmailContext } from '@/components/Showcase/auth/CommonEmailContext';
-import React, { ReactNode, useState } from 'react';
+import type React from 'react'
+import { type ReactNode, useState } from 'react'
+import { CommonEmailContext } from '@/components/Showcase/auth/CommonEmailContext'
 
 interface ConfigurationProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export const CommonEmailProvider: React.FC<ConfigurationProviderProps> = ({ children }) => {
-
-  const [email, setEmail] = useState<string | undefined>(undefined);
+  const [email, setEmail] = useState<string | undefined>(undefined)
 
   return (
-    <CommonEmailContext.Provider value={{
-      email,
-      setEmail,
-    }}>
+    <CommonEmailContext.Provider
+      value={{
+        email,
+        setEmail,
+      }}
+    >
       {children}
     </CommonEmailContext.Provider>
-  );
-};
+  )
+}

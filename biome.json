@@ -3,6 +3,9 @@
   "files": {
     "includes": [
       "packages/**",
+      "examples/playground/**",
+      "!examples/playground/**/*.css",
+      "!examples/playground/src/routeTree.gen.ts",
       "*.js",
       "*.ts",
       "*.json",
@@ -12,7 +15,7 @@
       "!**/coverage",
       "!**/node_modules",
       "!packages/openfort-react/src/assets",
-      "!examples"
+      "!examples/quickstarts"
     ],
     "ignoreUnknown": true
   },
@@ -48,10 +51,7 @@
       "suspicious": {
         "noExplicitAny": "off",
         "noConsole": {
-          "level": "error",
-          "options": {
-            "allow": ["log", "warn", "error"]
-          }
+          "level": "error"
         }
       }
     }
