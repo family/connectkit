@@ -298,12 +298,13 @@ export const IconContainer = styled(motion.div)<{ $rounded?: boolean }>`
 export const TextLinkButton = styled.button`
   background: none;
   border: none;
-  color: var(--ck-body-color-muted);
+
   cursor: pointer;
   font-size: inherit;
-
+  color: var(--ck-body-color-muted, inherit);
+  text-decoration: none;
+  transition: color 200ms ease;
   &:hover {
-    text-decoration: underline;
-    color: var(--ck-body-color-muted-hover);
+    color: var(--ck-body-color-muted-hover, inherit);
   }
 `

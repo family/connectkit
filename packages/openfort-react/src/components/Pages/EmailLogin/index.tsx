@@ -106,7 +106,11 @@ const EmailLogin: React.FC = () => {
     setIsRegister((prev) => !prev)
   }
 
-  const errorMessage = loginError ? (loginError.message === 'Unauthorized' ? 'Invalid email or password' : null) : null
+  const errorMessage = loginError
+    ? loginError.message === 'Unauthorized'
+      ? 'Invalid email or password'
+      : loginError.message
+    : null
 
   return (
     <PageContent>
@@ -115,6 +119,7 @@ const EmailLogin: React.FC = () => {
           e.preventDefault()
           handleSubmit()
         }}
+        noValidate
       >
         <Input
           style={{ marginTop: 0 }}

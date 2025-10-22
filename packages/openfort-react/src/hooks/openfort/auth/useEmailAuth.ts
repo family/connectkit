@@ -63,6 +63,11 @@ type UseEmailHookOptions = {
 } & OpenfortHookOptions<EmailAuthResult | EmailVerificationResult> &
   CreateWalletPostAuthOptions
 
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
 /**
  * Hook for email-based authentication operations
  *
@@ -171,6 +176,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           })
         }
 
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         const result = await client.auth.logInWithEmailPassword({
           email: options.email,
           password: options.password,
@@ -240,6 +258,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const requestResetPassword = useCallback(
     async (options: RequestResetPasswordOptions): Promise<EmailAuthResult> => {
       try {
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         setStatus({
           status: 'loading',
         })
@@ -286,6 +317,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const resetPassword = useCallback(
     async (options: ResetPasswordOptions): Promise<EmailAuthResult> => {
       try {
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         setStatus({
           status: 'loading',
         })
@@ -331,6 +375,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
       try {
         if (!options.email || !options.password) {
           const error = new OpenfortError('Email and password are required', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -415,6 +472,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const linkEmail = useCallback(
     async (options: LinkEmailOptions): Promise<EmailAuthResult> => {
       try {
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         await client.validateAndRefreshToken()
         const authToken = await client.getAccessToken()
         if (!authToken) {
@@ -491,6 +561,19 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
       })
 
       try {
+        if (!isValidEmail(options.email)) {
+          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<EmailAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
         await client.auth.verifyEmail({
           email: options.email,
           state: options.state,
