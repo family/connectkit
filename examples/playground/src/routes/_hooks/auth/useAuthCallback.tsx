@@ -1,8 +1,8 @@
-import { HookVariable } from '@/components/Variable/HookVariable';
-import { onSettledOptions, onSettledInputs } from '@/components/Variable/commonVariables';
-import { useAuthCallback } from '@openfort/react';
-import { createFileRoute } from '@tanstack/react-router';
-import { Layout } from '../../../components/Layout';
+import { useAuthCallback } from '@openfort/react'
+import { createFileRoute } from '@tanstack/react-router'
+import { onSettledInputs, onSettledOptions } from '@/components/Variable/commonVariables'
+import { HookVariable } from '@/components/Variable/HookVariable'
+import { Layout } from '../../../components/Layout'
 
 export const Route = createFileRoute('/_hooks/auth/useAuthCallback')({
   component: RouteComponent,
@@ -13,11 +13,11 @@ function RouteComponent() {
     <Layout>
       <HookVariable
         name="useAuthCallback"
-        description='This hook handles the authentication callback after OAuth or email verification.'
+        description="This hook handles the authentication callback after OAuth or email verification."
         hook={useAuthCallback}
         defaultOptions={{
           enabled: true,
-          ...onSettledOptions
+          ...onSettledOptions,
         }}
         optionsVariables={{
           enabled: {
@@ -25,7 +25,6 @@ function RouteComponent() {
             description: 'Whether to automatically handle the callback.',
           },
         }}
-
         variables={{
           storeCredentials: {
             inputs: {
@@ -50,7 +49,7 @@ function RouteComponent() {
               email: {
                 type: 'email',
                 required: true,
-                placeholder: "email to verify",
+                placeholder: 'email to verify',
               },
               state: {
                 type: 'text',
@@ -59,7 +58,7 @@ function RouteComponent() {
               ...onSettledInputs,
             },
             description: 'Verify email after user signs up with email.',
-          }
+          },
         }}
       />
     </Layout>

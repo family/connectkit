@@ -1,8 +1,8 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
 export type CommonEmail = {
-  email?: string;
-  setEmail: (email: string) => void;
+  email?: string
+  setEmail: (email: string) => void
 }
 
-export const CommonEmailContext = createContext<CommonEmail | undefined>(undefined);
+export const CommonEmailContext = createContext<CommonEmail | undefined>(undefined)
