@@ -18,7 +18,7 @@
     "check:types": "tsc --noEmit",
     "check:unused": "knip",
     "changeset": "changeset",
-    "changeset:version": "pnpm install --lockfile-only && changeset version",
+    "changeset:version": "pnpm install --lockfile-only && changeset version && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
     "changeset:publish": "pnpm build && changeset publish",
     "changeset:prepublish": "pnpm build",
     "dev": "pnpm --filter @openfort/react dev",
