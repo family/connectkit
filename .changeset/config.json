@@ -6,6 +6,9 @@
       "repo": "openfort-xyz/openfort-react"
     }
   ],
+  "snapshot": {
+    "prereleaseTemplate": "{tag}-{datetime}"
+  },
   "commit": false,
   "access": "public",
   "baseBranch": "main",
