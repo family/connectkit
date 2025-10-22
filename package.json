@@ -79,9 +79,6 @@
       "tw-animate-css",
       "daisyui",
       "buffer",
-      "@wagmi/connectors",
-      "@wagmi/core",
-      "viem",
       "wagmi"
     ]
   },
