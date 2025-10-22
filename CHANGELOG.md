@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.0.31
+
+### Patch Changes
+
+- [#53](https://github.com/openfort-xyz/openfort-react/pull/53) [`6b6eb0e`](https://github.com/openfort-xyz/openfort-react/commit/6b6eb0ef1fda9b63437bd7d5238e67aa08fae630) Thanks [@martimayoral](https://github.com/martimayoral)! - email validation
+
+- [#53](https://github.com/openfort-xyz/openfort-react/pull/53) [`3069fe6`](https://github.com/openfort-xyz/openfort-react/commit/3069fe615b5bac791346b5d7920b41927d954b7a) Thanks [@martimayoral](https://github.com/martimayoral)! - fix email callback
+
+- [#53](https://github.com/openfort-xyz/openfort-react/pull/53) [`6b6eb0e`](https://github.com/openfort-xyz/openfort-react/commit/6b6eb0ef1fda9b63437bd7d5238e67aa08fae630) Thanks [@martimayoral](https://github.com/martimayoral)! - logger only shows logs when debugMode is on
+
 ## 0.0.30
 
 ### Patch Changes
