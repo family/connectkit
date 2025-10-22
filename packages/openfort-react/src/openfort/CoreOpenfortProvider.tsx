@@ -47,14 +47,10 @@ const ConnectCallback = ({ onConnect, onDisconnect }: useConnectCallbackProps) =
   return null
 }
 
-type CoreOpenfortProviderProps = {
-  debugMode?: boolean
-} & ConstructorParameters<typeof Openfort>[0] &
-  useConnectCallbackProps
+type CoreOpenfortProviderProps = ConstructorParameters<typeof Openfort>[0] & useConnectCallbackProps
 
 export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProviderProps>> = ({
   children,
-  debugMode,
   onConnect,
   onDisconnect,
   ...openfortProps

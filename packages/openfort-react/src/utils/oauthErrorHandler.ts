@@ -23,6 +23,7 @@ export function handleOAuthConfigError(error: any): void {
 
     const hint = configHints[providerLower] || configHints.custom
 
+    // biome-ignore lint/suspicious/noConsole: allowed for debugging
     console.error(
       `❌ Openfort OAuth Configuration Error:\n\n` +
         `The OAuth provider "${provider}" is not configured in your Openfort account.\n\n` +

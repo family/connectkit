@@ -1,6 +1,6 @@
 import { RecoveryMethod, type SDKOverrides, type ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import { Buffer } from 'buffer'
-import React, { createElement, useEffect, useState } from 'react'
+import React, { createElement, useEffect, useMemo, useState } from 'react'
 import type { ValueOf } from 'viem/_types/types/utils'
 import { useAccount, WagmiContext } from 'wagmi'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
@@ -84,6 +84,9 @@ export const OpenfortProvider = ({
   if (React.useContext(Openfortcontext)) {
     throw new Error('Multiple, nested usages of OpenfortProvider detected. Please use only one.')
   }
+  useMemo(() => {
+    logger.enabled = !!debugMode
+  }, [])
 
   const chains = useChains()
 
@@ -250,7 +253,6 @@ export const OpenfortProvider = ({
         }
         overrides={overrides}
         thirdPartyAuth={thirdPartyAuth}
-        debugMode={debugMode}
         onConnect={onConnect}
         onDisconnect={onDisconnect}
       >
