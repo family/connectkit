@@ -18,7 +18,6 @@ const config = createConfig(
   })
 );
 
-
 export function Providers({ children }: { children?: React.ReactNode }) {
   const { providerOptions } = useAppStore()
   const [queryClient] = useState(() => new QueryClient())

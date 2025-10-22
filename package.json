@@ -49,8 +49,13 @@
   "packageManager": "pnpm@10.16.1",
   "pnpm": {
     "overrides": {
-      "react": "^18.0.0",
-      "react-dom": "^18.0.0"
+      "react": "18.3.1",
+      "react-dom": "18.3.1",
+      "@types/react": "18.3.1",
+      "@types/react-dom": "18.3.1",
+      "viem": "^2.38.3",
+      "wagmi": "^2.18.1",
+      "typescript": "^5.0.4"
     }
   },
   "knip": {
