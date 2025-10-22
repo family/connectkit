@@ -32,17 +32,13 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
   const sample = useMemo(() => {
     let base = `${JSON.stringify(Object.keys(defaultOptions), null, 2)}`
     base = base.replace(
-      ']',
+      /]/g,
       `  })
   // ...
 }`
     )
-    while (base.includes('"')) {
-      base = base.replace('"', '')
-    }
-    while (base.includes(',')) {
-      base = base.replace(',', '')
-    }
+    base = base.replace(/"/g, '')
+    base = base.replace(/,/g, '')
     base = base.replace(
       '[',
       `import { ${name} } from "@openfort/react"
