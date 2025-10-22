@@ -65,7 +65,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
   onConnect: undefined,
   onDisconnect: undefined,
 
-  debugMode: false,
+  debugMode: true,
 }
 
 interface Store {

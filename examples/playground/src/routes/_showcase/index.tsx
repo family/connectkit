@@ -13,7 +13,7 @@ function RouteComponent() {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      nav({ to: '/showcase/auth' })
+      nav({ to: '/showcase/auth', search: true })
     }
   }, [isAuthenticated, nav])
 

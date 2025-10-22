@@ -35,9 +35,7 @@ const textVariants: Variants = {
 
 const EmailLogin: React.FC = () => {
   const [password, setPassword] = React.useState('')
-
   const { setRoute, triggerResize, log, setEmailInput: setEmail, emailInput: email } = useOpenfort()
-
   const [isRegister, setIsRegister] = React.useState(false)
 
   const {

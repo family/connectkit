@@ -4,6 +4,7 @@ import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
+import { useUI } from '../useUI'
 import type { UserWallet } from '../useWallets'
 import { buildCallbackUrl } from './requestEmailVerification'
 import { type BaseFlowState, mapStatus } from './status'
@@ -142,6 +143,7 @@ const isValidEmail = (email: string) => {
 export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
   const { log } = useOpenfort()
   const { client, updateUser } = useOpenfortCore()
+  const { isOpen } = useUI()
   const [requiresEmailVerification, setRequiresEmailVerification] = useState(false)
   const [status, setStatus] = useState<BaseFlowState>({
     status: 'idle',
@@ -205,6 +207,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
               email: options.email,
               callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
               provider: 'email',
+              isOpen,
             }),
           })
 
@@ -282,6 +285,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
             email: options.email,
             callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
             provider: 'password',
+            isOpen,
           }),
         })
 
@@ -421,6 +425,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
               email: options.email,
               callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
               provider: 'email',
+              isOpen,
             }),
           })
 
@@ -466,7 +471,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         })
       }
     },
-    [client, setStatus, updateUser, hookOptions]
+    [client, setStatus, updateUser, hookOptions, isOpen]
   )
 
   const linkEmail = useCallback(
@@ -519,6 +524,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
               email: options.email,
               callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
               provider: 'email',
+              isOpen,
             }),
           })
 
@@ -551,7 +557,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         })
       }
     },
-    [client, setStatus, updateUser, log, hookOptions]
+    [client, setStatus, updateUser, log, hookOptions, isOpen]
   )
 
   const verifyEmail = useCallback(

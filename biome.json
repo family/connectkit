@@ -5,6 +5,7 @@
       "packages/**",
       "examples/playground/**",
       "!examples/playground/**/*.css",
+      "!examples/playground/src/routeTree.gen.ts",
       "*.js",
       "*.ts",
       "*.json",

@@ -51,7 +51,7 @@ function RouteComponent() {
 
   const onSubmit = async (data: FormValues) => {
     // setError(null)
-    const fixedUrl = window.location.href.replace('?', '&').replace('?', '&').replace('&', '?')
+    const fixedUrl = window.location.href.replace('?state=', '&state=') // redirectUrl is not working with query params
     const url = new URL(fixedUrl)
     // setIsLoading(true)
 
