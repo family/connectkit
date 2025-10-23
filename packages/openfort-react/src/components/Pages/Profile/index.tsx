@@ -62,7 +62,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     }
   }, [shouldDisconnect, logout])
 
-  const separator = ['web95', 'rounded', 'minimal'].includes(themeContext.theme ?? context.uiConfig?.theme ?? '')
+  const separator = ['web95', 'rounded', 'minimal'].includes(themeContext.theme ?? context.uiConfig.theme ?? '')
     ? '....'
     : undefined
 
@@ -82,7 +82,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
             <ModalH1>
               <CopyToClipboard string={address}>{ensName ?? truncateEthAddress(address, separator)}</CopyToClipboard>
             </ModalH1>
-            {context?.uiConfig?.hideBalance ? null : (
+            {context?.uiConfig.hideBalance ? null : (
               <ModalBody>
                 <BalanceContainer>
                   <AnimatePresence exitBeforeEnter initial={false}>

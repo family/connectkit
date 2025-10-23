@@ -9,7 +9,7 @@ import { logger } from '../utils/logger'
 
 export default function useLocales(replacements?: any): LocaleProps {
   const context = useOpenfort()
-  const language = context.uiConfig?.language ?? 'en-US'
+  const language = context.uiConfig.language ?? 'en-US'
 
   const translations = useMemo(() => {
     return getLocale(language)

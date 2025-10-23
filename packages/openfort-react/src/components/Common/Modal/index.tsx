@@ -336,7 +336,7 @@ const Modal: React.FC<ModalProps> = ({
           position: positionInside ? 'absolute' : undefined,
         }}
       >
-        {!inline && <BackgroundOverlay $active={rendered} onClick={onClose} $blur={context.uiConfig?.overlayBlur} />}
+        {!inline && <BackgroundOverlay $active={rendered} onClick={onClose} $blur={context.uiConfig.overlayBlur} />}
         <Container
           style={dimensionsCSS}
           initial={false}
@@ -445,7 +445,7 @@ const Modal: React.FC<ModalProps> = ({
                     </BackButton>
                   ) : (
                     onInfo &&
-                    !context.uiConfig?.hideQuestionMarkCTA && (
+                    !context.uiConfig.hideQuestionMarkCTA && (
                       <InfoButton
                         disabled={inTransition}
                         aria-label={flattenChildren(locales.moreInformation).toString()}

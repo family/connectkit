@@ -20,3 +20,10 @@ function RouteComponent() {
 
   return <Outlet />
 }
+
+// Fix flashing error: isAuthenticated is false on first render
+// function ToFix() {
+//   const { isAuthenticated } = useUser()
+
+//   return <>isAuthenticated: {isAuthenticated.toString()}</>
+// }

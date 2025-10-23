@@ -322,9 +322,7 @@ export function OpenfortButton({
 
   const { open } = useUI()
 
-  const separator = ['web95', 'rounded', 'minimal'].includes(theme ?? context.uiConfig?.theme ?? '')
-    ? '....'
-    : undefined
+  const separator = ['web95', 'rounded', 'minimal'].includes(theme ?? context.uiConfig.theme ?? '') ? '....' : undefined
 
   if (!isMounted) return null
 
@@ -333,9 +331,9 @@ export function OpenfortButton({
 
   return (
     <ResetContainer
-      $useTheme={theme ?? context.uiConfig?.theme}
+      $useTheme={theme ?? context.uiConfig.theme}
       $useMode={mode ?? context.mode}
-      $customTheme={customTheme ?? context.uiConfig?.customTheme}
+      $customTheme={customTheme ?? context.uiConfig.customTheme}
     >
       <ThemeContainer
         onClick={() => {
@@ -380,9 +378,9 @@ export function OpenfortButton({
               >
                 <ThemedButton
                   variant={'secondary'}
-                  theme={theme ?? context.uiConfig?.theme}
+                  theme={theme ?? context.uiConfig.theme}
                   mode={mode ?? context.mode}
-                  customTheme={customTheme ?? context.uiConfig?.customTheme}
+                  customTheme={customTheme ?? context.uiConfig.customTheme}
                   style={{ overflow: 'hidden' }}
                 >
                   <motion.div style={{ paddingRight: 24 }}>
@@ -394,11 +392,11 @@ export function OpenfortButton({
           </AnimatePresence>
         )}
         <ThemedButton
-          theme={theme ?? context.uiConfig?.theme}
+          theme={theme ?? context.uiConfig.theme}
           mode={mode ?? context.mode}
-          customTheme={customTheme ?? context.uiConfig?.customTheme}
+          customTheme={customTheme ?? context.uiConfig.customTheme}
           style={
-            shouldShowBalance && showBalance && address && (theme === 'retro' || context.uiConfig?.theme === 'retro')
+            shouldShowBalance && showBalance && address && (theme === 'retro' || context.uiConfig.theme === 'retro')
               ? {
                   /* Special fix for the retro theme... not happy about this one */
                   boxShadow: 'var(--ck-connectbutton-balance-connectbutton-box-shadow)',

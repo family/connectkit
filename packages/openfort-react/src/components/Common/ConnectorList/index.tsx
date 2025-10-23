@@ -31,7 +31,7 @@ const ConnectorList = () => {
   }
 
   const walletsToDisplay =
-    context.uiConfig?.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
+    context.uiConfig.hideRecentBadge || lastConnectorId === 'walletConnect' // do not hoist walletconnect to top of list
       ? wallets
       : [
           // move last used wallet to top of list
@@ -100,7 +100,7 @@ const ConnectorItem = ({ wallet, isRecent }: { wallet: WalletProps; isRecent?: b
       </ConnectorIcon>
       <ConnectorLabel>
         {isMobile ? (wallet.shortName ?? wallet.name) : wallet.name}
-        {!context.uiConfig?.hideRecentBadge && isRecent && (
+        {!context.uiConfig.hideRecentBadge && isRecent && (
           <RecentlyUsedTag>
             <span>Recent</span>
           </RecentlyUsedTag>

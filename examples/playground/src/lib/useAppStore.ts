@@ -32,7 +32,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     hideBalance: undefined,
     hideRecentBadge: undefined,
     hideTooltips: undefined,
-    initialChainId: undefined,
+    initialChainId: beamTestnet.id,
     logo: undefined,
     overlayBlur: undefined,
     privacyPolicyUrl: undefined,

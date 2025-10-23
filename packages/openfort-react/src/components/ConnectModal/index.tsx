@@ -42,7 +42,7 @@ const ConnectModal: React.FC<{
   const chainIsSupported = useChainIsSupported(chain?.id)
 
   //if chain is unsupported we enforce a "switch chain" prompt
-  const closeable = !(context.uiConfig?.enforceSupportedChains && isConnected && !chainIsSupported)
+  const closeable = !(context.uiConfig.enforceSupportedChains && isConnected && !chainIsSupported)
 
   const mainRoutes: ValueOf<typeof routes>[] = [
     routes.PROFILE,

@@ -63,7 +63,7 @@ export function useConnect({ ...props }: UseConnectParameters = {}): CustomUseCo
       return connect(
         {
           connector,
-          chainId: chainId ?? context.uiConfig?.initialChainId,
+          chainId: chainId ?? context.uiConfig.initialChainId,
         },
         mutation
       )
@@ -80,7 +80,7 @@ export function useConnect({ ...props }: UseConnectParameters = {}): CustomUseCo
       return connectAsync(
         {
           connector,
-          chainId: chainId ?? context.uiConfig?.initialChainId,
+          chainId: chainId ?? context.uiConfig.initialChainId,
         },
         mutation
       )

@@ -35,7 +35,7 @@ export default function useLockBodyScroll(initialLocked: boolean) {
     document.body.style.position = 'relative'
     document.body.style.touchAction = 'none'
     //document.documentElement.style.overflow = 'hidden'; // overflow:hidden; on <html> breaks position:sticky;
-    if (context.uiConfig?.avoidLayoutShift) {
+    if (context.uiConfig.avoidLayoutShift) {
       document.body.style.paddingRight = `${scrollBarWidth}px`
     }
 
@@ -46,7 +46,7 @@ export default function useLockBodyScroll(initialLocked: boolean) {
       document.body.style.position = original.position
       document.body.style.touchAction = original.touchAction
       //document.documentElement.style.overflow = original.htmlOverflow;
-      if (context.uiConfig?.avoidLayoutShift) {
+      if (context.uiConfig.avoidLayoutShift) {
         document.body.style.paddingRight = original.paddingRight
       }
     }

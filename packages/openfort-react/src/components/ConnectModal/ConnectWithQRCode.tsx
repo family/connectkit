@@ -125,14 +125,14 @@ const ConnectWithQRCode: React.FC<{
             gap: 14,
           }}
         >
-          {context.uiConfig?.walletConnectCTA !== 'modal' && (
+          {context.uiConfig.walletConnectCTA !== 'modal' && (
             <CopyToClipboard variant="button" string={uri}>
-              {context.uiConfig?.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
+              {context.uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
             </CopyToClipboard>
           )}
-          {context.uiConfig?.walletConnectCTA !== 'link' && (
+          {context.uiConfig.walletConnectCTA !== 'link' && (
             <Button icon={<ExternalLinkIcon />} onClick={openW3M} disabled={isOpenW3M} waiting={isOpenW3M}>
-              {context.uiConfig?.walletConnectCTA === 'modal' ? locales.useWalletConnectModal : locales.useModal}
+              {context.uiConfig.walletConnectCTA === 'modal' ? locales.useWalletConnectModal : locales.useModal}
             </Button>
           )}
         </div>

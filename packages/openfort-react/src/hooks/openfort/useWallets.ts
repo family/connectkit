@@ -688,7 +688,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         const recoveryParams = await parseWalletRecovery(recovery)
 
         const embeddedAccount = await client.embeddedWallet.create({
-          chainId: uiConfig?.initialChainId ?? chainId,
+          chainId: uiConfig.initialChainId,
           accountType: options?.accountType || walletConfig?.accountType || AccountTypeEnum.SMART_ACCOUNT,
           chainType: ChainTypeEnum.EVM,
           recoveryParams,

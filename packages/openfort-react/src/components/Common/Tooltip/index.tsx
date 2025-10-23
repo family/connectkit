@@ -64,7 +64,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, message, open, xOffset = 0,
     setIsOpen(!!open)
   }, [open])
 
-  if (context.uiConfig?.hideTooltips) return <>{children}</>
+  if (context.uiConfig.hideTooltips) return <>{children}</>
 
   return (
     <>
