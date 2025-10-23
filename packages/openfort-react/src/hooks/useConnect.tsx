@@ -18,7 +18,6 @@ import {
   type UseConnectReturnType,
   useConnect as wagmiUseConnect,
 } from 'wagmi'
-import { useOpenfort } from '../components/Openfort/useOpenfort'
 import { logger } from '../utils/logger'
 
 type CustomConnectParams = {
@@ -33,16 +32,15 @@ type CustomUseConnectReturnType = Omit<UseConnectReturnType, 'connect' | 'connec
 }
 
 export function useConnect({ ...props }: UseConnectParameters = {}): CustomUseConnectReturnType {
-  const context = useOpenfort()
-
   const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
     ...props,
     mutation: {
       ...props.mutation,
-      onError(err) {
-        if (err.message) {
-          if (err.message !== 'User rejected request') {
-            logger.log(err.message, err)
+      onError(...err) {
+        props.mutation?.onError?.(...err)
+        if (err[0].message) {
+          if (err[0].message !== 'User rejected request') {
+            logger.log(err[0].message, err)
           }
         } else {
           logger.log(`Could not connect.`, err)
@@ -64,7 +62,7 @@ export function useConnect({ ...props }: UseConnectParameters = {}): CustomUseCo
       return connect(
         {
           connector,
-          chainId: chainId ?? context.uiConfig.initialChainId,
+          chainId,
         },
         mutation
       )
@@ -81,7 +79,7 @@ export function useConnect({ ...props }: UseConnectParameters = {}): CustomUseCo
       return connectAsync(
         {
           connector,
-          chainId: chainId ?? context.uiConfig.initialChainId,
+          chainId,
         },
         mutation
       )

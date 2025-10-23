@@ -4,7 +4,6 @@ import React, { createElement, useEffect, useMemo, useState } from 'react'
 import type { ValueOf } from 'viem/_types/types/utils'
 import { useAccount, WagmiContext } from 'wagmi'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
-import { useChains } from '../../hooks/useChains'
 import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
 import { useConnector } from '../../hooks/useConnectors'
 import { useThemeFont } from '../../hooks/useGoogleFont'
@@ -88,8 +87,6 @@ export const OpenfortProvider = ({
     logger.enabled = !!debugMode
   }, [])
 
-  const chains = useChains()
-
   const injectedConnector = useConnector('injected')
   const allowAutomaticRecovery = !!(walletConfig?.createEncryptedSessionEndpoint || walletConfig?.getEncryptionSession)
 
@@ -112,7 +109,6 @@ export const OpenfortProvider = ({
     disclaimer: null,
     bufferPolyfill: true,
     customAvatar: undefined,
-    initialChainId: chains?.[0]?.id,
     enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
