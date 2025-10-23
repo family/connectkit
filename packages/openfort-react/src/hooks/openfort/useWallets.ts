@@ -695,12 +695,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             wallet: parseEmbeddedAccount({
               embeddedAccount,
               connector: openfortConnector,
-              simpleAccounts: [],
-              // TODO: Update simple accounts after creating the wallet
-              // simpleAccounts: getSimpleAccounts({
-              //   address: embeddedAccount.address as Hex,
-              //   embeddedAccounts,
-              // }),
+              simpleAccounts: getSimpleAccounts({
+                embeddedAccounts: [embeddedAccount],
+                address: embeddedAccount.address as Hex,
+              }),
               chainId,
             }),
           },
@@ -743,12 +741,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             wallet: parseEmbeddedAccount({
               embeddedAccount,
               connector: openfortConnector,
-              simpleAccounts: [],
-              // TODO: Update simple accounts after creating the wallet
-              // simpleAccounts: getSimpleAccounts({
-              //   address: embeddedAccount.address as Hex,
-              //   embeddedAccounts,
-              // }),
+              simpleAccounts: getSimpleAccounts({
+                address: embeddedAccount.address as Hex,
+                embeddedAccounts: [embeddedAccount],
+              }),
               chainId,
             }),
           },
