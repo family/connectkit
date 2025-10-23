@@ -509,6 +509,11 @@ const SelectWalletButton = ({ wallet, onSelect }: { wallet: UserWallet; onSelect
 
 const SelectWalletToRecover = ({ wallets }: { wallets: UserWallet[] }) => {
   const [selectedWallet, setSelectedWallet] = useState<UserWallet | null>(null)
+  const { triggerResize } = useOpenfort()
+
+  useEffect(() => {
+    triggerResize()
+  }, [selectedWallet])
 
   if (selectedWallet) {
     return <RecoverWallet wallet={selectedWallet} />
