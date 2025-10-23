@@ -17,6 +17,7 @@
     "check:fix": "biome check --write",
     "check:types": "tsc --noEmit",
     "check:unused": "knip",
+    "check:all": "pnpm check && pnpm check:types && pnpm check:unused",
     "changeset": "changeset",
     "changeset:version": "pnpm install --lockfile-only && changeset version && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
     "changeset:publish": "pnpm build && changeset publish",
