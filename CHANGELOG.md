@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.32
+
+### Patch Changes
+
+- [#55](https://github.com/openfort-xyz/openfort-react/pull/55) [`c0af75c`](https://github.com/openfort-xyz/openfort-react/commit/c0af75c83e3d3c1578048ffd7297d976c224edbb) Thanks [@martimayoral](https://github.com/martimayoral)! - fix email callback
+
 ## 0.0.31
 
 ### Patch Changes
