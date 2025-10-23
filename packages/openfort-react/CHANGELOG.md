@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.0.33
+
+### Patch Changes
+
+- [#64](https://github.com/openfort-xyz/openfort-react/pull/64) [`2d6cf3d`](https://github.com/openfort-xyz/openfort-react/commit/2d6cf3d132bda960424990bed1d1fedc87703d99) Thanks [@martimayoral](https://github.com/martimayoral)! - fix create wallet not returning wallet id
+
+- [#57](https://github.com/openfort-xyz/openfort-react/pull/57) [`fc11344`](https://github.com/openfort-xyz/openfort-react/commit/fc11344eef008245b9f32ee2511f93c6aa397853) Thanks [@martimayoral](https://github.com/martimayoral)! - fix resize ui error when multiple wallets
+
+- [#57](https://github.com/openfort-xyz/openfort-react/pull/57) [`e165961`](https://github.com/openfort-xyz/openfort-react/commit/e165961d2ea9d9095b782e8d889d834229ec163d) Thanks [@martimayoral](https://github.com/martimayoral)! - remove initialChainId
+
+- [#57](https://github.com/openfort-xyz/openfort-react/pull/57) [`fc11344`](https://github.com/openfort-xyz/openfort-react/commit/fc11344eef008245b9f32ee2511f93c6aa397853) Thanks [@martimayoral](https://github.com/martimayoral)! - fix initial chain not working in some cases
+
 ## 0.0.32
 
 ### Patch Changes
