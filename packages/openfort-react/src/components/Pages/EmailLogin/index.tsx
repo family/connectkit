@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, type Variants } from 'framer-motion'
 import React from 'react'
 import { useEmailAuth } from '../../../hooks/openfort/auth/useEmailAuth'
+import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import { TextLinkButton } from '../../Common/Button/styles'
 import FitText from '../../Common/FitText'
@@ -35,7 +36,7 @@ const textVariants: Variants = {
 
 const EmailLogin: React.FC = () => {
   const [password, setPassword] = React.useState('')
-  const { setRoute, triggerResize, log, setEmailInput: setEmail, emailInput: email } = useOpenfort()
+  const { setRoute, triggerResize, setEmailInput: setEmail, emailInput: email } = useOpenfort()
   const [isRegister, setIsRegister] = React.useState(false)
 
   const {
@@ -61,7 +62,7 @@ const EmailLogin: React.FC = () => {
       password,
     })
 
-    log('SIGN IN RESPONSE', { error, requiresEmailVerification })
+    logger.log('SIGN IN RESPONSE', { error, requiresEmailVerification })
 
     if (!error) {
       if (requiresEmailVerification) {
@@ -86,7 +87,7 @@ const EmailLogin: React.FC = () => {
       password,
     })
 
-    log('SIGN UP RESPONSE', { error, requiresEmailVerification })
+    logger.log('SIGN UP RESPONSE', { error, requiresEmailVerification })
     if (!error) {
       if (requiresEmailVerification) {
         setRoute(routes.EMAIL_VERIFICATION)

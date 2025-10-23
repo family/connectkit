@@ -32,8 +32,6 @@ export type ContextValue = {
   setConnector: React.Dispatch<React.SetStateAction<Connector>>
   errorMessage: ErrorMessage
   debugMode?: boolean
-  log: (...props: any) => void
-  displayError: (message: string | React.ReactNode | null, code?: any) => void
   resize: number
   triggerResize: () => void
   uiConfig: OpenfortUIOptionsExtended

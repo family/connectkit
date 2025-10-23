@@ -4,7 +4,6 @@ import React, { createElement, useEffect, useMemo, useState } from 'react'
 import type { ValueOf } from 'viem/_types/types/utils'
 import { useAccount, WagmiContext } from 'wagmi'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
-import { useChains } from '../../hooks/useChains'
 import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
 import { useConnector } from '../../hooks/useConnectors'
 import { useThemeFont } from '../../hooks/useGoogleFont'
@@ -88,8 +87,6 @@ export const OpenfortProvider = ({
     logger.enabled = !!debugMode
   }, [])
 
-  const chains = useChains()
-
   const injectedConnector = useConnector('injected')
   const allowAutomaticRecovery = !!(walletConfig?.createEncryptedSessionEndpoint || walletConfig?.getEncryptionSession)
 
@@ -112,7 +109,6 @@ export const OpenfortProvider = ({
     disclaimer: null,
     bufferPolyfill: true,
     customAvatar: undefined,
-    initialChainId: chains?.[0]?.id,
     enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
@@ -154,9 +150,9 @@ export const OpenfortProvider = ({
      */
   }
 
-  const [ckTheme, setTheme] = useState<Theme>(uiConfig?.theme ?? defaultUIOptions.theme ?? 'auto')
-  const [ckMode, setMode] = useState<Mode>(uiConfig?.mode ?? defaultUIOptions.mode ?? 'auto')
-  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(uiConfig?.customTheme ?? {})
+  const [ckTheme, setTheme] = useState<Theme>(safeUiConfig.theme ?? 'auto')
+  const [ckMode, setMode] = useState<Mode>(safeUiConfig.mode ?? 'auto')
+  const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(safeUiConfig.customTheme ?? {})
   const [ckLang, setLang] = useState<Languages>('en-US')
   const [open, setOpen] = useState<boolean>(false)
   const [connector, setConnector] = useState<ContextValue['connector']>({
@@ -172,9 +168,9 @@ export const OpenfortProvider = ({
   useThemeFont(safeUiConfig.embedGoogleFonts ? ckTheme : ('' as Theme))
 
   // Other Configuration
-  useEffect(() => setTheme(uiConfig?.theme ?? 'auto'), [uiConfig?.theme])
-  useEffect(() => setMode(uiConfig?.mode ?? 'auto'), [uiConfig?.mode])
-  useEffect(() => setCustomTheme(uiConfig?.customTheme ?? {}), [uiConfig?.customTheme])
+  useEffect(() => setTheme(safeUiConfig.theme ?? 'auto'), [safeUiConfig.theme])
+  useEffect(() => setMode(safeUiConfig.mode ?? 'auto'), [safeUiConfig.mode])
+  useEffect(() => setCustomTheme(safeUiConfig.customTheme ?? {}), [safeUiConfig.customTheme])
   useEffect(() => setLang(safeUiConfig.language || 'en-US'), [safeUiConfig.language])
   useEffect(() => setErrorMessage(null), [route, open])
 
@@ -219,15 +215,8 @@ export const OpenfortProvider = ({
     uiConfig: safeUiConfig,
     errorMessage,
     debugMode,
-    log: logger.log,
     emailInput,
     setEmailInput,
-    displayError: (message: string | React.ReactNode | null, code?: any) => {
-      setErrorMessage(message)
-      logger.log('---------OPENFORT DEBUG---------')
-      logger.log(message)
-      if (code) logger.log('---------/OPENFORT DEBUG---------')
-    },
     resize,
     triggerResize: () => onResize((prev) => prev + 1),
     walletConfig,
@@ -260,7 +249,7 @@ export const OpenfortProvider = ({
             theme={defaultTheme}
           > */}
         {children}
-        <ConnectKitModal lang={ckLang} theme={ckTheme} mode={uiConfig?.mode ?? ckMode} customTheme={ckCustomTheme} />
+        <ConnectKitModal lang={ckLang} theme={ckTheme} mode={safeUiConfig.mode ?? ckMode} customTheme={ckCustomTheme} />
         {/* </ThemeProvider> */}
       </CoreOpenfortProvider>
     </Web3ContextProvider>

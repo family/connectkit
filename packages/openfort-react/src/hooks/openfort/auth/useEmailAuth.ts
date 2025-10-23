@@ -1,8 +1,8 @@
 import type { AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
-import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { logger } from '../../../utils/logger'
 import { onError, onSuccess } from '../hookConsistency'
 import { useUI } from '../useUI'
 import type { UserWallet } from '../useWallets'
@@ -141,7 +141,6 @@ const isValidEmail = (email: string) => {
  * ```
  */
 export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
-  const { log } = useOpenfort()
   const { client, updateUser } = useOpenfortCore()
   const { isOpen } = useUI()
   const [requiresEmailVerification, setRequiresEmailVerification] = useState(false)
@@ -493,7 +492,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         await client.validateAndRefreshToken()
         const authToken = await client.getAccessToken()
         if (!authToken) {
-          log('No token found')
+          logger.log('No token found')
           const error = new OpenfortError('No token found', OpenfortErrorType.AUTHENTICATION_ERROR)
           setStatus({
             status: 'error',
@@ -511,7 +510,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           password: options.password,
           authToken,
         })
-        log('Email linked successfully')
+        logger.log('Email linked successfully')
 
         if ('action' in result) {
           setStatus({
@@ -557,7 +556,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         })
       }
     },
-    [client, setStatus, updateUser, log, hookOptions, isOpen]
+    [client, setStatus, updateUser, hookOptions, isOpen]
   )
 
   const verifyEmail = useCallback(
@@ -603,7 +602,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           error,
         })
 
-        log('Error verifying email', e)
+        logger.log('Error verifying email', e)
 
         return onError({
           hookOptions,
@@ -612,7 +611,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         })
       }
     },
-    [client, log, hookOptions]
+    [client, hookOptions]
   )
 
   return {

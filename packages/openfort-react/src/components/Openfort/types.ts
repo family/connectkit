@@ -121,7 +121,6 @@ export type ConnectUIOptions = {
   /** Buffer polyfill, needed for bundlers that do not provide Node polyfills (e.g. CRA, Vite, etc.). */
   bufferPolyfill?: boolean
   customAvatar?: React.FC<CustomAvatarProps>
-  initialChainId?: number
   enforceSupportedChains?: boolean
   /** Blur intensity applied to the background when the modal is open. */
   overlayBlur?: number
@@ -155,7 +154,6 @@ export type OpenfortUIOptionsExtended = {
   /** Buffer polyfill, needed for bundlers that do not provide Node polyfills (e.g. CRA, Vite, etc.). */
   bufferPolyfill?: boolean
   customAvatar?: React.FC<CustomAvatarProps>
-  initialChainId?: number
   enforceSupportedChains?: boolean
   ethereumOnboardingUrl?: string
   walletOnboardingUrl?: string

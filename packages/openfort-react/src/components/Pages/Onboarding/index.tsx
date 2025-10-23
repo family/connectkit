@@ -21,7 +21,7 @@ const Introduction: React.FC = () => {
   const context = useOpenfort()
   const locales = useLocales({})
 
-  const ctaUrl = context.uiConfig?.walletOnboardingUrl ?? locales.onboardingScreen_ctaUrl
+  const ctaUrl = context.uiConfig.walletOnboardingUrl ?? locales.onboardingScreen_ctaUrl
   return (
     <PageContent>
       <Graphic>

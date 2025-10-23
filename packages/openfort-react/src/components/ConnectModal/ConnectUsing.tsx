@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { logger } from '../../utils/logger'
 import { useWallet } from '../../wallets/useWallets'
 import Alert from '../Common/Alert'
 import { contentVariants } from '../Common/Modal'
@@ -27,7 +28,7 @@ const ConnectUsing = () => {
 
   useEffect(() => {
     const connector = context.connector
-    context.log('ConnectUsing', { status, isQrCode, isOauth, connector })
+    logger.log('ConnectUsing', { status, isQrCode, isOauth, connector })
 
     if (isOauth) return
     // if no provider, change to qrcode

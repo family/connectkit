@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type React from 'react'
 import { useState } from 'react'
 import { createConfig, http, WagmiProvider } from 'wagmi'
-import { beamTestnet, polygonAmoy } from 'wagmi/chains'
+import { baseSepolia, beamTestnet, polygonAmoy } from 'wagmi/chains'
 import { ThemeProvider } from '@/components/theme-provider'
 import { useAppStore } from './lib/useAppStore'
 
@@ -11,10 +11,11 @@ const config = createConfig(
   getDefaultConfig({
     appName: 'Openfort demo',
     walletConnectProjectId: 'fc3261354522f71e19adc4081a7e9f53',
-    chains: [polygonAmoy, beamTestnet],
+    chains: [polygonAmoy, beamTestnet, baseSepolia],
     transports: {
       [polygonAmoy.id]: http('https://rpc-amoy.polygon.technology'),
-      [beamTestnet.id]: http(),
+      [beamTestnet.id]: http('https://subnets.avax.network/beam/testnet/rpc'),
+      [baseSepolia.id]: http(),
     },
   })
 )

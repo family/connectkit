@@ -15,7 +15,7 @@ const states = {
 }
 
 const ConnectWithOAuth: React.FC = () => {
-  const { connector, setRoute, log } = useOpenfort()
+  const { connector, setRoute } = useOpenfort()
   const { client, user } = useOpenfortCore()
 
   const [status, setStatus] = useState(states.INIT)
@@ -89,7 +89,7 @@ const ConnectWithOAuth: React.FC = () => {
                   queryParams,
                 },
               })
-              log(linkResponse)
+              logger.log(linkResponse)
               window.location.href = linkResponse.url
             } else {
               const r = await client.auth.initOAuth({
@@ -99,7 +99,7 @@ const ConnectWithOAuth: React.FC = () => {
                   queryParams,
                 },
               })
-              log(r)
+              logger.log(r)
               window.location.href = r.url
             }
           } catch (e) {

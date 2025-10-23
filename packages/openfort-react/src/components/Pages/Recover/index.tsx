@@ -19,6 +19,7 @@ import Loader from '../../Common/Loading'
 import { ModalBody, ModalHeading, PageContent } from '../../Common/Modal/styles'
 import TickList from '../../Common/TickList'
 import { FloatingGraphic } from '../../FloatingGraphic'
+import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PasswordStrengthIndicator } from '../../PasswordStrength/PasswordStrengthIndicator'
 import { getPasswordStrength, MEDIUM_SCORE_THRESHOLD } from '../../PasswordStrength/password-utility'
@@ -30,7 +31,7 @@ import { OtherMethodButton } from './styles'
 const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
   const [recoveryPhrase, setRecoveryPhrase] = useState('')
   const [recoveryError, setRecoveryError] = useState<false | string>(false)
-  const { triggerResize, log } = useOpenfort()
+  const { triggerResize } = useOpenfort()
   const [loading, setLoading] = useState(false)
   const { setActiveWallet } = useWallets()
 
@@ -50,7 +51,7 @@ const RecoverPasswordWallet = ({ wallet }: { wallet: UserWallet }) => {
     if (error) {
       setRecoveryError(error.message || 'There was an error recovering your account')
     } else {
-      log('Recovery success')
+      logger.log('Recovery success')
     }
   }
 
@@ -170,13 +171,12 @@ const RecoverPasskeyWallet = ({ wallet }: { wallet: UserWallet }) => {
 const RecoverAutomaticWallet = ({ walletAddress }: { walletAddress: Hex }) => {
   const { embeddedState } = useOpenfortCore()
   const { setActiveWallet } = useWallets()
-  const { log } = useOpenfort()
   const [error, setError] = useState<false | string>(false)
 
   useEffect(() => {
     ;(async () => {
       if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
-        log('Automatically recovering wallet', walletAddress)
+        logger.log('Automatically recovering wallet', walletAddress)
 
         const response = await setActiveWallet({
           walletId: embeddedWalletId,
@@ -184,7 +184,7 @@ const RecoverAutomaticWallet = ({ walletAddress }: { walletAddress: Hex }) => {
 
         if (response.error) {
           setError(response.error.message || 'There was an error recovering your account')
-          log('Error recovering wallet', response.error)
+          logger.log('Error recovering wallet', response.error)
         }
       }
     })()
@@ -209,16 +209,15 @@ const CreateWalletAutomaticRecovery = () => {
   const { embeddedState } = useOpenfortCore()
   const { createWallet } = useWallets()
   const [shouldCreateWallet, setShouldCreateWallet] = useState(false)
-  const { log } = useOpenfort()
 
   useEffect(() => {
     // To ensure the wallet is created only once
     if (shouldCreateWallet) {
       ;(async () => {
-        log('Creating wallet Automatic recover')
+        logger.log('Creating wallet Automatic recover')
         const response = await createWallet()
         if (response.error) {
-          log('Error creating wallet', response.error)
+          logger.log('Error creating wallet', response.error)
         }
       })()
     }
@@ -291,21 +290,20 @@ const CreateWalletPasskeyRecovery = ({
   const { triggerResize } = useOpenfort()
   const { createWallet, error: recoveryError } = useWallets()
   const [shouldCreateWallet, setShouldCreateWallet] = useState(false)
-  const { log } = useOpenfort()
   const { embeddedState } = useOpenfortCore()
 
   useEffect(() => {
     // To ensure the wallet is created only once
     if (shouldCreateWallet) {
       ;(async () => {
-        log('Creating wallet passkey recovery')
+        logger.log('Creating wallet passkey recovery')
         const response = await createWallet({
           recovery: {
             recoveryMethod: RecoveryMethod.PASSKEY,
           },
         })
         if (response.error) {
-          log('Error creating wallet', response.error)
+          logger.log('Error creating wallet', response.error)
           setShouldCreateWallet(false)
         }
       })()
@@ -343,7 +341,7 @@ const CreateWalletPasswordRecovery = ({
 }) => {
   const [recoveryPhrase, setRecoveryPhrase] = useState('')
   const [recoveryError, setRecoveryError] = useState<false | string>(false)
-  const { triggerResize, log } = useOpenfort()
+  const { triggerResize } = useOpenfort()
   const [showPasswordIsTooWeakError, setShowPasswordIsTooWeakError] = useState(false)
   const [loading, setLoading] = useState(false)
   const { createWallet } = useWallets()
@@ -368,7 +366,7 @@ const CreateWalletPasswordRecovery = ({
     if (error) {
       setRecoveryError(error.message || 'There was an error recovering your account')
     } else {
-      log('Recovery success')
+      logger.log('Recovery success')
     }
   }
 
@@ -508,6 +506,11 @@ const SelectWalletButton = ({ wallet, onSelect }: { wallet: UserWallet; onSelect
 
 const SelectWalletToRecover = ({ wallets }: { wallets: UserWallet[] }) => {
   const [selectedWallet, setSelectedWallet] = useState<UserWallet | null>(null)
+  const { triggerResize } = useOpenfort()
+
+  useEffect(() => {
+    triggerResize()
+  }, [selectedWallet])
 
   if (selectedWallet) {
     return <RecoverWallet wallet={selectedWallet} />
@@ -567,7 +570,7 @@ const Connected: React.FC = () => {
 
 const RecoverPage: React.FC = () => {
   const { user } = useOpenfortCore()
-  const { triggerResize } = useOpenfort()
+  const { triggerResize, uiConfig, walletConfig, setRoute } = useOpenfort()
   const { wallets, isLoadingWallets } = useWallets()
   // const [loading, setLoading] = useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = useState(true)
@@ -590,24 +593,22 @@ const RecoverPage: React.FC = () => {
     return wallets.filter((wallet) => wallet.id === embeddedWalletId)
   }, [wallets])
 
-  // useEffect(() => {
-  //   if (!user) return;
+  useEffect(() => {
+    if (!user) return
 
-  //   if (uiConfig?.linkWalletOnSignUp || !walletConfig) {
-  //     if (!user.linkedAccounts.find((account) => account.provider === "wallet")) {
-  //       setRoute(routes.CONNECTORS);
-  //       return;
-  //     }
+    if (uiConfig.linkWalletOnSignUp || !walletConfig) {
+      if (!user.linkedAccounts.find((account) => account.provider === 'wallet')) {
+        setRoute(routes.CONNECTORS)
+        return
+      }
 
-  //     if (!walletConfig) {
-  //       // Logged in without a wallet
-  //       setRoute(routes.PROFILE);
-  //       return;
-  //     }
-  //   }
-
-  //   setLoading(false);
-  // }, [user])
+      if (!walletConfig) {
+        // Logged in without a wallet
+        setRoute(routes.PROFILE)
+        return
+      }
+    }
+  }, [user])
 
   if (embeddedSignerLoading) {
     return (

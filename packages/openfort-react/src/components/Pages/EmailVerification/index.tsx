@@ -19,7 +19,7 @@ type VerificationResponse = {
 
 const EmailVerification: React.FC = () => {
   const { client } = useOpenfortCore()
-  const { setRoute, log, emailInput: emailInStorage } = useOpenfort()
+  const { setRoute, emailInput: emailInStorage } = useOpenfort()
 
   const [loading, setLoading] = useState(true)
   const [verificationResponse, setVerificationResponse] = useState<VerificationResponse | null>(null)
@@ -61,7 +61,7 @@ const EmailVerification: React.FC = () => {
       return
     }
 
-    log('EmailVerification', state, email)
+    logger.log('EmailVerification', state, email)
     ;(async () => {
       try {
         await client.auth.verifyEmail({
@@ -76,7 +76,7 @@ const EmailVerification: React.FC = () => {
           success: false,
           error: 'There was an error verifying your email. Please try again.',
         })
-        log('Error verifying email', e)
+        logger.log('Error verifying email', e)
       } finally {
         removeParams()
         setLoading(false)

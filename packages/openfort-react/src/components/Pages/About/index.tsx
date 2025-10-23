@@ -17,7 +17,7 @@ const About: React.FC = () => {
   })
   const context = useOpenfort()
 
-  const ctaUrl = context.uiConfig?.ethereumOnboardingUrl ?? locales.aboutScreen_ctaUrl
+  const ctaUrl = context.uiConfig.ethereumOnboardingUrl ?? locales.aboutScreen_ctaUrl
 
   const [_ready, setReady] = useState(true)
   const [slider, setSlider] = useState(0)
@@ -128,7 +128,7 @@ const About: React.FC = () => {
 
   // Adjust height of ModalBody to fit content based on language
   const slideHeight = (() => {
-    switch (context.uiConfig?.language) {
+    switch (context.uiConfig.language) {
       case 'en-US':
       case 'zh-CN':
         return 64

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
@@ -9,7 +10,7 @@ import { useOpenfort } from '../../Openfort/useOpenfort'
 
 // TODO: Localize
 const RequestEmail: React.FC = () => {
-  const { log, triggerResize, emailInput: email, setEmailInput: setEmail, setRoute } = useOpenfort()
+  const { triggerResize, emailInput: email, setEmailInput: setEmail, setRoute } = useOpenfort()
   const { client } = useOpenfortCore()
 
   const [loading, setLoading] = React.useState(false)
@@ -57,7 +58,7 @@ const RequestEmail: React.FC = () => {
         setLoading(false)
       })
       .catch((e) => {
-        log(e)
+        logger.log(e)
         const code = e?.response?.status
         switch (code) {
           case 400:
@@ -107,7 +108,7 @@ const ResetPassword: React.FC = () => {
 
   const [password, setPassword] = React.useState('')
 
-  const { setRoute, triggerResize, log } = useOpenfort()
+  const { setRoute, triggerResize } = useOpenfort()
   const { client, updateUser } = useOpenfortCore()
 
   const [loading, setLoading] = React.useState(false)
@@ -119,7 +120,7 @@ const ResetPassword: React.FC = () => {
 
     const state = url.searchParams.get('state')
     if (!email || !state) {
-      log('No email or state found')
+      logger.log('No email or state found')
       setLoading(false)
       return
     }
@@ -148,7 +149,7 @@ const ResetPassword: React.FC = () => {
 
       setRoute(routes.RECOVER)
     } catch (e) {
-      log('Reset password error', e)
+      logger.log('Reset password error', e)
 
       setLoading(false)
       triggerResize()

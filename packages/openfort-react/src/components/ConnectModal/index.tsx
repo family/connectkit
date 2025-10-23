@@ -6,6 +6,7 @@ import { getAppName } from '../../defaultConfig'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
 import type { CustomTheme, Languages, Mode, Theme } from '../../types'
+import { logger } from '../../utils/logger'
 import Modal from '../Common/Modal'
 import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitThemeProvider'
 import { routes } from '../Openfort/types'
@@ -42,7 +43,7 @@ const ConnectModal: React.FC<{
   const chainIsSupported = useChainIsSupported(chain?.id)
 
   //if chain is unsupported we enforce a "switch chain" prompt
-  const closeable = !(context.uiConfig?.enforceSupportedChains && isConnected && !chainIsSupported)
+  const closeable = !(context.uiConfig.enforceSupportedChains && isConnected && !chainIsSupported)
 
   const mainRoutes: ValueOf<typeof routes>[] = [
     routes.PROFILE,
@@ -120,7 +121,7 @@ const ConnectModal: React.FC<{
     const emailVerification = url.searchParams.get('openfortEmailVerificationUI')
     const forgotPassword = url.searchParams.get('openfortForgotPasswordUI')
 
-    context.log('Checking for search parameters', url)
+    logger.log('Checking for search parameters', url)
 
     if (emailVerification) {
       context.setOpen(true)
@@ -140,7 +141,7 @@ const ConnectModal: React.FC<{
     }
 
     if (isProvider(provider)) {
-      context.log('Found auth provider', provider)
+      logger.log('Found auth provider', provider)
       context.setOpen(true)
       context.setConnector({ id: provider, type: 'oauth' })
       context.setRoute(routes.CONNECT)

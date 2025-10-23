@@ -6,6 +6,7 @@ import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
 import useLocales from '../../hooks/useLocales'
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal'
 import { detectBrowser, isFamilyAccountsConnector, isWalletConnectConnector } from '../../utils'
+import { logger } from '../../utils/logger'
 import { useWallet } from '../../wallets/useWallets'
 import Button from '../Common/Button'
 import CopyToClipboard from '../Common/CopyToClipboard'
@@ -39,7 +40,7 @@ const ConnectWithQRCode: React.FC<{
 
   const connectWithSiwe = useConnectWithSiwe()
   const { isConnected } = useAccount()
-  const { log, setOpen } = useOpenfort()
+  const { setOpen } = useOpenfort()
   const { disconnect } = useDisconnect()
 
   const [isFirstFrame, setIsFirstFrame] = React.useState(true)
@@ -57,7 +58,7 @@ const ConnectWithQRCode: React.FC<{
           // connectorType: 'walletConnect',
           // walletClientType: 'walletConnect',
           onError: (error) => {
-            log(error)
+            logger.log(error)
             disconnect()
           },
           onConnect: () => {
@@ -125,14 +126,14 @@ const ConnectWithQRCode: React.FC<{
             gap: 14,
           }}
         >
-          {context.uiConfig?.walletConnectCTA !== 'modal' && (
+          {context.uiConfig.walletConnectCTA !== 'modal' && (
             <CopyToClipboard variant="button" string={uri}>
-              {context.uiConfig?.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
+              {context.uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
             </CopyToClipboard>
           )}
-          {context.uiConfig?.walletConnectCTA !== 'link' && (
+          {context.uiConfig.walletConnectCTA !== 'link' && (
             <Button icon={<ExternalLinkIcon />} onClick={openW3M} disabled={isOpenW3M} waiting={isOpenW3M}>
-              {context.uiConfig?.walletConnectCTA === 'modal' ? locales.useWalletConnectModal : locales.useModal}
+              {context.uiConfig.walletConnectCTA === 'modal' ? locales.useWalletConnectModal : locales.useModal}
             </Button>
           )}
         </div>
