@@ -1,6 +1,7 @@
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import { useAccount, useConnect } from 'wagmi'
+import { useAccount } from 'wagmi'
+import { useConnect } from '../../../hooks/useConnect'
 import useIsMobile from '../../../hooks/useIsMobile'
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
 import ConnectorList from '../../Common/ConnectorList'
