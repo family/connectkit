@@ -19,6 +19,7 @@ import Loader from '../../Common/Loading'
 import { ModalBody, ModalHeading, PageContent } from '../../Common/Modal/styles'
 import TickList from '../../Common/TickList'
 import { FloatingGraphic } from '../../FloatingGraphic'
+import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PasswordStrengthIndicator } from '../../PasswordStrength/PasswordStrengthIndicator'
 import { getPasswordStrength, MEDIUM_SCORE_THRESHOLD } from '../../PasswordStrength/password-utility'
@@ -567,7 +568,7 @@ const Connected: React.FC = () => {
 
 const RecoverPage: React.FC = () => {
   const { user } = useOpenfortCore()
-  const { triggerResize } = useOpenfort()
+  const { triggerResize, uiConfig, walletConfig, setRoute } = useOpenfort()
   const { wallets, isLoadingWallets } = useWallets()
   // const [loading, setLoading] = useState(true);
   const [embeddedSignerLoading, setEmbeddedSignerLoading] = useState(true)
@@ -590,24 +591,22 @@ const RecoverPage: React.FC = () => {
     return wallets.filter((wallet) => wallet.id === embeddedWalletId)
   }, [wallets])
 
-  // useEffect(() => {
-  //   if (!user) return;
+  useEffect(() => {
+    if (!user) return
 
-  //   if (uiConfig?.linkWalletOnSignUp || !walletConfig) {
-  //     if (!user.linkedAccounts.find((account) => account.provider === "wallet")) {
-  //       setRoute(routes.CONNECTORS);
-  //       return;
-  //     }
+    if (uiConfig.linkWalletOnSignUp || !walletConfig) {
+      if (!user.linkedAccounts.find((account) => account.provider === 'wallet')) {
+        setRoute(routes.CONNECTORS)
+        return
+      }
 
-  //     if (!walletConfig) {
-  //       // Logged in without a wallet
-  //       setRoute(routes.PROFILE);
-  //       return;
-  //     }
-  //   }
-
-  //   setLoading(false);
-  // }, [user])
+      if (!walletConfig) {
+        // Logged in without a wallet
+        setRoute(routes.PROFILE)
+        return
+      }
+    }
+  }, [user])
 
   if (embeddedSignerLoading) {
     return (
