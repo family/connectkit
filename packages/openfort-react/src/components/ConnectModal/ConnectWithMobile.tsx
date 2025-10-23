@@ -31,7 +31,7 @@ const ConnectWithMobile: React.FC = () => {
   const { connector, setRoute } = useOpenfort()
 
   const walletId = Object.keys(walletConfigs).find(
-    // where id is comma seperated list
+    // where id is comma separated list
     (id) =>
       id
         .split(',')
