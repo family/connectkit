@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import type { UIAuthProvider } from '../../../components/Openfort/types'
-import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { logger } from '../../../utils/logger'
 import { onError } from '../hookConsistency'
@@ -88,8 +87,6 @@ export const useAuthCallback = ({
   enabled = true, // Automatically handle OAuth and email callback
   ...hookOptions
 }: UseAuthCallbackOptions = {}) => {
-  const { log } = useOpenfort()
-
   const [provider, setProvider] = useState<UIAuthProvider | null>(null)
   const [email, setEmail] = useState<string | null>(null)
   const {
@@ -146,7 +143,7 @@ export const useAuthCallback = ({
           window.history.replaceState({}, document.title, url.toString())
         }
 
-        log('EmailVerification', state, email)
+        logger.log('EmailVerification', state, email)
 
         const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {
@@ -202,7 +199,7 @@ export const useAuthCallback = ({
           window.history.replaceState({}, document.title, url.toString())
         }
 
-        log('callback', { player, accessToken, refreshToken })
+        logger.log('callback', { player, accessToken, refreshToken })
 
         const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {

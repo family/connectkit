@@ -2,6 +2,7 @@ import { useAccount } from 'wagmi'
 import { routes } from '../../components/Openfort/types'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
+import { logger } from '../../utils/logger'
 
 type ModalRoutes = (typeof routes)[keyof typeof routes]
 
@@ -87,7 +88,7 @@ type ValidRoutes = ModalRoutes
  * ```
  */
 export function useUI() {
-  const { open, setOpen, setRoute, log } = useOpenfort()
+  const { open, setOpen, setRoute } = useOpenfort()
   const { isLoading, user, needsRecovery } = useOpenfortCore()
   const { isConnected } = useAccount()
 
@@ -106,17 +107,17 @@ export function useUI() {
 
     if (!allRoutes.includes(route)) {
       validRoute = isConnected ? routes.PROFILE : routes.PROVIDERS
-      log(`Route ${route} is not a valid route, navigating to ${validRoute} instead.`)
+      logger.log(`Route ${route} is not a valid route, navigating to ${validRoute} instead.`)
     } else {
       if (isConnected) {
         if (!safeRoutes.connected.includes(route)) {
           validRoute = routes.PROFILE
-          log(`Route ${route} is not a valid route when connected, navigating to ${validRoute} instead.`)
+          logger.log(`Route ${route} is not a valid route when connected, navigating to ${validRoute} instead.`)
         }
       } else {
         if (!safeRoutes.disconnected.includes(route)) {
           validRoute = routes.PROVIDERS
-          log(`Route ${route} is not a valid route when disconnected, navigating to ${validRoute} instead.`)
+          logger.log(`Route ${route} is not a valid route when disconnected, navigating to ${validRoute} instead.`)
         }
       }
     }

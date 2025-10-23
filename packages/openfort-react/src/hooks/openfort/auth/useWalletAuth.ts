@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { type Connector, useDisconnect } from 'wagmi'
-import { useOpenfort } from '../../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { logger } from '../../../utils/logger'
@@ -16,7 +15,6 @@ type ConnectWalletOptions = {
 
 export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
   const { updateUser } = useOpenfortCore()
-  const { log } = useOpenfort()
   const siwe = useConnectWithSiwe()
   const availableWallets = useWallets() // TODO: Use this to get the wallet client type
   const { disconnect } = useDisconnect()
@@ -64,7 +62,7 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
 
     siwe({
       onError: (e) => {
-        log('Error connecting with SIWE', e)
+        logger.log('Error connecting with SIWE', e)
         disconnect()
         const error = new OpenfortError('Failed to connect with siwe', OpenfortErrorType.AUTHENTICATION_ERROR, {
           error: e,
@@ -72,7 +70,7 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
         handleError(error)
       },
       onConnect: () => {
-        log('Successfully connected with SIWE')
+        logger.log('Successfully connected with SIWE')
         setStatus({
           status: 'success',
         })
@@ -83,7 +81,7 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
         })
       },
     })
-  }, [shouldConnectWithSiwe, siwe, updateUser, log])
+  }, [shouldConnectWithSiwe, siwe, updateUser])
 
   // const generateSiweMessage = useCallback(
   //   async (args) => {
@@ -184,7 +182,7 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
       }
 
       if (!connector) {
-        log('Connector not found', connector)
+        logger.log('Connector not found', connector)
         return handleError(new OpenfortError('Connector not found', OpenfortErrorType.AUTHENTICATION_ERROR))
       }
 
@@ -213,13 +211,13 @@ export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
         await connectAsync({
           connector,
         })
-        log('Connected to wallet!!!', connector.id)
+        logger.log('Connected to wallet!!!', connector.id)
       } catch (error) {
         logger.error('Error connecting', error)
         handleError(new OpenfortError('Failed to connect', OpenfortErrorType.AUTHENTICATION_ERROR, { error }))
       }
     },
-    [siwe, disconnect, updateUser, availableWallets, log, setStatus, hookOptions]
+    [siwe, disconnect, updateUser, availableWallets, setStatus, hookOptions]
   )
 
   return {

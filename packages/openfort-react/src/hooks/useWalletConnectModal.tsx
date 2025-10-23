@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import type { Connector, CreateConnectorFn } from 'wagmi'
 import { walletConnect } from 'wagmi/connectors'
-import { useOpenfort } from '../components/Openfort/useOpenfort'
 
 import { isWalletConnectConnector } from '../utils'
+import { logger } from '../utils/logger'
 import { useConnect } from './useConnect'
 
 export function useWalletConnectModal() {
-  const { log } = useOpenfort()
   const { connectAsync, connectors } = useConnect()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -35,7 +34,7 @@ export function useWalletConnectModal() {
           try {
             await connectAsync({ connector: connector })
           } catch (err) {
-            log('WalletConnect', err)
+            logger.log('WalletConnect', err)
             return {
               error: 'Connection failed',
             }
@@ -47,13 +46,13 @@ export function useWalletConnectModal() {
           document.head.removeChild(w3mcss)
           return {}
         } catch (err) {
-          log('Could not get WalletConnect provider', err)
+          logger.log('Could not get WalletConnect provider', err)
           return {
             error: 'Could not get WalletConnect provider',
           }
         }
       } else {
-        log('Configuration error: Please provide a WalletConnect Project ID in your wagmi config.')
+        logger.log('Configuration error: Please provide a WalletConnect Project ID in your wagmi config.')
         return {
           error: 'Configuration error: Please provide a WalletConnect Project ID in your wagmi config.',
         }

@@ -1,6 +1,7 @@
 import { AnimatePresence, type Variants } from 'framer-motion'
 import React from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
@@ -35,7 +36,7 @@ const textVariants: Variants = {
 const LinkEmail: React.FC = () => {
   const [password, setPassword] = React.useState('')
 
-  const { setRoute, triggerResize, log, emailInput: email, setEmailInput: setEmail } = useOpenfort()
+  const { setRoute, triggerResize, emailInput: email, setEmailInput: setEmail } = useOpenfort()
   const { client, updateUser } = useOpenfortCore()
 
   const [loginLoading, setLoginLoading] = React.useState(false)
@@ -47,7 +48,7 @@ const LinkEmail: React.FC = () => {
     await client.validateAndRefreshToken()
     const authToken = await client.getAccessToken()
     if (!authToken) {
-      log('No token found')
+      logger.log('No token found')
       setLoginLoading(false)
       setLoginError('No token found.')
       triggerResize()
@@ -60,7 +61,7 @@ const LinkEmail: React.FC = () => {
         authToken,
       })
       .catch((e) => {
-        log('Link error:', e)
+        logger.log('Link error:', e)
         setLoginLoading(false)
         setLoginError('Could not link email.')
         triggerResize()

@@ -19,6 +19,7 @@ import {
   useConnect as wagmiUseConnect,
 } from 'wagmi'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
+import { logger } from '../utils/logger'
 
 type CustomConnectParams = {
   connector: CreateConnectorFn | Connector
@@ -41,10 +42,10 @@ export function useConnect({ ...props }: UseConnectParameters = {}): CustomUseCo
       onError(err) {
         if (err.message) {
           if (err.message !== 'User rejected request') {
-            context.log(err.message, err)
+            logger.log(err.message, err)
           }
         } else {
-          context.log(`Could not connect.`, err)
+          logger.log(`Could not connect.`, err)
         }
       },
     },

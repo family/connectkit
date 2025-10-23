@@ -6,6 +6,7 @@ import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
 import useLocales from '../../hooks/useLocales'
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal'
 import { detectBrowser, isFamilyAccountsConnector, isWalletConnectConnector } from '../../utils'
+import { logger } from '../../utils/logger'
 import { useWallet } from '../../wallets/useWallets'
 import Button from '../Common/Button'
 import CopyToClipboard from '../Common/CopyToClipboard'
@@ -39,7 +40,7 @@ const ConnectWithQRCode: React.FC<{
 
   const connectWithSiwe = useConnectWithSiwe()
   const { isConnected } = useAccount()
-  const { log, setOpen } = useOpenfort()
+  const { setOpen } = useOpenfort()
   const { disconnect } = useDisconnect()
 
   const [isFirstFrame, setIsFirstFrame] = React.useState(true)
@@ -57,7 +58,7 @@ const ConnectWithQRCode: React.FC<{
           // connectorType: 'walletConnect',
           // walletClientType: 'walletConnect',
           onError: (error) => {
-            log(error)
+            logger.log(error)
             disconnect()
           },
           onConnect: () => {

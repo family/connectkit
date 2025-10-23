@@ -3,6 +3,7 @@ import { useAccount } from 'wagmi'
 import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
 import styled from '../../styles/styled'
 import { isAndroid } from '../../utils'
+import { logger } from '../../utils/logger'
 import { useOnUserReturn } from '../../utils/useOnUserReturn'
 import { useWallet } from '../../wallets/useWallets'
 import { walletConfigs } from '../../wallets/walletConfigs'
@@ -27,7 +28,7 @@ const DownloadFooter = styled.div`
 `
 
 const ConnectWithMobile: React.FC = () => {
-  const { connector, setRoute, log } = useOpenfort()
+  const { connector, setRoute } = useOpenfort()
 
   const walletId = Object.keys(walletConfigs).find(
     // where id is comma seperated list
@@ -55,7 +56,7 @@ const ConnectWithMobile: React.FC = () => {
 
   const openApp = (url?: string) => {
     const uri = wallet?.getWalletConnectDeeplink?.(url ?? '')
-    log('Opening wallet app with uri', { uri, url, wallet, walletId, walletConfigs, connectorId: connector.id })
+    logger.log('Opening wallet app with uri', { uri, url, wallet, walletId, walletConfigs, connectorId: connector.id })
     if (uri) {
       if (url) {
         window.location.href = uri

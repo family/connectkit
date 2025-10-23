@@ -73,7 +73,7 @@ const ConnectWithInjector: React.FC<{
   // biome-ignore lint/correctness/noUnusedFunctionParameters: switchConnectMethod is part of the component interface but not used in current implementation
 }> = ({ switchConnectMethod, forceState }) => {
   const openfort = useOpenfortCore()
-  const { log, setOpen } = useOpenfort()
+  const { setOpen } = useOpenfort()
   const { isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const connectWithSiwe = useConnectWithSiwe()
@@ -91,7 +91,7 @@ const ConnectWithInjector: React.FC<{
         logger.error(err)
       },
       onSettled(data?: any, error?: any) {
-        log(`onSettled - data: ${data}, error: ${error}`, data)
+        logger.log(`onSettled - data: ${data}, error: ${error}`, data)
         if (error) {
           setShowTryAgainTooltip(true)
           setTimeout(() => setShowTryAgainTooltip(false), 3500)

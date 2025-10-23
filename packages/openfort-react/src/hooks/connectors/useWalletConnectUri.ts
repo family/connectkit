@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { type Connector, useAccount, useDisconnect } from 'wagmi'
-import { useOpenfort } from '../../components/Openfort/useOpenfort'
+import { logger } from '../../utils/logger'
 import { useConnect } from '../useConnect'
 import { useWalletConnectConnector } from '../useConnectors'
 
@@ -14,8 +14,6 @@ export function useWalletConnectUri(
     enabled: true,
   }
 ) {
-  const { log } = useOpenfort()
-
   const [uri, setUri] = useState<string | undefined>(undefined)
 
   const connector = useWalletConnectConnector()
@@ -29,7 +27,7 @@ export function useWalletConnectUri(
 
     async function handleMessage(message) {
       const { type, data } = message
-      log('WC Message', type, data)
+      logger.log('WC Message', type, data)
       if (type === 'display_uri') {
         setUri(data)
       }
@@ -43,7 +41,7 @@ export function useWalletConnectUri(
         */
     }
     async function handleDisconnect() {
-      log('WC Disconnect')
+      logger.log('WC Disconnect')
 
       if (connector) connectWallet(connector)
     }
@@ -60,21 +58,21 @@ export function useWalletConnectUri(
       try {
         await connectWallet(connector)
       } catch (error: any) {
-        log('catch error')
-        log(error)
+        logger.log('catch error')
+        logger.log(error)
         if (error.code) {
           switch (error.code) {
             case 4001:
-              log('error.code - User rejected')
+              logger.log('error.code - User rejected')
               connectWalletConnect(connector) // Regenerate QR code
               break
             default:
-              log('error.code - Unknown Error')
+              logger.log('error.code - Unknown Error')
               break
           }
         } else {
           // Sometimes the error doesn't respond with a code
-          log('WalletConnect cannot connect.', error)
+          logger.log('WalletConnect cannot connect.', error)
         }
       }
     }
@@ -85,11 +83,11 @@ export function useWalletConnectUri(
       if (!connector || uri) return
       if (connector && !isConnected) {
         connectWalletConnect(connector)
-        log('add wc listeners')
+        logger.log('add wc listeners')
         connector.emitter.on('message', handleMessage)
         connector.emitter.on('disconnect', handleDisconnect)
         return () => {
-          log('remove wc listeners')
+          logger.log('remove wc listeners')
           connector.emitter.off('message', handleMessage)
           connector.emitter.off('disconnect', handleDisconnect)
         }

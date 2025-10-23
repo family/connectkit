@@ -394,7 +394,6 @@ const Modal: React.FC<ModalProps> = ({
                   <button
                     type="button"
                     aria-label={flattenChildren(locales.close).toString()}
-                    onClick={() => context.displayError(null)}
                     style={{
                       position: 'absolute',
                       right: 24,

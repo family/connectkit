@@ -219,15 +219,8 @@ export const OpenfortProvider = ({
     uiConfig: safeUiConfig,
     errorMessage,
     debugMode,
-    log: logger.log,
     emailInput,
     setEmailInput,
-    displayError: (message: string | React.ReactNode | null, code?: any) => {
-      setErrorMessage(message)
-      logger.log('---------OPENFORT DEBUG---------')
-      logger.log(message)
-      if (code) logger.log('---------/OPENFORT DEBUG---------')
-    },
     resize,
     triggerResize: () => onResize((prev) => prev + 1),
     walletConfig,

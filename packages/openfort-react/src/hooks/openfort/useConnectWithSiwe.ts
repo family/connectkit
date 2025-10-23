@@ -2,16 +2,15 @@ import { signMessage, switchChain } from '@wagmi/core'
 import { AxiosError } from 'axios'
 import { useCallback } from 'react'
 import { useAccount, useChainId, useConfig, usePublicClient } from 'wagmi'
-import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { createSIWEMessage } from '../../siwe/create-siwe-message'
+import { logger } from '../../utils/logger'
 
 // This hook assumes wagmi is already connected to a wallet
 // It will use the connected wallet to sign the SIWE message and authenticate with Openfort
 // If there is a user already, it will link the wallet to the user
 export function useConnectWithSiwe() {
   const { client, user, updateUser } = useOpenfortCore()
-  const { log } = useOpenfort()
   const { address, connector, chainId: accountChainId } = useAccount()
   const chainId = useChainId()
   const config = useConfig()
@@ -33,7 +32,7 @@ export function useConnectWithSiwe() {
       const walletClientType = propsWalletClientType ?? connector?.id
 
       if (!address || !connectorType || !walletClientType) {
-        log('No address found', { address, connectorType, walletClientType })
+        logger.log('No address found', { address, connectorType, walletClientType })
         onError?.('No address found')
         return
       }
@@ -56,7 +55,7 @@ export function useConnectWithSiwe() {
           const authToken = await client.getAccessToken()
           if (!authToken) throw new Error('No access token found')
 
-          log('Linking wallet', { signature, message: SIWEMessage, connectorType, walletClientType, authToken })
+          logger.log('Linking wallet', { signature, message: SIWEMessage, connectorType, walletClientType, authToken })
           await client.auth.linkWallet({
             signature,
             message: SIWEMessage,
@@ -77,7 +76,7 @@ export function useConnectWithSiwe() {
 
         onConnect?.()
       } catch (err) {
-        log('Failed to connect with SIWE', err)
+        logger.log('Failed to connect with SIWE', err)
         if (!onError) return
 
         let message = err instanceof Error ? err.message : err instanceof AxiosError ? err.message : String(err)
@@ -95,7 +94,7 @@ export function useConnectWithSiwe() {
         onError(message, err instanceof AxiosError ? err.request.status : undefined)
       }
     },
-    [client, user, updateUser, log, address, chainId, config, connector, accountChainId, publicClient]
+    [client, user, updateUser, address, chainId, config, connector, accountChainId, publicClient]
   )
 
   return connectWithSiwe
