@@ -30,8 +30,8 @@ export {
   type SignAuthorizationReturnType,
   use7702Authorization,
 } from './hooks/openfort/use7702Authorization'
-export { useGrantPermissions } from './hooks/openfort/useGrantPermissions'
 export { useConnectWithSiwe } from './hooks/openfort/useConnectWithSiwe'
+export { useGrantPermissions } from './hooks/openfort/useGrantPermissions'
 export { useUI } from './hooks/openfort/useUI'
 export { useUser } from './hooks/openfort/useUser'
 export { UserWallet, useWallets } from './hooks/openfort/useWallets'

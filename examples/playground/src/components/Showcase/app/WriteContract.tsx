@@ -1,5 +1,5 @@
 import { getAddress, parseAbi } from 'viem'
-import { useAccount, useReadContract, useWriteContract } from 'wagmi'
+import { useAccount, useChainId, useChains, useReadContract, useWriteContract } from 'wagmi'
 import { Button } from '@/components/Showcase/ui/Button'
 import { InputMessage } from '@/components/Showcase/ui/InputMessage'
 import { TruncatedText } from '@/components/TruncatedText'
@@ -8,6 +8,8 @@ import { cn } from '@/lib/cn'
 
 export const WriteContractCard = () => {
   const { address } = useAccount()
+  const chains = useChains()
+  const chainId = useChainId()
 
   const {
     data: balance,
@@ -78,6 +80,16 @@ export const WriteContractCard = () => {
             {isPending ? 'Minting...' : 'Mint Tokens'}
           </Button>
           <InputMessage message={`Transaction hash: ${hash}`} show={!!hash} variant="success" />
+          {hash && (
+            <a
+              href={`${chains.find((c) => c.id === chainId)?.blockExplorers?.default.url}/tx/${hash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-400"
+            >
+              View on Etherscan
+            </a>
+          )}
           <InputMessage message={`Error: ${error?.message}`} show={!!error} variant="error" />
         </form>
       </CardContent>

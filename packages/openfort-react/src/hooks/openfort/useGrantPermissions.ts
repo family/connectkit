@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react'
-import { createWalletClient, custom, type Hex } from 'viem'
-import { erc7715Actions, type GrantPermissionsParameters, type GrantPermissionsReturnType } from 'viem/experimental'
+import type { Hex } from 'viem'
+import type { GrantPermissionsParameters, GrantPermissionsReturnType } from 'viem/experimental'
 import { useChainId } from 'wagmi'
-import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
 import { useChains } from '../useChains'
 import { type BaseFlowState, mapStatus } from './auth/status'
 import { onError, onSuccess } from './hookConsistency'
+import { useExtendedWalletClient } from './useExtendedWalletClient'
 
 type GrantPermissionsRequest = {
   request: GrantPermissionsParameters
@@ -107,40 +107,32 @@ type GrantPermissionsHookOptions = OpenfortHookOptions<GrantPermissionsHookResul
  * ```
  */
 export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {}) => {
-  const { client } = useOpenfortCore()
   const chains = useChains()
   const chainId = useChainId()
   const [status, setStatus] = useState<BaseFlowState>({
     status: 'idle',
   })
-
+  const walletClient = useExtendedWalletClient()
+  const [data, setData] = useState<GrantPermissionsResult | null>(null)
   const grantPermissions = useCallback(
     async (
       { request, sessionKey }: GrantPermissionsRequest,
       options: GrantPermissionsHookOptions = {}
     ): Promise<GrantPermissionsHookResult> => {
       try {
+        if (!walletClient) {
+          throw new OpenfortError('Wallet client not available', OpenfortErrorType.WALLET_ERROR)
+        }
+
         setStatus({
           status: 'loading',
         })
-
-        // Get EVM provider from Openfort client
-        const provider = await client.embeddedWallet.getEthereumProvider()
-        if (!provider) {
-          throw new OpenfortError('Failed to get Ethereum provider', OpenfortErrorType.WALLET_ERROR)
-        }
 
         // Get the current chain configuration
         const chain = chains.find((c) => c.id === chainId)
         if (!chain) {
           throw new OpenfortError('No chain configured', OpenfortErrorType.CONFIGURATION_ERROR)
         }
-
-        // Create wallet client with ERC-7715 actions
-        const walletClient = createWalletClient({
-          chain,
-          transport: custom(provider),
-        }).extend(erc7715Actions())
 
         // Get the account address
         const [account] = await walletClient.getAddresses()
@@ -154,6 +146,7 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
           ...grantPermissionsResult,
         }
 
+        setData(data)
         setStatus({
           status: 'success',
         })
@@ -180,11 +173,16 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
         })
       }
     },
-    [client, chains, chainId, setStatus, hookOptions]
+    [chains, chainId, setStatus, hookOptions]
   )
 
   return {
     grantPermissions,
+    data,
+    reset: () => {
+      setStatus({ status: 'idle' })
+      setData(null)
+    },
     ...mapStatus(status),
   }
 }
