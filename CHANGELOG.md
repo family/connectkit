@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.34
+
+### Patch Changes
+
+- [#61](https://github.com/openfort-xyz/openfort-react/pull/61) [`544a631`](https://github.com/openfort-xyz/openfort-react/commit/544a63199c11c48c151191e981ee838b61f4eece) Thanks [@Huguet57](https://github.com/Huguet57)! - fix chain custom rpc error
+
+- [#61](https://github.com/openfort-xyz/openfort-react/pull/61) [`544a631`](https://github.com/openfort-xyz/openfort-react/commit/544a63199c11c48c151191e981ee838b61f4eece) Thanks [@Huguet57](https://github.com/Huguet57)! - add grant permissions hook
+
 ## 0.0.33
 
 ### Patch Changes
