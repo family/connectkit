@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@openfort/react": "^0.0.34",
+    "@openfort/react": "^0.0.33",
     "@tanstack/react-query": "^5.90.2",
     "better-auth": "^1.2.2",
     "react": "^18.2.0",
