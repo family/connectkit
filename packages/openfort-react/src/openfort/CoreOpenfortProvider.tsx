@@ -8,7 +8,7 @@ import {
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type React from 'react'
 import { createElement, type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useAccount, useChainId, useDisconnect } from 'wagmi'
+import { useAccount, useChainId, useConfig, useDisconnect } from 'wagmi'
 import { useOpenfort } from '../components/Openfort/useOpenfort'
 import type { WalletFlowStatus } from '../hooks/openfort/useWallets'
 import { useConnect } from '../hooks/useConnect'
@@ -166,11 +166,10 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
   )
 
   const chainId = useChainId()
+  const wagmiConfig = useConfig()
 
   useEffect(() => {
     if (!openfort || !walletConfig) return
-
-    logger.log('Getting ethereum provider', chainId)
 
     const resolvePolicy = () => {
       const { ethereumProviderPolicyId } = walletConfig
@@ -190,7 +189,23 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
       return { policy }
     }
 
-    openfort.embeddedWallet.getEthereumProvider(resolvePolicy())
+    const rpcUrls = wagmiConfig.chains.reduce(
+      (acc, chain) => {
+        const rpcUrl = wagmiConfig.getClient({ chainId: chain.id }).transport.url
+        if (rpcUrl) {
+          acc[chain.id] = rpcUrl
+        }
+        return acc
+      },
+      {} as Record<number, string>
+    )
+
+    logger.log('Getting ethereum provider', { chainId, rpcUrls })
+
+    openfort.embeddedWallet.getEthereumProvider({
+      ...resolvePolicy(),
+      chains: rpcUrls,
+    })
   }, [openfort, walletConfig, chainId])
 
   const [isConnectedWithEmbeddedSigner, setIsConnectedWithEmbeddedSigner] = useState(false)

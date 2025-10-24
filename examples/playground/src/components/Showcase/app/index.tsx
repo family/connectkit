@@ -1,5 +1,6 @@
 import { useSignOut, useUser } from '@openfort/react'
 import { useAccount } from 'wagmi'
+import { SessionKeysCard } from '@/components/Showcase/app/SessionKeys'
 import { SetActiveWalletsCard } from '@/components/Showcase/app/SetActiveWallets'
 import { SignaturesCard } from '@/components/Showcase/app/Signatures'
 import { SwitchChainCard } from '@/components/Showcase/app/SwitchChain'
@@ -37,6 +38,7 @@ export const App = () => {
         <WriteContractCard />
         <SwitchChainCard />
         <SetActiveWalletsCard />
+        <SessionKeysCard />
       </div>
     </div>
   )
