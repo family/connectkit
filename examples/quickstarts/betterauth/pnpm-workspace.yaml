@@ -1,2 +1,5 @@
 packages:
   - apps/*
+
+overrides:
+  hono@>=1.1.0 <4.10.2: '>=4.10.2'
