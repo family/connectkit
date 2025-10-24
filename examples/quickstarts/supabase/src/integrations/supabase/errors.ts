@@ -77,32 +77,6 @@ export function getSupabaseErrorMessage(error: unknown): string {
 }
 
 /**
- * Checks if an error is a Supabase network error
- * @param error - The error to check
- * @returns True if the error is network-related
- */
-function isNetworkError(error: unknown): boolean {
-  if (!(error instanceof AuthError)) {
-    return false
-  }
-
-  return error.message === 'network_error' || error.status === 0
-}
-
-/**
- * Checks if an error is due to rate limiting
- * @param error - The error to check
- * @returns True if the error is due to rate limiting
- */
-function isRateLimitError(error: unknown): boolean {
-  if (!(error instanceof AuthError)) {
-    return false
-  }
-
-  return error.message.includes('rate_limit') || error.status === 429
-}
-
-/**
  * Developer solutions for common Supabase errors
  */
 const DEVELOPER_SOLUTIONS: Record<string, string[]> = {

@@ -42,10 +42,10 @@
     "knip": "^5.64.0",
     "simple-git-hooks": "^2.13.1",
     "typescript-plugin-styled-components": "^2.0.0",
-    "@wagmi/connectors": "^6.0.1",
+    "@wagmi/connectors": "^6.1.0",
     "@wagmi/core": "^2.22.1",
-    "viem": "^2.38.3",
-    "wagmi": "^2.18.1",
+    "viem": "^2.38.4",
+    "wagmi": "^2.18.2",
     "typescript": "^5.0.4"
   },
   "packageManager": "pnpm@10.16.1",
@@ -55,8 +55,8 @@
       "react-dom": "18.3.1",
       "@types/react": "18.3.1",
       "@types/react-dom": "18.3.1",
-      "viem": "^2.38.3",
-      "wagmi": "^2.18.1",
+      "viem": "^2.38.4",
+      "wagmi": "^2.18.2",
       "typescript": "^5.0.4"
     }
   },

@@ -70,51 +70,6 @@ export function getFirebaseErrorMessage(error: unknown): string {
 }
 
 /**
- * Checks if an error is a Firebase operation-not-allowed error
- * @param error - The error to check
- * @returns True if the error is an operation-not-allowed error
- */
-function isOperationNotAllowedError(error: unknown): boolean {
-  return error instanceof FirebaseError && error.code === 'auth/operation-not-allowed';
-}
-
-/**
- * Checks if an error is a network-related Firebase error
- * @param error - The error to check
- * @returns True if the error is network-related
- */
-function isNetworkError(error: unknown): boolean {
-  if (!(error instanceof FirebaseError)) {
-    return false;
-  }
-
-  const networkErrorCodes = [
-    'auth/network-request-failed',
-    'auth/timeout',
-  ];
-
-  return networkErrorCodes.includes(error.code);
-}
-
-/**
- * Checks if an error is due to user cancellation (e.g., closing a popup)
- * @param error - The error to check
- * @returns True if the error is due to user cancellation
- */
-function isUserCancellationError(error: unknown): boolean {
-  if (!(error instanceof FirebaseError)) {
-    return false;
-  }
-
-  const cancellationErrorCodes = [
-    'auth/popup-closed-by-user',
-    'auth/cancelled-popup-request',
-  ];
-
-  return cancellationErrorCodes.includes(error.code);
-}
-
-/**
  * Developer solutions for common Firebase errors
  */
 const DEVELOPER_SOLUTIONS: Record<string, string[]> = {

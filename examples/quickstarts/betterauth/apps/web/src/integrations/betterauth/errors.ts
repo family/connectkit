@@ -62,34 +62,6 @@ export function getBetterAuthErrorMessage(error: unknown): string {
 }
 
 /**
- * Checks if an error is a network error
- * @param error - The error to check
- * @returns True if the error is network-related
- */
-function isNetworkError(error: unknown): boolean {
-  if (!(error && typeof error === 'object' && 'message' in error)) {
-    return false;
-  }
-
-  const errorMessage = (error as { message: string }).message;
-  return errorMessage === 'network_error' || errorMessage.includes('network');
-}
-
-/**
- * Checks if an error is due to rate limiting
- * @param error - The error to check
- * @returns True if the error is due to rate limiting
- */
-function isRateLimitError(error: unknown): boolean {
-  if (!(error && typeof error === 'object' && 'message' in error)) {
-    return false;
-  }
-
-  const errorMessage = (error as { message: string }).message;
-  return errorMessage.includes('rate_limit');
-}
-
-/**
  * Developer solutions for common Better Auth errors
  */
 const DEVELOPER_SOLUTIONS: Record<string, string[]> = {

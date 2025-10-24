@@ -29,8 +29,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.62.0",
     "tailwind-merge": "^3.3.1",
-    "viem": "^2.38.3",
-    "wagmi": "^2.18.1",
+    "viem": "^2.38.4",
+    "wagmi": "^2.18.2",
     "zod": "^4.0.15",
     "zustand": "^5.0.7"
   },
