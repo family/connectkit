@@ -1,4 +1,3 @@
-import defaultTheme from '../../../constants/defaultTheme'
 import styled from '../../../styles/styled'
 
 export const Form = styled.form`
@@ -20,51 +19,79 @@ export const FieldLabel = styled.span`
   color: var(--ck-body-color);
 `
 
-export const TokenOptions = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-`
-
-export const TokenOptionButton = styled.button<{
-  $selected?: boolean
-}>`
-  flex: 1 1 calc(50% - 4px);
-  min-width: calc(50% - 4px);
-  border-radius: 14px;
-  padding: 12px;
-  border: 1px solid ${(props) => (props.$selected ? 'var(--ck-body-color)' : 'var(--ck-body-divider)')};
-  background: ${(props) => (props.$selected ? 'var(--ck-body-background-primary)' : 'var(--ck-body-background-secondary)')};
-  color: ${(props) => (props.$selected ? 'var(--ck-body-color)' : 'var(--ck-body-color-muted)')};
-  font-size: 14px;
-  font-weight: 500;
+export const TokenSelectorButton = styled.button`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: var(--ck-secondary-button-border-radius);
+  border: 1px solid var(--ck-body-divider);
+  background: var(--ck-secondary-button-background);
+  color: var(--ck-body-color);
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  text-align: left;
 
   &:hover {
-    color: var(--ck-body-color);
+    background: var(--ck-secondary-button-hover-background);
+    border-color: var(--ck-body-color-muted);
   }
+`
 
-  @media only screen and (max-width: ${defaultTheme.mobileWidth}px) {
-    flex-basis: 100%;
-    min-width: 100%;
-  }
+export const TokenSelectorContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+`
+
+export const TokenSelectorValue = styled.span<{
+  $primary?: boolean
+  $muted?: boolean
+}>`
+  font-size: ${(props) => (props.$primary ? '15px' : '13px')};
+  font-weight: ${(props) => (props.$primary ? 600 : 500)};
+  color: ${(props) => {
+    if (props.$primary) return 'var(--ck-body-color)'
+    if (props.$muted) return 'var(--ck-body-color-muted)'
+    return 'var(--ck-body-color-muted)'
+  }};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const TokenSelectorRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ck-body-color-muted);
+`
+
+export const TokenSelectorChevron = styled.span`
+  font-size: 18px;
+  line-height: 1;
+  position: relative;
+  top: -1px;
 `
 
 export const AmountInputWrapper = styled.div`
   position: relative;
+  margin-top: 12px;
+
+  > div {
+    margin: 0;
+  }
 `
 
 export const MaxButton = styled.button`
   position: absolute;
-  right: 18px;
-  top: calc(12px + 24px);
+  right: 12px;
+  top: 50%;
   transform: translateY(-50%);
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 16px;
   border: 1px solid var(--ck-body-divider);
   background: var(--ck-body-background);
@@ -72,9 +99,15 @@ export const MaxButton = styled.button`
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
 
   &:hover {
+    background: var(--ck-secondary-button-hover-background);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
     background: var(--ck-body-background-secondary);
   }
 `

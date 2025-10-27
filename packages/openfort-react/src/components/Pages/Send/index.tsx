@@ -1,12 +1,10 @@
 import { useEffect, useMemo } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
-import { useAccount, useBalance, useReadContract } from 'wagmi'
 import Button from '../../Common/Button'
 import Input from '../../Common/Input'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
 import { routes, type SendFormState, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import { erc20Abi } from './erc20'
 import {
   AmountInputWrapper,
   ErrorText,
@@ -15,40 +13,25 @@ import {
   Form,
   HelperText,
   MaxButton,
-  TokenOptionButton,
-  TokenOptions,
+  TokenSelectorButton,
+  TokenSelectorChevron,
+  TokenSelectorContent,
+  TokenSelectorRight,
+  TokenSelectorValue,
 } from './styles'
-import { ERC20_TOKEN_LIST } from './tokenList'
+import { useSendTokenOptions } from './useSendTokenOptions'
 import { formatBalance, isSameToken, sanitiseForParsing, sanitizeAmountInput } from './utils'
 
 const Send = () => {
-  const { address, chain } = useAccount()
-  const { data: nativeBalance } = useBalance({
-    address,
-    query: {
-      enabled: !!address,
-    },
-  })
-
   const { sendForm, setSendForm, setRoute } = useOpenfort()
 
-  const nativeSymbol = nativeBalance?.symbol
-  const nativeDecimals = nativeBalance?.decimals
-  const nativeValue = nativeBalance?.value
-
-  const chainId = chain?.id
-
-  const erc20Tokens = useMemo(() => {
-    if (!chainId) return []
-    return ERC20_TOKEN_LIST[chainId] ?? []
-  }, [chainId])
+  const { nativeOption, tokenOptions } = useSendTokenOptions()
 
   useEffect(() => {
-    if (nativeSymbol === undefined && nativeDecimals === undefined) return
     setSendForm((prev) => {
       if (prev.token.type !== 'native') return prev
-      const nextSymbol = nativeSymbol || prev.token.symbol || 'ETH'
-      const nextDecimals = nativeDecimals ?? prev.token.decimals ?? 18
+      const nextSymbol = nativeOption.symbol || prev.token.symbol || 'ETH'
+      const nextDecimals = nativeOption.decimals ?? prev.token.decimals ?? 18
       if (prev.token.symbol === nextSymbol && prev.token.decimals === nextDecimals) return prev
       return {
         ...prev,
@@ -59,50 +42,16 @@ const Send = () => {
         },
       }
     })
-  }, [nativeSymbol, nativeDecimals, setSendForm])
+  }, [nativeOption.decimals, nativeOption.symbol, setSendForm])
 
-  const tokenOptions: SendTokenOption[] = useMemo(() => {
-    const nativeOption: SendTokenOption = {
-      type: 'native',
-      symbol: nativeSymbol || sendForm.token.symbol || 'ETH',
-      decimals: nativeDecimals ?? sendForm.token.decimals ?? 18,
-    }
-    const erc20Options: SendTokenOption[] = erc20Tokens.map((token) => ({
-      type: 'erc20',
-      symbol: token.symbol,
-      decimals: token.decimals,
-      address: token.address,
-      name: token.name,
-    }))
-    return [nativeOption, ...erc20Options]
-  }, [erc20Tokens, nativeSymbol, nativeDecimals, sendForm.token.decimals, sendForm.token.symbol])
+  const matchedToken = useMemo(
+    () => tokenOptions.find((token) => isSameToken(token, sendForm.token)),
+    [tokenOptions, sendForm.token]
+  )
 
-  const selectedToken: SendTokenOption = useMemo(() => {
-    if (sendForm.token.type === 'erc20') {
-      const sendTokenAddress = sendForm.token.address
-      const match = tokenOptions.find(
-        (token) => token.type === 'erc20' && token.address.toLowerCase() === sendTokenAddress.toLowerCase()
-      )
-      if (match) return match
-      return sendForm.token
-    }
-    return tokenOptions[0]
-  }, [sendForm.token, tokenOptions])
-
-  const isErc20 = selectedToken.type === 'erc20'
-
-  const { data: erc20Balance } = useReadContract({
-    abi: erc20Abi,
-    address: isErc20 ? selectedToken.address : undefined,
-    functionName: 'balanceOf',
-    args: isErc20 && address ? [address] : undefined,
-    chainId,
-    query: {
-      enabled: Boolean(isErc20 && address),
-    },
-  })
-
-  const selectedBalanceValue = isErc20 ? erc20Balance : nativeValue
+  const selectedTokenOption = matchedToken ?? tokenOptions[0]
+  const selectedToken: SendTokenOption = selectedTokenOption ?? sendForm.token
+  const selectedBalanceValue = selectedTokenOption?.balanceValue
 
   const parsedAmount = useMemo(() => {
     const rawAmount = sanitiseForParsing(sendForm.amount)
@@ -161,16 +110,12 @@ const Send = () => {
     }))
   }
 
-  const onSelectToken = (token: SendTokenOption) => {
-    setSendForm((prev) => {
-      const shouldResetAmount = !isSameToken(prev.token, token)
-      return {
-        ...prev,
-        token,
-        amount: shouldResetAmount ? '' : prev.amount,
-      }
-    })
+  const handleOpenTokenSelector = () => {
+    setRoute(routes.SEND_TOKEN_SELECT)
   }
+
+  const availableLabel = formatBalance(selectedBalanceValue, selectedToken.decimals)
+  const maxDisabled = !selectedBalanceValue
 
   return (
     <PageContent>
@@ -191,17 +136,20 @@ const Send = () => {
 
         <Field>
           <FieldLabel>Token</FieldLabel>
-          <TokenOptions>
-            {tokenOptions.map((token) => {
-              const key = token.type === 'erc20' ? token.address : 'native'
-              const selected = isSameToken(token, selectedToken)
-              return (
-                <TokenOptionButton key={key} type="button" $selected={selected} onClick={() => onSelectToken(token)}>
-                  {token.symbol}
-                </TokenOptionButton>
-              )
-            })}
-          </TokenOptions>
+          <TokenSelectorButton type="button" onClick={handleOpenTokenSelector}>
+            <TokenSelectorContent>
+              <TokenSelectorValue $primary>{selectedToken.symbol || 'Select token'}</TokenSelectorValue>
+              {'name' in selectedToken && selectedToken.name ? (
+                <TokenSelectorValue $muted>{selectedToken.name}</TokenSelectorValue>
+              ) : null}
+            </TokenSelectorContent>
+            <TokenSelectorRight>
+              <TokenSelectorValue>
+                {availableLabel === '--' ? '--' : `${availableLabel} ${selectedToken.symbol}`}
+              </TokenSelectorValue>
+              <TokenSelectorChevron aria-hidden>{'>'}</TokenSelectorChevron>
+            </TokenSelectorRight>
+          </TokenSelectorButton>
         </Field>
 
         <Field>
@@ -213,14 +161,14 @@ const Send = () => {
               onChange={handleAmountChange}
               inputMode="decimal"
               autoComplete="off"
-              style={{ marginTop: 8, paddingRight: '72px' }}
+              style={{ paddingRight: '86px' }}
             />
-            <MaxButton type="button" onClick={handleMax}>
+            <MaxButton type="button" onClick={handleMax} disabled={maxDisabled}>
               Max
             </MaxButton>
           </AmountInputWrapper>
           <HelperText>
-            Available: {formatBalance(selectedBalanceValue, selectedToken.decimals)} {selectedToken.symbol}
+            Available: {availableLabel} {selectedToken.symbol}
           </HelperText>
           {sendForm.amount && parsedAmount === null && <ErrorText>Enter a valid amount.</ErrorText>}
           {insufficientBalance && <ErrorText>Insufficient balance for this transfer.</ErrorText>}

@@ -34,6 +34,7 @@ export const routes = {
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
   SEND: 'send',
+  SEND_TOKEN_SELECT: 'sendTokenSelect',
   SEND_CONFIRMATION: 'sendConfirmation',
   RECEIVE: 'receive',
 } as const
