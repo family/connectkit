@@ -9,7 +9,7 @@ import { detectBrowser, isFamilyAccountsConnector, isWalletConnectConnector } fr
 import { logger } from '../../utils/logger'
 import { useWallet } from '../../wallets/useWallets'
 import Button from '../Common/Button'
-import CopyToClipboard from '../Common/CopyToClipboard'
+import { CopyButton } from '../Common/CopyToClipboard'
 import CustomQRCode from '../Common/CustomQRCode'
 import { OrDivider } from '../Common/Modal'
 import { ModalContent } from '../Common/Modal/styles'
@@ -127,10 +127,10 @@ const ConnectWithQRCode: React.FC<{
             gap: 14,
           }}
         >
-          {uiConfig.walletConnectCTA !== 'modal' && (
-            <CopyToClipboard variant="button" string={uri}>
-              {uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
-            </CopyToClipboard>
+          {context.uiConfig.walletConnectCTA !== 'modal' && (
+            <CopyButton value={uri ?? ''}>
+              {context.uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
+            </CopyButton>
           )}
           {uiConfig.walletConnectCTA !== 'link' && (
             <Button icon={<ExternalLinkIcon />} onClick={openW3M} disabled={isOpenW3M} waiting={isOpenW3M}>

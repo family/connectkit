@@ -1,11 +1,12 @@
+import { useEffect, useMemo } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
 import { useAccount, useBalance, useReadContract } from 'wagmi'
-import { useEffect, useMemo } from 'react'
 import Button from '../../Common/Button'
 import Input from '../../Common/Input'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
-import { useOpenfort } from '../../Openfort/useOpenfort'
 import { routes, type SendFormState, type SendTokenOption } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import { erc20Abi } from './erc20'
 import {
   AmountInputWrapper,
   ErrorText,
@@ -18,8 +19,7 @@ import {
   TokenOptions,
 } from './styles'
 import { ERC20_TOKEN_LIST } from './tokenList'
-import { erc20Abi } from './erc20'
-import { formatBalance, isSameToken, sanitizeAmountInput, sanitiseForParsing } from './utils'
+import { formatBalance, isSameToken, sanitiseForParsing, sanitizeAmountInput } from './utils'
 
 const Send = () => {
   const { address, chain } = useAccount()
@@ -109,7 +109,7 @@ const Send = () => {
     if (!rawAmount) return null
     try {
       return parseUnits(rawAmount, selectedToken.decimals)
-    } catch (error) {
+    } catch (_error) {
       return null
     }
   }, [sendForm.amount, selectedToken.decimals])

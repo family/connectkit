@@ -10,7 +10,7 @@ import { isSafeConnector, nFormatter, truncateEthAddress } from '../../../utils'
 import Avatar from '../../Common/Avatar'
 import Button from '../../Common/Button'
 import ChainSelector from '../../Common/ChainSelect'
-import CopyToClipboard from '../../Common/CopyToClipboard'
+import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
@@ -85,7 +85,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
               </AvatarInner>
             </AvatarContainer>
             <ModalH1>
-              <CopyToClipboard string={address}>{ensName ?? truncateEthAddress(address, separator)}</CopyToClipboard>
+              <CopyText value={address}>{ensName ?? truncateEthAddress(address, separator)}</CopyText>
             </ModalH1>
             {context?.uiConfig.hideBalance ? null : (
               <ModalBody>

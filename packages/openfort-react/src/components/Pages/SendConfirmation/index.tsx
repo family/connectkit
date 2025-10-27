@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from 'react'
 import type { Address } from 'viem'
 import { encodeFunctionData, isAddress, parseUnits } from 'viem'
 import {
@@ -10,13 +11,12 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from 'wagmi'
-import { useEffect, useMemo } from 'react'
-import Button from '../../Common/Button'
-import CopyToClipboard from '../../Common/CopyToClipboard'
-import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
-import { useOpenfort } from '../../Openfort/useOpenfort'
-import { defaultSendFormState, routes, type SendTokenOption } from '../../Openfort/types'
 import { truncateEthAddress } from '../../../utils'
+import Button from '../../Common/Button'
+import { CopyText } from '../../Common/CopyToClipboard'
+import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
+import { defaultSendFormState, routes, type SendTokenOption } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 import { erc20Abi } from '../Send/erc20'
 import { ERC20_TOKEN_LIST } from '../Send/tokenList'
 import { formatBalance, sanitiseForParsing } from '../Send/utils'
@@ -43,7 +43,7 @@ const SendConfirmation = () => {
       ? (() => {
           try {
             return parseUnits(normalisedAmount, sendForm.token.decimals)
-          } catch (error) {
+          } catch (_error) {
             return null
           }
         })()
@@ -70,9 +70,7 @@ const SendConfirmation = () => {
   const token: SendTokenOption = useMemo(() => {
     if (sendForm.token.type === 'erc20') {
       const sendTokenAddress = sendForm.token.address
-      const match = erc20Tokens.find(
-        (item) => item.address.toLowerCase() === sendTokenAddress.toLowerCase()
-      )
+      const match = erc20Tokens.find((item) => item.address.toLowerCase() === sendTokenAddress.toLowerCase())
       if (match) {
         return {
           type: 'erc20',
@@ -116,12 +114,7 @@ const SendConfirmation = () => {
     isPending: isNativePending,
     error: nativeError,
   } = useSendTransaction()
-  const {
-    writeContractAsync,
-    data: erc20TxHash,
-    isPending: isTokenPending,
-    error: erc20Error,
-  } = useWriteContract()
+  const { writeContractAsync, data: erc20TxHash, isPending: isTokenPending, error: erc20Error } = useWriteContract()
 
   const transactionHash = nativeTxHash ?? erc20TxHash
 
@@ -161,7 +154,7 @@ const SendConfirmation = () => {
     data: receipt,
     isLoading: isWaitingForReceipt,
     isSuccess,
-    isError: receiptError,
+    isError: _receiptError,
     error: waitError,
   } = useWaitForTransactionReceipt({
     hash: transactionHash,
@@ -195,7 +188,7 @@ const SendConfirmation = () => {
           chainId,
         })
       }
-    } catch (error) {
+    } catch (_error) {
       // Errors are surfaced through mutation hooks
     }
   }
@@ -234,9 +227,7 @@ const SendConfirmation = () => {
           <SummaryLabel>Recipient</SummaryLabel>
           <AddressValue>
             {recipientAddress ? (
-              <CopyToClipboard string={recipientAddress}>
-                {truncateEthAddress(recipientAddress)}
-              </CopyToClipboard>
+              <CopyText value={recipientAddress}>{truncateEthAddress(recipientAddress)}</CopyText>
             ) : (
               '--'
             )}
@@ -263,9 +254,7 @@ const SendConfirmation = () => {
         </SummaryItem>
       </SummaryList>
 
-      {insufficientBalance && (
-        <StatusMessage $status="error">Insufficient balance for this transfer.</StatusMessage>
-      )}
+      {insufficientBalance && <StatusMessage $status="error">Insufficient balance for this transfer.</StatusMessage>}
 
       {statusMessage && <StatusMessage $status={status}>{statusMessage}</StatusMessage>}
 
@@ -291,7 +280,7 @@ const SendConfirmation = () => {
         )}
       </ButtonRow>
 
-      {receipt && receipt.transactionHash && (
+      {receipt?.transactionHash && (
         <StatusMessage $status="success">Transaction hash: {receipt.transactionHash}</StatusMessage>
       )}
     </PageContent>

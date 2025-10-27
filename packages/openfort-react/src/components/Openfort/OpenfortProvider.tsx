@@ -15,6 +15,7 @@ import { Web3ContextProvider } from '../contexts/web3'
 import { type ContextValue, Openfortcontext } from './context'
 import {
   type ConnectUIOptions,
+<<<<<<< HEAD
   type DebugModeOptions,
   type ErrorMessage,
   notStoredInHistoryRoutes,
@@ -25,6 +26,13 @@ import {
   defaultSendFormState,
   routes,
   type SetRouteOptions,
+=======
+  defaultSendFormState,
+  type OpenfortUIOptionsExtended,
+  type OpenfortWalletConfig,
+  routes,
+  type SendFormState,
+>>>>>>> 8c7728ad (feat: copy buttons)
   UIAuthProvider,
 } from './types'
 

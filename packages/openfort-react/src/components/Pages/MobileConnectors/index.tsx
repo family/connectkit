@@ -3,7 +3,7 @@ import useLocales from '../../../hooks/useLocales'
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
 import { useWallets } from '../../../wallets/useWallets'
 import { walletConfigs } from '../../../wallets/walletConfigs'
-import CopyToClipboard from '../../Common/CopyToClipboard'
+import { CopyButton } from '../../Common/CopyToClipboard'
 import { ModalContent } from '../../Common/Modal/styles'
 import { ScrollArea } from '../../Common/ScrollArea'
 import { Spinner } from '../../Common/Spinner'
@@ -119,9 +119,7 @@ const MobileConnectors: React.FC = () => {
               paddingTop: 8,
             }}
           >
-            <CopyToClipboard variant="button" string={wcUri}>
-              {locales.copyToClipboard}
-            </CopyToClipboard>
+            <CopyButton value={wcUri}>{locales.copyToClipboard}</CopyButton>
           </div>
         )}
       </Container>

@@ -1,9 +1,14 @@
 import styled from '../../../styles/styled'
 
 export const QRWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 24px 0 16px;
+  display: block;
+  margin: 24px auto 16px;
+  width: 100%;
+  max-width: 280px;
+  
+  > div {
+    width: 100%;
+  }
 `
 
 export const AddressSection = styled.div`
