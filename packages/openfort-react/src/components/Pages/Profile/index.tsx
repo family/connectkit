@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion'
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import { useAccount, useBalance, useEnsName } from 'wagmi'
-import { DisconnectIcon } from '../../../assets/icons'
+import { BuyIcon, DisconnectIcon, ReceiveIcon, SendIcon } from '../../../assets/icons'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
 import useLocales from '../../../hooks/useLocales'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
@@ -19,6 +19,8 @@ import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import { LinkedProviders } from './LinkedProviders'
 import {
+  ActionButton,
+  ActionButtonsContainer,
   AvatarContainer,
   AvatarInner,
   Balance,
@@ -62,6 +64,8 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
       logout()
     }
   }, [shouldDisconnect, logout])
+
+  const { setSendForm } = context
 
   const separator = ['web95', 'rounded', 'minimal'].includes(themeContext.theme ?? context.uiConfig.theme ?? '')
     ? '....'
@@ -112,6 +116,42 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
                     )}
                   </AnimatePresence>
                 </BalanceContainer>
+                <ActionButtonsContainer>
+                  <ActionButton
+                    icon={<SendIcon />}
+                    onClick={() => {
+                      setSendForm((prev) => ({
+                        ...prev,
+                        token: {
+                          type: 'native',
+                          symbol: balance?.symbol || prev.token.symbol || 'ETH',
+                          decimals: balance?.decimals ?? prev.token.decimals ?? 18,
+                        },
+                      }))
+                      context.setRoute(routes.SEND)
+                    }}
+                  >
+                    Send
+                  </ActionButton>
+                  <ActionButton
+                    icon={<ReceiveIcon />}
+                    onClick={() => {
+                      context.setRoute(routes.RECEIVE)
+                    }}
+                  >
+                    Receive
+                  </ActionButton>
+                  <ActionButton
+                    icon={<BuyIcon />}
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        window.alert('Coming soon')
+                      }
+                    }}
+                  >
+                    Buy
+                  </ActionButton>
+                </ActionButtonsContainer>
               </ModalBody>
             )}
           </>

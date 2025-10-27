@@ -21,6 +21,8 @@ import {
   type OpenfortUIOptionsExtended,
   type OpenfortWalletConfig,
   type RouteOptions,
+  type SendFormState,
+  defaultSendFormState,
   routes,
   type SetRouteOptions,
   UIAuthProvider,
@@ -226,6 +228,7 @@ export const OpenfortProvider = ({
 
   const [resize, onResize] = useState<number>(0)
   const [emailInput, setEmailInput] = useState('')
+  const [sendForm, setSendForm] = useState<SendFormState>(defaultSendFormState)
 
   // Include Google Font that is needed for a themes
   useThemeFont(safeUiConfig.embedGoogleFonts ? ckTheme : ('' as Theme))
@@ -319,6 +322,8 @@ export const OpenfortProvider = ({
     walletConfig,
     overrides,
     thirdPartyAuth,
+    sendForm,
+    setSendForm,
   }
 
   return createElement(

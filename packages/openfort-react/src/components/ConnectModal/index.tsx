@@ -26,8 +26,14 @@ import MobileConnectors from '../Pages/MobileConnectors'
 import Onboarding from '../Pages/Onboarding'
 import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
+import Receive from '../Pages/Receive'
 import RecoverPage from '../Pages/Recover'
+<<<<<<< HEAD
 import SelectWalletToRecover from '../Pages/SelectWalletToRecover'
+=======
+import Send from '../Pages/Send'
+import SendConfirmation from '../Pages/SendConfirmation'
+>>>>>>> 2b194b27 (feat: add send receive and buy buttons)
 import SocialProviders from '../Pages/SoicalProviders'
 import SwitchNetworks from '../Pages/SwitchNetworks'
 import ConnectUsing from './ConnectUsing'
@@ -121,6 +127,9 @@ const ConnectModal: React.FC<{
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     connectWithMobile: <ConnectWithMobile />,
+    send: <Send />,
+    sendConfirmation: <SendConfirmation />,
+    receive: <Receive />,
   }
 
   function hide() {

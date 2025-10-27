@@ -1,5 +1,6 @@
 import type { AccountTypeEnum, OAuthProvider, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
+import type { Address } from 'viem'
 import type { ReactNode } from 'react'
 import type { UserWallet } from '../../hooks/openfort/useWallets'
 import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
@@ -32,6 +33,9 @@ export const routes = {
   DOWNLOAD: 'download',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
+  SEND: 'send',
+  SEND_CONFIRMATION: 'sendConfirmation',
+  RECEIVE: 'receive',
 } as const
 
 type AllRoutes = (typeof routes)[keyof typeof routes]
@@ -231,3 +235,33 @@ export type OpenfortUIOptionsExtended = {
   overlayBlur?: number
   walletRecovery: WalletRecoveryOptionsExtended
 } & OpenfortUIOptions
+
+export type SendTokenOption =
+  | {
+      type: 'native'
+      symbol: string
+      decimals: number
+    }
+  | {
+      type: 'erc20'
+      symbol: string
+      address: Address
+      decimals: number
+      name?: string
+    }
+
+export type SendFormState = {
+  recipient: string
+  amount: string
+  token: SendTokenOption
+}
+
+export const defaultSendFormState: SendFormState = {
+  recipient: '',
+  amount: '',
+  token: {
+    type: 'native',
+    symbol: '',
+    decimals: 18,
+  },
+}

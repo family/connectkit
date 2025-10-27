@@ -44,20 +44,37 @@
     "buffer": "^6.0.3",
     "detect-browser": "^5.3.0",
     "fast-password-entropy": "^1.1.1",
-    "framer-motion": "^6.3.11",
     "qrcode": "^1.5.0",
-    "react-is": "^19.1.0",
-    "react-transition-state": "^1.1.4",
-    "react-use-measure": "^2.1.1",
-    "resize-observer-polyfill": "^1.5.1",
-    "styled-components": "^5.3.5"
+    "resize-observer-polyfill": "^1.5.1"
   },
   "peerDependencies": {
     "@tanstack/react-query": ">=5.0.0",
+    "framer-motion": ">=6.0.0",
     "react": "17.x || 18.x || 19.x",
     "react-dom": "17.x || 18.x || 19.x",
+    "react-is": ">=18.0.0",
+    "react-transition-state": ">=1.0.0",
+    "react-use-measure": ">=2.0.0",
+    "styled-components": ">=5.0.0",
     "viem": "2.x",
     "wagmi": "2.x"
+  },
+  "peerDependenciesMeta": {
+    "react-is": {
+      "optional": false
+    },
+    "react-transition-state": {
+      "optional": false
+    },
+    "react-use-measure": {
+      "optional": false
+    },
+    "framer-motion": {
+      "optional": false
+    },
+    "styled-components": {
+      "optional": false
+    }
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
@@ -67,8 +84,13 @@
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
     "axios": "^1.7.7",
+    "framer-motion": "^6.3.11",
+    "react-is": "^19.1.0",
+    "react-transition-state": "^1.1.4",
+    "react-use-measure": "^2.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.36.0",
+    "styled-components": "^5.3.5",
     "typescript": "^5.0.4",
     "typescript-plugin-styled-components": "^2.0.0"
   }

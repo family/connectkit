@@ -1,4 +1,4 @@
-import type { SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
+import type { OAuthProvider, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import type React from 'react'
 import { createContext } from 'react'
 import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
@@ -11,7 +11,19 @@ import type {
   OpenfortWalletConfig,
   RouteOptions,
   SetRouteOptions,
+  SendFormState,
 } from './types'
+
+type Connector =
+  | {
+      id: string
+      type?: 'wallet'
+    }
+  | {
+      id: OAuthProvider
+      type: 'oauth'
+    }
+export type ErrorMessage = string | React.ReactNode | null
 
 export type ContextValue = {
   setTheme: React.Dispatch<React.SetStateAction<Theme>>
@@ -43,6 +55,8 @@ export type ContextValue = {
   thirdPartyAuth?: ThirdPartyAuthConfiguration
   emailInput: string
   setEmailInput: React.Dispatch<React.SetStateAction<string>>
+  sendForm: SendFormState
+  setSendForm: React.Dispatch<React.SetStateAction<SendFormState>>
 } & useConnectCallbackProps
 
 export const Openfortcontext = createContext<ContextValue | null>(null)

@@ -89,3 +89,19 @@ export const ProvidersHeader = styled(motion.h3)`
   font-weight: bold;
   color: var(--ck-body-color);
 `
+
+export const ActionButtonsContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+`
+
+export const ActionButton = styled(Button)`
+  flex: 1;
+  margin: 0;
+  height: 48px;
+
+  ${InnerContainer} {
+    gap: 6px;
+  }
+`
