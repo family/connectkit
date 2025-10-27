@@ -62,14 +62,3 @@ export const StatusMessage = styled.div<{
   }};
   text-align: center;
 `
-
-export const TransactionLink = styled.a`
-  color: var(--ck-body-color-valid);
-  text-decoration: underline;
-  word-break: break-all;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.8;
-  }
-`
