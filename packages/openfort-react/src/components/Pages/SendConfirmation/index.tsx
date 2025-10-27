@@ -29,11 +29,12 @@ import {
   SummaryLabel,
   SummaryList,
   SummaryValue,
+  TransactionLink,
 } from './styles'
 
 const SendConfirmation = () => {
   const { address, chain } = useAccount()
-  const { sendForm, setRoute, setSendForm } = useOpenfort()
+  const { sendForm, setRoute, setSendForm, triggerResize } = useOpenfort()
   const chainId = chain?.id
 
   const recipientAddress = isAddress(sendForm.recipient) ? (sendForm.recipient as Address) : undefined
@@ -207,15 +208,20 @@ const SendConfirmation = () => {
 
   const status: 'idle' | 'success' | 'error' = isSuccess ? 'success' : firstError ? 'error' : 'idle'
   const statusMessage =
-    status === 'success'
-      ? 'Transaction confirmed.'
-      : status === 'error'
-        ? firstError instanceof Error
-          ? firstError.message
-          : 'Transaction failed.'
-        : isLoading
-          ? 'Awaiting transaction confirmation...'
-          : ''
+    status === 'error'
+      ? firstError instanceof Error
+        ? firstError.message
+        : 'Transaction failed.'
+      : isLoading
+        ? 'Awaiting transaction confirmation...'
+        : ''
+
+  const blockExplorerUrl = chain?.blockExplorers?.default?.url
+
+  useEffect(() => {
+    triggerResize()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusMessage, insufficientBalance, receipt?.transactionHash, isLoading])
 
   return (
     <PageContent>
@@ -258,6 +264,23 @@ const SendConfirmation = () => {
 
       {statusMessage && <StatusMessage $status={status}>{statusMessage}</StatusMessage>}
 
+      {isSuccess && receipt?.transactionHash && (
+        <StatusMessage $status="success">
+          Transaction confirmed:{' '}
+          {blockExplorerUrl ? (
+            <TransactionLink
+              href={`${blockExplorerUrl}/tx/${receipt.transactionHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {receipt.transactionHash}
+            </TransactionLink>
+          ) : (
+            receipt.transactionHash
+          )}
+        </StatusMessage>
+      )}
+
       <ButtonRow>
         {isSuccess ? (
           <Button variant="primary" onClick={handleFinish}>
@@ -279,10 +302,6 @@ const SendConfirmation = () => {
           </>
         )}
       </ButtonRow>
-
-      {receipt?.transactionHash && (
-        <StatusMessage $status="success">Transaction hash: {receipt.transactionHash}</StatusMessage>
-      )}
     </PageContent>
   )
 }

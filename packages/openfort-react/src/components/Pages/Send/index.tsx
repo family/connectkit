@@ -147,7 +147,7 @@ const Send = () => {
               <TokenSelectorValue>
                 {availableLabel === '--' ? '--' : `${availableLabel} ${selectedToken.symbol}`}
               </TokenSelectorValue>
-              <TokenSelectorChevron aria-hidden>{'>'}</TokenSelectorChevron>
+              <TokenSelectorChevron aria-hidden>{'▶'}</TokenSelectorChevron>
             </TokenSelectorRight>
           </TokenSelectorButton>
         </Field>
