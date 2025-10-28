@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+### Patch Changes
+
+- [#73](https://github.com/openfort-xyz/openfort-react/pull/73) [`5185652`](https://github.com/openfort-xyz/openfort-react/commit/51856529c8b95e95013a0aa88394c0c195499e09) Thanks [@martimayoral](https://github.com/martimayoral)! - updated logs
+
 ## 0.1.0
 
 ### Minor Changes
