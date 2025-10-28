@@ -67,15 +67,27 @@ export const useSendTokenOptions = () => {
     })
   }, [erc20Tokens, erc20Balances])
 
-  const nativeOption: TokenOptionWithBalance = useMemo(
-    () => ({
+  const nativeOption: TokenOptionWithBalance = useMemo(() => {
+    const symbol = nativeBalance?.symbol ?? 'ETH'
+    // Map common native token symbols to their full names
+    const nameMap: Record<string, string> = {
+      ETH: 'Ethereum',
+      MATIC: 'Polygon',
+      BNB: 'BNB',
+      AVAX: 'Avalanche',
+      FTM: 'Fantom',
+      OP: 'Optimism',
+      ARB: 'Arbitrum',
+    }
+
+    return {
       type: 'native',
-      symbol: nativeBalance?.symbol ?? 'ETH',
+      symbol,
       decimals: nativeBalance?.decimals ?? 18,
       balanceValue: nativeBalance?.value,
-    }),
-    [nativeBalance?.symbol, nativeBalance?.decimals, nativeBalance?.value]
-  )
+      name: nameMap[symbol] ?? symbol,
+    }
+  }, [nativeBalance?.symbol, nativeBalance?.decimals, nativeBalance?.value])
 
   const tokenOptions = useMemo(() => [nativeOption, ...erc20Options], [nativeOption, erc20Options])
 

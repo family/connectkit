@@ -27,6 +27,11 @@ export const formatBalance = (value: bigint | undefined, decimals: number) => {
   return `${integer}.${trimmedFraction.slice(0, 6)}`
 }
 
+export const formatBalanceWithSymbol = (value: bigint | undefined, decimals: number, symbol: string) => {
+  const balance = formatBalance(value, decimals)
+  return balance === '--' ? '--' : `${balance} ${symbol}`
+}
+
 export const isSameToken = (a: SendTokenOption, b: SendTokenOption) => {
   if (a.type !== b.type) return false
   if (a.type === 'native') return true

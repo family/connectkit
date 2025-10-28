@@ -3,7 +3,7 @@ import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { type TokenOptionWithBalance, useSendTokenOptions } from '../Send/useSendTokenOptions'
-import { formatBalance, isSameToken } from '../Send/utils'
+import { formatBalanceWithSymbol, isSameToken } from '../Send/utils'
 import {
   EmptyState,
   SelectTokenContent,
@@ -56,13 +56,17 @@ const SelectToken = () => {
       <TokenList>
         {selectableTokens.map((token) => {
           const key = token.type === 'erc20' ? token.address : 'native'
+          const displayName = token.name || token.symbol
+          // TODO: Add USD price fetching and display here
+          const usdValue = null // Placeholder for future USD price integration
+
           return (
             <TokenButton key={key} type="button" onClick={() => handleSelect(token)}>
               <TokenInfo>
-                <TokenSymbol>{token.symbol}</TokenSymbol>
-                {token.type === 'erc20' && token.name ? <TokenName>{token.name}</TokenName> : null}
+                <TokenSymbol>{displayName}</TokenSymbol>
+                {usdValue ? <TokenName>${usdValue}</TokenName> : null}
               </TokenInfo>
-              <TokenBalance>{formatBalance(token.balanceValue, token.decimals)}</TokenBalance>
+              <TokenBalance>{formatBalanceWithSymbol(token.balanceValue, token.decimals, token.symbol)}</TokenBalance>
             </TokenButton>
           )
         })}
