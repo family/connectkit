@@ -283,7 +283,7 @@ const ChooseRecoveryMethod = ({
     <PageContent onBack={onBack} logoutOnBack={logoutOnBack}>
       <ModalHeading>Choose a recovery method</ModalHeading>
       <ProvidersButton>
-        <Button onClick={() => onChangeMethod(RecoveryMethod.PASSWORD)}>
+        <Button onClick={() => onChangeMethod(RecoveryMethod.PASSKEY)}>
           <ProviderLabel>Passkey</ProviderLabel>
           <ProviderIcon>
             <FingerPrintIcon />
