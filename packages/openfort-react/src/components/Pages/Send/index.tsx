@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
@@ -27,13 +27,24 @@ const Send = () => {
 
   const { nativeOption, tokenOptions } = useTokens()
 
+  // Track if we're navigating to confirmation to avoid resetting amount
+  const isNavigatingToConfirmationRef = useRef(false)
+
+  // Reset the ref when component mounts
+  useEffect(() => {
+    isNavigatingToConfirmationRef.current = false
+  }, [])
+
   // Reset amount when component unmounts (navigating away or closing modal)
+  // but NOT when going to SendConfirmation
   useEffect(() => {
     return () => {
-      setSendForm((prev) => ({
-        ...prev,
-        amount: '',
-      }))
+      if (!isNavigatingToConfirmationRef.current) {
+        setSendForm((prev) => ({
+          ...prev,
+          amount: '',
+        }))
+      }
     }
   }, [setSendForm])
 
@@ -91,6 +102,8 @@ const Send = () => {
       amount: normalised,
       token: selectedToken,
     }))
+    // Mark that we're navigating to confirmation so amount isn't reset
+    isNavigatingToConfirmationRef.current = true
     setRoute(routes.SEND_CONFIRMATION)
   }
 

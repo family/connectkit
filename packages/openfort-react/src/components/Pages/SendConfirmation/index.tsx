@@ -18,7 +18,7 @@ import { truncateEthAddress } from '../../../utils'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
-import { defaultSendFormState, routes, type SendTokenOption } from '../../Openfort/types'
+import { routes, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { formatBalance, sanitiseForParsing } from '../Send/utils'
 import {
@@ -203,10 +203,7 @@ const SendConfirmation = () => {
   }
 
   const handleFinish = () => {
-    setSendForm(() => ({
-      ...defaultSendFormState,
-      token: { ...defaultSendFormState.token },
-    }))
+    // Don't reset the form - keep amount, token, and recipient for easier repeat transactions
     // Clear cached token after successful transaction
     clearSelectedToken()
     setRoute(routes.PROFILE)
