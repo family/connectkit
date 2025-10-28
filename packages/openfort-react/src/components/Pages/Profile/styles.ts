@@ -66,31 +66,6 @@ export const Unsupported = styled(motion.div)`
   color: var(--ck-body-color-danger, red);
 `
 
-export const LinkedProviderContainer = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-`
-
-export const LinkedProviderButton = styled(Button)`
-  width: 50px;
-  margin: 0px;
-
-  ${InnerContainer} {
-    max-width: calc(100% - 16px);
-  }
-`
-
-export const ProvidersHeader = styled(motion.h3)`
-  font-size: 14px;
-  margin-top: 24px;
-  margin-bottom: 4px;
-  font-weight: bold;
-  color: var(--ck-body-color);
-`
-
 export const ActionButtonsContainer = styled.div`
   display: flex;
   gap: 12px;
