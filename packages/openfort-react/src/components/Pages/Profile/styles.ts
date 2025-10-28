@@ -108,3 +108,7 @@ export const ActionButton = styled(Button)`
     white-space: nowrap;
   }
 `
+
+export const DisconnectButton = styled(Button)`
+  margin-top: 4px;
+`
