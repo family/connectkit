@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -18,7 +18,7 @@ import {
 const ZERO = BigInt(0)
 
 const SelectToken = () => {
-  const { setSendForm, setRoute } = useOpenfort()
+  const { setSendForm, setRoute, triggerResize } = useOpenfort()
   const { tokenOptions, isLoading } = useSendTokenOptions()
 
   const selectableTokens = useMemo(
@@ -37,6 +37,11 @@ const SelectToken = () => {
     })
     setRoute(routes.SEND)
   }
+
+  useEffect(() => {
+    triggerResize()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, selectableTokens.length])
 
   const renderContent = () => {
     if (isLoading) {
