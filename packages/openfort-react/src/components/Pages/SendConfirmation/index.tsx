@@ -219,7 +219,7 @@ const SendConfirmation = () => {
   const blockExplorerUrl = chain?.blockExplorers?.default?.url
 
   useEffect(() => {
-    triggerResize()
+    setTimeout(triggerResize, 10) // delay required here for modal to resize
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusMessage, insufficientBalance, receipt?.transactionHash, isLoading])
 
