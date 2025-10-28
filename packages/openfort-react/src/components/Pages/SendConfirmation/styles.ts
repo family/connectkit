@@ -77,13 +77,6 @@ export const BalanceSpinnerWrapper = styled.span`
   }
 `
 
-export const GasInfo = styled.div`
-  margin-top: 4px;
-  font-size: 13px;
-  color: var(--ck-body-color-muted);
-  text-align: right;
-`
-
 export const InfoIconWrapper = styled.span`
   color: var(--ck-body-color-muted);
   opacity: 0.6;
@@ -148,15 +141,4 @@ export const ErrorAction = styled.div`
   font-size: 13px;
   color: var(--ck-body-color-muted);
   line-height: 1.4;
-`
-
-export const TransactionLink = styled.a`
-  color: var(--ck-body-color-valid);
-  text-decoration: underline;
-  word-break: break-all;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.8;
-  }
 `
