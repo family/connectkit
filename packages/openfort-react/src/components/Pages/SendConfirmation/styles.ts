@@ -29,7 +29,7 @@ export const SummaryValue = styled.span`
 `
 
 export const AmountValue = styled(SummaryValue)<{ $completed?: boolean }>`
-  color: var(--ck-body-color-danger);
+  color: ${(props) => (props.$completed ? 'var(--ck-body-color)' : 'var(--ck-body-color-danger)')};
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
@@ -55,7 +55,7 @@ export const FeesValue = styled(SummaryValue)<{ $completed?: boolean }>`
 `
 
 export const CheckIconWrapper = styled.span`
-  color: var(--ck-body-color-valid);
+  color: var(--ck-body-color);
   line-height: 0;
   display: inline-flex;
   align-items: center;
