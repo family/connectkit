@@ -83,29 +83,30 @@ export const BuyIcon = ({ ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path
-      d="M4.5 7H19.5L18.1875 18.2635C18.0615 19.3185 17.1718 20.1 16.1103 20.1H7.88973C6.82818 20.1 5.93849 19.3185 5.81253 18.2635L4.5 7Z"
+    <rect
+      x="3"
+      y="6"
+      width="18"
+      height="12"
+      rx="2"
       stroke="currentColor"
       strokeWidth="1.75"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
-      d="M9 7V5.5C9 4.11929 10.1193 3 11.5 3H12.5C13.8807 3 15 4.11929 15 5.5V7"
+      d="M3 10H21"
       stroke="currentColor"
       strokeWidth="1.75"
       strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
-      d="M12 11V16"
+      d="M7 14H9"
       stroke="currentColor"
       strokeWidth="1.75"
       strokeLinecap="round"
-    />
-    <path
-      d="M10.25 13.5H13.75"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
