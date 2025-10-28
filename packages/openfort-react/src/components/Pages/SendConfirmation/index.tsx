@@ -36,7 +36,7 @@ import {
 
 const SendConfirmation = () => {
   const { address, chain } = useAccount()
-  const { sendForm, setRoute, setSendForm, triggerResize } = useOpenfort()
+  const { sendForm, setRoute, triggerResize } = useOpenfort()
   const chainId = chain?.id
   const { clearSelectedToken } = useTokenCache(address, chainId)
 

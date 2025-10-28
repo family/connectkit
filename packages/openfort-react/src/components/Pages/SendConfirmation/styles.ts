@@ -58,11 +58,11 @@ export const StatusMessage = styled.div<{
 }>`
   margin-top: 16px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: ${(props) => (props.$status === 'idle' ? '600' : '500')};
   color: ${(props) => {
     if (props.$status === 'success') return 'var(--ck-body-color-valid)'
     if (props.$status === 'error') return 'var(--ck-body-color-danger)'
-    return 'var(--ck-body-color-muted)'
+    return 'var(--ck-body-color)'
   }};
   text-align: center;
 `
