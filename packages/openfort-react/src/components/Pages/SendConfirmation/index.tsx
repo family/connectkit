@@ -22,6 +22,7 @@ import { useOpenfort } from '../../Openfort/useOpenfort'
 import { formatBalance, sanitiseForParsing } from '../Send/utils'
 import {
   AddressValue,
+  AmountValue,
   ButtonRow,
   GasInfo,
   StatusMessage,
@@ -241,9 +242,9 @@ const SendConfirmation = () => {
         </SummaryItem>
         <SummaryItem>
           <SummaryLabel>Amount</SummaryLabel>
-          <SummaryValue>
-            {normalisedAmount || '0'} {token.symbol}
-          </SummaryValue>
+          <AmountValue>
+            -{normalisedAmount || '0'} {token.symbol}
+          </AmountValue>
         </SummaryItem>
         <SummaryItem>
           <SummaryLabel>Current balance</SummaryLabel>

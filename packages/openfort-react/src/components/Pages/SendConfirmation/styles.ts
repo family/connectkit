@@ -28,6 +28,10 @@ export const SummaryValue = styled.span`
   word-break: break-all;
 `
 
+export const AmountValue = styled(SummaryValue)`
+  color: var(--ck-body-color-danger);
+`
+
 export const AddressValue = styled(SummaryValue)`
   display: inline-flex;
   align-items: center;
@@ -45,7 +49,7 @@ export const GasInfo = styled.div`
 export const ButtonRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   margin-top: 24px;
 `
 
