@@ -28,4 +28,12 @@ export const ERC20_TOKEN_LIST: Record<number, TokenConfig[]> = {
       name: 'Dai',
     },
   ],
+  84532: [
+    {
+      symbol: 'USDC',
+      address: '0x036CbD53842c5426634e7929541eC2318f3dCF7e' as Address,
+      decimals: 6,
+      name: 'USD Coin',
+    },
+  ],
 }
