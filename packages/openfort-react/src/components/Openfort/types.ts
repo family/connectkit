@@ -37,6 +37,7 @@ export const routes = {
   SEND_TOKEN_SELECT: 'sendTokenSelect',
   SEND_CONFIRMATION: 'sendConfirmation',
   RECEIVE: 'receive',
+  BUY: 'buy',
 } as const
 
 type AllRoutes = (typeof routes)[keyof typeof routes]
@@ -198,6 +199,9 @@ export type ConnectUIOptions = {
   /** Blur intensity applied to the background when the modal is open. */
   overlayBlur?: number
   walletRecovery?: WalletRecoveryOptions
+  buyWithCardUrl?: string
+  buyFromExchangeUrl?: string
+  buyTroubleshootingUrl?: string
 } & Partial<OpenfortUIOptions>
 
 type WalletRecoveryOptionsExtended = {
@@ -234,6 +238,9 @@ export type OpenfortUIOptionsExtended = {
   disableSiweRedirect?: boolean
   /** Blur intensity applied to the background when the modal is open. */
   overlayBlur?: number
+  buyWithCardUrl?: string
+  buyFromExchangeUrl?: string
+  buyTroubleshootingUrl?: string
   walletRecovery: WalletRecoveryOptionsExtended
 } & OpenfortUIOptions
 

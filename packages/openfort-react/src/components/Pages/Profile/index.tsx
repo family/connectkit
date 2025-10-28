@@ -144,9 +144,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
                   <ActionButton
                     icon={<BuyIcon />}
                     onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.alert('Coming soon')
-                      }
+                      context.setRoute(routes.BUY)
                     }}
                   >
                     Buy

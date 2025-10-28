@@ -183,6 +183,9 @@ export const OpenfortProvider = ({
     enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
+    buyWithCardUrl: undefined,
+    buyFromExchangeUrl: undefined,
+    buyTroubleshootingUrl: undefined,
     disableSiweRedirect: false,
     walletRecovery: {
       allowedMethods: [RecoveryMethod.PASSWORD, ...(allowAutomaticRecovery ? [RecoveryMethod.AUTOMATIC] : [])],

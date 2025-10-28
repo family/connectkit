@@ -27,7 +27,7 @@ const FitText = ({
         maxHeight: '100%',
         maxWidth: '100%',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
       }}
     >

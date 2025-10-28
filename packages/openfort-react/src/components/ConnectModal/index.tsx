@@ -12,6 +12,7 @@ import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import About from '../Pages/About'
 import Connected from '../Pages/Connected'
+import Buy from '../Pages/Buy'
 import Connectors from '../Pages/Connectors'
 import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
 import CreateWallet from '../Pages/CreateWallet'
@@ -129,6 +130,7 @@ const ConnectModal: React.FC<{
     sendConfirmation: <SendConfirmation />,
     sendTokenSelect: <SelectToken />,
     receive: <Receive />,
+    buy: <Buy />,
   }
 
   function hide() {

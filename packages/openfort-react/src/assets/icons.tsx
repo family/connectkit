@@ -111,6 +111,105 @@ export const BuyIcon = ({ ...props }) => (
   </svg>
 );
 
+export const CardIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect
+      x="3"
+      y="5"
+      width="18"
+      height="14"
+      rx="2.5"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M3 10H21"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <rect
+      x="6.75"
+      y="13"
+      width="4.5"
+      height="2"
+      rx="1"
+      fill="currentColor"
+      fillOpacity="0.4"
+    />
+  </svg>
+);
+
+export const ExchangeIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M5 9H17.5L14 5.5"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M19 15H6.5L10 18.5"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const WalletIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect
+      x="3"
+      y="6"
+      width="18"
+      height="14"
+      rx="2.5"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M21 10H17C15.8954 10 15 10.8954 15 12C15 13.1046 15.8954 14 17 14H21V10Z"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="17" cy="12" r="1" fill="currentColor" />
+  </svg>
+);
+
 export const ExternalLinkIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
