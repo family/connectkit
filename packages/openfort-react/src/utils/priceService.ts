@@ -114,15 +114,3 @@ export const fetchTokenPrices = async ({ coingeckoIds, signal }: FetchPricesOpti
     return { success: false }
   }
 }
-
-/**
- * Resets the fetch state for testing or manual retry
- */
-export const resetPriceFetchState = (coingeckoIds?: string[]): void => {
-  if (coingeckoIds) {
-    const cacheKey = coingeckoIds.sort().join(',')
-    fetchState.delete(cacheKey)
-  } else {
-    fetchState.clear()
-  }
-}
