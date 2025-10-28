@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
+import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import Input from '../../Common/Input'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
 import { routes, type SendFormState, type SendTokenOption } from '../../Openfort/types'
@@ -15,7 +16,6 @@ import {
   HelperText,
   MaxButton,
   TokenSelectorButton,
-  TokenSelectorChevron,
   TokenSelectorContent,
   TokenSelectorRight,
   TokenSelectorValue,
@@ -170,7 +170,14 @@ const Send = () => {
               <TokenSelectorValue>
                 {availableLabel === '--' ? '--' : `${availableLabel} ${selectedToken.symbol}`}
               </TokenSelectorValue>
-              <TokenSelectorChevron aria-hidden>{'▶'}</TokenSelectorChevron>
+              <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ArrowChevron
+                  stroke="currentColor"
+                  d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </Arrow>
             </TokenSelectorRight>
           </TokenSelectorButton>
         </Field>
