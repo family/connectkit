@@ -13,6 +13,7 @@ import {
 } from 'wagmi'
 import { erc20Abi } from '../../../constants/erc20'
 import { ERC20_TOKEN_LIST } from '../../../constants/tokenList'
+import { useTokenCache } from '../../../hooks/useTokenCache'
 import { truncateEthAddress } from '../../../utils'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
@@ -37,6 +38,7 @@ const SendConfirmation = () => {
   const { address, chain } = useAccount()
   const { sendForm, setRoute, setSendForm, triggerResize } = useOpenfort()
   const chainId = chain?.id
+  const { clearSelectedToken } = useTokenCache(address, chainId)
 
   const recipientAddress = isAddress(sendForm.recipient) ? (sendForm.recipient as Address) : undefined
   const normalisedAmount = sanitiseForParsing(sendForm.amount)
@@ -196,6 +198,7 @@ const SendConfirmation = () => {
   }
 
   const handleCancel = () => {
+    // Keep the current token, amount, and recipient when going back - don't reset
     setRoute(routes.SEND)
   }
 
@@ -204,6 +207,8 @@ const SendConfirmation = () => {
       ...defaultSendFormState,
       token: { ...defaultSendFormState.token },
     }))
+    // Clear cached token after successful transaction
+    clearSelectedToken()
     setRoute(routes.PROFILE)
   }
 

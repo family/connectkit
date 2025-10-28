@@ -1,5 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { formatUnits } from 'viem'
+import { useAccount } from 'wagmi'
+import { useTokenCache } from '../../../hooks/useTokenCache'
 import { type TokenOptionWithBalance, useTokens } from '../../../hooks/useTokens'
 import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
@@ -26,7 +28,11 @@ const usdFormatter = new Intl.NumberFormat('en-US', {
 
 const SelectToken = () => {
   const { setSendForm, setRoute, triggerResize } = useOpenfort()
+  const { address, chain } = useAccount()
+  const chainId = chain?.id
+
   const { tokenOptions, isLoading, prices: usdPrices } = useTokens()
+  const { cacheSelectedToken } = useTokenCache(address, chainId)
 
   const selectableTokens = useMemo(
     () => tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO),
@@ -42,6 +48,8 @@ const SelectToken = () => {
         amount: shouldResetAmount ? '' : prev.amount,
       }
     })
+    // Cache the selected token
+    cacheSelectedToken(token)
     setRoute(routes.SEND)
   }
 

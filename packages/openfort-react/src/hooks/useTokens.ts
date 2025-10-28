@@ -3,6 +3,7 @@ import { useAccount, useBalance, useReadContracts } from 'wagmi'
 import type { SendTokenOption } from '../components/Openfort/types'
 import { erc20Abi } from '../constants/erc20'
 import { ERC20_TOKEN_LIST } from '../constants/tokenList'
+import { useTokenCache } from './useTokenCache'
 
 export type TokenOptionWithBalance = SendTokenOption & {
   balanceValue?: bigint
@@ -32,9 +33,15 @@ const getCoingeckoId = (symbol?: string) => {
 export const useTokens = () => {
   const { address, chain } = useAccount()
   const chainId = chain?.id
-  const [prices, setPrices] = useState<TokenUsdPrices>({})
 
-  // Native balance
+  // Use token cache hook
+  const { cachedNativeBalance, getCachedErc20Balance, cacheBalance, cachedPrices, cachePrices } = useTokenCache(
+    address,
+    chainId
+  )
+
+  const [prices, setPrices] = useState<TokenUsdPrices>(cachedPrices)
+
   const {
     data: nativeBalance,
     isLoading: isNativeLoading,
@@ -45,6 +52,13 @@ export const useTokens = () => {
       enabled: Boolean(address),
     },
   })
+
+  // Cache native balance when it updates
+  useEffect(() => {
+    if (nativeBalance?.value) {
+      cacheBalance(nativeBalance.value)
+    }
+  }, [nativeBalance?.value, cacheBalance])
 
   // ERC20 tokens
   const erc20Tokens = useMemo(() => {
@@ -76,19 +90,41 @@ export const useTokens = () => {
     },
   })
 
+  // Cache ERC20 balances when they update
+  useEffect(() => {
+    if (!erc20Balances) return
+
+    erc20Tokens.forEach((token, index) => {
+      const balance = erc20Balances[index]?.result
+      if (balance !== undefined && typeof balance === 'bigint') {
+        cacheBalance(balance, token.address)
+      }
+    })
+  }, [erc20Balances, erc20Tokens, cacheBalance])
+
   const erc20Options = useMemo(() => {
     return erc20Tokens.map((token, index) => {
-      const balanceValue = erc20Balances?.[index]?.result
+      // Use fresh data if available, otherwise fall back to cache
+      let balanceValue = erc20Balances?.[index]?.result as bigint | undefined
+
+      // If fetching and no fresh data yet, use cached value
+      if (!balanceValue) {
+        const cached = getCachedErc20Balance(token.address)
+        if (cached !== null) {
+          balanceValue = cached
+        }
+      }
+
       return {
         type: 'erc20',
         symbol: token.symbol,
         address: token.address,
         decimals: token.decimals,
         name: token.name,
-        balanceValue: balanceValue as bigint | undefined,
+        balanceValue,
       } as TokenOptionWithBalance
     })
-  }, [erc20Tokens, erc20Balances])
+  }, [erc20Tokens, erc20Balances, getCachedErc20Balance])
 
   const nativeOption: TokenOptionWithBalance = useMemo(() => {
     const symbol = nativeBalance?.symbol ?? 'ETH'
@@ -103,14 +139,20 @@ export const useTokens = () => {
       ARB: 'Arbitrum',
     }
 
+    // Use fresh data if available, otherwise fall back to cache
+    let balanceValue = nativeBalance?.value
+    if (!balanceValue && cachedNativeBalance !== null) {
+      balanceValue = cachedNativeBalance
+    }
+
     return {
       type: 'native',
       symbol,
       decimals: nativeBalance?.decimals ?? 18,
-      balanceValue: nativeBalance?.value,
+      balanceValue,
       name: nameMap[symbol] ?? symbol,
     }
-  }, [nativeBalance?.symbol, nativeBalance?.decimals, nativeBalance?.value])
+  }, [nativeBalance?.symbol, nativeBalance?.decimals, nativeBalance?.value, cachedNativeBalance])
 
   const tokenOptions = useMemo(() => [nativeOption, ...erc20Options], [nativeOption, erc20Options])
 
@@ -160,11 +202,16 @@ export const useTokens = () => {
               next[symbolKey] = prev[symbolKey]
             }
           })
+
+          // Cache the prices
+          cachePrices(next)
+
           return next
         })
       } catch (error) {
         if ((error as Error).name !== 'AbortError') {
-          setPrices({})
+          // Keep cached prices on error
+          setPrices(cachedPrices)
         }
       }
     }
