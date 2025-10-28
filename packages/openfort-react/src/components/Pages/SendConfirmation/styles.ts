@@ -49,7 +49,7 @@ export const GasInfo = styled.div`
 export const ButtonRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   margin-top: 24px;
 `
 

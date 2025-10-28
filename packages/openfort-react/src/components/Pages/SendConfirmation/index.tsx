@@ -227,7 +227,7 @@ const SendConfirmation = () => {
   useEffect(() => {
     setTimeout(triggerResize, 10) // delay required here for modal to resize
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusMessage, insufficientBalance, receipt?.transactionHash, isLoading])
+  }, [statusMessage, insufficientBalance, receipt?.transactionHash, isLoading, gasCost])
 
   return (
     <PageContent>

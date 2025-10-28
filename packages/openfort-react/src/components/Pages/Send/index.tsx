@@ -1,7 +1,5 @@
 import { useEffect, useMemo } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
-import { useAccount } from 'wagmi'
-import { useTokenCache } from '../../../hooks/useTokenCache'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
 import Input from '../../Common/Input'
@@ -26,22 +24,18 @@ import { formatBalance, isSameToken, sanitiseForParsing, sanitizeAmountInput } f
 
 const Send = () => {
   const { sendForm, setSendForm, setRoute } = useOpenfort()
-  const { address, chain } = useAccount()
-  const chainId = chain?.id
 
   const { nativeOption, tokenOptions } = useTokens()
-  const { cachedSelectedToken, cacheSelectedToken } = useTokenCache(address, chainId)
 
-  // Load cached token on mount if sendForm token is default/empty
+  // Reset amount when component unmounts (navigating away or closing modal)
   useEffect(() => {
-    if (cachedSelectedToken && !sendForm.token.symbol) {
+    return () => {
       setSendForm((prev) => ({
         ...prev,
-        token: cachedSelectedToken,
+        amount: '',
       }))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // Only run on mount
+  }, [setSendForm])
 
   useEffect(() => {
     setSendForm((prev) => {
@@ -68,13 +62,6 @@ const Send = () => {
   const selectedTokenOption = matchedToken ?? tokenOptions[0]
   const selectedToken: SendTokenOption = selectedTokenOption ?? sendForm.token
   const selectedBalanceValue = selectedTokenOption?.balanceValue
-
-  // Cache selected token when it changes
-  useEffect(() => {
-    if (selectedToken.symbol) {
-      cacheSelectedToken(selectedToken)
-    }
-  }, [selectedToken, cacheSelectedToken])
 
   const parsedAmount = useMemo(() => {
     const rawAmount = sanitiseForParsing(sendForm.amount)
