@@ -4,8 +4,6 @@ import { encodeFunctionData, isAddress, parseUnits } from 'viem'
 import {
   useAccount,
   useBalance,
-  useEstimateFeesPerGas,
-  useEstimateGas,
   useReadContract,
   useSendTransaction,
   useWaitForTransactionReceipt,
@@ -15,20 +13,20 @@ import { TickIcon } from '../../../assets/icons'
 import { erc20Abi } from '../../../constants/erc20'
 import { ERC20_TOKEN_LIST } from '../../../constants/tokenList'
 import { useTokenCache } from '../../../hooks/useTokenCache'
+import { useTokens } from '../../../hooks/useTokens'
 import { truncateEthAddress } from '../../../utils'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
-import Tooltip from '../../Common/Tooltip'
 import { routes, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { formatBalance, sanitiseForParsing } from '../Send/utils'
+import { EstimatedFees } from './EstimatedFees'
 import {
   AddressValue,
   AmountValue,
   ButtonRow,
   FeesValue,
-  InfoIconWrapper,
   StatusMessage,
   SummaryItem,
   SummaryLabel,
@@ -36,18 +34,12 @@ import {
   SummaryValue,
 } from './styles'
 
-const InfoIcon = () => (
-  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M7 10V6.5M7 4.5H7.005" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-)
-
 const SendConfirmation = () => {
   const { address, chain } = useAccount()
   const { sendForm, setRoute, triggerResize } = useOpenfort()
   const chainId = chain?.id
   const { clearSelectedToken } = useTokenCache(address, chainId)
+  const { prices: usdPrices } = useTokens()
 
   const recipientAddress = isAddress(sendForm.recipient) ? (sendForm.recipient as Address) : undefined
   const normalisedAmount = sanitiseForParsing(sendForm.amount)
@@ -142,27 +134,6 @@ const SendConfirmation = () => {
         : undefined
       : undefined
 
-  const { data: gasEstimate } = useEstimateGas({
-    account: address,
-    to: token.type === 'erc20' ? token.address : recipientAddress,
-    value: token.type === 'native' && parsedAmount ? parsedAmount : undefined,
-    data: transferData,
-    chainId,
-    query: {
-      enabled: Boolean(address && recipientAddress && parsedAmount && parsedAmount > BigInt(0)),
-    },
-  })
-
-  const { data: feeData } = useEstimateFeesPerGas({
-    chainId,
-    query: {
-      enabled: Boolean(chainId),
-    },
-  })
-
-  const gasPrice = feeData?.gasPrice ?? feeData?.maxFeePerGas
-  const gasCost = gasEstimate && gasPrice ? gasEstimate * gasPrice : undefined
-
   const {
     data: receipt,
     isLoading: isWaitingForReceipt,
@@ -233,7 +204,7 @@ const SendConfirmation = () => {
   useEffect(() => {
     setTimeout(triggerResize, 10) // delay required here for modal to resize
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusMessage, insufficientBalance, receipt?.transactionHash, isLoading, gasCost])
+  }, [statusMessage, insufficientBalance, receipt?.transactionHash, isLoading])
 
   return (
     <PageContent>
@@ -266,18 +237,16 @@ const SendConfirmation = () => {
         <SummaryItem>
           <SummaryLabel>Estimated fees</SummaryLabel>
           <FeesValue>
-            {gasCost ? (
-              <>
-                ≈ {formatBalance(gasCost, 18)} {nativeBalance?.symbol || 'ETH'}
-                <Tooltip message={`${gasEstimate?.toString()} gas units`} delay={0.2}>
-                  <InfoIconWrapper>
-                    <InfoIcon />
-                  </InfoIconWrapper>
-                </Tooltip>
-              </>
-            ) : (
-              '--'
-            )}
+            <EstimatedFees
+              account={address}
+              to={token.type === 'erc20' ? token.address : recipientAddress}
+              value={token.type === 'native' && parsedAmount ? parsedAmount : undefined}
+              data={transferData}
+              chainId={chainId}
+              nativeSymbol={nativeBalance?.symbol || 'ETH'}
+              usdPrices={usdPrices}
+              enabled={Boolean(address && recipientAddress && parsedAmount && parsedAmount > BigInt(0))}
+            />
           </FeesValue>
         </SummaryItem>
       </SummaryList>
