@@ -1,6 +1,6 @@
 {
   "name": "@openfort/react",
-  "version": "0.0.34",
+  "version": "0.1.0",
   "author": "Openfort (https://www.openfort.io)",
   "license": "BSD-2-Clause license",
   "description": "The easiest way to integrate Openfort to your project.",
