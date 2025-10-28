@@ -1,29 +1,26 @@
+import { OpenfortErrorType } from '@openfort/openfort-js'
 import { AnimatePresence, type Variants } from 'framer-motion'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useAccount, useDisconnect } from 'wagmi'
 import { AlertIcon, RetryIconCircle, TickIcon } from '../../../assets/icons'
 import { useConnectWithSiwe } from '../../../hooks/openfort/useConnectWithSiwe'
+import { useUser } from '../../../hooks/openfort/useUser'
 import { useConnect } from '../../../hooks/useConnect'
 import useLocales from '../../../hooks/useLocales'
-import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import { useRouteProps } from '../../../hooks/useRouteProps'
 import { detectBrowser, isWalletConnectConnector } from '../../../utils'
 import { logger } from '../../../utils/logger'
 import { useWallet } from '../../../wallets/useWallets'
 import Alert from '../../Common/Alert'
 import BrowserIcon from '../../Common/BrowserIcon'
 import Button from '../../Common/Button'
-import {
-  ModalBody,
-  ModalContent,
-  ModalContentContainer,
-  ModalH1,
-  ModalHeading,
-  PageContent,
-} from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalContentContainer, ModalH1, ModalHeading } from '../../Common/Modal/styles'
 import SquircleSpinner from '../../Common/SquircleSpinner'
 import Tooltip from '../../Common/Tooltip'
+import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 import CircleSpinner from './CircleSpinner'
 import { ConnectingAnimation, ConnectingContainer, Container, Content, RetryButton, RetryIconContainer } from './styles'
 
@@ -36,6 +33,8 @@ const states = {
   NOTCONNECTED: 'notconnected',
   UNAVAILABLE: 'unavailable',
   DUPLICATED: 'duplicated',
+  SIWE: 'siwe',
+  RECOVER_ADDRESS_MISMATCH: 'recoverAddressMismatch',
 }
 
 const contentVariants: Variants = {
@@ -70,13 +69,23 @@ const contentVariants: Variants = {
 const ConnectWithInjector: React.FC<{
   switchConnectMethod: (id?: string) => void
   forceState?: typeof states
-  // biome-ignore lint/correctness/noUnusedFunctionParameters: switchConnectMethod is part of the component interface but not used in current implementation
-}> = ({ switchConnectMethod, forceState }) => {
-  const openfort = useOpenfortCore()
+}> = ({ forceState }) => {
   const { setOpen } = useOpenfort()
   const { isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const connectWithSiwe = useConnectWithSiwe()
+  const props = useRouteProps(routes.CONNECT)
+  const { user } = useUser()
+
+  const onConnect = useCallback(() => {
+    setStatus(states.CONNECTED)
+    setTimeout(() => {
+      triggerResize()
+    }, 250)
+    setTimeout(() => {
+      setOpen(false)
+    }, 1250)
+  }, [])
 
   const { connect } = useConnect({
     mutation: {
@@ -128,28 +137,52 @@ const ConnectWithInjector: React.FC<{
             throw new Error('No wallet found')
           }
 
-          // If already has linked account, don't link again
-          if (
-            openfort.user?.linkedAccounts.find((acc) => acc.walletClientType === wallet?.connector?.name.toLowerCase())
-          ) {
-            setOpen(false)
+          if (props.connectType === 'recover') {
+            wallet.connector.getAccounts().then((acc) => {
+              if (acc.some((v) => v === props.wallet.address)) {
+                onConnect()
+              } else {
+                setStatus(states.RECOVER_ADDRESS_MISMATCH)
+                disconnect()
+              }
+            })
             return
           }
+
+          const userWallets = user?.linkedAccounts.filter(
+            (acc) =>
+              acc.walletClientType === wallet.connector?.name.toLowerCase() ||
+              acc.walletClientType === wallet.connector?.id
+          )
+          // // If already has linked account, don't link again
+          if (userWallets && userWallets.length > 0) {
+            wallet.connector.getAccounts().then((acc) => {
+              if (acc.some((v) => userWallets.some((w) => w.address === v))) {
+                onConnect()
+              } else {
+                setStatus(states.RECOVER_ADDRESS_MISMATCH)
+                disconnect()
+              }
+            })
+            return
+          }
+
+          setStatus(states.SIWE)
 
           connectWithSiwe({
             // connectorType: wallet.connector.id,
             // walletClientType: wallet.connector.name.toLowerCase(),
-            onError: (error, status) => {
+            onError: (error, errorType) => {
               logger.error(error)
               disconnect()
-              if (status === 409) {
+              if (errorType === OpenfortErrorType.AUTHENTICATION_ERROR) {
                 setStatus(states.DUPLICATED)
               } else {
                 setStatus(states.FAILED)
               }
             },
             onConnect: () => {
-              setOpen(false)
+              onConnect()
             },
           })
         }
@@ -270,7 +303,11 @@ const ConnectWithInjector: React.FC<{
     )
   }
 
-  const hasError = status === states.FAILED || status === states.REJECTED || status === states.DUPLICATED
+  const hasError =
+    status === states.FAILED ||
+    status === states.REJECTED ||
+    status === states.DUPLICATED ||
+    status === states.RECOVER_ADDRESS_MISMATCH
 
   return (
     <PageContent>
@@ -314,7 +351,7 @@ const ConnectWithInjector: React.FC<{
                   )
                 }
                 smallLogo={walletInfo.iconShouldShrink}
-                connecting={status === states.CONNECTING}
+                connecting={status === states.CONNECTING || status === states.SIWE}
                 unavailable={status === states.UNAVAILABLE}
               />
             ) : (
@@ -334,7 +371,7 @@ const ConnectWithInjector: React.FC<{
                     walletInfo.icon
                   )
                 }
-                connecting={status === states.CONNECTING}
+                connecting={status === states.CONNECTING || status === states.SIWE}
                 //unavailable={status === states.UNAVAILABLE}
               />
             )}
@@ -410,6 +447,25 @@ const ConnectWithInjector: React.FC<{
                    */}
               </Content>
             )}
+
+            {status === states.RECOVER_ADDRESS_MISMATCH && (
+              <Content
+                key={states.RECOVER_ADDRESS_MISMATCH}
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
+                variants={contentVariants}
+              >
+                <ModalContent
+                  style={{
+                    paddingBottom: 28,
+                  }}
+                >
+                  <ModalH1>Wallet mismatch</ModalH1>
+                  <ModalBody>The wallet address you are trying to recover does not belong to this user.</ModalBody>
+                </ModalContent>
+              </Content>
+            )}
             {status === states.DUPLICATED && (
               <Content
                 key={states.DUPLICATED}
@@ -454,6 +510,27 @@ const ConnectWithInjector: React.FC<{
                 </ModalContent>
               </Content>
             )}
+
+            {status === states.SIWE && (
+              <Content
+                key={states.SIWE}
+                initial={'initial'}
+                animate={'animate'}
+                exit={'exit'}
+                variants={contentVariants}
+              >
+                <ModalContent
+                  style={{
+                    paddingBottom: 28,
+                  }}
+                >
+                  <ModalH1>Confirm in your wallet</ModalH1>
+                  <ModalBody>
+                    Sign the message in your wallet to confirm that you own this wallet and complete the connection.
+                  </ModalBody>
+                </ModalContent>
+              </Content>
+            )}
             {status === states.CONNECTED && (
               <Content
                 key={states.CONNECTED}
@@ -464,9 +541,9 @@ const ConnectWithInjector: React.FC<{
               >
                 <ModalContent>
                   <ModalH1 $valid>
-                    <TickIcon /> {locales.injectionScreen_connected_h1}
+                    <TickIcon /> Connected
                   </ModalH1>
-                  <ModalBody>{locales.injectionScreen_connected_p}</ModalBody>
+                  <ModalBody>Successfully connected with {walletInfo.name}.</ModalBody>
                 </ModalContent>
               </Content>
             )}

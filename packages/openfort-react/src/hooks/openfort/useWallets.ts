@@ -207,7 +207,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   const { connect } = useConnect({
     mutation: {
       onError: (e) => {
-        logger.error('Error connecting ---', e)
         const error = new OpenfortError('Failed to connect with wallet: ', OpenfortErrorType.AUTHENTICATION_ERROR, e)
         setStatus({
           status: 'error',
@@ -436,11 +435,11 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         logger.log('Connecting to wallet', walletToConnect)
         if (connector.id === embeddedWalletId) {
           setTimeout(() => {
-            setRoute(routes.RECOVER)
+            setRoute(routes.LOAD_WALLETS)
             setOpen(true)
           })
         } else {
-          setRoute(routes.CONNECT)
+          setRoute({ route: routes.CONNECT, connectType: 'linkIfUserConnectIfNoUser' })
           setConnector({ id: connector.id })
           setOpen(true)
         }

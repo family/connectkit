@@ -11,11 +11,12 @@ import Avatar from '../../Common/Avatar'
 import Button from '../../Common/Button'
 import ChainSelector from '../../Common/ChainSelect'
 import CopyToClipboard from '../../Common/CopyToClipboard'
-import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 import { LinkedProviders } from './LinkedProviders'
 import {
   AvatarContainer,
@@ -67,7 +68,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     : undefined
 
   return (
-    <PageContent>
+    <PageContent onBack={null}>
       <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
         {address ? (
           <>
@@ -116,7 +117,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
           </>
         ) : (
           <Button
-            onClick={() => context.setRoute(routes.CONNECTORS)}
+            onClick={() => context.setRoute({ route: routes.CONNECTORS, connectType: 'link' })}
             icon={
               <Unsupported initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <svg width="130" height="120" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">

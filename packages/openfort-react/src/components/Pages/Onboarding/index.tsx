@@ -3,7 +3,7 @@ import Logos from '../../../assets/logos'
 import wave from '../../../assets/wave'
 import useLocales from '../../../hooks/useLocales'
 import Button from '../../Common/Button'
-import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
 import {
   FloatWrapper,
   Graphic,
@@ -16,6 +16,7 @@ import {
   RotateWrapper,
 } from '../../FloatingGraphic/styles'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 
 const Introduction: React.FC = () => {
   const context = useOpenfort()

@@ -1,7 +1,6 @@
 import { RecoveryMethod, type SDKOverrides, type ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import { Buffer } from 'buffer'
 import React, { createElement, useEffect, useMemo, useState } from 'react'
-import type { ValueOf } from 'viem/_types/types/utils'
 import { useAccount, WagmiContext } from 'wagmi'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
 import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
@@ -13,14 +12,51 @@ import { logger } from '../../utils/logger'
 import { isFamily } from '../../utils/wallets'
 import ConnectKitModal from '../ConnectModal'
 import { Web3ContextProvider } from '../contexts/web3'
-import { type ContextValue, type ErrorMessage, Openfortcontext } from './context'
+import { type ContextValue, Openfortcontext } from './context'
 import {
   type ConnectUIOptions,
+  type ErrorMessage,
+  notStoredInHistoryRoutes,
   type OpenfortUIOptionsExtended,
   type OpenfortWalletConfig,
+  type RouteOptions,
   routes,
+  type SetRouteOptions,
   UIAuthProvider,
 } from './types'
+
+// TODO: debug. this could be useful
+// function stringifyWithDepth(obj, depth = 3) {
+//   const seen = new WeakSet()
+
+//   function helper(value, currentDepth) {
+//     if (value === null || typeof value !== 'object') {
+//       return value
+//     }
+
+//     if (seen.has(value)) {
+//       return '[Circular]'
+//     }
+
+//     seen.add(value)
+
+//     if (currentDepth >= depth) {
+//       return '[Object]'
+//     }
+
+//     if (Array.isArray(value)) {
+//       return value.map((v) => helper(v, currentDepth + 1))
+//     }
+
+//     const result = {}
+//     for (const key in value) {
+//       result[key] = helper(value[key], currentDepth + 1)
+//     }
+//     return result
+//   }
+
+//   return JSON.stringify(helper(obj, 0), null, 2)
+// }
 
 type OpenfortProviderProps = {
   children?: React.ReactNode
@@ -158,7 +194,9 @@ export const OpenfortProvider = ({
   const [connector, setConnector] = useState<ContextValue['connector']>({
     id: '',
   })
-  const [route, setRoute] = useState<ValueOf<typeof routes>>(routes.LOADING)
+  const [route, setRoute] = useState<RouteOptions>({ route: routes.LOADING })
+  const [routeHistory, setRouteHistory] = useState<RouteOptions[]>([])
+
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>('')
 
   const [resize, onResize] = useState<number>(0)
@@ -181,7 +219,7 @@ export const OpenfortProvider = ({
   useEffect(() => {
     if (isConnected && safeUiConfig.enforceSupportedChains && !isChainSupported) {
       setOpen(true)
-      setRoute(routes.SWITCHNETWORKS)
+      setRoute({ route: routes.SWITCHNETWORKS })
     }
   }, [isConnected, isChainSupported, chain, route, open])
 
@@ -196,6 +234,34 @@ export const OpenfortProvider = ({
     logger.log('ROUTE', route)
   }, [route])
 
+  const typedSetRoute = (options: SetRouteOptions) => {
+    const routeObj = typeof options === 'string' ? { route: options } : options
+    const { route } = routeObj
+    const lastRoute = routeHistory.length > 0 ? routeHistory[routeHistory.length - 1] : null
+
+    setRoute(routeObj)
+
+    if (lastRoute && lastRoute.route === route) return
+    if (!notStoredInHistoryRoutes.includes(route)) {
+      setRouteHistory((prev) => [...prev, routeObj])
+    }
+  }
+
+  const setPreviousRoute = () => {
+    setRouteHistory((prev) => {
+      const newHistory = [...prev]
+      newHistory.pop()
+      if (newHistory.length > 0) {
+        setRoute(newHistory[newHistory.length - 1])
+      } else {
+        setRoute({ route: routes.PROFILE })
+      }
+      return newHistory
+    })
+  }
+
+  const [onBack, setOnBack] = useState<(() => void) | null>(null)
+
   const value: ContextValue = {
     setTheme,
     mode: ckMode,
@@ -206,7 +272,13 @@ export const OpenfortProvider = ({
     open,
     setOpen,
     route,
-    setRoute,
+    setRoute: typedSetRoute,
+    onBack,
+    setOnBack,
+    setPreviousRoute,
+    routeHistory,
+    setRouteHistory,
+    previousRoute: routeHistory.length > 1 ? routeHistory[routeHistory.length - 2] : null,
     connector,
     setConnector,
     onConnect,
@@ -251,6 +323,14 @@ export const OpenfortProvider = ({
         {children}
         <ConnectKitModal lang={ckLang} theme={ckTheme} mode={safeUiConfig.mode ?? ckMode} customTheme={ckCustomTheme} />
         {/* </ThemeProvider> */}
+        {/* TODO: Debug */}
+        {/* <div style={{ position: 'absolute', height: 0, width: 0, top: 0, zIndex: 50 }}>
+          <pre>
+            {stringifyWithDepth({
+              routeHistory,
+            })}
+          </pre>
+        </div> */}
       </CoreOpenfortProvider>
     </Web3ContextProvider>
   )

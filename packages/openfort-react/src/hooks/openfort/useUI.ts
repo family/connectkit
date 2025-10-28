@@ -1,10 +1,10 @@
 import { useAccount } from 'wagmi'
-import { routes } from '../../components/Openfort/types'
+import { type RouteOptions, type RoutesWithoutOptions, routes } from '../../components/Openfort/types'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { logger } from '../../utils/logger'
 
-type ModalRoutes = (typeof routes)[keyof typeof routes]
+type ModalRoutes = RoutesWithoutOptions['route'] | RouteOptions
 
 const safeRoutes: {
   connected: ModalRoutes[]
@@ -12,12 +12,17 @@ const safeRoutes: {
 } = {
   disconnected: [
     routes.PROVIDERS,
-    routes.CONNECTORS,
+    { route: routes.CONNECTORS, connectType: 'linkIfUserConnectIfNoUser' },
     // routes.ABOUT,
     // routes.ONBOARDING,
     routes.MOBILECONNECTORS,
   ],
-  connected: [routes.PROFILE, routes.CONNECTORS, routes.SWITCHNETWORKS, routes.PROVIDERS],
+  connected: [
+    routes.PROFILE,
+    { route: routes.CONNECTORS, connectType: 'linkIfUserConnectIfNoUser' },
+    routes.SWITCHNETWORKS,
+    routes.PROVIDERS,
+  ],
 }
 
 const allRoutes: ModalRoutes[] = [...safeRoutes.connected, ...safeRoutes.disconnected]
@@ -97,8 +102,8 @@ export function useUI() {
 
     if (isLoading) setRoute(routes.LOADING)
     else if (!user) setRoute(routes.PROVIDERS)
-    else if (!isConnected) setRoute(routes.RECOVER)
-    else if (needsRecovery) setRoute(routes.RECOVER)
+    else if (!isConnected) setRoute(routes.LOAD_WALLETS)
+    else if (needsRecovery) setRoute(routes.LOAD_WALLETS)
     else setRoute(routes.PROFILE)
   }
 
@@ -135,6 +140,6 @@ export function useUI() {
     openProfile: () => gotoAndOpen(routes.PROFILE),
     openSwitchNetworks: () => gotoAndOpen(routes.SWITCHNETWORKS),
     openProviders: () => gotoAndOpen(routes.PROVIDERS),
-    openWallets: () => gotoAndOpen(routes.CONNECTORS),
+    openWallets: () => gotoAndOpen({ route: routes.CONNECTORS, connectType: 'linkIfUserConnectIfNoUser' }),
   }
 }

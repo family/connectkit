@@ -1,3 +1,4 @@
+import { OpenfortError, type OpenfortErrorType } from '@openfort/openfort-js'
 import { signMessage, switchChain } from '@wagmi/core'
 import { AxiosError } from 'axios'
 import { useCallback } from 'react'
@@ -25,7 +26,7 @@ export function useConnectWithSiwe() {
     }: {
       connectorType?: string
       walletClientType?: string
-      onError?: (error: string, status?: number) => void
+      onError?: (error: string, openfortError?: OpenfortErrorType) => void
       onConnect?: () => void
     } = {}) => {
       const connectorType = propsConnectorType ?? connector?.type
@@ -52,6 +53,7 @@ export function useConnectWithSiwe() {
 
         // if has user, we link the wallet
         if (user) {
+          logger.log('User found, trying to lint wallet to user')
           const authToken = await client.getAccessToken()
           if (!authToken) throw new Error('No access token found')
 
@@ -76,7 +78,10 @@ export function useConnectWithSiwe() {
 
         onConnect?.()
       } catch (err) {
-        logger.log('Failed to connect with SIWE', err)
+        logger.log('Failed to connect with SIWE', {
+          error: err,
+          status: err instanceof AxiosError ? err.request.status : 'unknown',
+        })
         if (!onError) return
 
         let message = err instanceof Error ? err.message : err instanceof AxiosError ? err.message : String(err)
@@ -91,7 +96,7 @@ export function useConnectWithSiwe() {
           message = 'Failed to connect with SIWE.'
         }
 
-        onError(message, err instanceof AxiosError ? err.request.status : undefined)
+        onError(message, err instanceof OpenfortError ? err.type : undefined)
       }
     },
     [client, user, updateUser, address, chainId, config, connector, accountChainId, publicClient]

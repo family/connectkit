@@ -6,10 +6,11 @@ import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import { TextLinkButton } from '../../Common/Button/styles'
 import Loader from '../../Common/Loading'
-import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
 import { FloatingGraphic } from '../../FloatingGraphic'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 
 // TODO: Localize
 type VerificationResponse = {

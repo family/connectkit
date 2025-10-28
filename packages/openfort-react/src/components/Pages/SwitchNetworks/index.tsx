@@ -8,7 +8,8 @@ import { isSafeConnector } from '../../../utils'
 import Button from '../../Common/Button'
 import ChainSelectList from '../../Common/ChainSelectList'
 import { OrDivider } from '../../Common/Modal'
-import { ModalBody, ModalContent, PageContent } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent } from '../../Common/Modal/styles'
+import { PageContent } from '../../PageContent'
 
 const SwitchNetworks: React.FC = () => {
   const { reset } = useConnect()
@@ -24,7 +25,7 @@ const SwitchNetworks: React.FC = () => {
   }
 
   return (
-    <PageContent style={{ width: 278 }}>
+    <PageContent width={278}>
       <ModalContent style={{ padding: 0, marginTop: -10 }}>
         {!isChainSupported && (
           <ModalBody>

@@ -1,15 +1,16 @@
 import { AnimatePresence, motion, type Variants } from 'framer-motion'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useEmailAuth } from '../../../hooks/openfort/auth/useEmailAuth'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import { TextLinkButton } from '../../Common/Button/styles'
 import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
-import { ModalBody, PageContent } from '../../Common/Modal/styles'
+import { ModalBody } from '../../Common/Modal/styles'
 import { TextContainer } from '../../ConnectButton/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent, type SetOnBackFunction } from '../../PageContent'
 import { FooterContainer } from './styles'
 
 // TODO: Localize
@@ -36,7 +37,7 @@ const textVariants: Variants = {
 
 const EmailLogin: React.FC = () => {
   const [password, setPassword] = React.useState('')
-  const { setRoute, triggerResize, setEmailInput: setEmail, emailInput: email } = useOpenfort()
+  const { setRoute, triggerResize, setEmailInput: setEmail, emailInput: email, previousRoute } = useOpenfort()
   const [isRegister, setIsRegister] = React.useState(false)
 
   const {
@@ -68,7 +69,7 @@ const EmailLogin: React.FC = () => {
       if (requiresEmailVerification) {
         setRoute(routes.EMAIL_VERIFICATION)
       } else {
-        setRoute(routes.RECOVER)
+        setRoute(routes.LOAD_WALLETS)
       }
     } else {
       setTimeout(() => {
@@ -92,7 +93,7 @@ const EmailLogin: React.FC = () => {
       if (requiresEmailVerification) {
         setRoute(routes.EMAIL_VERIFICATION)
       } else {
-        setRoute(routes.RECOVER)
+        setRoute(routes.LOAD_WALLETS)
       }
     } else {
       setTimeout(() => {
@@ -111,8 +112,13 @@ const EmailLogin: React.FC = () => {
       : loginError.message
     : null
 
+  const onBack = useMemo<SetOnBackFunction>(() => {
+    if (previousRoute?.route === routes.EMAIL_VERIFICATION) return routes.PROVIDERS
+    return 'back'
+  }, [previousRoute])
+
   return (
-    <PageContent>
+    <PageContent onBack={onBack}>
       <form
         onSubmit={(e) => {
           e.preventDefault()

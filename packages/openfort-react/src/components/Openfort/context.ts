@@ -1,21 +1,16 @@
-import type { OAuthProvider, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
+import type { SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import type React from 'react'
 import { createContext } from 'react'
-import type { ValueOf } from 'viem/_types/types/utils'
 import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
 import type { CustomTheme, Languages, Mode, Theme } from '../../types'
-import type { OpenfortUIOptionsExtended, OpenfortWalletConfig, routes } from './types'
-
-type Connector =
-  | {
-      id: string
-      type?: 'wallet'
-    }
-  | {
-      id: OAuthProvider
-      type: 'oauth'
-    }
-export type ErrorMessage = string | React.ReactNode | null
+import type {
+  Connector,
+  ErrorMessage,
+  OpenfortUIOptionsExtended,
+  OpenfortWalletConfig,
+  RouteOptions,
+  SetRouteOptions,
+} from './types'
 
 export type ContextValue = {
   setTheme: React.Dispatch<React.SetStateAction<Theme>>
@@ -26,8 +21,15 @@ export type ContextValue = {
   setLang: React.Dispatch<React.SetStateAction<Languages>>
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  route: ValueOf<typeof routes>
-  setRoute: (r: ValueOf<typeof routes>) => void
+  route: RouteOptions
+  setRoute: (options: SetRouteOptions) => void
+  onBack: (() => void) | null
+  setOnBack: React.Dispatch<React.SetStateAction<(() => void) | null>>
+
+  previousRoute: RouteOptions | null
+  setPreviousRoute: () => void
+  routeHistory: RouteOptions[]
+  setRouteHistory: React.Dispatch<React.SetStateAction<RouteOptions[]>>
   connector: Connector
   setConnector: React.Dispatch<React.SetStateAction<Connector>>
   errorMessage: ErrorMessage

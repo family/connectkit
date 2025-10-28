@@ -1,8 +1,9 @@
 import useLocales from '../../../hooks/useLocales'
 import { useWallet } from '../../../wallets/useWallets'
 import CustomQRCode from '../../Common/CustomQRCode'
-import { ModalBody, ModalContent, PageContent } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent } from '../../Common/Modal/styles'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 
 const DownloadApp = () => {
   const context = useOpenfort()

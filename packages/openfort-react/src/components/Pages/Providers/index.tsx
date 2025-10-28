@@ -10,10 +10,10 @@ import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import Loader from '../../Common/Loading'
-import { PageContent } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
 import { routes, UIAuthProvider } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 import {
   EmailInnerButton,
   ProviderIcon,
@@ -38,12 +38,10 @@ const ProviderButton: React.FC<{
 }
 
 const GuestButton: React.FC = () => {
-  const { signUpGuest } = useOpenfortCore()
   const { setRoute } = useOpenfort()
 
   const handleClick = () => {
-    signUpGuest()
-    setRoute(routes.RECOVER)
+    setRoute(routes.CREATE_GUEST_USER)
   }
 
   return (
@@ -56,7 +54,10 @@ const GuestButton: React.FC = () => {
 const WalletButton: React.FC = () => {
   const { setRoute } = useOpenfort()
   return (
-    <ProviderButton onClick={() => setRoute(routes.CONNECTORS)} icon={<Logos.OtherWallets />}>
+    <ProviderButton
+      onClick={() => setRoute({ route: routes.CONNECTORS, connectType: 'connect' })}
+      icon={<Logos.OtherWallets />}
+    >
       Wallet
     </ProviderButton>
   )
@@ -136,7 +137,7 @@ const AuthProviderButton: React.FC<{ provider: OAuthProvider; title?: string; ic
   const { setRoute, setConnector } = useOpenfort()
 
   const handleClick = () => {
-    setRoute(routes.CONNECT)
+    setRoute({ route: routes.CONNECT, connectType: 'linkIfUserConnectIfNoUser' })
     setConnector({ id: provider, type: 'oauth' })
   }
 
@@ -211,7 +212,7 @@ const Providers: React.FC = () => {
   }
 
   return (
-    <PageContent>
+    <PageContent onBack={null}>
       {mainProviders.map((auth) => (
         <ProviderButtonSwitch key={auth} provider={auth} />
       ))}

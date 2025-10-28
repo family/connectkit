@@ -4,7 +4,6 @@ import type { ValueOf } from 'viem/_types/types/utils'
 import { useAccount } from 'wagmi'
 import { getAppName } from '../../defaultConfig'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
-import { useOpenfortCore } from '../../openfort/useOpenfort'
 import type { CustomTheme, Languages, Mode, Theme } from '../../types'
 import { logger } from '../../utils/logger'
 import Modal from '../Common/Modal'
@@ -12,18 +11,23 @@ import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitTh
 import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import About from '../Pages/About'
+import Connected from '../Pages/Connected'
 import Connectors from '../Pages/Connectors'
+import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
+import CreateWallet from '../Pages/CreateWallet'
 import DownloadApp from '../Pages/DownloadApp'
 import EmailLogin from '../Pages/EmailLogin'
 import EmailVerification from '../Pages/EmailVerification'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
 import Loading from '../Pages/Loading'
+import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
 import Onboarding from '../Pages/Onboarding'
 import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
 import RecoverPage from '../Pages/Recover'
+import SelectWalletToRecover from '../Pages/SelectWalletToRecover'
 import SocialProviders from '../Pages/SoicalProviders'
 import SwitchNetworks from '../Pages/SwitchNetworks'
 import ConnectUsing from './ConnectUsing'
@@ -38,75 +42,84 @@ const ConnectModal: React.FC<{
   lang?: Languages
 }> = ({ mode = 'auto', theme = 'auto', customTheme = customThemeDefault, lang = 'en-US' }) => {
   const context = useOpenfort()
-  const { logout, user } = useOpenfortCore()
+  // const { logout, user } = useOpenfortCore()
   const { isConnected, chain } = useAccount()
   const chainIsSupported = useChainIsSupported(chain?.id)
 
   //if chain is unsupported we enforce a "switch chain" prompt
   const closeable = !(context.uiConfig.enforceSupportedChains && isConnected && !chainIsSupported)
 
-  const mainRoutes: ValueOf<typeof routes>[] = [
-    routes.PROFILE,
-    routes.LOADING,
-    routes.PROVIDERS,
-    routes.EMAIL_VERIFICATION,
-  ]
+  // const mainRoutes: ValueOf<typeof routes>[] = [
+  //   routes.PROFILE,
+  //   routes.LOADING,
+  //   routes.PROVIDERS,
+  //   routes.EMAIL_VERIFICATION,
+  // ]
 
-  const showBackButton =
-    (closeable && !mainRoutes.includes(context.route)) || (closeable && context.route === routes.PROVIDERS && user)
+  const route = context.route.route
 
-  const _showInfoButton = closeable && context.route !== routes.PROFILE
+  // const showBackButton = (closeable && !mainRoutes.includes(route)) || (closeable && route === routes.PROVIDERS && user)
 
-  const onBack = () => {
-    if (context.route === routes.CONNECT) {
-      context.setRoute(routes.CONNECTORS)
-      return
-    }
+  const _showInfoButton = closeable && route !== routes.PROFILE
 
-    if (context.route === routes.FORGOT_PASSWORD) {
-      context.setRoute(routes.EMAIL_LOGIN)
-      return
-    }
+  // const onBack = context.onBack
+  //   ? context.onBack
+  //   : () => {
+  //       if (route === routes.CONNECT) {
+  //         context.setRoute(routes.CONNECTORS)
+  //         return
+  //       }
 
-    if (context.route === routes.CONNECTORS && user) {
-      context.setRoute(routes.PROFILE)
-      return
-    }
+  //       if (route === routes.FORGOT_PASSWORD) {
+  //         context.setRoute(routes.EMAIL_LOGIN)
+  //         return
+  //       }
 
-    if (context.route === routes.PROVIDERS || context.route === routes.SWITCHNETWORKS) {
-      context.setRoute(routes.PROFILE)
-      return
-    }
+  //       if (route === routes.CONNECTORS && user) {
+  //         context.setRoute(routes.PROFILE)
+  //         return
+  //       }
 
-    if (context.route === routes.RECOVER || context.route === routes.EMAIL_VERIFICATION) {
-      logout()
-    }
+  //       if (route === routes.PROVIDERS || route === routes.SWITCHNETWORKS) {
+  //         context.setRoute(routes.PROFILE)
+  //         return
+  //       }
 
-    context.setRoute(routes.PROVIDERS)
-    // }
-  }
+  //       if (route === routes.LOAD_WALLETS || route === routes.RECOVER_WALLET || route === routes.EMAIL_VERIFICATION) {
+  //         logout()
+  //       }
+
+  //       context.setRoute(routes.PROVIDERS)
+  //       // }
+  //     }
 
   const pages: Record<ValueOf<typeof routes>, React.ReactNode> = {
     onboarding: <Onboarding />,
     about: <About />,
     loading: <Loading />,
+    loadWallets: <LoadWallets />,
+    connected: <Connected />,
 
+    createGuestUser: <CreateGuestUserPage />,
     socialProviders: <SocialProviders />,
-
     emailLogin: <EmailLogin />,
+
     forgotPassword: <ForgotPassword />,
     emailVerification: <EmailVerification />,
     linkEmail: <LinkEmail />,
 
+    createWallet: <CreateWallet />,
+    recoverWallets: <RecoverPage />,
+
     download: <DownloadApp />,
     connectors: <Connectors />,
     mobileConnectors: <MobileConnectors />,
+    selectWalletToRecover: <SelectWalletToRecover />,
 
     providers: <Providers />,
     connect: <ConnectUsing />,
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
-    recover: <RecoverPage />,
     connectWithMobile: <ConnectWithMobile />,
   }
 
@@ -144,7 +157,7 @@ const ConnectModal: React.FC<{
       logger.log('Found auth provider', provider)
       context.setOpen(true)
       context.setConnector({ id: provider, type: 'oauth' })
-      context.setRoute(routes.CONNECT)
+      context.setRoute({ route: routes.CONNECT, connectType: 'linkIfUserConnectIfNoUser' })
     }
   }, [])
 
@@ -184,13 +197,13 @@ const ConnectModal: React.FC<{
       <Modal
         open={context.open}
         pages={pages}
-        pageId={context.route}
+        pageId={route}
         onClose={closeable ? hide : undefined}
         // TODO: Implement onInfo
         // onInfo={
         //   showInfoButton ? () => context.setRoute(routes.ONBOARDING) : undefined
         // }
-        onBack={showBackButton ? onBack : undefined}
+        // onBack={showBackButton ? onBack : undefined}
       />
     </ConnectKitThemeProvider>
   )

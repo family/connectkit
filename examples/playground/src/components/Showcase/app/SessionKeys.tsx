@@ -6,16 +6,15 @@ import { useAccount, useChainId, useSignMessage } from 'wagmi'
 import { Button } from '@/components/Showcase/ui/Button'
 import { InputMessage } from '@/components/Showcase/ui/InputMessage'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { useSessionKeysStorage } from '@/lib/useSessionKeysStorage'
+import { useSessionKeysStorage_backendSimulation } from '@/lib/useSessionKeysStorage'
 
 export const SessionKeysCard = () => {
   const { grantPermissions, isLoading, error } = useGrantPermissions()
   const [sessionKeys, setSessionKeys] = useState<Hex[]>([])
-  const { addPrivateKey, getPrivateKeys /* removePrivateKey, clearChainKeys, clearAll */ } = useSessionKeysStorage()
+  const { addPrivateKey, getPrivateKeys } = useSessionKeysStorage_backendSimulation()
   const chainId = useChainId()
-  const { data /* signMessageAsync */ } = useSignMessage()
+  const { data } = useSignMessage()
   const { address } = useAccount()
-  // const { activeWallet } = useWallets()
   const key = useMemo(() => `${chainId}-${address}`, [chainId, address])
 
   const updateSessionKeys = () => {
@@ -71,15 +70,6 @@ export const SessionKeysCard = () => {
             }
           }}
         >
-          {/* <label className={cn('input w-full')}>
-            <input
-              name="message"
-              type="username"
-              placeholder="Enter a message to sign"
-              className="grow peer"
-              defaultValue="Hello from Openfort!"
-            />
-          </label> */}
           <Button className="btn btn-accent w-full" disabled={isLoading}>
             {isLoading ? 'Creating...' : 'Create session key'}
           </Button>
@@ -88,33 +78,10 @@ export const SessionKeysCard = () => {
               <span className="text-muted-foreground">
                 {key.slice(0, 6)}...{key.slice(-4)}
               </span>
-              <div>
-                {/* TODO: Sign with this session key */}
-                {/* <button
-                  type="button"
-                  className="btn btn-sm btn-accent"
-                  onClick={async () => {
-                    const message = 'Sign with this session key'
-                    signMessageAsync({
-                      message,
-                      connector: activeWallet?.connector,
-                      account: privateKeyToAccount(key).address,
-                    })
-                      .then((value) => {
-                        alert(`Message "${message}" signed successfully!: ${value}`)
-                      })
-                      .catch((e) => {
-                        alert(`Failed to sign message: ${e.message}`)
-                      })
-                  }}
-                >
-                  Sign with this key
-                </button> */}
-                {/* TODO: Add functionality to revoke this session key */}
-                {/* <button type="button" className="btn btn-sm btn-ghost text-error p-0 ml-2" onClick={() => {}}>
+              {/* TODO: Add functionality to revoke this session key */}
+              {/* <button type="button" className="btn btn-sm btn-ghost text-error p-0 ml-2" onClick={() => {}}>
                   <TrashIcon size={16} />
                 </button> */}
-              </div>
             </div>
           ))}
           <InputMessage

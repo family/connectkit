@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import Loader from '../../Common/Loading'
-import { PageContent } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 
 const Loading: React.FC = () => {
   const { setRoute, walletConfig } = useOpenfort()
@@ -19,11 +19,11 @@ const Loading: React.FC = () => {
     if (isLoading) return
     else if (!user) setRoute(routes.PROVIDERS)
     else if (!address) {
-      if (!walletConfig) setRoute(routes.CONNECTORS)
-      else setRoute(routes.RECOVER)
+      if (!walletConfig) setRoute({ route: routes.CONNECTORS, connectType: 'connect' })
+      else setRoute(routes.LOAD_WALLETS)
     } else if (needsRecovery) {
-      if (!walletConfig) setRoute(routes.CONNECTORS)
-      else setRoute(routes.RECOVER)
+      if (!walletConfig) setRoute({ route: routes.CONNECTORS, connectType: 'connect' })
+      else setRoute(routes.LOAD_WALLETS)
     } else setRoute(routes.PROFILE)
   }, [isLoading, user, address, needsRecovery, isFirstFrame, retryCount])
 

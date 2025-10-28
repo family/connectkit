@@ -146,7 +146,7 @@ type ModalProps = {
   positionInside?: boolean
   inline?: boolean
   onClose?: () => void
-  onBack?: () => void
+  // onBack?: () => void
   onInfo?: () => void
 
   demo?: {
@@ -163,7 +163,7 @@ const Modal: React.FC<ModalProps> = ({
   inline,
   demo,
   onClose,
-  onBack,
+  // onBack,
   onInfo,
 }) => {
   const context = useOpenfort()
@@ -193,9 +193,13 @@ const Modal: React.FC<ModalProps> = ({
   const mounted = !(state === 'exited' || state === 'unmounted')
   const rendered = state === 'preEnter' || state !== 'exiting'
 
-  const currentDepth = context.route === routes.PROVIDERS ? 0 : context.route === routes.DOWNLOAD ? 2 : 1
-
+  const route = context.route.route
+  const currentDepth = route === routes.PROVIDERS ? 0 : route === routes.DOWNLOAD ? 2 : 1
   const prevDepth = usePrevious(currentDepth, currentDepth)
+  // useEffect(() => {
+  //   console.log('route changed!', { currentDepth, prevDepth, state, pageId, route: route })
+  // }, [route])
+
   useLockBodyScroll(!positionInside ? mounted : false)
 
   const _prevPage = usePrevious(pageId, pageId)
@@ -283,7 +287,8 @@ const Modal: React.FC<ModalProps> = ({
   }
 
   function getHeading() {
-    switch (context.route) {
+    // return route
+    switch (route) {
       case routes.ABOUT:
         return locales.aboutScreen_heading
       case routes.PROVIDERS:
@@ -361,7 +366,7 @@ const Modal: React.FC<ModalProps> = ({
           <BoxContainer className={`${rendered && 'active'}`}>
             {/* <AnimatePresence initial={false}>
               {context.options?.disclaimer &&
-                context.route === routes.CONNECTORS && (
+                route === routes.CONNECTORS && (
                   <DisclaimerBackground
                     initial={{
                       opacity: 0,
@@ -426,12 +431,12 @@ const Modal: React.FC<ModalProps> = ({
                 }}
               >
                 <AnimatePresence>
-                  {onBack ? (
+                  {context.onBack ? (
                     <BackButton
                       disabled={inTransition}
                       aria-label={flattenChildren(locales.back).toString()}
                       key="backButton"
-                      onClick={onBack}
+                      onClick={context.onBack}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -479,7 +484,7 @@ const Modal: React.FC<ModalProps> = ({
                     //alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  key={`${context.route}-${'signedIn'}`}
+                  key={`${route}-${'signedIn'}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

@@ -3,9 +3,9 @@ import { providersLogos } from '../../assets/logos'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { logger } from '../../utils/logger'
 import Loader from '../Common/Loading'
-import { PageContent } from '../Common/Modal/styles'
 import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
+import { PageContent } from '../PageContent'
 
 const states = {
   INIT: 'init',
@@ -15,7 +15,7 @@ const states = {
 }
 
 const ConnectWithOAuth: React.FC = () => {
-  const { connector, setRoute } = useOpenfort()
+  const { connector, setRoute, triggerResize } = useOpenfort()
   const { client, user } = useOpenfortCore()
 
   const [status, setStatus] = useState(states.INIT)
@@ -104,8 +104,8 @@ const ConnectWithOAuth: React.FC = () => {
             }
           } catch (e) {
             logger.error('Error during OAuth initialization:', e)
-            setRoute(routes.CONNECT)
             setStatus(states.ERROR)
+            triggerResize()
             if (e instanceof Error) {
               if (e.message.includes('not enabled')) {
                 setDescription(`The ${provider} provider is not enabled. Please contact support.`)

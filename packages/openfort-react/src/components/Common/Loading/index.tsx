@@ -75,7 +75,7 @@ const ConnectingAnimation = styled(motion.div)<{
 
 type LoaderProps = {
   header: string
-  description?: string | undefined
+  description?: string | undefined | false
   isLoading?: boolean
   icon?: React.ReactNode
   isError?: boolean
