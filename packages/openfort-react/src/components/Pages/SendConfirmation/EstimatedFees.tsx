@@ -28,6 +28,7 @@ type EstimatedFeesProps = {
   nativeSymbol: string
   usdPrices: Record<string, number>
   enabled?: boolean
+  hideInfoIcon?: boolean
 }
 
 export const EstimatedFees = ({
@@ -39,6 +40,7 @@ export const EstimatedFees = ({
   nativeSymbol,
   usdPrices,
   enabled = true,
+  hideInfoIcon = false,
 }: EstimatedFeesProps) => {
   const { data: gasEstimate } = useEstimateGas({
     account,
@@ -74,11 +76,13 @@ export const EstimatedFees = ({
     return (
       <>
         ≈ {usdFormatter.format(gasCostInUsd)}
-        <Tooltip message={`${gasEstimate?.toString()} gas units (paid in ${nativeSymbol})`} delay={0.2}>
-          <InfoIconWrapper>
-            <InfoIcon />
-          </InfoIconWrapper>
-        </Tooltip>
+        {!hideInfoIcon && (
+          <Tooltip message={`${gasEstimate?.toString()} gas units (paid in ${nativeSymbol})`} delay={0.2}>
+            <InfoIconWrapper>
+              <InfoIcon />
+            </InfoIconWrapper>
+          </Tooltip>
+        )}
       </>
     )
   }
@@ -87,11 +91,13 @@ export const EstimatedFees = ({
   return (
     <>
       ≈ {formatBalance(gasCost, 18)} {nativeSymbol}
-      <Tooltip message={`${gasEstimate?.toString()} gas units`} delay={0.2}>
-        <InfoIconWrapper>
-          <InfoIcon />
-        </InfoIconWrapper>
-      </Tooltip>
+      {!hideInfoIcon && (
+        <Tooltip message={`${gasEstimate?.toString()} gas units`} delay={0.2}>
+          <InfoIconWrapper>
+            <InfoIcon />
+          </InfoIconWrapper>
+        </Tooltip>
+      )}
     </>
   )
 }

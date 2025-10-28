@@ -1,5 +1,5 @@
 import { AuthProvider, LinkWalletOnSignUpOption, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
-import { beamTestnet, polygonAmoy } from 'viem/chains'
+import { baseSepolia, beamTestnet, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
 
 type EditingEntity = {
@@ -56,6 +56,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     ethereumProviderPolicyId: {
       [polygonAmoy.id]: import.meta.env.VITE_POLYGON_POLICY_ID!,
       [beamTestnet.id]: import.meta.env.VITE_BEAM_POLICY_ID!,
+      [baseSepolia.id]: import.meta.env.VITE_BASE_SEPOLIA_POLICY_ID!,
     },
 
     getEncryptionSession: undefined, // Optional function to get the encryption session

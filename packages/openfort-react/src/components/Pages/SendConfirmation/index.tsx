@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Address } from 'viem'
 import { encodeFunctionData, isAddress, parseUnits } from 'viem'
 import {
@@ -19,6 +19,7 @@ import { parseTransactionError } from '../../../utils/errorHandling'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
+import { Spinner } from '../../Common/Spinner'
 import { routes, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { formatBalance, sanitiseForParsing } from '../Send/utils'
@@ -26,7 +27,9 @@ import { EstimatedFees } from './EstimatedFees'
 import {
   AddressValue,
   AmountValue,
+  BalanceSpinnerWrapper,
   ButtonRow,
+  CheckIconWrapper,
   ErrorAction,
   ErrorContainer,
   ErrorMessage,
@@ -65,7 +68,7 @@ const SendConfirmation = () => {
     }
   }, [recipientAddress, parsedAmount, setRoute])
 
-  const { data: nativeBalance } = useBalance({
+  const { data: nativeBalance, refetch: refetchNativeBalance } = useBalance({
     address,
     query: {
       enabled: !!address,
@@ -102,7 +105,7 @@ const SendConfirmation = () => {
 
   const isErc20 = token.type === 'erc20'
 
-  const { data: erc20Balance } = useReadContract({
+  const { data: erc20Balance, refetch: refetchErc20Balance } = useReadContract({
     abi: erc20Abi,
     address: isErc20 ? token.address : undefined,
     functionName: 'balanceOf',
@@ -117,6 +120,11 @@ const SendConfirmation = () => {
 
   const insufficientBalance =
     parsedAmount !== null && currentBalance !== undefined ? parsedAmount > currentBalance : false
+
+  // Track original balance and polling state
+  const [isPollingBalance, setIsPollingBalance] = useState(false)
+  const originalBalanceRef = useRef<bigint | undefined>(undefined)
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const {
     sendTransactionAsync,
@@ -158,6 +166,51 @@ const SendConfirmation = () => {
 
   const firstError = nativeError || erc20Error || waitError
 
+  // Store original balance when transaction starts
+  useEffect(() => {
+    if (isSubmitting && originalBalanceRef.current === undefined) {
+      originalBalanceRef.current = currentBalance
+    }
+  }, [isSubmitting, currentBalance])
+
+  // Poll balance when transaction is successful until it changes
+  useEffect(() => {
+    if (isSuccess && originalBalanceRef.current !== undefined) {
+      // Start polling
+      setIsPollingBalance(true)
+
+      const refetchBalance = isErc20 ? refetchErc20Balance : refetchNativeBalance
+
+      // Immediate first refetch
+      refetchBalance()
+
+      // Set up interval for polling every 3 seconds
+      pollingIntervalRef.current = setInterval(() => {
+        refetchBalance()
+      }, 3000)
+    }
+
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current)
+        pollingIntervalRef.current = null
+      }
+    }
+  }, [isSuccess, isErc20, refetchErc20Balance, refetchNativeBalance])
+
+  // Stop polling when balance changes
+  useEffect(() => {
+    if (isPollingBalance && currentBalance !== undefined && originalBalanceRef.current !== undefined) {
+      if (currentBalance !== originalBalanceRef.current) {
+        setIsPollingBalance(false)
+        if (pollingIntervalRef.current) {
+          clearInterval(pollingIntervalRef.current)
+          pollingIntervalRef.current = null
+        }
+      }
+    }
+  }, [isPollingBalance, currentBalance])
+
   const handleConfirm = async () => {
     if (!recipientAddress || !parsedAmount || parsedAmount <= BigInt(0) || insufficientBalance) return
 
@@ -188,6 +241,13 @@ const SendConfirmation = () => {
   }
 
   const handleFinish = () => {
+    // Clear polling interval if still running
+    if (pollingIntervalRef.current) {
+      clearInterval(pollingIntervalRef.current)
+      pollingIntervalRef.current = null
+    }
+    setIsPollingBalance(false)
+
     // Don't reset the form - keep amount, token, and recipient for easier repeat transactions
     // Clear cached token after successful transaction
     clearSelectedToken()
@@ -228,19 +288,29 @@ const SendConfirmation = () => {
         </SummaryItem>
         <SummaryItem>
           <SummaryLabel>Amount</SummaryLabel>
-          <AmountValue>
+          <AmountValue $completed={isSuccess}>
             -{normalisedAmount || '0'} {token.symbol}
+            {isSuccess && (
+              <CheckIconWrapper>
+                <TickIcon />
+              </CheckIconWrapper>
+            )}
           </AmountValue>
         </SummaryItem>
         <SummaryItem>
-          <SummaryLabel>Current balance</SummaryLabel>
+          <SummaryLabel>{isSuccess ? 'New balance' : 'Current balance'}</SummaryLabel>
           <SummaryValue>
             {formatBalance(currentBalance, token.decimals)} {token.symbol}
+            {isPollingBalance && (
+              <BalanceSpinnerWrapper>
+                <Spinner />
+              </BalanceSpinnerWrapper>
+            )}
           </SummaryValue>
         </SummaryItem>
         <SummaryItem>
           <SummaryLabel>Estimated fees</SummaryLabel>
-          <FeesValue>
+          <FeesValue $completed={isSuccess}>
             <EstimatedFees
               account={address}
               to={token.type === 'erc20' ? token.address : recipientAddress}
@@ -250,7 +320,13 @@ const SendConfirmation = () => {
               nativeSymbol={nativeBalance?.symbol || 'ETH'}
               usdPrices={usdPrices}
               enabled={Boolean(address && recipientAddress && parsedAmount && parsedAmount > BigInt(0))}
+              hideInfoIcon={isSuccess}
             />
+            {isSuccess && (
+              <CheckIconWrapper>
+                <TickIcon />
+              </CheckIconWrapper>
+            )}
           </FeesValue>
         </SummaryItem>
       </SummaryList>

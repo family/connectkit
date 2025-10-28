@@ -28,8 +28,14 @@ export const SummaryValue = styled.span`
   word-break: break-all;
 `
 
-export const AmountValue = styled(SummaryValue)`
+export const AmountValue = styled(SummaryValue)<{ $completed?: boolean }>`
   color: var(--ck-body-color-danger);
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  text-decoration: ${(props) => (props.$completed ? 'line-through' : 'none')};
+  opacity: ${(props) => (props.$completed ? 0.6 : 1)};
 `
 
 export const AddressValue = styled(SummaryValue)`
@@ -39,11 +45,36 @@ export const AddressValue = styled(SummaryValue)`
   gap: 8px;
 `
 
-export const FeesValue = styled(SummaryValue)`
+export const FeesValue = styled(SummaryValue)<{ $completed?: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
   gap: 4px;
+  text-decoration: ${(props) => (props.$completed ? 'line-through' : 'none')};
+  opacity: ${(props) => (props.$completed ? 0.6 : 1)};
+`
+
+export const CheckIconWrapper = styled.span`
+  color: var(--ck-body-color-valid);
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+  
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+`
+
+export const BalanceSpinnerWrapper = styled.span`
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  
+  svg {
+    width: 14px;
+    height: 14px;
+  }
 `
 
 export const GasInfo = styled.div`
