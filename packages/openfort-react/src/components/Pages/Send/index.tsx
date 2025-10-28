@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
+import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
 import Input from '../../Common/Input'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
@@ -19,13 +20,12 @@ import {
   TokenSelectorRight,
   TokenSelectorValue,
 } from './styles'
-import { useSendTokenOptions } from './useSendTokenOptions'
 import { formatBalance, isSameToken, sanitiseForParsing, sanitizeAmountInput } from './utils'
 
 const Send = () => {
   const { sendForm, setSendForm, setRoute } = useOpenfort()
 
-  const { nativeOption, tokenOptions } = useSendTokenOptions()
+  const { nativeOption, tokenOptions } = useTokens()
 
   useEffect(() => {
     setSendForm((prev) => {

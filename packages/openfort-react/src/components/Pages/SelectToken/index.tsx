@@ -1,10 +1,9 @@
 import { useEffect, useMemo } from 'react'
 import { formatUnits } from 'viem'
-import { useTokenUsdPrices } from '../../../hooks/useTokenUsdPrices'
+import { type TokenOptionWithBalance, useTokens } from '../../../hooks/useTokens'
 import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import { type TokenOptionWithBalance, useSendTokenOptions } from '../Send/useSendTokenOptions'
 import { formatBalanceWithSymbol, isSameToken } from '../Send/utils'
 import {
   EmptyState,
@@ -27,14 +26,12 @@ const usdFormatter = new Intl.NumberFormat('en-US', {
 
 const SelectToken = () => {
   const { setSendForm, setRoute, triggerResize } = useOpenfort()
-  const { tokenOptions, isLoading } = useSendTokenOptions()
+  const { tokenOptions, isLoading, prices: usdPrices } = useTokens()
 
   const selectableTokens = useMemo(
     () => tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO),
     [tokenOptions]
   )
-
-  const usdPrices = useTokenUsdPrices(selectableTokens)
 
   const handleSelect = (token: TokenOptionWithBalance) => {
     setSendForm((prev) => {

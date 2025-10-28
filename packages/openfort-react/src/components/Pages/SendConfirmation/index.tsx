@@ -11,14 +11,14 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from 'wagmi'
+import { erc20Abi } from '../../../constants/erc20'
+import { ERC20_TOKEN_LIST } from '../../../constants/tokenList'
 import { truncateEthAddress } from '../../../utils'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
 import { defaultSendFormState, routes, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import { erc20Abi } from '../Send/erc20'
-import { ERC20_TOKEN_LIST } from '../Send/tokenList'
 import { formatBalance, sanitiseForParsing } from '../Send/utils'
 import {
   AddressValue,
