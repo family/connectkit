@@ -32,7 +32,7 @@ const getSelectedTokenCacheKey = (address: string, chainId: number) => {
 }
 
 // Balance caching
-export const getCachedBalance = (address: string, chainId: number, tokenAddress?: string): bigint | null => {
+const getCachedBalance = (address: string, chainId: number, tokenAddress?: string): bigint | null => {
   try {
     const key = getCacheKey(address, chainId, tokenAddress)
     const cached = localStorage.getItem(key)
@@ -50,7 +50,7 @@ export const getCachedBalance = (address: string, chainId: number, tokenAddress?
   }
 }
 
-export const setCachedBalance = (address: string, chainId: number, balance: bigint, tokenAddress?: string) => {
+const setCachedBalance = (address: string, chainId: number, balance: bigint, tokenAddress?: string) => {
   try {
     const key = getCacheKey(address, chainId, tokenAddress)
     const data: CachedBalance = {
@@ -64,7 +64,7 @@ export const setCachedBalance = (address: string, chainId: number, balance: bigi
 }
 
 // Price caching
-export const getCachedPrices = (): TokenUsdPrices | null => {
+const getCachedPrices = (): TokenUsdPrices | null => {
   try {
     const cached = localStorage.getItem(PRICE_CACHE_KEY)
     if (!cached) return null
@@ -81,7 +81,7 @@ export const getCachedPrices = (): TokenUsdPrices | null => {
   }
 }
 
-export const setCachedPrices = (prices: TokenUsdPrices) => {
+const setCachedPrices = (prices: TokenUsdPrices) => {
   try {
     const data: CachedPrices = {
       prices,
@@ -94,7 +94,7 @@ export const setCachedPrices = (prices: TokenUsdPrices) => {
 }
 
 // Token selection caching
-export const getCachedSelectedToken = (address: string, chainId: number): SendTokenOption | null => {
+const getCachedSelectedToken = (address: string, chainId: number): SendTokenOption | null => {
   try {
     const key = getSelectedTokenCacheKey(address, chainId)
     const cached = localStorage.getItem(key)
@@ -108,7 +108,7 @@ export const getCachedSelectedToken = (address: string, chainId: number): SendTo
   }
 }
 
-export const setCachedSelectedToken = (address: string, chainId: number, token: SendTokenOption) => {
+const setCachedSelectedToken = (address: string, chainId: number, token: SendTokenOption) => {
   try {
     const key = getSelectedTokenCacheKey(address, chainId)
     const data: CachedToken = {
@@ -121,7 +121,7 @@ export const setCachedSelectedToken = (address: string, chainId: number, token: 
   }
 }
 
-export const clearCachedSelectedToken = (address: string, chainId: number) => {
+const clearCachedSelectedToken = (address: string, chainId: number) => {
   try {
     const key = getSelectedTokenCacheKey(address, chainId)
     localStorage.removeItem(key)
