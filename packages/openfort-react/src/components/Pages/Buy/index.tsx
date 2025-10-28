@@ -35,17 +35,34 @@ const Buy = () => {
         <ModalH1>{locales.buyScreen_heading}</ModalH1>
         <ModalBody>{locales.buyScreen_subheading}</ModalBody>
         <OptionsList>
-          <OptionButton icon={<CardIcon />} arrow disabled={!cardUrl} onClick={() => openExternal(cardUrl)}>
+          <OptionButton
+            icon={<CardIcon />}
+            arrow
+            disabled={!cardUrl}
+            onClick={() => openExternal(cardUrl)}
+            textAlign="flex-start"
+          >
             <OptionContent>
               <OptionTitle>{locales.buyScreen_payWithCard_title}</OptionTitle>
             </OptionContent>
           </OptionButton>
-          <OptionButton icon={<ExchangeIcon />} arrow disabled={!exchangeUrl} onClick={() => openExternal(exchangeUrl)}>
+          <OptionButton
+            icon={<ExchangeIcon />}
+            arrow
+            disabled={!exchangeUrl}
+            onClick={() => openExternal(exchangeUrl)}
+            textAlign="flex-start"
+          >
             <OptionContent>
               <OptionTitle>{locales.buyScreen_exchange_title}</OptionTitle>
             </OptionContent>
           </OptionButton>
-          <OptionButton icon={<WalletIcon />} arrow onClick={() => context.setRoute(routes.RECEIVE)}>
+          <OptionButton
+            icon={<WalletIcon />}
+            arrow
+            onClick={() => context.setRoute(routes.RECEIVE)}
+            textAlign="flex-start"
+          >
             <OptionContent>
               <OptionTitle>{locales.buyScreen_wallet_title}</OptionTitle>
             </OptionContent>
