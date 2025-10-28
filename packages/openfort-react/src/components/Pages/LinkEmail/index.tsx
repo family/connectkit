@@ -5,10 +5,11 @@ import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
-import { ModalBody, PageContent } from '../../Common/Modal/styles'
+import { ModalBody } from '../../Common/Modal/styles'
 import { TextContainer } from '../../ConnectButton/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 
 // TODO: Localize
 

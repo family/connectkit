@@ -4,12 +4,13 @@ import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
 import { useWallets } from '../../../wallets/useWallets'
 import { walletConfigs } from '../../../wallets/walletConfigs'
 import CopyToClipboard from '../../Common/CopyToClipboard'
-import { ModalContent, PageContent } from '../../Common/Modal/styles'
+import { ModalContent } from '../../Common/Modal/styles'
 import { ScrollArea } from '../../Common/ScrollArea'
 import { Spinner } from '../../Common/Spinner'
 import { useWeb3 } from '../../contexts/web3'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 import { Container, WalletIcon, WalletItem, WalletLabel, WalletList } from './styles'
 
 const MoreIcon = (
@@ -46,7 +47,7 @@ const MobileConnectors: React.FC = () => {
   }
 
   return (
-    <PageContent style={{ width: 312 }}>
+    <PageContent width={312} onBack={routes.PROVIDERS}>
       <Container>
         <ModalContent style={{ paddingBottom: 0 }}>
           <ScrollArea height={340}>

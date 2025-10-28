@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { keyframes } from 'styled-components'
 import defaultTheme from '../../../constants/defaultTheme'
 import styled from '../../../styles/styled'
+import { PageContentStyle } from '../../PageContent/styles'
 
 export const ErrorMessage = styled(motion.div)`
   z-index: -1;
@@ -63,12 +64,6 @@ from { opacity: 1; transform: scale(1); }
 const FadeOutScaleDown = keyframes`
 from { opacity: 1; transform: scale(1); }
   to { opacity: 0; transform: scale(0.85); }
-`
-
-export const PageContent = styled(motion.div)`
-  max-width: 100%;
-  width: 295px;
-  padding-top: 48px;
 `
 
 export const TextWithHr = styled(motion.div)<{
@@ -385,7 +380,7 @@ export const PageContents = styled(motion.div)`
 `
 
 export const ModalContainer = styled.div`
-  z-index: 2147483646; // z-index set one below max (2147483647) for if we wish to layer things ontop of the modal in a seperate Portal
+  z-index: 2147483646; // z-index set one below max (2147483647) for if we wish to layer things on top of the modal in a separate Portal
   position: fixed;
   inset: 0;
 `
@@ -549,7 +544,7 @@ export const Container = styled(motion.div)`
       margin: 0 auto;
       width: auto;
     }
-    ${PageContent} {
+    ${PageContentStyle} {
       margin: 0 auto;
       width: 100% !important;
     }

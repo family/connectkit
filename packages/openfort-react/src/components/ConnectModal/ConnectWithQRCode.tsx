@@ -12,19 +12,20 @@ import Button from '../Common/Button'
 import CopyToClipboard from '../Common/CopyToClipboard'
 import CustomQRCode from '../Common/CustomQRCode'
 import { OrDivider } from '../Common/Modal'
-import { ModalContent, PageContent } from '../Common/Modal/styles'
+import { ModalContent } from '../Common/Modal/styles'
 import { useWeb3 } from '../contexts/web3'
 import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
+import { PageContent } from '../PageContent'
 
 const ConnectWithQRCode: React.FC<{
   switchConnectMethod: (id?: string) => void
 }> = ({ switchConnectMethod }) => {
-  const context = useOpenfort()
+  const { connector, setRoute, uiConfig } = useOpenfort()
 
-  const id = context.connector.id
+  const id = connector.id
 
-  const wallet = useWallet(context.connector.id)
+  const wallet = useWallet(connector.id)
 
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal()
   const {
@@ -69,7 +70,7 @@ const ConnectWithQRCode: React.FC<{
     }
   }, [isConnected])
 
-  if (!wallet) return <>Wallet not found {context.connector.id}</>
+  if (!wallet) return <>Wallet not found {connector.id}</>
 
   const downloads = wallet?.downloadUrls
   const extensions = {
@@ -126,14 +127,14 @@ const ConnectWithQRCode: React.FC<{
             gap: 14,
           }}
         >
-          {context.uiConfig.walletConnectCTA !== 'modal' && (
+          {uiConfig.walletConnectCTA !== 'modal' && (
             <CopyToClipboard variant="button" string={uri}>
-              {context.uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
+              {uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
             </CopyToClipboard>
           )}
-          {context.uiConfig.walletConnectCTA !== 'link' && (
+          {uiConfig.walletConnectCTA !== 'link' && (
             <Button icon={<ExternalLinkIcon />} onClick={openW3M} disabled={isOpenW3M} waiting={isOpenW3M}>
-              {context.uiConfig.walletConnectCTA === 'modal' ? locales.useWalletConnectModal : locales.useModal}
+              {uiConfig.walletConnectCTA === 'modal' ? locales.useWalletConnectModal : locales.useModal}
             </Button>
           )}
         </div>
@@ -166,7 +167,7 @@ const ConnectWithQRCode: React.FC<{
       {hasApps && (
         <Button
           onClick={() => {
-            context.setRoute(routes.DOWNLOAD)
+            setRoute(routes.DOWNLOAD)
           }}
           /*
             icon={

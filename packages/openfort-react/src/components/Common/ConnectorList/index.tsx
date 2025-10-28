@@ -112,7 +112,6 @@ const ConnectorItem = ({ wallet, isRecent }: { wallet: WalletProps; isRecent?: b
   return (
     <ConnectorButton
       type="button"
-      disabled={context.route !== routes.CONNECTORS}
       onClick={() => {
         if (isMobile && deeplink) {
           context.setRoute(routes.CONNECT_WITH_MOBILE)
@@ -126,7 +125,7 @@ const ConnectorItem = ({ wallet, isRecent }: { wallet: WalletProps; isRecent?: b
           if (shouldConnectImmediately) {
             connect({ connector: wallet?.connector })
           }
-          context.setRoute(routes.CONNECT)
+          context.setRoute({ route: routes.CONNECT, connectType: 'linkIfUserConnectIfNoUser' })
           context.setConnector({ id: wallet.id })
         }
       }}

@@ -1,4 +1,3 @@
-import type React from 'react'
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { useConnect } from '../../../hooks/useConnect'
@@ -6,9 +5,9 @@ import useIsMobile from '../../../hooks/useIsMobile'
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
 import ConnectorList from '../../Common/ConnectorList'
 import Loader from '../../Common/Loading'
-import { PageContent } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 
 const ConnectWithMobile = () => {
   const { open: openWalletConnectModal } = useWalletConnectModal()
@@ -54,10 +53,15 @@ const ConnectWithMobile = () => {
   )
 }
 
-const Wallets: React.FC = () => {
+const Connectors = ({ logoutOnBack }: { logoutOnBack?: boolean }) => {
   const isMobile = useIsMobile()
 
-  return <PageContent style={{ width: 312 }}>{isMobile ? <ConnectWithMobile /> : <ConnectorList />}</PageContent>
+  return (
+    // TODO: logout on back
+    <PageContent logoutOnBack={logoutOnBack} width={312}>
+      {isMobile ? <ConnectWithMobile /> : <ConnectorList />}
+    </PageContent>
+  )
 }
 
-export default Wallets
+export default Connectors

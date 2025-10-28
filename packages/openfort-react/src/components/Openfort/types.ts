@@ -1,6 +1,7 @@
-import type { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js'
+import type { AccountTypeEnum, OAuthProvider, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
 import type { ReactNode } from 'react'
+import type { UserWallet } from '../../hooks/openfort/useWallets'
 import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
 
 export const routes = {
@@ -8,8 +9,13 @@ export const routes = {
   SOCIAL_PROVIDERS: 'socialProviders',
 
   LOADING: 'loading',
-  RECOVER: 'recover',
+  LOAD_WALLETS: 'loadWallets',
+  RECOVER_WALLET: 'recoverWallets',
+  SELECT_WALLET_TO_RECOVER: 'selectWalletToRecover',
+  CREATE_WALLET: 'createWallet',
+  CONNECTED: 'connected',
 
+  CREATE_GUEST_USER: 'createGuestUser',
   EMAIL_LOGIN: 'emailLogin',
   FORGOT_PASSWORD: 'forgotPassword',
   EMAIL_VERIFICATION: 'emailVerification',
@@ -28,6 +34,53 @@ export const routes = {
   SWITCHNETWORKS: 'switchNetworks',
 } as const
 
+type AllRoutes = (typeof routes)[keyof typeof routes]
+
+export const notStoredInHistoryRoutes: AllRoutes[] = [
+  routes.LOADING,
+  routes.CONNECTED,
+  routes.ONBOARDING,
+  routes.ABOUT,
+  routes.LOAD_WALLETS,
+  routes.CREATE_GUEST_USER,
+]
+
+type ConnectOptions =
+  | {
+      connectType: 'link' | 'connect' | 'linkIfUserConnectIfNoUser'
+    }
+  | {
+      connectType: 'recover'
+      wallet: UserWallet
+    }
+
+// export type ConnectType = ConnectOptions['connectType']
+
+type RoutesWithOptions =
+  | ({ route: typeof routes.CONNECTORS } & ConnectOptions)
+  | ({ route: typeof routes.CONNECT } & ConnectOptions)
+  | { route: typeof routes.RECOVER_WALLET; wallet: UserWallet }
+
+export type RoutesWithoutOptions = {
+  route: Exclude<AllRoutes, RoutesWithOptions['route']>
+}
+
+// RouteOptions can be either routes without options or routes with options (both objects)
+export type RouteOptions = RoutesWithoutOptions | RoutesWithOptions
+
+// SetRouteOptions can be either a RouteOptions object or just the route string for routes without options
+export type SetRouteOptions = RouteOptions | RoutesWithoutOptions['route']
+
+export type Connector =
+  | {
+      id: string
+      type?: 'wallet'
+    }
+  | {
+      id: OAuthProvider
+      type: 'oauth'
+    }
+
 export enum UIAuthProvider {
   GOOGLE = 'google',
   TWITTER = 'twitter',
@@ -45,6 +98,8 @@ export enum UIAuthProvider {
   GUEST = 'guest',
 }
 
+export type ErrorMessage = string | React.ReactNode | null
+
 export const socialProviders = [
   UIAuthProvider.GOOGLE,
   UIAuthProvider.TWITTER,
@@ -52,6 +107,12 @@ export const socialProviders = [
   UIAuthProvider.DISCORD,
   UIAuthProvider.APPLE,
 ]
+
+export enum LinkWalletOnSignUpOption {
+  OPTIONAL = 'optional',
+  REQUIRED = 'required',
+  DISABLED = 'disabled',
+}
 
 type PolicyConfig = string | Record<number, string>
 
@@ -88,7 +149,7 @@ type EncryptionSession =
 export type OpenfortWalletConfig = CommonWalletConfig & EncryptionSession
 
 type OpenfortUIOptions = {
-  linkWalletOnSignUp?: boolean
+  linkWalletOnSignUp?: LinkWalletOnSignUpOption
 
   authProviders: UIAuthProvider[]
   skipEmailVerification?: boolean

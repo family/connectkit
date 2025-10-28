@@ -1,4 +1,4 @@
-import { AuthProvider, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
+import { AuthProvider, LinkWalletOnSignUpOption, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
 import { beamTestnet, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
 
@@ -21,6 +21,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
       AuthProvider.GOOGLE,
       AuthProvider.FACEBOOK,
       AuthProvider.TWITTER,
+      AuthProvider.DISCORD,
     ],
     avoidLayoutShift: undefined,
     bufferPolyfill: undefined,
@@ -40,9 +41,10 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     skipEmailVerification: undefined,
     truncateLongENSAddress: undefined,
     walletConnectCTA: undefined,
-    linkWalletOnSignUp: undefined,
+
+    linkWalletOnSignUp: LinkWalletOnSignUpOption.OPTIONAL,
     walletRecovery: {
-      defaultMethod: RecoveryMethod.PASSKEY,
+      defaultMethod: RecoveryMethod.PASSWORD,
       allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
     },
   },
@@ -57,13 +59,22 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     },
 
     debug: false,
-    // getEncryptionSession: undefined, // Optional function to get the encryption session
-
+    getEncryptionSession: undefined, // Optional function to get the encryption session
     createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
+    recoverWalletAutomaticallyAfterAuth: undefined,
+    accountType: undefined,
   },
   onConnect: undefined,
   onDisconnect: undefined,
 
+  overrides: {
+    backendUrl: undefined,
+    crypto: undefined,
+    storage: undefined,
+    iframeUrl: undefined,
+    shieldUrl: undefined,
+  },
+  thirdPartyAuth: undefined,
   debugMode: true,
 }
 

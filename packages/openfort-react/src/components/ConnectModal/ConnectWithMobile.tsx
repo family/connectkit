@@ -10,10 +10,10 @@ import { walletConfigs } from '../../wallets/walletConfigs'
 import Button from '../Common/Button'
 import FitText from '../Common/FitText'
 import Loader from '../Common/Loading'
-import { PageContent } from '../Common/Modal/styles'
 import { useWeb3 } from '../contexts/web3'
 import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
+import { PageContent } from '../PageContent'
 
 const states = {
   INIT: 'init',

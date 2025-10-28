@@ -52,6 +52,9 @@
         "noExplicitAny": "off",
         "noConsole": {
           "level": "error"
+        },
+        "noAlert": {
+          "level": "error"
         }
       }
     }

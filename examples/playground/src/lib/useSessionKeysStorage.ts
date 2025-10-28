@@ -7,7 +7,13 @@ type PrivateKeysMap = Record<Key, PrivateKey[]>
 
 const STORAGE_KEY = 'openfort.playground.sessionkeys'
 
-export function useSessionKeysStorage() {
+// Simulated backend storage for session keys using localStorage
+// ----------------------------------------------------------------
+// This is a simple simulation of backend storage for session keys.
+// In a real application, you would implement secure storage on your backend server.
+// DO NOT USE IN PRODUCTION. NEVER STORE PRIVATE KEYS IN LOCALSTORAGE IN A REAL APP.
+// --------------------------------------------------------------
+export function useSessionKeysStorage_backendSimulation() {
   const [keys, setKeys] = useState<PrivateKeysMap>(() => {
     if (typeof window === 'undefined') return {}
     try {

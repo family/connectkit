@@ -4,9 +4,10 @@ import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
-import { ModalBody, PageContent } from '../../Common/Modal/styles'
+import { ModalBody } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 
 // TODO: Localize
 const RequestEmail: React.FC = () => {
@@ -147,7 +148,7 @@ const ResetPassword: React.FC = () => {
 
       window.history.replaceState({}, document.title, url.toString())
 
-      setRoute(routes.RECOVER)
+      setRoute(routes.LOAD_WALLETS)
     } catch (e) {
       logger.log('Reset password error', e)
 
