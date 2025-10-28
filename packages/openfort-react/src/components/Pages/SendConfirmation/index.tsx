@@ -11,6 +11,7 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from 'wagmi'
+import { TickIcon } from '../../../assets/icons'
 import { erc20Abi } from '../../../constants/erc20'
 import { ERC20_TOKEN_LIST } from '../../../constants/tokenList'
 import { useTokenCache } from '../../../hooks/useTokenCache'
@@ -31,7 +32,6 @@ import {
   SummaryLabel,
   SummaryList,
   SummaryValue,
-  TransactionLink,
 } from './styles'
 
 const SendConfirmation = () => {
@@ -211,15 +211,15 @@ const SendConfirmation = () => {
 
   const status: 'idle' | 'success' | 'error' = isSuccess ? 'success' : firstError ? 'error' : 'idle'
   const statusMessage =
-    status === 'error'
-      ? firstError instanceof Error
-        ? firstError.message
-        : 'Transaction failed.'
-      : isLoading
-        ? 'Awaiting transaction confirmation...'
-        : ''
+    status === 'error' ? (firstError instanceof Error ? firstError.message : 'Transaction failed.') : ''
 
   const blockExplorerUrl = chain?.blockExplorers?.default?.url
+
+  const handleOpenBlockExplorer = () => {
+    if (receipt?.transactionHash && blockExplorerUrl) {
+      window.open(`${blockExplorerUrl}/tx/${receipt.transactionHash}`, '_blank', 'noopener,noreferrer')
+    }
+  }
 
   useEffect(() => {
     setTimeout(triggerResize, 10) // delay required here for modal to resize
@@ -267,42 +267,26 @@ const SendConfirmation = () => {
 
       {statusMessage && <StatusMessage $status={status}>{statusMessage}</StatusMessage>}
 
-      {isSuccess && receipt?.transactionHash && (
-        <StatusMessage $status="success">
-          Transaction confirmed:{' '}
-          {blockExplorerUrl ? (
-            <TransactionLink
-              href={`${blockExplorerUrl}/tx/${receipt.transactionHash}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {receipt.transactionHash}
-            </TransactionLink>
-          ) : (
-            receipt.transactionHash
-          )}
-        </StatusMessage>
-      )}
-
       <ButtonRow>
+        <Button
+          variant="primary"
+          onClick={isSuccess ? handleOpenBlockExplorer : handleConfirm}
+          disabled={
+            isSuccess ? false : !recipientAddress || !parsedAmount || parsedAmount <= BigInt(0) || insufficientBalance
+          }
+          waiting={isLoading}
+          icon={isSuccess ? <TickIcon style={{ width: 18, height: 18 }} /> : undefined}
+        >
+          {isSuccess ? 'Confirmed' : isLoading ? 'Confirming...' : 'Confirm'}
+        </Button>
         {isSuccess ? (
-          <Button variant="primary" onClick={handleFinish}>
+          <Button variant="secondary" onClick={handleFinish}>
             Back to profile
           </Button>
         ) : (
-          <>
-            <Button
-              variant="primary"
-              onClick={handleConfirm}
-              disabled={!recipientAddress || !parsedAmount || parsedAmount <= BigInt(0) || insufficientBalance}
-              waiting={isLoading}
-            >
-              Confirm
-            </Button>
-            <Button variant="secondary" onClick={handleCancel} disabled={isLoading}>
-              Cancel
-            </Button>
-          </>
+          <Button variant="secondary" onClick={handleCancel} disabled={isLoading}>
+            Cancel
+          </Button>
         )}
       </ButtonRow>
     </PageContent>
