@@ -179,7 +179,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
             Connect wallet
           </Button>
         )}
-        <LinkedProviders />
       </ModalContent>
       {!isSafeConnector(connector?.id) && (
         <Button onClick={() => setShouldDisconnect(true)} icon={<DisconnectIcon />}>
