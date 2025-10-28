@@ -39,11 +39,35 @@ export const AddressValue = styled(SummaryValue)`
   gap: 8px;
 `
 
+export const FeesValue = styled(SummaryValue)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+`
+
 export const GasInfo = styled.div`
   margin-top: 4px;
   font-size: 13px;
   color: var(--ck-body-color-muted);
   text-align: right;
+`
+
+export const InfoIconWrapper = styled.span`
+  color: var(--ck-body-color-muted);
+  opacity: 0.6;
+  line-height: 0;
+  
+  &:hover {
+    opacity: 1;
+  }
+  
+  svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+  }
 `
 
 export const ButtonRow = styled.div`

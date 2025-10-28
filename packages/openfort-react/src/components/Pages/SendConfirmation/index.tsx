@@ -19,6 +19,7 @@ import { truncateEthAddress } from '../../../utils'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
+import Tooltip from '../../Common/Tooltip'
 import { routes, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { formatBalance, sanitiseForParsing } from '../Send/utils'
@@ -26,13 +27,21 @@ import {
   AddressValue,
   AmountValue,
   ButtonRow,
-  GasInfo,
+  FeesValue,
+  InfoIconWrapper,
   StatusMessage,
   SummaryItem,
   SummaryLabel,
   SummaryList,
   SummaryValue,
 } from './styles'
+
+const InfoIcon = () => (
+  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M7 10V6.5M7 4.5H7.005" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+)
 
 const SendConfirmation = () => {
   const { address, chain } = useAccount()
@@ -255,11 +264,21 @@ const SendConfirmation = () => {
           </SummaryValue>
         </SummaryItem>
         <SummaryItem>
-          <SummaryLabel>Estimated gas</SummaryLabel>
-          <SummaryValue>
-            {gasEstimate ? gasEstimate.toString() : '--'}
-            {gasCost ? <GasInfo>≈ {formatBalance(gasCost, 18)} ETH</GasInfo> : null}
-          </SummaryValue>
+          <SummaryLabel>Estimated fees</SummaryLabel>
+          <FeesValue>
+            {gasCost ? (
+              <>
+                ≈ {formatBalance(gasCost, 18)} {nativeBalance?.symbol || 'ETH'}
+                <Tooltip message={`${gasEstimate?.toString()} gas units`} delay={0.2}>
+                  <InfoIconWrapper>
+                    <InfoIcon />
+                  </InfoIconWrapper>
+                </Tooltip>
+              </>
+            ) : (
+              '--'
+            )}
+          </FeesValue>
         </SummaryItem>
       </SummaryList>
 
