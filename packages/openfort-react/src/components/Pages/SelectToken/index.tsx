@@ -1,4 +1,6 @@
 import { useEffect, useMemo } from 'react'
+import { formatUnits } from 'viem'
+import { useTokenUsdPrices } from '../../../hooks/useTokenUsdPrices'
 import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -16,6 +18,12 @@ import {
 } from './styles'
 
 const ZERO = BigInt(0)
+const usdFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})
 
 const SelectToken = () => {
   const { setSendForm, setRoute, triggerResize } = useOpenfort()
@@ -25,6 +33,8 @@ const SelectToken = () => {
     () => tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO),
     [tokenOptions]
   )
+
+  const usdPrices = useTokenUsdPrices(selectableTokens)
 
   const handleSelect = (token: TokenOptionWithBalance) => {
     setSendForm((prev) => {
@@ -57,14 +67,29 @@ const SelectToken = () => {
         {selectableTokens.map((token) => {
           const key = token.type === 'erc20' ? token.address : 'native'
           const displayName = token.name || token.symbol
-          // TODO: Add USD price fetching and display here
-          const usdValue = null // Placeholder for future USD price integration
+          const symbolKey = token.symbol?.toUpperCase()
+          const pricePerToken = symbolKey ? usdPrices[symbolKey] : undefined
+          let usdValue: string | null = null
+
+          if (pricePerToken !== undefined && token.balanceValue !== undefined) {
+            const amount = parseFloat(formatUnits(token.balanceValue, token.decimals))
+            if (Number.isFinite(amount)) {
+              const totalUsd = amount * pricePerToken
+              if (totalUsd >= 0.01) {
+                usdValue = usdFormatter.format(totalUsd)
+              } else if (totalUsd > 0) {
+                usdValue = '<$0.01'
+              } else {
+                usdValue = usdFormatter.format(0)
+              }
+            }
+          }
 
           return (
             <TokenButton key={key} type="button" onClick={() => handleSelect(token)}>
               <TokenInfo>
                 <TokenSymbol>{displayName}</TokenSymbol>
-                {usdValue ? <TokenName>${usdValue}</TokenName> : null}
+                {usdValue ? <TokenName>{usdValue}</TokenName> : null}
               </TokenInfo>
               <TokenBalance>{formatBalanceWithSymbol(token.balanceValue, token.decimals, token.symbol)}</TokenBalance>
             </TokenButton>
