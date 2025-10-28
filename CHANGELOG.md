@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0
+
+### Minor Changes
+
+- [#69](https://github.com/openfort-xyz/openfort-react/pull/69) [`89d5ce2`](https://github.com/openfort-xyz/openfort-react/commit/89d5ce2b73a99d8a5ccc6f4770a167bbd466b5ec) Thanks [@martimayoral](https://github.com/martimayoral)! - Refactor internal routes
+
+- [#69](https://github.com/openfort-xyz/openfort-react/pull/69) [`89d5ce2`](https://github.com/openfort-xyz/openfort-react/commit/89d5ce2b73a99d8a5ccc6f4770a167bbd466b5ec) Thanks [@martimayoral](https://github.com/martimayoral)! - update walletOnSignUp option
+
 ## 0.0.34
 
 ### Patch Changes
