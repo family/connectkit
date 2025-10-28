@@ -1,6 +1,6 @@
 import type { Address } from 'viem'
 
-export type TokenConfig = {
+type TokenConfig = {
   symbol: string
   address: Address
   decimals: number

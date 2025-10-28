@@ -57,10 +57,6 @@ const updateFetchState = (key: string, success: boolean): void => {
   })
 }
 
-export interface TokenPrices {
-  [symbol: string]: number
-}
-
 interface FetchPricesOptions {
   coingeckoIds: string[]
   signal?: AbortSignal
