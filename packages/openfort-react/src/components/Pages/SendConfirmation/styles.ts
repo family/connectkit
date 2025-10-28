@@ -91,6 +91,34 @@ export const StatusMessage = styled.div<{
   text-align: center;
 `
 
+export const ErrorContainer = styled.div`
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--ck-body-background-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--ck-body-color-danger, rgba(255, 71, 71, 0.2));
+`
+
+export const ErrorTitle = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ck-body-color-danger);
+  margin-bottom: 8px;
+`
+
+export const ErrorMessage = styled.div`
+  font-size: 14px;
+  color: var(--ck-body-color);
+  margin-bottom: 8px;
+  line-height: 1.4;
+`
+
+export const ErrorAction = styled.div`
+  font-size: 13px;
+  color: var(--ck-body-color-muted);
+  line-height: 1.4;
+`
+
 export const TransactionLink = styled.a`
   color: var(--ck-body-color-valid);
   text-decoration: underline;

@@ -15,6 +15,7 @@ import { ERC20_TOKEN_LIST } from '../../../constants/tokenList'
 import { useTokenCache } from '../../../hooks/useTokenCache'
 import { useTokens } from '../../../hooks/useTokens'
 import { truncateEthAddress } from '../../../utils'
+import { parseTransactionError } from '../../../utils/errorHandling'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
@@ -26,6 +27,10 @@ import {
   AddressValue,
   AmountValue,
   ButtonRow,
+  ErrorAction,
+  ErrorContainer,
+  ErrorMessage,
+  ErrorTitle,
   FeesValue,
   StatusMessage,
   SummaryItem,
@@ -190,8 +195,7 @@ const SendConfirmation = () => {
   }
 
   const status: 'idle' | 'success' | 'error' = isSuccess ? 'success' : firstError ? 'error' : 'idle'
-  const statusMessage =
-    status === 'error' ? (firstError instanceof Error ? firstError.message : 'Transaction failed.') : ''
+  const errorDetails = status === 'error' ? parseTransactionError(firstError) : null
 
   const blockExplorerUrl = chain?.blockExplorers?.default?.url
 
@@ -204,7 +208,7 @@ const SendConfirmation = () => {
   useEffect(() => {
     setTimeout(triggerResize, 10) // delay required here for modal to resize
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusMessage, insufficientBalance, receipt?.transactionHash, isLoading])
+  }, [errorDetails, insufficientBalance, receipt?.transactionHash, isLoading])
 
   return (
     <PageContent>
@@ -253,7 +257,13 @@ const SendConfirmation = () => {
 
       {insufficientBalance && <StatusMessage $status="error">Insufficient balance for this transfer.</StatusMessage>}
 
-      {statusMessage && <StatusMessage $status={status}>{statusMessage}</StatusMessage>}
+      {errorDetails && (
+        <ErrorContainer>
+          <ErrorTitle>{errorDetails.title}</ErrorTitle>
+          <ErrorMessage>{errorDetails.message}</ErrorMessage>
+          {errorDetails.action && <ErrorAction>{errorDetails.action}</ErrorAction>}
+        </ErrorContainer>
+      )}
 
       <ButtonRow>
         <Button
