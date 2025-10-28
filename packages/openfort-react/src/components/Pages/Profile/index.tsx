@@ -17,7 +17,6 @@ import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemePr
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviders } from './LinkedProviders'
 import {
   ActionButton,
   ActionButtonsContainer,
