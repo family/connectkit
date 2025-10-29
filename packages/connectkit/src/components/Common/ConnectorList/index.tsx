@@ -19,6 +19,7 @@ import {
   detectBrowser,
   isCoinbaseWalletConnector,
   isBaseAccountConnector,
+  isPortoConnector,
   isWalletConnectConnector,
 } from '../../../utils';
 import { useLastConnector } from '../../../hooks/useLastConnector';
@@ -123,7 +124,8 @@ const ConnectorItem = ({
   const shouldConnectImmediately =
     (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
     (isCoinbaseWalletConnector(wallet.connector.id) ||
-      isBaseAccountConnector(wallet.connector.id));
+      isBaseAccountConnector(wallet.connector.id) ||
+      isPortoConnector(wallet.connector.id));
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 
