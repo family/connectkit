@@ -1,16 +1,7 @@
 import type { ReactNode } from 'react'
-import { useAccount } from 'wagmi'
 import { CardIcon, ExchangeIcon, WalletIcon } from '../../../assets/icons'
 import useLocales from '../../../hooks/useLocales'
 import { flattenChildren } from '../../../utils'
-import {
-  buildCoinbaseOnrampUrl,
-  buildMoonPayUrl,
-  buildStripeOnrampUrl,
-  getBlockchainForChain,
-  getMoonPayCurrencyCode,
-  getNativeAssetForChain,
-} from '../../../utils/onrampProviders'
 import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -26,46 +17,9 @@ const localeToString = (value: unknown): string => {
 const Buy = () => {
   const context = useOpenfort()
   const locales = useLocales()
-  const { address, chain } = useAccount()
 
-  const onRampProviders = context.uiConfig.onRampProviders
-  const blockchain = getBlockchainForChain(chain?.id)
-  const nativeAsset = getNativeAssetForChain(chain?.id)
-
-  // Build dynamic URLs for configured providers
-  const coinbaseUrl =
-    address && onRampProviders?.coinbase
-      ? buildCoinbaseOnrampUrl({
-          appId: onRampProviders.coinbase.appId,
-          walletAddress: address,
-          blockchain,
-          asset: nativeAsset,
-        })
-      : undefined
-
-  const stripeUrl =
-    address && onRampProviders?.stripe
-      ? buildStripeOnrampUrl({
-          publishableKey: onRampProviders.stripe.publishableKey,
-          walletAddress: address,
-          network: blockchain,
-        })
-      : undefined
-
-  const moonpayUrl =
-    address && onRampProviders?.moonpay
-      ? buildMoonPayUrl({
-          apiKey: onRampProviders.moonpay.apiKey,
-          walletAddress: address,
-          currencyCode: getMoonPayCurrencyCode(blockchain),
-        })
-      : undefined
-
-  // Legacy URL fallbacks (backward compatibility)
-  const cardUrl =
-    coinbaseUrl ?? stripeUrl ?? context.uiConfig.buyWithCardUrl ?? localeToString(locales.buyScreen_payWithCard_url)
-  const exchangeUrl =
-    moonpayUrl ?? context.uiConfig.buyFromExchangeUrl ?? localeToString(locales.buyScreen_exchange_url)
+  const cardUrl = context.uiConfig.buyWithCardUrl ?? localeToString(locales.buyScreen_payWithCard_url)
+  const exchangeUrl = context.uiConfig.buyFromExchangeUrl ?? localeToString(locales.buyScreen_exchange_url)
   const helpUrl = context.uiConfig.buyTroubleshootingUrl ?? localeToString(locales.buyScreen_help_url)
 
   const openExternal = (url?: string) => {
