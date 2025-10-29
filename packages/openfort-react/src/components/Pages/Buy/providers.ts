@@ -1,4 +1,4 @@
-import type { BuyProviderId, SendTokenOption } from '../../Openfort/types'
+import type { BuyProviderId } from '../../Openfort/types'
 
 export type ProviderDefinition = {
   id: BuyProviderId
@@ -11,12 +11,8 @@ export type ProviderDefinition = {
 
 export type ProviderQuote = {
   provider: ProviderDefinition
-  tokenAmount: number | null
-  totalFiatAmount: number | null
-  feeFiatAmount: number | null
-  rate: number | null
-  raw?: unknown
-  error?: string
+  netAmount: number | null
+  feeAmount: number | null
 }
 
 const PROVIDERS: ProviderDefinition[] = [
@@ -49,15 +45,23 @@ export const getProviders = () => PROVIDERS
 
 export const getProviderById = (id: BuyProviderId) => PROVIDERS.find((item) => item.id === id) ?? PROVIDERS[0]
 
-export const createEmptyQuote = (provider: ProviderDefinition): ProviderQuote => ({
-  provider,
-  tokenAmount: null,
-  totalFiatAmount: null,
-  feeFiatAmount: null,
-  rate: null,
-})
+export const getProviderQuotes = (amount: number | null): ProviderQuote[] => {
+  return PROVIDERS.map((provider) => {
+    if (amount === null || Number.isNaN(amount) || amount <= 0) {
+      return {
+        provider,
+        netAmount: null,
+        feeAmount: null,
+      }
+    }
 
-export const createUnsupportedTokenQuote = (provider: ProviderDefinition, token: SendTokenOption): ProviderQuote => ({
-  ...createEmptyQuote(provider),
-  error: `${provider.name} does not support ${token.symbol ?? 'this token'}`,
-})
+    const feeAmount = +(amount * (provider.feeBps / 10_000)).toFixed(2)
+    const netAmount = Math.max(amount - feeAmount, 0)
+
+    return {
+      provider,
+      netAmount,
+      feeAmount,
+    }
+  })
+}

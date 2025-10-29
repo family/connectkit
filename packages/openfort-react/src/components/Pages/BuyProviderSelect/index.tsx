@@ -2,9 +2,8 @@ import { useEffect, useMemo } from 'react'
 import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
 import { type BuyProviderId, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import { getProviders } from '../Buy/providers'
-import { getQuoteForProvider, useBuyQuotes } from '../Buy/useBuyQuotes'
-import { createCurrencyFormatter, formatTokenAmount } from '../Buy/utils'
+import { getProviderQuotes, getProviders } from '../Buy/providers'
+import { createCurrencyFormatter } from '../Buy/utils'
 import { sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
 import {
   EmptyState,
@@ -35,15 +34,11 @@ const BuyProviderSelect = () => {
     return numeric
   }, [normalizedAmount])
 
-  const { quotes, isLoading: quotesLoading } = useBuyQuotes({
-    fiatAmount,
-    fiatCurrency: buyForm.currency,
-    token: buyForm.token,
-  })
+  const quotes = useMemo(() => getProviderQuotes(fiatAmount), [fiatAmount])
   useEffect(() => {
     triggerResize()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quotes.length, quotesLoading])
+  }, [quotes.length])
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
 
   const tokenSymbol = buyForm.token.symbol || 'Token'
@@ -64,19 +59,9 @@ const BuyProviderSelect = () => {
     return (
       <ProviderList>
         {providers.map((provider) => {
-          const quote = getQuoteForProvider(quotes, provider.id)
-          const netDisplay =
-            quote.tokenAmount !== null
-              ? `${formatTokenAmount(quote.tokenAmount, buyForm.token.decimals ?? 6)} ${tokenSymbol}`
-              : quotesLoading
-                ? 'Fetching...'
-                : '--'
-          const fiatDisplay =
-            quote.totalFiatAmount !== null
-              ? currencyFormatter.format(quote.totalFiatAmount)
-              : fiatAmount !== null
-                ? currencyFormatter.format(fiatAmount)
-                : '--'
+          const quote = quotes.find((item) => item.provider.id === provider.id)
+          const netDisplay = quote && quote.netAmount !== null ? `${quote.netAmount.toFixed(2)} ${tokenSymbol}` : '--'
+          const fiatDisplay = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : '--'
           const feePercentage = (provider.feeBps / 100).toFixed(2)
           const highlight =
             provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
@@ -85,11 +70,7 @@ const BuyProviderSelect = () => {
           if (provider.tagline && provider.tagline !== highlight) {
             metaParts.push(provider.tagline)
           }
-          if (quote.error) {
-            metaParts.push(quote.error)
-          } else {
-            metaParts.push(`Fee ${feePercentage}%`)
-          }
+          metaParts.push(`Fee ${feePercentage}%`)
           const metaText = metaParts.join(' • ')
 
           const isActive = buyForm.providerId === provider.id

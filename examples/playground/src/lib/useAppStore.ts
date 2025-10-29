@@ -6,32 +6,9 @@ type EditingEntity = {
   id: string
 }
 
-const env = import.meta.env
-
-const getEnvValue = (key: string) => {
-  const value = env[key as keyof typeof env] as string | undefined
-  return typeof value === 'string' && value.length > 0 ? value : undefined
-}
-
-const publishableKey = getEnvValue('VITE_OPENFORT_PUBLISHABLE_KEY') ?? ''
-const shieldPublishableKey = getEnvValue('VITE_OPENFORT_SHIELD_KEY') ?? ''
-const shieldSessionUrl = getEnvValue('VITE_OPENFORT_SHIELD_SESSION_URL')
-
-const polygonPolicyId = getEnvValue('VITE_OPENFORT_POLICY_POLYGON_AMOY')
-const beamPolicyId = getEnvValue('VITE_OPENFORT_POLICY_BEAM_TESTNET')
-const baseSepoliaPolicyId = getEnvValue('VITE_OPENFORT_POLICY_BASE_SEPOLIA')
-
-const policyEntries = [
-  [polygonAmoy.id, polygonPolicyId],
-  [beamTestnet.id, beamPolicyId],
-  [baseSepolia.id, baseSepoliaPolicyId],
-].filter(([, value]) => Boolean(value)) as Array<[number, string]>
-
-const ethereumPolicyConfig = policyEntries.length ? Object.fromEntries(policyEntries) : undefined
-
 const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
   // Set the publishable key of your Openfort account. This field is required.
-  publishableKey,
+  publishableKey: import.meta.env.VITE_PUBLISHABLE_KEY,
 
   uiConfig: {
     theme: 'auto',
@@ -74,14 +51,18 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
 
   // Set the wallet configuration. In this example, we will be using the embedded signer.
   walletConfig: {
-    shieldPublishableKey,
+    shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY,
 
-    ethereumProviderPolicyId: ethereumPolicyConfig,
+    ethereumProviderPolicyId: {
+      [polygonAmoy.id]: import.meta.env.VITE_POLYGON_POLICY_ID!,
+      [beamTestnet.id]: import.meta.env.VITE_BEAM_POLICY_ID!,
+      [baseSepolia.id]: import.meta.env.VITE_BASE_SEPOLIA_POLICY_ID!,
+    },
 
     debug: false,
     // getEncryptionSession: undefined, // Optional function to get the encryption session
 
-    createEncryptedSessionEndpoint: shieldSessionUrl,
+    createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
   },
   onConnect: undefined,
   onDisconnect: undefined,
