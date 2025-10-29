@@ -59,16 +59,15 @@ export const PresetButton = styled.button<{ $active?: boolean }>`
   flex: 1;
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid ${({ $active }) => ($active ? 'var(--ck-accent-color)' : 'var(--ck-body-divider)')};
-  background: var(--ck-secondary-button-background);
-  color: ${({ $active }) => ($active ? 'var(--ck-accent-color)' : 'var(--ck-body-color)')};
+  border: none;
+  background: ${({ $active }) => ($active ? 'var(--ck-accent-color)' : 'var(--ck-secondary-button-background)')};
+  color: ${({ $active }) => ($active ? 'var(--ck-accent-text-color)' : 'var(--ck-body-color)')};
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 
   &:hover {
-    background: var(--ck-secondary-button-hover-background);
+    background: ${({ $active }) => ($active ? 'var(--ck-accent-color)' : 'var(--ck-secondary-button-hover-background)')};
   }
 `
 

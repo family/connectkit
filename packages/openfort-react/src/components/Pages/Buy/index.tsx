@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import useLocales from '../../../hooks/useLocales'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
@@ -32,6 +32,7 @@ const Buy = () => {
   const { buyForm, setBuyForm, setRoute, uiConfig } = useOpenfort()
   const locales = useLocales()
   const { nativeOption, tokenOptions } = useTokens()
+  const [pressedPreset, setPressedPreset] = useState<number | null>(null)
 
   useEffect(() => {
     setBuyForm((prev) => {
@@ -61,24 +62,16 @@ const Buy = () => {
   const tokenSymbol = selectedToken.symbol || 'Token'
   const tokenName = 'name' in selectedToken && selectedToken.name ? selectedToken.name : tokenSymbol
 
-  const normalizedAmount = sanitiseForParsing(sanitizeAmountInput(buyForm.amount))
-
   const fiatAmount = useMemo(() => {
+    const normalizedAmount = sanitiseForParsing(sanitizeAmountInput(buyForm.amount))
     if (!normalizedAmount) return null
     const numeric = Number(normalizedAmount)
     if (!Number.isFinite(numeric)) return null
     return numeric
-  }, [normalizedAmount])
+  }, [buyForm.amount])
 
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
   const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])
-
-  const activePreset = useMemo(() => {
-    if (!normalizedAmount) return null
-    const numeric = Number(normalizedAmount)
-    if (!Number.isFinite(numeric)) return null
-    return amountPresets.find((preset) => Math.abs(preset - numeric) < 0.01) ?? null
-  }, [normalizedAmount])
 
   const providerQuotes = useMemo(() => getProviderQuotes(fiatAmount), [fiatAmount])
   const selectedProvider = getProviderById(buyForm.providerId)
@@ -97,6 +90,7 @@ const Buy = () => {
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const raw = sanitizeAmountInput(event.target.value)
     if (raw === '' || /^[0-9]*\.?[0-9]*$/.test(raw)) {
+      setPressedPreset(null)
       setBuyForm((prev) => ({
         ...prev,
         amount: raw,
@@ -104,10 +98,24 @@ const Buy = () => {
     }
   }
 
+  const handleAmountBlur = () => {
+    const normalized = sanitiseForParsing(sanitizeAmountInput(buyForm.amount))
+    if (normalized) {
+      const numeric = Number(normalized)
+      if (Number.isFinite(numeric) && numeric > 0) {
+        setBuyForm((prev) => ({
+          ...prev,
+          amount: numeric.toFixed(2),
+        }))
+      }
+    }
+  }
+
   const handlePresetClick = (value: number) => {
+    setPressedPreset(value)
     setBuyForm((prev) => ({
       ...prev,
-      amount: value.toString(),
+      amount: value.toFixed(2),
     }))
   }
 
@@ -127,7 +135,7 @@ const Buy = () => {
     }
   }
 
-  const isPresetSelected = (value: number) => activePreset === value
+  const isPresetSelected = (value: number) => pressedPreset === value
 
   const formattedFiat = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : null
   const continueDisabled = fiatAmount === null || fiatAmount <= 0 || selectedQuote.netAmount === null || !providerUrl
@@ -145,6 +153,7 @@ const Buy = () => {
             <AmountInput
               value={buyForm.amount}
               onChange={handleAmountChange}
+              onBlur={handleAmountBlur}
               placeholder="0.00"
               inputMode="decimal"
               autoComplete="off"
