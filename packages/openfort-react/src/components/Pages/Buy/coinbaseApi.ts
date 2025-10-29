@@ -1,0 +1,121 @@
+import type { SendTokenOption } from '../../Openfort/types'
+
+const COINBASE_API_URL = 'http://localhost:3000/api/onramp/sessions'
+
+export type CoinbaseQuote = {
+  destinationNetwork: string
+  exchangeRate: string
+  fees: Array<{
+    amount: string
+    currency: string
+    type: string
+  }>
+  paymentCurrency: string
+  paymentSubtotal: string
+  paymentTotal: string
+  purchaseAmount: string
+  purchaseCurrency: string
+}
+
+export type CoinbaseSession = {
+  onrampUrl: string
+}
+
+export type CoinbaseOnrampResponse = {
+  session: CoinbaseSession
+  quote?: CoinbaseQuote // Only present when paymentMethod, country, and subdivision are provided
+}
+
+type CreateCoinbaseSessionParams = {
+  purchaseCurrency: string
+  destinationNetwork: string
+  destinationAddress: string
+  paymentAmount?: string
+  paymentCurrency?: string
+  paymentMethod?: 'CARD' | 'ACH' | 'APPLE_PAY' | 'PAYPAL' | 'FIAT_WALLET' | 'CRYPTO_WALLET'
+  country?: string
+  subdivision?: string
+  redirectUrl?: string
+  clientIp?: string
+}
+
+// Map chain IDs to Coinbase network names
+const getNetworkName = (chainId: number): string => {
+  const networkMap: Record<number, string> = {
+    1: 'ethereum',
+    8453: 'base',
+    137: 'polygon',
+    42161: 'arbitrum',
+    10: 'optimism',
+  }
+  return networkMap[chainId] || 'base'
+}
+
+// Map token symbol to Coinbase currency code
+const getCurrencyCode = (token: SendTokenOption): string => {
+  if (token.type === 'native') {
+    return token.symbol || 'ETH'
+  }
+  return token.symbol || 'USDC'
+}
+
+/**
+ * Fetch a quote and create a Coinbase onramp session
+ * Supports three use cases based on provided parameters:
+ * 1. Basic session: Only required params (destinationAddress, purchaseCurrency, destinationNetwork)
+ * 2. One-click URL: Required + paymentAmount + paymentCurrency
+ * 3. One-click with quote: One-click + paymentMethod + country (+ subdivision for US)
+ */
+export const createCoinbaseSession = async (
+  params: Omit<CreateCoinbaseSessionParams, 'purchaseCurrency' | 'destinationNetwork'> & {
+    token: SendTokenOption
+    chainId: number
+  }
+): Promise<CoinbaseOnrampResponse> => {
+  const { token, chainId, ...rest } = params
+
+  // Build request body with only provided parameters
+  const requestBody: CreateCoinbaseSessionParams = {
+    purchaseCurrency: getCurrencyCode(token),
+    destinationNetwork: getNetworkName(chainId),
+    destinationAddress: rest.destinationAddress,
+  }
+
+  // Add optional parameters only if provided
+  if (rest.paymentAmount) requestBody.paymentAmount = rest.paymentAmount
+  if (rest.paymentCurrency) requestBody.paymentCurrency = rest.paymentCurrency
+  if (rest.paymentMethod) requestBody.paymentMethod = rest.paymentMethod
+  if (rest.country) requestBody.country = rest.country
+  if (rest.subdivision) requestBody.subdivision = rest.subdivision
+  if (rest.redirectUrl) requestBody.redirectUrl = rest.redirectUrl
+  if (rest.clientIp) requestBody.clientIp = rest.clientIp
+
+  const response = await fetch(COINBASE_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.error || errorData.errorMessage || 'Failed to create Coinbase session')
+  }
+
+  return response.json()
+}
+
+/**
+ * Get a quote only (without creating a session)
+ * Note: To get a quote, you must provide paymentMethod, country, and subdivision (for US)
+ */
+export const getCoinbaseQuote = async (
+  params: Omit<CreateCoinbaseSessionParams, 'purchaseCurrency' | 'destinationNetwork'> & {
+    token: SendTokenOption
+    chainId: number
+  }
+): Promise<CoinbaseQuote | null> => {
+  const response = await createCoinbaseSession(params)
+  return response.quote || null
+}

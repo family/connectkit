@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useAccount, useChainId } from 'wagmi'
 import useLocales from '../../../hooks/useLocales'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
@@ -7,6 +8,8 @@ import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Moda
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
+import type { CoinbaseOnrampResponse } from './coinbaseApi'
+import { createCoinbaseSession } from './coinbaseApi'
 import { getProviderById, getProviderQuotes } from './providers'
 import {
   AmountCard,
@@ -29,10 +32,15 @@ import { createCurrencyFormatter, getCurrencySymbol } from './utils'
 const amountPresets = [100, 250, 500]
 
 const Buy = () => {
-  const { buyForm, setBuyForm, setRoute, uiConfig } = useOpenfort()
+  const { buyForm, setBuyForm, setRoute } = useOpenfort()
   const locales = useLocales()
   const { nativeOption, tokenOptions } = useTokens()
+  const { address } = useAccount()
+  const chainId = useChainId()
   const [pressedPreset, setPressedPreset] = useState<number | null>(null)
+  const [coinbaseSession, setCoinbaseSession] = useState<CoinbaseOnrampResponse | null>(null)
+  const [isLoadingQuote, setIsLoadingQuote] = useState(false)
+  const [_quoteError, setQuoteError] = useState<string | null>(null)
 
   useEffect(() => {
     setBuyForm((prev) => {
@@ -73,6 +81,45 @@ const Buy = () => {
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
   const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])
 
+  // Fetch Coinbase session when amount changes
+  // Using one-click onramp URL (without location params) to let Coinbase handle geo-detection
+  useEffect(() => {
+    const fetchSession = async () => {
+      if (!address || !fiatAmount || fiatAmount <= 0) {
+        setCoinbaseSession(null)
+        setQuoteError(null)
+        return
+      }
+
+      setIsLoadingQuote(true)
+      setQuoteError(null)
+      try {
+        const session = await createCoinbaseSession({
+          token: selectedToken,
+          chainId,
+          destinationAddress: address,
+          paymentAmount: fiatAmount.toFixed(2),
+          paymentCurrency: buyForm.currency,
+          redirectUrl: window.location.origin,
+          // Note: Not including paymentMethod, country, subdivision
+          // This creates a one-click onramp URL without a quote
+          // Coinbase will handle location detection and payment methods
+        })
+        setCoinbaseSession(session)
+        setQuoteError(null)
+      } catch (error) {
+        setCoinbaseSession(null)
+        setQuoteError(error instanceof Error ? error.message : 'Failed to create session')
+      } finally {
+        setIsLoadingQuote(false)
+      }
+    }
+
+    // Debounce the session creation
+    const timeoutId = setTimeout(fetchSession, 500)
+    return () => clearTimeout(timeoutId)
+  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
+
   const providerQuotes = useMemo(() => getProviderQuotes(fiatAmount), [fiatAmount])
   const selectedProvider = getProviderById(buyForm.providerId)
   const selectedQuote = providerQuotes.find((quote) => quote.provider.id === selectedProvider.id) ?? {
@@ -81,11 +128,20 @@ const Buy = () => {
     feeAmount: null,
   }
 
-  const providerUrl =
-    selectedProvider.url ?? uiConfig.buyWithCardUrl ?? uiConfig.buyFromExchangeUrl ?? uiConfig.buyTroubleshootingUrl
+  // Use real Coinbase quote if available (only present when country/subdivision/paymentMethod are provided)
+  const realNetAmount = coinbaseSession?.quote?.purchaseAmount
+    ? Number.parseFloat(coinbaseSession.quote.purchaseAmount)
+    : null
+  const displayNetAmount = realNetAmount ?? selectedQuote.netAmount
+
+  const providerUrl = coinbaseSession?.session?.onrampUrl
 
   const formattedNetAmount =
-    selectedQuote && selectedQuote.netAmount !== null ? `${selectedQuote.netAmount.toFixed(2)} ${tokenSymbol}` : '--'
+    displayNetAmount !== null ? `${displayNetAmount.toFixed(2)} ${tokenSymbol}` : isLoadingQuote ? '...' : '--'
+
+  // Calculate total fees from Coinbase quote (only available if quote is returned)
+  const totalFees = coinbaseSession?.quote?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
+  const formattedFees = totalFees !== null ? currencyFormatter.format(totalFees) : null
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const raw = sanitizeAmountInput(event.target.value)
@@ -130,15 +186,41 @@ const Buy = () => {
   const handleContinue = () => {
     if (!providerUrl) return
 
+    // TODO: remove this? it fails if is set to EUR in coinbase
+    const url = new URL(providerUrl)
+    url.searchParams.delete('fiatCurrency')
+    const sanitizedProviderUrl = url.toString()
+
     if (typeof window !== 'undefined') {
-      window.open(providerUrl, '_blank', 'noopener,noreferrer')
+      const popupWidth = 500
+      const popupHeight = 700
+      const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX
+      const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY
+      const width = window.innerWidth
+        ? window.innerWidth
+        : document.documentElement.clientWidth
+          ? document.documentElement.clientWidth
+          : screen.width
+      const height = window.innerHeight
+        ? window.innerHeight
+        : document.documentElement.clientHeight
+          ? document.documentElement.clientHeight
+          : screen.height
+      const left = width / 2 - popupWidth / 2 + dualScreenLeft
+      const top = height / 2 - popupHeight / 2 + dualScreenTop
+
+      window.open(
+        sanitizedProviderUrl,
+        'BuyPopup',
+        `scrollbars=yes,width=${popupWidth},height=${popupHeight},top=${top},left=${left},noopener,noreferrer`
+      )
     }
   }
 
   const isPresetSelected = (value: number) => pressedPreset === value
 
   const formattedFiat = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : null
-  const continueDisabled = fiatAmount === null || fiatAmount <= 0 || selectedQuote.netAmount === null || !providerUrl
+  const continueDisabled = fiatAmount === null || fiatAmount <= 0 || !address || !providerUrl || isLoadingQuote
 
   return (
     <PageContent>
@@ -199,7 +281,11 @@ const Buy = () => {
             <SelectorContent>
               <SelectorTitle>{selectedProvider.name}</SelectorTitle>
               <SelectorSubtitle>
-                {formattedFiat ? `You pay ${formattedFiat}` : 'Choose a provider to compare quotes'}
+                {formattedFees
+                  ? `Fee: ${formattedFees}`
+                  : formattedFiat
+                    ? `You pay ${formattedFiat}`
+                    : 'Choose a provider to compare quotes'}
               </SelectorSubtitle>
             </SelectorContent>
             <SelectorRight>

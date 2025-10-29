@@ -293,5 +293,5 @@ export const defaultBuyFormState: BuyFormState = {
     symbol: '',
     decimals: 18,
   },
-  providerId: 'moonpay',
+  providerId: 'coinbase',
 }
