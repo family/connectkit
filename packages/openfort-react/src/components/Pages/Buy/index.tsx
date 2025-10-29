@@ -54,11 +54,51 @@ const Buy = () => {
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1)
+  const [popupWindow, setPopupWindow] = useState<Window | null>(null)
 
   // Trigger resize when step changes
   useEffect(() => {
     triggerResize()
   }, [currentStep, triggerResize])
+
+  // Monitor popup window for Coinbase redirect
+  useEffect(() => {
+    if (!popupWindow) return
+
+    const checkPopup = setInterval(() => {
+      try {
+        // Check if popup is closed
+        if (popupWindow.closed) {
+          clearInterval(checkPopup)
+          setPopupWindow(null)
+          // Return to step 1 when popup closes
+          setCurrentStep(1)
+          return
+        }
+
+        // Try to check if popup has redirected to our success URL
+        try {
+          const popupUrl = popupWindow.location.href
+          if (popupUrl.includes('coinbase_onramp=success')) {
+            popupWindow.close()
+            setPopupWindow(null)
+            setCurrentStep(1)
+            clearInterval(checkPopup)
+          }
+        } catch (e) {
+          // Cross-origin error is expected while on Coinbase domain
+          // We can't read the URL until it redirects back to our domain
+        }
+      } catch (error) {
+        // Handle any other errors
+        clearInterval(checkPopup)
+      }
+    }, 500)
+
+    return () => {
+      clearInterval(checkPopup)
+    }
+  }, [popupWindow])
 
   useEffect(() => {
     setBuyForm((prev) => {
@@ -118,7 +158,7 @@ const Buy = () => {
           destinationAddress: address,
           paymentAmount: fiatAmount.toFixed(2),
           paymentCurrency: buyForm.currency,
-          redirectUrl: window.location.origin,
+          redirectUrl: `${window.location.origin}?coinbase_onramp=success`,
           // Note: Not including paymentMethod, country, subdivision
           // This creates a one-click onramp URL without a quote
           // Coinbase will handle location detection and payment methods
@@ -240,11 +280,15 @@ const Buy = () => {
       const left = width / 2 - popupWidth / 2 + dualScreenLeft
       const top = height / 2 - popupHeight / 2 + dualScreenTop
 
-      window.open(
+      const popup = window.open(
         sanitizedProviderUrl,
         'BuyPopup',
-        `scrollbars=yes,width=${popupWidth},height=${popupHeight},top=${top},left=${left},noopener,noreferrer`
+        `scrollbars=yes,width=${popupWidth},height=${popupHeight},top=${top},left=${left}`
       )
+
+      if (popup) {
+        setPopupWindow(popup)
+      }
     }
   }
 
@@ -417,7 +461,16 @@ const Buy = () => {
         <ModalBody>Waiting for transaction confirmation</ModalBody>
 
         <ContinueButtonWrapper>
-          <Button variant="secondary" onClick={() => setCurrentStep(1)}>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              if (popupWindow && !popupWindow.closed) {
+                popupWindow.close()
+              }
+              setPopupWindow(null)
+              setCurrentStep(1)
+            }}
+          >
             Close
           </Button>
         </ContinueButtonWrapper>
