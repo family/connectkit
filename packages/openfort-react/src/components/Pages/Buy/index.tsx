@@ -7,7 +7,8 @@ import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Moda
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
-import { getProviderById, getProviderQuotes } from './providers'
+import { getProviderById } from './providers'
+import { getQuoteForProvider, useBuyQuotes } from './useBuyQuotes'
 import {
   AmountCard,
   AmountInput,
@@ -24,7 +25,7 @@ import {
   SelectorTitle,
   SelectorValue,
 } from './styles'
-import { createCurrencyFormatter, getCurrencySymbol } from './utils'
+import { createCurrencyFormatter, formatTokenAmount, getCurrencySymbol } from './utils'
 
 const amountPresets = [100, 250, 500]
 
@@ -73,19 +74,23 @@ const Buy = () => {
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
   const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])
 
-  const providerQuotes = useMemo(() => getProviderQuotes(fiatAmount), [fiatAmount])
+  const { quotes: providerQuotes, isLoading: quotesLoading } = useBuyQuotes({
+    fiatAmount,
+    fiatCurrency: buyForm.currency,
+    token: selectedToken,
+  })
   const selectedProvider = getProviderById(buyForm.providerId)
-  const selectedQuote = providerQuotes.find((quote) => quote.provider.id === selectedProvider.id) ?? {
-    provider: selectedProvider,
-    netAmount: null,
-    feeAmount: null,
-  }
+  const selectedQuote = getQuoteForProvider(providerQuotes, selectedProvider.id)
 
   const providerUrl =
     selectedProvider.url ?? uiConfig.buyWithCardUrl ?? uiConfig.buyFromExchangeUrl ?? uiConfig.buyTroubleshootingUrl
 
   const formattedNetAmount =
-    selectedQuote && selectedQuote.netAmount !== null ? `${selectedQuote.netAmount.toFixed(2)} ${tokenSymbol}` : '--'
+    selectedQuote.tokenAmount !== null
+      ? `${formatTokenAmount(selectedQuote.tokenAmount, selectedToken.decimals ?? 6)} ${tokenSymbol}`
+      : quotesLoading
+        ? 'Fetching...'
+        : '--'
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const raw = sanitizeAmountInput(event.target.value)
@@ -137,8 +142,12 @@ const Buy = () => {
 
   const isPresetSelected = (value: number) => pressedPreset === value
 
-  const formattedFiat = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : null
-  const continueDisabled = fiatAmount === null || fiatAmount <= 0 || selectedQuote.netAmount === null || !providerUrl
+  const formattedFiatInput = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : null
+  const formattedQuoteFiat =
+    selectedQuote.totalFiatAmount !== null ? currencyFormatter.format(selectedQuote.totalFiatAmount) : null
+
+  const continueDisabled =
+    fiatAmount === null || fiatAmount <= 0 || selectedQuote.tokenAmount === null || Boolean(selectedQuote.error) || !providerUrl
 
   return (
     <PageContent>
@@ -199,7 +208,15 @@ const Buy = () => {
             <SelectorContent>
               <SelectorTitle>{selectedProvider.name}</SelectorTitle>
               <SelectorSubtitle>
-                {formattedFiat ? `You pay ${formattedFiat}` : 'Choose a provider to compare quotes'}
+                {quotesLoading
+                  ? 'Fetching latest quote...'
+                  : selectedQuote.error
+                    ? selectedQuote.error
+                    : formattedQuoteFiat
+                      ? `You pay ${formattedQuoteFiat}`
+                      : formattedFiatInput
+                        ? `You pay ${formattedFiatInput}`
+                        : 'Choose a provider to compare quotes'}
               </SelectorSubtitle>
             </SelectorContent>
             <SelectorRight>
