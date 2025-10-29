@@ -5,6 +5,7 @@ import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
 import type { CustomTheme, Languages, Mode, Theme } from '../../types'
 import type {
   Connector,
+  DebugModeOptions,
   ErrorMessage,
   OpenfortUIOptionsExtended,
   OpenfortWalletConfig,
@@ -33,7 +34,7 @@ export type ContextValue = {
   connector: Connector
   setConnector: React.Dispatch<React.SetStateAction<Connector>>
   errorMessage: ErrorMessage
-  debugMode?: boolean
+  debugMode: Required<DebugModeOptions>
   resize: number
   triggerResize: () => void
   uiConfig: OpenfortUIOptionsExtended

@@ -58,7 +58,6 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
       [beamTestnet.id]: import.meta.env.VITE_BEAM_POLICY_ID!,
     },
 
-    debug: false,
     getEncryptionSession: undefined, // Optional function to get the encryption session
     createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
     recoverWalletAutomaticallyAfterAuth: undefined,
@@ -75,7 +74,10 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     shieldUrl: undefined,
   },
   thirdPartyAuth: undefined,
-  debugMode: true,
+  debugMode: {
+    openfortReactDebugMode: true,
+    openfortCoreDebugMode: true,
+  },
 }
 
 interface Store {

@@ -15,6 +15,7 @@ import { Web3ContextProvider } from '../contexts/web3'
 import { type ContextValue, Openfortcontext } from './context'
 import {
   type ConnectUIOptions,
+  type DebugModeOptions,
   type ErrorMessage,
   notStoredInHistoryRoutes,
   type OpenfortUIOptionsExtended,
@@ -60,7 +61,7 @@ import {
 
 type OpenfortProviderProps = {
   children?: React.ReactNode
-  debugMode?: boolean
+  debugMode?: boolean | DebugModeOptions
 
   publishableKey: string
   uiConfig?: ConnectUIOptions
@@ -102,7 +103,7 @@ export const OpenfortProvider = ({
   uiConfig,
   onConnect,
   onDisconnect,
-  debugMode = false,
+  debugMode,
 
   publishableKey,
   walletConfig,
@@ -119,9 +120,33 @@ export const OpenfortProvider = ({
   if (React.useContext(Openfortcontext)) {
     throw new Error('Multiple, nested usages of OpenfortProvider detected. Please use only one.')
   }
-  useMemo(() => {
-    logger.enabled = !!debugMode
-  }, [])
+
+  const debugModeOptions: Required<DebugModeOptions> = useMemo(() => {
+    const getDebugMode = () => {
+      if (typeof debugMode === 'undefined') {
+        return {
+          shieldDebugMode: false,
+          openfortCoreDebugMode: false,
+          openfortReactDebugMode: false,
+        }
+      } else if (typeof debugMode === 'boolean') {
+        return {
+          shieldDebugMode: debugMode,
+          openfortCoreDebugMode: debugMode,
+          openfortReactDebugMode: debugMode,
+        }
+      } else {
+        return {
+          shieldDebugMode: debugMode.shieldDebugMode ?? false,
+          openfortCoreDebugMode: debugMode.openfortCoreDebugMode ?? false,
+          openfortReactDebugMode: debugMode.openfortReactDebugMode ?? false,
+        }
+      }
+    }
+    const debugModeOptions = getDebugMode()
+    logger.enabled = debugModeOptions.openfortReactDebugMode
+    return debugModeOptions
+  }, [debugMode])
 
   const injectedConnector = useConnector('injected')
   const allowAutomaticRecovery = !!(walletConfig?.createEncryptedSessionEndpoint || walletConfig?.getEncryptionSession)
@@ -286,7 +311,7 @@ export const OpenfortProvider = ({
     // Other configuration
     uiConfig: safeUiConfig,
     errorMessage,
-    debugMode,
+    debugMode: debugModeOptions,
     emailInput,
     setEmailInput,
     resize,
@@ -301,19 +326,20 @@ export const OpenfortProvider = ({
     { value },
     <Web3ContextProvider enabled={open}>
       <CoreOpenfortProvider
-        baseConfiguration={{
-          publishableKey,
-        }}
-        shieldConfiguration={
-          walletConfig
+        openfortConfig={{
+          baseConfiguration: {
+            publishableKey,
+          },
+          shieldConfiguration: walletConfig
             ? {
                 shieldPublishableKey: walletConfig.shieldPublishableKey,
-                debug: debugMode,
+                debug: debugModeOptions.shieldDebugMode,
               }
-            : undefined
-        }
-        overrides={overrides}
-        thirdPartyAuth={thirdPartyAuth}
+            : undefined,
+          debug: debugModeOptions.openfortCoreDebugMode,
+          overrides,
+          thirdPartyAuth,
+        }}
         onConnect={onConnect}
         onDisconnect={onDisconnect}
       >
