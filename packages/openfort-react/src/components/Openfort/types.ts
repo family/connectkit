@@ -38,6 +38,8 @@ export const routes = {
   SEND_CONFIRMATION: 'sendConfirmation',
   RECEIVE: 'receive',
   BUY: 'buy',
+  BUY_TOKEN_SELECT: 'buyTokenSelect',
+  BUY_PROVIDER_SELECT: 'buyProviderSelect',
 } as const
 
 type AllRoutes = (typeof routes)[keyof typeof routes]
@@ -272,4 +274,24 @@ export const defaultSendFormState: SendFormState = {
     symbol: '',
     decimals: 18,
   },
+}
+
+export type BuyProviderId = 'moonpay' | 'coinbase' | 'stripe'
+
+export type BuyFormState = {
+  amount: string
+  currency: string
+  token: SendTokenOption
+  providerId: BuyProviderId
+}
+
+export const defaultBuyFormState: BuyFormState = {
+  amount: '100',
+  currency: 'USD',
+  token: {
+    type: 'native',
+    symbol: '',
+    decimals: 18,
+  },
+  providerId: 'moonpay',
 }

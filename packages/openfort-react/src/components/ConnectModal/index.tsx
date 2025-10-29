@@ -13,6 +13,7 @@ import { useOpenfort } from '../Openfort/useOpenfort'
 import About from '../Pages/About'
 import Connected from '../Pages/Connected'
 import Buy from '../Pages/Buy'
+import BuyProviderSelect from '../Pages/BuyProviderSelect'
 import Connectors from '../Pages/Connectors'
 import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
 import CreateWallet from '../Pages/CreateWallet'
@@ -129,6 +130,8 @@ const ConnectModal: React.FC<{
     send: <Send />,
     sendConfirmation: <SendConfirmation />,
     sendTokenSelect: <SelectToken />,
+    buyTokenSelect: <SelectToken />,
+    buyProviderSelect: <BuyProviderSelect />,
     receive: <Receive />,
     buy: <Buy />,
   }

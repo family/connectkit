@@ -102,7 +102,7 @@ const enUS = {
 
   profileScreen_heading: 'Connected',
   buyScreen_heading: 'Add funds to your wallet',
-  buyScreen_subheading: 'Choose how you would like to top up.',
+  buyScreen_subheading: 'Select an amount, token, and provider to find the best way to top up.',
   buyScreen_payWithCard_title: 'Pay with card',
   buyScreen_payWithCard_description: 'Use Stripe or Google Pay for a quick card purchase.',
   buyScreen_payWithCard_url: 'https://pay.coinbase.com/',

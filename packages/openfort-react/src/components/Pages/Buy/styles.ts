@@ -1,66 +1,139 @@
 import styled from '../../../styles/styled'
-import Button from '../../Common/Button'
-import { ButtonContainerInner, IconContainer, InnerContainer } from '../../Common/Button/styles'
 
-export const OptionsList = styled.div`
+export const Section = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
   gap: 12px;
-  margin-top: 16px;
 `
 
-export const OptionButton = styled(Button)`
-  margin: 0;
-  text-align: left;
-  height: auto;
-  min-height: 60px;
-  line-height: normal;
-  padding: 0;
-
-  ${ButtonContainerInner} {
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    gap: 14px;
-    padding: 14px 12px;
-  }
-
-  ${InnerContainer} {
-    max-width: none;
-    width: 100%;
-  }
-
-  ${IconContainer} {
-    color: var(--ck-accent-color, currentColor);
-    width: 48px;
-  }
-`
-
-export const OptionContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-`
-
-export const OptionTitle = styled.span`
-  font-weight: 600;
-  color: var(--ck-body-color);
-  font-size: 16px;
-`
-
-export const HelpNotice = styled.p`
-  margin: 18px 0 0;
+export const SectionLabel = styled.span`
   font-size: 13px;
-  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: var(--ck-body-color-muted);
 `
 
-export const HelpLink = styled.a`
-  color: var(--ck-accent-color, currentColor);
-  text-decoration: none;
-  font-weight: 500;
+export const AmountCard = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 18px 20px;
+  border-radius: var(--ck-secondary-button-border-radius);
+  border: 1px solid var(--ck-body-divider);
+  background: var(--ck-secondary-button-background);
+  color: var(--ck-body-color);
+`
+
+export const CurrencySymbol = styled.span`
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--ck-body-color-muted);
+  line-height: 1;
+`
+
+export const AmountInput = styled.input`
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--ck-body-color);
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0;
+  outline: none;
+
+  &::placeholder {
+    color: var(--ck-body-color-muted);
+  }
+`
+
+export const PresetList = styled.div`
+  display: flex;
+  gap: 10px;
+  width: 100%;
+`
+
+export const PresetButton = styled.button<{ $active?: boolean }>`
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid ${({ $active }) => ($active ? 'var(--ck-accent-color)' : 'var(--ck-body-divider)')};
+  background: var(--ck-secondary-button-background);
+  color: ${({ $active }) => ($active ? 'var(--ck-accent-color)' : 'var(--ck-body-color)')};
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 
   &:hover {
-    text-decoration: underline;
+    background: var(--ck-secondary-button-hover-background);
+  }
+`
+
+export const SelectorButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--ck-secondary-button-border-radius);
+  border: 1px solid var(--ck-body-divider);
+  background: var(--ck-secondary-button-background);
+  color: var(--ck-body-color);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  text-align: left;
+
+  &:hover {
+    background: var(--ck-secondary-button-hover-background);
+    border-color: var(--ck-body-color-muted);
+  }
+`
+
+export const SelectorContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+`
+
+export const SelectorTitle = styled.span`
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ck-body-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const SelectorSubtitle = styled.span`
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ck-body-color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const SelectorRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ck-body-color-muted);
+`
+
+export const SelectorValue = styled.span`
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ck-body-color);
+`
+
+export const ContinueButtonWrapper = styled.div`
+  margin-top: 24px;
+
+  > button {
+    width: 100%;
   }
 `

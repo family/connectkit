@@ -12,6 +12,7 @@ import type {
   RouteOptions,
   SetRouteOptions,
   SendFormState,
+  BuyFormState,
 } from './types'
 
 type Connector =
@@ -57,6 +58,8 @@ export type ContextValue = {
   setEmailInput: React.Dispatch<React.SetStateAction<string>>
   sendForm: SendFormState
   setSendForm: React.Dispatch<React.SetStateAction<SendFormState>>
+  buyForm: BuyFormState
+  setBuyForm: React.Dispatch<React.SetStateAction<BuyFormState>>
 } & useConnectCallbackProps
 
 export const Openfortcontext = createContext<ContextValue | null>(null)

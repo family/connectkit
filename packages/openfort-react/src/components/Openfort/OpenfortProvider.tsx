@@ -14,8 +14,8 @@ import ConnectKitModal from '../ConnectModal'
 import { Web3ContextProvider } from '../contexts/web3'
 import { type ContextValue, Openfortcontext } from './context'
 import {
+  type BuyFormState,
   type ConnectUIOptions,
-<<<<<<< HEAD
   type DebugModeOptions,
   type ErrorMessage,
   notStoredInHistoryRoutes,
@@ -26,13 +26,7 @@ import {
   defaultSendFormState,
   routes,
   type SetRouteOptions,
-=======
-  defaultSendFormState,
-  type OpenfortUIOptionsExtended,
-  type OpenfortWalletConfig,
-  routes,
-  type SendFormState,
->>>>>>> 8c7728ad (feat: copy buttons)
+  defaultBuyFormState,
   UIAuthProvider,
 } from './types'
 
@@ -240,6 +234,7 @@ export const OpenfortProvider = ({
   const [resize, onResize] = useState<number>(0)
   const [emailInput, setEmailInput] = useState('')
   const [sendForm, setSendForm] = useState<SendFormState>(defaultSendFormState)
+  const [buyForm, setBuyForm] = useState<BuyFormState>(defaultBuyFormState)
 
   // Include Google Font that is needed for a themes
   useThemeFont(safeUiConfig.embedGoogleFonts ? ckTheme : ('' as Theme))
@@ -335,6 +330,8 @@ export const OpenfortProvider = ({
     thirdPartyAuth,
     sendForm,
     setSendForm,
+    buyForm,
+    setBuyForm,
   }
 
   return createElement(

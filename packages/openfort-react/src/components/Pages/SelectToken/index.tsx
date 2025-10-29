@@ -25,16 +25,27 @@ const usdFormatter = new Intl.NumberFormat('en-US', {
 })
 
 const SelectToken = () => {
-  const { setSendForm, setRoute, triggerResize } = useOpenfort()
+  const { route, setSendForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
 
   const { tokenOptions, isLoading, prices: usdPrices } = useTokens()
 
+  const isBuyFlow = route === routes.BUY_TOKEN_SELECT
+
   const selectableTokens = useMemo(
-    () => tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO),
-    [tokenOptions]
+    () => (isBuyFlow ? tokenOptions : tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO)),
+    [isBuyFlow, tokenOptions]
   )
 
   const handleSelect = (token: TokenOptionWithBalance) => {
+    if (isBuyFlow) {
+      setBuyForm((prev) => ({
+        ...prev,
+        token,
+      }))
+      setRoute(routes.BUY)
+      return
+    }
+
     setSendForm((prev) => ({
       ...prev,
       token,
@@ -46,7 +57,7 @@ const SelectToken = () => {
   useEffect(() => {
     triggerResize()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, selectableTokens.length])
+  }, [isLoading, selectableTokens.length, isBuyFlow])
 
   const renderContent = () => {
     if (isLoading) {
@@ -54,7 +65,11 @@ const SelectToken = () => {
     }
 
     if (!selectableTokens.length) {
-      return <EmptyState>No tokens with a balance on this network.</EmptyState>
+      return (
+        <EmptyState>
+          {isBuyFlow ? 'No supported tokens found for this network yet.' : 'No tokens with a balance on this network.'}
+        </EmptyState>
+      )
     }
 
     return (
@@ -97,7 +112,9 @@ const SelectToken = () => {
   return (
     <SelectTokenContent>
       <ModalH1>Select token</ModalH1>
-      <ModalBody style={{ marginTop: 8 }}>Only tokens with a balance are shown.</ModalBody>
+      <ModalBody style={{ marginTop: 8 }}>
+        {isBuyFlow ? 'Choose the token you want to purchase.' : 'Only tokens with a balance are shown.'}
+      </ModalBody>
       {renderContent()}
     </SelectTokenContent>
   )
