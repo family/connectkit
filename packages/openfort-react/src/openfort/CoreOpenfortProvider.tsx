@@ -47,13 +47,17 @@ const ConnectCallback = ({ onConnect, onDisconnect }: useConnectCallbackProps) =
   return null
 }
 
-type CoreOpenfortProviderProps = ConstructorParameters<typeof Openfort>[0] & useConnectCallbackProps
+type CoreOpenfortProviderProps = PropsWithChildren<
+  {
+    openfortConfig: ConstructorParameters<typeof Openfort>[0]
+  } & useConnectCallbackProps
+>
 
-export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProviderProps>> = ({
+export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
   children,
   onConnect,
   onDisconnect,
-  ...openfortProps
+  openfortConfig,
 }) => {
   const { connectors, connect, reset } = useConnect()
   const { address } = useAccount()
@@ -65,24 +69,24 @@ export const CoreOpenfortProvider: React.FC<PropsWithChildren<CoreOpenfortProvid
 
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
-    logger.log('Creating Openfort instance.', openfortProps)
+    logger.log('Creating Openfort instance.', openfortConfig)
 
-    if (!openfortProps.baseConfiguration.publishableKey)
+    if (!openfortConfig.baseConfiguration.publishableKey)
       throw Error('CoreOpenfortProvider requires a publishableKey to be set in the baseConfiguration.')
 
     if (
-      openfortProps.shieldConfiguration &&
-      !openfortProps.shieldConfiguration?.passkeyRpId &&
+      openfortConfig.shieldConfiguration &&
+      !openfortConfig.shieldConfiguration?.passkeyRpId &&
       typeof window !== 'undefined'
     ) {
-      openfortProps.shieldConfiguration = {
+      openfortConfig.shieldConfiguration = {
         passkeyRpId: window.location.hostname,
         passkeyRpName: document.title || 'Openfort DApp',
-        ...openfortProps.shieldConfiguration,
+        ...openfortConfig.shieldConfiguration,
       }
     }
 
-    const newClient = createOpenfortClient(openfortProps)
+    const newClient = createOpenfortClient(openfortConfig)
 
     setDefaultClient(newClient)
     return newClient

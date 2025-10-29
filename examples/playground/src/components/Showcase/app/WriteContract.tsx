@@ -69,12 +69,17 @@ export const WriteContractCard = () => {
           className="space-y-2"
           onSubmit={(e) => {
             e.preventDefault()
-            const amount = (e.target as HTMLFormElement).amount.value
+            const amount = (e.target as HTMLFormElement).amount.value || '1'
             submit({ amount })
           }}
         >
           <label className={cn('input w-full')}>
-            <input type="number" placeholder="Enter amount to mint" className="grow peer" name="amount" />
+            <input
+              type="number"
+              placeholder="Enter amount to mint"
+              className="grow peer placeholder:text-muted-foreground"
+              name="amount"
+            />
           </label>
           <Button className="btn btn-accent w-full" disabled={isPending || !address}>
             {isPending ? 'Minting...' : 'Mint Tokens'}

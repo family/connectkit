@@ -122,6 +122,7 @@ type CommonWalletConfig = {
   /** Policy ID (pol_...) for the embedded signer. */
   ethereumProviderPolicyId?: PolicyConfig
   accountType?: AccountTypeEnum
+  /** @deprecated Use `debugMode` prop instead. */
   debug?: boolean
   recoverWalletAutomaticallyAfterAuth?: boolean
 }
@@ -137,6 +138,12 @@ type EncryptionSession =
       getEncryptionSession?: never
       createEncryptedSessionEndpoint?: string
     }
+
+export type DebugModeOptions = {
+  openfortReactDebugMode?: boolean
+  openfortCoreDebugMode?: boolean
+  shieldDebugMode?: boolean
+}
 
 /**
  * Configuration for wallet recovery behaviour.
