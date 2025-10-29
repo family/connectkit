@@ -1,23 +1,36 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
+import Logos from '../../../assets/logos'
 import useLocales from '../../../hooks/useLocales'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import { ModalBody, ModalContent, ModalH1, PageContent } from '../../Common/Modal/styles'
+import SquircleSpinner from '../../Common/SquircleSpinner'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
 import type { CoinbaseOnrampResponse } from './coinbaseApi'
 import { createCoinbaseSession } from './coinbaseApi'
-import { getProviderById, getProviderQuotes } from './providers'
+import { getProviderById, getProviderQuotes, getProviders } from './providers'
 import {
   AmountCard,
   AmountInput,
   ContinueButtonWrapper,
   CurrencySymbol,
+  PendingContainer,
   PresetButton,
   PresetList,
+  ProviderBadge,
+  ProviderButton,
+  ProviderFiat,
+  ProviderInfo,
+  ProviderList,
+  ProviderMeta,
+  ProviderName,
+  ProviderNameRow,
+  ProviderQuote,
+  ProviderRight,
   Section,
   SectionLabel,
   SelectorButton,
@@ -25,14 +38,13 @@ import {
   SelectorRight,
   SelectorSubtitle,
   SelectorTitle,
-  SelectorValue,
 } from './styles'
 import { createCurrencyFormatter, getCurrencySymbol } from './utils'
 
-const amountPresets = [100, 250, 500]
+const amountPresets = [10, 20, 50]
 
 const Buy = () => {
-  const { buyForm, setBuyForm, setRoute } = useOpenfort()
+  const { buyForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
   const locales = useLocales()
   const { nativeOption, tokenOptions } = useTokens()
   const { address } = useAccount()
@@ -41,6 +53,12 @@ const Buy = () => {
   const [coinbaseSession, setCoinbaseSession] = useState<CoinbaseOnrampResponse | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1)
+
+  // Trigger resize when step changes
+  useEffect(() => {
+    triggerResize()
+  }, [currentStep, triggerResize])
 
   useEffect(() => {
     setBuyForm((prev) => {
@@ -136,12 +154,12 @@ const Buy = () => {
 
   const providerUrl = coinbaseSession?.session?.onrampUrl
 
-  const formattedNetAmount =
+  const _formattedNetAmount =
     displayNetAmount !== null ? `${displayNetAmount.toFixed(2)} ${tokenSymbol}` : isLoadingQuote ? '...' : '--'
 
   // Calculate total fees from Coinbase quote (only available if quote is returned)
   const totalFees = coinbaseSession?.quote?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
-  const formattedFees = totalFees !== null ? currencyFormatter.format(totalFees) : null
+  const _formattedFees = totalFees !== null ? currencyFormatter.format(totalFees) : null
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const raw = sanitizeAmountInput(event.target.value)
@@ -179,12 +197,25 @@ const Buy = () => {
     setRoute(routes.BUY_TOKEN_SELECT)
   }
 
-  const handleOpenProviderSelector = () => {
+  const _handleOpenProviderSelector = () => {
     setRoute(routes.BUY_PROVIDER_SELECT)
   }
 
-  const handleContinue = () => {
+  const handleSelectProvider = (id: string) => {
+    setBuyForm((prev) => ({
+      ...prev,
+      providerId: id as typeof prev.providerId,
+    }))
+  }
+
+  const handleContinueFromStep1 = () => {
+    if (fiatAmount === null || fiatAmount <= 0) return
+    setCurrentStep(2)
+  }
+
+  const handleContinueFromStep2 = () => {
     if (!providerUrl) return
+    setCurrentStep(3)
 
     // TODO: remove this? it fails if is set to EUR in coinbase
     const url = new URL(providerUrl)
@@ -217,94 +248,177 @@ const Buy = () => {
     }
   }
 
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep((prev) => (prev - 1) as 1 | 2 | 3)
+    }
+  }
+
   const isPresetSelected = (value: number) => pressedPreset === value
 
   const formattedFiat = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : null
-  const continueDisabled = fiatAmount === null || fiatAmount <= 0 || !address || !providerUrl || isLoadingQuote
+  const step1Disabled = fiatAmount === null || fiatAmount <= 0
+  const step2Disabled = !address || !providerUrl || isLoadingQuote
 
+  // Step 1: Amount and Token Selection
+  if (currentStep === 1) {
+    return (
+      <PageContent>
+        <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
+          <ModalH1>{locales.buyScreen_heading}</ModalH1>
+          <ModalBody style={{ marginTop: 8 }}>{locales.buyScreen_subheading}</ModalBody>
+
+          <Section>
+            <SectionLabel>Amount</SectionLabel>
+            <AmountCard>
+              <CurrencySymbol>{currencySymbol}</CurrencySymbol>
+              <AmountInput
+                value={buyForm.amount}
+                onChange={handleAmountChange}
+                onBlur={handleAmountBlur}
+                placeholder="0.00"
+                inputMode="decimal"
+                autoComplete="off"
+              />
+            </AmountCard>
+            <PresetList>
+              {amountPresets.map((preset) => (
+                <PresetButton
+                  key={preset}
+                  type="button"
+                  onClick={() => handlePresetClick(preset)}
+                  $active={isPresetSelected(preset)}
+                >
+                  {currencyFormatter.format(preset)}
+                </PresetButton>
+              ))}
+            </PresetList>
+          </Section>
+
+          <Section>
+            <SectionLabel>Token</SectionLabel>
+            <SelectorButton type="button" onClick={handleOpenTokenSelector}>
+              <SelectorContent>
+                <SelectorTitle>{tokenSymbol || 'Select token'}</SelectorTitle>
+                <SelectorSubtitle>{tokenName}</SelectorSubtitle>
+              </SelectorContent>
+              <SelectorRight>
+                <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <ArrowChevron
+                    stroke="currentColor"
+                    d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </Arrow>
+              </SelectorRight>
+            </SelectorButton>
+          </Section>
+
+          <ContinueButtonWrapper>
+            <Button variant="primary" onClick={handleContinueFromStep1} disabled={step1Disabled}>
+              Continue
+            </Button>
+          </ContinueButtonWrapper>
+        </ModalContent>
+      </PageContent>
+    )
+  }
+
+  // Step 2: Provider Selection
+  if (currentStep === 2) {
+    const providers = getProviders()
+
+    return (
+      <PageContent>
+        <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
+          <ModalH1>Select Provider</ModalH1>
+          <ModalBody style={{ marginTop: 8 }}>{formattedFiat && `Buying ${formattedFiat} of ${tokenSymbol}`}</ModalBody>
+
+          <ProviderList>
+            {providers.map((provider) => {
+              const quote = providerQuotes.find((item) => item.provider.id === provider.id)
+              const netDisplay =
+                quote && quote.netAmount !== null ? `${quote.netAmount.toFixed(2)} ${tokenSymbol}` : '--'
+              const fiatDisplay = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : '--'
+              const feePercentage = (provider.feeBps / 100).toFixed(2)
+              const highlight =
+                provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
+
+              const metaParts: string[] = []
+              if (provider.tagline && provider.tagline !== highlight) {
+                metaParts.push(provider.tagline)
+              }
+              metaParts.push(`Fee ${feePercentage}%`)
+              const metaText = metaParts.join(' • ')
+
+              const isActive = buyForm.providerId === provider.id
+
+              return (
+                <ProviderButton
+                  key={provider.id}
+                  type="button"
+                  onClick={() => handleSelectProvider(provider.id)}
+                  $active={isActive}
+                >
+                  <ProviderInfo>
+                    <ProviderNameRow>
+                      <ProviderName>{provider.name}</ProviderName>
+                      {highlight ? <ProviderBadge>{highlight}</ProviderBadge> : null}
+                    </ProviderNameRow>
+                    <ProviderMeta>{metaText}</ProviderMeta>
+                  </ProviderInfo>
+                  <ProviderRight>
+                    <ProviderQuote>{netDisplay}</ProviderQuote>
+                    <ProviderFiat>{fiatDisplay}</ProviderFiat>
+                  </ProviderRight>
+                </ProviderButton>
+              )
+            })}
+          </ProviderList>
+
+          <ContinueButtonWrapper>
+            <Button variant="secondary" onClick={handleBack}>
+              Back
+            </Button>
+            <Button variant="primary" onClick={handleContinueFromStep2} disabled={step2Disabled}>
+              Continue
+            </Button>
+          </ContinueButtonWrapper>
+        </ModalContent>
+      </PageContent>
+    )
+  }
+
+  // Step 3: Pending Screen
   return (
     <PageContent>
-      <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
-        <ModalH1>{locales.buyScreen_heading}</ModalH1>
-        <ModalBody style={{ marginTop: 8 }}>{locales.buyScreen_subheading}</ModalBody>
+      <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
+        <ModalH1>Processing Purchase</ModalH1>
+        <ModalBody style={{ marginTop: 8 }}>Complete the purchase in the popup window...</ModalBody>
 
-        <Section>
-          <SectionLabel>Amount</SectionLabel>
-          <AmountCard>
-            <CurrencySymbol>{currencySymbol}</CurrencySymbol>
-            <AmountInput
-              value={buyForm.amount}
-              onChange={handleAmountChange}
-              onBlur={handleAmountBlur}
-              placeholder="0.00"
-              inputMode="decimal"
-              autoComplete="off"
-            />
-          </AmountCard>
-          <PresetList>
-            {amountPresets.map((preset) => (
-              <PresetButton
-                key={preset}
-                type="button"
-                onClick={() => handlePresetClick(preset)}
-                $active={isPresetSelected(preset)}
+        <PendingContainer>
+          <SquircleSpinner
+            logo={
+              <div
+                style={{
+                  padding: '12px',
+                  position: 'relative',
+                  width: '100%',
+                }}
               >
-                {currencyFormatter.format(preset)}
-              </PresetButton>
-            ))}
-          </PresetList>
-        </Section>
+                <Logos.Openfort />
+              </div>
+            }
+            connecting={true}
+          />
+        </PendingContainer>
 
-        <Section>
-          <SectionLabel>Token</SectionLabel>
-          <SelectorButton type="button" onClick={handleOpenTokenSelector}>
-            <SelectorContent>
-              <SelectorTitle>{tokenSymbol || 'Select token'}</SelectorTitle>
-              <SelectorSubtitle>{tokenName}</SelectorSubtitle>
-            </SelectorContent>
-            <SelectorRight>
-              <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ArrowChevron
-                  stroke="currentColor"
-                  d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </Arrow>
-            </SelectorRight>
-          </SelectorButton>
-        </Section>
-
-        <Section>
-          <SectionLabel>Provider</SectionLabel>
-          <SelectorButton type="button" onClick={handleOpenProviderSelector}>
-            <SelectorContent>
-              <SelectorTitle>{selectedProvider.name}</SelectorTitle>
-              <SelectorSubtitle>
-                {formattedFees
-                  ? `Fee: ${formattedFees}`
-                  : formattedFiat
-                    ? `You pay ${formattedFiat}`
-                    : 'Choose a provider to compare quotes'}
-              </SelectorSubtitle>
-            </SelectorContent>
-            <SelectorRight>
-              <SelectorValue>{formattedNetAmount}</SelectorValue>
-              <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ArrowChevron
-                  stroke="currentColor"
-                  d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </Arrow>
-            </SelectorRight>
-          </SelectorButton>
-        </Section>
+        <ModalBody>Waiting for transaction confirmation</ModalBody>
 
         <ContinueButtonWrapper>
-          <Button variant="primary" onClick={handleContinue} disabled={continueDisabled}>
-            Continue
+          <Button variant="secondary" onClick={() => setCurrentStep(1)}>
+            Close
           </Button>
         </ContinueButtonWrapper>
       </ModalContent>
