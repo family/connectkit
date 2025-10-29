@@ -331,7 +331,9 @@ const SendConfirmation = () => {
         </SummaryItem>
       </SummaryList>
 
-      {insufficientBalance && <StatusMessage $status="error">Insufficient balance for this transfer.</StatusMessage>}
+      {insufficientBalance && !isSuccess && (
+        <StatusMessage $status="error">Insufficient balance for this transfer.</StatusMessage>
+      )}
 
       {errorDetails && (
         <ErrorContainer>
