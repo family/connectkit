@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
+import { TickIcon } from '../../../assets/icons'
 import Logos from '../../../assets/logos'
 import useLocales from '../../../hooks/useLocales'
 import { useTokens } from '../../../hooks/useTokens'
@@ -38,6 +39,7 @@ import {
   SelectorRight,
   SelectorSubtitle,
   SelectorTitle,
+  SuccessIconContainer,
 } from './styles'
 import { createCurrencyFormatter, getCurrencySymbol } from './utils'
 
@@ -53,7 +55,7 @@ const Buy = () => {
   const [coinbaseSession, setCoinbaseSession] = useState<CoinbaseOnrampResponse | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
-  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1)
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1)
   const [popupWindow, setPopupWindow] = useState<Window | null>(null)
 
   // Trigger resize when step changes
@@ -71,8 +73,8 @@ const Buy = () => {
         if (popupWindow.closed) {
           clearInterval(checkPopup)
           setPopupWindow(null)
-          // Return to step 1 when popup closes
-          setCurrentStep(1)
+          // Go to completion step when popup closes
+          setCurrentStep(4)
           return
         }
 
@@ -82,14 +84,14 @@ const Buy = () => {
           if (popupUrl.includes('coinbase_onramp=success')) {
             popupWindow.close()
             setPopupWindow(null)
-            setCurrentStep(1)
+            setCurrentStep(4)
             clearInterval(checkPopup)
           }
-        } catch (e) {
+        } catch (_e) {
           // Cross-origin error is expected while on Coinbase domain
           // We can't read the URL until it redirects back to our domain
         }
-      } catch (error) {
+      } catch (_error) {
         // Handle any other errors
         clearInterval(checkPopup)
       }
@@ -294,8 +296,26 @@ const Buy = () => {
 
   const handleBack = () => {
     if (currentStep > 1) {
-      setCurrentStep((prev) => (prev - 1) as 1 | 2 | 3)
+      setCurrentStep((prev) => (prev - 1) as 1 | 2 | 3 | 4)
     }
+  }
+
+  const handleDone = () => {
+    setCurrentStep(1)
+    setRoute(routes.PROFILE)
+  }
+
+  const getBlockExplorerUrl = (chainId: number, address: string): string => {
+    const explorers: Record<number, string> = {
+      1: 'https://etherscan.io',
+      8453: 'https://basescan.org',
+      137: 'https://polygonscan.com',
+      42161: 'https://arbiscan.io',
+      10: 'https://optimistic.etherscan.io',
+      84532: 'https://sepolia.basescan.org',
+    }
+    const baseUrl = explorers[chainId] || 'https://basescan.org'
+    return `${baseUrl}/address/${address}`
   }
 
   const isPresetSelected = (value: number) => pressedPreset === value
@@ -435,45 +455,85 @@ const Buy = () => {
   }
 
   // Step 3: Pending Screen
+  if (currentStep === 3) {
+    return (
+      <PageContent>
+        <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
+          <ModalH1>Processing Purchase</ModalH1>
+          <ModalBody style={{ marginTop: 8 }}>Complete the purchase in the popup window...</ModalBody>
+
+          <PendingContainer>
+            <SquircleSpinner
+              logo={
+                <div
+                  style={{
+                    padding: '12px',
+                    position: 'relative',
+                    width: '100%',
+                  }}
+                >
+                  <Logos.Openfort />
+                </div>
+              }
+              connecting={true}
+            />
+          </PendingContainer>
+
+          <ModalBody>Waiting for transaction confirmation</ModalBody>
+
+          <ContinueButtonWrapper>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                if (popupWindow && !popupWindow.closed) {
+                  popupWindow.close()
+                }
+                setPopupWindow(null)
+                setCurrentStep(1)
+              }}
+            >
+              Close
+            </Button>
+          </ContinueButtonWrapper>
+        </ModalContent>
+      </PageContent>
+    )
+  }
+
+  // Step 4: Provider Finished
+  const blockExplorerUrl = address ? getBlockExplorerUrl(chainId, address) : ''
+
   return (
     <PageContent>
       <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
-        <ModalH1>Processing Purchase</ModalH1>
-        <ModalBody style={{ marginTop: 8 }}>Complete the purchase in the popup window...</ModalBody>
+        <ModalH1>Provider Finished</ModalH1>
 
-        <PendingContainer>
-          <SquircleSpinner
-            logo={
-              <div
-                style={{
-                  padding: '12px',
-                  position: 'relative',
-                  width: '100%',
-                }}
+        <SuccessIconContainer>
+          <TickIcon />
+        </SuccessIconContainer>
+
+        <ModalBody>
+          The provider flow has been completed. You can view your wallet on the block explorer to check your
+          transactions.
+        </ModalBody>
+
+        <Section style={{ marginTop: 24 }}>
+          {blockExplorerUrl && (
+            <ContinueButtonWrapper style={{ marginTop: 0 }}>
+              <Button
+                variant="secondary"
+                onClick={() => window.open(blockExplorerUrl, '_blank', 'noopener,noreferrer')}
               >
-                <Logos.Openfort />
-              </div>
-            }
-            connecting={true}
-          />
-        </PendingContainer>
-
-        <ModalBody>Waiting for transaction confirmation</ModalBody>
-
-        <ContinueButtonWrapper>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              if (popupWindow && !popupWindow.closed) {
-                popupWindow.close()
-              }
-              setPopupWindow(null)
-              setCurrentStep(1)
-            }}
-          >
-            Close
-          </Button>
-        </ContinueButtonWrapper>
+                View Wallet on Block Explorer
+              </Button>
+            </ContinueButtonWrapper>
+          )}
+          <ContinueButtonWrapper style={{ marginTop: blockExplorerUrl ? 4 : 0 }}>
+            <Button variant="primary" onClick={handleDone}>
+              Done
+            </Button>
+          </ContinueButtonWrapper>
+        </Section>
       </ModalContent>
     </PageContent>
   )
