@@ -37,14 +37,14 @@
   ],
   "dependencies": {
     "iron-session": "^6.2.1",
-    "viem": "^2.23.2"
+    "viem": "^2.31.7"
   },
   "peerDependencies": {
     "connectkit": ">=1.2.0",
     "next": ">=12.x",
     "react": "17.x || 18.x",
     "react-dom": "17.x || 18.x",
-    "viem": ">=2.13.3"
+    "viem": ">=2.31.7"
   },
   "devDependencies": {
     "@types/node": "^16.11.27",
