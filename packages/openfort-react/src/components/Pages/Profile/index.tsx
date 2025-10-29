@@ -1,12 +1,12 @@
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import { useAccount, useBalance, useEnsName } from 'wagmi'
+import { useAccount, useBalance, useChainId, useEnsName } from 'wagmi'
 import { BuyIcon, DisconnectIcon, ReceiveIcon, SendIcon } from '../../../assets/icons'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
 import useLocales from '../../../hooks/useLocales'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { isSafeConnector, nFormatter, truncateEthAddress } from '../../../utils'
+import { isSafeConnector, isTestnetChain, nFormatter, truncateEthAddress } from '../../../utils'
 import Avatar from '../../Common/Avatar'
 import Button from '../../Common/Button'
 import ChainSelector from '../../Common/ChainSelect'
@@ -37,6 +37,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const locales = useLocales()
 
   const { address, connector, chain } = useAccount()
+  const chainId = useChainId()
   const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -51,6 +52,9 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const [shouldDisconnect, setShouldDisconnect] = useState(false)
   const { logout } = useOpenfortCore()
 
+  const isTestnet = isTestnetChain(chainId)
+  const [showTestnetMessage, setShowTestnetMessage] = useState(false)
+
   useEffect(() => {
     if (!shouldDisconnect) return
 
@@ -64,6 +68,26 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
       logout()
     }
   }, [shouldDisconnect, logout])
+
+  useEffect(() => {
+    context.triggerResize()
+
+    if (showTestnetMessage) {
+      const timer = setTimeout(() => {
+        setShowTestnetMessage(false)
+      }, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [showTestnetMessage])
+
+  const handleBuyClick = (e: React.MouseEvent) => {
+    if (isTestnet) {
+      e.preventDefault()
+      setShowTestnetMessage(true)
+    } else {
+      context.setRoute(routes.BUY)
+    }
+  }
 
   const { setSendForm } = context
 
@@ -143,13 +167,26 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
                   </ActionButton>
                   <ActionButton
                     icon={<BuyIcon />}
-                    onClick={() => {
-                      context.setRoute(routes.BUY)
-                    }}
+                    onClick={handleBuyClick}
+                    style={isTestnet ? { cursor: 'not-allowed', opacity: 0.4, pointerEvents: 'auto' } : undefined}
                   >
                     Buy
                   </ActionButton>
                 </ActionButtonsContainer>
+                <AnimatePresence onExitComplete={() => context.triggerResize()}>
+                  {showTestnetMessage && (
+                    <ModalBody
+                      as={motion.div}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 0.7, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      style={{ marginTop: 12, fontSize: 14, textAlign: 'center' }}
+                    >
+                      Buy is only available on mainnet chains
+                    </ModalBody>
+                  )}
+                </AnimatePresence>
               </ModalBody>
             )}
           </>

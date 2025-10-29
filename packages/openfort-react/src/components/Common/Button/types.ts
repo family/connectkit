@@ -15,4 +15,5 @@ export type ButtonProps = {
   style?: React.CSSProperties
   onClick?: (e: any) => void
   textAlign?: 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly'
+  title?: string
 }

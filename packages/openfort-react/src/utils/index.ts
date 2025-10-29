@@ -99,3 +99,4 @@ export const isSafeConnector = (connectorId?: string) => connectorId === 'safe'
 export const isInjectedConnector = (connectorId?: string) => connectorId === 'injected'
 
 export { nFormatter, truncateEthAddress, isMobile, isAndroid, detectBrowser, flattenChildren }
+export { isTestnetChain } from './isTestnetChain'

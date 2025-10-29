@@ -37,6 +37,7 @@ const Button: React.FC<ButtonProps> = ({
   style,
   onClick,
   textAlign,
+  title,
 }) => {
   const key = typeof children === 'string' ? children : flattenChildren(children).join('') // Need to generate a string for the key so we can automatically animate between content
 
@@ -55,6 +56,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       $variant={variant}
       style={style}
+      title={title}
     >
       <AnimatePresence initial={false}>
         <ButtonContainerInner
