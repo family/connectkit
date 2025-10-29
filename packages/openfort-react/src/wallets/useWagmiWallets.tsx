@@ -11,12 +11,12 @@ export type WalletProps = {
 } & WalletConfigProps
 
 export const useWallet = (id: string): WalletProps | null => {
-  const wallets = useWallets()
+  const wallets = useWagmiWallets()
   const wallet = wallets.find((c) => c.id === id)
   if (!wallet) return null
   return wallet
 }
-export const useWallets = (): WalletProps[] => {
+export const useWagmiWallets = (): WalletProps[] => {
   const connectors = useConnectors()
   const context = useOpenfort()
 
