@@ -13,7 +13,10 @@ export type All = {
 }
 
 export type { CustomAvatarProps } from './components/Common/Avatar'
-export type { ConnectUIOptions as OpenfortOptions, OpenfortWalletConfig } from './components/Openfort/types'
+export type {
+  ConnectUIOptions as OpenfortOptions,
+  OpenfortWalletConfig,
+} from './components/Openfort/types'
 
 export enum OpenfortErrorType {
   AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR',

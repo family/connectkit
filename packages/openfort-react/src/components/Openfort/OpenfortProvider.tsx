@@ -183,6 +183,7 @@ export const OpenfortProvider = ({
     enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
+    onRampProviders: undefined,
     buyWithCardUrl: undefined,
     buyFromExchangeUrl: undefined,
     buyTroubleshootingUrl: undefined,

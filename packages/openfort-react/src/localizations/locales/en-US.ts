@@ -114,6 +114,9 @@ const enUS = {
   buyScreen_help: 'Having trouble or facing location restrictions?',
   buyScreen_help_cta: 'Try a different provider.',
   buyScreen_help_url: 'https://onramper.com/',
+  buyScreen_coinbase_title: 'Buy with Coinbase',
+  buyScreen_stripe_title: 'Buy with Stripe',
+  buyScreen_moonpay_title: 'Buy with MoonPay',
 
   switchNetworkScreen_heading: 'Switch Networks',
 

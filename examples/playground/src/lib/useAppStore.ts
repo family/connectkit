@@ -47,6 +47,18 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
       defaultMethod: RecoveryMethod.PASSWORD,
       allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
     },
+    // Configure on-ramp providers for buying crypto
+    onRampProviders: {
+      coinbase: {
+        appId: import.meta.env.VITE_COINBASE_APP_ID,
+      },
+      stripe: {
+        publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY,
+      },
+      moonpay: {
+        apiKey: import.meta.env.VITE_MOONPAY_API_KEY,
+      },
+    },
   },
 
   // Set the wallet configuration. In this example, we will be using the embedded signer.

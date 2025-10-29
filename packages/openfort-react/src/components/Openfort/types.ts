@@ -176,6 +176,27 @@ type WalletRecoveryOptions = {
   defaultMethod?: RecoveryMethod
 }
 
+/**
+ * Configuration for on-ramp providers that allow users to purchase cryptocurrency.
+ */
+export type OnRampProviderConfig = {
+  /** Coinbase Onramp configuration */
+  coinbase?: {
+    /** Coinbase project/app ID from Coinbase Developer Platform */
+    appId: string
+  }
+  /** Stripe Crypto Onramp configuration */
+  stripe?: {
+    /** Stripe publishable key */
+    publishableKey: string
+  }
+  /** MoonPay configuration */
+  moonpay?: {
+    /** MoonPay public API key */
+    apiKey: string
+  }
+}
+
 export type ConnectUIOptions = {
   theme?: Theme
   mode?: Mode
@@ -199,8 +220,13 @@ export type ConnectUIOptions = {
   /** Blur intensity applied to the background when the modal is open. */
   overlayBlur?: number
   walletRecovery?: WalletRecoveryOptions
+  /** Configuration for on-ramp providers (Coinbase, Stripe, MoonPay) */
+  onRampProviders?: OnRampProviderConfig
+  /** @deprecated Use onRampProviders instead. Legacy URL for card payment option. */
   buyWithCardUrl?: string
+  /** @deprecated Use onRampProviders instead. Legacy URL for exchange purchase option. */
   buyFromExchangeUrl?: string
+  /** URL for troubleshooting/help with purchasing crypto */
   buyTroubleshootingUrl?: string
 } & Partial<OpenfortUIOptions>
 
@@ -238,8 +264,13 @@ export type OpenfortUIOptionsExtended = {
   disableSiweRedirect?: boolean
   /** Blur intensity applied to the background when the modal is open. */
   overlayBlur?: number
+  /** Configuration for on-ramp providers (Coinbase, Stripe, MoonPay) */
+  onRampProviders?: OnRampProviderConfig
+  /** @deprecated Use onRampProviders instead. Legacy URL for card payment option. */
   buyWithCardUrl?: string
+  /** @deprecated Use onRampProviders instead. Legacy URL for exchange purchase option. */
   buyFromExchangeUrl?: string
+  /** URL for troubleshooting/help with purchasing crypto */
   buyTroubleshootingUrl?: string
   walletRecovery: WalletRecoveryOptionsExtended
 } & OpenfortUIOptions
