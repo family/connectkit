@@ -94,265 +94,44 @@ export const MetaMask = ({ background = false, ...props }) => (
     style={
       background
         ? {
-            background:
-              'linear-gradient(0deg, var(--ck-brand-metamask-12), var(--ck-brand-metamask-11))',
+            background: 'var(--ck-brand-metamask-bg)',
             borderRadius: '27.5%',
           }
         : undefined
     }
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
+    width="88"
+    height="88"
+    viewBox="0 0 88 88"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    {/**
-    <defs>
-      <linearGradient
-        id="paint0_linear_967_843"
-        x1="16"
-        y1="0"
-        x2="16"
-        y2="32"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.130682" stopColor="var(--ck-brand-metamask-11)" />
-        <stop offset="1" stopColor="var(--ck-brand-metamask-12)" />
-      </linearGradient>
-    </defs>
-    <rect width="32" height="32" fill="url(#paint0_linear_967_843)" />
-     */}
     <path
-      d="M27.2684 4.03027L17.5018 11.2841L19.3079 7.00442L27.2684 4.03027Z"
+      d="M74.4066 73.7063L59.3305 69.249L47.9614 75.9975L40.0287 75.9941L28.6527 69.249L13.5835 73.7063L9 58.3408L13.584 41.2875L9 26.8697L13.584 9L37.1306 22.969H50.8595L74.4066 9L78.9906 26.8697L74.4066 41.2875L78.9906 58.3408L74.4066 73.7063Z"
+      fill="var(--ck-brand-metamask-01)"
+    />
+    <path
+      d="M13.587 9L37.1341 22.9788L36.198 32.5722L13.587 9ZM28.6567 58.3471L39.0172 66.1838L28.6567 69.2485V58.3471ZM38.189 45.3909L36.198 32.5791L23.452 41.2915L23.4451 41.288V41.2944L23.4846 50.2623L28.6532 45.3914L38.189 45.3909ZM74.4066 9L50.8595 22.9788L51.7927 32.5722L74.4066 9ZM59.3374 58.3471L48.9764 66.1838L59.3374 69.2485V58.3471ZM64.5455 41.2939V41.2875L64.5425 41.291L51.7961 32.5791L49.8051 45.3909H59.3369L64.509 50.2613L64.5455 41.2939Z"
+      fill="var(--ck-brand-metamask-01)"
+    />
+    <path
+      d="M28.6532 69.2485L13.584 73.7058L9 58.3471H28.6532V69.2485ZM38.1856 45.3875L41.0639 63.9097L37.0744 53.6109L23.4782 50.2613L28.6498 45.388L38.1856 45.3875ZM59.3369 69.2485L74.4066 73.7058L78.9906 58.3467H59.3369C59.3369 58.3471 59.3369 69.2485 59.3369 69.2485ZM49.8051 45.3875L46.9267 63.9097L50.9157 53.6109L64.513 50.2613L59.3379 45.388L49.8051 45.3875Z"
       fill="var(--ck-brand-metamask-02)"
-      stroke="var(--ck-brand-metamask-02)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <path
-      d="M4.7218 4.03027L14.4099 11.3528L12.6921 7.00442L4.7218 4.03027Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M23.7544 20.8438L21.1532 24.8289L26.7187 26.3602L28.3187 20.9321L23.7544 20.8438Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M3.69104 20.9321L5.28117 26.3602L10.8467 24.8289L8.24551 20.8438L3.69104 20.9321Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.5327 14.1108L8.98181 16.4568L14.5081 16.7022L14.3117 10.7637L10.5327 14.1108Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M21.4576 14.1111L17.6295 10.6953L17.5018 16.7025L23.0182 16.4571L21.4576 14.1111Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.8469 24.8292L14.1647 23.2096L11.2984 20.9717L10.8469 24.8292Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.8257 23.2096L21.1531 24.8292L20.6918 20.9717L17.8257 23.2096Z"
-      fill="var(--ck-brand-metamask-08)"
-      stroke="var(--ck-brand-metamask-08)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M21.1531 24.8296L17.8257 23.21L18.0906 25.3793L18.0612 26.2921L21.1531 24.8296Z"
-      fill="var(--ck-brand-metamask-06)"
-      stroke="var(--ck-brand-metamask-06)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.8469 24.8296L13.9388 26.2921L13.9192 25.3793L14.1647 23.21L10.8469 24.8296Z"
-      fill="var(--ck-brand-metamask-06)"
-      stroke="var(--ck-brand-metamask-06)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M13.9877 19.5389L11.2196 18.7242L13.1729 17.8311L13.9877 19.5389Z"
-      fill="var(--ck-brand-metamask-09)"
-      stroke="var(--ck-brand-metamask-09)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M18.0023 19.5389L18.8171 17.8311L20.7802 18.7242L18.0023 19.5389Z"
-      fill="var(--ck-brand-metamask-09)"
-      stroke="var(--ck-brand-metamask-09)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.8468 24.8289L11.3179 20.8438L8.24561 20.9321L10.8468 24.8289Z"
+      d="M9 58.3408L13.584 41.2876H23.4417L23.4777 50.2584L37.0754 53.6079L41.0644 63.9063L39.0137 66.174L28.6532 58.3374H9V58.3408ZM78.9906 58.3408L74.4066 41.2876H64.5485L64.5125 50.2584L50.9157 53.6079L46.9262 63.9063L48.9764 66.174L59.3374 58.3374H78.9906V58.3408ZM50.8595 22.969H37.1306L36.1985 32.5624L41.0649 63.896H46.9267L51.7961 32.5624L50.8595 22.969Z"
       fill="var(--ck-brand-metamask-03)"
-      stroke="var(--ck-brand-metamask-03)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <path
-      d="M20.6821 20.8438L21.1532 24.8289L23.7544 20.9321L20.6821 20.8438Z"
-      fill="var(--ck-brand-metamask-03)"
-      stroke="var(--ck-brand-metamask-03)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M23.0182 16.4565L17.5018 16.7019L18.0122 19.5387L18.827 17.8308L20.7902 18.7239L23.0182 16.4565Z"
-      fill="var(--ck-brand-metamask-03)"
-      stroke="var(--ck-brand-metamask-03)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M11.2198 18.7239L13.1829 17.8308L13.9878 19.5387L14.5081 16.7019L8.98181 16.4565L11.2198 18.7239Z"
-      fill="var(--ck-brand-metamask-03)"
-      stroke="var(--ck-brand-metamask-03)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M8.98181 16.4565L11.2983 20.9718L11.2198 18.7239L8.98181 16.4565Z"
-      fill="var(--ck-brand-metamask-10)"
-      stroke="var(--ck-brand-metamask-10)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M20.7901 18.7239L20.6919 20.9718L23.0181 16.4565L20.7901 18.7239Z"
-      fill="var(--ck-brand-metamask-10)"
-      stroke="var(--ck-brand-metamask-10)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M14.508 16.7021L13.9878 19.5389L14.6356 22.886L14.7828 18.4788L14.508 16.7021Z"
-      fill="var(--ck-brand-metamask-10)"
-      stroke="var(--ck-brand-metamask-10)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.5017 16.7021L17.2367 18.4689L17.3545 22.886L18.0121 19.5389L17.5017 16.7021Z"
-      fill="var(--ck-brand-metamask-10)"
-      stroke="var(--ck-brand-metamask-10)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M18.0121 19.5388L17.3545 22.886L17.8257 23.2099L20.6918 20.972L20.79 18.7241L18.0121 19.5388Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M11.2196 18.7241L11.2981 20.972L14.1644 23.2099L14.6355 22.886L13.9877 19.5388L11.2196 18.7241Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M18.0615 26.2917L18.0908 25.3788L17.8455 25.1628H14.145L13.9192 25.3788L13.9388 26.2917L10.8469 24.8291L11.9267 25.7126L14.1155 27.234H17.875L20.0736 25.7126L21.1533 24.8291L18.0615 26.2917Z"
-      fill="var(--ck-brand-metamask-07)"
-      stroke="var(--ck-brand-metamask-07)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.8258 23.2096L17.3546 22.8857H14.6357L14.1646 23.2096L13.9191 25.379L14.1449 25.163H17.8454L18.0907 25.379L17.8258 23.2096Z"
+      d="M13.584 9L9 26.8697L13.584 41.2875H23.4417L36.1945 32.5727L13.584 9ZM35.3368 49.1076H30.8711L28.4398 51.4743L37.0784 53.6006L35.3368 49.1042V49.1076ZM74.4066 9L78.9906 26.8697L74.4066 41.2875H64.5485L51.7961 32.5727L74.4066 9ZM52.6603 49.1076H57.1324L59.5637 51.4772L50.9152 53.6079L52.6603 49.1042V49.1076ZM47.958 69.8848L48.9769 66.1809L46.9262 63.9131H41.06L39.0098 66.1809L40.0282 69.8848"
       fill="var(--ck-brand-metamask-04)"
-      stroke="var(--ck-brand-metamask-04)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <path
-      d="M27.6806 11.7552L28.5149 7.75041L27.2683 4.03027L17.8257 11.0387L21.4575 14.1109L26.591 15.6128L27.7296 14.2876L27.2389 13.9342L28.0241 13.2178L27.4156 12.7465L28.2007 12.1478L27.6806 11.7552Z"
+      d="M47.958 69.8843V76.0005H40.0292V69.8843H47.958Z"
       fill="var(--ck-brand-metamask-05)"
-      stroke="var(--ck-brand-metamask-05)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <path
-      d="M3.48486 7.75041L4.3192 11.7552L3.78916 12.1478L4.57441 12.7465L3.97566 13.2178L4.7609 13.9342L4.27012 14.2876L5.39892 15.6128L10.5325 14.1109L14.1644 11.0387L4.72164 4.03027L3.48486 7.75041Z"
-      fill="var(--ck-brand-metamask-05)"
-      stroke="var(--ck-brand-metamask-05)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M26.591 15.6122L21.4575 14.1104L23.0181 16.4564L20.6919 20.9716L23.7544 20.9323H28.3186L26.591 15.6122Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.5326 14.1104L5.39897 15.6122L3.69104 20.9323H8.24551L11.2982 20.9716L8.98168 16.4564L10.5326 14.1104Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.5018 16.7018L17.8258 11.0381L19.3177 7.00391H12.6921L14.1645 11.0381L14.5081 16.7018L14.6258 18.4883L14.6356 22.8856H17.3546L17.3742 18.4883L17.5018 16.7018Z"
-      fill="var(--ck-brand-metamask-01)"
-      stroke="var(--ck-brand-metamask-01)"
-      strokeWidth="0.269931"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M28.6567 69.2421L40.0356 75.9971V69.8809L39.0167 66.1775L28.6567 69.2421ZM59.3374 69.2421L47.958 75.9971V69.8809L48.9769 66.1775L59.3374 69.2421Z"
+      fill="var(--ck-brand-metamask-06)"
     />
   </svg>
 );
