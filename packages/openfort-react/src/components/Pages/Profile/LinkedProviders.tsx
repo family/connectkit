@@ -11,6 +11,10 @@ import { useOpenfort } from '../../Openfort/useOpenfort'
 import { ProviderIcon as ProviderIconContainer } from '../Providers/styles'
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from './styles'
 
+type LinkedProvidersProps = {
+  showHeader?: boolean
+}
+
 const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
   const wallets = useWallets()
   const wallet = useMemo(() => {
@@ -62,7 +66,7 @@ const AddLinkedProviderButton: React.FC = () => {
   )
 }
 
-export const LinkedProviders: React.FC = () => {
+export const LinkedProviders: React.FC<LinkedProvidersProps> = ({ showHeader = true }) => {
   const { user } = useOpenfortCore()
 
   if (!user || !user.linkedAccounts) {
@@ -75,7 +79,7 @@ export const LinkedProviders: React.FC = () => {
 
   return (
     <>
-      <ProvidersHeader>Linked providers</ProvidersHeader>
+      {showHeader ? <ProvidersHeader>Linked providers</ProvidersHeader> : null}
       <LinkedProviderContainer>
         {user.linkedAccounts.map((provider) => (
           <LinkedProvider

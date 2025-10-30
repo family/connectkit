@@ -111,7 +111,7 @@ export const LinkedProviderButton = styled(Button)`
   font-weight: 500;
 `
 
-export const LinkedProvidersToggle = styled.button<{ $active?: boolean }>`
+export const LinkedProvidersToggle = styled.button`
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
@@ -120,11 +120,9 @@ export const LinkedProvidersToggle = styled.button<{ $active?: boolean }>`
   height: 36px;
   padding: 0;
   border-radius: 999px;
-  border: 1px solid
-    ${({ $active }) => ($active ? 'var(--ck-focus-color)' : 'var(--ck-body-divider)')};
-  background: ${({ $active }) =>
-    $active ? 'var(--ck-secondary-button-hover-background)' : 'var(--ck-secondary-button-background)'};
-  color: ${({ $active }) => ($active ? 'var(--ck-focus-color)' : 'var(--ck-body-color)')};
+  border: 1px solid var(--ck-body-divider);
+  background: var(--ck-secondary-button-background);
+  color: var(--ck-body-color);
   cursor: pointer;
   transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
   margin: 0;
@@ -142,23 +140,5 @@ export const LinkedProvidersToggle = styled.button<{ $active?: boolean }>`
   svg {
     width: 18px;
     height: 18px;
-  }
-`
-
-export const LinkedProvidersPanel = styled.div`
-  align-self: stretch;
-  width: 100%;
-  padding: 16px;
-  margin-top: 12px;
-  border-radius: var(--ck-secondary-button-border-radius);
-  border: 1px solid var(--ck-body-divider);
-  background: var(--ck-secondary-button-background);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  ${ProvidersHeader} {
-    margin-top: 0;
   }
 `

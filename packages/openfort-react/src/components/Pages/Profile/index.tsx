@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAccount, useBalance, useChainId, useEnsName } from 'wagmi'
 import { BuyIcon, DisconnectIcon, LinkIcon, ReceiveIcon, SendIcon } from '../../../assets/icons'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
@@ -13,12 +13,10 @@ import ChainSelector from '../../Common/ChainSelect'
 import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
-import { Spinner as LoadingSpinner } from '../../Common/Spinner'
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviders } from './LinkedProviders'
 import {
   ActionButton,
   ActionButtonsContainer,
@@ -28,7 +26,6 @@ import {
   BalanceContainer,
   ChainSelectorContainer,
   DisconnectButton,
-  LinkedProvidersPanel,
   LinkedProvidersToggle,
   LoadingBalance,
   Unsupported,
@@ -37,7 +34,7 @@ import {
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useOpenfort()
   const themeContext = useThemeContext()
-  const { setHeaderLeftSlot } = context
+  const { setHeaderLeftSlot, setRoute } = context
 
   const locales = useLocales()
 
@@ -55,10 +52,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   })
 
   const [shouldDisconnect, setShouldDisconnect] = useState(false)
-  const { logout, updateUser } = useOpenfortCore()
-  const [showLinkedProviders, setShowLinkedProviders] = useState(false)
-  const [isLoadingLinkedProviders, setIsLoadingLinkedProviders] = useState(false)
-  const triggerResize = context.triggerResize
+  const { logout } = useOpenfortCore()
 
   const isTestnet = isTestnetChain(chainId)
   const [showTestnetMessage, setShowTestnetMessage] = useState(false)
@@ -88,17 +82,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     }
   }, [showTestnetMessage])
 
-  useEffect(() => {
-    triggerResize()
-  }, [showLinkedProviders, triggerResize])
-
-  useEffect(() => {
-    if (!address) {
-      setShowLinkedProviders(false)
-      setIsLoadingLinkedProviders(false)
-    }
-  }, [address])
-
   const handleBuyClick = (e: React.MouseEvent) => {
     if (isTestnet) {
       e.preventDefault()
@@ -108,56 +91,27 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     }
   }
 
-  const handleToggleLinkedProviders = useCallback(async () => {
-    if (showLinkedProviders) {
-      setShowLinkedProviders(false)
-      return
-    }
-
-    setIsLoadingLinkedProviders(true)
-    try {
-      await updateUser()
-    } catch (_error) {
-      // Ignore refresh errors and show the cached data instead
-    } finally {
-      setIsLoadingLinkedProviders(false)
-      setShowLinkedProviders(true)
-    }
-  }, [showLinkedProviders, updateUser])
-
   useEffect(() => {
     if (!address) {
       setHeaderLeftSlot(null)
       return
     }
 
-    const label = isLoadingLinkedProviders
-      ? 'Loading linked providers'
-      : showLinkedProviders
-        ? 'Hide linked providers'
-        : 'Show linked providers'
-
     setHeaderLeftSlot(
       <LinkedProvidersToggle
         type="button"
-        onClick={handleToggleLinkedProviders}
-        disabled={isLoadingLinkedProviders}
-        aria-label={label}
-        aria-pressed={showLinkedProviders}
-        title={label}
-        aria-busy={isLoadingLinkedProviders}
-        $active={showLinkedProviders}
+        onClick={() => setRoute(routes.LINKED_PROVIDERS)}
+        aria-label="Linked providers"
+        title="Linked providers"
       >
-        {isLoadingLinkedProviders ? <LoadingSpinner /> : <LinkIcon />}
+        <LinkIcon />
       </LinkedProvidersToggle>
     )
-  }, [address, handleToggleLinkedProviders, isLoadingLinkedProviders, setHeaderLeftSlot, showLinkedProviders])
 
-  useEffect(() => {
     return () => {
       setHeaderLeftSlot(null)
     }
-  }, [setHeaderLeftSlot])
+  }, [address, setHeaderLeftSlot, setRoute])
 
   const { setSendForm } = context
 
@@ -181,11 +135,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
             <ModalH1>
               <CopyText value={address}>{ensName ?? truncateEthAddress(address, separator)}</CopyText>
             </ModalH1>
-            {showLinkedProviders ? (
-              <LinkedProvidersPanel>
-                <LinkedProviders />
-              </LinkedProvidersPanel>
-            ) : null}
             {context?.uiConfig.hideBalance ? null : (
               <ModalBody>
                 <BalanceContainer>

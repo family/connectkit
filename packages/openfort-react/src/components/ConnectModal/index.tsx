@@ -22,6 +22,7 @@ import EmailLogin from '../Pages/EmailLogin'
 import EmailVerification from '../Pages/EmailVerification'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
+import LinkedProvidersPage from '../Pages/LinkedProviders'
 import Loading from '../Pages/Loading'
 import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
@@ -125,6 +126,7 @@ const ConnectModal: React.FC<{
     providers: <Providers />,
     connect: <ConnectUsing />,
     profile: <Profile />,
+    linkedProviders: <LinkedProvidersPage />,
     switchNetworks: <SwitchNetworks />,
     connectWithMobile: <ConnectWithMobile />,
     send: <Send />,
