@@ -235,6 +235,7 @@ export const OpenfortProvider = ({
   const [emailInput, setEmailInput] = useState('')
   const [sendForm, setSendForm] = useState<SendFormState>(defaultSendFormState)
   const [buyForm, setBuyForm] = useState<BuyFormState>(defaultBuyFormState)
+  const [headerLeftSlot, setHeaderLeftSlot] = useState<React.ReactNode | null>(null)
 
   // Include Google Font that is needed for a themes
   useThemeFont(safeUiConfig.embedGoogleFonts ? ckTheme : ('' as Theme))
@@ -267,6 +268,10 @@ export const OpenfortProvider = ({
   useEffect(() => {
     logger.log('ROUTE', route)
   }, [route])
+
+  useEffect(() => {
+    setHeaderLeftSlot(null)
+  }, [route.route])
 
   const typedSetRoute = (options: SetRouteOptions) => {
     const routeObj = typeof options === 'string' ? { route: options } : options
@@ -332,6 +337,8 @@ export const OpenfortProvider = ({
     setSendForm,
     buyForm,
     setBuyForm,
+    headerLeftSlot,
+    setHeaderLeftSlot,
   }
 
   return createElement(

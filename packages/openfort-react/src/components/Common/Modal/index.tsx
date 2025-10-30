@@ -426,8 +426,10 @@ const Modal: React.FC<ModalProps> = ({
                   position: 'absolute',
                   top: 23,
                   left: 20,
-                  width: 32,
-                  height: 32,
+                  minWidth: 32,
+                  minHeight: 32,
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <AnimatePresence>
@@ -447,6 +449,17 @@ const Modal: React.FC<ModalProps> = ({
                     >
                       <BackIcon />
                     </BackButton>
+                  ) : context.headerLeftSlot ? (
+                    <motion.div
+                      key="headerLeftSlot"
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.12 }}
+                      style={{ display: 'inline-flex' }}
+                    >
+                      {context.headerLeftSlot}
+                    </motion.div>
                   ) : (
                     onInfo &&
                     !context.uiConfig.hideQuestionMarkCTA && (

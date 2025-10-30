@@ -37,6 +37,8 @@ export type ContextValue = {
   setRoute: (options: SetRouteOptions) => void
   onBack: (() => void) | null
   setOnBack: React.Dispatch<React.SetStateAction<(() => void) | null>>
+  headerLeftSlot: React.ReactNode | null
+  setHeaderLeftSlot: React.Dispatch<React.SetStateAction<React.ReactNode | null>>
 
   previousRoute: RouteOptions | null
   setPreviousRoute: () => void
