@@ -6,10 +6,11 @@ import useLocales from '../../../hooks/useLocales'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
-import { ModalBody, ModalContent, ModalH1, PageContents } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
 import SquircleSpinner from '../../Common/SquircleSpinner'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
 import type { CoinbaseOnrampResponse } from './coinbaseApi'
 import { createCoinbaseSession } from './coinbaseApi'
@@ -327,7 +328,7 @@ const Buy = () => {
   // Step 1: Amount and Token Selection
   if (currentStep === 1) {
     return (
-      <PageContents>
+      <PageContent onBack={handleBack}>
         <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
           <ModalH1>{locales.buyScreen_heading}</ModalH1>
           <ModalBody style={{ marginTop: 8 }}>{locales.buyScreen_subheading}</ModalBody>
@@ -385,7 +386,7 @@ const Buy = () => {
             </Button>
           </ContinueButtonWrapper>
         </ModalContent>
-      </PageContents>
+      </PageContent>
     )
   }
 
@@ -394,7 +395,7 @@ const Buy = () => {
     const providers = getProviders()
 
     return (
-      <PageContents>
+      <PageContent onBack={handleBack}>
         <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
           <ModalH1>Select Provider</ModalH1>
           <ModalBody style={{ marginTop: 8 }}>{formattedFiat && `Buying ${formattedFiat} of ${tokenSymbol}`}</ModalBody>
@@ -450,14 +451,14 @@ const Buy = () => {
             </Button>
           </ContinueButtonWrapper>
         </ModalContent>
-      </PageContents>
+      </PageContent>
     )
   }
 
   // Step 3: Pending Screen
   if (currentStep === 3) {
     return (
-      <PageContents>
+      <PageContent onBack={handleBack}>
         <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
           <ModalH1>Processing Purchase</ModalH1>
           <ModalBody style={{ marginTop: 8 }}>Complete the purchase in the popup window...</ModalBody>
@@ -496,7 +497,7 @@ const Buy = () => {
             </Button>
           </ContinueButtonWrapper>
         </ModalContent>
-      </PageContents>
+      </PageContent>
     )
   }
 
@@ -504,7 +505,7 @@ const Buy = () => {
   const blockExplorerUrl = address ? getBlockExplorerUrl(chainId, address) : ''
 
   return (
-    <PageContents>
+    <PageContent onBack={handleBack}>
       <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
         <ModalH1>Provider Finished</ModalH1>
 
@@ -535,7 +536,7 @@ const Buy = () => {
           </ContinueButtonWrapper>
         </Section>
       </ModalContent>
-    </PageContents>
+    </PageContent>
   )
 }
 
