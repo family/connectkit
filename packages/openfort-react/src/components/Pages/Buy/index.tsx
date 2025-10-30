@@ -434,7 +434,7 @@ const Buy = () => {
   // Step 1: Amount and Token Selection
   if (currentStep === 1) {
     return (
-      <PageContent onBack={handleBack}>
+      <PageContent onBack={handleDone}>
         <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
           <ModalH1>{locales.buyScreen_heading}</ModalH1>
           <ModalBody style={{ marginTop: 8 }}>{locales.buyScreen_subheading}</ModalBody>
