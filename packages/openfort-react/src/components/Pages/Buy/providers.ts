@@ -5,7 +5,6 @@ import { getCoinbaseQuote } from './coinbaseApi'
 export type ProviderDefinition = {
   id: BuyProviderId
   name: string
-  tagline: string
   feeBps: number
   highlight?: 'best' | 'fast'
   url?: string
@@ -22,15 +21,13 @@ const PROVIDERS: ProviderDefinition[] = [
   {
     id: 'coinbase',
     name: 'Coinbase',
-    tagline: 'Best price',
-    feeBps: 80,
+    feeBps: 250,
     highlight: 'best',
   },
   {
     id: 'stripe',
     name: 'Stripe',
-    tagline: 'Fast & reliable',
-    feeBps: 100,
+    feeBps: 405,
     highlight: 'fast',
   },
 ]

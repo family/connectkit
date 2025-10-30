@@ -523,12 +523,7 @@ const Buy = () => {
               const highlight =
                 provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
 
-              const metaParts: string[] = []
-              if (provider.tagline && provider.tagline !== highlight) {
-                metaParts.push(provider.tagline)
-              }
-              metaParts.push(`Fee ${feePercentage}%`)
-              const metaText = metaParts.join(' • ')
+              const metaText = `Fee ${feePercentage}%`
 
               const isActive = buyForm.providerId === provider.id
 
@@ -547,8 +542,8 @@ const Buy = () => {
                     <ProviderMeta>{metaText}</ProviderMeta>
                   </ProviderInfo>
                   <ProviderRight>
-                    <ProviderQuote>{netDisplay}</ProviderQuote>
-                    <ProviderFiat>{fiatDisplay}</ProviderFiat>
+                    <ProviderQuote>{fiatDisplay}</ProviderQuote>
+                    <ProviderFiat>{netDisplay}</ProviderFiat>
                   </ProviderRight>
                 </ProviderButton>
               )
