@@ -1,5 +1,5 @@
 import { AuthProvider, LinkWalletOnSignUpOption, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
-import { baseSepolia, beamTestnet, polygonAmoy } from 'viem/chains'
+import { base, mainnet } from 'viem/chains'
 import { create } from 'zustand'
 
 type EditingEntity = {
@@ -54,9 +54,8 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY,
 
     ethereumProviderPolicyId: {
-      [polygonAmoy.id]: import.meta.env.VITE_POLYGON_POLICY_ID!,
-      [beamTestnet.id]: import.meta.env.VITE_BEAM_POLICY_ID!,
-      [baseSepolia.id]: import.meta.env.VITE_BASE_SEPOLIA_POLICY_ID!,
+      [base.id]: import.meta.env.VITE_BASE_POLICY_ID!,
+      [mainnet.id]: import.meta.env.VITE_MAINNET_POLICY_ID!,
     },
 
     debug: false,

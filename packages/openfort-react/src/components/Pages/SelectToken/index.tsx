@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { formatUnits } from 'viem'
 import { type TokenOptionWithBalance, useTokens } from '../../../hooks/useTokens'
 import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
@@ -31,14 +31,15 @@ const SelectToken = () => {
 
   const isBuyFlow = route.route === routes.BUY_TOKEN_SELECT
 
-  // For buy flow, show all tokens. For send flow, show all tokens while loading, then filter by balance
-  const selectableTokens = useMemo(() => {
-    if (isBuyFlow) return tokenOptions
-    if (isBalancesLoading) return tokenOptions // Show all tokens with loading state
-    return tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO)
-  }, [isBuyFlow, isBalancesLoading, tokenOptions])
+  // Show all tokens for both buy and send flows
+  const selectableTokens = tokenOptions
 
   const handleSelect = (token: TokenOptionWithBalance) => {
+    // In send flow, don't allow selecting tokens with 0 balance
+    if (!isBuyFlow && (token.balanceValue ?? ZERO) <= ZERO) {
+      return
+    }
+
     if (isBuyFlow) {
       setBuyForm((prev) => ({
         ...prev,
@@ -66,11 +67,7 @@ const SelectToken = () => {
       if (isBalancesLoading) {
         return <EmptyState>Loading balances…</EmptyState>
       }
-      return (
-        <EmptyState>
-          {isBuyFlow ? 'No supported tokens found for this network yet.' : 'No tokens with a balance on this network.'}
-        </EmptyState>
-      )
+      return <EmptyState>No supported tokens found for this network yet.</EmptyState>
     }
 
     return (
@@ -88,6 +85,10 @@ const SelectToken = () => {
             ? formatBalanceWithSymbol(token.balanceValue, token.decimals, token.symbol)
             : 'Loading...'
 
+          // Check if token has zero balance (for send flow opacity)
+          const hasZeroBalance = isBalanceLoaded && (token.balanceValue ?? ZERO) <= ZERO
+          const isDisabled = !isBuyFlow && hasZeroBalance
+
           if (isBalanceLoaded && pricePerToken !== undefined && token.balanceValue !== undefined) {
             const amount = parseFloat(formatUnits(token.balanceValue, token.decimals))
             if (Number.isFinite(amount)) {
@@ -103,7 +104,12 @@ const SelectToken = () => {
           }
 
           return (
-            <TokenButton key={key} type="button" onClick={() => handleSelect(token)}>
+            <TokenButton
+              key={key}
+              type="button"
+              onClick={() => handleSelect(token)}
+              style={{ opacity: isDisabled ? 0.4 : 1, cursor: isDisabled ? 'not-allowed' : 'pointer' }}
+            >
               <TokenInfo>
                 <TokenSymbol>{displayName}</TokenSymbol>
                 {usdValue ? <TokenName>{usdValue}</TokenName> : null}
@@ -124,7 +130,7 @@ const SelectToken = () => {
           ? 'Choose the token you want to purchase.'
           : isBalancesLoading
             ? 'Loading token balances...'
-            : 'Only tokens with a balance are shown.'}
+            : 'Tokens without a balance are dimmed.'}
       </ModalBody>
       {renderContent()}
     </SelectTokenContent>
