@@ -65,7 +65,7 @@ const getCurrencyCode = (token: SendTokenOption): string => {
 
 /**
  * Create a Stripe onramp session
- * Returns a session with a client_secret that can be used to open crypto.link.com
+ * Calls backend API to create a prefilled session with wallet addresses and amounts
  */
 export const createStripeSession = async (
   params: Omit<CreateStripeSessionParams, 'destinationCurrency' | 'destinationNetwork'> & {
@@ -73,19 +73,20 @@ export const createStripeSession = async (
     chainId: number
   }
 ): Promise<StripeOnrampResponse> => {
-  const { token, chainId, ...rest } = params
+  const { token, chainId, destinationAddress, sourceAmount, sourceCurrency, redirectUrl } = params
 
-  // Build request body
+  const destinationCurrency = getCurrencyCode(token).toLowerCase()
+  const destinationNetwork = getNetworkName(chainId)
+
+  // Build request body for backend API
   const requestBody: CreateStripeSessionParams = {
-    destinationCurrency: getCurrencyCode(token),
-    destinationNetwork: getNetworkName(chainId),
-    destinationAddress: rest.destinationAddress,
+    destinationCurrency,
+    destinationNetwork,
+    destinationAddress,
+    sourceAmount,
+    sourceCurrency: sourceCurrency?.toLowerCase(),
+    redirectUrl,
   }
-
-  // Add optional parameters only if provided
-  if (rest.sourceAmount) requestBody.sourceAmount = rest.sourceAmount
-  if (rest.sourceCurrency) requestBody.sourceCurrency = rest.sourceCurrency
-  if (rest.redirectUrl) requestBody.redirectUrl = rest.redirectUrl
 
   const response = await fetch(STRIPE_API_URL, {
     method: 'POST',
@@ -100,7 +101,8 @@ export const createStripeSession = async (
     throw new Error(errorData.error || errorData.errorMessage || 'Failed to create Stripe session')
   }
 
-  return response.json()
+  const data: StripeOnrampResponse = await response.json()
+  return data
 }
 
 type GetStripeQuoteParams = {
