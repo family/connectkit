@@ -409,10 +409,10 @@ const Buy = () => {
     setCurrentStep((prev) => (prev > 1 ? ((prev - 1) as 1 | 2 | 3 | 4) : prev))
   }, [])
 
-  const handleDone = () => {
+  const handleDone = useCallback(() => {
     setCurrentStep(1)
     setRoute(routes.PROFILE)
-  }
+  }, [setCurrentStep, setRoute, routes.PROFILE])
 
   const getBlockExplorerUrl = (chainId: number, address: string): string => {
     const explorers: Record<number, string> = {
