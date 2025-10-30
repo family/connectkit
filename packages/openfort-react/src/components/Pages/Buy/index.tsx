@@ -187,7 +187,7 @@ const Buy = () => {
           token: selectedToken,
           chainId,
           destinationAddress: address,
-          purchaseAmount: fiatAmount.toFixed(2),
+          paymentSubtotalTarget: fiatAmount.toFixed(2),
           paymentCurrency: buyForm.currency,
           paymentMethod: 'GUEST_CHECKOUT_APPLE_PAY',
         })
@@ -293,14 +293,16 @@ const Buy = () => {
   }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
 
   // Use real quote from orders endpoint
+  // purchaseAmount is the amount of crypto (ETH) the user will receive
   const realPurchaseAmount = orderQuote?.order?.purchaseAmount
     ? Number.parseFloat(orderQuote.order.purchaseAmount)
     : null
   const realTotalFees = orderQuote?.order?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
 
-  // Calculate real fee percentage
+  // Calculate real fee percentage based on paymentTotal
+  const paymentTotal = orderQuote?.order?.paymentTotal ? Number.parseFloat(orderQuote.order.paymentTotal) : null
   const realFeePercentage =
-    fiatAmount && realTotalFees !== null ? ((realTotalFees / fiatAmount) * 100).toFixed(2) : null
+    paymentTotal && realTotalFees !== null ? ((realTotalFees / paymentTotal) * 100).toFixed(2) : null
 
   const displayNetAmount = realPurchaseAmount
 
@@ -514,13 +516,11 @@ const Buy = () => {
               let providerFiatAmount: number | null = fiatAmount
 
               if (provider.id === 'coinbase') {
-                // Show the requested amount (what user wants to receive)
-                providerNetAmount = fiatAmount
+                // Show the crypto amount the user will receive
+                providerNetAmount = realPurchaseAmount
                 providerFeePercentage = realFeePercentage
-                // Use paymentTotal to show the actual total the user will pay including fees
-                if (orderQuote?.order?.paymentTotal) {
-                  providerFiatAmount = Number.parseFloat(orderQuote.order.paymentTotal)
-                }
+                // Show the total cost including fees
+                providerFiatAmount = paymentTotal ?? fiatAmount
               } else if (provider.id === 'stripe' && stripeQuote) {
                 providerNetAmount = Number.parseFloat(stripeQuote.destination_amount)
                 // Use source_total_amount to show the actual total the user will pay
