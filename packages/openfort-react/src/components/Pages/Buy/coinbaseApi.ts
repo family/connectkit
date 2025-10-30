@@ -182,11 +182,11 @@ export const getOrderQuote = async (
     isQuote: true,
     // Add optional parameters
     phoneNumber: rest.phoneNumber || '+12055555555',
-    email: rest.email || 'user@example.com',
-    partnerUserRef: rest.partnerUserRef || `user-${Date.now()}`,
+    email: rest.email || 'test@example.com',
+    partnerUserRef: rest.partnerUserRef || 'sandbox-user-test-456',
     // Required timestamp fields for the API
-    agreementAcceptedAt: new Date().toISOString(),
-    phoneNumberVerifiedAt: new Date().toISOString(),
+    agreementAcceptedAt: rest.agreementAcceptedAt || '2025-10-30T00:00:00Z',
+    phoneNumberVerifiedAt: rest.phoneNumberVerifiedAt || '2025-10-30T00:00:00Z',
   }
 
   const response = await fetch(COINBASE_ORDERS_API_URL, {
