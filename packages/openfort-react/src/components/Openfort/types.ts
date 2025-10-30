@@ -286,7 +286,7 @@ export type BuyFormState = {
 }
 
 export const defaultBuyFormState: BuyFormState = {
-  amount: '100',
+  amount: '10.00',
   currency: 'USD',
   token: {
     type: 'native',
