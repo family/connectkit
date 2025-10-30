@@ -76,11 +76,7 @@ pnpm add @openfort/react @tanstack/react-query wagmi viem
 
 ## Examples
 
-There are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/openfort-react/tree/main/examples):
-
-- [Create React App Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/cra)
-- [Next.js Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/nextjs)
-- [Vite Example (TypeScript)](https://github.com/openfort-xyz/openfort-react/tree/main/examples/vite)
+There are various runnable examples included in this repository in the [examples folder](https://github.com/openfort-xyz/openfort-react/tree/main/examples)
 
 ### Running Examples Locally
 
@@ -95,15 +91,15 @@ $ pnpm install
 and start the code bundler:
 
 ```sh
-$ pnpm dev:kit
+$ pnpm dev
 ```
 
 and then simply select the example you'd like to run:
 
 ```sh
-$ pnpm dev:vite # Vite
-$ pnpm dev:nextjs # Next.js
-$ pnpm dev:cra # Create React App
+$ pnpm dev:playground # Playground
+$ pnpm dev:headless # Headless
+$ pnpm dev:openfort-ui # Openfort UI
 ```
 
 ## License
