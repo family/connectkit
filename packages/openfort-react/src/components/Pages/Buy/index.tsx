@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
 import { TickIcon } from '../../../assets/icons'
 import Logos from '../../../assets/logos'
@@ -295,11 +295,9 @@ const Buy = () => {
     }
   }
 
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep((prev) => (prev - 1) as 1 | 2 | 3 | 4)
-    }
-  }
+  const handleBack = useCallback(() => {
+    setCurrentStep((prev) => (prev > 1 ? ((prev - 1) as 1 | 2 | 3 | 4) : prev))
+  }, [])
 
   const handleDone = () => {
     setCurrentStep(1)
