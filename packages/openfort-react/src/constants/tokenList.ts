@@ -22,12 +22,6 @@ export const ERC20_TOKEN_LIST: Record<number, TokenConfig[]> = {
       decimals: 6,
       name: 'Tether USD',
     },
-    {
-      symbol: 'DAI',
-      address: '0x6B175474E89094C44Da98b954EedeAC495271d0F' as Address,
-      decimals: 18,
-      name: 'Dai',
-    },
   ],
   // Polygon
   137: [
@@ -42,12 +36,6 @@ export const ERC20_TOKEN_LIST: Record<number, TokenConfig[]> = {
       address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' as Address,
       decimals: 6,
       name: 'Tether USD',
-    },
-    {
-      symbol: 'DAI',
-      address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063' as Address,
-      decimals: 18,
-      name: 'Dai',
     },
   ],
   // Arbitrum One
@@ -64,12 +52,6 @@ export const ERC20_TOKEN_LIST: Record<number, TokenConfig[]> = {
       decimals: 6,
       name: 'Tether USD',
     },
-    {
-      symbol: 'DAI',
-      address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1' as Address,
-      decimals: 18,
-      name: 'Dai',
-    },
   ],
   // Optimism
   10: [
@@ -85,12 +67,6 @@ export const ERC20_TOKEN_LIST: Record<number, TokenConfig[]> = {
       decimals: 6,
       name: 'Tether USD',
     },
-    {
-      symbol: 'DAI',
-      address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1' as Address,
-      decimals: 18,
-      name: 'Dai',
-    },
   ],
   // Base
   8453: [
@@ -99,12 +75,6 @@ export const ERC20_TOKEN_LIST: Record<number, TokenConfig[]> = {
       address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913' as Address,
       decimals: 6,
       name: 'USD Coin',
-    },
-    {
-      symbol: 'DAI',
-      address: '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb' as Address,
-      decimals: 18,
-      name: 'Dai',
     },
   ],
   // Base Sepolia (Testnet)
@@ -130,12 +100,6 @@ export const ERC20_TOKEN_LIST: Record<number, TokenConfig[]> = {
       decimals: 18,
       name: 'Tether USD',
     },
-    {
-      symbol: 'DAI',
-      address: '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3' as Address,
-      decimals: 18,
-      name: 'Dai',
-    },
   ],
   // Avalanche C-Chain
   43114: [
@@ -150,12 +114,6 @@ export const ERC20_TOKEN_LIST: Record<number, TokenConfig[]> = {
       address: '0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7' as Address,
       decimals: 6,
       name: 'Tether USD',
-    },
-    {
-      symbol: 'DAI',
-      address: '0xd586E7F844cEa2F87f50152665BCbc2C279D8d70' as Address,
-      decimals: 18,
-      name: 'Dai',
     },
   ],
 }
