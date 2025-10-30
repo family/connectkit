@@ -1,5 +1,5 @@
 import styled from '../../../styles/styled'
-import { PageContent } from '../../Common/Modal/styles'
+import { PageContent } from '../../PageContent'
 
 export const ProviderSelectContent = styled(PageContent)`
   display: flex;

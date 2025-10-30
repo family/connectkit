@@ -1,7 +1,8 @@
 import { useAccount } from 'wagmi'
 import { CopyIconButton } from '../../Common/CopyToClipboard'
 import CustomQRCode from '../../Common/CustomQRCode'
-import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
+import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
+import { PageContent } from '../../PageContent'
 import { AddressField, AddressRow, AddressSection, Label, NetworkInfo, QRWrapper } from './styles'
 
 const Receive = () => {
