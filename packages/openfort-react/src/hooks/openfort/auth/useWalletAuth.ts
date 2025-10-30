@@ -3,7 +3,7 @@ import { type Connector, useDisconnect } from 'wagmi'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
 import { logger } from '../../../utils/logger'
-import { useWallets } from '../../../wallets/useWallets'
+import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
 import { useConnect } from '../../useConnect'
 import { onError, onSuccess } from '../hookConsistency'
 import { useConnectWithSiwe } from '../useConnectWithSiwe'
@@ -16,7 +16,7 @@ type ConnectWalletOptions = {
 export const useWalletAuth = (hookOptions: OpenfortHookOptions = {}) => {
   const { updateUser } = useOpenfortCore()
   const siwe = useConnectWithSiwe()
-  const availableWallets = useWallets() // TODO: Use this to get the wallet client type
+  const availableWallets = useWagmiWallets() // TODO: Use this to get the wallet client type
   const { disconnect } = useDisconnect()
   const [walletConnectingTo, setWalletConnectingTo] = useState<string | null>(null)
   const [shouldConnectWithSiwe, setShouldConnectWithSiwe] = useState(false)

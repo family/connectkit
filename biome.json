@@ -48,6 +48,9 @@
           }
         }
       },
+      "a11y": {
+        "noAutofocus": "off"
+      },
       "suspicious": {
         "noExplicitAny": "off",
         "noConsole": {

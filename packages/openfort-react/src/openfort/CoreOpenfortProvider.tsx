@@ -5,7 +5,7 @@ import {
   EmbeddedState,
   type Openfort,
 } from '@openfort/openfort-js'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { type QueryObserverResult, type RefetchOptions, useQuery, useQueryClient } from '@tanstack/react-query'
 import type React from 'react'
 import { createElement, type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAccount, useChainId, useConfig, useDisconnect } from 'wagmi'
@@ -31,6 +31,8 @@ export type ContextValue = {
   isLoadingAccounts: boolean
 
   logout: () => void
+
+  updateEmbeddedAccounts: (options?: RefetchOptions) => Promise<QueryObserverResult<EmbeddedAccount[], Error>>
 
   walletStatus: WalletFlowStatus
   setWalletStatus: (status: WalletFlowStatus) => void
@@ -66,6 +68,8 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
 
   const { disconnectAsync } = useDisconnect()
   const { walletConfig } = useOpenfort()
+  const wagmiConfig = useConfig()
+  const chainId = useChainId()
 
   // ---- Openfort instance ----
   const openfort = useMemo(() => {
@@ -169,9 +173,31 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
     [openfort]
   )
 
-  const chainId = useChainId()
-  const wagmiConfig = useConfig()
+  // Embedded accounts list. Will reset on logout.
+  const {
+    data: embeddedAccounts,
+    refetch: fetchEmbeddedAccounts,
+    isPending: isLoadingAccounts,
+  } = useQuery({
+    queryKey: ['openfortEmbeddedAccountsList'],
+    queryFn: async () => {
+      try {
+        return await openfort.embeddedWallet.list({
+          limit: 100,
+          // If its EOA we want all accounts, otherwise we want only smart accounts
+          accountType: walletConfig?.accountType === AccountTypeEnum.EOA ? undefined : AccountTypeEnum.SMART_ACCOUNT,
+        })
+      } catch (error: any) {
+        handleOAuthConfigError(error)
+        throw error
+      }
+    },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+  })
 
+  // Update ethereum provider when chainId changes
   useEffect(() => {
     if (!openfort || !walletConfig) return
 
@@ -210,33 +236,12 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
       ...resolvePolicy(),
       chains: rpcUrls,
     })
+
+    // Refresh embedded accounts to reflect any changes in the selected chain
+    fetchEmbeddedAccounts()
   }, [openfort, walletConfig, chainId])
 
   const [isConnectedWithEmbeddedSigner, setIsConnectedWithEmbeddedSigner] = useState(false)
-
-  // will reset on logout
-  const {
-    data: embeddedAccounts,
-    refetch: fetchEmbeddedAccounts,
-    isPending: isLoadingAccounts,
-  } = useQuery({
-    queryKey: ['openfortEmbeddedAccountsList'],
-    queryFn: async () => {
-      try {
-        return await openfort.embeddedWallet.list({
-          limit: 100,
-          // If its EOA we want all accounts, otherwise we want only smart accounts
-          accountType: walletConfig?.accountType === AccountTypeEnum.EOA ? undefined : AccountTypeEnum.SMART_ACCOUNT,
-        })
-      } catch (error: any) {
-        handleOAuthConfigError(error)
-        throw error
-      }
-    },
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    retry: false,
-  })
 
   useEffect(() => {
     if (!openfort) return
@@ -356,6 +361,7 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
     needsRecovery,
     user,
     updateUser,
+    updateEmbeddedAccounts: fetchEmbeddedAccounts,
 
     embeddedAccounts,
     isLoadingAccounts,

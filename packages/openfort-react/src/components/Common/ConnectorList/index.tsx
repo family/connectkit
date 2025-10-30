@@ -6,7 +6,7 @@ import useIsMobile from '../../../hooks/useIsMobile'
 import { useLastConnector } from '../../../hooks/useLastConnector'
 import { detectBrowser, isCoinbaseWalletConnector, isPortoConnector, isWalletConnectConnector } from '../../../utils'
 import { isFamily } from '../../../utils/wallets'
-import { useWallets, type WalletProps } from '../../../wallets/useWallets'
+import { useWagmiWallets, type WalletProps } from '../../../wallets/useWagmiWallets'
 import { useWeb3 } from '../../contexts/web3'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -18,7 +18,7 @@ const ConnectorList = () => {
   const context = useOpenfort()
   const isMobile = useIsMobile()
 
-  const wallets = useWallets()
+  const wallets = useWagmiWallets()
   const { lastConnectorId } = useLastConnector()
   const familyConnector = useFamilyConnector()
   const familyAccountsConnector = useFamilyAccountsConnector()
