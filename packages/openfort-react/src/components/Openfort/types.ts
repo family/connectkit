@@ -1,8 +1,8 @@
 import type { AccountTypeEnum, OAuthProvider, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
 import type { ReactNode } from 'react'
-import type { UserWallet } from '../../hooks/openfort/useWallets'
 import type { Address } from 'viem'
+import type { UserWallet } from '../../hooks/openfort/useWallets'
 import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
 
 export const routes = {

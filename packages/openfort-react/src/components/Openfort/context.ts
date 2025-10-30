@@ -4,15 +4,13 @@ import { createContext } from 'react'
 import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
 import type { CustomTheme, Languages, Mode, Theme } from '../../types'
 import type {
-  Connector,
+  BuyFormState,
   DebugModeOptions,
-  ErrorMessage,
   OpenfortUIOptionsExtended,
   OpenfortWalletConfig,
   RouteOptions,
-  SetRouteOptions,
   SendFormState,
-  BuyFormState,
+  SetRouteOptions,
 } from './types'
 
 type Connector =
