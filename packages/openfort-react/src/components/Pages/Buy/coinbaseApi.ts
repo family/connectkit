@@ -151,7 +151,8 @@ type GetOrderQuoteParams = {
   paymentMethod: string
   destinationAddress: string
   destinationNetwork: string
-  paymentAmount: string
+  paymentAmount?: string
+  purchaseAmount?: string
   phoneNumber?: string
   email?: string
   partnerUserRef?: string
@@ -178,7 +179,6 @@ export const getOrderQuote = async (
     destinationAddress: rest.destinationAddress,
     paymentCurrency: rest.paymentCurrency,
     paymentMethod: rest.paymentMethod,
-    paymentAmount: rest.paymentAmount,
     isQuote: true,
     // Add optional parameters
     phoneNumber: rest.phoneNumber || '+12055555555',
@@ -187,6 +187,14 @@ export const getOrderQuote = async (
     // Required timestamp fields for the API
     agreementAcceptedAt: rest.agreementAcceptedAt || '2025-10-30T00:00:00Z',
     phoneNumberVerifiedAt: rest.phoneNumberVerifiedAt || '2025-10-30T00:00:00Z',
+  }
+
+  // Add either paymentAmount or purchaseAmount (one is required)
+  if (rest.paymentAmount) {
+    requestBody.paymentAmount = rest.paymentAmount
+  }
+  if (rest.purchaseAmount) {
+    requestBody.purchaseAmount = rest.purchaseAmount
   }
 
   const response = await fetch(COINBASE_ORDERS_API_URL, {

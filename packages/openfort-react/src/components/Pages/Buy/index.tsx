@@ -163,7 +163,7 @@ const Buy = () => {
           token: selectedToken,
           chainId,
           destinationAddress: address,
-          paymentAmount: fiatAmount.toFixed(2),
+          purchaseAmount: fiatAmount.toFixed(2),
           paymentCurrency: buyForm.currency,
           paymentMethod: 'GUEST_CHECKOUT_APPLE_PAY',
         })
@@ -490,8 +490,13 @@ const Buy = () => {
               let providerFiatAmount: number | null = fiatAmount
 
               if (provider.id === 'coinbase') {
-                providerNetAmount = realPurchaseAmount
+                // Show the requested amount (what user wants to receive)
+                providerNetAmount = fiatAmount
                 providerFeePercentage = realFeePercentage
+                // Use paymentTotal to show the actual total the user will pay including fees
+                if (orderQuote?.order?.paymentTotal) {
+                  providerFiatAmount = Number.parseFloat(orderQuote.order.paymentTotal)
+                }
               } else if (provider.id === 'stripe' && stripeQuote) {
                 providerNetAmount = Number.parseFloat(stripeQuote.destination_amount)
                 // Use source_total_amount to show the actual total the user will pay
