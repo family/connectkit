@@ -64,11 +64,32 @@ const Buy = () => {
   const [_quoteError, setQuoteError] = useState<string | null>(null)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1)
   const [popupWindow, setPopupWindow] = useState<Window | null>(null)
+  const [showContinueButton, setShowContinueButton] = useState(false)
 
   // Trigger resize when step changes
   useEffect(() => {
     triggerResize()
   }, [currentStep, triggerResize])
+
+  // Show continue button after 2 seconds when entering step 3
+  useEffect(() => {
+    if (currentStep === 3) {
+      setShowContinueButton(false)
+      const timer = setTimeout(() => {
+        setShowContinueButton(true)
+      }, 2000)
+      return () => clearTimeout(timer)
+    } else {
+      setShowContinueButton(false)
+    }
+  }, [currentStep])
+
+  // Trigger resize when continue button appears
+  useEffect(() => {
+    if (showContinueButton) {
+      triggerResize()
+    }
+  }, [showContinueButton, triggerResize])
 
   // Monitor popup window for Coinbase redirect
   useEffect(() => {
@@ -593,13 +614,15 @@ const Buy = () => {
             />
           </PendingContainer>
 
-          <ModalBody>
-            {isStripe ? 'Click Continue when you are done.' : 'Waiting for transaction confirmation'}
-          </ModalBody>
+          {showContinueButton && (
+            <ModalBody>
+              {isStripe ? 'Click Continue when you are done.' : 'Waiting for transaction confirmation'}
+            </ModalBody>
+          )}
 
-          {isStripe ? (
+          {isStripe && showContinueButton ? (
             <>
-              <ContinueButtonWrapper>
+              <StackedButtonWrapper>
                 <Button
                   variant="primary"
                   onClick={() => {
@@ -612,7 +635,7 @@ const Buy = () => {
                 >
                   Continue
                 </Button>
-              </ContinueButtonWrapper>
+              </StackedButtonWrapper>
               <StackedButtonWrapper>
                 <Button
                   variant="secondary"
@@ -628,7 +651,7 @@ const Buy = () => {
                 </Button>
               </StackedButtonWrapper>
             </>
-          ) : (
+          ) : !isStripe && showContinueButton ? (
             <ContinueButtonWrapper>
               <Button
                 variant="secondary"
@@ -643,7 +666,7 @@ const Buy = () => {
                 Close
               </Button>
             </ContinueButtonWrapper>
-          )}
+          ) : null}
         </ModalContent>
       </PageContent>
     )
