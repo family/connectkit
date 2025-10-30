@@ -15,6 +15,8 @@ import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/ut
 import type { CoinbaseOnrampResponse, CoinbaseOrderQuote } from './coinbaseApi'
 import { createCoinbaseSession, getOrderQuote } from './coinbaseApi'
 import { getProviders } from './providers'
+import type { StripeOnrampResponse, StripeQuote } from './stripeApi'
+import { createStripeSession, getStripeQuote } from './stripeApi'
 import {
   AmountCard,
   AmountInput,
@@ -54,7 +56,9 @@ const Buy = () => {
   const chainId = useChainId()
   const [pressedPreset, setPressedPreset] = useState<number | null>(null)
   const [coinbaseSession, setCoinbaseSession] = useState<CoinbaseOnrampResponse | null>(null)
+  const [stripeSession, setStripeSession] = useState<StripeOnrampResponse | null>(null)
   const [orderQuote, setOrderQuote] = useState<CoinbaseOrderQuote | null>(null)
+  const [stripeQuote, setStripeQuote] = useState<StripeQuote | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1)
@@ -83,14 +87,14 @@ const Buy = () => {
         // Try to check if popup has redirected to our success URL
         try {
           const popupUrl = popupWindow.location.href
-          if (popupUrl.includes('coinbase_onramp=success')) {
+          if (popupUrl.includes('coinbase_onramp=success') || popupUrl.includes('stripe_onramp=success')) {
             popupWindow.close()
             setPopupWindow(null)
             setCurrentStep(4)
             clearInterval(checkPopup)
           }
         } catch (_e) {
-          // Cross-origin error is expected while on Coinbase domain
+          // Cross-origin error is expected while on provider domain
           // We can't read the URL until it redirects back to our domain
         }
       } catch (_error) {
@@ -210,6 +214,60 @@ const Buy = () => {
     return () => clearTimeout(timeoutId)
   }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
 
+  // Fetch Stripe session when amount changes
+  useEffect(() => {
+    const fetchSession = async () => {
+      if (!address || !fiatAmount || fiatAmount <= 0) {
+        setStripeSession(null)
+        return
+      }
+
+      try {
+        const session = await createStripeSession({
+          token: selectedToken,
+          chainId,
+          destinationAddress: address,
+          sourceAmount: fiatAmount.toFixed(2),
+          sourceCurrency: buyForm.currency,
+          redirectUrl: `${window.location.origin}?stripe_onramp=success`,
+        })
+        setStripeSession(session)
+      } catch (_error) {
+        setStripeSession(null)
+      }
+    }
+
+    // Debounce the session creation
+    const timeoutId = setTimeout(fetchSession, 500)
+    return () => clearTimeout(timeoutId)
+  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
+
+  // Fetch Stripe quote when amount changes
+  useEffect(() => {
+    const fetchQuote = async () => {
+      if (!address || !fiatAmount || fiatAmount <= 0) {
+        setStripeQuote(null)
+        return
+      }
+
+      try {
+        const quote = await getStripeQuote({
+          token: selectedToken,
+          chainId,
+          sourceCurrency: buyForm.currency,
+          sourceAmount: fiatAmount.toFixed(2),
+        })
+        setStripeQuote(quote)
+      } catch (_error) {
+        setStripeQuote(null)
+      }
+    }
+
+    // Debounce the quote fetching
+    const timeoutId = setTimeout(fetchQuote, 500)
+    return () => clearTimeout(timeoutId)
+  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
+
   // Use real quote from orders endpoint
   const realPurchaseAmount = orderQuote?.order?.purchaseAmount
     ? Number.parseFloat(orderQuote.order.purchaseAmount)
@@ -221,7 +279,10 @@ const Buy = () => {
     fiatAmount && realTotalFees !== null ? ((realTotalFees / fiatAmount) * 100).toFixed(2) : null
 
   const displayNetAmount = realPurchaseAmount
-  const providerUrl = coinbaseSession?.session?.onrampUrl
+
+  // Get the provider URL based on selected provider
+  const providerUrl =
+    buyForm.providerId === 'stripe' ? stripeSession?.session?.onrampUrl : coinbaseSession?.session?.onrampUrl
 
   const _formattedNetAmount =
     displayNetAmount !== null ? `${displayNetAmount.toFixed(2)} ${tokenSymbol}` : isLoadingQuote ? '...' : '--'
@@ -423,18 +484,34 @@ const Buy = () => {
 
           <ProviderList>
             {providers.map((provider) => {
+              // Get provider-specific quote data
+              let providerNetAmount: number | null = null
+              let providerFeePercentage: string | null = null
+
+              if (provider.id === 'coinbase') {
+                providerNetAmount = realPurchaseAmount
+                providerFeePercentage = realFeePercentage
+              } else if (provider.id === 'stripe' && stripeQuote) {
+                providerNetAmount = Number.parseFloat(stripeQuote.destination_amount)
+                // Calculate total fees from Stripe quote
+                const networkFee = Number.parseFloat(stripeQuote.fees.network_fee_monetary)
+                const transactionFee = Number.parseFloat(stripeQuote.fees.transaction_fee_monetary)
+                const stripeFees = networkFee + transactionFee
+                providerFeePercentage = fiatAmount ? ((stripeFees / fiatAmount) * 100).toFixed(2) : null
+              }
+
               // Use real quote data if available, otherwise show loading or fallback
               const netDisplay = isLoadingQuote
                 ? '...'
-                : displayNetAmount !== null
-                  ? displayNetAmount > 0 && displayNetAmount < 0.01
+                : providerNetAmount !== null
+                  ? providerNetAmount > 0 && providerNetAmount < 0.01
                     ? `<0.01 ${tokenSymbol}`
-                    : `${displayNetAmount.toFixed(2)} ${tokenSymbol}`
+                    : `${providerNetAmount.toFixed(2)} ${tokenSymbol}`
                   : '--'
               const fiatDisplay = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : '--'
 
               // Use real fee percentage if available
-              const feePercentage = realFeePercentage ?? (provider.feeBps / 100).toFixed(2)
+              const feePercentage = providerFeePercentage ?? (provider.feeBps / 100).toFixed(2)
               const highlight =
                 provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
 

@@ -26,6 +26,13 @@ const PROVIDERS: ProviderDefinition[] = [
     feeBps: 80,
     highlight: 'best',
   },
+  {
+    id: 'stripe',
+    name: 'Stripe',
+    tagline: 'Fast & reliable',
+    feeBps: 100,
+    highlight: 'fast',
+  },
 ]
 
 export const getProviders = () => PROVIDERS
