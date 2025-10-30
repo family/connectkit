@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
-import { TickIcon } from '../../../assets/icons'
+import { ExternalLinkIcon, TickIcon } from '../../../assets/icons'
 import Logos from '../../../assets/logos'
 import useLocales from '../../../hooks/useLocales'
 import { useTokens } from '../../../hooks/useTokens'
@@ -554,8 +554,8 @@ const Buy = () => {
                 onClick={() => window.open(blockExplorerUrl, '_blank', 'noopener,noreferrer')}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <TickIcon />
                   <span>View Wallet Transactions</span>
+                  <ExternalLinkIcon />
                 </div>
               </Button>
             </ContinueButtonWrapper>
