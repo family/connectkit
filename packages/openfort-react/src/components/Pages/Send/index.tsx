@@ -4,9 +4,10 @@ import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import Input from '../../Common/Input'
-import { ModalBody, ModalH1, PageContent } from '../../Common/Modal/styles'
+import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
 import { routes, type SendFormState, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
 import {
   AmountInputWrapper,
   ErrorText,
