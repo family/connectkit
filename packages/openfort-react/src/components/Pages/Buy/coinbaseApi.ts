@@ -1,6 +1,7 @@
 import type { SendTokenOption } from '../../Openfort/types'
 
 const COINBASE_API_URL = 'http://localhost:3000/api/onramp/sessions'
+const COINBASE_ORDERS_API_URL = 'http://localhost:3000/api/onramp/orders'
 
 export type CoinbaseQuote = {
   destinationNetwork: string
@@ -15,6 +16,30 @@ export type CoinbaseQuote = {
   paymentTotal: string
   purchaseAmount: string
   purchaseCurrency: string
+}
+
+export type CoinbaseOrderQuote = {
+  order: {
+    createdAt: string
+    destinationAddress: string
+    destinationNetwork: string
+    exchangeRate: string
+    fees: Array<{
+      amount: string
+      currency: string
+      type: string
+    }>
+    orderId: string
+    partnerUserRef: string
+    paymentCurrency: string
+    paymentMethod: string
+    paymentSubtotal: string
+    paymentTotal: string
+    purchaseAmount: string
+    purchaseCurrency: string
+    status: string
+    updatedAt: string
+  }
 }
 
 export type CoinbaseSession = {
@@ -118,4 +143,64 @@ export const getCoinbaseQuote = async (
 ): Promise<CoinbaseQuote | null> => {
   const response = await createCoinbaseSession(params)
   return response.quote || null
+}
+
+type GetOrderQuoteParams = {
+  paymentCurrency: string
+  purchaseCurrency: string
+  paymentMethod: string
+  destinationAddress: string
+  destinationNetwork: string
+  paymentAmount: string
+  phoneNumber?: string
+  email?: string
+  partnerUserRef?: string
+  agreementAcceptedAt?: string
+  phoneNumberVerifiedAt?: string
+}
+
+/**
+ * Fetch a real quote from the orders endpoint
+ * This endpoint returns actual fee calculations and purchase amounts
+ */
+export const getOrderQuote = async (
+  params: Omit<GetOrderQuoteParams, 'purchaseCurrency' | 'destinationNetwork'> & {
+    token: SendTokenOption
+    chainId: number
+  }
+): Promise<CoinbaseOrderQuote> => {
+  const { token, chainId, ...rest } = params
+
+  // Build request body
+  const requestBody: GetOrderQuoteParams & { isQuote: boolean } = {
+    purchaseCurrency: getCurrencyCode(token),
+    destinationNetwork: getNetworkName(chainId),
+    destinationAddress: rest.destinationAddress,
+    paymentCurrency: rest.paymentCurrency,
+    paymentMethod: rest.paymentMethod,
+    paymentAmount: rest.paymentAmount,
+    isQuote: true,
+    // Add optional parameters
+    phoneNumber: rest.phoneNumber || '+12055555555',
+    email: rest.email || 'user@example.com',
+    partnerUserRef: rest.partnerUserRef || `user-${Date.now()}`,
+    // Required timestamp fields for the API
+    agreementAcceptedAt: new Date().toISOString(),
+    phoneNumberVerifiedAt: new Date().toISOString(),
+  }
+
+  const response = await fetch(COINBASE_ORDERS_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.error || errorData.errorMessage || 'Failed to fetch quote')
+  }
+
+  return response.json()
 }

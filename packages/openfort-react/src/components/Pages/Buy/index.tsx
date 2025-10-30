@@ -12,9 +12,9 @@ import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
-import type { CoinbaseOnrampResponse } from './coinbaseApi'
-import { createCoinbaseSession } from './coinbaseApi'
-import { getProviderById, getProviderQuotes, getProviders } from './providers'
+import type { CoinbaseOnrampResponse, CoinbaseOrderQuote } from './coinbaseApi'
+import { createCoinbaseSession, getOrderQuote } from './coinbaseApi'
+import { getProviders } from './providers'
 import {
   AmountCard,
   AmountInput,
@@ -54,6 +54,7 @@ const Buy = () => {
   const chainId = useChainId()
   const [pressedPreset, setPressedPreset] = useState<number | null>(null)
   const [coinbaseSession, setCoinbaseSession] = useState<CoinbaseOnrampResponse | null>(null)
+  const [orderQuote, setOrderQuote] = useState<CoinbaseOrderQuote | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1)
@@ -142,18 +143,50 @@ const Buy = () => {
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
   const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])
 
-  // Fetch Coinbase session when amount changes
-  // Using one-click onramp URL (without location params) to let Coinbase handle geo-detection
+  // Fetch real quote from orders endpoint
   useEffect(() => {
-    const fetchSession = async () => {
+    const fetchQuote = async () => {
       if (!address || !fiatAmount || fiatAmount <= 0) {
-        setCoinbaseSession(null)
+        setOrderQuote(null)
         setQuoteError(null)
         return
       }
 
       setIsLoadingQuote(true)
       setQuoteError(null)
+      try {
+        const quote = await getOrderQuote({
+          token: selectedToken,
+          chainId,
+          destinationAddress: address,
+          paymentAmount: fiatAmount.toFixed(2),
+          paymentCurrency: buyForm.currency,
+          paymentMethod: 'GUEST_CHECKOUT_APPLE_PAY',
+        })
+        setOrderQuote(quote)
+        setQuoteError(null)
+      } catch (error) {
+        setOrderQuote(null)
+        setQuoteError(error instanceof Error ? error.message : 'Failed to fetch quote')
+      } finally {
+        setIsLoadingQuote(false)
+      }
+    }
+
+    // Debounce the quote fetching
+    const timeoutId = setTimeout(fetchQuote, 500)
+    return () => clearTimeout(timeoutId)
+  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
+
+  // Fetch Coinbase session when amount changes
+  // Using one-click onramp URL (without location params) to let Coinbase handle geo-detection
+  useEffect(() => {
+    const fetchSession = async () => {
+      if (!address || !fiatAmount || fiatAmount <= 0) {
+        setCoinbaseSession(null)
+        return
+      }
+
       try {
         const session = await createCoinbaseSession({
           token: selectedToken,
@@ -167,12 +200,8 @@ const Buy = () => {
           // Coinbase will handle location detection and payment methods
         })
         setCoinbaseSession(session)
-        setQuoteError(null)
-      } catch (error) {
+      } catch (_error) {
         setCoinbaseSession(null)
-        setQuoteError(error instanceof Error ? error.message : 'Failed to create session')
-      } finally {
-        setIsLoadingQuote(false)
       }
     }
 
@@ -181,28 +210,22 @@ const Buy = () => {
     return () => clearTimeout(timeoutId)
   }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
 
-  const providerQuotes = useMemo(() => getProviderQuotes(fiatAmount), [fiatAmount])
-  const selectedProvider = getProviderById(buyForm.providerId)
-  const selectedQuote = providerQuotes.find((quote) => quote.provider.id === selectedProvider.id) ?? {
-    provider: selectedProvider,
-    netAmount: null,
-    feeAmount: null,
-  }
-
-  // Use real Coinbase quote if available (only present when country/subdivision/paymentMethod are provided)
-  const realNetAmount = coinbaseSession?.quote?.purchaseAmount
-    ? Number.parseFloat(coinbaseSession.quote.purchaseAmount)
+  // Use real quote from orders endpoint
+  const realPurchaseAmount = orderQuote?.order?.purchaseAmount
+    ? Number.parseFloat(orderQuote.order.purchaseAmount)
     : null
-  const displayNetAmount = realNetAmount ?? selectedQuote.netAmount
+  const realTotalFees = orderQuote?.order?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
 
+  // Calculate real fee percentage
+  const realFeePercentage =
+    fiatAmount && realTotalFees !== null ? ((realTotalFees / fiatAmount) * 100).toFixed(2) : null
+
+  const displayNetAmount = realPurchaseAmount
   const providerUrl = coinbaseSession?.session?.onrampUrl
 
   const _formattedNetAmount =
     displayNetAmount !== null ? `${displayNetAmount.toFixed(2)} ${tokenSymbol}` : isLoadingQuote ? '...' : '--'
-
-  // Calculate total fees from Coinbase quote (only available if quote is returned)
-  const totalFees = coinbaseSession?.quote?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
-  const _formattedFees = totalFees !== null ? currencyFormatter.format(totalFees) : null
+  const _formattedFees = realTotalFees !== null ? currencyFormatter.format(realTotalFees) : null
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const raw = sanitizeAmountInput(event.target.value)
@@ -400,11 +423,16 @@ const Buy = () => {
 
           <ProviderList>
             {providers.map((provider) => {
-              const quote = providerQuotes.find((item) => item.provider.id === provider.id)
-              const netDisplay =
-                quote && quote.netAmount !== null ? `${quote.netAmount.toFixed(2)} ${tokenSymbol}` : '--'
+              // Use real quote data if available, otherwise show loading or fallback
+              const netDisplay = isLoadingQuote
+                ? '...'
+                : displayNetAmount !== null
+                  ? `${displayNetAmount.toFixed(2)} ${tokenSymbol}`
+                  : '--'
               const fiatDisplay = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : '--'
-              const feePercentage = (provider.feeBps / 100).toFixed(2)
+
+              // Use real fee percentage if available
+              const feePercentage = realFeePercentage ?? (provider.feeBps / 100).toFixed(2)
               const highlight =
                 provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
 
@@ -523,7 +551,10 @@ const Buy = () => {
                 variant="secondary"
                 onClick={() => window.open(blockExplorerUrl, '_blank', 'noopener,noreferrer')}
               >
-                View Wallet on Block Explorer
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <TickIcon />
+                  <span>View Wallet Transactions</span>
+                </div>
               </Button>
             </ContinueButtonWrapper>
           )}
