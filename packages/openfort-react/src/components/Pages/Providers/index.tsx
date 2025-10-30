@@ -1,7 +1,7 @@
 import { OAuthProvider } from '@openfort/openfort-js'
 import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useAccount, useDisconnect } from 'wagmi'
 import { EmailIcon, GuestIcon } from '../../../assets/icons'
 import Logos, { OtherSocials, providersLogos } from '../../../assets/logos'
@@ -13,6 +13,7 @@ import Loader from '../../Common/Loading'
 import PoweredByFooter from '../../Common/PoweredByFooter'
 import { routes, UIAuthProvider } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
+import type { SetOnBackFunction } from '../../PageContent'
 import { PageContent } from '../../PageContent'
 import {
   EmailInnerButton,
@@ -205,14 +206,22 @@ const SocialProvidersButton = () => {
 const Providers: React.FC = () => {
   const { user } = useOpenfortCore()
   const { address } = useAccount()
+  const { previousRoute } = useOpenfort()
   const { mainProviders, hasExcessProviders } = useProviders()
+
+  const onBack: SetOnBackFunction = useMemo(() => {
+    if (previousRoute?.route === routes.LINKED_PROVIDERS) {
+      return 'back'
+    }
+    return null
+  }, [previousRoute])
 
   if (address && !user) {
     return <AddressButNoUserCase />
   }
 
   return (
-    <PageContent onBack={null}>
+    <PageContent onBack={onBack}>
       {mainProviders.map((auth) => (
         <ProviderButtonSwitch key={auth} provider={auth} />
       ))}
