@@ -17,6 +17,7 @@ import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemePr
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
+import { LinkedProviders } from './LinkedProviders'
 import {
   ActionButton,
   ActionButtonsContainer,
@@ -26,6 +27,8 @@ import {
   BalanceContainer,
   ChainSelectorContainer,
   DisconnectButton,
+  LinkedProvidersPanel,
+  LinkedProvidersToggle,
   LoadingBalance,
   Unsupported,
 } from './styles'
@@ -50,7 +53,10 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   })
 
   const [shouldDisconnect, setShouldDisconnect] = useState(false)
-  const { logout } = useOpenfortCore()
+  const { logout, updateUser } = useOpenfortCore()
+  const [showLinkedProviders, setShowLinkedProviders] = useState(false)
+  const [isLoadingLinkedProviders, setIsLoadingLinkedProviders] = useState(false)
+  const triggerResize = context.triggerResize
 
   const isTestnet = isTestnetChain(chainId)
   const [showTestnetMessage, setShowTestnetMessage] = useState(false)
@@ -80,12 +86,33 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     }
   }, [showTestnetMessage])
 
+  useEffect(() => {
+    triggerResize()
+  }, [showLinkedProviders, triggerResize])
+
   const handleBuyClick = (e: React.MouseEvent) => {
     if (isTestnet) {
       e.preventDefault()
       setShowTestnetMessage(true)
     } else {
       context.setRoute(routes.BUY)
+    }
+  }
+
+  const handleToggleLinkedProviders = async () => {
+    if (showLinkedProviders) {
+      setShowLinkedProviders(false)
+      return
+    }
+
+    setIsLoadingLinkedProviders(true)
+    try {
+      await updateUser()
+    } catch (_error) {
+      // Ignore refresh errors and show the cached data instead
+    } finally {
+      setIsLoadingLinkedProviders(false)
+      setShowLinkedProviders(true)
     }
   }
 
@@ -100,6 +127,22 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
       <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
         {address ? (
           <>
+            <LinkedProvidersToggle
+              type="button"
+              onClick={handleToggleLinkedProviders}
+              disabled={isLoadingLinkedProviders}
+            >
+              {isLoadingLinkedProviders
+                ? 'Loading linked providers...'
+                : showLinkedProviders
+                  ? 'Hide linked providers'
+                  : 'Linked providers'}
+            </LinkedProvidersToggle>
+            {showLinkedProviders ? (
+              <LinkedProvidersPanel>
+                <LinkedProviders />
+              </LinkedProvidersPanel>
+            ) : null}
             <AvatarContainer>
               <AvatarInner>
                 <ChainSelectorContainer>
