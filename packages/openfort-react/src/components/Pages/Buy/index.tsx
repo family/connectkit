@@ -427,7 +427,9 @@ const Buy = () => {
               const netDisplay = isLoadingQuote
                 ? '...'
                 : displayNetAmount !== null
-                  ? `${displayNetAmount.toFixed(2)} ${tokenSymbol}`
+                  ? displayNetAmount > 0 && displayNetAmount < 0.01
+                    ? `<0.01 ${tokenSymbol}`
+                    : `${displayNetAmount.toFixed(2)} ${tokenSymbol}`
                   : '--'
               const fiatDisplay = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : '--'
 
