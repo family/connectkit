@@ -139,6 +139,15 @@ export const ContinueButtonWrapper = styled.div`
   }
 `
 
+export const StackedButtonWrapper = styled.div`
+  display: flex;
+  gap: 12px;
+
+  > button {
+    flex: 1;
+  }
+`
+
 export const ProviderList = styled.div`
   display: flex;
   flex-direction: column;
@@ -153,9 +162,8 @@ export const ProviderButton = styled.button<{ $active?: boolean }>`
   width: 100%;
   padding: 14px 16px;
   border-radius: var(--ck-secondary-button-border-radius);
-  border: 1px solid ${({ $active }) => ($active ? 'var(--ck-accent-color)' : 'var(--ck-body-divider)')};
-  background: ${({ $active }) =>
-    $active ? 'var(--ck-secondary-button-hover-background)' : 'var(--ck-secondary-button-background)'};
+  border: 1px solid ${({ $active }) => ($active ? 'var(--ck-focus-color)' : 'var(--ck-body-divider)')};
+  background: var(--ck-secondary-button-background);
   color: var(--ck-body-color);
   cursor: pointer;
   transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
@@ -163,7 +171,7 @@ export const ProviderButton = styled.button<{ $active?: boolean }>`
 
   &:hover {
     background: var(--ck-secondary-button-hover-background);
-    border-color: ${({ $active }) => ($active ? 'var(--ck-accent-color)' : 'var(--ck-body-color-muted)')};
+    border-color: ${({ $active }) => ($active ? 'var(--ck-focus-color)' : 'var(--ck-body-color-muted)')};
   }
 `
 

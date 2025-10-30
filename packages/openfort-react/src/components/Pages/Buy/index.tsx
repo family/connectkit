@@ -42,6 +42,7 @@ import {
   SelectorRight,
   SelectorSubtitle,
   SelectorTitle,
+  StackedButtonWrapper,
   SuccessIconContainer,
 } from './styles'
 import { createCurrencyFormatter, getCurrencySymbol } from './utils'
@@ -79,8 +80,10 @@ const Buy = () => {
         if (popupWindow.closed) {
           clearInterval(checkPopup)
           setPopupWindow(null)
-          // Go to completion step when popup closes
-          setCurrentStep(4)
+          // Only auto-advance for Coinbase
+          if (buyForm.providerId === 'coinbase') {
+            setCurrentStep(4)
+          }
           return
         }
 
@@ -106,7 +109,7 @@ const Buy = () => {
     return () => {
       clearInterval(checkPopup)
     }
-  }, [popupWindow])
+  }, [popupWindow, buyForm.providerId])
 
   useEffect(() => {
     setBuyForm((prev) => {
@@ -565,6 +568,8 @@ const Buy = () => {
 
   // Step 3: Pending Screen
   if (currentStep === 3) {
+    const isStripe = buyForm.providerId === 'stripe'
+
     return (
       <PageContent onBack={handleBack}>
         <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
@@ -588,22 +593,57 @@ const Buy = () => {
             />
           </PendingContainer>
 
-          <ModalBody>Waiting for transaction confirmation</ModalBody>
+          <ModalBody>
+            {isStripe ? 'Click Continue when you are done.' : 'Waiting for transaction confirmation'}
+          </ModalBody>
 
-          <ContinueButtonWrapper>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                if (popupWindow && !popupWindow.closed) {
-                  popupWindow.close()
-                }
-                setPopupWindow(null)
-                setCurrentStep(1)
-              }}
-            >
-              Close
-            </Button>
-          </ContinueButtonWrapper>
+          {isStripe ? (
+            <>
+              <ContinueButtonWrapper>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    if (popupWindow && !popupWindow.closed) {
+                      popupWindow.close()
+                    }
+                    setPopupWindow(null)
+                    setCurrentStep(4)
+                  }}
+                >
+                  Continue
+                </Button>
+              </ContinueButtonWrapper>
+              <StackedButtonWrapper>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    if (popupWindow && !popupWindow.closed) {
+                      popupWindow.close()
+                    }
+                    setPopupWindow(null)
+                    setCurrentStep(1)
+                  }}
+                >
+                  Cancel
+                </Button>
+              </StackedButtonWrapper>
+            </>
+          ) : (
+            <ContinueButtonWrapper>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  if (popupWindow && !popupWindow.closed) {
+                    popupWindow.close()
+                  }
+                  setPopupWindow(null)
+                  setCurrentStep(1)
+                }}
+              >
+                Close
+              </Button>
+            </ContinueButtonWrapper>
+          )}
         </ModalContent>
       </PageContent>
     )
