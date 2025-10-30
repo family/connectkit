@@ -29,7 +29,7 @@ const SelectToken = () => {
 
   const { tokenOptions, isLoading, prices: usdPrices } = useTokens()
 
-  const isBuyFlow = route === routes.BUY_TOKEN_SELECT
+  const isBuyFlow = route.route === routes.BUY_TOKEN_SELECT
 
   const selectableTokens = useMemo(
     () => (isBuyFlow ? tokenOptions : tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO)),
