@@ -487,12 +487,15 @@ const Buy = () => {
               // Get provider-specific quote data
               let providerNetAmount: number | null = null
               let providerFeePercentage: string | null = null
+              let providerFiatAmount: number | null = fiatAmount
 
               if (provider.id === 'coinbase') {
                 providerNetAmount = realPurchaseAmount
                 providerFeePercentage = realFeePercentage
               } else if (provider.id === 'stripe' && stripeQuote) {
                 providerNetAmount = Number.parseFloat(stripeQuote.destination_amount)
+                // Use source_total_amount to show the actual total the user will pay
+                providerFiatAmount = Number.parseFloat(stripeQuote.source_total_amount)
                 // Calculate total fees from Stripe quote
                 const networkFee = Number.parseFloat(stripeQuote.fees.network_fee_monetary)
                 const transactionFee = Number.parseFloat(stripeQuote.fees.transaction_fee_monetary)
@@ -508,7 +511,7 @@ const Buy = () => {
                     ? `<0.01 ${tokenSymbol}`
                     : `${providerNetAmount.toFixed(2)} ${tokenSymbol}`
                   : '--'
-              const fiatDisplay = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : '--'
+              const fiatDisplay = providerFiatAmount !== null ? currencyFormatter.format(providerFiatAmount) : '--'
 
               // Use real fee percentage if available
               const feePercentage = providerFeePercentage ?? (provider.feeBps / 100).toFixed(2)
