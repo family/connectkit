@@ -77,6 +77,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
   debugMode: {
     openfortReactDebugMode: true,
     openfortCoreDebugMode: true,
+    shieldDebugMode: true,
   },
 }
 

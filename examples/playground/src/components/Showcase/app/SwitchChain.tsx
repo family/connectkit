@@ -13,7 +13,7 @@ export const SwitchChainCard = () => {
         <CardTitle>Switch chain</CardTitle>
         <CardDescription>Switch between different chains to interact with various blockchain networks.</CardDescription>
         <p className="text-sm text-muted-foreground">
-          Current chain: {chains.find((chain) => chain.id === currentChain)?.name || 'Unknown'}
+          Current chain: {chains.find((chain) => chain.id === currentChain)?.name || 'Unknown'} ({currentChain})
         </p>
       </CardHeader>
       <CardContent>
