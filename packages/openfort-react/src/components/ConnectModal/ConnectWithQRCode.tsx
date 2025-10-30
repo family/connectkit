@@ -127,9 +127,9 @@ const ConnectWithQRCode: React.FC<{
             gap: 14,
           }}
         >
-          {context.uiConfig.walletConnectCTA !== 'modal' && (
+          {uiConfig.walletConnectCTA !== 'modal' && (
             <CopyButton value={uri ?? ''}>
-              {context.uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
+              {uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
             </CopyButton>
           )}
           {uiConfig.walletConnectCTA !== 'link' && (
