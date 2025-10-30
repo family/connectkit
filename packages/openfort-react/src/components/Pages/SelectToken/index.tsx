@@ -27,14 +27,16 @@ const usdFormatter = new Intl.NumberFormat('en-US', {
 const SelectToken = () => {
   const { route, setSendForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
 
-  const { tokenOptions, isLoading, prices: usdPrices } = useTokens()
+  const { tokenOptions, isBalancesLoading, prices: usdPrices } = useTokens()
 
   const isBuyFlow = route.route === routes.BUY_TOKEN_SELECT
 
-  const selectableTokens = useMemo(
-    () => (isBuyFlow ? tokenOptions : tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO)),
-    [isBuyFlow, tokenOptions]
-  )
+  // For buy flow, show all tokens. For send flow, show all tokens while loading, then filter by balance
+  const selectableTokens = useMemo(() => {
+    if (isBuyFlow) return tokenOptions
+    if (isBalancesLoading) return tokenOptions // Show all tokens with loading state
+    return tokenOptions.filter((token) => (token.balanceValue ?? ZERO) > ZERO)
+  }, [isBuyFlow, isBalancesLoading, tokenOptions])
 
   const handleSelect = (token: TokenOptionWithBalance) => {
     if (isBuyFlow) {
@@ -57,14 +59,13 @@ const SelectToken = () => {
   useEffect(() => {
     triggerResize()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, selectableTokens.length, isBuyFlow])
+  }, [selectableTokens.length, isBuyFlow])
 
   const renderContent = () => {
-    if (isLoading) {
-      return <EmptyState>Loading balances…</EmptyState>
-    }
-
     if (!selectableTokens.length) {
+      if (isBalancesLoading) {
+        return <EmptyState>Loading balances…</EmptyState>
+      }
       return (
         <EmptyState>
           {isBuyFlow ? 'No supported tokens found for this network yet.' : 'No tokens with a balance on this network.'}
@@ -81,7 +82,13 @@ const SelectToken = () => {
           const pricePerToken = symbolKey ? usdPrices[symbolKey] : undefined
           let usdValue: string | null = null
 
-          if (pricePerToken !== undefined && token.balanceValue !== undefined) {
+          // Show loading state for balances
+          const isBalanceLoaded = token.balanceValue !== undefined
+          const balanceDisplay = isBalanceLoaded
+            ? formatBalanceWithSymbol(token.balanceValue, token.decimals, token.symbol)
+            : 'Loading...'
+
+          if (isBalanceLoaded && pricePerToken !== undefined && token.balanceValue !== undefined) {
             const amount = parseFloat(formatUnits(token.balanceValue, token.decimals))
             if (Number.isFinite(amount)) {
               const totalUsd = amount * pricePerToken
@@ -101,7 +108,7 @@ const SelectToken = () => {
                 <TokenSymbol>{displayName}</TokenSymbol>
                 {usdValue ? <TokenName>{usdValue}</TokenName> : null}
               </TokenInfo>
-              <TokenBalance>{formatBalanceWithSymbol(token.balanceValue, token.decimals, token.symbol)}</TokenBalance>
+              <TokenBalance>{balanceDisplay}</TokenBalance>
             </TokenButton>
           )
         })}
@@ -113,7 +120,11 @@ const SelectToken = () => {
     <SelectTokenContent>
       <ModalH1>Select token</ModalH1>
       <ModalBody style={{ marginTop: 8 }}>
-        {isBuyFlow ? 'Choose the token you want to purchase.' : 'Only tokens with a balance are shown.'}
+        {isBuyFlow
+          ? 'Choose the token you want to purchase.'
+          : isBalancesLoading
+            ? 'Loading token balances...'
+            : 'Only tokens with a balance are shown.'}
       </ModalBody>
       {renderContent()}
     </SelectTokenContent>

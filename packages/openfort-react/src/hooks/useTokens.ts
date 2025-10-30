@@ -141,6 +141,7 @@ export const useTokens = () => {
 
   const isErc20Pending = erc20Contracts.length > 0 && (isErc20Loading || isErc20Fetching)
   const isLoading = isNativeLoading || isNativeFetching || isErc20Pending
+  const isBalancesLoading = isLoading
 
   // Fetch USD prices
   const coingeckoIds = useMemo(() => {
@@ -212,6 +213,7 @@ export const useTokens = () => {
     nativeOption,
     tokenOptions,
     isLoading,
+    isBalancesLoading,
     prices,
   }
 }
