@@ -95,9 +95,14 @@ export const createCoinbaseSession = async (
   params: Omit<CreateCoinbaseSessionParams, 'purchaseCurrency' | 'destinationNetwork'> & {
     token: SendTokenOption
     chainId: number
+    publishableKey: string
   }
 ): Promise<CoinbaseOnrampResponse> => {
-  const { token, chainId, ...rest } = params
+  const { token, chainId, publishableKey, ...rest } = params
+
+  if (!publishableKey) {
+    throw new Error('Publishable key is required for authentication')
+  }
 
   // Build request body with only provided parameters
   const requestBody: CreateCoinbaseSessionParams = {
@@ -119,6 +124,7 @@ export const createCoinbaseSession = async (
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${publishableKey}`,
     },
     body: JSON.stringify(requestBody),
   })
@@ -139,6 +145,7 @@ export const getCoinbaseQuote = async (
   params: Omit<CreateCoinbaseSessionParams, 'purchaseCurrency' | 'destinationNetwork'> & {
     token: SendTokenOption
     chainId: number
+    publishableKey: string
   }
 ): Promise<CoinbaseQuote | null> => {
   const response = await createCoinbaseSession(params)
@@ -169,9 +176,14 @@ export const getOrderQuote = async (
   params: Omit<GetOrderQuoteParams, 'purchaseCurrency' | 'destinationNetwork'> & {
     token: SendTokenOption
     chainId: number
+    publishableKey: string
   }
 ): Promise<CoinbaseOrderQuote> => {
-  const { token, chainId, ...rest } = params
+  const { token, chainId, publishableKey, ...rest } = params
+
+  if (!publishableKey) {
+    throw new Error('Publishable key is required for authentication')
+  }
 
   // Build request body
   const requestBody: GetOrderQuoteParams & { isQuote: boolean } = {
@@ -205,6 +217,7 @@ export const getOrderQuote = async (
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${publishableKey}`,
     },
     body: JSON.stringify(requestBody),
   })

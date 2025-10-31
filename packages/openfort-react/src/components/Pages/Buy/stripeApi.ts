@@ -71,9 +71,14 @@ export const createStripeSession = async (
   params: Omit<CreateStripeSessionParams, 'destinationCurrency' | 'destinationNetwork'> & {
     token: SendTokenOption
     chainId: number
+    publishableKey: string
   }
 ): Promise<StripeOnrampResponse> => {
-  const { token, chainId, destinationAddress, sourceAmount, sourceCurrency, redirectUrl } = params
+  const { token, chainId, publishableKey, destinationAddress, sourceAmount, sourceCurrency, redirectUrl } = params
+
+  if (!publishableKey) {
+    throw new Error('Publishable key is required for authentication')
+  }
 
   const destinationCurrency = getCurrencyCode(token).toLowerCase()
   const destinationNetwork = getNetworkName(chainId)
@@ -92,6 +97,7 @@ export const createStripeSession = async (
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${publishableKey}`,
     },
     body: JSON.stringify(requestBody),
   })
@@ -120,9 +126,14 @@ export const getStripeQuote = async (
   params: Omit<GetStripeQuoteParams, 'destinationCurrency' | 'destinationNetwork'> & {
     token: SendTokenOption
     chainId: number
+    publishableKey: string
   }
 ): Promise<StripeQuote | null> => {
-  const { token, chainId, ...rest } = params
+  const { token, chainId, publishableKey, ...rest } = params
+
+  if (!publishableKey) {
+    throw new Error('Publishable key is required for authentication')
+  }
 
   // Build request body
   const requestBody: GetStripeQuoteParams = {
@@ -136,6 +147,7 @@ export const getStripeQuote = async (
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${publishableKey}`,
     },
     body: JSON.stringify(requestBody),
   })
