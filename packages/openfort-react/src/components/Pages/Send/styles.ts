@@ -70,13 +70,6 @@ export const TokenSelectorRight = styled.div`
   color: var(--ck-body-color-muted);
 `
 
-const TokenSelectorChevron = styled.span`
-  font-size: 18px;
-  line-height: 1;
-  position: relative;
-  top: -1px;
-`
-
 export const AmountInputWrapper = styled.div`
   position: relative;
   margin-top: 12px;

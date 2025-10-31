@@ -123,12 +123,6 @@ export const SelectorRight = styled.div`
   color: var(--ck-body-color-muted);
 `
 
-const SelectorValue = styled.span`
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ck-body-color);
-`
-
 export const ContinueButtonWrapper = styled.div`
   margin-top: 24px;
   display: flex;
