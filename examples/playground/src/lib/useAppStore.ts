@@ -1,5 +1,5 @@
 import { AuthProvider, LinkWalletOnSignUpOption, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
-import { base, mainnet } from 'viem/chains'
+import { beamTestnet, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
 
 type EditingEntity = {
@@ -54,14 +54,14 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY,
 
     ethereumProviderPolicyId: {
-      [base.id]: import.meta.env.VITE_BASE_POLICY_ID!,
-      [mainnet.id]: import.meta.env.VITE_MAINNET_POLICY_ID!,
+      [polygonAmoy.id]: import.meta.env.VITE_POLYGON_POLICY_ID!,
+      [beamTestnet.id]: import.meta.env.VITE_BEAM_POLICY_ID!,
     },
 
-    debug: false,
-    // getEncryptionSession: undefined, // Optional function to get the encryption session
-
+    getEncryptionSession: undefined, // Optional function to get the encryption session
     createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
+    recoverWalletAutomaticallyAfterAuth: undefined,
+    accountType: undefined,
   },
   onConnect: undefined,
   onDisconnect: undefined,
