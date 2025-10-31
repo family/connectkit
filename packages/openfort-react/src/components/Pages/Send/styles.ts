@@ -70,7 +70,7 @@ export const TokenSelectorRight = styled.div`
   color: var(--ck-body-color-muted);
 `
 
-export const TokenSelectorChevron = styled.span`
+const TokenSelectorChevron = styled.span`
   font-size: 18px;
   line-height: 1;
   position: relative;

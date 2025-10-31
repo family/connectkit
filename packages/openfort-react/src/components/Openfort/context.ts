@@ -22,7 +22,7 @@ type Connector =
       id: OAuthProvider
       type: 'oauth'
     }
-export type ErrorMessage = string | React.ReactNode | null
+type ErrorMessage = string | React.ReactNode | null
 
 export type ContextValue = {
   setTheme: React.Dispatch<React.SetStateAction<Theme>>

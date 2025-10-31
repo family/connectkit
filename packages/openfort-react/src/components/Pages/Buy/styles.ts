@@ -123,7 +123,7 @@ export const SelectorRight = styled.div`
   color: var(--ck-body-color-muted);
 `
 
-export const SelectorValue = styled.span`
+const SelectorValue = styled.span`
   font-size: 14px;
   font-weight: 600;
   color: var(--ck-body-color);

@@ -42,7 +42,7 @@ export type CoinbaseOrderQuote = {
   }
 }
 
-export type CoinbaseSession = {
+type CoinbaseSession = {
   onrampUrl: string
 }
 

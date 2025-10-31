@@ -14,7 +14,7 @@ export type StripeQuote = {
   source_total_amount: string
 }
 
-export type StripeQuotesResponse = {
+type StripeQuotesResponse = {
   id: string
   object: string
   destination_network_quotes: Record<string, StripeQuote[]>
@@ -22,7 +22,7 @@ export type StripeQuotesResponse = {
   source_currency: string
 }
 
-export type StripeSession = {
+type StripeSession = {
   id: string
   client_secret: string
   status: string

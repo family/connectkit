@@ -111,7 +111,7 @@ export const BuyIcon = ({ ...props }) => (
   </svg>
 );
 
-export const CardIcon = ({ ...props }) => (
+const CardIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
     width="20"
@@ -151,7 +151,7 @@ export const CardIcon = ({ ...props }) => (
   </svg>
 );
 
-export const ExchangeIcon = ({ ...props }) => (
+const ExchangeIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
     width="20"

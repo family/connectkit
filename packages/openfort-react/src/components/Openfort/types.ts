@@ -80,7 +80,7 @@ export type RouteOptions = RoutesWithoutOptions | RoutesWithOptions
 // SetRouteOptions can be either a RouteOptions object or just the route string for routes without options
 export type SetRouteOptions = RouteOptions | RoutesWithoutOptions['route']
 
-export type Connector =
+type Connector =
   | {
       id: string
       type?: 'wallet'
