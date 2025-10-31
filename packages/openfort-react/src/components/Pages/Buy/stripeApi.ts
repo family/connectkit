@@ -1,7 +1,7 @@
 import type { SendTokenOption } from '../../Openfort/types'
 
-const STRIPE_API_URL = 'http://localhost:3000/api/onramp/stripe/sessions'
-const STRIPE_QUOTES_API_URL = 'http://localhost:3000/api/onramp/stripe/quotes'
+const STRIPE_API_URL = 'http://localhost:3000/v1/onramp/stripe/sessions'
+const STRIPE_QUOTES_API_URL = 'http://localhost:3000/v1/onramp/stripe/quotes'
 
 export type StripeQuote = {
   destination_amount: string

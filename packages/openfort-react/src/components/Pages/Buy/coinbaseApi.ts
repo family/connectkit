@@ -1,7 +1,7 @@
 import type { SendTokenOption } from '../../Openfort/types'
 
-const COINBASE_API_URL = 'http://localhost:3000/api/onramp/sessions'
-const COINBASE_ORDERS_API_URL = 'http://localhost:3000/api/onramp/orders'
+const COINBASE_API_URL = 'http://localhost:3000/v1/onramp/coinbase/sessions'
+const COINBASE_ORDERS_API_URL = 'http://localhost:3000/v1/onramp/coinbase/orders'
 
 export type CoinbaseQuote = {
   destinationNetwork: string
