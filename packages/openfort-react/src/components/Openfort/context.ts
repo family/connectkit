@@ -50,6 +50,7 @@ export type ContextValue = {
   debugMode: Required<DebugModeOptions>
   resize: number
   triggerResize: () => void
+  publishableKey: string
   uiConfig: OpenfortUIOptionsExtended
   walletConfig?: OpenfortWalletConfig
   overrides?: SDKOverrides

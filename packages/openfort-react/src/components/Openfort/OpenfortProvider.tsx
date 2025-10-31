@@ -330,6 +330,7 @@ export const OpenfortProvider = ({
     setEmailInput,
     resize,
     triggerResize: () => onResize((prev) => prev + 1),
+    publishableKey,
     walletConfig,
     overrides,
     thirdPartyAuth,

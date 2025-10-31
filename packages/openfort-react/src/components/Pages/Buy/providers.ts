@@ -44,6 +44,7 @@ export const getProviderById = (id: BuyProviderId) => PROVIDERS.find((item) => i
 export const fetchCoinbaseQuote = async (params: {
   token: SendTokenOption
   chainId: number
+  publishableKey: string
   paymentAmount?: string
   paymentCurrency?: string
   destinationAddress: string
@@ -55,6 +56,7 @@ export const fetchCoinbaseQuote = async (params: {
     const quote = await getCoinbaseQuote({
       token: params.token,
       chainId: params.chainId,
+      publishableKey: params.publishableKey,
       paymentAmount: params.paymentAmount,
       paymentCurrency: params.paymentCurrency,
       paymentMethod: params.paymentMethod,

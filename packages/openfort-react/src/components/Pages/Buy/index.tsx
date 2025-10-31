@@ -50,7 +50,7 @@ import { createCurrencyFormatter, getCurrencySymbol } from './utils'
 const amountPresets = [10, 20, 50]
 
 const Buy = () => {
-  const { buyForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
+  const { buyForm, setBuyForm, setRoute, triggerResize, publishableKey } = useOpenfort()
   const locales = useLocales()
   const { nativeOption, tokenOptions } = useTokens()
   const { address } = useAccount()
@@ -186,6 +186,7 @@ const Buy = () => {
         const quote = await getOrderQuote({
           token: selectedToken,
           chainId,
+          publishableKey,
           destinationAddress: address,
           paymentSubtotalTarget: fiatAmount.toFixed(2),
           paymentCurrency: buyForm.currency,
@@ -204,7 +205,7 @@ const Buy = () => {
     // Debounce the quote fetching
     const timeoutId = setTimeout(fetchQuote, 500)
     return () => clearTimeout(timeoutId)
-  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
+  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
   // Fetch Coinbase session when amount changes
   // Using one-click onramp URL (without location params) to let Coinbase handle geo-detection
@@ -219,6 +220,7 @@ const Buy = () => {
         const session = await createCoinbaseSession({
           token: selectedToken,
           chainId,
+          publishableKey,
           destinationAddress: address,
           paymentAmount: fiatAmount.toFixed(2),
           paymentCurrency: buyForm.currency,
@@ -236,7 +238,7 @@ const Buy = () => {
     // Debounce the session creation
     const timeoutId = setTimeout(fetchSession, 500)
     return () => clearTimeout(timeoutId)
-  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
+  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
   // Fetch Stripe session when amount changes
   useEffect(() => {
@@ -250,6 +252,7 @@ const Buy = () => {
         const session = await createStripeSession({
           token: selectedToken,
           chainId,
+          publishableKey,
           destinationAddress: address,
           sourceAmount: fiatAmount.toFixed(2),
           sourceCurrency: buyForm.currency,
@@ -264,7 +267,7 @@ const Buy = () => {
     // Debounce the session creation
     const timeoutId = setTimeout(fetchSession, 500)
     return () => clearTimeout(timeoutId)
-  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
+  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
   // Fetch Stripe quote when amount changes
   useEffect(() => {
@@ -278,6 +281,7 @@ const Buy = () => {
         const quote = await getStripeQuote({
           token: selectedToken,
           chainId,
+          publishableKey,
           sourceCurrency: buyForm.currency,
           sourceAmount: fiatAmount.toFixed(2),
         })
@@ -290,7 +294,7 @@ const Buy = () => {
     // Debounce the quote fetching
     const timeoutId = setTimeout(fetchQuote, 500)
     return () => clearTimeout(timeoutId)
-  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address])
+  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
   // Use real quote from orders endpoint
   // purchaseAmount is the amount of crypto (ETH) the user will receive
