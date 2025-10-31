@@ -1,4 +1,4 @@
-import type { AccountTypeEnum, OAuthProvider, RecoveryMethod } from '@openfort/openfort-js'
+import type { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
 import type { ReactNode } from 'react'
 import type { Address } from 'viem'
@@ -79,16 +79,6 @@ export type RouteOptions = RoutesWithoutOptions | RoutesWithOptions
 
 // SetRouteOptions can be either a RouteOptions object or just the route string for routes without options
 export type SetRouteOptions = RouteOptions | RoutesWithoutOptions['route']
-
-type Connector =
-  | {
-      id: string
-      type?: 'wallet'
-    }
-  | {
-      id: OAuthProvider
-      type: 'oauth'
-    }
 
 export enum UIAuthProvider {
   GOOGLE = 'google',
