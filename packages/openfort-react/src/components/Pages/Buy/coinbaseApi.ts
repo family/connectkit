@@ -3,7 +3,7 @@ import type { SendTokenOption } from '../../Openfort/types'
 const COINBASE_API_URL = 'http://localhost:3000/v1/onramp/coinbase/sessions'
 const COINBASE_ORDERS_API_URL = 'http://localhost:3000/v1/onramp/coinbase/orders'
 
-export type CoinbaseQuote = {
+type CoinbaseQuote = {
   destinationNetwork: string
   exchangeRate: string
   fees: Array<{
@@ -135,21 +135,6 @@ export const createCoinbaseSession = async (
   }
 
   return response.json()
-}
-
-/**
- * Get a quote only (without creating a session)
- * Note: To get a quote, you must provide paymentMethod, country, and subdivision (for US)
- */
-export const getCoinbaseQuote = async (
-  params: Omit<CreateCoinbaseSessionParams, 'purchaseCurrency' | 'destinationNetwork'> & {
-    token: SendTokenOption
-    chainId: number
-    publishableKey: string
-  }
-): Promise<CoinbaseQuote | null> => {
-  const response = await createCoinbaseSession(params)
-  return response.quote || null
 }
 
 type GetOrderQuoteParams = {
