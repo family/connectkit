@@ -3,7 +3,6 @@ const TOKEN_PRICE_IDS: Record<string, string> = {
   MATIC: 'matic-network',
   BNB: 'binancecoin',
   AVAX: 'avalanche-2',
-  FTM: 'fantom',
   OP: 'optimism',
   ARB: 'arbitrum',
   USDC: 'usd-coin',

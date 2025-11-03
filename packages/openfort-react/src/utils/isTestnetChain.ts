@@ -50,9 +50,6 @@ const TESTNET_CHAIN_IDS = new Set([
   // Celo testnets
   44787, // Celo Alfajores
 
-  // Fantom testnets
-  4002, // Fantom Testnet
-
   // Filecoin testnets
   3141, // Filecoin Hyperspace
   314159, // Filecoin Calibration

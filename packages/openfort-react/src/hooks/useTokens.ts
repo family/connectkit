@@ -117,7 +117,6 @@ export const useTokens = () => {
       MATIC: 'Polygon',
       BNB: 'BNB',
       AVAX: 'Avalanche',
-      FTM: 'Fantom',
       OP: 'Optimism',
       ARB: 'Arbitrum',
     }
