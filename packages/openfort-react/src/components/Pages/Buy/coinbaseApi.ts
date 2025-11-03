@@ -1,8 +1,10 @@
+import { SDKConfiguration } from '@openfort/openfort-js'
 import type { SendTokenOption } from '../../Openfort/types'
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-const ONRAMP_SESSIONS_URL = `${BACKEND_URL}/v1/onramp/sessions`
-const ONRAMP_ORDERS_URL = `${BACKEND_URL}/v1/onramp/orders`
+const getBackendUrl = (): string => {
+  const sdkConfig = SDKConfiguration.getInstance()
+  return sdkConfig?.backendUrl || 'https://api.openfort.io'
+}
 
 type CoinbaseQuote = {
   destinationNetwork: string
@@ -124,7 +126,7 @@ export const createCoinbaseSession = async (
   if (rest.redirectUrl) requestBody.redirectUrl = rest.redirectUrl
   if (rest.clientIp) requestBody.clientIp = rest.clientIp
 
-  const response = await fetch(ONRAMP_SESSIONS_URL, {
+  const response = await fetch(`${getBackendUrl()}/v1/onramp/sessions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -203,7 +205,7 @@ export const getOrderQuote = async (
     requestBody.paymentSubtotalTarget = rest.paymentSubtotalTarget
   }
 
-  const response = await fetch(ONRAMP_ORDERS_URL, {
+  const response = await fetch(`${getBackendUrl()}/v1/onramp/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

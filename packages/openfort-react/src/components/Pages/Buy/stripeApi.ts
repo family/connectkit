@@ -1,8 +1,10 @@
+import { SDKConfiguration } from '@openfort/openfort-js'
 import type { SendTokenOption } from '../../Openfort/types'
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-const ONRAMP_SESSIONS_URL = `${BACKEND_URL}/v1/onramp/sessions`
-const ONRAMP_QUOTES_URL = `${BACKEND_URL}/v1/onramp/quotes`
+const getBackendUrl = (): string => {
+  const sdkConfig = SDKConfiguration.getInstance()
+  return sdkConfig?.backendUrl || 'https://api.openfort.io'
+}
 
 export type StripeQuote = {
   destination_amount: string
@@ -96,7 +98,7 @@ export const createStripeSession = async (
     redirectUrl,
   }
 
-  const response = await fetch(ONRAMP_SESSIONS_URL, {
+  const response = await fetch(`${getBackendUrl()}/v1/onramp/sessions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -147,7 +149,7 @@ export const getStripeQuote = async (
     sourceAmount: rest.sourceAmount,
   }
 
-  const response = await fetch(ONRAMP_QUOTES_URL, {
+  const response = await fetch(`${getBackendUrl()}/v1/onramp/quotes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

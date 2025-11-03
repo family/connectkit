@@ -6,7 +6,6 @@ interface ImportMetaEnv {
   readonly VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT: string
   readonly VITE_BEAM_POLICY_ID: string
   readonly VITE_POLYGON_POLICY_ID: string
-  readonly VITE_BACKEND_URL: string
 }
 
 interface ImportMeta {
