@@ -1,7 +1,7 @@
 import type { SendTokenOption } from '../../Openfort/types'
 
-const COINBASE_API_URL = 'http://localhost:3000/v1/onramp/coinbase/sessions'
-const COINBASE_ORDERS_API_URL = 'http://localhost:3000/v1/onramp/coinbase/orders'
+const ONRAMP_SESSIONS_URL = 'http://localhost:3000/v1/onramp/sessions'
+const ONRAMP_ORDERS_URL = 'http://localhost:3000/v1/onramp/orders'
 
 type CoinbaseQuote = {
   destinationNetwork: string
@@ -19,6 +19,7 @@ type CoinbaseQuote = {
 }
 
 export type CoinbaseOrderQuote = {
+  provider: string
   order: {
     createdAt: string
     destinationAddress: string
@@ -47,6 +48,7 @@ type CoinbaseSession = {
 }
 
 export type CoinbaseOnrampResponse = {
+  provider: string
   session: CoinbaseSession
   quote?: CoinbaseQuote // Only present when paymentMethod, country, and subdivision are provided
 }
@@ -105,7 +107,8 @@ export const createCoinbaseSession = async (
   }
 
   // Build request body with only provided parameters
-  const requestBody: CreateCoinbaseSessionParams = {
+  const requestBody: CreateCoinbaseSessionParams & { provider: string } = {
+    provider: 'coinbase',
     purchaseCurrency: getCurrencyCode(token),
     destinationNetwork: getNetworkName(chainId),
     destinationAddress: rest.destinationAddress,
@@ -120,7 +123,7 @@ export const createCoinbaseSession = async (
   if (rest.redirectUrl) requestBody.redirectUrl = rest.redirectUrl
   if (rest.clientIp) requestBody.clientIp = rest.clientIp
 
-  const response = await fetch(COINBASE_API_URL, {
+  const response = await fetch(ONRAMP_SESSIONS_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -171,7 +174,8 @@ export const getOrderQuote = async (
   }
 
   // Build request body
-  const requestBody: GetOrderQuoteParams & { isQuote: boolean } = {
+  const requestBody: GetOrderQuoteParams & { isQuote: boolean; provider: string } = {
+    provider: 'coinbase',
     purchaseCurrency: getCurrencyCode(token),
     destinationNetwork: getNetworkName(chainId),
     destinationAddress: rest.destinationAddress,
@@ -198,7 +202,7 @@ export const getOrderQuote = async (
     requestBody.paymentSubtotalTarget = rest.paymentSubtotalTarget
   }
 
-  const response = await fetch(COINBASE_ORDERS_API_URL, {
+  const response = await fetch(ONRAMP_ORDERS_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

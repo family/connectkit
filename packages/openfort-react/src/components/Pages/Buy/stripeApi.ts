@@ -1,7 +1,7 @@
 import type { SendTokenOption } from '../../Openfort/types'
 
-const STRIPE_API_URL = 'http://localhost:3000/v1/onramp/stripe/sessions'
-const STRIPE_QUOTES_API_URL = 'http://localhost:3000/v1/onramp/stripe/quotes'
+const ONRAMP_SESSIONS_URL = 'http://localhost:3000/v1/onramp/sessions'
+const ONRAMP_QUOTES_URL = 'http://localhost:3000/v1/onramp/quotes'
 
 export type StripeQuote = {
   destination_amount: string
@@ -30,6 +30,7 @@ type StripeSession = {
 }
 
 export type StripeOnrampResponse = {
+  provider: string
   session: StripeSession
   quote?: StripeQuote
 }
@@ -84,7 +85,8 @@ export const createStripeSession = async (
   const destinationNetwork = getNetworkName(chainId)
 
   // Build request body for backend API
-  const requestBody: CreateStripeSessionParams = {
+  const requestBody: CreateStripeSessionParams & { provider: string } = {
+    provider: 'stripe',
     destinationCurrency,
     destinationNetwork,
     destinationAddress,
@@ -93,7 +95,7 @@ export const createStripeSession = async (
     redirectUrl,
   }
 
-  const response = await fetch(STRIPE_API_URL, {
+  const response = await fetch(ONRAMP_SESSIONS_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -136,14 +138,15 @@ export const getStripeQuote = async (
   }
 
   // Build request body
-  const requestBody: GetStripeQuoteParams = {
+  const requestBody: GetStripeQuoteParams & { provider: string } = {
+    provider: 'stripe',
     destinationCurrency: getCurrencyCode(token),
     destinationNetwork: getNetworkName(chainId),
     sourceCurrency: rest.sourceCurrency,
     sourceAmount: rest.sourceAmount,
   }
 
-  const response = await fetch(STRIPE_QUOTES_API_URL, {
+  const response = await fetch(ONRAMP_QUOTES_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
