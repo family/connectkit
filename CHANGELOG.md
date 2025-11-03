@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+### Patch Changes
+
+- [#81](https://github.com/openfort-xyz/openfort-react/pull/81) [`36b26fd`](https://github.com/openfort-xyz/openfort-react/commit/36b26fd7032727f1814a7a88e21ebb8e04fedbbb) Thanks [@martimayoral](https://github.com/martimayoral)! - fix walletConnect bug when opening app in mobile and nextjs
+
 ## 0.1.2
 
 ### Patch Changes
