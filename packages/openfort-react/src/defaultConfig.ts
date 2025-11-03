@@ -4,7 +4,6 @@ import { arbitrum, mainnet, optimism, polygon } from 'wagmi/chains'
 import type { CoinbaseWalletParameters } from 'wagmi/connectors'
 
 import defaultConnectors from './defaultConnectors'
-import { logger } from './utils/logger'
 
 // OLD_TODO: Move these to a provider rather than global variable
 let globalAppName: string
@@ -54,8 +53,6 @@ const defaultConfig = ({
       walletConnectProjectId,
       coinbaseWalletPreference,
     })
-
-  logger.log('OPENFORT CHAINS', { chains, transports, propsTransports: props?.transports })
 
   const config: CreateConfigParameters<any, any> = {
     ...props,

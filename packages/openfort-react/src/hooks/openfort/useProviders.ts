@@ -32,7 +32,8 @@ export function useProviders() {
     }
   }, [thirdPartyAuth, setOpen])
 
-  const maxProviders = 4
+  const maxProviders = options?.authProvidersLength || 4
+
   const { mainProviders, hasExcessProviders, remainingSocialProviders } = useMemo(() => {
     const activeProviders = user ? availableProviders : allProviders
 
