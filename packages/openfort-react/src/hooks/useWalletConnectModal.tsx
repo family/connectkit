@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import type { Connector, CreateConnectorFn } from 'wagmi'
-import { walletConnect } from 'wagmi/connectors'
+import type { Connector } from 'wagmi'
 
 import { isWalletConnectConnector } from '../utils'
 import { logger } from '../utils/logger'
@@ -18,21 +17,19 @@ export function useWalletConnectModal() {
       w3mcss.innerHTML = `w3m-modal, wcm-modal{ --wcm-z-index: 2147483647; --w3m-z-index:2147483647; }`
       document.head.appendChild(w3mcss)
 
+      const removeChild = () => {
+        if (document.head.contains(w3mcss)) {
+          document.head.removeChild(w3mcss)
+        }
+      }
+
       const clientConnector: Connector | undefined = connectors.find((c) => isWalletConnectConnector(c.id))
 
       if (clientConnector) {
         try {
-          const provider: any = await clientConnector.getProvider()
-          const projectId = provider.rpc.projectId
-
-          const connector: CreateConnectorFn = walletConnect({
-            projectId,
-            showQrModal: true,
-          })
-
           setIsOpen(true)
           try {
-            await connectAsync({ connector: connector })
+            await connectAsync({ connector: clientConnector })
           } catch (err) {
             logger.log('WalletConnect', err)
             return {
@@ -42,16 +39,17 @@ export function useWalletConnectModal() {
 
           setIsOpen(false)
 
-          // remove modal styling
-          document.head.removeChild(w3mcss)
+          removeChild()
           return {}
         } catch (err) {
           logger.log('Could not get WalletConnect provider', err)
+          removeChild()
           return {
             error: 'Could not get WalletConnect provider',
           }
         }
       } else {
+        removeChild()
         logger.log('Configuration error: Please provide a WalletConnect Project ID in your wagmi config.')
         return {
           error: 'Configuration error: Please provide a WalletConnect Project ID in your wagmi config.',

@@ -64,11 +64,9 @@ const RecoverPasswordWallet = ({
     if (recoveryError) triggerResize()
   }, [recoveryError])
 
-  const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: wallet.address,
-    config: ensFallbackConfig,
   })
 
   return (

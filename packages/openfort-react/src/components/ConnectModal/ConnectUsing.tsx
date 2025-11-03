@@ -56,13 +56,7 @@ const ConnectUsing = () => {
           exit={'exit'}
           variants={contentVariants}
         >
-          <ConnectWithQRCode
-            switchConnectMethod={(_id?: string) => {
-              //if (id) setId(id);
-              setStatus(states.INJECTOR)
-              setTimeout(context.triggerResize, 10) // delay required here for modal to resize
-            }}
-          />
+          <ConnectWithQRCode />
         </motion.div>
       )}
       {status === states.INJECTOR && (

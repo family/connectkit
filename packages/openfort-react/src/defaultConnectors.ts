@@ -45,7 +45,6 @@ const defaultConnectors = ({
   if (walletConnectProjectId) {
     connectors.push(
       walletConnect({
-        showQrModal: false,
         projectId: walletConnectProjectId,
         metadata: hasAllAppData
           ? {
@@ -58,13 +57,6 @@ const defaultConnectors = ({
       })
     )
   }
-  /*
-  connectors.push(
-    injected({
-      shimDisconnect: true,
-    })
-  );
-  */
 
   return connectors
 }
