@@ -3,7 +3,8 @@ import { useAccount, useBalance, useReadContracts } from 'wagmi'
 import type { SendTokenOption } from '../components/Openfort/types'
 import { erc20Abi } from '../constants/erc20'
 import { ERC20_TOKEN_LIST } from '../constants/tokenList'
-import { fetchTokenPrices, getCoingeckoId } from '../utils/priceService'
+import { useOpenfortCore } from '../openfort/useOpenfort'
+import { fetchTokenPrices } from '../utils/priceService'
 import { useTokenCache } from './useTokenCache'
 
 export type TokenOptionWithBalance = SendTokenOption & {
@@ -16,6 +17,7 @@ export type TokenUsdPrices = Record<string, number>
 export const useTokens = () => {
   const { address, chain } = useAccount()
   const chainId = chain?.id
+  const { client: openfortClient } = useOpenfortCore()
 
   // Use token cache hook
   const { cachedNativeBalance, getCachedErc20Balance, cacheBalance, cachedPrices, cachePrices } = useTokenCache(
@@ -143,17 +145,8 @@ export const useTokens = () => {
   const isBalancesLoading = isLoading
 
   // Fetch USD prices
-  const coingeckoIds = useMemo(() => {
-    const ids = new Set<string>()
-    tokenOptions.forEach((token) => {
-      const id = getCoingeckoId(token.symbol)
-      if (id) ids.add(id)
-    })
-    return Array.from(ids)
-  }, [tokenOptions])
-
   useEffect(() => {
-    if (!coingeckoIds.length) {
+    if (!chainId || !tokenOptions.length || !openfortClient) {
       setPrices({})
       return
     }
@@ -161,8 +154,26 @@ export const useTokens = () => {
     const controller = new AbortController()
 
     const loadPrices = async () => {
+      // Build token requests for all tokens
+      const tokenRequests = tokenOptions
+        .map((token) => {
+          if (!token.symbol) return null
+          return {
+            chainId,
+            tokenAddress: token.type === 'native' ? 'native' : (token.address as string),
+            symbol: token.symbol,
+          }
+        })
+        .filter((req): req is NonNullable<typeof req> => req !== null)
+
+      if (!tokenRequests.length) {
+        setPrices({})
+        return
+      }
+
       const result = await fetchTokenPrices({
-        coingeckoIds,
+        tokenRequests,
+        openfortClient,
         signal: controller.signal,
       })
 
@@ -182,8 +193,7 @@ export const useTokens = () => {
         tokenOptions.forEach((token) => {
           const symbolKey = token.symbol?.toUpperCase()
           if (!symbolKey) return
-          const id = getCoingeckoId(token.symbol)
-          const usd = id ? priceData[id]?.usd : undefined
+          const usd = priceData[symbolKey]
           if (typeof usd === 'number') {
             next[symbolKey] = usd
           } else if (prev[symbolKey] !== undefined) {
@@ -203,7 +213,7 @@ export const useTokens = () => {
     return () => {
       controller.abort()
     }
-  }, [coingeckoIds, tokenOptions, cachedPrices, cachePrices])
+  }, [chainId, tokenOptions, openfortClient, cachedPrices, cachePrices])
 
   return {
     address,
