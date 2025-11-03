@@ -31,7 +31,7 @@ export const Nav = ({ showLogo, overridePath }: { showLogo?: boolean; overridePa
     <nav className="h-(--nav-height) pr-4 bg-background-100 border-b w-[100vw] flex fixed z-10">
       <div className="flex items-center w-full gap-4 overflow-x-auto overflow-y-hidden shrink-0 whitespace-nowrap max-w-(--max-screen-width) mx-auto">
         {showLogo && (
-          <div className="w-xs">
+          <div className="max-w-xs">
             <Link to="/" className="m-2 p-2 flex items-center">
               <Logo />
             </Link>
