@@ -1,7 +1,8 @@
 import type { SendTokenOption } from '../../Openfort/types'
 
-const ONRAMP_SESSIONS_URL = 'http://localhost:3000/v1/onramp/sessions'
-const ONRAMP_ORDERS_URL = 'http://localhost:3000/v1/onramp/orders'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+const ONRAMP_SESSIONS_URL = `${BACKEND_URL}/v1/onramp/sessions`
+const ONRAMP_ORDERS_URL = `${BACKEND_URL}/v1/onramp/orders`
 
 type CoinbaseQuote = {
   destinationNetwork: string
