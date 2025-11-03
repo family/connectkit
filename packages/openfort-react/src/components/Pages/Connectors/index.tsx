@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
-import { useConnect } from '../../../hooks/useConnect'
 import useIsMobile from '../../../hooks/useIsMobile'
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
 import ConnectorList from '../../Common/ConnectorList'
@@ -12,7 +11,6 @@ import { PageContent } from '../../PageContent'
 const ConnectWithMobile = () => {
   const { open: openWalletConnectModal } = useWalletConnectModal()
   const [error, setError] = useState<string | undefined>(undefined)
-  const { connect, connectors } = useConnect()
   const { connector, address } = useAccount()
   const { setRoute, setConnector } = useOpenfort()
 
@@ -26,7 +24,7 @@ const ConnectWithMobile = () => {
 
   useEffect(() => {
     openWCModal()
-  }, [connect, connectors])
+  }, [])
 
   useEffect(() => {
     if (connector && address) {
@@ -57,7 +55,6 @@ const Connectors = ({ logoutOnBack }: { logoutOnBack?: boolean }) => {
   const isMobile = useIsMobile()
 
   return (
-    // TODO: logout on back
     <PageContent logoutOnBack={logoutOnBack} width={312}>
       {isMobile ? <ConnectWithMobile /> : <ConnectorList />}
     </PageContent>

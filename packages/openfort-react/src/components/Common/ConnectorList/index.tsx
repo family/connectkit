@@ -1,13 +1,11 @@
 import { embeddedWalletId } from '../../../constants/openfort'
-import { useConnect } from '../../../hooks/useConnect'
 import { useFamilyAccountsConnector, useFamilyConnector } from '../../../hooks/useConnectors'
 
 import useIsMobile from '../../../hooks/useIsMobile'
 import { useLastConnector } from '../../../hooks/useLastConnector'
-import { detectBrowser, isCoinbaseWalletConnector, isPortoConnector, isWalletConnectConnector } from '../../../utils'
+import { isWalletConnectConnector } from '../../../utils'
 import { isFamily } from '../../../utils/wallets'
 import { useWagmiWallets, type WalletProps } from '../../../wallets/useWagmiWallets'
-import { useWeb3 } from '../../contexts/web3'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import Alert from '../Alert'
@@ -57,37 +55,11 @@ const ConnectorList = () => {
 export default ConnectorList
 
 const ConnectorItem = ({ wallet, isRecent }: { wallet: WalletProps; isRecent?: boolean }) => {
-  const {
-    connect: { getUri },
-  } = useWeb3()
-  const wcUri = getUri()
   const isMobile = useIsMobile()
   const context = useOpenfort()
 
-  const { connect } = useConnect()
-
-  /*
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    (async () => {
-      const provider = await wallet.connector.getProvider();
-      setReady(!!provider);
-    })();
-  }, [wallet, setReady]);
-  */
-
-  let deeplink =
-    (!wallet.isInstalled && isMobile) || (wallet.shouldDeeplinkDesktop && !isMobile)
-      ? wallet.getWalletConnectDeeplink?.(wcUri ?? '')
-      : undefined
-
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id)
   // Safari requires opening popup on user gesture, so we connect immediately here
-  const shouldConnectImmediately =
-    (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
-    (isCoinbaseWalletConnector(wallet.connector.id) || isPortoConnector(wallet.connector.id))
-
-  if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined // mobile redirects to more wallets page
 
   const content = () => (
     <>
@@ -113,18 +85,9 @@ const ConnectorItem = ({ wallet, isRecent }: { wallet: WalletProps; isRecent?: b
     <ConnectorButton
       type="button"
       onClick={() => {
-        if (isMobile && deeplink) {
-          context.setRoute(routes.CONNECT_WITH_MOBILE)
-          context.setConnector({ id: wallet.id })
-          return
-        }
-
         if (redirectToMoreWallets) {
           context.setRoute(routes.MOBILECONNECTORS)
         } else {
-          if (shouldConnectImmediately) {
-            connect({ connector: wallet?.connector })
-          }
           context.setRoute({ route: routes.CONNECT, connectType: 'linkIfUserConnectIfNoUser' })
           context.setConnector({ id: wallet.id })
         }

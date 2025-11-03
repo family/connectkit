@@ -7,7 +7,6 @@ import CopyToClipboard from '../../Common/CopyToClipboard'
 import { ModalContent } from '../../Common/Modal/styles'
 import { ScrollArea } from '../../Common/ScrollArea'
 import { Spinner } from '../../Common/Spinner'
-import { useWeb3 } from '../../contexts/web3'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
@@ -23,11 +22,6 @@ const MoreIcon = (
 const MobileConnectors: React.FC = () => {
   const context = useOpenfort()
   const locales = useLocales()
-
-  const {
-    connect: { getUri },
-  } = useWeb3()
-  const wcUri = getUri()
 
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal()
   const wallets = useWagmiWallets()
@@ -51,7 +45,7 @@ const MobileConnectors: React.FC = () => {
       <Container>
         <ModalContent style={{ paddingBottom: 0 }}>
           <ScrollArea height={340}>
-            <WalletList $disabled={!wcUri}>
+            <WalletList>
               {walletsIdsToDisplay
                 .sort(
                   // sort by name
@@ -119,9 +113,7 @@ const MobileConnectors: React.FC = () => {
               paddingTop: 8,
             }}
           >
-            <CopyToClipboard variant="button" string={wcUri}>
-              {locales.copyToClipboard}
-            </CopyToClipboard>
+            <CopyToClipboard variant="button">{locales.copyToClipboard}</CopyToClipboard>
           </div>
         )}
       </Container>

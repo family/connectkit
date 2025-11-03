@@ -19,7 +19,7 @@ const Scan = ({ ...props }) => (
 
 const Download = ({ ...props }) => <svg />;
 
-export const ExternalLinkIcon = ({ ...props }) => (
+const ExternalLinkIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
     width="16"

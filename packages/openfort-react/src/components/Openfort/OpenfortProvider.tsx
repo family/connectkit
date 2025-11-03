@@ -324,7 +324,7 @@ export const OpenfortProvider = ({
   return createElement(
     Openfortcontext.Provider,
     { value },
-    <Web3ContextProvider enabled={open}>
+    <Web3ContextProvider>
       <CoreOpenfortProvider
         openfortConfig={{
           baseConfiguration: {
