@@ -16,15 +16,7 @@ export type NavRoute = {
   children?: NavRoute[]
 }
 
-export const Nav = ({
-  showLogo,
-  children,
-  overridePath,
-}: {
-  showLogo?: boolean
-  children?: React.ReactNode
-  overridePath?: string
-}) => {
+export const Nav = ({ showLogo, overridePath }: { showLogo?: boolean; overridePath?: string }) => {
   const location = useLocation()
   const path = location.pathname.includes('showcase') ? '/' : overridePath || location.pathname
 
@@ -46,80 +38,50 @@ export const Nav = ({
           </div>
         )}
         <div className="flex items-center gap-4 ml-auto overflow-x-auto overflow-y-hidden">
-          {navRoutes.map((route, i) =>
-            route.children ? (
-              <DropdownMenu key={route.label}>
-                <DropdownMenuTrigger
+          <div className="sm:flex hidden flex gap-4 mr-4 items-center">
+            {navRoutes.map((route, i) =>
+              route.children ? (
+                <DropdownMenu key={route.label}>
+                  <DropdownMenuTrigger
+                    className={clsx(
+                      'whitespace-nowrap hover:underline',
+                      isActive(route) ? 'text-primary' : 'text-gray-600 dark:text-gray-400'
+                    )}
+                  >
+                    {route.label}
+                    <ChevronDown className={clsx('inline-block ml-0.5 transition-transform size-4')} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    {route.children.map((child) => (
+                      <DropdownMenuItem key={child.href} asChild>
+                        <Link
+                          to={child.href!}
+                          className={clsx(
+                            'cursor-pointer',
+                            isActive(child) ? 'text-primary!' : 'text-gray-600 dark:text-gray-400'
+                          )}
+                        >
+                          {child.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link
+                  key={`${route.href}-${i}`}
+                  to={route.href!}
                   className={clsx(
                     'whitespace-nowrap hover:underline',
                     isActive(route) ? 'text-primary' : 'text-gray-600 dark:text-gray-400'
                   )}
                 >
                   {route.label}
-                  <ChevronDown className={clsx('inline-block ml-0.5 transition-transform size-4')} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  {route.children.map((child) => (
-                    <DropdownMenuItem key={child.href} asChild>
-                      <Link
-                        to={child.href!}
-                        className={clsx(
-                          'cursor-pointer',
-                          isActive(child) ? 'text-primary!' : 'text-gray-600 dark:text-gray-400'
-                        )}
-                      >
-                        {child.label}
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-              // <div key={route.href} className="relative">
-              //   <Link
-              //     to={route.href}
-              //     className={clsx(
-              //       'whitespace-nowrap hover:underline',
-              //       isActive(route) ? 'text-primary' : 'text-gray-600 dark:text-gray-400',
-              //     )}
-              //   >
-              //     {route.label}
-              //   </Link>
-
-              //   <ChevronDown className={
-              //     clsx(
-              //       "inline-block ml-0.5 transition-transform size-4",
-              //     )}
-              //   />
-              //   <div className="absolute left-0 top-full mt-1 bg-background-100 border rounded-md shadow-lg z-10">
-              //     {route.children.map((child) => (
-              //       <Link
-              //         key={child.href}
-              //         to={child.href}
-              //         className={clsx(
-              //           'block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700',
-              //           isActive(child) ? 'text-primary' : 'text-gray-600 dark:text-gray-400',
-              //         )}
-              //       >
-              //         {child.label}
-              //       </Link>
-              //     ))}
-              //   </div>
-              // </div>
-            ) : (
-              <Link
-                key={`${route.href}-${i}`}
-                to={route.href!}
-                className={clsx(
-                  'whitespace-nowrap hover:underline',
-                  isActive(route) ? 'text-primary' : 'text-gray-600 dark:text-gray-400'
-                )}
-              >
-                {route.label}
-              </Link>
-            )
-          )}
-          {children}
-          <div className="flex gap-4 border-l pl-4 items-center">
+                </Link>
+              )
+            )}
+          </div>
+          <div className="flex gap-4 sm:border-l pl-4 items-center">
             <ModeToggle className="scale-110" />
             <Tooltip delayDuration={500}>
               <TooltipTrigger asChild>
@@ -136,18 +98,51 @@ export const Nav = ({
             <Link to={'/provider'} className="btn btn-accent btn-sm btn-circle">
               <SettingsIcon className="size-4.5" />
             </Link>
+            <div className="flex items-center sm:hidden">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="p-2">
+                  <div className="flex flex-col gap-1">
+                    <div className="w-5 h-0.5 bg-current"></div>
+                    <div className="w-5 h-0.5 bg-current"></div>
+                    <div className="w-5 h-0.5 bg-current"></div>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  {navRoutes.map((route, i) =>
+                    route.children ? (
+                      route.children.map((child) => (
+                        <DropdownMenuItem key={child.href} asChild>
+                          <Link
+                            to={child.href!}
+                            className={clsx(
+                              'cursor-pointer',
+                              isActive(child) ? 'text-primary!' : 'text-gray-600 dark:text-gray-400'
+                            )}
+                          >
+                            {child.label}
+                          </Link>
+                        </DropdownMenuItem>
+                      ))
+                    ) : (
+                      <DropdownMenuItem key={`${route.href}-${i}`} asChild>
+                        <Link
+                          to={route.href!}
+                          className={clsx(
+                            'cursor-pointer',
+                            isActive(route) ? 'text-primary!' : 'text-gray-600 dark:text-gray-400'
+                          )}
+                        >
+                          {route.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    )
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </div>
       </div>
     </nav>
   )
 }
-
-// export const WithNav = ({ children, navRoutes }: { children: React.ReactNode; navRoutes: NavRoute[] }) => {
-//   return (
-//     <div className=' flex flex-col h-full'>
-//       <Nav navRoutes={navRoutes} />
-//       {children}
-//     </div>
-//   )
-// }

@@ -6,6 +6,7 @@ import { useAccount, useChainId, useSignMessage } from 'wagmi'
 import { Button } from '@/components/Showcase/ui/Button'
 import { InputMessage } from '@/components/Showcase/ui/InputMessage'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { useSessionKeysStorage_backendSimulation } from '@/lib/useSessionKeysStorage'
 
 export const SessionKeysCard = () => {
@@ -73,17 +74,28 @@ export const SessionKeysCard = () => {
           <Button className="btn btn-accent w-full" disabled={isLoading}>
             {isLoading ? 'Creating...' : 'Create session key'}
           </Button>
-          {sessionKeys.map((key) => (
-            <div key={key} className="px-4 py-2 border rounded break-all flex justify-between items-center">
-              <span className="text-muted-foreground">
-                {key.slice(0, 6)}...{key.slice(-4)}
-              </span>
-              {/* TODO: Add functionality to revoke this session key */}
-              {/* <button type="button" className="btn btn-sm btn-ghost text-error p-0 ml-2" onClick={() => {}}>
+          {sessionKeys
+            .map((key) => ({ publicKey: privateKeyToAccount(key).address, privateKey: key }))
+            .map(({ privateKey, publicKey }) => (
+              <Tooltip key={privateKey}>
+                <TooltipTrigger asChild>
+                  <div className="px-4 py-2 border rounded break-all flex justify-between items-center">
+                    <div className="overflow-hidden text-muted-foreground inline-flex">
+                      <span className="truncate">{publicKey.slice(0, -4)}</span>
+                      <span className="shrink-0">{publicKey.slice(-4)}</span>
+                    </div>
+                    {/* TODO: Add functionality to revoke this session key */}
+                    {/* <button type="button" className="btn btn-sm btn-ghost text-error p-0 ml-2" onClick={() => {}}>
                   <TrashIcon size={16} />
                 </button> */}
-            </div>
-          ))}
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div>Public key: {publicKey}</div>
+                  <div>Private key: {privateKey}</div>
+                </TooltipContent>
+              </Tooltip>
+            ))}
           <InputMessage
             message={`Signed message: ${data?.slice(0, 10)}...${data?.slice(-10)}`}
             show={!!data}
