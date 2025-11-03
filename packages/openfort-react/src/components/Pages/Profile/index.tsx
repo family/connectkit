@@ -1,12 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import { useAccount, useBalance, useChainId, useEnsName } from 'wagmi'
+import { useAccount, useBalance, useEnsName } from 'wagmi'
 import { BuyIcon, DisconnectIcon, LinkIcon, ReceiveIcon, SendIcon } from '../../../assets/icons'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
 import useLocales from '../../../hooks/useLocales'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { isSafeConnector, isTestnetChain, nFormatter, truncateEthAddress } from '../../../utils'
+import { isSafeConnector, nFormatter, truncateEthAddress } from '../../../utils'
 import Avatar from '../../Common/Avatar'
 import Button from '../../Common/Button'
 import ChainSelector from '../../Common/ChainSelect'
@@ -39,7 +39,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const locales = useLocales()
 
   const { address, connector, chain } = useAccount()
-  const chainId = useChainId()
   const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -54,7 +53,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const [shouldDisconnect, setShouldDisconnect] = useState(false)
   const { logout } = useOpenfortCore()
 
-  const isTestnet = isTestnetChain(chainId)
+  const isTestnet = chain?.testnet ?? false
   const [showTestnetMessage, setShowTestnetMessage] = useState(false)
 
   useEffect(() => {
