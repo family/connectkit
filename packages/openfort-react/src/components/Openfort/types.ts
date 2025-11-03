@@ -159,6 +159,8 @@ type OpenfortUIOptions = {
   linkWalletOnSignUp?: LinkWalletOnSignUpOption
 
   authProviders: UIAuthProvider[]
+  authProvidersLength?: number
+
   skipEmailVerification?: boolean
   termsOfServiceUrl?: string
   privacyPolicyUrl?: string
