@@ -7,15 +7,14 @@ export default apiFiles.map((input) => ({
   input,
   output: {
     file: input.replace('src/', 'dist/').replace('.ts', '.js'),
-    format: 'cjs',
-    sourcemap: true,
-    exports: 'auto',
+    format: 'module',
   },
   plugins: [
     typescript({
       check: false, // Skip type checking during build
       tsconfigOverride: {
         compilerOptions: {
+          target: 'ES2020',
           declaration: true,
           declarationDir: './dist',
           moduleResolution: 'bundler',
