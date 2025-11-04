@@ -3,6 +3,10 @@
     {
       "source": "/((?!api).*)",
       "destination": "/"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/dist/api/$1"
     }
   ]
 }
