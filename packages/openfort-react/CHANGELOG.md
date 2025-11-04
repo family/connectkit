@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4
+
+### Patch Changes
+
+- [#85](https://github.com/openfort-xyz/openfort-react/pull/85) [`54b6c90`](https://github.com/openfort-xyz/openfort-react/commit/54b6c90686011265b15b8dd18996bb738d8ded16) Thanks [@martimayoral](https://github.com/martimayoral)! - add useRevokePermissions
+
+- [#83](https://github.com/openfort-xyz/openfort-react/pull/83) [`61e81de`](https://github.com/openfort-xyz/openfort-react/commit/61e81de575f0c8b90c89a0059b3668e1f2f73e76) Thanks [@martimayoral](https://github.com/martimayoral)! - control how many providers are shown in the main page
+
 ## 0.1.3
 
 ### Patch Changes
