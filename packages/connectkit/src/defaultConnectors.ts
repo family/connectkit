@@ -1,11 +1,11 @@
 import { CreateConnectorFn } from 'wagmi';
 import {
   injected,
-  walletConnect,
   coinbaseWallet,
   CoinbaseWalletParameters,
   safe,
 } from '@wagmi/connectors';
+import { walletConnect } from '@walletconnect/wagmi-connector';
 
 import {
   EthereumProviderOptions as FamilyOptions,
