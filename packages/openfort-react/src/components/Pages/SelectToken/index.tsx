@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { formatUnits } from 'viem'
 import { type TokenOptionWithBalance, useTokens } from '../../../hooks/useTokens'
+import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -114,7 +115,13 @@ const SelectToken = () => {
                 <TokenSymbol>{displayName}</TokenSymbol>
                 {usdValue ? <TokenName>{usdValue}</TokenName> : null}
               </TokenInfo>
-              <TokenBalance>{balanceDisplay}</TokenBalance>
+              {isBuyFlow ? (
+                <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <ArrowChevron stroke="currentColor" d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314" />
+                </Arrow>
+              ) : (
+                <TokenBalance>{balanceDisplay}</TokenBalance>
+              )}
             </TokenButton>
           )
         })}
