@@ -50,12 +50,28 @@ const getNetworkName = (chainId: number): string => {
   return networkMap[chainId] || 'base'
 }
 
+// Stripe supported currencies
+const STRIPE_SUPPORTED_CURRENCIES = ['btc', 'eth', 'xlm', 'matic', 'sol', 'usdc', 'avax', 'wld'] as const
+
+// Check if a token is supported by Stripe
+export const isStripeSupported = (token: SendTokenOption): boolean => {
+  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
+  return STRIPE_SUPPORTED_CURRENCIES.includes(symbol.toLowerCase() as any)
+}
+
 // Map token symbol to Stripe currency code
 const getCurrencyCode = (token: SendTokenOption): string => {
-  if (token.type === 'native') {
-    return token.symbol || 'ETH'
+  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
+  const lowercaseSymbol = symbol.toLowerCase()
+
+  // Validate that the currency is supported by Stripe
+  if (!STRIPE_SUPPORTED_CURRENCIES.includes(lowercaseSymbol as any)) {
+    throw new Error(
+      `Unsupported currency for Stripe: ${symbol}. Supported currencies are: ${STRIPE_SUPPORTED_CURRENCIES.join(', ')}`
+    )
   }
-  return token.symbol || 'USDC'
+
+  return lowercaseSymbol
 }
 
 /**
@@ -75,7 +91,7 @@ export const createStripeSession = async (
     throw new Error('Publishable key is required for authentication')
   }
 
-  const destinationCurrency = getCurrencyCode(token).toLowerCase()
+  const destinationCurrency = getCurrencyCode(token)
   const destinationNetwork = getNetworkName(chainId)
 
   // Build request body for backend API
@@ -134,7 +150,7 @@ export const getStripeQuote = async (
   // Build request body
   const requestBody: GetStripeQuoteParams & { provider: string } = {
     provider: 'stripe',
-    destinationCurrency: getCurrencyCode(token).toLowerCase(),
+    destinationCurrency: getCurrencyCode(token),
     destinationNetwork: getNetworkName(chainId),
     sourceCurrency: rest.sourceCurrency.toLowerCase(),
     sourceAmount: rest.sourceAmount,

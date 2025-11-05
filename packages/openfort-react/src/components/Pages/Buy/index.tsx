@@ -16,7 +16,7 @@ import type { CoinbaseOnrampResponse, CoinbaseQuoteResponse } from './coinbaseAp
 import { createCoinbaseSession, getCoinbaseQuote } from './coinbaseApi'
 import { getProviders } from './providers'
 import type { StripeOnrampResponse, StripeQuote } from './stripeApi'
-import { createStripeSession, getStripeQuote } from './stripeApi'
+import { createStripeSession, getStripeQuote, isStripeSupported } from './stripeApi'
 import {
   AmountCard,
   AmountInput,
@@ -247,6 +247,12 @@ const Buy = () => {
         return
       }
 
+      // Skip if token is not supported by Stripe
+      if (!isStripeSupported(selectedToken)) {
+        setStripeSession(null)
+        return
+      }
+
       try {
         const session = await createStripeSession({
           token: selectedToken,
@@ -272,6 +278,12 @@ const Buy = () => {
   useEffect(() => {
     const fetchQuote = async () => {
       if (!address || !fiatAmount || fiatAmount <= 0) {
+        setStripeQuote(null)
+        return
+      }
+
+      // Skip if token is not supported by Stripe
+      if (!isStripeSupported(selectedToken)) {
         setStripeQuote(null)
         return
       }
