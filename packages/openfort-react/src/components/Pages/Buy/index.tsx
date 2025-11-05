@@ -12,8 +12,8 @@ import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
-import type { CoinbaseOnrampResponse, CoinbaseOrderQuote } from './coinbaseApi'
-import { createCoinbaseSession, getOrderQuote } from './coinbaseApi'
+import type { CoinbaseOnrampResponse, CoinbaseQuoteResponse } from './coinbaseApi'
+import { createCoinbaseSession, getCoinbaseQuote } from './coinbaseApi'
 import { getProviders } from './providers'
 import type { StripeOnrampResponse, StripeQuote } from './stripeApi'
 import { createStripeSession, getStripeQuote } from './stripeApi'
@@ -58,7 +58,7 @@ const Buy = () => {
   const [pressedPreset, setPressedPreset] = useState<number | null>(null)
   const [coinbaseSession, setCoinbaseSession] = useState<CoinbaseOnrampResponse | null>(null)
   const [stripeSession, setStripeSession] = useState<StripeOnrampResponse | null>(null)
-  const [orderQuote, setOrderQuote] = useState<CoinbaseOrderQuote | null>(null)
+  const [coinbaseQuote, setCoinbaseQuote] = useState<CoinbaseQuoteResponse | null>(null)
   const [stripeQuote, setStripeQuote] = useState<StripeQuote | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
@@ -171,11 +171,11 @@ const Buy = () => {
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
   const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])
 
-  // Fetch real quote from orders endpoint
+  // Fetch real quote from quotes endpoint
   useEffect(() => {
     const fetchQuote = async () => {
       if (!address || !fiatAmount || fiatAmount <= 0) {
-        setOrderQuote(null)
+        setCoinbaseQuote(null)
         setQuoteError(null)
         return
       }
@@ -183,7 +183,7 @@ const Buy = () => {
       setIsLoadingQuote(true)
       setQuoteError(null)
       try {
-        const quote = await getOrderQuote({
+        const quote = await getCoinbaseQuote({
           token: selectedToken,
           chainId,
           publishableKey,
@@ -192,10 +192,10 @@ const Buy = () => {
           paymentCurrency: buyForm.currency,
           paymentMethod: 'GUEST_CHECKOUT_APPLE_PAY',
         })
-        setOrderQuote(quote)
+        setCoinbaseQuote(quote)
         setQuoteError(null)
       } catch (error) {
-        setOrderQuote(null)
+        setCoinbaseQuote(null)
         setQuoteError(error instanceof Error ? error.message : 'Failed to fetch quote')
       } finally {
         setIsLoadingQuote(false)
@@ -296,15 +296,15 @@ const Buy = () => {
     return () => clearTimeout(timeoutId)
   }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
-  // Use real quote from orders endpoint
+  // Use real quote from quotes endpoint
   // purchaseAmount is the amount of crypto (ETH) the user will receive
-  const realPurchaseAmount = orderQuote?.order?.purchaseAmount
-    ? Number.parseFloat(orderQuote.order.purchaseAmount)
+  const realPurchaseAmount = coinbaseQuote?.quote?.purchaseAmount
+    ? Number.parseFloat(coinbaseQuote.quote.purchaseAmount)
     : null
-  const realTotalFees = orderQuote?.order?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
+  const realTotalFees = coinbaseQuote?.quote?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
 
   // Calculate real fee percentage based on paymentTotal
-  const paymentTotal = orderQuote?.order?.paymentTotal ? Number.parseFloat(orderQuote.order.paymentTotal) : null
+  const paymentTotal = coinbaseQuote?.quote?.paymentTotal ? Number.parseFloat(coinbaseQuote.quote.paymentTotal) : null
   const realFeePercentage =
     paymentTotal && realTotalFees !== null ? ((realTotalFees / paymentTotal) * 100).toFixed(2) : null
 

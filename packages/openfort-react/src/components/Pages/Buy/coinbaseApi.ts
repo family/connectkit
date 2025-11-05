@@ -21,11 +21,9 @@ type CoinbaseQuote = {
   purchaseCurrency: string
 }
 
-export type CoinbaseOrderQuote = {
+export type CoinbaseQuoteResponse = {
   provider: string
-  order: {
-    createdAt: string
-    destinationAddress: string
+  quote: {
     destinationNetwork: string
     exchangeRate: string
     fees: Array<{
@@ -33,16 +31,11 @@ export type CoinbaseOrderQuote = {
       currency: string
       type: string
     }>
-    orderId: string
-    partnerUserRef: string
     paymentCurrency: string
-    paymentMethod: string
     paymentSubtotal: string
     paymentTotal: string
     purchaseAmount: string
     purchaseCurrency: string
-    status: string
-    updatedAt: string
   }
 }
 
@@ -143,7 +136,7 @@ export const createCoinbaseSession = async (
   return response.json()
 }
 
-type GetOrderQuoteParams = {
+type GetCoinbaseQuoteParams = {
   paymentCurrency: string
   purchaseCurrency: string
   paymentMethod: string
@@ -152,24 +145,21 @@ type GetOrderQuoteParams = {
   paymentAmount?: string
   purchaseAmount?: string
   paymentSubtotalTarget?: string
-  phoneNumber?: string
-  email?: string
-  partnerUserRef?: string
-  agreementAcceptedAt?: string
-  phoneNumberVerifiedAt?: string
+  country?: string
+  subdivision?: string
 }
 
 /**
- * Fetch a real quote from the orders endpoint
- * This endpoint returns actual fee calculations and purchase amounts
+ * Get a quote from Coinbase
+ * This provides fee estimates and exchange rates
  */
-export const getOrderQuote = async (
-  params: Omit<GetOrderQuoteParams, 'purchaseCurrency' | 'destinationNetwork'> & {
+export const getCoinbaseQuote = async (
+  params: Omit<GetCoinbaseQuoteParams, 'purchaseCurrency' | 'destinationNetwork'> & {
     token: SendTokenOption
     chainId: number
     publishableKey: string
   }
-): Promise<CoinbaseOrderQuote> => {
+): Promise<CoinbaseQuoteResponse> => {
   const { token, chainId, publishableKey, ...rest } = params
 
   if (!publishableKey) {
@@ -177,35 +167,23 @@ export const getOrderQuote = async (
   }
 
   // Build request body
-  const requestBody: GetOrderQuoteParams & { isQuote: boolean; provider: string } = {
+  const requestBody: GetCoinbaseQuoteParams & { provider: string } = {
     provider: 'coinbase',
     purchaseCurrency: getCurrencyCode(token),
     destinationNetwork: getNetworkName(chainId),
     destinationAddress: rest.destinationAddress,
     paymentCurrency: rest.paymentCurrency,
     paymentMethod: rest.paymentMethod,
-    isQuote: true,
-    // Add optional parameters
-    phoneNumber: rest.phoneNumber || '+12055555555',
-    email: rest.email || 'test@example.com',
-    partnerUserRef: rest.partnerUserRef || 'sandbox-user-test-456',
-    // Required timestamp fields for the API
-    agreementAcceptedAt: rest.agreementAcceptedAt || '2025-10-30T00:00:00Z',
-    phoneNumberVerifiedAt: rest.phoneNumberVerifiedAt || '2025-10-30T00:00:00Z',
   }
 
-  // Add either paymentAmount, purchaseAmount, or paymentSubtotalTarget (one is required)
-  if (rest.paymentAmount) {
-    requestBody.paymentAmount = rest.paymentAmount
-  }
-  if (rest.purchaseAmount) {
-    requestBody.purchaseAmount = rest.purchaseAmount
-  }
-  if (rest.paymentSubtotalTarget) {
-    requestBody.paymentSubtotalTarget = rest.paymentSubtotalTarget
-  }
+  // Add optional parameters only if provided
+  if (rest.paymentAmount) requestBody.paymentAmount = rest.paymentAmount
+  if (rest.purchaseAmount) requestBody.purchaseAmount = rest.purchaseAmount
+  if (rest.paymentSubtotalTarget) requestBody.paymentSubtotalTarget = rest.paymentSubtotalTarget
+  if (rest.country) requestBody.country = rest.country
+  if (rest.subdivision) requestBody.subdivision = rest.subdivision
 
-  const response = await fetch(`${getBackendUrl()}/v1/onramp/orders`, {
+  const response = await fetch(`${getBackendUrl()}/v1/onramp/quotes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -216,7 +194,7 @@ export const getOrderQuote = async (
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.error || errorData.errorMessage || 'Failed to fetch quote')
+    throw new Error(errorData.error || errorData.errorMessage || 'Failed to fetch Coinbase quote')
   }
 
   return response.json()
