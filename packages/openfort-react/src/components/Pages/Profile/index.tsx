@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import { useAccount, useBalance, useEnsName } from 'wagmi'
+import { useAccount, useBalance, useChainId, useEnsName } from 'wagmi'
 import { BuyIcon, DisconnectIcon, LinkIcon, ReceiveIcon, SendIcon } from '../../../assets/icons'
+import { useChains } from '../../../hooks/useChains'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
 import useLocales from '../../../hooks/useLocales'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
@@ -38,7 +39,10 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
 
   const locales = useLocales()
 
-  const { address, connector, chain } = useAccount()
+  const { address, connector } = useAccount()
+  const chainId = useChainId()
+  const chains = useChains()
+  const chain = chains.find((c) => c.id === chainId)
   const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -82,7 +86,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   }, [showTestnetMessage])
 
   const handleBuyClick = (e: React.MouseEvent) => {
-    if (isTestnet) {
+    if (!chain || isTestnet) {
       e.preventDefault()
       setShowTestnetMessage(true)
     } else {
