@@ -7,35 +7,26 @@ const getBackendUrl = (): string => {
 }
 
 export type StripeQuote = {
-  destination_amount: string
-  destination_currency: string
-  destination_network: string
-  fees: {
-    network_fee_monetary: string
-    transaction_fee_monetary: string
-  }
-  source_total_amount: string
-}
-
-type StripeQuotesResponse = {
-  id: string
-  object: string
-  destination_network_quotes: Record<string, StripeQuote[]>
-  source_amount: string
-  source_currency: string
-}
-
-type StripeSession = {
-  id: string
-  client_secret: string
-  status: string
-  onrampUrl: string // crypto.link.com URL with client_secret
+  provider: string
+  sourceAmount: string
+  sourceCurrency: string
+  destinationAmount: string
+  destinationCurrency: string
+  destinationNetwork: string
+  fees: Array<{
+    amount: string
+    currency: string
+    type: string
+  }>
+  exchangeRate: string
 }
 
 export type StripeOnrampResponse = {
   provider: string
-  session: StripeSession
-  quote?: StripeQuote
+  sessionId: string
+  clientSecret: string
+  status: string
+  onrampUrl: string // crypto.link.com URL with client_secret
 }
 
 type CreateStripeSessionParams = {
@@ -133,7 +124,7 @@ export const getStripeQuote = async (
     chainId: number
     publishableKey: string
   }
-): Promise<StripeQuote | null> => {
+): Promise<StripeQuote> => {
   const { token, chainId, publishableKey, ...rest } = params
 
   if (!publishableKey) {
@@ -143,9 +134,9 @@ export const getStripeQuote = async (
   // Build request body
   const requestBody: GetStripeQuoteParams & { provider: string } = {
     provider: 'stripe',
-    destinationCurrency: getCurrencyCode(token),
+    destinationCurrency: getCurrencyCode(token).toLowerCase(),
     destinationNetwork: getNetworkName(chainId),
-    sourceCurrency: rest.sourceCurrency,
+    sourceCurrency: rest.sourceCurrency.toLowerCase(),
     sourceAmount: rest.sourceAmount,
   }
 
@@ -163,26 +154,5 @@ export const getStripeQuote = async (
     throw new Error(errorData.error || errorData.errorMessage || 'Failed to fetch Stripe quote')
   }
 
-  const quotesResponse: StripeQuotesResponse = await response.json()
-
-  // Map network names to Stripe's response field names
-  const networkToFieldMap: Record<string, string> = {
-    ethereum: 'ethereum',
-    base: 'base_network',
-    polygon: 'polygon',
-    arbitrum: 'arbitrum',
-    optimism: 'optimism',
-  }
-
-  const networkName = getNetworkName(chainId)
-  const networkField = networkToFieldMap[networkName] || networkName
-
-  // Extract the quote for the requested network
-  const quotes = quotesResponse.destination_network_quotes[networkField]
-  if (!quotes || quotes.length === 0) {
-    return null
-  }
-
-  // Return the first quote (there should only be one since we filtered by network and currency)
-  return quotes[0]
+  return response.json()
 }

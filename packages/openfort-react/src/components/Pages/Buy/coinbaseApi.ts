@@ -6,55 +6,32 @@ const getBackendUrl = (): string => {
   return sdkConfig?.backendUrl || 'https://api.openfort.io'
 }
 
-type CoinbaseQuote = {
+export type CoinbaseQuoteResponse = {
+  provider: string
+  sourceAmount: string
+  sourceCurrency: string
+  destinationAmount: string
+  destinationCurrency: string
   destinationNetwork: string
-  exchangeRate: string
   fees: Array<{
     amount: string
     currency: string
     type: string
   }>
-  paymentCurrency: string
-  paymentSubtotal: string
-  paymentTotal: string
-  purchaseAmount: string
-  purchaseCurrency: string
-}
-
-export type CoinbaseQuoteResponse = {
-  provider: string
-  quote: {
-    destinationNetwork: string
-    exchangeRate: string
-    fees: Array<{
-      amount: string
-      currency: string
-      type: string
-    }>
-    paymentCurrency: string
-    paymentSubtotal: string
-    paymentTotal: string
-    purchaseAmount: string
-    purchaseCurrency: string
-  }
-}
-
-type CoinbaseSession = {
-  onrampUrl: string
+  exchangeRate: string
 }
 
 export type CoinbaseOnrampResponse = {
   provider: string
-  session: CoinbaseSession
-  quote?: CoinbaseQuote // Only present when paymentMethod, country, and subdivision are provided
+  onrampUrl: string
 }
 
 type CreateCoinbaseSessionParams = {
-  purchaseCurrency: string
+  destinationCurrency: string
   destinationNetwork: string
   destinationAddress: string
-  paymentAmount?: string
-  paymentCurrency?: string
+  sourceAmount?: string
+  sourceCurrency?: string
   paymentMethod?: 'CARD' | 'ACH' | 'APPLE_PAY' | 'PAYPAL' | 'FIAT_WALLET' | 'CRYPTO_WALLET'
   country?: string
   subdivision?: string
@@ -83,14 +60,14 @@ const getCurrencyCode = (token: SendTokenOption): string => {
 }
 
 /**
- * Fetch a quote and create a Coinbase onramp session
+ * Create a Coinbase onramp session
  * Supports three use cases based on provided parameters:
- * 1. Basic session: Only required params (destinationAddress, purchaseCurrency, destinationNetwork)
- * 2. One-click URL: Required + paymentAmount + paymentCurrency
+ * 1. Basic session: Only required params (destinationAddress, destinationCurrency, destinationNetwork)
+ * 2. One-click URL: Required + sourceAmount + sourceCurrency
  * 3. One-click with quote: One-click + paymentMethod + country (+ subdivision for US)
  */
 export const createCoinbaseSession = async (
-  params: Omit<CreateCoinbaseSessionParams, 'purchaseCurrency' | 'destinationNetwork'> & {
+  params: Omit<CreateCoinbaseSessionParams, 'destinationCurrency' | 'destinationNetwork'> & {
     token: SendTokenOption
     chainId: number
     publishableKey: string
@@ -105,14 +82,14 @@ export const createCoinbaseSession = async (
   // Build request body with only provided parameters
   const requestBody: CreateCoinbaseSessionParams & { provider: string } = {
     provider: 'coinbase',
-    purchaseCurrency: getCurrencyCode(token),
+    destinationCurrency: getCurrencyCode(token),
     destinationNetwork: getNetworkName(chainId),
     destinationAddress: rest.destinationAddress,
   }
 
   // Add optional parameters only if provided
-  if (rest.paymentAmount) requestBody.paymentAmount = rest.paymentAmount
-  if (rest.paymentCurrency) requestBody.paymentCurrency = rest.paymentCurrency
+  if (rest.sourceAmount) requestBody.sourceAmount = rest.sourceAmount
+  if (rest.sourceCurrency) requestBody.sourceCurrency = rest.sourceCurrency
   if (rest.paymentMethod) requestBody.paymentMethod = rest.paymentMethod
   if (rest.country) requestBody.country = rest.country
   if (rest.subdivision) requestBody.subdivision = rest.subdivision
@@ -137,14 +114,11 @@ export const createCoinbaseSession = async (
 }
 
 type GetCoinbaseQuoteParams = {
-  paymentCurrency: string
-  purchaseCurrency: string
-  paymentMethod: string
-  destinationAddress: string
+  sourceCurrency: string
+  destinationCurrency: string
   destinationNetwork: string
-  paymentAmount?: string
-  purchaseAmount?: string
-  paymentSubtotalTarget?: string
+  sourceAmount: string
+  paymentMethod: string
   country?: string
   subdivision?: string
 }
@@ -154,7 +128,7 @@ type GetCoinbaseQuoteParams = {
  * This provides fee estimates and exchange rates
  */
 export const getCoinbaseQuote = async (
-  params: Omit<GetCoinbaseQuoteParams, 'purchaseCurrency' | 'destinationNetwork'> & {
+  params: Omit<GetCoinbaseQuoteParams, 'destinationCurrency' | 'destinationNetwork'> & {
     token: SendTokenOption
     chainId: number
     publishableKey: string
@@ -169,17 +143,14 @@ export const getCoinbaseQuote = async (
   // Build request body
   const requestBody: GetCoinbaseQuoteParams & { provider: string } = {
     provider: 'coinbase',
-    purchaseCurrency: getCurrencyCode(token),
+    destinationCurrency: getCurrencyCode(token),
     destinationNetwork: getNetworkName(chainId),
-    destinationAddress: rest.destinationAddress,
-    paymentCurrency: rest.paymentCurrency,
+    sourceCurrency: rest.sourceCurrency,
+    sourceAmount: rest.sourceAmount,
     paymentMethod: rest.paymentMethod,
   }
 
   // Add optional parameters only if provided
-  if (rest.paymentAmount) requestBody.paymentAmount = rest.paymentAmount
-  if (rest.purchaseAmount) requestBody.purchaseAmount = rest.purchaseAmount
-  if (rest.paymentSubtotalTarget) requestBody.paymentSubtotalTarget = rest.paymentSubtotalTarget
   if (rest.country) requestBody.country = rest.country
   if (rest.subdivision) requestBody.subdivision = rest.subdivision
 

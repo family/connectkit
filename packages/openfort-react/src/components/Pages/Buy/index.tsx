@@ -187,10 +187,9 @@ const Buy = () => {
           token: selectedToken,
           chainId,
           publishableKey,
-          destinationAddress: address,
-          paymentSubtotalTarget: fiatAmount.toFixed(2),
-          paymentCurrency: buyForm.currency,
-          paymentMethod: 'GUEST_CHECKOUT_APPLE_PAY',
+          sourceAmount: fiatAmount.toFixed(2),
+          sourceCurrency: buyForm.currency,
+          paymentMethod: 'CARD',
         })
         setCoinbaseQuote(quote)
         setQuoteError(null)
@@ -222,8 +221,8 @@ const Buy = () => {
           chainId,
           publishableKey,
           destinationAddress: address,
-          paymentAmount: fiatAmount.toFixed(2),
-          paymentCurrency: buyForm.currency,
+          sourceAmount: fiatAmount.toFixed(2),
+          sourceCurrency: buyForm.currency,
           redirectUrl: `${window.location.origin}?coinbase_onramp=success`,
           // Note: Not including paymentMethod, country, subdivision
           // This creates a one-click onramp URL without a quote
@@ -297,22 +296,21 @@ const Buy = () => {
   }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
   // Use real quote from quotes endpoint
-  // purchaseAmount is the amount of crypto (ETH) the user will receive
-  const realPurchaseAmount = coinbaseQuote?.quote?.purchaseAmount
-    ? Number.parseFloat(coinbaseQuote.quote.purchaseAmount)
+  // destinationAmount is the amount of crypto (ETH) the user will receive
+  const realPurchaseAmount = coinbaseQuote?.destinationAmount
+    ? Number.parseFloat(coinbaseQuote.destinationAmount)
     : null
-  const realTotalFees = coinbaseQuote?.quote?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
+  const realTotalFees = coinbaseQuote?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
 
-  // Calculate real fee percentage based on paymentTotal
-  const paymentTotal = coinbaseQuote?.quote?.paymentTotal ? Number.parseFloat(coinbaseQuote.quote.paymentTotal) : null
+  // Calculate real fee percentage based on sourceAmount
+  const paymentTotal = coinbaseQuote?.sourceAmount ? Number.parseFloat(coinbaseQuote.sourceAmount) : null
   const realFeePercentage =
     paymentTotal && realTotalFees !== null ? ((realTotalFees / paymentTotal) * 100).toFixed(2) : null
 
   const displayNetAmount = realPurchaseAmount
 
   // Get the provider URL based on selected provider
-  const providerUrl =
-    buyForm.providerId === 'stripe' ? stripeSession?.session?.onrampUrl : coinbaseSession?.session?.onrampUrl
+  const providerUrl = buyForm.providerId === 'stripe' ? stripeSession?.onrampUrl : coinbaseSession?.onrampUrl
 
   const _formattedNetAmount =
     displayNetAmount !== null ? `${displayNetAmount.toFixed(2)} ${tokenSymbol}` : isLoadingQuote ? '...' : '--'
@@ -526,13 +524,11 @@ const Buy = () => {
                 // Show the total cost including fees
                 providerFiatAmount = paymentTotal ?? fiatAmount
               } else if (provider.id === 'stripe' && stripeQuote) {
-                providerNetAmount = Number.parseFloat(stripeQuote.destination_amount)
-                // Use source_total_amount to show the actual total the user will pay
-                providerFiatAmount = Number.parseFloat(stripeQuote.source_total_amount)
+                providerNetAmount = Number.parseFloat(stripeQuote.destinationAmount)
+                // Use sourceAmount to show the actual total the user will pay
+                providerFiatAmount = Number.parseFloat(stripeQuote.sourceAmount)
                 // Calculate total fees from Stripe quote
-                const networkFee = Number.parseFloat(stripeQuote.fees.network_fee_monetary)
-                const transactionFee = Number.parseFloat(stripeQuote.fees.transaction_fee_monetary)
-                const stripeFees = networkFee + transactionFee
+                const stripeFees = stripeQuote.fees.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0)
                 providerFeePercentage = fiatAmount ? ((stripeFees / fiatAmount) * 100).toFixed(2) : null
               }
 
