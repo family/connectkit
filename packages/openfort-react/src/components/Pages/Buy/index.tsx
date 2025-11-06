@@ -12,11 +12,13 @@ import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
-import type { CoinbaseOnrampResponse, CoinbaseQuoteResponse } from './coinbaseApi'
-import { createCoinbaseSession, getCoinbaseQuote, isCoinbaseSupported } from './coinbaseApi'
+import type { CoinbaseOnrampResponse } from './coinbaseApi'
+import { createCoinbaseSession, isCoinbaseSupported } from './coinbaseApi'
+import type { OnrampQuote } from './onrampApi'
+import { getAllQuotes } from './onrampApi'
 import { getProviders } from './providers'
-import type { StripeOnrampResponse, StripeQuote } from './stripeApi'
-import { createStripeSession, getStripeQuote, isStripeSupported } from './stripeApi'
+import type { StripeOnrampResponse } from './stripeApi'
+import { createStripeSession, isStripeSupported } from './stripeApi'
 import {
   AmountCard,
   AmountInput,
@@ -57,8 +59,7 @@ const Buy = () => {
   const [pressedPreset, setPressedPreset] = useState<number | null>(null)
   const [coinbaseSession, setCoinbaseSession] = useState<CoinbaseOnrampResponse | null>(null)
   const [stripeSession, setStripeSession] = useState<StripeOnrampResponse | null>(null)
-  const [coinbaseQuote, setCoinbaseQuote] = useState<CoinbaseQuoteResponse | null>(null)
-  const [stripeQuote, setStripeQuote] = useState<StripeQuote | null>(null)
+  const [quotes, setQuotes] = useState<Record<string, OnrampQuote>>({})
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
   const [coinbaseError, setCoinbaseError] = useState<boolean>(false)
@@ -172,49 +173,54 @@ const Buy = () => {
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
   const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])
 
-  // Fetch real quote from quotes endpoint
+  // Fetch quotes from all providers
   useEffect(() => {
-    const fetchQuote = async () => {
+    const fetchQuotes = async () => {
       if (!address || !fiatAmount || fiatAmount <= 0) {
-        setCoinbaseQuote(null)
+        setQuotes({})
         setQuoteError(null)
         setCoinbaseError(false)
-        return
-      }
-
-      // Skip if token is not supported by Coinbase
-      if (!isCoinbaseSupported(selectedToken)) {
-        setCoinbaseQuote(null)
-        setCoinbaseError(false)
+        setStripeError(false)
         return
       }
 
       setIsLoadingQuote(true)
       setQuoteError(null)
       setCoinbaseError(false)
+      setStripeError(false)
+
       try {
-        const quote = await getCoinbaseQuote({
+        const allQuotes = await getAllQuotes({
           token: selectedToken,
           chainId,
           publishableKey,
           sourceAmount: fiatAmount.toFixed(2),
           sourceCurrency: buyForm.currency,
-          paymentMethod: 'CARD',
         })
-        setCoinbaseQuote(quote)
+
+        // Convert array to object keyed by provider
+        const quotesMap: Record<string, OnrampQuote> = {}
+        for (const quote of allQuotes) {
+          quotesMap[quote.provider] = quote
+        }
+        setQuotes(quotesMap)
         setQuoteError(null)
-        setCoinbaseError(false)
+
+        // Update error states based on which providers returned quotes
+        setCoinbaseError(!quotesMap.coinbase && isCoinbaseSupported(selectedToken))
+        setStripeError(!quotesMap.stripe && isStripeSupported(selectedToken))
       } catch (error) {
-        setCoinbaseQuote(null)
-        setQuoteError(error instanceof Error ? error.message : 'Failed to fetch quote')
+        setQuotes({})
+        setQuoteError(error instanceof Error ? error.message : 'Failed to fetch quotes')
         setCoinbaseError(true)
+        setStripeError(true)
       } finally {
         setIsLoadingQuote(false)
       }
     }
 
     // Debounce the quote fetching
-    const timeoutId = setTimeout(fetchQuote, 500)
+    const timeoutId = setTimeout(fetchQuotes, 500)
     return () => clearTimeout(timeoutId)
   }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
@@ -297,62 +303,8 @@ const Buy = () => {
     return () => clearTimeout(timeoutId)
   }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
-  // Fetch Stripe quote when amount changes
-  useEffect(() => {
-    const fetchQuote = async () => {
-      if (!address || !fiatAmount || fiatAmount <= 0) {
-        setStripeQuote(null)
-        return
-      }
-
-      // Skip if token is not supported by Stripe
-      if (!isStripeSupported(selectedToken)) {
-        setStripeQuote(null)
-        setStripeError(false)
-        return
-      }
-
-      try {
-        const quote = await getStripeQuote({
-          token: selectedToken,
-          chainId,
-          publishableKey,
-          sourceCurrency: buyForm.currency,
-          sourceAmount: fiatAmount.toFixed(2),
-        })
-        setStripeQuote(quote)
-        setStripeError(false)
-      } catch (_error) {
-        setStripeQuote(null)
-        setStripeError(true)
-      }
-    }
-
-    // Debounce the quote fetching
-    const timeoutId = setTimeout(fetchQuote, 500)
-    return () => clearTimeout(timeoutId)
-  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
-
-  // Use real quote from quotes endpoint
-  // destinationAmount is the amount of crypto (ETH) the user will receive
-  const realPurchaseAmount = coinbaseQuote?.destinationAmount
-    ? Number.parseFloat(coinbaseQuote.destinationAmount)
-    : null
-  const realTotalFees = coinbaseQuote?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
-
-  // Calculate real fee percentage based on user's input amount (consistent with Stripe)
-  const paymentTotal = coinbaseQuote?.sourceAmount ? Number.parseFloat(coinbaseQuote.sourceAmount) : null
-  const realFeePercentage =
-    fiatAmount && realTotalFees !== null ? ((realTotalFees / fiatAmount) * 100).toFixed(2) : null
-
-  const displayNetAmount = realPurchaseAmount
-
   // Get the provider URL based on selected provider
   const providerUrl = buyForm.providerId === 'stripe' ? stripeSession?.onrampUrl : coinbaseSession?.onrampUrl
-
-  const _formattedNetAmount =
-    displayNetAmount !== null ? `${displayNetAmount.toFixed(2)} ${tokenSymbol}` : isLoadingQuote ? '...' : '--'
-  const _formattedFees = realTotalFees !== null ? currencyFormatter.format(realTotalFees) : null
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const raw = sanitizeAmountInput(event.target.value)
@@ -551,6 +503,7 @@ const Buy = () => {
           <ProviderList>
             {providers.map((provider) => {
               // Get provider-specific quote data
+              const providerQuote = quotes[provider.id]
               let providerNetAmount: number | null = null
               let providerFeePercentage: string | null = null
               let providerFiatAmount: number | null = fiatAmount
@@ -565,13 +518,16 @@ const Buy = () => {
                 } else if (coinbaseError) {
                   isDisabled = true
                   disabledReason = 'Provider not supported'
-                } else {
+                } else if (providerQuote) {
                   // Show the crypto amount the user will receive
-                  providerNetAmount = realPurchaseAmount
-                  providerFeePercentage = realFeePercentage
+                  providerNetAmount = Number.parseFloat(providerQuote.destinationAmount)
+                  // Calculate total fees
+                  const totalFees =
+                    providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
+                  providerFeePercentage = fiatAmount ? ((totalFees / fiatAmount) * 100).toFixed(2) : null
                   // Show the total cost including fees (sourceAmount + fees)
-                  providerFiatAmount =
-                    paymentTotal && realTotalFees !== null ? paymentTotal + realTotalFees : fiatAmount
+                  const sourceAmount = Number.parseFloat(providerQuote.sourceAmount)
+                  providerFiatAmount = sourceAmount + totalFees
                 }
               } else if (provider.id === 'stripe') {
                 // Check if token is supported
@@ -581,13 +537,14 @@ const Buy = () => {
                 } else if (stripeError) {
                   isDisabled = true
                   disabledReason = 'Provider not supported'
-                } else if (stripeQuote) {
-                  providerNetAmount = Number.parseFloat(stripeQuote.destinationAmount)
+                } else if (providerQuote) {
+                  providerNetAmount = Number.parseFloat(providerQuote.destinationAmount)
                   // Use sourceAmount to show the actual total the user will pay
-                  providerFiatAmount = Number.parseFloat(stripeQuote.sourceAmount)
-                  // Calculate total fees from Stripe quote
-                  const stripeFees = stripeQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
-                  providerFeePercentage = fiatAmount ? ((stripeFees / fiatAmount) * 100).toFixed(2) : null
+                  providerFiatAmount = Number.parseFloat(providerQuote.sourceAmount)
+                  // Calculate total fees
+                  const totalFees =
+                    providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
+                  providerFeePercentage = fiatAmount ? ((totalFees / fiatAmount) * 100).toFixed(2) : null
                 }
               }
 
