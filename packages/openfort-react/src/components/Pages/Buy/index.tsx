@@ -616,6 +616,7 @@ const Buy = () => {
   // Step 3: Pending Screen
   if (currentStep === 3) {
     const isStripe = buyForm.providerId === 'stripe'
+    const isCoinbase = buyForm.providerId === 'coinbase'
 
     return (
       <PageContent onBack={handleBack}>
@@ -631,9 +632,15 @@ const Buy = () => {
                     padding: '12px',
                     position: 'relative',
                     width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  <Logos.Openfort />
+                  {isStripe && <Logos.Stripe />}
+                  {isCoinbase && <Logos.CoinbasePay />}
+                  {!isStripe && !isCoinbase && <Logos.Openfort />}
                 </div>
               }
               connecting={true}
