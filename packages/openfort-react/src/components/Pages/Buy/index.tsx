@@ -341,10 +341,10 @@ const Buy = () => {
     : null
   const realTotalFees = coinbaseQuote?.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? null
 
-  // Calculate real fee percentage based on sourceAmount
+  // Calculate real fee percentage based on user's input amount (consistent with Stripe)
   const paymentTotal = coinbaseQuote?.sourceAmount ? Number.parseFloat(coinbaseQuote.sourceAmount) : null
   const realFeePercentage =
-    paymentTotal && realTotalFees !== null ? ((realTotalFees / paymentTotal) * 100).toFixed(2) : null
+    fiatAmount && realTotalFees !== null ? ((realTotalFees / fiatAmount) * 100).toFixed(2) : null
 
   const displayNetAmount = realPurchaseAmount
 
@@ -570,8 +570,9 @@ const Buy = () => {
                   // Show the crypto amount the user will receive
                   providerNetAmount = realPurchaseAmount
                   providerFeePercentage = realFeePercentage
-                  // Show the total cost including fees
-                  providerFiatAmount = paymentTotal ?? fiatAmount
+                  // Show the total cost including fees (sourceAmount + fees)
+                  providerFiatAmount =
+                    paymentTotal && realTotalFees !== null ? paymentTotal + realTotalFees : fiatAmount
                 }
               } else if (provider.id === 'stripe') {
                 // Check if token is supported
@@ -586,7 +587,7 @@ const Buy = () => {
                   // Use sourceAmount to show the actual total the user will pay
                   providerFiatAmount = Number.parseFloat(stripeQuote.sourceAmount)
                   // Calculate total fees from Stripe quote
-                  const stripeFees = stripeQuote.fees.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0)
+                  const stripeFees = stripeQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
                   providerFeePercentage = fiatAmount ? ((stripeFees / fiatAmount) * 100).toFixed(2) : null
                 }
               }
