@@ -12,12 +12,10 @@ import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
-import type { CoinbaseOnrampResponse } from './coinbaseApi'
 import { createCoinbaseSession, isCoinbaseSupported } from './coinbaseApi'
 import type { OnrampQuote } from './onrampApi'
 import { getAllQuotes } from './onrampApi'
 import { getProviders } from './providers'
-import type { StripeOnrampResponse } from './stripeApi'
 import { createStripeSession, isStripeSupported } from './stripeApi'
 import {
   AmountCard,
@@ -57,10 +55,9 @@ const Buy = () => {
   const { address } = useAccount()
   const chainId = useChainId()
   const [pressedPreset, setPressedPreset] = useState<number | null>(null)
-  const [coinbaseSession, setCoinbaseSession] = useState<CoinbaseOnrampResponse | null>(null)
-  const [stripeSession, setStripeSession] = useState<StripeOnrampResponse | null>(null)
   const [quotes, setQuotes] = useState<Record<string, OnrampQuote>>({})
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
+  const [isCreatingSession, setIsCreatingSession] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
   const [coinbaseError, setCoinbaseError] = useState<boolean>(false)
   const [stripeError, setStripeError] = useState<boolean>(false)
@@ -224,88 +221,6 @@ const Buy = () => {
     return () => clearTimeout(timeoutId)
   }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
 
-  // Fetch Coinbase session when amount changes
-  // Using one-click onramp URL (without location params) to let Coinbase handle geo-detection
-  useEffect(() => {
-    const fetchSession = async () => {
-      if (!address || !fiatAmount || fiatAmount <= 0) {
-        setCoinbaseSession(null)
-        return
-      }
-
-      // Skip if token is not supported by Coinbase
-      if (!isCoinbaseSupported(selectedToken)) {
-        setCoinbaseSession(null)
-        return
-      }
-
-      try {
-        const session = await createCoinbaseSession({
-          token: selectedToken,
-          chainId,
-          publishableKey,
-          destinationAddress: address,
-          sourceAmount: fiatAmount.toFixed(2),
-          sourceCurrency: buyForm.currency,
-          redirectUrl: `${window.location.origin}?coinbase_onramp=success`,
-          // Note: Not including paymentMethod, country, subdivision
-          // This creates a one-click onramp URL without a quote
-          // Coinbase will handle location detection and payment methods
-        })
-        setCoinbaseSession(session)
-        setCoinbaseError(false)
-      } catch (_error) {
-        setCoinbaseSession(null)
-        setCoinbaseError(true)
-      }
-    }
-
-    // Debounce the session creation
-    const timeoutId = setTimeout(fetchSession, 500)
-    return () => clearTimeout(timeoutId)
-  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
-
-  // Fetch Stripe session when amount changes
-  useEffect(() => {
-    const fetchSession = async () => {
-      if (!address || !fiatAmount || fiatAmount <= 0) {
-        setStripeSession(null)
-        return
-      }
-
-      // Skip if token is not supported by Stripe
-      if (!isStripeSupported(selectedToken)) {
-        setStripeSession(null)
-        setStripeError(false)
-        return
-      }
-
-      try {
-        const session = await createStripeSession({
-          token: selectedToken,
-          chainId,
-          publishableKey,
-          destinationAddress: address,
-          sourceAmount: fiatAmount.toFixed(2),
-          sourceCurrency: buyForm.currency,
-          redirectUrl: `${window.location.origin}?stripe_onramp=success`,
-        })
-        setStripeSession(session)
-        setStripeError(false)
-      } catch (_error) {
-        setStripeSession(null)
-        setStripeError(true)
-      }
-    }
-
-    // Debounce the session creation
-    const timeoutId = setTimeout(fetchSession, 500)
-    return () => clearTimeout(timeoutId)
-  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
-
-  // Get the provider URL based on selected provider
-  const providerUrl = buyForm.providerId === 'stripe' ? stripeSession?.onrampUrl : coinbaseSession?.onrampUrl
-
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const raw = sanitizeAmountInput(event.target.value)
     if (raw === '' || /^[0-9]*\.?[0-9]*$/.test(raw)) {
@@ -358,42 +273,88 @@ const Buy = () => {
     setCurrentStep(2)
   }
 
-  const handleContinueFromStep2 = () => {
-    if (!providerUrl) return
-    setCurrentStep(3)
+  const handleContinueFromStep2 = async () => {
+    if (!address || !fiatAmount || fiatAmount <= 0) return
 
-    // TODO: remove this? it fails if is set to EUR in coinbase
-    const url = new URL(providerUrl)
-    url.searchParams.delete('fiatCurrency')
-    const sanitizedProviderUrl = url.toString()
+    setIsCreatingSession(true)
 
-    if (typeof window !== 'undefined') {
-      const popupWidth = 500
-      const popupHeight = 700
-      const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX
-      const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY
-      const width = window.innerWidth
-        ? window.innerWidth
-        : document.documentElement.clientWidth
-          ? document.documentElement.clientWidth
-          : screen.width
-      const height = window.innerHeight
-        ? window.innerHeight
-        : document.documentElement.clientHeight
-          ? document.documentElement.clientHeight
-          : screen.height
-      const left = width / 2 - popupWidth / 2 + dualScreenLeft
-      const top = height / 2 - popupHeight / 2 + dualScreenTop
+    try {
+      let onrampUrl: string | null = null
 
-      const popup = window.open(
-        sanitizedProviderUrl,
-        'BuyPopup',
-        `scrollbars=yes,width=${popupWidth},height=${popupHeight},top=${top},left=${left}`
-      )
-
-      if (popup) {
-        setPopupWindow(popup)
+      // Create session based on selected provider
+      if (buyForm.providerId === 'coinbase') {
+        const session = await createCoinbaseSession({
+          token: selectedToken,
+          chainId,
+          publishableKey,
+          destinationAddress: address,
+          sourceAmount: fiatAmount.toFixed(2),
+          sourceCurrency: buyForm.currency,
+          redirectUrl: `${window.location.origin}?coinbase_onramp=success`,
+        })
+        onrampUrl = session.onrampUrl
+      } else if (buyForm.providerId === 'stripe') {
+        const session = await createStripeSession({
+          token: selectedToken,
+          chainId,
+          publishableKey,
+          destinationAddress: address,
+          sourceAmount: fiatAmount.toFixed(2),
+          sourceCurrency: buyForm.currency,
+          redirectUrl: `${window.location.origin}?stripe_onramp=success`,
+        })
+        onrampUrl = session.onrampUrl
       }
+
+      if (!onrampUrl) {
+        setIsCreatingSession(false)
+        return
+      }
+
+      setCurrentStep(3)
+
+      // TODO: remove this? it fails if is set to EUR in coinbase
+      const url = new URL(onrampUrl)
+      url.searchParams.delete('fiatCurrency')
+      const sanitizedProviderUrl = url.toString()
+
+      if (typeof window !== 'undefined') {
+        const popupWidth = 500
+        const popupHeight = 700
+        const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX
+        const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY
+        const width = window.innerWidth
+          ? window.innerWidth
+          : document.documentElement.clientWidth
+            ? document.documentElement.clientWidth
+            : screen.width
+        const height = window.innerHeight
+          ? window.innerHeight
+          : document.documentElement.clientHeight
+            ? document.documentElement.clientHeight
+            : screen.height
+        const left = width / 2 - popupWidth / 2 + dualScreenLeft
+        const top = height / 2 - popupHeight / 2 + dualScreenTop
+
+        const popup = window.open(
+          sanitizedProviderUrl,
+          'BuyPopup',
+          `scrollbars=yes,width=${popupWidth},height=${popupHeight},top=${top},left=${left}`
+        )
+
+        if (popup) {
+          setPopupWindow(popup)
+        }
+      }
+    } catch (_error) {
+      // Update error state based on provider
+      if (buyForm.providerId === 'coinbase') {
+        setCoinbaseError(true)
+      } else if (buyForm.providerId === 'stripe') {
+        setStripeError(true)
+      }
+    } finally {
+      setIsCreatingSession(false)
     }
   }
 
@@ -423,7 +384,7 @@ const Buy = () => {
 
   const formattedFiat = fiatAmount !== null ? currencyFormatter.format(fiatAmount) : null
   const step1Disabled = fiatAmount === null || fiatAmount <= 0
-  const step2Disabled = !address || !providerUrl || isLoadingQuote
+  const step2Disabled = !address || isLoadingQuote || isCreatingSession
 
   // Step 1: Amount and Token Selection
   if (currentStep === 1) {
@@ -598,11 +559,11 @@ const Buy = () => {
           </ProviderList>
 
           <ContinueButtonWrapper>
-            <Button variant="secondary" onClick={handleBack}>
+            <Button variant="secondary" onClick={handleBack} disabled={isCreatingSession}>
               Back
             </Button>
             <Button variant="primary" onClick={handleContinueFromStep2} disabled={step2Disabled}>
-              Continue
+              {isCreatingSession ? 'Creating session...' : 'Continue'}
             </Button>
           </ContinueButtonWrapper>
         </ModalContent>
