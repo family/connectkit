@@ -40,6 +40,9 @@ export const routes = {
   RECEIVE: 'receive',
   BUY: 'buy',
   BUY_TOKEN_SELECT: 'buyTokenSelect',
+  BUY_SELECT_PROVIDER: 'buySelectProvider',
+  BUY_PROCESSING: 'buyProcessing',
+  BUY_COMPLETE: 'buyComplete',
   BUY_PROVIDER_SELECT: 'buyProviderSelect',
 } as const
 

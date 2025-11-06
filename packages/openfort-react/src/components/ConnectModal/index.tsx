@@ -12,7 +12,10 @@ import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import About from '../Pages/About'
 import Buy from '../Pages/Buy'
+import BuyComplete from '../Pages/BuyComplete'
+import BuyProcessing from '../Pages/BuyProcessing'
 import BuyProviderSelect from '../Pages/BuyProviderSelect'
+import BuySelectProvider from '../Pages/BuySelectProvider'
 import Connected from '../Pages/Connected'
 import Connectors from '../Pages/Connectors'
 import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
@@ -133,6 +136,9 @@ const ConnectModal: React.FC<{
     sendConfirmation: <SendConfirmation />,
     sendTokenSelect: <SelectToken />,
     buyTokenSelect: <SelectToken />,
+    buySelectProvider: <BuySelectProvider />,
+    buyProcessing: <BuyProcessing />,
+    buyComplete: <BuyComplete />,
     buyProviderSelect: <BuyProviderSelect />,
     receive: <Receive />,
     buy: <Buy />,
