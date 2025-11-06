@@ -51,12 +51,47 @@ const getNetworkName = (chainId: number): string => {
   return networkMap[chainId] || 'base'
 }
 
+// Coinbase supported currencies (more extensive than Stripe)
+const COINBASE_SUPPORTED_CURRENCIES = [
+  'btc',
+  'eth',
+  'usdc',
+  'usdt',
+  'matic',
+  'sol',
+  'avax',
+  'atom',
+  'dot',
+  'link',
+  'uni',
+  'aave',
+  'comp',
+  'snx',
+  'mkr',
+  'dai',
+  'wld',
+  'xlm',
+] as const
+
+// Check if a token is supported by Coinbase
+export const isCoinbaseSupported = (token: SendTokenOption): boolean => {
+  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
+  return COINBASE_SUPPORTED_CURRENCIES.includes(symbol.toLowerCase() as any)
+}
+
 // Map token symbol to Coinbase currency code
 const getCurrencyCode = (token: SendTokenOption): string => {
-  if (token.type === 'native') {
-    return token.symbol || 'ETH'
+  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
+  const lowercaseSymbol = symbol.toLowerCase()
+
+  // Validate that the currency is supported by Coinbase
+  if (!COINBASE_SUPPORTED_CURRENCIES.includes(lowercaseSymbol as any)) {
+    throw new Error(
+      `Unsupported currency for Coinbase: ${symbol}. Supported currencies are: ${COINBASE_SUPPORTED_CURRENCIES.join(', ')}`
+    )
   }
-  return token.symbol || 'USDC'
+
+  return symbol
 }
 
 /**

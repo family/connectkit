@@ -13,7 +13,7 @@ import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
 import type { CoinbaseOnrampResponse, CoinbaseQuoteResponse } from './coinbaseApi'
-import { createCoinbaseSession, getCoinbaseQuote } from './coinbaseApi'
+import { createCoinbaseSession, getCoinbaseQuote, isCoinbaseSupported } from './coinbaseApi'
 import { getProviders } from './providers'
 import type { StripeOnrampResponse, StripeQuote } from './stripeApi'
 import { createStripeSession, getStripeQuote, isStripeSupported } from './stripeApi'
@@ -62,6 +62,8 @@ const Buy = () => {
   const [stripeQuote, setStripeQuote] = useState<StripeQuote | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [_quoteError, setQuoteError] = useState<string | null>(null)
+  const [coinbaseError, setCoinbaseError] = useState<boolean>(false)
+  const [stripeError, setStripeError] = useState<boolean>(false)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1)
   const [popupWindow, setPopupWindow] = useState<Window | null>(null)
   const [showContinueButton, setShowContinueButton] = useState(false)
@@ -177,11 +179,20 @@ const Buy = () => {
       if (!address || !fiatAmount || fiatAmount <= 0) {
         setCoinbaseQuote(null)
         setQuoteError(null)
+        setCoinbaseError(false)
+        return
+      }
+
+      // Skip if token is not supported by Coinbase
+      if (!isCoinbaseSupported(selectedToken)) {
+        setCoinbaseQuote(null)
+        setCoinbaseError(false)
         return
       }
 
       setIsLoadingQuote(true)
       setQuoteError(null)
+      setCoinbaseError(false)
       try {
         const quote = await getCoinbaseQuote({
           token: selectedToken,
@@ -193,9 +204,11 @@ const Buy = () => {
         })
         setCoinbaseQuote(quote)
         setQuoteError(null)
+        setCoinbaseError(false)
       } catch (error) {
         setCoinbaseQuote(null)
         setQuoteError(error instanceof Error ? error.message : 'Failed to fetch quote')
+        setCoinbaseError(true)
       } finally {
         setIsLoadingQuote(false)
       }
@@ -215,6 +228,12 @@ const Buy = () => {
         return
       }
 
+      // Skip if token is not supported by Coinbase
+      if (!isCoinbaseSupported(selectedToken)) {
+        setCoinbaseSession(null)
+        return
+      }
+
       try {
         const session = await createCoinbaseSession({
           token: selectedToken,
@@ -229,8 +248,10 @@ const Buy = () => {
           // Coinbase will handle location detection and payment methods
         })
         setCoinbaseSession(session)
+        setCoinbaseError(false)
       } catch (_error) {
         setCoinbaseSession(null)
+        setCoinbaseError(true)
       }
     }
 
@@ -250,6 +271,7 @@ const Buy = () => {
       // Skip if token is not supported by Stripe
       if (!isStripeSupported(selectedToken)) {
         setStripeSession(null)
+        setStripeError(false)
         return
       }
 
@@ -264,8 +286,10 @@ const Buy = () => {
           redirectUrl: `${window.location.origin}?stripe_onramp=success`,
         })
         setStripeSession(session)
+        setStripeError(false)
       } catch (_error) {
         setStripeSession(null)
+        setStripeError(true)
       }
     }
 
@@ -285,6 +309,7 @@ const Buy = () => {
       // Skip if token is not supported by Stripe
       if (!isStripeSupported(selectedToken)) {
         setStripeQuote(null)
+        setStripeError(false)
         return
       }
 
@@ -297,8 +322,10 @@ const Buy = () => {
           sourceAmount: fiatAmount.toFixed(2),
         })
         setStripeQuote(quote)
+        setStripeError(false)
       } catch (_error) {
         setStripeQuote(null)
+        setStripeError(true)
       }
     }
 
@@ -528,38 +555,64 @@ const Buy = () => {
               let providerNetAmount: number | null = null
               let providerFeePercentage: string | null = null
               let providerFiatAmount: number | null = fiatAmount
+              let isDisabled = false
+              let disabledReason = ''
 
               if (provider.id === 'coinbase') {
-                // Show the crypto amount the user will receive
-                providerNetAmount = realPurchaseAmount
-                providerFeePercentage = realFeePercentage
-                // Show the total cost including fees
-                providerFiatAmount = paymentTotal ?? fiatAmount
-              } else if (provider.id === 'stripe' && stripeQuote) {
-                providerNetAmount = Number.parseFloat(stripeQuote.destinationAmount)
-                // Use sourceAmount to show the actual total the user will pay
-                providerFiatAmount = Number.parseFloat(stripeQuote.sourceAmount)
-                // Calculate total fees from Stripe quote
-                const stripeFees = stripeQuote.fees.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0)
-                providerFeePercentage = fiatAmount ? ((stripeFees / fiatAmount) * 100).toFixed(2) : null
+                // Check if token is supported
+                if (!isCoinbaseSupported(selectedToken)) {
+                  isDisabled = true
+                  disabledReason = 'Token not supported'
+                } else if (coinbaseError) {
+                  isDisabled = true
+                  disabledReason = 'Provider not supported'
+                } else {
+                  // Show the crypto amount the user will receive
+                  providerNetAmount = realPurchaseAmount
+                  providerFeePercentage = realFeePercentage
+                  // Show the total cost including fees
+                  providerFiatAmount = paymentTotal ?? fiatAmount
+                }
+              } else if (provider.id === 'stripe') {
+                // Check if token is supported
+                if (!isStripeSupported(selectedToken)) {
+                  isDisabled = true
+                  disabledReason = 'Token not supported'
+                } else if (stripeError) {
+                  isDisabled = true
+                  disabledReason = 'Provider not supported'
+                } else if (stripeQuote) {
+                  providerNetAmount = Number.parseFloat(stripeQuote.destinationAmount)
+                  // Use sourceAmount to show the actual total the user will pay
+                  providerFiatAmount = Number.parseFloat(stripeQuote.sourceAmount)
+                  // Calculate total fees from Stripe quote
+                  const stripeFees = stripeQuote.fees.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0)
+                  providerFeePercentage = fiatAmount ? ((stripeFees / fiatAmount) * 100).toFixed(2) : null
+                }
               }
 
               // Use real quote data if available, otherwise show loading or fallback
-              const netDisplay = isLoadingQuote
-                ? '...'
-                : providerNetAmount !== null
-                  ? providerNetAmount > 0 && providerNetAmount < 0.01
-                    ? `<0.01 ${tokenSymbol}`
-                    : `${providerNetAmount.toFixed(2)} ${tokenSymbol}`
+              const netDisplay = isDisabled
+                ? disabledReason
+                : isLoadingQuote
+                  ? '...'
+                  : providerNetAmount !== null
+                    ? providerNetAmount > 0 && providerNetAmount < 0.01
+                      ? `<0.01 ${tokenSymbol}`
+                      : `${providerNetAmount.toFixed(2)} ${tokenSymbol}`
+                    : '--'
+              const fiatDisplay = isDisabled
+                ? ''
+                : providerFiatAmount !== null
+                  ? currencyFormatter.format(providerFiatAmount)
                   : '--'
-              const fiatDisplay = providerFiatAmount !== null ? currencyFormatter.format(providerFiatAmount) : '--'
 
               // Use real fee percentage if available
               const feePercentage = providerFeePercentage ?? (provider.feeBps / 100).toFixed(2)
               const highlight =
                 provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
 
-              const metaText = `Fee ${feePercentage}%`
+              const metaText = isDisabled ? '' : `Fee ${feePercentage}%`
 
               const isActive = buyForm.providerId === provider.id
 
@@ -567,13 +620,14 @@ const Buy = () => {
                 <ProviderButton
                   key={provider.id}
                   type="button"
-                  onClick={() => handleSelectProvider(provider.id)}
+                  onClick={() => !isDisabled && handleSelectProvider(provider.id)}
                   $active={isActive}
+                  disabled={isDisabled}
                 >
                   <ProviderInfo>
                     <ProviderNameRow>
                       <ProviderName>{provider.name}</ProviderName>
-                      {highlight ? <ProviderBadge>{highlight}</ProviderBadge> : null}
+                      {highlight && !isDisabled ? <ProviderBadge>{highlight}</ProviderBadge> : null}
                     </ProviderNameRow>
                     <ProviderMeta>{metaText}</ProviderMeta>
                   </ProviderInfo>

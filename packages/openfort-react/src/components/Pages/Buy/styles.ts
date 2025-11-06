@@ -160,12 +160,17 @@ export const ProviderButton = styled.button<{ $active?: boolean }>`
   background: var(--ck-secondary-button-background);
   color: var(--ck-body-color);
   cursor: pointer;
-  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, opacity 150ms ease;
   text-align: left;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--ck-secondary-button-hover-background);
     border-color: ${({ $active }) => ($active ? 'var(--ck-focus-color)' : 'var(--ck-body-color-muted)')};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `
 
