@@ -64,6 +64,16 @@ const Buy = () => {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1)
   const [popupWindow, setPopupWindow] = useState<Window | null>(null)
   const [showContinueButton, setShowContinueButton] = useState(false)
+  const [quoteRefreshTimer, setQuoteRefreshTimer] = useState(60)
+  const [refetchTrigger, setRefetchTrigger] = useState(0)
+
+  const fiatAmount = useMemo(() => {
+    const normalizedAmount = sanitiseForParsing(sanitizeAmountInput(buyForm.amount))
+    if (!normalizedAmount) return null
+    const numeric = Number(normalizedAmount)
+    if (!Number.isFinite(numeric)) return null
+    return numeric
+  }, [buyForm.amount])
 
   // Trigger resize when step changes
   useEffect(() => {
@@ -89,6 +99,34 @@ const Buy = () => {
       triggerResize()
     }
   }, [showContinueButton, triggerResize])
+
+  // Quote refresh timer - counts down from 60 and triggers refetch
+  useEffect(() => {
+    // Only run timer when on step 2 and we have a valid amount
+    if (currentStep !== 2 || !fiatAmount || fiatAmount <= 0) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      setQuoteRefreshTimer((prev) => {
+        if (prev <= 1) {
+          // Reset to 60 and trigger refetch
+          setRefetchTrigger((t) => t + 1)
+          return 60
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [currentStep, fiatAmount])
+
+  // Reset timer when moving to step 2 or when amount changes
+  useEffect(() => {
+    if (currentStep === 2 && fiatAmount && fiatAmount > 0) {
+      setQuoteRefreshTimer(60)
+    }
+  }, [currentStep, fiatAmount])
 
   // Monitor popup window for Coinbase redirect
   useEffect(() => {
@@ -159,14 +197,6 @@ const Buy = () => {
   const tokenSymbol = selectedToken.symbol || 'Token'
   const tokenName = 'name' in selectedToken && selectedToken.name ? selectedToken.name : tokenSymbol
 
-  const fiatAmount = useMemo(() => {
-    const normalizedAmount = sanitiseForParsing(sanitizeAmountInput(buyForm.amount))
-    if (!normalizedAmount) return null
-    const numeric = Number(normalizedAmount)
-    if (!Number.isFinite(numeric)) return null
-    return numeric
-  }, [buyForm.amount])
-
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
   const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])
 
@@ -219,7 +249,16 @@ const Buy = () => {
     // Debounce the quote fetching
     const timeoutId = setTimeout(fetchQuotes, 500)
     return () => clearTimeout(timeoutId)
-  }, [fiatAmount, selectedToken.symbol, selectedToken.type, buyForm.currency, chainId, address, publishableKey])
+  }, [
+    fiatAmount,
+    selectedToken.symbol,
+    selectedToken.type,
+    buyForm.currency,
+    chainId,
+    address,
+    publishableKey,
+    refetchTrigger,
+  ])
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const raw = sanitizeAmountInput(event.target.value)
@@ -460,6 +499,9 @@ const Buy = () => {
         <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
           <ModalH1>Select Provider</ModalH1>
           <ModalBody style={{ marginTop: 8 }}>{formattedFiat && `Buying ${formattedFiat} of ${tokenSymbol}`}</ModalBody>
+          <ModalBody style={{ marginTop: 4, fontSize: '12px', opacity: 0.7 }}>
+            {isLoadingQuote ? 'Loading quotes...' : `Quotes refresh in ${quoteRefreshTimer}s`}
+          </ModalBody>
 
           <ProviderList>
             {providers.map((provider) => {
