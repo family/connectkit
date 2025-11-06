@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
-import { ExternalLinkIcon, TickIcon } from '../../../assets/icons'
+import { ExternalLinkIcon } from '../../../assets/icons'
 import Logos from '../../../assets/logos'
 import useLocales from '../../../hooks/useLocales'
 import { useTokens } from '../../../hooks/useTokens'
@@ -43,7 +43,6 @@ import {
   SelectorSubtitle,
   SelectorTitle,
   StackedButtonWrapper,
-  SuccessIconContainer,
 } from './styles'
 import { createCurrencyFormatter, getCurrencySymbol } from './utils'
 
@@ -747,11 +746,7 @@ const Buy = () => {
       <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
         <ModalH1>Provider Finished</ModalH1>
 
-        <SuccessIconContainer>
-          <TickIcon />
-        </SuccessIconContainer>
-
-        <ModalBody>
+        <ModalBody style={{ marginTop: 24 }}>
           The provider flow has been completed. You can view your wallet on the block explorer to check your
           transactions.
         </ModalBody>
