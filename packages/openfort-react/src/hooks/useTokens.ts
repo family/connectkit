@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useAccount, useBalance, useReadContracts } from 'wagmi'
+import type { WalletGetAssetsReturnType } from 'viem'
+import { erc7811Actions } from 'viem/experimental'
+import { useAccount, useBalance, useReadContracts, useWalletClient } from 'wagmi'
 import type { SendTokenOption } from '../components/Openfort/types'
 import { erc20Abi } from '../constants/erc20'
 import { ERC20_TOKEN_LIST } from '../constants/tokenList'
 import { useOpenfortCore } from '../openfort/useOpenfort'
+import { logger } from '../utils/logger'
 import { fetchTokenPrices } from '../utils/priceService'
 import { useTokenCache } from './useTokenCache'
 
@@ -18,6 +21,7 @@ export const useTokens = () => {
   const { address, chain } = useAccount()
   const chainId = chain?.id
   const { client: openfortClient } = useOpenfortCore()
+  const { data: walletClient } = useWalletClient()
 
   // Use token cache hook
   const { cachedNativeBalance, getCachedErc20Balance, cacheBalance, cachedPrices, cachePrices } = useTokenCache(
@@ -44,6 +48,38 @@ export const useTokens = () => {
       cacheBalance(nativeBalance.value)
     }
   }, [nativeBalance?.value, cacheBalance])
+
+  // GET ERC20 from client
+  const [erc20Assets, setErc20Assets] = useState<WalletGetAssetsReturnType>()
+  useEffect(() => {
+    async function getAssets() {
+      if (!walletClient) return []
+      const assets = await walletClient.extend(erc7811Actions()).getAssets({
+        // account: walletClient.account.address,
+        chainIds: [chainId as number],
+        assets: {
+          // SAMPLE DATA: TODO: This SHOULD COME FROM THE PROVIDER
+          [chainId as number]: [
+            {
+              address: '0x123',
+              type: 'erc20',
+            },
+          ],
+        },
+      })
+      setErc20Assets(assets)
+    }
+    getAssets()
+  }, [walletClient])
+
+  useEffect(() => {
+    if (erc20Assets) {
+      logger.log('Fetched ERC20 Assets from walletClient getAssets():', erc20Assets)
+      erc20Assets[chainId as number].forEach((a) => {
+        logger.log('ERC20 Asset from getAssets:', a)
+      })
+    }
+  }, [erc20Assets])
 
   // ERC20 tokens
   const erc20Tokens = useMemo(() => {

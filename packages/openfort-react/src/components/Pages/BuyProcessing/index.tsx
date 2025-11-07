@@ -214,7 +214,11 @@ const BuyProcessing = () => {
       <PageContent onBack={handleBack}>
         <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
           <ModalHeading>Error</ModalHeading>
-          <ModalBody>Failed to create payment session. Please try again.</ModalBody>
+          <ModalBody>
+            Failed to create payment session.
+            <br />
+            Please try again.
+          </ModalBody>
           <ContinueButtonWrapper style={{ marginTop: 24 }}>
             <Button variant="primary" onClick={handleBack}>
               Go Back
