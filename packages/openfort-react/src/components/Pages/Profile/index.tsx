@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import { useAccount, useBalance, useChainId, useEnsName } from 'wagmi'
-import { BuyIcon, DisconnectIcon, LinkIcon, ReceiveIcon, SendIcon } from '../../../assets/icons'
+import { BuyIcon, DisconnectIcon, ReceiveIcon, SendIcon, UserRoundIcon } from '../../../assets/icons'
 import { useChains } from '../../../hooks/useChains'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
 import useLocales from '../../../hooks/useLocales'
@@ -107,7 +107,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
         aria-label="Linked providers"
         title="Linked providers"
       >
-        <LinkIcon />
+        <UserRoundIcon />
       </LinkedProvidersToggle>
     )
 

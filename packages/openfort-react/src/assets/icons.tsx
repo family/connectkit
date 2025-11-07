@@ -651,3 +651,32 @@ export const PlusIcon = ({ ...props }) => (
     <path d="m4 12h16m-8-8v16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
   </svg>
 );
+
+export const UserRoundIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <circle
+      cx="12"
+      cy="8"
+      r="4"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6 20C6 16.6863 8.68629 14 12 14C15.3137 14 18 16.6863 18 20"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
