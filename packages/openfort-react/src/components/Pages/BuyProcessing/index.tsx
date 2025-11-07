@@ -288,13 +288,9 @@ const BuyProcessing = () => {
           />
         </PendingContainer>
 
-        {showContinueButton && (
-          <ModalBody>
-            {isStripe ? 'Click Continue when you are done.' : 'Waiting for transaction confirmation'}
-          </ModalBody>
-        )}
+        {showContinueButton && <ModalBody>Click Continue when you are done.</ModalBody>}
 
-        {isStripe && showContinueButton ? (
+        {showContinueButton && (
           <>
             <StackedButtonWrapper>
               <Button variant="primary" onClick={handleContinue}>
@@ -307,13 +303,7 @@ const BuyProcessing = () => {
               </Button>
             </StackedButtonWrapper>
           </>
-        ) : !isStripe && showContinueButton ? (
-          <ContinueButtonWrapper>
-            <Button variant="secondary" onClick={handleCancel}>
-              Close
-            </Button>
-          </ContinueButtonWrapper>
-        ) : null}
+        )}
       </ModalContent>
     </PageContent>
   )
