@@ -69,11 +69,14 @@ const AddLinkedProviderButton: React.FC = () => {
 export const LinkedProviders: React.FC<LinkedProvidersProps> = ({ showHeader = true }) => {
   const { user } = useOpenfortCore()
 
-  if (!user || !user.linkedAccounts) {
+  if (!user || !user.linkedAccounts || user.linkedAccounts.length === 0) {
     return (
-      <div>
-        <p>No linked providers</p>
-      </div>
+      <>
+        {showHeader ? <ProvidersHeader>Linked providers</ProvidersHeader> : null}
+        <LinkedProviderContainer>
+          <AddLinkedProviderButton />
+        </LinkedProviderContainer>
+      </>
     )
   }
 
