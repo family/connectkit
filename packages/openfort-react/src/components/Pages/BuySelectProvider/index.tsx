@@ -164,6 +164,14 @@ const BuySelectProvider = () => {
 
   const providers = getProviders()
 
+  // Find the highest destination amount across all quotes to use as the target
+  const targetDestinationAmount = useMemo(() => {
+    const amounts = Object.values(quotes)
+      .map((q) => Number.parseFloat(q.destinationAmount))
+      .filter((n) => Number.isFinite(n))
+    return amounts.length > 0 ? Math.max(...amounts) : null
+  }, [quotes])
+
   return (
     <PageContent onBack={handleBack}>
       <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
@@ -182,6 +190,7 @@ const BuySelectProvider = () => {
             let providerFiatAmount: number | null = fiatAmount
             let isDisabled = false
             let disabledReason = ''
+            let isEstimated = false
 
             if (provider.id === 'coinbase') {
               // Check if token is supported
@@ -192,14 +201,37 @@ const BuySelectProvider = () => {
                 isDisabled = true
                 disabledReason = 'Provider not supported'
               } else if (providerQuote) {
-                // Show the crypto amount the user will receive
-                providerNetAmount = Number.parseFloat(providerQuote.destinationAmount)
-                // Calculate total fees
-                const totalFees = providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
-                providerFeePercentage = fiatAmount ? ((totalFees / fiatAmount) * 100).toFixed(2) : null
-                // Show the total cost including fees (sourceAmount + fees)
-                const sourceAmount = Number.parseFloat(providerQuote.sourceAmount)
-                providerFiatAmount = sourceAmount + totalFees
+                const originalDestinationAmount = Number.parseFloat(providerQuote.destinationAmount)
+
+                // Normalize to target destination amount
+                if (
+                  targetDestinationAmount !== null &&
+                  Math.abs(originalDestinationAmount - targetDestinationAmount) > 0.000001
+                ) {
+                  // Amounts differ, need to estimate
+                  isEstimated = true
+                  providerNetAmount = targetDestinationAmount
+
+                  // Estimate the cost: base amount + scaled fees
+                  // Formula: baseAmount + (fees × (targetAmount / originalAmount))
+                  const totalFees =
+                    providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
+                  const baseAmount = fiatAmount ?? 0
+                  const ratio = targetDestinationAmount / originalDestinationAmount
+                  const estimatedFees = totalFees * ratio
+                  providerFiatAmount = baseAmount + estimatedFees
+
+                  // Recalculate fee percentage based on estimated fees
+                  providerFeePercentage = baseAmount > 0 ? ((estimatedFees / baseAmount) * 100).toFixed(2) : null
+                } else {
+                  // Amounts match, use actual quote
+                  providerNetAmount = originalDestinationAmount
+                  const totalFees =
+                    providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
+                  providerFeePercentage = fiatAmount ? ((totalFees / fiatAmount) * 100).toFixed(2) : null
+                  const sourceAmount = Number.parseFloat(providerQuote.sourceAmount)
+                  providerFiatAmount = sourceAmount + totalFees
+                }
               }
             } else if (provider.id === 'stripe') {
               // Check if token is supported
@@ -210,6 +242,7 @@ const BuySelectProvider = () => {
                 isDisabled = true
                 disabledReason = 'Provider not supported'
               } else if (providerQuote) {
+                // Stripe quote is always used as-is (it typically has the best rate)
                 providerNetAmount = Number.parseFloat(providerQuote.destinationAmount)
                 // Use sourceAmount to show the actual total the user will pay
                 providerFiatAmount = Number.parseFloat(providerQuote.sourceAmount)
@@ -230,7 +263,7 @@ const BuySelectProvider = () => {
             const fiatDisplay = isDisabled
               ? ''
               : providerFiatAmount !== null
-                ? currencyFormatter.format(providerFiatAmount)
+                ? `${isEstimated ? '~' : ''}${currencyFormatter.format(providerFiatAmount)}`
                 : '--'
 
             // Use real fee percentage if available
@@ -238,7 +271,7 @@ const BuySelectProvider = () => {
             const highlight =
               provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
 
-            const metaText = isDisabled ? '' : `Fee ${feePercentage}%`
+            const metaText = isDisabled ? '' : `Fee ${isEstimated ? '~' : ''}${feePercentage}%`
 
             const isActive = buyForm.providerId === provider.id
 
