@@ -1,5 +1,6 @@
 import { detect } from 'detect-browser'
 import React from 'react'
+import { formatWithDynamicDecimals } from '../components/Pages/Buy/utils'
 
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/
 
@@ -28,7 +29,13 @@ const _truncateUserId = (playerId?: string, separator: string = '••••') 
 }
 
 const nFormatter = (num: number, digits: number = 2) => {
-  if (num < 10000) return num.toFixed(2)
+  // Handle zero case
+  if (num === 0) return '0'
+
+  // Handle very small amounts
+  if (num > 0 && num < 0.000001) return '<0.000001'
+
+  if (num < 10000) return formatWithDynamicDecimals(num)
   const lookup = [
     { value: 1, symbol: '' },
     { value: 1e3, symbol: 'k' },

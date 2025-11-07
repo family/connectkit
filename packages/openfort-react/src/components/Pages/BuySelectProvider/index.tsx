@@ -24,7 +24,7 @@ import {
   ProviderQuote,
   ProviderRight,
 } from '../Buy/styles'
-import { createCurrencyFormatter } from '../Buy/utils'
+import { createCurrencyFormatter, formatTokenAmount } from '../Buy/utils'
 import { isSameToken } from '../Send/utils'
 
 const BuySelectProvider = () => {
@@ -225,9 +225,7 @@ const BuySelectProvider = () => {
               : isLoadingQuote
                 ? '...'
                 : providerNetAmount !== null
-                  ? providerNetAmount > 0 && providerNetAmount < 0.01
-                    ? `<0.01 ${tokenSymbol}`
-                    : `${providerNetAmount.toFixed(2)} ${tokenSymbol}`
+                  ? formatTokenAmount(providerNetAmount, tokenSymbol)
                   : '--'
             const fiatDisplay = isDisabled
               ? ''
