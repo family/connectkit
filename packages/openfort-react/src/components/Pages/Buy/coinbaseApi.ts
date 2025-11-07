@@ -58,6 +58,7 @@ const COINBASE_SUPPORTED_CURRENCIES = [
   'usdc',
   'usdt',
   'matic',
+  'pol', // Polygon native token (rebranded from MATIC)
   'sol',
   'avax',
   'atom',

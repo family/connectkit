@@ -51,7 +51,7 @@ const getNetworkName = (chainId: number): string => {
 }
 
 // Stripe supported currencies
-const STRIPE_SUPPORTED_CURRENCIES = ['btc', 'eth', 'xlm', 'matic', 'sol', 'usdc', 'avax', 'wld'] as const
+const STRIPE_SUPPORTED_CURRENCIES = ['btc', 'eth', 'xlm', 'matic', 'pol', 'sol', 'usdc', 'avax', 'wld'] as const
 
 // Check if a token is supported by Stripe
 export const isStripeSupported = (token: SendTokenOption): boolean => {
