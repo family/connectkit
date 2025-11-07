@@ -3,7 +3,7 @@ import { useAccount, useChainId } from 'wagmi'
 import Logos from '../../../assets/logos'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
-import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import SquircleSpinner from '../../Common/SquircleSpinner'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -213,8 +213,8 @@ const BuyProcessing = () => {
     return (
       <PageContent onBack={handleBack}>
         <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
-          <ModalH1>Error</ModalH1>
-          <ModalBody style={{ marginTop: 8 }}>Failed to create payment session. Please try again.</ModalBody>
+          <ModalHeading>Error</ModalHeading>
+          <ModalBody>Failed to create payment session. Please try again.</ModalBody>
           <ContinueButtonWrapper style={{ marginTop: 24 }}>
             <Button variant="primary" onClick={handleBack}>
               Go Back
@@ -229,8 +229,8 @@ const BuyProcessing = () => {
     return (
       <PageContent onBack={handleBack}>
         <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
-          <ModalH1>Creating Session</ModalH1>
-          <ModalBody style={{ marginTop: 8 }}>Please wait...</ModalBody>
+          <ModalHeading>Creating Session</ModalHeading>
+          <ModalBody>Please wait...</ModalBody>
           <PendingContainer>
             <SquircleSpinner
               logo={
@@ -262,8 +262,8 @@ const BuyProcessing = () => {
   return (
     <PageContent onBack={handleCancel}>
       <ModalContent style={{ paddingBottom: 18, textAlign: 'center' }}>
-        <ModalH1>Processing Purchase</ModalH1>
-        <ModalBody style={{ marginTop: 8 }}>Complete the purchase in the popup window...</ModalBody>
+        <ModalHeading>Processing Purchase</ModalHeading>
+        <ModalBody>Complete the purchase in the popup window...</ModalBody>
 
         <PendingContainer>
           <SquircleSpinner

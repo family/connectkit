@@ -1,7 +1,7 @@
 import { useAccount } from 'wagmi'
 import { CopyIconButton } from '../../Common/CopyToClipboard'
 import CustomQRCode from '../../Common/CustomQRCode'
-import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { PageContent } from '../../PageContent'
 import { AddressField, AddressRow, AddressSection, Label, NetworkInfo, QRWrapper } from './styles'
 
@@ -18,8 +18,8 @@ const Receive = () => {
 
   return (
     <PageContent>
-      <ModalH1>Receive funds</ModalH1>
-      <ModalBody style={{ marginTop: 8 }}>Scan the QR code or copy your wallet details.</ModalBody>
+      <ModalHeading>Receive funds</ModalHeading>
+      <ModalBody>Scan the QR code or copy your wallet details.</ModalBody>
 
       {address && (
         <QRWrapper>

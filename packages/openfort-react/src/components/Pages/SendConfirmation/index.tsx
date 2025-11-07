@@ -18,7 +18,7 @@ import { truncateEthAddress } from '../../../utils'
 import { parseTransactionError } from '../../../utils/errorHandling'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
-import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { Spinner } from '../../Common/Spinner'
 import { routes, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -273,8 +273,8 @@ const SendConfirmation = () => {
 
   return (
     <PageContent>
-      <ModalH1>Confirm transfer</ModalH1>
-      <ModalBody style={{ marginTop: 8 }}>Review the transaction details before sending.</ModalBody>
+      <ModalHeading>Confirm transfer</ModalHeading>
+      <ModalBody>Review the transaction details before sending.</ModalBody>
 
       <SummaryList>
         <SummaryItem>

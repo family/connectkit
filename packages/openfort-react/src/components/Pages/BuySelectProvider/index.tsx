@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
-import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
@@ -175,8 +175,8 @@ const BuySelectProvider = () => {
   return (
     <PageContent onBack={handleBack}>
       <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
-        <ModalH1>Select Provider</ModalH1>
-        <ModalBody style={{ marginTop: 8 }}>{formattedFiat && `Buying ${formattedFiat} of ${tokenSymbol}`}</ModalBody>
+        <ModalHeading>Select Provider</ModalHeading>
+        <ModalBody>{formattedFiat && `Buying ${formattedFiat} of ${tokenSymbol}`}</ModalBody>
         <ModalBody style={{ marginTop: 4, fontSize: '12px', opacity: 0.7 }}>
           {isLoadingQuote ? 'Loading quotes...' : `Quotes refresh in ${quoteRefreshTimer}s`}
         </ModalBody>

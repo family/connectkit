@@ -4,7 +4,7 @@ import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import Input from '../../Common/Input'
-import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { routes, type SendFormState, type SendTokenOption } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
@@ -143,8 +143,8 @@ const Send = () => {
 
   return (
     <PageContent>
-      <ModalH1>Send tokens</ModalH1>
-      <ModalBody style={{ marginTop: 8 }}>Choose a recipient, token, and amount to send.</ModalBody>
+      <ModalHeading>Send tokens</ModalHeading>
+      <ModalBody>Choose a recipient, token, and amount to send.</ModalBody>
       <Form onSubmit={handleSubmit}>
         <Field>
           <FieldLabel>Recipient address</FieldLabel>

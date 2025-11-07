@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { type BuyProviderId, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { getProviderQuotes, getProviders } from '../Buy/providers'
@@ -97,8 +97,8 @@ const BuyProviderSelect = () => {
 
   return (
     <ProviderSelectContent>
-      <ModalH1>Choose provider</ModalH1>
-      <ModalBody style={{ marginTop: 8 }}>Compare quotes and pick the provider that works best for you.</ModalBody>
+      <ModalHeading>Choose provider</ModalHeading>
+      <ModalBody>Compare quotes and pick the provider that works best for you.</ModalBody>
       {renderProviders()}
     </ProviderSelectContent>
   )

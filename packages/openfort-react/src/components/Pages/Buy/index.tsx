@@ -3,7 +3,7 @@ import useLocales from '../../../hooks/useLocales'
 import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
-import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
@@ -128,8 +128,8 @@ const Buy = () => {
   return (
     <PageContent onBack={handleBack}>
       <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
-        <ModalH1>{locales.buyScreen_heading}</ModalH1>
-        <ModalBody style={{ marginTop: 8 }}>{locales.buyScreen_subheading}</ModalBody>
+        <ModalHeading>{locales.buyScreen_heading}</ModalHeading>
+        <ModalBody>{locales.buyScreen_subheading}</ModalBody>
 
         <Section>
           <SectionLabel>Amount</SectionLabel>

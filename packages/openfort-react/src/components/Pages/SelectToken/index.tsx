@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { formatUnits } from 'viem'
 import { type TokenOptionWithBalance, useTokens } from '../../../hooks/useTokens'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
-import { ModalBody, ModalH1 } from '../../Common/Modal/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { formatBalanceWithSymbol } from '../Send/utils'
@@ -131,8 +131,8 @@ const SelectToken = () => {
 
   return (
     <SelectTokenContent>
-      <ModalH1>Select token</ModalH1>
-      <ModalBody style={{ marginTop: 8 }}>
+      <ModalHeading>Select token</ModalHeading>
+      <ModalBody>
         {isBuyFlow
           ? 'Choose the token you want to purchase.'
           : isBalancesLoading
