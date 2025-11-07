@@ -7,19 +7,7 @@ const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'))
 export default [
   {
     input: ['./src/index.ts'],
-    external: [
-      'react',
-      'react-dom',
-      'react/jsx-runtime',
-      'react-is',
-      'react-transition-state',
-      'react-use-measure',
-      'framer-motion',
-      'styled-components',
-      'wagmi',
-      'viem',
-      '@tanstack/react-query',
-    ],
+    external: ['react', 'react-dom', 'framer-motion', 'wagmi'],
     output: {
       file: packageJson.exports.import,
       format: 'esm',
