@@ -12,6 +12,7 @@ export function handleOAuthConfigError(error: any): void {
     const configHints: Record<string, string> = {
       playfab: '- PlayFab title ID: Your PlayFab title ID',
       firebase: '- Firebase project ID: Your Firebase project ID (e.g., test-d3dd3)',
+      'better-auth': '- Better Auth backend url: Your Better Auth service URL (e.g., https://your-domain.com/api/auth)',
       supabase:
         '- Supabase url: Your Supabase project URL (e.g., https://xxxxx.supabase.co)\n   - Supabase key: Your Supabase anon/public key',
       lootlocker: '- Enable LootLocker authentication in your Openfort dashboard',
