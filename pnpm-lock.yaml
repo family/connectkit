@@ -467,8 +467,8 @@ importers:
   packages/openfort-react:
     dependencies:
       '@openfort/openfort-js':
-        specifier: ^0.10.32
-        version: 0.10.32(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^0.10.34
+        version: 0.10.34(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@tanstack/react-query':
         specifier: '>=5.0.0'
         version: 5.90.5(react@18.3.1)
@@ -1642,6 +1642,9 @@ packages:
 
   '@openfort/openfort-js@0.10.32':
     resolution: {integrity: sha512-zr7DIyYDQ2EvrIcq5YFJg3yZO091LebVn69ZLUYYzY9++Q50k5c2FeADQx8p4XMTPiyBndxgb+45kxkdvKTT0w==}
+
+  '@openfort/openfort-js@0.10.34':
+    resolution: {integrity: sha512-PZ4pFYX2vl4B7bYRubllp+XQ9Zi8V6j+WgrvxYha7XlY9jZzcnuuLOtLNrAOOx3AL79CijT7Bt6DV2peg1UvKg==}
 
   '@openfort/openfort-node@0.6.74':
     resolution: {integrity: sha512-FCiLiArSDUEzu3YdEjNsGcaUFGNirYOn1KIigaJa1QNdXrdFGUjK0iV9JL9nu2AM0tJcV7ZsRkciSuNcxIMoZg==}
@@ -7639,6 +7642,27 @@ snapshots:
   '@open-draft/until@2.1.0': {}
 
   '@openfort/openfort-js@0.10.32(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@ethersproject/abi': 5.8.0
+      '@ethersproject/bytes': 5.8.0
+      '@ethersproject/hash': 5.8.0
+      '@ethersproject/keccak256': 5.8.0
+      '@ethersproject/providers': 5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@ethersproject/transactions': 5.8.0
+      '@openfort/shield-js': 0.1.29
+      '@sentry/browser': 9.46.0
+      '@sentry/core': 9.46.0
+      axios: 1.12.2
+      axios-retry: 4.5.0(axios@1.12.2)
+      eventemitter3: 5.0.1
+      human-id: 4.1.2
+      jose: 5.10.0
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - utf-8-validate
+
+  '@openfort/openfort-js@0.10.34(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/abi': 5.8.0
       '@ethersproject/bytes': 5.8.0
