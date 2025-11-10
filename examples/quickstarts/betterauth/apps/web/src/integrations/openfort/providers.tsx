@@ -43,7 +43,7 @@ export function OpenfortProviders({ children }: { children: React.ReactNode }) {
               const session = await authClient.getSession();
               return session?.data?.session?.token ?? null;
             },
-            provider: ThirdPartyOAuthProvider.CUSTOM,
+            provider: ThirdPartyOAuthProvider.BETTER_AUTH,
           }}
         >
           {children}
