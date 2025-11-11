@@ -1,6 +1,6 @@
 import { useAccount } from 'wagmi'
 import Logos from '../../../assets/logos'
-import { CopyIconButton } from '../../Common/CopyToClipboard'
+import { CopyIconButton } from '../../Common/CopyToClipboard/CopyIconButton'
 import CustomQRCode from '../../Common/CustomQRCode'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { useOpenfort } from '../../Openfort/useOpenfort'

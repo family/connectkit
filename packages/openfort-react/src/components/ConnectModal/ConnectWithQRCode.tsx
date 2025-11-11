@@ -4,7 +4,7 @@ import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal'
 import { truncateEthAddress } from '../../utils'
 import { useWallet } from '../../wallets/useWagmiWallets'
-import { CopyText } from '../Common/CopyToClipboard'
+import { CopyText } from '../Common/CopyToClipboard/CopyText'
 import Loader from '../Common/Loading'
 import { ModalBody } from '../Common/Modal/styles'
 import { routes } from '../Openfort/types'
@@ -48,8 +48,8 @@ const ConnectWithSiwe = () => {
   return (
     <PageContent>
       <ModalBody style={{ textAlign: 'center' }}>
-        Connected{/*  with */}
-        {/* <CopyText string={address}>{ensName ?? truncateEthAddress(address)}</CopyText> */}
+        Connected with
+        <CopyText value={address || ''}>{ensName ?? truncateEthAddress(address)}</CopyText>
       </ModalBody>
       <Loader
         header={'Sign in to your wallet'}
