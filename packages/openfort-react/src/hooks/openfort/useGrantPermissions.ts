@@ -1,13 +1,12 @@
 import { useCallback, useState } from 'react'
 import type { Hex } from 'viem'
-import type { GrantPermissionsParameters, GrantPermissionsReturnType } from 'viem/experimental'
-import { useChainId } from 'wagmi'
+import { erc7715Actions, type GrantPermissionsParameters, type GrantPermissionsReturnType } from 'viem/experimental'
+import { useChainId, useWalletClient } from 'wagmi'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
 import { logger } from '../../utils/logger'
 import { useChains } from '../useChains'
 import { type BaseFlowState, mapStatus } from './auth/status'
 import { onError, onSuccess } from './hookConsistency'
-import { useExtendedWalletClient } from './useExtendedWalletClient'
 
 type GrantPermissionsRequest = {
   request: GrantPermissionsParameters
@@ -112,7 +111,7 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
   const [status, setStatus] = useState<BaseFlowState>({
     status: 'idle',
   })
-  const walletClient = useExtendedWalletClient()
+  const { data: walletClient } = useWalletClient()
   const [data, setData] = useState<GrantPermissionsResult | null>(null)
   const grantPermissions = useCallback(
     async (
@@ -140,7 +139,7 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
         const [account] = await walletClient.getAddresses()
 
         // Grant permissions
-        const grantPermissionsResult = await walletClient.grantPermissions(request)
+        const grantPermissionsResult = await walletClient.extend(erc7715Actions()).grantPermissions(request)
 
         const data: GrantPermissionsResult = {
           address: account,

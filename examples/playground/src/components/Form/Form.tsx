@@ -118,7 +118,7 @@ export const Form = <TOptions extends Record<string, any>, TResult = any>({
 
   const resultError = functionError
     ? { error: functionError }
-    : functionResult && typeof functionResult === 'object' && 'error' in functionResult
+    : functionResult && typeof functionResult === 'object' && 'error' in functionResult && !!functionResult.error
       ? functionResult
       : null
 

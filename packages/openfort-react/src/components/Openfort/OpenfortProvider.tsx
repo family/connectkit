@@ -14,14 +14,18 @@ import ConnectKitModal from '../ConnectModal'
 import { Web3ContextProvider } from '../contexts/web3'
 import { type ContextValue, Openfortcontext } from './context'
 import {
+  type BuyFormState,
   type ConnectUIOptions,
   type DebugModeOptions,
+  defaultBuyFormState,
+  defaultSendFormState,
   type ErrorMessage,
   notStoredInHistoryRoutes,
   type OpenfortUIOptionsExtended,
   type OpenfortWalletConfig,
   type RouteOptions,
   routes,
+  type SendFormState,
   type SetRouteOptions,
   UIAuthProvider,
 } from './types'
@@ -173,6 +177,9 @@ export const OpenfortProvider = ({
     enforceSupportedChains: false,
     ethereumOnboardingUrl: undefined,
     walletOnboardingUrl: undefined,
+    buyWithCardUrl: undefined,
+    buyFromExchangeUrl: undefined,
+    buyTroubleshootingUrl: undefined,
     disableSiweRedirect: false,
     walletRecovery: {
       allowedMethods: [RecoveryMethod.PASSWORD, ...(allowAutomaticRecovery ? [RecoveryMethod.AUTOMATIC] : [])],
@@ -215,7 +222,7 @@ export const OpenfortProvider = ({
   const [ckMode, setMode] = useState<Mode>(safeUiConfig.mode ?? 'auto')
   const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(safeUiConfig.customTheme ?? {})
   const [ckLang, setLang] = useState<Languages>('en-US')
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpenWithoutHistory] = useState<boolean>(false)
   const [connector, setConnector] = useState<ContextValue['connector']>({
     id: '',
   })
@@ -226,6 +233,16 @@ export const OpenfortProvider = ({
 
   const [resize, onResize] = useState<number>(0)
   const [emailInput, setEmailInput] = useState('')
+  const [sendForm, setSendForm] = useState<SendFormState>(defaultSendFormState)
+  const [buyForm, setBuyForm] = useState<BuyFormState>(defaultBuyFormState)
+  const [headerLeftSlot, setHeaderLeftSlot] = useState<React.ReactNode | null>(null)
+
+  const setOpen = (value: boolean) => {
+    if (value) {
+      setRouteHistory([])
+    }
+    setOpenWithoutHistory(value)
+  }
 
   // Include Google Font that is needed for a themes
   useThemeFont(safeUiConfig.embedGoogleFonts ? ckTheme : ('' as Theme))
@@ -258,6 +275,10 @@ export const OpenfortProvider = ({
   useEffect(() => {
     logger.log('ROUTE', route)
   }, [route])
+
+  useEffect(() => {
+    setHeaderLeftSlot(null)
+  }, [route.route])
 
   const typedSetRoute = (options: SetRouteOptions) => {
     const routeObj = typeof options === 'string' ? { route: options } : options
@@ -316,9 +337,16 @@ export const OpenfortProvider = ({
     setEmailInput,
     resize,
     triggerResize: () => onResize((prev) => prev + 1),
+    publishableKey,
     walletConfig,
     overrides,
     thirdPartyAuth,
+    sendForm,
+    setSendForm,
+    buyForm,
+    setBuyForm,
+    headerLeftSlot,
+    setHeaderLeftSlot,
   }
 
   return createElement(

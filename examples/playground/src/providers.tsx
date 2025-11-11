@@ -11,11 +11,13 @@ const config = createConfig(
   getDefaultConfig({
     appName: 'Openfort demo',
     walletConnectProjectId: 'fc3261354522f71e19adc4081a7e9f53',
-    chains: [polygonAmoy, beamTestnet, baseSepolia],
+    chains: [polygonAmoy, beamTestnet, baseSepolia /*, base*/],
+    // chains: [base],
     transports: {
       [polygonAmoy.id]: http('https://rpc-amoy.polygon.technology'),
       [beamTestnet.id]: http('https://subnets.avax.network/beam/testnet/rpc'),
       [baseSepolia.id]: http(),
+      // [base.id]: http(),
     },
   })
 )

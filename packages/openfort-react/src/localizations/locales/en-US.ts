@@ -101,6 +101,19 @@ const enUS = {
   injectionScreen_notconnected_p: `To continue, please login to your {{ CONNECTORNAME }} extension.`,
 
   profileScreen_heading: 'Connected',
+  buyScreen_heading: 'Add funds',
+  buyScreen_subheading: 'Select an amount and token to top up.',
+  buyScreen_payWithCard_title: 'Pay with card',
+  buyScreen_payWithCard_description: 'Use Stripe or Google Pay for a quick card purchase.',
+  buyScreen_payWithCard_url: 'https://pay.coinbase.com/',
+  buyScreen_exchange_title: 'Buy from an exchange',
+  buyScreen_exchange_description: 'Purchase on Coinbase, MoonPay, or another exchange and send it here.',
+  buyScreen_exchange_url: 'https://www.coinbase.com/buy',
+  buyScreen_wallet_title: 'Transfer from wallet',
+  buyScreen_wallet_description: 'Send funds from MetaMask, Phantom, or any other wallet you already use.',
+  buyScreen_help: 'Having trouble or facing location restrictions?',
+  buyScreen_help_cta: 'Try a different provider.',
+  buyScreen_help_url: 'https://onramper.com/',
 
   switchNetworkScreen_heading: 'Switch Networks',
 

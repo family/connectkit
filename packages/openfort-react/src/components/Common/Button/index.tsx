@@ -36,6 +36,8 @@ const Button: React.FC<ButtonProps> = ({
   href,
   style,
   onClick,
+  textAlign,
+  title,
 }) => {
   const key = typeof children === 'string' ? children : flattenChildren(children).join('') // Need to generate a string for the key so we can automatically animate between content
 
@@ -54,6 +56,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       $variant={variant}
       style={style}
+      title={title}
     >
       <AnimatePresence initial={false}>
         <ButtonContainerInner
@@ -101,7 +104,7 @@ const Button: React.FC<ButtonProps> = ({
             </DownloadArrow>
           )}
           <InnerContainer style={{ paddingLeft: arrow ? 6 : 0 }}>
-            <FitText>{children}</FitText>
+            <FitText justifyContent={textAlign}>{children}</FitText>
           </InnerContainer>
           {icon && iconPosition === 'right' && <IconContainer $rounded={roundedIcon}>{icon}</IconContainer>}
           {arrow && (

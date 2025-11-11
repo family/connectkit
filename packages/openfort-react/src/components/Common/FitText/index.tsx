@@ -5,10 +5,12 @@ const FitText = ({
   children,
   maxFontSize = 100,
   minFontSize = 70,
+  justifyContent = 'center',
 }: {
   children: React.ReactNode
   maxFontSize?: number
   minFontSize?: number
+  justifyContent?: 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly'
 }) => {
   const [ready, setReady] = React.useState(false)
   const { fontSize, ref: textRef } = useFitText({
@@ -27,7 +29,7 @@ const FitText = ({
         maxHeight: '100%',
         maxWidth: '100%',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent,
         alignItems: 'center',
       }}
     >

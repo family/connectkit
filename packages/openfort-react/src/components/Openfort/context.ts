@@ -1,17 +1,28 @@
-import type { SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
+import type { OAuthProvider, SDKOverrides, ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import type React from 'react'
 import { createContext } from 'react'
 import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
 import type { CustomTheme, Languages, Mode, Theme } from '../../types'
 import type {
-  Connector,
+  BuyFormState,
   DebugModeOptions,
-  ErrorMessage,
   OpenfortUIOptionsExtended,
   OpenfortWalletConfig,
   RouteOptions,
+  SendFormState,
   SetRouteOptions,
 } from './types'
+
+type Connector =
+  | {
+      id: string
+      type?: 'wallet'
+    }
+  | {
+      id: OAuthProvider
+      type: 'oauth'
+    }
+type ErrorMessage = string | React.ReactNode | null
 
 export type ContextValue = {
   setTheme: React.Dispatch<React.SetStateAction<Theme>>
@@ -21,11 +32,13 @@ export type ContextValue = {
   lang: Languages
   setLang: React.Dispatch<React.SetStateAction<Languages>>
   open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setOpen: (value: boolean) => void
   route: RouteOptions
   setRoute: (options: SetRouteOptions) => void
   onBack: (() => void) | null
   setOnBack: React.Dispatch<React.SetStateAction<(() => void) | null>>
+  headerLeftSlot: React.ReactNode | null
+  setHeaderLeftSlot: React.Dispatch<React.SetStateAction<React.ReactNode | null>>
 
   previousRoute: RouteOptions | null
   setPreviousRoute: () => void
@@ -37,12 +50,19 @@ export type ContextValue = {
   debugMode: Required<DebugModeOptions>
   resize: number
   triggerResize: () => void
+  publishableKey: string
   uiConfig: OpenfortUIOptionsExtended
   walletConfig?: OpenfortWalletConfig
   overrides?: SDKOverrides
   thirdPartyAuth?: ThirdPartyAuthConfiguration
+
   emailInput: string
   setEmailInput: React.Dispatch<React.SetStateAction<string>>
+
+  sendForm: SendFormState
+  setSendForm: React.Dispatch<React.SetStateAction<SendFormState>>
+  buyForm: BuyFormState
+  setBuyForm: React.Dispatch<React.SetStateAction<BuyFormState>>
 } & useConnectCallbackProps
 
 export const Openfortcontext = createContext<ContextValue | null>(null)

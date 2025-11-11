@@ -19,7 +19,152 @@ const Scan = ({ ...props }) => (
 
 const Download = ({ ...props }) => <svg />;
 
-const ExternalLinkIcon = ({ ...props }) => (
+export const SendIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M5 19L19 5"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M9 5H19V15"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const ReceiveIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M19 5L5 19"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M15 19H5V9"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const BuyIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect
+      x="3"
+      y="6"
+      width="18"
+      height="12"
+      rx="2"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M3 10H21"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M7 14H9"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const DollarIcon = (props) => (
+  <svg
+    width="800px"
+    height="800px"
+    viewBox="0 0 24 24"
+    role="img"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-labelledby="dolarIconTitle"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    fill="none"
+    color="currentColor"
+    {...props}
+  >
+    <title id="dolarIconTitle">{"Dolar"}</title>
+    <path d="M12 4L12 6M12 18L12 20M15.5 8C15.1666667 6.66666667 14 6 12 6 9 6 8.5 7.95652174 8.5 9 8.5 13.140327 15.5 10.9649412 15.5 15 15.5 16.0434783 15 18 12 18 10 18 8.83333333 17.3333333 8.5 16" />
+  </svg>
+);
+
+export const WalletIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect
+      x="3"
+      y="6"
+      width="18"
+      height="14"
+      rx="2.5"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M21 10H17C15.8954 10 15 10.8954 15 12C15 13.1046 15.8954 14 17 14H21V10Z"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="17" cy="12" r="1" fill="currentColor" />
+  </svg>
+);
+
+export const ExternalLinkIcon = ({ ...props }) => (
   <svg
     aria-hidden="true"
     width="16"
@@ -49,6 +194,40 @@ const ExternalLinkIcon = ({ ...props }) => (
     />
   </svg>
 );
+
+// export const LinkIcon = ({ ...props }) => (
+//   <svg
+//     aria-hidden="true"
+//     width="18"
+//     height="18"
+//     viewBox="0 0 24 24"
+//     fill="none"
+//     xmlns="http://www.w3.org/2000/svg"
+//     {...props}
+//   >
+//     <path
+//       d="M13.8284 10.1716C15.3905 11.7337 15.3905 14.2663 13.8284 15.8284L10.8284 18.8284C9.26633 20.3905 6.73367 20.3905 5.17157 18.8284C3.60947 17.2663 3.60947 14.7337 5.17157 13.1716L6.08579 12.2574"
+//       stroke="currentColor"
+//       strokeWidth="1.75"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//     <path
+//       d="M10.1716 13.8284C8.60947 12.2663 8.60947 9.73367 10.1716 8.17157L13.1716 5.17157C14.7337 3.60947 17.2663 3.60947 18.8284 5.17157C20.3905 6.73367 20.3905 9.26633 18.8284 10.8284L17.9142 11.7426"
+//       stroke="currentColor"
+//       strokeWidth="1.75"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//     <path
+//       d="M9.17163 14.8285L14.8285 9.17163"
+//       stroke="currentColor"
+//       strokeWidth="1.75"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//   </svg>
+// )
 
 export const AlertIcon = ({ ...props }) => {
   return (
@@ -491,5 +670,34 @@ export const FingerPrintIcon = ({ ...props }) => (
 export const PlusIcon = ({ ...props }) => (
   <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="m4 12h16m-8-8v16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+  </svg>
+);
+
+export const UserRoundIcon = ({ ...props }) => (
+  <svg
+    aria-hidden="true"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <circle
+      cx="12"
+      cy="8"
+      r="4"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6 20C6 16.6863 8.68629 14 12 14C15.3137 14 18 16.6863 18 20"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );

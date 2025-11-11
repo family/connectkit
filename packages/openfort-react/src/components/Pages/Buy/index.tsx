@@ -1,0 +1,173 @@
+import { useEffect, useMemo, useState } from 'react'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
+import useLocales from '../../../hooks/useLocales'
+import Button from '../../Common/Button'
+import { Arrow, ArrowChevron } from '../../Common/Button/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
+import { routes } from '../../Openfort/types'
+import { useOpenfort } from '../../Openfort/useOpenfort'
+import { PageContent } from '../../PageContent'
+import { getAssetSymbol, isSameToken, sanitizeAmountInput, sanitizeForParsing } from '../Send/utils'
+import {
+  AmountCard,
+  AmountInput,
+  ContinueButtonWrapper,
+  CurrencySymbol,
+  PresetButton,
+  PresetList,
+  Section,
+  SectionLabel,
+  SelectorButton,
+  SelectorContent,
+  SelectorRight,
+  SelectorSubtitle,
+  SelectorTitle,
+} from './styles'
+import { createCurrencyFormatter, getCurrencySymbol } from './utils'
+
+const amountPresets = [10, 20, 50]
+
+const Buy = () => {
+  const { buyForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
+  const locales = useLocales()
+  const { data: assets } = useWalletAssets()
+
+  const [pressedPreset, setPressedPreset] = useState<number | null>(null)
+
+  const fiatAmount = useMemo(() => {
+    const normalizedAmount = sanitizeForParsing(sanitizeAmountInput(buyForm.amount))
+    if (!normalizedAmount) return null
+    const numeric = Number(normalizedAmount)
+    if (!Number.isFinite(numeric)) return null
+    return numeric
+  }, [buyForm.amount])
+
+  // Trigger resize on mount
+  useEffect(() => {
+    triggerResize()
+  }, [triggerResize])
+
+  const matchedToken = useMemo(
+    () => assets?.find((asset) => isSameToken(asset, buyForm.asset)),
+    [assets, buyForm.asset]
+  )
+
+  const selectedTokenOption = matchedToken ?? assets?.[0]
+  const selectedToken = selectedTokenOption ?? buyForm.asset
+
+  const tokenSymbol = getAssetSymbol(selectedToken)
+  const tokenName = (selectedToken.metadata?.name as string) || tokenSymbol
+
+  const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
+  const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])
+
+  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = sanitizeAmountInput(event.target.value)
+    if (raw === '' || /^[0-9]*\.?[0-9]*$/.test(raw)) {
+      setPressedPreset(null)
+      setBuyForm((prev) => ({
+        ...prev,
+        amount: raw,
+      }))
+    }
+  }
+
+  const handleAmountBlur = () => {
+    const normalized = sanitizeForParsing(sanitizeAmountInput(buyForm.amount))
+    if (normalized) {
+      const numeric = Number(normalized)
+      if (Number.isFinite(numeric) && numeric > 0) {
+        setBuyForm((prev) => ({
+          ...prev,
+          amount: numeric.toFixed(2),
+        }))
+      }
+    }
+  }
+
+  const handlePresetClick = (value: number) => {
+    setPressedPreset(value)
+    setBuyForm((prev) => ({
+      ...prev,
+      amount: value.toFixed(2),
+    }))
+  }
+
+  const handleOpenTokenSelector = () => {
+    setRoute(routes.BUY_TOKEN_SELECT)
+  }
+
+  const handleContinue = () => {
+    if (fiatAmount === null || fiatAmount <= 0) return
+    setRoute(routes.BUY_SELECT_PROVIDER)
+  }
+
+  const handleBack = () => {
+    setRoute(routes.PROFILE)
+  }
+
+  const isPresetSelected = (value: number) => pressedPreset === value
+  const step1Disabled = fiatAmount === null || fiatAmount <= 0
+
+  return (
+    <PageContent onBack={handleBack}>
+      <ModalHeading>{locales.buyScreen_heading}</ModalHeading>
+      <ModalBody>{locales.buyScreen_subheading}</ModalBody>
+
+      <Section>
+        <SectionLabel>Amount</SectionLabel>
+        <AmountCard>
+          <CurrencySymbol>{currencySymbol}</CurrencySymbol>
+          <AmountInput
+            value={buyForm.amount}
+            onChange={handleAmountChange}
+            onBlur={handleAmountBlur}
+            placeholder="0.00"
+            inputMode="decimal"
+            autoComplete="off"
+          />
+        </AmountCard>
+        <PresetList>
+          {amountPresets.map((preset) => (
+            <PresetButton
+              key={preset}
+              type="button"
+              onClick={() => handlePresetClick(preset)}
+              $active={isPresetSelected(preset)}
+            >
+              {currencyFormatter.format(preset)}
+            </PresetButton>
+          ))}
+        </PresetList>
+      </Section>
+
+      <Section>
+        <SectionLabel>Asset</SectionLabel>
+        <SelectorButton type="button" onClick={handleOpenTokenSelector}>
+          <SelectorContent>
+            <SelectorTitle>{tokenSymbol || 'Select asset'}</SelectorTitle>
+            <SelectorSubtitle>{tokenName}</SelectorSubtitle>
+          </SelectorContent>
+          <SelectorRight>
+            <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ArrowChevron
+                stroke="currentColor"
+                d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </Arrow>
+          </SelectorRight>
+        </SelectorButton>
+      </Section>
+
+      <ContinueButtonWrapper>
+        <Button variant="primary" onClick={handleContinue} disabled={step1Disabled}>
+          Continue
+        </Button>
+      </ContinueButtonWrapper>
+    </PageContent>
+  )
+}
+
+export default Buy

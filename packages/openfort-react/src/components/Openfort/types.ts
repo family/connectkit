@@ -1,6 +1,8 @@
-import type { AccountTypeEnum, OAuthProvider, RecoveryMethod } from '@openfort/openfort-js'
+import type { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
 import type { ReactNode } from 'react'
+import type { Hex } from 'viem'
+import type { getAssets } from 'viem/_types/experimental/erc7811/actions/getAssets'
 import type { UserWallet } from '../../hooks/openfort/useWallets'
 import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
 
@@ -31,7 +33,22 @@ export const routes = {
   CONNECT: 'connect',
   DOWNLOAD: 'download',
   PROFILE: 'profile',
+  LINKED_PROVIDERS: 'linkedProviders',
   SWITCHNETWORKS: 'switchNetworks',
+
+  NO_ASSETS_AVAILABLE: 'noAssetsAvailable',
+  ASSET_INVENTORY: 'assetInventory',
+
+  SEND: 'send',
+  SEND_TOKEN_SELECT: 'sendTokenSelect',
+  SEND_CONFIRMATION: 'sendConfirmation',
+  RECEIVE: 'receive',
+  BUY: 'buy',
+  BUY_TOKEN_SELECT: 'buyTokenSelect',
+  BUY_SELECT_PROVIDER: 'buySelectProvider',
+  BUY_PROCESSING: 'buyProcessing',
+  BUY_COMPLETE: 'buyComplete',
+  BUY_PROVIDER_SELECT: 'buyProviderSelect',
 } as const
 
 type AllRoutes = (typeof routes)[keyof typeof routes]
@@ -71,16 +88,6 @@ export type RouteOptions = RoutesWithoutOptions | RoutesWithOptions
 // SetRouteOptions can be either a RouteOptions object or just the route string for routes without options
 export type SetRouteOptions = RouteOptions | RoutesWithoutOptions['route']
 
-export type Connector =
-  | {
-      id: string
-      type?: 'wallet'
-    }
-  | {
-      id: OAuthProvider
-      type: 'oauth'
-    }
-
 export enum UIAuthProvider {
   GOOGLE = 'google',
   TWITTER = 'twitter',
@@ -116,6 +123,13 @@ export enum LinkWalletOnSignUpOption {
 
 type PolicyConfig = string | Record<number, string>
 
+interface AssetConfig {
+  address: Hex
+  symbol?: string
+  name?: string
+  decimals?: number
+}
+
 type CommonWalletConfig = {
   /** Publishable key for the Shield API. */
   shieldPublishableKey: string
@@ -125,6 +139,9 @@ type CommonWalletConfig = {
   /** @deprecated Use `debugMode` prop instead. */
   debug?: boolean
   recoverWalletAutomaticallyAfterAuth?: boolean
+  assets?: {
+    [chainId: number]: AssetConfig[]
+  }
 }
 
 type EncryptionSession =
@@ -195,6 +212,9 @@ export type ConnectUIOptions = {
   /** Blur intensity applied to the background when the modal is open. */
   overlayBlur?: number
   walletRecovery?: WalletRecoveryOptions
+  buyWithCardUrl?: string
+  buyFromExchangeUrl?: string
+  buyTroubleshootingUrl?: string
 } & Partial<OpenfortUIOptions>
 
 type WalletRecoveryOptionsExtended = {
@@ -231,5 +251,57 @@ export type OpenfortUIOptionsExtended = {
   disableSiweRedirect?: boolean
   /** Blur intensity applied to the background when the modal is open. */
   overlayBlur?: number
+  buyWithCardUrl?: string
+  buyFromExchangeUrl?: string
+  buyTroubleshootingUrl?: string
   walletRecovery: WalletRecoveryOptionsExtended
 } & OpenfortUIOptions
+
+export type Asset = getAssets.Asset<false>
+// export type SendTokenOption =
+//   | {
+//       type: 'native'
+//       symbol: string
+//       decimals: number
+//     }
+//   | {
+//       type: 'erc20'
+//       symbol: string
+//       address: Address
+//       decimals: number
+//       name?: string
+//     }
+
+export type SendFormState = {
+  recipient: string
+  amount: string
+  asset: Asset
+}
+
+export const defaultSendFormState: SendFormState = {
+  recipient: '',
+  amount: '',
+  asset: {
+    type: 'native',
+    balance: BigInt(0),
+  },
+}
+
+export type BuyProviderId = 'moonpay' | 'coinbase' | 'stripe'
+
+export type BuyFormState = {
+  amount: string
+  currency: string
+  asset: Asset
+  providerId: BuyProviderId
+}
+
+export const defaultBuyFormState: BuyFormState = {
+  amount: '10.00',
+  currency: 'USD',
+  asset: {
+    type: 'native',
+    balance: BigInt(0),
+  },
+  providerId: 'coinbase',
+}

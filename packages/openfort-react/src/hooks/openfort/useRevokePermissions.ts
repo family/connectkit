@@ -1,13 +1,12 @@
 import type { RevokePermissionsRequestParams, SessionResponse } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
 import type { Hex } from 'viem'
-import { useChainId } from 'wagmi'
+import { useChainId, useWalletClient } from 'wagmi'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
 import { logger } from '../../utils/logger'
 import { useChains } from '../useChains'
 import { type BaseFlowState, mapStatus } from './auth/status'
 import { onError, onSuccess } from './hookConsistency'
-import { useExtendedWalletClient } from './useExtendedWalletClient'
 
 type RevokePermissionsRequest = {
   sessionKey: Hex
@@ -64,7 +63,7 @@ export const useRevokePermissions = (hookOptions: RevokePermissionsHookOptions =
   const [status, setStatus] = useState<BaseFlowState>({
     status: 'idle',
   })
-  const walletClient = useExtendedWalletClient()
+  const { data: walletClient } = useWalletClient()
   const [data, setData] = useState<RevokePermissionsResult | null>(null)
   const revokePermissions = useCallback(
     async (
@@ -88,7 +87,6 @@ export const useRevokePermissions = (hookOptions: RevokePermissionsHookOptions =
         }
 
         // Get the account address
-
         const revokePermissionsResult = await walletClient.request<{
           Method: 'wallet_revokePermissions'
           Parameters: [RevokePermissionsRequestParams]

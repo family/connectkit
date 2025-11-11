@@ -16,7 +16,7 @@ export const HookVariable = <TOptions extends object, TResult extends object>({
   defaultOptions = {} as TOptions,
   optionsVariables,
 }: {
-  hook: (opts: TOptions) => TResult
+  hook: (opts?: TOptions) => TResult
   name: string
   description?: string
   variables?: Record<string, HookInput>

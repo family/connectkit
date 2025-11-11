@@ -24,16 +24,21 @@ export const ChainSelectorContainer = styled(motion.div)`
 
 export const BalanceContainer = styled(motion.div)`
   position: relative;
+  height: 24px;
+  margin-top: 4px;
 `
 export const Balance = styled(motion.div)`
   position: relative;
+  font-size: 20px;
 `
 const PlaceholderKeyframes = keyframes`
   0%{ background-position: 100% 0; }
   100%{ background-position: -100% 0; }
 `
+
 export const LoadingBalance = styled(motion.div)`
   width: 25%;
+  height: 24px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -66,26 +71,79 @@ export const Unsupported = styled(motion.div)`
   color: var(--ck-body-color-danger, red);
 `
 
-export const LinkedProviderContainer = styled(motion.div)`
+export const ActionButtonsContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
+  margin-top: 20px;
 `
 
-export const LinkedProviderButton = styled(Button)`
-  width: 50px;
-  margin: 0px;
+export const ActionButton = styled(Button)`
+  flex: 1;
+  margin: 0;
+  height: 48px;
+  font-size: 16px;
 
   ${InnerContainer} {
-    max-width: calc(100% - 16px);
+    gap: 8px;
+    white-space: nowrap;
   }
 `
 
-export const ProvidersHeader = styled(motion.h3)`
-  font-size: 14px;
-  margin-bottom: 4px;
-  font-weight: bold;
+export const DisconnectButton = styled(Button)`
+  margin-top: 4px;
+`
+
+export const ProvidersHeader = styled.h3`
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0 12px;
   color: var(--ck-body-color);
+`
+
+export const LinkedProviderContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+`
+
+export const LinkedProviderButton = styled(Button)`
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  padding: 0;
+  border-radius: 16px;
+  font-size: 24px;
+  font-weight: 500;
+`
+
+export const LinkedProvidersToggle = styled.button`
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid var(--ck-body-divider);
+  background: var(--ck-secondary-button-background);
+  color: var(--ck-body-color);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  margin: 0;
+
+  &:hover {
+    background: var(--ck-secondary-button-hover-background);
+    border-color: var(--ck-body-color-muted);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
 `

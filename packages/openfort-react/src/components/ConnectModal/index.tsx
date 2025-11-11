@@ -11,6 +11,12 @@ import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitTh
 import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import About from '../Pages/About'
+import { AssetInventory } from '../Pages/AssetInventory'
+import Buy from '../Pages/Buy'
+import BuyComplete from '../Pages/BuyComplete'
+import BuyProcessing from '../Pages/BuyProcessing'
+import BuyProviderSelect from '../Pages/BuyProviderSelect'
+import BuySelectProvider from '../Pages/BuySelectProvider'
 import Connected from '../Pages/Connected'
 import Connectors from '../Pages/Connectors'
 import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
@@ -20,14 +26,20 @@ import EmailLogin from '../Pages/EmailLogin'
 import EmailVerification from '../Pages/EmailVerification'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
+import LinkedProvidersPage from '../Pages/LinkedProviders'
 import Loading from '../Pages/Loading'
 import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
+import { NoAssetsAvailable } from '../Pages/NoAssetsAvailable'
 import Onboarding from '../Pages/Onboarding'
 import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
+import Receive from '../Pages/Receive'
 import RecoverPage from '../Pages/Recover'
+import SelectToken from '../Pages/SelectToken'
 import SelectWalletToRecover from '../Pages/SelectWalletToRecover'
+import Send from '../Pages/Send'
+import SendConfirmation from '../Pages/SendConfirmation'
 import SocialProviders from '../Pages/SoicalProviders'
 import SwitchNetworks from '../Pages/SwitchNetworks'
 import ConnectUsing from './ConnectUsing'
@@ -119,8 +131,23 @@ const ConnectModal: React.FC<{
     providers: <Providers />,
     connect: <ConnectUsing />,
     profile: <Profile />,
+    linkedProviders: <LinkedProvidersPage />,
     switchNetworks: <SwitchNetworks />,
     connectWithMobile: <ConnectWithMobile />,
+
+    noAssetsAvailable: <NoAssetsAvailable />,
+    assetInventory: <AssetInventory />,
+
+    send: <Send />,
+    sendConfirmation: <SendConfirmation />,
+    sendTokenSelect: <SelectToken isBuyFlow={false} />,
+    buyTokenSelect: <SelectToken isBuyFlow={true} />,
+    buySelectProvider: <BuySelectProvider />,
+    buyProcessing: <BuyProcessing />,
+    buyComplete: <BuyComplete />,
+    buyProviderSelect: <BuyProviderSelect />,
+    receive: <Receive />,
+    buy: <Buy />,
   }
 
   function hide() {

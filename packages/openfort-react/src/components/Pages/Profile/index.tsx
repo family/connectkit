@@ -1,67 +1,121 @@
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
-import { useEffect, useState } from 'react'
-import { useAccount, useBalance, useEnsName } from 'wagmi'
-import { DisconnectIcon } from '../../../assets/icons'
+import { useEffect, useMemo, useState } from 'react'
+import { formatUnits } from 'viem'
+import { useAccount, useChainId, useEnsName } from 'wagmi'
+import { BuyIcon, ReceiveIcon, SendIcon, UserRoundIcon } from '../../../assets/icons'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
+import { useChains } from '../../../hooks/useChains'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
-import useLocales from '../../../hooks/useLocales'
-import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { isSafeConnector, nFormatter, truncateEthAddress } from '../../../utils'
+import { nFormatter, truncateEthAddress } from '../../../utils'
 import Avatar from '../../Common/Avatar'
 import Button from '../../Common/Button'
+import { TextLinkButton } from '../../Common/Button/styles'
 import ChainSelector from '../../Common/ChainSelect'
-import CopyToClipboard from '../../Common/CopyToClipboard'
+import { CopyText } from '../../Common/CopyToClipboard/CopyText'
 import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
-import { routes } from '../../Openfort/types'
+import { defaultSendFormState, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviders } from './LinkedProviders'
 import {
+  ActionButton,
+  ActionButtonsContainer,
   AvatarContainer,
   AvatarInner,
   Balance,
   BalanceContainer,
   ChainSelectorContainer,
+  LinkedProvidersToggle,
   LoadingBalance,
   Unsupported,
 } from './styles'
 
-const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
+const Profile = () => {
   const context = useOpenfort()
   const themeContext = useThemeContext()
+  const { setHeaderLeftSlot, setRoute } = context
 
-  const locales = useLocales()
-
-  const { address, connector, chain } = useAccount()
+  const { address } = useAccount()
+  const chainId = useChainId()
+  const chains = useChains()
+  const chain = chains.find((c) => c.id === chainId)
   const ensFallbackConfig = useEnsFallbackConfig()
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
     config: ensFallbackConfig,
   })
-  const { data: balance } = useBalance({
-    address,
-    //watch: true,
-  })
 
-  const [shouldDisconnect, setShouldDisconnect] = useState(false)
-  const { logout } = useOpenfortCore()
+  const { data: assets, isLoading, refetch } = useWalletAssets()
+  const totalBalanceUsd = useMemo(() => {
+    if (!assets) return 0
+    return assets.reduce((acc, asset) => {
+      if (!asset.metadata || !asset.balance) return acc
+      const price: number = (asset.metadata as any)?.fiat?.value ?? 0
+      if (!price) return acc
+      const balance = Number(
+        formatUnits(
+          asset.balance ?? BigInt(0),
+          asset.metadata && 'decimals' in asset.metadata ? (asset.metadata.decimals as number) : 18
+        )
+      )
+      return acc + price * balance
+    }, 0)
+  }, [assets])
 
   useEffect(() => {
-    if (!shouldDisconnect) return
+    refetch()
+  }, [])
 
-    // Close before disconnecting to avoid layout shifting while modal is still open
-    if (closeModal) {
-      closeModal()
+  const isTestnet = chain?.testnet ?? false
+  const [showTestnetMessage, setShowTestnetMessage] = useState(false)
+
+  useEffect(() => {
+    context.triggerResize()
+
+    if (showTestnetMessage) {
+      const timer = setTimeout(() => {
+        setShowTestnetMessage(false)
+      }, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [showTestnetMessage])
+
+  const handleBuyClick = (e: React.MouseEvent) => {
+    if (!chain || isTestnet) {
+      e.preventDefault()
+      setShowTestnetMessage(true)
     } else {
-      context.setOpen(false)
+      // console.log('Buy is only available on mainnet chains')
+      context.setRoute(routes.BUY)
     }
+  }
+
+  useEffect(() => {
+    if (!address) {
+      setHeaderLeftSlot(null)
+      return
+    }
+
+    setHeaderLeftSlot(
+      <LinkedProvidersToggle
+        type="button"
+        onClick={() => setRoute(routes.LINKED_PROVIDERS)}
+        aria-label="Linked providers"
+        title="Linked providers"
+      >
+        <UserRoundIcon />
+      </LinkedProvidersToggle>
+    )
+
     return () => {
-      logout()
+      setHeaderLeftSlot(null)
     }
-  }, [shouldDisconnect, logout])
+  }, [address, setHeaderLeftSlot, setRoute])
+
+  const { setSendForm } = context
 
   const separator = ['web95', 'rounded', 'minimal'].includes(themeContext.theme ?? context.uiConfig.theme ?? '')
     ? '....'
@@ -69,7 +123,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
 
   return (
     <PageContent onBack={null}>
-      <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
+      <ModalContent style={{ paddingBottom: 6, gap: 6 }}>
         {address ? (
           <>
             <AvatarContainer>
@@ -81,13 +135,23 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
               </AvatarInner>
             </AvatarContainer>
             <ModalH1>
-              <CopyToClipboard string={address}>{ensName ?? truncateEthAddress(address, separator)}</CopyToClipboard>
+              <CopyText value={address}>{ensName ?? truncateEthAddress(address, separator)}</CopyText>
             </ModalH1>
             {context?.uiConfig.hideBalance ? null : (
               <ModalBody>
                 <BalanceContainer>
-                  <AnimatePresence exitBeforeEnter initial={false}>
-                    {balance && (
+                  {!!assets && !isLoading && (
+                    <TextLinkButton
+                      type="button"
+                      onClick={() => {
+                        const firstBalanceAsset = assets?.find((a) => a.balance && a.balance > BigInt(0))
+                        if (!firstBalanceAsset) {
+                          setRoute(routes.NO_ASSETS_AVAILABLE)
+                          return
+                        }
+                        setRoute(routes.ASSET_INVENTORY)
+                      }}
+                    >
                       <Balance
                         key={`chain-${chain?.id}`}
                         initial={{ opacity: 0 }}
@@ -95,23 +159,67 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {nFormatter(Number(balance?.formatted))}
-                        {` `}
-                        {balance?.symbol}
+                        ${nFormatter(totalBalanceUsd)}
                       </Balance>
-                    )}
-                    {!balance && (
-                      <LoadingBalance
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        &nbsp;
-                      </LoadingBalance>
-                    )}
-                  </AnimatePresence>
+                    </TextLinkButton>
+                  )}
+                  {isLoading && (
+                    <LoadingBalance
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      &nbsp;
+                    </LoadingBalance>
+                  )}
                 </BalanceContainer>
+                <ActionButtonsContainer>
+                  <ActionButton
+                    icon={<SendIcon />}
+                    onClick={() => {
+                      const firstBalanceAsset = assets?.find((a) => a.balance && a.balance > BigInt(0))
+                      if (!firstBalanceAsset) {
+                        setRoute(routes.NO_ASSETS_AVAILABLE)
+                        return
+                      }
+
+                      setSendForm({ ...defaultSendFormState, asset: firstBalanceAsset })
+                      context.setRoute(routes.SEND)
+                    }}
+                  >
+                    Send
+                  </ActionButton>
+                  <ActionButton
+                    icon={<ReceiveIcon />}
+                    onClick={() => {
+                      context.setRoute(routes.RECEIVE)
+                    }}
+                  >
+                    Get
+                  </ActionButton>
+                  <ActionButton
+                    icon={<BuyIcon />}
+                    onClick={handleBuyClick}
+                    style={isTestnet ? { cursor: 'not-allowed', opacity: 0.4, pointerEvents: 'auto' } : undefined}
+                  >
+                    Buy
+                  </ActionButton>
+                </ActionButtonsContainer>
+                <AnimatePresence onExitComplete={() => context.triggerResize()}>
+                  {showTestnetMessage && (
+                    <ModalBody
+                      as={motion.div}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 0.7, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      style={{ marginTop: 12, fontSize: 14, textAlign: 'center' }}
+                    >
+                      Buy is only available on mainnet chains
+                    </ModalBody>
+                  )}
+                </AnimatePresence>
               </ModalBody>
             )}
           </>
@@ -139,13 +247,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
             Connect wallet
           </Button>
         )}
-        <LinkedProviders />
       </ModalContent>
-      {!isSafeConnector(connector?.id) && (
-        <Button onClick={() => setShouldDisconnect(true)} icon={<DisconnectIcon />}>
-          {locales.disconnect}
-        </Button>
-      )}
       <PoweredByFooter />
     </PageContent>
   )

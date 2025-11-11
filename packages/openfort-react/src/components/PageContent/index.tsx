@@ -56,8 +56,7 @@ export const PageContent = ({ children, width, onBack = 'back', logoutOnBack }: 
         return h
       })
     } else setOnBack(null)
-    // else setOnBack(() => () => alert('REMOVE DEBUG ON BACK STRING!'))
-  }, [])
+  }, [!!onBack, !!logoutOnBack])
 
   return <PageContentStyle style={{ width }}>{children}</PageContentStyle>
 }

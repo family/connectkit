@@ -244,16 +244,6 @@ export const chainConfigs: Chain[] = [
     logo: <Logos.Canto />,
   },
   {
-    id: 250,
-    name: 'Fantom',
-    logo: <Logos.Fantom />,
-  },
-  {
-    id: 4_002,
-    name: 'Fantom Testnet',
-    logo: <Logos.Fantom testnet />,
-  },
-  {
     id: 14,
     name: 'Flare',
     logo: <Logos.Flare />,

@@ -555,8 +555,6 @@ export const Container = styled(motion.div)`
       gap: 12px;
     }
     ${ModalBody} {
-      margin: 0 auto;
-      max-width: 295px;
     }
     ${PageContents} {
       width: 100%;

@@ -1,39 +1,45 @@
-import { motion } from 'framer-motion'
+import { type MotionStyle, motion } from 'framer-motion'
 import { css } from 'styled-components'
 import { CopyToClipboardIcon as Icon } from '../../../assets/icons'
 import styled from '../../../styles/styled'
 
-const IconContainer = styled(motion.div)<{ $clipboard?: boolean }>`
-  transition: all 220ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+const IconWrapper = styled(motion.div)<{ $copied?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 16px;
+  height: 16px;
+  transition: all 220ms ease;
+
   svg {
     display: block;
+    width: 100%;
+    height: 100%;
   }
-  svg,
-  svg path,
-  svg rect {
-    transition: inherit;
-  }
+
   svg path:first-child {
+    transition: all 220ms ease;
+    fill: var(--bg, var(--ck-body-background));
+    stroke: var(--color, var(--ck-copytoclipboard-stroke));
     transform-origin: 50% 50%;
-    fill: var(--bg);
-    stroke: var(--color);
   }
+
   svg rect {
+    transition: all 220ms ease;
+    fill: var(--bg, var(--ck-body-background));
+    stroke: var(--color, var(--ck-copytoclipboard-stroke));
     transform-origin: 53% 63%;
-    fill: var(--bg);
-    stroke: var(--color);
   }
+
   svg path:last-child {
-    opacity: 0;
-    stroke: var(--bg);
+    transition: all 220ms ease;
+    opacity: ${(props) => (props.$copied ? 1 : 0)};
+    stroke: var(--ck-body-background);
     transform: translate(11.75px, 10px) rotate(90deg) scale(0.6);
   }
+
   ${(props) =>
-    props.$clipboard
+    props.$copied
       ? css`
           --color: var(--ck-focus-color) !important;
           --bg: var(--ck-body-background);
@@ -63,14 +69,16 @@ const IconContainer = styled(motion.div)<{ $clipboard?: boolean }>`
         `}
 `
 
-const CopyToClipboardIcon = ({ copied, small }: { copied?: boolean; small?: boolean }) => (
-  <IconContainer $clipboard={copied}>
-    <Icon
-      style={{
-        transform: small ? 'scale(1)' : 'translateX(3px) scale(1.5)',
-        opacity: small || copied ? 1 : 0.3,
-      }}
-    />
-  </IconContainer>
-)
-export default CopyToClipboardIcon
+interface CopyIconProps {
+  copied?: boolean
+  size?: MotionStyle['width']
+  className?: string
+}
+
+export const CopyIcon = ({ copied, size = '1rem', className }: CopyIconProps) => {
+  return (
+    <IconWrapper $copied={copied} className={className} style={{ width: size, height: size }}>
+      <Icon />
+    </IconWrapper>
+  )
+}

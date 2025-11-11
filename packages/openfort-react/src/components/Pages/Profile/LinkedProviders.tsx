@@ -1,8 +1,7 @@
 import type { AuthPlayerResponse } from '@openfort/openfort-js'
 import { useMemo } from 'react'
-import { EmailIcon } from '../../../assets/icons'
+import { EmailIcon, WalletIcon as Wallet } from '../../../assets/icons'
 import Logos, { providersLogos } from '../../../assets/logos'
-import Wallet from '../../../assets/wallet'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
@@ -11,6 +10,10 @@ import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { ProviderIcon as ProviderIconContainer } from '../Providers/styles'
 import { LinkedProviderButton, LinkedProviderContainer, ProvidersHeader } from './styles'
+
+type LinkedProvidersProps = {
+  showHeader?: boolean
+}
 
 const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
   const wallets = useWagmiWallets()
@@ -63,20 +66,23 @@ const AddLinkedProviderButton: React.FC = () => {
   )
 }
 
-export const LinkedProviders: React.FC = () => {
+export const LinkedProviders: React.FC<LinkedProvidersProps> = ({ showHeader = true }) => {
   const { user } = useOpenfortCore()
 
-  if (!user || !user.linkedAccounts) {
+  if (!user || !user.linkedAccounts || user.linkedAccounts.length === 0) {
     return (
-      <div>
-        <p>No linked providers</p>
-      </div>
+      <>
+        {showHeader ? <ProvidersHeader>Linked providers</ProvidersHeader> : null}
+        <LinkedProviderContainer>
+          <AddLinkedProviderButton />
+        </LinkedProviderContainer>
+      </>
     )
   }
 
   return (
     <>
-      <ProvidersHeader>Linked providers</ProvidersHeader>
+      {showHeader ? <ProvidersHeader>Linked providers</ProvidersHeader> : null}
       <LinkedProviderContainer>
         {user.linkedAccounts.map((provider) => (
           <LinkedProvider

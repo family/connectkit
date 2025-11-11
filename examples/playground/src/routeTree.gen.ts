@@ -16,6 +16,7 @@ import { Route as HooksWagmiRouteImport } from './routes/_hooks/wagmi'
 import { Route as HooksProviderRouteImport } from './routes/_hooks/provider'
 import { Route as ShowcaseShowcaseAuthRouteImport } from './routes/_showcase/showcase/auth'
 import { Route as HooksWalletUseWalletsRouteImport } from './routes/_hooks/wallet/useWallets'
+import { Route as HooksWalletUseWalletAssetsRouteImport } from './routes/_hooks/wallet/useWalletAssets'
 import { Route as HooksWagmiUseSwitchChainRouteImport } from './routes/_hooks/wagmi/useSwitchChain'
 import { Route as HooksWagmiUseDisconnectRouteImport } from './routes/_hooks/wagmi/useDisconnect'
 import { Route as HooksWagmiUseBalanceRouteImport } from './routes/_hooks/wagmi/useBalance'
@@ -69,6 +70,12 @@ const HooksWalletUseWalletsRoute = HooksWalletUseWalletsRouteImport.update({
   path: '/wallet/useWallets',
   getParentRoute: () => HooksRoute,
 } as any)
+const HooksWalletUseWalletAssetsRoute =
+  HooksWalletUseWalletAssetsRouteImport.update({
+    id: '/wallet/useWalletAssets',
+    path: '/wallet/useWalletAssets',
+    getParentRoute: () => HooksRoute,
+  } as any)
 const HooksWagmiUseSwitchChainRoute =
   HooksWagmiUseSwitchChainRouteImport.update({
     id: '/useSwitchChain',
@@ -190,6 +197,7 @@ export interface FileRoutesByFullPath {
   '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/wallet/useWalletAssets': typeof HooksWalletUseWalletAssetsRoute
   '/wallet/useWallets': typeof HooksWalletUseWalletsRoute
   '/showcase/auth': typeof ShowcaseShowcaseAuthRouteWithChildren
   '/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
@@ -216,6 +224,7 @@ export interface FileRoutesByTo {
   '/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/wallet/useWalletAssets': typeof HooksWalletUseWalletAssetsRoute
   '/wallet/useWallets': typeof HooksWalletUseWalletsRoute
   '/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
   '/showcase/auth/connect-wallet': typeof ShowcaseShowcaseAuthConnectWalletRoute
@@ -244,6 +253,7 @@ export interface FileRoutesById {
   '/_hooks/wagmi/useBalance': typeof HooksWagmiUseBalanceRoute
   '/_hooks/wagmi/useDisconnect': typeof HooksWagmiUseDisconnectRoute
   '/_hooks/wagmi/useSwitchChain': typeof HooksWagmiUseSwitchChainRoute
+  '/_hooks/wallet/useWalletAssets': typeof HooksWalletUseWalletAssetsRoute
   '/_hooks/wallet/useWallets': typeof HooksWalletUseWalletsRoute
   '/_showcase/showcase/auth': typeof ShowcaseShowcaseAuthRouteWithChildren
   '/_showcase/showcase/auth/callback': typeof ShowcaseShowcaseAuthCallbackRoute
@@ -272,6 +282,7 @@ export interface FileRouteTypes {
     | '/wagmi/useBalance'
     | '/wagmi/useDisconnect'
     | '/wagmi/useSwitchChain'
+    | '/wallet/useWalletAssets'
     | '/wallet/useWallets'
     | '/showcase/auth'
     | '/showcase/auth/callback'
@@ -298,6 +309,7 @@ export interface FileRouteTypes {
     | '/wagmi/useBalance'
     | '/wagmi/useDisconnect'
     | '/wagmi/useSwitchChain'
+    | '/wallet/useWalletAssets'
     | '/wallet/useWallets'
     | '/showcase/auth/callback'
     | '/showcase/auth/connect-wallet'
@@ -325,6 +337,7 @@ export interface FileRouteTypes {
     | '/_hooks/wagmi/useBalance'
     | '/_hooks/wagmi/useDisconnect'
     | '/_hooks/wagmi/useSwitchChain'
+    | '/_hooks/wallet/useWalletAssets'
     | '/_hooks/wallet/useWallets'
     | '/_showcase/showcase/auth'
     | '/_showcase/showcase/auth/callback'
@@ -390,6 +403,13 @@ declare module '@tanstack/react-router' {
       path: '/wallet/useWallets'
       fullPath: '/wallet/useWallets'
       preLoaderRoute: typeof HooksWalletUseWalletsRouteImport
+      parentRoute: typeof HooksRoute
+    }
+    '/_hooks/wallet/useWalletAssets': {
+      id: '/_hooks/wallet/useWalletAssets'
+      path: '/wallet/useWalletAssets'
+      fullPath: '/wallet/useWalletAssets'
+      preLoaderRoute: typeof HooksWalletUseWalletAssetsRouteImport
       parentRoute: typeof HooksRoute
     }
     '/_hooks/wagmi/useSwitchChain': {
@@ -557,6 +577,7 @@ interface HooksRouteChildren {
   HooksAuthUseUserRoute: typeof HooksAuthUseUserRoute
   HooksAuthUseWalletAuthRoute: typeof HooksAuthUseWalletAuthRoute
   HooksUtilsUseUIRoute: typeof HooksUtilsUseUIRoute
+  HooksWalletUseWalletAssetsRoute: typeof HooksWalletUseWalletAssetsRoute
   HooksWalletUseWalletsRoute: typeof HooksWalletUseWalletsRoute
 }
 
@@ -571,6 +592,7 @@ const HooksRouteChildren: HooksRouteChildren = {
   HooksAuthUseUserRoute: HooksAuthUseUserRoute,
   HooksAuthUseWalletAuthRoute: HooksAuthUseWalletAuthRoute,
   HooksUtilsUseUIRoute: HooksUtilsUseUIRoute,
+  HooksWalletUseWalletAssetsRoute: HooksWalletUseWalletAssetsRoute,
   HooksWalletUseWalletsRoute: HooksWalletUseWalletsRoute,
 }
 
