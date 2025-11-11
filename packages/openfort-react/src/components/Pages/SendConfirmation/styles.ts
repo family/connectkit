@@ -20,6 +20,14 @@ export const SummaryLabel = styled.span`
   color: var(--ck-body-color-muted);
 `
 
+const SummaryValue = styled.span`
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ck-body-color);
+  text-align: right;
+  word-break: break-all;
+`
+
 export const AmountValue = styled(SummaryValue)`
   color: var(--ck-body-color);
   display: inline-flex;
@@ -55,6 +63,17 @@ export const CheckIconWrapper = styled.span`
     height: 16px;
   }
 `
+
+// export const BalanceSpinnerWrapper = styled.span`
+//   display: inline-flex;
+//   align-items: center;
+//   margin-left: 8px;
+
+//   svg {
+//     width: 14px;
+//     height: 14px;
+//   }
+// `
 
 export const InfoIconWrapper = styled.span`
   color: var(--ck-body-color-muted);
