@@ -1,5 +1,5 @@
 import { useChainId } from 'wagmi'
-import { BuyIcon, DollarIcon } from '../../../assets/icons'
+import { BuyIcon, DollarIcon, ReceiveIcon } from '../../../assets/icons'
 import { useChains } from '../../../hooks/useChains'
 import Button from '../../Common/Button'
 import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
@@ -7,6 +7,7 @@ import { FloatingGraphic } from '../../FloatingGraphic'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
+import { ButtonsContainer } from './styles'
 
 export const NoAssetsAvailable = () => {
   const { setRoute } = useOpenfort()
@@ -38,18 +39,29 @@ export const NoAssetsAvailable = () => {
       <ModalContent style={{ paddingBottom: 0 }}>
         <ModalH1 $small>No assets available</ModalH1>
         <ModalBody>
-          <div style={{ paddingRight: 6, paddingLeft: 6 }}>You currently have no assets available in your wallet.</div>
-          {showBuyOption && (
+          <div style={{ paddingRight: 12, paddingLeft: 12 }}>
+            You currently have no assets available in your wallet.
+          </div>
+          <ButtonsContainer>
             <Button
               onClick={() => {
-                setRoute(routes.BUY)
+                setRoute(routes.RECEIVE)
               }}
-              icon={<BuyIcon />}
-              style={{ marginTop: 12 }}
+              icon={<ReceiveIcon />}
             >
-              Buy assets
+              Get assets
             </Button>
-          )}
+            {showBuyOption && (
+              <Button
+                onClick={() => {
+                  setRoute(routes.BUY)
+                }}
+                icon={<BuyIcon />}
+              >
+                Buy assets
+              </Button>
+            )}
+          </ButtonsContainer>
         </ModalBody>
       </ModalContent>
     </PageContent>
