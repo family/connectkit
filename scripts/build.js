@@ -6,11 +6,14 @@
  */
 
 const fs = require('node:fs')
-const config = require('./packages/openfort-react/package.json')
+const path = require('node:path')
+const config = require('../packages/openfort-react/package.json')
 
-const file = fs.readFileSync('packages/openfort-react/src/version.ts', 'utf8')
+const versionFilePath = path.join(__dirname, '../packages/openfort-react/src/version.ts')
+
+const file = fs.readFileSync(versionFilePath, 'utf8')
 const lines = file.split('\n')
 const versionLine = lines.findIndex((line) => line.includes('export const OPENFORT_VERSION = '))
 lines[versionLine] = `export const OPENFORT_VERSION = '${config.version}'`
 
-fs.writeFileSync('packages/openfort-react/src/version.ts', lines.join('\n'), 'utf8')
+fs.writeFileSync(versionFilePath, lines.join('\n'), 'utf8')
