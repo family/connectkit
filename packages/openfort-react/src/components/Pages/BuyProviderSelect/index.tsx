@@ -4,7 +4,7 @@ import { type BuyProviderId, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { getProviderQuotes, getProviders } from '../Buy/providers'
 import { createCurrencyFormatter } from '../Buy/utils'
-import { getAssetSymbol, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
+import { getAssetSymbol, sanitizeAmountInput, sanitizeForParsing } from '../Send/utils'
 import {
   EmptyState,
   ProviderBadge,
@@ -25,7 +25,7 @@ const BuyProviderSelect = () => {
 
   const providers = getProviders()
 
-  const normalizedAmount = sanitiseForParsing(sanitizeAmountInput(buyForm.amount))
+  const normalizedAmount = sanitizeForParsing(sanitizeAmountInput(buyForm.amount))
 
   const fiatAmount = useMemo(() => {
     if (!normalizedAmount) return null
@@ -37,7 +37,6 @@ const BuyProviderSelect = () => {
   const quotes = useMemo(() => getProviderQuotes(fiatAmount), [fiatAmount])
   useEffect(() => {
     triggerResize()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes.length])
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
 

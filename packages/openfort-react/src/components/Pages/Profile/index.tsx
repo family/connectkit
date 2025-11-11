@@ -68,6 +68,7 @@ const Profile = () => {
       e.preventDefault()
       setShowTestnetMessage(true)
     } else {
+      // console.log('Buy is only available on mainnet chains')
       context.setRoute(routes.BUY)
     }
   }
@@ -119,31 +120,37 @@ const Profile = () => {
             {context?.uiConfig.hideBalance ? null : (
               <ModalBody>
                 <BalanceContainer>
-                  <AnimatePresence exitBeforeEnter initial={false}>
-                    {balance && (
-                      <Balance
-                        key={`chain-${chain?.id}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {nFormatter(Number(balance?.formatted))}
-                        {` `}
-                        {balance?.symbol}
-                      </Balance>
-                    )}
-                    {!balance && (
-                      <LoadingBalance
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        &nbsp;
-                      </LoadingBalance>
-                    )}
-                  </AnimatePresence>
+                  {balance && (
+                    // TODO: Select token on click
+                    // <TextLinkButton
+                    //   type="button"
+                    //   onClick={() => {
+                    //     setRoute(routes.TOKEN_SELECT)
+                    //   }}
+                    // >
+                    <Balance
+                      key={`chain-${chain?.id}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {nFormatter(Number(balance?.formatted))}
+                      {` `}
+                      {balance?.symbol}
+                    </Balance>
+                    // </TextLinkButton>
+                  )}
+                  {!balance && (
+                    <LoadingBalance
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      &nbsp;
+                    </LoadingBalance>
+                  )}
                 </BalanceContainer>
                 <ActionButtonsContainer>
                   <ActionButton

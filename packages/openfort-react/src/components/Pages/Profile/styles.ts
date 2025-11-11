@@ -24,6 +24,7 @@ export const ChainSelectorContainer = styled(motion.div)`
 
 export const BalanceContainer = styled(motion.div)`
   position: relative;
+  height: 24px;
 `
 export const Balance = styled(motion.div)`
   position: relative;
@@ -32,8 +33,10 @@ const PlaceholderKeyframes = keyframes`
   0%{ background-position: 100% 0; }
   100%{ background-position: -100% 0; }
 `
+
 export const LoadingBalance = styled(motion.div)`
   width: 25%;
+  height: 24px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;

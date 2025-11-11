@@ -7,7 +7,7 @@ import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { isSameToken, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
+import { getAssetSymbol, isSameToken, sanitizeAmountInput, sanitizeForParsing } from '../Send/utils'
 import {
   AmountCard,
   AmountInput,
@@ -35,7 +35,7 @@ const Buy = () => {
   const [pressedPreset, setPressedPreset] = useState<number | null>(null)
 
   const fiatAmount = useMemo(() => {
-    const normalizedAmount = sanitiseForParsing(sanitizeAmountInput(buyForm.amount))
+    const normalizedAmount = sanitizeForParsing(sanitizeAmountInput(buyForm.amount))
     if (!normalizedAmount) return null
     const numeric = Number(normalizedAmount)
     if (!Number.isFinite(numeric)) return null
@@ -55,7 +55,7 @@ const Buy = () => {
   const selectedTokenOption = matchedToken ?? assets?.[0]
   const selectedToken = selectedTokenOption ?? buyForm.asset
 
-  const tokenSymbol = (selectedToken.metadata?.symbol as string) || 'Token'
+  const tokenSymbol = getAssetSymbol(selectedToken)
   const tokenName = (selectedToken.metadata?.name as string) || tokenSymbol
 
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
@@ -73,7 +73,7 @@ const Buy = () => {
   }
 
   const handleAmountBlur = () => {
-    const normalized = sanitiseForParsing(sanitizeAmountInput(buyForm.amount))
+    const normalized = sanitizeForParsing(sanitizeAmountInput(buyForm.amount))
     if (normalized) {
       const numeric = Number(normalized)
       if (Number.isFinite(numeric) && numeric > 0) {
@@ -142,10 +142,10 @@ const Buy = () => {
       </Section>
 
       <Section>
-        <SectionLabel>Token</SectionLabel>
+        <SectionLabel>Asset</SectionLabel>
         <SelectorButton type="button" onClick={handleOpenTokenSelector}>
           <SelectorContent>
-            <SelectorTitle>{tokenSymbol || 'Select token'}</SelectorTitle>
+            <SelectorTitle>{tokenSymbol || 'Select asset'}</SelectorTitle>
             <SelectorSubtitle>{tokenName}</SelectorSubtitle>
           </SelectorContent>
           <SelectorRight>

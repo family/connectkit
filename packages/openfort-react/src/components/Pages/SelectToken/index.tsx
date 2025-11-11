@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { formatUnits } from 'viem'
 import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
-import { Arrow, ArrowChevron } from '../../Common/Button/styles'
-import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
+import { Arrow, ArrowChevron, TextLinkButton } from '../../Common/Button/styles'
+import { ModalHeading } from '../../Common/Modal/styles'
 import { type Asset, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import { formatBalanceWithSymbol } from '../Send/utils'
+import { formatBalanceWithSymbol, getAssetSymbol } from '../Send/utils'
 import {
   EmptyState,
   SelectTokenContent,
@@ -25,12 +25,16 @@ const usdFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2,
 })
 
-const SelectToken = () => {
-  const { route, setSendForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
+const SelectToken = ({ isBuyFlow }: { isBuyFlow: boolean }) => {
+  const { setSendForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
+
+  const [viewAllAssets, setViewAllAssets] = useState(false)
+
+  useEffect(() => {
+    triggerResize()
+  }, [viewAllAssets])
 
   const { data: walletAssets, isLoading: isBalancesLoading } = useWalletAssets()
-
-  const isBuyFlow = route.route === routes.BUY_TOKEN_SELECT
 
   // Show all tokens for both buy and send flows
   const selectableTokens = walletAssets || []
@@ -60,7 +64,6 @@ const SelectToken = () => {
 
   useEffect(() => {
     triggerResize()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectableTokens.length, isBuyFlow])
 
   const renderContent = () => {
@@ -75,7 +78,8 @@ const SelectToken = () => {
       <TokenList>
         {selectableTokens.map((token) => {
           const key = token.type === 'erc20' ? token.address : 'native'
-          const displayName = (token.metadata?.name as string) || (token.metadata?.symbol as string) || 'Unknown Token'
+          const displaySymbol = getAssetSymbol(token)
+          const displayName = (token.metadata?.name as string) || displaySymbol || 'Unknown Token'
           // const symbolKey = token.metadata?.symbol?.toUpperCase()
           const decimals = token.metadata && 'decimals' in token.metadata ? (token.metadata.decimals as number) : 18
 
@@ -90,6 +94,9 @@ const SelectToken = () => {
 
           // Check if token has zero balance (for send flow opacity)
           const hasZeroBalance = isBalanceLoaded && (token.balance ?? ZERO) <= ZERO
+
+          if (hasZeroBalance && !viewAllAssets && !isBuyFlow) return null
+
           const isDisabled = !isBuyFlow && hasZeroBalance
 
           if (isBalanceLoaded && pricePerToken !== undefined && token.balance !== undefined) {
@@ -115,32 +122,38 @@ const SelectToken = () => {
             >
               <TokenInfo>
                 <TokenSymbol>{displayName}</TokenSymbol>
-                {usdValue ? <TokenName>{usdValue}</TokenName> : null}
+                {isBuyFlow && <TokenName>{displaySymbol}</TokenName>}
               </TokenInfo>
               {isBuyFlow ? (
                 <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <ArrowChevron stroke="currentColor" d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314" />
                 </Arrow>
               ) : (
-                <TokenBalance>{balanceDisplay}</TokenBalance>
+                <TokenInfo>
+                  <TokenBalance>{balanceDisplay}</TokenBalance>
+                  {usdValue ? <TokenName>{usdValue}</TokenName> : null}
+                </TokenInfo>
               )}
             </TokenButton>
           )
         })}
+        {!isBuyFlow && (
+          <TextLinkButton
+            type="button"
+            onClick={() => {
+              setViewAllAssets(!viewAllAssets)
+            }}
+          >
+            {viewAllAssets ? 'View less assets' : 'View all assets'}
+          </TextLinkButton>
+        )}
       </TokenList>
     )
   }
 
   return (
     <SelectTokenContent>
-      <ModalHeading>Select token</ModalHeading>
-      <ModalBody>
-        {isBuyFlow
-          ? 'Choose the token you want to purchase.'
-          : isBalancesLoading
-            ? 'Loading token balances...'
-            : 'Tokens without a balance are dimmed.'}
-      </ModalBody>
+      <ModalHeading>Select asset</ModalHeading>
       {renderContent()}
     </SelectTokenContent>
   )

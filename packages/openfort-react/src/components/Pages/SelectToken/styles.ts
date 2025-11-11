@@ -12,7 +12,7 @@ export const TokenList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 6px;
   flex: 1;
 `
 

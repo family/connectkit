@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
 import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import Input from '../../Common/Input'
-import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
+import { ModalHeading } from '../../Common/Modal/styles'
 import { type Asset, routes, type SendFormState } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
@@ -21,7 +21,7 @@ import {
   TokenSelectorRight,
   TokenSelectorValue,
 } from './styles'
-import { formatBalance, isSameToken, sanitiseForParsing, sanitizeAmountInput } from './utils'
+import { formatBalance, isSameToken, sanitizeAmountInput, sanitizeForParsing } from './utils'
 
 const Send = () => {
   const { sendForm, setSendForm, setRoute } = useOpenfort()
@@ -29,44 +29,10 @@ const Send = () => {
   // const { nativeOption, tokenOptions } = useTokens()
   const { data: assets, refetch } = useWalletAssets()
 
-  // Track if we're navigating to confirmation to avoid resetting amount
-  const isNavigatingToConfirmationRef = useRef(false)
-
   // Reset the ref when component mounts
   useEffect(() => {
     refetch()
-    isNavigatingToConfirmationRef.current = false
   }, [])
-
-  // Reset amount when component unmounts (navigating away or closing modal)
-  // but NOT when going to SendConfirmation
-  useEffect(() => {
-    return () => {
-      if (!isNavigatingToConfirmationRef.current) {
-        setSendForm((prev) => ({
-          ...prev,
-          amount: '',
-        }))
-      }
-    }
-  }, [setSendForm])
-
-  // useEffect(() => {
-  //   setSendForm((prev) => {
-  //     if (prev.token.type !== 'native') return prev
-  //     const nextSymbol = nativeOption.symbol || prev.token.symbol || 'ETH'
-  //     const nextDecimals = nativeOption.decimals ?? prev.token.decimals ?? 18
-  //     if (prev.token.symbol === nextSymbol && prev.token.decimals === nextDecimals) return prev
-  //     return {
-  //       ...prev,
-  //       token: {
-  //         type: 'native',
-  //         symbol: nextSymbol,
-  //         decimals: nextDecimals,
-  //       },
-  //     }
-  //   })
-  // }, [nativeOption.decimals, nativeOption.symbol, setSendForm])
 
   const matchedToken = useMemo(
     () => assets?.find((asset) => isSameToken(asset, sendForm.asset)),
@@ -80,7 +46,7 @@ const Send = () => {
   const selectedSymbol = (selectedToken.metadata?.symbol as string) ?? ''
 
   const parsedAmount = useMemo(() => {
-    const rawAmount = sanitiseForParsing(sendForm.amount)
+    const rawAmount = sanitizeForParsing(sendForm.amount)
     if (!rawAmount) return null
     try {
       return parseUnits(rawAmount, selectedDecimalsValue)
@@ -100,15 +66,14 @@ const Send = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!canProceed) return
-    const normalised = sanitiseForParsing(sendForm.amount)
-    if (!normalised) return
+    const normalized = sanitizeForParsing(sendForm.amount)
+    if (!normalized) return
     setSendForm((prev: SendFormState) => ({
       ...prev,
-      amount: normalised,
+      amount: normalized,
       token: selectedToken,
     }))
     // Mark that we're navigating to confirmation so amount isn't reset
-    isNavigatingToConfirmationRef.current = true
     setRoute(routes.SEND_CONFIRMATION)
   }
 
@@ -147,17 +112,10 @@ const Send = () => {
 
   return (
     <PageContent onBack={'profile'}>
-      <ModalHeading>Send tokens</ModalHeading>
-      <ModalBody>Choose a recipient, token, and amount to send.</ModalBody>
+      <ModalHeading>Send assets</ModalHeading>
       <Form onSubmit={handleSubmit}>
         <Field>
-          <FieldLabel>Recipient address</FieldLabel>
-          <Input placeholder="0x..." value={sendForm.recipient} onChange={handleRecipientChange} autoComplete="off" />
-          {sendForm.recipient && !recipientValid && <ErrorText>Enter a valid wallet address.</ErrorText>}
-        </Field>
-
-        <Field>
-          <FieldLabel>Token</FieldLabel>
+          <FieldLabel>Asset</FieldLabel>
           <TokenSelectorButton type="button" onClick={handleOpenTokenSelector}>
             <TokenSelectorContent>
               <TokenSelectorValue $primary>{selectedSymbol || 'Select token'}</TokenSelectorValue>
@@ -198,6 +156,12 @@ const Send = () => {
           </HelperText>
           {sendForm.amount && parsedAmount === null && <ErrorText>Enter a valid amount.</ErrorText>}
           {insufficientBalance && <ErrorText>Insufficient balance for this transfer.</ErrorText>}
+        </Field>
+
+        <Field>
+          <FieldLabel>Recipient address</FieldLabel>
+          <Input placeholder="0x..." value={sendForm.recipient} onChange={handleRecipientChange} autoComplete="off" />
+          {sendForm.recipient && !recipientValid && <ErrorText>Enter a valid wallet address.</ErrorText>}
         </Field>
 
         <Button variant="primary" disabled={!canProceed}>

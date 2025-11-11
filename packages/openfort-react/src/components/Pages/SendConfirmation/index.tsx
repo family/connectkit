@@ -22,7 +22,7 @@ import { Spinner } from '../../Common/Spinner'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { formatBalance, getAssetDecimals, getAssetSymbol, isSameToken, sanitiseForParsing } from '../Send/utils'
+import { formatBalance, getAssetDecimals, getAssetSymbol, isSameToken, sanitizeForParsing } from '../Send/utils'
 import { EstimatedFees } from './EstimatedFees'
 import {
   AddressValue,
@@ -48,7 +48,7 @@ const SendConfirmation = () => {
   const chainId = chain?.id
 
   const recipientAddress = isAddress(sendForm.recipient) ? (sendForm.recipient as Address) : undefined
-  const normalisedAmount = sanitiseForParsing(sendForm.amount)
+  const normalisedAmount = sanitizeForParsing(sendForm.amount)
 
   const { data: nativeBalance, refetch: refetchNativeBalance } = useBalance({
     address,
@@ -248,7 +248,6 @@ const SendConfirmation = () => {
 
   useEffect(() => {
     setTimeout(triggerResize, 10) // delay required here for modal to resize
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorDetails, insufficientBalance, receipt?.transactionHash, isLoading])
 
   return (

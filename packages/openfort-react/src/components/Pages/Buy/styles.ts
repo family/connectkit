@@ -44,6 +44,7 @@ export const AmountInput = styled.input`
   line-height: 1;
   padding: 0;
   outline: none;
+  width: 100%;
 
   &::placeholder {
     color: var(--ck-body-color-muted);

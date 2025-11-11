@@ -101,7 +101,7 @@ const enUS = {
   injectionScreen_notconnected_p: `To continue, please login to your {{ CONNECTORNAME }} extension.`,
 
   profileScreen_heading: 'Connected',
-  buyScreen_heading: 'Add funds to your wallet',
+  buyScreen_heading: 'Add funds',
   buyScreen_subheading: 'Select an amount and token to top up.',
   buyScreen_payWithCard_title: 'Pay with card',
   buyScreen_payWithCard_description: 'Use Stripe or Google Pay for a quick card purchase.',

@@ -3,16 +3,16 @@ import type { Asset } from '../../Openfort/types'
 
 export const sanitizeAmountInput = (value: string) => value.replace(/,/g, '.')
 
-export const sanitiseForParsing = (value: string) => {
+export const sanitizeForParsing = (value: string) => {
   const trimmed = value.trim()
   if (!trimmed) return null
   if (trimmed === '.') return null
 
-  let normalised = trimmed
-  if (normalised.startsWith('.')) normalised = `0${normalised}`
-  if (normalised.endsWith('.')) normalised = normalised.slice(0, -1)
-  if (!normalised) return null
-  return normalised
+  let normalized = trimmed
+  if (normalized.startsWith('.')) normalized = `0${normalized}`
+  if (normalized.endsWith('.')) normalized = normalized.slice(0, -1)
+  if (!normalized) return null
+  return normalized
 }
 
 export const formatBalance = (value: bigint | undefined, decimals: number) => {
