@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
 import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import Button from '../../Common/Button'
-import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
@@ -175,140 +175,136 @@ const BuySelectProvider = () => {
 
   return (
     <PageContent onBack={handleBack}>
-      <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
-        <ModalHeading>Select Provider</ModalHeading>
-        <ModalBody>{formattedFiat && `Buying ${formattedFiat} of ${tokenSymbol}`}</ModalBody>
-        <ModalBody style={{ marginTop: 4, fontSize: '12px', opacity: 0.7 }}>
-          {isLoadingQuote ? 'Loading quotes...' : `Quotes refresh in ${quoteRefreshTimer}s`}
-        </ModalBody>
+      <ModalHeading>Select Provider</ModalHeading>
+      <ModalBody>{formattedFiat && `Buying ${formattedFiat} of ${tokenSymbol}`}</ModalBody>
+      <ModalBody style={{ marginTop: 4, fontSize: '12px', opacity: 0.7 }}>
+        {isLoadingQuote ? 'Loading quotes...' : `Quotes refresh in ${quoteRefreshTimer}s`}
+      </ModalBody>
 
-        <ProviderList>
-          {providers.map((provider) => {
-            // Get provider-specific quote data
-            const providerQuote = quotes[provider.id]
-            let providerNetAmount: number | null = null
-            let providerFeePercentage: string | null = null
-            let providerFiatAmount: number | null = fiatAmount
-            let isDisabled = false
-            let disabledReason = ''
-            let isEstimated = false
+      <ProviderList>
+        {providers.map((provider) => {
+          // Get provider-specific quote data
+          const providerQuote = quotes[provider.id]
+          let providerNetAmount: number | null = null
+          let providerFeePercentage: string | null = null
+          let providerFiatAmount: number | null = fiatAmount
+          let isDisabled = false
+          let disabledReason = ''
+          let isEstimated = false
 
-            if (provider.id === 'coinbase') {
-              // Check if token is supported
-              if (!isCoinbaseSupported(selectedToken)) {
-                isDisabled = true
-                disabledReason = 'Token not supported'
-              } else if (coinbaseError) {
-                isDisabled = true
-                disabledReason = 'Provider not supported'
-              } else if (providerQuote) {
-                const originalDestinationAmount = Number.parseFloat(providerQuote.destinationAmount)
+          if (provider.id === 'coinbase') {
+            // Check if token is supported
+            if (!isCoinbaseSupported(selectedToken)) {
+              isDisabled = true
+              disabledReason = 'Token not supported'
+            } else if (coinbaseError) {
+              isDisabled = true
+              disabledReason = 'Provider not supported'
+            } else if (providerQuote) {
+              const originalDestinationAmount = Number.parseFloat(providerQuote.destinationAmount)
 
-                // Normalize to target destination amount
-                if (
-                  targetDestinationAmount !== null &&
-                  Math.abs(originalDestinationAmount - targetDestinationAmount) > 0.000001
-                ) {
-                  // Amounts differ, need to estimate
-                  isEstimated = true
-                  providerNetAmount = targetDestinationAmount
+              // Normalize to target destination amount
+              if (
+                targetDestinationAmount !== null &&
+                Math.abs(originalDestinationAmount - targetDestinationAmount) > 0.000001
+              ) {
+                // Amounts differ, need to estimate
+                isEstimated = true
+                providerNetAmount = targetDestinationAmount
 
-                  // Estimate the cost: base amount + scaled fees
-                  // Formula: baseAmount + (fees × (targetAmount / originalAmount))
-                  const totalFees =
-                    providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
-                  const baseAmount = fiatAmount ?? 0
-                  const ratio = targetDestinationAmount / originalDestinationAmount
-                  const estimatedFees = totalFees * ratio
-                  providerFiatAmount = baseAmount + estimatedFees
+                // Estimate the cost: base amount + scaled fees
+                // Formula: baseAmount + (fees × (targetAmount / originalAmount))
+                const totalFees = providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
+                const baseAmount = fiatAmount ?? 0
+                const ratio = targetDestinationAmount / originalDestinationAmount
+                const estimatedFees = totalFees * ratio
+                providerFiatAmount = baseAmount + estimatedFees
 
-                  // Recalculate fee percentage based on estimated fees
-                  providerFeePercentage = baseAmount > 0 ? ((estimatedFees / baseAmount) * 100).toFixed(2) : null
-                } else {
-                  // Amounts match, use actual quote
-                  providerNetAmount = originalDestinationAmount
-                  const totalFees =
-                    providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
-                  providerFeePercentage = fiatAmount ? ((totalFees / fiatAmount) * 100).toFixed(2) : null
-                  const sourceAmount = Number.parseFloat(providerQuote.sourceAmount)
-                  providerFiatAmount = sourceAmount + totalFees
-                }
-              }
-            } else if (provider.id === 'stripe') {
-              // Check if token is supported
-              if (!isStripeSupported(selectedToken)) {
-                isDisabled = true
-                disabledReason = 'Token not supported'
-              } else if (stripeError) {
-                isDisabled = true
-                disabledReason = 'Provider not supported'
-              } else if (providerQuote) {
-                // Stripe quote is always used as-is (it typically has the best rate)
-                providerNetAmount = Number.parseFloat(providerQuote.destinationAmount)
-                // Use sourceAmount to show the actual total the user will pay
-                providerFiatAmount = Number.parseFloat(providerQuote.sourceAmount)
-                // Calculate total fees
+                // Recalculate fee percentage based on estimated fees
+                providerFeePercentage = baseAmount > 0 ? ((estimatedFees / baseAmount) * 100).toFixed(2) : null
+              } else {
+                // Amounts match, use actual quote
+                providerNetAmount = originalDestinationAmount
                 const totalFees = providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
                 providerFeePercentage = fiatAmount ? ((totalFees / fiatAmount) * 100).toFixed(2) : null
+                const sourceAmount = Number.parseFloat(providerQuote.sourceAmount)
+                providerFiatAmount = sourceAmount + totalFees
               }
             }
+          } else if (provider.id === 'stripe') {
+            // Check if token is supported
+            if (!isStripeSupported(selectedToken)) {
+              isDisabled = true
+              disabledReason = 'Token not supported'
+            } else if (stripeError) {
+              isDisabled = true
+              disabledReason = 'Provider not supported'
+            } else if (providerQuote) {
+              // Stripe quote is always used as-is (it typically has the best rate)
+              providerNetAmount = Number.parseFloat(providerQuote.destinationAmount)
+              // Use sourceAmount to show the actual total the user will pay
+              providerFiatAmount = Number.parseFloat(providerQuote.sourceAmount)
+              // Calculate total fees
+              const totalFees = providerQuote.fees?.reduce((sum, fee) => sum + Number.parseFloat(fee.amount), 0) ?? 0
+              providerFeePercentage = fiatAmount ? ((totalFees / fiatAmount) * 100).toFixed(2) : null
+            }
+          }
 
-            // Use real quote data if available, otherwise show loading or fallback
-            const netDisplay = isDisabled
-              ? disabledReason
-              : isLoadingQuote
-                ? '...'
-                : providerNetAmount !== null
-                  ? formatTokenAmount(providerNetAmount, tokenSymbol)
-                  : '--'
-            const fiatDisplay = isDisabled
-              ? ''
-              : providerFiatAmount !== null
-                ? `${isEstimated ? '~' : ''}${currencyFormatter.format(providerFiatAmount)}`
+          // Use real quote data if available, otherwise show loading or fallback
+          const netDisplay = isDisabled
+            ? disabledReason
+            : isLoadingQuote
+              ? '...'
+              : providerNetAmount !== null
+                ? formatTokenAmount(providerNetAmount, tokenSymbol)
                 : '--'
+          const fiatDisplay = isDisabled
+            ? ''
+            : providerFiatAmount !== null
+              ? `${isEstimated ? '~' : ''}${currencyFormatter.format(providerFiatAmount)}`
+              : '--'
 
-            // Use real fee percentage if available
-            const feePercentage = providerFeePercentage ?? (provider.feeBps / 100).toFixed(2)
-            const highlight =
-              provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
+          // Use real fee percentage if available
+          const feePercentage = providerFeePercentage ?? (provider.feeBps / 100).toFixed(2)
+          const highlight =
+            provider.highlight === 'best' ? 'Best price' : provider.highlight === 'fast' ? 'Fastest' : null
 
-            const metaText = isDisabled ? '' : `Fee ${isEstimated ? '~' : ''}${feePercentage}%`
+          const metaText = isDisabled ? '' : `Fee ${isEstimated ? '~' : ''}${feePercentage}%`
 
-            const isActive = buyForm.providerId === provider.id
+          const isActive = buyForm.providerId === provider.id
 
-            return (
-              <ProviderButton
-                key={provider.id}
-                type="button"
-                onClick={() => !isDisabled && handleSelectProvider(provider.id)}
-                $active={isActive}
-                disabled={isDisabled}
-              >
-                <ProviderInfo>
-                  <ProviderNameRow>
-                    <ProviderName>{provider.name}</ProviderName>
-                    {highlight && !isDisabled ? <ProviderBadge>{highlight}</ProviderBadge> : null}
-                  </ProviderNameRow>
-                  <ProviderMeta>{metaText}</ProviderMeta>
-                </ProviderInfo>
-                <ProviderRight>
-                  <ProviderQuote>{fiatDisplay}</ProviderQuote>
-                  <ProviderFiat>{netDisplay}</ProviderFiat>
-                </ProviderRight>
-              </ProviderButton>
-            )
-          })}
-        </ProviderList>
+          return (
+            <ProviderButton
+              key={provider.id}
+              type="button"
+              onClick={() => !isDisabled && handleSelectProvider(provider.id)}
+              $active={isActive}
+              disabled={isDisabled}
+            >
+              <ProviderInfo>
+                <ProviderNameRow>
+                  <ProviderName>{provider.name}</ProviderName>
+                  {highlight && !isDisabled ? <ProviderBadge>{highlight}</ProviderBadge> : null}
+                </ProviderNameRow>
+                <ProviderMeta>{metaText}</ProviderMeta>
+              </ProviderInfo>
+              <ProviderRight>
+                <ProviderQuote>{fiatDisplay}</ProviderQuote>
+                <ProviderFiat>{netDisplay}</ProviderFiat>
+              </ProviderRight>
+            </ProviderButton>
+          )
+        })}
+      </ProviderList>
 
-        <ContinueButtonWrapper>
-          <Button variant="secondary" onClick={handleBack}>
-            Back
-          </Button>
-          <Button variant="primary" onClick={handleContinue} disabled={step2Disabled}>
-            Continue
-          </Button>
-        </ContinueButtonWrapper>
-      </ModalContent>
+      <ContinueButtonWrapper>
+        <Button variant="secondary" onClick={handleBack}>
+          Back
+        </Button>
+        <Button variant="primary" onClick={handleContinue} disabled={step2Disabled}>
+          Continue
+        </Button>
+      </ContinueButtonWrapper>
     </PageContent>
   )
 }

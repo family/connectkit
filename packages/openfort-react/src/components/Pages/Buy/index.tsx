@@ -3,7 +3,7 @@ import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import useLocales from '../../../hooks/useLocales'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
-import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
@@ -111,63 +111,61 @@ const Buy = () => {
 
   return (
     <PageContent onBack={handleBack}>
-      <ModalContent style={{ paddingBottom: 18, textAlign: 'left' }}>
-        <ModalHeading>{locales.buyScreen_heading}</ModalHeading>
-        <ModalBody>{locales.buyScreen_subheading}</ModalBody>
+      <ModalHeading>{locales.buyScreen_heading}</ModalHeading>
+      <ModalBody>{locales.buyScreen_subheading}</ModalBody>
 
-        <Section>
-          <SectionLabel>Amount</SectionLabel>
-          <AmountCard>
-            <CurrencySymbol>{currencySymbol}</CurrencySymbol>
-            <AmountInput
-              value={buyForm.amount}
-              onChange={handleAmountChange}
-              onBlur={handleAmountBlur}
-              placeholder="0.00"
-              inputMode="decimal"
-              autoComplete="off"
-            />
-          </AmountCard>
-          <PresetList>
-            {amountPresets.map((preset) => (
-              <PresetButton
-                key={preset}
-                type="button"
-                onClick={() => handlePresetClick(preset)}
-                $active={isPresetSelected(preset)}
-              >
-                {currencyFormatter.format(preset)}
-              </PresetButton>
-            ))}
-          </PresetList>
-        </Section>
+      <Section>
+        <SectionLabel>Amount</SectionLabel>
+        <AmountCard>
+          <CurrencySymbol>{currencySymbol}</CurrencySymbol>
+          <AmountInput
+            value={buyForm.amount}
+            onChange={handleAmountChange}
+            onBlur={handleAmountBlur}
+            placeholder="0.00"
+            inputMode="decimal"
+            autoComplete="off"
+          />
+        </AmountCard>
+        <PresetList>
+          {amountPresets.map((preset) => (
+            <PresetButton
+              key={preset}
+              type="button"
+              onClick={() => handlePresetClick(preset)}
+              $active={isPresetSelected(preset)}
+            >
+              {currencyFormatter.format(preset)}
+            </PresetButton>
+          ))}
+        </PresetList>
+      </Section>
 
-        <Section>
-          <SectionLabel>Token</SectionLabel>
-          <SelectorButton type="button" onClick={handleOpenTokenSelector}>
-            <SelectorContent>
-              <SelectorTitle>{tokenSymbol || 'Select token'}</SelectorTitle>
-              <SelectorSubtitle>{tokenName}</SelectorSubtitle>
-            </SelectorContent>
-            <SelectorRight>
-              <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ArrowChevron
-                  stroke="currentColor"
-                  d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </Arrow>
-            </SelectorRight>
-          </SelectorButton>
-        </Section>
+      <Section>
+        <SectionLabel>Token</SectionLabel>
+        <SelectorButton type="button" onClick={handleOpenTokenSelector}>
+          <SelectorContent>
+            <SelectorTitle>{tokenSymbol || 'Select token'}</SelectorTitle>
+            <SelectorSubtitle>{tokenName}</SelectorSubtitle>
+          </SelectorContent>
+          <SelectorRight>
+            <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ArrowChevron
+                stroke="currentColor"
+                d="M7.51431 1.5L11.757 5.74264M7.5 10.4858L11.7426 6.24314"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </Arrow>
+          </SelectorRight>
+        </SelectorButton>
+      </Section>
 
-        <ContinueButtonWrapper>
-          <Button variant="primary" onClick={handleContinue} disabled={step1Disabled}>
-            Continue
-          </Button>
-        </ContinueButtonWrapper>
-      </ModalContent>
+      <ContinueButtonWrapper>
+        <Button variant="primary" onClick={handleContinue} disabled={step1Disabled}>
+          Continue
+        </Button>
+      </ContinueButtonWrapper>
     </PageContent>
   )
 }

@@ -1,4 +1,5 @@
 import styled from '../../../styles/styled'
+import { ButtonContainer } from '../../Common/Button/styles'
 
 export const Section = styled.div`
   display: flex;
@@ -130,6 +131,10 @@ export const ContinueButtonWrapper = styled.div`
 
   > button {
     flex: 1;
+  }
+
+  ${ButtonContainer} {
+    margin: 0;
   }
 `
 
