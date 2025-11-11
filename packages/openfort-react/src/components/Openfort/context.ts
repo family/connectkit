@@ -32,7 +32,7 @@ export type ContextValue = {
   lang: Languages
   setLang: React.Dispatch<React.SetStateAction<Languages>>
   open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setOpen: (value: boolean) => void
   route: RouteOptions
   setRoute: (options: SetRouteOptions) => void
   onBack: (() => void) | null

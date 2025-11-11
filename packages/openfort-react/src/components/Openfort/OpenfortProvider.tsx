@@ -222,7 +222,7 @@ export const OpenfortProvider = ({
   const [ckMode, setMode] = useState<Mode>(safeUiConfig.mode ?? 'auto')
   const [ckCustomTheme, setCustomTheme] = useState<CustomTheme | undefined>(safeUiConfig.customTheme ?? {})
   const [ckLang, setLang] = useState<Languages>('en-US')
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpenWithoutHistory] = useState<boolean>(false)
   const [connector, setConnector] = useState<ContextValue['connector']>({
     id: '',
   })
@@ -236,6 +236,13 @@ export const OpenfortProvider = ({
   const [sendForm, setSendForm] = useState<SendFormState>(defaultSendFormState)
   const [buyForm, setBuyForm] = useState<BuyFormState>(defaultBuyFormState)
   const [headerLeftSlot, setHeaderLeftSlot] = useState<React.ReactNode | null>(null)
+
+  const setOpen = (value: boolean) => {
+    if (value) {
+      setRouteHistory([])
+    }
+    setOpenWithoutHistory(value)
+  }
 
   // Include Google Font that is needed for a themes
   useThemeFont(safeUiConfig.embedGoogleFonts ? ckTheme : ('' as Theme))
