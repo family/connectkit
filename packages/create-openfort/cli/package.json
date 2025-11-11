@@ -1,0 +1,78 @@
+{
+  "name": "create-openfort",
+  "version": "0.1.0",
+  "description": "Create Openfort applications with embedded wallets",
+  "license": "MIT",
+  "author": "Openfort (https://www.openfort.xyz)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openfort-xyz/create-openfort.git",
+    "directory": "cli"
+  },
+  "keywords": [
+    "create-openfort",
+    "openfort",
+    "embedded-wallets",
+    "web3",
+    "blockchain",
+    "react",
+    "vite",
+    "typescript"
+  ],
+  "type": "module",
+  "exports": "./dist/index.js",
+  "bin": {
+    "create-openfort": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "template",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    ".yarnrc.yml",
+    "package.json"
+  ],
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist .turbo node_modules",
+    "start": "node dist/index.js",
+    "lint": "eslint",
+    "lint:fix": "pnpm lint --fix",
+    "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write",
+    "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check",
+    "release": "changeset version",
+    "pub:beta": "pnpm build && npm publish --tag beta",
+    "pub:next": "pnpm build && npm publish --tag next",
+    "pub:release": "pnpm build && npm publish"
+  },
+  "dependencies": {
+    "@clack/core": "^0.3.4",
+    "@clack/prompts": "^0.6.3",
+    "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
+    "chalk": "5.2.0",
+    "commander": "^10.0.1",
+    "execa": "^7.2.0",
+    "fs-extra": "^11.2.0",
+    "gradient-string": "^2.0.2",
+    "ora": "6.3.1",
+    "sort-package-json": "^2.10.0"
+  },
+  "devDependencies": {
+    "@openfort/react": "^0.0.17",
+    "@types/fs-extra": "^11.0.4",
+    "@types/gradient-string": "^1.1.6",
+    "@types/node": "^20.14.10",
+    "prettier": "^3.5.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^6.7.0",
+    "type-fest": "^3.13.1",
+    "typescript": "^5.8.2"
+  }
+}
