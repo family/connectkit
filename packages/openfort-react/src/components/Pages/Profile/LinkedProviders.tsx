@@ -4,7 +4,7 @@ import { EmailIcon, WalletIcon as Wallet } from '../../../assets/icons'
 import Logos, { providersLogos } from '../../../assets/logos'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { useWallets } from '../../../wallets/useWallets'
+import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
 import FitText from '../../Common/FitText'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -16,7 +16,7 @@ type LinkedProvidersProps = {
 }
 
 const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
-  const wallets = useWallets()
+  const wallets = useWagmiWallets()
   const wallet = useMemo(() => {
     return wallets.find((w) => w.id?.toLowerCase() === provider.walletClientType)
   }, [provider])

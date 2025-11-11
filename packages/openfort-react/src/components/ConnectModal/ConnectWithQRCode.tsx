@@ -1,199 +1,117 @@
-import React, { useEffect } from 'react'
-import { useAccount, useDisconnect } from 'wagmi'
-import { ExternalLinkIcon } from '../../assets/icons'
-import ScanIconWithLogos from '../../assets/ScanIconWithLogos'
+import { useEffect, useState } from 'react'
+import { useAccount, useEnsName } from 'wagmi'
 import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
-import useLocales from '../../hooks/useLocales'
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal'
-import { detectBrowser, isFamilyAccountsConnector, isWalletConnectConnector } from '../../utils'
-import { logger } from '../../utils/logger'
-import { useWallet } from '../../wallets/useWallets'
-import Button from '../Common/Button'
-import { CopyButton } from '../Common/CopyToClipboard'
-import CustomQRCode from '../Common/CustomQRCode'
-import { OrDivider } from '../Common/Modal'
-import { ModalContent } from '../Common/Modal/styles'
-import { useWeb3 } from '../contexts/web3'
+import { truncateEthAddress } from '../../utils'
+import { useWallet } from '../../wallets/useWagmiWallets'
+import { CopyText } from '../Common/CopyToClipboard'
+import Loader from '../Common/Loading'
+import { ModalBody } from '../Common/Modal/styles'
 import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import { PageContent } from '../PageContent'
 
-const ConnectWithQRCode: React.FC<{
-  switchConnectMethod: (id?: string) => void
-}> = ({ switchConnectMethod }) => {
-  const { connector, setRoute, uiConfig } = useOpenfort()
-
-  const id = connector.id
-
+const ConnectWithSiwe = () => {
+  const { isConnected, address } = useAccount()
+  const { connector, setRoute } = useOpenfort()
   const wallet = useWallet(connector.id)
 
-  const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal()
-  const {
-    connect: { getUri },
-  } = useWeb3()
+  const [error, setError] = useState<string | undefined>(undefined)
+  const siwe = useConnectWithSiwe()
+  const [description, setDescription] = useState<string | undefined>(undefined)
 
-  const wcUri = getUri(id)
-  const uri = wcUri ? (wallet?.getWalletConnectDeeplink?.(wcUri) ?? wcUri) : undefined
+  const connectWithSiwe = () => {
+    setDescription('Requesting signature to verify wallet...')
+    siwe({
+      walletClientType: connector.id,
+      onConnect: () => {
+        setRoute(routes.PROFILE)
+      },
+      onError: (error) => {
+        setError(error || 'Connection failed')
+        setDescription(undefined)
+      },
+    })
+  }
 
-  const locales = useLocales({
-    CONNECTORNAME: wallet?.name,
-  })
-
-  const connectWithSiwe = useConnectWithSiwe()
-  const { isConnected } = useAccount()
-  const { setOpen } = useOpenfort()
-  const { disconnect } = useDisconnect()
-
-  const [isFirstFrame, setIsFirstFrame] = React.useState(true)
   useEffect(() => {
-    // When the component is first rendered, we disconnect the user if they are connected
-    if (isFirstFrame) {
-      setIsFirstFrame(false)
-      if (isConnected) {
-        disconnect()
-      }
-    } else {
-      // When connected with WalletConnect, we connect with SIWE
-      if (isConnected) {
-        connectWithSiwe({
-          // connectorType: 'walletConnect',
-          // walletClientType: 'walletConnect',
-          onError: (error) => {
-            logger.log(error)
-            disconnect()
-          },
-          onConnect: () => {
-            setOpen(false)
-          },
-        })
-      }
+    if (isConnected) {
+      connectWithSiwe()
     }
   }, [isConnected])
 
-  if (!wallet) return <>Wallet not found {connector.id}</>
-
-  const downloads = wallet?.downloadUrls
-  const extensions = {
-    chrome: downloads?.chrome,
-    firefox: downloads?.firefox,
-    brave: downloads?.brave,
-    edge: downloads?.edge,
-    safari: downloads?.safari,
-  }
-
-  const _browser = detectBrowser()
-
-  const hasApps = downloads && Object.keys(downloads).length !== 0
-
-  const _suggestedExtension = extensions
-    ? {
-        name: Object.keys(extensions)[0],
-        label: Object.keys(extensions)[0]?.charAt(0).toUpperCase() + Object.keys(extensions)[0]?.slice(1), // Capitalise first letter, but this might be better suited as a lookup table
-        url: extensions[Object.keys(extensions)[0]],
-      }
-    : undefined
-
-  const showAdditionalOptions = isWalletConnectConnector(id)
+  const { data: ensName } = useEnsName({
+    chainId: 1,
+    address: address,
+  })
 
   return (
     <PageContent>
-      <ModalContent style={{ paddingBottom: 8, gap: 14 }}>
-        <CustomQRCode
-          value={uri}
-          image={wallet?.icon}
-          tooltipMessage={
-            isWalletConnectConnector(id) ? (
-              <>
-                <ScanIconWithLogos />
-                <span>{locales.scanScreen_tooltip_walletConnect}</span>
-              </>
-            ) : (
-              <>
-                <ScanIconWithLogos logo={wallet?.icon} />
-                <span>{locales.scanScreen_tooltip_default}</span>
-              </>
-            )
-          }
-        />
-        {showAdditionalOptions ? <OrDivider /> : hasApps && <OrDivider>{locales.dontHaveTheApp}</OrDivider>}
-      </ModalContent>
-
-      {showAdditionalOptions && ( // for walletConnect
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 14,
-          }}
-        >
-          {uiConfig.walletConnectCTA !== 'modal' && (
-            <CopyButton value={uri ?? ''}>
-              {uiConfig.walletConnectCTA === 'link' ? locales.copyToClipboard : locales.copyCode}
-            </CopyButton>
-          )}
-          {uiConfig.walletConnectCTA !== 'link' && (
-            <Button icon={<ExternalLinkIcon />} onClick={openW3M} disabled={isOpenW3M} waiting={isOpenW3M}>
-              {uiConfig.walletConnectCTA === 'modal' ? locales.useWalletConnectModal : locales.useModal}
-            </Button>
-          )}
-        </div>
-      )}
-
-      {isFamilyAccountsConnector(wallet.id) && (
-        <>
-          <OrDivider />
-          <Button onClick={() => switchConnectMethod(id)}>{locales.loginWithEmailOrPhone}</Button>
-        </>
-      )}
-      {/*
-      {hasExtensionInstalled && ( // Run the extension
-        <Button
-          icon={connectorInfo?.logos.default}
-          roundedIcon
-          onClick={() => switchConnectMethod(id)}
-        >
-          Open {connectorInfo?.name}
-        </Button>
-      )}
-
-      {!hasExtensionInstalled && extensionUrl && (
-        <Button href={extensionUrl} icon={<BrowserIcon />}>
-          {locales.installTheExtension}
-        </Button>
-      )}
-      */}
-
-      {hasApps && (
-        <Button
-          onClick={() => {
-            setRoute(routes.DOWNLOAD)
-          }}
-          /*
-            icon={
-              <div style={{ background: connectorInfo?.icon }}>
-                {connectorInfo?.logos.default}
-              </div>
-            }
-            roundedIcon
-            */
-          download
-        >
-          {locales.getWalletName}
-        </Button>
-      )}
-      {/*
-        {suggestedExtension && (
-          <Button
-            href={suggestedExtension?.url}
-            icon={<BrowserIcon browser={suggestedExtension?.name} />}
-          >
-            Install on {suggestedExtension?.label}
-          </Button>
-        }
-        */}
+      <ModalBody style={{ textAlign: 'center' }}>
+        Connected{/*  with */}
+        {/* <CopyText string={address}>{ensName ?? truncateEthAddress(address)}</CopyText> */}
+      </ModalBody>
+      <Loader
+        header={'Sign in to your wallet'}
+        icon={wallet?.icon}
+        isError={!!error}
+        description={error ?? description}
+        onRetry={() => connectWithSiwe()}
+      />
     </PageContent>
   )
+}
+
+const ConnectWithWalletConnect = () => {
+  const { connector } = useOpenfort()
+  const wallet = useWallet(connector.id)
+
+  const [error, setError] = useState<string | undefined>(undefined)
+  const { open: openWalletConnectModal } = useWalletConnectModal()
+
+  useEffect(() => {
+    openWCModal()
+  }, [])
+
+  const openWCModal = async () => {
+    setError(undefined)
+
+    const { error } = await openWalletConnectModal()
+    if (error) {
+      setError(error)
+    }
+  }
+
+  return (
+    <PageContent>
+      <Loader
+        header={error ? 'Error connecting wallet.' : `Connecting...`}
+        icon={wallet?.icon}
+        isError={!!error}
+        description={error}
+        onRetry={() => openWCModal()}
+      />
+    </PageContent>
+  )
+}
+
+const ConnectWithQRCode = () => {
+  const { connector, triggerResize } = useOpenfort()
+  const { isConnected } = useAccount()
+
+  useEffect(() => {
+    triggerResize()
+  }, [isConnected])
+
+  const wallet = useWallet(connector.id)
+
+  if (!wallet) return <Loader header={`Connector not found: ${connector.id}`} isError />
+
+  if (isConnected) {
+    return <ConnectWithSiwe />
+  }
+
+  return <ConnectWithWalletConnect />
 }
 
 export default ConnectWithQRCode

@@ -11,7 +11,7 @@ import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import Loader from '../../Common/Loading'
 import PoweredByFooter from '../../Common/PoweredByFooter'
-import { routes, UIAuthProvider } from '../../Openfort/types'
+import { routes, socialProviders, UIAuthProvider } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import type { SetOnBackFunction } from '../../PageContent'
 import { PageContent } from '../../PageContent'
@@ -194,11 +194,11 @@ const AddressButNoUserCase: React.FC = () => {
   )
 }
 
-const SocialProvidersButton = () => {
+const SocialProvidersButton = ({ thereAreSocialsAlready }: { thereAreSocialsAlready: boolean }) => {
   const { setRoute } = useOpenfort()
   return (
     <ProviderButton onClick={() => setRoute(routes.SOCIAL_PROVIDERS)} icon={<OtherSocials />}>
-      Other socials
+      {thereAreSocialsAlready ? 'Other socials' : 'Social providers'}
     </ProviderButton>
   )
 }
@@ -225,7 +225,9 @@ const Providers: React.FC = () => {
       {mainProviders.map((auth) => (
         <ProviderButtonSwitch key={auth} provider={auth} />
       ))}
-      {hasExcessProviders && <SocialProvidersButton />}
+      {hasExcessProviders && (
+        <SocialProvidersButton thereAreSocialsAlready={!!mainProviders.find((p) => socialProviders.includes(p))} />
+      )}
       <PoweredByFooter showDisclaimer={true} />
     </PageContent>
   )

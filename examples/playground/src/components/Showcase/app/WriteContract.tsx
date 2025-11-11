@@ -62,7 +62,7 @@ export const WriteContractCard = () => {
         <CardDescription>
           Contract Address: <TruncatedText text="0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac" />
         </CardDescription>
-        {!balanceError && <CardDescription>Balance: {balance?.toString() || 0}</CardDescription>}
+        <CardDescription>Balance: {balanceError ? '-' : balance?.toString() || 0}</CardDescription>
       </CardHeader>
       <CardContent>
         <form

@@ -1,9 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
+import type { Hex } from 'viem'
 
 type Key = string
-type PrivateKey = string
+export type StoredData = {
+  privateKey: Hex
+  publicKey: Hex
+  sessionKeyId: string
+  active: boolean
+}
 
-type PrivateKeysMap = Record<Key, PrivateKey[]>
+type PrivateKeysMap = Record<Key, StoredData[]>
 
 const STORAGE_KEY = 'openfort.playground.sessionkeys'
 
@@ -33,7 +39,7 @@ export function useSessionKeysStorage_backendSimulation() {
     }
   }, [keys])
 
-  const addPrivateKey = useCallback((chain: Key, privateKey: PrivateKey) => {
+  const addPrivateKey = useCallback((chain: Key, privateKey: StoredData) => {
     setKeys((prev) => ({
       ...prev,
       [chain]: [...(prev[chain] ?? []), privateKey],
@@ -41,7 +47,7 @@ export function useSessionKeysStorage_backendSimulation() {
   }, [])
 
   const getPrivateKeys = useCallback(
-    (chain: Key): PrivateKey[] => {
+    (chain: Key): StoredData[] => {
       if (typeof window === 'undefined') return []
       try {
         const stored = localStorage.getItem(STORAGE_KEY)
@@ -53,11 +59,22 @@ export function useSessionKeysStorage_backendSimulation() {
     [keys]
   )
 
-  const removePrivateKey = useCallback((chain: Key, privateKey: PrivateKey) => {
+  const updatePrivateKey = useCallback((chain: Key, privateKey: Partial<StoredData>) => {
     setKeys((prev) => {
       const updated = { ...prev }
       if (!updated[chain]) return prev
-      updated[chain] = updated[chain].filter((k) => k !== privateKey)
+      updated[chain] = updated[chain].map((k) =>
+        k.sessionKeyId === privateKey.sessionKeyId ? { ...k, ...privateKey } : k
+      )
+      return updated
+    })
+  }, [])
+
+  const removePrivateKey = useCallback((chain: Key, sessionKeyId: string) => {
+    setKeys((prev) => {
+      const updated = { ...prev }
+      if (!updated[chain]) return prev
+      updated[chain] = updated[chain].filter((k) => k.sessionKeyId !== sessionKeyId)
       if (updated[chain].length === 0) delete updated[chain]
       return updated
     })
@@ -77,6 +94,7 @@ export function useSessionKeysStorage_backendSimulation() {
     addPrivateKey,
     getPrivateKeys,
     removePrivateKey,
+    updatePrivateKey,
     clearChainKeys,
     clearAll,
   }

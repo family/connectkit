@@ -17,9 +17,10 @@
     "check:fix": "biome check --write",
     "check:types": "tsc --noEmit",
     "check:unused": "knip",
-    "check:all": "pnpm check && pnpm check:types && pnpm check:unused",
+    "check:audit": "pnpm audit --audit-level=moderate",
+    "check:all": "pnpm check && pnpm check:types && pnpm check:unused && pnpm check:audit",
     "changeset": "changeset",
-    "changeset:version": "pnpm install --lockfile-only && changeset version && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
+    "changeset:version": "pnpm install --lockfile-only && changeset version && node build.js && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
     "changeset:publish": "pnpm build && changeset publish",
     "changeset:prepublish": "pnpm build",
     "dev": "pnpm --filter @openfort/react dev",
@@ -71,7 +72,8 @@
       "**/node_modules/**",
       "packages/openfort-react/rollup.config.dev.js",
       "packages/openfort-react/rollup.config.prod.js",
-      "**/*.gen.ts"
+      "**/*.gen.ts",
+      "examples/playground/src/api/**"
     ],
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",

@@ -89,7 +89,7 @@ function flattenChildren(children: React.ReactNode): ReactChildArray {
 
 export const isWalletConnectConnector = (connectorId?: string) => connectorId === 'walletConnect'
 
-export const isFamilyAccountsConnector = (connectorId?: string) => connectorId === 'familyAccountsProvider'
+const _isFamilyAccountsConnector = (connectorId?: string) => connectorId === 'familyAccountsProvider'
 
 const _isFamilyConnector = (connectorId?: string) => connectorId === 'co.family.wallet'
 
@@ -99,7 +99,7 @@ export const isCoinbaseWalletConnector = (connectorId?: string) => connectorId =
 
 const _isLedgerConnector = (connectorId?: string) => connectorId === 'ledger'
 
-export const isPortoConnector = (connectorId?: string) => connectorId === 'xyz.ithaca.porto'
+const _isPortoConnector = (connectorId?: string) => connectorId === 'xyz.ithaca.porto'
 
 export const isSafeConnector = (connectorId?: string) => connectorId === 'safe'
 

@@ -3,6 +3,7 @@ import type { Hex } from 'viem'
 import { erc7715Actions, type GrantPermissionsParameters, type GrantPermissionsReturnType } from 'viem/experimental'
 import { useChainId, useWalletClient } from 'wagmi'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
+import { logger } from '../../utils/logger'
 import { useChains } from '../useChains'
 import { type BaseFlowState, mapStatus } from './auth/status'
 import { onError, onSuccess } from './hookConsistency'
@@ -14,7 +15,6 @@ type GrantPermissionsRequest = {
 
 type GrantPermissionsResult = {
   address: `0x${string}`
-  privateKey: `0x${string}`
 } & GrantPermissionsReturnType
 
 type GrantPermissionsHookResult = {
@@ -115,10 +115,12 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
   const [data, setData] = useState<GrantPermissionsResult | null>(null)
   const grantPermissions = useCallback(
     async (
-      { request, sessionKey }: GrantPermissionsRequest,
+      { request }: GrantPermissionsRequest,
       options: GrantPermissionsHookOptions = {}
     ): Promise<GrantPermissionsHookResult> => {
       try {
+        logger.log('Granting permissions with request:', request)
+
         if (!walletClient) {
           throw new OpenfortError('Wallet client not available', OpenfortErrorType.WALLET_ERROR)
         }
@@ -141,9 +143,10 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
 
         const data: GrantPermissionsResult = {
           address: account,
-          privateKey: sessionKey,
           ...grantPermissionsResult,
         }
+
+        logger.log('Grant permissions result:', data)
 
         setData(data)
         setStatus({

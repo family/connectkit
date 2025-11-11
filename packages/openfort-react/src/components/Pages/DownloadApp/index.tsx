@@ -1,5 +1,5 @@
 import useLocales from '../../../hooks/useLocales'
-import { useWallet } from '../../../wallets/useWallets'
+import { useWallet } from '../../../wallets/useWagmiWallets'
 import CustomQRCode from '../../Common/CustomQRCode'
 import { ModalBody, ModalContent } from '../../Common/Modal/styles'
 import { useOpenfort } from '../../Openfort/useOpenfort'

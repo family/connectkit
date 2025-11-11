@@ -1,13 +1,11 @@
 import type React from 'react'
 import useLocales from '../../../hooks/useLocales'
 import { useWalletConnectModal } from '../../../hooks/useWalletConnectModal'
-import { useWallets } from '../../../wallets/useWallets'
+import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
 import { walletConfigs } from '../../../wallets/walletConfigs'
-import { CopyButton } from '../../Common/CopyToClipboard'
 import { ModalContent } from '../../Common/Modal/styles'
 import { ScrollArea } from '../../Common/ScrollArea'
 import { Spinner } from '../../Common/Spinner'
-import { useWeb3 } from '../../contexts/web3'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
@@ -24,13 +22,8 @@ const MobileConnectors: React.FC = () => {
   const context = useOpenfort()
   const locales = useLocales()
 
-  const {
-    connect: { getUri },
-  } = useWeb3()
-  const wcUri = getUri()
-
   const { open: openW3M, isOpen: isOpenW3M } = useWalletConnectModal()
-  const wallets = useWallets()
+  const wallets = useWagmiWallets()
 
   // filter out installed wallets
   const walletsIdsToDisplay =
@@ -51,7 +44,7 @@ const MobileConnectors: React.FC = () => {
       <Container>
         <ModalContent style={{ paddingBottom: 0 }}>
           <ScrollArea height={340}>
-            <WalletList $disabled={!wcUri}>
+            <WalletList>
               {walletsIdsToDisplay
                 .sort(
                   // sort by name
@@ -109,7 +102,7 @@ const MobileConnectors: React.FC = () => {
             </WalletList>
           </ScrollArea>
         </ModalContent>
-        {context.uiConfig.walletConnectCTA !== 'modal' && (
+        {/* {context.uiConfig.walletConnectCTA !== 'modal' && (
           <div
             style={{
               display: 'flex',
@@ -119,9 +112,9 @@ const MobileConnectors: React.FC = () => {
               paddingTop: 8,
             }}
           >
-            <CopyButton value={wcUri}>{locales.copyToClipboard}</CopyButton>
+            <CopyButton value="">{locales.copyToClipboard}</CopyButton>
           </div>
-        )}
+        )} */}
       </Container>
     </PageContent>
   )

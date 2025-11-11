@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { logger } from '../../utils/logger'
-import { useWallet } from '../../wallets/useWallets'
+import { useWallet } from '../../wallets/useWagmiWallets'
 import Alert from '../Common/Alert'
 import { contentVariants } from '../Common/Modal'
 import { useOpenfort } from '../Openfort/useOpenfort'
@@ -56,13 +56,7 @@ const ConnectUsing = () => {
           exit={'exit'}
           variants={contentVariants}
         >
-          <ConnectWithQRCode
-            switchConnectMethod={(_id?: string) => {
-              //if (id) setId(id);
-              setStatus(states.INJECTOR)
-              setTimeout(context.triggerResize, 10) // delay required here for modal to resize
-            }}
-          />
+          <ConnectWithQRCode />
         </motion.div>
       )}
       {status === states.INJECTOR && (

@@ -138,7 +138,7 @@ npx @better-auth/cli migrate
 
 This creates the SQLite database (`auth.db`) in the server directory.
 
-### 4. Configure Openfort Custom Authentication
+### 4. Configure Openfort Better-Auth Authentication
 
 For Openfort to verify user sessions, you need to expose your local backend to the internet during development:
 
@@ -157,9 +157,8 @@ ngrok http 3000
 Copy the generated public URL (e.g., `https://your-tunnel-url.loca.lt`) and configure it in your [Openfort Dashboard](https://dashboard.openfort.io/):
 
 1. Navigate to **Configuration > Providers**
-2. Enable the **Custom** authentication provider
-3. Set **Authentication URL**: `https://your-tunnel-url/api/openfort/verify`
-4. Set **Headers**: `X-Openfort-Secret: dev-shared-secret`
+2. Enable the **Better-Auth** authentication provider
+3. Set **Base URL**: `https://your-tunnel-url/api/auth` to the path where your Better Auth API is exposed
 
 ### 5. Start Development Servers
 

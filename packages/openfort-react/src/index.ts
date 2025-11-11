@@ -32,6 +32,7 @@ export {
 } from './hooks/openfort/use7702Authorization'
 export { useConnectWithSiwe } from './hooks/openfort/useConnectWithSiwe'
 export { useGrantPermissions } from './hooks/openfort/useGrantPermissions'
+export { useRevokePermissions } from './hooks/openfort/useRevokePermissions'
 export { useUI } from './hooks/openfort/useUI'
 export { useUser } from './hooks/openfort/useUser'
 export { useWalletAssets } from './hooks/openfort/useWalletAssets'

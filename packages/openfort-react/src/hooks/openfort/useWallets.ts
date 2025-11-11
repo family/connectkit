@@ -9,14 +9,14 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { Hex } from 'viem'
-import { type Connector, useAccount, useChainId, useDisconnect } from 'wagmi'
+import { type Connector, useAccount, useChainId, useDisconnect, useSwitchChain } from 'wagmi'
 import { routes, UIAuthProvider } from '../../components/Openfort/types'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { embeddedWalletId } from '../../constants/openfort'
 import { useOpenfortCore, useWalletStatus } from '../../openfort/useOpenfort'
 import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
 import { logger } from '../../utils/logger'
-import { useWallets as useWagmiWallets } from '../../wallets/useWallets'
+import { useWagmiWallets } from '../../wallets/useWagmiWallets'
 import { useConnect } from '../useConnect'
 import type { BaseFlowState } from './auth/status'
 import { onError, onSuccess } from './hookConsistency'
@@ -193,7 +193,7 @@ const mapWalletStatus = (status: WalletFlowStatus) => {
  * ```
  */
 export function useWallets(hookOptions: WalletOptions = {}) {
-  const { client, embeddedAccounts, isLoadingAccounts: isLoadingWallets } = useOpenfortCore()
+  const { client, embeddedAccounts, isLoadingAccounts: isLoadingWallets, updateEmbeddedAccounts } = useOpenfortCore()
   const { user } = useUser()
   const { walletConfig, setOpen, setRoute, setConnector, uiConfig } = useOpenfort()
   const { connector, isConnected, address } = useAccount()
@@ -204,6 +204,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   const [connectToConnector, setConnectToConnector] = useState<{ address?: Hex; connector: Connector } | undefined>(
     undefined
   )
+  const { switchChainAsync } = useSwitchChain()
+
   const { connect } = useConnect({
     mutation: {
       onError: (e) => {
@@ -336,30 +338,35 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     [walletConfig, getEncryptionSession]
   )
 
-  const rawWallets: UserWallet[] = useMemo(() => {
+  const userLinkedWalletConnectors = useMemo<UserWallet[]>(() => {
     const userWallets: UserWallet[] = user
       ? user.linkedAccounts
-          .filter((a) => a.provider === UIAuthProvider.WALLET)
-          .map((a) => {
+          .filter((linkedAccount) => linkedAccount.provider === UIAuthProvider.WALLET)
+          .map((linkedAccount) => {
             // For connector wallets (e.g. Metamask, Rabby, etc.)
-            const wallet = availableWallets.find((c) => c.connector.id === a.walletClientType)
+            const wallet = availableWallets.find((c) => c.connector.id === linkedAccount.walletClientType)
             return {
               accounts: [],
-              address: a.address as `0x${string}`,
-              connectorType: a.connectorType,
-              walletClientType: a.walletClientType,
-              id: wallet?.id || a.walletClientType || 'unknown',
+              address: linkedAccount.address as `0x${string}`,
+              connectorType: linkedAccount.connectorType,
+              walletClientType: linkedAccount.walletClientType,
+              id: wallet?.id || linkedAccount.walletClientType || 'unknown',
               isAvailable: !!wallet,
               connector: wallet?.connector,
             }
           })
       : []
+    return userWallets
+  }, [user?.linkedAccounts, embeddedAccounts])
+
+  const userEmbeddedWallets = useMemo<UserWallet[]>(() => {
+    const newRawWallets = [] as UserWallet[]
 
     embeddedAccounts?.forEach((embeddedAccount) => {
       // Remove duplicates (different chain ids)
-      if (userWallets.find((w) => w.address.toLowerCase() === embeddedAccount.address.toLowerCase())) return
+      if (newRawWallets.find((w) => w.address.toLowerCase() === embeddedAccount.address.toLowerCase())) return
 
-      userWallets.push(
+      newRawWallets.push(
         parseEmbeddedAccount({
           embeddedAccount,
           connector: openfortConnector,
@@ -371,20 +378,24 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         })
       )
     })
+    return newRawWallets
+  }, [chainId, embeddedAccounts, openfortConnector])
 
-    return userWallets
-  }, [user?.linkedAccounts, embeddedAccounts])
+  const rawWallets = useMemo<UserWallet[]>(() => {
+    return [...userLinkedWalletConnectors, ...userEmbeddedWallets]
+  }, [userLinkedWalletConnectors, userEmbeddedWallets])
 
-  const wallets: UserWallet[] = useMemo(() => {
+  const wallets = useMemo<UserWallet[]>(() => {
     // logger.log("Mapping wallets", { rawWallets, status, address, isConnected, connector: connector?.id });
     return rawWallets.map((w) => ({
       ...w,
       isConnecting: status.status === 'connecting' && status.address?.toLowerCase() === w.address.toLowerCase(),
       isActive: w.address.toLowerCase() === address?.toLowerCase() && isConnected && connector?.id === w.id,
     }))
-  }, [rawWallets.length, status.status, address, isConnected, connector?.id])
+  }, [rawWallets, status.status, address, isConnected, connector?.id])
   const activeWallet = isConnected && connector ? wallets.find((w) => w.isActive) : undefined
 
+  const [shouldSwitchToChain, setShouldSwitchToChain] = useState<number | null>(null)
   useEffect(() => {
     if (connectToConnector) connect({ connector: connectToConnector.connector })
   }, [connectToConnector])
@@ -466,6 +477,8 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           })
         }
 
+        let hasToSwitchChain = false
+
         try {
           const embeddedAccounts = await queryClient.ensureQueryData<EmbeddedAccount[]>({
             queryKey: ['openfortEmbeddedAccountsList'],
@@ -485,7 +498,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
           if (walletAddress) {
             const addressToMatch = walletAddress.toLowerCase()
-            const accountToRecover = embeddedAccounts.find((w) => {
+            let accountToRecover = embeddedAccounts.find((w) => {
               if (walletConfig?.accountType === AccountTypeEnum.EOA) {
                 return w.address.toLowerCase() === addressToMatch
               } else {
@@ -493,15 +506,27 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               }
             })
             if (!accountToRecover) {
-              // TODO: Connect to wallet in the other chain and then switch chain
-              return onError({
-                error: new OpenfortError(
-                  `Embedded wallet not found for address ${walletAddress} and chainId ${chainId}`,
-                  OpenfortErrorType.WALLET_ERROR
-                ),
-                options: optionsObject,
-                hookOptions,
+              logger.log(
+                `No embedded wallet found for address ${walletAddress} in chain ${chainId}. Checking other chains.`
+              )
+
+              const accountToRecoverInDifferentChain = embeddedAccounts.find((w) => {
+                return w.address.toLowerCase() === addressToMatch && !!w.chainId
               })
+
+              if (!accountToRecoverInDifferentChain || !accountToRecoverInDifferentChain.chainId) {
+                throw new OpenfortError(
+                  `Embedded wallet not found for address ${walletAddress}`,
+                  OpenfortErrorType.WALLET_ERROR
+                )
+              }
+
+              logger.log(
+                `Found embedded wallet for address ${walletAddress} in different chain ${accountToRecoverInDifferentChain.chainId}.`
+              )
+
+              hasToSwitchChain = true
+              accountToRecover = accountToRecoverInDifferentChain
             }
             logger.log('Found embedded wallet to recover', accountToRecover)
             if (
@@ -514,14 +539,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
                 optionsObject.recovery.recoveryMethod,
                 accountToRecover.recoveryMethod
               )
-              return onError({
-                error: new OpenfortError(
-                  "The recovery method you entered is incorrect and does not match the wallet's recovery method",
-                  OpenfortErrorType.WALLET_ERROR
-                ),
-                options: optionsObject,
-                hookOptions,
-              })
+              throw new OpenfortError(
+                "The recovery method you entered is incorrect and does not match the wallet's recovery method",
+                OpenfortErrorType.WALLET_ERROR
+              )
             }
             const recovery: WalletRecovery = {
               recoveryMethod: accountToRecover.recoveryMethod ?? RecoveryMethod.AUTOMATIC,
@@ -539,25 +560,17 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             if (walletConfig?.accountType === AccountTypeEnum.EOA) {
               accountToRecover = embeddedAccounts.find((w) => w.accountType === AccountTypeEnum.EOA)
               if (!accountToRecover) {
-                return onError({
-                  error: new OpenfortError('No embedded wallet found with type EOA', OpenfortErrorType.WALLET_ERROR),
-                  options: optionsObject,
-                  hookOptions,
-                })
+                throw new OpenfortError('No embedded wallet found with type EOA', OpenfortErrorType.WALLET_ERROR)
               }
             } else {
               accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId)
               if (!accountToRecover) {
                 // Here it should check if there is a wallet that can recover in another chain and recover it in the current chain (its a different account so its not supported yet)
                 // TODO: Connect to wallet in the other chain and then switch chain
-                return onError({
-                  error: new OpenfortError(
-                    'No embedded wallet found for the current chain',
-                    OpenfortErrorType.WALLET_ERROR
-                  ),
-                  options: optionsObject,
-                  hookOptions,
-                })
+                throw new OpenfortError(
+                  'No embedded wallet found for the current chain',
+                  OpenfortErrorType.WALLET_ERROR
+                )
               }
             }
             logger.log('Found embedded wallet to recover (without walletAddress)', accountToRecover)
@@ -574,11 +587,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           }
 
           if (!embeddedAccount) {
-            return onError({
-              error: new OpenfortError('Failed to recover embedded wallet', OpenfortErrorType.WALLET_ERROR),
-              options: optionsObject,
-              hookOptions,
-            })
+            throw new OpenfortError('Failed to recover embedded wallet', OpenfortErrorType.WALLET_ERROR)
           }
 
           setStatus({
@@ -630,6 +639,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             options: optionsObject,
             hookOptions,
           })
+        } finally {
+          if (hasToSwitchChain) {
+            setShouldSwitchToChain(chainId)
+          }
         }
       } else {
         setStatus({
@@ -647,6 +660,20 @@ export function useWallets(hookOptions: WalletOptions = {}) {
     [wallets, setOpen, setRoute, setConnector, disconnectAsync, address, client, walletConfig, chainId, hookOptions]
   )
 
+  useEffect(() => {
+    ;(async () => {
+      if (shouldSwitchToChain) {
+        logger.log(`Switching to chain ${shouldSwitchToChain}.`)
+        // const a = await client.embeddedWallet.getEthereumProvider()
+        // const res = await switchChain(a, { id: shouldSwitchToChain })
+        const res = await switchChainAsync({ chainId: shouldSwitchToChain })
+        logger.log('Switched to chain', res)
+        updateEmbeddedAccounts()
+        setShouldSwitchToChain(null)
+      }
+    })()
+  }, [shouldSwitchToChain])
+
   const queryClient = useQueryClient()
   const createWallet = useCallback(
     async ({ recovery, ...options }: CreateWalletOptions = {}): Promise<CreateWalletResult> => {
@@ -659,18 +686,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       try {
         const accessToken = await client.getAccessToken()
         if (!accessToken) {
-          return onError({
-            error: new OpenfortError('Openfort access token not found', OpenfortErrorType.WALLET_ERROR),
-            hookOptions,
-            options,
-          })
+          throw new OpenfortError('Openfort access token not found', OpenfortErrorType.WALLET_ERROR)
         }
         if (!walletConfig) {
-          return onError({
-            error: new OpenfortError('Embedded signer not enabled', OpenfortErrorType.WALLET_ERROR),
-            hookOptions,
-            options,
-          })
+          throw new OpenfortError('Embedded signer not enabled', OpenfortErrorType.WALLET_ERROR)
         }
 
         const recoveryParams = await parseWalletRecovery(recovery)
@@ -704,7 +723,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         })
       } catch (e) {
         const errorObj = e instanceof Error ? e : new Error('Failed to create wallet')
-        const error = new OpenfortError('Failed to create wallet', OpenfortErrorType.WALLET_ERROR, { error: errorObj })
+        const error =
+          e instanceof OpenfortError
+            ? e
+            : new OpenfortError('Failed to create wallet', OpenfortErrorType.WALLET_ERROR, { error: errorObj })
         setStatus({
           status: 'error',
           error,

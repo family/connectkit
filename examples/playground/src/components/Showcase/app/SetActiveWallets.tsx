@@ -1,7 +1,7 @@
 import { RecoveryMethod, type RecoveryParams, type UserWallet, useWallets } from '@openfort/react'
 import { Link } from '@tanstack/react-router'
 import { AnimatePresence } from 'framer-motion'
-import { FingerprintIcon, KeyIcon, LockIcon } from 'lucide-react'
+import { EyeIcon, EyeOffIcon, FingerprintIcon, KeyIcon, LockIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { MP } from '@/components/motion/motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -27,11 +27,17 @@ const CreateWalletButton = () => {
   const [creatingMethod, setCreatingMethod] = useState<RecoveryMethod | null>(null)
 
   useEffect(() => {
-    document.addEventListener('click', (e) => {
-      if (!(e.target as HTMLElement).closest('.btn')) {
+    const handleClickOutsideCreateWallet = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest('.create-wallet-button')) {
         setChooseCreateMethodOpen(false)
       }
-    })
+    }
+
+    document.addEventListener('click', handleClickOutsideCreateWallet)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutsideCreateWallet)
+    }
   }, [])
 
   return (
@@ -43,7 +49,7 @@ const CreateWalletButton = () => {
               <>
                 <button
                   type="button"
-                  className="btn btn-accent flex flex-1"
+                  className="btn btn-accent flex flex-1 create-wallet-button"
                   onClick={() => {
                     createWallet()
                     setCreatingMethod(RecoveryMethod.AUTOMATIC)
@@ -55,7 +61,7 @@ const CreateWalletButton = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-accent flex flex-1"
+                  className="btn btn-accent flex flex-1 create-wallet-button"
                   onClick={() => {
                     setCreatingMethod(RecoveryMethod.PASSWORD)
                     createWallet({
@@ -72,7 +78,7 @@ const CreateWalletButton = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-accent flex flex-1"
+                  className="btn btn-accent flex flex-1 create-wallet-button"
                   onClick={() => {
                     setCreatingMethod(RecoveryMethod.PASSKEY)
                     createWallet({
@@ -128,22 +134,37 @@ const CreateWalletButton = () => {
           </MP>
         )}
       </AnimatePresence>
-      {error && (
-        <span className="text-red-500 text-sm mt-2 block">There was an error creating the wallet: {error.message}</span>
-      )}
+      {error && <span className="text-red-500 text-sm mt-2 block">There was an error: {error.message}</span>}
     </>
   )
 }
 
-export const SetActiveWalletsCard = () => {
-  const { wallets, setActiveWallet } = useWallets()
+const WalletButton = ({ wallet }: { wallet: UserWallet }) => {
+  const { setActiveWallet } = useWallets()
+  const [password, setPassword] = useState('example-password')
+  const [showPasswordInput, setShowPasswordInput] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+
+  useEffect(() => {
+    const handleClickOutsidePassword = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest('.password-input')) {
+        setShowPasswordInput(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutsidePassword)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutsidePassword)
+    }
+  }, [])
 
   const handleSetActiveWallet = (wallet: UserWallet) => {
     let recoveryParams: RecoveryParams | undefined
     switch (wallet.recoveryMethod) {
       case RecoveryMethod.PASSWORD:
         recoveryParams = {
-          password: 'example-password',
+          password,
           recoveryMethod: RecoveryMethod.PASSWORD,
         }
         break
@@ -161,6 +182,87 @@ export const SetActiveWalletsCard = () => {
     })
   }
 
+  const handleClickWallet = (wallet: UserWallet) => {
+    if (wallet.recoveryMethod === RecoveryMethod.PASSWORD) {
+      setShowPasswordInput(true)
+    } else {
+      handleSetActiveWallet(wallet)
+    }
+  }
+
+  if (showPasswordInput) {
+    return (
+      <form className={cn('input w-full password-input')}>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Enter password"
+          className="grow peer placeholder:text-muted-foreground"
+          value={password}
+          autoFocus
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm ml-2 px-2 password-input"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? (
+            <EyeOffIcon className="h-4 w-4 password-input" />
+          ) : (
+            <EyeIcon className="h-4 w-4 password-input" />
+          )}
+        </button>
+        <button
+          type="submit"
+          className="btn btn-accent btn-sm password-input"
+          onClick={() => {
+            handleSetActiveWallet(wallet)
+            setShowPasswordInput(false)
+          }}
+        >
+          Set Active
+        </button>
+      </form>
+    )
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => !wallet.isActive && handleClickWallet(wallet)}
+      disabled={!wallet.isAvailable}
+      className={cn('btn btn-accent w-full flex justify-between password-input', {
+        'text-primary': wallet.isActive,
+        'animate-pulse': wallet.isConnecting,
+      })}
+    >
+      {wallet.id}
+      {wallet.isConnecting && (
+        <MP
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{
+            opacity: 0.8,
+            scale: 0.95,
+          }}
+        >
+          Connecting...
+        </MP>
+      )}
+      <div className="flex items-center gap-2">
+        {wallet.address && (
+          <span className="text-xs">
+            {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
+          </span>
+        )}
+        <WalletRecoveryIcon recovery={wallet.recoveryMethod} />
+      </div>
+    </button>
+  )
+}
+
+export const SetActiveWalletsCard = () => {
+  const { wallets } = useWallets()
+
   return (
     <Card>
       <CardHeader>
@@ -174,36 +276,7 @@ export const SetActiveWalletsCard = () => {
             <Tooltip delayDuration={500} key={wallet.id + i}>
               <TooltipTrigger asChild>
                 <div>
-                  <button
-                    type="button"
-                    onClick={() => handleSetActiveWallet(wallet)}
-                    disabled={!wallet.isAvailable}
-                    className={cn('btn btn-accent w-full flex justify-between', {
-                      'text-primary': wallet.isActive,
-                      'animate-pulse': wallet.isConnecting,
-                    })}
-                  >
-                    {wallet.id}
-                    {wallet.isConnecting && (
-                      <MP
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{
-                          opacity: 0.8,
-                          scale: 0.95,
-                        }}
-                      >
-                        Connecting...
-                      </MP>
-                    )}
-                    <div className="flex items-center gap-2">
-                      {wallet.address && (
-                        <span className="text-xs">
-                          {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
-                        </span>
-                      )}
-                      <WalletRecoveryIcon recovery={wallet.recoveryMethod} />
-                    </div>
-                  </button>
+                  <WalletButton wallet={wallet} />
                 </div>
               </TooltipTrigger>
               <TooltipContent>

@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.1.5
+
+### Patch Changes
+
+- [#94](https://github.com/openfort-xyz/openfort-react/pull/94) [`1c97b06`](https://github.com/openfort-xyz/openfort-react/commit/1c97b06c258ae77921710d53b1d1ded723ed6de6) Thanks [@jamalavedra](https://github.com/jamalavedra)! - update deps
+
+## 0.1.4
+
+### Patch Changes
+
+- [#85](https://github.com/openfort-xyz/openfort-react/pull/85) [`54b6c90`](https://github.com/openfort-xyz/openfort-react/commit/54b6c90686011265b15b8dd18996bb738d8ded16) Thanks [@martimayoral](https://github.com/martimayoral)! - add useRevokePermissions
+
+- [#83](https://github.com/openfort-xyz/openfort-react/pull/83) [`61e81de`](https://github.com/openfort-xyz/openfort-react/commit/61e81de575f0c8b90c89a0059b3668e1f2f73e76) Thanks [@martimayoral](https://github.com/martimayoral)! - control how many providers are shown in the main page
+
+## 0.1.3
+
+### Patch Changes
+
+- [#81](https://github.com/openfort-xyz/openfort-react/pull/81) [`36b26fd`](https://github.com/openfort-xyz/openfort-react/commit/36b26fd7032727f1814a7a88e21ebb8e04fedbbb) Thanks [@martimayoral](https://github.com/martimayoral)! - fix walletConnect bug when opening app in mobile and nextjs
+
+## 0.1.2
+
+### Patch Changes
+
+- [#75](https://github.com/openfort-xyz/openfort-react/pull/75) [`c2acaac`](https://github.com/openfort-xyz/openfort-react/commit/c2acaac543f58a9426490b2ae10b559e146b4545) Thanks [@martimayoral](https://github.com/martimayoral)! - granular logging
+
+- [#77](https://github.com/openfort-xyz/openfort-react/pull/77) [`2e8f80a`](https://github.com/openfort-xyz/openfort-react/commit/2e8f80acd6f6292cf895cd0ba2a9786d425c1311) Thanks [@martimayoral](https://github.com/martimayoral)! - fix set active wallet when wallet didnt have the same chain
+
 ## 0.1.1
 
 ### Patch Changes

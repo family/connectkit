@@ -38,7 +38,7 @@ function _useInjectedConnector(uuid?: string) {
   */
   return useConnector('injected', uuid)
 }
-export function useWalletConnectConnector() {
+function _useWalletConnectConnector() {
   /*
   options: {
     qrcode: false,

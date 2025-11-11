@@ -41,6 +41,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     skipEmailVerification: undefined,
     truncateLongENSAddress: undefined,
     walletConnectCTA: undefined,
+    authProvidersLength: undefined,
 
     linkWalletOnSignUp: LinkWalletOnSignUpOption.OPTIONAL,
     walletRecovery: {
@@ -85,6 +86,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
   debugMode: {
     openfortReactDebugMode: true,
     openfortCoreDebugMode: true,
+    shieldDebugMode: true,
   },
 }
 

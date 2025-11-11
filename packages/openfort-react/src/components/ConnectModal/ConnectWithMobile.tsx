@@ -3,14 +3,12 @@ import { useAccount } from 'wagmi'
 import { useConnectWithSiwe } from '../../hooks/openfort/useConnectWithSiwe'
 import styled from '../../styles/styled'
 import { isAndroid } from '../../utils'
-import { logger } from '../../utils/logger'
 import { useOnUserReturn } from '../../utils/useOnUserReturn'
-import { useWallet } from '../../wallets/useWallets'
+import { useWallet } from '../../wallets/useWagmiWallets'
 import { walletConfigs } from '../../wallets/walletConfigs'
 import Button from '../Common/Button'
 import FitText from '../Common/FitText'
 import Loader from '../Common/Loading'
-import { useWeb3 } from '../contexts/web3'
 import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import { PageContent } from '../PageContent'
@@ -45,24 +43,14 @@ const ConnectWithMobile: React.FC = () => {
   const [status, setStatus] = useState(isConnected ? states.INIT : states.CONNECTING)
   const [description, setDescription] = useState<string | undefined>(undefined)
 
-  const {
-    connect: { getUri },
-  } = useWeb3()
-  const wcUri = getUri()
-
   const [hasReturned, setHasReturned] = useState(false)
 
   const siwe = useConnectWithSiwe()
 
-  const openApp = (url?: string) => {
-    const uri = wallet?.getWalletConnectDeeplink?.(url ?? '')
-    logger.log('Opening wallet app with uri', { uri, url, wallet, walletId, walletConfigs, connectorId: connector.id })
+  const openApp = () => {
+    const uri = wallet?.getWalletConnectDeeplink?.('')
     if (uri) {
-      if (url) {
-        window.location.href = uri
-      } else {
-        window.location.href = uri.replace('?uri=', '')
-      }
+      window.location.href = uri.replace('?uri=', '')
     } else {
       setStatus(states.ERROR)
       setDescription('Wallet does not support deeplink')
@@ -90,7 +78,6 @@ const ConnectWithMobile: React.FC = () => {
   useEffect(() => {
     switch (status) {
       case states.INIT:
-        openApp(wcUri!)
         break
       case states.CONNECTING:
         setDescription('Requesting signature to verify wallet...')
@@ -131,7 +118,7 @@ const ConnectWithMobile: React.FC = () => {
       ) : (
         <Button
           onClick={() => {
-            openApp(wcUri!)
+            openApp()
           }}
         >
           Sign in App
