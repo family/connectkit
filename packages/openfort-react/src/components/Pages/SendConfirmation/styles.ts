@@ -28,14 +28,12 @@ export const SummaryValue = styled.span`
   word-break: break-all;
 `
 
-export const AmountValue = styled(SummaryValue)<{ $completed?: boolean }>`
-  color: ${(props) => (props.$completed ? 'var(--ck-body-color)' : 'var(--ck-body-color-danger)')};
+export const AmountValue = styled(SummaryValue)`
+  color: var(--ck-body-color);
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  text-decoration: ${(props) => (props.$completed ? 'line-through' : 'none')};
-  opacity: ${(props) => (props.$completed ? 0.6 : 1)};
 `
 
 export const AddressValue = styled(SummaryValue)`

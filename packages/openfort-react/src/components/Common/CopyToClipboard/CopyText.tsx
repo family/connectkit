@@ -1,4 +1,5 @@
 import type React from 'react'
+import type { ComponentProps } from 'react'
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard'
 import styled from '../../../styles/styled'
 import { CopyIcon } from './CopyIcon'
@@ -21,15 +22,16 @@ const Container = styled.div<{ $disabled?: boolean }>`
 interface CopyTextProps {
   value: string
   children: React.ReactNode
+  size?: ComponentProps<typeof CopyIcon>['size']
 }
 
-export const CopyText = ({ value, children }: CopyTextProps) => {
+export const CopyText = ({ value, children, size = '1.5rem' }: CopyTextProps) => {
   const { copied, copy } = useCopyToClipboard()
 
   return (
     <Container onClick={() => copy(value)} $disabled={!value}>
       {children}
-      <CopyIcon copied={copied} size={'1.5rem'} />
+      <CopyIcon copied={copied} size={size} />
     </Container>
   )
 }

@@ -18,16 +18,14 @@ import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard/CopyText'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
-import { Spinner } from '../../Common/Spinner'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { formatBalance, getAssetDecimals, getAssetSymbol, isSameToken, sanitizeForParsing } from '../Send/utils'
+import { getAssetDecimals, getAssetSymbol, isSameToken, sanitizeForParsing } from '../Send/utils'
 import { EstimatedFees } from './EstimatedFees'
 import {
   AddressValue,
   AmountValue,
-  BalanceSpinnerWrapper,
   ButtonRow,
   CheckIconWrapper,
   ErrorAction,
@@ -39,12 +37,11 @@ import {
   SummaryItem,
   SummaryLabel,
   SummaryList,
-  SummaryValue,
 } from './styles'
 
 const SendConfirmation = () => {
   const { address, chain } = useAccount()
-  const { sendForm, setRoute, triggerResize } = useOpenfort()
+  const { sendForm, setRoute, triggerResize, walletConfig } = useOpenfort()
   const chainId = chain?.id
 
   const recipientAddress = isAddress(sendForm.recipient) ? (sendForm.recipient as Address) : undefined
@@ -250,6 +247,12 @@ const SendConfirmation = () => {
     setTimeout(triggerResize, 10) // delay required here for modal to resize
   }, [errorDetails, insufficientBalance, receipt?.transactionHash, isLoading])
 
+  const isSponsored = useMemo(() => {
+    if (!walletConfig?.ethereumProviderPolicyId) return false
+    if (typeof walletConfig.ethereumProviderPolicyId === 'string') return true
+    return walletConfig.ethereumProviderPolicyId[chainId ?? 0] !== undefined
+  }, [walletConfig?.ethereumProviderPolicyId, chainId])
+
   return (
     <PageContent>
       <ModalHeading>Confirm transfer</ModalHeading>
@@ -257,57 +260,71 @@ const SendConfirmation = () => {
 
       <SummaryList>
         <SummaryItem>
-          <SummaryLabel>Recipient</SummaryLabel>
+          <SummaryLabel>Sending</SummaryLabel>
+          <AmountValue>
+            {normalisedAmount || '0'} {getAssetSymbol(token)}
+          </AmountValue>
+        </SummaryItem>
+
+        <SummaryItem>
+          <SummaryLabel>From</SummaryLabel>
           <AddressValue>
-            {recipientAddress ? (
-              <CopyText value={recipientAddress}>{truncateEthAddress(recipientAddress)}</CopyText>
+            {address ? (
+              <CopyText size="1rem" value={address}>
+                {truncateEthAddress(address)}
+              </CopyText>
             ) : (
               '--'
             )}
           </AddressValue>
         </SummaryItem>
+
         <SummaryItem>
-          <SummaryLabel>Amount</SummaryLabel>
-          <AmountValue $completed={isSuccess}>
-            -{normalisedAmount || '0'} {getAssetSymbol(token)}
-            {isSuccess && (
+          <SummaryLabel>To</SummaryLabel>
+          <AddressValue>
+            {recipientAddress ? (
+              <CopyText size="1rem" value={recipientAddress}>
+                {truncateEthAddress(recipientAddress)}
+              </CopyText>
+            ) : (
+              '--'
+            )}
+          </AddressValue>
+        </SummaryItem>
+
+        <div>
+          <SummaryItem>
+            <SummaryLabel>Estimated fees</SummaryLabel>
+            <FeesValue $completed={isSponsored}>
+              <EstimatedFees
+                account={address}
+                to={token.type === 'erc20' ? token.address : recipientAddress}
+                value={token.type === 'native' && parsedAmount ? parsedAmount : undefined}
+                data={transferData}
+                chainId={chainId}
+                nativeSymbol={nativeBalance?.symbol || 'ETH'}
+                enabled={Boolean(address && recipientAddress && parsedAmount && parsedAmount > BigInt(0))}
+                hideInfoIcon={isSponsored}
+              />
               <CheckIconWrapper>
                 <TickIcon />
               </CheckIconWrapper>
-            )}
-          </AmountValue>
-        </SummaryItem>
-        <SummaryItem>
-          <SummaryLabel>{isSuccess ? 'New balance' : 'Current balance'}</SummaryLabel>
-          <SummaryValue>
-            {formatBalance(currentBalance, getAssetDecimals(token))} {getAssetSymbol(token)}
-            {isPollingBalance && (
-              <BalanceSpinnerWrapper>
-                <Spinner />
-              </BalanceSpinnerWrapper>
-            )}
-          </SummaryValue>
-        </SummaryItem>
-        <SummaryItem>
-          <SummaryLabel>Estimated fees</SummaryLabel>
-          <FeesValue $completed={isSuccess}>
-            <EstimatedFees
-              account={address}
-              to={token.type === 'erc20' ? token.address : recipientAddress}
-              value={token.type === 'native' && parsedAmount ? parsedAmount : undefined}
-              data={transferData}
-              chainId={chainId}
-              nativeSymbol={nativeBalance?.symbol || 'ETH'}
-              enabled={Boolean(address && recipientAddress && parsedAmount && parsedAmount > BigInt(0))}
-              hideInfoIcon={isSuccess}
-            />
-            {isSuccess && (
-              <CheckIconWrapper>
-                <TickIcon />
-              </CheckIconWrapper>
-            )}
-          </FeesValue>
-        </SummaryItem>
+            </FeesValue>
+          </SummaryItem>
+          {isSponsored && (
+            <div
+              style={{
+                textAlign: 'end',
+                marginTop: '4px',
+                width: '100%',
+                color: 'var(--ck-body-color-valid)',
+                fontSize: '12px',
+              }}
+            >
+              Sponsored transaction
+            </div>
+          )}
+        </div>
       </SummaryList>
 
       {insufficientBalance && !isSuccess && (
