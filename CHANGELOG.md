@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.6
+
+### Patch Changes
+
+- [#98](https://github.com/openfort-xyz/openfort-react/pull/98) [`09aec4f`](https://github.com/openfort-xyz/openfort-react/commit/09aec4f49608ae630700a66cab8ce021128744e9) Thanks [@martimayoral](https://github.com/martimayoral)! - send recieve buy buttons in profile
+
 ## 0.1.5
 
 ### Patch Changes
