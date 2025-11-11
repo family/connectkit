@@ -1,7 +1,8 @@
 import type { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
 import type { ReactNode } from 'react'
-import type { Address } from 'viem'
+import type { Hex } from 'viem'
+import type { getAssets } from 'viem/_types/experimental/erc7811/actions/getAssets'
 import type { UserWallet } from '../../hooks/openfort/useWallets'
 import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
 
@@ -118,6 +119,13 @@ export enum LinkWalletOnSignUpOption {
 
 type PolicyConfig = string | Record<number, string>
 
+export interface AssetConfig {
+  address: Hex
+  symbol?: string
+  name?: string
+  decimals?: number
+}
+
 type CommonWalletConfig = {
   /** Publishable key for the Shield API. */
   shieldPublishableKey: string
@@ -127,6 +135,9 @@ type CommonWalletConfig = {
   /** @deprecated Use `debugMode` prop instead. */
   debug?: boolean
   recoverWalletAutomaticallyAfterAuth?: boolean
+  assets?: {
+    [chainId: number]: AssetConfig[]
+  }
 }
 
 type EncryptionSession =
@@ -240,33 +251,33 @@ export type OpenfortUIOptionsExtended = {
   walletRecovery: WalletRecoveryOptionsExtended
 } & OpenfortUIOptions
 
-export type SendTokenOption =
-  | {
-      type: 'native'
-      symbol: string
-      decimals: number
-    }
-  | {
-      type: 'erc20'
-      symbol: string
-      address: Address
-      decimals: number
-      name?: string
-    }
+export type Asset = getAssets.Asset<false>
+// export type SendTokenOption =
+//   | {
+//       type: 'native'
+//       symbol: string
+//       decimals: number
+//     }
+//   | {
+//       type: 'erc20'
+//       symbol: string
+//       address: Address
+//       decimals: number
+//       name?: string
+//     }
 
 export type SendFormState = {
   recipient: string
   amount: string
-  token: SendTokenOption
+  asset: Asset
 }
 
 export const defaultSendFormState: SendFormState = {
   recipient: '',
   amount: '',
-  token: {
+  asset: {
     type: 'native',
-    symbol: '',
-    decimals: 18,
+    balance: BigInt(0),
   },
 }
 
@@ -275,17 +286,16 @@ export type BuyProviderId = 'moonpay' | 'coinbase' | 'stripe'
 export type BuyFormState = {
   amount: string
   currency: string
-  token: SendTokenOption
+  asset: Asset
   providerId: BuyProviderId
 }
 
 export const defaultBuyFormState: BuyFormState = {
   amount: '10.00',
   currency: 'USD',
-  token: {
+  asset: {
     type: 'native',
-    symbol: '',
-    decimals: 18,
+    balance: BigInt(0),
   },
   providerId: 'coinbase',
 }

@@ -1,5 +1,6 @@
 import { SDKConfiguration } from '@openfort/openfort-js'
-import type { SendTokenOption } from '../../Openfort/types'
+import type { Asset } from '../../Openfort/types'
+import { getAssetSymbol } from '../Send/utils'
 
 const getBackendUrl = (): string => {
   const sdkConfig = SDKConfiguration.getInstance()
@@ -35,13 +36,12 @@ const getNetworkName = (chainId: number): string => {
 }
 
 // Map token symbol to currency code
-const getCurrencyCode = (token: SendTokenOption): string => {
-  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
-  return symbol.toLowerCase()
+const getCurrencyCode = (token: Asset): string => {
+  return getAssetSymbol(token).toLowerCase()
 }
 
 type GetAllQuotesParams = {
-  token: SendTokenOption
+  token: Asset
   chainId: number
   publishableKey: string
   sourceCurrency: string

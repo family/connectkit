@@ -1,6 +1,7 @@
 import type { Address } from 'viem'
 import { formatUnits } from 'viem'
 import { useEstimateFeesPerGas, useEstimateGas } from 'wagmi'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import Tooltip from '../../Common/Tooltip'
 import { formatBalance } from '../Send/utils'
 import { InfoIconWrapper } from './styles'
@@ -26,7 +27,6 @@ type EstimatedFeesProps = {
   data: `0x${string}` | undefined
   chainId: number | undefined
   nativeSymbol: string
-  usdPrices: Record<string, number>
   enabled?: boolean
   hideInfoIcon?: boolean
 }
@@ -38,10 +38,12 @@ export const EstimatedFees = ({
   data,
   chainId,
   nativeSymbol,
-  usdPrices,
   enabled = true,
   hideInfoIcon = false,
 }: EstimatedFeesProps) => {
+  const { data: assets } = useWalletAssets()
+  const pricePerToken = (assets?.find((a) => a.type === 'native')?.metadata as any)?.fiat?.value as number | undefined
+
   const { data: gasEstimate } = useEstimateGas({
     account,
     to,
@@ -66,8 +68,6 @@ export const EstimatedFees = ({
   if (!gasCost) {
     return <>--</>
   }
-
-  const pricePerToken = usdPrices[nativeSymbol.toUpperCase()]
 
   if (pricePerToken !== undefined) {
     const gasCostInEth = Number.parseFloat(formatUnits(gasCost, 18))

@@ -10,7 +10,6 @@ export const WriteContractCard = () => {
   const { address } = useAccount()
   const chains = useChains()
   const chainId = useChainId()
-  // const { data: client } = useWalletClient()
 
   const {
     data: balance,
@@ -98,34 +97,6 @@ export const WriteContractCard = () => {
           )}
           <InputMessage message={`Error: ${error?.message}`} show={!!error} variant="error" />
         </form>
-        {/* <button
-          type="button"
-          onClick={async () => {
-            if (!client) {
-              console.error('No client found')
-              return
-            }
-            if (!connector) {
-              console.error('No connector found')
-              return
-            }
-
-            // const connectorClient = await connector.getClient?.()
-            // if (!connectorClient) {
-            //   console.error('Connector client not available')
-            //   return
-            // }
-            // Convert the wagmi wallet client to a viem wallet client
-            const extendedClient = client.extend(erc7811Actions())
-
-            // const extendedClient = connectorClient.extend(erc7811Actions())
-            const assets = await extendedClient.getAssets()
-            console.log(assets)
-            assets[0]
-          }}
-        >
-          get assets
-        </button> */}
       </CardContent>
     </Card>
   )

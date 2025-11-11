@@ -41,6 +41,10 @@ export const navRoutes: NavRoute[] = [
         href: '/wallet/useWallets',
         label: 'useWallets',
       },
+      {
+        href: '/wallet/useWalletAssets',
+        label: 'useWalletAssets',
+      },
     ],
   },
   {

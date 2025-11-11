@@ -1,5 +1,5 @@
 import { formatUnits } from 'viem'
-import type { SendTokenOption } from '../../Openfort/types'
+import type { Asset } from '../../Openfort/types'
 
 export const sanitizeAmountInput = (value: string) => value.replace(/,/g, '.')
 
@@ -32,7 +32,7 @@ export const formatBalanceWithSymbol = (value: bigint | undefined, decimals: num
   return balance === '--' ? '--' : `${balance} ${symbol}`
 }
 
-export const isSameToken = (a: SendTokenOption, b: SendTokenOption) => {
+export const isSameToken = (a: Asset, b: Asset) => {
   if (a.type !== b.type) return false
   if (a.type === 'native') return true
   // At this point, a.type === 'erc20' and b.type === 'erc20'
@@ -40,4 +40,12 @@ export const isSameToken = (a: SendTokenOption, b: SendTokenOption) => {
     return a.address.toLowerCase() === b.address.toLowerCase()
   }
   return false
+}
+
+export const getAssetSymbol = (asset: Asset): string => {
+  return asset.metadata && 'symbol' in asset.metadata ? (asset.metadata.symbol as string) : 'ETH'
+}
+
+export const getAssetDecimals = (asset: Asset): number => {
+  return asset.metadata && 'decimals' in asset.metadata ? (asset.metadata.decimals as number) : 18
 }

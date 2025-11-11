@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
-import { useTokens } from '../../../hooks/useTokens'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import Button from '../../Common/Button'
 import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
@@ -25,11 +25,10 @@ import {
   ProviderRight,
 } from '../Buy/styles'
 import { createCurrencyFormatter, formatTokenAmount } from '../Buy/utils'
-import { isSameToken } from '../Send/utils'
+import { getAssetSymbol, isSameToken } from '../Send/utils'
 
 const BuySelectProvider = () => {
   const { buyForm, setBuyForm, setRoute, triggerResize, publishableKey } = useOpenfort()
-  const { tokenOptions } = useTokens()
   const { address } = useAccount()
   const chainId = useChainId()
   const [quotes, setQuotes] = useState<Record<string, OnrampQuote>>({})
@@ -47,15 +46,17 @@ const BuySelectProvider = () => {
     return numeric
   }, [buyForm.amount])
 
+  const { data: assets } = useWalletAssets()
+
   const matchedToken = useMemo(
-    () => tokenOptions.find((token) => isSameToken(token, buyForm.token)),
-    [tokenOptions, buyForm.token]
+    () => assets?.find((asset) => isSameToken(asset, buyForm.asset)),
+    [assets, buyForm.asset]
   )
 
-  const selectedTokenOption = matchedToken ?? tokenOptions[0]
-  const selectedToken = selectedTokenOption ?? buyForm.token
+  const selectedTokenOption = matchedToken ?? assets?.[0]
+  const selectedToken = selectedTokenOption ?? buyForm.asset
 
-  const tokenSymbol = selectedToken.symbol || 'Token'
+  const tokenSymbol = getAssetSymbol(selectedToken)
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
 
   // Trigger resize on mount
@@ -133,7 +134,7 @@ const BuySelectProvider = () => {
     return () => clearTimeout(timeoutId)
   }, [
     fiatAmount,
-    selectedToken.symbol,
+    selectedToken.metadata,
     selectedToken.type,
     buyForm.currency,
     chainId,

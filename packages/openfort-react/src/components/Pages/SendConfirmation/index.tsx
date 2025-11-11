@@ -11,19 +11,18 @@ import {
 } from 'wagmi'
 import { TickIcon } from '../../../assets/icons'
 import { erc20Abi } from '../../../constants/erc20'
-import { ERC20_TOKEN_LIST } from '../../../constants/tokenList'
-import { useTokenCache } from '../../../hooks/useTokenCache'
-import { useTokens } from '../../../hooks/useTokens'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import { truncateEthAddress } from '../../../utils'
 import { parseTransactionError } from '../../../utils/errorHandling'
+import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { Spinner } from '../../Common/Spinner'
-import { routes, type SendTokenOption } from '../../Openfort/types'
+import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { formatBalance, sanitiseForParsing } from '../Send/utils'
+import { formatBalance, getAssetDecimals, getAssetSymbol, isSameToken, sanitiseForParsing } from '../Send/utils'
 import { EstimatedFees } from './EstimatedFees'
 import {
   AddressValue,
@@ -47,27 +46,9 @@ const SendConfirmation = () => {
   const { address, chain } = useAccount()
   const { sendForm, setRoute, triggerResize } = useOpenfort()
   const chainId = chain?.id
-  const { clearSelectedToken } = useTokenCache(address, chainId)
-  const { prices: usdPrices } = useTokens()
 
   const recipientAddress = isAddress(sendForm.recipient) ? (sendForm.recipient as Address) : undefined
   const normalisedAmount = sanitiseForParsing(sendForm.amount)
-  const parsedAmount =
-    normalisedAmount && sendForm.token.decimals !== undefined
-      ? (() => {
-          try {
-            return parseUnits(normalisedAmount, sendForm.token.decimals)
-          } catch (_error) {
-            return null
-          }
-        })()
-      : null
-
-  useEffect(() => {
-    if (!recipientAddress || parsedAmount === null || parsedAmount <= BigInt(0)) {
-      setRoute(routes.SEND)
-    }
-  }, [recipientAddress, parsedAmount, setRoute])
 
   const { data: nativeBalance, refetch: refetchNativeBalance } = useBalance({
     address,
@@ -76,33 +57,14 @@ const SendConfirmation = () => {
     },
   })
 
-  const erc20Tokens = useMemo(() => {
-    if (!chainId) return []
-    return ERC20_TOKEN_LIST[chainId] ?? []
-  }, [chainId])
+  const { data: assets } = useWalletAssets()
+  const matchedToken = useMemo(
+    () => assets?.find((asset) => isSameToken(asset, sendForm.asset)),
+    [assets, sendForm.asset]
+  )
 
-  const token: SendTokenOption = useMemo(() => {
-    if (sendForm.token.type === 'erc20') {
-      const sendTokenAddress = sendForm.token.address
-      const match = erc20Tokens.find((item) => item.address.toLowerCase() === sendTokenAddress.toLowerCase())
-      if (match) {
-        return {
-          type: 'erc20',
-          symbol: match.symbol,
-          decimals: match.decimals,
-          address: match.address,
-          name: match.name,
-        }
-      }
-      return sendForm.token
-    }
-
-    return {
-      type: 'native',
-      symbol: nativeBalance?.symbol || sendForm.token.symbol || 'ETH',
-      decimals: nativeBalance?.decimals ?? sendForm.token.decimals ?? 18,
-    }
-  }, [erc20Tokens, nativeBalance?.decimals, nativeBalance?.symbol, sendForm.token])
+  const selectedTokenOption = matchedToken ?? assets?.[0]
+  const token = selectedTokenOption ?? sendForm.asset
 
   const isErc20 = token.type === 'erc20'
 
@@ -116,6 +78,24 @@ const SendConfirmation = () => {
       enabled: Boolean(isErc20 && address),
     },
   })
+
+  const parsedAmount =
+    normalisedAmount && token && getAssetDecimals(token) !== undefined
+      ? (() => {
+          try {
+            return parseUnits(normalisedAmount, getAssetDecimals(token))
+          } catch (_error) {
+            return null
+          }
+        })()
+      : null
+
+  useEffect(() => {
+    if (!recipientAddress || parsedAmount === null || parsedAmount <= BigInt(0)) {
+      logger.log('INVALID - recipientAddress:', recipientAddress, 'parsedAmount:', parsedAmount)
+      // setRoute(routes.SEND)
+    }
+  }, [recipientAddress, parsedAmount, setRoute])
 
   const currentBalance = isErc20 ? erc20Balance : nativeBalance?.value
 
@@ -251,7 +231,7 @@ const SendConfirmation = () => {
 
     // Don't reset the form - keep amount, token, and recipient for easier repeat transactions
     // Clear cached token after successful transaction
-    clearSelectedToken()
+    // clearSelectedToken()
     setRoute(routes.PROFILE)
   }
 
@@ -290,7 +270,7 @@ const SendConfirmation = () => {
         <SummaryItem>
           <SummaryLabel>Amount</SummaryLabel>
           <AmountValue $completed={isSuccess}>
-            -{normalisedAmount || '0'} {token.symbol}
+            -{normalisedAmount || '0'} {getAssetSymbol(token)}
             {isSuccess && (
               <CheckIconWrapper>
                 <TickIcon />
@@ -301,7 +281,7 @@ const SendConfirmation = () => {
         <SummaryItem>
           <SummaryLabel>{isSuccess ? 'New balance' : 'Current balance'}</SummaryLabel>
           <SummaryValue>
-            {formatBalance(currentBalance, token.decimals)} {token.symbol}
+            {formatBalance(currentBalance, getAssetDecimals(token))} {getAssetSymbol(token)}
             {isPollingBalance && (
               <BalanceSpinnerWrapper>
                 <Spinner />
@@ -319,7 +299,6 @@ const SendConfirmation = () => {
               data={transferData}
               chainId={chainId}
               nativeSymbol={nativeBalance?.symbol || 'ETH'}
-              usdPrices={usdPrices}
               enabled={Boolean(address && recipientAddress && parsedAmount && parsedAmount > BigInt(0))}
               hideInfoIcon={isSuccess}
             />
@@ -370,4 +349,7 @@ const SendConfirmation = () => {
   )
 }
 
+// const SendConfirmation = () => {
+//   return <div>Send Confirmation - TODO</div>
+// }
 export default SendConfirmation

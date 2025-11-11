@@ -1,5 +1,6 @@
 import { SDKConfiguration } from '@openfort/openfort-js'
-import type { SendTokenOption } from '../../Openfort/types'
+import type { Asset } from '../../Openfort/types'
+import { getAssetSymbol } from '../Send/utils'
 
 const getBackendUrl = (): string => {
   const sdkConfig = SDKConfiguration.getInstance()
@@ -54,14 +55,14 @@ const getNetworkName = (chainId: number): string => {
 const STRIPE_SUPPORTED_CURRENCIES = ['btc', 'eth', 'xlm', 'matic', 'pol', 'sol', 'usdc', 'avax', 'wld'] as const
 
 // Check if a token is supported by Stripe
-export const isStripeSupported = (token: SendTokenOption): boolean => {
-  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
+export const isStripeSupported = (token: Asset): boolean => {
+  const symbol = getAssetSymbol(token)
   return STRIPE_SUPPORTED_CURRENCIES.includes(symbol.toLowerCase() as any)
 }
 
 // Map token symbol to Stripe currency code
-const getCurrencyCode = (token: SendTokenOption): string => {
-  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
+const getCurrencyCode = (token: Asset): string => {
+  const symbol = getAssetSymbol(token)
   const lowercaseSymbol = symbol.toLowerCase()
 
   // Validate that the currency is supported by Stripe
@@ -80,7 +81,7 @@ const getCurrencyCode = (token: SendTokenOption): string => {
  */
 export const createStripeSession = async (
   params: Omit<CreateStripeSessionParams, 'destinationCurrency' | 'destinationNetwork'> & {
-    token: SendTokenOption
+    token: Asset
     chainId: number
     publishableKey: string
   }
@@ -136,7 +137,7 @@ type GetStripeQuoteParams = {
  */
 export const getStripeQuote = async (
   params: Omit<GetStripeQuoteParams, 'destinationCurrency' | 'destinationNetwork'> & {
-    token: SendTokenOption
+    token: Asset
     chainId: number
     publishableKey: string
   }

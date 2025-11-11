@@ -62,6 +62,14 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
     recoverWalletAutomaticallyAfterAuth: undefined,
     accountType: undefined,
+    assets: {
+      [polygonAmoy.id]: [
+        {
+          address: '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac',
+          decimals: 0,
+        },
+      ],
+    },
   },
   onConnect: undefined,
   onDisconnect: undefined,

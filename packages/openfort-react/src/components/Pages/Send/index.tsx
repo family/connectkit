@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
-import { useTokens } from '../../../hooks/useTokens'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import Input from '../../Common/Input'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
-import { routes, type SendFormState, type SendTokenOption } from '../../Openfort/types'
+import { type Asset, routes, type SendFormState } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import {
@@ -26,13 +26,15 @@ import { formatBalance, isSameToken, sanitiseForParsing, sanitizeAmountInput } f
 const Send = () => {
   const { sendForm, setSendForm, setRoute } = useOpenfort()
 
-  const { nativeOption, tokenOptions } = useTokens()
+  // const { nativeOption, tokenOptions } = useTokens()
+  const { data: assets, refetch } = useWalletAssets()
 
   // Track if we're navigating to confirmation to avoid resetting amount
   const isNavigatingToConfirmationRef = useRef(false)
 
   // Reset the ref when component mounts
   useEffect(() => {
+    refetch()
     isNavigatingToConfirmationRef.current = false
   }, [])
 
@@ -49,41 +51,43 @@ const Send = () => {
     }
   }, [setSendForm])
 
-  useEffect(() => {
-    setSendForm((prev) => {
-      if (prev.token.type !== 'native') return prev
-      const nextSymbol = nativeOption.symbol || prev.token.symbol || 'ETH'
-      const nextDecimals = nativeOption.decimals ?? prev.token.decimals ?? 18
-      if (prev.token.symbol === nextSymbol && prev.token.decimals === nextDecimals) return prev
-      return {
-        ...prev,
-        token: {
-          type: 'native',
-          symbol: nextSymbol,
-          decimals: nextDecimals,
-        },
-      }
-    })
-  }, [nativeOption.decimals, nativeOption.symbol, setSendForm])
+  // useEffect(() => {
+  //   setSendForm((prev) => {
+  //     if (prev.token.type !== 'native') return prev
+  //     const nextSymbol = nativeOption.symbol || prev.token.symbol || 'ETH'
+  //     const nextDecimals = nativeOption.decimals ?? prev.token.decimals ?? 18
+  //     if (prev.token.symbol === nextSymbol && prev.token.decimals === nextDecimals) return prev
+  //     return {
+  //       ...prev,
+  //       token: {
+  //         type: 'native',
+  //         symbol: nextSymbol,
+  //         decimals: nextDecimals,
+  //       },
+  //     }
+  //   })
+  // }, [nativeOption.decimals, nativeOption.symbol, setSendForm])
 
   const matchedToken = useMemo(
-    () => tokenOptions.find((token) => isSameToken(token, sendForm.token)),
-    [tokenOptions, sendForm.token]
+    () => assets?.find((asset) => isSameToken(asset, sendForm.asset)),
+    [assets, sendForm.asset]
   )
 
-  const selectedTokenOption = matchedToken ?? tokenOptions[0]
-  const selectedToken: SendTokenOption = selectedTokenOption ?? sendForm.token
-  const selectedBalanceValue = selectedTokenOption?.balanceValue
+  const selectedTokenOption = matchedToken ?? assets?.[0]
+  const selectedToken: Asset = selectedTokenOption ?? sendForm.asset
+  const selectedBalanceValue = selectedTokenOption?.balance
+  const selectedDecimalsValue = selectedToken.type === 'erc20' ? (selectedToken.metadata?.decimals ?? 18) : 18
+  const selectedSymbol = (selectedToken.metadata?.symbol as string) ?? ''
 
   const parsedAmount = useMemo(() => {
     const rawAmount = sanitiseForParsing(sendForm.amount)
     if (!rawAmount) return null
     try {
-      return parseUnits(rawAmount, selectedToken.decimals)
+      return parseUnits(rawAmount, selectedDecimalsValue)
     } catch (_error) {
       return null
     }
-  }, [sendForm.amount, selectedToken.decimals])
+  }, [sendForm.amount, selectedDecimalsValue])
 
   const recipientValid = isAddress(sendForm.recipient)
   const insufficientBalance =
@@ -127,7 +131,7 @@ const Send = () => {
 
   const handleMax = () => {
     if (!selectedBalanceValue) return
-    const maxAmount = formatUnits(selectedBalanceValue, selectedToken.decimals)
+    const maxAmount = formatUnits(selectedBalanceValue, selectedDecimalsValue)
     setSendForm((prev) => ({
       ...prev,
       amount: maxAmount,
@@ -138,23 +142,17 @@ const Send = () => {
     setRoute(routes.SEND_TOKEN_SELECT)
   }
 
-  const availableLabel = formatBalance(selectedBalanceValue, selectedToken.decimals)
+  const availableLabel = formatBalance(selectedBalanceValue, selectedDecimalsValue)
   const maxDisabled = !selectedBalanceValue
 
   return (
-    <PageContent>
+    <PageContent onBack={'profile'}>
       <ModalHeading>Send tokens</ModalHeading>
       <ModalBody>Choose a recipient, token, and amount to send.</ModalBody>
       <Form onSubmit={handleSubmit}>
         <Field>
           <FieldLabel>Recipient address</FieldLabel>
-          <Input
-            placeholder="0x..."
-            value={sendForm.recipient}
-            onChange={handleRecipientChange}
-            autoComplete="off"
-            style={{ marginTop: 8 }}
-          />
+          <Input placeholder="0x..." value={sendForm.recipient} onChange={handleRecipientChange} autoComplete="off" />
           {sendForm.recipient && !recipientValid && <ErrorText>Enter a valid wallet address.</ErrorText>}
         </Field>
 
@@ -162,14 +160,11 @@ const Send = () => {
           <FieldLabel>Token</FieldLabel>
           <TokenSelectorButton type="button" onClick={handleOpenTokenSelector}>
             <TokenSelectorContent>
-              <TokenSelectorValue $primary>{selectedToken.symbol || 'Select token'}</TokenSelectorValue>
-              {'name' in selectedToken && selectedToken.name ? (
-                <TokenSelectorValue $muted>{selectedToken.name}</TokenSelectorValue>
-              ) : null}
+              <TokenSelectorValue $primary>{selectedSymbol || 'Select token'}</TokenSelectorValue>
             </TokenSelectorContent>
             <TokenSelectorRight>
               <TokenSelectorValue>
-                {availableLabel === '--' ? '--' : `${availableLabel} ${selectedToken.symbol}`}
+                {availableLabel === '--' ? '--' : `${availableLabel} ${selectedSymbol ?? ''}`}
               </TokenSelectorValue>
               <Arrow width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <ArrowChevron
@@ -199,7 +194,7 @@ const Send = () => {
             </MaxButton>
           </AmountInputWrapper>
           <HelperText>
-            Available: {availableLabel} {selectedToken.symbol}
+            Available: {availableLabel} {selectedSymbol}
           </HelperText>
           {sendForm.amount && parsedAmount === null && <ErrorText>Enter a valid amount.</ErrorText>}
           {insufficientBalance && <ErrorText>Insufficient balance for this transfer.</ErrorText>}

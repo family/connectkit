@@ -4,7 +4,7 @@ import { type BuyProviderId, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { getProviderQuotes, getProviders } from '../Buy/providers'
 import { createCurrencyFormatter } from '../Buy/utils'
-import { sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
+import { getAssetSymbol, sanitiseForParsing, sanitizeAmountInput } from '../Send/utils'
 import {
   EmptyState,
   ProviderBadge,
@@ -41,7 +41,7 @@ const BuyProviderSelect = () => {
   }, [quotes.length])
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
 
-  const tokenSymbol = buyForm.token.symbol || 'Token'
+  const tokenSymbol = getAssetSymbol(buyForm.asset)
 
   const handleSelect = (id: BuyProviderId) => {
     setBuyForm((prev) => ({

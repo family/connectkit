@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { formatUnits } from 'viem'
-import { type TokenOptionWithBalance, useTokens } from '../../../hooks/useTokens'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
-import { routes } from '../../Openfort/types'
+import { type Asset, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { formatBalanceWithSymbol } from '../Send/utils'
 import {
@@ -28,23 +28,23 @@ const usdFormatter = new Intl.NumberFormat('en-US', {
 const SelectToken = () => {
   const { route, setSendForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
 
-  const { tokenOptions, isBalancesLoading, prices: usdPrices } = useTokens()
+  const { data: walletAssets, isLoading: isBalancesLoading } = useWalletAssets()
 
   const isBuyFlow = route.route === routes.BUY_TOKEN_SELECT
 
   // Show all tokens for both buy and send flows
-  const selectableTokens = tokenOptions
+  const selectableTokens = walletAssets || []
 
-  const handleSelect = (token: TokenOptionWithBalance) => {
+  const handleSelect = (asset: Asset) => {
     // In send flow, don't allow selecting tokens with 0 balance
-    if (!isBuyFlow && (token.balanceValue ?? ZERO) <= ZERO) {
+    if (!isBuyFlow && (asset.balance ?? ZERO) <= ZERO) {
       return
     }
 
     if (isBuyFlow) {
       setBuyForm((prev) => ({
         ...prev,
-        token,
+        asset,
       }))
       setRoute(routes.BUY)
       return
@@ -52,7 +52,7 @@ const SelectToken = () => {
 
     setSendForm((prev) => ({
       ...prev,
-      token,
+      asset,
       amount: '', // Always reset amount when selecting a token
     }))
     setRoute(routes.SEND)
@@ -75,23 +75,25 @@ const SelectToken = () => {
       <TokenList>
         {selectableTokens.map((token) => {
           const key = token.type === 'erc20' ? token.address : 'native'
-          const displayName = token.name || token.symbol
-          const symbolKey = token.symbol?.toUpperCase()
-          const pricePerToken = symbolKey ? usdPrices[symbolKey] : undefined
+          const displayName = (token.metadata?.name as string) || (token.metadata?.symbol as string) || 'Unknown Token'
+          // const symbolKey = token.metadata?.symbol?.toUpperCase()
+          const decimals = token.metadata && 'decimals' in token.metadata ? (token.metadata.decimals as number) : 18
+
+          const pricePerToken = token.type === 'native' ? (token.metadata as any)?.fiat?.value : undefined
           let usdValue: string | null = null
 
           // Show loading state for balances
-          const isBalanceLoaded = token.balanceValue !== undefined
+          const isBalanceLoaded = token.balance !== undefined
           const balanceDisplay = isBalanceLoaded
-            ? formatBalanceWithSymbol(token.balanceValue, token.decimals, token.symbol)
+            ? formatBalanceWithSymbol(token.balance, decimals, token.metadata?.symbol as string)
             : 'Loading...'
 
           // Check if token has zero balance (for send flow opacity)
-          const hasZeroBalance = isBalanceLoaded && (token.balanceValue ?? ZERO) <= ZERO
+          const hasZeroBalance = isBalanceLoaded && (token.balance ?? ZERO) <= ZERO
           const isDisabled = !isBuyFlow && hasZeroBalance
 
-          if (isBalanceLoaded && pricePerToken !== undefined && token.balanceValue !== undefined) {
-            const amount = parseFloat(formatUnits(token.balanceValue, token.decimals))
+          if (isBalanceLoaded && pricePerToken !== undefined && token.balance !== undefined) {
+            const amount = parseFloat(formatUnits(token.balance, decimals))
             if (Number.isFinite(amount)) {
               const totalUsd = amount * pricePerToken
               if (totalUsd >= 0.01) {

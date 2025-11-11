@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
 import Logos from '../../../assets/logos'
-import { useTokens } from '../../../hooks/useTokens'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import Button from '../../Common/Button'
 import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import SquircleSpinner from '../../Common/SquircleSpinner'
@@ -15,7 +15,7 @@ import { isSameToken } from '../Send/utils'
 
 const BuyProcessing = () => {
   const { buyForm, setRoute, triggerResize, publishableKey } = useOpenfort()
-  const { tokenOptions } = useTokens()
+
   const { address } = useAccount()
   const chainId = useChainId()
   const [popupWindow, setPopupWindow] = useState<Window | null>(null)
@@ -23,13 +23,15 @@ const BuyProcessing = () => {
   const [isCreatingSession, setIsCreatingSession] = useState(true)
   const [sessionError, setSessionError] = useState(false)
 
+  const { data: assets } = useWalletAssets()
+
   const matchedToken = useMemo(
-    () => tokenOptions.find((token) => isSameToken(token, buyForm.token)),
-    [tokenOptions, buyForm.token]
+    () => assets?.find((asset) => isSameToken(asset, buyForm.asset)),
+    [assets, buyForm.asset]
   )
 
-  const selectedTokenOption = matchedToken ?? tokenOptions[0]
-  const selectedToken = selectedTokenOption ?? buyForm.token
+  const selectedTokenOption = matchedToken ?? assets?.[0]
+  const selectedToken = selectedTokenOption ?? buyForm.asset
 
   const fiatAmount = useMemo(() => {
     const normalized = buyForm.amount

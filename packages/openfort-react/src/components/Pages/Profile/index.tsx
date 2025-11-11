@@ -15,7 +15,7 @@ import { CopyText } from '../../Common/CopyToClipboard'
 import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider'
-import { routes } from '../../Openfort/types'
+import { defaultSendFormState, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import {
@@ -171,14 +171,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
                   <ActionButton
                     icon={<SendIcon />}
                     onClick={() => {
-                      setSendForm((prev) => ({
-                        ...prev,
-                        token: {
-                          type: 'native',
-                          symbol: balance?.symbol || prev.token.symbol || 'ETH',
-                          decimals: balance?.decimals ?? prev.token.decimals ?? 18,
-                        },
-                      }))
+                      setSendForm(defaultSendFormState)
                       context.setRoute(routes.SEND)
                     }}
                   >

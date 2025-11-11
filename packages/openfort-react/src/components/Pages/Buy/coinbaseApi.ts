@@ -1,5 +1,6 @@
 import { SDKConfiguration } from '@openfort/openfort-js'
-import type { SendTokenOption } from '../../Openfort/types'
+import type { Asset } from '../../Openfort/types'
+import { getAssetSymbol } from '../Send/utils'
 
 const getBackendUrl = (): string => {
   const sdkConfig = SDKConfiguration.getInstance()
@@ -75,14 +76,14 @@ const COINBASE_SUPPORTED_CURRENCIES = [
 ] as const
 
 // Check if a token is supported by Coinbase
-export const isCoinbaseSupported = (token: SendTokenOption): boolean => {
-  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
+export const isCoinbaseSupported = (token: Asset): boolean => {
+  const symbol = getAssetSymbol(token)
   return COINBASE_SUPPORTED_CURRENCIES.includes(symbol.toLowerCase() as any)
 }
 
 // Map token symbol to Coinbase currency code
-const getCurrencyCode = (token: SendTokenOption): string => {
-  const symbol = token.type === 'native' ? token.symbol || 'ETH' : token.symbol || 'USDC'
+const getCurrencyCode = (token: Asset): string => {
+  const symbol = getAssetSymbol(token)
   const lowercaseSymbol = symbol.toLowerCase()
 
   // Validate that the currency is supported by Coinbase
@@ -104,7 +105,7 @@ const getCurrencyCode = (token: SendTokenOption): string => {
  */
 export const createCoinbaseSession = async (
   params: Omit<CreateCoinbaseSessionParams, 'destinationCurrency' | 'destinationNetwork'> & {
-    token: SendTokenOption
+    token: Asset
     chainId: number
     publishableKey: string
   }
@@ -165,7 +166,7 @@ type GetCoinbaseQuoteParams = {
  */
 export const getCoinbaseQuote = async (
   params: Omit<GetCoinbaseQuoteParams, 'destinationCurrency' | 'destinationNetwork'> & {
-    token: SendTokenOption
+    token: Asset
     chainId: number
     publishableKey: string
   }

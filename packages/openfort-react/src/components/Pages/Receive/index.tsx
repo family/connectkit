@@ -1,7 +1,9 @@
 import { useAccount } from 'wagmi'
+import Logos from '../../../assets/logos'
 import { CopyIconButton } from '../../Common/CopyToClipboard'
 import CustomQRCode from '../../Common/CustomQRCode'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
+import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import { AddressField, AddressRow, AddressSection, Label, NetworkInfo, QRWrapper } from './styles'
 
@@ -16,6 +18,17 @@ const Receive = () => {
       ? `Chain ID: ${chain.id}`
       : null
 
+  const { uiConfig: options } = useOpenfort()
+  const renderLogo = () => {
+    if (options?.logo) {
+      if (typeof options.logo === 'string') {
+        return <img src={options.logo} alt="Logo" style={{ width: '100%' }} />
+      }
+      return options.logo
+    }
+    return <Logos.Openfort />
+  }
+
   return (
     <PageContent>
       <ModalHeading>Receive funds</ModalHeading>
@@ -23,7 +36,7 @@ const Receive = () => {
 
       {address && (
         <QRWrapper>
-          <CustomQRCode value={qrValue} />
+          <CustomQRCode value={qrValue} image={<div style={{ padding: 10 }}>{renderLogo()}</div>} />
         </QRWrapper>
       )}
 

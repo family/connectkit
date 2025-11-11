@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import useLocales from '../../../hooks/useLocales'
-import { useTokens } from '../../../hooks/useTokens'
 import Button from '../../Common/Button'
 import { Arrow, ArrowChevron } from '../../Common/Button/styles'
 import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
@@ -30,7 +30,8 @@ const amountPresets = [10, 20, 50]
 const Buy = () => {
   const { buyForm, setBuyForm, setRoute, triggerResize } = useOpenfort()
   const locales = useLocales()
-  const { nativeOption, tokenOptions } = useTokens()
+  const { data: assets } = useWalletAssets()
+
   const [pressedPreset, setPressedPreset] = useState<number | null>(null)
 
   const fiatAmount = useMemo(() => {
@@ -46,33 +47,16 @@ const Buy = () => {
     triggerResize()
   }, [triggerResize])
 
-  useEffect(() => {
-    setBuyForm((prev) => {
-      if (prev.token.type !== 'native') return prev
-      const nextSymbol = nativeOption.symbol || prev.token.symbol || 'ETH'
-      const nextDecimals = nativeOption.decimals ?? prev.token.decimals ?? 18
-      if (prev.token.symbol === nextSymbol && prev.token.decimals === nextDecimals) return prev
-      return {
-        ...prev,
-        token: {
-          type: 'native',
-          symbol: nextSymbol,
-          decimals: nextDecimals,
-        },
-      }
-    })
-  }, [nativeOption.decimals, nativeOption.symbol, setBuyForm])
-
   const matchedToken = useMemo(
-    () => tokenOptions.find((token) => isSameToken(token, buyForm.token)),
-    [tokenOptions, buyForm.token]
+    () => assets?.find((asset) => isSameToken(asset, buyForm.asset)),
+    [assets, buyForm.asset]
   )
 
-  const selectedTokenOption = matchedToken ?? tokenOptions[0]
-  const selectedToken = selectedTokenOption ?? buyForm.token
+  const selectedTokenOption = matchedToken ?? assets?.[0]
+  const selectedToken = selectedTokenOption ?? buyForm.asset
 
-  const tokenSymbol = selectedToken.symbol || 'Token'
-  const tokenName = 'name' in selectedToken && selectedToken.name ? selectedToken.name : tokenSymbol
+  const tokenSymbol = (selectedToken.metadata?.symbol as string) || 'Token'
+  const tokenName = (selectedToken.metadata?.name as string) || tokenSymbol
 
   const currencyFormatter = useMemo(() => createCurrencyFormatter(buyForm.currency), [buyForm.currency])
   const currencySymbol = useMemo(() => getCurrencySymbol(buyForm.currency), [buyForm.currency])

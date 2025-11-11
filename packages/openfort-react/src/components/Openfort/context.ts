@@ -55,8 +55,10 @@ export type ContextValue = {
   walletConfig?: OpenfortWalletConfig
   overrides?: SDKOverrides
   thirdPartyAuth?: ThirdPartyAuthConfiguration
+
   emailInput: string
   setEmailInput: React.Dispatch<React.SetStateAction<string>>
+
   sendForm: SendFormState
   setSendForm: React.Dispatch<React.SetStateAction<SendFormState>>
   buyForm: BuyFormState
