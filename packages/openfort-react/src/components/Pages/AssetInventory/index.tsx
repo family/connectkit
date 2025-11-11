@@ -76,7 +76,7 @@ export const AssetInventory = () => {
             <TokenContainer key={key}>
               <TokenInfo>
                 <TokenSymbol>{displayName}</TokenSymbol>
-                <TokenName>{displaySymbol}</TokenName>
+                {/* <TokenName>{displaySymbol}</TokenName> */}
               </TokenInfo>
               <TokenInfo>
                 <TokenBalance>{balanceDisplay}</TokenBalance>
