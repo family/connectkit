@@ -35,7 +35,7 @@ export function OpenfortProviders({ children }: { children: React.ReactNode }) {
           walletConfig={{
             shieldPublishableKey, // Get it from https://dashboard.openfort.io
             ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID, // Policy ID for sponsoring transactions
-            createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT, // Endpoint for encryption session
+            createEncryptedSessionEndpoint: import.meta.env.VITE_BETTERAUTH_URL + import.meta.env.VITE_BETTERAUTH_BASE_PATH +'/encryption-session', // Endpoint for encryption session
             recoverWalletAutomaticallyAfterAuth: false, // Wallet creation handled manually after auth
           }}
           thirdPartyAuth={{
