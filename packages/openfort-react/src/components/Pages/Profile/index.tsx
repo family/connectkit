@@ -2,12 +2,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import { useAccount, useBalance, useChainId, useEnsName } from 'wagmi'
-import { BuyIcon, DisconnectIcon, ReceiveIcon, SendIcon, UserRoundIcon } from '../../../assets/icons'
+import { BuyIcon, ReceiveIcon, SendIcon, UserRoundIcon } from '../../../assets/icons'
 import { useChains } from '../../../hooks/useChains'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
-import useLocales from '../../../hooks/useLocales'
-import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { isSafeConnector, nFormatter, truncateEthAddress } from '../../../utils'
+import { nFormatter, truncateEthAddress } from '../../../utils'
 import Avatar from '../../Common/Avatar'
 import Button from '../../Common/Button'
 import ChainSelector from '../../Common/ChainSelect'
@@ -26,20 +24,17 @@ import {
   Balance,
   BalanceContainer,
   ChainSelectorContainer,
-  DisconnectButton,
   LinkedProvidersToggle,
   LoadingBalance,
   Unsupported,
 } from './styles'
 
-const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
+const Profile = () => {
   const context = useOpenfort()
   const themeContext = useThemeContext()
   const { setHeaderLeftSlot, setRoute } = context
 
-  const locales = useLocales()
-
-  const { address, connector } = useAccount()
+  const { address } = useAccount()
   const chainId = useChainId()
   const chains = useChains()
   const chain = chains.find((c) => c.id === chainId)
@@ -54,25 +49,8 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     //watch: true,
   })
 
-  const [shouldDisconnect, setShouldDisconnect] = useState(false)
-  const { logout } = useOpenfortCore()
-
   const isTestnet = chain?.testnet ?? false
   const [showTestnetMessage, setShowTestnetMessage] = useState(false)
-
-  useEffect(() => {
-    if (!shouldDisconnect) return
-
-    // Close before disconnecting to avoid layout shifting while modal is still open
-    if (closeModal) {
-      closeModal()
-    } else {
-      context.setOpen(false)
-    }
-    return () => {
-      logout()
-    }
-  }, [shouldDisconnect, logout])
 
   useEffect(() => {
     context.triggerResize()
@@ -124,7 +102,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
 
   return (
     <PageContent onBack={null}>
-      <ModalContent style={{ paddingBottom: 22, gap: 6 }}>
+      <ModalContent style={{ paddingBottom: 6, gap: 6 }}>
         {address ? (
           <>
             <AvatarContainer>
@@ -235,11 +213,6 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
           </Button>
         )}
       </ModalContent>
-      {!isSafeConnector(connector?.id) && (
-        <DisconnectButton onClick={() => setShouldDisconnect(true)} icon={<DisconnectIcon />}>
-          {locales.disconnect}
-        </DisconnectButton>
-      )}
       <PoweredByFooter />
     </PageContent>
   )
