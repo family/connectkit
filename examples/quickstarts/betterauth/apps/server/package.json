@@ -8,7 +8,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@openfort/openfort-node": "^0.6.73",
+    "@openfort/better-auth": "^0.0.2",
+    "@openfort/openfort-node": "^0.6.75",
     "better-auth": "^1.2.2",
     "better-sqlite3": "^12.4.1",
     "cors": "^2.8.5",
