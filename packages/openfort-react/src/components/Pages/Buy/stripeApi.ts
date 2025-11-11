@@ -7,7 +7,7 @@ const getBackendUrl = (): string => {
   return sdkConfig?.backendUrl || 'https://api.openfort.io'
 }
 
-export type StripeQuote = {
+type StripeQuote = {
   provider: string
   sourceAmount: string
   sourceCurrency: string
@@ -22,7 +22,7 @@ export type StripeQuote = {
   exchangeRate: string
 }
 
-export type StripeOnrampResponse = {
+type StripeOnrampResponse = {
   provider: string
   sessionId: string
   clientSecret: string
@@ -135,7 +135,7 @@ type GetStripeQuoteParams = {
  * Get a quote from Stripe
  * This provides fee estimates and exchange rates
  */
-export const getStripeQuote = async (
+const _getStripeQuote = async (
   params: Omit<GetStripeQuoteParams, 'destinationCurrency' | 'destinationNetwork'> & {
     token: Asset
     chainId: number

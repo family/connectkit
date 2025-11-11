@@ -7,7 +7,7 @@ const getBackendUrl = (): string => {
   return sdkConfig?.backendUrl || 'https://api.openfort.io'
 }
 
-export type CoinbaseQuoteResponse = {
+type CoinbaseQuoteResponse = {
   provider: string
   sourceAmount: string
   sourceCurrency: string
@@ -22,7 +22,7 @@ export type CoinbaseQuoteResponse = {
   exchangeRate: string
 }
 
-export type CoinbaseOnrampResponse = {
+type CoinbaseOnrampResponse = {
   provider: string
   onrampUrl: string
 }
@@ -164,7 +164,7 @@ type GetCoinbaseQuoteParams = {
  * Get a quote from Coinbase
  * This provides fee estimates and exchange rates
  */
-export const getCoinbaseQuote = async (
+const _getCoinbaseQuote = async (
   params: Omit<GetCoinbaseQuoteParams, 'destinationCurrency' | 'destinationNetwork'> & {
     token: Asset
     chainId: number

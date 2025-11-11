@@ -244,15 +244,15 @@ export const PendingContainer = styled.div`
   height: 120px;
 `
 
-export const SuccessIconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 32px auto 24px;
-  
-  svg {
-    width: 80px;
-    height: 80px;
-    color: var(--ck-body-color-valid);
-  }
-`
+// export const SuccessIconContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 32px auto 24px;
+
+//   svg {
+//     width: 80px;
+//     height: 80px;
+//     color: var(--ck-body-color-valid);
+//   }
+// `

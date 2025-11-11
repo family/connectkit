@@ -174,39 +174,39 @@ export const ExternalLinkIcon = ({ ...props }) => (
   </svg>
 );
 
-export const LinkIcon = ({ ...props }) => (
-  <svg
-    aria-hidden="true"
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M13.8284 10.1716C15.3905 11.7337 15.3905 14.2663 13.8284 15.8284L10.8284 18.8284C9.26633 20.3905 6.73367 20.3905 5.17157 18.8284C3.60947 17.2663 3.60947 14.7337 5.17157 13.1716L6.08579 12.2574"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.1716 13.8284C8.60947 12.2663 8.60947 9.73367 10.1716 8.17157L13.1716 5.17157C14.7337 3.60947 17.2663 3.60947 18.8284 5.17157C20.3905 6.73367 20.3905 9.26633 18.8284 10.8284L17.9142 11.7426"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M9.17163 14.8285L14.8285 9.17163"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
+// export const LinkIcon = ({ ...props }) => (
+//   <svg
+//     aria-hidden="true"
+//     width="18"
+//     height="18"
+//     viewBox="0 0 24 24"
+//     fill="none"
+//     xmlns="http://www.w3.org/2000/svg"
+//     {...props}
+//   >
+//     <path
+//       d="M13.8284 10.1716C15.3905 11.7337 15.3905 14.2663 13.8284 15.8284L10.8284 18.8284C9.26633 20.3905 6.73367 20.3905 5.17157 18.8284C3.60947 17.2663 3.60947 14.7337 5.17157 13.1716L6.08579 12.2574"
+//       stroke="currentColor"
+//       strokeWidth="1.75"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//     <path
+//       d="M10.1716 13.8284C8.60947 12.2663 8.60947 9.73367 10.1716 8.17157L13.1716 5.17157C14.7337 3.60947 17.2663 3.60947 18.8284 5.17157C20.3905 6.73367 20.3905 9.26633 18.8284 10.8284L17.9142 11.7426"
+//       stroke="currentColor"
+//       strokeWidth="1.75"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//     <path
+//       d="M9.17163 14.8285L14.8285 9.17163"
+//       stroke="currentColor"
+//       strokeWidth="1.75"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//   </svg>
+// )
 
 export const AlertIcon = ({ ...props }) => {
   return (

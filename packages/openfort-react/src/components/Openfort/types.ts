@@ -119,7 +119,7 @@ export enum LinkWalletOnSignUpOption {
 
 type PolicyConfig = string | Record<number, string>
 
-export interface AssetConfig {
+interface AssetConfig {
   address: Hex
   symbol?: string
   name?: string
