@@ -18,7 +18,7 @@
     "check:types": "tsc --noEmit",
     "check:unused": "knip",
     "check:audit": "pnpm audit --audit-level=moderate",
-    "check:all": "pnpm check && pnpm check:types && pnpm check:unused",
+    "check:all": "pnpm check && pnpm check:types && pnpm check:unused && pnpm check:audit",
     "sync-templates": "node scripts/sync-templates.js",
     "changeset": "changeset",
     "changeset:version": "node scripts/sync-templates.js && pnpm install --lockfile-only && changeset version && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
