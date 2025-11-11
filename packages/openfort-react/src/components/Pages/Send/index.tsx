@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { formatUnits, isAddress, parseUnits } from 'viem'
 import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import Button from '../../Common/Button'
@@ -27,12 +27,7 @@ const Send = () => {
   const { sendForm, setSendForm, setRoute } = useOpenfort()
 
   // const { nativeOption, tokenOptions } = useTokens()
-  const { data: assets, refetch } = useWalletAssets()
-
-  // Reset the ref when component mounts
-  useEffect(() => {
-    refetch()
-  }, [])
+  const { data: assets } = useWalletAssets()
 
   const matchedToken = useMemo(
     () => assets?.find((asset) => isSameToken(asset, sendForm.asset)),

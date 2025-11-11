@@ -30,7 +30,7 @@ const _truncateUserId = (playerId?: string, separator: string = '••••') 
 
 const nFormatter = (num: number, digits: number = 2) => {
   // Handle zero case
-  if (num === 0) return '0'
+  if (num === 0) return '0.00'
 
   // Handle very small amounts
   if (num > 0 && num < 0.000001) return '<0.000001'

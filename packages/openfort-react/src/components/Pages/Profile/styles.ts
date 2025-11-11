@@ -25,9 +25,11 @@ export const ChainSelectorContainer = styled(motion.div)`
 export const BalanceContainer = styled(motion.div)`
   position: relative;
   height: 24px;
+  margin-top: 4px;
 `
 export const Balance = styled(motion.div)`
   position: relative;
+  font-size: 20px;
 `
 const PlaceholderKeyframes = keyframes`
   0%{ background-position: 100% 0; }

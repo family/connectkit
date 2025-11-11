@@ -11,6 +11,7 @@ import { ConnectKitThemeProvider } from '../ConnectKitThemeProvider/ConnectKitTh
 import { routes } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import About from '../Pages/About'
+import { AssetInventory } from '../Pages/AssetInventory'
 import Buy from '../Pages/Buy'
 import BuyComplete from '../Pages/BuyComplete'
 import BuyProcessing from '../Pages/BuyProcessing'
@@ -29,6 +30,7 @@ import LinkedProvidersPage from '../Pages/LinkedProviders'
 import Loading from '../Pages/Loading'
 import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
+import { NoAssetsAvailable } from '../Pages/NoAssetsAvailable'
 import Onboarding from '../Pages/Onboarding'
 import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
@@ -132,6 +134,10 @@ const ConnectModal: React.FC<{
     linkedProviders: <LinkedProvidersPage />,
     switchNetworks: <SwitchNetworks />,
     connectWithMobile: <ConnectWithMobile />,
+
+    noAssetsAvailable: <NoAssetsAvailable />,
+    assetInventory: <AssetInventory />,
+
     send: <Send />,
     sendConfirmation: <SendConfirmation />,
     sendTokenSelect: <SelectToken isBuyFlow={false} />,

@@ -1,13 +1,16 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
-import { useEffect, useState } from 'react'
-import { useAccount, useBalance, useChainId, useEnsName } from 'wagmi'
+import { useEffect, useMemo, useState } from 'react'
+import { formatUnits } from 'viem'
+import { useAccount, useChainId, useEnsName } from 'wagmi'
 import { BuyIcon, ReceiveIcon, SendIcon, UserRoundIcon } from '../../../assets/icons'
+import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import { useChains } from '../../../hooks/useChains'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
 import { nFormatter, truncateEthAddress } from '../../../utils'
 import Avatar from '../../Common/Avatar'
 import Button from '../../Common/Button'
+import { TextLinkButton } from '../../Common/Button/styles'
 import ChainSelector from '../../Common/ChainSelect'
 import { CopyText } from '../../Common/CopyToClipboard/CopyText'
 import { ModalBody, ModalContent, ModalH1 } from '../../Common/Modal/styles'
@@ -44,10 +47,27 @@ const Profile = () => {
     address: address,
     config: ensFallbackConfig,
   })
-  const { data: balance } = useBalance({
-    address,
-    //watch: true,
-  })
+
+  const { data: assets, isLoading, refetch } = useWalletAssets()
+  const totalBalanceUsd = useMemo(() => {
+    if (!assets) return 0
+    return assets.reduce((acc, asset) => {
+      if (!asset.metadata || !asset.balance) return acc
+      const price: number = (asset.metadata as any)?.fiat?.value ?? 0
+      if (!price) return acc
+      const balance = Number(
+        formatUnits(
+          asset.balance ?? BigInt(0),
+          asset.metadata && 'decimals' in asset.metadata ? (asset.metadata.decimals as number) : 18
+        )
+      )
+      return acc + price * balance
+    }, 0)
+  }, [assets])
+
+  useEffect(() => {
+    refetch()
+  }, [])
 
   const isTestnet = chain?.testnet ?? false
   const [showTestnetMessage, setShowTestnetMessage] = useState(false)
@@ -120,28 +140,30 @@ const Profile = () => {
             {context?.uiConfig.hideBalance ? null : (
               <ModalBody>
                 <BalanceContainer>
-                  {balance && (
-                    // TODO: Select token on click
-                    // <TextLinkButton
-                    //   type="button"
-                    //   onClick={() => {
-                    //     setRoute(routes.TOKEN_SELECT)
-                    //   }}
-                    // >
-                    <Balance
-                      key={`chain-${chain?.id}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
+                  {!!assets && !isLoading && (
+                    <TextLinkButton
+                      type="button"
+                      onClick={() => {
+                        const firstBalanceAsset = assets?.find((a) => a.balance && a.balance > BigInt(0))
+                        if (!firstBalanceAsset) {
+                          setRoute(routes.NO_ASSETS_AVAILABLE)
+                          return
+                        }
+                        setRoute(routes.ASSET_INVENTORY)
+                      }}
                     >
-                      {nFormatter(Number(balance?.formatted))}
-                      {` `}
-                      {balance?.symbol}
-                    </Balance>
-                    // </TextLinkButton>
+                      <Balance
+                        key={`chain-${chain?.id}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        ${nFormatter(totalBalanceUsd)}
+                      </Balance>
+                    </TextLinkButton>
                   )}
-                  {!balance && (
+                  {isLoading && (
                     <LoadingBalance
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -156,7 +178,13 @@ const Profile = () => {
                   <ActionButton
                     icon={<SendIcon />}
                     onClick={() => {
-                      setSendForm(defaultSendFormState)
+                      const firstBalanceAsset = assets?.find((a) => a.balance && a.balance > BigInt(0))
+                      if (!firstBalanceAsset) {
+                        setRoute(routes.NO_ASSETS_AVAILABLE)
+                        return
+                      }
+
+                      setSendForm({ ...defaultSendFormState, asset: firstBalanceAsset })
                       context.setRoute(routes.SEND)
                     }}
                   >

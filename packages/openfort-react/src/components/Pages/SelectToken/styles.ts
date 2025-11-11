@@ -34,6 +34,17 @@ export const TokenButton = styled.button`
     border-color: var(--ck-body-color-muted);
   }
 `
+export const TokenContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--ck-secondary-button-border-radius);
+  border: 1px solid var(--ck-body-divider);
+  background: var(--ck-secondary-button-background);
+  color: var(--ck-body-color);
+`
 
 export const TokenInfo = styled.div`
   display: flex;

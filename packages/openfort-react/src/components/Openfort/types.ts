@@ -35,6 +35,10 @@ export const routes = {
   PROFILE: 'profile',
   LINKED_PROVIDERS: 'linkedProviders',
   SWITCHNETWORKS: 'switchNetworks',
+
+  NO_ASSETS_AVAILABLE: 'noAssetsAvailable',
+  ASSET_INVENTORY: 'assetInventory',
+
   SEND: 'send',
   SEND_TOKEN_SELECT: 'sendTokenSelect',
   SEND_CONFIRMATION: 'sendConfirmation',
