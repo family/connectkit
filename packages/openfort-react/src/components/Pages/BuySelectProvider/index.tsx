@@ -253,16 +253,18 @@ const BuySelectProvider = () => {
           // Use real quote data if available, otherwise show loading or fallback
           const netDisplay = isDisabled
             ? disabledReason
-            : isLoadingQuote
+            : isLoadingQuote || !providerQuote
               ? '...'
               : providerNetAmount !== null
                 ? formatTokenAmount(providerNetAmount, tokenSymbol)
                 : '--'
           const fiatDisplay = isDisabled
             ? ''
-            : providerFiatAmount !== null
-              ? `${isEstimated ? '~' : ''}${currencyFormatter.format(providerFiatAmount)}`
-              : '--'
+            : isLoadingQuote || !providerQuote
+              ? '...'
+              : providerFiatAmount !== null
+                ? `${isEstimated ? '~' : ''}${currencyFormatter.format(providerFiatAmount)}`
+                : '--'
 
           // Use real fee percentage if available
           const feePercentage = providerFeePercentage ?? (provider.feeBps / 100).toFixed(2)

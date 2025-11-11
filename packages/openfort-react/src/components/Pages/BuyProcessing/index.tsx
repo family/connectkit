@@ -231,6 +231,10 @@ const BuyProcessing = () => {
     )
   }
 
+  const isStripe = buyForm.providerId === 'stripe'
+  const isCoinbase = buyForm.providerId === 'coinbase'
+  const isProvider = isStripe || isCoinbase
+
   if (isCreatingSession) {
     return (
       <PageContent onBack={handleBack}>
@@ -240,19 +244,22 @@ const BuyProcessing = () => {
           <PendingContainer>
             <SquircleSpinner
               logo={
-                <div
-                  style={{
-                    padding: '12px',
-                    position: 'relative',
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Logos.Openfort />
-                </div>
+                isProvider ? (
+                  <div
+                    style={{
+                      padding: '12px',
+                      position: 'relative',
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {isStripe && <Logos.Stripe />}
+                    {isCoinbase && <Logos.CoinbasePay />}
+                  </div>
+                ) : undefined
               }
               connecting={true}
             />
@@ -261,9 +268,6 @@ const BuyProcessing = () => {
       </PageContent>
     )
   }
-
-  const isStripe = buyForm.providerId === 'stripe'
-  const isCoinbase = buyForm.providerId === 'coinbase'
 
   return (
     <PageContent onBack={handleCancel}>
