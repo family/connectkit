@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { type MotionStyle, motion } from 'framer-motion'
+import { css } from 'styled-components'
 import { CopyToClipboardIcon as Icon } from '../../../assets/icons'
 import styled from '../../../styles/styled'
 
@@ -34,32 +35,47 @@ const IconWrapper = styled(motion.div)<{ $copied?: boolean }>`
     transition: all 220ms ease;
     opacity: ${(props) => (props.$copied ? 1 : 0)};
     stroke: var(--ck-body-background);
-    transform: ${(props) =>
-      props.$copied ? 'translate(7.75px, 9.5px)' : 'translate(11.75px, 10px) rotate(90deg) scale(0.6)'};
+    transform: translate(11.75px, 10px) rotate(90deg) scale(0.6);
   }
 
   ${(props) =>
-    props.$copied &&
-    `
-    svg path:first-child {
-      opacity: 0;
-      transform: rotate(-90deg) scale(0.2);
-    }
-    svg rect {
-      rx: 10px;
-      fill: var(--ck-focus-color);
-      transform: rotate(-90deg) scale(1.45);
-    }
-  `}
+    props.$copied
+      ? css`
+          --color: var(--ck-focus-color) !important;
+          --bg: var(--ck-body-background);
+          svg {
+            transition-delay: 0ms;
+            path:first-child {
+              opacity: 0;
+              transform: rotate(-90deg) scale(0.2);
+            }
+            rect {
+              rx: 10px;
+              fill: var(--color);
+              transform: rotate(-90deg) scale(1.45);
+            }
+            path:last-child {
+              transition-delay: 100ms;
+              opacity: 1;
+              transform: translate(7.75px, 9.5px);
+            }
+          }
+        `
+      : css`
+          &:hover {
+          }
+          &:hover:active {
+          }
+        `}
 `
 
 interface CopyIconProps {
   copied?: boolean
-  size?: number
+  size?: MotionStyle['width']
   className?: string
 }
 
-export const CopyIcon = ({ copied, size = 16, className }: CopyIconProps) => {
+export const CopyIcon = ({ copied, size = '1rem', className }: CopyIconProps) => {
   return (
     <IconWrapper $copied={copied} className={className} style={{ width: size, height: size }}>
       <Icon />

@@ -29,7 +29,7 @@ export const CopyText = ({ value, children }: CopyTextProps) => {
   return (
     <Container onClick={() => copy(value)} $disabled={!value}>
       {children}
-      <CopyIcon copied={copied} size={16} />
+      <CopyIcon copied={copied} size={'1.5rem'} />
     </Container>
   )
 }
