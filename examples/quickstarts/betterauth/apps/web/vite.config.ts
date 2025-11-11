@@ -15,11 +15,6 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           secure: false,
         },
-        [env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT]: {
-          target: env.VITE_CREATE_ENCRYPTED_SESSION_BASE_URL,
-          changeOrigin: true,
-          secure: false,
-        },
       },
     },
   };

@@ -35,7 +35,40 @@ export function OpenfortProviders({ children }: { children: React.ReactNode }) {
           walletConfig={{
             shieldPublishableKey, // Get it from https://dashboard.openfort.io
             ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID, // Policy ID for sponsoring transactions
-            createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT, // Endpoint for encryption session
+            getEncryptionSession: async () => {
+              try {
+                const session = await authClient.getSession();
+                const token = session?.data?.session?.token;
+                
+                if (!token) {
+                  console.error('Better Auth - No token available');
+                  return null;
+                }
+
+                const response = await fetch(
+                  import.meta.env.VITE_BETTERAUTH_URL + import.meta.env.VITE_BETTERAUTH_BASE_PATH + '/encryption-session',
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Authorization': `Bearer ${token}`,
+                      'Content-Type': 'application/json',
+                    },
+                  }
+                );
+
+                if (!response.ok) {
+                  console.error('Better Auth - Failed to get encryption session:', response.status);
+                  return null;
+                }
+
+                const data = await response.json();
+                console.log('Better Auth - Retrieved encryption session:', data);
+                return data.sessionId ?? data?.sessionId ?? null;
+              } catch (error) {
+                console.error('Better Auth - Error getting encryption session:', error);
+                return null;
+              }
+            },
             recoverWalletAutomaticallyAfterAuth: false, // Wallet creation handled manually after auth
           }}
           thirdPartyAuth={{

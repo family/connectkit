@@ -2,6 +2,8 @@ import { betterAuth } from 'better-auth';
 import Database from 'better-sqlite3';
 import { config } from 'dotenv';
 import { bearer } from "better-auth/plugins"
+import { openfort, encryptionSession } from "@openfort/better-auth";
+import { openfortSDK } from './openfort';
 
 config();
 
@@ -16,8 +18,24 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
+  logger: {
+    level: 'debug',
+    log: console.log,
+  },
   trustedOrigins: process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:3000'],
   plugins: [
     bearer(),
+    openfort({
+      client: openfortSDK,
+      use: [
+        encryptionSession({
+          config: {
+            apiKey: process.env.SHIELD_API_KEY as string,
+            secretKey: process.env.SHIELD_SECRET_KEY as string,
+            encryptionPart: process.env.SHIELD_ENCRYPTION_SHARE as string,
+          },
+        }),
+      ],
+    }),
   ]
 });

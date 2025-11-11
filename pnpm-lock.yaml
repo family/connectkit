@@ -172,9 +172,12 @@ importers:
 
   examples/quickstarts/betterauth/apps/server:
     dependencies:
+      '@openfort/better-auth':
+        specifier: ^0.0.2
+        version: 0.0.2(@openfort/openfort-node@0.6.75)(better-auth@1.3.28(better-sqlite3@12.4.1)(react@18.3.1))(zod@4.1.12)
       '@openfort/openfort-node':
-        specifier: ^0.6.73
-        version: 0.6.74
+        specifier: ^0.6.75
+        version: 0.6.75
       better-auth:
         specifier: ^1.2.2
         version: 1.3.28(better-sqlite3@12.4.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1640,14 +1643,22 @@ packages:
   '@open-draft/until@2.1.0':
     resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
 
+  '@openfort/better-auth@0.0.2':
+    resolution: {integrity: sha512-QKs0dxkeupsWteSDL5xY5+MKGInHv+3LsypXC0j5zmcRwX8Bkds6Pp9SfZ4BwLqvgJQ2PTBVp5wtqauMEIpznQ==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@openfort/openfort-node': ^0.6.75
+      better-auth: ^1.3.9
+      zod: ^3.24.2 || ^4
+
   '@openfort/openfort-js@0.10.32':
     resolution: {integrity: sha512-zr7DIyYDQ2EvrIcq5YFJg3yZO091LebVn69ZLUYYzY9++Q50k5c2FeADQx8p4XMTPiyBndxgb+45kxkdvKTT0w==}
 
   '@openfort/openfort-js@0.10.34':
     resolution: {integrity: sha512-PZ4pFYX2vl4B7bYRubllp+XQ9Zi8V6j+WgrvxYha7XlY9jZzcnuuLOtLNrAOOx3AL79CijT7Bt6DV2peg1UvKg==}
 
-  '@openfort/openfort-node@0.6.74':
-    resolution: {integrity: sha512-FCiLiArSDUEzu3YdEjNsGcaUFGNirYOn1KIigaJa1QNdXrdFGUjK0iV9JL9nu2AM0tJcV7ZsRkciSuNcxIMoZg==}
+  '@openfort/openfort-node@0.6.75':
+    resolution: {integrity: sha512-AWv8LMcDhsf7DJByfvub7avgS+vs9L37NlrMBINjLTCmPI/IOVEfS8CR9IV1DtYNqPxC1xAOXBrofcGgCm/E4w==}
 
   '@openfort/react@0.1.3':
     resolution: {integrity: sha512-jBGV80/SHRpWj+wsxG+Fme72FwF7BC2O/1/aevw9u8/7wrYszzKHoT6ABkHkPodzoZ3aJEF4NxagtoJOAs+fzA==}
@@ -7641,6 +7652,12 @@ snapshots:
 
   '@open-draft/until@2.1.0': {}
 
+  '@openfort/better-auth@0.0.2(@openfort/openfort-node@0.6.75)(better-auth@1.3.28(better-sqlite3@12.4.1)(react@18.3.1))(zod@4.1.12)':
+    dependencies:
+      '@openfort/openfort-node': 0.6.75
+      better-auth: 1.3.28(better-sqlite3@12.4.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      zod: 4.1.12
+
   '@openfort/openfort-js@0.10.32(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/abi': 5.8.0
@@ -7683,7 +7700,7 @@ snapshots:
       - debug
       - utf-8-validate
 
-  '@openfort/openfort-node@0.6.74':
+  '@openfort/openfort-node@0.6.75':
     dependencies:
       '@openfort/shield-js': 0.1.29
       '@types/node': 22.18.12
