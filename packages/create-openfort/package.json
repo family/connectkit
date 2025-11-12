@@ -52,7 +52,8 @@
   "pnpm": {
     "overrides": {
       "cross-spawn": "^7.0.6",
-      "esbuild": "^0.25.0"
+      "esbuild": "^0.25.0",
+      "got": "^11.8.5"
     }
   }
 }
