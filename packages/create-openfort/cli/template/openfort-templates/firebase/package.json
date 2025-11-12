@@ -30,5 +30,10 @@
     "typescript": "~5.8.3",
     "vite": "^6.4.1"
   },
-  "packageManager": "pnpm@10.16.1"
+  "packageManager": "pnpm@10.16.1",
+  "pnpm": {
+    "overrides": {
+      "hono": ">=4.10.3"
+    }
+  }
 }
