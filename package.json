@@ -74,7 +74,9 @@
       "packages/openfort-react/rollup.config.dev.js",
       "packages/openfort-react/rollup.config.prod.js",
       "**/*.gen.ts",
-      "examples/playground/src/api/**"
+      "examples/playground/src/api/**",
+      "packages/create-openfort/.github/**",
+      "packages/create-openfort/cli/template/**"
     ],
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",

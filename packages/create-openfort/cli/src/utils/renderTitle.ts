@@ -1,22 +1,25 @@
 import gradient from "gradient-string";
 
+import { TITLE_TEXT } from "~/consts.js";
 import { getUserPkgManager } from "~/utils/getUserPkgManager.js";
 
-// colors brought in from vscode poimandres theme
-const poimandresTheme = {
-  blue: "#add7ff",
-  cyan: "#89ddff",
-  green: "#5de4c7",
-  magenta: "#fae4fc",
-  red: "#d0679d",
-  yellow: "#fffac2",
+// Openfort brand colors
+const openfortTheme = {
+  white: "#ffffff",
+  black: "#000000",
+  red: "#ff3b30",
 };
 
 export const renderTitle = () => {
-  const _t3Gradient = gradient(Object.values(poimandresTheme));
+  const openfortGradient = gradient(Object.values(openfortTheme));
 
   // resolves weird behavior where the ascii is offset
   const pkgManager = getUserPkgManager();
   if (pkgManager === "yarn" || pkgManager === "pnpm") {
+    // biome-ignore lint/suspicious/noConsole: CLI tool needs console output
+    console.log("");
   }
+
+  // biome-ignore lint/suspicious/noConsole: CLI tool needs console output for title
+  console.log(openfortGradient.multiline(TITLE_TEXT));
 };
