@@ -1,6 +1,6 @@
 import { RecoveryMethod, type SDKOverrides, type ThirdPartyAuthConfiguration } from '@openfort/openfort-js'
 import { Buffer } from 'buffer'
-import React, { createElement, useEffect, useMemo, useState } from 'react'
+import React, { createElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useAccount, WagmiContext } from 'wagmi'
 import { useChainIsSupported } from '../../hooks/useChainIsSupported'
 import type { useConnectCallbackProps } from '../../hooks/useConnectCallback'
@@ -280,20 +280,23 @@ export const OpenfortProvider = ({
     setHeaderLeftSlot(null)
   }, [route.route])
 
-  const typedSetRoute = (options: SetRouteOptions) => {
-    const routeObj = typeof options === 'string' ? { route: options } : options
-    const { route } = routeObj
-    const lastRoute = routeHistory.length > 0 ? routeHistory[routeHistory.length - 1] : null
+  const typedSetRoute = useCallback(
+    (options: SetRouteOptions) => {
+      const routeObj = typeof options === 'string' ? { route: options } : options
+      const { route } = routeObj
+      const lastRoute = routeHistory.length > 0 ? routeHistory[routeHistory.length - 1] : null
 
-    setRoute(routeObj)
+      setRoute(routeObj)
 
-    if (lastRoute && lastRoute.route === route) return
-    if (!notStoredInHistoryRoutes.includes(route)) {
-      setRouteHistory((prev) => [...prev, routeObj])
-    }
-  }
+      if (lastRoute && lastRoute.route === route) return
+      if (!notStoredInHistoryRoutes.includes(route)) {
+        setRouteHistory((prev) => [...prev, routeObj])
+      }
+    },
+    [routeHistory]
+  )
 
-  const setPreviousRoute = () => {
+  const setPreviousRoute = useCallback(() => {
     setRouteHistory((prev) => {
       const newHistory = [...prev]
       newHistory.pop()
@@ -304,7 +307,11 @@ export const OpenfortProvider = ({
       }
       return newHistory
     })
-  }
+  }, [])
+
+  const triggerResize = useCallback(() => {
+    onResize((prev) => prev + 1)
+  }, [])
 
   const [onBack, setOnBack] = useState<(() => void) | null>(null)
 
@@ -336,7 +343,7 @@ export const OpenfortProvider = ({
     emailInput,
     setEmailInput,
     resize,
-    triggerResize: () => onResize((prev) => prev + 1),
+    triggerResize,
     publishableKey,
     walletConfig,
     overrides,

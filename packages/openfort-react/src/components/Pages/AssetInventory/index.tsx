@@ -11,7 +11,7 @@ import {
   TokenName,
   TokenSymbol,
 } from '../SelectToken/styles'
-import { formatBalanceWithSymbol, getAssetSymbol } from '../Send/utils'
+import { formatBalanceWithSymbol, getAssetDecimals, getAssetSymbol } from '../Send/utils'
 
 const ZERO = BigInt(0)
 const usdFormatter = new Intl.NumberFormat('en-US', {
@@ -41,16 +41,15 @@ export const AssetInventory = () => {
           const key = token.type === 'erc20' ? token.address : 'native'
           const displaySymbol = getAssetSymbol(token)
           const displayName = (token.metadata?.name as string) || displaySymbol || 'Unknown Token'
-          // const symbolKey = token.metadata?.symbol?.toUpperCase()
-          const decimals = token.metadata && 'decimals' in token.metadata ? (token.metadata.decimals as number) : 18
+          const decimals = getAssetDecimals(token)
 
-          const pricePerToken = (token.metadata as any)?.fiat?.value
+          const pricePerToken = token.metadata?.fiat?.value
           let usdValue: string | null = null
 
           // Show loading state for balances
           const isBalanceLoaded = token.balance !== undefined
           const balanceDisplay = isBalanceLoaded
-            ? formatBalanceWithSymbol(token.balance, decimals, token.metadata?.symbol as string)
+            ? formatBalanceWithSymbol(token.balance, decimals, token.metadata?.symbol || '')
             : 'Loading...'
 
           // Check if token has zero balance (for send flow opacity)
@@ -76,7 +75,6 @@ export const AssetInventory = () => {
             <TokenContainer key={key}>
               <TokenInfo>
                 <TokenSymbol>{displayName}</TokenSymbol>
-                {/* <TokenName>{displaySymbol}</TokenName> */}
               </TokenInfo>
               <TokenInfo>
                 <TokenBalance>{balanceDisplay}</TokenBalance>

@@ -43,9 +43,9 @@ export const isSameToken = (a: Asset, b: Asset) => {
 }
 
 export const getAssetSymbol = (asset: Asset): string => {
-  return asset.metadata && 'symbol' in asset.metadata ? (asset.metadata.symbol as string) : 'ETH'
+  return asset.metadata?.symbol || (asset.type === 'native' ? 'ETH' : 'UNKNOWN')
 }
 
 export const getAssetDecimals = (asset: Asset): number => {
-  return asset.metadata && 'decimals' in asset.metadata ? (asset.metadata.decimals as number) : 18
+  return (asset.metadata?.decimals as number) ?? 18
 }

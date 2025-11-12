@@ -13,25 +13,13 @@ import { DisconnectButton } from '../Profile/styles'
 import { LinkedProvidersCard } from './styles'
 
 const LinkedProvidersPage: React.FC = () => {
-  const { triggerResize, setOpen } = useOpenfort()
-  const { updateUser } = useOpenfortCore()
-
-  useEffect(() => {
-    triggerResize()
-  }, [triggerResize])
-
-  useEffect(() => {
-    updateUser().catch(() => {
-      /* silently ignore refresh errors */
-    })
-  }, [updateUser])
+  const { setOpen } = useOpenfort()
+  const { logout } = useOpenfortCore()
 
   const locales = useLocales()
 
   const { connector } = useAccount()
   const [shouldDisconnect, setShouldDisconnect] = useState(false)
-
-  const { logout } = useOpenfortCore()
 
   useEffect(() => {
     if (!shouldDisconnect) return
@@ -41,7 +29,7 @@ const LinkedProvidersPage: React.FC = () => {
     return () => {
       logout()
     }
-  }, [shouldDisconnect, logout])
+  }, [shouldDisconnect])
 
   return (
     <PageContent onBack={routes.PROFILE}>

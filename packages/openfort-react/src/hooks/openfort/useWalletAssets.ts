@@ -9,9 +9,10 @@ import { OpenfortError, OpenfortErrorType, type OpenfortWalletConfig } from '../
 
 type WalletAssetsHookOptions = {
   assets?: OpenfortWalletConfig['assets']
+  staleTime?: number
 }
 
-export const useWalletAssets = ({ assets: hookCustomAssets }: WalletAssetsHookOptions = {}) => {
+export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }: WalletAssetsHookOptions = {}) => {
   const chainId = useChainId()
   const { data: walletClient } = useWalletClient()
   const { walletConfig } = useOpenfort()
@@ -52,34 +53,70 @@ export const useWalletAssets = ({ assets: hookCustomAssets }: WalletAssetsHookOp
                 })),
               },
             })
-          : Promise.resolve({ [chainId]: [] as Asset[] })
+          : Promise.resolve({ [chainId]: [] as getAssets.Asset<false>[] })
 
-      const [defaultAssets, customAssets] = await Promise.all([defaultAssetsPromise, customAssetsPromise])
+      const [defaultAssetsRaw, customAssets] = await Promise.all([defaultAssetsPromise, customAssetsPromise])
 
       // Merge assets, avoiding duplicates
-      const mergedAssets = [...defaultAssets[chainId]]
-      const customAssetsForChain: getAssets.Asset<false>[] = customAssets[chainId].map(
-        (asset: getAssets.Asset<false>) => {
-          if (asset.type !== 'erc20') return asset
-          if (!walletConfig?.assets) return asset
-
-          const configAsset = walletConfig.assets[chainId].find(
-            (a) => a.address.toLowerCase() === asset.address.toLowerCase()
-          )
-          if (!configAsset) return asset
-
-          return {
-            ...asset,
+      const defaultAssets = defaultAssetsRaw[chainId].map<Asset>((a) => {
+        let asset: Asset
+        if (a.type === 'erc20') {
+          asset = {
             type: 'erc20' as const,
+            address: a.address,
+            balance: a.balance,
             metadata: {
-              ...asset.metadata,
-              name: configAsset.name ?? asset.metadata?.name,
-              symbol: configAsset.symbol ?? asset.metadata?.symbol,
-              decimals: configAsset.decimals ?? asset.metadata?.decimals ?? 18,
+              name: a.metadata?.name || 'Unknown Token',
+              symbol: a.metadata?.symbol || 'UNKNOWN',
+              decimals: a.metadata?.decimals,
+              fiat: (a.metadata as any)?.fiat,
             },
+            raw: a,
           }
+        } else if (a.type === 'native') {
+          const notStandardMetadata = a.metadata as any
+          asset = {
+            type: 'native' as const,
+            address: 'native',
+            balance: a.balance,
+            metadata: {
+              name: notStandardMetadata?.name,
+              symbol: notStandardMetadata?.symbol,
+              decimals: notStandardMetadata?.decimals,
+              fiat: notStandardMetadata?.fiat,
+            },
+            raw: a,
+          }
+        } else {
+          throw new OpenfortError('Unsupported asset type', OpenfortErrorType.UNEXPECTED_ERROR, { asset: a })
         }
-      )
+        return asset
+      })
+
+      const mergedAssets = defaultAssets
+      const customAssetsForChain: Asset[] = customAssets[chainId].map((asset: getAssets.Asset<false>) => {
+        if (asset.type !== 'erc20') return { ...asset, raw: asset } as unknown as Asset
+        if (!walletConfig?.assets) return { ...asset, raw: asset }
+
+        const configAsset = walletConfig.assets[chainId].find(
+          (a) => a.address.toLowerCase() === asset.address.toLowerCase()
+        )
+        if (!configAsset) return { ...asset, raw: asset }
+
+        const safeAsset: Asset = {
+          type: 'erc20' as const,
+          address: asset.address,
+          balance: asset.balance,
+          metadata: {
+            ...asset.metadata,
+            name: configAsset.name ?? asset.metadata?.name,
+            symbol: configAsset.symbol ?? asset.metadata?.symbol,
+            decimals: configAsset.decimals ?? asset.metadata?.decimals,
+          },
+          raw: asset,
+        }
+        return safeAsset
+      })
 
       if (customAssetsForChain) {
         customAssetsForChain.forEach((asset) => {
@@ -93,7 +130,7 @@ export const useWalletAssets = ({ assets: hookCustomAssets }: WalletAssetsHookOp
     },
     enabled: !!walletClient,
     retry: 2,
-    staleTime: 30000, // Data fresh for 30 seconds
+    staleTime, // Data fresh for 30 seconds
     throwOnError: false,
   })
 

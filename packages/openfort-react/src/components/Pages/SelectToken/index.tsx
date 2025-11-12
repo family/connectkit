@@ -5,7 +5,7 @@ import { Arrow, ArrowChevron, TextLinkButton } from '../../Common/Button/styles'
 import { ModalHeading } from '../../Common/Modal/styles'
 import { type Asset, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import { formatBalanceWithSymbol, getAssetSymbol } from '../Send/utils'
+import { formatBalanceWithSymbol, getAssetDecimals, getAssetSymbol } from '../Send/utils'
 import {
   EmptyState,
   SelectTokenContent,
@@ -81,15 +81,15 @@ const SelectToken = ({ isBuyFlow }: { isBuyFlow: boolean }) => {
           const displaySymbol = getAssetSymbol(token)
           const displayName = (token.metadata?.name as string) || displaySymbol || 'Unknown Token'
           // const symbolKey = token.metadata?.symbol?.toUpperCase()
-          const decimals = token.metadata && 'decimals' in token.metadata ? (token.metadata.decimals as number) : 18
+          const decimals = getAssetDecimals(token)
 
-          const pricePerToken = (token.metadata as any)?.fiat?.value
+          const pricePerToken = token.metadata?.fiat?.value
           let usdValue: string | null = null
 
           // Show loading state for balances
           const isBalanceLoaded = token.balance !== undefined
           const balanceDisplay = isBalanceLoaded
-            ? formatBalanceWithSymbol(token.balance, decimals, token.metadata?.symbol as string)
+            ? formatBalanceWithSymbol(token.balance, decimals, token.metadata?.symbol || '')
             : 'Loading...'
 
           // Check if token has zero balance (for send flow opacity)
