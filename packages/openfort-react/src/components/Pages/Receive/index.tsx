@@ -30,7 +30,7 @@ const Receive = () => {
   }
 
   return (
-    <PageContent>
+    <PageContent onBack="profile">
       <ModalHeading>Receive funds</ModalHeading>
       <ModalBody>Scan the QR code or copy your wallet details.</ModalBody>
 
