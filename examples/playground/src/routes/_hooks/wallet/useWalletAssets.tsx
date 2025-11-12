@@ -1,6 +1,5 @@
 import { useWalletAssets } from '@openfort/react'
 import { createFileRoute } from '@tanstack/react-router'
-import { polygonAmoy } from 'viem/chains'
 import { HookVariable } from '@/components/Variable/HookVariable'
 import { Layout } from '../../../components/Layout'
 
