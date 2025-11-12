@@ -48,7 +48,7 @@ export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }:
               chainIds: [chainId],
               assets: {
                 [chainId]: customAssetsToFetch.map((a) => ({
-                  address: a.address,
+                  address: a,
                   type: 'erc20' as const,
                 })),
               },
@@ -98,21 +98,14 @@ export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }:
         if (asset.type !== 'erc20') return { ...asset, raw: asset } as unknown as Asset
         if (!walletConfig?.assets) return { ...asset, raw: asset }
 
-        const configAsset = walletConfig.assets[chainId].find(
-          (a) => a.address.toLowerCase() === asset.address.toLowerCase()
-        )
+        const configAsset = walletConfig.assets[chainId].find((a) => a.toLowerCase() === asset.address.toLowerCase())
         if (!configAsset) return { ...asset, raw: asset }
 
         const safeAsset: Asset = {
           type: 'erc20' as const,
           address: asset.address,
           balance: asset.balance,
-          metadata: {
-            ...asset.metadata,
-            name: configAsset.name ?? asset.metadata?.name,
-            symbol: configAsset.symbol ?? asset.metadata?.symbol,
-            decimals: configAsset.decimals ?? asset.metadata?.decimals,
-          },
+          metadata: asset.metadata,
           raw: asset,
         }
         return safeAsset

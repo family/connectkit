@@ -123,13 +123,6 @@ export enum LinkWalletOnSignUpOption {
 
 type PolicyConfig = string | Record<number, string>
 
-interface AssetConfig {
-  address: Hex
-  symbol?: string
-  name?: string
-  decimals?: number
-}
-
 type CommonWalletConfig = {
   /** Publishable key for the Shield API. */
   shieldPublishableKey: string
@@ -140,7 +133,7 @@ type CommonWalletConfig = {
   debug?: boolean
   recoverWalletAutomaticallyAfterAuth?: boolean
   assets?: {
-    [chainId: number]: AssetConfig[]
+    [chainId: number]: Hex[]
   }
 }
 
