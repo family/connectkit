@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.7
+
+### Patch Changes
+
+- [#104](https://github.com/openfort-xyz/openfort-react/pull/104) [`a24dc93`](https://github.com/openfort-xyz/openfort-react/commit/a24dc93da6207d6a9715d827355d9967ec9ed63f) Thanks [@martimayoral](https://github.com/martimayoral)! - wallet config only needs address
+
+- [#102](https://github.com/openfort-xyz/openfort-react/pull/102) [`0f7d8dd`](https://github.com/openfort-xyz/openfort-react/commit/0f7d8dd59c55dfa97ad791b0716090e7426dbe40) Thanks [@martimayoral](https://github.com/martimayoral)! - improve asset types
+
 ## 0.1.6
 
 ### Patch Changes
