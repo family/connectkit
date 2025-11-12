@@ -19,6 +19,7 @@ import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemePr
 import { defaultSendFormState, routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
+import { getAssetDecimals } from '../Send/utils'
 import {
   ActionButton,
   ActionButtonsContainer,
@@ -53,14 +54,9 @@ const Profile = () => {
     if (!assets) return 0
     return assets.reduce((acc, asset) => {
       if (!asset.metadata || !asset.balance) return acc
-      const price: number = (asset.metadata as any)?.fiat?.value ?? 0
+      const price: number = asset.metadata?.fiat?.value ?? 0
       if (!price) return acc
-      const balance = Number(
-        formatUnits(
-          asset.balance ?? BigInt(0),
-          asset.metadata && 'decimals' in asset.metadata ? (asset.metadata.decimals as number) : 18
-        )
-      )
+      const balance = Number(formatUnits(asset.balance ?? BigInt(0), getAssetDecimals(asset)))
       return acc + price * balance
     }, 0)
   }, [assets])

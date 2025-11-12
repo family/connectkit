@@ -257,20 +257,38 @@ export type OpenfortUIOptionsExtended = {
   walletRecovery: WalletRecoveryOptionsExtended
 } & OpenfortUIOptions
 
-export type Asset = getAssets.Asset<false>
-// export type SendTokenOption =
-//   | {
-//       type: 'native'
-//       symbol: string
-//       decimals: number
-//     }
-//   | {
-//       type: 'erc20'
-//       symbol: string
-//       address: Address
-//       decimals: number
-//       name?: string
-//     }
+// export type Asset = getAssets.Asset<false>
+export type Asset =
+  | {
+      type: 'native'
+      address?: 'native'
+      balance: bigint
+      metadata?: {
+        decimals?: number
+        symbol: string
+        name?: never
+        fiat: {
+          value: number
+          currency: string
+        }
+      }
+      raw?: getAssets.NativeAsset
+    }
+  | {
+      type: 'erc20'
+      address: Hex
+      balance: bigint
+      metadata: {
+        decimals?: number
+        symbol: string
+        name: string
+        fiat?: {
+          value: number
+          currency: string
+        }
+      }
+      raw?: getAssets.Erc20Asset
+    }
 
 export type SendFormState = {
   recipient: string

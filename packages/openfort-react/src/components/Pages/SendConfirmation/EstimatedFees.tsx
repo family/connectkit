@@ -42,7 +42,7 @@ export const EstimatedFees = ({
   hideInfoIcon = false,
 }: EstimatedFeesProps) => {
   const { data: assets } = useWalletAssets()
-  const pricePerToken = (assets?.find((a) => a.type === 'native')?.metadata as any)?.fiat?.value as number | undefined
+  const pricePerToken = assets?.find((a) => a.type === 'native')?.metadata?.fiat?.value as number | undefined
 
   const { data: gasEstimate } = useEstimateGas({
     account,

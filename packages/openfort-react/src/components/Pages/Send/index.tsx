@@ -38,7 +38,7 @@ const Send = () => {
   const selectedToken: Asset = selectedTokenOption ?? sendForm.asset
   const selectedBalanceValue = selectedTokenOption?.balance
   const selectedDecimalsValue = selectedToken.type === 'erc20' ? (selectedToken.metadata?.decimals ?? 18) : 18
-  const selectedSymbol = (selectedToken.metadata?.symbol as string) ?? ''
+  const selectedSymbol = selectedToken.metadata?.symbol ?? ''
 
   const parsedAmount = useMemo(() => {
     const rawAmount = sanitizeForParsing(sendForm.amount)

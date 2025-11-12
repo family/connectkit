@@ -51,7 +51,7 @@ export const TokenInfo = styled.div`
   flex-direction: column;
   gap: 2px;
   overflow: hidden;
-  text-align: left;
+  text-align: right;
 `
 
 export const TokenSymbol = styled.span`
