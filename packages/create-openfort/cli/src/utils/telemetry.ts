@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import crypto, { createHash } from "node:crypto";
 import https from "node:https";
 import { hostname, userInfo } from "node:os";
 
@@ -24,7 +24,10 @@ class Telemetry {
 
   constructor() {
     this.anonymousId = getAnonymousId();
-    this.sessionId = Math.random().toString(36).substring(2, 15);
+    this.sessionId = createHash("sha256")
+      .update(crypto.randomBytes(16))
+      .digest("hex")
+      .slice(0, 15);
   }
 
   send = async ({
