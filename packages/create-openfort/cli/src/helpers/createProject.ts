@@ -1,9 +1,9 @@
-import path from "path";
+import path from "node:path";
 
 import { createBackend } from "~/helpers/createBackend.js";
 import { scaffoldProject } from "~/helpers/scaffoldProject.js";
-import { type OpenfortTemplate } from "~/installers/index.js";
 import { fillEnvVariables } from "~/installers/envVars.js";
+import type { OpenfortTemplate } from "~/installers/index.js";
 
 interface CreateProjectOptions {
   projectName: string;

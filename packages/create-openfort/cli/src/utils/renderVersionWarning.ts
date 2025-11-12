@@ -1,5 +1,5 @@
-import { execSync } from "child_process";
-import https from "https";
+import { execSync } from "node:child_process";
+import https from "node:https";
 
 import { getVersion } from "./getVersion.js";
 import { logger } from "./logger.js";
@@ -15,20 +15,19 @@ export const renderVersionWarning = (npmVersion: string) => {
     logger.warn("  Please report any bugs you encounter.");
   } else if (currentVersion.includes("next")) {
     logger.warn(
-      "  You are running create-openfort-app with the @next tag which is no longer maintained."
+      "  You are running create-openfort-app with the @next tag which is no longer maintained.",
     );
     logger.warn("  Please run the CLI with @latest instead.");
   } else if (currentVersion !== npmVersion) {
     logger.warn("  You are using an outdated version of create-openfort-app.");
     logger.warn(
       "  Your version:",
-      currentVersion + ".",
+      `${currentVersion}.`,
       "Latest version in the npm registry:",
-      npmVersion
+      npmVersion,
     );
     logger.warn("  Please run the CLI with @latest to get the latest updates.");
   }
-  console.log("");
 };
 
 /**
@@ -50,7 +49,9 @@ function checkForLatestVersion(): Promise<string> {
         (res) => {
           if (res.statusCode === 200) {
             let body = "";
-            res.on("data", (data) => (body += data));
+            res.on("data", (data) => {
+              body += data;
+            });
             res.on("end", () => {
               resolve((JSON.parse(body) as DistTagsBody).latest);
             });
@@ -58,7 +59,7 @@ function checkForLatestVersion(): Promise<string> {
             // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
             reject();
           }
-        }
+        },
       )
       .on("error", () => {
         // logger.error("Unable to check for latest version.");

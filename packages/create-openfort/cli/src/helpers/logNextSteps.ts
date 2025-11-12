@@ -1,6 +1,6 @@
-import path from "path";
-import fs from "fs-extra";
+import path from "node:path";
 import chalk from "chalk";
+import fs from "fs-extra";
 
 import { DEFAULT_APP_NAME } from "~/consts.js";
 import { getUserPkgManager } from "~/utils/getUserPkgManager.js";
@@ -21,7 +21,7 @@ export const logNextSteps = async ({
 }: LogNextStepsOptions) => {
   const pkgManager = getUserPkgManager();
 
-  logger.info("\n" + chalk.green("Success! Your Openfort project is ready."));
+  logger.info(`\n${chalk.green("Success! Your Openfort project is ready.")}`);
   logger.info("\nNext steps:");
 
   if (projectName !== ".") {
@@ -31,10 +31,15 @@ export const logNextSteps = async ({
   if (createBackend) {
     // Check if backend has node_modules
     const backendNodeModules = path.join(projectDir, "backend", "node_modules");
-    const frontendNodeModules = path.join(projectDir, "frontend", "node_modules");
-    const needsInstall = !fs.existsSync(backendNodeModules) || !fs.existsSync(frontendNodeModules);
+    const frontendNodeModules = path.join(
+      projectDir,
+      "frontend",
+      "node_modules",
+    );
+    const needsInstall =
+      !fs.existsSync(backendNodeModules) || !fs.existsSync(frontendNodeModules);
 
-    logger.info("\n" + chalk.yellow("For the backend:"));
+    logger.info(`\n${chalk.yellow("For the backend:")}`);
     logger.info(`  ${chalk.cyan("cd backend")}`);
     if (needsInstall) {
       if (pkgManager === "yarn") {
@@ -49,7 +54,7 @@ export const logNextSteps = async ({
       logger.info(`  ${chalk.cyan(`${pkgManager} dev`)}`);
     }
 
-    logger.info("\n" + chalk.yellow("For the frontend (in a new terminal):"));
+    logger.info(`\n${chalk.yellow("For the frontend (in a new terminal):")}`);
     logger.info(`  ${chalk.cyan("cd frontend")}`);
     if (needsInstall) {
       if (pkgManager === "yarn") {
@@ -88,8 +93,5 @@ export const logNextSteps = async ({
     logger.info(`  ${chalk.cyan('git commit -m "initial commit"')}`);
   }
 
-  logger.info(
-    "\n" + chalk.blue("Learn more at https://www.openfort.xyz/docs")
-  );
+  logger.info(`\n${chalk.blue("Learn more at https://www.openfort.xyz/docs")}`);
 };
-

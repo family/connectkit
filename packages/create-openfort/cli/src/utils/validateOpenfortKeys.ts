@@ -1,13 +1,16 @@
 // Validation patterns for Openfort and Shield API keys
 
-const uuidV4Pattern = "[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}";
+const uuidV4Pattern =
+  "[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}";
 const keyPattern = `(test|live)_${uuidV4Pattern}`;
 const skRegex = new RegExp(`^sk_${keyPattern}$`);
 const pkRegex = new RegExp(`^pk_${keyPattern}$`);
 const uuidV4Regex = new RegExp(`^${uuidV4Pattern}$`);
-const length44Regex = new RegExp(`^.{44}$`);
+const length44Regex = /^.{44}$/;
 
-export const validateOpenfortPublishableKey = (value: string): string | undefined => {
+export const validateOpenfortPublishableKey = (
+  value: string,
+): string | undefined => {
   if (!value) {
     return "Openfort Publishable Key is required";
   }
@@ -17,7 +20,9 @@ export const validateOpenfortPublishableKey = (value: string): string | undefine
   return undefined;
 };
 
-export const validateOpenfortSecretKey = (value: string): string | undefined => {
+export const validateOpenfortSecretKey = (
+  value: string,
+): string | undefined => {
   if (!value) {
     return "Openfort Secret Key is required";
   }
@@ -27,7 +32,9 @@ export const validateOpenfortSecretKey = (value: string): string | undefined => 
   return undefined;
 };
 
-export const validateShieldPublishableKey = (value: string): string | undefined => {
+export const validateShieldPublishableKey = (
+  value: string,
+): string | undefined => {
   if (!value) {
     return "Shield Publishable Key is required";
   }
@@ -45,7 +52,9 @@ export const validateShieldSecret = (value: string): string | undefined => {
   return undefined;
 };
 
-export const validateShieldEncryptionShare = (value: string): string | undefined => {
+export const validateShieldEncryptionShare = (
+  value: string,
+): string | undefined => {
   if (!value) {
     return "Shield Encryption Share is required";
   }
@@ -76,10 +85,9 @@ export const testApiEndpoint = async (endpoint: string): Promise<boolean> => {
         "Content-Type": "application/json",
       },
     });
-    const body = await response.json() as { session?: string };
+    const body = (await response.json()) as { session?: string };
     return !!body.session;
   } catch {
     return false;
   }
 };
-

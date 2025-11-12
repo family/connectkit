@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import fs from "fs-extra";
 import ora from "ora";
 
@@ -40,10 +40,19 @@ export const createBackend = async ({
 
       // Replace environment variables
       const updatedEnvContent = envContent
-        .replace(/OPENFORT_SECRET_KEY=.*/g, `OPENFORT_SECRET_KEY=${openfortSecretKey}`)
-        .replace(/SHIELD_SECRET_KEY=.*/g, `SHIELD_SECRET_KEY=${shieldSecretKey}`)
+        .replace(
+          /OPENFORT_SECRET_KEY=.*/g,
+          `OPENFORT_SECRET_KEY=${openfortSecretKey}`,
+        )
+        .replace(
+          /SHIELD_SECRET_KEY=.*/g,
+          `SHIELD_SECRET_KEY=${shieldSecretKey}`,
+        )
         .replace(/SHIELD_API_KEY=.*/g, `SHIELD_API_KEY=${shieldApiKey}`)
-        .replace(/SHIELD_ENCRYPTION_SHARE=.*/g, `SHIELD_ENCRYPTION_SHARE=${shieldEncryptionShare}`)
+        .replace(
+          /SHIELD_ENCRYPTION_SHARE=.*/g,
+          `SHIELD_ENCRYPTION_SHARE=${shieldEncryptionShare}`,
+        )
         .replace(/PORT=.*/g, `PORT=${port}`);
 
       fs.writeFileSync(envPath, updatedEnvContent);
@@ -56,4 +65,3 @@ export const createBackend = async ({
     throw error;
   }
 };
-

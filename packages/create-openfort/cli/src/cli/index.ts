@@ -4,25 +4,25 @@ import { Command } from "commander";
 
 import { CREATE_OPENFORT_APP, DEFAULT_APP_NAME } from "~/consts.js";
 import {
-  type OpenfortTemplate,
-  type OpenfortTheme,
   availableTemplates,
   availableThemes,
+  type OpenfortTemplate,
+  type OpenfortTheme,
 } from "~/installers/index.js";
 import { getVersion } from "~/utils/getVersion.js";
 import { IsTTYError } from "~/utils/isTTYError.js";
 import { logger } from "~/utils/logger.js";
+import { telemetry } from "~/utils/telemetry.js";
 import { validateAppName } from "~/utils/validateAppName.js";
 import {
+  testApiEndpoint,
+  validateApiEndpoint,
   validateOpenfortPublishableKey,
   validateOpenfortSecretKey,
+  validateShieldEncryptionShare,
   validateShieldPublishableKey,
   validateShieldSecret,
-  validateShieldEncryptionShare,
-  validateApiEndpoint,
-  testApiEndpoint,
 } from "~/utils/validateOpenfortKeys.js";
-import { telemetry } from "~/utils/telemetry.js";
 
 interface CliFlags {
   noGit: boolean;
@@ -60,40 +60,41 @@ const defaultOptions: Partial<CliResults> = {
 export const runCli = async (): Promise<CliResults> => {
   const program = new Command()
     .name(CREATE_OPENFORT_APP)
-    .description("A CLI for creating Openfort applications with embedded wallets")
+    .description(
+      "A CLI for creating Openfort applications with embedded wallets",
+    )
     .argument(
       "[dir]",
-      "The name of the application, as well as the name of the directory to create"
+      "The name of the application, as well as the name of the directory to create",
     )
     .option(
       "--noGit",
       "Explicitly tell the CLI to not initialize a new git repo in the project",
-      false
+      false,
     )
     .option(
       "--noInstall",
       "Explicitly tell the CLI to not run the package manager's install command",
-      false
+      false,
     )
     .option(
       "-y, --default",
       "Bypass the CLI and use all default options to bootstrap a new Openfort app",
-      false
+      false,
     )
     .option("--CI", "Boolean value if we're running in CI", false)
     .option("--template [string]", "Specify the template to use")
-    .option("--theme [string]", "Specify the theme to use (for openfort-ui template)")
     .option(
-      "--no-telemetry",
-      "Disable sending anonymous usage data",
-      false
+      "--theme [string]",
+      "Specify the theme to use (for openfort-ui template)",
     )
+    .option("--no-telemetry", "Disable sending anonymous usage data", false)
     .version(getVersion(), "-v, --version", "Display the version number")
     .addHelpText(
       "afterAll",
       `\n Learn more about Openfort at ${chalk
         .hex("#5B87F5")
-        .bold("https://www.openfort.xyz")} \n`
+        .bold("https://www.openfort.xyz")} \n`,
     )
     .parse(process.argv);
 
@@ -124,11 +125,12 @@ export const runCli = async (): Promise<CliResults> => {
     cliResults.template = (opts.template as OpenfortTemplate) || "openfort-ui";
     cliResults.theme = opts.theme as OpenfortTheme;
     cliResults.createBackend = false;
-    
+
     // Mock values for CI
-    cliResults.openfortPublishableKey = "pk_test_00000000-0000-0000-0000-000000000000";
+    cliResults.openfortPublishableKey =
+      "pk_test_00000000-0000-0000-0000-000000000000";
     cliResults.shieldPublishableKey = "00000000-0000-0000-0000-000000000000";
-    
+
     return cliResults as CliResults;
   }
 
@@ -138,7 +140,7 @@ export const runCli = async (): Promise<CliResults> => {
     cliResults.createBackend = false;
     cliResults.openfortPublishableKey = "";
     cliResults.shieldPublishableKey = "";
-    
+
     return cliResults as CliResults;
   }
 
@@ -166,7 +168,8 @@ export const runCli = async (): Promise<CliResults> => {
             message: "Select an Openfort template:",
             options: availableTemplates.map((template) => ({
               value: template,
-              label: template === "openfort-ui" ? "Openfort UI (default)" : template,
+              label:
+                template === "openfort-ui" ? "Openfort UI (default)" : template,
               hint: getTemplateHint(template),
             })),
             initialValue: "openfort-ui",
@@ -174,14 +177,16 @@ export const runCli = async (): Promise<CliResults> => {
         },
         createBackend: () => {
           return p.confirm({
-            message: "Do you want to create a backend for automatic account recovery?",
+            message:
+              "Do you want to create a backend for automatic account recovery?",
             initialValue: true,
           });
         },
         apiEndpoint: async ({ results }) => {
           if (!results.createBackend) {
             const needsEndpoint = await p.confirm({
-              message: "Do you have an existing API endpoint for account recovery?",
+              message:
+                "Do you have an existing API endpoint for account recovery?",
               initialValue: false,
             });
 
@@ -195,8 +200,10 @@ export const runCli = async (): Promise<CliResults> => {
 
               while (!validEndpoint) {
                 const endpointResult = await p.text({
-                  message: "Enter your API endpoint for creating encryption sessions:",
-                  placeholder: "http://localhost:3110/api/protected-create-encryption-session",
+                  message:
+                    "Enter your API endpoint for creating encryption sessions:",
+                  placeholder:
+                    "http://localhost:3110/api/protected-create-encryption-session",
                   validate: validateApiEndpoint,
                 });
 
@@ -209,16 +216,18 @@ export const runCli = async (): Promise<CliResults> => {
                 // Test the endpoint
                 const spinner = p.spinner();
                 spinner.start("Testing API endpoint...");
-                
+
                 const isValid = await testApiEndpoint(endpoint);
-                
+
                 if (isValid) {
                   spinner.stop("API endpoint validated!");
                   validEndpoint = true;
                 } else {
                   spinner.stop("API endpoint validation failed");
-                  logger.error("The endpoint did not return a valid session response");
-                  
+                  logger.error(
+                    "The endpoint did not return a valid session response",
+                  );
+
                   const retry = await p.confirm({
                     message: "Would you like to try another endpoint?",
                     initialValue: true,
@@ -295,7 +304,8 @@ export const runCli = async (): Promise<CliResults> => {
         ...(!cliResults.flags!.noGit && {
           git: () => {
             return p.confirm({
-              message: "Should we initialize a Git repository and stage the changes?",
+              message:
+                "Should we initialize a Git repository and stage the changes?",
               initialValue: true,
             });
           },
@@ -305,7 +315,7 @@ export const runCli = async (): Promise<CliResults> => {
         onCancel() {
           process.exit(1);
         },
-      }
+      },
     );
 
     // Update telemetry with project details
@@ -322,7 +332,9 @@ export const runCli = async (): Promise<CliResults> => {
       openfortSecretKey: project.openfortSecretKey as string | undefined,
       shieldPublishableKey: project.shieldPublishableKey as string,
       shieldSecretKey: project.shieldSecretKey as string | undefined,
-      shieldEncryptionShare: project.shieldEncryptionShare as string | undefined,
+      shieldEncryptionShare: project.shieldEncryptionShare as
+        | string
+        | undefined,
       flags: {
         ...cliResults.flags!,
         noGit: !project.git || cliResults.flags!.noGit,
@@ -334,7 +346,7 @@ export const runCli = async (): Promise<CliResults> => {
   ${CREATE_OPENFORT_APP} needs an interactive terminal to provide options`);
 
       const shouldContinue = await p.confirm({
-        message: `Continue scaffolding a default Openfort app?`,
+        message: "Continue scaffolding a default Openfort app?",
         initialValue: true,
       });
 
@@ -343,8 +355,10 @@ export const runCli = async (): Promise<CliResults> => {
         process.exit(0);
       }
 
-      logger.info(`Bootstrapping a default Openfort app in ./${cliResults.appName}`);
-      
+      logger.info(
+        `Bootstrapping a default Openfort app in ./${cliResults.appName}`,
+      );
+
       return {
         ...cliResults,
         template: "openfort-ui",
@@ -352,12 +366,9 @@ export const runCli = async (): Promise<CliResults> => {
         openfortPublishableKey: "",
         shieldPublishableKey: "",
       } as CliResults;
-    } else {
-      throw err;
     }
+    throw err;
   }
-
-  return cliResults as CliResults;
 };
 
 function getTemplateHint(template: OpenfortTemplate): string {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import path from "path";
+import path from "node:path";
 import fs from "fs-extra";
-import { type PackageJson } from "type-fest";
+import type { PackageJson } from "type-fest";
 
 import { runCli } from "~/cli/index.js";
 import { createProject } from "~/helpers/createProject.js";
@@ -55,7 +55,11 @@ const main = async () => {
     template,
     openfortPublishableKey,
     shieldPublishableKey,
-    apiEndpoint: apiEndpoint || (createBackend ? "http://localhost:3110/api/protected-create-encryption-session" : undefined),
+    apiEndpoint:
+      apiEndpoint ||
+      (createBackend
+        ? "http://localhost:3110/api/protected-create-encryption-session"
+        : undefined),
     theme,
     createBackendOption: createBackend,
     openfortSecretKey,
@@ -104,9 +108,8 @@ main().catch((err) => {
     logger.error(err);
   } else {
     logger.error(
-      "An unknown error has occurred. Please open an issue on GitHub with the below:"
+      "An unknown error has occurred. Please open an issue on GitHub with the below:",
     );
-    console.log(err);
   }
 
   // Send error telemetry

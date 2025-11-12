@@ -1,4 +1,4 @@
-import pathModule from "path";
+import pathModule from "node:path";
 
 import { removeTrailingSlash } from "./removeTrailingSlash.js";
 

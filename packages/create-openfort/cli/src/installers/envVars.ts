@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import fs from "fs-extra";
 
 interface FillEnvOptions {
@@ -41,30 +41,30 @@ export const fillEnvVariables = ({
   envContent = envContent
     .replace(
       /VITE_OPENFORT_PUBLISHABLE_KEY=.*/g,
-      `VITE_OPENFORT_PUBLISHABLE_KEY=${openfortPublishableKey}`
+      `VITE_OPENFORT_PUBLISHABLE_KEY=${openfortPublishableKey}`,
     )
     .replace(
       /NEXT_PUBLIC_OPENFORT_PUBLISHABLE_KEY=.*/g,
-      `NEXT_PUBLIC_OPENFORT_PUBLISHABLE_KEY=${openfortPublishableKey}`
+      `NEXT_PUBLIC_OPENFORT_PUBLISHABLE_KEY=${openfortPublishableKey}`,
     )
     .replace(
       /OPENFORT_PUBLISHABLE_KEY=.*/g,
-      `OPENFORT_PUBLISHABLE_KEY=${openfortPublishableKey}`
+      `OPENFORT_PUBLISHABLE_KEY=${openfortPublishableKey}`,
     );
 
   // Replace Shield keys
   envContent = envContent
     .replace(
       /VITE_SHIELD_PUBLISHABLE_KEY=.*/g,
-      `VITE_SHIELD_PUBLISHABLE_KEY=${shieldPublishableKey}`
+      `VITE_SHIELD_PUBLISHABLE_KEY=${shieldPublishableKey}`,
     )
     .replace(
       /NEXT_PUBLIC_SHIELD_PUBLISHABLE_KEY=.*/g,
-      `NEXT_PUBLIC_SHIELD_PUBLISHABLE_KEY=${shieldPublishableKey}`
+      `NEXT_PUBLIC_SHIELD_PUBLISHABLE_KEY=${shieldPublishableKey}`,
     )
     .replace(
       /SHIELD_PUBLISHABLE_KEY=.*/g,
-      `SHIELD_PUBLISHABLE_KEY=${shieldPublishableKey}`
+      `SHIELD_PUBLISHABLE_KEY=${shieldPublishableKey}`,
     );
 
   // Replace API endpoint if provided
@@ -72,15 +72,15 @@ export const fillEnvVariables = ({
     envContent = envContent
       .replace(
         /VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT=.*/g,
-        `VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT=${apiEndpoint}`
+        `VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT=${apiEndpoint}`,
       )
       .replace(
         /NEXT_PUBLIC_CREATE_ENCRYPTED_SESSION_ENDPOINT=.*/g,
-        `NEXT_PUBLIC_CREATE_ENCRYPTED_SESSION_ENDPOINT=${apiEndpoint}`
+        `NEXT_PUBLIC_CREATE_ENCRYPTED_SESSION_ENDPOINT=${apiEndpoint}`,
       )
       .replace(
         /CREATE_ENCRYPTED_SESSION_ENDPOINT=.*/g,
-        `CREATE_ENCRYPTED_SESSION_ENDPOINT=${apiEndpoint}`
+        `CREATE_ENCRYPTED_SESSION_ENDPOINT=${apiEndpoint}`,
       );
   }
 
@@ -88,7 +88,10 @@ export const fillEnvVariables = ({
   if (theme) {
     envContent = envContent
       .replace(/VITE_OPENFORT_THEME=.*/g, `VITE_OPENFORT_THEME=${theme}`)
-      .replace(/NEXT_PUBLIC_OPENFORT_THEME=.*/g, `NEXT_PUBLIC_OPENFORT_THEME=${theme}`)
+      .replace(
+        /NEXT_PUBLIC_OPENFORT_THEME=.*/g,
+        `NEXT_PUBLIC_OPENFORT_THEME=${theme}`,
+      )
       .replace(/OPENFORT_THEME=.*/g, `OPENFORT_THEME=${theme}`);
   }
 

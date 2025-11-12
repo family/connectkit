@@ -1,16 +1,6 @@
-import chalk from "chalk";
-
 export const logger = {
-  error(...args: unknown[]) {
-    console.log(chalk.red(...args));
-  },
-  warn(...args: unknown[]) {
-    console.log(chalk.yellow(...args));
-  },
-  info(...args: unknown[]) {
-    console.log(chalk.cyan(...args));
-  },
-  success(...args: unknown[]) {
-    console.log(chalk.green(...args));
-  },
+  error(..._args: unknown[]) {},
+  warn(..._args: unknown[]) {},
+  info(..._args: unknown[]) {},
+  success(..._args: unknown[]) {},
 };

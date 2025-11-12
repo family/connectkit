@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import * as p from "@clack/prompts";
 import chalk from "chalk";
 import fs from "fs-extra";
@@ -30,13 +30,13 @@ export const scaffoldProject = async ({
     if (fs.readdirSync(projectDir).length === 0) {
       if (projectName !== ".")
         spinner.info(
-          `${chalk.cyan.bold(projectName)} exists but is empty, continuing...\n`
+          `${chalk.cyan.bold(projectName)} exists but is empty, continuing...\n`,
         );
     } else {
       spinner.stopAndPersist();
       const overwriteDir = await p.select({
         message: `${chalk.redBright.bold("Warning:")} ${chalk.cyan.bold(
-          projectName
+          projectName,
         )} already exists and isn't empty. How would you like to proceed?`,
         options: [
           {
@@ -76,7 +76,7 @@ export const scaffoldProject = async ({
 
       if (overwriteDir === "clear") {
         spinner.info(
-          `Emptying ${chalk.cyan.bold(projectName)} and creating Openfort app..\n`
+          `Emptying ${chalk.cyan.bold(projectName)} and creating Openfort app..\n`,
         );
         fs.emptyDirSync(projectDir);
       }
@@ -92,7 +92,7 @@ export const scaffoldProject = async ({
   const templateSrcDir = path.join(
     PKG_ROOT,
     "template/openfort-templates",
-    template
+    template,
   );
 
   // If creating backend, copy to frontend subfolder, otherwise copy to root
@@ -106,6 +106,6 @@ export const scaffoldProject = async ({
     projectName === "." ? "App" : chalk.cyan.bold(projectName);
 
   spinner.succeed(
-    `${scaffoldedName} ${chalk.green("scaffolded successfully!")}\n`
+    `${scaffoldedName} ${chalk.green("scaffolded successfully!")}\n`,
   );
 };

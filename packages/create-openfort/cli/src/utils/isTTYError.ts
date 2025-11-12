@@ -1,5 +1,1 @@
-export class IsTTYError extends Error {
-  constructor(msg: string) {
-    super(msg);
-  }
-}
+export class IsTTYError extends Error {}

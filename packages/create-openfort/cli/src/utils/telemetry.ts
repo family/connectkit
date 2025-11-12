@@ -1,6 +1,6 @@
-import { createHash } from "crypto";
-import https from "https";
-import { hostname, userInfo } from "os";
+import { createHash } from "node:crypto";
+import https from "node:https";
+import { hostname, userInfo } from "node:os";
 
 import { getVersion } from "./getVersion.js";
 
@@ -94,4 +94,3 @@ class Telemetry {
 }
 
 export const telemetry = new Telemetry();
-
