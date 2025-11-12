@@ -47,5 +47,5 @@ export const getAssetSymbol = (asset: Asset): string => {
 }
 
 export const getAssetDecimals = (asset: Asset): number => {
-  return (asset.metadata?.decimals as number) || 18
+  return (asset.metadata?.decimals as number) ?? 18
 }
