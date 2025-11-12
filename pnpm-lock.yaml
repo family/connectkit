@@ -622,8 +622,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(react@18.3.1)
       '@openfort/react':
-        specifier: ^0.1.0
-        version: 0.1.5(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))
+        specifier: latest
+        version: 0.1.6(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))
       '@tanstack/react-query':
         specifier: '>=5.45.1'
         version: 5.90.5(react@18.3.1)
@@ -674,8 +674,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(react@18.3.1)
       '@openfort/react':
-        specifier: ^0.1.0
-        version: 0.1.5(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))
+        specifier: latest
+        version: 0.1.6(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))
       '@tanstack/react-query':
         specifier: '>=5.45.1'
         version: 5.90.5(react@18.3.1)
@@ -723,8 +723,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(react@18.3.1)
       '@openfort/react':
-        specifier: ^0.1.0
-        version: 0.1.5(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))
+        specifier: latest
+        version: 0.1.6(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))
       '@tanstack/react-query':
         specifier: '>=5.45.1'
         version: 5.90.5(react@18.3.1)
@@ -2273,9 +2273,6 @@ packages:
   '@openfort/openfort-node@0.6.75':
     resolution: {integrity: sha512-AWv8LMcDhsf7DJByfvub7avgS+vs9L37NlrMBINjLTCmPI/IOVEfS8CR9IV1DtYNqPxC1xAOXBrofcGgCm/E4w==}
 
-  '@openfort/openfort-node@0.6.75':
-    resolution: {integrity: sha512-AWv8LMcDhsf7DJByfvub7avgS+vs9L37NlrMBINjLTCmPI/IOVEfS8CR9IV1DtYNqPxC1xAOXBrofcGgCm/E4w==}
-
   '@openfort/react@0.0.17':
     resolution: {integrity: sha512-1MgTU+2SUNTh5T+E4PPFNGdTxhDy09ips5nmcviIa9EHe/OZtrMnmrL3jsNgHdHgDlwv5RXH/5b+hy3vgkh2fA==}
     engines: {node: '>=12.4'}
@@ -2296,8 +2293,8 @@ packages:
       viem: ^2.38.4
       wagmi: ^2.18.2
 
-  '@openfort/react@0.1.5':
-    resolution: {integrity: sha512-CeCcDEyMc8UusMZf9/eutbF+3e6PC/g6Zb30MC+YnLHXISt/gat7nrnwnSa+AfGREr0ZFCeKn45zeOH9G33avA==}
+  '@openfort/react@0.1.6':
+    resolution: {integrity: sha512-XXWBWi/OaHdcOGLgNujOLdg6H5FeJVViowED9GZsedF+9GChfWWEObc+ZwPaIi/6rCSWlNb8qNpMK2v/oSVKzw==}
     engines: {node: '>=12.4'}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -9848,17 +9845,6 @@ snapshots:
       - debug
       - encoding
 
-  '@openfort/openfort-node@0.6.75':
-    dependencies:
-      '@openfort/shield-js': 0.1.29
-      '@types/node': 22.18.12
-      '@types/node-fetch': 2.6.13
-      form-data: 2.5.5
-      node-fetch: 2.7.0
-    transitivePeerDependencies:
-      - debug
-      - encoding
-
   '@openfort/react@0.0.17(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))':
     dependencies:
       '@openfort/openfort-js': 0.10.34(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -9908,7 +9894,7 @@ snapshots:
       - debug
       - utf-8-validate
 
-  '@openfort/react@0.1.5(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))':
+  '@openfort/react@0.1.6(@tanstack/react-query@5.90.5(react@18.3.1))(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(wagmi@2.18.2(@tanstack/query-core@5.90.5)(@tanstack/react-query@5.90.5(react@18.3.1))(@types/react@18.3.1)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.38.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@4.1.12))(zod@4.1.12))':
     dependencies:
       '@openfort/openfort-js': 0.10.34(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@tanstack/react-query': 5.90.5(react@18.3.1)
