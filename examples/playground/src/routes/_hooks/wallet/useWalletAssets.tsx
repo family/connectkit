@@ -14,38 +14,11 @@ function RouteComponent() {
       <HookVariable
         name="useWalletAssets"
         hook={useWalletAssets}
-        description="This hook provides access to the wallets available in the application."
+        description="This hook fetches the assets associated with the connected wallet."
         variables={{
           refetch: {
             type: 'function',
             description: 'Function to refetch the wallet assets.',
-          },
-        }}
-        optionsVariables={{
-          assets: {
-            type: 'select',
-            options: [
-              {
-                label: 'No custom assets',
-                value: {
-                  [polygonAmoy.id]: [
-                    {
-                      address: '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac',
-                      decimals: 0,
-                    },
-                  ],
-                },
-              },
-              {
-                label: 'Custom Asset 1',
-                value: [{}],
-              },
-              {
-                label: 'Custom Asset 2',
-                value: [{ address: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd' }],
-              },
-            ],
-            description: 'Comma-separated list of asset IDs to include.',
           },
         }}
         defaultOptions={{

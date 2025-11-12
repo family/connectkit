@@ -64,12 +64,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     recoverWalletAutomaticallyAfterAuth: undefined,
     accountType: undefined,
     assets: {
-      [polygonAmoy.id]: [
-        {
-          address: '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac',
-          decimals: 0,
-        },
-      ],
+      [polygonAmoy.id]: ['0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac'],
     },
   },
   onConnect: undefined,
