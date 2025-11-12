@@ -7,7 +7,7 @@
 
 const { execSync } = require('node:child_process');
 const { existsSync, rmSync } = require('node:fs');
-const { join } = require('node:path');
+const { join, resolve } = require('node:path');
 
 const REPO_ROOT = join(__dirname, '..');
 const QUICKSTARTS_DIR = join(REPO_ROOT, 'examples/quickstarts');
@@ -39,6 +39,19 @@ for (const template of TEMPLATES_TO_SYNC) {
   console.log(`📋 Syncing ${template}...`);
 
   try {
+    // Validate paths are within expected directories
+    const resolvedSource = resolve(sourcePath);
+    const resolvedTarget = resolve(targetPath);
+    const resolvedQuickstarts = resolve(QUICKSTARTS_DIR);
+    const resolvedTemplates = resolve(TEMPLATES_DIR);
+    
+    if (!resolvedSource.startsWith(resolvedQuickstarts)) {
+      throw new Error(`Invalid source path: ${resolvedSource}`);
+    }
+    if (!resolvedTarget.startsWith(resolvedTemplates)) {
+      throw new Error(`Invalid target path: ${resolvedTarget}`);
+    }
+
     // Remove the old template
     if (existsSync(targetPath)) {
       rmSync(targetPath, { recursive: true, force: true });
