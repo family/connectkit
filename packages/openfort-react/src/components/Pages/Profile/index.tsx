@@ -109,7 +109,7 @@ const Profile = () => {
     return () => {
       setHeaderLeftSlot(null)
     }
-  }, [address, setHeaderLeftSlot, setRoute])
+  }, [address])
 
   const { setSendForm } = context
 
