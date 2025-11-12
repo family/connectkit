@@ -48,5 +48,10 @@
     "@types/node": "^20.14.10",
     "turbo": "1.13.3-canary.3",
     "typescript": "^5.8.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "cross-spawn": "^7.0.6"
+    }
   }
 }
