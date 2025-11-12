@@ -1,4 +1,4 @@
-import { getAddress, parseAbi } from 'viem'
+import { formatUnits, getAddress, parseAbi } from 'viem'
 import { useAccount, useChainId, useChains, useReadContract, useWriteContract } from 'wagmi'
 import { Button } from '@/components/Showcase/ui/Button'
 import { InputMessage } from '@/components/Showcase/ui/InputMessage'
@@ -50,7 +50,7 @@ export const WriteContractCard = () => {
       address: getAddress('0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac'),
       abi: parseAbi(['function mint(address to, uint256 amount)']),
       functionName: 'mint',
-      args: [address!, BigInt(amount)],
+      args: [address!, BigInt(amount) * BigInt(10 ** 18)],
     })
   }
 
@@ -62,7 +62,7 @@ export const WriteContractCard = () => {
         <CardDescription>
           Contract Address: <TruncatedText text="0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac" />
         </CardDescription>
-        <CardDescription>Balance: {balanceError ? '-' : balance?.toString() || 0}</CardDescription>
+        <CardDescription>Balance: {balanceError ? '-' : formatUnits(balance || 0n, 18) || 0}</CardDescription>
       </CardHeader>
       <CardContent>
         <form
