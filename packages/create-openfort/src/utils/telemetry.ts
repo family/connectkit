@@ -1,14 +1,10 @@
 import crypto, { createHash } from "node:crypto";
 import https from "node:https";
 import { hostname, userInfo } from "node:os";
-import dotenv from "dotenv";
 import { logger } from "~/utils/logger.js";
 import { getVersion } from "./getVersion.js";
 
-dotenv.config();
-
-const posthogKey = process.env.POSTHOG_API_KEY;
-const posthogHost = "https://analytics.openfort.xyz";
+const posthogHost = "https://analytics.openfort.io";
 
 const getAnonymousId = () => {
   // Combines hostname + username, hashed = anonymous but consistent
@@ -46,6 +42,11 @@ class Telemetry {
     });
 
     if (!this.enabled) return;
+
+    if (process.env.NODE_ENV !== "production") {
+      await import("dotenv/config");
+    }
+    const posthogKey = process.env.POSTHOG_API_KEY;
 
     if (!posthogKey || !posthogHost) {
       logger.warn(
