@@ -1,6 +1,6 @@
 {
   "name": "create-openfort",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "description": "Create Openfort applications with embedded wallets",
   "license": "MIT",
   "author": "Openfort (https://www.openfort.xyz)",
