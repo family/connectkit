@@ -16,7 +16,7 @@ type ValidatorOptions = {
   customCheck?: (value: string) => string | undefined; // optional custom logic
 };
 
-export const createValidator =
+const createValidator =
   ({
     label,
     required = true,
