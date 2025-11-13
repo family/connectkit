@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.6
+
+### Patch Changes
+
+- [#119](https://github.com/openfort-xyz/openfort-react/pull/119) [`e5b7c75`](https://github.com/openfort-xyz/openfort-react/commit/e5b7c75a1a3f44ed3b9326e3cc458716b597182b) Thanks [@martimayoral](https://github.com/martimayoral)! - remove dotenv from dependencies
+
 ## 0.1.5
 
 ### Patch Changes
