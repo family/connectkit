@@ -1,10 +1,13 @@
 import crypto, { createHash } from "node:crypto";
 import https from "node:https";
 import { hostname, userInfo } from "node:os";
-
+import dotenv from "dotenv";
+import { logger } from "~/utils/logger.js";
 import { getVersion } from "./getVersion.js";
 
-const posthogKey = "phc_HosujvcO5QzmU2MVvZo8AxWV0pplTZJLr3jEd8dRVPE";
+dotenv.config();
+
+const posthogKey = process.env.POSTHOG_API_KEY;
 const posthogHost = "https://analytics.openfort.xyz";
 
 const getAnonymousId = () => {
@@ -37,9 +40,19 @@ class Telemetry {
     properties?: Record<string, unknown>;
     status: "started" | "completed" | "error";
   }) => {
+    logger.debug("Sending telemetry...", {
+      status,
+      properties,
+    });
+
     if (!this.enabled) return;
 
-    if (!posthogKey || !posthogHost) return;
+    if (!posthogKey || !posthogHost) {
+      logger.warn(
+        "Telemetry is not configured properly. Please contact openfort developers at support@openfort.xyz.",
+      );
+      return;
+    }
 
     const fullProperties = {
       session_id: this.sessionId,
@@ -78,15 +91,19 @@ class Telemetry {
     return new Promise<void>((resolve) => {
       const req = https.request(options, (res) => {
         res.on("data", () => {
-          // Consume data
+          logger.debug(
+            "Telemetry request response received",
+            res.statusMessage,
+          );
         });
         res.on("end", () => {
           resolve();
         });
       });
 
-      req.on("error", () => {
+      req.on("error", (e) => {
         // Silently fail telemetry errors
+        logger.debug("Telemetry request error", e);
         resolve();
       });
 
