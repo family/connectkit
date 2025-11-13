@@ -105,6 +105,8 @@ export const scaffoldProject = async ({
   const scaffoldedName =
     projectName === "." ? "App" : chalk.cyan.bold(projectName);
 
+  await new Promise((resolve) => setTimeout(resolve, 250)); // UX
+
   spinner.succeed(
     `${scaffoldedName} ${chalk.green("scaffolded successfully!")}\n`,
   );

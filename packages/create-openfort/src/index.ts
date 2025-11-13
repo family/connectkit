@@ -25,7 +25,9 @@ type OpenfortPackageJSON = PackageJson & {
 
 const main = async () => {
   const npmVersion = await getNpmVersion();
-  renderTitle();
+
+  await renderTitle();
+
   if (npmVersion) {
     renderVersionWarning(npmVersion);
   }
