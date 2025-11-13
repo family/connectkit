@@ -4,7 +4,7 @@
 
 ### Initial Release
 
-- Initial release of create-openfort-app CLI
+- Initial release of create-openfort CLI
 - Support for multiple authentication providers (Firebase, Headless, Openfort UI)
 - Backend integration with Openfort SDK
 - TypeScript support out of the box

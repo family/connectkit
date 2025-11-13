@@ -1,5 +1,5 @@
 <h1 align="center">
-  create-openfort-app
+  create-openfort
 </h1>
 
 <p align="center">
@@ -19,7 +19,7 @@
 
 <h2 id="about">Create Openfort App</h2>
 
-`create-openfort-app` is a CLI tool to quickly scaffold Web3 applications with Openfort's embedded wallet infrastructure. Build blockchain-enabled apps with ease using modern frameworks and best practices.
+`create-openfort` is a CLI tool to quickly scaffold Web3 applications with Openfort's embedded wallet infrastructure. Build blockchain-enabled apps with ease using modern frameworks and best practices.
 
 ### Features
 
@@ -31,34 +31,34 @@
 
 <h2 id="getting-started">Getting Started</h2>
 
-To scaffold an app using `create-openfort-app`, run any of the following commands:
+To scaffold an app using `create-openfort`, run any of the following commands:
 
 ### npm
 
 ```bash
-npm create openfort-app@latest
+npm create openfort@latest
 ```
 
 ### yarn
 
 ```bash
-yarn create openfort-app
+yarn create openfort
 ```
 
 ### pnpm
 
 ```bash
-pnpm create openfort-app@latest
+pnpm create openfort@latest
 ```
 
 ### bun
 
 ```bash
-bun create openfort-app@latest
+bun create openfort@latest
 ```
 
 <h2 id="community">Community</h2>
 
-For help, discussion about best practices, or any other conversation that would benefit create-openfort-app:
+For help, discussion about best practices, or any other conversation that would benefit create-openfort:
 
 [Join the Openfort Telegram Group](https://t.me/openfort)
