@@ -26,7 +26,6 @@
     "start": "rollup --config rollup.config.dev.js -w",
     "dev": "rollup --config rollup.config.dev.js -w",
     "build": "rollup --config rollup.config.prod.js",
-    "check": "biome check --write --unsafe",
     "format": "biome format --write ."
   },
   "keywords": [

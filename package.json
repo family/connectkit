@@ -20,6 +20,7 @@
     "check:unused": "knip",
     "check:audit": "pnpm audit --audit-level=moderate",
     "check:all": "pnpm check && pnpm check:types && pnpm check:unused && pnpm check:audit",
+    "check:cli": "pnpm --filter create-openfort check",
     "sync-templates": "node scripts/sync-templates.js",
     "changeset": "changeset",
     "changeset:version": "node scripts/sync-templates.js && node scripts/change-version.js && pnpm install --lockfile-only && changeset version && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",

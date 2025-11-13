@@ -7,8 +7,6 @@ const __filename = fileURLToPath(import.meta.url);
 const distPath = path.dirname(__filename);
 export const PKG_ROOT = path.join(distPath, "../");
 
-//export const PKG_ROOT = path.dirname(require.main.filename);
-
 export const TITLE_TEXT = `   ___  ___  ___ _  _ ___ ___  ___ _____
   / _ \\| _ \\| __| \\| | __/ _ \\| _ \\_   _|
  | (_) |  _/| _|| .  | _| (_) |   / | |

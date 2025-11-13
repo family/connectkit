@@ -37,19 +37,10 @@
     "node": ">=18.17.0"
   },
   "scripts": {
-    "typecheck": "tsc",
+    "check": "tsc && biome check",
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf dist .turbo node_modules",
-    "start": "node dist/index.js",
-    "lint": "biome check --write .",
-    "lint:fix": "biome check --write .",
-    "format": "biome format --write .",
-    "format:check": "biome format .",
-    "release": "changeset version",
-    "pub:beta": "pnpm build && npm publish --tag beta",
-    "pub:next": "pnpm build && npm publish --tag next",
-    "pub:release": "pnpm build && npm publish"
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "@clack/prompts": "^0.6.3",
