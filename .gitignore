@@ -12,9 +12,11 @@ node_modules
 
 # production
 build
+dist
 tsconfig.tsbuildinfo
 package.tgz
 openfort-react-*.tgz
+create-openfort-*.tgz
 
 # misc
 .DS_Store
