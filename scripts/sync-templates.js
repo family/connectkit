@@ -53,13 +53,13 @@ for (const template of TEMPLATES_TO_SYNC) {
     }
 
     // Remove the old template
-    if (existsSync(targetPath)) {
-      rmSync(targetPath, { recursive: true, force: true });
+    if (existsSync(resolvedTarget)) {
+      rmSync(resolvedTarget, { recursive: true, force: true });
     }
 
     // Copy the quickstart to templates, excluding node_modules, dist, and .env files
     execSync(
-      `rsync -av --exclude='node_modules' --exclude='dist' --exclude='.env*' "${sourcePath}/" "${targetPath}/"`,
+      `rsync -av --exclude='node_modules' --exclude='dist' --exclude='.env*' "${resolvedSource}/" "${resolvedTarget}/"`,
       { stdio: 'pipe' }
     );
 
