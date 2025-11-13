@@ -15,7 +15,10 @@
       "!**/coverage",
       "!**/node_modules",
       "!packages/openfort-react/src/assets",
-      "!examples/quickstarts"
+      "!examples/quickstarts",
+      "!packages/create-openfort/template",
+      "!packages/create-openfort/.github",
+      "!packages/create-openfort/.codesandbox"
     ],
     "ignoreUnknown": true
   },
@@ -76,5 +79,30 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["packages/create-openfort/**"],
+      "formatter": {
+        "lineWidth": 80
+      },
+      "javascript": {
+        "formatter": {
+          "quoteStyle": "double",
+          "trailingCommas": "all",
+          "semicolons": "always"
+        }
+      },
+      "linter": {
+        "rules": {
+          "style": {
+            "useImportType": "error"
+          },
+          "suspicious": {
+            "noExplicitAny": "error"
+          }
+        }
+      }
+    }
+  ]
 }

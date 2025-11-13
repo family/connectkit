@@ -1,0 +1,19 @@
+/*
+ * This script is used to copy over the version number in the package.json to
+ * the OPENFORT_VERSION constant in the index.ts file. This is done to
+ * ensure that the version number attribute on the Openfort wrapper is always
+ * up to date with the version number in the package.json file.
+ */
+
+const fs = require('node:fs')
+const path = require('node:path')
+const config = require('../packages/openfort-react/package.json')
+
+const versionFilePath = path.join(__dirname, '../packages/openfort-react/src/version.ts')
+
+const file = fs.readFileSync(versionFilePath, 'utf8')
+const lines = file.split('\n')
+const versionLine = lines.findIndex((line) => line.includes('export const OPENFORT_VERSION = '))
+lines[versionLine] = `export const OPENFORT_VERSION = '${config.version}'`
+
+fs.writeFileSync(versionFilePath, lines.join('\n'), 'utf8')

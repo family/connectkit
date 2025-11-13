@@ -7,7 +7,8 @@
   "workspaces": {
     "packages": [
       "packages/**",
-      "examples/**"
+      "examples/**",
+      "!packages/create-openfort/template/**"
     ]
   },
   "scripts": {
@@ -19,21 +20,26 @@
     "check:unused": "knip",
     "check:audit": "pnpm audit --audit-level=moderate",
     "check:all": "pnpm check && pnpm check:types && pnpm check:unused && pnpm check:audit",
+    "check:cli": "pnpm --filter create-openfort check",
+    "sync-templates": "node scripts/sync-templates.js",
     "changeset": "changeset",
-    "changeset:version": "pnpm install --lockfile-only && changeset version && node build.js && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
+    "changeset:version": "node scripts/sync-templates.js && node scripts/change-version.js && pnpm install --lockfile-only && changeset version && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
     "changeset:publish": "pnpm build && changeset publish",
     "changeset:prepublish": "pnpm build",
     "dev": "pnpm --filter @openfort/react dev",
-    "dev:firebase": "pnpm --filter quickstart-firebase dev",
-    "dev:headless": "pnpm --filter quickstart-headless dev",
-    "dev:openfort-ui": "pnpm --filter quickstart-openfort-ui dev",
+    "dev:cli": "pnpm --filter create-openfort dev",
+    "dev:firebase": "cd examples/quickstarts/firebase && pnpm dev",
+    "dev:headless": "cd examples/quickstarts/headless && pnpm dev",
+    "dev:openfort-ui": "cd examples/quickstarts/openfort-ui && pnpm dev",
     "dev:playground": "pnpm --filter playground dev",
-    "build": "node build.js && pnpm --filter @openfort/react build && cp README.md packages/openfort-react/README.md",
-    "build:firebase": "pnpm build && pnpm --filter quickstart-firebase build",
-    "build:headless": "pnpm build && pnpm --filter quickstart-headless build",
-    "build:openfort-ui": "pnpm build && pnpm --filter quickstart-openfort-ui build",
+    "build": "node scripts/change-version.js && pnpm --filter @openfort/react build && cp README.md packages/openfort-react/README.md",
+    "build:cli": "pnpm --filter create-openfort build",
+    "build:firebase": "cd examples/quickstarts/firebase && pnpm build",
+    "build:headless": "cd examples/quickstarts/headless && pnpm build",
+    "build:openfort-ui": "cd examples/quickstarts/openfort-ui && pnpm build",
     "build:playground": "pnpm build && pnpm --filter playground build",
-    "build:ci": "pnpm -r run build"
+    "build:ci": "pnpm -r run build",
+    "start:cli": "pnpm --filter create-openfort start"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.4",
@@ -59,7 +65,10 @@
       "viem": "^2.38.4",
       "wagmi": "^2.18.2",
       "typescript": "^5.0.4",
-      "hono": ">=4.10.3"
+      "hono": ">=4.10.3",
+      "cross-spawn": ">=6.0.6",
+      "got": ">=11.8.5",
+      "esbuild": ">=0.25.0"
     }
   },
   "knip": {
@@ -73,7 +82,9 @@
       "packages/openfort-react/rollup.config.dev.js",
       "packages/openfort-react/rollup.config.prod.js",
       "**/*.gen.ts",
-      "examples/playground/src/api/**"
+      "examples/playground/src/api/**",
+      "packages/create-openfort/.github/**",
+      "packages/create-openfort/template/**"
     ],
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",
