@@ -95,7 +95,8 @@
       "tw-animate-css",
       "daisyui",
       "buffer",
-      "wagmi"
+      "wagmi",
+      "@babel/core"
     ]
   },
   "simple-git-hooks": {
