@@ -1,6 +1,6 @@
 import * as p from "@clack/prompts";
 import chalk from "chalk";
-import { Command } from "commander";
+import { Command, Option } from "commander";
 
 import { CREATE_OPENFORT_APP, DEFAULT_APP_NAME } from "~/consts.js";
 import {
@@ -88,7 +88,8 @@ export const runCli = async (): Promise<CliResults> => {
       "--theme [string]",
       "Specify the theme to use (for openfort-ui template)",
     )
-    .option("--no-telemetry", "Disable sending anonymous usage data", false)
+    .option("--noTelemetry", "Disable sending anonymous usage data", false)
+    .addOption(new Option("--debug").hideHelp(true))
     .version(getVersion(), "-v, --version", "Display the version number")
     .addHelpText(
       "afterAll",
@@ -101,7 +102,11 @@ export const runCli = async (): Promise<CliResults> => {
   const cliProvidedName = program.args[0];
   const opts = program.opts();
 
-  telemetry.enabled = opts.telemetry !== false;
+  // Disable debug logging
+  if (!opts.debug) logger.debug = () => {};
+
+  telemetry.enabled = !opts.noTelemetry;
+  logger.debug("Telemetry enabled:", telemetry.enabled);
 
   // Send telemetry start event
   telemetry.send({ status: "started" });

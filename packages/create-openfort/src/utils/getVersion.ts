@@ -9,5 +9,5 @@ export const getVersion = () => {
 
   const packageJsonContent = fs.readJSONSync(packageJsonPath) as PackageJson;
 
-  return packageJsonContent.version ?? "1.0.0";
+  return packageJsonContent.version ?? "unknown";
 };

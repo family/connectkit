@@ -5,7 +5,7 @@
  * Run this script before publishing to ensure templates are up-to-date
  */
 
-const { execSync } = require('node:child_process');
+const { execFileSync } = require('node:child_process');
 const { existsSync, rmSync } = require('node:fs');
 const { join, resolve } = require('node:path');
 
@@ -36,7 +36,7 @@ for (const template of TEMPLATES_TO_SYNC) {
     continue;
   }
 
-  console.log(`📋 Syncing ${template}...`);
+  console.log(`🔄 Syncing ${template}...`);
 
   try {
     // Validate paths are within expected directories
@@ -58,8 +58,16 @@ for (const template of TEMPLATES_TO_SYNC) {
     }
 
     // Copy the quickstart to templates, excluding node_modules, dist, and .env files
-    execSync(
-      `rsync -av --exclude='node_modules' --exclude='dist' --exclude='.env*' "${resolvedSource}/" "${resolvedTarget}/"`,
+    execFileSync(
+      'rsync',
+      [
+        '-av',
+        '--exclude=node_modules',
+        '--exclude=dist',
+        '--exclude=.env*',
+        `${resolvedSource}/`,
+        `${resolvedTarget}/`
+      ],
       { stdio: 'pipe' }
     );
 
@@ -71,25 +79,31 @@ for (const template of TEMPLATES_TO_SYNC) {
 }
 
 // Sync backend template from git repository
-console.log('\n📋 Syncing backend template...');
+console.log('\n🔄 Syncing backend template...');
 
-try {
-  // Remove the old backend template
-  if (existsSync(BACKEND_TEMPLATE_DIR)) {
-    rmSync(BACKEND_TEMPLATE_DIR, { recursive: true, force: true });
-  }
+try {// Remove the old backend template
+if (existsSync(BACKEND_TEMPLATE_DIR)) {
+  rmSync(BACKEND_TEMPLATE_DIR, { recursive: true, force: true });
+}
 
-  // Clone the backend repository
-  execSync(
-    `git clone --depth 1 ${BACKEND_REPO_URL} "${BACKEND_TEMPLATE_DIR}"`,
-    { stdio: 'pipe' }
-  );
+// Clone the backend repository
+execFileSync(
+  'git',
+  [
+    'clone',
+    '--depth',
+    '1',
+    BACKEND_REPO_URL,
+    BACKEND_TEMPLATE_DIR
+  ],
+  { stdio: 'pipe' }
+);
 
-  // Remove the .git directory to integrate it properly
-  const gitDir = join(BACKEND_TEMPLATE_DIR, '.git');
-  if (existsSync(gitDir)) {
-    rmSync(gitDir, { recursive: true, force: true });
-  }
+// Remove the .git directory to integrate it properly
+const gitDir = join(BACKEND_TEMPLATE_DIR, '.git');
+if (existsSync(gitDir)) {
+  rmSync(gitDir, { recursive: true, force: true });
+}
 
   console.log('✅ backend synced successfully');
 } catch (error) {
