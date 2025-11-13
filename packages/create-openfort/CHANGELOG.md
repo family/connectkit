@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.5
+
+### Patch Changes
+
+- [#117](https://github.com/openfort-xyz/openfort-react/pull/117) [`407ba5f`](https://github.com/openfort-xyz/openfort-react/commit/407ba5f23bca639d4bd9a8eef0b53deb73d00b05) Thanks [@martimayoral](https://github.com/martimayoral)! - update telemetry import
+
 ## 0.1.4
 
 ### Patch Changes
