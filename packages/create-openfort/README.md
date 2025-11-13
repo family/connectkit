@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  Get started by running <code>npm create openfort-app@latest</code>
+  Get started by running <code>npm create openfort@latest</code>
 </p>
 
 ## Table of contents
@@ -15,7 +15,6 @@
 - <a href="#about">About</a>
 - <a href="#getting-started">Getting Started</a>
 - <a href="#community">Community</a>
-- <a href="#contributors">Contributors</a>
 
 <h2 id="about">Create Openfort App</h2>
 
