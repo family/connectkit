@@ -1,6 +1,8 @@
+// biome-ignore-all lint/suspicious/noConsole: Logger utility using console methods
+
 export const logger = {
-  error(..._args: unknown[]) {},
-  warn(..._args: unknown[]) {},
-  info(..._args: unknown[]) {},
-  success(..._args: unknown[]) {},
+  error: (...args: unknown[]) => console.error(...args),
+  warn: (...args: unknown[]) => console.warn(...args),
+  info: (...args: unknown[]) => console.log(...args),
+  success: (...args: unknown[]) => console.log(...args),
 };
