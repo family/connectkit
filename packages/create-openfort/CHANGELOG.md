@@ -2,6 +2,12 @@
 
 ## 0.1.0
 
+### Minor Changes
+
+- [#97](https://github.com/openfort-xyz/openfort-react/pull/97) [`023e3b4`](https://github.com/openfort-xyz/openfort-react/commit/023e3b43c7374792391df8388336e9e7a8dc3d8b) Thanks [@Huguet57](https://github.com/Huguet57)! - Optimized internal configuration
+
+## 0.1.0
+
 ### Initial Release
 
 - Initial release of create-openfort CLI
