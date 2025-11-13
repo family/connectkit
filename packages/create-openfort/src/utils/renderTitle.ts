@@ -4,9 +4,9 @@ import { TITLE_TEXT } from "~/consts.js";
 import { getUserPkgManager } from "~/utils/getUserPkgManager.js";
 
 // Openfort brand colors
-const openfortTheme = ["#ffffff", "#000000", "#ff3b30"];
+const openfortTheme = ["#c3c3c3ff", "#ff3b30"];
 
-export const renderTitle = () => {
+export const renderTitle = async () => {
   const openfortGradient = gradient(openfortTheme);
 
   // resolves weird behavior where the ascii is offset
