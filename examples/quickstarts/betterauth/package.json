@@ -15,6 +15,5 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
     "concurrently": "^9.1.2"
-  },
-  "packageManager": "pnpm@10.16.1"
+  }
 }
