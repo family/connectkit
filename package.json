@@ -53,7 +53,8 @@
     "@wagmi/core": "^2.22.1",
     "viem": "^2.38.4",
     "wagmi": "^2.18.2",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "@babel/core": "^7.28.5"
   },
   "packageManager": "pnpm@10.16.1",
   "pnpm": {
