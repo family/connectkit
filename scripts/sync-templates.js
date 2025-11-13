@@ -13,11 +13,11 @@ const REPO_ROOT = join(__dirname, '..');
 const QUICKSTARTS_DIR = join(REPO_ROOT, 'examples/quickstarts');
 const TEMPLATES_DIR = join(
   REPO_ROOT,
-  'packages/create-openfort/cli/template/openfort-templates'
+  'packages/create-openfort/template/openfort-templates'
 );
 const BACKEND_TEMPLATE_DIR = join(
   REPO_ROOT,
-  'packages/create-openfort/cli/template/backend'
+  'packages/create-openfort/template/backend'
 );
 
 // Templates to sync (excluding betterauth and supabase as they might not be in create-openfort)

@@ -16,7 +16,7 @@
       "!**/node_modules",
       "!packages/openfort-react/src/assets",
       "!examples/quickstarts",
-      "!packages/create-openfort/cli/template",
+      "!packages/create-openfort/template",
       "!packages/create-openfort/.github",
       "!packages/create-openfort/.codesandbox"
     ],

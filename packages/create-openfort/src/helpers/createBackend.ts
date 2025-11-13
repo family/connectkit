@@ -58,6 +58,12 @@ export const createBackend = async ({
       fs.writeFileSync(envPath, updatedEnvContent);
     }
 
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 1000);
+    });
+
     spinner.succeed("Backend created successfully!");
   } catch (error) {
     spinner.fail("Failed to create backend");

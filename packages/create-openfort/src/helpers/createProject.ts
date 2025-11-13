@@ -4,6 +4,7 @@ import { createBackend } from "~/helpers/createBackend.js";
 import { scaffoldProject } from "~/helpers/scaffoldProject.js";
 import { fillEnvVariables } from "~/installers/envVars.js";
 import type { OpenfortTemplate } from "~/installers/index.js";
+import { logger } from "~/utils/logger";
 
 interface CreateProjectOptions {
   projectName: string;
@@ -71,6 +72,7 @@ export const createProject = async ({
       shieldEncryptionShare,
     });
   }
+  logger.info("All done!");
 
   return projectDir;
 };
