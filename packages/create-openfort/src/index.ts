@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import * as path from "node:path";
-import * as fs from "fs-extra";
+import path from "node:path";
+import fs from "fs-extra";
 import type { PackageJson } from "type-fest";
 import { runCli } from "~/cli/index.js";
 import { createProject } from "~/helpers/createProject.js";
@@ -67,8 +67,6 @@ const main = async () => {
     shieldEncryptionShare,
   });
 
-  logger.info("Project setup is complete!");
-
   // Update package.json in frontend (or root if no backend)
   const pkgJsonPath = createBackend
     ? path.join(projectDir, "frontend", "package.json")
@@ -86,8 +84,6 @@ const main = async () => {
       spaces: 2,
     });
   }
-
-  logger.info("Git?!");
 
   if (!noGit) {
     await initializeGit(projectDir);
