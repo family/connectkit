@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4
+
+### Patch Changes
+
+- [#116](https://github.com/openfort-xyz/openfort-react/pull/116) [`ada14ae`](https://github.com/openfort-xyz/openfort-react/commit/ada14aeae32ecf298341782141dce1c0ce0cd7d0) Thanks [@martimayoral](https://github.com/martimayoral)! - add telemetry
+
+- [#114](https://github.com/openfort-xyz/openfort-react/pull/114) [`14b68fc`](https://github.com/openfort-xyz/openfort-react/commit/14b68fc78321b5f07731792388a7b988ea073242) Thanks [@martimayoral](https://github.com/martimayoral)! - improve UX
+
 ## 0.1.3
 
 ### Patch Changes
