@@ -20,14 +20,12 @@
   </h4>
 </div>
 
-
 # Openfort React SDK
 
 [![Downloads](https://img.shields.io/npm/dm/@openfort/react.svg)](https://www.npmjs.com/package/@openfort/react)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-openfort.io-blue)](https://www.openfort.io/docs/products/embedded-wallet/react/)
 [![Version](https://img.shields.io/npm/v/@openfort/react.svg)](https://www.npmjs.org/package/@openfort/react)
-
 
 The easiest way to use embedded wallets, with built-in authentication and payments capabilities in React.
 
@@ -83,23 +81,23 @@ There are various runnable examples included in this repository in the [examples
 Clone the project and install the necessary dependencies:
 
 ```sh
-$ git clone git@github.com:openfort-xyz/openfort-react.git
-$ cd openfort
-$ pnpm install
+git clone git@github.com:openfort-xyz/openfort-react.git
+cd openfort
+pnpm install
 ```
 
 and start the code bundler:
 
 ```sh
-$ pnpm dev
+pnpm dev
 ```
 
 and then simply select the example you'd like to run:
 
 ```sh
-$ pnpm dev:playground # Playground
-$ pnpm dev:headless # Headless
-$ pnpm dev:openfort-ui # Openfort UI
+pnpm dev:playground # Playground
+pnpm dev:headless # Headless
+pnpm dev:openfort-ui # Openfort UI
 ```
 
 ## License
