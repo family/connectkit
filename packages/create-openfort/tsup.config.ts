@@ -9,5 +9,8 @@ export default defineConfig({
   minify: !isDev,
   target: "esnext",
   outDir: "dist",
+  banner: {
+    js: "#!/usr/bin/env node",
+  },
   onSuccess: isDev ? "node dist/index.js" : undefined,
 });
