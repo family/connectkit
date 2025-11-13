@@ -57,7 +57,6 @@
     "@types/node": "^20.14.10",
     "tsup": "^6.7.0",
     "type-fest": "^3.13.1",
-    "typescript": "^5.8.2",
-    "dotenv": "^17.2.3"
+    "typescript": "^5.8.2"
   }
 }
