@@ -1,5 +1,3 @@
-![openfort_kit_8d6f715e38](https://github.com/user-attachments/assets/e652c9d8-c2ff-4f13-b046-405338fdea01)
-
 <div align="center">
   <h4>
     <a href="https://www.openfort.io/">
@@ -14,7 +12,7 @@
       X
     </a>
    <span> | </span>
-    <a href="https://playground.openfort.io/">
+    <a href="https://demo.openfort.io/">
       Demo
     </a>
   </h4>
@@ -31,10 +29,11 @@ The easiest way to use embedded wallets, with built-in authentication and paymen
 
 ## Features
 
-- 💡 TypeScript Ready — Get types straight out of the box.
-- 🌱 Ecosystem Friendly — Uses top libraries such as [wagmi](https://github.com/wagmi-dev/wagmi) for hooks.
-- 🎨 Simple UI — Use prebuilt elements for authenticaiton and wallet connection.
-- 🖥️ React Hooks - To interact directly with embedded wallet capabilities.
+- TypeScript Ready — Get types straight out of the box.
+- Ecosystem Friendly — Uses top libraries such as [wagmi](https://github.com/wagmi-dev/wagmi) for hooks.
+- Simple UI — Use prebuilt elements for authenticaiton and wallet connection.
+- EVM Support - Chains like BSC, Arbitrum or Base are supported
+- React Hooks - To interact directly with embedded wallet capabilities.
 
 and much more...
 
