@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useSignOut } from '../../hooks/openfort/auth/useSignOut'
-import { logger } from '../../utils/logger'
 import type { SetRouteOptions } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import { PageContentStyle } from './styles'
@@ -15,13 +14,8 @@ type PageContentProps = {
 }
 
 export const PageContent = ({ children, width, onBack = 'back', logoutOnBack }: PageContentProps) => {
-  const { setOnBack: sob, setRoute, setPreviousRoute, setRouteHistory } = useOpenfort()
+  const { setOnBack, setRoute, setPreviousRoute, setRouteHistory } = useOpenfort()
   const { signOut } = useSignOut()
-
-  const setOnBack: React.Dispatch<React.SetStateAction<(() => void) | null>> = (...props) => {
-    logger.log('Setting on back:', ...props)
-    sob(...props)
-  }
 
   useEffect(() => {
     if (typeof onBack === 'string' || (onBack instanceof Object && typeof onBack !== 'function')) {
