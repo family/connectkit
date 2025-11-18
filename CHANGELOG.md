@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.8
+
+### Patch Changes
+
+- [#124](https://github.com/openfort-xyz/openfort-react/pull/124) [`e745594`](https://github.com/openfort-xyz/openfort-react/commit/e745594d2fe4ca5cbff9451085c5ec31b19e38d6) Thanks [@martimayoral](https://github.com/martimayoral)! - improve create guest on dev mode
+
+- [#123](https://github.com/openfort-xyz/openfort-react/pull/123) [`ef49f5c`](https://github.com/openfort-xyz/openfort-react/commit/ef49f5ced930a9ea4b4ab7b9f41d8d623b780adf) Thanks [@martimayoral](https://github.com/martimayoral)! - update openfort-js version
+
 ## 0.1.7
 
 ### Patch Changes
