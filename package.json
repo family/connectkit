@@ -42,19 +42,19 @@
     "start:cli": "pnpm --filter create-openfort start"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.5",
     "@biomejs/biome": "^2.2.4",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.7",
-    "rollup": "^2.67.1",
-    "knip": "^5.64.0",
-    "simple-git-hooks": "^2.13.1",
-    "typescript-plugin-styled-components": "^2.0.0",
     "@wagmi/connectors": "^6.1.0",
     "@wagmi/core": "^2.22.1",
-    "viem": "^2.38.4",
-    "wagmi": "^2.18.2",
+    "knip": "^5.64.0",
+    "rollup": "^2.67.1",
+    "simple-git-hooks": "^2.13.1",
     "typescript": "^5.0.4",
-    "@babel/core": "^7.28.5"
+    "typescript-plugin-styled-components": "^2.0.0",
+    "viem": "^2.38.4",
+    "wagmi": "^2.18.2"
   },
   "packageManager": "pnpm@10.16.1",
   "pnpm": {
@@ -69,7 +69,8 @@
       "hono": ">=4.10.3",
       "cross-spawn": ">=6.0.6",
       "got": ">=11.8.5",
-      "esbuild": ">=0.25.0"
+      "esbuild": ">=0.25.0",
+      "glob@>=10.3.7 <=11.0.3": ">=11.1.0"
     }
   },
   "knip": {
