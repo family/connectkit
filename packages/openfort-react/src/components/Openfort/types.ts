@@ -19,6 +19,7 @@ export const routes = {
 
   CREATE_GUEST_USER: 'createGuestUser',
   EMAIL_LOGIN: 'emailLogin',
+  EMAIL_OTP: 'emailOtp',
   FORGOT_PASSWORD: 'forgotPassword',
   EMAIL_VERIFICATION: 'emailVerification',
   LINK_EMAIL: 'linkEmail',
@@ -91,6 +92,7 @@ export type SetRouteOptions = RouteOptions | RoutesWithoutOptions['route']
 export enum UIAuthProvider {
   GOOGLE = 'google',
   TWITTER = 'twitter',
+  X = 'twitter',
   FACEBOOK = 'facebook',
 
   DISCORD = 'discord',
@@ -100,7 +102,14 @@ export enum UIAuthProvider {
   APPLE = 'apple',
 
   // Extended Providers
-  EMAIL = 'email',
+  /**
+   * @deprecated Use `UIAuthProvider.EMAIL_PASSWORD` or `UIAuthProvider.EMAIL_OTP` instead.
+   */
+  EMAIL = 'emailPassword',
+
+  EMAIL_PASSWORD = 'emailPassword',
+  EMAIL_OTP = 'emailOtp',
+  PHONE = 'phone',
   WALLET = 'wallet',
   GUEST = 'guest',
 }

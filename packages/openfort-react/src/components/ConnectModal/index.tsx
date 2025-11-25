@@ -23,6 +23,7 @@ import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
 import CreateWallet from '../Pages/CreateWallet'
 import DownloadApp from '../Pages/DownloadApp'
 import EmailLogin from '../Pages/EmailLogin'
+import EmailOTP from '../Pages/EmailOTP'
 import EmailVerification from '../Pages/EmailVerification'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
@@ -115,6 +116,7 @@ const ConnectModal: React.FC<{
     createGuestUser: <CreateGuestUserPage />,
     socialProviders: <SocialProviders />,
     emailLogin: <EmailLogin />,
+    emailOtp: <EmailOTP />,
 
     forgotPassword: <ForgotPassword />,
     emailVerification: <EmailVerification />,

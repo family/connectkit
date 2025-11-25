@@ -174,12 +174,14 @@ export const ModalH1 = styled(motion.h1)<{
 
 export const ModalBody = styled.div<{
   $error?: boolean
+  $valid?: boolean
 }>`
   font-size: 16px;
   font-weight: 400;
   line-height: 21px;
   color: ${(props) => {
     if (props.$error) return 'var(--ck-body-color-danger)'
+    if (props.$valid) return 'var(--ck-body-color-valid)'
     return 'var(--ck-body-color-muted)'
   }};
   strong {

@@ -3,7 +3,7 @@ import { useProviders } from '../../../hooks/openfort/useProviders'
 import PoweredByFooter from '../../Common/PoweredByFooter'
 import { ScrollArea } from '../../Common/ScrollArea'
 import { PageContent } from '../../PageContent'
-import { ProviderButtonSwitch } from '../Providers'
+import { ProviderButton } from '../Providers'
 
 const SocialProviders: React.FC = () => {
   const { remainingSocialProviders } = useProviders()
@@ -12,7 +12,7 @@ const SocialProviders: React.FC = () => {
     <PageContent>
       <ScrollArea mobileDirection={'horizontal'}>
         {remainingSocialProviders.map((auth) => (
-          <ProviderButtonSwitch key={auth} provider={auth} />
+          <ProviderButton key={auth} provider={auth} />
         ))}
       </ScrollArea>
       <PoweredByFooter showDisclaimer={true} />

@@ -43,7 +43,7 @@ export const ProviderInputInner = styled.div`
 
 export const EmailInnerButton = styled(motion.button)`
   color: var(--ck-body-action-color);
-  transition: background-color 200ms ease, transform 100ms ease, color 200ms ease, transition 200ms ease;
+  transition: background-color 200ms ease, transform 100ms ease, color 200ms ease, transition 200ms ease, opacity 200ms ease;
   border-radius: 16px;
   
   svg {
@@ -61,6 +61,11 @@ export const EmailInnerButton = styled(motion.button)`
     &:active {
       transform: scale(0.9);
     }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 `
 

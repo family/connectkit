@@ -3,9 +3,12 @@ import { keyframes } from 'styled-components'
 import defaultTheme from '../../constants/defaultTheme'
 import styled from '../../styles/styled'
 
-export const Graphic = styled(motion.div)<{ $height?: string }>`
+export const Graphic = styled(motion.div)<{ $height?: string; $marginBottom?: string; $marginTop?: string }>`
   position: relative;
-  margin: 16px auto 20px;
+  margin-top: ${({ $marginTop }) => $marginTop ?? '16px'};
+  margin-bottom: ${({ $marginBottom }) => $marginBottom ?? '20px'};
+  margin-left: auto;
+  margin-right: auto;
   height: ${({ $height }) => $height ?? '190px'};
   max-width: 295px;
   pointer-events: none;

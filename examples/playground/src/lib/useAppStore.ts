@@ -1,4 +1,4 @@
-import { AuthProvider, LinkWalletOnSignUpOption, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
+import { AuthProvider, type OpenfortProvider } from '@openfort/react'
 import { beamTestnet, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
 
@@ -15,7 +15,9 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     mode: undefined,
     customTheme: undefined,
     authProviders: [
-      AuthProvider.EMAIL,
+      // AuthProvider.EMAIL_PASSWORD,
+      AuthProvider.EMAIL_OTP,
+      // AuthProvider.PHONE,
       AuthProvider.GUEST,
       AuthProvider.WALLET,
       AuthProvider.GOOGLE,
@@ -43,11 +45,11 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     walletConnectCTA: undefined,
     authProvidersLength: undefined,
 
-    linkWalletOnSignUp: LinkWalletOnSignUpOption.OPTIONAL,
-    walletRecovery: {
-      defaultMethod: RecoveryMethod.PASSWORD,
-      allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
-    },
+    // linkWalletOnSignUp: LinkWalletOnSignUpOption.OPTIONAL,
+    // walletRecovery: {
+    //   defaultMethod: RecoveryMethod.PASSWORD,
+    //   allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
+    // },
   },
 
   // Set the wallet configuration. In this example, we will be using the embedded signer.
@@ -71,11 +73,11 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
   onDisconnect: undefined,
 
   overrides: {
-    backendUrl: undefined,
+    backendUrl: import.meta.env.VITE_API_URL,
     crypto: undefined,
     storage: undefined,
-    iframeUrl: undefined,
-    shieldUrl: undefined,
+    iframeUrl: import.meta.env.VITE_IFRAME_API_URL,
+    shieldUrl: import.meta.env.VITE_SHIELD_URL,
   },
   thirdPartyAuth: undefined,
   debugMode: {

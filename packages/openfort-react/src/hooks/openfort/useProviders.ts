@@ -42,7 +42,14 @@ export function useProviders() {
     }
 
     // Separate social and non-social providers
-    const nonSocial = activeProviders.filter((p) => !socialProviders.includes(p))
+    const nonSocial = activeProviders.filter((p, _, array) => {
+      if (p === UIAuthProvider.EMAIL_OTP && array.includes(UIAuthProvider.EMAIL_PASSWORD)) {
+        // If both email otp and email password are present, treat email otp as social to avoid showing both
+        return false
+      }
+
+      return !socialProviders.includes(p)
+    })
     const social = activeProviders.filter((p) => socialProviders.includes(p))
 
     // Allow as many non-socials as possible, then fill the rest with socials
