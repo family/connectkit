@@ -38,6 +38,9 @@ export default {
   '--ck-secondary-button-hover-background': '#F3EDE8',
   '--ck-secondary-button-hover-box-shadow': '0 0 0 0 #000000, inset 0 0 0 2px #000000',
 
+  '--ck-input-background': '#F3EDE8',
+  '--ck-input-hover-background': '#ffffff',
+
   '--ck-focus-color': '#3B99FC',
 
   '--ck-overlay-background': 'rgba(133, 120, 122, 0.8)',

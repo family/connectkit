@@ -33,6 +33,9 @@ export default {
 
   '--ck-secondary-button-hover-box-shadow': 'inset 0 0 0 1px #111111',
 
+  '--ck-input-background': '',
+  '--ck-input-hover-background': '#ffffff',
+
   '--ck-dropdown-button-color': '#999999',
   '--ck-dropdown-button-box-shadow': '0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
   '--ck-dropdown-button-background': '#fff',

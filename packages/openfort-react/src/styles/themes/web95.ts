@@ -74,6 +74,9 @@ export default {
   '--ck-secondary-button-hover-box-shadow':
     'inset 0 0 0 1px #003C74, 1px 1px 0px rgba(255, 255, 255, 0.75), -1px -1px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 4px #97B9EC, inset -1px -2px 2px rgba(0, 0, 0, 0.2)',
 
+  '--ck-input-background': '',
+  '--ck-input-hover-background': 'linear-gradient(180deg, #FFFFFF 0%, #F0F0EA 100%), #F5F5F1',
+
   '--ck-body-background-secondary': 'rgba(0, 0, 0, 0.1)',
   '--ck-body-background-tertiary': 'linear-gradient(180deg, #FBFBFB 0%, #EFEFEE 100%)',
   '--ck-tertiary-border-radius': '0px',

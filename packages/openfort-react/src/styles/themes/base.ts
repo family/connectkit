@@ -47,6 +47,10 @@ export default {
 
     '--ck-secondary-button-hover-background': '#e0e4eb',
 
+    /** Input field tokens. */
+    '--ck-input-background': '#e0e4eb',
+    '--ck-input-hover-background': '#F6F7F9',
+
     /** Modal appearance tokens. */
     '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
     '--ck-overlay-background': 'rgba(71, 88, 107, 0.24)',
@@ -133,6 +137,10 @@ export default {
     '--ck-secondary-button-background': '#333333',
 
     '--ck-secondary-button-hover-background': '#4D4D4D',
+
+    /** Input field tokens. */
+    '--ck-input-background': '#4D4D4D',
+    '--ck-input-hover-background': '#333333',
 
     /** Tertiary button tokens. */
     '--ck-tertiary-button-background': '#424242',

@@ -32,6 +32,9 @@ export default {
 
   '--ck-secondary-button-hover-background': '#3c3c3e',
 
+  '--ck-input-background': '#3c3c3e',
+  '--ck-input-hover-background': '#363638',
+
   '--ck-overlay-background': 'rgba(0,0,0,0.4)',
   '--ck-modal-box-shadow': `inset 0 0 0 1px #38393C, 0px 2px 4px rgba(0, 0, 0, 0.02)`,
 

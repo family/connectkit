@@ -43,6 +43,9 @@ export default {
   '--ck-secondary-button-hover-box-shadow':
     'inset 0 0 0 2px #DFE4EC, inset  0 -2px 0 0 #DFE4EC, 0px 2px 4px rgba(0, 0, 0, 0.02)',
 
+  '--ck-input-background': '#F5F7F9',
+  '--ck-input-hover-background': '#ffffff',
+
   '--ck-focus-color': '#1A88F8',
   '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
   '--ck-body-color': '#000000',
