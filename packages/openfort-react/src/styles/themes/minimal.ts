@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const minimalTheme: CustomTheme = {
   '--ck-font-family':
     '"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '0px',
@@ -32,6 +34,9 @@ export default {
   '--ck-secondary-button-box-shadow': 'inset 0 0 0 1px #EBEBEB',
 
   '--ck-secondary-button-hover-box-shadow': 'inset 0 0 0 1px #111111',
+
+  '--ck-input-background': '',
+  '--ck-input-hover-background': '#ffffff',
 
   '--ck-dropdown-button-color': '#999999',
   '--ck-dropdown-button-box-shadow': '0 0 0 1px rgba(0, 0, 0, 0.01), 0px 0px 7px rgba(0, 0, 0, 0.05)',
@@ -117,3 +122,5 @@ export default {
 
   '--ck-siwe-border': '#EBEBEB',
 }
+
+export default minimalTheme

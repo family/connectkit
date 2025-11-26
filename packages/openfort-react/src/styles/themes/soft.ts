@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const softTheme: CustomTheme = {
   '--ck-border-radius': '12px',
 
   '--ck-connectbutton-font-size': '17px',
@@ -31,6 +33,9 @@ export default {
 
   '--ck-secondary-button-hover-background': '#F6F7F9',
   '--ck-secondary-button-hover-box-shadow': '0 0 0 1px #D9DBDD, 0px 0 0 rgba(0, 0, 0, 0.02)',
+
+  '--ck-input-background': '#F6F7F9',
+  '--ck-input-hover-background': '#ffffff',
 
   '--ck-focus-color': '#1A88F8',
   '--ck-modal-box-shadow': `0px 3px 16px rgba(0, 0, 0, 0.08)`,
@@ -86,3 +91,5 @@ export default {
 
   '--ck-siwe-border': '#EAEBED',
 }
+
+export default softTheme

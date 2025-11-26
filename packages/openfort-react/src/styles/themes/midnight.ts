@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const midnightTheme: CustomTheme = {
   '--ck-font-family':
     '"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '10px',
@@ -31,6 +33,9 @@ export default {
   '--ck-secondary-button-box-shadow': 'inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
 
   '--ck-secondary-button-hover-background': '#3c3c3e',
+
+  '--ck-input-background': '#3c3c3e',
+  '--ck-input-hover-background': '#363638',
 
   '--ck-overlay-background': 'rgba(0,0,0,0.4)',
   '--ck-modal-box-shadow': `inset 0 0 0 1px #38393C, 0px 2px 4px rgba(0, 0, 0, 0.02)`,
@@ -91,3 +96,5 @@ export default {
 
   '--ck-recent-badge-border-radius': '32px',
 }
+
+export default midnightTheme
