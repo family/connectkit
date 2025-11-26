@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const softTheme: CustomTheme = {
   '--ck-border-radius': '12px',
 
   '--ck-connectbutton-font-size': '17px',
@@ -89,3 +91,5 @@ export default {
 
   '--ck-siwe-border': '#EAEBED',
 }
+
+export default softTheme

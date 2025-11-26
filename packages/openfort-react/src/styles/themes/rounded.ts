@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const roundedTheme: CustomTheme = {
   '--ck-font-family':
     '"Nunito",ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '24px',
@@ -135,3 +137,5 @@ export default {
 
   '--ck-siwe-border': '#DFE4EC',
 }
+
+export default roundedTheme

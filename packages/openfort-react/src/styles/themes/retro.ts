@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const retroTheme: CustomTheme = {
   '--ck-font-family':
     '"SF Pro Rounded",ui-rounded,"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '8px',
@@ -135,3 +137,5 @@ export default {
 
   '--ck-siwe-border': '#8E8985',
 }
+
+export default retroTheme

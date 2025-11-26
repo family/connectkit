@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const nounsTheme: CustomTheme = {
   '--ck-font-family':
     '"PT Root UI",ui-rounded,"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
 
@@ -104,3 +106,5 @@ export default {
   '--ck-graphic-primary-box-shadow': '0px 2.94737px 14.7368px rgba(0, 0, 0, 0.1)',
   '--ck-graphic-compass-box-shadow': '0px 2px 9px rgba(0, 0, 0, 0.15)',
 }
+
+export default nounsTheme

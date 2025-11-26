@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const web95Theme: CustomTheme = {
   '--ck-font-family': 'Lato',
   '--ck-border-radius': '0px',
 
@@ -165,3 +167,5 @@ export default {
 
   '--ck-siwe-border': '#919B9C',
 }
+
+export default web95Theme

@@ -1,4 +1,9 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const baseTheme: {
+  light: CustomTheme
+  dark: CustomTheme
+} = {
   light: {
     /** Connect Wallet button tokens. */
     '--ck-connectbutton-font-size': '15px',
@@ -183,3 +188,5 @@ export default {
     '--ck-qr-border-color': '#3d3d3d',
   },
 }
+
+export default baseTheme

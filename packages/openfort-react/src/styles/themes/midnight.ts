@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const midnightTheme: CustomTheme = {
   '--ck-font-family':
     '"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '10px',
@@ -94,3 +96,5 @@ export default {
 
   '--ck-recent-badge-border-radius': '32px',
 }
+
+export default midnightTheme

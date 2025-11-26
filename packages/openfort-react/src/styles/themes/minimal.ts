@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const minimalTheme: CustomTheme = {
   '--ck-font-family':
     '"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '0px',
@@ -120,3 +122,5 @@ export default {
 
   '--ck-siwe-border': '#EBEBEB',
 }
+
+export default minimalTheme
