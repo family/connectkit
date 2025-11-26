@@ -154,7 +154,6 @@ export const ButtonContainer = styled.button<{
         );
 
         --hover-color: var(
-          --button-tertiary-hover-color,
           var(--ck-tertiary-button-color)
         );
         --hover-background: var(

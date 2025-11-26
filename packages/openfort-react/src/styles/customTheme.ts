@@ -14,8 +14,7 @@ export type CustomTheme = {
   '--ck-connectbutton-color'?: string
   /** Connect button background (various connect button styles). */
   '--ck-connectbutton-background'?: string
-  /** Secondary/background variant used by some themes for connector buttons. */
-  '--ck-connectbutton-background-secondary'?: string
+
   /** Connect button box-shadow used in button visuals (Providers, dropdowns). */
   '--ck-connectbutton-box-shadow'?: string
 
@@ -79,6 +78,14 @@ export type CustomTheme = {
   /** Primary button active border-radius (rare). */
   '--ck-primary-button-active-border-radius'?: string
 
+  /** Secondary/background variant used by some themes for connector buttons. */
+  '--ck-connectbutton-background-secondary'?: string
+  /** Secondary button hover color (used in Button styles). */
+  '--ck-secondary-button-hover-color'?: string
+  /** Secondary button hover border-radius override. */
+  '--ck-secondary-button-hover-border-radius'?: string
+  /** Secondary button active box-shadow (used on :active). */
+  '--ck-secondary-button-active-box-shadow'?: string
   /** Secondary button border radius (used by `Input`, `Providers`, etc.). */
   '--ck-secondary-button-border-radius'?: string
   /** Secondary button foreground color. */
@@ -89,7 +96,6 @@ export type CustomTheme = {
   '--ck-secondary-button-box-shadow'?: string
   /** Secondary button font weight (when themes adjust emphasis). */
   '--ck-secondary-button-font-weight'?: string
-
   /** Secondary button hover background. */
   '--ck-secondary-button-hover-background'?: string
   /** Secondary button hover box-shadow. */
@@ -282,4 +288,30 @@ export type CustomTheme = {
   '--ck-graphic-globe-lines'?: string
   /** Graphic globe box-shadow. */
   '--ck-graphic-globe-box-shadow'?: string
+
+  /** Primary page background used as a fallback for primary buttons. */
+  '--ck-body-background-primary'?: string
+
+  /** Primary button hover color (used in Button styles). */
+  '--ck-button-primary-hover-color'?: string
+
+  /** Tertiary button color (used by tertiary variant). */
+  '--ck-tertiary-button-color'?: string
+  /** Tertiary button box-shadow. */
+  '--ck-tertiary-button-box-shadow'?: string
+  /** Tertiary button border radius. */
+  '--ck-tertiary-button-border-radius'?: string
+  /** Tertiary button font weight. */
+  '--ck-tertiary-button-font-weight'?: string
+  /** Tertiary button hover background. */
+  '--ck-tertiary-button-hover-background'?: string
+  /** Tertiary button hover box-shadow. */
+  '--ck-tertiary-button-hover-box-shadow'?: string
+  /** Tertiary button hover border-radius. */
+  '--ck-tertiary-button-hover-border-radius'?: string
+
+  /** Accent color and its text color used by hover states in some components. */
+  '--ck-accent-color'?: string
+  /** Accent color and its text color used by hover states in some components. */
+  '--ck-accent-text-color'?: string
 }
