@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.10
+
+### Patch Changes
+
+- [#132](https://github.com/openfort-xyz/openfort-react/pull/132) [`b0e67fd`](https://github.com/openfort-xyz/openfort-react/commit/b0e67fdc0334b855d447803eb1ba5c9a45c8d011) Thanks [@martimayoral](https://github.com/martimayoral)! - added types for custom themes
+
 ## 0.1.9
 
 ### Patch Changes
