@@ -233,6 +233,7 @@ export const OpenfortProvider = ({
 
   const [resize, onResize] = useState<number>(0)
   const [emailInput, setEmailInput] = useState('')
+  const [phoneInput, setPhoneInput] = useState('')
   const [sendForm, setSendForm] = useState<SendFormState>(defaultSendFormState)
   const [buyForm, setBuyForm] = useState<BuyFormState>(defaultBuyFormState)
   const [headerLeftSlot, setHeaderLeftSlot] = useState<React.ReactNode | null>(null)
@@ -342,6 +343,8 @@ export const OpenfortProvider = ({
     debugMode: debugModeOptions,
     emailInput,
     setEmailInput,
+    phoneInput,
+    setPhoneInput,
     resize,
     triggerResize,
     publishableKey,

@@ -41,7 +41,6 @@ export { useChainIsSupported } from './hooks/useChainIsSupported'
 export { useChains } from './hooks/useChains'
 export { useOpenfortCore as useOpenfort } from './openfort/useOpenfort'
 export type {
-  All,
   CustomAvatarProps,
   CustomTheme,
   Languages,
@@ -49,6 +48,7 @@ export type {
   OpenfortHookOptions,
   OpenfortOptions,
   OpenfortWalletConfig,
+  PhoneConfig,
   Theme,
 } from './types'
 export {
@@ -60,3 +60,6 @@ export {
 } from './types'
 export { OPENFORT_VERSION } from './version'
 export { wallets } from './wallets'
+
+import type { CountryData, CountryIso2, CountrySelectorProps } from 'react-international-phone'
+export type { CountryData, CountryIso2, CountrySelectorProps }

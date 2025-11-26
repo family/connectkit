@@ -59,6 +59,9 @@ export type ContextValue = {
   emailInput: string
   setEmailInput: React.Dispatch<React.SetStateAction<string>>
 
+  phoneInput: string
+  setPhoneInput: React.Dispatch<React.SetStateAction<string>>
+
   sendForm: SendFormState
   setSendForm: React.Dispatch<React.SetStateAction<SendFormState>>
   buyForm: BuyFormState

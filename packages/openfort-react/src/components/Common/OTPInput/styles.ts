@@ -83,6 +83,7 @@ export const OTPGroup = styled.div<{
       animation-delay: 250ms;
     `}
 `
+
 export const OTPSlotWrapper = styled.div<{ isActive: boolean }>`
   position: relative;
   width: 2.5rem;

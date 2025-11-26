@@ -45,6 +45,7 @@
     "fast-password-entropy": "^1.1.1",
     "framer-motion": "^6.3.11",
     "qrcode": "^1.5.0",
+    "react-international-phone": "^4.6.0",
     "react-is": "^19.1.0",
     "react-transition-state": "^1.1.4",
     "react-use-measure": "^2.1.1",

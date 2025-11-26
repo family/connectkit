@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { EmailIcon } from '../../../assets/icons'
+import { PhoneIcon } from '../../../assets/icons'
 import { logger } from '../../../utils/logger'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { OtpInputStandalone } from '../../Common/OTPInput'
@@ -12,8 +12,8 @@ import { Body, FooterButtonText, FooterTextButton, ResultContainer } from './sty
 
 // TODO: Localize
 
-const EmailOTP: React.FC = () => {
-  const { emailInput: email, previousRoute, setRoute, setEmailInput } = useOpenfort()
+const PhoneOTP: React.FC = () => {
+  const { phoneInput: phone, previousRoute, setPhoneInput, setRoute } = useOpenfort()
 
   const onBack = useMemo<SetOnBackFunction>(() => {
     if (previousRoute?.route === routes.EMAIL_VERIFICATION) return routes.PROVIDERS
@@ -60,7 +60,7 @@ const EmailOTP: React.FC = () => {
     }
     if (status === 'success') {
       setTimeout(() => {
-        setEmailInput('')
+        setPhoneInput('')
         // TODO: Replace with real next step
         setRoute(routes.CREATE_GUEST_USER)
       }, 2000)
@@ -98,12 +98,12 @@ const EmailOTP: React.FC = () => {
         marginTop="8px"
         marginBottom="10px"
         logoCenter={{
-          logo: <EmailIcon />,
+          logo: <PhoneIcon />,
         }}
       />
       <ModalBody>
         <Body>
-          Please check <b>{email}</b> for an email from openfort.io and enter your code below.
+          Please check <b>{phone}</b> for an SMS and enter your code below.
         </Body>
         <OtpInputStandalone
           onComplete={handleComplete}
@@ -131,4 +131,4 @@ const EmailOTP: React.FC = () => {
   )
 }
 
-export default EmailOTP
+export default PhoneOTP

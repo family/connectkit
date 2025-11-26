@@ -33,6 +33,7 @@ import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
 import { NoAssetsAvailable } from '../Pages/NoAssetsAvailable'
 import Onboarding from '../Pages/Onboarding'
+import PhoneOTP from '../Pages/PhoneOTP'
 import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
 import Receive from '../Pages/Receive'
@@ -117,6 +118,7 @@ const ConnectModal: React.FC<{
     socialProviders: <SocialProviders />,
     emailLogin: <EmailLogin />,
     emailOtp: <EmailOTP />,
+    phoneOtp: <PhoneOTP />,
 
     forgotPassword: <ForgotPassword />,
     emailVerification: <EmailVerification />,

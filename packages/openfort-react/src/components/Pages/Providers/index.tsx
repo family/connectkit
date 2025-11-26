@@ -2,8 +2,10 @@ import { OAuthProvider } from '@openfort/openfort-js'
 import { AnimatePresence, motion } from 'framer-motion'
 import type React from 'react'
 import { useEffect, useMemo } from 'react'
+import { PhoneInput } from 'react-international-phone'
+import 'react-international-phone/style.css'
 import { useAccount, useDisconnect } from 'wagmi'
-import { EmailIcon, GuestIcon } from '../../../assets/icons'
+import { EmailIcon, GuestIcon, PhoneIcon } from '../../../assets/icons'
 import Logos, { OtherSocials, providersLogos } from '../../../assets/logos'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
@@ -85,7 +87,7 @@ const EmailButton: React.FC<{ handleSubmit: (e: React.FormEvent | React.MouseEve
           />
           <div style={{ position: 'relative' }}>
             <AnimatePresence initial={false}>
-              {emailInput ? (
+              {isValidEmail ? (
                 <motion.div
                   initial={{ x: -5, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -93,7 +95,7 @@ const EmailButton: React.FC<{ handleSubmit: (e: React.FormEvent | React.MouseEve
                   transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
                   key={emailInput ? 'enabled' : 'disabled'}
                 >
-                  <EmailInnerButton type="submit" aria-label="Submit email" disabled={!isValidEmail}>
+                  <EmailInnerButton type="submit" aria-label="Submit email">
                     <ProviderIcon>
                       <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <title>Submit email</title>
@@ -160,36 +162,54 @@ const EmailOTPButton: React.FC = () => {
 }
 
 const PhoneButton: React.FC = () => {
-  const { setRoute } = useOpenfort()
-  const { user } = useOpenfortCore()
-  const { emailInput, setEmailInput } = useOpenfort()
+  const { uiConfig, phoneInput, setPhoneInput, setRoute } = useOpenfort()
 
   const handleSubmit = (e: React.FormEvent | React.MouseEvent) => {
     e.preventDefault()
-    setRoute(user ? routes.LINK_EMAIL : routes.EMAIL_LOGIN)
+    setRoute(routes.PHONE_OTP)
   }
+
+  const hasValue = phoneInput.length > 5
+  // && !defaultCountries.some((country: CountryData) => phoneInput.replace('+', '') === country[2])
 
   return (
     <ProvidersButtonStyle>
       <form onSubmit={handleSubmit} noValidate>
         <ProviderInputInner>
-          <input
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
-            type="email"
-            placeholder="Enter your email"
-            formNoValidate
-          />
+          <div style={{ width: '100%' }}>
+            <PhoneInput
+              value={phoneInput}
+              onChange={(phone) => setPhoneInput(phone)}
+              hideDropdown={false}
+              placeholder="Enter your phone"
+              style={
+                {
+                  '--react-international-phone-height': '56px',
+                  '--react-international-phone-text-color': 'var(--ck-body-color)',
+                  '--react-international-phone-background-color': 'var(--ck-secondary-button-background)',
+                  '--react-international-phone-country-selector-background-color':
+                    'var(--ck-secondary-button-background)',
+                  '--react-international-phone-selected-dropdown-item-background-color':
+                    'var(--ck-secondary-button-hover-background)',
+                  '--react-international-phone-country-selector-background-color-hover':
+                    'var(--ck-secondary-button-hover-background)',
+                  '--react-international-phone-font-size': '16px',
+                  paddingLeft: '4px',
+                } as React.CSSProperties
+              }
+              {...uiConfig.phoneConfig}
+            />
+          </div>
           <div style={{ position: 'relative' }}>
             <AnimatePresence initial={false}>
-              {emailInput ? (
+              {hasValue ? (
                 <EmailInnerButton
                   initial={{ x: -5, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -5, opacity: 0, position: 'absolute' }}
                   transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
                   type="submit"
-                  key={emailInput ? 'enabled' : 'disabled'}
+                  key={phoneInput ? 'enabled' : 'disabled'}
                   aria-label="Submit email"
                 >
                   <ProviderIcon>
@@ -213,7 +233,7 @@ const PhoneButton: React.FC = () => {
                   transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
                 >
                   <ProviderIcon>
-                    <EmailIcon />
+                    <PhoneIcon />
                   </ProviderIcon>
                 </motion.div>
               )}
@@ -247,8 +267,8 @@ const AuthProviderButton: React.FC<{ provider: OAuthProvider; title?: string; ic
 const authProviderToOAuthProviderMap: Record<UIAuthProvider, React.ReactNode> = {
   guest: <GuestButton />,
   wallet: <WalletButton />,
-  emailOtp: <EmailOTPButton />,
   emailPassword: <EmailPasswordButton />,
+  emailOtp: <EmailOTPButton />,
   phone: <PhoneButton />,
   google: (
     <AuthProviderButton provider={OAuthProvider.GOOGLE} title="Google" icon={providersLogos[UIAuthProvider.GOOGLE]} />

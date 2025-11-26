@@ -39,6 +39,25 @@ export const ProviderInputInner = styled.div`
     width: 100%;
     height: 100%;
   }
+
+  .react-international-phone-country-selector-button {
+    padding-left: 20px;
+    padding-right: 10px;
+    border-radius: var(--ck-secondary-button-border-radius) 0px 0px var(--ck-secondary-button-border-radius);
+    transition: all .2s ease-out;
+  }
+
+  .react-international-phone-country-selector-dropdown {
+    box-shadow: var(--ck-secondary-button-hover-box-shadow);
+  }
+    
+  .react-international-phone-country-selector-button__dropdown-arrow {
+    border-top: var(--react-international-phone-country-selector-arrow-size, 4px) solid var(--react-international-phone-country-selector-arrow-color, #777) !important;
+    border-right: var(--react-international-phone-country-selector-arrow-size, 4px) solid transparent !important;
+    border-left: var(--react-international-phone-country-selector-arrow-size, 4px) solid transparent !important;
+    margin-right: 4px;
+    transition: all .1s ease-out;
+  }
 `
 
 export const EmailInnerButton = styled(motion.button)`
@@ -61,11 +80,6 @@ export const EmailInnerButton = styled(motion.button)`
     &:active {
       transform: scale(0.9);
     }
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
   }
 `
 

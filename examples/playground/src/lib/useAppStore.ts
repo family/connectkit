@@ -17,7 +17,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     authProviders: [
       // AuthProvider.EMAIL_PASSWORD,
       AuthProvider.EMAIL_OTP,
-      // AuthProvider.PHONE,
+      AuthProvider.PHONE,
       AuthProvider.GUEST,
       AuthProvider.WALLET,
       AuthProvider.GOOGLE,
@@ -25,6 +25,9 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
       AuthProvider.TWITTER,
       AuthProvider.DISCORD,
     ],
+    phoneConfig: {
+      defaultCountry: 'es',
+    },
     avoidLayoutShift: undefined,
     bufferPolyfill: undefined,
     customAvatar: undefined,
