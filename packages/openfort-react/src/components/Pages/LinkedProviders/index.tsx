@@ -8,8 +8,8 @@ import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviders } from '../Profile/LinkedProviders'
-import { DisconnectButton } from '../Profile/styles'
+import { LinkedProviders } from '../Connected/LinkedProviders'
+import { DisconnectButton } from '../Connected/styles'
 import { LinkedProvidersCard } from './styles'
 
 const LinkedProvidersPage: React.FC = () => {
@@ -32,7 +32,7 @@ const LinkedProvidersPage: React.FC = () => {
   }, [shouldDisconnect])
 
   return (
-    <PageContent onBack={routes.PROFILE}>
+    <PageContent onBack={routes.CONNECTED}>
       <ModalContent>
         <ModalHeading>Profile</ModalHeading>
         <ModalBody>View and manage the authentication methods of your account.</ModalBody>

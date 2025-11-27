@@ -303,7 +303,7 @@ export const OpenfortProvider = ({
       if (newHistory.length > 0) {
         setRoute(newHistory[newHistory.length - 1])
       } else {
-        setRoute({ route: routes.PROFILE })
+        setRoute({ route: routes.CONNECTED })
       }
       return newHistory
     })

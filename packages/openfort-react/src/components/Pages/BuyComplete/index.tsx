@@ -24,11 +24,11 @@ const BuyComplete = () => {
   }, [])
 
   const handleDone = () => {
-    setRoute(routes.PROFILE)
+    setRoute(routes.CONNECTED)
   }
 
   const handleBack = () => {
-    setRoute(routes.PROFILE)
+    setRoute(routes.CONNECTED)
   }
 
   const getBlockExplorerUrl = (chainId: number, address: string): string => {

@@ -33,7 +33,7 @@ import {
   Unsupported,
 } from './styles'
 
-const Profile = () => {
+const Connected = () => {
   const context = useOpenfort()
   const themeContext = useThemeContext()
   const { setHeaderLeftSlot, setRoute } = context
@@ -99,8 +99,8 @@ const Profile = () => {
       <LinkedProvidersToggle
         type="button"
         onClick={() => setRoute(routes.LINKED_PROVIDERS)}
-        aria-label="Linked providers"
-        title="Linked providers"
+        aria-label="Profile"
+        title="Profile"
       >
         <UserRoundIcon />
       </LinkedProvidersToggle>
@@ -249,4 +249,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default Connected

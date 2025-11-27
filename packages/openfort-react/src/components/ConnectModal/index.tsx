@@ -17,6 +17,7 @@ import BuyComplete from '../Pages/BuyComplete'
 import BuyProcessing from '../Pages/BuyProcessing'
 import BuyProviderSelect from '../Pages/BuyProviderSelect'
 import BuySelectProvider from '../Pages/BuySelectProvider'
+import Connected from '../Pages/Connected'
 import ConnectedSuccess from '../Pages/ConnectedSuccess'
 import Connectors from '../Pages/Connectors'
 import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
@@ -32,7 +33,6 @@ import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
 import { NoAssetsAvailable } from '../Pages/NoAssetsAvailable'
 import Onboarding from '../Pages/Onboarding'
-import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
 import Receive from '../Pages/Receive'
 import RecoverPage from '../Pages/Recover'
@@ -62,7 +62,7 @@ const ConnectModal: React.FC<{
   const closeable = !(context.uiConfig.enforceSupportedChains && isConnected && !chainIsSupported)
 
   // const mainRoutes: ValueOf<typeof routes>[] = [
-  //   routes.PROFILE,
+  //   routes.CONNECTED,
   //   routes.LOADING,
   //   routes.PROVIDERS,
   //   routes.EMAIL_VERIFICATION,
@@ -72,7 +72,7 @@ const ConnectModal: React.FC<{
 
   // const showBackButton = (closeable && !mainRoutes.includes(route)) || (closeable && route === routes.PROVIDERS && user)
 
-  const _showInfoButton = closeable && route !== routes.PROFILE
+  const _showInfoButton = closeable && route !== routes.CONNECTED
 
   // const onBack = context.onBack
   //   ? context.onBack
@@ -88,12 +88,12 @@ const ConnectModal: React.FC<{
   //       }
 
   //       if (route === routes.CONNECTORS && user) {
-  //         context.setRoute(routes.PROFILE)
+  //         context.setRoute(routes.CONNECTED)
   //         return
   //       }
 
   //       if (route === routes.PROVIDERS || route === routes.SWITCHNETWORKS) {
-  //         context.setRoute(routes.PROFILE)
+  //         context.setRoute(routes.CONNECTED)
   //         return
   //       }
 
@@ -130,7 +130,7 @@ const ConnectModal: React.FC<{
 
     providers: <Providers />,
     connect: <ConnectUsing />,
-    profile: <Profile />,
+    connected: <Connected />,
     linkedProviders: <LinkedProvidersPage />,
     switchNetworks: <SwitchNetworks />,
     connectWithMobile: <ConnectWithMobile />,

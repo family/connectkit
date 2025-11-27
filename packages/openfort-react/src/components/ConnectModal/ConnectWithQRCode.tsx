@@ -25,7 +25,7 @@ const ConnectWithSiwe = () => {
     siwe({
       walletClientType: connector.id,
       onConnect: () => {
-        setRoute(routes.PROFILE)
+        setRoute(routes.CONNECTED)
       },
       onError: (error) => {
         setError(error || 'Connection failed')

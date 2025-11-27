@@ -70,7 +70,7 @@ const LinkEmail: React.FC = () => {
       .then(() => {
         updateUser().then(() => {
           setEmail('')
-          setRoute(routes.PROFILE)
+          setRoute(routes.CONNECTED)
         })
       })
   }

@@ -3,6 +3,7 @@ import Logos from '../../../assets/logos'
 import { CopyIconButton } from '../../Common/CopyToClipboard/CopyIconButton'
 import CustomQRCode from '../../Common/CustomQRCode'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
+import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 import { AddressField, AddressRow, AddressSection, Label, NetworkInfo, QRWrapper } from './styles'
@@ -30,7 +31,7 @@ const Receive = () => {
   }
 
   return (
-    <PageContent onBack="profile">
+    <PageContent onBack={routes.CONNECTED}>
       <ModalHeading>Receive funds</ModalHeading>
       <ModalBody>Scan the QR code or copy your wallet details.</ModalBody>
 
