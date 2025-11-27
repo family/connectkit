@@ -3,7 +3,7 @@ import Loader from '../../Common/Loading'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
 
-const Connected: React.FC = () => {
+const ConnectedSuccess: React.FC = () => {
   const { setOpen } = useOpenfort()
 
   // hide on connect
@@ -20,4 +20,4 @@ const Connected: React.FC = () => {
   )
 }
 
-export default Connected
+export default ConnectedSuccess

@@ -17,7 +17,7 @@ import BuyComplete from '../Pages/BuyComplete'
 import BuyProcessing from '../Pages/BuyProcessing'
 import BuyProviderSelect from '../Pages/BuyProviderSelect'
 import BuySelectProvider from '../Pages/BuySelectProvider'
-import Connected from '../Pages/Connected'
+import ConnectedSuccess from '../Pages/ConnectedSuccess'
 import Connectors from '../Pages/Connectors'
 import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
 import CreateWallet from '../Pages/CreateWallet'
@@ -110,7 +110,7 @@ const ConnectModal: React.FC<{
     about: <About />,
     loading: <Loading />,
     loadWallets: <LoadWallets />,
-    connected: <Connected />,
+    connectedSuccess: <ConnectedSuccess />,
 
     createGuestUser: <CreateGuestUserPage />,
     socialProviders: <SocialProviders />,
