@@ -1,12 +1,5 @@
 import styled from '../../../styles/styled'
 
-export const ProvidersHeader = styled.h3`
-  font-size: 16px;
-  font-weight: 600;
-  margin: 20px 0 12px;
-  color: var(--ck-body-color);
-`
-
 export const ProviderIconWrapper = styled.div`
   width: 24px;
   height: 24px;
