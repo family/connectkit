@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.11
+
+### Patch Changes
+
+- [#135](https://github.com/openfort-xyz/openfort-react/pull/135) [`53a89c7`](https://github.com/openfort-xyz/openfort-react/commit/53a89c7e408663f1dc8087b15bcd7fabbc30b548) Thanks [@martimayoral](https://github.com/martimayoral)! - improved profile UI
+
+- [#135](https://github.com/openfort-xyz/openfort-react/pull/135) [`53a89c7`](https://github.com/openfort-xyz/openfort-react/commit/53a89c7e408663f1dc8087b15bcd7fabbc30b548) Thanks [@martimayoral](https://github.com/martimayoral)! - fix bug for linking wallet
+
 ## 0.1.10
 
 ### Patch Changes
