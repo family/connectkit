@@ -31,37 +31,37 @@ import {
 } from './types'
 
 // TODO: debug. this could be useful
-// function stringifyWithDepth(obj, depth = 3) {
-//   const seen = new WeakSet()
+function stringifyWithDepth(obj, depth = 3) {
+  const seen = new WeakSet()
 
-//   function helper(value, currentDepth) {
-//     if (value === null || typeof value !== 'object') {
-//       return value
-//     }
+  function helper(value, currentDepth) {
+    if (value === null || typeof value !== 'object') {
+      return value
+    }
 
-//     if (seen.has(value)) {
-//       return '[Circular]'
-//     }
+    if (seen.has(value)) {
+      return '[Circular]'
+    }
 
-//     seen.add(value)
+    seen.add(value)
 
-//     if (currentDepth >= depth) {
-//       return '[Object]'
-//     }
+    if (currentDepth >= depth) {
+      return '[Object]'
+    }
 
-//     if (Array.isArray(value)) {
-//       return value.map((v) => helper(v, currentDepth + 1))
-//     }
+    if (Array.isArray(value)) {
+      return value.map((v) => helper(v, currentDepth + 1))
+    }
 
-//     const result = {}
-//     for (const key in value) {
-//       result[key] = helper(value[key], currentDepth + 1)
-//     }
-//     return result
-//   }
+    const result = {}
+    for (const key in value) {
+      result[key] = helper(value[key], currentDepth + 1)
+    }
+    return result
+  }
 
-//   return JSON.stringify(helper(obj, 0), null, 2)
-// }
+  return JSON.stringify(helper(obj, 0), null, 2)
+}
 
 type OpenfortProviderProps = {
   children?: React.ReactNode
@@ -303,7 +303,7 @@ export const OpenfortProvider = ({
       if (newHistory.length > 0) {
         setRoute(newHistory[newHistory.length - 1])
       } else {
-        setRoute({ route: routes.PROFILE })
+        setRoute({ route: routes.CONNECTED })
       }
       return newHistory
     })
@@ -385,13 +385,13 @@ export const OpenfortProvider = ({
         <ConnectKitModal lang={ckLang} theme={ckTheme} mode={safeUiConfig.mode ?? ckMode} customTheme={ckCustomTheme} />
         {/* </ThemeProvider> */}
         {/* TODO: Debug */}
-        {/* <div style={{ position: 'absolute', height: 0, width: 0, top: 0, zIndex: 50 }}>
+        <div style={{ position: 'absolute', height: 0, width: 0, top: 0, zIndex: 50 }}>
           <pre>
             {stringifyWithDepth({
               routeHistory,
             })}
           </pre>
-        </div> */}
+        </div>
       </CoreOpenfortProvider>
     </Web3ContextProvider>
   )

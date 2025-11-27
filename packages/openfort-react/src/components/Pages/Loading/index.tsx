@@ -24,7 +24,7 @@ const Loading: React.FC = () => {
     } else if (needsRecovery) {
       if (!walletConfig) setRoute({ route: routes.CONNECTORS, connectType: 'connect' })
       else setRoute(routes.LOAD_WALLETS)
-    } else setRoute(routes.PROFILE)
+    } else setRoute(routes.CONNECTED)
   }, [isLoading, user, address, needsRecovery, isFirstFrame, retryCount])
 
   // Retry every 250ms

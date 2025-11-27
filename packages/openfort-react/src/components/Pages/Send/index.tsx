@@ -106,7 +106,7 @@ const Send = () => {
   const maxDisabled = !selectedBalanceValue
 
   return (
-    <PageContent onBack={'profile'}>
+    <PageContent onBack={routes.CONNECTED}>
       <ModalHeading>Send assets</ModalHeading>
       <Form onSubmit={handleSubmit}>
         <Field>

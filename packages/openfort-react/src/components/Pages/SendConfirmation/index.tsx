@@ -229,7 +229,7 @@ const SendConfirmation = () => {
     // Don't reset the form - keep amount, token, and recipient for easier repeat transactions
     // Clear cached token after successful transaction
     // clearSelectedToken()
-    setRoute(routes.PROFILE)
+    setRoute(routes.CONNECTED)
   }
 
   const status: 'idle' | 'success' | 'error' = isSuccess ? 'success' : firstError ? 'error' : 'idle'

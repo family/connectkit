@@ -18,15 +18,17 @@ import BuyProcessing from '../Pages/BuyProcessing'
 import BuyProviderSelect from '../Pages/BuyProviderSelect'
 import BuySelectProvider from '../Pages/BuySelectProvider'
 import Connected from '../Pages/Connected'
+import ConnectedSuccess from '../Pages/ConnectedSuccess'
 import Connectors from '../Pages/Connectors'
 import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
 import CreateWallet from '../Pages/CreateWallet'
 import DownloadApp from '../Pages/DownloadApp'
 import EmailLogin from '../Pages/EmailLogin'
 import EmailVerification from '../Pages/EmailVerification'
+import ExportKey from '../Pages/ExportKey'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
-import LinkedProvidersPage from '../Pages/LinkedProviders'
+import LinkedProviders from '../Pages/LinkedProviders'
 import Loading from '../Pages/Loading'
 import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
@@ -62,7 +64,7 @@ const ConnectModal: React.FC<{
   const closeable = !(context.uiConfig.enforceSupportedChains && isConnected && !chainIsSupported)
 
   // const mainRoutes: ValueOf<typeof routes>[] = [
-  //   routes.PROFILE,
+  //   routes.CONNECTED,
   //   routes.LOADING,
   //   routes.PROVIDERS,
   //   routes.EMAIL_VERIFICATION,
@@ -72,7 +74,7 @@ const ConnectModal: React.FC<{
 
   // const showBackButton = (closeable && !mainRoutes.includes(route)) || (closeable && route === routes.PROVIDERS && user)
 
-  const _showInfoButton = closeable && route !== routes.PROFILE
+  const _showInfoButton = closeable && route !== routes.CONNECTED
 
   // const onBack = context.onBack
   //   ? context.onBack
@@ -88,12 +90,12 @@ const ConnectModal: React.FC<{
   //       }
 
   //       if (route === routes.CONNECTORS && user) {
-  //         context.setRoute(routes.PROFILE)
+  //         context.setRoute(routes.CONNECTED)
   //         return
   //       }
 
   //       if (route === routes.PROVIDERS || route === routes.SWITCHNETWORKS) {
-  //         context.setRoute(routes.PROFILE)
+  //         context.setRoute(routes.CONNECTED)
   //         return
   //       }
 
@@ -110,7 +112,7 @@ const ConnectModal: React.FC<{
     about: <About />,
     loading: <Loading />,
     loadWallets: <LoadWallets />,
-    connected: <Connected />,
+    connectedSuccess: <ConnectedSuccess />,
 
     createGuestUser: <CreateGuestUserPage />,
     socialProviders: <SocialProviders />,
@@ -130,9 +132,10 @@ const ConnectModal: React.FC<{
 
     providers: <Providers />,
     connect: <ConnectUsing />,
+    connected: <Connected />,
     profile: <Profile />,
-    linkedProviders: <LinkedProvidersPage />,
     switchNetworks: <SwitchNetworks />,
+    linkedProviders: <LinkedProviders />,
     connectWithMobile: <ConnectWithMobile />,
 
     noAssetsAvailable: <NoAssetsAvailable />,
@@ -148,6 +151,8 @@ const ConnectModal: React.FC<{
     buyProviderSelect: <BuyProviderSelect />,
     receive: <Receive />,
     buy: <Buy />,
+
+    exportKey: <ExportKey />,
   }
 
   function hide() {

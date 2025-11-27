@@ -15,7 +15,7 @@ export const routes = {
   RECOVER_WALLET: 'recoverWallets',
   SELECT_WALLET_TO_RECOVER: 'selectWalletToRecover',
   CREATE_WALLET: 'createWallet',
-  CONNECTED: 'connected',
+  CONNECTED_SUCCESS: 'connectedSuccess',
 
   CREATE_GUEST_USER: 'createGuestUser',
   EMAIL_LOGIN: 'emailLogin',
@@ -32,9 +32,11 @@ export const routes = {
 
   CONNECT: 'connect',
   DOWNLOAD: 'download',
+  CONNECTED: 'connected',
   PROFILE: 'profile',
-  LINKED_PROVIDERS: 'linkedProviders',
   SWITCHNETWORKS: 'switchNetworks',
+  LINKED_PROVIDERS: 'linkedProviders',
+  EXPORT_KEY: 'exportKey',
 
   NO_ASSETS_AVAILABLE: 'noAssetsAvailable',
   ASSET_INVENTORY: 'assetInventory',
@@ -55,7 +57,7 @@ type AllRoutes = (typeof routes)[keyof typeof routes]
 
 export const notStoredInHistoryRoutes: AllRoutes[] = [
   routes.LOADING,
-  routes.CONNECTED,
+  routes.CONNECTED_SUCCESS,
   routes.ONBOARDING,
   routes.ABOUT,
   routes.LOAD_WALLETS,

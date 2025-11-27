@@ -394,7 +394,7 @@ const CreateWallet: React.FC = () => {
   const { isConnected } = useAccount()
 
   useEffect(() => {
-    if (isConnected && user) setRoute(routes.CONNECTED)
+    if (isConnected && user) setRoute(routes.CONNECTED_SUCCESS)
   }, [isConnected, user])
 
   if (uiConfig.linkWalletOnSignUp === LinkWalletOnSignUpOption.OPTIONAL) {
