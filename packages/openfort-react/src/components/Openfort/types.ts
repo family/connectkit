@@ -35,6 +35,7 @@ export const routes = {
   CONNECTED: 'connected',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
+  LINKED_PROVIDERS: 'linkedProviders',
 
   NO_ASSETS_AVAILABLE: 'noAssetsAvailable',
   ASSET_INVENTORY: 'assetInventory',

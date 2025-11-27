@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
-import { DisconnectIcon } from '../../../assets/icons'
+import { DisconnectIcon, GuestIcon } from '../../../assets/icons'
 import useLocales from '../../../hooks/useLocales'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { isSafeConnector } from '../../../utils'
+import { LargeButton } from '../../Common/LargeButton'
 import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviders } from '../Connected/LinkedProviders'
 import { DisconnectButton } from '../Connected/styles'
-import { LinkedProvidersCard } from './styles'
 
 const Profile: React.FC = () => {
-  const { setOpen } = useOpenfort()
+  const { setOpen, setRoute } = useOpenfort()
   const { logout } = useOpenfortCore()
 
   const locales = useLocales()
@@ -35,10 +34,15 @@ const Profile: React.FC = () => {
     <PageContent onBack={routes.CONNECTED}>
       <ModalContent>
         <ModalHeading>Profile</ModalHeading>
-        <ModalBody>View and manage the authentication methods of your account.</ModalBody>
-        <LinkedProvidersCard>
-          <LinkedProviders showHeader={false} />
-        </LinkedProvidersCard>
+        <ModalBody>Manage your profile.</ModalBody>
+        <LargeButton
+          onClick={() => {
+            setRoute(routes.LINKED_PROVIDERS)
+          }}
+          icon={<GuestIcon />}
+        >
+          Authentication methods
+        </LargeButton>
       </ModalContent>
       {!isSafeConnector(connector?.id) && (
         <DisconnectButton onClick={() => setShouldDisconnect(true)} icon={<DisconnectIcon />}>
