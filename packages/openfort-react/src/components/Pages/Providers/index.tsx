@@ -210,7 +210,7 @@ const Providers: React.FC = () => {
   const { mainProviders, hasExcessProviders } = useProviders()
 
   const onBack: SetOnBackFunction = useMemo(() => {
-    if (previousRoute?.route === routes.LINKED_PROVIDERS) {
+    if (previousRoute?.route === routes.PROFILE) {
       return 'back'
     }
     return null

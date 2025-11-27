@@ -98,7 +98,7 @@ const Connected = () => {
     setHeaderLeftSlot(
       <LinkedProvidersToggle
         type="button"
-        onClick={() => setRoute(routes.LINKED_PROVIDERS)}
+        onClick={() => setRoute(routes.PROFILE)}
         aria-label="Profile"
         title="Profile"
       >

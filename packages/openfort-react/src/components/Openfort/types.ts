@@ -33,7 +33,7 @@ export const routes = {
   CONNECT: 'connect',
   DOWNLOAD: 'download',
   CONNECTED: 'connected',
-  LINKED_PROVIDERS: 'linkedProviders',
+  PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
 
   NO_ASSETS_AVAILABLE: 'noAssetsAvailable',

@@ -12,7 +12,7 @@ import { LinkedProviders } from '../Connected/LinkedProviders'
 import { DisconnectButton } from '../Connected/styles'
 import { LinkedProvidersCard } from './styles'
 
-const LinkedProvidersPage: React.FC = () => {
+const Profile: React.FC = () => {
   const { setOpen } = useOpenfort()
   const { logout } = useOpenfortCore()
 
@@ -49,4 +49,4 @@ const LinkedProvidersPage: React.FC = () => {
   )
 }
 
-export default LinkedProvidersPage
+export default Profile

@@ -27,12 +27,12 @@ import EmailLogin from '../Pages/EmailLogin'
 import EmailVerification from '../Pages/EmailVerification'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
-import LinkedProvidersPage from '../Pages/LinkedProviders'
 import Loading from '../Pages/Loading'
 import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
 import { NoAssetsAvailable } from '../Pages/NoAssetsAvailable'
 import Onboarding from '../Pages/Onboarding'
+import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
 import Receive from '../Pages/Receive'
 import RecoverPage from '../Pages/Recover'
@@ -131,7 +131,7 @@ const ConnectModal: React.FC<{
     providers: <Providers />,
     connect: <ConnectUsing />,
     connected: <Connected />,
-    linkedProviders: <LinkedProvidersPage />,
+    profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     connectWithMobile: <ConnectWithMobile />,
 
