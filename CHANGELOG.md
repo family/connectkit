@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.12
+
+### Patch Changes
+
+- [#137](https://github.com/openfort-xyz/openfort-react/pull/137) [`1c7e913`](https://github.com/openfort-xyz/openfort-react/commit/1c7e9133d0972aafdb31a3c55af38c0fa199e4a7) Thanks [@martimayoral](https://github.com/martimayoral)! - fix logs issue
+
 ## 0.1.11
 
 ### Patch Changes
