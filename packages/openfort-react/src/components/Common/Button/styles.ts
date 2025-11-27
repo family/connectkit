@@ -209,7 +209,6 @@ export const ButtonContainer = styled.button<{
       }
     }
   }
-}
 
   @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
     &:hover,

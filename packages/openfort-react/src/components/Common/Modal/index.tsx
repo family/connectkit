@@ -291,8 +291,6 @@ const Modal: React.FC<ModalProps> = ({
     switch (route) {
       case routes.ABOUT:
         return locales.aboutScreen_heading
-      case routes.PROVIDERS:
-        return 'Connect' // TODO: Localize
       case routes.EMAIL_LOGIN:
         return 'Continue with email' // TODO: Localize
       case routes.FORGOT_PASSWORD:
@@ -301,8 +299,6 @@ const Modal: React.FC<ModalProps> = ({
         return 'Email Verification' // TODO: Localize
       case routes.SOCIAL_PROVIDERS:
         return 'Other socials' // TODO: Localize
-      case routes.LINK_EMAIL:
-        return 'Link your email' // TODO: Localize
       case routes.CONNECT:
         if (shouldUseQrcode()) {
           return isWalletConnectConnector(wallet?.connector?.id)

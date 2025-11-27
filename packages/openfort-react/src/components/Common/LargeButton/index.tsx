@@ -5,10 +5,11 @@ export const LargeButton: React.FC<{
   onClick: () => void
   icon?: React.ReactNode
   children?: React.ReactNode
-}> = ({ children, icon, onClick }) => {
+  disabled?: boolean
+}> = ({ children, icon, onClick, disabled }) => {
   return (
     <LargeButtonStyle>
-      <Button onClick={onClick}>
+      <Button onClick={onClick} disabled={disabled}>
         <LargeButtonLabel>{children}</LargeButtonLabel>
         <LargeButtonIcon>{icon}</LargeButtonIcon>
       </Button>

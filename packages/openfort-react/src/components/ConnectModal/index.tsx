@@ -25,6 +25,7 @@ import CreateWallet from '../Pages/CreateWallet'
 import DownloadApp from '../Pages/DownloadApp'
 import EmailLogin from '../Pages/EmailLogin'
 import EmailVerification from '../Pages/EmailVerification'
+import ExportKey from '../Pages/ExportKey'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
 import LinkedProviders from '../Pages/LinkedProviders'
@@ -150,6 +151,8 @@ const ConnectModal: React.FC<{
     buyProviderSelect: <BuyProviderSelect />,
     receive: <Receive />,
     buy: <Buy />,
+
+    exportKey: <ExportKey />,
   }
 
   function hide() {
