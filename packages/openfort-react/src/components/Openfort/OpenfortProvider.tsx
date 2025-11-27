@@ -315,6 +315,10 @@ export const OpenfortProvider = ({
 
   const [onBack, setOnBack] = useState<(() => void) | null>(null)
 
+  const hasOpenfortDebug = useMemo(() => {
+    return localStorage.getItem('openfort-react-debug') === 'true'
+  }, [])
+
   const value: ContextValue = {
     setTheme,
     mode: ckMode,
@@ -385,13 +389,15 @@ export const OpenfortProvider = ({
         <ConnectKitModal lang={ckLang} theme={ckTheme} mode={safeUiConfig.mode ?? ckMode} customTheme={ckCustomTheme} />
         {/* </ThemeProvider> */}
         {/* TODO: Debug */}
-        <div style={{ position: 'absolute', height: 0, width: 0, top: 0, zIndex: 50 }}>
-          <pre>
-            {stringifyWithDepth({
-              routeHistory,
-            })}
-          </pre>
-        </div>
+        {hasOpenfortDebug && (
+          <div style={{ position: 'absolute', height: 0, width: 0, top: 0, zIndex: 50 }}>
+            <pre>
+              {stringifyWithDepth({
+                routeHistory,
+              })}
+            </pre>
+          </div>
+        )}
       </CoreOpenfortProvider>
     </Web3ContextProvider>
   )
