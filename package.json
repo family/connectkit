@@ -23,7 +23,7 @@
     "check:cli": "pnpm --filter create-openfort check",
     "sync-templates": "node scripts/sync-templates.js",
     "changeset": "changeset",
-    "changeset:version": "node scripts/sync-templates.js && node scripts/change-version.js && pnpm install --lockfile-only && changeset version && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
+    "changeset:version": "node scripts/sync-templates.js && pnpm install --lockfile-only && changeset version && node scripts/change-version.js && cp packages/openfort-react/CHANGELOG.md CHANGELOG.md",
     "changeset:publish": "pnpm build && pnpm build:cli && changeset publish",
     "changeset:prepublish": "pnpm build",
     "dev": "pnpm --filter @openfort/react dev",
