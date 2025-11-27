@@ -48,8 +48,7 @@ const ConnectWithSiwe = () => {
   return (
     <PageContent>
       <ModalBody style={{ textAlign: 'center' }}>
-        Connected with
-        <CopyText value={address || ''}>{ensName ?? truncateEthAddress(address)}</CopyText>
+        Connected with <CopyText value={address || ''}>{ensName ?? truncateEthAddress(address)}</CopyText>
       </ModalBody>
       <Loader
         header={'Sign in to your wallet'}

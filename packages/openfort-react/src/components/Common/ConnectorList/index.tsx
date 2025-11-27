@@ -1,9 +1,9 @@
+import { useAccount, useDisconnect } from 'wagmi'
 import { embeddedWalletId } from '../../../constants/openfort'
 import { useFamilyAccountsConnector, useFamilyConnector } from '../../../hooks/useConnectors'
 
 import useIsMobile from '../../../hooks/useIsMobile'
 import { useLastConnector } from '../../../hooks/useLastConnector'
-import { isWalletConnectConnector } from '../../../utils'
 import { isFamily } from '../../../utils/wallets'
 import { useWagmiWallets, type WalletProps } from '../../../wallets/useWagmiWallets'
 import { routes } from '../../Openfort/types'
@@ -57,17 +57,12 @@ export default ConnectorList
 const ConnectorItem = ({ wallet, isRecent }: { wallet: WalletProps; isRecent?: boolean }) => {
   const isMobile = useIsMobile()
   const context = useOpenfort()
-
-  const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id)
-  // Safari requires opening popup on user gesture, so we connect immediately here
+  const { disconnectAsync } = useDisconnect()
+  const { connector } = useAccount()
 
   const content = () => (
     <>
-      <ConnectorIcon
-        data-small={wallet.iconShouldShrink}
-        data-shape={wallet.iconShape}
-        data-background={redirectToMoreWallets}
-      >
+      <ConnectorIcon data-small={wallet.iconShouldShrink} data-shape={wallet.iconShape}>
         {wallet.iconConnector ?? wallet.icon}
       </ConnectorIcon>
       <ConnectorLabel>
@@ -84,13 +79,15 @@ const ConnectorItem = ({ wallet, isRecent }: { wallet: WalletProps; isRecent?: b
   return (
     <ConnectorButton
       type="button"
-      onClick={() => {
-        if (redirectToMoreWallets) {
-          context.setRoute(routes.MOBILECONNECTORS)
-        } else {
-          context.setRoute({ route: routes.CONNECT, connectType: 'linkIfUserConnectIfNoUser' })
-          context.setConnector({ id: wallet.id })
+      onClick={async () => {
+        // Disconnect if the same connector is selected, otherwise wagmi won't trigger the connection flow
+        // Disconnect for wallet connect to work
+        if (wallet.id === 'walletConnect' || wallet.id === connector?.id) {
+          await disconnectAsync()
         }
+
+        context.setRoute({ route: routes.CONNECT, connectType: 'linkIfUserConnectIfNoUser' })
+        context.setConnector({ id: wallet.id })
       }}
     >
       {content()}

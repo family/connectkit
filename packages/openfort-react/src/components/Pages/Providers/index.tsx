@@ -55,9 +55,10 @@ const GuestButton: React.FC = () => {
 
 const WalletButton: React.FC = () => {
   const { setRoute } = useOpenfort()
+  const { user } = useOpenfortCore()
   return (
     <ProviderButton
-      onClick={() => setRoute({ route: routes.CONNECTORS, connectType: 'connect' })}
+      onClick={() => setRoute({ route: routes.CONNECTORS, connectType: user ? 'link' : 'connect' })}
       icon={<Logos.OtherWallets />}
     >
       Wallet
