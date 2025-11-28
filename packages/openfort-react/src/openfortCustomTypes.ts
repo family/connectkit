@@ -7,4 +7,4 @@ export interface UserAccountResponse {
   scopes: string[]
   [key: string]: any
 }
-// TODO: TMP FIX
+// OPT_TODO: Wallet type from openfort-js. this could break client if not updated
