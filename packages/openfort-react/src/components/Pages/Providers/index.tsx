@@ -10,6 +10,7 @@ import Logos, { OtherSocials, providersLogos } from '../../../assets/logos'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
+import { isValidEmail as isValidEmailFn } from '../../../utils/validation'
 import Button from '../../Common/Button'
 import Loader from '../../Common/Loading'
 import { ModalHeading } from '../../Common/Modal/styles'
@@ -68,17 +69,22 @@ const WalletButton: React.FC = () => {
   )
 }
 
-const EmailButton: React.FC<{ handleSubmit: (e: React.FormEvent | React.MouseEvent) => void }> = ({ handleSubmit }) => {
+const EmailButton: React.FC<{ handleSubmit: () => void }> = ({ handleSubmit }) => {
   const { emailInput, setEmailInput } = useOpenfort()
 
   const isValidEmail = useMemo(() => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(emailInput)
+    return isValidEmailFn(emailInput)
   }, [emailInput])
 
   return (
     <ProvidersButtonStyle>
-      <form onSubmit={handleSubmit} noValidate>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          if (isValidEmail) handleSubmit()
+        }}
+        noValidate
+      >
         <ProviderInputInner>
           <input
             value={emailInput}
@@ -144,8 +150,7 @@ const EmailPasswordButton: React.FC = () => {
   const { setRoute } = useOpenfort()
   const { user } = useOpenfortCore()
 
-  const handleSubmit = (e: React.FormEvent | React.MouseEvent) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     setRoute(user ? routes.LINK_EMAIL : routes.EMAIL_LOGIN)
   }
 
@@ -155,8 +160,7 @@ const EmailPasswordButton: React.FC = () => {
 const EmailOTPButton: React.FC = () => {
   const { setRoute } = useOpenfort()
 
-  const handleSubmit = (e: React.FormEvent | React.MouseEvent) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     setRoute(routes.EMAIL_OTP)
   }
 

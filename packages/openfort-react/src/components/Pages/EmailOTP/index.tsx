@@ -1,5 +1,7 @@
-import React, { useEffect, useMemo } from 'react'
+import type React from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { EmailIcon } from '../../../assets/icons'
+import { useEmailOtpAuth } from '../../../hooks/openfort/auth/useEmailOtpAuth'
 import { logger } from '../../../utils/logger'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { OtpInputStandalone } from '../../Common/OTPInput'
@@ -14,55 +16,62 @@ import { Body, FooterButtonText, FooterTextButton, ResultContainer } from './sty
 
 const EmailOTP: React.FC = () => {
   const { emailInput: email, previousRoute, setRoute, setEmailInput } = useOpenfort()
+  const { isLoading, requestEmailOtp, logInWithEmailOtp } = useEmailOtpAuth({
+    recoverWalletAutomatically: false,
+  })
 
   const onBack = useMemo<SetOnBackFunction>(() => {
     if (previousRoute?.route === routes.EMAIL_VERIFICATION) return routes.PROVIDERS
     return 'back'
   }, [previousRoute])
 
-  const [sendOTPRequested, setSendOTPRequested] = React.useState(false)
-  const [status, setStatus] = React.useState<
-    'idle' | 'error' | 'success' | 'loading' | 'send-otp' | 'sending-otp' | 'initial'
-  >('initial')
+  const [canSendOtp, setCanSendOtp] = useState(true)
+  const [status, setStatus] = useState<'idle' | 'error' | 'success' | 'loading' | 'send-otp' | 'sending-otp'>('idle')
 
-  const handleComplete = (otp: string) => {
+  const handleComplete = async (otp: string) => {
     logger.log('OTP entered:', otp)
     setStatus('loading')
 
-    // TODO: Replace with real verification logic
-    // ---- Simulate OTP verification ----
-    setTimeout(() => {
-      if (otp === '123456') {
-        setStatus('success')
-      } else {
-        setStatus('error')
-      }
-    }, 1000)
-    // ----------------------------------
+    const { error } = await logInWithEmailOtp({ email, otp })
+
+    if (error) {
+      setStatus('error')
+    } else {
+      setStatus('success')
+    }
   }
 
+  const [shouldRequestOtp, setShouldRequestOtp] = useState(true)
+  const hasRequestedRef = useRef(false)
+
   useEffect(() => {
-    if (status === 'initial') {
-      // Simulate initial OTP send
-      // console.log('Sending initial OTP to', email)
-      setTimeout(() => {
+    if (!shouldRequestOtp || hasRequestedRef.current) return
+    hasRequestedRef.current = true
+
+    const run = async () => {
+      const { error } = await requestEmailOtp({ email })
+
+      if (error) setStatus('error')
+      else {
         setStatus('idle')
-      }, 1500)
+      }
+
+      setShouldRequestOtp(false)
     }
+
+    run()
+  }, [shouldRequestOtp, email])
+
+  useEffect(() => {
     if (status === 'send-otp') {
-      // TODO: Trigger resend OTP logic here
-      // console.log('Sending OTP to', email)
       setStatus('sending-otp')
-      setTimeout(() => {
-        setSendOTPRequested(true)
-        setStatus('idle')
-      }, 1500)
+      setShouldRequestOtp(true)
+      hasRequestedRef.current = false
     }
     if (status === 'success') {
       setTimeout(() => {
         setEmailInput('')
-        // TODO: Replace with real next step
-        setRoute(routes.CREATE_GUEST_USER)
+        setRoute(routes.LOAD_WALLETS)
       }, 2000)
     }
     if (status === 'error') {
@@ -74,20 +83,20 @@ const EmailOTP: React.FC = () => {
   }, [status])
 
   const sendButtonText = () => {
-    if (sendOTPRequested) return 'Code Sent!'
+    if (!canSendOtp) return 'Code Sent!'
     if (status === 'sending-otp') return 'Sending...'
     if (status === 'send-otp') return 'Resend Code'
     return 'Resend Code'
   }
 
   useEffect(() => {
-    if (sendOTPRequested) {
+    if (!canSendOtp) {
       const timer = setTimeout(() => {
-        setSendOTPRequested(false)
+        setCanSendOtp(true)
       }, 10000)
       return () => clearTimeout(timer)
     }
-  }, [sendOTPRequested])
+  }, [canSendOtp])
 
   return (
     <PageContent onBack={onBack}>
@@ -107,7 +116,7 @@ const EmailOTP: React.FC = () => {
         </Body>
         <OtpInputStandalone
           onComplete={handleComplete}
-          isLoading={status === 'loading'}
+          isLoading={status === 'loading' || isLoading}
           isError={status === 'error'}
           isSuccess={status === 'success'}
         />
@@ -119,8 +128,11 @@ const EmailOTP: React.FC = () => {
           Didn't receive the code?{' '}
           <FooterButtonText
             type="button"
-            onClick={() => setStatus('send-otp')}
-            disabled={sendOTPRequested || status === 'sending-otp' || status === 'send-otp'}
+            onClick={() => {
+              setStatus('send-otp')
+              setCanSendOtp(false)
+            }}
+            disabled={!canSendOtp || status === 'sending-otp' || status === 'send-otp'}
           >
             {sendButtonText()}
           </FooterButtonText>

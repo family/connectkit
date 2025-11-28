@@ -1,4 +1,4 @@
-import { AuthProvider, type OpenfortProvider } from '@openfort/react'
+import { AuthProvider, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
 import { beamTestnet, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
 
@@ -49,10 +49,10 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     authProvidersLength: undefined,
 
     // linkWalletOnSignUp: LinkWalletOnSignUpOption.OPTIONAL,
-    // walletRecovery: {
-    //   defaultMethod: RecoveryMethod.PASSWORD,
-    //   allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
-    // },
+    walletRecovery: {
+      defaultMethod: RecoveryMethod.PASSWORD,
+      allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
+    },
   },
 
   // Set the wallet configuration. In this example, we will be using the embedded signer.

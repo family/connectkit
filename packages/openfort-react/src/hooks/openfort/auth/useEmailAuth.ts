@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../../types'
 import { logger } from '../../../utils/logger'
+import { isValidEmail } from '../../../utils/validation'
 import { onError, onSuccess } from '../hookConsistency'
 import { useUI } from '../useUI'
 import type { UserWallet } from '../useWallets'
@@ -63,11 +64,6 @@ type UseEmailHookOptions = {
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult | EmailVerificationResult> &
   CreateWalletPostAuthOptions
-
-const isValidEmail = (email: string) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
 
 /**
  * Hook for email-based authentication operations
