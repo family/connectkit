@@ -56,7 +56,7 @@ const RecoverPasswordWallet = ({
     if (error) {
       setRecoveryError(error.message || 'There was an error recovering your account')
     } else {
-      setRoute(routes.CONNECTED)
+      setRoute(routes.CONNECTED_SUCCESS)
     }
   }
 
@@ -144,7 +144,7 @@ const RecoverPasskeyWallet = ({
     })
 
     if (!error) {
-      setRoute(routes.CONNECTED)
+      setRoute(routes.CONNECTED_SUCCESS)
     }
   }
 
@@ -210,7 +210,7 @@ const RecoverAutomaticWallet = ({
         setError(response.error.message || 'There was an error recovering your account')
         logger.log('Error recovering wallet', response.error)
       } else {
-        setRoute(routes.CONNECTED)
+        setRoute(routes.CONNECTED_SUCCESS)
       }
     }
   }, [walletAddress, setActiveWallet, setRoute])

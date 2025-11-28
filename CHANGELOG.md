@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.12
+
+### Patch Changes
+
+- [#137](https://github.com/openfort-xyz/openfort-react/pull/137) [`1c7e913`](https://github.com/openfort-xyz/openfort-react/commit/1c7e9133d0972aafdb31a3c55af38c0fa199e4a7) Thanks [@martimayoral](https://github.com/martimayoral)! - fix logs issue
+
+## 0.1.11
+
+### Patch Changes
+
+- [#135](https://github.com/openfort-xyz/openfort-react/pull/135) [`53a89c7`](https://github.com/openfort-xyz/openfort-react/commit/53a89c7e408663f1dc8087b15bcd7fabbc30b548) Thanks [@martimayoral](https://github.com/martimayoral)! - improved profile UI
+
+- [#135](https://github.com/openfort-xyz/openfort-react/pull/135) [`53a89c7`](https://github.com/openfort-xyz/openfort-react/commit/53a89c7e408663f1dc8087b15bcd7fabbc30b548) Thanks [@martimayoral](https://github.com/martimayoral)! - fix bug for linking wallet
+
+## 0.1.10
+
+### Patch Changes
+
+- [#132](https://github.com/openfort-xyz/openfort-react/pull/132) [`b0e67fd`](https://github.com/openfort-xyz/openfort-react/commit/b0e67fdc0334b855d447803eb1ba5c9a45c8d011) Thanks [@martimayoral](https://github.com/martimayoral)! - added types for custom themes
+
 ## 0.1.9
 
 ### Patch Changes

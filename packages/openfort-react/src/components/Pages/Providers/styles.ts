@@ -127,6 +127,7 @@ export const ProviderLabel = styled.span`
 export const ProviderIcon = styled.div`
   width: 32px;
   height: 32px;
+  flex-shrink: 0;
   svg,
   img {
     display: block;

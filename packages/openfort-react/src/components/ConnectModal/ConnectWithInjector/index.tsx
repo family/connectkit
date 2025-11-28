@@ -137,6 +137,8 @@ const ConnectWithInjector: React.FC<{
             throw new Error('No wallet found')
           }
 
+          logger.log('Connect type is:', props.connectType)
+
           if (props.connectType === 'recover') {
             wallet.connector.getAccounts().then((acc) => {
               if (acc.some((v) => v === props.wallet.address)) {
@@ -154,17 +156,14 @@ const ConnectWithInjector: React.FC<{
               acc.walletClientType === wallet.connector?.name.toLowerCase() ||
               acc.walletClientType === wallet.connector?.id
           )
-          // // If already has linked account, don't link again
+          // If already has linked account, don't link again
           if (userWallets && userWallets.length > 0) {
             wallet.connector.getAccounts().then((acc) => {
               if (acc.some((v) => userWallets.some((w) => w.address === v))) {
                 onConnect()
-              } else {
-                setStatus(states.RECOVER_ADDRESS_MISMATCH)
-                disconnect()
+                return
               }
             })
-            return
           }
 
           setStatus(states.SIWE)

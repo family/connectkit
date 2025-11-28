@@ -84,7 +84,7 @@ const ConnectWithMobile: React.FC = () => {
         siwe({
           walletClientType: walletId,
           onConnect: () => {
-            setRoute(routes.PROFILE)
+            setRoute(routes.CONNECTED)
           },
           onError: (error) => {
             setStatus(states.ERROR)

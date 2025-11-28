@@ -1,4 +1,6 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const retroTheme: CustomTheme = {
   '--ck-font-family':
     '"SF Pro Rounded",ui-rounded,"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol"',
   '--ck-border-radius': '8px',
@@ -37,6 +39,9 @@ export default {
 
   '--ck-secondary-button-hover-background': '#F3EDE8',
   '--ck-secondary-button-hover-box-shadow': '0 0 0 0 #000000, inset 0 0 0 2px #000000',
+
+  '--ck-input-background': '#F3EDE8',
+  '--ck-input-hover-background': '#ffffff',
 
   '--ck-focus-color': '#3B99FC',
 
@@ -132,3 +137,5 @@ export default {
 
   '--ck-siwe-border': '#8E8985',
 }
+
+export default retroTheme

@@ -5,7 +5,7 @@ import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
-import { ModalBody } from '../../Common/Modal/styles'
+import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { TextContainer } from '../../ConnectButton/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -55,28 +55,32 @@ const LinkEmail: React.FC = () => {
       triggerResize()
       return
     }
-    client.auth
-      .linkEmailPassword({
+    try {
+      await client.auth.linkEmailPassword({
         email,
         password,
         authToken,
       })
-      .catch((e) => {
-        logger.log('Link error:', e)
-        setLoginLoading(false)
+
+      await updateUser()
+
+      setEmail('')
+      setRoute(routes.CONNECTED)
+    } catch (e) {
+      logger.log('Link error:', e)
+      if (e instanceof Error) {
+        setLoginError(e.message)
+      } else {
         setLoginError('Could not link email.')
-        triggerResize()
-      })
-      .then(() => {
-        updateUser().then(() => {
-          setEmail('')
-          setRoute(routes.PROFILE)
-        })
-      })
+      }
+      setLoginLoading(false)
+      triggerResize()
+    }
   }
 
   return (
     <PageContent>
+      <ModalHeading>Link your email</ModalHeading>
       <form
         onSubmit={(e) => {
           e.preventDefault()

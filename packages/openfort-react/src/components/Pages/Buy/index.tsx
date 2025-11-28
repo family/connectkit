@@ -103,7 +103,7 @@ const Buy = () => {
   }
 
   const handleBack = () => {
-    setRoute(routes.PROFILE)
+    setRoute(routes.CONNECTED)
   }
 
   const isPresetSelected = (value: number) => pressedPreset === value

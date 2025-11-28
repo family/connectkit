@@ -25,7 +25,7 @@ const ConnectWithSiwe = () => {
     siwe({
       walletClientType: connector.id,
       onConnect: () => {
-        setRoute(routes.PROFILE)
+        setRoute(routes.CONNECTED)
       },
       onError: (error) => {
         setError(error || 'Connection failed')
@@ -48,8 +48,7 @@ const ConnectWithSiwe = () => {
   return (
     <PageContent>
       <ModalBody style={{ textAlign: 'center' }}>
-        Connected with
-        <CopyText value={address || ''}>{ensName ?? truncateEthAddress(address)}</CopyText>
+        Connected with <CopyText value={address || ''}>{ensName ?? truncateEthAddress(address)}</CopyText>
       </ModalBody>
       <Loader
         header={'Sign in to your wallet'}

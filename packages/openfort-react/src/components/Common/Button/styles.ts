@@ -154,7 +154,6 @@ export const ButtonContainer = styled.button<{
         );
 
         --hover-color: var(
-          --button-tertiary-hover-color,
           var(--ck-tertiary-button-color)
         );
         --hover-background: var(
@@ -210,7 +209,6 @@ export const ButtonContainer = styled.button<{
       }
     }
   }
-}
 
   @media only screen and (min-width: ${defaultTheme.mobileWidth + 1}px) {
     &:hover,

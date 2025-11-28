@@ -1,4 +1,9 @@
-export default {
+import type { CustomTheme } from '../customTheme'
+
+const baseTheme: {
+  light: CustomTheme
+  dark: CustomTheme
+} = {
   light: {
     /** Connect Wallet button tokens. */
     '--ck-connectbutton-font-size': '15px',
@@ -46,6 +51,10 @@ export default {
     '--ck-tertiary-button-background': '#FFFFFF',
 
     '--ck-secondary-button-hover-background': '#e0e4eb',
+
+    /** Input field tokens. */
+    '--ck-input-background': '#e0e4eb',
+    '--ck-input-hover-background': '#F6F7F9',
 
     /** Modal appearance tokens. */
     '--ck-modal-box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.02)',
@@ -134,6 +143,10 @@ export default {
 
     '--ck-secondary-button-hover-background': '#4D4D4D',
 
+    /** Input field tokens. */
+    '--ck-input-background': '#4D4D4D',
+    '--ck-input-hover-background': '#333333',
+
     /** Tertiary button tokens. */
     '--ck-tertiary-button-background': '#424242',
 
@@ -175,3 +188,5 @@ export default {
     '--ck-qr-border-color': '#3d3d3d',
   },
 }
+
+export default baseTheme

@@ -12,6 +12,7 @@ import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import Loader from '../../Common/Loading'
+import { ModalHeading } from '../../Common/Modal/styles'
 import PoweredByFooter from '../../Common/PoweredByFooter'
 import { routes, socialProviders, UIAuthProvider } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
@@ -56,9 +57,10 @@ const GuestButton: React.FC = () => {
 
 const WalletButton: React.FC = () => {
   const { setRoute } = useOpenfort()
+  const { user } = useOpenfortCore()
   return (
     <ProviderButtonBase
-      onClick={() => setRoute({ route: routes.CONNECTORS, connectType: 'connect' })}
+      onClick={() => setRoute({ route: routes.CONNECTORS, connectType: user ? 'link' : 'connect' })}
       icon={<Logos.OtherWallets />}
     >
       Wallet
@@ -337,7 +339,7 @@ const Providers: React.FC = () => {
   const { mainProviders, hasExcessProviders } = useProviders()
 
   const onBack: SetOnBackFunction = useMemo(() => {
-    if (previousRoute?.route === routes.LINKED_PROVIDERS) {
+    if (user) {
       return 'back'
     }
     return null
@@ -349,6 +351,7 @@ const Providers: React.FC = () => {
 
   return (
     <PageContent onBack={onBack}>
+      <ModalHeading>{user ? 'Link auth' : 'Connect'}</ModalHeading>
       {mainProviders.map((auth) => (
         <ProviderButton key={auth} provider={auth} />
       ))}

@@ -65,14 +65,14 @@ export function useConnectWithSiwe() {
             walletClientType,
             authToken,
           })
+        } else {
+          await client.auth.authenticateWithSIWE({
+            signature,
+            message: SIWEMessage,
+            connectorType,
+            walletClientType,
+          })
         }
-
-        await client.auth.authenticateWithSIWE({
-          signature,
-          message: SIWEMessage,
-          connectorType,
-          walletClientType,
-        })
 
         await updateUser()
 

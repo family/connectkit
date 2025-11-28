@@ -11,9 +11,9 @@ export const Input = styled.input`
   padding: 10px 15px;
   border-radius: var(--ck-secondary-button-border-radius);
   box-shadow: var(--ck-secondary-button-box-shadow);
+  background: var(--ck-input-background);
   font-size: 1rem;
   color: var(--ck-body-color);
-  background: var(--ck-secondary-button-hover-background);
   transition: all 0.2s;
   width: 100%;
   height: 100%;
@@ -23,7 +23,7 @@ export const Input = styled.input`
   }
 
   &:focus {
-    background: var(--ck-secondary-button-background);
+    background: var(--ck-input-hover-background);
     box-shadow: var(--ck-secondary-button-hover-box-shadow);
   }
 `
