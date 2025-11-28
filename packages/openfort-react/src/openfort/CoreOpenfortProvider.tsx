@@ -1,10 +1,4 @@
-import {
-  AccountTypeEnum,
-  type AuthPlayerResponse,
-  type EmbeddedAccount,
-  EmbeddedState,
-  type Openfort,
-} from '@openfort/openfort-js'
+import { AccountTypeEnum, type EmbeddedAccount, EmbeddedState, type Openfort, type User } from '@openfort/openfort-js'
 import { type QueryObserverResult, type RefetchOptions, useQuery, useQueryClient } from '@tanstack/react-query'
 import type React from 'react'
 import { createElement, type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -13,6 +7,7 @@ import { useOpenfort } from '../components/Openfort/useOpenfort'
 import type { WalletFlowStatus } from '../hooks/openfort/useWallets'
 import { useConnect } from '../hooks/useConnect'
 import { useConnectCallback, type useConnectCallbackProps } from '../hooks/useConnectCallback'
+import type { UserAccountResponse } from '../openfortCustomTypes'
 import { logger } from '../utils/logger'
 import { handleOAuthConfigError } from '../utils/oauthErrorHandler'
 import { Context } from './context'
@@ -24,8 +19,9 @@ export type ContextValue = {
 
   isLoading: boolean
   needsRecovery: boolean
-  user: AuthPlayerResponse | null
-  updateUser: (user?: AuthPlayerResponse) => Promise<AuthPlayerResponse | null>
+  user: User | null
+  updateUser: (user?: User) => Promise<User | null>
+  linkedAccounts: UserAccountResponse[]
 
   embeddedAccounts?: EmbeddedAccount[]
   isLoadingAccounts: boolean
@@ -63,7 +59,8 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
 }) => {
   const { connectors, connect, reset } = useConnect()
   const { address } = useAccount()
-  const [user, setUser] = useState<AuthPlayerResponse | null>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [linkedAccounts, setLinkedAccounts] = useState<UserAccountResponse[]>([])
   const [walletStatus, setWalletStatus] = useState<WalletFlowStatus>({ status: 'idle' })
 
   const { disconnectAsync } = useDisconnect()
@@ -142,7 +139,7 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
   }, [openfort])
 
   const updateUser = useCallback(
-    async (user?: AuthPlayerResponse, logoutOnError: boolean = false) => {
+    async (user?: User, logoutOnError: boolean = false) => {
       if (!openfort) return null
       logger.log('Updating user', { user, logoutOnError })
 
@@ -153,7 +150,9 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
 
       try {
         const user = await openfort.user.get()
+        const linkedAccounts = await openfort.user.list()
         logger.log('Getting user')
+        setLinkedAccounts(linkedAccounts)
         setUser(user)
         return user
       } catch (err: any) {
@@ -360,6 +359,7 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
     isLoading: isLoading(),
     needsRecovery,
     user,
+    linkedAccounts,
     updateUser,
     updateEmbeddedAccounts: fetchEmbeddedAccounts,
 

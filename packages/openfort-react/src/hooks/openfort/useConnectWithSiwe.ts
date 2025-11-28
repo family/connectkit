@@ -1,4 +1,4 @@
-import { OpenfortError, type OpenfortErrorType } from '@openfort/openfort-js'
+import { OpenfortError } from '@openfort/openfort-js'
 import { signMessage, switchChain } from '@wagmi/core'
 import { AxiosError } from 'axios'
 import { useCallback } from 'react'
@@ -26,7 +26,7 @@ export function useConnectWithSiwe() {
     }: {
       connectorType?: string
       walletClientType?: string
-      onError?: (error: string, openfortError?: OpenfortErrorType) => void
+      onError?: (error: string, openfortError?: OpenfortError) => void
       onConnect?: () => void
     } = {}) => {
       const connectorType = propsConnectorType ?? connector?.type
@@ -63,7 +63,9 @@ export function useConnectWithSiwe() {
             message: SIWEMessage,
             connectorType,
             walletClientType,
-            authToken,
+
+            address,
+            chainId,
           })
         } else {
           await client.auth.authenticateWithSIWE({
@@ -71,6 +73,8 @@ export function useConnectWithSiwe() {
             message: SIWEMessage,
             connectorType,
             walletClientType,
+            address,
+            chainId,
           })
         }
 
@@ -96,7 +100,7 @@ export function useConnectWithSiwe() {
           message = 'Failed to connect with SIWE.'
         }
 
-        onError(message, err instanceof OpenfortError ? err.type : undefined)
+        onError(message, err instanceof OpenfortError ? err : undefined)
       }
     },
     [client, user, updateUser, address, chainId, config, connector, accountChainId, publicClient]

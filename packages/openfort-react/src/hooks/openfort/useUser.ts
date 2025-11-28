@@ -21,7 +21,7 @@ import { handleOAuthConfigError } from '../../utils/oauthErrorHandler'
  *   console.log('User is authenticated:', userHook.user);
  *   console.log('User ID:', userHook.user.id);
  *   console.log('User email:', userHook.user.email);
- *   console.log('Linked accounts:', userHook.user.linkedAccounts);
+ *   console.log('Linked accounts:', userHook.linkedAccounts);
  * } else {
  *   console.log('User is not authenticated');
  * }
@@ -48,7 +48,7 @@ import { handleOAuthConfigError } from '../../utils/oauthErrorHandler'
  * ```
  */
 export function useUser() {
-  const { user, client, embeddedState } = useOpenfortCore()
+  const { user, client, embeddedState, linkedAccounts } = useOpenfortCore()
 
   const getAccessTokenAndUpdate = useCallback(async () => {
     try {
@@ -72,6 +72,7 @@ export function useUser() {
 
   return {
     user,
+    linkedAccounts,
     isAuthenticated: embeddedState !== EmbeddedState.NONE && embeddedState !== EmbeddedState.UNAUTHENTICATED,
     getAccessToken: getAccessTokenAndUpdate,
     validateAndRefreshToken: validateAndRefresh,

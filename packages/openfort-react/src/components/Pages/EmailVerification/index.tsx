@@ -19,71 +19,74 @@ type VerificationResponse = {
 }
 
 const EmailVerification: React.FC = () => {
-  const { client } = useOpenfortCore()
+  // const { client } = useOpenfortCore()
   const { setRoute, emailInput: emailInStorage } = useOpenfort()
 
-  const [loading, setLoading] = useState(true)
-  const [verificationResponse, setVerificationResponse] = useState<VerificationResponse | null>(null)
+  const [loading, _setLoading] = useState(true)
+  const [verificationResponse, _setVerificationResponse] = useState<VerificationResponse | null>(null)
 
-  useEffect(() => {
-    const fixedUrl = window.location.href.replace('?state=', '&state=') // redirectUrl is not working with query params
-    const url = new URL(fixedUrl)
-    const openfortEmailVerificationUI = url.searchParams.get('openfortEmailVerificationUI')
+  // OTP_TODO: EmailVerification
 
-    if (!openfortEmailVerificationUI) {
-      // Send email verification flow
-      if (!emailInStorage) {
-        setRoute(routes.EMAIL_LOGIN)
-        return
-      }
+  // useEffect(() => {
+  //   const fixedUrl = window.location.href.replace('?state=', '&state=') // redirectUrl is not working with query params
+  //   const url = new URL(fixedUrl)
+  //   const openfortEmailVerificationUI = url.searchParams.get('openfortEmailVerificationUI')
 
-      setLoading(false)
-      return
-    }
+  //   if (!openfortEmailVerificationUI) {
+  //     // Send email verification flow
+  //     if (!emailInStorage) {
+  //       setRoute(routes.EMAIL_LOGIN)
+  //       return
+  //     }
 
-    // Verify email flow
-    const state = url.searchParams.get('state')
-    const email = url.searchParams.get('email')
+  //     setLoading(false)
+  //     return
+  //   }
 
-    if (!state) {
-      logger.error('No state found in URL')
-      return
-    }
+  //   // Verify email flow
+  //   const state = url.searchParams.get('state')
+  //   const email = url.searchParams.get('email')
 
-    const removeParams = () => {
-      ;['state', 'openfortEmailVerificationUI', 'email', 'openfortAuthProvider'].forEach((key) => {
-        url.searchParams.delete(key)
-      })
-      window.history.replaceState({}, document.title, url.toString())
-    }
+  //   if (!state) {
+  //     logger.error('No state found in URL')
+  //     return
+  //   }
 
-    if (!email) {
-      setRoute(routes.EMAIL_LOGIN)
-      return
-    }
+  //   const removeParams = () => {
+  //     ;['state', 'openfortEmailVerificationUI', 'email', 'openfortAuthProvider'].forEach((key) => {
+  //       url.searchParams.delete(key)
+  //     })
+  //     window.history.replaceState({}, document.title, url.toString())
+  //   }
 
-    logger.log('EmailVerification', state, email)
-    ;(async () => {
-      try {
-        await client.auth.verifyEmail({
-          email,
-          state,
-        })
-        setVerificationResponse({
-          success: true,
-        })
-      } catch (e) {
-        setVerificationResponse({
-          success: false,
-          error: 'There was an error verifying your email. Please try again.',
-        })
-        logger.log('Error verifying email', e)
-      } finally {
-        removeParams()
-        setLoading(false)
-      }
-    })()
-  }, [])
+  //   if (!email) {
+  //     setRoute(routes.EMAIL_LOGIN)
+  //     return
+  //   }
+
+  //   logger.log('EmailVerification', state, email)
+  //   ;(async () => {
+  //     try {
+  //       await client.auth.verifyEmail({
+  //         token,
+
+  //         state,
+  //       })
+  //       setVerificationResponse({
+  //         success: true,
+  //       })
+  //     } catch (e) {
+  //       setVerificationResponse({
+  //         success: false,
+  //         error: 'There was an error verifying your email. Please try again.',
+  //       })
+  //       logger.log('Error verifying email', e)
+  //     } finally {
+  //       removeParams()
+  //       setLoading(false)
+  //     }
+  //   })()
+  // }, [])
 
   if (loading) {
     return (

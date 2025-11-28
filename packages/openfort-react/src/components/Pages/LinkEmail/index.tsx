@@ -47,19 +47,20 @@ const LinkEmail: React.FC = () => {
     setLoginLoading(true)
 
     await client.validateAndRefreshToken()
-    const authToken = await client.getAccessToken()
-    if (!authToken) {
-      logger.log('No token found')
-      setLoginLoading(false)
-      setLoginError('No token found.')
-      triggerResize()
-      return
-    }
+    // const authToken = await client.getAccessToken()
+    // if (!authToken) {
+    //   logger.log('No token found')
+    //   setLoginLoading(false)
+    //   setLoginError('No token found.')
+    //   triggerResize()
+    //   return
+    // }
     try {
+      // OTP_TODO: link email
       await client.auth.linkEmailPassword({
         email,
         password,
-        authToken,
+        name: 'Linked Email',
       })
 
       await updateUser()

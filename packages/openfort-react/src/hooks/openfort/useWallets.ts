@@ -14,7 +14,7 @@ import { routes, UIAuthProvider } from '../../components/Openfort/types'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { embeddedWalletId } from '../../constants/openfort'
 import { useOpenfortCore, useWalletStatus } from '../../openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
+import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../types'
 import { logger } from '../../utils/logger'
 import { useWagmiWallets } from '../../wallets/useWagmiWallets'
 import { useConnect } from '../useConnect'
@@ -194,7 +194,7 @@ const mapWalletStatus = (status: WalletFlowStatus) => {
  */
 export function useWallets(hookOptions: WalletOptions = {}) {
   const { client, embeddedAccounts, isLoadingAccounts: isLoadingWallets, updateEmbeddedAccounts } = useOpenfortCore()
-  const { user } = useUser()
+  const { linkedAccounts } = useUser()
   const { walletConfig, setOpen, setRoute, setConnector, uiConfig } = useOpenfort()
   const { connector, isConnected, address } = useAccount()
   const chainId = useChainId()
@@ -209,7 +209,11 @@ export function useWallets(hookOptions: WalletOptions = {}) {
   const { connect } = useConnect({
     mutation: {
       onError: (e) => {
-        const error = new OpenfortError('Failed to connect with wallet: ', OpenfortErrorType.AUTHENTICATION_ERROR, e)
+        const error = new OpenfortError(
+          'Failed to connect with wallet: ',
+          OpenfortReactErrorType.AUTHENTICATION_ERROR,
+          e
+        )
         setStatus({
           status: 'error',
           error,
@@ -230,7 +234,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             status: 'error',
             error: new OpenfortError(
               'Failed to connect with wallet: Address mismatch',
-              OpenfortErrorType.AUTHENTICATION_ERROR
+              OpenfortReactErrorType.AUTHENTICATION_ERROR
             ),
           })
           disconnect()
@@ -280,7 +284,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           case RecoveryMethod.AUTOMATIC: {
             const accessToken = await client.getAccessToken()
             if (!accessToken) {
-              throw new OpenfortError('Openfort access token not found', OpenfortErrorType.AUTHENTICATION_ERROR)
+              throw new OpenfortError('Openfort access token not found', OpenfortReactErrorType.AUTHENTICATION_ERROR)
             }
             return {
               recoveryMethod: RecoveryMethod.AUTOMATIC,
@@ -291,7 +295,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           }
           case RecoveryMethod.PASSWORD:
             if (!recovery.password) {
-              throw new OpenfortError('Please enter your password', OpenfortErrorType.VALIDATION_ERROR)
+              throw new OpenfortError('Please enter your password', OpenfortReactErrorType.VALIDATION_ERROR)
             }
             return {
               recoveryMethod: RecoveryMethod.PASSWORD,
@@ -308,7 +312,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               if (!walletAddress) {
                 throw new OpenfortError(
                   'No wallet address provided and no embedded wallet with passkey recovery found',
-                  OpenfortErrorType.VALIDATION_ERROR
+                  OpenfortReactErrorType.VALIDATION_ERROR
                 )
               }
             }
@@ -321,7 +325,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             const passkeyId = details?.passkeyId
 
             if (!passkeyId) {
-              throw new OpenfortError('No passkey details found for the wallet', OpenfortErrorType.VALIDATION_ERROR)
+              throw new OpenfortError(
+                'No passkey details found for the wallet',
+                OpenfortReactErrorType.VALIDATION_ERROR
+              )
             }
 
             return {
@@ -332,15 +339,15 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             }
           }
           default:
-            throw new OpenfortError('Invalid recovery method', OpenfortErrorType.VALIDATION_ERROR)
+            throw new OpenfortError('Invalid recovery method', OpenfortReactErrorType.VALIDATION_ERROR)
         }
       },
     [walletConfig, getEncryptionSession]
   )
 
   const userLinkedWalletConnectors = useMemo<UserWallet[]>(() => {
-    const userWallets: UserWallet[] = user
-      ? user.linkedAccounts
+    const userWallets: UserWallet[] = linkedAccounts
+      ? linkedAccounts
           .filter((linkedAccount) => linkedAccount.provider === UIAuthProvider.WALLET)
           .map((linkedAccount) => {
             // For connector wallets (e.g. Metamask, Rabby, etc.)
@@ -357,7 +364,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           })
       : []
     return userWallets
-  }, [user?.linkedAccounts, embeddedAccounts])
+  }, [linkedAccounts, embeddedAccounts])
 
   const userEmbeddedWallets = useMemo<UserWallet[]>(() => {
     const newRawWallets = [] as UserWallet[]
@@ -412,7 +419,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         const wallet = availableWallets.find((c) => c.id === optionsObject.walletId)
         if (!wallet) {
           logger.log('Connector not found', connector)
-          return { error: new OpenfortError('Connector not found', OpenfortErrorType.WALLET_ERROR) }
+          return { error: new OpenfortError('Connector not found', OpenfortReactErrorType.WALLET_ERROR) }
         }
         logger.log('Connecting to', wallet.connector)
         connector = wallet.connector
@@ -422,7 +429,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
       if (!connector) {
         logger.log('Connector not found', availableWallets, optionsObject.walletId)
-        return { error: new OpenfortError('Connector not found', OpenfortErrorType.WALLET_ERROR) }
+        return { error: new OpenfortError('Connector not found', OpenfortReactErrorType.WALLET_ERROR) }
       }
 
       if (activeWallet?.id === connector.id && address?.toLowerCase() === optionsObject.address?.toLowerCase()) {
@@ -437,7 +444,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         if (!walletToConnect) {
           logger.log('Wallet not found', connector)
           return onError({
-            error: new OpenfortError('Wallet not found', OpenfortErrorType.AUTHENTICATION_ERROR),
+            error: new OpenfortError('Wallet not found', OpenfortReactErrorType.AUTHENTICATION_ERROR),
             options: optionsObject,
             hookOptions,
           })
@@ -471,7 +478,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
         if (!walletConfig) {
           return onError({
-            error: new OpenfortError('Embedded signer not enabled', OpenfortErrorType.WALLET_ERROR),
+            error: new OpenfortError('Embedded signer not enabled', OpenfortReactErrorType.WALLET_ERROR),
             options: optionsObject,
             hookOptions,
           })
@@ -517,7 +524,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               if (!accountToRecoverInDifferentChain || !accountToRecoverInDifferentChain.chainId) {
                 throw new OpenfortError(
                   `Embedded wallet not found for address ${walletAddress}`,
-                  OpenfortErrorType.WALLET_ERROR
+                  OpenfortReactErrorType.WALLET_ERROR
                 )
               }
 
@@ -541,7 +548,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
               )
               throw new OpenfortError(
                 "The recovery method you entered is incorrect and does not match the wallet's recovery method",
-                OpenfortErrorType.WALLET_ERROR
+                OpenfortReactErrorType.WALLET_ERROR
               )
             }
             const recovery: WalletRecovery = {
@@ -560,7 +567,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             if (walletConfig?.accountType === AccountTypeEnum.EOA) {
               accountToRecover = embeddedAccounts.find((w) => w.accountType === AccountTypeEnum.EOA)
               if (!accountToRecover) {
-                throw new OpenfortError('No embedded wallet found with type EOA', OpenfortErrorType.WALLET_ERROR)
+                throw new OpenfortError('No embedded wallet found with type EOA', OpenfortReactErrorType.WALLET_ERROR)
               }
             } else {
               accountToRecover = embeddedAccounts.find((w) => w.chainId === chainId)
@@ -569,7 +576,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
                 // TODO: Connect to wallet in the other chain and then switch chain
                 throw new OpenfortError(
                   'No embedded wallet found for the current chain',
-                  OpenfortErrorType.WALLET_ERROR
+                  OpenfortReactErrorType.WALLET_ERROR
                 )
               }
             }
@@ -587,7 +594,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           }
 
           if (!embeddedAccount) {
-            throw new OpenfortError('Failed to recover embedded wallet', OpenfortErrorType.WALLET_ERROR)
+            throw new OpenfortError('Failed to recover embedded wallet', OpenfortReactErrorType.WALLET_ERROR)
           }
 
           setStatus({
@@ -613,13 +620,13 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           let error: OpenfortError
 
           if (err instanceof MissingRecoveryPasswordError) {
-            error = new OpenfortError('Missing recovery password', OpenfortErrorType.WALLET_ERROR)
+            error = new OpenfortError('Missing recovery password', OpenfortReactErrorType.WALLET_ERROR)
           } else if (err instanceof OpenfortError) {
             error = err
           } else if (typeof err === 'string') {
-            error = new OpenfortError(err, OpenfortErrorType.WALLET_ERROR)
+            error = new OpenfortError(err, OpenfortReactErrorType.WALLET_ERROR)
           } else {
-            error = new OpenfortError('Failed to recover embedded wallet', OpenfortErrorType.WALLET_ERROR, {
+            error = new OpenfortError('Failed to recover embedded wallet', OpenfortReactErrorType.WALLET_ERROR, {
               error: err,
             })
             if (error.message === 'Wrong recovery password for this embedded signer') {
@@ -686,10 +693,10 @@ export function useWallets(hookOptions: WalletOptions = {}) {
       try {
         const accessToken = await client.getAccessToken()
         if (!accessToken) {
-          throw new OpenfortError('Openfort access token not found', OpenfortErrorType.WALLET_ERROR)
+          throw new OpenfortError('Openfort access token not found', OpenfortReactErrorType.WALLET_ERROR)
         }
         if (!walletConfig) {
-          throw new OpenfortError('Embedded signer not enabled', OpenfortErrorType.WALLET_ERROR)
+          throw new OpenfortError('Embedded signer not enabled', OpenfortReactErrorType.WALLET_ERROR)
         }
 
         const recoveryParams = await parseWalletRecovery(recovery)
@@ -726,7 +733,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         const error =
           e instanceof OpenfortError
             ? e
-            : new OpenfortError('Failed to create wallet', OpenfortErrorType.WALLET_ERROR, { error: errorObj })
+            : new OpenfortError('Failed to create wallet', OpenfortReactErrorType.WALLET_ERROR, { error: errorObj })
         setStatus({
           status: 'error',
           error,
@@ -775,7 +782,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         return onError({
           hookOptions,
           options: params,
-          error: new OpenfortError('Failed to set wallet recovery', OpenfortErrorType.WALLET_ERROR, {
+          error: new OpenfortError('Failed to set wallet recovery', OpenfortReactErrorType.WALLET_ERROR, {
             error: errorObj,
           }),
         })

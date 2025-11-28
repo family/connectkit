@@ -1,4 +1,4 @@
-import { OpenfortErrorType } from '@openfort/openfort-js'
+import { OPENFORT_AUTH_ERROR_CODES, OPENFORT_ERROR_CODES, OpenfortError } from '@openfort/openfort-js'
 import { AnimatePresence, type Variants } from 'framer-motion'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
@@ -75,7 +75,7 @@ const ConnectWithInjector: React.FC<{
   const { disconnect } = useDisconnect()
   const connectWithSiwe = useConnectWithSiwe()
   const props = useRouteProps(routes.CONNECT)
-  const { user } = useUser()
+  const { linkedAccounts } = useUser()
 
   const onConnect = useCallback(() => {
     setStatus(states.CONNECTED)
@@ -151,7 +151,7 @@ const ConnectWithInjector: React.FC<{
             return
           }
 
-          const userWallets = user?.linkedAccounts.filter(
+          const userWallets = linkedAccounts?.filter(
             (acc) =>
               acc.walletClientType === wallet.connector?.name.toLowerCase() ||
               acc.walletClientType === wallet.connector?.id
@@ -174,7 +174,8 @@ const ConnectWithInjector: React.FC<{
             onError: (error, errorType) => {
               logger.error(error)
               disconnect()
-              if (errorType === OpenfortErrorType.AUTHENTICATION_ERROR) {
+              // OTP_TODO: Handle siwe error properly
+              if (errorType) {
                 setStatus(states.DUPLICATED)
               } else {
                 setStatus(states.FAILED)

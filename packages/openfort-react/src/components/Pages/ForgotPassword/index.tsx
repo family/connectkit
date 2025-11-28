@@ -109,52 +109,44 @@ const ResetPassword: React.FC = () => {
 
   const [password, setPassword] = React.useState('')
 
-  const { setRoute, triggerResize } = useOpenfort()
-  const { client, updateUser } = useOpenfortCore()
+  // const { setRoute, triggerResize } = useOpenfort()
+  // const { client, updateUser } = useOpenfortCore()
 
-  const [loading, setLoading] = React.useState(false)
+  const [loading, _setLoading] = React.useState(false)
 
   const email = url.searchParams.get('email')
 
+  // OTP_TODO: Reset password
   const handleSubmit = async () => {
-    setLoading(true)
-
-    const state = url.searchParams.get('state')
-    if (!email || !state) {
-      logger.log('No email or state found')
-      setLoading(false)
-      return
-    }
-
-    try {
-      await client.auth.resetPassword({
-        password: password,
-        email,
-        state,
-      })
-
-      await client.auth.logInWithEmailPassword({
-        email,
-        password,
-      })
-
-      const user = await updateUser()
-
-      if (!user) throw new Error('No user found')
-
-      ;['openfortForgotPasswordUI', 'state', 'email'].forEach((param) => {
-        url.searchParams.delete(param)
-      })
-
-      window.history.replaceState({}, document.title, url.toString())
-
-      setRoute(routes.LOAD_WALLETS)
-    } catch (e) {
-      logger.log('Reset password error', e)
-
-      setLoading(false)
-      triggerResize()
-    }
+    // setLoading(true)
+    // const state = url.searchParams.get('state')
+    // if (!email || !state) {
+    //   logger.log('No email or state found')
+    //   setLoading(false)
+    //   return
+    // }
+    // try {
+    //   await client.auth.resetPassword({
+    //     password: password,
+    //     email,
+    //     state,
+    //   })
+    //   await client.auth.logInWithEmailPassword({
+    //     email,
+    //     password,
+    //   })
+    //   const user = await updateUser()
+    //   if (!user) throw new Error('No user found')
+    //   ;['openfortForgotPasswordUI', 'state', 'email'].forEach((param) => {
+    //     url.searchParams.delete(param)
+    //   })
+    //   window.history.replaceState({}, document.title, url.toString())
+    //   setRoute(routes.LOAD_WALLETS)
+    // } catch (e) {
+    //   logger.log('Reset password error', e)
+    //   setLoading(false)
+    //   triggerResize()
+    // }
   }
 
   return (

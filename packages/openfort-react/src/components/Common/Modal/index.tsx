@@ -297,8 +297,6 @@ const Modal: React.FC<ModalProps> = ({
         return 'Reset your password' // TODO: Localize
       case routes.EMAIL_VERIFICATION:
         return 'Email Verification' // TODO: Localize
-      case routes.SOCIAL_PROVIDERS:
-        return 'Other socials' // TODO: Localize
       case routes.CONNECT:
         if (shouldUseQrcode()) {
           return isWalletConnectConnector(wallet?.connector?.id)

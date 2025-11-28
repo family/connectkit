@@ -1,9 +1,9 @@
-import type { AuthPlayerResponse } from '@openfort/openfort-js'
 import { useMemo } from 'react'
 import { EmailIcon, WalletIcon as Wallet } from '../../../assets/icons'
 import Logos, { providersLogos } from '../../../assets/logos'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
+import type { UserAccountResponse } from '../../../openfortCustomTypes'
 import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
@@ -17,41 +17,43 @@ type LinkedProvidersProps = {
   showHeader?: boolean
 }
 
-const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
-  const wallets = useWagmiWallets()
-  const wallet = useMemo(() => {
-    return wallets.find((w) => w.id?.toLowerCase() === provider.walletClientType)
-  }, [provider])
+// const WalletIcon: React.FC<{ provider: UserAccountResponse }> = ({ provider }) => {
+//   const wallets = useWagmiWallets()
+//   const wallet = useMemo(() => {
+//     return wallets.find((w) => w.id?.toLowerCase() === provider.walletClientType)
+//   }, [provider])
 
-  if (provider.walletClientType === 'walletconnect') return <Logos.WalletConnect />
+//   if (provider.walletClientType === 'walletconnect') return <Logos.WalletConnect />
 
-  if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>
+//   if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>
 
-  return <Wallet />
-}
+//   return <Wallet />
+// }
 
-const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
-  switch (provider.provider) {
+const ProviderIcon: React.FC<{ provider: UserAccountResponse }> = ({ provider }) => {
+  switch (provider.providerId) {
     case 'email':
       return <EmailIcon />
-    case 'wallet':
-      return <WalletIcon provider={provider} />
+    // OTP_TODO: Wallet icon
+    // case 'wallet':
+    //   return <WalletIcon provider={provider} />
     case 'google':
     case 'twitter':
     case 'facebook':
-      return providersLogos[provider.provider]
+      return providersLogos[provider.providerId]
     default:
-      return <FitText>{provider.provider.substring(0, 4).toUpperCase()}</FitText>
+      return <FitText>{provider.providerId.substring(0, 4).toUpperCase()}</FitText>
   }
 }
 
-const LinkedProvider: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
+const LinkedProvider: React.FC<{ provider: UserAccountResponse }> = ({ provider }) => {
+  // OTP_TODO: linked provider details
   return (
     <LinkedProviderContainer>
       <ProviderIconWrapper>
         <ProviderIcon provider={provider} />
       </ProviderIconWrapper>
-      <LinkedProviderText>{provider.address || provider.email || 'unknown'}</LinkedProviderText>
+      {/* <LinkedProviderText>{provider.address || provider.email || 'unknown'}</LinkedProviderText> */}
     </LinkedProviderContainer>
   )
 }
@@ -68,7 +70,7 @@ const AddLinkedProviderButton: React.FC = () => {
 }
 
 const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
-  const { user, isLoading } = useOpenfortCore()
+  const { linkedAccounts, user, isLoading } = useOpenfortCore()
 
   // TODO: Show loading
   if (isLoading) {
@@ -88,7 +90,7 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
     )
   }
 
-  if (user.linkedAccounts.length === 0) {
+  if (linkedAccounts.length === 0) {
     return (
       <div>
         <AddLinkedProviderButton />
@@ -99,11 +101,8 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
   return (
     <>
       <LinkedProvidersGroupWrapper>
-        {user.linkedAccounts.map((provider) => (
-          <LinkedProvider
-            key={`${provider.provider}-${provider.address || provider.email || 'unknown'}`}
-            provider={provider}
-          />
+        {linkedAccounts.map((provider) => (
+          <LinkedProvider key={`${provider.providerId}-${provider.id}`} provider={provider} />
         ))}
       </LinkedProvidersGroupWrapper>
       <AddLinkedProviderButton />

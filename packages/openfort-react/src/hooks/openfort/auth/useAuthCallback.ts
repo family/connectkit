@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { UIAuthProvider } from '../../../components/Openfort/types'
-import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../../types'
 import { logger } from '../../../utils/logger'
 import { onError } from '../hookConsistency'
 import type { CreateWalletPostAuthOptions } from './useConnectToWalletPostAuth'
@@ -72,13 +72,11 @@ type UseAuthCallbackOptions = {
  *     state: 'verification-token',
  *   });
  * };
- *
- * // Manually store credentials (if needed)
- * const handleManualStore = async () => {
+ * // Manually trigger storing credentials (if needed)
+ * const handleManualStoreCredentials = async () => {
  *   await authCallback.storeCredentials({
- *     player: 'player-id',
- *     accessToken: 'access-token',
- *     refreshToken: 'refresh-token',
+ *     userId: 'player-id',
+ *     token: 'access-token',
  *   });
  * };
  * ```
@@ -131,7 +129,7 @@ export const useAuthCallback = ({
           onError({
             hookOptions,
             options: {},
-            error: new OpenfortError('No state or email found in URL', OpenfortErrorType.AUTHENTICATION_ERROR),
+            error: new OpenfortError('No state or email found in URL', OpenfortReactErrorType.AUTHENTICATION_ERROR),
           })
           return
         }
@@ -169,15 +167,13 @@ export const useAuthCallback = ({
         setEmail(email)
         removeParams()
       } else {
-        const player = url.searchParams.get('player_id')
-        const accessToken = url.searchParams.get('access_token')
-        const refreshToken = url.searchParams.get('refresh_token')
+        const userId = url.searchParams.get('user_id')
+        const token = url.searchParams.get('access_token')
 
-        if (!player || !accessToken || !refreshToken) {
-          logger.error(`Missing player id or access token or refresh token`, {
-            player,
-            accessToken: accessToken ? `${accessToken.substring(0, 10)}...` : accessToken,
-            refreshToken,
+        if (!userId || !token) {
+          logger.error(`Missing user id or access token`, {
+            userId,
+            token: token ? `${token.substring(0, 10)}...` : token,
             fixedUrl,
           })
           onError({
@@ -185,7 +181,7 @@ export const useAuthCallback = ({
             options: {},
             error: new OpenfortError(
               'Missing player id or access token or refresh token',
-              OpenfortErrorType.AUTHENTICATION_ERROR
+              OpenfortReactErrorType.AUTHENTICATION_ERROR
             ),
           })
 
@@ -193,13 +189,13 @@ export const useAuthCallback = ({
         }
 
         const removeParams = () => {
-          ;['openfortAuthProvider', 'refresh_token', 'access_token', 'player_id'].forEach((key) => {
+          ;['openfortAuthProvider', 'access_token', 'user_id'].forEach((key) => {
             url.searchParams.delete(key)
           })
           window.history.replaceState({}, document.title, url.toString())
         }
 
-        logger.log('callback', { player, accessToken, refreshToken })
+        logger.log('callback', { userId })
 
         const options: OpenfortHookOptions<Omit<CallbackResult, 'type'>> = {
           onSuccess: (data) => {
@@ -221,7 +217,7 @@ export const useAuthCallback = ({
           throwOnError: hookOptions.throwOnError,
         }
 
-        await storeCredentials({ player, accessToken, refreshToken, ...options })
+        await storeCredentials({ userId, token, ...options })
         removeParams()
       }
     })()

@@ -1,7 +1,6 @@
 export {
   AccountTypeEnum,
   AuthInitPayload,
-  AuthPlayerResponse,
   AuthResponse,
   EmbeddedAccount,
   OpenfortEventMap,
@@ -10,6 +9,7 @@ export {
   RecoveryMethod,
   RecoveryParams,
   SignedMessagePayload,
+  User,
 } from '@openfort/openfort-js'
 export { default as Avatar } from './components/Common/Avatar'
 export { default as ChainIcon } from './components/Common/Chain'
@@ -54,7 +54,7 @@ export type {
 export {
   OAuthProvider,
   OpenfortError,
-  OpenfortErrorType,
+  OpenfortReactErrorType as OpenfortErrorType,
   SDKOverrides,
   ThirdPartyOAuthProvider,
 } from './types'

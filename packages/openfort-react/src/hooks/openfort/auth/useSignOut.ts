@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
 import { type BaseFlowState, mapStatus } from './status'
 
@@ -84,7 +84,7 @@ export function useSignOut(hookOptions: OpenfortHookOptions = {}) {
           data: {},
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to sign out', OpenfortErrorType.AUTHENTICATION_ERROR, { error: e })
+        const error = new OpenfortError('Failed to sign out', OpenfortReactErrorType.AUTHENTICATION_ERROR, { error: e })
         setStatus({
           status: 'error',
           error,

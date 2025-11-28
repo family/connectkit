@@ -1,7 +1,7 @@
-import type { OAuthProvider, AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
+import type { OAuthProvider, User } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
 import { useUI } from '../useUI'
 import type { UserWallet } from '../useWallets'
@@ -21,14 +21,13 @@ type InitOAuthReturnType = {
 
 export type StoreCredentialsResult = {
   // type: "storeCredentials";
-  user?: OpenfortUser
+  user?: User
   wallet?: UserWallet
   error?: OpenfortError
 }
 type StoreCredentialsOptions = {
-  player: string
-  accessToken: string
-  refreshToken: string
+  userId: string
+  token: string
 } & OpenfortHookOptions<StoreCredentialsResult> &
   CreateWalletPostAuthOptions
 
@@ -121,21 +120,15 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
   const { tryUseWallet } = useConnectToWalletPostAuth()
 
   const storeCredentials = useCallback(
-    async ({
-      player,
-      accessToken,
-      refreshToken,
-      ...options
-    }: StoreCredentialsOptions): Promise<StoreCredentialsResult> => {
+    async ({ userId, token, ...options }: StoreCredentialsOptions): Promise<StoreCredentialsResult> => {
       setStatus({
         status: 'loading',
       })
 
       try {
         await client.auth.storeCredentials({
-          player,
-          accessToken,
-          refreshToken,
+          userId,
+          token,
         })
         setStatus({
           status: 'success',
@@ -154,7 +147,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
           options,
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to store credentials', OpenfortErrorType.AUTHENTICATION_ERROR, {
+        const error = new OpenfortError('Failed to store credentials', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
           error: e,
         })
 
@@ -184,13 +177,11 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
 
         await client.auth.initOAuth({
           provider: authProvider,
-          options: {
-            redirectTo: buildCallbackUrl({
-              provider: authProvider,
-              callbackUrl: hookOptions?.redirectTo ?? options?.redirectTo,
-              isOpen,
-            }),
-          },
+          redirectTo: buildCallbackUrl({
+            provider: authProvider,
+            callbackUrl: hookOptions?.redirectTo ?? options?.redirectTo,
+            isOpen,
+          }),
         })
 
         return onSuccess<InitOAuthReturnType>({
@@ -199,7 +190,7 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
           options,
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to login with OAuth', OpenfortErrorType.AUTHENTICATION_ERROR, {
+        const error = new OpenfortError('Failed to login with OAuth', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
           error: e,
         })
 
@@ -230,11 +221,10 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
         const authToken = await client.getAccessToken()
 
         if (!authToken) {
-          throw new OpenfortError('No auth token found', OpenfortErrorType.AUTHENTICATION_ERROR)
+          throw new OpenfortError('No auth token found', OpenfortReactErrorType.AUTHENTICATION_ERROR)
         }
 
         await client.auth.initLinkOAuth({
-          authToken,
           provider: authProvider,
           options: {
             redirectTo: buildCallbackUrl({
@@ -251,7 +241,9 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
           options,
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to link OAuth', OpenfortErrorType.AUTHENTICATION_ERROR, { error: e })
+        const error = new OpenfortError('Failed to link OAuth', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
+          error: e,
+        })
 
         setStatus({
           status: 'error',

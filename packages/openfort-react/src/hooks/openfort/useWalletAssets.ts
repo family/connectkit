@@ -5,7 +5,7 @@ import { erc7811Actions } from 'viem/experimental'
 import { useAccount, useChainId, useWalletClient } from 'wagmi'
 import type { Asset } from '../../components/Openfort/types'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, type OpenfortWalletConfig } from '../../types'
+import { OpenfortError, OpenfortReactErrorType, type OpenfortWalletConfig } from '../../types'
 
 type WalletAssetsHookOptions = {
   assets?: OpenfortWalletConfig['assets']
@@ -29,7 +29,7 @@ export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }:
     queryKey: ['wallet-assets', chainId, customAssetsToFetch, address],
     queryFn: async () => {
       if (!walletClient) {
-        throw new OpenfortError('No wallet client available', OpenfortErrorType.UNEXPECTED_ERROR, {
+        throw new OpenfortError('No wallet client available', OpenfortReactErrorType.UNEXPECTED_ERROR, {
           error: new Error('Wallet client not initialized'),
         })
       }
@@ -88,7 +88,7 @@ export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }:
             raw: a,
           }
         } else {
-          throw new OpenfortError('Unsupported asset type', OpenfortErrorType.UNEXPECTED_ERROR, { asset: a })
+          throw new OpenfortError('Unsupported asset type', OpenfortReactErrorType.UNEXPECTED_ERROR, { asset: a })
         }
         return asset
       })
@@ -135,7 +135,7 @@ export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }:
       return error
     }
 
-    return new OpenfortError('Failed to fetch wallet assets', OpenfortErrorType.UNEXPECTED_ERROR, { error })
+    return new OpenfortError('Failed to fetch wallet assets', OpenfortReactErrorType.UNEXPECTED_ERROR, { error })
   }, [error])
 
   return {
