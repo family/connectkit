@@ -174,12 +174,12 @@ const ConnectWithInjector: React.FC<{
             onError: (error, errorType) => {
               logger.error(error)
               disconnect()
-              // OTP_TODO: Handle siwe error properly
-              if (errorType) {
-                setStatus(states.DUPLICATED)
-              } else {
-                setStatus(states.FAILED)
-              }
+              // TODO: TMP FIX: Handle siwe error properly
+              // if (errorType) {
+              //   setStatus(states.DUPLICATED)
+              // } else {
+              setStatus(states.FAILED)
+              // }
             },
             onConnect: () => {
               onConnect()

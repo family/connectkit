@@ -25,7 +25,7 @@ const ConnectWithOAuth: React.FC = () => {
     ;(async () => {
       if (connector.type !== 'oauth') throw new Error('Invalid connector type')
 
-      const url = new URL(window.location.href)
+      const url = new URL(window.location.href.replace('?access_token=', '&access_token=')) // handle both ? and & cases
       const hasProvider = !!url.searchParams.get('openfortAuthProviderUI')
       const provider = connector.id
 
@@ -37,7 +37,6 @@ const ConnectWithOAuth: React.FC = () => {
         case states.CONNECTING: {
           const userId = url.searchParams.get('user_id')
           const token = url.searchParams.get('access_token')
-          // OTP_TODO: verify if this is correct
 
           // Remove specified keys from the URL
           ;['openfortAuthProviderUI', 'access_token', 'user_id'].forEach((key) => {
@@ -90,16 +89,9 @@ const ConnectWithOAuth: React.FC = () => {
               logger.log(linkResponse)
               window.location.href = linkResponse
             } else {
-              // OTP_TODO: initiate OAuth login flow
               const r = await client.auth.initOAuth({
                 provider,
-                redirectTo: `${cleanURL}?${new URLSearchParams({
-                  ...queryParams,
-                }).toString()}`,
-                // options: {
-                //   redirectTo: cleanURL,
-                //   queryParams,
-                // },
+                redirectTo: `${cleanURL}?${new URLSearchParams(queryParams).toString()}`,
               })
               logger.log(r)
               window.location.href = r

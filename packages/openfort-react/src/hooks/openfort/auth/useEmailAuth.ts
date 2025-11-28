@@ -47,6 +47,7 @@ type ResetPasswordOptions = {
 type LinkEmailOptions = {
   email: string
   password: string
+  name?: string
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult>
 
@@ -405,31 +406,17 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         const result = await client.auth.signUpWithEmailPassword({
           email: options.email,
           password: options.password,
+          callbackURL: buildCallbackUrl({
+            email: options.email,
+            callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
+            provider: 'email',
+            isOpen,
+          }),
           ...(options.name && { name: options.name }),
         })
 
-        if ('action' in result) {
-          setStatus({
-            status: 'awaiting-input',
-          })
-
-          client.auth.requestEmailVerification({
-            email: options.email,
-            redirectUrl: buildCallbackUrl({
-              email: options.email,
-              callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
-              provider: 'email',
-              isOpen,
-            }),
-          })
-
-          setRequiresEmailVerification(true)
-          return onSuccess<EmailAuthResult>({
-            data: { requiresEmailVerification: true },
-            hookOptions,
-            options,
-          })
-        } else {
+        // TODO: TMP FIX
+        if ('token' in result && result.token !== null) {
           const { wallet } = await tryUseWallet({
             logoutOnError: options.logoutOnError ?? hookOptions.logoutOnError,
             recoverWalletAutomatically: options.recoverWalletAutomatically ?? hookOptions.recoverWalletAutomatically,
@@ -443,6 +430,17 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
 
           return onSuccess<EmailAuthResult>({
             data: { user, wallet },
+            hookOptions,
+            options,
+          })
+        } else {
+          setStatus({
+            status: 'awaiting-input',
+          })
+
+          setRequiresEmailVerification(true)
+          return onSuccess<EmailAuthResult>({
+            data: { requiresEmailVerification: true },
             hookOptions,
             options,
           })
@@ -501,8 +499,8 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         }
 
         const result = await client.auth.linkEmailPassword({
+          name: options.name || '',
           email: options.email,
-          name: '',
           password: options.password,
         })
         logger.log('Email linked successfully')

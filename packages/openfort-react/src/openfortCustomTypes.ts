@@ -7,4 +7,4 @@ export interface UserAccountResponse {
   scopes: string[]
   [key: string]: any
 }
-// OTP_TODO: Export from openfort-js: RecoveryMethod enum
+// TODO: TMP FIX

@@ -1,17 +1,15 @@
-import { useMemo } from 'react'
-import { EmailIcon, WalletIcon as Wallet } from '../../../assets/icons'
-import Logos, { providersLogos } from '../../../assets/logos'
+import { EmailIcon } from '../../../assets/icons'
+import { providersLogos } from '../../../assets/logos'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import type { UserAccountResponse } from '../../../openfortCustomTypes'
-import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviderContainer, LinkedProvidersGroupWrapper, LinkedProviderText, ProviderIconWrapper } from './styles'
+import { LinkedProviderContainer, LinkedProvidersGroupWrapper, ProviderIconWrapper } from './styles'
 
 type LinkedProvidersProps = {
   showHeader?: boolean

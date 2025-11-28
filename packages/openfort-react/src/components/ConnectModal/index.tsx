@@ -165,12 +165,12 @@ const ConnectModal: React.FC<{
 
   // if auth redirect
   useEffect(() => {
-    const url = new URL(window.location.href)
+    const url = new URL(window.location.href.replace('?access_token=', '&access_token=')) // handle both ? and & cases
     const provider = url.searchParams.get('openfortAuthProviderUI')
     const emailVerification = url.searchParams.get('openfortEmailVerificationUI')
     const forgotPassword = url.searchParams.get('openfortForgotPasswordUI')
 
-    logger.log('Checking for search parameters', url)
+    logger.log('Checking for search parameters', { url, provider, emailVerification, forgotPassword })
 
     if (emailVerification) {
       context.setOpen(true)
