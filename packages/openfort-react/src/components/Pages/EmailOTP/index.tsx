@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { EmailIcon } from '../../../assets/icons'
 import { useEmailOtpAuth } from '../../../hooks/openfort/auth/useEmailOtpAuth'
 import { logger } from '../../../utils/logger'
@@ -14,6 +14,12 @@ import { Body, FooterButtonText, FooterTextButton, ResultContainer } from './sty
 
 // TODO: Localize
 
+type Status = 'idle' | 'error' | 'success' | 'loading' | 'send-otp' | 'sending-otp'
+
+const RESEND_COOLDOWN_MS = 10000
+const SUCCESS_REDIRECT_DELAY_MS = 2000
+const ERROR_DISPLAY_DURATION_MS = 2000
+
 const EmailOTP: React.FC = () => {
   const { emailInput: email, previousRoute, setRoute, setEmailInput } = useOpenfort()
   const { isLoading, requestEmailOtp, logInWithEmailOtp } = useEmailOtpAuth({
@@ -26,77 +32,100 @@ const EmailOTP: React.FC = () => {
   }, [previousRoute])
 
   const [canSendOtp, setCanSendOtp] = useState(true)
-  const [status, setStatus] = useState<'idle' | 'error' | 'success' | 'loading' | 'send-otp' | 'sending-otp'>('idle')
+  const [status, setStatus] = useState<Status>('idle')
 
-  const handleComplete = async (otp: string) => {
-    logger.log('OTP entered:', otp)
-    setStatus('loading')
+  // Single ref to track if initial OTP request has been made
+  const hasRequestedInitialOtpRef = useRef(false)
 
-    const { error } = await logInWithEmailOtp({ email, otp })
+  // Memoize the OTP request function to prevent unnecessary recreations
+  const sendOtpRequest = useCallback(async () => {
+    const { error } = await requestEmailOtp({ email })
 
     if (error) {
       setStatus('error')
     } else {
-      setStatus('success')
+      setStatus('idle')
     }
-  }
+  }, [email, requestEmailOtp])
 
-  const [shouldRequestOtp, setShouldRequestOtp] = useState(true)
-  const hasRequestedRef = useRef(false)
-
+  // Initial OTP request on mount
   useEffect(() => {
-    if (!shouldRequestOtp || hasRequestedRef.current) return
-    hasRequestedRef.current = true
+    if (hasRequestedInitialOtpRef.current) return
+    hasRequestedInitialOtpRef.current = true
 
-    const run = async () => {
-      const { error } = await requestEmailOtp({ email })
+    sendOtpRequest()
+  }, [sendOtpRequest])
 
-      if (error) setStatus('error')
-      else {
-        setStatus('idle')
+  // Handle OTP completion
+  const handleComplete = useCallback(
+    async (otp: string) => {
+      logger.log('OTP entered:', otp)
+      setStatus('loading')
+
+      const { error } = await logInWithEmailOtp({ email, otp })
+
+      if (error) {
+        setStatus('error')
+      } else {
+        setStatus('success')
       }
+    },
+    [email, logInWithEmailOtp]
+  )
 
-      setShouldRequestOtp(false)
-    }
-
-    run()
-  }, [shouldRequestOtp, email])
-
+  // Handle status changes and side effects
   useEffect(() => {
-    if (status === 'send-otp') {
-      setStatus('sending-otp')
-      setShouldRequestOtp(true)
-      hasRequestedRef.current = false
-    }
-    if (status === 'success') {
-      setTimeout(() => {
-        setEmailInput('')
-        setRoute(routes.LOAD_WALLETS)
-      }, 2000)
-    }
-    if (status === 'error') {
-      const timer = setTimeout(() => {
-        setStatus('idle')
-      }, 2000)
-      return () => clearTimeout(timer)
-    }
-  }, [status])
+    let timeoutId: NodeJS.Timeout | undefined
 
-  const sendButtonText = () => {
+    switch (status) {
+      case 'send-otp':
+        setStatus('sending-otp')
+        sendOtpRequest()
+        break
+
+      case 'success':
+        timeoutId = setTimeout(() => {
+          setEmailInput('')
+          setRoute(routes.LOAD_WALLETS)
+        }, SUCCESS_REDIRECT_DELAY_MS)
+        break
+
+      case 'error':
+        timeoutId = setTimeout(() => {
+          setStatus('idle')
+        }, ERROR_DISPLAY_DURATION_MS)
+        break
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [status, sendOtpRequest, setEmailInput, setRoute])
+
+  // Handle resend cooldown
+  useEffect(() => {
+    if (canSendOtp) return
+
+    const timerId = setTimeout(() => {
+      setCanSendOtp(true)
+    }, RESEND_COOLDOWN_MS)
+
+    return () => clearTimeout(timerId)
+  }, [canSendOtp])
+
+  // Memoize button text to avoid recalculation
+  const sendButtonText = useMemo(() => {
     if (!canSendOtp) return 'Code Sent!'
     if (status === 'sending-otp') return 'Sending...'
-    if (status === 'send-otp') return 'Resend Code'
     return 'Resend Code'
-  }
+  }, [canSendOtp, status])
 
-  useEffect(() => {
-    if (!canSendOtp) {
-      const timer = setTimeout(() => {
-        setCanSendOtp(true)
-      }, 10000)
-      return () => clearTimeout(timer)
-    }
-  }, [canSendOtp])
+  const handleResendClick = useCallback(() => {
+    setStatus('send-otp')
+    setCanSendOtp(false)
+  }, [])
+
+  const isResendDisabled = !canSendOtp || status === 'sending-otp' || status === 'send-otp'
 
   return (
     <PageContent onBack={onBack}>
@@ -126,15 +155,8 @@ const EmailOTP: React.FC = () => {
         </ResultContainer>
         <FooterTextButton>
           Didn't receive the code?{' '}
-          <FooterButtonText
-            type="button"
-            onClick={() => {
-              setStatus('send-otp')
-              setCanSendOtp(false)
-            }}
-            disabled={!canSendOtp || status === 'sending-otp' || status === 'send-otp'}
-          >
-            {sendButtonText()}
+          <FooterButtonText type="button" onClick={handleResendClick} disabled={isResendDisabled}>
+            {sendButtonText}
           </FooterButtonText>
         </FooterTextButton>
       </ModalBody>

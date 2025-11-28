@@ -2,32 +2,31 @@ import type { User } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../../types'
-import { isValidEmail } from '../../../utils/validation'
 import { onError, onSuccess } from '../hookConsistency'
 import type { UserWallet } from '../useWallets'
 import { type BaseFlowState, mapStatus } from './status'
 import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './useConnectToWalletPostAuth'
 
-type EmailOtpAuthResult = {
+type PhoneAuthResult = {
   error?: OpenfortError
   user?: User
   wallet?: UserWallet
 }
 
-type LoginWithEmailOtpOptions = {
-  email: string
+type LoginWithPhoneOtpOptions = {
+  phoneNumber: string
   otp: string
-} & OpenfortHookOptions<EmailOtpAuthResult> &
+} & OpenfortHookOptions<PhoneAuthResult> &
   CreateWalletPostAuthOptions
 
-type RequestEmailOtpOptions = {
-  email: string
-} & OpenfortHookOptions<EmailOtpAuthResult> &
+type RequestPhoneOtpOptions = {
+  phoneNumber: string
+} & OpenfortHookOptions<PhoneAuthResult> &
   CreateWalletPostAuthOptions
 
-type UseEmailOtpHookOptions = OpenfortHookOptions<EmailOtpAuthResult> & CreateWalletPostAuthOptions
+type UsePhoneHookOptions = OpenfortHookOptions<PhoneAuthResult> & CreateWalletPostAuthOptions
 
-export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = {}) => {
+export const usePhoneOtpAuth = (hookOptions: UsePhoneHookOptions = {}) => {
   const { client, updateUser } = useOpenfortCore()
   const [status, setStatus] = useState<BaseFlowState | { status: 'requesting' }>({
     status: 'idle',
@@ -40,41 +39,28 @@ export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = {}) => {
 
   const { tryUseWallet } = useConnectToWalletPostAuth()
 
-  const logInWithEmailOtp = useCallback(
-    async (options: LoginWithEmailOtpOptions): Promise<EmailOtpAuthResult> => {
+  const logInWithPhoneOtp = useCallback(
+    async (options: LoginWithPhoneOtpOptions): Promise<PhoneAuthResult> => {
       try {
         setStatus({
           status: 'loading',
         })
 
-        if (!options.email || !options.otp) {
-          const error = new OpenfortError('Email and OTP are required', OpenfortReactErrorType.VALIDATION_ERROR)
+        if (!options.phoneNumber || !options.otp) {
+          const error = new OpenfortError('Phone and OTP are required', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
           })
-          return onError<EmailOtpAuthResult>({
+          return onError<PhoneAuthResult>({
             hookOptions,
             options,
             error,
           })
         }
 
-        if (!isValidEmail(options.email)) {
-          const error = new OpenfortError('Invalid email', OpenfortReactErrorType.VALIDATION_ERROR)
-          setStatus({
-            status: 'error',
-            error,
-          })
-          return onError<EmailOtpAuthResult>({
-            hookOptions,
-            options,
-            error,
-          })
-        }
-
-        const result = await client.auth.logInWithEmailOtp({
-          email: options.email,
+        const result = await client.auth.logInWithPhoneOtp({
+          phoneNumber: options.phoneNumber,
           otp: options.otp,
         })
 
@@ -90,13 +76,13 @@ export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = {}) => {
 
         await updateUser()
 
-        return onSuccess<EmailOtpAuthResult>({
+        return onSuccess<PhoneAuthResult>({
           data: { user, wallet },
           hookOptions,
           options,
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to login with email OTP', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
+        const error = new OpenfortError('Failed to login with phone OTP', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
           error: e,
         })
 
@@ -115,53 +101,40 @@ export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = {}) => {
     [client, setStatus, updateUser, hookOptions]
   )
 
-  const requestEmailOtp = useCallback(
-    async (options: RequestEmailOtpOptions): Promise<EmailOtpAuthResult> => {
+  const requestPhoneOtp = useCallback(
+    async (options: RequestPhoneOtpOptions): Promise<PhoneAuthResult> => {
       try {
         setStatus({
           status: 'requesting',
         })
 
-        if (!options.email) {
-          const error = new OpenfortError('Email is required', OpenfortReactErrorType.VALIDATION_ERROR)
+        if (!options.phoneNumber) {
+          const error = new OpenfortError('Phone number is required', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
           })
-          return onError<EmailOtpAuthResult>({
+          return onError<PhoneAuthResult>({
             hookOptions,
             options,
             error,
           })
         }
 
-        if (!isValidEmail(options.email)) {
-          const error = new OpenfortError('Invalid email', OpenfortReactErrorType.VALIDATION_ERROR)
-          setStatus({
-            status: 'error',
-            error,
-          })
-          return onError<EmailOtpAuthResult>({
-            hookOptions,
-            options,
-            error,
-          })
-        }
-
-        await client.auth.requestEmailOtp({
-          email: options.email,
+        await client.auth.requestPhoneOtp({
+          phoneNumber: options.phoneNumber,
         })
 
         setStatus({
           status: 'idle',
         })
-        return onSuccess<EmailOtpAuthResult>({
+        return onSuccess<PhoneAuthResult>({
           data: {},
           hookOptions,
           options,
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to request email OTP', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
+        const error = new OpenfortError('Failed to request phone OTP', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
           error: e,
         })
 
@@ -181,8 +154,8 @@ export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = {}) => {
   )
 
   return {
-    logInWithEmailOtp,
-    requestEmailOtp,
+    logInWithPhoneOtp,
+    requestPhoneOtp,
 
     reset,
     isRequesting: status.status === 'requesting',

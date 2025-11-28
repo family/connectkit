@@ -1,5 +1,7 @@
-import React, { useEffect, useMemo } from 'react'
+import type React from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { PhoneIcon } from '../../../assets/icons'
+import { usePhoneOtpAuth } from '../../../hooks/openfort/auth/usePhoneOtpAuth'
 import { logger } from '../../../utils/logger'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { OtpInputStandalone } from '../../Common/OTPInput'
@@ -7,90 +9,121 @@ import PoweredByFooter from '../../Common/PoweredByFooter'
 import { FloatingGraphic } from '../../FloatingGraphic'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
-import { PageContent, type SetOnBackFunction } from '../../PageContent'
+import { PageContent } from '../../PageContent'
 import { Body, FooterButtonText, FooterTextButton, ResultContainer } from './styles'
 
 // TODO: Localize
 
+type Status = 'idle' | 'error' | 'success' | 'loading' | 'send-otp' | 'sending-otp'
+
+const RESEND_COOLDOWN_MS = 10000
+const SUCCESS_REDIRECT_DELAY_MS = 2000
+const ERROR_DISPLAY_DURATION_MS = 2000
+
 const PhoneOTP: React.FC = () => {
-  const { phoneInput: phone, previousRoute, setPhoneInput, setRoute } = useOpenfort()
+  const { phoneInput: phone, setPhoneInput, setRoute } = useOpenfort()
+  const { isLoading, requestPhoneOtp, logInWithPhoneOtp } = usePhoneOtpAuth({
+    recoverWalletAutomatically: false,
+  })
 
-  const onBack = useMemo<SetOnBackFunction>(() => {
-    if (previousRoute?.route === routes.EMAIL_VERIFICATION) return routes.PROVIDERS
-    return 'back'
-  }, [previousRoute])
+  const [canSendOtp, setCanSendOtp] = useState(true)
+  const [status, setStatus] = useState<Status>('idle')
 
-  const [sendOTPRequested, setSendOTPRequested] = React.useState(false)
-  const [status, setStatus] = React.useState<
-    'idle' | 'error' | 'success' | 'loading' | 'send-otp' | 'sending-otp' | 'initial'
-  >('initial')
+  // Single ref to track if initial OTP request has been made
+  const hasRequestedInitialOtpRef = useRef(false)
 
-  const handleComplete = (otp: string) => {
-    logger.log('OTP entered:', otp)
-    setStatus('loading')
+  // Memoize the OTP request function to prevent unnecessary recreations
+  const sendOtpRequest = useCallback(async () => {
+    const { error } = await requestPhoneOtp({ phoneNumber: phone })
 
-    // TODO: Replace with real verification logic
-    // ---- Simulate OTP verification ----
-    setTimeout(() => {
-      if (otp === '123456') {
-        setStatus('success')
-      } else {
+    if (error) {
+      setStatus('error')
+    } else {
+      setStatus('idle')
+    }
+  }, [phone, requestPhoneOtp])
+
+  // Initial OTP request on mount
+  useEffect(() => {
+    if (hasRequestedInitialOtpRef.current) return
+    hasRequestedInitialOtpRef.current = true
+
+    sendOtpRequest()
+  }, [sendOtpRequest])
+
+  // Handle OTP completion
+  const handleComplete = useCallback(
+    async (otp: string) => {
+      logger.log('OTP entered:', otp)
+      setStatus('loading')
+
+      const { error } = await logInWithPhoneOtp({ phoneNumber: phone, otp })
+
+      if (error) {
         setStatus('error')
+      } else {
+        setStatus('success')
       }
-    }, 1000)
-    // ----------------------------------
-  }
+    },
+    [phone, logInWithPhoneOtp]
+  )
 
+  // Handle status changes and side effects
   useEffect(() => {
-    if (status === 'initial') {
-      // Simulate initial OTP send
-      // console.log('Sending initial OTP to', email)
-      setTimeout(() => {
-        setStatus('idle')
-      }, 1500)
-    }
-    if (status === 'send-otp') {
-      // TODO: Trigger resend OTP logic here
-      // console.log('Sending OTP to', email)
-      setStatus('sending-otp')
-      setTimeout(() => {
-        setSendOTPRequested(true)
-        setStatus('idle')
-      }, 1500)
-    }
-    if (status === 'success') {
-      setTimeout(() => {
-        setPhoneInput('')
-        // TODO: Replace with real next step
-        setRoute(routes.CREATE_GUEST_USER)
-      }, 2000)
-    }
-    if (status === 'error') {
-      const timer = setTimeout(() => {
-        setStatus('idle')
-      }, 2000)
-      return () => clearTimeout(timer)
-    }
-  }, [status])
+    let timeoutId: NodeJS.Timeout | undefined
 
-  const sendButtonText = () => {
-    if (sendOTPRequested) return 'Code Sent!'
+    switch (status) {
+      case 'send-otp':
+        setStatus('sending-otp')
+        sendOtpRequest()
+        break
+
+      case 'success':
+        timeoutId = setTimeout(() => {
+          setPhoneInput('')
+          setRoute(routes.LOAD_WALLETS)
+        }, SUCCESS_REDIRECT_DELAY_MS)
+        break
+
+      case 'error':
+        timeoutId = setTimeout(() => {
+          setStatus('idle')
+        }, ERROR_DISPLAY_DURATION_MS)
+        break
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [status, sendOtpRequest, setPhoneInput, setRoute])
+
+  // Handle resend cooldown
+  useEffect(() => {
+    if (canSendOtp) return
+
+    const timerId = setTimeout(() => {
+      setCanSendOtp(true)
+    }, RESEND_COOLDOWN_MS)
+
+    return () => clearTimeout(timerId)
+  }, [canSendOtp])
+
+  // Memoize button text to avoid recalculation
+  const sendButtonText = useMemo(() => {
+    if (!canSendOtp) return 'Code Sent!'
     if (status === 'sending-otp') return 'Sending...'
-    if (status === 'send-otp') return 'Resend Code'
     return 'Resend Code'
-  }
+  }, [canSendOtp, status])
 
-  useEffect(() => {
-    if (sendOTPRequested) {
-      const timer = setTimeout(() => {
-        setSendOTPRequested(false)
-      }, 10000)
-      return () => clearTimeout(timer)
-    }
-  }, [sendOTPRequested])
+  const handleResendClick = useCallback(() => {
+    setStatus('send-otp')
+    setCanSendOtp(false)
+  }, [])
+
+  const isResendDisabled = !canSendOtp || status === 'sending-otp' || status === 'send-otp'
 
   return (
-    <PageContent onBack={onBack}>
+    <PageContent>
       <ModalHeading>Enter your code</ModalHeading>
 
       <FloatingGraphic
@@ -107,7 +140,7 @@ const PhoneOTP: React.FC = () => {
         </Body>
         <OtpInputStandalone
           onComplete={handleComplete}
-          isLoading={status === 'loading'}
+          isLoading={status === 'loading' || isLoading}
           isError={status === 'error'}
           isSuccess={status === 'success'}
         />
@@ -117,12 +150,8 @@ const PhoneOTP: React.FC = () => {
         </ResultContainer>
         <FooterTextButton>
           Didn't receive the code?{' '}
-          <FooterButtonText
-            type="button"
-            onClick={() => setStatus('send-otp')}
-            disabled={sendOTPRequested || status === 'sending-otp' || status === 'send-otp'}
-          >
-            {sendButtonText()}
+          <FooterButtonText type="button" onClick={handleResendClick} disabled={isResendDisabled}>
+            {sendButtonText}
           </FooterButtonText>
         </FooterTextButton>
       </ModalBody>
