@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
+import { numberToHex } from 'viem'
 import type { getAssets } from 'viem/_types/experimental/erc7811/actions/getAssets'
 import { erc7811Actions } from 'viem/experimental'
 import { useAccount, useChainId, useWalletClient } from 'wagmi'
@@ -42,12 +43,13 @@ export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }:
       })
 
       // Fetch custom ERC20 assets
+      const hexChainId = numberToHex(chainId)
       const customAssetsPromise =
         customAssetsToFetch.length > 0
           ? extendedClient.getAssets({
               chainIds: [chainId],
               assets: {
-                [chainId]: customAssetsToFetch.map((a) => ({
+                [hexChainId]: customAssetsToFetch.map((a) => ({
                   address: a,
                   type: 'erc20' as const,
                 })),
