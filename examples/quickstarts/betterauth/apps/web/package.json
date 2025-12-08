@@ -12,7 +12,7 @@
     "@heroicons/react": "^2.2.0",
     "@openfort/react": "latest",
     "@tanstack/react-query": "^5.90.2",
-    "better-auth": "^1.2.2",
+    "better-auth": "^1.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "viem": "2.38.4",
