@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.13
+
+### Patch Changes
+
+- [#140](https://github.com/openfort-xyz/openfort-react/pull/140) [`63834fb`](https://github.com/openfort-xyz/openfort-react/commit/63834fb03e1933ea93fae14d748180b27115db3b) Thanks [@jamalavedra](https://github.com/jamalavedra)! - fix localstorage debugger
+
+- [#141](https://github.com/openfort-xyz/openfort-react/pull/141) [`23ac165`](https://github.com/openfort-xyz/openfort-react/commit/23ac165943e9edfc632ac6a0ec423b6205fd6467) Thanks [@jamalavedra](https://github.com/jamalavedra)! - update core-js
+
+- [#134](https://github.com/openfort-xyz/openfort-react/pull/134) [`e4891d0`](https://github.com/openfort-xyz/openfort-react/commit/e4891d0a374afde892f9c86411df1f9ebf346078) Thanks [@Huguet57](https://github.com/Huguet57)! - fix: exclude chainId parameter when creating EOA accounts
+
 ## 0.1.12
 
 ### Patch Changes
