@@ -703,8 +703,8 @@ importers:
   packages/openfort-react:
     dependencies:
       '@openfort/openfort-js':
-        specifier: ^0.10.35
-        version: 0.10.35(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^0.10.37
+        version: 0.10.37(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@tanstack/react-query':
         specifier: '>=5.0.0'
         version: 5.90.5(react@18.3.1)
@@ -1986,11 +1986,11 @@ packages:
       better-auth: ^1.3.9
       zod: ^3.24.2 || ^4
 
-  '@openfort/openfort-js@0.10.35':
-    resolution: {integrity: sha512-UGqPCTW1l9s1UAxRarC3YtVoIbzE8GJTpeeYg/YdwqXs0MMUbzy0h/HkeIUCF5MuIpQxpaxFNGXVXchbmyQjsw==}
-
   '@openfort/openfort-js@0.10.36':
     resolution: {integrity: sha512-3Pkkmc/JTaw+v1CHzkgHTnjJrqRRE1H8njIX0pckMWPukdQ7cj7RayUlkOQCu+Ko5sjfvQdukPiWBD+N/+i3Vw==}
+
+  '@openfort/openfort-js@0.10.37':
+    resolution: {integrity: sha512-yP9dMwNDLKIeF6BXCNwxPqfkQ9mCtkulc5ERM8LGuBa6lq6W/xcoRehyyS46CiSbhd7led6HZLzLe7MXkd6oyw==}
 
   '@openfort/openfort-node@0.6.75':
     resolution: {integrity: sha512-AWv8LMcDhsf7DJByfvub7avgS+vs9L37NlrMBINjLTCmPI/IOVEfS8CR9IV1DtYNqPxC1xAOXBrofcGgCm/E4w==}
@@ -2668,48 +2668,24 @@ packages:
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
-  '@sentry-internal/browser-utils@9.46.0':
-    resolution: {integrity: sha512-Q0CeHym9wysku8mYkORXmhtlBE0IrafAI+NiPSqxOBKXGOCWKVCvowHuAF56GwPFic2rSrRnub5fWYv7T1jfEQ==}
-    engines: {node: '>=18'}
-
   '@sentry-internal/browser-utils@9.47.1':
     resolution: {integrity: sha512-twv6YhrUlPkvKz4/iQDH4KHgcv9t4cMjmZPf4/dCSCXn4/GOjzjx2d74c1w+1KOdS7lcsQzI+MtbK6SeYLiGfQ==}
-    engines: {node: '>=18'}
-
-  '@sentry-internal/feedback@9.46.0':
-    resolution: {integrity: sha512-KLRy3OolDkGdPItQ3obtBU2RqDt9+KE8z7r7Gsu7c6A6A89m8ZVlrxee3hPQt6qp0YY0P8WazpedU3DYTtaT8w==}
     engines: {node: '>=18'}
 
   '@sentry-internal/feedback@9.47.1':
     resolution: {integrity: sha512-xJ4vKvIpAT8e+Sz80YrsNinPU0XV7jPxPjdZ4ex8R2mMvx7pM0gq8JiR/sIVmNiOE0WiUDr6VwLDE8j2APSRMA==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/replay-canvas@9.46.0':
-    resolution: {integrity: sha512-QcBjrdRWFJrrrjbmrr2bbrp2R9RYj1KMEbhHNT2Lm1XplIQw+tULEKOHxNtkUFSLR1RNje7JQbxhzM1j95FxVQ==}
-    engines: {node: '>=18'}
-
   '@sentry-internal/replay-canvas@9.47.1':
     resolution: {integrity: sha512-r9nve+l5+elGB9NXSN1+PUgJy790tXN1e8lZNH2ziveoU91jW4yYYt34mHZ30fU9tOz58OpaRMj3H3GJ/jYZVA==}
-    engines: {node: '>=18'}
-
-  '@sentry-internal/replay@9.46.0':
-    resolution: {integrity: sha512-+8JUblxSSnN0FXcmOewbN+wIc1dt6/zaSeAvt2xshrfrLooVullcGsuLAiPhY0d/e++Fk06q1SAl9g4V0V13gg==}
     engines: {node: '>=18'}
 
   '@sentry-internal/replay@9.47.1':
     resolution: {integrity: sha512-O9ZEfySpstGtX1f73m3NbdbS2utwPikaFt6sgp74RG4ZX4LlXe99VAjKR464xKECpYsLmj2bYpiK4opURF0pBA==}
     engines: {node: '>=18'}
 
-  '@sentry/browser@9.46.0':
-    resolution: {integrity: sha512-NOnCTQCM0NFuwbyt4DYWDNO2zOTj1mCf43hJqGDFb1XM9F++7zAmSNnCx4UrEoBTiFOy40McJwBBk9D1blSktA==}
-    engines: {node: '>=18'}
-
   '@sentry/browser@9.47.1':
     resolution: {integrity: sha512-at5JOLziw5QpVYytxTDU6xijdV6lDQ/Rxp/qXJaHXud3gIK4suv2cXW+tupJfwoUoHFCnDNfccjCmPmP0yRqiA==}
-    engines: {node: '>=18'}
-
-  '@sentry/core@9.46.0':
-    resolution: {integrity: sha512-it7JMFqxVproAgEtbLgCVBYtQ9fIb+Bu0JD+cEplTN/Ukpe6GaolyYib5geZqslVxhp2sQgT+58aGvfd/k0N8Q==}
     engines: {node: '>=18'}
 
   '@sentry/core@9.47.1':
@@ -8470,7 +8446,7 @@ snapshots:
       better-auth: 1.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       zod: 4.1.12
 
-  '@openfort/openfort-js@0.10.35(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@openfort/openfort-js@0.10.36(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/abi': 5.8.0
       '@ethersproject/bytes': 5.8.0
@@ -8478,20 +8454,20 @@ snapshots:
       '@ethersproject/keccak256': 5.8.0
       '@ethersproject/providers': 5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@ethersproject/transactions': 5.8.0
-      '@openfort/shield-js': 0.1.29
-      '@sentry/browser': 9.46.0
-      '@sentry/core': 9.46.0
+      '@openfort/shield-js': 0.1.32
+      '@sentry/browser': 9.47.1
+      '@sentry/core': 9.47.1
       axios: 1.12.2
       axios-retry: 4.5.0(axios@1.12.2)
       eventemitter3: 5.0.1
-      human-id: 4.1.2
+      human-id: 4.1.3
       jose: 5.10.0
     transitivePeerDependencies:
       - bufferutil
       - debug
       - utf-8-validate
 
-  '@openfort/openfort-js@0.10.36(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@openfort/openfort-js@0.10.37(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/abi': 5.8.0
       '@ethersproject/bytes': 5.8.0
@@ -9336,49 +9312,23 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@sentry-internal/browser-utils@9.46.0':
-    dependencies:
-      '@sentry/core': 9.46.0
-
   '@sentry-internal/browser-utils@9.47.1':
     dependencies:
       '@sentry/core': 9.47.1
 
-  '@sentry-internal/feedback@9.46.0':
-    dependencies:
-      '@sentry/core': 9.46.0
-
   '@sentry-internal/feedback@9.47.1':
     dependencies:
       '@sentry/core': 9.47.1
-
-  '@sentry-internal/replay-canvas@9.46.0':
-    dependencies:
-      '@sentry-internal/replay': 9.46.0
-      '@sentry/core': 9.46.0
 
   '@sentry-internal/replay-canvas@9.47.1':
     dependencies:
       '@sentry-internal/replay': 9.47.1
       '@sentry/core': 9.47.1
 
-  '@sentry-internal/replay@9.46.0':
-    dependencies:
-      '@sentry-internal/browser-utils': 9.46.0
-      '@sentry/core': 9.46.0
-
   '@sentry-internal/replay@9.47.1':
     dependencies:
       '@sentry-internal/browser-utils': 9.47.1
       '@sentry/core': 9.47.1
-
-  '@sentry/browser@9.46.0':
-    dependencies:
-      '@sentry-internal/browser-utils': 9.46.0
-      '@sentry-internal/feedback': 9.46.0
-      '@sentry-internal/replay': 9.46.0
-      '@sentry-internal/replay-canvas': 9.46.0
-      '@sentry/core': 9.46.0
 
   '@sentry/browser@9.47.1':
     dependencies:
@@ -9387,8 +9337,6 @@ snapshots:
       '@sentry-internal/replay': 9.47.1
       '@sentry-internal/replay-canvas': 9.47.1
       '@sentry/core': 9.47.1
-
-  '@sentry/core@9.46.0': {}
 
   '@sentry/core@9.47.1': {}
 
