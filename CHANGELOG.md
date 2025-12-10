@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.14
+
+### Patch Changes
+
+- [#142](https://github.com/openfort-xyz/openfort-react/pull/142) [`e0a691c`](https://github.com/openfort-xyz/openfort-react/commit/e0a691cf9ae3d0c13c8110414efa3c84964ff829) Thanks [@jamalavedra](https://github.com/jamalavedra)! - update deps
+
 ## 0.1.13
 
 ### Patch Changes
