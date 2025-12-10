@@ -703,8 +703,8 @@ importers:
   packages/openfort-react:
     dependencies:
       '@openfort/openfort-js':
-        specifier: ^0.10.37
-        version: 0.10.37(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^0.10.38
+        version: 0.10.38(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@tanstack/react-query':
         specifier: '>=5.0.0'
         version: 5.90.5(react@18.3.1)
@@ -1989,8 +1989,8 @@ packages:
   '@openfort/openfort-js@0.10.36':
     resolution: {integrity: sha512-3Pkkmc/JTaw+v1CHzkgHTnjJrqRRE1H8njIX0pckMWPukdQ7cj7RayUlkOQCu+Ko5sjfvQdukPiWBD+N/+i3Vw==}
 
-  '@openfort/openfort-js@0.10.37':
-    resolution: {integrity: sha512-yP9dMwNDLKIeF6BXCNwxPqfkQ9mCtkulc5ERM8LGuBa6lq6W/xcoRehyyS46CiSbhd7led6HZLzLe7MXkd6oyw==}
+  '@openfort/openfort-js@0.10.38':
+    resolution: {integrity: sha512-PHLqkwpAi9suapjCPeP3cpmAvy9Bif0SRJqAN6A39KDgSTNyoN/1cDg9rfBAV9inRTbNFEteKEjynqKvMNJtLg==}
 
   '@openfort/openfort-node@0.6.75':
     resolution: {integrity: sha512-AWv8LMcDhsf7DJByfvub7avgS+vs9L37NlrMBINjLTCmPI/IOVEfS8CR9IV1DtYNqPxC1xAOXBrofcGgCm/E4w==}
@@ -8306,7 +8306,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.6
       '@types/debug': 4.1.12
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.3.4
       pony-cause: 2.1.11
       semver: 7.7.3
       uuid: 9.0.1
@@ -8467,7 +8467,7 @@ snapshots:
       - debug
       - utf-8-validate
 
-  '@openfort/openfort-js@0.10.37(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@openfort/openfort-js@0.10.38(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/abi': 5.8.0
       '@ethersproject/bytes': 5.8.0
