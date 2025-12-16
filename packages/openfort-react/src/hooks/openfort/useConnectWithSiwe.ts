@@ -1,8 +1,8 @@
 import { OpenfortError } from '@openfort/openfort-js'
-import { signMessage, switchChain } from '@wagmi/core'
+import { switchChain } from '@wagmi/core'
 import { AxiosError } from 'axios'
 import { useCallback } from 'react'
-import { useAccount, useChainId, useConfig, usePublicClient } from 'wagmi'
+import { useAccount, useChainId, useConfig, usePublicClient, useSignMessage } from 'wagmi'
 import { useOpenfortCore } from '../../openfort/useOpenfort'
 import { createSIWEMessage } from '../../siwe/create-siwe-message'
 import { logger } from '../../utils/logger'
@@ -16,6 +16,7 @@ export function useConnectWithSiwe() {
   const chainId = useChainId()
   const config = useConfig()
   const publicClient = usePublicClient()
+  const { signMessageAsync } = useSignMessage()
 
   const connectWithSiwe = useCallback(
     async ({
@@ -23,11 +24,13 @@ export function useConnectWithSiwe() {
       onConnect,
       connectorType: propsConnectorType,
       walletClientType: propsWalletClientType,
+      link = !!user,
     }: {
       connectorType?: string
       walletClientType?: string
       onError?: (error: string, openfortError?: OpenfortError) => void
       onConnect?: () => void
+      link?: boolean
     } = {}) => {
       const connectorType = propsConnectorType ?? connector?.type
       const walletClientType = propsWalletClientType ?? connector?.id
@@ -45,29 +48,31 @@ export function useConnectWithSiwe() {
           })
         }
 
-        const { nonce } = await client.auth.initSIWE({ address })
+        let nonce: string
+        if (link) {
+          const resp = await client.auth.linkSIWE({ address, chainId })
+          nonce = resp.nonce
+        } else {
+          const resp = await client.auth.initSIWE({ address, chainId })
+          nonce = resp.nonce
+        }
 
         const SIWEMessage = createSIWEMessage(address, nonce, chainId)
 
-        const signature = await signMessage(config, { message: SIWEMessage })
+        const signature = await signMessageAsync({ message: SIWEMessage })
 
-        // if has user, we link the wallet
-        if (user) {
-          logger.log('User found, trying to lint wallet to user')
-          const authToken = await client.getAccessToken()
-          if (!authToken) throw new Error('No access token found')
-
-          logger.log('Linking wallet', { signature, message: SIWEMessage, connectorType, walletClientType, authToken })
+        if (link) {
+          logger.log('Linking wallet to user')
           await client.auth.linkWallet({
             signature,
             message: SIWEMessage,
             connectorType,
             walletClientType,
-
             address,
             chainId,
           })
         } else {
+          logger.log('Authenticating with SIWE')
           await client.auth.authenticateWithSIWE({
             signature,
             message: SIWEMessage,
