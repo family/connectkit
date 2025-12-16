@@ -701,9 +701,11 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
         const recoveryParams = await parseWalletRecovery(recovery)
 
+        const accountType = options?.accountType || walletConfig?.accountType || AccountTypeEnum.SMART_ACCOUNT
+
         const embeddedAccount = await client.embeddedWallet.create({
-          chainId,
-          accountType: options?.accountType || walletConfig?.accountType || AccountTypeEnum.SMART_ACCOUNT,
+          ...(accountType !== AccountTypeEnum.EOA && { chainId }),
+          accountType,
           chainType: ChainTypeEnum.EVM,
           recoveryParams,
         })

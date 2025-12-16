@@ -71,7 +71,8 @@
       "got": ">=11.8.5",
       "esbuild": ">=0.25.0",
       "glob@>=10.3.7 <=11.0.3": ">=11.1.0",
-      "body-parser@>=2.2.0 <2.2.1": ">=2.2.1"
+      "body-parser@>=2.2.0 <2.2.1": ">=2.2.1",
+      "@modelcontextprotocol/sdk@<1.24.0": ">=1.24.0"
     },
     "auditConfig": {
       "ignoreCves": [
