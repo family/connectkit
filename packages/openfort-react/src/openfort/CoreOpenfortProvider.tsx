@@ -7,7 +7,7 @@ import { useOpenfort } from '../components/Openfort/useOpenfort'
 import type { WalletFlowStatus } from '../hooks/openfort/useWallets'
 import { useConnect } from '../hooks/useConnect'
 import { useConnectCallback, type useConnectCallbackProps } from '../hooks/useConnectCallback'
-import type { UserAccountResponse } from '../openfortCustomTypes'
+import type { UserAccount } from '../openfortCustomTypes'
 import { logger } from '../utils/logger'
 import { handleOAuthConfigError } from '../utils/oauthErrorHandler'
 import { Context } from './context'
@@ -21,7 +21,7 @@ export type ContextValue = {
   needsRecovery: boolean
   user: User | null
   updateUser: (user?: User) => Promise<User | null>
-  linkedAccounts: UserAccountResponse[]
+  linkedAccounts: UserAccount[]
 
   embeddedAccounts?: EmbeddedAccount[]
   isLoadingAccounts: boolean
@@ -60,7 +60,7 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
   const { connectors, connect, reset } = useConnect()
   const { address } = useAccount()
   const [user, setUser] = useState<User | null>(null)
-  const [linkedAccounts, setLinkedAccounts] = useState<UserAccountResponse[]>([])
+  const [linkedAccounts, setLinkedAccounts] = useState<UserAccount[]>([])
   const [walletStatus, setWalletStatus] = useState<WalletFlowStatus>({ status: 'idle' })
 
   const { disconnectAsync } = useDisconnect()

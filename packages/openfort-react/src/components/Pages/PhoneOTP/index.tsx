@@ -37,6 +37,7 @@ const PhoneOTP: React.FC = () => {
     const { error } = await requestPhoneOtp({ phoneNumber: phone })
 
     if (error) {
+      logger.error('Error requesting phone OTP:', error)
       setStatus('error')
     } else {
       setStatus('idle')
@@ -60,6 +61,7 @@ const PhoneOTP: React.FC = () => {
       const { error } = await logInWithPhoneOtp({ phoneNumber: phone, otp })
 
       if (error) {
+        logger.error('Error verifying phone OTP:', error)
         setStatus('error')
       } else {
         setStatus('success')

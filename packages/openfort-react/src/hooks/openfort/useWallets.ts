@@ -354,7 +354,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             const wallet = availableWallets.find((c) => c.connector.id === linkedAccount.walletClientType)
             return {
               accounts: [],
-              address: linkedAccount.address as `0x${string}`,
+              address: linkedAccount.accountId as `0x${string}`,
               connectorType: linkedAccount.connectorType,
               walletClientType: linkedAccount.walletClientType,
               id: wallet?.id || linkedAccount.walletClientType || 'unknown',

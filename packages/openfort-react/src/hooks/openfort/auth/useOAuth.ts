@@ -226,13 +226,11 @@ export const useOAuth = (hookOptions: AuthHookOptions = {}) => {
 
         await client.auth.initLinkOAuth({
           provider: authProvider,
-          options: {
-            redirectTo: buildCallbackUrl({
-              provider: authProvider,
-              callbackUrl: options?.redirectTo ?? hookOptions?.redirectTo,
-              isOpen,
-            }),
-          },
+          redirectTo: buildCallbackUrl({
+            provider: authProvider,
+            callbackUrl: options?.redirectTo ?? hookOptions?.redirectTo,
+            isOpen,
+          }),
         })
 
         return onSuccess<InitOAuthReturnType>({

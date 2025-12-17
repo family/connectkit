@@ -1,10 +1,12 @@
-export interface UserAccountResponse {
-  id: string
-  providerId: string
-  createdAt: string
-  updatedAt: string
+export interface UserAccount {
+  provider: string
+  createdAt: number
+  updatedAt: number
   accountId: string
-  scopes: string[]
-  [key: string]: any
+  chainType: 'SVM' | 'EVM'
+  chainId: number
+  connectorType: string
+  walletClientType: string
 }
+
 // OPT_TODO: Wallet type from openfort-js. this could break client if not updated

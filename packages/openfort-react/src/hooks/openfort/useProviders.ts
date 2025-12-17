@@ -12,11 +12,11 @@ export function useProviders() {
   const allProviders = options?.authProviders || []
   const providers: UIAuthProvider[] = allProviders.filter((p) => p !== UIAuthProvider.GUEST) || []
 
-  const linkedProviders = user ? providers.filter((p) => linkedAccounts?.find((a) => a.providerId === p)) : []
+  const linkedProviders = user ? providers.filter((p) => linkedAccounts?.find((a) => a.provider === p)) : []
   const availableProviders = user
     ? providers.filter((provider) => {
         if (provider === UIAuthProvider.WALLET) return true // Wallet is always available
-        return !linkedAccounts?.find((a) => a.providerId === provider)
+        return !linkedAccounts?.find((a) => a.provider === provider)
       })
     : providers
 

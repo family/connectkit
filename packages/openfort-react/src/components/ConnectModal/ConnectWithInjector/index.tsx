@@ -1,4 +1,3 @@
-import { OPENFORT_AUTH_ERROR_CODES, OPENFORT_ERROR_CODES, OpenfortError } from '@openfort/openfort-js'
 import { AnimatePresence, type Variants } from 'framer-motion'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
@@ -159,7 +158,7 @@ const ConnectWithInjector: React.FC<{
           // If already has linked account, don't link again
           if (userWallets && userWallets.length > 0) {
             wallet.connector.getAccounts().then((acc) => {
-              if (acc.some((v) => userWallets.some((w) => w.address === v))) {
+              if (acc.some((v) => userWallets.some((w) => w.accountId === v))) {
                 onConnect()
                 return
               }
@@ -171,7 +170,7 @@ const ConnectWithInjector: React.FC<{
           connectWithSiwe({
             // connectorType: wallet.connector.id,
             // walletClientType: wallet.connector.name.toLowerCase(),
-            onError: (error, errorType) => {
+            onError: (error, _errorType) => {
               logger.error(error)
               disconnect()
               // TODO: TMP FIX: Handle siwe error properly

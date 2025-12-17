@@ -81,10 +81,7 @@ const ConnectWithOAuth: React.FC = () => {
               }
               const linkResponse = await client.auth.initLinkOAuth({
                 provider,
-                options: {
-                  redirectTo: cleanURL,
-                  queryParams,
-                },
+                redirectTo: `${cleanURL}?${new URLSearchParams(queryParams).toString()}`,
               })
               logger.log(linkResponse)
               window.location.href = linkResponse

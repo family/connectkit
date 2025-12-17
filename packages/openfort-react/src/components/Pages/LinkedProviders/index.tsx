@@ -1,15 +1,16 @@
 import { EmailIcon } from '../../../assets/icons'
 import { providersLogos } from '../../../assets/logos'
 import { useProviders } from '../../../hooks/openfort/useProviders'
+import { useUser } from '../../../hooks/openfort/useUser'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import type { UserAccountResponse } from '../../../openfortCustomTypes'
+import type { UserAccount } from '../../../openfortCustomTypes'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviderContainer, LinkedProvidersGroupWrapper, ProviderIconWrapper } from './styles'
+import { LinkedProviderContainer, LinkedProvidersGroupWrapper, LinkedProviderText, ProviderIconWrapper } from './styles'
 
 type LinkedProvidersProps = {
   showHeader?: boolean
@@ -28,8 +29,8 @@ type LinkedProvidersProps = {
 //   return <Wallet />
 // }
 
-const ProviderIcon: React.FC<{ provider: UserAccountResponse }> = ({ provider }) => {
-  switch (provider.providerId) {
+const ProviderIcon: React.FC<{ provider: UserAccount }> = ({ provider }) => {
+  switch (provider.provider) {
     case 'email':
       return <EmailIcon />
     // OTP_TODO: Wallet icon
@@ -38,20 +39,32 @@ const ProviderIcon: React.FC<{ provider: UserAccountResponse }> = ({ provider })
     case 'google':
     case 'twitter':
     case 'facebook':
-      return providersLogos[provider.providerId]
+      return providersLogos[provider.provider]
     default:
-      return <FitText>{provider.providerId.substring(0, 4).toUpperCase()}</FitText>
+      return <FitText>{provider.provider.substring(0, 4).toUpperCase()}</FitText>
   }
 }
 
-const LinkedProvider: React.FC<{ provider: UserAccountResponse }> = ({ provider }) => {
+const ProviderText: React.FC<{ provider: UserAccount }> = ({ provider }) => {
+  const { user } = useUser()
+  switch (provider.provider) {
+    case 'wallet':
+      return <LinkedProviderText>{provider.accountId}</LinkedProviderText>
+    case 'google':
+      return <LinkedProviderText>{user?.email}</LinkedProviderText>
+    default:
+      return <LinkedProviderText style={{ textTransform: 'capitalize' }}>{provider.provider}</LinkedProviderText>
+  }
+}
+
+const LinkedProvider: React.FC<{ provider: UserAccount }> = ({ provider }) => {
   // OTP_TODO: linked provider details
   return (
     <LinkedProviderContainer>
       <ProviderIconWrapper>
         <ProviderIcon provider={provider} />
       </ProviderIconWrapper>
-      {/* <LinkedProviderText>{provider.address || provider.email || 'unknown'}</LinkedProviderText> */}
+      <ProviderText provider={provider} />
     </LinkedProviderContainer>
   )
 }
@@ -100,7 +113,7 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
     <>
       <LinkedProvidersGroupWrapper>
         {linkedAccounts.map((provider) => (
-          <LinkedProvider key={`${provider.providerId}-${provider.id}`} provider={provider} />
+          <LinkedProvider key={`${provider.provider}-${provider.accountId}`} provider={provider} />
         ))}
       </LinkedProvidersGroupWrapper>
       <AddLinkedProviderButton />
@@ -113,7 +126,7 @@ const LinkedProviders: React.FC = () => {
     <PageContent>
       <ModalHeading>Linked accounts</ModalHeading>
       <ModalContent>
-        <ModalBody>Configure the linked accounts of your profile.</ModalBody>
+        <ModalBody>Linked accounts settings.</ModalBody>
       </ModalContent>
       <LinkedProvidersGroup />
     </PageContent>

@@ -42,6 +42,7 @@ const EmailOTP: React.FC = () => {
     const { error } = await requestEmailOtp({ email })
 
     if (error) {
+      logger.error('Error requesting email OTP:', error)
       setStatus('error')
     } else {
       setStatus('idle')
@@ -65,6 +66,7 @@ const EmailOTP: React.FC = () => {
       const { error } = await logInWithEmailOtp({ email, otp })
 
       if (error) {
+        logger.error('Error logging in with email OTP:', error)
         setStatus('error')
       } else {
         setStatus('success')
