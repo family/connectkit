@@ -1,0 +1,96 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Openfort Logo" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Openfort Logo" [ref=e8]
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - button "Auth hooks" [ref=e11] [cursor=pointer]:
+            - text: Auth hooks
+            - img [ref=e12]
+          - button "Wallet hooks" [ref=e14] [cursor=pointer]:
+            - text: Wallet hooks
+            - img [ref=e15]
+          - button "Utils" [ref=e17] [cursor=pointer]:
+            - text: Utils
+            - img [ref=e18]
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - img
+            - switch [ref=e22] [cursor=pointer]
+          - button "0x77b6••••F236" [ref=e25] [cursor=pointer]:
+            - generic [ref=e28]:
+              - generic:
+                - generic: 0x77b6••••F236
+          - link [ref=e29] [cursor=pointer]:
+            - /url: /provider
+            - img [ref=e30]
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - generic [ref=e37]:
+        - heading "Welcome, pla_192b757d-85ba-4382-8841-230eb04a1e70" [level=1] [ref=e38]
+        - paragraph [ref=e39]: Connected with 0x77b6f3FB738677D7af1d4E6d63b61E696C3DF236
+      - button "Sign out" [ref=e41] [cursor=pointer]:
+        - generic [ref=e42]: Sign out
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e46]: Signatures
+          - generic [ref=e47]: Sign messages with your wallet to prove ownership and perform actions in the app.
+        - generic [ref=e49]:
+          - textbox [ref=e51]:
+            - /placeholder: Enter a message to sign
+            - text: Hello from Openfort!
+          - button "Sign a message" [ref=e52] [cursor=pointer]:
+            - generic [ref=e53]: Sign a message
+      - generic [ref=e54]:
+        - generic [ref=e55]:
+          - generic [ref=e56]: Write Contract
+          - generic [ref=e57]: Interact with smart contracts on the blockchain.
+          - generic [ref=e58]:
+            - text: "Contract Address:"
+            - generic [ref=e61]: 0xef147ed..ffac
+          - generic [ref=e62]: "Balance: -"
+        - generic [ref=e64]:
+          - spinbutton [ref=e66]: "3"
+          - button "Mint Tokens" [ref=e67] [cursor=pointer]:
+            - generic [ref=e68]: Mint Tokens
+          - generic [ref=e70]: "Error: Transaction creation failed. Request Arguments: from: 0x77b6f3FB738677D7af1d4E6d63b61E696C3DF236 to: 0xEF147Ed8bb07a2A0e7DF4c1Ac09e96dEc459Ffac data: 0x40c10f1900000000000000000000000077b6f3fb738677d7af1d4e6d63b61e696c3df23600000000000000000000000000000000000000000000000029a2241af62c0000 Contract Call: address: 0xEF147Ed8bb07a2A0e7DF4c1Ac09e96dEc459Ffac function: mint(address to, uint256 amount) args: (0x77b6f3FB738677D7af1d4E6d63b61E696C3DF236, 3000000000000000000) sender: 0x77b6f3FB738677D7af1d4E6d63b61E696C3DF236 Docs: https://viem.sh/docs/contract/writeContract Details: Request has invalid parameters. Policy 'pol_6b910257-43be-4e1a-b766-07f2d2fbd1d0' is not active for chainID 84532. Version: viem@2.38.4"
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - generic [ref=e73]: Switch chain
+          - generic [ref=e74]: Switch between different chains to interact with various blockchain networks.
+          - paragraph [ref=e75]: "Current chain: Base Sepolia (84532)"
+        - generic [ref=e77]:
+          - button "Switch to Polygon Amoy" [ref=e79] [cursor=pointer]:
+            - generic [ref=e80]: Switch to Polygon Amoy
+          - button "Switch to Beam Testnet" [ref=e82] [cursor=pointer]:
+            - generic [ref=e83]: Switch to Beam Testnet
+          - generic [ref=e84]:
+            - button "Switch to Base Sepolia" [disabled]:
+              - generic: Switch to Base Sepolia
+          - generic [ref=e86]: Switched to chain Base Sepolia
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]: Wallets
+          - generic [ref=e90]: Create and use wallets.
+        - generic [ref=e92]:
+          - button "xyz.openfort 0x77b6...F236" [ref=e94] [cursor=pointer]:
+            - text: xyz.openfort
+            - generic [ref=e95]:
+              - generic [ref=e96]: 0x77b6...F236
+              - img [ref=e97]
+          - button "+ Create new wallet" [ref=e102] [cursor=pointer]:
+            - generic [ref=e103]: +
+            - text: Create new wallet
+      - generic [ref=e104]:
+        - generic [ref=e105]:
+          - generic [ref=e106]: Session keys
+          - generic [ref=e107]: Grant session keys with specific permissions to enhance security and control over wallet actions.
+        - button "Create session key" [ref=e110] [cursor=pointer]:
+          - generic [ref=e111]: Create session key
+```

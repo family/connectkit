@@ -46,6 +46,7 @@
     "@biomejs/biome": "^2.2.4",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.7",
+    "@playwright/test": "^1.57.0",
     "@wagmi/connectors": "^6.1.0",
     "@wagmi/core": "^2.22.1",
     "knip": "^5.64.0",

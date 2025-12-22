@@ -10,7 +10,10 @@
     "format": "biome format --write .",
     "preview": "vite preview",
     "generate-types": "typedoc --json src/generated/types.json src/generate-types.ts",
-    "shadcn": "shadcn"
+    "shadcn": "shadcn",
+    "test:e2e": "playwright test -c playwright.config.ts",
+    "test:e2e:ui": "playwright test -c playwright.config.ts --ui",
+    "test:e2e:debug": "PWDEBUG=1 playwright test -c playwright.config.ts --headed"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -37,9 +40,11 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
     "@tailwindcss/vite": "^4.1.15",
+    "@types/node": "^25.0.3",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@vitejs/plugin-react": "^4.3.4",
+    "baseline-browser-mapping": "^2.9.11",
     "daisyui": "^5.0.50",
     "shadcn": "latest",
     "tailwindcss": "^4.1.15",

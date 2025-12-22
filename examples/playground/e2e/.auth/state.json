@@ -1,0 +1,76 @@
+{
+  "cookies": [
+    {
+      "name": "__cf_bm",
+      "value": "dER.HAlDYNWYFz6C8DKYUUdpCk1.hj5qNTCgnJKQB1Y-1766417497-1.0.1.1-bJHjh31nDp8r4gF6Wmwy.WBDdIAQSc7k1rNjMY87Dm490cFqHPrzCn3ybMGNUS94dszUyEMvy_cC4aHIK0TfiMgmxRqf4tMqUSRu5lj4AFQ",
+      "domain": ".coinbase.com",
+      "path": "/",
+      "expires": 1766419297.116252,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "DE1HAxZA_qWQmyR2g0aekPmZwzyASle4ay2yAXUGemY-1766417497180-0.0.1.1-604800000",
+      "domain": ".coinbase.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://127.0.0.1:5173",
+      "localStorage": [
+        {
+          "name": "@appkit/connection_status",
+          "value": "disconnected"
+        },
+        {
+          "name": "openfort.playground.sessionkeys",
+          "value": "{}"
+        },
+        {
+          "name": "@appkit/active_namespace",
+          "value": "eip155"
+        },
+        {
+          "name": "a3ad8173.openfort.account",
+          "value": "{\"user\":\"pla_4f12da89-9400-4e59-b466-2fa6806c9ef8\",\"id\":\"acc_1a4b2ff9-4216-46bd-8cdf-280e03e00a8b\",\"chainType\":\"EVM\",\"address\":\"0xCC844f1b19bCe74403E641438AD69a249eb77ccF\",\"accountType\":\"Smart Account\",\"chainId\":80002,\"ownerAddress\":\"0xe09a88a0fb25066ed9277b33cfbfa70723ebb002\",\"createdAt\":1766417497,\"implementationType\":\"UpgradeableV5\",\"factoryAddress\":\"0xcb71e008b9062bb7abd558816f8135ef2cab576f\",\"implementationAddress\":\"0xc8ebbdd2da25906b96c374c9b1757b1421e9f45a\",\"salt\":\"0x39946ef8d4f0b95ce61bed7803cc35d00aa12c7833032f9ab286077b941a9c62\",\"recoveryMethod\":\"password\"}"
+        },
+        {
+          "name": "cbwsdk.store",
+          "value": "{\"state\":{\"chains\":[],\"keys\":{},\"account\":{},\"spendPermissions\":[],\"config\":{\"version\":\"4.3.6\",\"metadata\":{\"appName\":\"Openfort demo\",\"appLogoUrl\":\"\",\"appChainIds\":[80002,13337,84532]},\"preference\":{\"options\":\"all\"},\"deviceId\":\"f4dd5676-e69e-41fb-b2db-5497cd6dbd10\"}},\"version\":0}"
+        },
+        {
+          "name": "a3ad8173.openfort.authentication",
+          "value": "{\"type\":\"jwt\",\"token\":\"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImNmODNlMTM1N2VlZmI4YmRmMTU0Mjg1MGQ2NmQ4MDA3ZDYyMGU0MDUwYjU3MTVkYzgzZjRhOTIxZDM2Y2U5Y2U0N2QwZDEzYzVkODVmMmIwZmY4MzE4ZDI4NzdlZWMyZjYzYjkzMWJkNDc0MTdhODFhNTM4MzI3YWY5MjdkYTNlIn0.eyJhdWQiOiJwcm9fY2M5NzIwZTUtZDc2MC00NjJlLWIzYjUtZjM3NDBlYTkzNTQyLXRlc3QiLCJleHAiOjE3NjY0MjEwOTIsImlhdCI6MTc2NjQxNzQ5MiwiaXNzIjoib3BlbmZvcnQueHl6Iiwic2lkIjoiY2Y3MmZkYTgtOGNiNi00ZjRhLTliYjktMTE3NWRkZDI1MDI5Iiwic3ViIjoicGxhXzRmMTJkYTg5LTk0MDAtNGU1OS1iNDY2LTJmYTY4MDZjOWVmOCJ9._uaSSTKVbm4wUoxtKMMR2p-cRTRIsbi7e3S8NZUzHWl4l4dqRJt26vEgixX79SRxEdG0BKJK_OE6R6KctXmeaw\",\"player\":\"pla_4f12da89-9400-4e59-b466-2fa6806c9ef8\",\"refreshToken\":\"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImNmODNlMTM1N2VlZmI4YmRmMTU0Mjg1MGQ2NmQ4MDA3ZDYyMGU0MDUwYjU3MTVkYzgzZjRhOTIxZDM2Y2U5Y2U0N2QwZDEzYzVkODVmMmIwZmY4MzE4ZDI4NzdlZWMyZjYzYjkzMWJkNDc0MTdhODFhNTM4MzI3YWY5MjdkYTNlIn0.eyJzaWQiOiJjZjcyZmRhOC04Y2I2LTRmNGEtOWJiOS0xMTc1ZGRkMjUwMjkiLCJpYXQiOjE3NjY0MTc0OTIsImV4cCI6MTc2OTAwOTQ5Mn0.uYHeuZBGhpzuBbWs9uGN3f8HXSB7fdN2E-HoeB3elBBjqOrnO7K895DNCAkF6CreYn3X0LhWqLhycSUuNgNh0Q\"}"
+        },
+        {
+          "name": "wagmi.recentConnectorId",
+          "value": "\"xyz.openfort\""
+        },
+        {
+          "name": "wagmi.store",
+          "value": "{\"state\":{\"connections\":{\"__type\":\"Map\",\"value\":[[\"5c860e7a238\",{\"accounts\":[\"0xCC844f1b19bCe74403E641438AD69a249eb77ccF\"],\"chainId\":80002,\"connector\":{\"id\":\"xyz.openfort\",\"name\":\"Openfort\",\"type\":\"injected\",\"uid\":\"5c860e7a238\"}}]]},\"chainId\":80002,\"current\":\"5c860e7a238\"},\"version\":2}"
+        },
+        {
+          "name": "@appkit/active_caip_network_id",
+          "value": "eip155:80002"
+        }
+      ]
+    },
+    {
+      "origin": "https://embed.openfort.io",
+      "localStorage": [
+        {
+          "name": "127.0.0.1:5173",
+          "value": "{\"share\":\"c2c848a326418e003686b4287886f949d9a239349428a2d3d5519bd26938f5431de5e7c1f2de28d2aa19ed65fcde7df34a6d23d4c445ea629dcc9fad774a65b62db8fc\",\"deviceID\":\"dev_c925fecd-a4fd-4838-9d3d-500b1341e951\",\"account\":\"acc_1a4b2ff9-4216-46bd-8cdf-280e03e00a8b\",\"chainType\":\"EVM\",\"address\":\"0xCC844f1b19bCe74403E641438AD69a249eb77ccF\",\"ownerAddress\":\"0xe09a88a0fb25066ed9277b33cfbfa70723ebb002\",\"playerID\":\"pla_4f12da89-9400-4e59-b466-2fa6806c9ef8\",\"signerID\":\"sig_019b46af-f545-7ba4-8d7f-88ce88857a3d\"}"
+        }
+      ]
+    }
+  ]
+}
