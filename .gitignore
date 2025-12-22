@@ -28,3 +28,14 @@ create-openfort-*.tgz
 
 npm-debug.log*
 pnpm-debug.log*
+
+# Playwright artifacts
+playwright-report/
+test-results/
+
+# Playground artifacts
+examples/playground/playwright-report/
+examples/playground/test-results/
+examples/playground/.playwright/
+examples/playground/e2e/.auth/
+
