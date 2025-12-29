@@ -2,6 +2,8 @@ import type React from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { PhoneIcon } from '../../../assets/icons'
 import { usePhoneOtpAuth } from '../../../hooks/openfort/auth/usePhoneOtpAuth'
+import { useUser } from '../../../hooks/openfort/useUser'
+import type { OpenfortError } from '../../../types'
 import { logger } from '../../../utils/logger'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { OtpInputStandalone } from '../../Common/OTPInput'
@@ -22,12 +24,14 @@ const ERROR_DISPLAY_DURATION_MS = 2000
 
 const PhoneOTP: React.FC = () => {
   const { phoneInput: phone, setPhoneInput, setRoute } = useOpenfort()
-  const { isLoading, requestPhoneOtp, logInWithPhoneOtp } = usePhoneOtpAuth({
+  const { isLoading, requestPhoneOtp, logInWithPhoneOtp, linkPhoneOtp } = usePhoneOtpAuth({
     recoverWalletAutomatically: false,
   })
+  const { user } = useUser()
 
   const [canSendOtp, setCanSendOtp] = useState(true)
   const [status, setStatus] = useState<Status>('idle')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   // Single ref to track if initial OTP request has been made
   const hasRequestedInitialOtpRef = useRef(false)
@@ -58,11 +62,24 @@ const PhoneOTP: React.FC = () => {
       logger.log('OTP entered:', otp)
       setStatus('loading')
 
-      const { error } = await logInWithPhoneOtp({ phoneNumber: phone, otp })
+      let error: OpenfortError | undefined | null = null
+      if (user) {
+        const { error: linkError } = await linkPhoneOtp({ phoneNumber: phone, otp })
+        error = linkError
+      } else {
+        const { error: loginError } = await logInWithPhoneOtp({ phoneNumber: phone, otp })
+        error = loginError
+      }
 
       if (error) {
         logger.error('Error verifying phone OTP:', error)
         setStatus('error')
+
+        if (error.message === 'Invalid OTP') {
+          setErrorMessage('Invalid code. Please try again.')
+        } else {
+          setErrorMessage(error.message)
+        }
       } else {
         setStatus('success')
       }
@@ -148,7 +165,7 @@ const PhoneOTP: React.FC = () => {
         />
         <ResultContainer>
           {status === 'success' && <ModalBody $valid>Code verified successfully!</ModalBody>}
-          {status === 'error' && <ModalBody $error>Invalid code. Please try again.</ModalBody>}
+          {status === 'error' && <ModalBody $error>{errorMessage || 'Invalid code. Please try again.'}</ModalBody>}
         </ResultContainer>
         <FooterTextButton>
           Didn't receive the code?{' '}

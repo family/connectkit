@@ -38,7 +38,7 @@
     "react"
   ],
   "dependencies": {
-    "@openfort/openfort-js": "file:./openfort-openfort-js-0.10.36-beta.3.tgz",
+    "@openfort/openfort-js": "file:./openfort-openfort-js-0.10.36-beta.3.1.tgz",
     "axios": "^1.7.7",
     "buffer": "^6.0.3",
     "detect-browser": "^5.3.0",

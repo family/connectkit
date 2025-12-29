@@ -498,10 +498,11 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           })
         }
 
-        const result = await client.auth.linkEmailPassword({
+        const result = await client.auth.addEmail({
           name: options.name || '',
           email: options.email,
           password: options.password,
+          method: 'password',
         })
         logger.log('Email linked successfully')
 

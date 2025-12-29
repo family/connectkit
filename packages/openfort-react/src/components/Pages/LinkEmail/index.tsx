@@ -1,5 +1,6 @@
 import { AnimatePresence, type Variants } from 'framer-motion'
 import React from 'react'
+import { useEmailAuth } from '../../../hooks/openfort/auth/useEmailAuth'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
@@ -42,16 +43,16 @@ const LinkEmail: React.FC = () => {
 
   const [loginLoading, setLoginLoading] = React.useState(false)
   const [loginError, setLoginError] = React.useState<false | string>(false)
+  const { linkEmail } = useEmailAuth()
 
   const handleSubmit = async () => {
     setLoginLoading(true)
 
     await client.validateAndRefreshToken()
     try {
-      await client.auth.linkEmailPassword({
+      await linkEmail({
         email,
         password,
-        name: '',
       })
 
       await updateUser()

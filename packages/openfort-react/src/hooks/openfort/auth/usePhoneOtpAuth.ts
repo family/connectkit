@@ -153,9 +153,67 @@ export const usePhoneOtpAuth = (hookOptions: UsePhoneHookOptions = {}) => {
     [client, setStatus, updateUser, hookOptions]
   )
 
+  const linkPhoneOtp = useCallback(
+    async (options: LoginWithPhoneOtpOptions): Promise<PhoneAuthResult> => {
+      try {
+        setStatus({
+          status: 'loading',
+        })
+
+        if (!options.phoneNumber || !options.otp) {
+          const error = new OpenfortError('Phone and OTP are required', OpenfortReactErrorType.VALIDATION_ERROR)
+          setStatus({
+            status: 'error',
+            error,
+          })
+          return onError<PhoneAuthResult>({
+            hookOptions,
+            options,
+            error,
+          })
+        }
+
+        const result = await client.auth.linkPhoneOtp({
+          phoneNumber: options.phoneNumber,
+          otp: options.otp,
+        })
+
+        setStatus({
+          status: 'success',
+        })
+        const user = result.user
+
+        await updateUser()
+
+        return onSuccess<PhoneAuthResult>({
+          data: { user },
+          hookOptions,
+          options,
+        })
+      } catch (e) {
+        const error = new OpenfortError('Failed to link phone OTP', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
+          error: e,
+        })
+
+        setStatus({
+          status: 'error',
+          error: error,
+        })
+
+        return onError({
+          hookOptions,
+          options,
+          error: error,
+        })
+      }
+    },
+    [client, setStatus, updateUser, hookOptions]
+  )
+
   return {
     logInWithPhoneOtp,
     requestPhoneOtp,
+    linkPhoneOtp,
 
     reset,
     isRequesting: status.status === 'requesting',

@@ -1,9 +1,11 @@
-import { EmailIcon } from '../../../assets/icons'
-import { providersLogos } from '../../../assets/logos'
+import { useMemo } from 'react'
+import { EmailIcon, WalletIcon } from '../../../assets/icons'
+import Logos, { providersLogos } from '../../../assets/logos'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useUser } from '../../../hooks/openfort/useUser'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import type { UserAccount } from '../../../openfortCustomTypes'
+import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
 import Button from '../../Common/Button'
 import FitText from '../../Common/FitText'
 import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
@@ -16,26 +18,28 @@ type LinkedProvidersProps = {
   showHeader?: boolean
 }
 
-// const WalletIcon: React.FC<{ provider: UserAccountResponse }> = ({ provider }) => {
-//   const wallets = useWagmiWallets()
-//   const wallet = useMemo(() => {
-//     return wallets.find((w) => w.id?.toLowerCase() === provider.walletClientType)
-//   }, [provider])
+const WalletIconWrapper: React.FC<{ provider: UserAccount }> = ({ provider }) => {
+  const wallets = useWagmiWallets()
+  const wallet = useMemo(() => {
+    return wallets.find((w) => w.id?.toLowerCase() === provider.walletClientType)
+  }, [provider])
 
-//   if (provider.walletClientType === 'walletconnect') return <Logos.WalletConnect />
+  if (provider.walletClientType === 'walletconnect') return <Logos.WalletConnect />
 
-//   if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>
+  if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>
 
-//   return <Wallet />
-// }
+  return <WalletIcon />
+}
 
 const ProviderIcon: React.FC<{ provider: UserAccount }> = ({ provider }) => {
   switch (provider.provider) {
     case 'email':
+    case 'credential':
       return <EmailIcon />
     // OTP_TODO: Wallet icon
-    // case 'wallet':
-    //   return <WalletIcon provider={provider} />
+    case 'wallet':
+    case 'siwe':
+      return <WalletIconWrapper provider={provider} />
     case 'google':
     case 'twitter':
     case 'facebook':
@@ -49,11 +53,14 @@ const ProviderText: React.FC<{ provider: UserAccount }> = ({ provider }) => {
   const { user } = useUser()
   switch (provider.provider) {
     case 'wallet':
+    case 'siwe':
       return <LinkedProviderText>{provider.accountId}</LinkedProviderText>
-    case 'google':
-      return <LinkedProviderText>{user?.email}</LinkedProviderText>
     default:
-      return <LinkedProviderText style={{ textTransform: 'capitalize' }}>{provider.provider}</LinkedProviderText>
+      return (
+        <LinkedProviderText style={{ textTransform: user?.email ? 'none' : 'capitalize' }}>
+          {user?.email ?? provider.provider}
+        </LinkedProviderText>
+      )
   }
 }
 
