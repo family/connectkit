@@ -45,7 +45,7 @@ export type WalletConfigProps = {
 
 // Organised in alphabetical order by key
 export const walletConfigs: {
-  [rdns: string]: WalletConfigProps; // for multiple cases seperate rdns by comma
+  [rdns: string]: WalletConfigProps; // for multiple cases separate rdns by comma
 } = {
   mock: {
     icon: <Logos.Mock />,
