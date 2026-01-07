@@ -286,7 +286,6 @@ const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, bac
       document.removeEventListener("mousemove", handleMouseMove);
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
   };
-  // biome-ignore lint/correctness/useExhaustiveDependencies: animation effect depends on dimensions only
 }, [dimensions]);
 
   return (
