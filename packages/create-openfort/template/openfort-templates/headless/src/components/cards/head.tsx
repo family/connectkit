@@ -21,7 +21,7 @@ function withOpacity(color: string, opacity: number) {
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
   }
 
-  throw new Error("Unsupported color format: " + color);
+  throw new Error(`Unsupported color format: ${color}`);
 }
 
 const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, backgroundColor: string }) => {
@@ -286,8 +286,7 @@ const GlowCanvas = ({ accentColor, backgroundColor }: { accentColor: string, bac
       document.removeEventListener("mousemove", handleMouseMove);
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
   };
-  // biome-ignore lint/correctness/useExhaustiveDependencies: animation effect depends on dimensions only
-}, [dimensions]);
+}, [dimensions, accentColor, backgroundColor, color]);
 
   return (
     <canvas
@@ -320,7 +319,7 @@ export const Head = ({
       style={{ '--color-sample': color } as React.CSSProperties}
     >
       <div>
-        <a href="https://openfort.io/" target="_blank">
+        <a href="https://openfort.io/" target="_blank" rel="noopener">
           <img src="/openfort.svg" className="logo" alt="Openfort logo" />
         </a>
         <a href={href} target="_blank">

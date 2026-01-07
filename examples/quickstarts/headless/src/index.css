@@ -2,7 +2,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme inline {
   --color-primary: var(--color-primary);
   --color-primary-hover: var(--color-primary-hover);

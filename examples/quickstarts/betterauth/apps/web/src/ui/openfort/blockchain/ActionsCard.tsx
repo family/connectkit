@@ -1,19 +1,22 @@
-import { getAddress, parseAbi } from 'viem';
-import { useAccount, useReadContract, useWriteContract } from 'wagmi';
-
+import { useMemo } from 'react'
+import { getAddress, parseAbi } from 'viem'
+import {
+  useAccount,
+  useChains,
+  useReadContract,
+  useWriteContract
+} from 'wagmi'
 import { TruncateData } from '../../../components/ui/TruncateData';
 
-const ERC20_ADDRESS = '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac';
-
-function MintContract() {
-  const { address } = useAccount();
+const MintContract = () => {
+  const { address } = useAccount()
 
   const {
     data: balance,
     refetch,
     error: balanceError,
   } = useReadContract({
-    address: ERC20_ADDRESS,
+    address: '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac',
     abi: [
       {
         type: 'function',
@@ -24,11 +27,11 @@ function MintContract() {
       },
     ],
     functionName: 'balanceOf',
-    args: address ? [address] : undefined,
-  });
+    args: [address!],
+  })
 
   const { data: tokenSymbol } = useReadContract({
-    address: ERC20_ADDRESS,
+    address: '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac',
     abi: [
       {
         type: 'function',
@@ -38,7 +41,7 @@ function MintContract() {
       },
     ],
     functionName: 'symbol',
-  });
+  })
 
   const {
     data: hash,
@@ -49,24 +52,22 @@ function MintContract() {
     mutation: {
       onSuccess: () => {
         setTimeout(() => {
-          refetch();
-        }, 100);
+          refetch()
+        }, 100)
       },
-      onSettled: (data, settledError) => {
-        console.log('Settled', { data, error: settledError });
+      onSettled: (data: unknown, error: Error | null) => {
+        console.log('Settled', { data, error })
       },
     },
-  });
+  })
 
   async function submit({ amount }: { amount: string }) {
-    if (!address) return;
-
     writeContract({
-      address: getAddress(ERC20_ADDRESS),
+      address: getAddress('0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac'),
       abi: parseAbi(['function mint(address to, uint256 amount)']),
       functionName: 'mint',
-      args: [address, BigInt(amount)],
-    });
+      args: [address!, BigInt(amount)],
+    })
   }
 
   return (
@@ -77,10 +78,10 @@ function MintContract() {
       </p>
       <form
         className="space-y-4"
-        onSubmit={(event) => {
-          event.preventDefault();
-          const amount = (event.target as HTMLFormElement).amount.value;
-          submit({ amount });
+        onSubmit={(e) => {
+          e.preventDefault()
+          const amount = (e.target as HTMLFormElement).amount.value
+          submit({ amount })
         }}
       >
         <input
@@ -89,7 +90,7 @@ function MintContract() {
           className="grow peer"
           name="amount"
         />
-        <button type="submit" className="btn" disabled={isPending || !address}>
+        <button className="btn" disabled={isPending || !address}>
           {isPending ? 'Minting...' : 'Mint Tokens'}
         </button>
       </form>
@@ -97,17 +98,37 @@ function MintContract() {
       <TruncateData data={error?.message} className="text-red-400" />
       <TruncateData data={balanceError?.message} className="text-red-400" />
     </div>
-  );
+  )
 }
 
-export function ActionsCard() {
+export const Actions = () => {
+  const hasSponsorPolicy = useMemo(() => !!import.meta.env.VITE_POLICY_ID, [])
+  const chains = useChains()
   return (
     <div className="flex flex-col w-full">
       <h1>Actions</h1>
       <span className="mb-4 text-zinc-400 text-sm">
         Interact with smart contracts on the blockchain.
       </span>
+      {!hasSponsorPolicy && (
+        <div className="mb-3 p-3 bg-red-800 text-white rounded text-sm">
+          <strong>Warning: Transactions are not sponsored.</strong> Minting may
+          fail because transactions are not being sponsored. To sponsor
+          transactions, go to the{' '}
+          <a
+            href="https://dashboard.openfort.xyz/policies"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Openfort Dashboard
+          </a>{' '}
+          and <b>create a policy</b> sponsoring transactions in{' '}
+          <b>{chains[0].name}</b>. Set the <code>VITE_POLICY_ID</code>{' '}
+          environment variable with the policy ID.
+        </div>
+      )}
       <MintContract />
     </div>
-  );
+  )
 }
