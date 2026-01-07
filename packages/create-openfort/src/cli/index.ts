@@ -264,7 +264,7 @@ export const runCli = async (): Promise<CliResults> => {
         },
         openfortPublishableKey: () => {
           return p.text({
-            message: "Enter your Openfort Publishable Key:",
+            message: "Enter your Project Publishable Key:",
             placeholder: "pk_test_...",
             validate: validateOpenfortPublishableKey,
           });
@@ -272,19 +272,12 @@ export const runCli = async (): Promise<CliResults> => {
         openfortSecretKey: ({ results }) => {
           if (results.createBackend) {
             return p.text({
-              message: "Enter your Openfort Secret Key:",
+              message: "Enter your Project Secret Key:",
               placeholder: "sk_test_...",
               validate: validateOpenfortSecretKey,
             });
           }
           return undefined;
-        },
-        shieldPublishableKey: () => {
-          return p.text({
-            message: "Enter your Shield Publishable Key:",
-            placeholder: "00000000-0000-0000-0000-000000000000",
-            validate: validateShieldPublishableKey,
-          });
         },
         shieldEncryptionShare: ({ results }) => {
           if (results.createBackend) {
@@ -295,6 +288,13 @@ export const runCli = async (): Promise<CliResults> => {
             });
           }
           return undefined;
+        },
+        shieldPublishableKey: () => {
+          return p.text({
+            message: "Enter your Shield Publishable Key:",
+            placeholder: "00000000-0000-0000-0000-000000000000",
+            validate: validateShieldPublishableKey,
+          });
         },
         shieldSecretKey: ({ results }) => {
           if (results.createBackend) {
