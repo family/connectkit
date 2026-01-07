@@ -101,7 +101,7 @@ const MintContract = () => {
   )
 }
 
-export const Actions = () => {
+export const ActionsCard = () => {
   const hasSponsorPolicy = useMemo(() => !!import.meta.env.VITE_POLICY_ID, [])
   const chains = useChains()
   return (
