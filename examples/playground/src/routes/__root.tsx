@@ -25,7 +25,7 @@ function RootComponent() {
 
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && (e.target as HTMLElement).tagName !== 'INPUT') {
         const delta = e.key === 'ArrowRight' ? 1 : -1
         themeIndex = (themeIndex + delta + themes.length) % themes.length
 
@@ -44,7 +44,7 @@ function RootComponent() {
   }, [setProviderOptions])
 
   return (
-    <div className="flex flex-col min-h-screen w-[100vw]">
+    <div className="flex flex-col min-h-screen w-screen">
       <Nav showLogo={location.pathname !== '/showcase/auth' || isConnected} />
       <Outlet />
     </div>
