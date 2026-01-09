@@ -19,6 +19,7 @@ export function useProviders() {
         if (user.email && (provider === UIAuthProvider.EMAIL_PASSWORD || provider === UIAuthProvider.EMAIL_OTP)) {
           return false // If user has email, don't show email password or otp
         }
+        if (provider === UIAuthProvider.EMAIL_PASSWORD) return false // Disable email password linking for now
         if (user.phoneNumber && provider === UIAuthProvider.PHONE) {
           return false // If user has phone number, don't show phone otp
         }

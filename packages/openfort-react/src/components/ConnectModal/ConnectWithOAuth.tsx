@@ -37,17 +37,31 @@ const ConnectWithOAuth: React.FC = () => {
         case states.CONNECTING: {
           const userId = url.searchParams.get('user_id')
           const token = url.searchParams.get('access_token')
+          const error = url.searchParams.get('error')
 
           // Remove specified keys from the URL
-          ;['openfortAuthProviderUI', 'access_token', 'user_id'].forEach((key) => {
+          ;['openfortAuthProviderUI', 'access_token', 'user_id', 'error'].forEach((key) => {
             url.searchParams.delete(key)
           })
           window.history.replaceState({}, document.title, url.toString())
 
-          if (!userId || !token) {
+          if (!userId || !token || error) {
             logger.error(
               `Missing user id or access token: userId=${userId}, accessToken=${token ? `${token.substring(0, 10)}...` : token}`
             )
+            setStatus(states.ERROR)
+            if (error) {
+              switch (error) {
+                case "email_doesn't_match":
+                  setDescription('The email associated with this OAuth provider does not match your account email.')
+                  break
+                default:
+                  setDescription('There was an error during authentication. Please try again.')
+              }
+            } else {
+              setDescription('There was an error during authentication. Please try again.')
+            }
+            triggerResize()
             return
           }
 

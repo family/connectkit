@@ -16,7 +16,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     mode: undefined,
     customTheme: undefined,
     authProviders: [
-      AuthProvider.EMAIL_PASSWORD,
+      // AuthProvider.EMAIL_PASSWORD,
       AuthProvider.EMAIL_OTP,
       AuthProvider.PHONE,
       AuthProvider.GUEST,

@@ -36,7 +36,7 @@ const textVariants: Variants = {
 }
 
 const LinkEmail: React.FC = () => {
-  const [password, setPassword] = React.useState('')
+  // const [password, setPassword] = React.useState('')
 
   const { setRoute, triggerResize, emailInput: email, setEmailInput: setEmail } = useOpenfort()
   const { client, updateUser } = useOpenfortCore()
@@ -52,6 +52,7 @@ const LinkEmail: React.FC = () => {
     try {
       await linkEmail({
         email,
+        // emailVerificationRedirectTo: window.location.origin,
       })
 
       await updateUser()
@@ -87,13 +88,13 @@ const LinkEmail: React.FC = () => {
           placeholder="Enter your email"
           disabled={loginLoading}
         />
-        <Input
+        {/* <Input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Enter your password"
           disabled={loginLoading}
-        />
+        /> */}
 
         {loginError && (
           <ModalBody style={{ height: 24, marginTop: 12 }} $error>

@@ -21,7 +21,6 @@ type LinkedProvidersProps = {
 }
 
 const LinkedProvider: React.FC<{ provider: UserAccount }> = ({ provider }) => {
-  // OTP_TODO: linked provider details
   const { setRoute } = useOpenfort()
   return (
     <LinkedProviderButtonContainer>
@@ -77,6 +76,12 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
   return (
     <>
       <LinkedProvidersGroupWrapper>
+        {!linkedAccounts.find((a) => a.provider === 'credential') && user.email && (
+          <LinkedProvider
+            key={`credential-${user.email}`}
+            provider={{ provider: 'credential', accountId: user.email }}
+          />
+        )}
         {linkedAccounts.map((provider) => (
           <LinkedProvider key={`${provider.provider}-${provider.accountId}`} provider={provider} />
         ))}
