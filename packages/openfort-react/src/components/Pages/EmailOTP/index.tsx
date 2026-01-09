@@ -22,7 +22,7 @@ const ERROR_DISPLAY_DURATION_MS = 2000
 
 const EmailOTP: React.FC = () => {
   const { emailInput: email, previousRoute, setRoute, setEmailInput } = useOpenfort()
-  const { isLoading, requestEmailOtp, logInWithEmailOtp } = useEmailOtpAuth({
+  const { isLoading, requestEmailOtp, signInEmailOtp } = useEmailOtpAuth({
     recoverWalletAutomatically: false,
   })
 
@@ -63,7 +63,7 @@ const EmailOTP: React.FC = () => {
       logger.log('OTP entered:', otp)
       setStatus('loading')
 
-      const { error } = await logInWithEmailOtp({ email, otp })
+      const { error } = await signInEmailOtp({ email, otp })
 
       if (error) {
         logger.error('Error logging in with email OTP:', error)
@@ -72,7 +72,7 @@ const EmailOTP: React.FC = () => {
         setStatus('success')
       }
     },
-    [email, logInWithEmailOtp]
+    [email, signInEmailOtp]
   )
 
   // Handle status changes and side effects

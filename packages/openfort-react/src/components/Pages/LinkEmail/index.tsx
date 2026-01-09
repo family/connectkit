@@ -52,7 +52,6 @@ const LinkEmail: React.FC = () => {
     try {
       await linkEmail({
         email,
-        password,
       })
 
       await updateUser()

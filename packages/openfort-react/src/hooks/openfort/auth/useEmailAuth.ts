@@ -46,8 +46,6 @@ type ResetPasswordOptions = {
 
 type LinkEmailOptions = {
   email: string
-  password: string
-  name?: string
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult>
 
@@ -498,43 +496,25 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           })
         }
 
-        const result = await client.auth.addEmail({
-          name: options.name || '',
+        await client.auth.addEmail({
+          // name: options.name || '',
           email: options.email,
-          password: options.password,
-          method: 'password',
+          // password: options.password,
+          // method: 'password',
+          callbackURL: buildCallbackUrl({
+            callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
+            email: options.email,
+            provider: 'email',
+            isOpen,
+          }),
         })
         logger.log('Email linked successfully')
 
-        if ('action' in result) {
-          setStatus({
-            status: 'awaiting-input',
-          })
-
-          client.auth.requestEmailVerification({
-            email: options.email,
-            redirectUrl: buildCallbackUrl({
-              email: options.email,
-              callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
-              provider: 'email',
-              isOpen,
-            }),
-          })
-
-          updateUser()
-          setRequiresEmailVerification(true)
-          return onSuccess<EmailAuthResult>({
-            data: { requiresEmailVerification: true },
-            hookOptions,
-            options,
-          })
-        } else {
-          return onSuccess<EmailAuthResult>({
-            data: {},
-            hookOptions,
-            options,
-          })
-        }
+        return onSuccess<EmailAuthResult>({
+          data: {},
+          hookOptions,
+          options,
+        })
       } catch (e) {
         const error = new OpenfortError('Failed to link email', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
           error: e,

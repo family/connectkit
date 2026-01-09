@@ -5,6 +5,7 @@ import type { CountryData, CountryIso2, CountrySelectorProps } from 'react-inter
 import type { Hex } from 'viem'
 import type { getAssets } from 'viem/_types/experimental/erc7811/actions/getAssets'
 import type { UserWallet } from '../../hooks/openfort/useWallets'
+import type { UserAccount } from '../../openfortCustomTypes'
 import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
 
 export const routes = {
@@ -38,7 +39,9 @@ export const routes = {
   CONNECTED: 'connected',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
+  LINKED_PROVIDER: 'linkedProvider',
   LINKED_PROVIDERS: 'linkedProviders',
+  REMOVE_LINKED_PROVIDER: 'removeLinkedProvider',
   EXPORT_KEY: 'exportKey',
 
   NO_ASSETS_AVAILABLE: 'noAssetsAvailable',
@@ -82,6 +85,8 @@ type RoutesWithOptions =
   | ({ route: typeof routes.CONNECTORS } & ConnectOptions)
   | ({ route: typeof routes.CONNECT } & ConnectOptions)
   | { route: typeof routes.RECOVER_WALLET; wallet: UserWallet }
+  | { route: typeof routes.LINKED_PROVIDER; provider: UserAccount }
+  | { route: typeof routes.REMOVE_LINKED_PROVIDER; provider: UserAccount }
 
 export type RoutesWithoutOptions = {
   route: Exclude<AllRoutes, RoutesWithOptions['route']>

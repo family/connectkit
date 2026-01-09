@@ -709,8 +709,8 @@ importers:
   packages/openfort-react:
     dependencies:
       '@openfort/openfort-js':
-        specifier: file:./openfort-openfort-js-0.10.36-beta.3.1.tgz
-        version: file:packages/openfort-react/openfort-openfort-js-0.10.36-beta.3.1.tgz(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: https://pkg.pr.new/openfort-xyz/openfort-js/@openfort/openfort-js@8a1313d
+        version: https://pkg.pr.new/openfort-xyz/openfort-js/@openfort/openfort-js@8a1313d(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@tanstack/react-query':
         specifier: '>=5.0.0'
         version: 5.90.12(react@18.3.1)
@@ -1976,8 +1976,8 @@ packages:
   '@openfort/openfort-js@0.10.39':
     resolution: {integrity: sha512-ZghhptwHiXQXmzCKjllljqqZSqAbckRtHRlxm6DLI13x/dWVyhWUkvrAsFUqb4UssbcADHg6K0UcGLjttLNW6g==}
 
-  '@openfort/openfort-js@file:packages/openfort-react/openfort-openfort-js-0.10.36-beta.3.1.tgz':
-    resolution: {integrity: sha512-TXaQa+0dHGLlJcvBzVAtF0yKvpSHVZevOSAYHWBPFMDGUF2cnp4Ffot9myQkm+pK2+iUGTSSQe1Kyacub+rhOg==, tarball: file:packages/openfort-react/openfort-openfort-js-0.10.36-beta.3.1.tgz}
+  '@openfort/openfort-js@https://pkg.pr.new/openfort-xyz/openfort-js/@openfort/openfort-js@8a1313d':
+    resolution: {tarball: https://pkg.pr.new/openfort-xyz/openfort-js/@openfort/openfort-js@8a1313d}
     version: 0.10.36-beta.3
 
   '@openfort/openfort-node@0.6.76':
@@ -8864,7 +8864,7 @@ snapshots:
       - debug
       - utf-8-validate
 
-  '@openfort/openfort-js@file:packages/openfort-react/openfort-openfort-js-0.10.36-beta.3.1.tgz(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@openfort/openfort-js@https://pkg.pr.new/openfort-xyz/openfort-js/@openfort/openfort-js@8a1313d(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/abi': 5.8.0
       '@ethersproject/bytes': 5.8.0
@@ -8879,7 +8879,6 @@ snapshots:
       axios-retry: 4.5.0(axios@1.13.2)
       eventemitter3: 5.0.1
       human-id: 4.1.3
-      jose: 5.10.0
     transitivePeerDependencies:
       - bufferutil
       - debug

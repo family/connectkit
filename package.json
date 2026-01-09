@@ -15,7 +15,7 @@
     "preinstall": "pnpx only-allow pnpm",
     "postinstall": "git config --unset core.hooksPath 2>/dev/null || true && simple-git-hooks",
     "check": "biome check",
-    "check:fix": "biome check --write",
+    "check:fix": "biome check --write --unsafe",
     "check:types": "tsc --noEmit",
     "check:unused": "knip",
     "check:audit": "pnpm audit --audit-level=moderate",

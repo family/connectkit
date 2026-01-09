@@ -1,78 +1,39 @@
-import { useMemo } from 'react'
-import { EmailIcon, WalletIcon } from '../../../assets/icons'
-import Logos, { providersLogos } from '../../../assets/logos'
+import { useEffect } from 'react'
 import { useProviders } from '../../../hooks/openfort/useProviders'
-import { useUser } from '../../../hooks/openfort/useUser'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import type { UserAccount } from '../../../openfortCustomTypes'
-import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
 import Button from '../../Common/Button'
-import FitText from '../../Common/FitText'
-import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
+import { ModalHeading } from '../../Common/Modal/styles'
+import { ProviderHeader } from '../../Common/Providers/ProviderHeader'
+import { ProviderIcon } from '../../Common/Providers/ProviderIcon'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviderContainer, LinkedProvidersGroupWrapper, LinkedProviderText, ProviderIconWrapper } from './styles'
+import {
+  LinkedProviderButtonContainer,
+  LinkedProviderButtonWrapper,
+  LinkedProvidersGroupWrapper,
+  ProviderIconWrapper,
+} from './styles'
 
 type LinkedProvidersProps = {
   showHeader?: boolean
 }
 
-const WalletIconWrapper: React.FC<{ provider: UserAccount }> = ({ provider }) => {
-  const wallets = useWagmiWallets()
-  const wallet = useMemo(() => {
-    return wallets.find((w) => w.id?.toLowerCase() === provider.walletClientType)
-  }, [provider])
-
-  if (provider.walletClientType === 'walletconnect') return <Logos.WalletConnect />
-
-  if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>
-
-  return <WalletIcon />
-}
-
-const ProviderIcon: React.FC<{ provider: UserAccount }> = ({ provider }) => {
-  switch (provider.provider) {
-    case 'email':
-    case 'credential':
-      return <EmailIcon />
-    // OTP_TODO: Wallet icon
-    case 'wallet':
-    case 'siwe':
-      return <WalletIconWrapper provider={provider} />
-    case 'google':
-    case 'twitter':
-    case 'facebook':
-      return providersLogos[provider.provider]
-    default:
-      return <FitText>{provider.provider.substring(0, 4).toUpperCase()}</FitText>
-  }
-}
-
-const ProviderText: React.FC<{ provider: UserAccount }> = ({ provider }) => {
-  const { user } = useUser()
-  switch (provider.provider) {
-    case 'wallet':
-    case 'siwe':
-      return <LinkedProviderText>{provider.accountId}</LinkedProviderText>
-    default:
-      return (
-        <LinkedProviderText style={{ textTransform: user?.email ? 'none' : 'capitalize' }}>
-          {user?.email ?? provider.provider}
-        </LinkedProviderText>
-      )
-  }
-}
-
 const LinkedProvider: React.FC<{ provider: UserAccount }> = ({ provider }) => {
   // OTP_TODO: linked provider details
+  const { setRoute } = useOpenfort()
   return (
-    <LinkedProviderContainer>
-      <ProviderIconWrapper>
-        <ProviderIcon provider={provider} />
-      </ProviderIconWrapper>
-      <ProviderText provider={provider} />
-    </LinkedProviderContainer>
+    <LinkedProviderButtonContainer>
+      <Button onClick={() => setRoute({ route: routes.LINKED_PROVIDER, provider })} fitText={false}>
+        <LinkedProviderButtonWrapper>
+          <ProviderIconWrapper>
+            <ProviderIcon provider={provider} />
+          </ProviderIconWrapper>
+          <ProviderHeader provider={provider} />
+        </LinkedProviderButtonWrapper>
+      </Button>
+    </LinkedProviderButtonContainer>
   )
 }
 
@@ -89,6 +50,11 @@ const AddLinkedProviderButton: React.FC = () => {
 
 const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
   const { linkedAccounts, user, isLoading } = useOpenfortCore()
+  const { triggerResize } = useOpenfort()
+
+  useEffect(() => {
+    if (!isLoading) triggerResize()
+  }, [isLoading])
 
   // TODO: Show loading
   if (isLoading) {
@@ -108,20 +74,21 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
     )
   }
 
-  if (linkedAccounts.length === 0) {
-    return (
-      <div>
-        <AddLinkedProviderButton />
-      </div>
-    )
-  }
-
   return (
     <>
       <LinkedProvidersGroupWrapper>
         {linkedAccounts.map((provider) => (
           <LinkedProvider key={`${provider.provider}-${provider.accountId}`} provider={provider} />
         ))}
+        {user.phoneNumber && (
+          <LinkedProvider
+            key={`phone-${user.phoneNumber}`}
+            provider={{
+              provider: 'phone',
+              accountId: user.phoneNumber,
+            }}
+          />
+        )}
       </LinkedProvidersGroupWrapper>
       <AddLinkedProviderButton />
     </>
@@ -131,10 +98,7 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
 const LinkedProviders: React.FC = () => {
   return (
     <PageContent>
-      <ModalHeading>Linked accounts</ModalHeading>
-      <ModalContent>
-        <ModalBody>Linked accounts settings.</ModalBody>
-      </ModalContent>
+      <ModalHeading>Authentication methods</ModalHeading>
       <LinkedProvidersGroup />
     </PageContent>
   )

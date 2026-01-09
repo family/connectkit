@@ -16,6 +16,12 @@ export function useProviders() {
   const availableProviders = user
     ? providers.filter((provider) => {
         if (provider === UIAuthProvider.WALLET) return true // Wallet is always available
+        if (user.email && (provider === UIAuthProvider.EMAIL_PASSWORD || provider === UIAuthProvider.EMAIL_OTP)) {
+          return false // If user has email, don't show email password or otp
+        }
+        if (user.phoneNumber && provider === UIAuthProvider.PHONE) {
+          return false // If user has phone number, don't show phone otp
+        }
         return !linkedAccounts?.find((a) => a.provider === provider)
       })
     : providers

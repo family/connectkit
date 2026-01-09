@@ -40,7 +40,7 @@ export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = {}) => {
 
   const { tryUseWallet } = useConnectToWalletPostAuth()
 
-  const logInWithEmailOtp = useCallback(
+  const signInEmailOtp = useCallback(
     async (options: LoginWithEmailOtpOptions): Promise<EmailOtpAuthResult> => {
       try {
         setStatus({
@@ -153,7 +153,7 @@ export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = {}) => {
         })
 
         setStatus({
-          status: 'idle',
+          status: 'success',
         })
         return onSuccess<EmailOtpAuthResult>({
           data: {},
@@ -181,7 +181,7 @@ export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = {}) => {
   )
 
   return {
-    logInWithEmailOtp,
+    signInEmailOtp,
     requestEmailOtp,
 
     reset,

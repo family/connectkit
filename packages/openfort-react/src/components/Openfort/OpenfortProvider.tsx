@@ -92,25 +92,28 @@ export const OpenfortProvider = ({
     throw new Error('Multiple, nested usages of OpenfortProvider detected. Please use only one.')
   }
 
-  const debugModeOptions: Required<DebugModeOptions> = useMemo(() => {
+  const debugModeOptions: Required<DebugModeOptions & { debugRoutes?: boolean }> = useMemo(() => {
     const getDebugMode = () => {
       if (typeof debugMode === 'undefined') {
         return {
           shieldDebugMode: false,
           openfortCoreDebugMode: false,
           openfortReactDebugMode: false,
+          debugRoutes: false,
         }
       } else if (typeof debugMode === 'boolean') {
         return {
           shieldDebugMode: debugMode,
           openfortCoreDebugMode: debugMode,
           openfortReactDebugMode: debugMode,
+          debugRoutes: false,
         }
       } else {
         return {
           shieldDebugMode: debugMode.shieldDebugMode ?? false,
           openfortCoreDebugMode: debugMode.openfortCoreDebugMode ?? false,
           openfortReactDebugMode: debugMode.openfortReactDebugMode ?? false,
+          debugRoutes: (debugMode as any).debugRoutes ?? false,
         }
       }
     }
@@ -348,6 +351,34 @@ export const OpenfortProvider = ({
         onConnect={onConnect}
         onDisconnect={onDisconnect}
       >
+        {debugModeOptions.debugRoutes && (
+          <pre
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              fontSize: '14px',
+              color: 'gray',
+              background: 'white',
+              zIndex: 9999,
+            }}
+          >
+            {
+              JSON.stringify(
+                routeHistory.map((item) =>
+                  Object.fromEntries(
+                    Object.entries(item).map(([key, value]) => [
+                      key,
+                      typeof value === 'object' && value !== null ? '[object]' : value,
+                    ])
+                  )
+                ),
+                null,
+                2
+              ) // For debugging purposes
+            }
+          </pre>
+        )}
         {/* <ThemeProvider
             theme={defaultTheme}
           > */}

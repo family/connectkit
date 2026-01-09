@@ -29,6 +29,7 @@ import EmailVerification from '../Pages/EmailVerification'
 import ExportKey from '../Pages/ExportKey'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
+import LinkedProvider from '../Pages/LinkedProvider'
 import LinkedProviders from '../Pages/LinkedProviders'
 import Loading from '../Pages/Loading'
 import LoadWallets from '../Pages/LoadWallets'
@@ -40,6 +41,7 @@ import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
 import Receive from '../Pages/Receive'
 import RecoverPage from '../Pages/Recover'
+import RemoveLinkedProvider from '../Pages/RemoveLinkedProvider'
 import SelectToken from '../Pages/SelectToken'
 import SelectWalletToRecover from '../Pages/SelectWalletToRecover'
 import Send from '../Pages/Send'
@@ -140,6 +142,8 @@ const ConnectModal: React.FC<{
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     linkedProviders: <LinkedProviders />,
+    linkedProvider: <LinkedProvider />,
+    removeLinkedProvider: <RemoveLinkedProvider />,
     connectWithMobile: <ConnectWithMobile />,
 
     noAssetsAvailable: <NoAssetsAvailable />,
