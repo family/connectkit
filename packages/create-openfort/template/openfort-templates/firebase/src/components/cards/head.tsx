@@ -297,10 +297,10 @@ const GlowCanvas = ({
     draw()
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      if (animationRef.current) cancelAnimationFrame(animationRef.current)
-    }
-  }, [dimensions, accentColor, backgroundColor, color])
+      document.removeEventListener("mousemove", handleMouseMove);
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+  };
+}, [dimensions]);
 
   return (
     <canvas

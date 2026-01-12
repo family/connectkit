@@ -1,12 +1,15 @@
-import { useWallets } from '@openfort/react'
+import { useMemo } from 'react'
 import { getAddress, parseAbi } from 'viem'
-import { useAccount, useReadContract, useWriteContract } from 'wagmi'
+import {
+  useAccount,
+  useChains,
+  useReadContract,
+  useWriteContract
+} from 'wagmi'
 import { TruncateData } from '../ui/TruncateData'
 
 const MintContract = () => {
   const { address } = useAccount()
-  const wallWallets = useWallets()
-  console.log({ wallWallets })
 
   const {
     data: balance,
@@ -99,12 +102,32 @@ const MintContract = () => {
 }
 
 export const Actions = () => {
+  const hasSponsorPolicy = useMemo(() => !!import.meta.env.VITE_POLICY_ID, [])
+  const chains = useChains()
   return (
     <div className="flex flex-col w-full">
       <h1>Actions</h1>
       <span className="mb-4 text-zinc-400 text-sm">
         Interact with smart contracts on the blockchain.
       </span>
+      {!hasSponsorPolicy && (
+        <div className="mb-3 p-3 bg-red-800 text-white rounded text-sm">
+          <strong>Warning: Transactions are not sponsored.</strong> Minting may
+          fail because transactions are not being sponsored. To sponsor
+          transactions, go to the{' '}
+          <a
+            href="https://dashboard.openfort.xyz/policies"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Openfort Dashboard
+          </a>{' '}
+          and <b>create a policy</b> sponsoring transactions in{' '}
+          <b>{chains[0].name}</b>. Set the <code>VITE_POLICY_ID</code>{' '}
+          environment variable with the policy ID.
+        </div>
+      )}
       <MintContract />
     </div>
   )
