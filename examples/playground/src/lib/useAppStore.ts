@@ -1,5 +1,4 @@
 import { AuthProvider, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
-import type { DebugModeOptions } from 'node_modules/@openfort/react/build/components/Openfort/types'
 import { beamTestnet, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
 
@@ -89,7 +88,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     openfortCoreDebugMode: true,
     shieldDebugMode: true,
     // debugRoutes: true,
-  } as DebugModeOptions,
+  },
 }
 
 interface Store {
