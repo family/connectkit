@@ -1,10 +1,10 @@
-import { useChainId, useSignMessage, useSignTypedData } from 'wagmi';
+import { useChainId, useSignMessage, useSignTypedData } from 'wagmi'
 
-import { TruncateData } from '../../../components/ui/TruncateData';
+import { TruncateData } from '../../../components/ui/TruncateData'
 
 function SignTypedData() {
-  const { signTypedData, error, data } = useSignTypedData();
-  const chainId = useChainId();
+  const { signTypedData, error, data } = useSignTypedData()
+  const chainId = useChainId()
 
   return (
     <div>
@@ -12,7 +12,7 @@ function SignTypedData() {
 
       <form
         onSubmit={async (event) => {
-          event.preventDefault();
+          event.preventDefault()
           signTypedData({
             domain: {
               name: 'Ether Mail',
@@ -43,7 +43,7 @@ function SignTypedData() {
               },
               contents: 'Hello, Bob!',
             },
-          });
+          })
         }}
       >
         <button type="submit" className="btn">
@@ -54,11 +54,11 @@ function SignTypedData() {
       <TruncateData data={data} />
       <TruncateData data={error?.message} className="text-red-500" />
     </div>
-  );
+  )
 }
 
 function SignMessage() {
-  const { data, signMessage, error } = useSignMessage();
+  const { data, signMessage, error } = useSignMessage()
 
   return (
     <div>
@@ -66,9 +66,9 @@ function SignMessage() {
       <form
         className="space-y-2"
         onSubmit={(event) => {
-          event.preventDefault();
-          const formData = new FormData(event.target as HTMLFormElement);
-          signMessage({ message: formData.get('message') as string });
+          event.preventDefault()
+          const formData = new FormData(event.target as HTMLFormElement)
+          signMessage({ message: formData.get('message') as string })
         }}
       >
         <input name="message" placeholder="Message to sign" />
@@ -79,7 +79,7 @@ function SignMessage() {
       <TruncateData data={error?.message} className="text-red-500" />
       <TruncateData data={data} />
     </div>
-  );
+  )
 }
 
 export function SignCard() {
@@ -94,5 +94,5 @@ export function SignCard() {
         <SignTypedData />
       </div>
     </div>
-  );
+  )
 }

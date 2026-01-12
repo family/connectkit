@@ -1,11 +1,11 @@
-import { betterAuth } from 'better-auth';
-import Database from 'better-sqlite3';
-import { config } from 'dotenv';
-import { bearer } from "better-auth/plugins"
-import { openfort, encryptionSession } from "@openfort/better-auth";
-import { openfortSDK } from './openfort';
+import { encryptionSession, openfort } from '@openfort/better-auth'
+import { betterAuth } from 'better-auth'
+import { bearer } from 'better-auth/plugins'
+import Database from 'better-sqlite3'
+import { config } from 'dotenv'
+import { openfortSDK } from './openfort'
 
-config();
+config()
 
 export const auth = betterAuth({
   database: new Database('./auth.db'),
@@ -22,7 +22,9 @@ export const auth = betterAuth({
     level: 'debug',
     log: console.log,
   },
-  trustedOrigins: process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:3000'],
+  trustedOrigins: process.env.FRONTEND_URL
+    ? [process.env.FRONTEND_URL]
+    : ['http://localhost:3000'],
   plugins: [
     bearer(),
     openfort({
@@ -37,5 +39,5 @@ export const auth = betterAuth({
         }),
       ],
     }),
-  ]
-});
+  ],
+})

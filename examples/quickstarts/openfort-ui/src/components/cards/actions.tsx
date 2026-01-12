@@ -1,13 +1,15 @@
-import { getAddress, parseAbi } from "viem";
-import { useAccount, useReadContract, useWriteContract } from "wagmi";
-import { TruncateData } from "../ui/TruncateData";
+import { getAddress, parseAbi } from 'viem'
+import { useAccount, useReadContract, useWriteContract } from 'wagmi'
+import { TruncateData } from '../ui/TruncateData'
 
 const MintContract = () => {
-
   const { address } = useAccount()
 
-
-  const { data: balance, refetch, error: balanceError } = useReadContract({
+  const {
+    data: balance,
+    refetch,
+    error: balanceError,
+  } = useReadContract({
     address: '0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac',
     abi: [
       {
@@ -35,17 +37,22 @@ const MintContract = () => {
     functionName: 'symbol',
   })
 
-  const { data: hash, isPending, writeContract, error } = useWriteContract({
+  const {
+    data: hash,
+    isPending,
+    writeContract,
+    error,
+  } = useWriteContract({
     mutation: {
       onSuccess: () => {
         setTimeout(() => {
           refetch()
-        }, 100);
+        }, 100)
       },
       onSettled: (data, error) => {
-        console.log('Settled', { data, error });
-      }
-    }
+        console.log('Settled', { data, error })
+      },
+    },
   })
 
   async function submit({ amount }: { amount: string }) {
@@ -60,7 +67,9 @@ const MintContract = () => {
   return (
     <div>
       <h2>Mint contract</h2>
-      <p className="mb-2 text-zinc-400 text-sm">Current balance: {balance?.toString()} {tokenSymbol as string || ""}</p>
+      <p className="mb-2 text-zinc-400 text-sm">
+        Current balance: {balance?.toString()} {(tokenSymbol as string) || ''}
+      </p>
       <form
         className="space-y-4"
         onSubmit={(e) => {
@@ -75,13 +84,8 @@ const MintContract = () => {
           className="grow peer"
           name="amount"
         />
-        <button
-          className='btn'
-          disabled={isPending || !address}
-        >
-          {
-            isPending ? 'Minting...' : 'Mint Tokens'
-          }
+        <button className="btn" disabled={isPending || !address}>
+          {isPending ? 'Minting...' : 'Mint Tokens'}
         </button>
       </form>
       <TruncateData data={hash} />
@@ -92,7 +96,6 @@ const MintContract = () => {
 }
 
 export const Actions = () => {
-
   return (
     <div className="flex flex-col w-full">
       <h1>Actions</h1>
@@ -101,5 +104,5 @@ export const Actions = () => {
       </span>
       <MintContract />
     </div>
-  );
+  )
 }

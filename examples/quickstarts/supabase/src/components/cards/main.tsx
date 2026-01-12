@@ -4,7 +4,9 @@ import {
   PlayIcon,
   WalletIcon,
 } from '@heroicons/react/24/outline'
+import { useUser } from '@openfort/react'
 import { useState } from 'react'
+import { useAccount } from 'wagmi'
 import { SupabaseAuthCard } from '../../integrations/supabase'
 import {
   ActionsCard,
@@ -14,8 +16,6 @@ import {
 } from '../../ui/openfort'
 import { DesktopTabGroup, MobileTabGroup, type TabType } from '../ui/Tabs'
 import { Head } from './head'
-import { useUser } from '@openfort/react'
-import { useAccount } from 'wagmi'
 
 interface LayoutProps {
   children: React.ReactNode

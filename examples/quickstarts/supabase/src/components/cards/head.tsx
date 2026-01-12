@@ -300,7 +300,6 @@ const GlowCanvas = ({
       document.removeEventListener('mousemove', handleMouseMove)
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
-    // biome-ignore lint/correctness/useExhaustiveDependencies: animation effect depends on dimensions and theme colors only
   }, [dimensions, accentColor, backgroundColor, color])
 
   return (
