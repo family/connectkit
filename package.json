@@ -105,9 +105,6 @@
       "rollup-plugin-peer-deps-external",
       "rollup-plugin-typescript2",
       "typescript-plugin-styled-components",
-      "tailwindcss",
-      "tw-animate-css",
-      "daisyui",
       "buffer",
       "wagmi",
       "@babel/core"

@@ -11,18 +11,6 @@ export const ProviderIconWrapper = styled.div`
   justify-content: center;
 `
 
-export const LinkedProviderContainer = styled.div`
-  background-color: var(--ck-body-background-secondary);
-  border: var(--ck-body-divider) 1px solid;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-radius: var(--ck-primary-button-border-radius);
-  overflow: hidden;
-  text-overflow: ellipsis;
-`
-
 export const LinkedProviderButtonContainer = styled.div`
   ${ButtonContainer} {
     font-weight: var(--ck-primary-button-font-weight, 500);
