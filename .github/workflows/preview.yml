@@ -11,7 +11,7 @@ jobs:
   preview:
     name: Publish preview package
     # Prevents this action from running on forks
-    if: github.repository == 'openfort-xyz/openfort-js'
+    if: github.repository == 'openfort-xyz/react'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -40,4 +40,4 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=14366
 
       - name: Publish preview
-        run: pnpx pkg-pr-new publish --pnpm --compact './sdk'
+        run: pnpx pkg-pr-new publish --pnpm --compact './packages/openfort-react'
