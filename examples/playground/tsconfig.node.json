@@ -32,5 +32,5 @@
     /* IMPORTANT: make Node globals (process, Buffer, etc.) available */
     "types": ["node"]
   },
-  "include": ["src", "playwright.config.ts", "vite.config.ts", "e2e/**/*.ts"]
+  "include": ["src", "playwright.config.ts", "vite.config.ts", "tests/**/*.ts"]
 }

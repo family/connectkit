@@ -37,5 +37,5 @@ test-results/
 examples/playground/playwright-report/
 examples/playground/test-results/
 examples/playground/.playwright/
-examples/playground/e2e/.auth/
+examples/playground/tests/.auth/
 

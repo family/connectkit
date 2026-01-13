@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { defineConfig, devices } from '@playwright/test'
-import { AUTH_STATE_PATH, ROOT_OUT, TEST_RESULTS_DIR } from './e2e/utils/constants'
+import { AUTH_STATE_PATH, ROOT_OUT, TEST_RESULTS_DIR } from './tests/utils/constants'
 
 const PORT = Number(process.env.PLAYGROUND_PORT ?? 5173)
 const BASE_URL = process.env.PLAYGROUND_BASE_URL ?? `http://localhost:${PORT}`
@@ -9,7 +9,7 @@ const REPORT_DIR = path.join(ROOT_OUT, 'playwright-report')
 
 export default defineConfig({
   // Test directory
-  testDir: './e2e',
+  testDir: './tests',
 
   // Global timeouts
   timeout: 60_000,
