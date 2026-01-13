@@ -5,11 +5,7 @@ test.describe('Dashboard negative - write contract validation', () => {
     test.setTimeout(120_000)
     await dashboardPage.ensureReady()
 
-    const writeCard = page
-      .locator('[data-slot="card"]')
-      .filter({ hasText: /write contract/i })
-      .first()
-    await expect(writeCard).toBeVisible({ timeout: 60_000 })
+    const writeCard = await dashboardPage.getCardByTitle(/write contract/i)
 
     const amountInput = writeCard.getByPlaceholder(/enter amount to mint/i)
     await expect(amountInput).toBeVisible({ timeout: 30_000 })
@@ -28,8 +24,5 @@ test.describe('Dashboard negative - write contract validation', () => {
       .catch(() => {
         // If your UI takes time to "decide", we leave a small margin and recheck
       })
-
-    // Opcional: si tu UI muestra error, puedes activar este assert:
-    // await expect(writeCard.getByText(/invalid|required|enter amount/i)).toBeVisible({ timeout: 10_000 });
   })
 })

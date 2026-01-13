@@ -1,14 +1,11 @@
 import { expect, test } from '../fixtures/test'
 
 test.describe('Session keys - multiple + delete flow', () => {
-  test('can create multiple session keys, revoke one (X), and delete it (trash)', async ({ page, dashboardPage }) => {
+  test('can create multiple session keys, revoke one (X), and delete it (trash)', async ({ dashboardPage }) => {
     test.setTimeout(180_000)
     await dashboardPage.ensureReady()
 
-    const sessionCard = page
-      .locator('[data-slot="card"]')
-      .filter({ hasText: /session keys/i })
-      .first()
+    const sessionCard = await dashboardPage.getCardByTitle(/session keys/i)
 
     await expect(sessionCard).toBeVisible({ timeout: 60_000 })
 

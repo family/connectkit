@@ -5,11 +5,7 @@ test.describe('Dashboard regression - refresh persistence', () => {
     test.setTimeout(180_000)
     await dashboardPage.ensureReady()
 
-    const chainCard = page
-      .locator('[data-slot="card"]')
-      .filter({ hasText: /switch chain/i })
-      .first()
-    await expect(chainCard).toBeVisible({ timeout: 60_000 })
+    const chainCard = await dashboardPage.getCardByTitle(/switch chain/i)
 
     const currentChain = chainCard
       .locator('p')

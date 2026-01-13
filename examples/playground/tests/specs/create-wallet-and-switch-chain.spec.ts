@@ -29,11 +29,7 @@ test.describe('Dashboard integration - wallets + chain', () => {
     await expect.poll(async () => await walletRowLocator.count(), { timeout: 120_000 }).toBeGreaterThan(initialCount)
 
     // Switch chain
-    const chainCard = page
-      .locator('[data-slot="card"]')
-      .filter({ hasText: /switch chain/i })
-      .first()
-    await expect(chainCard).toBeVisible({ timeout: 60_000 })
+    const chainCard = await dashboardPage.getCardByTitle(/switch chain/i)
 
     const target = 'Base Sepolia'
     const btn = chainCard.getByRole('button', { name: new RegExp(`^switch to\\s+${escapeRegExp(target)}$`, 'i') })

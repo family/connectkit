@@ -16,6 +16,7 @@ export class DashboardPage {
   // Verify that the dashboard is loaded
   async expectLoaded() {
     await expect(this.signOutButton()).toBeVisible({ timeout: 90_000 })
+    await new Promise((r) => setTimeout(r, 500))
   }
 
   // Ensure navigation and ready state
@@ -45,5 +46,13 @@ export class DashboardPage {
       await this.page.screenshot({ path: 'test-results/sign-message-failed.png', fullPage: true }).catch(() => {})
       throw e
     }
+  }
+
+  async getCardByTitle(title: string | RegExp) {
+    const titleLocator = this.page.locator('[data-slot="card"]').filter({ hasText: title }).first()
+
+    await expect(titleLocator).toBeVisible({ timeout: 10_000 })
+
+    return titleLocator
   }
 }

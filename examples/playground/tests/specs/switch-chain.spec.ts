@@ -1,15 +1,12 @@
 import { expect, test } from '../fixtures/test'
 
 test.describe('Switch chain', () => {
-  test('can switch between available chains and updates current chain', async ({ page, dashboardPage }) => {
+  test('can switch between available chains and updates current chain', async ({ dashboardPage }) => {
     // Ensure session and dashboard are ready
     await dashboardPage.ensureReady()
 
     // Card "Switch chain"
-    const chainCard = page
-      .locator('[data-slot="card"]')
-      .filter({ hasText: /switch chain/i })
-      .first()
+    const chainCard = await dashboardPage.getCardByTitle(/switch chain/i)
 
     await expect(chainCard).toBeVisible({ timeout: 60_000 })
 

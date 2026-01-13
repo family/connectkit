@@ -6,10 +6,7 @@ test.describe('Write Contract - mint tokens', () => {
     await dashboardPage.ensureReady()
 
     // Card "Write Contract"
-    const writeCard = page
-      .locator('[data-slot="card"]')
-      .filter({ hasText: /write contract/i })
-      .first()
+    const writeCard = await dashboardPage.getCardByTitle(/write contract/i)
 
     await expect(writeCard).toBeVisible({ timeout: 60_000 })
 

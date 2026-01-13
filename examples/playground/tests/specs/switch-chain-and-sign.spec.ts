@@ -1,14 +1,10 @@
 import { expect, test } from '../fixtures/test'
 
 test.describe('Dashboard integration - chain + signatures', () => {
-  test('switch chain -> sign message -> chain stays selected', async ({ page, dashboardPage }) => {
+  test('switch chain -> sign message -> chain stays selected', async ({ dashboardPage }) => {
     await dashboardPage.ensureReady()
 
-    const chainCard = page
-      .locator('[data-slot="card"]')
-      .filter({ hasText: /switch chain/i })
-      .first()
-    await expect(chainCard).toBeVisible({ timeout: 60_000 })
+    const chainCard = await dashboardPage.getCardByTitle(/switch chain/i)
 
     const currentChain = chainCard
       .locator('p')
