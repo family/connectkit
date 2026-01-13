@@ -1,19 +1,11 @@
-import type { AuthPlayerResponse } from '@openfort/openfort-js'
+import type { User } from '@openfort/openfort-js'
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { useOpenfortCore } from '../openfort/useOpenfort'
 import useIsMounted from './useIsMounted'
 
 export type useConnectCallbackProps = {
-  onConnect?: ({
-    address,
-    connectorId,
-    user,
-  }: {
-    address?: string
-    connectorId?: string
-    user?: AuthPlayerResponse
-  }) => void
+  onConnect?: ({ address, connectorId, user }: { address?: string; connectorId?: string; user?: User }) => void
   onDisconnect?: () => void
 }
 

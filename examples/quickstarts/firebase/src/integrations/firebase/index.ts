@@ -1,3 +1,3 @@
-export * from "./client";
-export * from "./errors";
-export { FirebaseAuthCard } from "./components/FirebaseAuthCard";
+export * from './client'
+export { FirebaseAuthCard } from './components/FirebaseAuthCard'
+export * from './errors'

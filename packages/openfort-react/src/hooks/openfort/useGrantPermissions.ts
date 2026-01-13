@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import type { Hex } from 'viem'
 import { erc7715Actions, type GrantPermissionsParameters, type GrantPermissionsReturnType } from 'viem/experimental'
 import { useChainId, useWalletClient } from 'wagmi'
-import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
+import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../types'
 import { logger } from '../../utils/logger'
 import { useChains } from '../useChains'
 import { type BaseFlowState, mapStatus } from './auth/status'
@@ -122,7 +122,7 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
         logger.log('Granting permissions with request:', request)
 
         if (!walletClient) {
-          throw new OpenfortError('Wallet client not available', OpenfortErrorType.WALLET_ERROR)
+          throw new OpenfortError('Wallet client not available', OpenfortReactErrorType.WALLET_ERROR)
         }
 
         setStatus({
@@ -132,7 +132,7 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
         // Get the current chain configuration
         const chain = chains.find((c) => c.id === chainId)
         if (!chain) {
-          throw new OpenfortError('No chain configured', OpenfortErrorType.CONFIGURATION_ERROR)
+          throw new OpenfortError('No chain configured', OpenfortReactErrorType.CONFIGURATION_ERROR)
         }
 
         // Get the account address
@@ -159,7 +159,7 @@ export const useGrantPermissions = (hookOptions: GrantPermissionsHookOptions = {
           data,
         })
       } catch (error) {
-        const openfortError = new OpenfortError('Failed to grant permissions', OpenfortErrorType.WALLET_ERROR, {
+        const openfortError = new OpenfortError('Failed to grant permissions', OpenfortReactErrorType.WALLET_ERROR, {
           error,
         })
 

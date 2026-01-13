@@ -14,9 +14,13 @@ export type All = {
 }
 
 export type { CustomAvatarProps } from './components/Common/Avatar'
-export type { ConnectUIOptions as OpenfortOptions, OpenfortWalletConfig } from './components/Openfort/types'
+export type {
+  ConnectUIOptions as OpenfortOptions,
+  OpenfortWalletConfig,
+  PhoneConfig,
+} from './components/Openfort/types'
 
-export enum OpenfortErrorType {
+export enum OpenfortReactErrorType {
   AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR',
   WALLET_ERROR = 'WALLET_ERROR',
   CONFIGURATION_ERROR = 'CONFIGURATION_ERROR',
@@ -28,9 +32,9 @@ interface Data {
   [key: string]: any
 }
 export class OpenfortError extends Error {
-  type: OpenfortErrorType
+  type: OpenfortReactErrorType
   data: Data
-  constructor(message: string, type: OpenfortErrorType, data?: Data) {
+  constructor(message: string, type: OpenfortReactErrorType, data?: Data) {
     if (data?.error instanceof OpenfortError) {
       super(data.error.message)
       this.data = data.error.data

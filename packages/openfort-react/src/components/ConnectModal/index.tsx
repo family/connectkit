@@ -24,20 +24,24 @@ import CreateGuestUserPage from '../Pages/CreateGuestUserPage'
 import CreateWallet from '../Pages/CreateWallet'
 import DownloadApp from '../Pages/DownloadApp'
 import EmailLogin from '../Pages/EmailLogin'
+import EmailOTP from '../Pages/EmailOTP'
 import EmailVerification from '../Pages/EmailVerification'
 import ExportKey from '../Pages/ExportKey'
 import ForgotPassword from '../Pages/ForgotPassword'
 import LinkEmail from '../Pages/LinkEmail'
+import LinkedProvider from '../Pages/LinkedProvider'
 import LinkedProviders from '../Pages/LinkedProviders'
 import Loading from '../Pages/Loading'
 import LoadWallets from '../Pages/LoadWallets'
 import MobileConnectors from '../Pages/MobileConnectors'
 import { NoAssetsAvailable } from '../Pages/NoAssetsAvailable'
 import Onboarding from '../Pages/Onboarding'
+import PhoneOTP from '../Pages/PhoneOTP'
 import Profile from '../Pages/Profile'
 import Providers from '../Pages/Providers'
 import Receive from '../Pages/Receive'
 import RecoverPage from '../Pages/Recover'
+import RemoveLinkedProvider from '../Pages/RemoveLinkedProvider'
 import SelectToken from '../Pages/SelectToken'
 import SelectWalletToRecover from '../Pages/SelectWalletToRecover'
 import Send from '../Pages/Send'
@@ -117,6 +121,8 @@ const ConnectModal: React.FC<{
     createGuestUser: <CreateGuestUserPage />,
     socialProviders: <SocialProviders />,
     emailLogin: <EmailLogin />,
+    emailOtp: <EmailOTP />,
+    phoneOtp: <PhoneOTP />,
 
     forgotPassword: <ForgotPassword />,
     emailVerification: <EmailVerification />,
@@ -136,6 +142,8 @@ const ConnectModal: React.FC<{
     profile: <Profile />,
     switchNetworks: <SwitchNetworks />,
     linkedProviders: <LinkedProviders />,
+    linkedProvider: <LinkedProvider />,
+    removeLinkedProvider: <RemoveLinkedProvider />,
     connectWithMobile: <ConnectWithMobile />,
 
     noAssetsAvailable: <NoAssetsAvailable />,
@@ -161,12 +169,12 @@ const ConnectModal: React.FC<{
 
   // if auth redirect
   useEffect(() => {
-    const url = new URL(window.location.href)
+    const url = new URL(window.location.href.replace('?access_token=', '&access_token=')) // handle both ? and & cases
     const provider = url.searchParams.get('openfortAuthProviderUI')
     const emailVerification = url.searchParams.get('openfortEmailVerificationUI')
     const forgotPassword = url.searchParams.get('openfortForgotPasswordUI')
 
-    logger.log('Checking for search parameters', url)
+    logger.log('Checking for search parameters', { url, provider, emailVerification, forgotPassword })
 
     if (emailVerification) {
       context.setOpen(true)

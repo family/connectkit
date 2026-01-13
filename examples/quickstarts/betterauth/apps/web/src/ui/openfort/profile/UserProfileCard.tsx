@@ -1,27 +1,30 @@
-import { BookOpenIcon } from '@heroicons/react/24/outline';
-import { useUser } from '@openfort/react';
-import { useAccount } from 'wagmi';
+import { BookOpenIcon } from '@heroicons/react/24/outline'
+import { useUser } from '@openfort/react'
+import { useAccount } from 'wagmi'
 
-import { signOut } from '../../../integrations/betterauth';
-import { WalletListCard } from '../wallets/WalletListCard';
+import { signOut } from '../../../integrations/betterauth'
+import { WalletListCard } from '../wallets/WalletListCard'
 
 type UserProfileCardProps = {
-  sampleGithubUrl: string;
-  description: string;
-};
+  sampleGithubUrl: string
+  description: string
+}
 
-export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCardProps) {
-  const { user } = useUser();
-  const { isConnected } = useAccount();
-  const isLocal = window.location.hostname === 'localhost';
+export function UserProfileCard({
+  sampleGithubUrl,
+  description,
+}: UserProfileCardProps) {
+  const { user } = useUser()
+  const { isConnected } = useAccount()
+  const isLocal = window.location.hostname === 'localhost'
 
   if (!isConnected) {
-    return <WalletListCard />;
+    return <WalletListCard />
   }
 
   return (
     <div className="flex flex-col flex-1 gap-4">
-      <h1>Welcome, {user?.player?.name || user?.linkedAccounts[0].email}</h1>
+      <h1>Welcome, {user?.name || user?.email}</h1>
       <p className="text-zinc-400 text-sm">
         {description}
         <br />
@@ -35,7 +38,8 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
         </p>
         {isLocal ? (
           <p className="mb-2 text-sm">
-            Edit <code>src/components/cards/main.tsx</code> to customize the app.
+            Edit <code>src/components/cards/main.tsx</code> to customize the
+            app.
           </p>
         ) : (
           <p className="mb-2 text-sm">
@@ -49,7 +53,11 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
             target="_blank"
             rel="noreferrer"
           >
-            <img src="/githubLogo.svg" className="w-5 h-5 mr-2" alt="GitHub logo" />
+            <img
+              src="/githubLogo.svg"
+              className="w-5 h-5 mr-2"
+              alt="GitHub logo"
+            />
             View on github
           </a>
           <a
@@ -67,12 +75,12 @@ export function UserProfileCard({ sampleGithubUrl, description }: UserProfileCar
       <button
         type="button"
         onClick={async () => {
-          await signOut();
+          await signOut()
         }}
         className="btn mt-auto"
       >
         Sign Out
       </button>
     </div>
-  );
+  )
 }

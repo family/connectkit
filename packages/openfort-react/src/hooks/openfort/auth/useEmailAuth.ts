@@ -1,8 +1,9 @@
-import type { AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
+import type { User } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../../types'
 import { logger } from '../../../utils/logger'
+import { isValidEmail } from '../../../utils/validation'
 import { onError, onSuccess } from '../hookConsistency'
 import { useUI } from '../useUI'
 import type { UserWallet } from '../useWallets'
@@ -12,7 +13,7 @@ import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './
 
 type EmailAuthResult = {
   error?: OpenfortError
-  user?: OpenfortUser
+  user?: User
   wallet?: UserWallet
   requiresEmailVerification?: boolean
 }
@@ -45,7 +46,6 @@ type ResetPasswordOptions = {
 
 type LinkEmailOptions = {
   email: string
-  password: string
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult>
 
@@ -63,11 +63,6 @@ type UseEmailHookOptions = {
   emailVerificationRedirectTo?: string
 } & OpenfortHookOptions<EmailAuthResult | EmailVerificationResult> &
   CreateWalletPostAuthOptions
-
-const isValidEmail = (email: string) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
 
 /**
  * Hook for email-based authentication operations
@@ -165,7 +160,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         setRequiresEmailVerification(false)
 
         if (!options.email || !options.password) {
-          const error = new OpenfortError('Email and password are required', OpenfortErrorType.VALIDATION_ERROR)
+          const error = new OpenfortError('Email and password are required', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -178,7 +173,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         }
 
         if (!isValidEmail(options.email)) {
-          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          const error = new OpenfortError('Invalid email', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -225,7 +220,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           setStatus({
             status: 'success',
           })
-          const user = result.player
+          const user = result.user
 
           await updateUser()
 
@@ -238,7 +233,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
       } catch (e) {
         const error = new OpenfortError(
           'Failed to login with email and password',
-          OpenfortErrorType.AUTHENTICATION_ERROR,
+          OpenfortReactErrorType.AUTHENTICATION_ERROR,
           { error: e }
         )
 
@@ -261,7 +256,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     async (options: RequestResetPasswordOptions): Promise<EmailAuthResult> => {
       try {
         if (!isValidEmail(options.email)) {
-          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          const error = new OpenfortError('Invalid email', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -299,7 +294,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           options,
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to reset password', OpenfortErrorType.AUTHENTICATION_ERROR, {
+        const error = new OpenfortError('Failed to reset password', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
           error: e,
         })
         setStatus({
@@ -321,7 +316,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     async (options: ResetPasswordOptions): Promise<EmailAuthResult> => {
       try {
         if (!isValidEmail(options.email)) {
-          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          const error = new OpenfortError('Invalid email', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -339,9 +334,8 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         setRequiresEmailVerification(false)
 
         await client.auth.resetPassword({
-          email: options.email,
           password: options.password,
-          state: options.state,
+          token: options.state,
         })
 
         setStatus({
@@ -355,7 +349,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           options,
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to reset password', OpenfortErrorType.AUTHENTICATION_ERROR, {
+        const error = new OpenfortError('Failed to reset password', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
           error: e,
         })
         setStatus({
@@ -377,7 +371,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     async (options: SignUpEmailOptions): Promise<EmailAuthResult> => {
       try {
         if (!options.email || !options.password) {
-          const error = new OpenfortError('Email and password are required', OpenfortErrorType.VALIDATION_ERROR)
+          const error = new OpenfortError('Email and password are required', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -390,7 +384,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         }
 
         if (!isValidEmail(options.email)) {
-          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          const error = new OpenfortError('Invalid email', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -410,31 +404,17 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         const result = await client.auth.signUpWithEmailPassword({
           email: options.email,
           password: options.password,
+          callbackURL: buildCallbackUrl({
+            email: options.email,
+            callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
+            provider: 'email',
+            isOpen,
+          }),
           ...(options.name && { name: options.name }),
         })
 
-        if ('action' in result) {
-          setStatus({
-            status: 'awaiting-input',
-          })
-
-          client.auth.requestEmailVerification({
-            email: options.email,
-            redirectUrl: buildCallbackUrl({
-              email: options.email,
-              callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
-              provider: 'email',
-              isOpen,
-            }),
-          })
-
-          setRequiresEmailVerification(true)
-          return onSuccess<EmailAuthResult>({
-            data: { requiresEmailVerification: true },
-            hookOptions,
-            options,
-          })
-        } else {
+        // TODO: TMP FIX
+        if ('token' in result && result.token !== null) {
           const { wallet } = await tryUseWallet({
             logoutOnError: options.logoutOnError ?? hookOptions.logoutOnError,
             recoverWalletAutomatically: options.recoverWalletAutomatically ?? hookOptions.recoverWalletAutomatically,
@@ -443,7 +423,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           setStatus({
             status: 'success',
           })
-          const user = result.player
+          const user = result.user
           await updateUser(user)
 
           return onSuccess<EmailAuthResult>({
@@ -451,11 +431,22 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
             hookOptions,
             options,
           })
+        } else {
+          setStatus({
+            status: 'awaiting-input',
+          })
+
+          setRequiresEmailVerification(true)
+          return onSuccess<EmailAuthResult>({
+            data: { requiresEmailVerification: true },
+            hookOptions,
+            options,
+          })
         }
       } catch (e) {
         const error = new OpenfortError(
           'Failed to login with email and password',
-          OpenfortErrorType.AUTHENTICATION_ERROR,
+          OpenfortReactErrorType.AUTHENTICATION_ERROR,
           { error: e }
         )
         setStatus({
@@ -477,7 +468,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
     async (options: LinkEmailOptions): Promise<EmailAuthResult> => {
       try {
         if (!isValidEmail(options.email)) {
-          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          const error = new OpenfortError('Invalid email', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -493,7 +484,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         const authToken = await client.getAccessToken()
         if (!authToken) {
           logger.log('No token found')
-          const error = new OpenfortError('No token found', OpenfortErrorType.AUTHENTICATION_ERROR)
+          const error = new OpenfortError('No token found', OpenfortReactErrorType.AUTHENTICATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -505,44 +496,29 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           })
         }
 
-        const result = await client.auth.linkEmailPassword({
+        await client.auth.addEmail({
+          // name: options.name || '',
           email: options.email,
-          password: options.password,
-          authToken,
+          // password: options.password,
+          // method: 'password',
+          callbackURL: buildCallbackUrl({
+            callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
+            email: options.email,
+            provider: 'email',
+            isOpen,
+          }),
         })
         logger.log('Email linked successfully')
 
-        if ('action' in result) {
-          setStatus({
-            status: 'awaiting-input',
-          })
-
-          client.auth.requestEmailVerification({
-            email: options.email,
-            redirectUrl: buildCallbackUrl({
-              email: options.email,
-              callbackUrl: options.emailVerificationRedirectTo ?? hookOptions?.emailVerificationRedirectTo,
-              provider: 'email',
-              isOpen,
-            }),
-          })
-
-          updateUser()
-          setRequiresEmailVerification(true)
-          return onSuccess<EmailAuthResult>({
-            data: { requiresEmailVerification: true },
-            hookOptions,
-            options,
-          })
-        } else {
-          return onSuccess<EmailAuthResult>({
-            data: {},
-            hookOptions,
-            options,
-          })
-        }
+        return onSuccess<EmailAuthResult>({
+          data: {},
+          hookOptions,
+          options,
+        })
       } catch (e) {
-        const error = new OpenfortError('Failed to link email', OpenfortErrorType.AUTHENTICATION_ERROR, { error: e })
+        const error = new OpenfortError('Failed to link email', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
+          error: e,
+        })
 
         setStatus({
           status: 'error',
@@ -567,7 +543,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
 
       try {
         if (!isValidEmail(options.email)) {
-          const error = new OpenfortError('Invalid email', OpenfortErrorType.VALIDATION_ERROR)
+          const error = new OpenfortError('Invalid email', OpenfortReactErrorType.VALIDATION_ERROR)
           setStatus({
             status: 'error',
             error,
@@ -580,8 +556,7 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
         }
 
         await client.auth.verifyEmail({
-          email: options.email,
-          state: options.state,
+          token: options.state,
         })
         setStatus({
           status: 'success',
@@ -595,7 +570,9 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = {}) => {
           },
         })
       } catch (e) {
-        const error = new OpenfortError('Failed to verify email', OpenfortErrorType.AUTHENTICATION_ERROR, { error: e })
+        const error = new OpenfortError('Failed to verify email', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
+          error: e,
+        })
 
         setStatus({
           status: 'error',

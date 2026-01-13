@@ -1,22 +1,26 @@
 export type TabType = {
-  name: string;
-  component: React.ReactNode;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-};
+  name: string
+  component: React.ReactNode
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+}
 
 type TabProps = {
-  onClick?: () => void;
-  isActive?: boolean;
-} & TabType;
+  onClick?: () => void
+  isActive?: boolean
+} & TabType
 
 const DesktopTab = ({ name, isActive, ...buttonProps }: TabProps) => {
   return (
     <button
       className="relative h-8 mx-2.5 transition-colors cursor-pointer"
-      style={{
-        "--tab-bg-color": isActive ? "var(--color-zinc-800)" : "var(--color-zinc-700)",
-        opacity: isActive ? 1 : 0.6,
-      } as React.CSSProperties}
+      style={
+        {
+          '--tab-bg-color': isActive
+            ? 'var(--color-zinc-800)'
+            : 'var(--color-zinc-700)',
+          opacity: isActive ? 1 : 0.6,
+        } as React.CSSProperties
+      }
       {...buttonProps}
     >
       <div className="absolute w-5 h-8 bg-(--tab-bg-color) rotate-20 transform origin-top-left top-1" />
@@ -24,7 +28,7 @@ const DesktopTab = ({ name, isActive, ...buttonProps }: TabProps) => {
       <div className="absolute inset-0 rounded-md bg-(--tab-bg-color)" />
 
       <span
-        className={`${isActive ? "text-white" : "text-zinc-400"} whitespace-nowrap bg-(--tab-bg-color) z-10 relative mx-2 pb-4`}
+        className={`${isActive ? 'text-white' : 'text-zinc-400'} whitespace-nowrap bg-(--tab-bg-color) z-10 relative mx-2 pb-4`}
       >
         {name}
       </span>
@@ -33,25 +37,30 @@ const DesktopTab = ({ name, isActive, ...buttonProps }: TabProps) => {
 }
 
 type TabGroupProps = {
-  tabs: TabType[],
-  currentTab?: TabType,
+  tabs: TabType[]
+  currentTab?: TabType
   setCurrentTab?: (tab: TabType) => void
   showTabs?: boolean
 }
 
-export const DesktopTabGroup = ({ tabs, currentTab, setCurrentTab, showTabs }: TabGroupProps) => {
+export const DesktopTabGroup = ({
+  tabs,
+  currentTab,
+  setCurrentTab,
+  showTabs,
+}: TabGroupProps) => {
   return (
-    <div
-      className="absolute left-[100%] top-2 rotate-90 transform origin-top-left hidden xs:block"
-    >
+    <div className="absolute left-[100%] top-2 rotate-90 transform origin-top-left hidden xs:block">
       <div
         className="flex gap-2 transition-transform duration-500"
-        style={{ transform: showTabs ? "translateY(-100%)" : "translateY(10px)" }}
+        style={{
+          transform: showTabs ? 'translateY(-100%)' : 'translateY(10px)',
+        }}
       >
         {tabs?.map((tab) => (
           <DesktopTab
             key={tab.name}
-            onClick={() => setCurrentTab && setCurrentTab(tab)}
+            onClick={() => setCurrentTab?.(tab)}
             isActive={currentTab?.name === tab.name}
             {...tab}
           />
@@ -61,9 +70,12 @@ export const DesktopTabGroup = ({ tabs, currentTab, setCurrentTab, showTabs }: T
   )
 }
 
-
-
-const MobileTab = ({ name, isActive, icon: Icon, ...buttonProps }: TabProps) => {
+const MobileTab = ({
+  name,
+  isActive,
+  icon: Icon,
+  ...buttonProps
+}: TabProps) => {
   return (
     <button
       className="relative h-8 mx-2.5 transition-colors cursor-pointer"
@@ -71,7 +83,7 @@ const MobileTab = ({ name, isActive, icon: Icon, ...buttonProps }: TabProps) => 
     >
       <Icon className="h-5 w-5 mx-auto mb-1" />
       <span
-        className={`${isActive ? "text-white" : "text-zinc-400"} whitespace-nowrap`}
+        className={`${isActive ? 'text-white' : 'text-zinc-400'} whitespace-nowrap`}
       >
         {name}
       </span>
@@ -82,20 +94,18 @@ const MobileTab = ({ name, isActive, icon: Icon, ...buttonProps }: TabProps) => 
 export const MobileTabGroup = ({
   tabs,
   currentTab,
-  setCurrentTab
+  setCurrentTab,
 }: TabGroupProps) => {
   return (
     <div className="mt-auto xs:hidden flex pt-6 pb-2 items-end justify-between text-zinc-400 text-sm">
-      {
-        tabs?.map((tab) => (
-          <MobileTab
-            key={tab.name}
-            onClick={() => setCurrentTab && setCurrentTab(tab)}
-            isActive={currentTab?.name === tab.name}
-            {...tab}
-          />
-        ))
-      }
+      {tabs?.map((tab) => (
+        <MobileTab
+          key={tab.name}
+          onClick={() => setCurrentTab?.(tab)}
+          isActive={currentTab?.name === tab.name}
+          {...tab}
+        />
+      ))}
     </div>
   )
 }

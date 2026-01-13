@@ -10,11 +10,11 @@ export type BaseFlowState =
       error: OpenfortError | null
     }
 
-export const mapStatus = (status: BaseFlowState) => {
+export const mapStatus = (status: BaseFlowState | { status: string }) => {
   return {
     isLoading: status.status === 'loading',
     isError: status.status === 'error',
     isSuccess: status.status === 'success',
-    error: status.error,
+    error: 'error' in status ? status.error : undefined,
   }
 }

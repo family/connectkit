@@ -1,58 +1,38 @@
-import type { AuthPlayerResponse } from '@openfort/openfort-js'
-import { useMemo } from 'react'
-import { EmailIcon, WalletIcon as Wallet } from '../../../assets/icons'
-import Logos, { providersLogos } from '../../../assets/logos'
+import { useEffect } from 'react'
 import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { useWagmiWallets } from '../../../wallets/useWagmiWallets'
+import type { UserAccount } from '../../../openfortCustomTypes'
 import Button from '../../Common/Button'
-import FitText from '../../Common/FitText'
 import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
+import { ProviderHeader } from '../../Common/Providers/ProviderHeader'
+import { ProviderIcon } from '../../Common/Providers/ProviderIcon'
 import { routes } from '../../Openfort/types'
 import { useOpenfort } from '../../Openfort/useOpenfort'
 import { PageContent } from '../../PageContent'
-import { LinkedProviderContainer, LinkedProvidersGroupWrapper, LinkedProviderText, ProviderIconWrapper } from './styles'
+import {
+  LinkedProviderButtonContainer,
+  LinkedProviderButtonWrapper,
+  LinkedProvidersGroupWrapper,
+  ProviderIconWrapper,
+} from './styles'
 
 type LinkedProvidersProps = {
   showHeader?: boolean
 }
 
-const WalletIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
-  const wallets = useWagmiWallets()
-  const wallet = useMemo(() => {
-    return wallets.find((w) => w.id?.toLowerCase() === provider.walletClientType)
-  }, [provider])
-
-  if (provider.walletClientType === 'walletconnect') return <Logos.WalletConnect />
-
-  if (wallet) return <>{wallet.iconConnector ?? wallet.icon}</>
-
-  return <Wallet />
-}
-
-const ProviderIcon: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
-  switch (provider.provider) {
-    case 'email':
-      return <EmailIcon />
-    case 'wallet':
-      return <WalletIcon provider={provider} />
-    case 'google':
-    case 'twitter':
-    case 'facebook':
-      return providersLogos[provider.provider]
-    default:
-      return <FitText>{provider.provider.substring(0, 4).toUpperCase()}</FitText>
-  }
-}
-
-const LinkedProvider: React.FC<{ provider: AuthPlayerResponse['linkedAccounts'][0] }> = ({ provider }) => {
+const LinkedProvider: React.FC<{ provider: UserAccount }> = ({ provider }) => {
+  const { setRoute } = useOpenfort()
   return (
-    <LinkedProviderContainer>
-      <ProviderIconWrapper>
-        <ProviderIcon provider={provider} />
-      </ProviderIconWrapper>
-      <LinkedProviderText>{provider.address || provider.email || 'unknown'}</LinkedProviderText>
-    </LinkedProviderContainer>
+    <LinkedProviderButtonContainer>
+      <Button onClick={() => setRoute({ route: routes.LINKED_PROVIDER, provider })} fitText={false}>
+        <LinkedProviderButtonWrapper>
+          <ProviderIconWrapper>
+            <ProviderIcon provider={provider} />
+          </ProviderIconWrapper>
+          <ProviderHeader provider={provider} />
+        </LinkedProviderButtonWrapper>
+      </Button>
+    </LinkedProviderButtonContainer>
   )
 }
 
@@ -68,7 +48,12 @@ const AddLinkedProviderButton: React.FC = () => {
 }
 
 const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
-  const { user, isLoading } = useOpenfortCore()
+  const { linkedAccounts, user, isLoading } = useOpenfortCore()
+  const { triggerResize } = useOpenfort()
+
+  useEffect(() => {
+    if (!isLoading) triggerResize()
+  }, [isLoading])
 
   // TODO: Show loading
   if (isLoading) {
@@ -88,23 +73,33 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
     )
   }
 
-  if (user.linkedAccounts.length === 0) {
-    return (
-      <div>
-        <AddLinkedProviderButton />
-      </div>
-    )
-  }
-
   return (
     <>
       <LinkedProvidersGroupWrapper>
-        {user.linkedAccounts.map((provider) => (
+        {linkedAccounts.length === 0 && !user.email && !user.phoneNumber && (
+          <ModalContent>
+            You are logged in as a guest.
+            <ModalBody>Add authentication methods to avoid losing access to your account.</ModalBody>
+          </ModalContent>
+        )}
+        {!linkedAccounts.find((a) => a.provider === 'credential') && user.email && (
           <LinkedProvider
-            key={`${provider.provider}-${provider.address || provider.email || 'unknown'}`}
-            provider={provider}
+            key={`credential-${user.email}`}
+            provider={{ provider: 'credential', accountId: user.email }}
           />
+        )}
+        {linkedAccounts.map((provider) => (
+          <LinkedProvider key={`${provider.provider}-${provider.accountId}`} provider={provider} />
         ))}
+        {user.phoneNumber && (
+          <LinkedProvider
+            key={`phone-${user.phoneNumber}`}
+            provider={{
+              provider: 'phone',
+              accountId: user.phoneNumber,
+            }}
+          />
+        )}
       </LinkedProvidersGroupWrapper>
       <AddLinkedProviderButton />
     </>
@@ -114,10 +109,7 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
 const LinkedProviders: React.FC = () => {
   return (
     <PageContent>
-      <ModalHeading>Linked accounts</ModalHeading>
-      <ModalContent>
-        <ModalBody>Configure the linked accounts of your profile.</ModalBody>
-      </ModalContent>
+      <ModalHeading>Authentication methods</ModalHeading>
       <LinkedProvidersGroup />
     </PageContent>
   )

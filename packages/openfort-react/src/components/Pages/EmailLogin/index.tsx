@@ -93,6 +93,7 @@ const EmailLogin: React.FC = () => {
       if (requiresEmailVerification) {
         setRoute(routes.EMAIL_VERIFICATION)
       } else {
+        setEmail('')
         setRoute(routes.LOAD_WALLETS)
       }
     } else {

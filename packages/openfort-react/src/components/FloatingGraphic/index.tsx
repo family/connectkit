@@ -35,6 +35,9 @@ const LogoGraphic = ({ size = '100%', logo }: LogoGraphicProps) => {
 
 export const FloatingGraphic = ({
   height = '130px',
+  marginBottom,
+  marginTop,
+
   logoCenter,
   logoTopRight,
   logoTopLeft,
@@ -42,6 +45,9 @@ export const FloatingGraphic = ({
   logoBottomLeft,
 }: {
   height?: string
+  marginBottom?: string
+  marginTop?: string
+
   logoCenter: LogoGraphicProps
   logoTopRight?: LogoGraphicProps
   logoTopLeft?: LogoGraphicProps
@@ -49,7 +55,7 @@ export const FloatingGraphic = ({
   logoBottomLeft?: LogoGraphicProps
 }) => {
   return (
-    <Graphic $height={height}>
+    <Graphic $height={height} $marginBottom={marginBottom} $marginTop={marginTop}>
       <LogoGroup>
         <LogoGraphic {...logoCenter} />
         {logoTopLeft ? <LogoGraphic {...logoTopLeft} /> : <div />}

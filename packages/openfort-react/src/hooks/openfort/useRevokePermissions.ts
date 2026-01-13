@@ -2,7 +2,7 @@ import type { RevokePermissionsRequestParams, SessionResponse } from '@openfort/
 import { useCallback, useState } from 'react'
 import type { Hex } from 'viem'
 import { useChainId, useWalletClient } from 'wagmi'
-import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../types'
+import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../types'
 import { logger } from '../../utils/logger'
 import { useChains } from '../useChains'
 import { type BaseFlowState, mapStatus } from './auth/status'
@@ -72,7 +72,7 @@ export const useRevokePermissions = (hookOptions: RevokePermissionsHookOptions =
     ): Promise<RevokePermissionsHookResult> => {
       try {
         if (!walletClient) {
-          throw new OpenfortError('Wallet client not available', OpenfortErrorType.WALLET_ERROR)
+          throw new OpenfortError('Wallet client not available', OpenfortReactErrorType.WALLET_ERROR)
         }
 
         logger.log('Revoking permissions for session key:', sessionKey)
@@ -83,7 +83,7 @@ export const useRevokePermissions = (hookOptions: RevokePermissionsHookOptions =
         // Get the current chain configuration
         const chain = chains.find((c) => c.id === chainId)
         if (!chain) {
-          throw new OpenfortError('No chain configured', OpenfortErrorType.CONFIGURATION_ERROR)
+          throw new OpenfortError('No chain configured', OpenfortReactErrorType.CONFIGURATION_ERROR)
         }
 
         // Get the account address
@@ -116,7 +116,7 @@ export const useRevokePermissions = (hookOptions: RevokePermissionsHookOptions =
           data,
         })
       } catch (error) {
-        const openfortError = new OpenfortError('Failed to revoke permissions', OpenfortErrorType.WALLET_ERROR, {
+        const openfortError = new OpenfortError('Failed to revoke permissions', OpenfortReactErrorType.WALLET_ERROR, {
           error,
         })
 

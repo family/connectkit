@@ -22,9 +22,7 @@ export const Profile = ({
 
   return (
     <div className="flex flex-col flex-1 gap-4">
-      <h1 className="truncate">
-        Welcome, {user?.player?.name || user?.linkedAccounts[0]?.email}
-      </h1>
+      <h1 className="truncate">Welcome, {user?.name || user?.email}</h1>
       <p className="text-zinc-400 text-sm">
         {description}
         <br />

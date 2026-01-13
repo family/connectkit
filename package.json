@@ -15,7 +15,7 @@
     "preinstall": "pnpx only-allow pnpm",
     "postinstall": "git config --unset core.hooksPath 2>/dev/null || true && simple-git-hooks",
     "check": "biome check",
-    "check:fix": "biome check --write",
+    "check:fix": "biome check --write --unsafe",
     "check:types": "tsc --noEmit",
     "check:unused": "knip",
     "check:audit": "pnpm audit --audit-level=moderate",
@@ -75,12 +75,14 @@
       "body-parser@>=2.2.0 <2.2.1": ">=2.2.1",
       "@modelcontextprotocol/sdk@<1.24.0": ">=1.24.0",
       "qs@<6.14.1": ">=6.14.1",
-      "@modelcontextprotocol/sdk@<1.25.2": "1.25.2"
+      "@modelcontextprotocol/sdk@<1.25.2": "1.25.2",
+      "preact@>=10.28.0 <10.28.2": ">=10.28.2"
     },
     "auditConfig": {
       "ignoreCves": [
         "CVE-2024-53384",
-        "CVE-2025-57319"
+        "CVE-2025-57319",
+        "CVE-2025-14505"
       ]
     }
   },
@@ -103,9 +105,6 @@
       "rollup-plugin-peer-deps-external",
       "rollup-plugin-typescript2",
       "typescript-plugin-styled-components",
-      "tailwindcss",
-      "tw-animate-css",
-      "daisyui",
       "buffer",
       "wagmi",
       "@babel/core"

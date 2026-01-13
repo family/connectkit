@@ -1,7 +1,6 @@
 export {
   AccountTypeEnum,
   AuthInitPayload,
-  AuthPlayerResponse,
   AuthResponse,
   EmbeddedAccount,
   OpenfortEventMap,
@@ -10,6 +9,7 @@ export {
   RecoveryMethod,
   RecoveryParams,
   SignedMessagePayload,
+  User,
 } from '@openfort/openfort-js'
 export { default as Avatar } from './components/Common/Avatar'
 export { default as ChainIcon } from './components/Common/Chain'
@@ -42,21 +42,24 @@ export { useChains } from './hooks/useChains'
 export { useOpenfortCore as useOpenfort } from './openfort/useOpenfort'
 export type { CustomTheme } from './styles/customTheme'
 export type {
-  All,
   CustomAvatarProps,
   Languages,
   Mode,
   OpenfortHookOptions,
   OpenfortOptions,
   OpenfortWalletConfig,
+  PhoneConfig,
   Theme,
 } from './types'
 export {
   OAuthProvider,
   OpenfortError,
-  OpenfortErrorType,
+  OpenfortReactErrorType as OpenfortErrorType,
   SDKOverrides,
   ThirdPartyOAuthProvider,
 } from './types'
 export { OPENFORT_VERSION } from './version'
 export { wallets } from './wallets'
+
+import type { CountryData, CountryIso2, CountrySelectorProps } from 'react-international-phone'
+export type { CountryData, CountryIso2, CountrySelectorProps }

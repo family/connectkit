@@ -25,7 +25,7 @@ const ConnectWithOAuth: React.FC = () => {
     ;(async () => {
       if (connector.type !== 'oauth') throw new Error('Invalid connector type')
 
-      const url = new URL(window.location.href)
+      const url = new URL(window.location.href.replace('?access_token=', '&access_token=')) // handle both ? and & cases
       const hasProvider = !!url.searchParams.get('openfortAuthProviderUI')
       const provider = connector.id
 
@@ -35,27 +35,39 @@ const ConnectWithOAuth: React.FC = () => {
           else setTimeout(() => setStatus(states.REDIRECT), 150) // UX: wait a bit before redirecting
           break
         case states.CONNECTING: {
-          const player = url.searchParams.get('player_id')
-          const accessToken = url.searchParams.get('access_token')
-          const refreshToken = url.searchParams.get('refresh_token')
+          const userId = url.searchParams.get('user_id')
+          const token = url.searchParams.get('access_token')
+          const error = url.searchParams.get('error')
 
           // Remove specified keys from the URL
-          ;['openfortAuthProviderUI', 'refresh_token', 'access_token', 'player_id'].forEach((key) => {
+          ;['openfortAuthProviderUI', 'access_token', 'user_id', 'error'].forEach((key) => {
             url.searchParams.delete(key)
           })
           window.history.replaceState({}, document.title, url.toString())
 
-          if (!player || !accessToken || !refreshToken) {
+          if (!userId || !token || error) {
             logger.error(
-              `Missing player id or access token or refresh token: player=${player}, accessToken=${accessToken ? `${accessToken.substring(0, 10)}...` : accessToken}, refreshToken=${refreshToken}`
+              `Missing user id or access token: userId=${userId}, accessToken=${token ? `${token.substring(0, 10)}...` : token}`
             )
+            setStatus(states.ERROR)
+            if (error) {
+              switch (error) {
+                case "email_doesn't_match":
+                  setDescription('The email associated with this OAuth provider does not match your account email.')
+                  break
+                default:
+                  setDescription('There was an error during authentication. Please try again.')
+              }
+            } else {
+              setDescription('There was an error during authentication. Please try again.')
+            }
+            triggerResize()
             return
           }
 
           client.auth.storeCredentials({
-            player,
-            accessToken,
-            refreshToken,
+            token,
+            userId,
           })
 
           setRoute(routes.LOADING)
@@ -82,25 +94,18 @@ const ConnectWithOAuth: React.FC = () => {
                 return
               }
               const linkResponse = await client.auth.initLinkOAuth({
-                authToken,
                 provider,
-                options: {
-                  redirectTo: cleanURL,
-                  queryParams,
-                },
+                redirectTo: `${cleanURL}?${new URLSearchParams(queryParams).toString()}`,
               })
               logger.log(linkResponse)
-              window.location.href = linkResponse.url
+              window.location.href = linkResponse
             } else {
               const r = await client.auth.initOAuth({
                 provider,
-                options: {
-                  redirectTo: cleanURL,
-                  queryParams,
-                },
+                redirectTo: `${cleanURL}?${new URLSearchParams(queryParams).toString()}`,
               })
               logger.log(r)
-              window.location.href = r.url
+              window.location.href = r
             }
           } catch (e) {
             logger.error('Error during OAuth initialization:', e)
