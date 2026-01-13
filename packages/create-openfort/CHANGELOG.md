@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.8
+
+### Patch Changes
+
+- [#145](https://github.com/openfort-xyz/openfort-react/pull/145) [`fe5844b`](https://github.com/openfort-xyz/openfort-react/commit/fe5844b7fd877274d7e59634941c983679ff73ab) Thanks [@martimayoral](https://github.com/martimayoral)! - improve samples when no policy
+
+- [#145](https://github.com/openfort-xyz/openfort-react/pull/145) [`fe5844b`](https://github.com/openfort-xyz/openfort-react/commit/fe5844b7fd877274d7e59634941c983679ff73ab) Thanks [@martimayoral](https://github.com/martimayoral)! - improve wording and promps order
+
 ## 0.1.7
 
 ### Patch Changes
