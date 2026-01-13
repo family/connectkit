@@ -3,7 +3,7 @@ import { useProviders } from '../../../hooks/openfort/useProviders'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import type { UserAccount } from '../../../openfortCustomTypes'
 import Button from '../../Common/Button'
-import { ModalHeading } from '../../Common/Modal/styles'
+import { ModalBody, ModalContent, ModalHeading } from '../../Common/Modal/styles'
 import { ProviderHeader } from '../../Common/Providers/ProviderHeader'
 import { ProviderIcon } from '../../Common/Providers/ProviderIcon'
 import { routes } from '../../Openfort/types'
@@ -76,6 +76,12 @@ const LinkedProvidersGroup: React.FC<LinkedProvidersProps> = () => {
   return (
     <>
       <LinkedProvidersGroupWrapper>
+        {linkedAccounts.length === 0 && !user.email && !user.phoneNumber && (
+          <ModalContent>
+            You are logged in as a guest.
+            <ModalBody>Add authentication methods to avoid losing access to your account.</ModalBody>
+          </ModalContent>
+        )}
         {!linkedAccounts.find((a) => a.provider === 'credential') && user.email && (
           <LinkedProvider
             key={`credential-${user.email}`}

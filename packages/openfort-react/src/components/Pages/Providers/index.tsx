@@ -302,6 +302,10 @@ const authProviderToOAuthProviderMap: Record<UIAuthProvider, React.ReactNode> = 
 }
 
 export const ProviderButton: React.FC<{ provider: UIAuthProvider }> = ({ provider }) => {
+  const { user } = useOpenfortCore()
+  if (user && (provider === UIAuthProvider.EMAIL_OTP || provider === UIAuthProvider.EMAIL_PASSWORD)) {
+    return <EmailPasswordButton />
+  }
   return authProviderToOAuthProviderMap[provider] || null
 }
 
