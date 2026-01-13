@@ -18,7 +18,7 @@ function App() {
         signOut()
       }
     })
-  }, [getAccessToken, signOut])
+  }, [])
 
   return (
     <div>

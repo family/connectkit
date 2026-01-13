@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+- [#131](https://github.com/openfort-xyz/openfort-react/pull/131) [`af3e98d`](https://github.com/openfort-xyz/openfort-react/commit/af3e98db84bb7cd89e0722301322ea45b20d538c) Thanks [@martimayoral](https://github.com/martimayoral)! - Update openfort-js version (v1.0.0). Using AuthV2.
+
 ## 0.1.14
 
 ### Patch Changes
