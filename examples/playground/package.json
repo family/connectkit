@@ -11,9 +11,9 @@
     "preview": "vite preview",
     "generate-types": "typedoc --json src/generated/types.json src/generate-types.ts",
     "shadcn": "shadcn",
-    "test:e2e": "playwright test -c playwright.config.ts",
-    "test:e2e:ui": "playwright test -c playwright.config.ts --ui",
-    "test:e2e:debug": "PWDEBUG=1 playwright test -c playwright.config.ts --headed"
+    "test": "playwright test -c playwright.config.ts",
+    "test:ui": "playwright test -c playwright.config.ts --ui",
+    "test:debug": "PWDEBUG=1 playwright test -c playwright.config.ts --headed"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

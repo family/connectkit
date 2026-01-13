@@ -40,7 +40,10 @@
     "build:openfort-ui": "cd examples/quickstarts/openfort-ui && pnpm build",
     "build:playground": "pnpm build && pnpm --filter playground build",
     "build:ci": "pnpm -r run build",
-    "start:cli": "pnpm --filter create-openfort start"
+    "start:cli": "pnpm --filter create-openfort start",
+    "test": "pnpm --filter playground test",
+    "test:ui": "pnpm --filter playground test:ui",
+    "test:debug": "pnpm --filter playground test:debug"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",
