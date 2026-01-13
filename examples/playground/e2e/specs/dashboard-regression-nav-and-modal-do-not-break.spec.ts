@@ -22,7 +22,7 @@ test.describe('Dashboard regression - overlays do not break dashboard', () => {
       }
     }
 
-    // Pase lo que pase, el dashboard debe seguir funcionando
+    // No matter what happens, the dashboard should remain functional
     await dashboardPage.expectLoaded()
 
     // Sanity

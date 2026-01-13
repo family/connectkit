@@ -8,7 +8,7 @@ test.describe('Wallet guest flow (end-to-end)', () => {
     const auth = new AuthPage(page)
     const dash = new DashboardPage(page)
 
-    // Flujo completo como guest
+    // Guest flow
     await auth.goto()
     await auth.openConnectModalFromNavbar()
     await auth.continueAsGuest()

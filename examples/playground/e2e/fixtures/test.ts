@@ -7,7 +7,7 @@ type Fixtures = {
   dashboardPage: DashboardPage
 }
 
-// Extiende Playwright con Page Objects reutilizables
+// Extends Playwright with reusable Page Objects
 export const test = base.extend<Fixtures>({
   authPage: async ({ page }, use) => {
     await use(new AuthPage(page))
@@ -17,5 +17,5 @@ export const test = base.extend<Fixtures>({
   },
 })
 
-// Re-exporta expect para usar el mismo import en los specs
+// Re-export expect to use the same import in specs
 export { expect } from '@playwright/test'

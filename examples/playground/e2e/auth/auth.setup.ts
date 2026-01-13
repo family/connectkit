@@ -6,7 +6,7 @@ import { DashboardPage } from '../pages/dashboard.page'
 import { AUTH_STATE_PATH, TEST_RESULTS_DIR } from '../utils/constants'
 
 test('setup: create guest wallet and persist auth state', async ({ page }) => {
-  // Prepara directorios necesarios
+  // Prepare necessary directories
   const authDir = path.dirname(AUTH_STATE_PATH)
   fs.mkdirSync(authDir, { recursive: true })
   fs.mkdirSync(TEST_RESULTS_DIR, { recursive: true })
@@ -15,18 +15,18 @@ test('setup: create guest wallet and persist auth state', async ({ page }) => {
   const auth = new AuthPage(page)
   const dash = new DashboardPage(page)
 
-  // Flujo de creación de wallet como guest
+  // Guest wallet creation flow
   await auth.goto()
   await auth.openConnectModalFromNavbar()
   await auth.continueAsGuest()
   await auth.createWalletWithPassword()
 
-  // Verifica que el dashboard está cargado
+  // Verify that the dashboard is loaded
   await dash.expectLoaded()
 
-  // Guarda la sesión para otros tests
+  // Save the session for other tests
   await page.context().storageState({ path: AUTH_STATE_PATH })
 
-  // Comprobación básica
+  // Basic check
   expect(fs.existsSync(AUTH_STATE_PATH)).toBeTruthy()
 })

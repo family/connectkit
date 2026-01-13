@@ -8,14 +8,14 @@ const BASE_URL = process.env.PLAYGROUND_BASE_URL ?? `http://localhost:${PORT}`
 const REPORT_DIR = path.join(ROOT_OUT, 'playwright-report')
 
 export default defineConfig({
-  // Directorio de tests
+  // Test directory
   testDir: './e2e',
 
-  // Timeouts globales
+  // Global timeouts
   timeout: 60_000,
   expect: { timeout: 30_000 },
 
-  // Retries y workers
+  // Retries and workers
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 2 : 4,
   fullyParallel: false,
@@ -23,10 +23,10 @@ export default defineConfig({
   // Reporters
   reporter: [['list'], ['html', { outputFolder: REPORT_DIR, open: 'never' }]],
 
-  // Output de resultados
+  // Output results
   outputDir: TEST_RESULTS_DIR,
 
-  // Configuración común
+  // Common configuration
   use: {
     baseURL: BASE_URL,
     trace: 'on-first-retry',
@@ -37,17 +37,17 @@ export default defineConfig({
     viewport: { width: 1440, height: 900 },
   },
 
-  // Proyectos
+  // Projects
   projects: [
     {
-      // Setup inicial (crea sesión)
+      // Initial setup (creates session)
       name: 'setup',
       testMatch: /.*\.setup\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
-      // Tests con sesión persistida
+      // Tests with persisted session
       name: 'chromium',
       dependencies: ['setup'],
       testIgnore: [/wallet-entry\.spec\.ts/, /auth\.spec\.ts/],
@@ -59,7 +59,7 @@ export default defineConfig({
     },
 
     {
-      // Tests sin sesión
+      // Tests without session
       name: 'unauthenticated',
       testMatch: /(wallet-entry|auth)\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },

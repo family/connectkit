@@ -5,13 +5,13 @@ import { clickableByText, safeClick } from '../utils/ui'
 export class AuthPage {
   constructor(private readonly page: Page) {}
 
-  // Navega a la pantalla de auth
+  // Navigate to the auth screen
   async goto() {
     await this.page.goto('/showcase/auth', { waitUntil: 'domcontentloaded' })
     await expect(this.page).toHaveURL(/\/showcase\/auth/i)
   }
 
-  // Localiza el modal de conexión si existe
+  // Locate the connection modal if it exists
   private connectModal(): Locator {
     return this.page
       .locator('[role="dialog"]')
@@ -19,7 +19,7 @@ export class AuthPage {
       .first()
   }
 
-  // Abre el modal "Connect" desde la navbar
+  // Open the "Connect" modal from the navbar
   async openConnectModalFromNavbar() {
     await safeClick(this.page, /^(not connected|connect wallet)$/i, 30_000)
 
@@ -27,7 +27,7 @@ export class AuthPage {
     await expect(this.page.getByPlaceholder('Enter your email')).toBeVisible({ timeout: 30_000 })
   }
 
-  // Continúa como guest y espera a que el flujo avance
+  // Continue as guest and wait for the flow to advance
   async continueAsGuest() {
     const modal = this.connectModal()
     const hasModal = (await modal.count().catch(() => 0)) > 0
@@ -35,14 +35,14 @@ export class AuthPage {
 
     const guestBtn = root.getByRole('button', { name: /^guest$/i })
 
-    // Señales de avance del flujo
+    // Flow progress signals
     const createWalletCta = clickableByText(root as any, /create\s*wallet/i)
     const secureWalletHeading = (hasModal ? this.page : root).getByText(/secure your wallet/i)
 
     const creatingGuest = this.page.getByText(/creating guest user/i)
     const loadingPleaseWait = this.page.getByText(/loading,\s*please wait/i)
 
-    // Ya hemos avanzado
+    // We have already advanced
     if (
       (await createWalletCta.isVisible().catch(() => false)) ||
       (await secureWalletHeading.isVisible().catch(() => false))
@@ -50,13 +50,13 @@ export class AuthPage {
       return
     }
 
-    // Click en Guest si está disponible
+    // Click on Guest if available
     if (await guestBtn.isVisible().catch(() => false)) {
       await expect(guestBtn).toBeEnabled({ timeout: 30_000 })
       await guestBtn.click({ timeout: 30_000 })
     }
 
-    // Espera a estado intermedio o siguiente paso
+    // Wait for intermediate state or next step
     await expect
       .poll(
         async () => {
@@ -70,7 +70,7 @@ export class AuthPage {
       )
       .toBeTruthy()
 
-    // Espera a que el flujo llegue a crear wallet
+    // Wait for the flow to reach wallet creation
     await expect
       .poll(
         async () => {
@@ -83,7 +83,7 @@ export class AuthPage {
       .toBeTruthy()
   }
 
-  // Crea una wallet usando contraseña
+  // Create a wallet using password
   async createWalletWithPassword(password = STRONG_PASSWORD) {
     const modal = this.connectModal()
     const hasModal = (await modal.count().catch(() => 0)) > 0
@@ -91,7 +91,6 @@ export class AuthPage {
 
     const secureWalletHeading = this.page.getByText(/secure your wallet/i)
 
-    // Click en "Create wallet" si aún no estamos en el paso final
     if (!(await secureWalletHeading.isVisible().catch(() => false))) {
       await safeClick(root as any, /create\s*wallet/i, 60_000)
     }

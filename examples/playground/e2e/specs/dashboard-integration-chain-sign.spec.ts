@@ -27,11 +27,9 @@ test.describe('Dashboard integration - chain + signatures', () => {
     await expect(successMsg).toBeVisible({ timeout: 90_000 })
     await expect(currentChain).toContainText(new RegExp(target, 'i'), { timeout: 90_000 })
 
-    // Firma mensaje
     const msg = `Chain-sign ${Date.now()}`
     await dashboardPage.signMessage(msg)
 
-    // Re-assert: la chain no se ha reseteado
     await expect(currentChain).toContainText(/beam testnet/i, { timeout: 30_000 })
   })
 })

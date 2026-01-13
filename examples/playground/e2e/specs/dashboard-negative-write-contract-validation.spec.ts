@@ -14,19 +14,19 @@ test.describe('Dashboard negative - write contract validation', () => {
     const amountInput = writeCard.getByPlaceholder(/enter amount to mint/i)
     await expect(amountInput).toBeVisible({ timeout: 30_000 })
 
-    // Vacío / inválido
+    // Empty / invalid
     await amountInput.fill('')
 
     const mintBtn = writeCard.getByRole('button', { name: /mint tokens/i })
     await expect(mintBtn).toBeVisible({ timeout: 30_000 })
     await mintBtn.click()
 
-    // No debería aparecer hash
+    // Hash should not appear
     const txHashRegex = /transaction hash:\s*0x[a-fA-F0-9]{6,}/i
     await expect(page.getByText(txHashRegex))
       .toHaveCount(0, { timeout: 3_000 })
       .catch(() => {
-        // Si tu UI tarda en “decidir”, dejamos un margen pequeño y rechecamos
+        // If your UI takes time to "decide", we leave a small margin and recheck
       })
 
     // Opcional: si tu UI muestra error, puedes activar este assert:

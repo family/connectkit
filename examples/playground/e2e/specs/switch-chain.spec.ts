@@ -2,7 +2,7 @@ import { expect, test } from '../fixtures/test'
 
 test.describe('Switch chain', () => {
   test('can switch between available chains and updates current chain', async ({ page, dashboardPage }) => {
-    // Asegura sesión y dashboard listos
+    // Ensure session and dashboard are ready
     await dashboardPage.ensureReady()
 
     // Card "Switch chain"
@@ -13,27 +13,27 @@ test.describe('Switch chain', () => {
 
     await expect(chainCard).toBeVisible({ timeout: 60_000 })
 
-    // Texto de cadena actual
+    // Current chain text
     const currentChain = chainCard
       .locator('p')
       .filter({ hasText: /^current chain:/i })
       .first()
     await expect(currentChain).toBeVisible({ timeout: 30_000 })
 
-    // Helper para cambiar de cadena
+    // Helper switch chain
     const switchTo = async (chainName: 'Polygon Amoy' | 'Beam Testnet' | 'Base Sepolia') => {
       const btn = chainCard.getByRole('button', {
         name: new RegExp(`^switch to\\s+${escapeRegExp(chainName)}$`, 'i'),
       })
 
-      // Click solo si no está deshabilitado
+      // Click only if not disabled
       const disabled = await btn.isDisabled().catch(() => false)
       if (!disabled) {
         await expect(btn).toBeVisible({ timeout: 30_000 })
         await btn.click()
       }
 
-      // Mensaje de éxito
+      // Success message
       const successMsg = chainCard.getByText(new RegExp(`^switched to chain\\s+${escapeRegExp(chainName)}$`, 'i'))
       await expect(successMsg).toBeVisible({ timeout: 90_000 })
 
@@ -42,7 +42,7 @@ test.describe('Switch chain', () => {
         timeout: 90_000,
       })
 
-      // Botón queda deshabilitado
+      // Button becomes disabled
       await expect(btn).toBeDisabled({ timeout: 90_000 })
     }
 

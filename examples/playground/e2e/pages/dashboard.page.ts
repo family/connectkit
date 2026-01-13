@@ -3,28 +3,28 @@ import { expect, type Page } from '@playwright/test'
 export class DashboardPage {
   constructor(private readonly page: Page) {}
 
-  // Navega al dashboard
+  // Navigate to the dashboard
   async goto() {
     await this.page.goto('/showcase/auth', { waitUntil: 'domcontentloaded' })
   }
 
-  // Botón de cerrar sesión
+  // Sign out button
   signOutButton() {
     return this.page.getByRole('button', { name: /^sign out$/i })
   }
 
-  // Verifica que el dashboard está cargado
+  // Verify that the dashboard is loaded
   async expectLoaded() {
     await expect(this.signOutButton()).toBeVisible({ timeout: 90_000 })
   }
 
-  // Asegura navegación y estado listo
+  // Ensure navigation and ready state
   async ensureReady() {
     await this.goto()
     await this.expectLoaded()
   }
 
-  // Firma un mensaje y valida el resultado
+  // Sign a message and validate the result
   async signMessage(message: string) {
     await this.ensureReady()
 

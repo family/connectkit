@@ -5,10 +5,10 @@ test.describe('Wallets - create new wallet', () => {
     page,
     dashboardPage,
   }) => {
-    // Asegura sesión y dashboard listos
+    // Ensure session and dashboard are ready
     await dashboardPage.ensureReady()
 
-    // Título del card "Wallets"
+    // "Wallets" card title
     const walletsTitle = page
       .locator('[data-slot="card-title"]')
       .filter({ hasText: /^wallets$/i })
@@ -16,11 +16,11 @@ test.describe('Wallets - create new wallet', () => {
 
     await expect(walletsTitle).toBeVisible({ timeout: 60_000 })
 
-    // Contenedor del card
+    // Card container
     const walletsCard = walletsTitle.locator('xpath=ancestor::*[@data-slot="card"][1]')
     await expect(walletsCard).toBeVisible({ timeout: 60_000 })
 
-    // Wallets existentes
+    // Existing wallets
     const walletRowLocator = walletsCard.locator('button').filter({
       hasText: /0x[a-f0-9]{4,}\.\.\.[a-f0-9]{4,}/i,
     })
@@ -28,14 +28,14 @@ test.describe('Wallets - create new wallet', () => {
     const initialCount = await walletRowLocator.count()
     expect(initialCount).toBeGreaterThanOrEqual(1)
 
-    // Crear nueva wallet
+    // Create new wallet
     const createNewBtn = walletsCard.getByRole('button', {
       name: /create new wallet/i,
     })
     await expect(createNewBtn).toBeVisible({ timeout: 30_000 })
     await createNewBtn.click()
 
-    // Opciones disponibles
+    // Available options
     const automaticBtn = walletsCard.getByRole('button', {
       name: /^automatic$/i,
     })
@@ -50,14 +50,14 @@ test.describe('Wallets - create new wallet', () => {
     await expect(passwordBtn).toBeVisible({ timeout: 30_000 })
     await expect(passkeyBtn).toBeVisible({ timeout: 30_000 })
 
-    // Crear wallet con contraseña
+    // Create wallet with password
     await passwordBtn.click()
 
-    // Texto de creación visible
+    // Creation text visible
     const creatingWalletText = walletsCard.getByText(/^creating wallet with password recovery/i)
     await expect(creatingWalletText).toBeVisible({ timeout: 30_000 })
 
-    // Espera a que aparezca una nueva wallet
+    // Wait until new wallet appears
     await expect.poll(async () => await walletRowLocator.count(), { timeout: 120_000 }).toBeGreaterThan(initialCount)
 
     const finalCount = await walletRowLocator.count()

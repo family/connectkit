@@ -2,7 +2,7 @@ import { expect, test } from '../fixtures/test'
 
 test.describe('Write Contract - mint tokens', () => {
   test('new wallet balance is 0 and mint shows transaction hash', async ({ page, dashboardPage }) => {
-    // Asegura sesión y dashboard listos
+    // Ensure session and dashboard are ready
     await dashboardPage.ensureReady()
 
     // Card "Write Contract"
@@ -13,10 +13,10 @@ test.describe('Write Contract - mint tokens', () => {
 
     await expect(writeCard).toBeVisible({ timeout: 60_000 })
 
-    // Balance inicial
+    // initial balance
     await expect(writeCard.getByText(/balance:\s*0\b/i)).toBeVisible({ timeout: 60_000 })
 
-    // Cantidad a mintear
+    // Amount to mint
     const amountInput = writeCard.getByPlaceholder(/enter amount to mint/i)
     await expect(amountInput).toBeVisible({ timeout: 30_000 })
     await amountInput.fill('7')

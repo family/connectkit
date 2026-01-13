@@ -33,7 +33,7 @@ test.describe('Dashboard integration - chain + write contract', () => {
       await expect(btn).toBeDisabled({ timeout: 90_000 })
     }
 
-    // Cambiamos a Base Sepolia
+    // Change to Base Sepolia
     await switchTo('Base Sepolia')
 
     // --- Write Contract card
@@ -51,11 +51,11 @@ test.describe('Dashboard integration - chain + write contract', () => {
     await expect(mintBtn).toBeVisible({ timeout: 30_000 })
     await mintBtn.click()
 
-    // Hash visible (sin hardcodear)
+    // Hash visible (without hardcoding)
     const txHashRegex = /transaction hash:\s*0x[a-fA-F0-9]{6,}/i
     await expect(page.getByText(txHashRegex)).toBeVisible({ timeout: 120_000 })
 
-    // --- Re-assert: la chain sigue siendo Base Sepolia (no se "resetea")
+    // --- Re-assert: the chain remains Base Sepolia (does not "reset")
     await expect(currentChain).toContainText(/base sepolia/i, { timeout: 30_000 })
   })
 })
