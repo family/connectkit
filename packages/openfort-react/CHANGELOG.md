@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2
+
+### Patch Changes
+
+- [#153](https://github.com/openfort-xyz/openfort-react/pull/153) [`52f8e6a`](https://github.com/openfort-xyz/openfort-react/commit/52f8e6a3d80f8d5ffd724628561e4478dc875f51) Thanks [@martimayoral](https://github.com/martimayoral)! - fix ESM builds
+
 ## 0.2.1
 
 ### Patch Changes
