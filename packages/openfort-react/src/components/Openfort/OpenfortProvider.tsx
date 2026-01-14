@@ -12,7 +12,6 @@ import { logger } from '../../utils/logger'
 import { isFamily } from '../../utils/wallets'
 import ConnectKitModal from '../ConnectModal'
 import { Web3ContextProvider } from '../contexts/web3'
-import { PhoneGlobalStyles } from '../Pages/Providers/styles'
 import { type ContextValue, Openfortcontext } from './context'
 import {
   type BuyFormState,
@@ -334,7 +333,6 @@ export const OpenfortProvider = ({
     Openfortcontext.Provider,
     { value },
     <Web3ContextProvider>
-      <PhoneGlobalStyles />
       <CoreOpenfortProvider
         openfortConfig={{
           baseConfiguration: {
