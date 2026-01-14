@@ -28,7 +28,7 @@ const SidebarLink = ({ children, href, cta = 'View in hook' }: PropsWithChildren
 }
 
 const SidebarInfo = () => {
-  const { user } = useUser()
+  const { user, linkedAccounts } = useUser()
   const { activeWallet } = useWallets()
   const { address } = useAccount()
   const chainId = useChainId()
@@ -84,9 +84,9 @@ const SidebarInfo = () => {
             </span>
           </SidebarLink>
           <SidebarLink href="/auth/useUser?focus=user">
-            User linked accounts:{' '}
+            User authentication methods:{' '}
             <span className="text-gray-500 dark:text-gray-400">
-              {user ? <>[{user.linkedAccounts.map((a) => a.provider).join(',')}]</> : 'No user'}
+              {user ? <>[{linkedAccounts.map((a) => a.provider).join(',')}]</> : 'No user'}
             </span>
           </SidebarLink>
           <SidebarLink href="/wallet/useWallets?focus=activeWallet">

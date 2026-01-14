@@ -1,7 +1,7 @@
-import type { AuthPlayerResponse as OpenfortUser } from '@openfort/openfort-js'
+import type { User } from '@openfort/openfort-js'
 import { useCallback, useState } from 'react'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
-import { OpenfortError, OpenfortErrorType, type OpenfortHookOptions } from '../../../types'
+import { OpenfortError, type OpenfortHookOptions, OpenfortReactErrorType } from '../../../types'
 import { onError, onSuccess } from '../hookConsistency'
 import type { UserWallet } from '../useWallets'
 import { type BaseFlowState, mapStatus } from './status'
@@ -9,7 +9,7 @@ import { type CreateWalletPostAuthOptions, useConnectToWalletPostAuth } from './
 
 type GuestHookResult = {
   error?: OpenfortError
-  user?: OpenfortUser
+  user?: User
   wallet?: UserWallet
 }
 
@@ -90,7 +90,7 @@ export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
 
         const result = await client.auth.signUpGuest()
 
-        const user = result.player
+        const user = result.user
         await updateUser(user)
 
         const { wallet } = await tryUseWallet({
@@ -108,7 +108,7 @@ export const useGuestAuth = (hookOptions: GuestHookOptions = {}) => {
           data: { user, wallet },
         })
       } catch (error) {
-        const openfortError = new OpenfortError('Failed to signup guest', OpenfortErrorType.AUTHENTICATION_ERROR, {
+        const openfortError = new OpenfortError('Failed to signup guest', OpenfortReactErrorType.AUTHENTICATION_ERROR, {
           error,
         })
 

@@ -1,27 +1,27 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { authClient } from '../client';
-import { getBetterAuthErrorMessage, logBetterAuthError } from '../errors';
+import { authClient } from '../client'
+import { getBetterAuthErrorMessage, logBetterAuthError } from '../errors'
 
 function GoogleSignInButton({ onError }: { onError: (error: string) => void }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const signInWithGoogle = async () => {
     try {
-      setLoading(true);
+      setLoading(true)
       const { error } = await authClient.signIn.social({
         provider: 'google',
         callbackURL: window.location.origin,
-      });
+      })
 
-      if (error) throw error;
+      if (error) throw error
     } catch (error) {
-      logBetterAuthError(error, 'Google Sign-In');
-      onError(getBetterAuthErrorMessage(error));
+      logBetterAuthError(error, 'Google Sign-In')
+      onError(getBetterAuthErrorMessage(error))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <button
@@ -32,62 +32,78 @@ function GoogleSignInButton({ onError }: { onError: (error: string) => void }) {
     >
       {loading ? 'Signing in...' : 'Continue with Google'}
     </button>
-  );
+  )
 }
 
 function EmailPasswordForm({
   isLogin,
   onError,
 }: {
-  isLogin: boolean;
-  onError: (error: string) => void;
+  isLogin: boolean
+  onError: (error: string) => void
 }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const email = (form.elements[0] as HTMLInputElement).value;
-    const password = (form.elements[1] as HTMLInputElement).value;
+    event.preventDefault()
+    const form = event.target as HTMLFormElement
+    const email = (form.elements[0] as HTMLInputElement).value
+    const password = (form.elements[1] as HTMLInputElement).value
 
     try {
-      setLoading(true);
-      onError('');
+      setLoading(true)
+      onError('')
 
       if (isLogin) {
         const { error } = await authClient.signIn.email({
           email,
           password,
-        });
-        if (error) throw error;
+        })
+        if (error) throw error
       } else {
         const { error } = await authClient.signUp.email({
           email,
           password,
           name: email.split('@')[0], // Use email prefix as default name
-        });
-        if (error) throw error;
+        })
+        if (error) throw error
       }
     } catch (error) {
-      logBetterAuthError(error, isLogin ? 'Email Sign-In' : 'Email Sign-Up');
-      onError(getBetterAuthErrorMessage(error));
+      logBetterAuthError(error, isLogin ? 'Email Sign-In' : 'Email Sign-Up')
+      onError(getBetterAuthErrorMessage(error))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 mb-4">
-      <label className="block text-left text-sm font-medium mb-1" htmlFor="email">
+      <label
+        className="block text-left text-sm font-medium mb-1"
+        htmlFor="email"
+      >
         Email
       </label>
-      <input id="email" type="email" placeholder="Enter your email address" required />
+      <input
+        id="email"
+        type="email"
+        placeholder="Enter your email address"
+        required
+      />
 
       <div>
-        <label className="block text-left text-sm font-medium mb-1" htmlFor="password">
+        <label
+          className="block text-left text-sm font-medium mb-1"
+          htmlFor="password"
+        >
           Password
         </label>
-        <input id="password" type="password" placeholder="Enter your password" required />
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          required
+        />
       </div>
 
       <button
@@ -98,17 +114,17 @@ function EmailPasswordForm({
         {loading ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up'}
       </button>
     </form>
-  );
+  )
 }
 
 export function BetterAuthCard() {
-  const [isLogin, setIsLogin] = useState(true);
-  const [error, setError] = useState<string>('');
+  const [isLogin, setIsLogin] = useState(true)
+  const [error, setError] = useState<string>('')
 
   const handleToggleMode = () => {
-    setIsLogin((previous) => !previous);
-    setError('');
-  };
+    setIsLogin((previous) => !previous)
+    setError('')
+  }
 
   return (
     <div className="card relative space-y-6">
@@ -148,5 +164,5 @@ export function BetterAuthCard() {
         </button>
       </div>
     </div>
-  );
+  )
 }

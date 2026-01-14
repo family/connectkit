@@ -262,6 +262,7 @@ const WalletButton = ({ wallet }: { wallet: UserWallet }) => {
 
 export const SetActiveWalletsCard = () => {
   const { wallets } = useWallets()
+  // const { user } = useUser()
 
   return (
     <Card>

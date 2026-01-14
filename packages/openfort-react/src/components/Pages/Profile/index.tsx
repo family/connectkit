@@ -42,7 +42,7 @@ const Profile: React.FC = () => {
             }}
             icon={<GuestIcon />}
           >
-            Linked accounts
+            Authentication methods
           </LargeButton>
           <LargeButton
             onClick={() => {

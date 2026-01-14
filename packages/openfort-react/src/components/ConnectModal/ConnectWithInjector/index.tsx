@@ -1,4 +1,3 @@
-import { OpenfortErrorType } from '@openfort/openfort-js'
 import { AnimatePresence, type Variants } from 'framer-motion'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
@@ -75,7 +74,7 @@ const ConnectWithInjector: React.FC<{
   const { disconnect } = useDisconnect()
   const connectWithSiwe = useConnectWithSiwe()
   const props = useRouteProps(routes.CONNECT)
-  const { user } = useUser()
+  const { linkedAccounts } = useUser()
 
   const onConnect = useCallback(() => {
     setStatus(states.CONNECTED)
@@ -151,7 +150,7 @@ const ConnectWithInjector: React.FC<{
             return
           }
 
-          const userWallets = user?.linkedAccounts.filter(
+          const userWallets = linkedAccounts?.filter(
             (acc) =>
               acc.walletClientType === wallet.connector?.name.toLowerCase() ||
               acc.walletClientType === wallet.connector?.id
@@ -159,7 +158,7 @@ const ConnectWithInjector: React.FC<{
           // If already has linked account, don't link again
           if (userWallets && userWallets.length > 0) {
             wallet.connector.getAccounts().then((acc) => {
-              if (acc.some((v) => userWallets.some((w) => w.address === v))) {
+              if (acc.some((v) => userWallets.some((w) => w.accountId === v))) {
                 onConnect()
                 return
               }
@@ -171,14 +170,15 @@ const ConnectWithInjector: React.FC<{
           connectWithSiwe({
             // connectorType: wallet.connector.id,
             // walletClientType: wallet.connector.name.toLowerCase(),
-            onError: (error, errorType) => {
+            onError: (error, _errorType) => {
               logger.error(error)
               disconnect()
-              if (errorType === OpenfortErrorType.AUTHENTICATION_ERROR) {
-                setStatus(states.DUPLICATED)
-              } else {
-                setStatus(states.FAILED)
-              }
+              // TODO: TMP FIX: Handle siwe error properly
+              // if (errorType) {
+              //   setStatus(states.DUPLICATED)
+              // } else {
+              setStatus(states.FAILED)
+              // }
             },
             onConnect: () => {
               onConnect()

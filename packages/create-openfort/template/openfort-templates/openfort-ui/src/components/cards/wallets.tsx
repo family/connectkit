@@ -1,17 +1,35 @@
-import { FingerPrintIcon, KeyIcon, LockClosedIcon } from "@heroicons/react/24/outline";
-import { RecoveryMethod, useSignOut, useUser, useWallets, type UserWallet } from "@openfort/react";
-import { useState } from "react";
-import { CreateWallet, CreateWalletSheet } from "../createWallet";
-import { WalletRecoverPasswordSheet } from "../passwordRecovery";
-import { useAccount } from "wagmi";
+import {
+  FingerPrintIcon,
+  KeyIcon,
+  LockClosedIcon,
+} from '@heroicons/react/24/outline'
+import {
+  RecoveryMethod,
+  type UserWallet,
+  useSignOut,
+  useUser,
+  useWallets,
+} from '@openfort/react'
+import { useState } from 'react'
+import { useAccount } from 'wagmi'
+import { CreateWallet, CreateWalletSheet } from '../createWallet'
+import { WalletRecoverPasswordSheet } from '../passwordRecovery'
 
 export const Wallets = () => {
-  const { wallets, isLoadingWallets, availableWallets, setActiveWallet, isConnecting } = useWallets();
-  const { user, isAuthenticated } = useUser();
-  const { isConnected } = useAccount();
-  const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false);
-  const [walletToRecover, setWalletToRecover] = useState<UserWallet | null>(null);
-  const { signOut } = useSignOut();
+  const {
+    wallets,
+    isLoadingWallets,
+    availableWallets,
+    setActiveWallet,
+    isConnecting,
+  } = useWallets()
+  const { user, isAuthenticated } = useUser()
+  const { isConnected } = useAccount()
+  const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false)
+  const [walletToRecover, setWalletToRecover] = useState<UserWallet | null>(
+    null,
+  )
+  const { signOut } = useSignOut()
 
   if (isLoadingWallets || (!user && isAuthenticated)) {
     return <div>Loading wallets...</div>
@@ -27,23 +45,23 @@ export const Wallets = () => {
   }
 
   const renderWalletRecovery = (wallet: UserWallet) => {
-    let Icon = LockClosedIcon;
-    let text = "Unknown";
-    const method = wallet.recoveryMethod;
+    let Icon = LockClosedIcon
+    let text = 'Unknown'
+    const method = wallet.recoveryMethod
 
     switch (method) {
       case RecoveryMethod.PASSWORD:
-        Icon = KeyIcon;
-        text = "Password";
-        break;
+        Icon = KeyIcon
+        text = 'Password'
+        break
       case RecoveryMethod.AUTOMATIC:
-        Icon = LockClosedIcon;
-        text = "Automatic";
-        break;
+        Icon = LockClosedIcon
+        text = 'Automatic'
+        break
       case RecoveryMethod.PASSKEY:
-        Icon = FingerPrintIcon;
-        text = "Passkey";
-        break;
+        Icon = FingerPrintIcon
+        text = 'Passkey'
+        break
     }
 
     return (
@@ -55,14 +73,13 @@ export const Wallets = () => {
   }
 
   const handleWalletClick = (wallet: UserWallet) => {
-    if (wallet.isActive || isConnecting) return;
-    const method = wallet.recoveryMethod;
+    if (wallet.isActive || isConnecting) return
+    const method = wallet.recoveryMethod
     if (method === RecoveryMethod.PASSWORD) {
-      setWalletToRecover(wallet);
-
+      setWalletToRecover(wallet)
     } else {
       setActiveWallet({
-        walletId: "xyz.openfort",
+        walletId: 'xyz.openfort',
         address: wallet.address,
       })
     }
@@ -86,13 +103,11 @@ export const Wallets = () => {
               disabled={wallet.isActive || isConnecting}
             >
               {wallet.isConnecting ? (
-                <p>
-                  Connecting...
-                </p>
+                <p>Connecting...</p>
               ) : (
                 <div className="flex justify-between items-center">
                   <p className="font-medium mr-2">
-                    {wallet.address.substring(0, 6) + "..." + wallet.address.substring(wallet.address.length - 4)}
+                    {`${wallet.address.substring(0, 6)}...${wallet.address.substring(wallet.address.length - 4)}`}
                   </p>
                   {renderWalletRecovery(wallet)}
                 </div>
@@ -118,17 +133,16 @@ export const Wallets = () => {
         onClose={() => setCreateWalletSheetOpen(false)}
       />
 
-      {
-        !isConnected &&
+      {!isConnected && (
         <button
           onClick={() => {
-            signOut();
+            signOut()
           }}
           className="mt-auto btn"
         >
           Sign Out
         </button>
-      }
+      )}
     </div>
   )
 }

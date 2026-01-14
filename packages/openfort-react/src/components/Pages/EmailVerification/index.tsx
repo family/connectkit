@@ -1,7 +1,6 @@
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { EmailIcon } from '../../../assets/icons'
-import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
 import { TextLinkButton } from '../../Common/Button/styles'
@@ -19,36 +18,26 @@ type VerificationResponse = {
 }
 
 const EmailVerification: React.FC = () => {
-  const { client } = useOpenfortCore()
-  const { setRoute, emailInput: emailInStorage } = useOpenfort()
+  const { setRoute, emailInput, setEmailInput } = useOpenfort()
 
   const [loading, setLoading] = useState(true)
   const [verificationResponse, setVerificationResponse] = useState<VerificationResponse | null>(null)
 
+  const isVerifying = useRef(false)
   useEffect(() => {
-    const fixedUrl = window.location.href.replace('?state=', '&state=') // redirectUrl is not working with query params
-    const url = new URL(fixedUrl)
-    const openfortEmailVerificationUI = url.searchParams.get('openfortEmailVerificationUI')
+    if (isVerifying.current) return
+    isVerifying.current = true
 
-    if (!openfortEmailVerificationUI) {
-      // Send email verification flow
-      if (!emailInStorage) {
-        setRoute(routes.EMAIL_LOGIN)
-        return
-      }
+    const url = new URL(window.location.href)
 
+    if (emailInput) {
+      // Not callback flow
       setLoading(false)
       return
     }
 
     // Verify email flow
-    const state = url.searchParams.get('state')
     const email = url.searchParams.get('email')
-
-    if (!state) {
-      logger.error('No state found in URL')
-      return
-    }
 
     const removeParams = () => {
       ;['state', 'openfortEmailVerificationUI', 'email', 'openfortAuthProvider'].forEach((key) => {
@@ -56,33 +45,30 @@ const EmailVerification: React.FC = () => {
       })
       window.history.replaceState({}, document.title, url.toString())
     }
+    logger.log('Email verification', email)
 
     if (!email) {
       setRoute(routes.EMAIL_LOGIN)
       return
     }
 
-    logger.log('EmailVerification', state, email)
-    ;(async () => {
-      try {
-        await client.auth.verifyEmail({
-          email,
-          state,
-        })
-        setVerificationResponse({
-          success: true,
-        })
-      } catch (e) {
-        setVerificationResponse({
-          success: false,
-          error: 'There was an error verifying your email. Please try again.',
-        })
-        logger.log('Error verifying email', e)
-      } finally {
-        removeParams()
-        setLoading(false)
-      }
-    })()
+    try {
+      // ASSUMING IT WORKS
+      // TODO: TMP FIX
+      setEmailInput(email)
+      setVerificationResponse({
+        success: true,
+      })
+    } catch (e) {
+      setVerificationResponse({
+        success: false,
+        error: 'There was an error verifying your email. Please try again.',
+      })
+      logger.log('Error verifying email', e)
+    } finally {
+      removeParams()
+      setLoading(false)
+    }
   }, [])
 
   if (loading) {
@@ -135,7 +121,7 @@ const EmailVerification: React.FC = () => {
             <ModalBody style={{ height: 40 }}>
               Please check your email.
               <br />
-              {emailInStorage}
+              {emailInput}
             </ModalBody>
             <TextLinkButton
               style={{ textDecoration: 'underline' }}

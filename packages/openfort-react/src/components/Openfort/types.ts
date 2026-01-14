@@ -1,9 +1,11 @@
 import type { AccountTypeEnum, RecoveryMethod } from '@openfort/openfort-js'
 import type React from 'react'
 import type { ReactNode } from 'react'
+import type { CountryData, CountryIso2, CountrySelectorProps } from 'react-international-phone'
 import type { Hex } from 'viem'
 import type { getAssets } from 'viem/_types/experimental/erc7811/actions/getAssets'
 import type { UserWallet } from '../../hooks/openfort/useWallets'
+import type { UserAccount } from '../../openfortCustomTypes'
 import type { CustomAvatarProps, CustomTheme, Languages, Mode, Theme } from '../../types'
 
 export const routes = {
@@ -19,6 +21,8 @@ export const routes = {
 
   CREATE_GUEST_USER: 'createGuestUser',
   EMAIL_LOGIN: 'emailLogin',
+  EMAIL_OTP: 'emailOtp',
+  PHONE_OTP: 'phoneOtp',
   FORGOT_PASSWORD: 'forgotPassword',
   EMAIL_VERIFICATION: 'emailVerification',
   LINK_EMAIL: 'linkEmail',
@@ -35,7 +39,9 @@ export const routes = {
   CONNECTED: 'connected',
   PROFILE: 'profile',
   SWITCHNETWORKS: 'switchNetworks',
+  LINKED_PROVIDER: 'linkedProvider',
   LINKED_PROVIDERS: 'linkedProviders',
+  REMOVE_LINKED_PROVIDER: 'removeLinkedProvider',
   EXPORT_KEY: 'exportKey',
 
   NO_ASSETS_AVAILABLE: 'noAssetsAvailable',
@@ -79,6 +85,8 @@ type RoutesWithOptions =
   | ({ route: typeof routes.CONNECTORS } & ConnectOptions)
   | ({ route: typeof routes.CONNECT } & ConnectOptions)
   | { route: typeof routes.RECOVER_WALLET; wallet: UserWallet }
+  | { route: typeof routes.LINKED_PROVIDER; provider: UserAccount }
+  | { route: typeof routes.REMOVE_LINKED_PROVIDER; provider: UserAccount }
 
 export type RoutesWithoutOptions = {
   route: Exclude<AllRoutes, RoutesWithOptions['route']>
@@ -93,6 +101,7 @@ export type SetRouteOptions = RouteOptions | RoutesWithoutOptions['route']
 export enum UIAuthProvider {
   GOOGLE = 'google',
   TWITTER = 'twitter',
+  X = 'twitter',
   FACEBOOK = 'facebook',
 
   DISCORD = 'discord',
@@ -102,7 +111,14 @@ export enum UIAuthProvider {
   APPLE = 'apple',
 
   // Extended Providers
-  EMAIL = 'email',
+  /**
+   * @deprecated Use `UIAuthProvider.EMAIL_PASSWORD` or `UIAuthProvider.EMAIL_OTP` instead.
+   */
+  EMAIL = 'emailPassword',
+
+  EMAIL_PASSWORD = 'emailPassword',
+  EMAIL_OTP = 'emailOtp',
+  PHONE = 'phone',
   WALLET = 'wallet',
   GUEST = 'guest',
 }
@@ -184,6 +200,71 @@ type WalletRecoveryOptions = {
   defaultMethod?: RecoveryMethod
 }
 
+export type PhoneConfig = {
+  /**
+   * @description Default country value (iso2).
+   * @default "us"
+   */
+  defaultCountry?: CountryIso2
+  /**
+   * @description Array of available countries for guessing.
+   * @default defaultCountries // full country list
+   */
+  countries?: CountryData[]
+  /**
+   * @description Countries to display at the top of the list of dropdown options.
+   * @default []
+   */
+  preferredCountries?: CountryIso2[]
+  /**
+   * @description Disable country guess on value change.
+   * @default false
+   */
+  disableCountryGuess?: boolean
+  /**
+   * @description
+   * Disable dial code prefill on initialization.
+   * Dial code prefill works only when "empty" phone value have been provided.
+   * @default false
+   */
+  disableDialCodePrefill?: boolean
+  /**
+   * @description
+   * Always display the dial code.
+   * Dial code can't be removed/changed by keyboard events, but it can be changed by pasting another country phone value.
+   * @default false
+   */
+  forceDialCode?: boolean
+  /**
+   * @description Display phone value will not include passed *dialCode* and *prefix* if set to *true*.
+   * @ignore *forceDialCode* value will be ignored.
+   * @default false
+   */
+  disableDialCodeAndPrefix?: boolean
+  /**
+   * @description Disable phone value mask formatting. All formatting characters will not be displayed, but the mask length will be preserved.
+   * @default false
+   */
+  disableFormatting?: boolean
+  /**
+   * @description Hide the dropdown icon. Make country selection not accessible.
+   * @default false
+   */
+  hideDropdown?: CountrySelectorProps['hideDropdown']
+  /**
+   * @description
+   * Show prefix and dial code between country selector and phone input.
+   * Works only when *disableDialCodeAndPrefix* is *true*
+   * @default false
+   */
+  showDisabledDialCodeAndPrefix?: boolean
+  /**
+   * @description Disable auto focus on input field after country select.
+   * @default false
+   */
+  disableFocusAfterCountrySelect?: boolean
+}
+
 export type ConnectUIOptions = {
   theme?: Theme
   mode?: Mode
@@ -210,6 +291,7 @@ export type ConnectUIOptions = {
   buyWithCardUrl?: string
   buyFromExchangeUrl?: string
   buyTroubleshootingUrl?: string
+  phoneConfig?: PhoneConfig
 } & Partial<OpenfortUIOptions>
 
 type WalletRecoveryOptionsExtended = {
@@ -250,6 +332,7 @@ export type OpenfortUIOptionsExtended = {
   buyFromExchangeUrl?: string
   buyTroubleshootingUrl?: string
   walletRecovery: WalletRecoveryOptionsExtended
+  phoneConfig?: PhoneConfig
 } & OpenfortUIOptions
 
 // export type Asset = getAssets.Asset<false>

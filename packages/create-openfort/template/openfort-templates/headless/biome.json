@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.6/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
   "root": true,
   "vcs": {
     "enabled": true,
@@ -7,7 +7,8 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": true
+    "ignoreUnknown": true,
+    "includes": ["**/*.tsx", "**/*.ts", "**/*.jsx", "**/*.js"]
   },
   "formatter": {
     "enabled": true,
@@ -49,7 +50,6 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.tsx", "**/*.ts", "**/*.jsx", "**/*.js"],
       "linter": {
         "rules": {
           "correctness": {

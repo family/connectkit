@@ -1,5 +1,3 @@
-'use client'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEmailAuth } from '@openfort/react'
 import { useNavigate } from '@tanstack/react-router'
