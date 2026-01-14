@@ -1,4 +1,5 @@
-import styled, { css, keyframes } from 'styled-components'
+import { css, keyframes } from 'styled-components'
+import styled from '../../../styles/styled'
 
 const caretBlink = keyframes`
   0%, 70%, 100% { opacity: 1; }
