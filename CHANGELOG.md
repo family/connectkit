@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+### Patch Changes
+
+- [#150](https://github.com/openfort-xyz/openfort-react/pull/150) [`e8dc78f`](https://github.com/openfort-xyz/openfort-react/commit/e8dc78f8667dfc470f2a0c6aadba826687b018bf) Thanks [@martimayoral](https://github.com/martimayoral)! - Fix: nextjs build for phone provider users
+
 ## 0.2.0
 
 ### Minor Changes
