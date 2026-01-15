@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3
+
+### Patch Changes
+
+- [#156](https://github.com/openfort-xyz/openfort-react/pull/156) [`ca84326`](https://github.com/openfort-xyz/openfort-react/commit/ca84326b49c07f8b3548dbf545784f8f3b2afe03) Thanks [@jamalavedra](https://github.com/jamalavedra)! - export otp methods
+
 ## 0.2.2
 
 ### Patch Changes
