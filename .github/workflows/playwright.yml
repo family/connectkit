@@ -1,0 +1,54 @@
+name: Playwright Tests
+on:
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24
+        cache: 'pnpm'
+
+    - name: Install root dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Build
+      run: pnpm build
+
+    - name: Install Playwright Browsers
+      run: pnpm playwright install --with-deps
+      working-directory: examples/playground
+
+    - name: Run Playwright tests
+      env:
+        VITE_PUBLISHABLE_KEY: ${{ secrets.VITE_PUBLISHABLE_KEY }}
+        VITE_SHIELD_PUBLISHABLE_KEY: ${{ secrets.VITE_SHIELD_PUBLISHABLE_KEY }}
+        VITE_POLYGON_POLICY_ID: ${{ secrets.VITE_POLYGON_POLICY_ID }}
+        VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT: ${{ secrets.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT }}
+      run: pnpm test
+      working-directory: examples/playground
+
+    - uses: actions/upload-artifact@v5.0.0
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report
+        retention-days: 30

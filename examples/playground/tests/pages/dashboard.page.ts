@@ -16,7 +16,7 @@ export class DashboardPage {
   // Verify that the dashboard is loaded
   async expectLoaded() {
     await expect(this.signOutButton()).toBeVisible({ timeout: 90_000 })
-    await new Promise((r) => setTimeout(r, 500))
+    await new Promise((r) => setTimeout(r, 1000))
   }
 
   // Ensure navigation and ready state
