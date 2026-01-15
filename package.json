@@ -105,7 +105,8 @@
       "**/*.gen.ts",
       "examples/playground/src/api/**",
       "packages/create-openfort/.github/**",
-      "packages/create-openfort/template/**"
+      "packages/create-openfort/template/**",
+      "examples/playground/tests/auth/auth.setup.ts"
     ],
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",

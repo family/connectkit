@@ -6,6 +6,6 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["node", "playwright"]
+    "types": ["node"]
   }
 }

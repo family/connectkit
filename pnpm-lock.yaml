@@ -159,9 +159,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.7.0(vite@6.4.1(@types/node@25.0.8)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2))
-      baseline-browser-mapping:
-        specifier: ^2.9.11
-        version: 2.9.14
       daisyui:
         specifier: ^5.0.50
         version: 5.5.14
