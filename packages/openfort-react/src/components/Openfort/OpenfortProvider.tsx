@@ -155,7 +155,7 @@ export const OpenfortProvider = ({
       allowedMethods: [RecoveryMethod.PASSWORD, ...(allowAutomaticRecovery ? [RecoveryMethod.AUTOMATIC] : [])],
       defaultMethod: allowAutomaticRecovery ? RecoveryMethod.AUTOMATIC : RecoveryMethod.PASSWORD,
     },
-    authProviders: [UIAuthProvider.GUEST, UIAuthProvider.EMAIL, UIAuthProvider.WALLET],
+    authProviders: [UIAuthProvider.GUEST, UIAuthProvider.EMAIL_OTP, UIAuthProvider.WALLET],
   }
 
   const safeUiConfig: OpenfortUIOptionsExtended = Object.assign({}, defaultUIOptions, uiConfig)

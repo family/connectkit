@@ -150,9 +150,8 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
 
       try {
         const user = await openfort.user.get()
-        const linkedAccounts = await openfort.user.list()
         logger.log('Getting user')
-        setLinkedAccounts(linkedAccounts)
+        setLinkedAccounts(user.linkedAccounts)
         setUser(user)
         return user
       } catch (err: any) {
