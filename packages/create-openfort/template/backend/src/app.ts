@@ -32,7 +32,7 @@ async function createEncryptionSession(req: Request, res: Response) {
       throw new Error('Shield environment variables are not set');
     }
 
-    const session = await openfort.registerRecoverySession(
+    const session = await openfort.createEncryptionSession(
       shieldApiKey,
       shieldSecretKey,
       shieldEncryptionShare,
