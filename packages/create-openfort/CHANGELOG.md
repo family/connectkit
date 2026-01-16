@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.9
+
+### Patch Changes
+
+- [#159](https://github.com/openfort-xyz/openfort-react/pull/159) [`b21c4ee`](https://github.com/openfort-xyz/openfort-react/commit/b21c4ee4a08c84c92aa75d4d2a68c1e133afb2d2) Thanks [@jamalavedra](https://github.com/jamalavedra)! - update template
+
 ## 0.1.8
 
 ### Patch Changes
