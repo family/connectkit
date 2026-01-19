@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@openfort/better-auth": "^0.0.2",
-    "@openfort/openfort-node": "^0.6.75",
+    "@openfort/openfort-node": "^0.7.2",
     "better-auth": "^1.4.3",
     "better-sqlite3": "^12.4.1",
     "cors": "^2.8.5",

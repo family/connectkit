@@ -14,6 +14,7 @@ import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import { CreateWallet, CreateWalletSheet } from './WalletCreation'
 import { WalletRecoverPasswordSheet } from './WalletPasswordSheets'
+import { supabase } from '../../../integrations/supabase'
 
 function WalletRecoveryBadge({ wallet }: { wallet: UserWallet }) {
   let Icon = LockClosedIcon
@@ -51,8 +52,7 @@ export function WalletListCard() {
     isConnecting,
   } = useWallets()
   const { user, isAuthenticated } = useUser()
-  const { isConnected } = useAccount()
-  const { signOut } = useSignOut()
+  const { isConnected } = useAccount()                                                                                                                                                                          
 
   const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false)
   const [walletToRecover, setWalletToRecover] = useState<UserWallet | null>(
@@ -142,8 +142,8 @@ export function WalletListCard() {
 
       {!isConnected && (
         <button
-          onClick={() => {
-            signOut()
+          onClick={async () => {
+            await supabase.auth.signOut()
           }}
           className="mt-auto btn"
         >

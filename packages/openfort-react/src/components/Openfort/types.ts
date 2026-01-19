@@ -111,11 +111,6 @@ export enum UIAuthProvider {
   APPLE = 'apple',
 
   // Extended Providers
-  /**
-   * @deprecated Use `UIAuthProvider.EMAIL_PASSWORD` or `UIAuthProvider.EMAIL_OTP` instead.
-   */
-  EMAIL = 'emailPassword',
-
   EMAIL_PASSWORD = 'emailPassword',
   EMAIL_OTP = 'emailOtp',
   PHONE = 'phone',

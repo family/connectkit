@@ -1,5 +1,5 @@
 import { BookOpenIcon } from '@heroicons/react/24/outline'
-import { useUser } from '@openfort/react'
+import { useSignOut, useUser } from '@openfort/react'
 import { useAccount } from 'wagmi'
 
 import { supabase } from '../../../integrations/supabase'

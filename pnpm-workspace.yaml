@@ -1,6 +1,7 @@
 packages:
-  - 'packages/**'
-  - 'examples/**'
+  - "packages/**"
+  - "examples/**"
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
-  - '@openfort/openfort-js'
+  - "@openfort/openfort-js"
+  - "@openfort/openfort-node"

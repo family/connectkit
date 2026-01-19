@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.5
+
+### Patch Changes
+
+- [#161](https://github.com/openfort-xyz/openfort-react/pull/161) [`4321094`](https://github.com/openfort-xyz/openfort-react/commit/432109415bd326a4713dbbf56fce9979b66886e3) Thanks [@jamalavedra](https://github.com/jamalavedra)! - update version js'
+
+## 0.2.4
+
+### Patch Changes
+
+- [#158](https://github.com/openfort-xyz/openfort-react/pull/158) [`3e2d1fc`](https://github.com/openfort-xyz/openfort-react/commit/3e2d1fc98d9c0973397547e9b0042cf3bb8c035b) Thanks [@jamalavedra](https://github.com/jamalavedra)! - update js sdk
+
+## 0.2.3
+
+### Patch Changes
+
+- [#156](https://github.com/openfort-xyz/openfort-react/pull/156) [`ca84326`](https://github.com/openfort-xyz/openfort-react/commit/ca84326b49c07f8b3548dbf545784f8f3b2afe03) Thanks [@jamalavedra](https://github.com/jamalavedra)! - export otp methods
+
 ## 0.2.2
 
 ### Patch Changes

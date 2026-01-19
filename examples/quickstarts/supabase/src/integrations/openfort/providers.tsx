@@ -36,9 +36,11 @@ export function OpenfortProviders({ children }: { children: React.ReactNode }) {
           }}
           thirdPartyAuth={{
             getAccessToken: async () => {
+              console.log('supabase: getting token')
               const {
                 data: { session },
               } = await supabase.auth.getSession()
+              console.log('supabase: got token', session?.access_token)
               return session?.access_token ?? null
             },
             provider: ThirdPartyOAuthProvider.SUPABASE,
