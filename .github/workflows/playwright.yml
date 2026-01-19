@@ -39,10 +39,10 @@ jobs:
 
     - name: Run Playwright tests
       env:
-        VITE_PUBLISHABLE_KEY: ${{ variables.VITE_PUBLISHABLE_KEY }}
-        VITE_SHIELD_PUBLISHABLE_KEY: ${{ variables.VITE_SHIELD_PUBLISHABLE_KEY }}
-        VITE_POLYGON_POLICY_ID: ${{ variables.VITE_POLYGON_POLICY_ID }}
-        VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT: ${{ variables.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT }}
+        VITE_PUBLISHABLE_KEY: ${{ vars.VITE_PUBLISHABLE_KEY }}
+        VITE_SHIELD_PUBLISHABLE_KEY: ${{ vars.VITE_SHIELD_PUBLISHABLE_KEY }}
+        VITE_POLYGON_POLICY_ID: ${{ vars.VITE_POLYGON_POLICY_ID }}
+        VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT: ${{ vars.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT }}
       run: pnpm test
       working-directory: examples/playground
 
