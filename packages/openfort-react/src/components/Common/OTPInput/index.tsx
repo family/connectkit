@@ -27,6 +27,7 @@ export function OtpInputStandalone({
   isLoading,
   isError,
   isSuccess,
+  scale,
 }: {
   length?: number
   onChange?: (value: string) => void
@@ -34,6 +35,7 @@ export function OtpInputStandalone({
   isLoading?: boolean
   isError?: boolean
   isSuccess?: boolean
+  scale?: string
 }) {
   const [values, setValues] = useState(Array(length).fill(''))
   const [activeIndex, setActiveIndex] = useState(0)
@@ -125,9 +127,9 @@ export function OtpInputStandalone({
   }, [isError])
 
   return (
-    <OtpContainer showBorder={!isSuccess}>
+    <OtpContainer showBorder={!isSuccess} scale={scale}>
       <OTPGroup isError={isError} isSuccess={isSuccess} isLoading={isLoading}>
-        {values.slice(0, 6).map((value, idx) => {
+        {values.slice(0, length).map((value, idx) => {
           const index = idx
 
           return (

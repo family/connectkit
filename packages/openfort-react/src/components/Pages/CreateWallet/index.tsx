@@ -77,7 +77,7 @@ const CreateWalletAutomaticRecovery = ({
   logoutOnBack: boolean
 }) => {
   const { embeddedState } = useOpenfortCore()
-  const { createWallet } = useWallets()
+  const { createWallet, error: recoveryError } = useWallets()
   const [shouldCreateWallet, setShouldCreateWallet] = useState(false)
 
   useEffect(() => {
@@ -101,7 +101,11 @@ const CreateWalletAutomaticRecovery = ({
 
   return (
     <PageContent onBack={onBack} logoutOnBack={logoutOnBack}>
-      <Loader header="Creating wallet..." />
+      <Loader
+        isError={!!recoveryError}
+        header={recoveryError ? 'Error creating wallet.' : `Creating wallet...`}
+        description={recoveryError ? recoveryError.message : undefined}
+      />
     </PageContent>
   )
 }

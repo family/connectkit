@@ -74,7 +74,6 @@ function SampleComponent() {
           navigate({
             to: '.',
             search: (prev) => {
-              // biome-ignore lint/correctness/noUnusedVariables: focus is intentionally destructured to exclude it
               const { focus, ...rest } = prev
               return rest
             },

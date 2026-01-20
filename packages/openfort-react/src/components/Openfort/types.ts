@@ -150,16 +150,49 @@ type CommonWalletConfig = {
   }
 }
 
+export type GetEncryptionSessionParams = {
+  accessToken: string
+  otpCode?: string
+  userId: string
+}
+
 type EncryptionSession =
   | {
       /** Function to retrieve an encryption session using a session ID. */
-      getEncryptionSession?: (accessToken: string) => Promise<string>
+      getEncryptionSession?: ({ accessToken, otpCode, userId }: GetEncryptionSessionParams) => Promise<string>
       createEncryptedSessionEndpoint?: never
     }
   | {
       /** API endpoint for creating an encrypted session. */
       getEncryptionSession?: never
       createEncryptedSessionEndpoint?: string
+    }
+
+export type RequestWalletRecoverOTPParams = {
+  accessToken: string
+  userId: string
+}
+
+type RecoverWithOTP =
+  | {
+      /** Function to recover a wallet with otp. */
+      requestWalletRecoverOTP?: ({
+        accessToken,
+        userId,
+        email,
+        phone,
+      }: {
+        accessToken: string
+        userId: string
+        email?: string
+        phone?: string
+      }) => Promise<void>
+      requestWalletRecoverOTPEndpoint?: never
+    }
+  | {
+      /** API endpoint for recovering a wallet with otp. */
+      requestWalletRecoverOTP?: never
+      requestWalletRecoverOTPEndpoint?: string
     }
 
 export type DebugModeOptions = {
@@ -176,7 +209,7 @@ export type DebugModeOptions = {
  * the `createEncryptedSessionEndpoint` endpoint or the `getEncryptionSession` callback.
  * Password-based and passkey-based recovery methods do not require encryption sessions.
  */
-export type OpenfortWalletConfig = CommonWalletConfig & EncryptionSession
+export type OpenfortWalletConfig = CommonWalletConfig & EncryptionSession & RecoverWithOTP
 
 type OpenfortUIOptions = {
   linkWalletOnSignUp?: LinkWalletOnSignUpOption
