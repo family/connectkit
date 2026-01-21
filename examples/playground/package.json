@@ -9,8 +9,7 @@
     "check": "biome check --write --unsafe",
     "format": "biome format --write .",
     "preview": "vite preview",
-    "generate-types": "typedoc --json src/generated/types.json src/generate-types.ts",
-    "shadcn": "shadcn"
+    "generate-types": "typedoc --json src/generated/types.json src/generate-types.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
