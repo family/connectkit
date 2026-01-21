@@ -168,11 +168,6 @@ type EncryptionSession =
       createEncryptedSessionEndpoint?: string
     }
 
-export type RequestWalletRecoverOTPParams = {
-  accessToken: string
-  userId: string
-}
-
 type RecoverWithOTP =
   | {
       /** Function to recover a wallet with otp. */

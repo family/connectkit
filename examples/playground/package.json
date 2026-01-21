@@ -43,7 +43,6 @@
     "@types/styled-components": "^5.1.34",
     "@vitejs/plugin-react": "^4.3.4",
     "daisyui": "^5.0.50",
-    "shadcn": "latest",
     "tailwindcss": "^4.1.15",
     "tsx": "^4.20.3",
     "tw-animate-css": "^1.3.6",
