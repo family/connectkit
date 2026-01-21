@@ -9,8 +9,7 @@
     "check": "biome check --write --unsafe",
     "format": "biome format --write .",
     "preview": "vite preview",
-    "generate-types": "typedoc --json src/generated/types.json src/generate-types.ts",
-    "shadcn": "shadcn"
+    "generate-types": "typedoc --json src/generated/types.json src/generate-types.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -43,7 +42,6 @@
     "@types/styled-components": "^5.1.34",
     "@vitejs/plugin-react": "^4.3.4",
     "daisyui": "^5.0.50",
-    "shadcn": "latest",
     "tailwindcss": "^4.1.15",
     "tsx": "^4.20.3",
     "tw-animate-css": "^1.3.6",
