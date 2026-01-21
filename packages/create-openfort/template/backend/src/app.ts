@@ -24,16 +24,16 @@ async function createEncryptionSession(req: Request, res: Response) {
   console.log('[%s] Creating encryption session...', uaHead);
 
   try {
-    const shieldApiKey = process.env.SHIELD_API_KEY;
+    const shieldPublishableKey = process.env.SHIELD_PUBLISHABLE_KEY;
     const shieldSecretKey = process.env.SHIELD_SECRET_KEY;
     const shieldEncryptionShare = process.env.SHIELD_ENCRYPTION_SHARE;
 
-    if (!shieldApiKey || !shieldSecretKey || !shieldEncryptionShare) {
+    if (!shieldPublishableKey || !shieldSecretKey || !shieldEncryptionShare) {
       throw new Error('Shield environment variables are not set');
     }
 
     const session = await openfort.createEncryptionSession(
-      shieldApiKey,
+      shieldPublishableKey,
       shieldSecretKey,
       shieldEncryptionShare,
     );

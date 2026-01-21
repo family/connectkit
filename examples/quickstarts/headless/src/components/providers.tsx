@@ -24,8 +24,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
           walletConfig={{
             shieldPublishableKey: import.meta.env.VITE_SHIELD_PUBLISHABLE_KEY!, // The public key for your Openfort Shield account get it from https://dashboard.openfort.io
             ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID, // The policy ID for sponsoring transactions
+            // If you want to use AUTOMATIC embedded wallet recovery, an encryption session is required.
+            // See: https://www.openfort.io/docs/products/embedded-wallet/react-native/quickstart/automatic
+            // For backend setup, check: https://github.com/openfort-xyz/openfort-backend-quickstart
             createEncryptedSessionEndpoint: import.meta.env
-              .VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT, // The endpoint to create an encryption session for automatic wallet recovery
+              .VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
             recoverWalletAutomaticallyAfterAuth: true, // We will manually call create/setActive wallet after auth
           }}
         >
