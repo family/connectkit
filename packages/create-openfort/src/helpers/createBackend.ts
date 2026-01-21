@@ -9,7 +9,7 @@ interface CreateBackendOptions {
   projectDir: string;
   openfortSecretKey: string;
   shieldSecretKey: string;
-  shieldApiKey: string;
+  shieldPublishableKey: string;
   shieldEncryptionShare: string;
   port?: number;
 }
@@ -18,7 +18,7 @@ export const createBackend = async ({
   projectDir,
   openfortSecretKey,
   shieldSecretKey,
-  shieldApiKey,
+  shieldPublishableKey,
   shieldEncryptionShare,
   port = 3110,
 }: CreateBackendOptions) => {
@@ -48,7 +48,7 @@ export const createBackend = async ({
           /SHIELD_SECRET_KEY=.*/g,
           `SHIELD_SECRET_KEY=${shieldSecretKey}`,
         )
-        .replace(/SHIELD_API_KEY=.*/g, `SHIELD_API_KEY=${shieldApiKey}`)
+        .replace(/SHIELD_PUBLISHABLE_KEY=.*/g, `SHIELD_PUBLISHABLE_KEY=${shieldPublishableKey}`)
         .replace(
           /SHIELD_ENCRYPTION_SHARE=.*/g,
           `SHIELD_ENCRYPTION_SHARE=${shieldEncryptionShare}`,

@@ -65,7 +65,7 @@ const main = async () => {
     createBackendOption: createBackend,
     openfortSecretKey,
     shieldSecretKey,
-    shieldApiKey: shieldPublishableKey, // For backend, we use the publishable key as API key
+    shieldPublishableKey: shieldPublishableKey, // For backend, we also use the publishable key
     shieldEncryptionShare,
   });
 
