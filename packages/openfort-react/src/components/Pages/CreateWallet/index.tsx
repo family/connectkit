@@ -1,10 +1,10 @@
 import { EmbeddedState, RecoveryMethod } from '@openfort/openfort-js'
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAccount } from 'wagmi'
-import { FingerPrintIcon, KeyIcon, LockIcon, PlusIcon, ShieldIcon } from '../../../assets/icons'
+import { EmailIcon, FingerPrintIcon, KeyIcon, LockIcon, PhoneIcon, PlusIcon, ShieldIcon } from '../../../assets/icons'
 import Logos from '../../../assets/logos'
-import { useWallets } from '../../../hooks/openfort/useWallets'
+import { type RequestWalletRecoverOTPResponse, useWallets } from '../../../hooks/openfort/useWallets'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
@@ -12,6 +12,7 @@ import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
 import Loader from '../../Common/Loading'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
+import { OtpInputStandalone } from '../../Common/OTPInput'
 import TickList from '../../Common/TickList'
 import { FloatingGraphic } from '../../FloatingGraphic'
 import { LinkWalletOnSignUpOption, routes } from '../../Openfort/types'
@@ -20,6 +21,7 @@ import { PageContent, type SetOnBackFunction } from '../../PageContent'
 import { PasswordStrengthIndicator } from '../../PasswordStrength/PasswordStrengthIndicator'
 import { getPasswordStrength, MEDIUM_SCORE_THRESHOLD } from '../../PasswordStrength/password-utility'
 import Connectors from '../Connectors'
+import { Body, FooterButtonText, FooterTextButton, ResultContainer } from '../EmailOTP/styles'
 import { ProviderIcon, ProviderLabel, ProvidersButton } from '../Providers/styles'
 import { OtherMethodButton } from './styles'
 
@@ -77,8 +79,42 @@ const CreateWalletAutomaticRecovery = ({
   logoutOnBack: boolean
 }) => {
   const { embeddedState } = useOpenfortCore()
-  const { createWallet, error: recoveryError } = useWallets()
+  const { setRoute, triggerResize } = useOpenfort()
+  const [recoveryError, setRecoveryError] = useState<Error | null>(null)
+  const { createWallet, isWalletRecoveryOTPEnabled, requestWalletRecoverOTP } = useWallets()
   const [shouldCreateWallet, setShouldCreateWallet] = useState(false)
+  const [needsOTP, setNeedsOTP] = useState(false)
+  const [otpResponse, setOtpResponse] = useState<RequestWalletRecoverOTPResponse | null>(null)
+  const [otpStatus, setOtpStatus] = useState<'idle' | 'loading' | 'error' | 'success' | 'sending-otp' | 'send-otp'>(
+    'idle'
+  )
+  const [error, setError] = useState<false | string>(false)
+
+  const handleCompleteOtp = async (otp: string) => {
+    setOtpStatus('loading')
+
+    const response = await createWallet({
+      recovery: {
+        recoveryMethod: RecoveryMethod.AUTOMATIC,
+        otpCode: otp,
+      },
+    })
+
+    if (response.error) {
+      setOtpStatus('error')
+      setError(response.error.message || 'There was an error verifying the OTP')
+      logger.log('Error verifying OTP for wallet recovery', response.error)
+      setTimeout(() => {
+        setOtpStatus('idle')
+        setError(false)
+      }, 1000)
+    } else {
+      setOtpStatus('success')
+      // setTimeout(() => {
+      //   setRoute(routes.CONNECTED_SUCCESS)
+      // }, 1000)
+    }
+  }
 
   useEffect(() => {
     // To ensure the wallet is created only once
@@ -86,18 +122,95 @@ const CreateWalletAutomaticRecovery = ({
       ;(async () => {
         logger.log('Creating wallet Automatic recover')
         const response = await createWallet()
-        if (response.error) {
+
+        if (response.isOTPRequired && isWalletRecoveryOTPEnabled) {
+          const response = await requestWalletRecoverOTP()
+          setNeedsOTP(true)
+          setOtpResponse(response)
+          if (response.error) {
+            logger.log('Error requesting OTP for wallet recovery', response.error)
+            setRecoveryError(response.error)
+          }
+        } else if (response.error) {
           logger.log('Error creating wallet', response.error)
+          setRecoveryError(response.error)
         }
+        triggerResize()
       })()
     }
   }, [shouldCreateWallet])
+
+  const [canSendOtp, setCanSendOtp] = useState(true)
 
   useEffect(() => {
     if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
       setShouldCreateWallet(true)
     }
   }, [embeddedState])
+  const handleResendClick = useCallback(() => {
+    setOtpStatus('send-otp')
+    setCanSendOtp(false)
+  }, [])
+
+  const isResendDisabled = !canSendOtp || otpStatus === 'sending-otp' || otpStatus === 'send-otp'
+  const sendButtonText = useMemo(() => {
+    if (!canSendOtp) return 'Code Sent!'
+    if (otpStatus === 'sending-otp') return 'Sending...'
+    return 'Resend Code'
+  }, [canSendOtp, otpStatus])
+
+  if (needsOTP && isWalletRecoveryOTPEnabled) {
+    if ((!otpResponse?.email && !otpResponse?.phone) || otpResponse.email?.includes('@openfort.anonymous')) {
+      return (
+        <PageContent onBack={onBack} logoutOnBack={logoutOnBack}>
+          <Loader
+            isError={true}
+            description={'You cannot create a wallet without authentication, please link email or phone to continue.'}
+            header={'Cannot create wallet.'}
+          />
+          <Button onClick={() => setRoute(routes.PROVIDERS)}>Add an authentication method</Button>
+        </PageContent>
+      )
+    }
+    return (
+      <PageContent onBack={onBack} logoutOnBack={logoutOnBack}>
+        <ModalHeading>Enter your code</ModalHeading>
+
+        <FloatingGraphic
+          height="100px"
+          marginTop="8px"
+          marginBottom="10px"
+          logoCenter={{
+            logo: otpResponse?.sentTo === 'phone' ? <PhoneIcon /> : <EmailIcon />,
+          }}
+        />
+        <ModalBody>
+          <Body>
+            Please check <b>{otpResponse?.sentTo === 'phone' ? otpResponse?.phone : otpResponse?.email}</b> and enter
+            your code below.
+          </Body>
+          <OtpInputStandalone
+            length={9}
+            scale="80%"
+            onComplete={handleCompleteOtp}
+            isLoading={otpStatus === 'loading'}
+            isError={otpStatus === 'error'}
+            isSuccess={otpStatus === 'success'}
+          />
+          <ResultContainer>
+            {otpStatus === 'success' && <ModalBody $valid>Code verified successfully!</ModalBody>}
+            {otpStatus === 'error' && <ModalBody $error>{error || 'Invalid code. Please try again.'}</ModalBody>}
+          </ResultContainer>
+          <FooterTextButton>
+            Didn't receive the code?{' '}
+            <FooterButtonText type="button" onClick={handleResendClick} disabled={isResendDisabled}>
+              {sendButtonText}
+            </FooterButtonText>
+          </FooterTextButton>
+        </ModalBody>
+      </PageContent>
+    )
+  }
 
   return (
     <PageContent onBack={onBack} logoutOnBack={logoutOnBack}>

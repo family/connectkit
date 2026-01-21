@@ -839,19 +839,37 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         })
       } catch (e) {
         const errorObj = e instanceof Error ? e : new Error('Failed to create wallet')
-        const error =
+        let error =
           e instanceof OpenfortError
             ? e
             : new OpenfortError('Failed to create wallet', OpenfortReactErrorType.WALLET_ERROR, { error: errorObj })
+
+        let isOTPRequired = false
+        if (error.message === 'OTP_REQUIRED') {
+          if (!isWalletRecoveryOTPEnabled) {
+            error = new OpenfortError(
+              'OTP code is required to recover the wallet.\nPlease set requestWalletRecoverOTP or requestWalletRecoverOTPEndpoint in OpenfortProvider.',
+              OpenfortReactErrorType.WALLET_ERROR
+            )
+          } else {
+            error = new OpenfortError(
+              'OTP code is required to recover the wallet.',
+              OpenfortReactErrorType.WALLET_ERROR
+            )
+          }
+          isOTPRequired = true
+        }
+
         setStatus({
           status: 'error',
           error,
         })
-        return onError({
+        onError({
           error,
           hookOptions,
           options,
         })
+        return { error, isOTPRequired }
       }
     },
     [client, uiConfig, chainId]

@@ -201,6 +201,9 @@ const RecoverAutomaticWallet = ({
   const [error, setError] = useState<false | string>(false)
   const [needsOTP, setNeedsOTP] = useState(false)
   const [otpResponse, setOtpResponse] = useState<RequestWalletRecoverOTPResponse | null>(null)
+  const [otpStatus, setOtpStatus] = useState<'idle' | 'loading' | 'error' | 'success' | 'sending-otp' | 'send-otp'>(
+    'idle'
+  )
 
   const recoverWallet = useCallback(async () => {
     if (embeddedState === EmbeddedState.EMBEDDED_SIGNER_NOT_CONFIGURED) {
@@ -231,9 +234,6 @@ const RecoverAutomaticWallet = ({
     recoverWallet()
   }, [])
 
-  const [otpStatus, setOtpStatus] = useState<'idle' | 'loading' | 'error' | 'success' | 'sending-otp' | 'send-otp'>(
-    'idle'
-  )
   const handleCompleteOtp = async (otp: string) => {
     setOtpStatus('loading')
 
