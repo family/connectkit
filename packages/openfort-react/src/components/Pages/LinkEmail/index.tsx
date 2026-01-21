@@ -98,7 +98,7 @@ const LinkEmail: React.FC = () => {
 
         {loginError && (
           <ModalBody style={{ height: 24, marginTop: 12 }} $error>
-            <FitText>{loginError}</FitText>
+            {loginError}
           </ModalBody>
         )}
 
