@@ -16,7 +16,6 @@ interface CreateProjectOptions {
   createBackendOption: boolean;
   openfortSecretKey?: string;
   shieldSecretKey?: string;
-  shieldPublishableKey?: string;
   shieldEncryptionShare?: string;
 }
 
@@ -30,7 +29,6 @@ export const createProject = async ({
   createBackendOption,
   openfortSecretKey,
   shieldSecretKey,
-  shieldPublishableKey,
   shieldEncryptionShare,
 }: CreateProjectOptions) => {
   const projectDir = path.resolve(process.cwd(), projectName);
