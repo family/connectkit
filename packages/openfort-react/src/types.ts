@@ -16,6 +16,7 @@ export type All = {
 export type { CustomAvatarProps } from './components/Common/Avatar'
 export type {
   ConnectUIOptions as OpenfortOptions,
+  CustomizableRoutes,
   OpenfortWalletConfig,
   PhoneConfig,
 } from './components/Openfort/types'

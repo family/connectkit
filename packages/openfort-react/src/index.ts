@@ -16,6 +16,7 @@ export { default as ChainIcon } from './components/Common/Chain'
 export { OpenfortButton } from './components/ConnectButton'
 export { OpenfortProvider } from './components/Openfort/OpenfortProvider'
 export { LinkWalletOnSignUpOption, UIAuthProvider as AuthProvider } from './components/Openfort/types'
+export { PageLayout, type PageLayoutProps } from './components/PageLayout'
 export { embeddedWalletId } from './constants/openfort'
 export { default as getDefaultConfig } from './defaultConfig'
 export { default as getDefaultConnectors } from './defaultConnectors'
@@ -45,6 +46,7 @@ export { useOpenfortCore as useOpenfort } from './openfort/useOpenfort'
 export type { CustomTheme } from './styles/customTheme'
 export type {
   CustomAvatarProps,
+  CustomizableRoutes,
   Languages,
   Mode,
   OpenfortHookOptions,
