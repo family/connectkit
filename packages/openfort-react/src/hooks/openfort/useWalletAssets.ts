@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { createWalletClient, custom, numberToHex } from 'viem'
 import type { getAssets } from 'viem/_types/experimental/erc7811/actions/getAssets'
 import { erc7811Actions } from 'viem/experimental'
@@ -17,9 +17,36 @@ type WalletAssetsHookOptions = {
 export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }: WalletAssetsHookOptions = {}) => {
   const chainId = useChainId()
   const { data: walletClient } = useWalletClient()
-  const { walletConfig, publishableKey, overrides } = useOpenfort()
+  const { walletConfig, publishableKey, overrides, thirdPartyAuth } = useOpenfort()
   const { address } = useAccount()
   const { getAccessToken } = useUser()
+
+  const buildHeaders = useCallback(async () => {
+    if (thirdPartyAuth) {
+      const accessToken = await thirdPartyAuth.getAccessToken()
+
+      if (!accessToken) {
+        throw new OpenfortError(
+          'Failed to get access token from third party auth provider',
+          OpenfortReactErrorType.AUTHENTICATION_ERROR
+        )
+      }
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'x-auth-provider': thirdPartyAuth.provider,
+        'x-player-token': accessToken,
+        'x-token-type': 'idToken',
+        Authorization: `Bearer ${publishableKey}`,
+      }
+      return headers
+    }
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'x-project-key': publishableKey,
+      Authorization: `Bearer ${await getAccessToken()}`,
+    }
+    return headers
+  }, [publishableKey, getAccessToken, thirdPartyAuth])
 
   const customTransport = useMemo(
     () => (): Transport => {
@@ -27,11 +54,7 @@ export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }:
         async request({ method, params }) {
           const res = await fetch(`${overrides?.backendUrl || 'https://api.openfort.io'}/rpc`, {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-project-key': publishableKey,
-              Authorization: `Bearer ${await getAccessToken()}`,
-            },
+            headers: await buildHeaders(),
             body: JSON.stringify({
               method,
               params: params[0],
