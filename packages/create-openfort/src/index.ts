@@ -55,7 +55,6 @@ const main = async () => {
     projectName: appDir,
     template,
     openfortPublishableKey,
-    shieldPublishableKey,
     apiEndpoint:
       apiEndpoint ||
       (createBackend
@@ -65,7 +64,7 @@ const main = async () => {
     createBackendOption: createBackend,
     openfortSecretKey,
     shieldSecretKey,
-    shieldApiKey: shieldPublishableKey, // For backend, we use the publishable key as API key
+    shieldPublishableKey,
     shieldEncryptionShare,
   });
 
