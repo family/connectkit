@@ -299,6 +299,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
   const requestWalletRecoverOTP = useCallback(async (): Promise<RequestWalletRecoverOTPResponse> => {
     try {
+      logger.log('Requesting wallet recover OTP for user', { userId: user?.id })
       if (!walletConfig) {
         throw new Error('No walletConfig found')
       }
@@ -357,6 +358,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
         embeddedAccounts?: EmbeddedAccount[],
         walletAddress?: Hex
       ): Promise<RecoveryParams> {
+        const user = await client.user.get()
         if (!user?.id) {
           throw new OpenfortError('User not found', OpenfortReactErrorType.AUTHENTICATION_ERROR)
         }
