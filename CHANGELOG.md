@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.6
+
+### Patch Changes
+
+- [#167](https://github.com/openfort-xyz/openfort-react/pull/167) [`46007e2`](https://github.com/openfort-xyz/openfort-react/commit/46007e273ca98891482e6a46586fcbcc7f3aa084) Thanks [@martimayoral](https://github.com/martimayoral)! - get assets always uses openfort rpc
+
+- [#163](https://github.com/openfort-xyz/openfort-react/pull/163) [`988611a`](https://github.com/openfort-xyz/openfort-react/commit/988611a4d04b18ddcf9f8b2f5a4722262c12f95c) Thanks [@martimayoral](https://github.com/martimayoral)! - add shield otp
+
+- [#168](https://github.com/openfort-xyz/openfort-react/pull/168) [`e4439ba`](https://github.com/openfort-xyz/openfort-react/commit/e4439bab5a89fe22effae29af2e2963921cc5c54) Thanks [@martimayoral](https://github.com/martimayoral)! - feat/add custom page views
+
+- [#166](https://github.com/openfort-xyz/openfort-react/pull/166) [`747f5a8`](https://github.com/openfort-xyz/openfort-react/commit/747f5a8dc5bb57b8b8090e0667d62bcb1099eb77) Thanks [@martimayoral](https://github.com/martimayoral)! - fix error text overflow
+
 ## 0.2.5
 
 ### Patch Changes
