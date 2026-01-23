@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import { STRONG_PASSWORD } from '../utils/constants'
-import { clickableByText, safeClick } from '../utils/ui'
+import { safeClick } from '../utils/ui'
 
 export class AuthPage {
   constructor(private readonly page: Page) {}
@@ -35,74 +35,13 @@ export class AuthPage {
 
     const guestBtn = root.getByRole('button', { name: /^guest$/i })
 
-    // Flow progress signals
-    const createWalletCta = clickableByText(root as any, /create\s*wallet/i)
-    const secureWalletHeading = (hasModal ? this.page : root).getByText(/secure your wallet/i)
-
-    const creatingGuest = this.page.getByText(/creating guest user/i)
-    const loadingPleaseWait = this.page.getByText(/loading,\s*please wait/i)
-
-    // We have already advanced
-    if (
-      (await createWalletCta.isVisible().catch(() => false)) ||
-      (await secureWalletHeading.isVisible().catch(() => false))
-    ) {
-      return
-    }
-
     // Click on Guest if available
     if (await guestBtn.isVisible().catch(() => false)) {
       await expect(guestBtn).toBeEnabled({ timeout: 30_000 })
       await guestBtn.click({ timeout: 30_000 })
     }
 
-    // Wait for intermediate state or next step
-    await expect
-      .poll(
-        async () => {
-          const a = await creatingGuest.isVisible().catch(() => false)
-          const b = await loadingPleaseWait.isVisible().catch(() => false)
-          const c = await createWalletCta.isVisible().catch(() => false)
-          const d = await secureWalletHeading.isVisible().catch(() => false)
-          return a || b || c || d
-        },
-        { timeout: 45_000 }
-      )
-      .toBeTruthy()
-
-    // Wait for the flow to reach wallet creation
-    await expect
-      .poll(
-        async () => {
-          const c = await createWalletCta.isVisible().catch(() => false)
-          const d = await secureWalletHeading.isVisible().catch(() => false)
-          return c || d
-        },
-        { timeout: 120_000 }
-      )
-      .toBeTruthy()
-  }
-
-  // Create a wallet using password
-  async createWalletWithPassword(password = STRONG_PASSWORD) {
-    const modal = this.connectModal()
-    const hasModal = (await modal.count().catch(() => 0)) > 0
-    const root: Page | Locator = hasModal ? modal : this.page
-
-    const secureWalletHeading = this.page.getByText(/secure your wallet/i)
-
-    if (!(await secureWalletHeading.isVisible().catch(() => false))) {
-      await safeClick(root as any, /create\s*wallet/i, 60_000)
-    }
-
-    await expect(secureWalletHeading).toBeVisible({ timeout: 90_000 })
-
-    const passwordInput = this.page.getByPlaceholder('Enter your password')
-    await expect(passwordInput).toBeVisible({ timeout: 90_000 })
-
-    await passwordInput.fill(password)
-    await this.page.waitForTimeout(150)
-
-    await safeClick(this.page, /^create wallet$/i, 90_000)
+    const connectedText = this.page.getByText(/Connected with 0x/i)
+    await expect(connectedText).toBeVisible({ timeout: 30_000 })
   }
 }

@@ -19,7 +19,6 @@ test('setup: create guest wallet and persist auth state', async ({ page }) => {
   await auth.goto()
   await auth.openConnectModalFromNavbar()
   await auth.continueAsGuest()
-  await auth.createWalletWithPassword()
 
   // Verify that the dashboard is loaded
   await dash.expectLoaded()
