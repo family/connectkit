@@ -26,8 +26,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
             ethereumProviderPolicyId: import.meta.env.VITE_POLICY_ID, // The policy ID for sponsoring transactions
 
+            // If you want to use AUTOMATIC embedded wallet recovery, an encryption session is required.
+            // See: https://www.openfort.io/docs/products/embedded-wallet/react-native/quickstart/automatic
+            // For backend setup, check: https://github.com/openfort-xyz/openfort-backend-quickstart
             createEncryptedSessionEndpoint: import.meta.env
-              .VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT, // The endpoint to create an encryption session for automatic wallet recovery
+              .VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
 
             recoverWalletAutomaticallyAfterAuth: false, // We will manually call create/setActive wallet after auth
           }}

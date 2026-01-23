@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useSignOut } from '../../hooks/openfort/auth/useSignOut'
+import { ModalHeading } from '../Common/Modal/styles'
 import type { SetRouteOptions } from '../Openfort/types'
 import { useOpenfort } from '../Openfort/useOpenfort'
 import { PageContentStyle } from './styles'
@@ -11,9 +12,10 @@ type PageContentProps = {
   width?: number | string
   onBack?: SetOnBackFunction
   logoutOnBack?: boolean
+  header?: string
 }
 
-export const PageContent = ({ children, width, onBack = 'back', logoutOnBack }: PageContentProps) => {
+export const PageContent = ({ children, width, onBack = 'back', logoutOnBack, header }: PageContentProps) => {
   const { setOnBack, setRoute, setPreviousRoute, setRouteHistory } = useOpenfort()
   const { signOut } = useSignOut()
 
@@ -52,5 +54,10 @@ export const PageContent = ({ children, width, onBack = 'back', logoutOnBack }: 
     } else setOnBack(null)
   }, [!!onBack, !!logoutOnBack])
 
-  return <PageContentStyle style={{ width }}>{children}</PageContentStyle>
+  return (
+    <PageContentStyle style={{ width }}>
+      {header && <ModalHeading>{header}</ModalHeading>}
+      {children}
+    </PageContentStyle>
+  )
 }

@@ -4,7 +4,6 @@ import { useEmailAuth } from '../../../hooks/openfort/auth/useEmailAuth'
 import { useOpenfortCore } from '../../../openfort/useOpenfort'
 import { logger } from '../../../utils/logger'
 import Button from '../../Common/Button'
-import FitText from '../../Common/FitText'
 import Input from '../../Common/Input'
 import { ModalBody, ModalHeading } from '../../Common/Modal/styles'
 import { TextContainer } from '../../ConnectButton/styles'
@@ -98,7 +97,7 @@ const LinkEmail: React.FC = () => {
 
         {loginError && (
           <ModalBody style={{ height: 24, marginTop: 12 }} $error>
-            <FitText>{loginError}</FitText>
+            {loginError}
           </ModalBody>
         )}
 

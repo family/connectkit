@@ -5,10 +5,11 @@ const caretBlink = keyframes`
   0%, 70%, 100% { opacity: 1; }
   20%, 50% { opacity: 0; }
 `
-export const OtpContainer = styled.div<{ showBorder: boolean }>`
+export const OtpContainer = styled.div<{ showBorder: boolean; scale?: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  scale: ${({ scale }) => scale || '1'};
 
   --border: ${({ showBorder }) => (showBorder ? 'var(--ck-body-color-muted)' : 'transparent')};
 `

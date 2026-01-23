@@ -313,8 +313,6 @@ const Modal: React.FC<ModalProps> = ({
         return locales.downloadAppScreen_heading
       case routes.ONBOARDING:
         return locales.onboardingScreen_heading
-      case routes.CONNECTED:
-        return locales.profileScreen_heading
       case routes.SWITCHNETWORKS:
         return locales.switchNetworkScreen_heading
       default:
@@ -507,7 +505,7 @@ const Modal: React.FC<ModalProps> = ({
 
             <InnerContainer>
               {Object.keys(pages).map((key) => {
-                const page = pages[key]
+                const page = context.uiConfig.customPageComponents?.[key] ?? pages[key]
                 return (
                   // OLD_TODO: We may need to use the follow check avoid unnecessary computations, but this causes a bug where the content flashes
                   // (key === pageId || key === prevPage) && (

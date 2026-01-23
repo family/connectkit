@@ -1,14 +1,17 @@
 import { AuthProvider, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
 import { beamTestnet, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
+import { customPageComponents } from '@/components/customPageComponents'
 
 type EditingEntity = {
   id: string
 }
 
+const viewCustomComponents = false
+
 const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
   // Set the publishable key of your Openfort account. This field is required.
-  publishableKey: import.meta.env.VITE_PUBLISHABLE_KEY,
+  publishableKey: import.meta.env.VITE_OPENFORT_PUBLISHABLE_KEY,
 
   uiConfig: {
     theme: 'auto',
@@ -53,6 +56,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
       defaultMethod: RecoveryMethod.AUTOMATIC,
       allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
     },
+    customPageComponents: viewCustomComponents ? customPageComponents : undefined,
   },
 
   // Set the wallet configuration. In this example, we will be using the embedded signer.
@@ -64,6 +68,9 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
       [beamTestnet.id]: import.meta.env.VITE_BEAM_POLICY_ID!,
     },
 
+    // If you want to use AUTOMATIC embedded wallet recovery, an encryption session is required.
+    // See: https://www.openfort.io/docs/products/embedded-wallet/react-native/quickstart/automatic
+    // For backend setup, check: https://github.com/openfort-xyz/openfort-backend-quickstart
     getEncryptionSession: undefined, // Optional function to get the encryption session
     createEncryptedSessionEndpoint:
       import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT ||
@@ -73,6 +80,16 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     assets: {
       [polygonAmoy.id]: ['0xef147ed8bb07a2a0e7df4c1ac09e96dec459ffac'],
     },
+    requestWalletRecoverOTP: async ({ userId, email, phone }) => {
+      await fetch(import.meta.env.VITE_REQUEST_WALLET_RECOVER_OTP_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_id: userId, email, phone }),
+      })
+    },
+    // requestWalletRecoverOTPEndpoint: import.meta.env.VITE_REQUEST_WALLET_RECOVER_OTP_ENDPOINT,
   },
   onConnect: undefined,
   onDisconnect: undefined,

@@ -1,4 +1,4 @@
-// Validation patterns for Openfort and Shield API keys
+// Validation patterns for Openfort and Shield keys
 
 const uuidV4Pattern =
   "[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}";
