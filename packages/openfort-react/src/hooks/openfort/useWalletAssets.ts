@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
-import { numberToHex } from 'viem'
+import { useCallback, useMemo } from 'react'
+import { createWalletClient, custom, numberToHex } from 'viem'
 import type { getAssets } from 'viem/_types/experimental/erc7811/actions/getAssets'
 import { erc7811Actions } from 'viem/experimental'
-import { useAccount, useChainId, useWalletClient } from 'wagmi'
+import { type Transport, useAccount, useChainId, useWalletClient } from 'wagmi'
 import type { Asset } from '../../components/Openfort/types'
 import { useOpenfort } from '../../components/Openfort/useOpenfort'
 import { OpenfortError, OpenfortReactErrorType, type OpenfortWalletConfig } from '../../types'
+import { useUser } from './useUser'
 
 type WalletAssetsHookOptions = {
   assets?: OpenfortWalletConfig['assets']
@@ -16,8 +17,64 @@ type WalletAssetsHookOptions = {
 export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }: WalletAssetsHookOptions = {}) => {
   const chainId = useChainId()
   const { data: walletClient } = useWalletClient()
-  const { walletConfig } = useOpenfort()
+  const { walletConfig, publishableKey, overrides, thirdPartyAuth } = useOpenfort()
   const { address } = useAccount()
+  const { getAccessToken } = useUser()
+
+  const buildHeaders = useCallback(async () => {
+    if (thirdPartyAuth) {
+      const accessToken = await thirdPartyAuth.getAccessToken()
+
+      if (!accessToken) {
+        throw new OpenfortError(
+          'Failed to get access token from third party auth provider',
+          OpenfortReactErrorType.AUTHENTICATION_ERROR
+        )
+      }
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'x-auth-provider': thirdPartyAuth.provider,
+        'x-player-token': accessToken,
+        'x-token-type': 'idToken',
+        Authorization: `Bearer ${publishableKey}`,
+      }
+      return headers
+    }
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'x-project-key': publishableKey,
+      Authorization: `Bearer ${await getAccessToken()}`,
+    }
+    return headers
+  }, [publishableKey, getAccessToken, thirdPartyAuth])
+
+  const customTransport = useMemo(
+    () => (): Transport => {
+      return custom({
+        async request({ method, params }) {
+          const res = await fetch(`${overrides?.backendUrl || 'https://api.openfort.io'}/rpc`, {
+            method: 'POST',
+            headers: await buildHeaders(),
+            body: JSON.stringify({
+              method,
+              params: params[0],
+              id: 1,
+              jsonrpc: '2.0',
+            }),
+          })
+
+          const data = await res.json()
+
+          if (data.error) {
+            throw new Error(data.error.message)
+          }
+
+          return data.result
+        },
+      })
+    },
+    [publishableKey, getAccessToken]
+  )
 
   const customAssetsToFetch = useMemo(() => {
     const assetsFromConfig = walletConfig?.assets ? walletConfig.assets[chainId] || [] : []
@@ -35,7 +92,13 @@ export const useWalletAssets = ({ assets: hookCustomAssets, staleTime = 30000 }:
         })
       }
 
-      const extendedClient = walletClient.extend(erc7811Actions())
+      const customClient = createWalletClient({
+        account: walletClient.account,
+        chain: walletClient.chain,
+        transport: customTransport(),
+      })
+
+      const extendedClient = customClient.extend(erc7811Actions())
 
       // Fetch default assets
       const defaultAssetsPromise = extendedClient.getAssets({
