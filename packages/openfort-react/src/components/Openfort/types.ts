@@ -315,12 +315,17 @@ export type ConnectUIOptions = {
   buyFromExchangeUrl?: string
   buyTroubleshootingUrl?: string
   phoneConfig?: PhoneConfig
+  customPageComponents?: {
+    [key in CustomizableRoutes]?: React.ReactElement
+  }
 } & Partial<OpenfortUIOptions>
 
 type WalletRecoveryOptionsExtended = {
   allowedMethods: RecoveryMethod[]
   defaultMethod: RecoveryMethod
 }
+
+export type CustomizableRoutes = typeof routes.CONNECTED
 
 export type OpenfortUIOptionsExtended = {
   theme: Theme
@@ -356,6 +361,9 @@ export type OpenfortUIOptionsExtended = {
   buyTroubleshootingUrl?: string
   walletRecovery: WalletRecoveryOptionsExtended
   phoneConfig?: PhoneConfig
+  customPageComponents?: {
+    [key in CustomizableRoutes]?: React.ReactElement
+  }
 } & OpenfortUIOptions
 
 // export type Asset = getAssets.Asset<false>

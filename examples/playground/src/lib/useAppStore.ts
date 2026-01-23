@@ -1,10 +1,13 @@
 import { AuthProvider, type OpenfortProvider, RecoveryMethod } from '@openfort/react'
 import { beamTestnet, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
+import { customPageComponents } from '@/components/customPageComponents'
 
 type EditingEntity = {
   id: string
 }
+
+const viewCustomComponents = false
 
 const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
   // Set the publishable key of your Openfort account. This field is required.
@@ -53,6 +56,7 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
       defaultMethod: RecoveryMethod.AUTOMATIC,
       allowedMethods: [RecoveryMethod.PASSWORD, RecoveryMethod.AUTOMATIC, RecoveryMethod.PASSKEY],
     },
+    customPageComponents: viewCustomComponents ? customPageComponents : undefined,
   },
 
   // Set the wallet configuration. In this example, we will be using the embedded signer.

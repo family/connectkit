@@ -7,6 +7,7 @@ import { BuyIcon, ReceiveIcon, SendIcon, UserRoundIcon } from '../../../assets/i
 import { useWalletAssets } from '../../../hooks/openfort/useWalletAssets'
 import { useChains } from '../../../hooks/useChains'
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig'
+import useLocales from '../../../hooks/useLocales'
 import { nFormatter, truncateEthAddress } from '../../../utils'
 import Avatar from '../../Common/Avatar'
 import Button from '../../Common/Button'
@@ -116,9 +117,10 @@ const Connected = () => {
   const separator = ['web95', 'rounded', 'minimal'].includes(themeContext.theme ?? context.uiConfig.theme ?? '')
     ? '....'
     : undefined
+  const locales = useLocales()
 
   return (
-    <PageContent onBack={null}>
+    <PageContent onBack={null} header={locales.profileScreen_heading}>
       <ModalContent style={{ paddingBottom: 6, gap: 6 }}>
         {address ? (
           <>
