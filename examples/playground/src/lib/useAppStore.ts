@@ -72,7 +72,9 @@ const defaultProviderOptions: Parameters<typeof OpenfortProvider>[0] = {
     // See: https://www.openfort.io/docs/products/embedded-wallet/react-native/quickstart/automatic
     // For backend setup, check: https://github.com/openfort-xyz/openfort-backend-quickstart
     getEncryptionSession: undefined, // Optional function to get the encryption session
-    createEncryptedSessionEndpoint: import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT,
+    createEncryptedSessionEndpoint:
+      import.meta.env.VITE_CREATE_ENCRYPTED_SESSION_ENDPOINT ||
+      'https://create-next-app.openfort.io/api/protected-create-encryption-session',
     recoverWalletAutomaticallyAfterAuth: undefined,
     accountType: undefined,
     assets: {

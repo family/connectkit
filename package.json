@@ -40,13 +40,17 @@
     "build:openfort-ui": "cd examples/quickstarts/openfort-ui && pnpm build",
     "build:playground": "pnpm build && pnpm --filter playground build",
     "build:ci": "pnpm -r run build",
-    "start:cli": "pnpm --filter create-openfort start"
+    "start:cli": "pnpm --filter create-openfort start",
+    "test": "pnpm --filter playground test",
+    "test:ui": "pnpm --filter playground test:ui",
+    "test:debug": "pnpm --filter playground test:debug"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",
     "@biomejs/biome": "^2.2.4",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.7",
+    "@playwright/test": "^1.57.0",
     "@wagmi/connectors": "^6.1.0",
     "@wagmi/core": "^2.22.1",
     "knip": "^5.64.0",
@@ -79,6 +83,7 @@
       "preact@>=10.28.0 <10.28.2": ">=10.28.2",
       "hono@<4.11.4": ">=4.11.4",
       "diff@<8.0.3": ">=8.0.3",
+      "h3@<=1.15.4": ">=1.15.5",
       "lodash@>=4.0.0 <=4.17.22": ">=4.17.23"
     },
     "auditConfig": {
@@ -102,7 +107,8 @@
       "**/*.gen.ts",
       "examples/playground/src/api/**",
       "packages/create-openfort/.github/**",
-      "packages/create-openfort/template/**"
+      "packages/create-openfort/template/**",
+      "examples/playground/tests/auth/auth.setup.ts"
     ],
     "ignoreDependencies": [
       "rollup-plugin-peer-deps-external",
