@@ -39,3 +39,4 @@ examples/playground/test-results/
 examples/playground/.playwright/
 examples/playground/tests/.auth/
 
+docs/
