@@ -182,9 +182,9 @@ const ShowcaseShowcaseAuthCallbackRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof ShowcaseIndexRoute
   '/provider': typeof HooksProviderRoute
   '/wagmi': typeof HooksWagmiRouteWithChildren
-  '/': typeof ShowcaseIndexRoute
   '/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
   '/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
   '/auth/useGuestAuth': typeof HooksAuthUseGuestAuthRoute
@@ -209,9 +209,9 @@ export interface FileRoutesByFullPath {
   '/showcase/auth/': typeof ShowcaseShowcaseAuthIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof ShowcaseIndexRoute
   '/provider': typeof HooksProviderRoute
   '/wagmi': typeof HooksWagmiRouteWithChildren
-  '/': typeof ShowcaseIndexRoute
   '/auth/useAuthCallback': typeof HooksAuthUseAuthCallbackRoute
   '/auth/useEmailAuth': typeof HooksAuthUseEmailAuthRoute
   '/auth/useGuestAuth': typeof HooksAuthUseGuestAuthRoute
@@ -267,9 +267,9 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/provider'
     | '/wagmi'
-    | '/'
     | '/auth/useAuthCallback'
     | '/auth/useEmailAuth'
     | '/auth/useGuestAuth'
@@ -294,9 +294,9 @@ export interface FileRouteTypes {
     | '/showcase/auth/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/provider'
     | '/wagmi'
-    | '/'
     | '/auth/useAuthCallback'
     | '/auth/useEmailAuth'
     | '/auth/useGuestAuth'
@@ -359,14 +359,14 @@ declare module '@tanstack/react-router' {
     '/_showcase': {
       id: '/_showcase'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof ShowcaseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_hooks': {
       id: '/_hooks'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof HooksRouteImport
       parentRoute: typeof rootRouteImport
     }

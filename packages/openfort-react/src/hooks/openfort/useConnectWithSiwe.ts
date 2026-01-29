@@ -50,10 +50,10 @@ export function useConnectWithSiwe() {
 
         let nonce: string
         if (link) {
-          const resp = await client.auth.linkSIWE({ address })
+          const resp = await client.auth.initLinkSiwe({ address })
           nonce = resp.nonce
         } else {
-          const resp = await client.auth.initSIWE({ address })
+          const resp = await client.auth.initSiwe({ address })
           nonce = resp.nonce
         }
 
@@ -63,7 +63,7 @@ export function useConnectWithSiwe() {
 
         if (link) {
           logger.log('Linking wallet to user')
-          await client.auth.linkWallet({
+          await client.auth.linkWithSiwe({
             signature,
             message: SIWEMessage,
             connectorType,
@@ -73,7 +73,7 @@ export function useConnectWithSiwe() {
           })
         } else {
           logger.log('Authenticating with SIWE')
-          await client.auth.authenticateWithSIWE({
+          await client.auth.loginWithSiwe({
             signature,
             message: SIWEMessage,
             connectorType,
