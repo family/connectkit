@@ -1,1 +1,1 @@
-export const OPENFORT_VERSION = '0.2.6'
+export const OPENFORT_VERSION = '0.2.7'

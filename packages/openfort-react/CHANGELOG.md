@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.7
+
+### Patch Changes
+
+- [#169](https://github.com/openfort-xyz/openfort-react/pull/169) [`936887a`](https://github.com/openfort-xyz/openfort-react/commit/936887a316f76d3dfe9c96149e75079051b74f51) Thanks [@jamalavedra](https://github.com/jamalavedra)! - update sdk openfort-js
+
 ## 0.2.6
 
 ### Patch Changes
