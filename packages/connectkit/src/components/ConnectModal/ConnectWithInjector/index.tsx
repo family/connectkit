@@ -188,7 +188,9 @@ const ConnectWithInjector: React.FC<{
     if (status === states.UNAVAILABLE) return;
 
     // UX: Give user time to see the UI before opening the extension
-    connectTimeout = setTimeout(runConnect, 600);
+    if (wallet?.connector.id !== 'familyAccountsProvider') {
+      connectTimeout = setTimeout(runConnect, 600);
+    }
     return () => {
       clearTimeout(connectTimeout);
     };
