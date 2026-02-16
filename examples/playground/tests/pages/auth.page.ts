@@ -1,5 +1,4 @@
 import { expect, type Locator, type Page } from '@playwright/test'
-import { STRONG_PASSWORD } from '../utils/constants'
 import { safeClick } from '../utils/ui'
 
 export class AuthPage {

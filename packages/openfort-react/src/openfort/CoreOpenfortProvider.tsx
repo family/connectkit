@@ -82,7 +82,7 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
     ) {
       openfortConfig.shieldConfiguration = {
         passkeyRpId: window.location.hostname,
-        passkeyRpName: document.title || 'Openfort DApp',
+        passkeyRpName: document.title || 'Openfort app',
         ...openfortConfig.shieldConfiguration,
       }
     }

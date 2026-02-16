@@ -342,6 +342,7 @@ export const OpenfortProvider = ({
             ? {
                 shieldPublishableKey: walletConfig.shieldPublishableKey,
                 debug: debugModeOptions.shieldDebugMode,
+                passkeyDisplayName: walletConfig.passkeyDisplayName,
               }
             : undefined,
           debug: debugModeOptions.openfortCoreDebugMode,
