@@ -148,6 +148,11 @@ type CommonWalletConfig = {
   assets?: {
     [chainId: number]: Hex[]
   }
+  /**
+   * The display name shown next to the passkey credential in the browser's passkey dialog
+   * (e.g. "My Wallet" or "Trading Account"). Defaults to "Openfort - Embedded Wallet".
+   */
+  passkeyDisplayName?: string
 }
 
 export type GetEncryptionSessionParams = {
