@@ -578,9 +578,6 @@ export function useWallets(hookOptions: WalletOptions = {}) {
             queryFn: () =>
               client.embeddedWallet.list({
                 limit: 100,
-                // If its EOA we want all accounts, otherwise we want only smart accounts
-                accountType:
-                  walletConfig?.accountType === AccountTypeEnum.EOA ? undefined : AccountTypeEnum.SMART_ACCOUNT,
               }),
           })
           let walletAddress = optionsObject.address
@@ -592,11 +589,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           if (walletAddress) {
             const addressToMatch = walletAddress.toLowerCase()
             let accountToRecover = embeddedAccounts.find((w) => {
-              if (walletConfig?.accountType === AccountTypeEnum.EOA) {
-                return w.address.toLowerCase() === addressToMatch
-              } else {
-                return w.address.toLowerCase() === addressToMatch && w.chainId === chainId
-              }
+              return w.address.toLowerCase() === addressToMatch
             })
             if (!accountToRecover) {
               logger.log(
@@ -810,7 +803,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
 
         const recoveryParams = await parseWalletRecovery(recovery)
 
-        const accountType = options?.accountType || walletConfig?.accountType || AccountTypeEnum.SMART_ACCOUNT
+        const accountType = options?.accountType || walletConfig?.accountType || AccountTypeEnum.EOA
 
         const embeddedAccount = await client.embeddedWallet.create({
           ...(accountType !== AccountTypeEnum.EOA && { chainId }),
@@ -823,7 +816,7 @@ export function useWallets(hookOptions: WalletOptions = {}) {
           status: 'success',
         })
 
-        queryClient.invalidateQueries({ queryKey: ['openfortEmbeddedAccountsList'] })
+        await updateEmbeddedAccounts()
         return onSuccess({
           hookOptions,
           options,

@@ -1,4 +1,4 @@
-import { AccountTypeEnum, type EmbeddedAccount, EmbeddedState, type Openfort, type User } from '@openfort/openfort-js'
+import { type EmbeddedAccount, EmbeddedState, type Openfort, type User } from '@openfort/openfort-js'
 import { type QueryObserverResult, type RefetchOptions, useQuery, useQueryClient } from '@tanstack/react-query'
 import type React from 'react'
 import { createElement, type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -182,8 +182,6 @@ export const CoreOpenfortProvider: React.FC<CoreOpenfortProviderProps> = ({
       try {
         return await openfort.embeddedWallet.list({
           limit: 100,
-          // If its EOA we want all accounts, otherwise we want only smart accounts
-          accountType: walletConfig?.accountType === AccountTypeEnum.EOA ? undefined : AccountTypeEnum.SMART_ACCOUNT,
         })
       } catch (error: any) {
         handleOAuthConfigError(error)
