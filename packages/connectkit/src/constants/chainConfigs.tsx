@@ -328,4 +328,14 @@ export const chainConfigs: Chain[] = [
     name: 'Zora Goerli Testnet',
     logo: <Logos.Zora testnet />,
   },
+  {
+    id: 9745,
+    name: 'Plasma',
+    logo: <Logos.Plasma />,
+  },
+  {
+    id: 143,
+    name: 'Monad',
+    logo: <Logos.Monad />,
+  }
 ];
