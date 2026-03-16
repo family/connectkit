@@ -11,7 +11,6 @@
   "scripts": {
     "dev:connectkit": "yarn workspace connectkit run dev",
     "dev:connectkit-next-siwe": "yarn workspace connectkit-next-siwe run dev",
-    "dev:cra": "yarn workspace cra run dev",
     "dev:nextjs": "yarn workspace nextjs run dev",
     "dev:nextjs-app": "yarn workspace nextjs-app run dev",
     "dev:nextjs-siwe": "yarn workspace nextjs-siwe run dev",
@@ -19,7 +18,6 @@
     "dev:testbench": "yarn workspace testbench run dev",
     "build": "node build.js && yarn workspace connectkit run build && cp README.md packages/connectkit/README.md",
     "build:connectkit-next-siwe": "yarn workspace connectkit-next-siwe run build",
-    "build:cra": "yarn build && yarn workspace cra build",
     "build:nextjs": "yarn build && yarn workspace nextjs build",
     "build:nextjs-app": "yarn build && yarn workspace nextjs-app build",
     "build:nextjs-siwe": "yarn build && yarn workspace nextjs-siwe build",
