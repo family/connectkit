@@ -30,8 +30,8 @@ Depending on how you'd like to develop and test ConnectKit there are a couple of
 ```sh
 # Custom testbench
 $ yarn dev:testbench
-# In Create React App
-$ yarn dev:cra
+# In Vite
+$ yarn dev:vite
 # In Next.js
 $ yarn dev:nextjs
 ```

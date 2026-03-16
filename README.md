@@ -19,25 +19,7 @@ and much more...
 
 ## Quick Start
 
-Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by running one of the following in your terminal:
-
-#### npm
-
-```sh
-npx create-react-app my-app --template cra-template-connectkit
-```
-
-#### yarn
-
-```sh
-yarn create react-app my-app --template cra-template-connectkit
-```
-
-#### pnpm
-
-```sh
-pnpm dlx create-react-app ./my-app --template cra-template-connectkit
-```
+Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by following the documentation [here](https://docs.family.co/connectkit/getting-started).
 
 ## Documentation
 
@@ -51,7 +33,6 @@ You can find the full API Reference in the Family docs [here](https://docs.famil
 
 There are various runnable examples included in this repository in the [examples folder](https://github.com/family/connectkit/tree/main/examples):
 
-- [Create React App Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/cra)
 - [Next.js Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/nextjs)
 - [Vite Example (TypeScript)](https://github.com/family/connectkit/tree/main/examples/vite)
 
@@ -59,7 +40,6 @@ There are various runnable examples included in this repository in the [examples
 
 You can try out some ConnectKit examples directly in your browser through CodeSandbox:
 
-- [Create React App Example (TypeScript)](https://codesandbox.io/s/5rhqm0?file=/README.md)
 - [Next.js (TypeScript)](https://codesandbox.io/s/qnvyqe?file=/README.md)
 - [Vite Example (TypeScript)](https://codesandbox.io/s/4jtssh?file=/README.md)
 
@@ -86,7 +66,6 @@ and then simply select the example you'd like to run:
 $ yarn dev:vite # Vite
 $ yarn dev:nextjs # Next.js
 $ yarn dev:nextjs-siwe # Next.js with SIWE
-$ yarn dev:cra # Create React App
 ```
 
 ## Contribute
