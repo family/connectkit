@@ -1,7 +1,7 @@
 {
   "name": "connectkit",
-  "version": "1.9.1",
-  "author": "Family",
+  "version": "1.9.2",
+  "author": "Aave",
   "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
   "description": "Connecting a wallet, made simple.",
@@ -35,6 +35,7 @@
     "blockchain",
     "hooks",
     "family",
+    "aave",
     "ethereum",
     "react"
   ],

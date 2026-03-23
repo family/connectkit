@@ -113,22 +113,6 @@ export const walletConfigs: {
       ios: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
     },
   },
-  'co.family.wallet': {
-    name: 'Family',
-    shortName: 'Family',
-    icon: <Logos.Family />,
-    iconShape: 'squircle',
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/family',
-      website: 'https://family.co',
-      ios: 'https://family.co/download',
-    },
-    getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `familywallet://wc?uri=${encodeURIComponent(uri)}`;
-    },
-  },
   aaveAccountProvider: {
     name: 'Aave Account',
     shortName: 'Aave',

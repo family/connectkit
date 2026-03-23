@@ -22,7 +22,7 @@ type DefaultConfigProps = {
   walletConnectProjectId: string;
   // Coinbase Wallet preference
   coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
-  // Aave Account options (https://app.family.co)
+  // Aave Account options
   enableAaveAccount?: boolean;
   aaveAccountOptions?: AaveAccountOptions;
 } & Partial<CreateConfigParameters>;

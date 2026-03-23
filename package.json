@@ -1,7 +1,7 @@
 {
-  "name": "family-connectkit",
+  "name": "aave-connectkit",
   "version": "0.0.0",
-  "description": "Family ConnectKit.",
+  "description": "Aave ConnectKit",
   "main": "packages/connectkit/src/index.ts",
   "private": true,
   "workspaces": [

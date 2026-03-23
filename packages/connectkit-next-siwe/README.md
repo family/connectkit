@@ -12,7 +12,7 @@ yarn add siwe connectkit-next-siwe
 
 ## 2. Configure
 
-You can find the full configuration documentation for this package in the Family docs [here](https://docs.family.co/connectkit/auth-with-nextjs).
+You can find the full configuration documentation for this package in the docs [here](https://docs.family.co/connectkit/auth-with-nextjs).
 
 ## Contribute
 
@@ -20,7 +20,7 @@ Before starting on anything, please have a read through our [Contribution Guidel
 
 ## Twitter
 
-Follow [@family](https://twitter.com/family) on Twitter for the latest updates on ConnectKit.
+Follow [@aave](https://twitter.com/aave) on Twitter for the latest updates on ConnectKit.
 
 ## License
 
