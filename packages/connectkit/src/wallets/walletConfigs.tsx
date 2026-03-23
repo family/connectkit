@@ -50,6 +50,13 @@ export const walletConfigs: {
   mock: {
     icon: <Logos.Mock />,
   },
+  aaveAccountProvider: {
+    name: 'Aave Account',
+    shortName: 'Aave',
+    icon: <Logos.AaveAccount />,
+    iconConnector: <Logos.AaveAccount />,
+    iconShape: 'squircle',
+  },
   argent: {
     name: 'Argent',
     icon: <Logos.Argent />,
@@ -112,13 +119,6 @@ export const walletConfigs: {
       website: 'https://www.dawnwallet.xyz/',
       ios: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
     },
-  },
-  aaveAccountProvider: {
-    name: 'Aave Account',
-    shortName: 'Aave',
-    icon: <Logos.AaveAccount />,
-    iconConnector: <Logos.AaveAccount />,
-    iconShape: 'squircle',
   },
   frame: {
     name: 'Frame',
