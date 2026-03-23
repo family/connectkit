@@ -1,6 +1,6 @@
 # 1.9.2
 
-This update rebrand Family Accounts to Aave Account.
+This update rebrands Family Accounts as Aave Account.
 
 ## Updated
 
