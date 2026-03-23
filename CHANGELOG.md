@@ -1,3 +1,12 @@
+#
+
+This update rebrand Family Accounts to Aave Account.
+
+## Updated
+
+- Replaced `family` dependency with `@aave/account`.
+- Updated branding and UI to reflect Aave Account.
+
 # 1.9.1
 
 This update includes updates to the peer dependencies and improvements to the Family Accounts features.
