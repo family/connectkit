@@ -10,16 +10,13 @@ export const ButtonContainerInner = styled(motion.div)`
 `;
 export const ButtonContainer = styled.button`
   --color: #ffffff;
-  --background: var(--ck-family-accounts-brand);
+  --background: var(--ck-aave-brand);
   --box-shadow: var(--ck-primary-button-box-shadow);
   --border-radius: var(--ck-primary-button-border-radius);
   --font-weight: var(--ck-primary-button-font-weight, 500);
 
   --hover-color: var(--ck-button-primary-hover-color, var(--color));
-  --hover-background: var(
-    --ck-primary-button-hover-background,
-    var(--background)
-  );
+  --hover-background: var(--ck-aave-brand);
   --hover-box-shadow: var(
     --ck-primary-button-hover-box-shadow,
     var(--box-shadow)
@@ -52,6 +49,10 @@ export const ButtonContainer = styled.button`
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   will-change: transform, box-shadow, background-color, color;
+
+  &:hover {
+    background: var(--hover-background);
+  }
 `;
 
 export const InnerContainer = styled.div`

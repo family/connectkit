@@ -90,7 +90,8 @@ const themeGlobals = {
     },
   },
   brand: {
-    '--ck-family-accounts-brand': '#0090ff',
+    '--ck-aave-brand': '#9896FF',
+    '--ck-aave-brand-hover': '#8784FF',
     '--ck-family-brand': '#1A88F8',
     '--ck-brand-walletConnect': '#3B99FC',
     '--ck-brand-coinbaseWallet': '#0052FF',

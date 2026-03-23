@@ -163,6 +163,25 @@ export const Coinbase = ({ background = false, ...props }) => (
   </svg>
 );
 
+export const AaveAccount = () => (
+  <svg
+    width="88"
+    height="88"
+    viewBox="0 0 88 88"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{
+      color: '#fff', //var(--ck-body-color)
+      background: 'var(--ck-aave-brand)',
+    }}
+  >
+    <path
+      d="M33.8487 32.137C37.6217 31.5245 41.1783 34.0861 41.7907 37.8591C42.4032 41.6321 39.84 45.1869 36.067 45.7992C32.2942 46.4116 28.7392 43.85 28.1266 40.0774C27.5143 36.3046 30.0762 32.7499 33.8487 32.137ZM51.9404 32.137C55.7132 31.5249 59.268 34.0862 59.8805 37.8591C60.493 41.6321 57.9297 45.1869 54.1567 45.7992C50.384 46.4114 46.829 43.85 46.2165 40.0774C45.604 36.3042 48.1672 32.7496 51.9404 32.137ZM43.9929 10.3984C62.7831 10.3989 78.0182 25.9246 78.0151 45.0707H69.3229C69.3227 30.7223 58.0723 19.0894 43.9929 19.0888C29.913 19.0888 18.6611 30.7221 18.661 45.0707H9.96875C9.96402 25.9242 25.2006 10.3984 43.9929 10.3984Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
 export const FamilyAccount = () => (
   <svg
     width="88"
@@ -1126,6 +1145,7 @@ export default {
   WalletConnect,
   MetaMask,
   Coinbase,
+  AaveAccount,
   Family,
   FamilyAccount,
   Trust,
