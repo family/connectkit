@@ -25,7 +25,6 @@ import {
   useConnectCallback,
   useConnectCallbackProps,
 } from '../hooks/useConnectCallback';
-import { isFamily } from '../utils/wallets';
 import { useConnector } from '../hooks/useConnectors';
 import { WagmiContext, useAccount } from 'wagmi';
 import { Web3ContextProvider } from './contexts/web3';
@@ -211,13 +210,6 @@ export const ConnectKitProvider = ({
       setRoute(routes.SWITCHNETWORKS);
     }
   }, [isConnected, isChainSupported, chain, route, open]);
-
-  // Autoconnect to Family wallet if available
-  useEffect(() => {
-    if (isFamily()) {
-      injectedConnector?.connect();
-    }
-  }, [injectedConnector]);
 
   const log = debugMode ? console.log : () => {};
 

@@ -8,7 +8,7 @@ import {
 } from '@wagmi/connectors';
 
 import {
-  EthereumProviderOptions as FamilyOptions,
+  EthereumProviderOptions as AaveAccountOptions,
   aaveAccountConnector,
 } from '@aave/account';
 
@@ -22,7 +22,7 @@ type DefaultConnectorsProps = {
   walletConnectProjectId?: string;
   coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
   enableAaveAccount?: boolean;
-  aaveAccountOptions?: FamilyOptions;
+  aaveAccountOptions?: AaveAccountOptions;
 };
 
 const defaultConnectors = ({

@@ -21,20 +21,15 @@ import useLocales from '../../../hooks/useLocales';
 import ConnectorList from '../../Common/ConnectorList';
 import useIsMobile from '../../../hooks/useIsMobile';
 import Button from '../../Common/Button';
-import {
-  useAaveAccountConnector,
-  useFamilyConnector,
-} from '../../../hooks/useConnectors';
+import { useAaveAccountConnector } from '../../../hooks/useConnectors';
 import { OrDivider } from '../../Common/Modal';
 import { ContinueWithAaveButton } from '../../Common/ContinueWithAaveButton';
-import { isFamily } from '../../../utils/wallets';
 
 const Wallets: React.FC = () => {
   const context = useContext();
   const locales = useLocales({});
 
   const isMobile = useIsMobile();
-  const familyConnector = useFamilyConnector();
   const aaveAccountConnector = useAaveAccountConnector();
 
   return (
@@ -49,11 +44,7 @@ const Wallets: React.FC = () => {
           <>
             <ContinueWithAaveButton
               onClick={() => {
-                if (familyConnector && isFamily()) {
-                  context.setConnector(familyConnector);
-                } else {
-                  context.setConnector(aaveAccountConnector);
-                }
+                context.setConnector(aaveAccountConnector);
                 context.setRoute(routes.CONNECT);
               }}
             />

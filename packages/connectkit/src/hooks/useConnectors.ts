@@ -20,12 +20,6 @@ export function useConnector(id: string, uuid?: string) {
 export function useAaveAccountConnector() {
   return useConnector('aaveAccountProvider');
 }
-export function useFamilyAccountsConnector() {
-  return useConnector('familyAccountsProvider');
-}
-export function useFamilyConnector() {
-  return useConnector('co.family.wallet');
-}
 
 export function useInjectedConnector(uuid?: string) {
   /*
