@@ -1,11 +1,12 @@
 # 1.9.2
 
-This update rebrands Family Accounts as Aave Account.
+This update rebrands Family Accounts as Aave Account and includes a configuration option rename that may require changes in your app configuration.
 
 ## Updated
 
 - Replaced `family` dependency with `@aave/account`.
 - Updated branding and UI to reflect Aave Account.
+- Renamed `enableFamily` option to `enableAaveAccount` in `getDefaultConfig` and `getDefaultConnectors`. Update your usage of these helpers accordingly when upgrading to 1.9.2.
 
 # 1.9.1
 
