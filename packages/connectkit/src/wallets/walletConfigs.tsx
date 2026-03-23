@@ -141,7 +141,7 @@ export const walletConfigs: {
     shortName: 'Aave',
     icon: <Logos.AaveAccount />,
     iconConnector: <Logos.AaveAccount />,
-    iconShape: 'circle',
+    iconShape: 'squircle',
   },
   frame: {
     name: 'Frame',
