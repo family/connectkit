@@ -136,6 +136,13 @@ export const walletConfigs: {
     iconConnector: <Logos.FamilyAccount />,
     iconShape: 'squircle',
   },
+  aaveAccountProvider: {
+    name: 'Aave Account',
+    shortName: 'Aave',
+    icon: <Logos.FamilyAccount />,
+    iconConnector: <Logos.FamilyAccount />,
+    iconShape: 'squircle',
+  },
   frame: {
     name: 'Frame',
     icon: <Logos.Frame />,

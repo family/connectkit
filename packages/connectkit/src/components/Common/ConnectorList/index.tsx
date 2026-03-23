@@ -24,6 +24,7 @@ import {
 import { useLastConnector } from '../../../hooks/useLastConnector';
 import { useConnect } from '../../../hooks/useConnect';
 import {
+  useAaveAccountConnector,
   useFamilyAccountsConnector,
   useFamilyConnector,
 } from '../../../hooks/useConnectors';
@@ -36,10 +37,10 @@ const ConnectorList = () => {
   const wallets = useWallets();
   const { lastConnectorId } = useLastConnector();
   const familyConnector = useFamilyConnector();
-  const familyAccountsConnector = useFamilyAccountsConnector();
+  const aaveAccountConnector = useAaveAccountConnector();
 
   let filteredWallets = wallets.filter(
-    (wallet) => wallet.id !== familyAccountsConnector?.id
+    (wallet) => wallet.id !== aaveAccountConnector?.id
   );
   if (familyConnector && isFamily()) {
     filteredWallets = filteredWallets.filter(
@@ -122,7 +123,8 @@ const ConnectorItem = ({
   // Safari requires opening popup on user gesture, so we connect immediately here
   const shouldConnectImmediately =
     (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
-    (isCoinbaseWalletConnector(wallet.connector.id) || isPortoConnector(wallet.connector.id));
+    (isCoinbaseWalletConnector(wallet.connector.id) ||
+      isPortoConnector(wallet.connector.id));
 
   if (redirectToMoreWallets || shouldConnectImmediately) deeplink = undefined; // mobile redirects to more wallets page
 

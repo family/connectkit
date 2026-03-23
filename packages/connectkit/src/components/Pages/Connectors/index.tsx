@@ -22,11 +22,11 @@ import ConnectorList from '../../Common/ConnectorList';
 import useIsMobile from '../../../hooks/useIsMobile';
 import Button from '../../Common/Button';
 import {
-  useFamilyAccountsConnector,
+  useAaveAccountConnector,
   useFamilyConnector,
 } from '../../../hooks/useConnectors';
 import { OrDivider } from '../../Common/Modal';
-import { FamilyAccountsButton } from '../../Common/FamilyAccountsButton';
+import { ContinueWithAaveButton } from '../../Common/ContinueWithAaveButton';
 import { isFamily } from '../../../utils/wallets';
 
 const Wallets: React.FC = () => {
@@ -35,24 +35,24 @@ const Wallets: React.FC = () => {
 
   const isMobile = useIsMobile();
   const familyConnector = useFamilyConnector();
-  const familyAccountsConnector = useFamilyAccountsConnector();
+  const aaveAccountConnector = useAaveAccountConnector();
 
   return (
     <PageContent
       style={{
         width: 312,
-        paddingTop: familyAccountsConnector ? 32 : undefined,
+        paddingTop: aaveAccountConnector ? 32 : undefined,
       }}
     >
       <Container>
-        {familyAccountsConnector && (
+        {aaveAccountConnector && (
           <>
-            <FamilyAccountsButton
+            <ContinueWithAaveButton
               onClick={() => {
                 if (familyConnector && isFamily()) {
                   context.setConnector(familyConnector);
                 } else {
-                  context.setConnector(familyAccountsConnector);
+                  context.setConnector(aaveAccountConnector);
                 }
                 context.setRoute(routes.CONNECT);
               }}

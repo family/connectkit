@@ -24,7 +24,11 @@ const FamilyLogo = () => (
   </svg>
 );
 
-export const FamilyAccountsButton = ({ onClick }: { onClick: () => void }) => {
+export const ContinueWithAaveButton = ({
+  onClick,
+}: {
+  onClick: () => void;
+}) => {
   const locales = useLocales();
   return (
     <ButtonContainer onClick={onClick}>
@@ -33,7 +37,7 @@ export const FamilyAccountsButton = ({ onClick }: { onClick: () => void }) => {
           <FamilyLogo />
         </IconContainer>
         <InnerContainer>
-          <FitText>{locales.continueWithFamily}</FitText>
+          <FitText>{locales.continueWithAave}</FitText>
         </InnerContainer>
       </ButtonContainerInner>
     </ButtonContainer>

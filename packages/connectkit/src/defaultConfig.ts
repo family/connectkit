@@ -2,7 +2,7 @@ import { http } from 'wagmi';
 import { type CreateConfigParameters } from '@wagmi/core';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 import { CoinbaseWalletParameters } from 'wagmi/connectors';
-import { EthereumProviderOptions as FamilyOptions } from 'family';
+import { EthereumProviderOptions as AaveAccountOptions } from '@aave/account';
 
 import defaultConnectors from './defaultConnectors';
 
@@ -22,9 +22,9 @@ type DefaultConfigProps = {
   walletConnectProjectId: string;
   // Coinbase Wallet preference
   coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
-  // Family options (https://app.family.co)
-  enableFamily?: boolean;
-  familyOptions?: FamilyOptions;
+  // Aave Account options (https://app.family.co)
+  enableAaveAccount?: boolean;
+  aaveAccountOptions?: AaveAccountOptions;
 } & Partial<CreateConfigParameters>;
 
 const defaultConfig = ({
@@ -36,8 +36,8 @@ const defaultConfig = ({
   coinbaseWalletPreference,
   chains = [mainnet, polygon, optimism, arbitrum],
   client,
-  enableFamily = true,
-  familyOptions,
+  enableAaveAccount = true,
+  aaveAccountOptions,
   ...props
 }: DefaultConfigProps): CreateConfigParameters => {
   globalAppName = appName;
@@ -59,8 +59,8 @@ const defaultConfig = ({
       },
       walletConnectProjectId,
       coinbaseWalletPreference,
-      enableFamily,
-      familyOptions,
+      enableAaveAccount,
+      aaveAccountOptions,
     });
 
   const config: CreateConfigParameters<any, any> = {
