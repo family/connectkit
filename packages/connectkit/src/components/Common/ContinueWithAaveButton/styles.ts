@@ -68,9 +68,9 @@ export const IconContainer = styled.div`
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  max-width: 20px;
-  max-height: 20px;
-  margin: 0 12px 0 0;
+  max-width: 27px;
+  max-height: 27px;
+  margin: 0 8px 0 0;
   svg {
     display: block;
     position: relative;
