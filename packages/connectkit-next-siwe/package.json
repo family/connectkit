@@ -1,7 +1,7 @@
 {
   "name": "connectkit-next-siwe",
   "version": "0.3.0",
-  "author": "Family",
+  "author": "Aave",
   "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
   "description": "Connecting a wallet, made simple.",
@@ -32,6 +32,7 @@
     "blockchain",
     "hooks",
     "family",
+    "aave",
     "ethereum",
     "react"
   ],

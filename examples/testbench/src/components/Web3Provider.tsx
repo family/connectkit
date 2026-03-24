@@ -41,7 +41,7 @@ export const ckConfig = getDefaultConfig({
   appName: 'ConnectKit testbench',
   appIcon: '/app.png',
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
-  //enableFamily: false,
+  //enableAaveAccount: false,
 });
 const customConfig = {
   ...ckConfig,

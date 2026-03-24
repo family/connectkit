@@ -147,6 +147,6 @@ export const ThemeContainer = styled.button`
     }
   }
   &:focus-visible {
-    outline: 2px solid var(--ck-family-brand);
+    outline: 2px solid var(--ck-aave-brand);
   }
 `;

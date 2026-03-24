@@ -6,7 +6,7 @@ import { Providers } from './providers';
 
 export const metadata: Metadata = {
   title: 'ConnectKit Next.js Example',
-  description: 'By Family',
+  description: 'By Aave',
 };
 
 export default function RootLayout(props: { children: ReactNode }) {

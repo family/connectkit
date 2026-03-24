@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled from './../../../styles/styled';
+import styled from '../../../styles/styled';
 
 export const ButtonContainerInner = styled(motion.div)`
   display: flex;
@@ -10,16 +10,13 @@ export const ButtonContainerInner = styled(motion.div)`
 `;
 export const ButtonContainer = styled.button`
   --color: #ffffff;
-  --background: var(--ck-family-accounts-brand);
+  --background: var(--ck-aave-brand);
   --box-shadow: var(--ck-primary-button-box-shadow);
   --border-radius: var(--ck-primary-button-border-radius);
   --font-weight: var(--ck-primary-button-font-weight, 500);
 
   --hover-color: var(--ck-button-primary-hover-color, var(--color));
-  --hover-background: var(
-    --ck-primary-button-hover-background,
-    var(--background)
-  );
+  --hover-background: var(--ck-aave-brand);
   --hover-box-shadow: var(
     --ck-primary-button-hover-box-shadow,
     var(--box-shadow)
@@ -52,6 +49,10 @@ export const ButtonContainer = styled.button`
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   will-change: transform, box-shadow, background-color, color;
+
+  &:hover {
+    background: var(--hover-background);
+  }
 `;
 
 export const InnerContainer = styled.div`
@@ -67,9 +68,9 @@ export const IconContainer = styled.div`
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  max-width: 20px;
-  max-height: 20px;
-  margin: 0 12px 0 0;
+  max-width: 27px;
+  max-height: 27px;
+  margin: 0 8px 0 0;
   svg {
     display: block;
     position: relative;

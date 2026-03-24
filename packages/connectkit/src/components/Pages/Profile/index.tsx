@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from '../../ConnectKit';
 import {
-  isFamilyAccountsConnector,
+  isAaveAccountConnector,
   isSafeConnector,
   nFormatter,
   truncateEthAddress,
@@ -52,7 +52,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const { disconnect } = useDisconnect();
 
   const { address, isConnected, connector, chain } = useAccount();
-  const isFamilyConnector = isFamilyAccountsConnector(connector?.id);
+  const isAaveAccount = isAaveAccountConnector(connector?.id);
   const { data: connectorClient } = useConnectorClient({
     connector,
   });
@@ -143,22 +143,22 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
         )}
       </ModalContent>
 
-      {isFamilyConnector && (
+      {isAaveAccount && (
         <>
           <Button
             onClick={async () => {
               try {
                 await connectorClient?.request<{
-                  Method: 'family_switchAccounts';
+                  Method: 'aave_switchAccounts';
                   Parameters: [];
                   ReturnType: { message: string; success: boolean };
                 }>({
-                  method: 'family_switchAccounts',
+                  method: 'aave_switchAccounts',
                   params: [],
                 });
               } catch (error) {
                 context.log(
-                  'rpc method family_switchAccounts is not implemented in this connector',
+                  'rpc method aave_switchAccounts is not implemented in this connector',
                   error
                 );
               }
@@ -171,7 +171,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
       {!isSafeConnector(connector?.id) && (
         <Button
           onClick={() => setShouldDisconnect(true)}
-          icon={isFamilyConnector ? undefined : <DisconnectIcon />}
+          icon={isAaveAccount ? undefined : <DisconnectIcon />}
         >
           {locales.disconnect}
         </Button>

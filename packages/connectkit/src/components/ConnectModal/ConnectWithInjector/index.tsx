@@ -17,21 +17,16 @@ import {
   ModalContentContainer,
   ModalContent,
 } from '../../Common/Modal/styles';
-import { OrDivider } from '../../Common/Modal';
 import Button from '../../Common/Button';
 import Tooltip from '../../Common/Tooltip';
 import Alert from '../../Common/Alert';
 
 import SquircleSpinner from './SquircleSpinner';
 
-import { RetryIconCircle, Scan } from '../../../assets/icons';
+import { RetryIconCircle } from '../../../assets/icons';
 import BrowserIcon from '../../Common/BrowserIcon';
 import { AlertIcon, TickIcon } from '../../../assets/icons';
-import {
-  detectBrowser,
-  isFamilyAccountsConnector,
-  isWalletConnectConnector,
-} from '../../../utils';
+import { detectBrowser, isWalletConnectConnector } from '../../../utils';
 import useLocales from '../../../hooks/useLocales';
 import { useConnect } from '../../../hooks/useConnect';
 import { useContext } from '../../ConnectKit';
@@ -345,15 +340,6 @@ const ConnectWithInjector: React.FC<{
                   <ModalBody>{locales.injectionScreen_failed_p}</ModalBody>
                 </ModalContent>
 
-                {isFamilyAccountsConnector(wallet.id) && (
-                  <>
-                    <OrDivider />
-                    <Button onClick={() => switchConnectMethod(id)}>
-                      {locales.connectWithFamilyIOS}
-                    </Button>
-                  </>
-                )}
-
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
                 {/* 
                 {wallet?.getWalletConnectDeeplink &&
@@ -379,27 +365,10 @@ const ConnectWithInjector: React.FC<{
                 exit={'exit'}
                 variants={contentVariants}
               >
-                <ModalContent
-                  style={
-                    isFamilyAccountsConnector(wallet.connector.id)
-                      ? { paddingBottom: 12 }
-                      : {
-                          paddingBottom: 28,
-                        }
-                  }
-                >
+                <ModalContent>
                   <ModalH1>{locales.injectionScreen_rejected_h1}</ModalH1>
                   <ModalBody>{locales.injectionScreen_rejected_p}</ModalBody>
                 </ModalContent>
-
-                {isFamilyAccountsConnector(wallet.id) && (
-                  <>
-                    <OrDivider />
-                    <Button onClick={() => switchConnectMethod(id)}>
-                      {locales.connectWithFamilyIOS}
-                    </Button>
-                  </>
-                )}
 
                 {/* Reason: Coinbase Wallet does not expose a QRURI when extension is installed */}
                 {/* 

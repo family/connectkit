@@ -50,6 +50,13 @@ export const walletConfigs: {
   mock: {
     icon: <Logos.Mock />,
   },
+  aaveAccountProvider: {
+    name: 'Aave Account',
+    shortName: 'Aave',
+    icon: <Logos.AaveAccount />,
+    iconConnector: <Logos.AaveAccount />,
+    iconShape: 'squircle',
+  },
   argent: {
     name: 'Argent',
     icon: <Logos.Argent />,
@@ -112,29 +119,6 @@ export const walletConfigs: {
       website: 'https://www.dawnwallet.xyz/',
       ios: 'https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782',
     },
-  },
-  'co.family.wallet': {
-    name: 'Family',
-    shortName: 'Family',
-    icon: <Logos.Family />,
-    iconShape: 'squircle',
-    downloadUrls: {
-      download: 'https://connect.family.co/v0/download/family',
-      website: 'https://family.co',
-      ios: 'https://family.co/download',
-    },
-    getWalletConnectDeeplink: (uri: string) => {
-      return isAndroid()
-        ? uri
-        : `familywallet://wc?uri=${encodeURIComponent(uri)}`;
-    },
-  },
-  familyAccountsProvider: {
-    name: 'Family',
-    shortName: 'Family',
-    icon: <Logos.FamilyAccount />,
-    iconConnector: <Logos.FamilyAccount />,
-    iconShape: 'squircle',
   },
   frame: {
     name: 'Frame',

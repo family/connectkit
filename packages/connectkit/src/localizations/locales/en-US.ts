@@ -1,9 +1,8 @@
 const enUS = {
-  // Family Account
-  continueWithFamily: 'Continue with Family',
+  // Aave Account
+  continueWithAave: 'Continue with Aave',
   orSelectWallet: 'or select a wallet from the list below',
   loginWithEmailOrPhone: 'Login with Email or Phone',
-  connectWithFamilyIOS: 'Connect with Family iOS',
   // ConnectKit
   connectWallet: 'Connect Wallet',
   disconnect: 'Disconnect',

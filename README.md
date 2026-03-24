@@ -2,8 +2,6 @@
   <img width="1080" alt="connectkit" src="https://github.com/family/connectkit/assets/1930210/87c2e868-3228-44b8-82c3-a38adf6d1bbf">
 </a>
 
-
-
 # ConnectKit
 
 ConnectKit is a powerful [React](https://reactjs.org/) component library for connecting a wallet to your dApp. It supports the most popular connectors and chains out of the box and provides a beautiful, seamless experience.
@@ -23,11 +21,11 @@ Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem
 
 ## Documentation
 
-You can find the full ConnectKit documentation in the Family docs [here](https://docs.family.co/connectkit).
+You can find the full ConnectKit documentation in the docs [here](https://docs.family.co/connectkit).
 
 ## API Reference
 
-You can find the full API Reference in the Family docs [here](https://docs.family.co/connectkit/api-reference).
+You can find the full API Reference in the docs [here](https://docs.family.co/connectkit/api-reference).
 
 ## Examples
 
@@ -74,7 +72,7 @@ Before starting on anything, please have a read through our [Contribution Guidel
 
 ## Twitter
 
-Follow [@family](https://twitter.com/family) on Twitter for the latest updates on ConnectKit.
+Follow [@aave](https://twitter.com/aave) on Twitter for the latest updates on ConnectKit.
 
 ## License
 
