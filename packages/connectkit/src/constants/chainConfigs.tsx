@@ -328,4 +328,19 @@ export const chainConfigs: Chain[] = [
     name: 'Zora Goerli Testnet',
     logo: <Logos.Zora testnet />,
   },
+  {
+    id: 146,
+    name: 'Sonic',
+    logo: <Logos.Sonic />,
+  },
+  {
+    id: 57_054,
+    name: 'Sonic Blaze Testnet',
+    logo: <Logos.Sonic testnet />,
+  },
+  {
+    id: 64_165,
+    name: 'Sonic Testnet',
+    logo: <Logos.Sonic testnet />,
+  },
 ];
