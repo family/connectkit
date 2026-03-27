@@ -11,7 +11,7 @@
   "dependencies": {
     "connectkit": "workspace:packages/connectkit",
     "connectkit-next-siwe": "workspace:packages/connectkit-next-siwe",
-    "next": "14.2.32",
+    "next": "15.5.14",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "siwe": "^2.1.4",
