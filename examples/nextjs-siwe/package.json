@@ -11,7 +11,7 @@
   "dependencies": {
     "connectkit": "workspace:packages/connectkit",
     "connectkit-next-siwe": "workspace:packages/connectkit-next-siwe",
-    "next": "14.2.32",
+    "next": "15.5.14",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "siwe": "^2.1.4",
@@ -23,7 +23,7 @@
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "eslint": "8.23.1",
-    "eslint-config-next": "12.3.0",
+    "eslint-config-next": "15.5.14",
     "typescript": "^5.0.4"
   }
 }
