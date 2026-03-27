@@ -2933,6 +2933,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"aave-connectkit@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "aave-connectkit@workspace:."
+  dependencies:
+    "@changesets/cli": ^2.24.4
+    "@rollup/plugin-node-resolve": ^13.1.3
+    react: ^18.0.0
+    react-dom: ^18.0.0
+    rollup: ^2.80.0
+    rollup-plugin-peer-deps-external: ^2.2.4
+    rollup-plugin-terser: ^7.0.2
+    rollup-plugin-typescript2: ^0.34.0
+    rollup-plugin-visualizer: ^5.5.4
+    tslib: ^1.9.3
+    typescript-plugin-styled-components: ^2.0.0
+    viem: ^2.23.2
+    wagmi: ^2.14.11
+  languageName: unknown
+  linkType: soft
+
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -3386,15 +3406,6 @@ __metadata:
     balanced-match: ^1.0.0
     concat-map: 0.0.1
   checksum: faf34a7bb0c3fcf4b59c7808bc5d2a96a40988addf2e7e09dfbb67a2251800e0d14cd2bfc1aa79174f2f5095c54ff27f46fb1289fe2d77dac755b5eb3434cc07
-  languageName: node
-  linkType: hard
-
-"brace-expansion@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "brace-expansion@npm:2.0.1"
-  dependencies:
-    balanced-match: ^1.0.0
-  checksum: a61e7cd2e8a8505e9f0036b3b6108ba5e926b4b55089eeb5550cd04a471fe216c96d4fe7e4c7f995c728c554ae20ddfc4244cad10aef255e72b62930afd233d1
   languageName: node
   linkType: hard
 
@@ -5292,26 +5303,6 @@ __metadata:
   checksum: 1c2a616a73f1b3435ce04030261bed0e22d4737e14b090bb48e58865da92529c9f2b05b893de650738d55e692d071819b45e1669259b2b354bc3154d27a698c7
   languageName: node
   linkType: hard
-
-"family-connectkit@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "family-connectkit@workspace:."
-  dependencies:
-    "@changesets/cli": ^2.24.4
-    "@rollup/plugin-node-resolve": ^13.1.3
-    react: ^18.0.0
-    react-dom: ^18.0.0
-    rollup: ^2.79.2
-    rollup-plugin-peer-deps-external: ^2.2.4
-    rollup-plugin-terser: ^7.0.2
-    rollup-plugin-typescript2: ^0.34.0
-    rollup-plugin-visualizer: ^5.5.4
-    tslib: ^1.9.3
-    typescript-plugin-styled-components: ^2.0.0
-    viem: ^2.23.2
-    wagmi: ^2.14.11
-  languageName: unknown
-  linkType: soft
 
 "fast-deep-equal@npm:^3.1.1, fast-deep-equal@npm:^3.1.3":
   version: 3.1.3
@@ -7211,30 +7202,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:9.0.3":
-  version: 9.0.3
-  resolution: "minimatch@npm:9.0.3"
-  dependencies:
-    brace-expansion: ^2.0.1
-  checksum: 253487976bf485b612f16bf57463520a14f512662e592e95c571afdab1442a6a6864b6c88f248ce6fc4ff0b6de04ac7aa6c8bb51e868e99d1d65eb0658a708b5
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:^3.0.4, minimatch@npm:^3.0.5, minimatch@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "minimatch@npm:3.1.2"
+"minimatch@npm:3.1.3":
+  version: 3.1.3
+  resolution: "minimatch@npm:3.1.3"
   dependencies:
     brace-expansion: ^1.1.7
-  checksum: c154e566406683e7bcb746e000b84d74465b3a832c45d59912b9b55cd50dee66e5c4b1e5566dba26154040e51672f9aa450a9aef0c97cfc7336b78b7afb9540a
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:^9.0.4":
-  version: 9.0.5
-  resolution: "minimatch@npm:9.0.5"
-  dependencies:
-    brace-expansion: ^2.0.1
-  checksum: 2c035575eda1e50623c731ec6c14f65a85296268f749b9337005210bb2b34e2705f8ef1a358b188f69892286ab99dc42c8fb98a57bde55c8d81b3023c19cea28
+  checksum: bd71cf6615b87fed4795d3650c6dcd22ababe29ac1e28065dca500b365ca9568fde6637782f8e80707640eee4a96c537eece99d491e2e8d10e72e376c37e77bb
   languageName: node
   linkType: hard
 
@@ -8456,15 +8429,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"randombytes@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "randombytes@npm:2.1.0"
-  dependencies:
-    safe-buffer: ^5.1.0
-  checksum: d779499376bd4cbb435ef3ab9a957006c8682f343f14089ed5f27764e4645114196e75b7f6abf1cbd84fd247c0cb0651698444df8c9bf30e62120fbbc52269d6
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:^18.0.0, react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -8861,7 +8825,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.79.1, rollup@npm:^2.79.2":
+"rollup@npm:^2.79.1":
   version: 2.79.2
   resolution: "rollup@npm:2.79.2"
   dependencies:
@@ -8872,6 +8836,20 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: df7aa4c8b95245dede157b06ab71e1921de6080757d30e9bf31f8fb142064d12dda865e2bafbab4349588f43425b2965a290c9a5da1c048246a70fc21734ebd7
+  languageName: node
+  linkType: hard
+
+"rollup@npm:^2.80.0":
+  version: 2.80.0
+  resolution: "rollup@npm:2.80.0"
+  dependencies:
+    fsevents: ~2.3.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: 3eeef19adb648ac475bb76cc474f5f601c76bc26490282715016b8948ef31ebd65e43df3ca5b4850686542822b73b2254d9a96013d9cc50d4d984c61cb0dac37
   languageName: node
   linkType: hard
 
@@ -8896,7 +8874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.2.1, safe-buffer@npm:~5.2.0":
+"safe-buffer@npm:^5.2.1, safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: b99c4b41fdd67a6aaf280fcd05e9ffb0813654894223afb78a31f14a19ad220bba8aba1cb14eddce1fcfb037155fe6de4e861784eb434f7d11ed58d1e70dd491
@@ -8973,12 +8951,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "serialize-javascript@npm:4.0.0"
-  dependencies:
-    randombytes: ^2.1.0
-  checksum: 3273b3394b951671fcf388726e9577021870dfbf85e742a1183fb2e91273e6101bdccea81ff230724f6659a7ee4cef924b0ff9baca32b79d9384ec37caf07302
+"serialize-javascript@npm:7.0.3":
+  version: 7.0.3
+  resolution: "serialize-javascript@npm:7.0.3"
+  checksum: c54f78f4123663dbca132e89885426fff2ccf20dbb862c14641f1c1cbdb5552f1ce48881cf51496aef563bde8af1765687e87043f194a1f887617ce8a02ff80d
   languageName: node
   linkType: hard
 
