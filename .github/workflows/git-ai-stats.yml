@@ -1,0 +1,23 @@
+name: Git AI Stats
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  report-stats:
+    if: github.event.pull_request.merged == true
+    uses: AaveLabsInternal/aave-github-workflows/.github/workflows/git-ai-stats.yml@main
+    with:
+      pr_number: ${{ github.event.pull_request.number }}
+      pr_title: ${{ github.event.pull_request.title }}
+      pr_author: ${{ github.event.pull_request.user.login }}
+      pr_branch: ${{ github.event.pull_request.head.ref }}
+      repo: ${{ github.repository }}
+      base_sha: ${{ github.event.pull_request.base.sha }}
+      head_sha: ${{ github.event.pull_request.head.sha }}
+    secrets: inherit
