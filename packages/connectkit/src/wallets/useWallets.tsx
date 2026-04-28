@@ -77,6 +77,20 @@ export const useWallets = (): WalletProps[] => {
         (wallet, index, self) =>
           self.findIndex((w) => w.id === wallet.id) === index
       )
+      // If an EIP-6963 injected connector is present (type 'injected' with a
+      // non-generic id), remove the generic 'injected' connector to avoid
+      // showing duplicate entries for the same browser-extension wallet.
+      .filter(
+        (wallet, _index, self) =>
+          !(
+            wallet.id === 'injected' &&
+            self.some(
+              (w) =>
+                w.id !== 'injected' &&
+                isInjectedConnector(w.connector.type)
+            )
+          )
+      )
       // Replace walletConnect's name with the one from options
       .map((wallet) => {
         if (wallet.id === 'walletConnect') {
