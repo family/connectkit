@@ -8,6 +8,7 @@ const ensFallbackConfig = createConfig({
   transports: {
     [mainnet.id]: http(),
   },
+  storage: null,
 });
 
 export function useEnsFallbackConfig(): Config | undefined {
