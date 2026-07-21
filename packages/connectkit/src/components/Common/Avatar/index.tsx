@@ -11,6 +11,16 @@ import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
 
 type Hash = `0x${string}`;
 
+// Not every reverse-resolved primary ENS name is normalizable (ENSIP-15
+// disallows some characters); throwing here would crash the consuming app.
+const safeNormalize = (name: string): string => {
+  try {
+    return normalize(name);
+  } catch {
+    return '';
+  }
+};
+
 export type CustomAvatarProps = {
   address?: Hash | undefined;
   ensName?: string | undefined;
@@ -44,7 +54,7 @@ const Avatar: React.FC<{
   });
   const { data: ensAvatar } = useEnsAvatar({
     chainId: 1,
-    name: normalize(ensName ?? ''),
+    name: safeNormalize(ensName ?? ''),
     config: ensFallbackConfig,
   });
 
