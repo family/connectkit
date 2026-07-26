@@ -1,11 +1,14 @@
 import { CreateConnectorFn } from 'wagmi';
+// wagmi v3 makes connector SDKs optional peer dependencies — import each
+// connector from its own entry point so unused connectors (and their
+// dangling optional imports, e.g. porto) never enter the bundle graph.
+import { injected } from 'wagmi/connectors/injected';
+import { walletConnect } from 'wagmi/connectors/walletConnect';
 import {
-  injected,
-  walletConnect,
   coinbaseWallet,
-  CoinbaseWalletParameters,
-  safe,
-} from '@wagmi/connectors';
+  type CoinbaseWalletParameters,
+} from 'wagmi/connectors/coinbaseWallet';
+import { safe } from 'wagmi/connectors/safe';
 
 import {
   EthereumProviderOptions as AaveAccountOptions,
@@ -20,7 +23,7 @@ type DefaultConnectorsProps = {
     url?: string;
   };
   walletConnectProjectId?: string;
-  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
+  coinbaseWalletPreference?: CoinbaseWalletParameters['preference'];
   enableAaveAccount?: boolean;
   aaveAccountOptions?: AaveAccountOptions;
 };
@@ -55,7 +58,6 @@ const defaultConnectors = ({
     coinbaseWallet({
       appName: app.name,
       appLogoUrl: app.icon,
-      overrideIsMetaMask: false,
       preference: coinbaseWalletPreference,
     })
   );

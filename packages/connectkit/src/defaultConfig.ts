@@ -1,7 +1,7 @@
 import { http } from 'wagmi';
 import { type CreateConfigParameters } from '@wagmi/core';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { CoinbaseWalletParameters } from 'wagmi/connectors';
+import { type CoinbaseWalletParameters } from 'wagmi/connectors/coinbaseWallet';
 import { EthereumProviderOptions as AaveAccountOptions } from '@aave/account';
 
 import defaultConnectors from './defaultConnectors';
@@ -21,7 +21,7 @@ type DefaultConfigProps = {
   // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
   walletConnectProjectId: string;
   // Coinbase Wallet preference
-  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
+  coinbaseWalletPreference?: CoinbaseWalletParameters['preference'];
   // Aave Account options
   enableAaveAccount?: boolean;
   aaveAccountOptions?: AaveAccountOptions;

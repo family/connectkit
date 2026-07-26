@@ -37,14 +37,15 @@
     "rollup-plugin-visualizer": "^5.5.4",
     "tslib": "^1.9.3",
     "typescript-plugin-styled-components": "^2.0.0",
-    "viem": "^2.23.2",
-    "wagmi": "^2.14.11"
+    "viem": "^2.55.8",
+    "wagmi": "^3.7.4"
   },
   "packageManager": "yarn@3.2.0",
   "dependencies": {
     "@changesets/cli": "^2.24.4"
   },
   "resolutions": {
+    "viem": "^2.55.8",
     "webpack-dev-middleware": "5.3.4",
     "braces": "3.0.3",
     "cross-spawn": "6.0.6",
