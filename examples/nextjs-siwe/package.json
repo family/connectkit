@@ -9,14 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@coinbase/wallet-sdk": "^4.3.6",
+    "@safe-global/safe-apps-provider": "~0.18.6",
+    "@safe-global/safe-apps-sdk": "^9.1.0",
+    "@walletconnect/ethereum-provider": "^2.21.1",
     "connectkit": "workspace:packages/connectkit",
     "connectkit-next-siwe": "workspace:packages/connectkit-next-siwe",
     "next": "15.5.14",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "siwe": "^2.1.4",
-    "viem": "^2.23.2",
-    "wagmi": "^2.14.11"
+    "viem": "^2.55.8",
+    "wagmi": "^3.7.4"
   },
   "devDependencies": {
     "@types/node": "18.7.18",
@@ -24,6 +28,6 @@
     "@types/react-dom": "^18.0.2",
     "eslint": "8.23.1",
     "eslint-config-next": "15.5.14",
-    "typescript": "^5.0.4"
+    "typescript": "^5.9.3"
   }
 }

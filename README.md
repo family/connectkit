@@ -17,7 +17,76 @@ and much more...
 
 ## Quick Start
 
-Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by following the documentation [here](https://docs.family.co/connectkit/getting-started).
+Install ConnectKit along with its peer dependencies, [wagmi](https://wagmi.sh/) v3, [viem](https://viem.sh) and [TanStack Query](https://tanstack.com/query):
+
+```sh
+npm install connectkit wagmi viem @tanstack/react-query
+```
+
+Wrap your app with the providers and you're ready to go — out of the box ConnectKit includes the connectors that need no additional dependencies (Aave Account and MetaMask/injected):
+
+```tsx
+import { WagmiProvider, createConfig } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ConnectKitProvider, ConnectKitButton, getDefaultConfig } from 'connectkit';
+
+const config = createConfig(
+  getDefaultConfig({
+    appName: 'My App',
+  })
+);
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <WagmiProvider config={config}>
+    <QueryClientProvider client={queryClient}>
+      <ConnectKitProvider>
+        <ConnectKitButton />
+      </ConnectKitProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
+);
+```
+
+### Adding more connectors
+
+Following wagmi v3's model, connector SDKs are optional peer dependencies — install only the ones you use and add their connectors individually:
+
+```sh
+npm install @coinbase/wallet-sdk @walletconnect/ethereum-provider \
+  @safe-global/safe-apps-provider @safe-global/safe-apps-sdk
+```
+
+```tsx
+import { getDefaultConfig, aaveAccount, metaMask } from 'connectkit';
+import { coinbaseWallet } from 'connectkit/connectors/coinbaseWallet';
+import { walletConnect } from 'connectkit/connectors/walletConnect';
+import { safe } from 'connectkit/connectors/safe';
+
+const config = createConfig(
+  getDefaultConfig({
+    appName: 'My App',
+    appIcon: 'https://myapp.example/icon.png', // used by Coinbase Wallet & WalletConnect
+    walletConnectProjectId: '...', // get one at https://cloud.reown.com/sign-in
+    connectors: [
+      aaveAccount(),
+      safe(), // only active inside app frames (e.g. Safe{Wallet})
+      metaMask(),
+      coinbaseWallet(),
+      walletConnect(),
+    ],
+  })
+);
+```
+
+Connector factories inherit app-level options from `getDefaultConfig` (options passed to a factory directly take precedence), and plain wagmi connectors can be mixed into the same `connectors` array.
+
+For more, follow the documentation [here](https://docs.family.co/connectkit/getting-started).
+
+### Migrating from v1
+
+ConnectKit 2.0 upgrades to wagmi v3 and changes how connectors are added — see the [migration guide](https://github.com/family/connectkit/blob/main/packages/connectkit/MIGRATION.md).
 
 ## Documentation
 

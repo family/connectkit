@@ -7,6 +7,7 @@ import { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { useAccount, useBalance, useBlockNumber } from 'wagmi';
+import { formatUnits } from 'viem';
 import useIsMounted from '../../hooks/useIsMounted';
 
 import Chain from '../Common/Chain';
@@ -61,6 +62,10 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
     address,
     chainId: chain?.id,
   });
+  // wagmi v3 no longer returns a pre-formatted balance
+  const formattedBalance = balance
+    ? formatUnits(balance.value, balance.decimals)
+    : undefined;
 
   useEffect(() => {
     if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey });
@@ -68,9 +73,9 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
 
   const currentChain = chainConfigs.find((c) => c.id === chain?.id);
   const state = `${
-    !isMounted || balance?.formatted === undefined
+    !isMounted || formattedBalance === undefined
       ? `balance-loading`
-      : `balance-${currentChain?.id}-${balance?.formatted}`
+      : `balance-${currentChain?.id}-${formattedBalance}`
   }`;
 
   useEffect(() => {
@@ -83,7 +88,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
         <motion.div
           key={state}
           initial={
-            balance?.formatted !== undefined && isInitial
+            formattedBalance !== undefined && isInitial
               ? {
                   opacity: 1,
                 }
@@ -103,7 +108,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
             delay: 0.4,
           }}
         >
-          {!address || !isMounted || balance?.formatted === undefined ? (
+          {!address || !isMounted || formattedBalance === undefined ? (
             <Container>
               {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>
@@ -123,7 +128,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
             <Container>
               {!hideIcon && <Chain id={chain?.id} />}
               <span style={{ minWidth: 32 }}>
-                {nFormatter(Number(balance?.formatted))}
+                {nFormatter(Number(formattedBalance))}
               </span>
               {!hideSymbol && ` ${balance?.symbol}`}
             </Container>

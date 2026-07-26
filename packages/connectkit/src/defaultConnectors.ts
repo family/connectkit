@@ -1,90 +1,59 @@
 import { CreateConnectorFn } from 'wagmi';
-import {
-  injected,
-  walletConnect,
-  coinbaseWallet,
-  CoinbaseWalletParameters,
-  safe,
-} from '@wagmi/connectors';
 
+import { aaveAccount } from './connectors/aaveAccount';
+import { metaMask } from './connectors/metaMask';
 import {
-  EthereumProviderOptions as AaveAccountOptions,
-  aaveAccountConnector,
-} from '@aave/account';
+  ConnectKitConnector,
+  ConnectKitConnectorContext,
+  isConnectKitConnector,
+} from './connectors/types';
+
+/**
+ * Resolves a mixed list of ConnectKit connector descriptors and plain wagmi
+ * connectors into the `CreateConnectorFn[]` that wagmi's createConfig expects.
+ * Descriptors returning null (e.g. safe outside of an app frame) are omitted.
+ */
+export const resolveConnectors = (
+  connectors: (ConnectKitConnector | CreateConnectorFn)[],
+  ctx: ConnectKitConnectorContext
+): CreateConnectorFn[] =>
+  connectors
+    .map((connector) =>
+      isConnectKitConnector(connector) ? connector.createConnector(ctx) : connector
+    )
+    .filter((connector): connector is CreateConnectorFn => connector != null);
 
 type DefaultConnectorsProps = {
-  app: {
-    name: string;
-    icon?: string;
-    description?: string;
-    url?: string;
-  };
-  walletConnectProjectId?: string;
-  coinbaseWalletPreference?: CoinbaseWalletParameters<'4'>['preference'];
+  ctx: ConnectKitConnectorContext;
   enableAaveAccount?: boolean;
-  aaveAccountOptions?: AaveAccountOptions;
 };
 
+/**
+ * The default connector set contains only connectors with no additional
+ * dependencies: Aave Account and MetaMask (injected). Connectors whose SDKs
+ * are optional peer dependencies (Coinbase Wallet, WalletConnect, Safe) must
+ * be added explicitly via `connectkit/connectors/*`:
+ *
+ * ```ts
+ * import { walletConnect } from 'connectkit/connectors/walletConnect';
+ *
+ * getDefaultConfig({
+ *   walletConnectProjectId: '...',
+ *   connectors: [aaveAccount(), metaMask(), walletConnect()],
+ * });
+ * ```
+ */
 const defaultConnectors = ({
-  app,
-  walletConnectProjectId,
-  coinbaseWalletPreference,
+  ctx,
   enableAaveAccount,
-  aaveAccountOptions,
 }: DefaultConnectorsProps): CreateConnectorFn[] => {
-  const hasAllAppData = app.name && app.icon && app.description && app.url;
-  const shouldUseSafeConnector =
-    !(typeof window === 'undefined') && window?.parent !== window;
-
-  const connectors: CreateConnectorFn[] = enableAaveAccount
-    ? [aaveAccountConnector(aaveAccountOptions)]
+  const connectors: ConnectKitConnector[] = enableAaveAccount
+    ? [aaveAccount()]
     : [];
 
-  // If we're in an iframe, include the SafeConnector
-  if (shouldUseSafeConnector) {
-    connectors.push(
-      safe({
-        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-      })
-    );
-  }
+  connectors.push(metaMask());
 
-  // Add the rest of the connectors
-  connectors.push(
-    injected({ target: 'metaMask' }),
-    coinbaseWallet({
-      appName: app.name,
-      appLogoUrl: app.icon,
-      overrideIsMetaMask: false,
-      preference: coinbaseWalletPreference,
-    })
-  );
-
-  if (walletConnectProjectId) {
-    connectors.push(
-      walletConnect({
-        showQrModal: false,
-        projectId: walletConnectProjectId,
-        metadata: hasAllAppData
-          ? {
-              name: app.name,
-              description: app.description!,
-              url: app.url!,
-              icons: [app.icon!],
-            }
-          : undefined,
-      })
-    );
-  }
-  /*
-  connectors.push(
-    injected({
-      shimDisconnect: true,
-    })
-  );
-  */
-
-  return connectors;
+  return resolveConnectors(connectors, ctx);
 };
 
 export default defaultConnectors;
