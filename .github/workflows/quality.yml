@@ -10,16 +10,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Node v16
-        uses: actions/setup-node@v1
+      - name: Install Node v22
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
 
       - name: Use node_modules cache
         uses: actions/cache@v3
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-modules-node22-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install deps
         run: yarn
