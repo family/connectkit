@@ -1,7 +1,10 @@
 import { createElement, createContext, useContext, useState } from 'react';
 import { TestBenchProvider } from '../TestbenchProvider';
 
-import { getDefaultConfig, wallets } from 'connectkit';
+import { getDefaultConfig, wallets, aaveAccount, metaMask } from 'connectkit';
+import { coinbaseWallet } from 'connectkit/connectors/coinbaseWallet';
+import { walletConnect } from 'connectkit/connectors/walletConnect';
+import { safe } from 'connectkit/connectors/safe';
 
 import { WagmiProvider, createConfig } from 'wagmi';
 import { defineChain, type Chain, http } from 'viem';
@@ -41,7 +44,13 @@ export const ckConfig = getDefaultConfig({
   appName: 'ConnectKit testbench',
   appIcon: '/app.png',
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
-  //enableAaveAccount: false,
+  connectors: [
+    aaveAccount(),
+    safe(),
+    metaMask(),
+    coinbaseWallet(),
+    walletConnect(),
+  ],
 });
 const customConfig = {
   ...ckConfig,

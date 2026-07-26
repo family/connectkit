@@ -41,6 +41,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useThemeContext } from '../../ConnectKitThemeProvider/ConnectKitThemeProvider';
 import useLocales from '../../../hooks/useLocales';
 import { useEnsFallbackConfig } from '../../../hooks/useEnsFallbackConfig';
+import { formatUnits } from 'viem';
 
 const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
   const context = useContext();
@@ -67,6 +68,10 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
     address,
     //watch: true,
   });
+  // wagmi v3 no longer returns a pre-formatted balance
+  const formattedBalance = balance
+    ? formatUnits(balance.value, balance.decimals)
+    : undefined;
 
   const [shouldDisconnect, setShouldDisconnect] = useState(false);
 
@@ -122,7 +127,7 @@ const Profile: React.FC<{ closeModal?: () => void }> = ({ closeModal }) => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {nFormatter(Number(balance?.formatted))}
+                    {nFormatter(Number(formattedBalance))}
                     {` `}
                     {balance?.symbol}
                   </Balance>

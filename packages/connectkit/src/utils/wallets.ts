@@ -1,5 +1,8 @@
 declare global {
   interface Window {
+    // wagmi v2 transitively provided a global `window.ethereum` declaration;
+    // wagmi v3 no longer does, so declare it here.
+    ethereum?: any;
     trustWallet: any;
     trustwallet: any;
   }

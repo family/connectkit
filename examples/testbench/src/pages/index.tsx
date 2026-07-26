@@ -30,7 +30,7 @@ import { Checkbox, Textbox, Select, SelectProps } from '../components/inputs';
 
 import CustomAvatar from '../components/CustomAvatar';
 import CustomSIWEButton from '../components/CustomSIWEButton';
-import { Address } from 'viem';
+import { Address, formatUnits } from 'viem';
 
 const allChains = Object.keys(wagmiChains).map(
   (key) => wagmiChains[key as keyof typeof wagmiChains]
@@ -117,7 +117,7 @@ const AccountInfo = () => {
             </tr>
             <tr>
               <td>Balance</td>
-              <td>{balanceData?.formatted}</td>
+              <td>{balanceData ? formatUnits(balanceData.value, balanceData.decimals) : undefined}</td>
             </tr>
             <tr>
               <td>Connector</td>

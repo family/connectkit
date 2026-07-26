@@ -9,18 +9,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@coinbase/wallet-sdk": "^4.3.6",
+    "@safe-global/safe-apps-provider": "~0.18.6",
+    "@safe-global/safe-apps-sdk": "^9.1.0",
     "@tanstack/react-query": "^5.17.10",
+    "@walletconnect/ethereum-provider": "^2.21.1",
     "connectkit": "workspace:packages/connectkit",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "^2.23.2",
-    "wagmi": "^2.14.11"
+    "viem": "^2.55.8",
+    "wagmi": "^3.7.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
-    "typescript": "^5.0.4",
+    "typescript": "^5.9.3",
     "vite": "^3.1.0"
   }
 }
