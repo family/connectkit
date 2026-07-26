@@ -30,8 +30,8 @@ export const AlertContainer = styled(motion.div)<{ $error?: boolean }>`
     text-align: center;
   }
 
-  ${($error) => {
-    if ($error)
+  ${(props) => {
+    if (props.$error)
       return css`
         color: #fff;
         background: var(--ck-body-color-danger, red);
