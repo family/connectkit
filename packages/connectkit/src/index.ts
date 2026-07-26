@@ -5,6 +5,19 @@ export { default as getDefaultConfig } from './defaultConfig';
 export { default as getDefaultConnectors } from './defaultConnectors';
 export { wallets } from './wallets';
 
+// Connectors with no additional dependencies are exported from the main entry
+// for convenience. Connectors whose SDKs are optional peer dependencies
+// (coinbaseWallet, walletConnect, safe) must be imported from their own entry
+// points (`connectkit/connectors/<name>`) so that only apps using them need
+// their SDKs installed.
+export { injected } from './connectors/injected';
+export { metaMask } from './connectors/metaMask';
+export { aaveAccount } from './connectors/aaveAccount';
+export type {
+  ConnectKitConnector,
+  ConnectKitConnectorContext,
+} from './connectors/types';
+
 export { useModal } from './hooks/useModal';
 export {
   SIWEProvider,

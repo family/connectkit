@@ -4767,11 +4767,24 @@ __metadata:
     styled-components: ^5.3.5
     typescript: ^5.9.3
   peerDependencies:
+    "@coinbase/wallet-sdk": ^4.3.6
+    "@safe-global/safe-apps-provider": ~0.18.6
+    "@safe-global/safe-apps-sdk": ^9.1.0
     "@tanstack/react-query": ">=5.0.0"
+    "@walletconnect/ethereum-provider": ^2.21.1
     react: ">=18"
     react-dom: ">=18"
     viem: 2.x
     wagmi: 3.x
+  peerDependenciesMeta:
+    "@coinbase/wallet-sdk":
+      optional: true
+    "@safe-global/safe-apps-provider":
+      optional: true
+    "@safe-global/safe-apps-sdk":
+      optional: true
+    "@walletconnect/ethereum-provider":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -8526,9 +8539,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nextjs-app@workspace:examples/nextjs-app"
   dependencies:
+    "@coinbase/wallet-sdk": ^4.3.6
+    "@safe-global/safe-apps-provider": ~0.18.6
+    "@safe-global/safe-apps-sdk": ^9.1.0
     "@tanstack/react-query": ^5.17.15
     "@types/node": ^18.19.3
     "@types/react": ^18.2.43
+    "@walletconnect/ethereum-provider": ^2.21.1
     connectkit: "workspace:packages/connectkit"
     eslint: ^8.15.0
     eslint-config-next: ^15.5.14
@@ -8545,9 +8562,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nextjs-siwe@workspace:examples/nextjs-siwe"
   dependencies:
+    "@coinbase/wallet-sdk": ^4.3.6
+    "@safe-global/safe-apps-provider": ~0.18.6
+    "@safe-global/safe-apps-sdk": ^9.1.0
     "@types/node": 18.7.18
     "@types/react": ^18.0.6
     "@types/react-dom": ^18.0.2
+    "@walletconnect/ethereum-provider": ^2.21.1
     connectkit: "workspace:packages/connectkit"
     connectkit-next-siwe: "workspace:packages/connectkit-next-siwe"
     eslint: 8.23.1
@@ -8566,9 +8587,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nextjs@workspace:examples/nextjs"
   dependencies:
+    "@coinbase/wallet-sdk": ^4.3.6
+    "@safe-global/safe-apps-provider": ~0.18.6
+    "@safe-global/safe-apps-sdk": ^9.1.0
     "@tanstack/react-query": ^5.17.15
     "@types/node": ^18.19.3
     "@types/react": ^18.2.43
+    "@walletconnect/ethereum-provider": ^2.21.1
     connectkit: "workspace:packages/connectkit"
     eslint: ^8.15.0
     eslint-config-next: ^15.5.14
@@ -10765,10 +10790,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "testbench@workspace:examples/testbench"
   dependencies:
+    "@coinbase/wallet-sdk": ^4.3.6
+    "@safe-global/safe-apps-provider": ~0.18.6
+    "@safe-global/safe-apps-sdk": ^9.1.0
     "@tanstack/react-query": ^5.17.10
     "@types/node": 18.7.18
     "@types/react": ^18.0.6
     "@types/react-dom": ^18.0.2
+    "@walletconnect/ethereum-provider": ^2.21.1
     connectkit: "workspace:packages/connectkit"
     connectkit-next-siwe: "workspace:packages/connectkit-next-siwe"
     eslint: 8.23.1
@@ -11392,10 +11421,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vite@workspace:examples/vite"
   dependencies:
+    "@coinbase/wallet-sdk": ^4.3.6
+    "@safe-global/safe-apps-provider": ~0.18.6
+    "@safe-global/safe-apps-sdk": ^9.1.0
     "@tanstack/react-query": ^5.17.10
     "@types/react": ^18.0.17
     "@types/react-dom": ^18.0.6
     "@vitejs/plugin-react": ^2.1.0
+    "@walletconnect/ethereum-provider": ^2.21.1
     connectkit: "workspace:packages/connectkit"
     react: ^18.2.0
     react-dom: ^18.2.0

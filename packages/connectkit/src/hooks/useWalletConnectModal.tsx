@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Connector, CreateConnectorFn } from 'wagmi';
-import { walletConnect } from 'wagmi/connectors/walletConnect';
+import { getWalletConnectFactory } from '../connectors/registry';
 import { useContext } from '../components/ConnectKit';
 
 import { isWalletConnectConnector } from '../utils';
@@ -23,7 +23,12 @@ export function useWalletConnectModal() {
         isWalletConnectConnector(c.id)
       );
 
-      if (clientConnector) {
+      // Registered by the connectkit/connectors/walletConnect entry point —
+      // the WalletConnect SDK is an optional peer dependency, so the wagmi
+      // factory cannot be imported here directly.
+      const walletConnect = getWalletConnectFactory();
+
+      if (clientConnector && walletConnect) {
         try {
           const provider: any = await clientConnector.getProvider();
           const projectId = provider.rpc.projectId;
