@@ -21,9 +21,9 @@
     "README.md"
   ],
   "scripts": {
-    "start": "rollup --config rollup.config.dev.js -w",
-    "dev": "rollup --config rollup.config.dev.js -w",
-    "build": "rollup --config rollup.config.prod.js",
+    "start": "yarn dev",
+    "dev": "tsc --project tsconfig.json --emitDeclarationOnly && rolldown --config rolldown.config.dev.js --watch",
+    "build": "rolldown --config rolldown.config.prod.js && tsc --project tsconfig.json --emitDeclarationOnly",
     "lint": "eslint src --ext .ts"
   },
   "keywords": [

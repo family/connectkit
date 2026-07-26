@@ -1,5 +1,4 @@
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import typescript from 'rollup-plugin-typescript2';
+import { defineConfig } from 'rolldown';
 
 // Each connector is its own entry point so that apps only pull the connectors
 // they import into their bundle graph — the SDKs backing coinbaseWallet,
@@ -14,23 +13,20 @@ const input = {
   'connectors/safe': './src/connectors/safe.ts',
 };
 
-export default [
-  {
-    input,
-    external: ['react', 'react-dom', 'framer-motion', 'wagmi'],
-    output: {
-      dir: 'build',
-      format: 'esm',
-      sourcemap: true,
-      entryFileNames: '[name].es.js',
-      chunkFileNames: 'chunks/[name]-[hash].es.js',
-    },
-    plugins: [
-      peerDepsExternal(),
-      typescript({
-        useTsconfigDeclarationDir: true,
-        exclude: 'node_modules/**',
-      }),
-    ],
+// ConnectKit ships an ESM library: every bare specifier (dependencies and
+// peer dependencies alike) is left external and resolved by the consuming
+// app's package manager and bundler.
+const external = (id) => !id.startsWith('.') && !id.startsWith('/');
+
+export default defineConfig({
+  input,
+  external,
+  tsconfig: './tsconfig.json',
+  output: {
+    dir: 'build',
+    format: 'esm',
+    sourcemap: true,
+    entryFileNames: '[name].es.js',
+    chunkFileNames: 'chunks/[name]-[hash].es.js',
   },
-];
+});
