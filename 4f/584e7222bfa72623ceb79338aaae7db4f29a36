@@ -1,0 +1,26 @@
+CHANGELOG.md
+  s_256243b1ca1391::t_c478401195458c 1-8
+packages/connectkit/package.json
+  s_256243b1ca1391::t_de9848f2034b93 43
+  s_256243b1ca1391::t_c64286ec2d2875 3
+packages/connectkit/src/index.ts
+  s_256243b1ca1391::t_74375b32d3d66c 1
+yarn.lock
+  s_256243b1ca1391::t_0df4d9b62bcd37 15-17,32,4086
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "4f584e7222bfa72623ceb79338aaae7db4f29a36",
+  "prompts": {},
+  "sessions": {
+    "s_256243b1ca1391": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8e319535-0792-4654-b743-97fe220064b7",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Joaquin Battilana <battilanajn@gmail.com>"
+    }
+  }
+}
