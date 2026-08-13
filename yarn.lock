@@ -12,9 +12,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aave/account@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@aave/account@npm:0.2.0"
+"@aave/account@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@aave/account@npm:0.2.1"
   peerDependencies:
     react: 17.x || 18.x || 19.x
     react-dom: 17.x || 18.x || 19.x
@@ -29,7 +29,7 @@ __metadata:
       optional: true
     wagmi:
       optional: true
-  checksum: 533fa0240c3d02456bb4a638fdf9bafa2924ee0bf58667438f55268ea7302a9f792b725dba4377dbf2da4b48ee32226f63b0cf01c92c7623c43ca602c2eaf77d
+  checksum: 475b8c23b4cb0fb3951abfc42a1eebcadcb6aebfadac8d23a1209a3faff460ae74fd2ee2f7c84d533dd109c3bdcdb040fdceadd5dedb81b47bdb37869b17a05c
   languageName: node
   linkType: hard
 
@@ -4083,7 +4083,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "connectkit@workspace:packages/connectkit"
   dependencies:
-    "@aave/account": ^0.2.0
+    "@aave/account": ^0.2.1
     "@types/node": 18.7.18
     "@types/qrcode": ^1.4.2
     "@types/react": ^18.0.6

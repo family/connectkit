@@ -1,3 +1,11 @@
+# 1.9.3
+
+This update bumps the Aave Account dependency to its latest patch release. No configuration or API changes are required.
+
+## Updated
+
+- `@aave/account` updated to `0.2.1`.
+
 # 1.9.2
 
 This update rebrands Family Accounts as Aave Account and includes a configuration option rename that may require changes in your app configuration.
