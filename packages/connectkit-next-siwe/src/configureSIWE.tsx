@@ -12,6 +12,8 @@ import {
   parseSiweMessage,
 } from 'viem/siwe';
 
+import { resolveSiweDomain, siweDomainMatches } from './siweDomain';
+
 type RouteHandlerOptions = {
   afterNonce?: (
     req: NextApiRequest,
@@ -36,6 +38,8 @@ type NextServerSIWEConfig = {
     chains: readonly [Chain, ...Chain[]];
     transports?: Record<number, Transport>;
   };
+  /** Expected EIP-4361 domain (RFC 3986 authority). Defaults to the request Host. */
+  domain?: string;
   session?: Partial<IronSessionOptions>;
   options?: RouteHandlerOptions;
 };
@@ -161,7 +165,8 @@ const verifyRoute = async (
   res: NextApiResponse<void>,
   sessionConfig: IronSessionOptions,
   config?: NextServerSIWEConfig['config'],
-  afterCallback?: RouteHandlerOptions['afterVerify']
+  afterCallback?: RouteHandlerOptions['afterVerify'],
+  domain?: string
 ) => {
   switch (req.method) {
     case 'POST':
@@ -175,6 +180,14 @@ const verifyRoute = async (
         const parsed = parseSiweMessage(message);
         if (parsed.nonce !== session.nonce) {
           return res.status(422).end('Invalid nonce.');
+        }
+
+        const expectedDomain = resolveSiweDomain({
+          configured: domain,
+          host: req.headers.host,
+        });
+        if (!siweDomainMatches(parsed.domain, expectedDomain)) {
+          return res.status(422).end('Invalid domain.');
         }
 
         let chain = config?.chains
@@ -197,6 +210,7 @@ const verifyRoute = async (
           message,
           signature,
           nonce: session.nonce,
+          domain: expectedDomain,
         });
         if (!verified) {
           return res.status(422).end('Unable to verify signature.');
@@ -229,6 +243,7 @@ const envVar = (name: string) => {
 
 export const configureServerSideSIWE = <TSessionData extends Object = {}>({
   config,
+  domain,
   session: { cookieName, password, cookieOptions, ...otherSessionOptions } = {},
   options: { afterNonce, afterVerify, afterSession, afterLogout } = {},
 }: NextServerSIWEConfig): ConfigureServerSIWEResult<TSessionData> => {
@@ -254,7 +269,14 @@ export const configureServerSideSIWE = <TSessionData extends Object = {}>({
       case 'nonce':
         return await nonceRoute(req, res, sessionConfig, afterNonce);
       case 'verify':
-        return await verifyRoute(req, res, sessionConfig, config, afterVerify);
+        return await verifyRoute(
+          req,
+          res,
+          sessionConfig,
+          config,
+          afterVerify,
+          domain
+        );
       case 'session':
         return await sessionRoute(req, res, sessionConfig, afterSession);
       case 'logout':
