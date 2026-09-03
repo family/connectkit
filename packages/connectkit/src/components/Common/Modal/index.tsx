@@ -365,6 +365,7 @@ const Modal: React.FC<ModalProps> = ({
     >
       <ModalContainer
         role="dialog"
+        aria-label={flattenChildren(getHeading()).toString() || undefined}
         style={{
           pointerEvents: rendered ? 'auto' : 'none',
           position: positionInside ? 'absolute' : undefined,
