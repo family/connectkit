@@ -1,6 +1,10 @@
 import React from 'react';
 import { useAccount, useEnsName } from 'wagmi';
-import { truncateENSAddress, truncateEthAddress } from './../../utils';
+import {
+  flattenChildren,
+  truncateENSAddress,
+  truncateEthAddress,
+} from './../../utils';
 import useIsMounted from '../../hooks/useIsMounted';
 
 import {
@@ -228,6 +232,10 @@ function ConnectKitButtonInner({
                     exit={{ opacity: 0 }}
                   >
                     <svg
+                      role="img"
+                      aria-label={flattenChildren(
+                        locales.wrongNetwork
+                      ).toString()}
                       width="14"
                       height="14"
                       viewBox="0 0 14 14"
