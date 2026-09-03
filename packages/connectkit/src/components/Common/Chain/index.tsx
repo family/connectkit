@@ -11,6 +11,8 @@ import { chainConfigs } from '../../../constants/chainConfigs';
 import Chains from '../../../assets/chains';
 import useIsMounted from '../../../hooks/useIsMounted';
 import { useChainIsSupported } from '../../../hooks/useChainIsSupported';
+import { Context } from '../../ConnectKit';
+import { getLocale } from '../../../localizations';
 
 const Spinner = (
   <svg
@@ -65,6 +67,14 @@ const Chain: React.FC<{
   const isChainSupported = useChainIsSupported(id);
   const unsupported = controlledUnsupported ?? !isChainSupported;
 
+  // Read the context directly rather than through useLocales: this component is
+  // exported as ChainIcon and only needs wagmi today, so it must not start
+  // throwing when rendered outside a ConnectKitProvider.
+  const context = React.useContext(Context);
+  const unsupportedLabel = getLocale(
+    context?.options?.language ?? 'en-US'
+  ).wrongNetwork;
+
   const chain = chainConfigs.find((c) => c.id === id);
   const isMounted = useIsMounted();
   if (!isMounted)
@@ -87,6 +97,8 @@ const Chain: React.FC<{
             exit={{ opacity: 0 }}
           >
             <svg
+              role="img"
+              aria-label={unsupportedLabel}
               width="13"
               height="12"
               viewBox="0 0 13 12"
