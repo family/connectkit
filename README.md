@@ -19,6 +19,31 @@ and much more...
 
 Get started with a ConnectKit + [wagmi](https://wagmi.sh/) + [viem](https://viem.sh) project by following the documentation [here](https://docs.family.co/connectkit/getting-started).
 
+## Named Oath Wallet entry
+
+Oath is an iOS wallet that connects through WalletConnect, without an injected
+browser provider. Add its optional entry alongside the default connectors:
+
+```tsx
+import { createConfig } from 'wagmi';
+import { getDefaultConfig, wallets } from 'connectkit';
+
+const defaults = getDefaultConfig({
+  appName: 'Your app',
+  walletConnectProjectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
+});
+const config = createConfig({
+  ...defaults,
+  connectors: [...(defaults.connectors ?? []), wallets.oathWallet],
+});
+```
+
+Keep the default WalletConnect connector: it owns the session and handles signing.
+Selecting Oath opens a branded QR screen on desktop. On iOS, the entry opens Oath
+with the current pairing URI once it is ready. Android uses the QR screen for
+pairing with a separate iOS device; no Android or browser-extension download is
+advertised. The entry does not add chains or change session permissions.
+
 ## Documentation
 
 You can find the full ConnectKit documentation in the docs [here](https://docs.family.co/connectkit).

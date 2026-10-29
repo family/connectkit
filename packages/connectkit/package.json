@@ -27,7 +27,8 @@
     "start": "rollup --config rollup.config.dev.js -w",
     "dev": "rollup --config rollup.config.dev.js -w",
     "build": "rollup --config rollup.config.prod.js",
-    "lint": "eslint src --ext .ts"
+    "lint": "eslint src --ext .ts",
+    "test:oath": "node --import tsx --test test/oath.test.tsx"
   },
   "keywords": [
     "ens",
@@ -63,6 +64,7 @@
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
+    "tsx": "4.20.6",
     "typescript": "^5.0.4"
   },
   "resolutions": {

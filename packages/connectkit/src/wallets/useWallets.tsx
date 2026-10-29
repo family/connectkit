@@ -64,6 +64,7 @@ export const useWallets = (): WalletProps[] => {
           />
         ) : undefined,
         ...wallet,
+        isInstalled: wallet.walletConnectOnly ? false : c.isInstalled,
       };
     }
 

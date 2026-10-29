@@ -19,7 +19,8 @@ export const wallets: {
     target: {
       id: target,
       name: config.name ?? config.shortName ?? key,
-      provider: (w) => w?.ethereum?.[`is${flag}`],
+      provider: (w) =>
+        config.walletConnectOnly ? undefined : w?.ethereum?.[`is${flag}`],
     },
   });
   const name = (config.name ?? config.shortName ?? key)

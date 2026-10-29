@@ -1,5 +1,6 @@
 import Logos from '../assets/logos';
-import { isAndroid } from '../utils';
+import { isAndroid, isMobile } from '../utils';
+import Oath from '../assets/oath';
 
 /**
  * EIP-6963: Multi Injected Provider Discovery
@@ -41,6 +42,8 @@ export type WalletConfigProps = {
   // Create URI for QR code, where uri is encoded data from WalletConnect
   getWalletConnectDeeplink?: (uri: string) => string;
   shouldDeeplinkDesktop?: boolean;
+  // Native wallets without a browser provider reuse the shared WalletConnect session.
+  walletConnectOnly?: boolean;
 };
 
 // Organised in alphabetical order by key
@@ -406,6 +409,24 @@ export const walletConfigs: {
         'https://chrome.google.com/webstore/detail/talisman-polkadot-wallet/fijngjgcjhjmmpcmkeiomlglpeiijkld',
       firefox:
         'https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension/',
+    },
+  },
+  oath: {
+    name: 'Oath Wallet',
+    shortName: 'Oath',
+    icon: <Oath />,
+    iconShape: 'squircle',
+    walletConnectOnly: true,
+    downloadUrls: {
+      download: 'https://apps.apple.com/app/id6780187283',
+      ios: 'https://apps.apple.com/app/id6780187283',
+      website: 'https://oathwallet.org',
+    },
+    getWalletConnectDeeplink: (uri: string) => {
+      if (!uri) return '';
+      return isMobile() && !isAndroid()
+        ? `oathwallet://wc?uri=${encodeURIComponent(uri)}`
+        : uri;
     },
   },
   walletConnect: {

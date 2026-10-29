@@ -108,6 +108,9 @@ const ConnectorItem = ({
       ? wallet.getWalletConnectDeeplink?.(uri ?? '')
       : undefined;
 
+  // A native-only wallet keeps desktop/unsupported-mobile users on the QR screen.
+  if (wallet.walletConnectOnly && deeplink === uri) deeplink = undefined;
+
   const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
   // Safari requires opening popup on user gesture, so we connect immediately here
   const shouldConnectImmediately =
@@ -122,7 +125,10 @@ const ConnectorItem = ({
       type="button"
       as={deeplink ? 'a' : undefined}
       href={deeplink ? deeplink : undefined}
-      disabled={context.route !== routes.CONNECTORS}
+      disabled={
+        context.route !== routes.CONNECTORS ||
+        (wallet.walletConnectOnly && isMobile && !uri)
+      }
       onClick={
         deeplink
           ? undefined

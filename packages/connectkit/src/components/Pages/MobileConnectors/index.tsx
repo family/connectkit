@@ -17,6 +17,7 @@ import { Spinner } from '../../Common/Spinner';
 import { ScrollArea } from '../../Common/ScrollArea';
 import { useWeb3 } from '../../contexts/web3';
 import { useWallets } from '../../../wallets/useWallets';
+import { isAndroid } from '../../../utils';
 import {
   WalletConfigProps,
   walletConfigs,
@@ -57,11 +58,19 @@ const MobileConnectors: React.FC = () => {
       const wallet = walletConfigs[walletId];
       if (wallets.find((w) => w.connector.id === walletId)) return false;
       if (!wallet.getWalletConnectDeeplink) return false;
+      // Do not offer an iOS-only app as a same-device Android handoff.
+      if (
+        wallet.walletConnectOnly &&
+        isAndroid() &&
+        !wallet.downloadUrls?.android
+      )
+        return false;
       return true;
     }) ?? [];
 
   const connectWallet = (wallet: WalletConfigProps) => {
-    const uri = wallet.getWalletConnectDeeplink?.(wcUri!);
+    if (!wcUri) return;
+    const uri = wallet.getWalletConnectDeeplink?.(wcUri);
     if (uri) window.location.href = uri;
     //if (uri) window.open(uri, '_blank');
   };
