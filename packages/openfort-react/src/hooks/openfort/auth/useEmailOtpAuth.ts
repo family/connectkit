@@ -102,11 +102,11 @@ export const useEmailOtpAuth = (hookOptions: UseEmailOtpHookOptions = NO_HOOK_OP
           () => setStatus({ status: 'idle' })
         )
         settleStale = transition.settleStale
-        const result = await transition.result
+        await transition.result
         if (settleStale()) return authTransitionSupersededResult()
 
-        const user = result.user
-        await updateUser(user)
+        // The login response omits user metadata; /me returns it.
+        const user = (await updateUser()) || undefined
         if (settleStale()) return authTransitionSupersededResult()
 
         const { wallet } = await tryUseWallet({

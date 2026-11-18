@@ -190,8 +190,8 @@ export const useEmailAuth = (hookOptions: UseEmailHookOptions = NO_HOOK_OPTIONS)
             options,
           })
         } else {
-          const user = result.user
-          await updateUser(user)
+          // The login response omits user metadata; /me returns it.
+          const user = (await updateUser()) || undefined
           if (settleStale()) return authTransitionSupersededResult()
 
           const { wallet } = await tryUseWallet({

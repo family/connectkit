@@ -83,11 +83,11 @@ export const usePhoneOtpAuth = (hookOptions: UsePhoneHookOptions = NO_HOOK_OPTIO
           () => setStatus({ status: 'idle' })
         )
         settleStale = transition.settleStale
-        const result = await transition.result
+        await transition.result
         if (settleStale()) return authTransitionSupersededResult()
 
-        const user = result.user
-        await updateUser(user)
+        // The login response omits user metadata; /me returns it.
+        const user = (await updateUser()) || undefined
         if (settleStale()) return authTransitionSupersededResult()
 
         const { wallet } = await tryUseWallet({
